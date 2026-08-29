@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Smart Financial Solutions | FinTech Smartlink</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind Config for Custom Colors/Animations -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              900: '#14532d',
+            },
+            dark: {
+              800: '#0f172a',
+              900: '#020617',
+            }
+          },
+          animation: {
+            'pulse-subtle': 'pulseSubtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            pulseSubtle: {
+              '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+              '50%': { opacity: '.95', transform: 'scale(1.02)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom utility for smooth scrolling & font optimization */
+    html { scroll-behavior: smooth; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
+    .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+  </style>
+</head>
+<body class="bg-dark-900 text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-brand-500 selection:text-white pb-24 md:pb-0">
+
+  <!-- Header Section -->
+  <header class="w-full border-b border-slate-800 bg-dark-900/90 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="h-9 w-9 bg-brand-500 rounded-lg flex items-center justify-center font-black text-slate-900 text-xl tracking-tighter">
+          F
+        </div>
+        <span class="font-bold text-lg text-white tracking-tight">FinSmart <span class="text-brand-500 text-xs px-1.5 py-0.5 rounded bg-brand-500/10 border border-brand-500/20 font-semibold">EU</span></span>
+      </div>
+      <div class="flex items-center gap-2 text-xs text-slate-400 bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700/50">
+        <svg class="w-3.5 h-3.5 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        <span class="font-medium text-slate-300">256-Bit SSL Encrypted</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Hero Section -->
+  <main class="flex-grow">
+    <section class="max-w-4xl mx-auto px-4 pt-8 pb-12 text-center md:pt-16">
+      
+      <!-- Live Indicator Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-500 text-xs font-semibold mb-6 animate-pulse">
+        <span class="w-2 h-2 rounded-full bg-brand-500 animate-ping"></span>
+        <span>Top Finance Offers Matched For DE, FR & ES</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+        Unlock Premium Financial Tools Tailored For You
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto font-normal mb-8 leading-relaxed">
+        Compare, select, and access smart financial instruments with fast approval, zero hidden fees, and maximum security in under 2 minutes.
+      </p>
+
+      <!-- CTA Card Widget -->
+      <div class="glass-card rounded-2xl p-6 sm:p-8 max-w-xl mx-auto shadow-2xl border border-slate-700/60 relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-12 -mt-12 w-32 h-32 bg-brand-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+        <!-- Micro Features List -->
+        <div class="space-y-3 text-left mb-6 text-sm text-slate-200">
+          <div class="flex items-center gap-3">
+            <div class="w-5 h-5 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center flex-shrink-0">✓</div>
+            <span><strong>Instant Matching:</strong> Automated selection of high-yield offers</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-5 h-5 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center flex-shrink-0">✓</div>
+            <span><strong>100% Free & No Obligation:</strong> Takes less than 60 seconds</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-5 h-5 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center flex-shrink-0">✓</div>
+            <span><strong>Verified Partners:</strong> Fully compliant across EU regulations</span>
+          </div>
+        </div>
+
+        <!-- Primary Call to Action Button -->
+        <a href="https://example-tracker.com/click?offer=fin02" class="cta-link block w-full bg-brand-500 hover:bg-brand-600 active:bg-brand-700 text-slate-950 font-extrabold text-lg sm:text-xl py-4 px-6 rounded-xl shadow-lg shadow-brand-500/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0 animate-pulse-subtle text-center">
+          Get Started Now &rarr;
+        </a>
+
+        <!-- Subtext under CTA -->
+        <p class="text-xs text-slate-400 mt-3 flex items-center justify-center gap-1">
+          <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+          No credit check required to view options.
+        </p>
+      </div>
+
+      <!-- Social Proof Trust Stats -->
+      <div class="grid grid-cols-3 gap-2 max-w-lg mx-auto mt-10 text-center border-t border-slate-800 pt-6">
+        <div>
+          <div class="text-xl sm:text-2xl font-bold text-white">€15M+</div>
+          <div class="text-xs text-slate-400">Processed</div>
+        </div>
+        <div>
+          <div class="text-xl sm:text-2xl font-bold text-white">150k+</div>
+          <div class="text-xs text-slate-400">EU Users</div>
+        </div>
+        <div>
+          <div class="text-xl sm:text-2xl font-bold text-white">4.9/5</div>
+          <div class="text-xs text-slate-400">User Rating</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="border-t border-slate-800 bg-slate-900/40 py-12">
+      <div class="max-w-4xl mx-auto px-4">
+        <h2 class="text-xl sm:text-2xl font-bold text-center text-white mb-8">How FinSmart Works For You</h2>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700/50">
+            <div class="w-8 h-8 bg-brand-500/20 text-brand-500 font-bold rounded-lg flex items-center justify-center mb-3">1</div>
+            <h3 class="font-bold text-white text-base mb-1">Click & Connect</h3>
+            <p class="text-xs text-slate-300">Access our smart matching protocol seamlessly without complex registration forms.</p>
+          </div>
+
+          <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700/50">
+            <div class="w-8 h-8 bg-brand-500/20 text-brand-500 font-bold rounded-lg flex items-center justify-center mb-3">2</div>
+            <h3 class="font-bold text-white text-base mb-1">Smart Engine Match</h3>
+            <p class="text-xs text-slate-300">Our system scans available top-tier financial solutions optimized for DE, FR & ES residents.</p>
+          </div>
+
+          <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700/50">
+            <div class="w-8 h-8 bg-brand-500/20 text-brand-500 font-bold rounded-lg flex items-center justify-center mb-3">3</div>
+            <h3 class="font-bold text-white text-base mb-1">Instant Approval</h3>
+            <p class="text-xs text-slate-300">Review your personal smart recommendation and get approval directly on screen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Sticky Bottom CTA for Mobile -->
+  <div class="fixed bottom-0 left-0 right-0 p-3 bg-slate-900/95 border-t border-slate-800 backdrop-blur-md md:hidden z-50">
+    <a href="https://example-tracker.com/click?offer=fin02" class="cta-link block w-full bg-brand-500 hover:bg-brand-600 text-slate-950 font-extrabold text-base py-3.5 px-4 rounded-xl shadow-lg text-center">
+      Get Started Free &rarr;
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 py-8 bg-dark-900 text-xs text-slate-500">
+    <div class="max-w-4xl mx-auto px-4 text-center space-y-4">
+      <p>
+        <strong>Disclaimer:</strong> FinSmart provides an automated financial matching service. We work with trusted EU partners in Germany, France, and Spain. Services may vary based on user qualification and location.
+      </p>
+      <div class="flex justify-center space-x-4 text-slate-400">
+        <a href="#" class="hover:underline">Privacy Policy</a>
+        <span>•</span>
+        <a href="#" class="hover:underline">Terms of Service</a>
+        <span>•</span>
+        <a href="#" class="hover:underline">Contact Support</a>
+      </div>
+      <p>© <script>document.write(new Date().getFullYear())</script> FinSmart Ltd. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Dynamic Parameter Extraction & Link Injection Script -->
+  <script>
+    (function() {
+      // Configuration
+      const BASE_URL = 'https://example-tracker.com/click?offer=fin02';
+      const PARAMS_TO_PASS = ['click_id', 'sub1', 'sub2'];
+
+      // Extract parameters from current page URL
+      const currentSearchParams = new URLSearchParams(window.location.search);
+      const targetUrl = new URL(BASE_URL);
+
+      // Append required parameters if present
+      PARAMS_TO_PASS.forEach(param => {
+        if (currentSearchParams.has(param)) {
+          const value = currentSearchParams.get(param);
+          if (value) {
+            targetUrl.searchParams.set(param, value);
+          }
+        }
+      });
+
+      // Update all outbound CTA links on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        const ctaLinks = document.querySelectorAll('a.cta-link');
+        const finalUrlString = targetUrl.toString();
+
+        ctaLinks.forEach(link => {
+          link.href = finalUrlString;
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
