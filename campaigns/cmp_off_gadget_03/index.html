@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-com Gadget Pro - Official Limited Time Offer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        accent: {
+                            500: '#10b981',
+                            600: '#059669',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased pb-12">
+
+    <!-- Top Urgency Bar -->
+    <div class="bg-red-600 text-white text-xs sm:text-sm font-semibold py-2.5 px-4 text-center sticky top-0 z-50 shadow-md flex items-center justify-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-white animate-ping"></span>
+        <span>FLASH SALE: 50% OFF ENDS IN <span id="timer" class="font-mono font-bold underline">09:59</span></span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="bg-white border-b border-slate-200 py-3 px-4 sm:px-8">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="bg-brand-600 text-white p-1.5 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <span class="font-extrabold text-xl tracking-tight text-slate-900">GADGET<span class="text-brand-600">PRO</span></span>
+            </div>
+            <div class="text-xs sm:text-sm text-slate-500 font-medium hidden sm:block">
+                Global Express Shipping Available
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Hero Section -->
+    <section class="max-w-6xl mx-auto px-4 pt-6 sm:pt-12 pb-8">
+        <div class="grid lg:grid-cols-2 gap-8 items-center">
+            
+            <!-- Product Gallery / Hero Image -->
+            <div class="relative">
+                <div class="absolute -top-3 -left-3 bg-red-500 text-white text-xs font-extrabold px-3 py-1.5 rounded-full shadow-lg z-10 uppercase tracking-wider">
+                    Best Seller 2025
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80" alt="E-com Gadget Pro" class="w-full h-auto rounded-xl object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <!-- Trust Badges below Image -->
+                <div class="grid grid-cols-3 gap-2 mt-4 text-center">
+                    <div class="bg-white p-2 rounded-lg border border-slate-200 shadow-sm">
+                        <p class="text-xs font-bold text-slate-700">★ 4.9/5 Rating</p>
+                        <p class="text-[10px] text-slate-500">(14,200+ Reviews)</p>
+                    </div>
+                    <div class="bg-white p-2 rounded-lg border border-slate-200 shadow-sm">
+                        <p class="text-xs font-bold text-slate-700">30-Day Guarantee</p>
+                        <p class="text-[10px] text-slate-500">100% Risk Free</p>
+                    </div>
+                    <div class="bg-white p-2 rounded-lg border border-slate-200 shadow-sm">
+                        <p class="text-xs font-bold text-slate-700">Worldwide Shipping</p>
+                        <p class="text-[10px] text-slate-500">Tracked & Insured</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copywriting / CTA Column -->
+            <div class="flex flex-col justify-center">
+                
+                <!-- Social Proof Rating Pill -->
+                <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-900 border border-amber-200/60 rounded-full px-3 py-1 w-fit mb-3 text-xs font-semibold">
+                    <span class="text-amber-500">★★★★★</span>
+                    <span>Rated #1 Smart Device of the Year</span>
+                </div>
+
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight tracking-tight">
+                    Experience Next-Gen Power With <span class="text-brand-600">E-com Gadget Pro</span>
+                </h1>
+
+                <p class="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
+                    Engineered for ultimate performance and maximum portability. The all-in-one daily essential that simplifies your workflow, boosts productivity, and replaces clutter forever.
+                </p>
+
+                <!-- Feature Bullet Points -->
+                <ul class="mt-6 space-y-3">
+                    <li class="flex items-start gap-3">
+                        <div class="bg-emerald-100 text-emerald-600 rounded-full p-1 mt-0.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <span class="text-slate-700 text-sm font-medium"><strong>Ultra-Fast Performance:</strong> Next-generation chipset architecture.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="bg-emerald-100 text-emerald-600 rounded-full p-1 mt-0.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <span class="text-slate-700 text-sm font-medium"><strong>Universal Compatibility:</strong> Works seamlessly across all OS & devices.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="bg-emerald-100 text-emerald-600 rounded-full p-1 mt-0.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <span class="text-slate-700 text-sm font-medium"><strong>Compact & Durable:</strong> Military-grade drop-tested aluminum casing.</span>
+                    </li>
+                </ul>
+
+                <!-- Pricing Box -->
+                <div class="mt-6 p-4 bg-slate-100 rounded-xl border border-slate-200 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs text-slate-500 block uppercase font-bold tracking-wider">Special Direct Price</span>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-3xl font-extrabold text-slate-900">$49.99</span>
+                            <span class="text-lg text-slate-400 line-through">$99.99</span>
+                        </div>
+                    </div>
+                    <span class="bg-emerald-500 text-white font-extrabold text-xs px-3 py-1.5 rounded-md uppercase tracking-wider">
+                        Save $50.00
+                    </span>
+                </div>
+
+                <!-- Primary CTA Button -->
+                <div class="mt-6">
+                    <a href="https://example-tracker.com/click?offer=gadget03" class="cta-link block w-full bg-brand-600 hover:bg-brand-700 text-white text-center font-extrabold text-lg sm:text-xl py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 animate-pulse-slow">
+                        CLAIM YOUR 50% DISCOUNT NOW &rarr;
+                    </a>
+                    <p class="text-center text-xs text-slate-500 mt-2 flex items-center justify-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+                        256-Bit Encrypted Secure Checkout
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- As Seen On Banner -->
+    <section class="bg-white border-y border-slate-200 py-6 my-8">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">AS FEATURED IN</p>
+            <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-12 opacity-60 font-bold text-slate-600 text-lg">
+                <span>TECHRADAR</span>
+                <span>WIRED</span>
+                <span>GIZMODO</span>
+                <span>FORBES</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="max-w-6xl mx-auto px-4 py-8">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Why Gadget Pro Is Superior</h2>
+            <p class="text-slate-600 mt-2">Designed with feedback from over 10,000 active users worldwide.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="w-12 h-12 bg-brand-50 rounded-lg flex items-center justify-center text-brand-600 mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <h3 class="font-bold text-slate-900 text-lg">Rapid Speed</h3>
+                <p class="text-slate-600 text-sm mt-2">Instant synchronization and lightning-fast execution out-of-the-box.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="w-12 h-12 bg-brand-50 rounded-lg flex items-center justify-center text-brand-600 mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                </div>
+                <h3 class="font-bold text-slate-900 text-lg">Ultra Ergonomic</h3>
+                <p class="text-slate-600 text-sm mt-2">Sleek, pocket-sized design engineered to fit comfortably into any workflow.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="w-12 h-12 bg-brand-50 rounded-lg flex items-center justify-center text-brand-600 mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <h3 class="font-bold text-slate-900 text-lg">Built To Last</h3>
+                <p class="text-slate-600 text-sm mt-2">Constructed with high-grade components backed by our lifetime warranty.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof / Reviews Section -->
+    <section class="max-w-6xl mx-auto px-4 py-8">
+        <div class="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200 shadow-md">
+            <h2 class="text-2xl font-bold text-slate-900 text-center mb-8">What Customers Are Saying</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Review 1 -->
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <div class="flex items-center gap-3 mb-3">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" class="w-10 h-10 rounded-full object-cover" alt="User Avatar">
+                        <div>
+                            <p class="font-bold text-slate-900 text-sm">Sarah M.</p>
+                            <p class="text-xs text-emerald-600 font-semibold">✓ Verified Purchase</p>
+                        </div>
+                    </div>
+                    <div class="text-amber-400 text-sm mb-2">★★★★★</div>
+                    <p class="text-slate-700 text-sm leading-relaxed">"Honestly amazed at how fast this arrived. Works exactly as described, completely replaced my old setup!"</p>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <div class="flex items-center gap-3 mb-3">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" class="w-10 h-10 rounded-full object-cover" alt="User Avatar">
+                        <div>
+                            <p class="font-bold text-slate-900 text-sm">David K.</p>
+                            <p class="text-xs text-emerald-600 font-semibold">✓ Verified Purchase</p>
+                        </div>
+                    </div>
+                    <div class="text-amber-400 text-sm mb-2">★★★★★</div>
+                    <p class="text-slate-700 text-sm leading-relaxed">"Best purchase I made this year. Build quality is premium and battery efficiency is top tier."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Sticky/Urgent CTA -->
+    <section class="max-w-4xl mx-auto px-4 mt-8">
+        <div class="bg-gradient-to-r from-brand-700 to-brand-900 text-white rounded-2xl p-6 sm:p-8 text-center shadow-2xl relative overflow-hidden">
+            <h2 class="text-2xl sm:text-3xl font-extrabold">Ready to Upgrade Your Daily Tech?</h2>
+            <p class="text-brand-100 mt-2 text-sm sm:text-base">Claim your 50% discount today. Limited stock remaining.</p>
+            
+            <div class="mt-6">
+                <a href="https://example-tracker.com/click?offer=gadget03" class="cta-link inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-lg sm:text-xl py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200">
+                    GET YOUR GADGET PRO NOW
+                </a>
+            </div>
+            <p class="text-xs text-brand-200 mt-3">Free Worldwide Shipping • 30-Day Money-Back Guarantee</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="max-w-6xl mx-auto px-4 mt-12 text-center text-xs text-slate-400 space-y-3">
+        <p>© 2025 E-com Gadget Pro. All Rights Reserved.</p>
+        <div class="flex justify-center gap-4">
+            <a href="#" class="hover:underline">Privacy Policy</a>
+            <span>•</span>
+            <a href="#" class="hover:underline">Terms of Service</a>
+            <span>•</span>
+            <a href="#" class="hover:underline">Contact Support</a>
+        </div>
+        <p class="text-[10px] text-slate-400 max-w-xl mx-auto">
+            Disclaimer: This page is an advertisement landing page. The product claims expressed here represent subjective experiences and results may vary based on personal usage.
+        </p>
+    </footer>
+
+    <!-- Client-Side Parameter Extraction & Link Injection Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Target Base Offer URL
+            const BASE_URL = 'https://example-tracker.com/click?offer=gadget03';
+
+            // Extract incoming parameters from window location
+            const currentSearchParams = new URLSearchParams(window.location.search);
+            const clickId = currentSearchParams.get('click_id');
+            const sub1 = currentSearchParams.get('sub1');
+            const sub2 = currentSearchParams.get('sub2');
+
+            // Construct final target URL with preserved parameters
+            try {
+                let targetUrl = new URL(BASE_URL);
+
+                if (clickId) targetUrl.searchParams.set('click_id', clickId);
+                if (sub1) targetUrl.searchParams.set('sub1', sub1);
+                if (sub2) targetUrl.searchParams.set('sub2', sub2);
+
+                // Inject dynamic URL into all CTA buttons
+                const ctaElements = document.querySelectorAll('a.cta-link');
+                ctaElements.forEach(function(element) {
+                    element.href = targetUrl.toString();
+                });
+            } catch (e) {
+                console.error("URL processing error:", e);
+            }
+
+            // Simple Urgency Countdown Timer (10-minute dynamic loop)
+            let duration = 60 * 10;
+            const timerDisplay = document.getElementById('timer');
+
+            if (timerDisplay) {
+                setInterval(function () {
+                    let minutes = parseInt(duration / 60, 10);
+                    let seconds = parseInt(duration % 60, 10);
+
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    timerDisplay.textContent = minutes + ":" + seconds;
+
+                    if (--duration < 0) {
+                        duration = 60 * 10; // Reset loop
+                    }
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
