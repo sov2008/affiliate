@@ -1,0 +1,23 @@
+name: Deploy Campaigns to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'campaigns/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          command: pages deploy campaigns/ --project-name affiliate-campaigns
