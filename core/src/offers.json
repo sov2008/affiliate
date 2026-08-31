@@ -4,7 +4,11 @@
     "name": "Smart Security App",
     "vertical": "software",
     "payout": 35.5,
-    "targetGeo": ["US", "UK", "AU"],
+    "targetGeo": [
+      "US",
+      "UK",
+      "AU"
+    ],
     "affiliateUrlTemplate": "https://example-tracker.com/click?offer=sec01"
   },
   {
@@ -12,7 +16,11 @@
     "name": "FinTech Smartlink",
     "vertical": "finance",
     "payout": 60,
-    "targetGeo": ["DE", "FR", "ES"],
+    "targetGeo": [
+      "DE",
+      "FR",
+      "ES"
+    ],
     "affiliateUrlTemplate": "https://example-tracker.com/click?offer=fin02"
   },
   {
@@ -20,7 +28,21 @@
     "name": "Trading AI Bot",
     "vertical": "finance",
     "payout": 350,
-    "targetGeo": ["AU", "UK", "NZ"],
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
     "affiliateUrlTemplate": "https://example-tracker.com/click?offer=crypto_bot"
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
   }
 ]
