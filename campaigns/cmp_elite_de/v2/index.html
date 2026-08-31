@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MatchFinder 2026 | Dein Persönlicher Partnertest</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Outfit', sans-serif; background-color: #0d1117; color: #f0f6fc; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-6">
+  <header class="max-w-xl mx-auto w-full text-center py-4">
+    <div class="text-xl font-bold text-pink-400">MatchFinder™ VIP</div>
+  </header>
+
+  <main class="max-w-md mx-auto w-full text-center my-auto bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl space-y-6">
+    <div class="w-16 h-16 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center mx-auto text-2xl font-bold">
+      ✨
+    </div>
+
+    <h1 class="text-2xl sm:text-3xl font-bold leading-tight">
+      3 Fragen zu Deinem <br><span class="text-pink-400">Traumpartner</span>
+    </h1>
+
+    <div class="space-y-3 text-left">
+      <div class="p-3 bg-slate-800/80 rounded-xl text-sm flex items-center justify-between border border-slate-700">
+        <span>📍 Standort:</span>
+        <span class="font-bold text-pink-400">Deutschland (in der Nähe)</span>
+      </div>
+      <div class="p-3 bg-slate-800/80 rounded-xl text-sm flex items-center justify-between border border-slate-700">
+        <span>🔒 Datenschutz:</span>
+        <span class="font-bold text-emerald-400">100% Anonym</span>
+      </div>
+    </div>
+
+    <a id="cta-link" href="https://example-tracker.com/click?offer=dating_vip&ml_sub1=click_id&ml_sub2=cmp_elite_de&ml_sub3=v2" class="w-full block py-4 rounded-xl font-bold text-white bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-400 hover:to-rose-500 transition shadow-lg shadow-pink-500/20">
+      Test Starten & Profile Finden →
+    </a>
+  </main>
+
+  <footer class="text-center text-xs text-slate-400 py-4">
+    © 2026 MatchFinder Germany.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const clickId = urlParams.get('click_id') || urlParams.get('ml_sub1') || 'clk_' + Math.random().toString(36).substring(2, 9);
+      const cta = document.getElementById('cta-link');
+      if (cta) {
+        cta.href = `https://example-tracker.com/click?offer=dating_vip&ml_sub1=${clickId}&ml_sub2=cmp_elite_de&ml_sub3=v2`;
+        cta.addEventListener('click', () => {
+          navigator.sendBeacon(`https://postback-engine.sov7.workers.dev/click?ml_sub1=${clickId}&ml_sub2=cmp_elite_de&ml_sub3=v2`);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

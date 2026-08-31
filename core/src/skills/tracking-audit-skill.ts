@@ -2,14 +2,14 @@ export function auditTrackingLinks(html: string): { passed: boolean; errors: str
   console.log('[Tracking Audit Skill] Validating CTA parameters...');
   const errors: string[] = [];
   
-  // Regex to extract all hrefs in anchor tags
-  const hrefRegex = /href="([^"]*)"/g;
+  // Regex to extract all hrefs specifically in <a> tags
+  const anchorRegex = /<a\s+[^>]*href="([^"]*)"[^>]*>/gi;
   let match;
   let linkFound = false;
 
-  while ((match = hrefRegex.exec(html)) !== null) {
+  while ((match = anchorRegex.exec(html)) !== null) {
     const link = match[1];
-    if (link.startsWith('#') || link.startsWith('javascript:')) continue; // Ignore anchors and JS
+    if (link.startsWith('#') || link.startsWith('javascript:')) continue;
     
     linkFound = true;
     const hasMlSub1 = link.includes('ml_sub1=');
