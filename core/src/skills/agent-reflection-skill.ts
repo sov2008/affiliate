@@ -48,19 +48,67 @@ export async function getStrategyMemory(): Promise<any> {
 export async function getWinningPatterns(): Promise<any> {
   try {
     const raw = await fs.readFile(WINNING_FILE, 'utf8');
-    return JSON.parse(raw);
-  } catch {
-    return { topConvertingHooks: [], structuralTemplates: [], highAffinityChannels: [] };
-  }
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed.topConvertingHooks) && parsed.topConvertingHooks.length > 0) return parsed;
+  } catch (e) {}
+  return {
+    lastOptimized: new Date().toISOString(),
+    topConvertingHooks: [
+      "Tested this exact setup across multiple latency nodes last week...",
+      "From an infrastructure perspective, here is what actually happens under load...",
+      "If you're running automated scripts, the primary bottleneck is usually...",
+      "Having reviewed the server protocols and peer benchmarks..."
+    ],
+    structuralTemplates: [
+      {
+        name: "Benchmark & Case Study Pattern",
+        format: "[Direct Answer to Question] -> [Technical Deep-Dive / Metrics] -> [Neutral Verification Link]"
+      },
+      {
+        name: "Pitfall Warning & Alternative Pattern",
+        format: "[Common Industry Pitfalls] -> [How to Avoid Them] -> [Tested Reference Solution]"
+      }
+    ],
+    highAffinityChannels: [
+      "r/algotrading",
+      "r/privacy",
+      "r/cybersecurity",
+      "r/dating_advice",
+      "quora/cryptocurrency-bots"
+    ]
+  };
 }
 
 export async function getNegativePatterns(): Promise<any> {
   try {
     const raw = await fs.readFile(NEGATIVE_FILE, 'utf8');
-    return JSON.parse(raw);
-  } catch {
-    return { bannedTriggerWords: [], disallowedFormats: [], moderationAvoidanceHeuristics: [] };
-  }
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed.bannedTriggerWords) && parsed.bannedTriggerWords.length > 0) return parsed;
+  } catch (e) {}
+  return {
+    lastUpdated: new Date().toISOString(),
+    bannedTriggerWords: [
+      "guaranteed",
+      "100% free",
+      "click here",
+      "check out my link",
+      "promo code",
+      "best app ever",
+      "easy money",
+      "dm me for info",
+      "telegram channel"
+    ],
+    disallowedFormats: [
+      "Single-sentence replies containing only a promotional URL.",
+      "Generic praise without specific technical reasoning or benchmarks.",
+      "Multiple duplicate links placed within the same thread."
+    ],
+    moderationAvoidanceHeuristics: [
+      "Maintain a minimum 85% domain-specific content ratio before any link reference.",
+      "Ensure markdown formatting matches the native subreddit / forum styling.",
+      "Never post more than 2 distinct responses in the same subreddit within a 2-hour window."
+    ]
+  };
 }
 
 /**
