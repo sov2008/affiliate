@@ -724,6 +724,48 @@ app.get('/api/agent/organic/logs', async (req, res) => {
   }
 });
 
+// ----------------------------------------------------
+// 4. Autonomous Agent Self-Learning & Reflection API
+// ----------------------------------------------------
+
+// GET /api/agent/learning/insights
+app.get('/api/agent/learning/insights', async (req, res) => {
+  try {
+    const { getStrategyMemory, getWinningPatterns, getNegativePatterns } = await import('./skills/agent-reflection-skill');
+    const strategy = await getStrategyMemory();
+    const winning = await getWinningPatterns();
+    const negative = await getNegativePatterns();
+
+    res.json({
+      success: true,
+      confidenceScore: strategy.aiConfidenceScore || 88,
+      defaultTemperature: strategy.defaultTemperature || 0.65,
+      activeGuidelines: strategy.activeCopywritingGuidelines || [],
+      winningHooksCount: (winning.topConvertingHooks || []).length,
+      topHooks: (winning.topConvertingHooks || []).slice(0, 4),
+      negativeConstraintsCount: (negative.moderationAvoidanceHeuristics || []).length + (negative.bannedTriggerWords || []).length,
+      bannedTriggers: (negative.bannedTriggerWords || []).slice(0, 10),
+      heuristics: negative.moderationAvoidanceHeuristics || [],
+      evolutionLog: (strategy.evolutionLog || []).slice(0, 10),
+      lastReflected: strategy.lastUpdated || new Date().toISOString()
+    });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// POST /api/agent/learning/reflect
+app.post('/api/agent/learning/reflect', async (req, res) => {
+  try {
+    console.log('[Dashboard API] 🧠 Triggering On-Demand Self-Reflection & Strategy Mutation Cycle...');
+    const { runSelfReflectionCycle } = await import('./skills/agent-reflection-skill');
+    const result = await runSelfReflectionCycle({ force: true });
+    res.json({ success: true, result });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Executive Command Center active at http://localhost:${PORT} (Basic Auth Protected)`);

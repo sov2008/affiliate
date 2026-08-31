@@ -1,0 +1,37 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-08-31T22:00:00.000Z",
+  "aiConfidenceScore": 88,
+  "defaultTemperature": 0.65,
+  "activeCopywritingGuidelines": [
+    "Always provide actionable domain advice and technical benchmarks before mentioning any tool or link.",
+    "Adopt the tone of an experienced peer or senior developer, never a marketer or promoter.",
+    "Structure comments in 3 concise paragraphs: Context/Analysis -> Technical Solution -> Neutral Resource Mention.",
+    "Use subtle, natural anchor framing with transparent attribution (e.g., 'benchmark setup', 'documented test')."
+  ],
+  "successfulIntentAngles": [
+    {
+      "niche": "finance",
+      "angle": "Quant benchmark & latency execution comparison",
+      "effectivenessScore": 94
+    },
+    {
+      "niche": "software",
+      "angle": "WireGuard throughput & zero-log cryptographic audit",
+      "effectivenessScore": 92
+    },
+    {
+      "niche": "dating",
+      "angle": "Bot-free verified filtering & location matchmaking analysis",
+      "effectivenessScore": 89
+    }
+  ],
+  "evolutionLog": [
+    {
+      "timestamp": "2026-08-31T22:00:00.000Z",
+      "trigger": "System Initialization",
+      "ruleAdded": "Rule added: Lead with technical benchmarks, objective comparisons, and zero direct sales hype.",
+      "constraintAdded": "Constraint added: Prohibit direct sales claims ('guaranteed', '100% free')."
+    }
+  ]
+}

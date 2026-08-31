@@ -416,10 +416,88 @@
             <span class="w-2 h-2 rounded-full bg-emerald-400 status-pulse mr-2"></span>
             Real-Time Agent Activity & Discovery Stream
           </span>
-          <span class="text-[11px] text-slate-500" id="orgNextCycle">Next cycle: in 15m</span>
+          <span class="text-[11px] text-slate-500" id="orgNextCycle">Next cycle: in 3m</span>
         </div>
         <div id="orgTerminalLogs" class="h-28 bg-black/60 rounded-lg p-2.5 text-[11px] text-emerald-300 overflow-y-auto term-scroll whitespace-pre-wrap leading-relaxed border border-slate-900">
           [System Standby] Monitoring organic communities (Reddit, Quora, HackerNews, Niche Forums)...
+        </div>
+      </div>
+
+    </div>
+
+    <!-- B2. Autonomous Agent Self-Learning & Evolving Strategy Engine Widget -->
+    <div class="glass-panel p-5 rounded-xl border border-indigo-900/60 bg-slate-900/40 space-y-4 glow-border">
+      
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">🧠</span>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-base font-bold font-mono text-slate-200">
+                AI SELF-LEARNING & REFLECTION ENGINE
+              </h2>
+              <span id="aiConfidenceBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-indigo-950 text-indigo-300 border border-indigo-500/40">
+                ⚡ 92% STRATEGY CONFIDENCE
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 font-mono mt-0.5">Automated prompt mutation, anti-moderation guardrails & winning copywriting vectors via Gemini Flash</p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2 font-mono text-xs">
+          <button onclick="triggerReflectionCycle()" id="btnTriggerReflection" class="px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/50 text-indigo-300 font-bold transition active:scale-95 flex items-center">
+            <span class="mr-1.5">🧪</span> Run Self-Reflection Cycle
+          </button>
+        </div>
+      </div>
+
+      <!-- 3-Column Learning Insights Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 font-mono text-xs">
+        <!-- 1. Active Evolved Guidelines -->
+        <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3 space-y-2">
+          <div class="flex justify-between items-center text-slate-400 font-bold text-[11px] uppercase border-b border-slate-900 pb-1.5">
+            <span class="text-emerald-400 flex items-center"><span>📐</span> Active Learned Rules</span>
+            <span id="activeRulesCount" class="text-[10px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">-- active</span>
+          </div>
+          <div id="activeRulesList" class="space-y-1.5 text-[11px] text-slate-300 max-h-36 overflow-y-auto term-scroll">
+            <div class="p-1.5 bg-slate-900/50 rounded border border-slate-800/80">• Loading active copywriting guidelines...</div>
+          </div>
+        </div>
+
+        <!-- 2. Winning Angles & Top Hooks -->
+        <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3 space-y-2">
+          <div class="flex justify-between items-center text-slate-400 font-bold text-[11px] uppercase border-b border-slate-900 pb-1.5">
+            <span class="text-sky-400 flex items-center"><span>🎯</span> Winning Hooks & Angles</span>
+            <span id="winningHooksCount" class="text-[10px] bg-sky-950 text-sky-300 px-1.5 py-0.5 rounded">-- hooks</span>
+          </div>
+          <div id="winningHooksList" class="space-y-1.5 text-[11px] text-slate-300 max-h-36 overflow-y-auto term-scroll">
+            <div class="p-1.5 bg-slate-900/50 rounded border border-slate-800/80">• Loading top converting hook patterns...</div>
+          </div>
+        </div>
+
+        <!-- 3. Anti-Moderation Guardrails -->
+        <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3 space-y-2">
+          <div class="flex justify-between items-center text-slate-400 font-bold text-[11px] uppercase border-b border-slate-900 pb-1.5">
+            <span class="text-rose-400 flex items-center"><span>🛡️</span> Negative Constraints</span>
+            <span id="negativeRulesCount" class="text-[10px] bg-rose-950 text-rose-300 px-1.5 py-0.5 rounded">Banned: --</span>
+          </div>
+          <div id="negativeRulesList" class="space-y-1.5 text-[11px] text-slate-300 max-h-36 overflow-y-auto term-scroll">
+            <div class="p-1.5 bg-slate-900/50 rounded border border-slate-800/80">• Loading spam triggers & blacklist heuristics...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Evolution Mutation Stream -->
+      <div class="bg-slate-950/90 border border-slate-800/90 rounded-xl p-3 space-y-2 font-mono">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-indigo-400 flex items-center font-bold">
+            <span class="w-2 h-2 rounded-full bg-indigo-400 status-pulse mr-2"></span>
+            Strategy Evolution & Self-Correction Log
+          </span>
+          <span class="text-[11px] text-slate-500" id="lastReflectionTime">Last reflected: Just now</span>
+        </div>
+        <div id="learningEvolutionLog" class="h-24 bg-black/60 rounded-lg p-2.5 text-[11px] text-indigo-300 overflow-y-auto term-scroll whitespace-pre-wrap leading-relaxed border border-slate-900">
+          [Self-Reflection] AI knowledge base initialized. Monitoring community response vectors...
         </div>
       </div>
 
@@ -1138,12 +1216,112 @@
       }
     }
 
+    // Load AI Self-Learning Insights & Strategy
+    async function loadLearningInsights() {
+      try {
+        const res = await apiFetch('/api/agent/learning/insights');
+        const data = await res.json();
+        if (!data.success) return;
+
+        // Confidence Badge
+        const confBadge = document.getElementById('aiConfidenceBadge');
+        if (confBadge) {
+          confBadge.innerText = `⚡ ${data.confidenceScore}% STRATEGY CONFIDENCE`;
+        }
+
+        // Active Rules List
+        const rulesList = document.getElementById('activeRulesList');
+        const rulesCount = document.getElementById('activeRulesCount');
+        if (rulesList && data.activeGuidelines) {
+          rulesCount.innerText = `${data.activeGuidelines.length} active`;
+          rulesList.innerHTML = data.activeGuidelines.map(r => `
+            <div class="p-1.5 bg-slate-900/60 rounded border border-slate-800/80 text-[11px] text-emerald-300/90 leading-tight">
+              • ${r}
+            </div>
+          `).join('');
+        }
+
+        // Winning Hooks List
+        const hooksList = document.getElementById('winningHooksList');
+        const hooksCount = document.getElementById('winningHooksCount');
+        if (hooksList && data.topHooks) {
+          hooksCount.innerText = `${data.winningHooksCount} hooks`;
+          hooksList.innerHTML = data.topHooks.map(h => `
+            <div class="p-1.5 bg-slate-900/60 rounded border border-slate-800/80 text-[11px] text-sky-300/90 leading-tight">
+              "${h}"
+            </div>
+          `).join('');
+        }
+
+        // Negative Constraints List
+        const negList = document.getElementById('negativeRulesList');
+        const negCount = document.getElementById('negativeRulesCount');
+        if (negList) {
+          negCount.innerText = `Guardrails: ${data.negativeConstraintsCount}`;
+          const triggersSnippet = (data.bannedTriggers || []).slice(0, 6).join(', ');
+          const heuristicsSnippet = (data.heuristics || []).slice(0, 2).map(h => `• ${h}`).join('<br>');
+          negList.innerHTML = `
+            <div class="p-1.5 bg-slate-900/60 rounded border border-slate-800/80 text-[11px] text-rose-300/90 leading-tight">
+              <strong>Banned Triggers:</strong> ${triggersSnippet}
+            </div>
+            ${(data.heuristics || []).slice(0, 2).map(h => `
+              <div class="p-1.5 bg-slate-900/60 rounded border border-slate-800/80 text-[11px] text-rose-300/80 leading-tight">
+                • ${h}
+              </div>
+            `).join('')}
+          `;
+        }
+
+        // Evolution Log Stream
+        const evoLog = document.getElementById('learningEvolutionLog');
+        const lastReflected = document.getElementById('lastReflectionTime');
+        if (evoLog && data.evolutionLog && data.evolutionLog.length > 0) {
+          evoLog.innerHTML = data.evolutionLog.map(ev => {
+            const time = new Date(ev.timestamp).toLocaleTimeString();
+            return `[${time}] ${ev.ruleAdded} | ${ev.constraintAdded || ''}`;
+          }).join('\n');
+          if (data.lastReflected) {
+            lastReflected.innerText = `Last reflected: ${new Date(data.lastReflected).toLocaleTimeString()}`;
+          }
+        }
+      } catch (e) {}
+    }
+
+    // Trigger On-Demand Reflection Cycle
+    async function triggerReflectionCycle() {
+      const btn = document.getElementById('btnTriggerReflection');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="mr-1.5">⏳</span> Reflecting & Mutating...';
+      }
+      showToast('🧠 Running Autonomous Gemini Reflection & Strategy Mutation...', 'info');
+
+      try {
+        const res = await apiFetch('/api/agent/learning/reflect', { method: 'POST' });
+        const data = await res.json();
+        if (data.success && data.result) {
+          showToast(`✨ Strategy Evolved! Rule added: "${data.result.actionableRule}"`, 'success');
+          loadLearningInsights();
+        } else {
+          showToast(`❌ Reflection failed: ${data.error || 'Unknown error'}`, 'error');
+        }
+      } catch (err) {
+        showToast(`❌ Network error: ${err.message}`, 'error');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span class="mr-1.5">🧪</span> Run Self-Reflection Cycle';
+        }
+      }
+    }
+
     function refreshAll() {
       loadOverview();
       loadTransactions();
       loadLogs();
       loadOrganicStatus();
       loadOrganicLogs();
+      loadLearningInsights();
     }
 
     // Periodic Polling
@@ -1155,6 +1333,7 @@
       setInterval(loadLogs, 3000);
       setInterval(loadOrganicStatus, 5000);
       setInterval(loadOrganicLogs, 4000);
+      setInterval(loadLearningInsights, 8000);
     });
   </script>
 </body>

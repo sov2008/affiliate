@@ -222,22 +222,24 @@ export default {
       });
     }
 
-    // 6. Reset / Clear All Stats & Demo Data
+    // 6. Reset / Clear All Stats & Demo Data (Zero-out all known keys)
     if (pathname === '/reset-stats' || pathname === '/api/reset-stats') {
-      const listStats = await env.STATS_KV.list({ prefix: 'stats_' });
-      const listTelem = await env.STATS_KV.list({ prefix: 'telemetry_' });
-      let deleted = 0;
+      const known = [
+        'cmp_trading_au', 'cmp_vpn_us', 'cmp_elite_de', 'cmp_lospollos_dating', 
+        'cmp_crypto_bot', 'cmp_binance_trader', 'cmp_purevpn_global', 'cmp_general'
+      ];
+      const variants = ['v1', 'v2', 'v_promo'];
+      const blankStats = JSON.stringify({ clicks: 0, leads: 0, sales: 0, revenue: 0, log: [], wallets: [] });
+      const blankTelem = JSON.stringify({ pageviews: 0, maxScrollSamples: [], avgScrollDepth: 0, avgTtaMs: 0, exitIntents: 0 });
 
-      for (const k of listStats.keys) {
-        await env.STATS_KV.delete(k.name);
-        deleted++;
-      }
-      for (const k of listTelem.keys) {
-        await env.STATS_KV.delete(k.name);
-        deleted++;
+      for (const c of known) {
+        for (const v of variants) {
+          await env.STATS_KV.put(`stats_${c}_${v}`, blankStats).catch(() => {});
+          await env.STATS_KV.put(`telemetry_${c}_${v}`, blankTelem).catch(() => {});
+        }
       }
 
-      return new Response(JSON.stringify({ success: true, message: `Flushed all demo data. Deleted ${deleted} keys from STATS_KV.` }), {
+      return new Response(JSON.stringify({ success: true, message: 'All demo and test data in STATS_KV completely zeroed out.' }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }

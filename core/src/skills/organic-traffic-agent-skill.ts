@@ -161,14 +161,41 @@ async function ensureStorageDirectories() {
   }
 }
 
+import { executeGeminiPrompt } from './ai-engine-skill';
+import { getStrategyMemory, getNegativePatterns, runSelfReflectionCycle } from './agent-reflection-skill';
+
 export async function synthesizeOrganicContribution(channel: OrganicTrafficChannel, topic: string): Promise<string> {
+  const strategy = await getStrategyMemory();
+  const negative = await getNegativePatterns();
+
+  const rulesText = (strategy.activeCopywritingGuidelines || [])
+    .slice(0, 4)
+    .map((r: string) => `- ${r}`)
+    .join('\n');
+
+  const negativeText = (negative.bannedTriggerWords || [])
+    .slice(0, 6)
+    .map((w: string) => `"${w}"`)
+    .join(', ');
+
   const prompt = `You are a helpful, authoritative domain contributor in the "${channel.name}" community.
 Write a value-first, natural, 3-paragraph answer addressing this topic: "${topic}".
-Provide actionable insight, genuine industry context, and casually recommend modern automated execution or verified tools.
-Do not sound like an ad. Keep tone objective, technical and engaging.`;
+
+Learned Style Rules (Evolved via Self-Reflection):
+${rulesText}
+
+Strict Negative Constraints:
+- Do NOT use trigger words: ${negativeText}
+- Do NOT sound like an ad or sales promotion.
+
+Provide actionable insight, technical benchmarks, and casually recommend modern automated execution.
+Keep tone objective, technical and engaging.`;
 
   try {
-    const response = await generateContent(prompt);
+    const response = await executeGeminiPrompt(prompt, {
+      temperature: strategy.defaultTemperature || 0.65,
+      maxOutputTokens: 1024
+    });
     return response.trim();
   } catch (e) {
     // Deterministic fallback response if LLM gateway is unreachable
@@ -292,6 +319,12 @@ export async function runOrganicDaemon() {
 
       await logMsg(`\n🔄 [Continuous Loop #${cycleCounter}] Initiating organic crawl & distribution cycle...`);
       await runOrganicDiscoveryCycle({ headless: true });
+
+      // Run Self-Reflection & Strategy Mutation every 5 continuous cycles
+      if (cycleCounter % 5 === 0) {
+        await logMsg(`🧠 [Self-Reflection Engine] Initiating automated AI reflection and rule mutation...`);
+        runSelfReflectionCycle().catch(err => logMsg(`Reflection cycle error: ${err.message}`));
+      }
     } catch (err: any) {
       await logMsg(`Daemon continuous loop handled exception: ${err.message}`);
     }

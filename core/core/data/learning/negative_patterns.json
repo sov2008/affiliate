@@ -1,0 +1,8 @@
+{
+  "bannedTriggerWords": [],
+  "disallowedFormats": [],
+  "moderationAvoidanceHeuristics": [
+    "Do not use promotional call-to-action phrases or direct users to external links without an explicit request."
+  ],
+  "lastUpdated": "2026-08-31T19:07:37.986Z"
+}
