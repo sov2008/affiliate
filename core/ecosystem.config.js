@@ -1,9 +1,11 @@
+const path = require('path');
+
 module.exports = {
   apps: [
     {
       name: "affiliate-dashboard",
       script: "./dist/dashboard-server.js",
-      cwd: "/root/affiliate/core",
+      cwd: __dirname,
       instances: 1,
       autorestart: true,
       max_memory_restart: "400M",
@@ -15,7 +17,7 @@ module.exports = {
     {
       name: "affiliate-autopilot",
       script: "./dist/autopilot-daemon.js",
-      cwd: "/root/affiliate/core",
+      cwd: __dirname,
       instances: 1,
       autorestart: true,
       max_memory_restart: "400M",
@@ -27,7 +29,7 @@ module.exports = {
       name: "affiliate-organic-daemon",
       script: "./dist/skills/organic-traffic-agent-skill.js",
       args: "--daemon",
-      cwd: "/root/affiliate/core",
+      cwd: __dirname,
       instances: 1,
       autorestart: true,
       max_memory_restart: "600M",
@@ -37,3 +39,4 @@ module.exports = {
     }
   ]
 };
+
