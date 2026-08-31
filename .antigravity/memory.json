@@ -22,5 +22,11 @@
       "payout": 45
     }
   },
-  "POSTBACK_WORKER_URL": "https://postback-engine.sov7.workers.dev"
+  "POSTBACK_WORKER_URL": "https://postback-engine.sov7.workers.dev",
+  "browser_automation": {
+    "playwright_session_manager": "active",
+    "mylead_auto_apply": "active",
+    "proxy_rotator": "active",
+    "auth_storage_path": "core/.auth/session.json"
+  }
 }
