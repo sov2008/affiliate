@@ -1,18 +1,25 @@
 {
   "deployed_campaigns": {
-    "cmp_test_123": {
-      "performance": {
-        "v1": {
-          "clicks": 10,
-          "revenue": 150,
-          "cr": "20%"
-        },
-        "v2": {
-          "clicks": 10,
-          "revenue": 0,
-          "cr": "0%"
-        }
-      }
+    "cmp_trading_au": {
+      "offer_id": "cmp_crypto_bot",
+      "name": "Trading AI Bot",
+      "geo": "AU,UK,NZ",
+      "vertical": "finance",
+      "payout": 350
+    },
+    "cmp_elite_de": {
+      "offer_id": "cmp_dating_vip",
+      "name": "Elite Singles VIP",
+      "geo": "DE,FR,IT",
+      "vertical": "dating",
+      "payout": 60
+    },
+    "cmp_vpn_us": {
+      "offer_id": "cmp_vpn_pro",
+      "name": "VPN Pro Max",
+      "geo": "US,UK,CA",
+      "vertical": "software",
+      "payout": 45
     }
   },
   "POSTBACK_WORKER_URL": "https://postback-engine.sov7.workers.dev"

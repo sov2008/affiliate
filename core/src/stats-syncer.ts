@@ -1,6 +1,12 @@
+import path from 'path';
+import dotenv from 'dotenv';
 import { remember, recall } from './memory-engine';
 
-const WORKER_URL = process.env.POSTBACK_WORKER_URL || 'http://localhost:8787';
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+const WORKER_URL = process.env.POSTBACK_WORKER_URL || 'https://postback-engine.sov7.workers.dev';
+
 
 export async function syncStats(campaignId: string) {
   try {
