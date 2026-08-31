@@ -1,9 +1,72 @@
-<!DOCTYPE html>
-<html lang="de" class="dark">
+import fs from 'fs/promises';
+import path from 'path';
+import dotenv from 'dotenv';
+import { injectMicroClickstream } from './micro-clickstream-skill';
+import { injectDynamicCreatives } from './dynamic-creative-injector-skill';
+
+dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+
+const POSTBACK_WORKER_URL = process.env.POSTBACK_WORKER_URL || 'https://postback-engine.sov7.workers.dev';
+
+export interface LandingArchitectOptions {
+  campaignId: string;
+  variant: 'v1' | 'v2';
+  title: string;
+  niche: 'dating' | 'finance' | 'software' | 'ecom';
+  lang?: 'DE' | 'EN' | 'FR' | 'ES';
+  brandName: string;
+  headline: string;
+  subheadline: string;
+  step1Question: string;
+  step1Options: string[];
+  step2Question: string;
+  step2Options: string[];
+  analyzingText: string;
+  finalCtaText: string;
+  trustNotes?: string[];
+  activeUsersCount?: number;
+}
+
+export function generateHighConvertingLandingHtml(opts: LandingArchitectOptions): string {
+  const {
+    campaignId,
+    variant,
+    title,
+    niche,
+    lang = 'EN',
+    brandName,
+    headline,
+    subheadline,
+    step1Question,
+    step1Options,
+    step2Question,
+    step2Options,
+    analyzingText,
+    finalCtaText,
+    trustNotes = [
+      '256-Bit SSL Verschlüsselung',
+      '100% Anonym & Verifiziert',
+      'Keine versteckten Gebühren'
+    ],
+    activeUsersCount = 142
+  } = opts;
+
+  const isDating = niche === 'dating';
+  const primaryGlow = isDating ? 'rgba(244, 63, 94, 0.25)' : 'rgba(99, 102, 241, 0.25)';
+  const primaryBtn = isDating
+    ? 'from-rose-600 via-pink-600 to-rose-500 hover:from-rose-500 hover:to-pink-400'
+    : 'from-indigo-600 via-sky-600 to-emerald-500 hover:from-indigo-500 hover:to-sky-400';
+  const badgeColor = isDating ? 'text-rose-400 bg-rose-950/60 border-rose-500/30' : 'text-sky-400 bg-sky-950/60 border-sky-500/30';
+
+  const ctaUrl = `${POSTBACK_WORKER_URL}/click?click_id=[ml_sub1]&campaign_id=${campaignId}&variant=${variant}&s1=[ml_sub1]&s2=${campaignId}&s3=${variant}&ml_sub1=[ml_sub1]&ml_sub2=${campaignId}&ml_sub3=${variant}`;
+
+  return `<!DOCTYPE html>
+<html lang="${lang.toLowerCase()}" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Kompatibilitäts-Test 2026 | Private VIP Community</title>
+  <title>${title}</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -19,7 +82,7 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 20px 40px -15px rgba(244, 63, 94, 0.25);
+      box-shadow: 0 20px 40px -15px ${primaryGlow};
     }
     .touch-target {
       min-height: 48px;
@@ -38,14 +101,14 @@
   <!-- Header -->
   <header class="max-w-xl mx-auto w-full flex justify-between items-center py-3 border-b border-slate-800/60">
     <div class="flex items-center space-x-2">
-      <span class="text-xl">💎</span>
+      <span class="text-xl">${isDating ? '💎' : '⚡'}</span>
       <span class="text-lg font-heading font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
-        VIP ROMANCE // 2026
+        ${brandName}
       </span>
     </div>
-    <div class="flex items-center space-x-2 text-[11px] font-mono text-rose-400 bg-rose-950/60 border-rose-500/30 px-2.5 py-1 rounded-full border">
+    <div class="flex items-center space-x-2 text-[11px] font-mono ${badgeColor} px-2.5 py-1 rounded-full border">
       <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-      <span>🟢 <span class="font-bold">189</span> in <strong class="underline">{city}</strong></span>
+      <span>🟢 <span class="font-bold">${activeUsersCount}</span> in <strong class="underline">{city}</strong></span>
     </div>
   </header>
 
@@ -62,10 +125,10 @@
     <!-- Hero Title -->
     <div class="text-center space-y-2">
       <h1 class="text-2xl sm:text-3xl font-heading font-extrabold text-white leading-tight tracking-tight">
-        Sind Sie bereit für echte Treffen in <span class="text-rose-400">{city}</span>?
+        ${headline}
       </h1>
       <p class="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm mx-auto">
-        Unser KI-Matchmaking verbindet ausschließlich verifizierte Singles mit Niveau. Bitte beantworten Sie 2 kurze Fragen.
+        ${subheadline}
       </p>
     </div>
 
@@ -79,18 +142,14 @@
           <span class="text-emerald-400 font-bold">50% Abgeschlossen</span>
         </div>
         <h3 class="text-base sm:text-lg font-heading font-bold text-white text-center">
-          Ihre Alterspräferenz für neue Treffen:
+          ${step1Question}
         </h3>
         <div class="grid grid-cols-2 gap-3 pt-1">
-          
+          ${step1Options.map((opt, i) => `
             <button type="button" onclick="nextQuizStep(2)" class="touch-target py-3.5 px-4 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 hover:border-sky-400 text-white font-medium text-sm transition flex items-center justify-center space-x-2">
-              <span>18 - 35 Jahre</span>
+              <span>${opt}</span>
             </button>
-          
-            <button type="button" onclick="nextQuizStep(2)" class="touch-target py-3.5 px-4 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 hover:border-sky-400 text-white font-medium text-sm transition flex items-center justify-center space-x-2">
-              <span>36 - 55+ Jahre</span>
-            </button>
-          
+          `).join('')}
         </div>
       </div>
 
@@ -101,20 +160,15 @@
           <span class="text-emerald-400 font-bold">90% Abgeschlossen</span>
         </div>
         <h3 class="text-base sm:text-lg font-heading font-bold text-white text-center">
-          Sind Sie mit diskreter Kommunikation einverstanden?
+          ${step2Question}
         </h3>
         <div class="space-y-2.5 pt-1">
-          
+          ${step2Options.map((opt, i) => `
             <button type="button" onclick="runAnalysisStep()" class="touch-target w-full py-3.5 px-4 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 hover:border-emerald-400 text-white font-medium text-sm transition text-left flex items-center justify-between">
-              <span>Ja, Diskretion ist mir wichtig</span>
+              <span>${opt}</span>
               <span class="text-slate-400">&rarr;</span>
             </button>
-          
-            <button type="button" onclick="runAnalysisStep()" class="touch-target w-full py-3.5 px-4 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 hover:border-emerald-400 text-white font-medium text-sm transition text-left flex items-center justify-between">
-              <span>Ja, sofort loslegen</span>
-              <span class="text-slate-400">&rarr;</span>
-            </button>
-          
+          `).join('')}
         </div>
       </div>
 
@@ -122,7 +176,7 @@
       <div id="quizStep3" class="space-y-4 hidden text-center py-4">
         <div class="w-12 h-12 mx-auto rounded-full border-2 border-t-emerald-400 border-r-transparent border-b-sky-400 border-l-transparent animate-spin"></div>
         <h4 id="analysisText" class="text-sm font-heading font-bold text-slate-200">
-          Berechne Kompatibilität mit aktiven Mitgliedern in {city}...
+          ${analyzingText}
         </h4>
         <div class="w-full bg-slate-950 rounded-full h-2.5 overflow-hidden border border-slate-800">
           <div id="analysisBar" class="bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-400 h-2.5 rounded-full w-0 transition-all duration-1000 ease-out"></div>
@@ -147,8 +201,8 @@
         </div>
 
         <div class="pt-2">
-          <a id="ctaLink" href="https://postback-engine.sov7.workers.dev/click?click_id=[ml_sub1]&campaign_id=cmp_elite_de&variant=v2&s1=[ml_sub1]&s2=cmp_elite_de&s3=v2&ml_sub1=[ml_sub1]&ml_sub2=cmp_elite_de&ml_sub3=v2" class="pulse-action touch-target block w-full py-4 rounded-xl font-heading font-extrabold text-base bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 hover:from-rose-500 hover:to-pink-400 text-white shadow-xl shadow-indigo-950/50 transform hover:-translate-y-0.5 active:scale-95 transition text-center tracking-wide">
-            ZUGANG JETZT AKTIVIEREN &rarr;
+          <a id="ctaLink" href="${ctaUrl}" class="pulse-action touch-target block w-full py-4 rounded-xl font-heading font-extrabold text-base bg-gradient-to-r ${primaryBtn} text-white shadow-xl shadow-indigo-950/50 transform hover:-translate-y-0.5 active:scale-95 transition text-center tracking-wide">
+            ${finalCtaText} &rarr;
           </a>
         </div>
 
@@ -168,26 +222,18 @@
 
     <!-- Trust Badges Bar -->
     <div class="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-400 font-mono pt-1">
-      
+      ${trustNotes.map(n => `
         <div class="bg-slate-900/50 border border-slate-800/60 rounded-lg py-2 px-1">
-          ✓ Geprüfte Mitglieder
+          ✓ ${n}
         </div>
-      
-        <div class="bg-slate-900/50 border border-slate-800/60 rounded-lg py-2 px-1">
-          ✓ Keine Bot-Profile
-        </div>
-      
-        <div class="bg-slate-900/50 border border-slate-800/60 rounded-lg py-2 px-1">
-          ✓ 18+ Verifikation
-        </div>
-      
+      `).join('')}
     </div>
 
   </main>
 
   <!-- Footer -->
   <footer class="max-w-xl mx-auto w-full text-center py-3 text-[11px] text-slate-600 border-t border-slate-900">
-    © 2026 VIP ROMANCE // 2026 • 18+ Verifikation erforderlich • 100% Datenschutzkonform
+    © 2026 ${brandName} • 18+ Verifikation erforderlich • 100% Datenschutzkonform
   </footer>
 
   <!-- Micro-Funnel Controller Script -->
@@ -226,179 +272,31 @@
       const cta = document.getElementById('ctaLink');
       if (cta) {
         let href = cta.getAttribute('href');
-        href = href.replace(/\[ml_sub1\]/g, clickId);
+        href = href.replace(/\\[ml_sub1\\]/g, clickId);
         cta.setAttribute('href', href);
       }
     });
   </script>
 
-
-
-<script id="dynamic-creative-engine">
-(function() {
-  function getClientContext() {
-    var ua = navigator.userAgent || '';
-    var device = 'Device';
-    var os = 'System';
-    var browser = 'Browser';
-
-    // Device detection
-    if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
-      device = 'iPhone';
-      os = 'iOS';
-    } else if (/Android/.test(ua)) {
-      device = 'Android Phone';
-      os = 'Android';
-    } else if (/Windows NT/.test(ua)) {
-      device = 'PC';
-      os = 'Windows';
-    } else if (/Macintosh/.test(ua)) {
-      device = 'Mac';
-      os = 'macOS';
-    }
-
-    // Date & Time localized
-    var now = new Date();
-    var dateFormatted = now.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
-    var yearFormatted = now.getFullYear().toString();
-    var monthFormatted = now.toLocaleDateString(undefined, { month: 'long' });
-
-    return {
-      device: device,
-      os: os,
-      date: dateFormatted,
-      year: yearFormatted,
-      month: monthFormatted,
-      city: 'Your Area',
-      country: 'Your Country'
-    };
-  }
-
-  function applyTokens() {
-    var ctx = getClientContext();
-    var elements = document.querySelectorAll('*');
-    
-    // Replace text node tokens
-    var walker = document.createTreeWalker(document.body || document.documentElement, NodeFilter.SHOW_TEXT, null, false);
-    var node;
-    while (node = walker.nextNode()) {
-      var val = node.nodeValue;
-      if (val && val.indexOf('{') !== -1) {
-        val = val.replace(/{device}/gi, ctx.device)
-                 .replace(/{os}/gi, ctx.os)
-                 .replace(/{date}/gi, ctx.date)
-                 .replace(/{year}/gi, ctx.year)
-                 .replace(/{month}/gi, ctx.month)
-                 .replace(/{city}/gi, ctx.city)
-                 .replace(/{country}/gi, ctx.country);
-        node.nodeValue = val;
-      }
-    }
-
-    // Dynamic countdown timer injector if span.dynamic-countdown exists
-    var timerElements = document.querySelectorAll('.dynamic-countdown, [data-countdown]');
-    if (timerElements.length > 0) {
-      var totalSeconds = 14 * 60 + 59;
-      setInterval(function() {
-        var m = Math.floor(totalSeconds / 60);
-        var s = totalSeconds % 60;
-        var formatted = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
-        timerElements.forEach(function(el) { el.innerText = formatted; });
-        if (totalSeconds > 0) totalSeconds--;
-      }, 1000);
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', applyTokens);
-  } else {
-    applyTokens();
-  }
-})();
-</script>
-
-
-
-<script id="micro-clickstream-telemetry">
-(function() {
-  var loadTime = Date.now();
-  var sentCheckpoints = { 25: false, 50: false, 75: false, 100: false };
-  var exitIntentSent = false;
-  var ctaClicked = false;
-  var campaign = "cmp_elite_de".split('/')[0];
-  var variant = "v2";
-  var endpoint = "https://postback-engine.sov7.workers.dev/telemetry";
-
-  function sendTelemetry(eventData) {
-    var payload = Object.assign({
-      campaign_id: campaign,
-      variant: variant,
-      viewport: window.innerWidth + 'x' + window.innerHeight,
-      screen: window.screen.width + 'x' + window.screen.height,
-      timestamp: new Date().toISOString()
-    }, eventData);
-
-    var blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon(endpoint, blob);
-    } else {
-      fetch(endpoint, { method: 'POST', body: blob, keepalive: true }).catch(function(){});
-    }
-  }
-
-  // 1. Scroll Depth Tracking (25%, 50%, 75%, 100%)
-  function checkScroll() {
-    var doc = document.documentElement;
-    var top = doc.scrollTop || document.body.scrollTop;
-    var height = doc.scrollHeight - doc.clientHeight;
-    if (height <= 0) return;
-    var pct = Math.round((top / height) * 100);
-
-    [25, 50, 75, 100].forEach(function(cp) {
-      if (pct >= cp && !sentCheckpoints[cp]) {
-        sentCheckpoints[cp] = true;
-        sendTelemetry({ event: 'scroll_depth', depth_pct: cp, time_spent_ms: Date.now() - loadTime });
-      }
-    });
-  }
-
-  window.addEventListener('scroll', checkScroll, { passive: true });
-
-  // 2. Time-to-Action (TTA) & CTA Click Telemetry
-  document.addEventListener('click', function(e) {
-    var target = e.target && e.target.closest('a, button, [role="button"]');
-    if (target && !ctaClicked) {
-      ctaClicked = true;
-      var tta = Date.now() - loadTime;
-      sendTelemetry({ event: 'cta_click', time_to_action_ms: tta, target_tag: target.tagName, href: target.href || '' });
-    }
-  }, { capture: true });
-
-  // 3. Exit Intent Detection (Desktop mouseout top + Mobile visibilitychange)
-  document.addEventListener('mouseleave', function(e) {
-    if (e.clientY <= 0 && !exitIntentSent) {
-      exitIntentSent = true;
-      sendTelemetry({ event: 'exit_intent', trigger: 'mouse_leave_top', time_spent_ms: Date.now() - loadTime });
-    }
-  });
-
-  document.addEventListener('visibilitychange', function() {
-    if (document.visibilityState === 'hidden' && !exitIntentSent) {
-      exitIntentSent = true;
-      sendTelemetry({ event: 'exit_intent', trigger: 'tab_hidden', time_spent_ms: Date.now() - loadTime });
-    }
-  });
-
-  // Initial Pageview Telemetry
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    sendTelemetry({ event: 'pageview', time_spent_ms: 0 });
-  } else {
-    document.addEventListener('DOMContentLoaded', function() {
-      sendTelemetry({ event: 'pageview', time_spent_ms: Date.now() - loadTime });
-    });
-  }
-})();
-</script>
-
 </body>
-</html>
+</html>`;
+}
+
+/**
+ * Builds and saves a full campaign variant
+ */
+export async function scaffoldEngineeredLanding(opts: LandingArchitectOptions): Promise<string> {
+  const html = generateHighConvertingLandingHtml(opts);
+
+  // Ingest dynamic tokens and micro-clickstream
+  let processed = injectDynamicCreatives(html);
+  processed = injectMicroClickstream(processed, opts.campaignId, opts.variant);
+
+  const outDir = path.resolve(__dirname, `../../../campaigns/${opts.campaignId}/${opts.variant}`);
+  await fs.mkdir(outDir, { recursive: true });
+  const outPath = path.join(outDir, 'index.html');
+  await fs.writeFile(outPath, processed, 'utf8');
+
+  console.log(`✨ [Landing Architect Skill] Scaffolded ${opts.campaignId}/${opts.variant} -> ${outPath}`);
+  return outPath;
+}
