@@ -11,8 +11,10 @@ import { optimizeHtml } from './skills/html-optimizer-skill';
 import { auditTrackingLinks } from './skills/tracking-audit-skill';
 import { generateGeoRouterScript } from './geo-localizer';
 import { injectWeb3Connect } from './skills/web3-connect-skill';
+import { injectDynamicCreatives } from './skills/dynamic-creative-injector-skill';
 
 const execAsync = util.promisify(exec);
+const WORKER_URL = process.env.POSTBACK_WORKER_URL || 'https://postback-engine.sov7.workers.dev';
 
 async function generateHTML(offer: Offer): Promise<string> {
   const memoryContext = await exportContextForPrompt();
@@ -114,6 +116,7 @@ ${htmlContent}`;
   
   htmlContent = await injectSeoMetadata(htmlContent, offer);
   htmlContent = await optimizeHtml(htmlContent);
+  htmlContent = injectDynamicCreatives(htmlContent);
 
   // Inject Geo Router Script right before </body>
   if (geoRouter) {
@@ -129,11 +132,11 @@ document.addEventListener('DOMContentLoaded', () => {
     a.addEventListener('click', (e) => {
       try {
         const urlParams = new URLSearchParams(window.location.search);
-        const clickId = urlParams.get('click_id') || '';
+        const clickId = urlParams.get('click_id') || urlParams.get('ml_sub1') || '';
         const variant = window.location.pathname.includes('/v2') ? 'v2' : 'v1';
         // Extract base campaign id without variant
         const baseCampaignId = "${campaignId}".split('/')[0];
-        navigator.sendBeacon('http://localhost:8787/click?click_id=' + clickId + '&variant=' + variant + '&campaign_id=' + baseCampaignId);
+        navigator.sendBeacon('${WORKER_URL}/click?ml_sub1=' + clickId + '&ml_sub2=' + baseCampaignId + '&ml_sub3=' + variant);
       } catch(err) {}
     });
   });

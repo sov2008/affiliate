@@ -28,5 +28,10 @@
     "mylead_auto_apply": "active",
     "proxy_rotator": "active",
     "auth_storage_path": "core/.auth/session.json"
+  },
+  "creative_skills": {
+    "ad_copy_generator": "active",
+    "dynamic_creative_injector": "active",
+    "landing_cloner_translator": "active"
   }
 }

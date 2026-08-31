@@ -24,7 +24,10 @@
     "scout:dry": "tsx src/smart-offer-scout.ts --dry-run",
     "skill:session": "tsx src/skills/playwright-session-manager-skill.ts",
     "skill:auto-apply": "tsx src/skills/mylead-auto-apply-skill.ts",
-    "skill:proxy": "tsx src/skills/proxy-rotator-skill.ts"
+    "skill:proxy": "tsx src/skills/proxy-rotator-skill.ts",
+    "skill:ad-copy": "tsx src/skills/ad-copy-generator-skill.ts",
+    "skill:dynamic-inject": "tsx src/skills/dynamic-creative-injector-skill.ts",
+    "skill:translate": "tsx src/skills/landing-cloner-translator-skill.ts"
   },
   "keywords": [],
   "author": "",
