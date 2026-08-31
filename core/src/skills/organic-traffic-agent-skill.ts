@@ -239,13 +239,14 @@ export async function runOrganicDiscoveryCycle(options: { dryRun?: boolean; head
     await fs.writeFile(DISCOVERY_CACHE_FILE, JSON.stringify(cacheObj, null, 2));
 
     state.lastCycleTimestamp = new Date().toISOString();
-    state.nextRunTimestamp = new Date(Date.now() + (state.intervalMinutes || 15) * 60 * 1000).toISOString();
+    const cycleIntervalMin = state.intervalMinutes || 3;
+    state.nextRunTimestamp = new Date(Date.now() + cycleIntervalMin * 60 * 1000).toISOString();
     await saveOrganicState(state);
 
     await context.close();
     await browser.close();
 
-    await logMsg(`✅ Cycle complete. Logged ${discoveredRecords.length} organic engagement actions to ${DISCOVERY_CACHE_FILE}`);
+    await logMsg(`✅ Continuous Cycle complete. Logged ${discoveredRecords.length} organic engagement actions to ${DISCOVERY_CACHE_FILE}`);
 
   } catch (err: any) {
     if (browser) await browser.close().catch(() => {});
@@ -258,33 +259,43 @@ export async function runOrganicDiscoveryCycle(options: { dryRun?: boolean; head
 export async function runOrganicDaemon() {
   const state = await getOrganicState();
   state.status = 'running';
+  state.intervalMinutes = state.intervalMinutes || 3;
   state.startTime = new Date().toISOString();
   await saveOrganicState(state);
 
   await logMsg('====================================================');
-  await logMsg('🤖 Autonomous Organic Traffic Agent Daemon Started');
+  await logMsg('🤖 Continuous Autonomous Organic Traffic Daemon ACTIVE');
+  await logMsg(`⚡ Operating Mode: NON-STOP CONTINUOUS ENGAGEMENT (Cycle: ${state.intervalMinutes}m)`);
   await logMsg(`📂 Auth Directory: ${AUTH_DIR}`);
   await logMsg(`📂 Data Directory: ${DATA_DIR}`);
   await logMsg('====================================================');
 
+  let cycleCounter = 0;
+
   while (true) {
+    cycleCounter++;
     try {
       const currentState = await getOrganicState();
       if (currentState.status === 'paused') {
-        await logMsg('⏸️ Organic Agent is in PAUSED state. Sleeping...');
-        await new Promise(resolve => setTimeout(resolve, 30 * 1000));
+        await logMsg('⏸️ Organic Agent is in PAUSED state. Standing by for resume signal...');
+        await new Promise(resolve => setTimeout(resolve, 15 * 1000));
         continue;
       }
 
+      await logMsg(`\n🔄 [Continuous Loop #${cycleCounter}] Initiating organic crawl & distribution cycle...`);
       await runOrganicDiscoveryCycle({ headless: true });
     } catch (err: any) {
-      await logMsg(`Daemon loop exception: ${err.message}`);
+      await logMsg(`Daemon continuous loop handled exception: ${err.message}`);
     }
 
     const stateAfter = await getOrganicState();
-    const sleepMinutes = stateAfter.intervalMinutes || 15;
-    await logMsg(`💤 Sleeping for ${sleepMinutes} minutes before next organic distribution cycle...`);
-    await new Promise(resolve => setTimeout(resolve, sleepMinutes * 60 * 1000));
+    const intervalMinutes = stateAfter.intervalMinutes || 3;
+    // Apply slight natural jitter (±15 seconds) to emulate authentic organic behavior
+    const jitterSec = Math.floor(Math.random() * 30) - 15;
+    const sleepSeconds = Math.max(30, (intervalMinutes * 60) + jitterSec);
+
+    await logMsg(`💤 Cadence delay: ${Math.round(sleepSeconds)}s before next continuous distribution cycle (Loop #${cycleCounter + 1})...`);
+    await new Promise(resolve => setTimeout(resolve, sleepSeconds * 1000));
   }
 }
 

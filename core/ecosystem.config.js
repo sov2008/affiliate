@@ -32,6 +32,7 @@ module.exports = {
       cwd: __dirname,
       instances: 1,
       autorestart: true,
+      exp_backoff_restart_delay: 200,
       max_memory_restart: "600M",
       env: {
         NODE_ENV: "production"
