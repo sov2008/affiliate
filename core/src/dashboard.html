@@ -67,7 +67,7 @@
       <div class="space-y-8">
         <div class="glass rounded-xl p-6">
           <h2 class="text-xl font-semibold mb-4">Quick Launch</h2>
-          <form id="launchForm" class="space-y-4">
+          <form id="launchForm" class="space-y-4 mb-4">
             <div>
               <label class="block text-xs text-slate-400 mb-1">Offer Name</label>
               <input type="text" id="offerName" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-indigo-500" placeholder="e.g. Smart Watch">
@@ -80,6 +80,9 @@
               Deploy Campaign
             </button>
           </form>
+          <button id="scoutBtn" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-medium py-2 rounded transition border border-purple-400">
+             🕵️‍♂️ Run Smart Scout
+          </button>
         </div>
 
         <div class="glass rounded-xl p-6">
@@ -147,6 +150,11 @@
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({ name, geo })
       });
+    });
+
+    document.getElementById('scoutBtn').addEventListener('click', async () => {
+      alert('Smart Scout initiated!');
+      await fetch('/api/scout-now', { method: 'POST' });
     });
 
     setInterval(loadStats, 2000);

@@ -52,6 +52,11 @@ app.post('/api/launch', (req, res) => {
   res.send('Launched');
 });
 
+app.post('/api/scout-now', (req, res) => {
+  exec(`npx tsx src/smart-offer-scout.ts`, { cwd: __dirname });
+  res.send('Scout started');
+});
+
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Dashboard running at http://localhost:${PORT}`);

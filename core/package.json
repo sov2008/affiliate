@@ -19,7 +19,9 @@
     "status": "tsx src/cli.ts status",
     "autopilot": "tsx src/autopilot-daemon.ts",
     "dashboard": "tsx src/dashboard-server.ts",
-    "start:all": "concurrently \"npm run autopilot\" \"npm run dashboard\""
+    "start:all": "concurrently \"npm run autopilot\" \"npm run dashboard\"",
+    "scout:run": "tsx src/smart-offer-scout.ts",
+    "scout:dry": "tsx src/smart-offer-scout.ts --dry-run"
   },
   "keywords": [],
   "author": "",
