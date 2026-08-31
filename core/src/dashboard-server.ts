@@ -464,20 +464,57 @@ app.post('/api/actions/auto-apply', async (req, res) => {
   }
 });
 
-// POST /api/actions/test-postback
-app.post('/api/actions/test-postback', async (req, res) => {
+// POST /api/actions/reset-data (Flush all demo/test data)
+app.post('/api/actions/reset-data', async (req, res) => {
   try {
-    const { campaignId, payout } = req.body;
-    const cid = campaignId || 'cmp_trading_au';
-    const amount = parseFloat(payout) || 350.00;
-    const clickId = 'ml_probe_' + Math.random().toString(36).substring(2, 8);
+    console.log('[Dashboard API] 🧹 Flushing all demo stats, logs and synthetic transactions...');
 
-    console.log(`[Dashboard API] Sending synthetic postback: $${amount} to ${cid}`);
-    const postbackUrl = `${WORKER_URL}/postback?ml_sub1=${clickId}&ml_sub2=${cid}&ml_sub3=v1&payout=${amount}&status=approved&currency=USD&secret=whsec_affiliate_ops_secret_2026`;
-    const workerRes = await fetch(postbackUrl);
-    const workerData = await workerRes.json();
+    // 1. Reset organic_state.json
+    const cleanOrganicState = {
+      status: 'running',
+      uptime: '0m',
+      startTime: new Date().toISOString(),
+      lastCycleTimestamp: null,
+      nextRunTimestamp: new Date(Date.now() + 3 * 60 * 1000).toISOString(),
+      intervalMinutes: 3,
+      metrics: {
+        scanned_threads: 0,
+        replies_generated: 0,
+        links_posted: 0,
+        clicks_generated: 0,
+        conversions: 0,
+        revenue: 0,
+        epc: '$0.00'
+      },
+      recentEvents: []
+    };
 
-    res.json({ success: true, postback: workerData, clickId });
+    for (const sp of ORGANIC_STATE_PATHS) {
+      try {
+        await fs.writeFile(sp, JSON.stringify(cleanOrganicState, null, 2));
+      } catch (e) {}
+    }
+
+    // 2. Clear organic_discovery.json cache
+    for (const dp of ORGANIC_DISCOVERY_PATHS) {
+      try {
+        await fs.writeFile(dp, JSON.stringify({ engagements: [], lastRun: null }, null, 2));
+      } catch (e) {}
+    }
+
+    // 3. Truncate logs
+    for (const lp of ORGANIC_LOG_PATHS) {
+      try {
+        await fs.writeFile(lp, `[${new Date().toISOString()}] [Organic Traffic Daemon] Logs reset. Monitoring live opportunities...\n`);
+      } catch (e) {}
+    }
+
+    // 4. Try Cloudflare Worker Reset
+    try {
+      await fetch(`${WORKER_URL}/reset-stats`).catch(() => {});
+    } catch (e) {}
+
+    res.json({ success: true, message: 'All demo and test data has been completely flushed.' });
   } catch (err: any) {
     res.status(500).json({ success: false, error: err.message });
   }

@@ -216,41 +216,7 @@ export async function runOrganicDiscoveryCycle(options: { dryRun?: boolean; head
         state.metrics.replies_generated = (state.metrics.replies_generated || 0) + 1;
         state.metrics.links_posted = (state.metrics.links_posted || 0) + 1;
 
-        // 1. Dispatch verified live inbound organic click to Cloudflare Edge Worker
-        try {
-          const clickEndpoint = `${WORKER_URL}/click?cid=${chan.campaignId}&variant=v1&s1=${trackingSub}&ml_sub1=${trackingSub}&ml_sub2=${chan.campaignId}&ml_sub3=v1&utm_source=organic&utm_medium=community`;
-          await fetch(clickEndpoint).catch(() => {});
-          state.metrics.clicks_generated = (state.metrics.clicks_generated || 0) + 1;
-
-          // 2. Dispatch Micro-Clickstream Telemetry (scroll depth & time-to-action)
-          const telemetryPayload = {
-            cid: chan.campaignId,
-            variant: 'v1',
-            scrollDepth: Math.floor(Math.random() * 30) + 70, // 70-100%
-            timeToActionMs: Math.floor(Math.random() * 8000) + 2000,
-            ctaClicked: true
-          };
-          await fetch(`${WORKER_URL}/telemetry`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(telemetryPayload)
-          }).catch(() => {});
-
-          // 3. High-intent Organic Conversion probability (every 3-5 organic clicks trigger an approved conversion)
-          if (Math.random() < 0.28) {
-            let payout = 4.50; // Dating lead default
-            if (chan.niche === 'finance') payout = 350.00;
-            else if (chan.niche === 'software') payout = 28.50;
-            else if (chan.campaignId === 'cmp_elite_de') payout = 12.00;
-
-            const postbackUrl = `${WORKER_URL}/postback?ml_sub1=${trackingSub}&ml_sub2=${chan.campaignId}&ml_sub3=v1&payout=${payout}&status=approved&currency=USD&secret=${POSTBACK_SECRET}`;
-            await fetch(postbackUrl).catch(() => {});
-            state.metrics.conversions = (state.metrics.conversions || 0) + 1;
-            state.metrics.revenue = Number(((state.metrics.revenue || 0) + payout).toFixed(2));
-            await logMsg(`   💰 [CONVERSION FIRED] ${chan.campaignId} generated $${payout.toFixed(2)} lead from organic topic "${kw}"!`);
-          }
-        } catch (e) {}
-
+        // Real Organic Engagement Action
         const record: OrganicEngagementRecord = {
           id: `eng_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
           channelId: chan.id,
@@ -265,9 +231,9 @@ export async function runOrganicDiscoveryCycle(options: { dryRun?: boolean; head
 
         discoveredRecords.push(record);
         const timeShort = new Date().toLocaleTimeString('en-US', { hour12: false });
-        const eventStr = `[${timeShort}] "${kw}" (${chan.niche}) -> Post placed -> Inbound organic click delivered [${trackingSub}]`;
+        const eventStr = `[${timeShort}] "${kw}" (${chan.niche}) -> Expert response synthesized -> Tracking link prepared [${trackingSub}]`;
         state.recentEvents = [eventStr, ...(state.recentEvents || []).slice(0, 49)];
-        await logMsg(`   ✨ Discovered keyword opportunity: "${kw}" (Intent: ${intentScore}%) -> ${chan.campaignId} (Click Delivered)`);
+        await logMsg(`   ✨ Discovered keyword opportunity: "${kw}" (Intent: ${intentScore}%) -> ${chan.campaignId}`);
       }
     }
 
