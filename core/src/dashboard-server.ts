@@ -23,7 +23,7 @@ const HTML_PATH = path.resolve(__dirname, 'dashboard.html');
 const WORKER_URL = process.env.POSTBACK_WORKER_URL || 'https://postback-engine.sov7.workers.dev';
 
 const AUTH_USER = process.env.DASHBOARD_USER || 'admin';
-const AUTH_PASS = process.env.DASHBOARD_PASS || 'Aff1l1ate_Admin_2026!';
+const AUTH_PASS = process.env.DASHBOARD_PASS || '';
 
 // ----------------------------------------------------
 // HTTP Basic Authentication & Token Middleware

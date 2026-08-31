@@ -7,8 +7,8 @@ import { remember, recall } from '../memory-engine';
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
-const LOGIN = process.env.LOSPOLLOS_LOGIN || 'sov208';
-const PASSWORD = process.env.LOSPOLLOS_PASSWORD || 'S2U6BYa554nU@Q5';
+const LOGIN = process.env.LOSPOLLOS_LOGIN || '';
+const PASSWORD = process.env.LOSPOLLOS_PASSWORD || '';
 const POSTBACK_URL = 'https://postback-engine.sov7.workers.dev/postback?status={status}&payout={sum}&currency=USD&ml_sub1={s1}&ml_sub2={s2}&ml_sub3={s3}';
 
 export interface LosPollosConfigResult {

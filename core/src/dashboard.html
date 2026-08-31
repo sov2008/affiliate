@@ -357,13 +357,26 @@
     let currentExportTab = 'google';
     let currentExportCid = '';
 
-    // Auth header for API calls
-    const AUTH_HEADER = 'Basic ' + btoa('admin:Aff1l1ate_Admin_2026!');
-
+    // Dynamic Auth for API calls
     async function apiFetch(url, options = {}) {
       options.headers = options.headers || {};
-      options.headers['Authorization'] = AUTH_HEADER;
-      return fetch(url, options);
+      const token = localStorage.getItem('aff_ops_auth') || sessionStorage.getItem('aff_ops_auth');
+      if (token) {
+        options.headers['Authorization'] = token;
+      }
+      
+      const res = await fetch(url, options);
+      if (res.status === 401) {
+        const pass = prompt('Enter Affiliate Ops Command Center Password:');
+        if (pass) {
+          const authVal = 'Basic ' + btoa('admin:' + pass);
+          sessionStorage.setItem('aff_ops_auth', authVal);
+          localStorage.setItem('aff_ops_auth', authVal);
+          options.headers['Authorization'] = authVal;
+          return fetch(url, options);
+        }
+      }
+      return res;
     }
 
     // Toast Generator

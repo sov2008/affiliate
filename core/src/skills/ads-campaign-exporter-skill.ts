@@ -105,7 +105,11 @@ export async function exportActiveGoogleAdsScriptPayload(): Promise<GoogleAdsIte
   return items;
 }
 
-export function generateGoogleAdsSyncScriptCode(endpointUrl: string = 'http://178.128.199.28:5000/api/campaigns/export-active-ads', basicAuthToken: string = 'Basic YWRtaW46QWZmMWwxdGVfQWRtaW5fMjAyNiE='): string {
+export function generateGoogleAdsSyncScriptCode(endpointUrl: string = 'http://178.128.199.28:5000/api/campaigns/export-active-ads', basicAuthToken?: string): string {
+  const user = process.env.DASHBOARD_USER || 'admin';
+  const pass = process.env.DASHBOARD_PASS || '';
+  const token = basicAuthToken || (pass ? 'Basic ' + Buffer.from(`${user}:${pass}`).toString('base64') : 'Basic ');
+
   return `/**
  * =====================================================================
  * Google Ads Autonomous Sync Script (Affiliate Ops Bridge)
@@ -116,7 +120,7 @@ export function generateGoogleAdsSyncScriptCode(endpointUrl: string = 'http://17
 
 var CONFIG = {
   ENDPOINT_URL: '${endpointUrl}',
-  AUTH_HEADER: '${basicAuthToken}',
+  AUTH_HEADER: '${token}',
   DEFAULT_BID_STRATEGY: 'MANUAL_CPC',
   AUTO_ENABLE: true
 };
