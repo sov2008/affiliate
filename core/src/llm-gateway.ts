@@ -10,7 +10,8 @@ export async function generateContent(prompt: string): Promise<string> {
   const provider = process.env.LLM_PROVIDER || 'direct';
   const apiKey = process.env.LLM_API_KEY || process.env.GEMINI_API_KEY || '';
   const baseUrl = process.env.LLM_BASE_URL || 'http://localhost:3000/v1';
-  const model = process.env.LLM_MODEL || 'gemini-3.6-flash';
+  const model = process.env.LLM_MODEL || 'gemini-2.0-flash';
+  const maxOutputTokens = process.env.MAX_OUTPUT_TOKENS ? parseInt(process.env.MAX_OUTPUT_TOKENS, 10) : 2048;
 
   if (provider === 'omniroute') {
     let retries = 3;
@@ -59,15 +60,27 @@ export async function generateContent(prompt: string): Promise<string> {
   }
 
   // Fallback / gemini_direct execution
-  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-  const response = await ai.models.generateContent({
-    model: model,
-    contents: prompt,
-  });
+  try {
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    const response = await ai.models.generateContent({
+      model: model,
+      contents: prompt,
+      config: {
+        maxOutputTokens: maxOutputTokens,
+        // enablePromptCaching: process.env.ENABLE_PROMPT_CACHING === 'true' // hypothetical SDK feature
+      }
+    });
 
-  if (!response.text) {
-    throw new Error("No text returned from Gemini API");
+    if (!response.text) {
+      throw new Error("No text returned from Gemini API");
+    }
+
+    return response.text;
+  } catch (err: any) {
+    if (err.status === 429 || err.status === 404 || (err.message && (err.message.includes('429') || err.message.includes('404')))) {
+      console.error('[LLM Gateway] Rate limit or model error hit. Failing pipeline strictly for production verification.');
+      throw err;
+    }
+    throw err;
   }
-
-  return response.text;
 }

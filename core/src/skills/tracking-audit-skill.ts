@@ -12,13 +12,12 @@ export function auditTrackingLinks(html: string): { passed: boolean; errors: str
     if (link.startsWith('#') || link.startsWith('javascript:')) continue; // Ignore anchors and JS
     
     linkFound = true;
-    const hasClickId = link.includes('click_id');
-    const hasSub1 = link.includes('sub1');
-    const hasSub2 = link.includes('sub2');
-    const hasSubId = link.includes('sub_id');
+    const hasMlSub1 = link.includes('ml_sub1=');
+    const hasMlSub2 = link.includes('ml_sub2=');
+    const hasMlSub3 = link.includes('ml_sub3=');
 
-    if (!hasClickId && !hasSub1 && !hasSub2 && !hasSubId) {
-      errors.push(`CTA Link missing required tracking parameters: ${link}`);
+    if (!hasMlSub1 || !hasMlSub2 || !hasMlSub3) {
+      errors.push(`CTA Link missing required MyLead macros (ml_sub1, ml_sub2, ml_sub3): ${link}`);
     }
   }
 

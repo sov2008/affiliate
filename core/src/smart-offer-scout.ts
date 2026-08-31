@@ -77,11 +77,13 @@ async function runScout() {
     return;
   }
 
-  // Select top 1 offer for this cycle
-  const topOffer = scoredOffers[0];
-  console.log(`\n🏆 Top Offer Selected: ${topOffer.name} (${topOffer.id})`);
-  console.log(`   Vertical: ${topOffer.vertical} | Payout: $${topOffer.payout} | EPC: $${topOffer.epc}`);
-  console.log(`   Calculated Score: ${topOffer.score.toFixed(2)}`);
+  // Select top 3 offers for this cycle
+  const topOffers = scoredOffers.slice(0, 3);
+  console.log(`\n🏆 Top ${topOffers.length} Offers Selected:`);
+  
+  for (const topOffer of topOffers) {
+    console.log(`   - ${topOffer.name} (${topOffer.id}) | Vertical: ${topOffer.vertical} | Payout: $${topOffer.payout} | EPC: $${topOffer.epc} | Score: ${topOffer.score.toFixed(2)}`);
+  }
 
   if (isDryRun) {
     console.log('\n[Dry Run] Execution complete. No campaigns were launched.');
@@ -89,28 +91,34 @@ async function runScout() {
   }
 
   // Update offers.json (this simulates DB insertion)
-  let currentOffers = [];
+  let currentOffers: any[] = [];
   try {
     const fileData = await fs.readFile(OFFERS_FILE, 'utf8');
     currentOffers = JSON.parse(fileData);
   } catch (err) {}
   
-  currentOffers.push({
-    id: topOffer.id,
-    name: topOffer.name,
-    targetGeo: topOffer.geo.split(','),
-    payout: topOffer.payout
-  });
+  for (const topOffer of topOffers) {
+    currentOffers.push({
+      id: topOffer.id,
+      name: topOffer.name,
+      vertical: topOffer.vertical,
+      targetGeo: topOffer.geo.split(','),
+      payout: topOffer.payout
+    });
+  }
 
   await fs.writeFile(OFFERS_FILE, JSON.stringify(currentOffers, null, 2));
-  console.log(`✅ Saved ${topOffer.id} to offers.json.`);
+  console.log(`✅ Saved ${topOffers.length} offers to offers.json.`);
 
   console.log('\n🚀 Handing over to Auto-Builder Engine...');
-  try {
-    // Launch using our new CLI tool
-    execSync(`npx tsx src/cli.ts launch --name="${topOffer.name}" --geo="${topOffer.geo}"`, { stdio: 'inherit', cwd: __dirname });
-  } catch (err) {
-    console.error('Failed to launch campaign:', err);
+  for (const topOffer of topOffers) {
+    try {
+      console.log(`Building campaign for: ${topOffer.name}...`);
+      // Launch using our new CLI tool
+      execSync(`npx tsx src/cli.ts launch --name="${topOffer.name}" --vertical="${topOffer.vertical}" --geo="${topOffer.geo}"`, { stdio: 'inherit', cwd: __dirname });
+    } catch (err) {
+      console.error(`Failed to launch campaign ${topOffer.name}:`, err);
+    }
   }
 }
 

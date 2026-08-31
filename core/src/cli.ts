@@ -7,7 +7,7 @@ const command = args[0];
 
 function runCommand(cmd: string) {
   try {
-    execSync(cmd, { stdio: 'inherit', cwd: __dirname });
+    execSync(cmd, { stdio: 'inherit', cwd: path.resolve(__dirname, '..') });
   } catch (err: any) {
     console.error(`Command failed: ${cmd}`);
     process.exit(1);
@@ -36,7 +36,7 @@ Commands:
     if (!argString.includes('--variants=')) argString += ' --variants=2';
     
     console.log(`🚀 Launching campaign with args: ${argString}`);
-    runCommand(`npx tsx auto-builder.ts ${argString} --push`);
+    runCommand(`npx tsx src/auto-builder.ts ${argString} --push`);
     
     console.log('\n✅ Launch complete. Campaigns pushed to Git.');
   } 

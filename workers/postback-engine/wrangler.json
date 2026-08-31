@@ -5,8 +5,8 @@
   "kv_namespaces": [
     {
       "binding": "STATS_KV",
-      "id": "mock-kv-id",
-      "preview_id": "mock-preview-id"
+      "id": "04b438c4a19b48a0b3e33325ad254b59",
+      "preview_id": "04b438c4a19b48a0b3e33325ad254b59"
     }
   ]
 }

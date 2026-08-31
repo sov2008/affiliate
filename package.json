@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start:gateway": "node mock-gateway.js"
+    "start:gateway": "node mock-gateway.js",
+    "deploy:pages": "npx wrangler pages deploy campaigns/ --project-name affiliate-campaigns --branch main --commit-dirty=true"
   },
   "workspaces": [
     "core",

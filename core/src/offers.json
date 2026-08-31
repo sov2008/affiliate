@@ -194,5 +194,484 @@
       "NZ"
     ],
     "payout": 350
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "vertical": "finance",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_dating_vip",
+    "name": "Elite Singles VIP",
+    "vertical": "dating",
+    "targetGeo": [
+      "DE",
+      "FR",
+      "IT"
+    ],
+    "payout": 60
+  },
+  {
+    "id": "cmp_vpn_pro",
+    "name": "VPN Pro Max",
+    "vertical": "software",
+    "targetGeo": [
+      "US",
+      "UK",
+      "CA"
+    ],
+    "payout": 45
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "vertical": "finance",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_dating_vip",
+    "name": "Elite Singles VIP",
+    "vertical": "dating",
+    "targetGeo": [
+      "DE",
+      "FR",
+      "IT"
+    ],
+    "payout": 60
+  },
+  {
+    "id": "cmp_vpn_pro",
+    "name": "VPN Pro Max",
+    "vertical": "software",
+    "targetGeo": [
+      "US",
+      "UK",
+      "CA"
+    ],
+    "payout": 45
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "vertical": "finance",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_dating_vip",
+    "name": "Elite Singles VIP",
+    "vertical": "dating",
+    "targetGeo": [
+      "DE",
+      "FR",
+      "IT"
+    ],
+    "payout": 60
+  },
+  {
+    "id": "cmp_vpn_pro",
+    "name": "VPN Pro Max",
+    "vertical": "software",
+    "targetGeo": [
+      "US",
+      "UK",
+      "CA"
+    ],
+    "payout": 45
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "vertical": "finance",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_dating_vip",
+    "name": "Elite Singles VIP",
+    "vertical": "dating",
+    "targetGeo": [
+      "DE",
+      "FR",
+      "IT"
+    ],
+    "payout": 60
+  },
+  {
+    "id": "cmp_vpn_pro",
+    "name": "VPN Pro Max",
+    "vertical": "software",
+    "targetGeo": [
+      "US",
+      "UK",
+      "CA"
+    ],
+    "payout": 45
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "vertical": "finance",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_dating_vip",
+    "name": "Elite Singles VIP",
+    "vertical": "dating",
+    "targetGeo": [
+      "DE",
+      "FR",
+      "IT"
+    ],
+    "payout": 60
+  },
+  {
+    "id": "cmp_vpn_pro",
+    "name": "VPN Pro Max",
+    "vertical": "software",
+    "targetGeo": [
+      "US",
+      "UK",
+      "CA"
+    ],
+    "payout": 45
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "vertical": "finance",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_dating_vip",
+    "name": "Elite Singles VIP",
+    "vertical": "dating",
+    "targetGeo": [
+      "DE",
+      "FR",
+      "IT"
+    ],
+    "payout": 60
+  },
+  {
+    "id": "cmp_vpn_pro",
+    "name": "VPN Pro Max",
+    "vertical": "software",
+    "targetGeo": [
+      "US",
+      "UK",
+      "CA"
+    ],
+    "payout": 45
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "vertical": "finance",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_dating_vip",
+    "name": "Elite Singles VIP",
+    "vertical": "dating",
+    "targetGeo": [
+      "DE",
+      "FR",
+      "IT"
+    ],
+    "payout": 60
+  },
+  {
+    "id": "cmp_vpn_pro",
+    "name": "VPN Pro Max",
+    "vertical": "software",
+    "targetGeo": [
+      "US",
+      "UK",
+      "CA"
+    ],
+    "payout": 45
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "vertical": "finance",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_dating_vip",
+    "name": "Elite Singles VIP",
+    "vertical": "dating",
+    "targetGeo": [
+      "DE",
+      "FR",
+      "IT"
+    ],
+    "payout": 60
+  },
+  {
+    "id": "cmp_vpn_pro",
+    "name": "VPN Pro Max",
+    "vertical": "software",
+    "targetGeo": [
+      "US",
+      "UK",
+      "CA"
+    ],
+    "payout": 45
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "vertical": "finance",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_dating_vip",
+    "name": "Elite Singles VIP",
+    "vertical": "dating",
+    "targetGeo": [
+      "DE",
+      "FR",
+      "IT"
+    ],
+    "payout": 60
+  },
+  {
+    "id": "cmp_vpn_pro",
+    "name": "VPN Pro Max",
+    "vertical": "software",
+    "targetGeo": [
+      "US",
+      "UK",
+      "CA"
+    ],
+    "payout": 45
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "vertical": "finance",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_dating_vip",
+    "name": "Elite Singles VIP",
+    "vertical": "dating",
+    "targetGeo": [
+      "DE",
+      "FR",
+      "IT"
+    ],
+    "payout": 60
+  },
+  {
+    "id": "cmp_vpn_pro",
+    "name": "VPN Pro Max",
+    "vertical": "software",
+    "targetGeo": [
+      "US",
+      "UK",
+      "CA"
+    ],
+    "payout": 45
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "vertical": "finance",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_dating_vip",
+    "name": "Elite Singles VIP",
+    "vertical": "dating",
+    "targetGeo": [
+      "DE",
+      "FR",
+      "IT"
+    ],
+    "payout": 60
+  },
+  {
+    "id": "cmp_vpn_pro",
+    "name": "VPN Pro Max",
+    "vertical": "software",
+    "targetGeo": [
+      "US",
+      "UK",
+      "CA"
+    ],
+    "payout": 45
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "vertical": "finance",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_dating_vip",
+    "name": "Elite Singles VIP",
+    "vertical": "dating",
+    "targetGeo": [
+      "DE",
+      "FR",
+      "IT"
+    ],
+    "payout": 60
+  },
+  {
+    "id": "cmp_vpn_pro",
+    "name": "VPN Pro Max",
+    "vertical": "software",
+    "targetGeo": [
+      "US",
+      "UK",
+      "CA"
+    ],
+    "payout": 45
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "vertical": "finance",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
+  },
+  {
+    "id": "cmp_dating_vip",
+    "name": "Elite Singles VIP",
+    "vertical": "dating",
+    "targetGeo": [
+      "DE",
+      "FR",
+      "IT"
+    ],
+    "payout": 60
+  },
+  {
+    "id": "cmp_vpn_pro",
+    "name": "VPN Pro Max",
+    "vertical": "software",
+    "targetGeo": [
+      "US",
+      "UK",
+      "CA"
+    ],
+    "payout": 45
   }
 ]

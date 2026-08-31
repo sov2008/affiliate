@@ -14,5 +14,6 @@
         }
       }
     }
-  }
+  },
+  "POSTBACK_WORKER_URL": "https://postback-engine.sov7.workers.dev"
 }

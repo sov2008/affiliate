@@ -19,7 +19,7 @@ const DEFAULT_MEMORY: MemoryStore = {
   deployed_campaigns: {},
   pipeline_preferences: {
     llm_provider: "gemini_direct",
-    default_model: "gemini-3.6-flash"
+    default_model: process.env.LLM_MODEL || "gemini-3.6-flash"
   },
   web3_config: {
     default_evm_payout_wallet: process.env.DEFAULT_EVM_PAYOUT_WALLET || "0x1796EaD42E41dDCB692fD82C8b71A7ec4FC8Adf1",

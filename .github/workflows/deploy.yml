@@ -6,11 +6,15 @@ on:
       - main
     paths:
       - 'campaigns/**'
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: Deploy
+    name: Deploy Campaigns
+    permissions:
+      contents: read
+      deployments: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,4 +24,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages deploy campaigns/ --project-name affiliate-campaigns
+          command: pages deploy campaigns/ --project-name affiliate-campaigns --commit-dirty=true

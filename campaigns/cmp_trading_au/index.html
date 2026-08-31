@@ -4,10 +4,10 @@
 <body>
 <script>
   const variants = 2;
-  let v = localStorage.getItem('cmp_smart_watch_pro_de_variant');
+  let v = localStorage.getItem('cmp_trading_au_variant');
   if (!v) {
     v = 'v' + (Math.floor(Math.random() * variants) + 1);
-    localStorage.setItem('cmp_smart_watch_pro_de_variant', v);
+    localStorage.setItem('cmp_trading_au_variant', v);
   }
   window.location.href = './' + v + '/index.html' + window.location.search;
 </script>

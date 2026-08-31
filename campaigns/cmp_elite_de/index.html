@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Split Router</title></head>
+<body>
+<script>
+  const variants = 2;
+  let v = localStorage.getItem('cmp_elite_de_variant');
+  if (!v) {
+    v = 'v' + (Math.floor(Math.random() * variants) + 1);
+    localStorage.setItem('cmp_elite_de_variant', v);
+  }
+  window.location.href = './' + v + '/index.html' + window.location.search;
+</script>
+</body>
+</html>
