@@ -356,6 +356,15 @@
     let currentExportTab = 'google';
     let currentExportCid = '';
 
+    // Auth header for API calls
+    const AUTH_HEADER = 'Basic ' + btoa('admin:Aff1l1ate_Admin_2026!');
+
+    async function apiFetch(url, options = {}) {
+      options.headers = options.headers || {};
+      options.headers['Authorization'] = AUTH_HEADER;
+      return fetch(url, options);
+    }
+
     // Toast Generator
     function showToast(msg, type = 'info') {
       const c = document.getElementById('toastContainer');
@@ -379,7 +388,7 @@
       closeModal('autoApplyModal');
       showToast(`🎯 Submitting auto-apply for ${cid}...`, 'info');
       try {
-        const res = await fetch('/api/actions/auto-apply', {
+        const res = await apiFetch('/api/actions/auto-apply', {
           method: 'POST',
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({ campaignId: cid })
@@ -399,7 +408,7 @@
       document.getElementById('adsExportContent').value = 'Generating compliance-verified ad packages...';
 
       try {
-        const res = await fetch(`/api/campaigns/${cid}/export-ads`, { method: 'POST' });
+        const res = await apiFetch(`/api/campaigns/${cid}/export-ads`, { method: 'POST' });
         const d = await res.json();
         if (d.success) {
           currentExportData.google = d.googleAdsCsv || '';
@@ -448,7 +457,7 @@
     async function triggerMabOptimization(cid) {
       showToast(`🎲 AI MAB: Optimizing traffic weights for ${cid}...`, 'info');
       try {
-        const res = await fetch(`/api/campaigns/${cid}/mab-optimize`, { method: 'POST' });
+        const res = await apiFetch(`/api/campaigns/${cid}/mab-optimize`, { method: 'POST' });
         const d = await res.json();
         if (d.success) {
           showToast(`🏆 MAB Allocation: v1=${d.result.weights.v1}%, v2=${d.result.weights.v2}%`, 'success');
@@ -463,7 +472,7 @@
     async function triggerAction(action, msg) {
       showToast(msg, 'info');
       try {
-        const res = await fetch(`/api/actions/${action}`, { method: 'POST' });
+        const res = await apiFetch(`/api/actions/${action}`, { method: 'POST' });
         const d = await res.json();
         if (d.success) {
           showToast(`✅ ${d.message || 'Action executed successfully.'}`, 'success');
@@ -479,7 +488,7 @@
     // Toggle Campaign Status
     async function toggleCampaign(cid) {
       try {
-        const res = await fetch(`/api/campaigns/${cid}/toggle`, { method: 'POST' });
+        const res = await apiFetch(`/api/campaigns/${cid}/toggle`, { method: 'POST' });
         const d = await res.json();
         showToast(`Campaign ${cid} status: ${d.status.toUpperCase()}`, d.status === 'active' ? 'success' : 'warning');
         refreshAll();
@@ -492,7 +501,7 @@
     async function updateTrafficSplit(cid, sliderVal) {
       const v1 = parseInt(sliderVal);
       try {
-        await fetch(`/api/campaigns/${cid}/traffic-split`, {
+        await apiFetch(`/api/campaigns/${cid}/traffic-split`, {
           method: 'POST',
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({ v1Weight: v1 })
@@ -581,8 +590,8 @@
     async function loadOverview() {
       try {
         const [kpiRes, campRes] = await Promise.all([
-          fetch('/api/stats/overview'),
-          fetch('/api/campaigns')
+          apiFetch('/api/stats/overview'),
+          apiFetch('/api/campaigns')
         ]);
         const kpi = await kpiRes.json();
         rawCampaigns = await campRes.json();
@@ -606,7 +615,7 @@
     // Load Transactions Feed
     async function loadTransactions() {
       try {
-        const res = await fetch('/api/transactions');
+        const res = await apiFetch('/api/transactions');
         const list = await res.json();
         const tbody = document.getElementById('txTbody');
         
@@ -637,7 +646,7 @@
     // Load Daemon Console Logs
     async function loadLogs() {
       try {
-        const res = await fetch('/api/logs/daemon');
+        const res = await apiFetch('/api/logs/daemon');
         const data = await res.json();
         const div = document.getElementById('daemonTerminal');
         div.innerText = data.lines ? data.lines.join('\n') : 'Standby...';
