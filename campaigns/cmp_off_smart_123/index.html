@@ -1,297 +1,116 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Gadget 2.0 - The Ultimate Everyday Tech Upgrade</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
+<!DOCTYPE html><html lang="en" class="scroll-smooth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Smart Gadget 2.0 | Next-Gen Innovation</title><!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script><script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            50: '#eff6ff',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            900: '#1e3a8a',
-                        },
-                        accent: {
-                            500: '#10b981',
-                            600: '#059669',
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            accent: '#10b981',
+                            accentHover: '#059669',
+                            warning: '#f59e0b',
                         }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
                     }
                 }
             }
         }
-    </script>
-    <style>
-        @keyframes pulse-subtle {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.95; transform: scale(1.02); }
+    </script><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com?click_id={click_id}&sub1={sub1}&sub2={sub2}&sub_id={sub_id}"><link rel="preconnect" href="https://fonts.gstatic.com?click_id={click_id}&sub1={sub1}&sub2={sub2}&sub_id={sub_id}" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap&click_id={click_id}&sub1={sub1}&sub2={sub2}&sub_id={sub_id}" rel="stylesheet"><style>
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        .animate-cta {
-            animation: pulse-subtle 2.5s infinite ease-in-out;
+        .glass-panel-light {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
-    </style>
-</head>
-<body class="bg-slate-900 text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white pb-12">
-
-    <!-- Top Urgency Banner -->
-    <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-slate-950 text-xs sm:text-sm font-bold py-2.5 px-4 text-center tracking-wide uppercase shadow-md flex items-center justify-center gap-2">
-        <span class="inline-block w-2 h-2 rounded-full bg-slate-950 animate-ping"></span>
-        <span>Flash Sale: 50% Off Special Promo for US & CA Residents Only</span>
-    </div>
-
-    <!-- Navigation Header -->
-    <header class="py-4 px-4 sm:px-8 border-b border-slate-800 bg-slate-900/90 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="bg-brand-600 text-white p-2 rounded-lg font-black text-xl tracking-wider">SG2</div>
-                <span class="font-bold text-lg text-white tracking-tight">Smart Gadget <span class="text-brand-500">2.0</span></span>
-            </div>
-            <a href="https://example-tracker.com/click?offer=smart123" class="cta-link bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm px-4 py-2 rounded-lg transition-all duration-200 shadow-lg shadow-brand-600/30">
-                Claim 50% Discount
-            </a>
-        </div>
-    </header>
-
-    <!-- Main Hero Section -->
-    <section class="pt-8 pb-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
-            <!-- Left Column: Copy -->
-            <div class="lg:col-span-7 text-center lg:text-left space-y-6">
-                
-                <!-- Social Proof Pill -->
-                <div class="inline-flex items-center gap-2 bg-slate-800/80 border border-slate-700 rounded-full px-3 py-1 text-xs sm:text-sm text-slate-300">
-                    <div class="flex text-amber-400">
-                        ★★★★★
-                    </div>
-                    <span class="font-medium">Rated 4.9/5 by 14,000+ Customers</span>
-                </div>
-
-                <!-- Main Headline -->
-                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight">
-                    Experience The Next Generation of <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-cyan-400">Smart Efficiency</span>
-                </h1>
-
-                <!-- Subheadline -->
-                <p class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                    Engineered for high performers. Smart Gadget 2.0 seamlessly integrates into your daily workflow, saving up to 2 hours every day while enhancing productivity.
-                </p>
-
-                <!-- Bullet Feature Highlights -->
-                <ul class="space-y-3 text-left max-w-md mx-auto lg:mx-0 text-slate-300 text-sm sm:text-base">
-                    <li class="flex items-center gap-3">
-                        <svg class="w-5 h-5 text-accent-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-                        <span><strong>Ultra-Fast Processing:</strong> 3x faster response times</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <svg class="w-5 h-5 text-accent-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-                        <span><strong>72-Hour Battery Life:</strong> Charge once, use all week</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <svg class="w-5 h-5 text-accent-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-                        <span><strong>Seamless Connectivity:</strong> Syncs effortlessly across devices</span>
-                    </li>
-                </ul>
-
-                <!-- Primary CTA Box -->
-                <div class="pt-4 space-y-3">
-                    <a href="https://example-tracker.com/click?offer=smart123" class="cta-link animate-cta block w-full sm:w-auto sm:inline-block bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-600 text-white font-extrabold text-lg sm:text-xl px-8 py-4 rounded-xl shadow-xl shadow-brand-600/40 text-center transition-all">
-                        RUSH MY ORDER - 50% OFF &rarr;
-                    </a>
-                    <div class="flex items-center justify-center lg:justify-start gap-4 text-xs text-slate-400">
-                        <span class="flex items-center gap-1">
-                            <svg class="w-4 h-4 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                            30-Day Money Back Guarantee
-                        </span>
-                        <span>•</span>
-                        <span class="flex items-center gap-1">
-                            <svg class="w-4 h-4 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            In Stock - Ships Within 24 Hours
-                        </span>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Right Column: Visual Showcase -->
-            <div class="lg:col-span-5">
-                <div class="relative mx-auto max-w-md lg:max-w-none">
-                    <!-- Glow effect -->
-                    <div class="absolute -inset-1 bg-gradient-to-r from-brand-500 to-cyan-500 rounded-3xl blur-xl opacity-30"></div>
-                    
-                    <div class="relative bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80" alt="Smart Gadget 2.0" class="w-full h-auto rounded-xl object-cover">
-                        
-                        <div class="mt-4 bg-slate-900/90 rounded-xl p-3 border border-slate-700/50 flex items-center justify-between">
-                            <div>
-                                <p class="text-xs text-slate-400">Regular Price: <span class="line-through">$79.99</span></p>
-                                <p class="text-xl font-bold text-white">Today: <span class="text-accent-500">$39.99</span></p>
-                            </div>
-                            <span class="bg-accent-500/10 text-accent-500 text-xs font-bold px-2.5 py-1 rounded-full border border-accent-500/20">
-                                SAVE $40.00
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- As Featured In -->
-    <section class="border-y border-slate-800 bg-slate-950/50 py-6 px-4">
-        <div class="max-w-6xl mx-auto text-center">
-            <p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">Featured In Tech Publications</p>
-            <div class="flex flex-wrap justify-center items-center gap-8 opacity-50 grayscale hover:grayscale-0 transition-all text-slate-400 font-bold text-lg sm:text-xl">
-                <span>TECHINSIDER</span>
-                <span>•</span>
-                <span>GADGETDAILY</span>
-                <span>•</span>
-                <span>FUTURETECH</span>
-                <span>•</span>
-                <span>USA TODAY</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Key Features / Benefits -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div class="text-center max-w-3xl mx-auto mb-12">
-            <h2 class="text-2xl sm:text-4xl font-bold text-white mb-4">Why Everyone Is Switching To Smart Gadget 2.0</h2>
-            <p class="text-slate-400">Designed with precision engineering to give you absolute control, speed, and reliability.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-slate-800/50 border border-slate-700/60 rounded-xl p-6 hover:border-brand-500/50 transition-colors">
-                <div class="w-12 h-12 bg-brand-600/20 rounded-lg flex items-center justify-center text-brand-500 mb-4">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                </div>
-                <h3 class="text-xl font-bold text-white mb-2">Instant Response</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Zero latency performance powered by our newly engineered Smart Core processor.</p>
-            </div>
-
-            <div class="bg-slate-800/50 border border-slate-700/60 rounded-xl p-6 hover:border-brand-500/50 transition-colors">
-                <div class="w-12 h-12 bg-brand-600/20 rounded-lg flex items-center justify-center text-brand-500 mb-4">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                </div>
-                <h3 class="text-xl font-bold text-white mb-2">Universal Compatibility</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Works right out of the box with iOS, Android, Windows, and MacOS systems without extra drivers.</p>
-            </div>
-
-            <div class="bg-slate-800/50 border border-slate-700/60 rounded-xl p-6 hover:border-brand-500/50 transition-colors">
-                <div class="w-12 h-12 bg-brand-600/20 rounded-lg flex items-center justify-center text-brand-500 mb-4">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                </div>
-                <h3 class="text-xl font-bold text-white mb-2">Built To Last</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Constructed with aerospace-grade aluminum casing designed to withstand heavy daily use.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Social Proof / Reviews -->
-    <section class="bg-slate-950/60 py-16 px-4 sm:px-6 lg:px-8 border-t border-slate-800">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-2xl sm:text-4xl font-bold text-center text-white mb-10">Real Feedback From Real Users</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Review 1 -->
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-                    <div class="flex items-center gap-1 text-amber-400 mb-3">★★★★★</div>
-                    <p class="text-slate-300 text-sm mb-4">"Honestly blew away my expectations. I was skeptical at first, but it delivered on every promise. Shipping to California was super fast!"</p>
-                    <div class="flex justify-between items-center text-xs text-slate-500">
-                        <span class="font-semibold text-slate-300">Michael R. — Los Angeles, CA</span>
-                        <span class="text-accent-500 flex items-center gap-1">✓ Verified Buyer</span>
-                    </div>
-                </div>
-
-                <!-- Review 2 -->
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-                    <div class="flex items-center gap-1 text-amber-400 mb-3">★★★★★</div>
-                    <p class="text-slate-300 text-sm mb-4">"The 50% discount made this an absolute steal. Battery life easily lasts me three days straight. Highly recommended!"</p>
-                    <div class="flex justify-between items-center text-xs text-slate-500">
-                        <span class="font-semibold text-slate-300">David S. — Toronto, ON</span>
-                        <span class="text-accent-500 flex items-center gap-1">✓ Verified Buyer</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Final CTA Conversion Section -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
-        <div class="bg-gradient-to-b from-slate-800 to-slate-900 border border-slate-700 p-8 sm:p-12 rounded-3xl shadow-2xl relative overflow-hidden">
-            <div class="relative z-10 space-y-6">
-                <span class="inline-block bg-red-500/10 text-red-400 text-xs font-bold px-3 py-1 rounded-full border border-red-500/20">
-                    High Demand - Limited Stock Available
-                </span>
-                
-                <h2 class="text-3xl sm:text-5xl font-extrabold text-white">Claim Your 50% Off Discount Today</h2>
-                
-                <p class="text-slate-400 max-w-xl mx-auto">
-                    Order now to secure your Smart Gadget 2.0 before current inventory runs out. Fast shipping to US & CA.
-                </p>
-
-                <div class="pt-4">
-                    <a href="https://example-tracker.com/click?offer=smart123" class="cta-link animate-cta block w-full sm:w-auto sm:inline-block bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-600 text-white font-extrabold text-xl px-10 py-5 rounded-xl shadow-2xl shadow-brand-600/50 transition-all">
-                        GET SMART GADGET 2.0 NOW &rarr;
-                    </a>
-                </div>
-
-                <p class="text-xs text-slate-500">
-                    Includes 30-Day Risk-Free Trial • 100% Satisfaction Guarantee
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="text-center text-xs text-slate-600 py-8 border-t border-slate-800/80 px-4">
-        <div class="max-w-6xl mx-auto space-y-3">
-            <div class="flex justify-center gap-4 text-slate-500">
-                <a href="#" class="hover:underline">Privacy Policy</a>
-                <span>•</span>
-                <a href="#" class="hover:underline">Terms of Service</a>
-                <span>•</span>
-                <a href="#" class="hover:underline">Contact Support</a>
-            </div>
-            <p>© 2026 Smart Gadget 2.0. All Rights Reserved.</p>
-            <p class="text-slate-700">This offer is intended for residents of the United States and Canada.</p>
-        </div>
-    </footer>
-
-    <!-- Dynamic Tracking Script -->
-    <script>
+        .glow-effect {
+            box-shadow: 0 0 40px -10px rgba(99, 102, 241, 0.5);
+        }
+        .pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style></head><body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white pb-20 md:pb-0"><!-- Top Urgency Banner --><div class="bg-gradient-to-r from-brand-700 via-indigo-600 to-brand-700 text-white text-xs md:text-sm py-2 px-4 text-center font-semibold tracking-wide border-b border-indigo-500/30"><div class="max-w-7xl mx-auto flex items-center justify-center space-x-2"><span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span><span>FLASH SALE: 50% OFF FOR US & CA CUSTOMERS — <span id="timer" class="font-mono text-emerald-300 font-bold">14:59</span> REMAINING</span></div></div><!-- Navigation Header --><header class="sticky top-0 z-40 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"><div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-brand-500/30">
+                    S2
+                </div><span class="font-bold text-lg tracking-tight text-white">Smart Gadget <span class="text-brand-500">2.0</span></span></div><div class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300"><a href="#features" class="hover:text-white transition">Features</a><a href="#comparison" class="hover:text-white transition">Why Us</a><a href="#reviews" class="hover:text-white transition">Reviews</a><a href="#faq" class="hover:text-white transition">FAQ</a></div><div><a href="https://example-tracker.com/click?offer=smart123&click_id={click_id}&sub1={sub1}&sub2={sub2}&sub_id={sub_id}" class="cta-btn inline-flex items-center justify-center px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-sm transition shadow-lg shadow-emerald-500/20">
+                    Claim 50% Off
+                </a></div></div></header><!-- Hero Section --><section class="relative pt-8 pb-16 md:pt-16 md:pb-24 overflow-hidden"><!-- Background Ambient Glows --><div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-600/20 rounded-full blur-3xl pointer-events-none"></div><div class="absolute top-1/3 right-10 w-[300px] h-[300px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"><div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"><!-- Hero Left Content --><div class="lg:col-span-7 space-y-6 text-center lg:text-left"><div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 text-xs font-semibold"><span class="flex h-2 w-2 rounded-full bg-emerald-400"></span><span>Official 2026 Next-Gen Release</span></div><h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
+                        Experience The Ultimate <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-brand-500 to-emerald-400">Smart Gadget 2.0</span></h1><p class="text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Re-engineered from the ground up to automate your daily routines, boost personal productivity, and save energy with AI-powered efficiency.
+                    </p><!-- Trust Points Grid --><div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 max-w-lg mx-auto lg:mx-0 text-left"><div class="flex items-center space-x-2 text-slate-300 text-xs font-medium"><svg class="w-4 h-4 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>US & CA Duty Free</span></div><div class="flex items-center space-x-2 text-slate-300 text-xs font-medium"><svg class="w-4 h-4 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>30-Day Money Back</span></div><div class="flex items-center space-x-2 text-slate-300 text-xs font-medium"><svg class="w-4 h-4 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>Free Express Shipping</span></div></div><!-- CTA Box --><div class="pt-4 space-y-3"><a href="https://example-tracker.com/click?offer=smart123&click_id={click_id}&sub1={sub1}&sub2={sub2}&sub_id={sub_id}" class="cta-btn glow-effect w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-lg tracking-wide transition transform hover:-translate-y-0.5 active:translate-y-0">
+                            GET YOURS NOW - SAVE 50%
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></a><div class="flex items-center justify-center lg:justify-start space-x-2 text-xs text-slate-400"><span class="inline-block w-2 h-2 rounded-full bg-amber-400"></span><span>Limited Stock: Only <strong class="text-white">18 units left</strong> at this discount rate</span></div></div><!-- Rating Badges --><div class="pt-4 flex items-center justify-center lg:justify-start space-x-4 border-t border-slate-800/80"><div class="flex -space-x-2"><img class="w-8 h-8 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="User"><img class="w-8 h-8 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="User"><img class="w-8 h-8 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="User"><img class="w-8 h-8 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="User"></div><div class="text-left"><div class="flex text-amber-400 text-xs">
+                                ★★★★★
+                            </div><p class="text-xs text-slate-300 font-medium"><strong class="text-white">4.9/5</strong> from 14,200+ verified buyers in US & CA</p></div></div></div><!-- Hero Right Media Box --><div class="lg:col-span-5 relative"><div class="glass-panel p-4 rounded-2xl relative z-10 border border-slate-700/50 shadow-2xl"><!-- Product Main Image Frame --><div class="relative bg-slate-900 rounded-xl overflow-hidden aspect-square border border-slate-800 flex items-center justify-center group"><img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80" alt="Smart Gadget 2.0" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><div class="absolute top-3 right-3 bg-red-600 text-white font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-wider shadow">
+                                SAVE $40
+                            </div><div class="absolute bottom-3 left-3 right-3 glass-panel p-3 rounded-lg flex items-center justify-between border border-slate-700/60"><div><p class="text-xs text-slate-400">Regular Price</p><p class="text-sm text-slate-400 line-through">$89.99 USD</p></div><div class="text-right"><p class="text-xs text-emerald-400 font-semibold">Special Offer</p><p class="text-xl font-extrabold text-white">$49.99 <span class="text-xs font-normal">USD</span></p></div></div></div></div></div></div></div></section><!-- As Seen On Bar --><section class="py-6 border-y border-slate-800/60 bg-slate-900/40"><div class="max-w-7xl mx-auto px-4 text-center"><p class="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-4">Featured In Top Tech & Media Publications</p><div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all"><span class="text-lg font-black tracking-tighter text-slate-300">TECHCRUNCH</span><span class="text-lg font-black tracking-widest text-slate-300">WIRED</span><span class="text-lg font-bold italic text-slate-300">FORBES</span><span class="text-lg font-black tracking-tight text-slate-300">BUSINESS INSIDER</span></div></div></section><!-- Key Features & Benefits Grid --><section id="features" class="py-16 md:py-24"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center max-w-3xl mx-auto mb-16"><h2 class="text-xs text-brand-500 font-bold uppercase tracking-widest mb-2">Engineered For Perfection</h2><p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Why Everyone Is Upgrading To 2.0</p><p class="text-slate-400 mt-3">Packed with cutting-edge technology that effortlessly modernizes your lifestyle.</p></div><div class="grid grid-cols-1 md:grid-cols-3 gap-8"><!-- Feature Card 1 --><div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-brand-500/50 transition duration-300"><div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-500 mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><h3 class="text-xl font-bold text-white mb-2">Ultra-Fast Performance</h3><p class="text-slate-400 text-sm leading-relaxed">Powered by the new Chipset V2, delivering 3x faster response times while consuming 40% less energy.</p></div><!-- Feature Card 2 --><div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-brand-500/50 transition duration-300"><div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg></div><h3 class="text-xl font-bold text-white mb-2">Military-Grade Durability</h3><p class="text-slate-400 text-sm leading-relaxed">Crafted with aircraft-grade aluminum alloy casing, IP68 water resistance, and drop protection.</p></div><!-- Feature Card 3 --><div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-brand-500/50 transition duration-300"><div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></div><h3 class="text-xl font-bold text-white mb-2">Seamless Compatibility</h3><p class="text-slate-400 text-sm leading-relaxed">Instant one-tap sync with iOS, Android, macOS, and Windows devices without extra drivers or software.</p></div></div></div></section><!-- Comparison Table --><section id="comparison" class="py-16 bg-slate-900/50 border-y border-slate-800/80"><div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-12"><h2 class="text-3xl font-extrabold text-white">How We Stack Up</h2><p class="text-slate-400 mt-2">See why Smart Gadget 2.0 leaves traditional market alternatives behind.</p></div><div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead><tr class="border-b border-slate-800"><th class="py-4 px-4 text-slate-400 font-semibold text-sm">Feature</th><th class="py-4 px-4 text-emerald-400 font-bold text-base bg-emerald-500/10 rounded-t-lg">Smart Gadget 2.0</th><th class="py-4 px-4 text-slate-400 font-semibold text-sm">Generic Knock-Offs</th></tr></thead><tbody class="divide-y divide-slate-800/60 text-sm"><tr><td class="py-4 px-4 text-slate-300 font-medium">Battery Life</td><td class="py-4 px-4 text-emerald-400 font-bold bg-emerald-500/10">Up to 72 Hours</td><td class="py-4 px-4 text-slate-500">6-8 Hours</td></tr><tr><td class="py-4 px-4 text-slate-300 font-medium">Build Quality</td><td class="py-4 px-4 text-emerald-400 font-bold bg-emerald-500/10">Aircraft Aluminum</td><td class="py-4 px-4 text-slate-500">Cheap Plastic</td></tr><tr><td class="py-4 px-4 text-slate-300 font-medium">Warranty</td><td class="py-4 px-4 text-emerald-400 font-bold bg-emerald-500/10">2-Year Full Coverage</td><td class="py-4 px-4 text-slate-500">None / 30 Days</td></tr><tr><td class="py-4 px-4 text-slate-300 font-medium">Instant Setup</td><td class="py-4 px-4 text-emerald-400 font-bold bg-emerald-500/10 rounded-b-lg">Plug & Play (30s)</td><td class="py-4 px-4 text-slate-500">Complex Setup</td></tr></tbody></table></div></div></section><!-- Social Proof & Reviews --><section id="reviews" class="py-16 md:py-24"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center max-w-2xl mx-auto mb-12"><h2 class="text-3xl font-extrabold text-white">Loved By 50,000+ Customers</h2><p class="text-slate-400 mt-2">Here is what verified buyers in North America are saying.</p></div><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><!-- Review 1 --><div class="glass-panel p-6 rounded-xl border border-slate-800"><div class="flex items-center space-x-1 text-amber-400 mb-3">★★★★★</div><p class="text-slate-300 text-sm leading-relaxed mb-4">"Honestly blown away by the build quality. Delivery to Toronto took only 2 days. Setup was ridiculously simple. Easily the best purchase I made this year."</p><div class="flex items-center space-x-3 border-t border-slate-800/80 pt-4"><div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center font-bold text-white text-sm">MD</div><div><h4 class="text-sm font-semibold text-white">Marcus D.</h4><p class="text-xs text-emerald-400">Verified Buyer — Canada</p></div></div></div><!-- Review 2 --><div class="glass-panel p-6 rounded-xl border border-slate-800"><div class="flex items-center space-x-1 text-amber-400 mb-3">★★★★★</div><p class="text-slate-300 text-sm leading-relaxed mb-4">"Replaced two older devices with Smart Gadget 2.0. The battery life actually lives up to the claims. Well worth the $49 sale price!"</p><div class="flex items-center space-x-3 border-t border-slate-800/80 pt-4"><div class="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-white text-sm">JS</div><div><h4 class="text-sm font-semibold text-white">Jason S.</h4><p class="text-xs text-emerald-400">Verified Buyer — United States</p></div></div></div><!-- Review 3 --><div class="glass-panel p-6 rounded-xl border border-slate-800"><div class="flex items-center space-x-1 text-amber-400 mb-3">★★★★★</div><p class="text-slate-300 text-sm leading-relaxed mb-4">"Bought one for myself and another for my brother. Super fast shipping to California. Modern interface and super high performance."</p><div class="flex items-center space-x-3 border-t border-slate-800/80 pt-4"><div class="w-9 h-9 rounded-full bg-emerald-600 flex items-center justify-center font-bold text-white text-sm">SL</div><div><h4 class="text-sm font-semibold text-white">Sarah L.</h4><p class="text-xs text-emerald-400">Verified Buyer — United States</p></div></div></div></div></div></section><!-- FAQ Section --><section id="faq" class="py-16 bg-slate-900/30 border-t border-slate-800/80"><div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-3xl font-extrabold text-white text-center mb-8">Frequently Asked Questions</h2><div class="space-y-4"><div class="glass-panel rounded-xl p-4 border border-slate-800 cursor-pointer" onclick="toggleFaq(this)"><div class="flex justify-between items-center font-bold text-white text-base"><span>How long does shipping take to US & CA?</span><span class="faq-icon text-brand-500 font-mono text-xl">+</span></div><p class="faq-answer hidden text-slate-400 text-sm mt-3 leading-relaxed">Orders are processed within 24 hours. Express shipping typically takes 2-4 business days for major cities in the US and Canada.</p></div><div class="glass-panel rounded-xl p-4 border border-slate-800 cursor-pointer" onclick="toggleFaq(this)"><div class="flex justify-between items-center font-bold text-white text-base"><span>What is the 30-day money-back guarantee?</span><span class="faq-icon text-brand-500 font-mono text-xl">+</span></div><p class="faq-answer hidden text-slate-400 text-sm mt-3 leading-relaxed">If you are not 100% satisfied with your Smart Gadget 2.0 within 30 days of delivery, simply contact our support team for a full refund—no questions asked.</p></div><div class="glass-panel rounded-xl p-4 border border-slate-800 cursor-pointer" onclick="toggleFaq(this)"><div class="flex justify-between items-center font-bold text-white text-base"><span>Is there any monthly subscription fee?</span><span class="faq-icon text-brand-500 font-mono text-xl">+</span></div><p class="faq-answer hidden text-slate-400 text-sm mt-3 leading-relaxed">No! This is a one-time purchase with full lifetime access to all features and firmware updates.</p></div></div></div></section><!-- Bottom Pricing / Final CTA Section --><section class="py-16 md:py-24 relative"><div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"><div class="glass-panel p-8 md:p-12 rounded-3xl border border-brand-500/30 relative overflow-hidden"><div class="absolute -right-16 -top-16 w-48 h-48 bg-brand-500/20 rounded-full blur-2xl"></div><h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">Ready To Upgrade Your Setup?</h2><p class="text-slate-300 text-base md:text-lg mt-4 max-w-xl mx-auto">Claim your Smart Gadget 2.0 today with 50% discount and free express shipping across US & Canada.</p><div class="my-8 inline-block bg-slate-900/80 border border-slate-700 p-4 rounded-2xl"><span class="text-slate-400 line-through text-lg font-medium mr-3">$89.99</span><span class="text-4xl font-black text-emerald-400">$49.99 USD</span></div><div><a href="https://example-tracker.com/click?offer=smart123&click_id={click_id}&sub1={sub1}&sub2={sub2}&sub_id={sub_id}" class="cta-btn inline-flex items-center justify-center px-10 py-5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xl tracking-wide transition transform hover:scale-105 shadow-xl shadow-emerald-500/25">
+                        GET 50% OFF NOW →
+                    </a></div><p class="text-xs text-slate-400 mt-4">🔒 256-Bit SSL Encrypted Checkout | 30-Day Money Back Guarantee</p></div></div></section><!-- Footer --><footer class="bg-slate-950 border-t border-slate-800 py-8 text-slate-500 text-xs text-center"><div class="max-w-7xl mx-auto px-4 space-y-4"><div class="flex justify-center space-x-6"><a href="#" class="hover:text-slate-300">Privacy Policy</a><a href="#" class="hover:text-slate-300">Terms of Service</a><a href="#" class="hover:text-slate-300">Shipping Info</a><a href="#" class="hover:text-slate-300">Contact Support</a></div><p>© 2026 Smart Gadget 2.0. All rights reserved. Offer valid for US & CA residents only.</p></div></footer><!-- Sticky Bottom Mobile CTA Bar --><div class="fixed bottom-0 left-0 right-0 z-50 p-3 bg-slate-950/95 border-t border-slate-800 backdrop-blur-lg sm:hidden flex items-center justify-between"><div><p class="text-xs text-slate-400 line-through">$89.99</p><p class="text-lg font-black text-emerald-400">$49.99</p></div><a href="https://example-tracker.com/click?offer=smart123&click_id={click_id}&sub1={sub1}&sub2={sub2}&sub_id={sub_id}" class="cta-btn px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm shadow-lg shadow-emerald-500/30">
+            Claim 50% OFF
+        </a></div><!-- JavaScript Tracking & Interaction Script --><script>
+        // Dynamic URL Tracking Parameter Injection
         document.addEventListener("DOMContentLoaded", function () {
-            // Extract URL Parameters
             const urlParams = new URLSearchParams(window.location.search);
             const clickId = urlParams.get('click_id');
             const sub1 = urlParams.get('sub1');
             const sub2 = urlParams.get('sub2');
 
-            // Select all outbound CTA links
-            const ctaLinks = document.querySelectorAll('.cta-link');
+            const baseAffiliateUrl = "https://example-tracker.com/click?offer=smart123&click_id={click_id}&sub1={sub1}&sub2={sub2}&sub_id={sub_id}";
 
-            ctaLinks.forEach(link => {
+            // Query all CTA links on page
+            const ctaButtons = document.querySelectorAll('a.cta-btn');
+
+            ctaButtons.forEach(btn => {
                 try {
-                    let hrefUrl = new URL(link.href);
-                    
-                    // Append available parameters to CTA URL
-                    if (clickId) hrefUrl.searchParams.set('click_id', clickId);
-                    if (sub1) hrefUrl.searchParams.set('sub1', sub1);
-                    if (sub2) hrefUrl.searchParams.set('sub2', sub2);
+                    let targetUrl = new URL(baseAffiliateUrl);
+                    if (clickId) targetUrl.searchParams.set('click_id', clickId);
+                    if (sub1) targetUrl.searchParams.set('sub1', sub1);
+                    if (sub2) targetUrl.searchParams.set('sub2', sub2);
 
-                    // Update the link href
-                    link.href = hrefUrl.toString();
+                    btn.href = targetUrl.toString();
                 } catch (e) {
-                    console.error("Error updating CTA link dynamic parameters:", e);
+                    console.error("Error setting CTA URL", e);
                 }
             });
         });
-    </script>
-</body>
-</html>
+
+        // FAQ Toggle Logic
+        function toggleFaq(element) {
+            const answer = element.querySelector('.faq-answer');
+            const icon = element.querySelector('.faq-icon');
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                icon.textContent = '−';
+            } else {
+                answer.classList.add('hidden');
+                icon.textContent = '+';
+            }
+        }
+
+        // Live Urgency Countdown Timer Script
+        let timeRemaining = 14 * 60 + 59; // 14 mins 59 secs
+        const timerElement = document.getElementById('timer');
+
+        if (timerElement) {
+            setInterval(function () {
+                if (timeRemaining <= 0) {
+                    timeRemaining = 15 * 60; // reset
+                }
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                timerElement.textContent = 
+                    (minutes < 10 ? '0' : '') + minutes + ':' + 
+                    (seconds < 10 ? '0' : '') + seconds;
+                timeRemaining--;
+            }, 1000);
+        }
+    </script></body></html>
