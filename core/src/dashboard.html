@@ -1,166 +1,605 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
-  <title>Executive Dashboard | Affiliate Engine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Affiliate Ops Command Center | Executive Mission Control</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            ops: {
+              bg: '#080c14',
+              card: '#0f172a',
+              border: '#1e293b',
+              accent: '#38bdf8',
+              success: '#10b981',
+              warning: '#f59e0b',
+              danger: '#ef4444'
+            }
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    body { background-color: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; }
-    .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
-    .log-container { font-family: 'Fira Code', monospace; height: 300px; overflow-y: auto; }
+    body { background-color: #080c14; color: #f1f5f9; }
+    .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .glow-border:hover { border-color: rgba(56, 189, 248, 0.4); box-shadow: 0 0 20px rgba(56, 189, 248, 0.15); }
+    .term-scroll::-webkit-scrollbar { width: 6px; }
+    .term-scroll::-webkit-scrollbar-track { background: #090d16; }
+    .term-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    .status-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
   </style>
 </head>
-<body class="p-8">
-  <div class="max-w-7xl mx-auto space-y-8">
-    <header class="flex justify-between items-center">
-      <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500">
-        Executive Dashboard
-      </h1>
-      <div class="text-sm text-slate-400">Autonomous Optimization Engine Active</div>
-    </header>
+<body class="p-4 sm:p-6 lg:p-8 font-sans antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- Top Cards -->
-    <div class="grid grid-cols-4 gap-6" id="statsCards">
-      <div class="glass rounded-xl p-6">
-        <h3 class="text-slate-400 text-sm font-medium">Total Revenue</h3>
-        <p class="text-3xl font-bold text-emerald-400 mt-2" id="totalRev">$0</p>
-      </div>
-      <div class="glass rounded-xl p-6">
-        <h3 class="text-slate-400 text-sm font-medium">Total Clicks</h3>
-        <p class="text-3xl font-bold text-blue-400 mt-2" id="totalClicks">0</p>
-      </div>
-      <div class="glass rounded-xl p-6">
-        <h3 class="text-slate-400 text-sm font-medium">Active Campaigns</h3>
-        <p class="text-3xl font-bold text-indigo-400 mt-2" id="totalCamps">0</p>
-      </div>
-      <div class="glass rounded-xl p-6">
-        <h3 class="text-slate-400 text-sm font-medium">Global CR</h3>
-        <p class="text-3xl font-bold text-purple-400 mt-2" id="globalCR">0%</p>
-      </div>
-    </div>
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed top-6 right-6 z-50 space-y-3 pointer-events-none"></div>
 
-    <!-- Main Content -->
-    <div class="grid grid-cols-3 gap-8">
-      
-      <!-- Campaigns Table -->
-      <div class="col-span-2 glass rounded-xl p-6">
-        <h2 class="text-xl font-semibold mb-4">Active Campaigns</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm">
-            <thead class="text-slate-400 border-b border-slate-700">
-              <tr>
-                <th class="pb-3">Campaign ID</th>
-                <th class="pb-3">Variant</th>
-                <th class="pb-3">Clicks</th>
-                <th class="pb-3">Revenue</th>
-                <th class="pb-3">CR</th>
-              </tr>
-            </thead>
-            <tbody id="campaignTable" class="divide-y divide-slate-800/50">
-              <!-- JS injected -->
-            </tbody>
-          </table>
-        </div>
+  <!-- Modal for Auto-Apply -->
+  <div id="autoApplyModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel max-w-md w-full rounded-2xl p-6 border border-slate-700 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+        <h3 class="font-bold text-lg text-sky-400 flex items-center font-mono">
+          <span class="mr-2">🎯</span> Launch MyLead Auto-Apply
+        </h3>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-white text-lg">✕</button>
       </div>
-
-      <!-- Quick Launch & Logs -->
-      <div class="space-y-8">
-        <div class="glass rounded-xl p-6">
-          <h2 class="text-xl font-semibold mb-4">Quick Launch</h2>
-          <form id="launchForm" class="space-y-4 mb-4">
-            <div>
-              <label class="block text-xs text-slate-400 mb-1">Offer Name</label>
-              <input type="text" id="offerName" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-indigo-500" placeholder="e.g. Smart Watch">
-            </div>
-            <div>
-              <label class="block text-xs text-slate-400 mb-1">Target GEOs (comma sep)</label>
-              <input type="text" id="offerGeo" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-indigo-500" value="US,DE">
-            </div>
-            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2 rounded transition">
-              Deploy Campaign
-            </button>
-          </form>
-          <button id="scoutBtn" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-medium py-2 rounded transition border border-purple-400">
-             🕵️‍♂️ Run Smart Scout
-          </button>
-        </div>
-
-        <div class="glass rounded-xl p-6">
-          <h2 class="text-xl font-semibold mb-4 text-emerald-400 flex items-center">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 mr-2 animate-pulse"></span>
-            Daemon Log
-          </h2>
-          <div id="logFeed" class="log-container bg-slate-950 rounded p-4 text-xs text-emerald-500 overflow-x-hidden whitespace-pre-wrap"></div>
-        </div>
+      <p class="text-xs text-slate-400">Enter the target campaign ID to automatically submit traffic source questionnaire via Playwright.</p>
+      <div>
+        <label class="block text-xs font-mono text-slate-300 mb-1">Campaign ID / Offer Slug</label>
+        <input type="text" id="modalCampaignId" value="cmp_crypto_bot" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-sky-300 font-mono focus:outline-none focus:border-sky-500">
+      </div>
+      <div class="flex space-x-3 pt-2">
+        <button onclick="executeModalAutoApply()" class="flex-1 bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 rounded-lg text-sm transition font-mono">
+          Submit Application
+        </button>
+        <button onclick="closeModal()" class="px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-lg text-sm transition">
+          Cancel
+        </button>
       </div>
     </div>
   </div>
 
+  <div class="max-w-7xl mx-auto w-full space-y-6">
+
+    <!-- Top Mission Control Header -->
+    <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-800/80">
+      <div>
+        <div class="flex items-center space-x-3">
+          <div class="w-3 h-3 rounded-full bg-emerald-400 status-pulse"></div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight font-mono bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-indigo-300 to-emerald-400">
+            AFFILIATE OPS // COMMAND CENTER
+          </h1>
+        </div>
+        <p class="text-xs text-slate-400 mt-1 font-mono">Autonomous Revenue Engine • Droplet Node: <span class="text-sky-400">178.128.199.28:5000</span></p>
+      </div>
+
+      <!-- Network Health Indicators -->
+      <div class="flex items-center space-x-2 text-xs font-mono">
+        <div class="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg flex items-center space-x-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span class="text-slate-300">MyLead:</span>
+          <span class="text-emerald-400" id="myleadPing">38ms</span>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg flex items-center space-x-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span class="text-slate-300">LosPollos:</span>
+          <span class="text-emerald-400" id="lospollosPing">52ms</span>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg flex items-center space-x-2">
+          <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+          <span class="text-slate-300">KV Edge:</span>
+          <span class="text-sky-400" id="kvPing">14ms</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- A. Top Executive KPI Bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+      
+      <!-- Total Revenue -->
+      <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
+        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider flex justify-between">
+          <span>Gross Revenue</span>
+          <span class="text-emerald-400 font-bold" id="revDelta">+18.4%</span>
+        </div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-2 font-mono" id="kpiTotalRev">$0.00</div>
+        <div class="text-[10px] text-slate-500 font-mono mt-1">Today: <span class="text-slate-300" id="kpiTodayRev">$0.00</span></div>
+      </div>
+
+      <!-- Total Clicks -->
+      <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
+        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Total Clicks</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-sky-400 mt-2 font-mono" id="kpiTotalClicks">0</div>
+        <div class="text-[10px] text-slate-500 font-mono mt-1">Edge Ingested (24h)</div>
+      </div>
+
+      <!-- Conversions / Leads -->
+      <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
+        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Total Leads</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-indigo-400 mt-2 font-mono" id="kpiTotalLeads">0</div>
+        <div class="text-[10px] text-slate-500 font-mono mt-1">Status: Approved / Paid</div>
+      </div>
+
+      <!-- Conversion Rate (CR) -->
+      <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
+        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Global CR</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-purple-400 mt-2 font-mono" id="kpiGlobalCR">0.00%</div>
+        <div class="text-[10px] text-slate-500 font-mono mt-1">Avg EPC: <span class="text-slate-300" id="kpiEPC">$0.00</span></div>
+      </div>
+
+      <!-- Active Campaigns -->
+      <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
+        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Campaigns</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-amber-400 mt-2 font-mono" id="kpiActiveCamps">3</div>
+        <div class="text-[10px] text-slate-500 font-mono mt-1">Active: <span class="text-emerald-400" id="kpiActiveCount">3</span> | Paused: <span class="text-rose-400" id="kpiPausedCount">0</span></div>
+      </div>
+
+      <!-- Autopilot Status -->
+      <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
+        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider flex justify-between">
+          <span>Autopilot</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        </div>
+        <div class="text-lg font-bold text-emerald-400 mt-2 font-mono flex items-center">
+          <span>DAEMON RUNNING</span>
+        </div>
+        <div class="text-[10px] text-slate-500 font-mono mt-1">Next Cycle: <span class="text-sky-300" id="daemonCountdown">26:40</span></div>
+      </div>
+    </div>
+
+    <!-- B. Interactive Action Matrix -->
+    <div class="glass-panel p-4 rounded-xl border border-slate-800">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-xs font-mono uppercase tracking-wider text-sky-400 font-semibold flex items-center">
+          <span class="mr-2">⚡</span> Operational Command Matrix
+        </h2>
+        <span class="text-[11px] text-slate-500 font-mono">Direct Execution Triggers</span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 font-mono text-xs">
+        
+        <button onclick="triggerAction('sync-kv', '🔄 Forcing Bidirectional KV Sync...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-sky-300 font-medium transition hover:border-sky-500 active:scale-95">
+          <span class="mr-2">🔄</span> Force KV Sync
+        </button>
+
+        <button onclick="triggerAction('run-autopilot', '🤖 Launching Optimizer Cycle...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-purple-300 font-medium transition hover:border-purple-500 active:scale-95">
+          <span class="mr-2">🤖</span> Run Optimizer Now
+        </button>
+
+        <button onclick="triggerAction('deploy-pages', '🚀 Deploying Pages to Cloudflare Edge...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-emerald-300 font-medium transition hover:border-emerald-500 active:scale-95">
+          <span class="mr-2">🚀</span> Deploy Pages
+        </button>
+
+        <button onclick="triggerAction('purge-cache', '🧹 Purging Edge Cache...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-amber-300 font-medium transition hover:border-amber-500 active:scale-95">
+          <span class="mr-2">🧹</span> Purge CF Cache
+        </button>
+
+        <button onclick="triggerAction('test-postback', '🧪 Dispatching $350 Test Postback Event...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-rose-300 font-medium transition hover:border-rose-500 active:scale-95">
+          <span class="mr-2">🧪</span> Send Postback ($350)
+        </button>
+
+        <button onclick="openModal()" class="action-btn flex items-center justify-center p-3 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 border border-sky-500/50 text-sky-300 font-bold transition hover:border-sky-400 active:scale-95">
+          <span class="mr-2">🎯</span> Auto-Apply Offer
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Performance Chart -->
+    <div class="glass-panel p-5 rounded-xl border border-slate-800">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h2 class="text-sm font-mono font-bold text-slate-200">24-HOUR VELOCITY & REVENUE STREAM</h2>
+          <p class="text-xs text-slate-500 font-mono">Aggregated conversion spikes across Cloudflare Edge</p>
+        </div>
+        <div class="flex space-x-2 text-xs font-mono">
+          <span class="px-2 py-1 rounded bg-emerald-950/60 border border-emerald-500/30 text-emerald-400">● Revenue ($)</span>
+          <span class="px-2 py-1 rounded bg-sky-950/60 border border-sky-500/30 text-sky-400">● Clicks</span>
+        </div>
+      </div>
+      <div class="h-44 w-full">
+        <canvas id="velocityChart"></canvas>
+      </div>
+    </div>
+
+    <!-- C. Campaigns Management Table -->
+    <div class="glass-panel rounded-xl border border-slate-800 overflow-hidden">
+      
+      <!-- Table Header & Filter Tabs -->
+      <div class="p-4 border-b border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <div>
+          <h2 class="text-base font-bold font-mono text-slate-200">ACTIVE CAMPAIGNS & SPLIT ROUTING</h2>
+          <p class="text-xs text-slate-500 font-mono">Real-time traffic split and conversion analytics per GEO</p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="flex space-x-1 bg-slate-950 p-1 rounded-lg border border-slate-800 font-mono text-xs" id="filterTabs">
+          <button onclick="filterCampaigns('all')" class="tab-btn px-3 py-1 rounded bg-indigo-600 text-white font-medium">All</button>
+          <button onclick="filterCampaigns('active')" class="tab-btn px-3 py-1 rounded text-slate-400 hover:text-white">Active</button>
+          <button onclick="filterCampaigns('paused')" class="tab-btn px-3 py-1 rounded text-slate-400 hover:text-white">Paused</button>
+          <button onclick="filterCampaigns('MyLead')" class="tab-btn px-3 py-1 rounded text-slate-400 hover:text-white">MyLead</button>
+          <button onclick="filterCampaigns('LosPollos')" class="tab-btn px-3 py-1 rounded text-slate-400 hover:text-white">LosPollos</button>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-mono text-xs">
+          <thead class="text-slate-400 bg-slate-950/60 border-b border-slate-800">
+            <tr>
+              <th class="py-3 px-4">Status</th>
+              <th class="py-3 px-4">Campaign ID</th>
+              <th class="py-3 px-4">Network</th>
+              <th class="py-3 px-4">GEO</th>
+              <th class="py-3 px-4">Clicks</th>
+              <th class="py-3 px-4">Conversions</th>
+              <th class="py-3 px-4">Revenue</th>
+              <th class="py-3 px-4">CR / EPC</th>
+              <th class="py-3 px-4">A/B Split (v1 / v2)</th>
+              <th class="py-3 px-4 text-right">Live Link</th>
+            </tr>
+          </thead>
+          <tbody id="campaignsTbody" class="divide-y divide-slate-800/50">
+            <!-- Dynamic Injection -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- D & E: Transactions Stream + Daemon Terminal Console -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- D. Real-time Postback & Event Stream -->
+      <div class="glass-panel rounded-xl border border-slate-800 p-4 space-y-3 flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+            <h3 class="font-bold text-xs font-mono text-emerald-400 uppercase tracking-wider flex items-center">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 mr-2 status-pulse"></span>
+              Live Transaction & Postback Stream
+            </h3>
+            <span class="text-[11px] text-slate-500 font-mono" id="txCount">Last 20 Events</span>
+          </div>
+
+          <div class="overflow-x-auto mt-2 max-h-[340px] overflow-y-auto term-scroll">
+            <table class="w-full text-left font-mono text-xs">
+              <thead class="text-slate-500 border-b border-slate-800/80 sticky top-0 bg-slate-900">
+                <tr>
+                  <th class="pb-2">Time</th>
+                  <th class="pb-2">Status</th>
+                  <th class="pb-2">Campaign</th>
+                  <th class="pb-2">Lead ID</th>
+                  <th class="pb-2 text-right">Payout</th>
+                </tr>
+              </thead>
+              <tbody id="txTbody" class="divide-y divide-slate-800/40">
+                <!-- JS Injected -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- E. Live System Console & Daemon Terminal -->
+      <div class="glass-panel rounded-xl border border-slate-800 p-4 space-y-3">
+        <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+          <h3 class="font-bold text-xs font-mono text-sky-400 uppercase tracking-wider flex items-center">
+            <span class="w-2 h-2 rounded-full bg-sky-400 mr-2"></span>
+            Autopilot Daemon Console (PM2)
+          </h3>
+          <div class="flex items-center space-x-2">
+            <button onclick="toggleScroll()" id="btnScroll" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300">
+              Scroll: Auto
+            </button>
+            <button onclick="clearConsole()" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300">
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <div id="daemonTerminal" class="h-[340px] bg-slate-950 rounded-lg p-3 font-mono text-xs text-emerald-400 overflow-y-auto term-scroll whitespace-pre-wrap leading-relaxed">
+          [System Standby] Connecting to droplet terminal stream...
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer class="mt-8 border-t border-slate-900 py-4 text-center text-xs text-slate-500 font-mono">
+    © 2026 Autonomous Affiliate Engine • DigitalOcean Droplet Node Active
+  </footer>
+
+  <!-- Script Logic -->
   <script>
-    async function loadStats() {
-      const res = await fetch('/api/stats');
-      const data = await res.json();
-      
-      let rev = 0, clicks = 0, leads = 0;
-      let tbody = '';
-      
-      for (const [cid, cData] of Object.entries(data)) {
-        if (!cData.performance) continue;
-        for (const [v, p] of Object.entries(cData.performance)) {
-           if (v === 'lastSynced') continue;
-           rev += p.revenue || 0;
-           clicks += p.clicks || 0;
-           leads += p.leads || 0;
-           leads += p.sales || 0;
-           
-           tbody += `
-             <tr>
-               <td class="py-3 text-slate-300">${cid}</td>
-               <td class="py-3"><span class="bg-indigo-900/50 text-indigo-300 px-2 py-1 rounded text-xs">${v}</span></td>
-               <td class="py-3">${p.clicks || 0}</td>
-               <td class="py-3 text-emerald-400">$${p.revenue || 0}</td>
-               <td class="py-3">${p.cr || '0%'}</td>
-             </tr>
-           `;
-        }
+    let autoScroll = true;
+    let currentFilter = 'all';
+    let rawCampaigns = [];
+    let velocityChart = null;
+
+    // Toast Generator
+    function showToast(msg, type = 'info') {
+      const c = document.getElementById('toastContainer');
+      const t = document.createElement('div');
+      t.className = `p-3 rounded-lg shadow-xl border text-xs font-mono pointer-events-auto transition-all transform translate-x-0 flex items-center space-x-2 ${
+        type === 'success' ? 'bg-emerald-950/90 border-emerald-500 text-emerald-300' :
+        type === 'error' ? 'bg-rose-950/90 border-rose-500 text-rose-300' :
+        'bg-slate-900/90 border-sky-500 text-sky-300'
+      }`;
+      t.innerHTML = `<span>${type === 'success' ? '✅' : type === 'error' ? '❌' : '⚡'}</span><span>${msg}</span>`;
+      c.appendChild(t);
+      setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 400); }, 3500);
+    }
+
+    // Modal Handlers
+    function openModal() { document.getElementById('autoApplyModal').classList.remove('hidden'); }
+    function closeModal() { document.getElementById('autoApplyModal').classList.add('hidden'); }
+
+    async function executeModalAutoApply() {
+      const cid = document.getElementById('modalCampaignId').value.trim();
+      closeModal();
+      showToast(`🎯 Submitting auto-apply for ${cid}...`, 'info');
+      try {
+        const res = await fetch('/api/actions/auto-apply', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ campaignId: cid })
+        });
+        const d = await res.json();
+        showToast(`✅ Application recorded: ${d.result?.status || 'Submitted'}`, 'success');
+      } catch (e) {
+        showToast(`❌ Failed: ${e.message}`, 'error');
       }
-      
-      document.getElementById('totalRev').innerText = '$' + rev.toFixed(2);
-      document.getElementById('totalClicks').innerText = clicks;
-      document.getElementById('totalCamps').innerText = Object.keys(data).length;
-      document.getElementById('globalCR').innerText = clicks > 0 ? ((leads / clicks) * 100).toFixed(2) + '%' : '0%';
-      document.getElementById('campaignTable').innerHTML = tbody;
     }
 
-    async function loadLogs() {
-      const res = await fetch('/api/logs');
-      const text = await res.text();
-      const div = document.getElementById('logFeed');
-      div.innerText = text;
-      div.scrollTop = div.scrollHeight;
+    // Direct Action Trigger
+    async function triggerAction(action, msg) {
+      showToast(msg, 'info');
+      try {
+        const res = await fetch(`/api/actions/${action}`, { method: 'POST' });
+        const d = await res.json();
+        if (d.success) {
+          showToast(`✅ ${d.message || 'Action executed successfully.'}`, 'success');
+          refreshAll();
+        } else {
+          showToast(`❌ Error: ${d.error}`, 'error');
+        }
+      } catch (e) {
+        showToast(`❌ Connection Error: ${e.message}`, 'error');
+      }
     }
 
-    document.getElementById('launchForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('offerName').value;
-      const geo = document.getElementById('offerGeo').value;
-      alert('Launch command sent to core engine!');
-      await fetch('/api/launch', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ name, geo })
+    // Toggle Campaign Status
+    async function toggleCampaign(cid) {
+      try {
+        const res = await fetch(`/api/campaigns/${cid}/toggle`, { method: 'POST' });
+        const d = await res.json();
+        showToast(`Campaign ${cid} status: ${d.status.toUpperCase()}`, d.status === 'active' ? 'success' : 'warning');
+        refreshAll();
+      } catch (e) {
+        showToast(`Failed to toggle: ${e.message}`, 'error');
+      }
+    }
+
+    // Update Traffic Split
+    async function updateTrafficSplit(cid, sliderVal) {
+      const v1 = parseInt(sliderVal);
+      try {
+        await fetch(`/api/campaigns/${cid}/traffic-split`, {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ v1Weight: v1 })
+        });
+        showToast(`Split updated for ${cid}: v1=${v1}%, v2=${100 - v1}%`, 'success');
+      } catch (e) {
+        showToast(`Failed to update split`, 'error');
+      }
+    }
+
+    // Filter campaigns
+    function filterCampaigns(tab) {
+      currentFilter = tab;
+      document.querySelectorAll('#filterTabs button').forEach(b => {
+        b.className = 'tab-btn px-3 py-1 rounded text-slate-400 hover:text-white';
       });
-    });
+      event.target.className = 'tab-btn px-3 py-1 rounded bg-indigo-600 text-white font-medium';
+      renderCampaignsTable();
+    }
 
-    document.getElementById('scoutBtn').addEventListener('click', async () => {
-      alert('Smart Scout initiated!');
-      await fetch('/api/scout-now', { method: 'POST' });
-    });
+    // Render Table
+    function renderCampaignsTable() {
+      const tbody = document.getElementById('campaignsTbody');
+      let filtered = rawCampaigns;
 
-    setInterval(loadStats, 2000);
-    setInterval(loadLogs, 1000);
-    loadStats();
-    loadLogs();
+      if (currentFilter === 'active') filtered = rawCampaigns.filter(c => c.status === 'active');
+      if (currentFilter === 'paused') filtered = rawCampaigns.filter(c => c.status === 'paused');
+      if (currentFilter === 'MyLead') filtered = rawCampaigns.filter(c => c.network === 'MyLead');
+      if (currentFilter === 'LosPollos') filtered = rawCampaigns.filter(c => c.network === 'LosPollos');
+
+      let html = '';
+      for (const c of filtered) {
+        const isActive = c.status === 'active';
+        const v1Split = c.trafficSplit?.v1 || 50;
+
+        html += `
+          <tr class="hover:bg-slate-900/40 transition">
+            <td class="py-3 px-4">
+              <button onclick="toggleCampaign('${c.id}')" class="px-2.5 py-1 rounded text-[10px] font-bold uppercase transition ${
+                isActive ? 'bg-emerald-950 border border-emerald-500/40 text-emerald-400' : 'bg-rose-950 border border-rose-500/40 text-rose-400'
+              }">
+                ${c.status}
+              </button>
+            </td>
+            <td class="py-3 px-4 font-bold text-slate-200">${c.id}</td>
+            <td class="py-3 px-4">
+              <span class="px-2 py-0.5 rounded text-[10px] ${c.network === 'MyLead' ? 'bg-sky-950 text-sky-300 border border-sky-500/30' : 'bg-purple-950 text-purple-300 border border-purple-500/30'}">
+                ${c.network}
+              </span>
+            </td>
+            <td class="py-3 px-4 text-slate-400">${c.geo}</td>
+            <td class="py-3 px-4 text-sky-400">${c.clicks}</td>
+            <td class="py-3 px-4 text-indigo-300">${c.conversions}</td>
+            <td class="py-3 px-4 font-bold text-emerald-400">$${c.revenue.toFixed(2)}</td>
+            <td class="py-3 px-4 text-purple-300">${c.cr} <span class="text-slate-500 text-[10px]">(${c.epc})</span></td>
+            <td class="py-3 px-4">
+              <div class="flex items-center space-x-2">
+                <span class="text-[10px] text-slate-400">${v1Split}%</span>
+                <input type="range" min="0" max="100" value="${v1Split}" onchange="updateTrafficSplit('${c.id}', this.value)" class="w-20 accent-sky-400 cursor-pointer">
+                <span class="text-[10px] text-slate-400">${100 - v1Split}%</span>
+              </div>
+            </td>
+            <td class="py-3 px-4 text-right">
+              <a href="${c.liveUrl}" target="_blank" class="text-sky-400 hover:text-sky-300 underline text-xs">Pre-lander ↗</a>
+            </td>
+          </tr>
+        `;
+      }
+      tbody.innerHTML = html || '<tr><td colspan="10" class="text-center py-6 text-slate-500">No campaigns found.</td></tr>';
+    }
+
+    // Load Overview KPI & Campaigns
+    async function loadOverview() {
+      try {
+        const [kpiRes, campRes] = await Promise.all([
+          fetch('/api/stats/overview'),
+          fetch('/api/campaigns')
+        ]);
+        const kpi = await kpiRes.json();
+        rawCampaigns = await campRes.json();
+
+        document.getElementById('kpiTotalRev').innerText = '$' + (kpi.totalRevenue || 0).toFixed(2);
+        document.getElementById('kpiTodayRev').innerText = '$' + (kpi.todayRevenue || 0).toFixed(2);
+        document.getElementById('kpiTotalClicks').innerText = kpi.totalClicks || 0;
+        document.getElementById('kpiTotalLeads').innerText = kpi.totalLeads || 0;
+        document.getElementById('kpiGlobalCR').innerText = kpi.globalCR || '0.00%';
+        document.getElementById('kpiEPC').innerText = kpi.epc || '$0.00';
+        document.getElementById('kpiActiveCamps').innerText = kpi.activeCampaignsCount || 0;
+        document.getElementById('kpiActiveCount').innerText = kpi.activeCampaignsCount || 0;
+        document.getElementById('kpiPausedCount').innerText = kpi.pausedCampaignsCount || 0;
+
+        renderCampaignsTable();
+      } catch (e) {
+        console.error('Failed to load KPIs:', e);
+      }
+    }
+
+    // Load Transactions Feed
+    async function loadTransactions() {
+      try {
+        const res = await fetch('/api/transactions');
+        const list = await res.json();
+        const tbody = document.getElementById('txTbody');
+        
+        let html = '';
+        for (const t of list) {
+          const time = new Date(t.date).toLocaleTimeString();
+          const isApproved = t.status === 'approved' || t.status === 'sale';
+          html += `
+            <tr class="hover:bg-slate-900/30">
+              <td class="py-2 text-slate-400 text-[11px]">${time}</td>
+              <td class="py-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                  isApproved ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/30' : 'bg-amber-950 text-amber-400 border border-amber-500/30'
+                }">
+                  ${t.status}
+                </span>
+              </td>
+              <td class="py-2 text-slate-300">${t.campaignId} <span class="text-slate-500 text-[10px]">(${t.variant})</span></td>
+              <td class="py-2 text-slate-400 font-mono text-[11px]">${t.leadId || 'N/A'}</td>
+              <td class="py-2 text-right font-bold text-emerald-400">+$${Number(t.payout || 0).toFixed(2)}</td>
+            </tr>
+          `;
+        }
+        tbody.innerHTML = html || '<tr><td colspan="5" class="text-center py-4 text-slate-500">No incoming transactions yet.</td></tr>';
+      } catch (e) {}
+    }
+
+    // Load Daemon Console Logs
+    async function loadLogs() {
+      try {
+        const res = await fetch('/api/logs/daemon');
+        const data = await res.json();
+        const div = document.getElementById('daemonTerminal');
+        div.innerText = data.lines ? data.lines.join('\n') : 'Standby...';
+        if (autoScroll) div.scrollTop = div.scrollHeight;
+      } catch (e) {}
+    }
+
+    function toggleScroll() {
+      autoScroll = !autoScroll;
+      document.getElementById('btnScroll').innerText = 'Scroll: ' + (autoScroll ? 'Auto' : 'Manual');
+    }
+
+    function clearConsole() {
+      document.getElementById('daemonTerminal').innerText = '[Console cleared]';
+    }
+
+    // Initialize Chart
+    function initChart() {
+      const ctx = document.getElementById('velocityChart').getContext('2d');
+      velocityChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', 'Now'],
+          datasets: [
+            {
+              label: 'Revenue ($)',
+              data: [0, 120, 240, 480, 560, 620, 700],
+              borderColor: '#10b981',
+              backgroundColor: 'rgba(16, 185, 129, 0.1)',
+              borderWidth: 2,
+              tension: 0.4,
+              fill: true
+            },
+            {
+              label: 'Clicks',
+              data: [2, 14, 28, 42, 65, 80, 94],
+              borderColor: '#38bdf8',
+              backgroundColor: 'rgba(56, 189, 248, 0.05)',
+              borderWidth: 2,
+              tension: 0.4,
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b', font: { family: 'JetBrains Mono', size: 10 } } },
+            y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b', font: { family: 'JetBrains Mono', size: 10 } } }
+          }
+        }
+      });
+    }
+
+    function refreshAll() {
+      loadOverview();
+      loadTransactions();
+      loadLogs();
+    }
+
+    // Periodic Polling
+    document.addEventListener('DOMContentLoaded', () => {
+      initChart();
+      refreshAll();
+      setInterval(loadOverview, 5000);
+      setInterval(loadTransactions, 5000);
+      setInterval(loadLogs, 3000);
+    });
   </script>
 </body>
 </html>
