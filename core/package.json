@@ -35,6 +35,7 @@
     "skill:mab": "tsx src/skills/mab-traffic-allocator-skill.ts",
     "skill:ads-export": "tsx src/skills/ads-campaign-exporter-skill.ts",
     "skill:lospollos": "tsx src/skills/lospollos-auto-config-skill.ts",
+    "skill:mylead-config": "tsx src/skills/mylead-auto-config-skill.ts",
     "skill:ingest": "tsx src/skills/promo-asset-ingestor-skill.ts",
     "lospollos:adapter": "tsx src/adapters/lospollos-adapter.ts",
     "audit:visual": "tsx src/skills/visual-qa-audit-skill.ts",
