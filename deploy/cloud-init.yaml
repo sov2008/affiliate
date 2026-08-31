@@ -7,6 +7,13 @@ packages:
   - build-essential
 
 runcmd:
+  # Setup 2GB Swap Memory (Virtual RAM) to prevent OOM
+  - fallocate -l 2G /swapfile
+  - chmod 600 /swapfile
+  - mkswap /swapfile
+  - swapon /swapfile
+  - echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
+
   # Install Node.js 20
   - curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
   - apt-get install -y nodejs
