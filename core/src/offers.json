@@ -1,0 +1,26 @@
+[
+  {
+    "id": "off_sec_01",
+    "name": "Smart Security App",
+    "vertical": "software",
+    "payout": 35.5,
+    "targetGeo": ["US", "UK", "AU"],
+    "affiliateUrlTemplate": "https://example-tracker.com/click?offer=sec01"
+  },
+  {
+    "id": "off_fin_02",
+    "name": "FinTech Smartlink",
+    "vertical": "finance",
+    "payout": 60.0,
+    "targetGeo": ["DE", "FR", "ES"],
+    "affiliateUrlTemplate": "https://example-tracker.com/click?offer=fin02"
+  },
+  {
+    "id": "off_gadget_03",
+    "name": "E-com Gadget Pro",
+    "vertical": "e-commerce",
+    "payout": 25.0,
+    "targetGeo": ["GLOBAL"],
+    "affiliateUrlTemplate": "https://example-tracker.com/click?offer=gadget03"
+  }
+]

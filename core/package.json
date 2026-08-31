@@ -4,7 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsx src/auto-builder.ts",
+    "build:batch": "tsx src/auto-builder.ts --batch",
+    "build:deploy": "tsx src/auto-builder.ts --batch --push",
+    "skill:run": "tsx src/skill-orchestrator.ts",
+    "memory:show": "tsx -e \"import { recall } from './src/memory-engine'; recall().then(console.log)\"",
+    "memory:clear": "tsx src/memory-engine.ts --clear",
+    "deploy:worker": "cd ../workers/postback-engine && npm run deploy",
+    "ag": "tsx src/cli.ts",
+    "launch": "tsx src/cli.ts launch",
+    "sync": "tsx src/cli.ts sync",
+    "optimize": "tsx src/cli.ts optimize",
+    "status": "tsx src/cli.ts status",
+    "autopilot": "tsx src/autopilot-daemon.ts",
+    "dashboard": "tsx src/dashboard-server.ts",
+    "start:all": "concurrently \"npm run autopilot\" \"npm run dashboard\""
   },
   "keywords": [],
   "author": "",
@@ -12,10 +27,15 @@
   "type": "commonjs",
   "dependencies": {
     "@google/genai": "^2.19.0",
+    "concurrently": "^10.0.5",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "zod": "^4.5.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
     "@types/node": "^26.4.0",
     "tsx": "^4.23.12",
     "typescript": "^7.0.2"

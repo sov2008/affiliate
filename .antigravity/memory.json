@@ -1,0 +1,18 @@
+{
+  "deployed_campaigns": {
+    "cmp_test_123": {
+      "performance": {
+        "v1": {
+          "clicks": 10,
+          "revenue": 150,
+          "cr": "20%"
+        },
+        "v2": {
+          "clicks": 10,
+          "revenue": 0,
+          "cr": "0%"
+        }
+      }
+    }
+  }
+}

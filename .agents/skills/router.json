@@ -1,0 +1,16 @@
+{
+  "skills": {
+    "skill_campaign_builder": {
+      "description": "Generates a complete campaign landing page for an offer using auto-builder.",
+      "command": "tsx src/auto-builder.ts"
+    },
+    "skill_tracking_validator": {
+      "description": "Validates URL macros (sub1, click_id, sub_id) and CTA redirects in the campaigns directory.",
+      "command": "tsx src/skills/tracking-validator.ts"
+    },
+    "skill_cloudflare_sync": {
+      "description": "Verifies build output and triggers cloudflare deployment.",
+      "command": "tsx src/skills/cloudflare-sync.ts"
+    }
+  }
+}

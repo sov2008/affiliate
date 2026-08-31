@@ -1,14 +1,16 @@
-import { GoogleGenAI } from '@google/genai';
 import { Offer } from './types';
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-
-// Ensure environment variables are loaded from the root .env file
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
-
-const ai = new GoogleGenAI();
+import { generateContent } from './llm-gateway';
+import { optimizeContext } from './context-optimizer';
+import fs from 'fs/promises';
+import path from 'path';
 
 export async function generateTaskPrompt(offer: Offer): Promise<string> {
+  const uiUxSkillPath = path.resolve(__dirname, '../../.antigravity/skills/ui_ux_pro_max.md');
+  let uiUxSkill = '';
+  try {
+    uiUxSkill = await fs.readFile(uiUxSkillPath, 'utf8');
+  } catch (err) {}
+
   const prompt = `
     You are an Elite Traffic & Affiliate Architect. 
     
@@ -27,20 +29,26 @@ export async function generateTaskPrompt(offer: Offer): Promise<string> {
     3. Client-side URL parameter extraction (specifically 'click_id', 'sub1', 'sub2').
     4. Dynamic injection of these extracted parameters into all outbound Call-To-Action (CTA) links targeting the affiliate base URL: ${offer.affiliateUrlTemplate}
     
+    Provide the complete technical specifications to build a landing page.
+    The landing page MUST feature:
+    - High-converting commercial typography
+    - Micro-borders and glassmorphism accents
+    - Modern color palettes
+    - A mobile-first layout with a sticky bottom CTA bar
+    - Precise tracking parameters (click_id, sub1, sub2) in all links
+    
+    Design Rules to Follow:
+    ${uiUxSkill}
+    
     Format the output as a clear, instructional prompt ready to be fed to an AI coding assistant.
   `;
 
+  const optimizedPrompt = optimizeContext(prompt, { 
+    preserveKeys: ['click_id', 'sub1', 'sub2'] 
+  });
+
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
-    });
-
-    if (!response.text) {
-      throw new Error("No text returned from Gemini API");
-    }
-
-    return response.text;
+    return await generateContent(optimizedPrompt);
   } catch (error) {
     console.error("Error generating task prompt:", error);
     throw error;

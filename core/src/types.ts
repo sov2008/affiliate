@@ -7,6 +7,7 @@ export const OfferSchema = z.object({
   payout: z.number(),
   targetGeo: z.array(z.string()),
   affiliateUrlTemplate: z.string(),
+  variantAngle: z.string().optional(),
 });
 
 export type Offer = z.infer<typeof OfferSchema>;
