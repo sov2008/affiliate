@@ -82,6 +82,61 @@ export const CHANNELS: OrganicTrafficChannel[] = [
   }
 ];
 
+const STATE_FILE = path.resolve(__dirname, '../../.antigravity/organic_state.json');
+
+export interface OrganicAgentState {
+  status: 'running' | 'paused' | 'dry_run' | 'idle';
+  uptime: string;
+  startTime: string;
+  lastCycleTimestamp: string | null;
+  nextRunTimestamp: string | null;
+  intervalMinutes: number;
+  metrics: {
+    scanned_threads: number;
+    replies_generated: number;
+    links_posted: number;
+    clicks_generated: number;
+    conversions: number;
+    revenue: number;
+    epc: string;
+  };
+  recentEvents: string[];
+}
+
+export async function getOrganicState(): Promise<OrganicAgentState> {
+  try {
+    const raw = await fs.readFile(STATE_FILE, 'utf8');
+    return JSON.parse(raw);
+  } catch {
+    return {
+      status: 'running',
+      uptime: '0m',
+      startTime: new Date().toISOString(),
+      lastCycleTimestamp: null,
+      nextRunTimestamp: new Date(Date.now() + 15 * 60 * 1000).toISOString(),
+      intervalMinutes: 15,
+      metrics: {
+        scanned_threads: 0,
+        replies_generated: 0,
+        links_posted: 0,
+        clicks_generated: 0,
+        conversions: 0,
+        revenue: 0,
+        epc: '$0.00'
+      },
+      recentEvents: []
+    };
+  }
+}
+
+export async function saveOrganicState(state: OrganicAgentState): Promise<void> {
+  try {
+    const dir = path.dirname(STATE_FILE);
+    await fs.mkdir(dir, { recursive: true });
+    await fs.writeFile(STATE_FILE, JSON.stringify(state, null, 2));
+  } catch (err) {}
+}
+
 async function logMsg(msg: string) {
   const timestamp = new Date().toISOString();
   const line = `[${timestamp}] [Organic Traffic Daemon] ${msg}\n`;
@@ -120,11 +175,14 @@ Do not sound like an ad. Keep tone objective, technical and engaging.`;
 
 export async function runOrganicDiscoveryCycle(options: { dryRun?: boolean; headless?: boolean } = {}): Promise<OrganicEngagementRecord[]> {
   const isHeadless = options.headless ?? true;
+  const isDryRun = options.dryRun ?? false;
   await ensureStorageDirectories();
-  await logMsg(`🚀 Initializing Organic Discovery & Engagement Engine (Headless: ${isHeadless})`);
+  await logMsg(`🚀 Initializing Organic Discovery & Engagement Engine (Headless: ${isHeadless}, Mode: ${isDryRun ? 'DRY-RUN' : 'LIVE'})`);
 
   let browser: Browser | null = null;
   const discoveredRecords: OrganicEngagementRecord[] = [];
+  const state = await getOrganicState();
+  state.status = isDryRun ? 'dry_run' : 'running';
 
   try {
     browser = await chromium.launch({
@@ -143,11 +201,14 @@ export async function runOrganicDiscoveryCycle(options: { dryRun?: boolean; head
       await logMsg(`🔍 Scanning High-Intent Channels for [${chan.name}] (${chan.campaignId})...`);
       
       for (const kw of chan.targetKeywords) {
+        state.metrics.scanned_threads = (state.metrics.scanned_threads || 0) + 1;
         const intentScore = Math.floor(Math.random() * 15) + 85; // 85-99% Intent
         const trackingSub = `org_${chan.campaignId}_${Date.now().toString(36)}`;
         const outboundUrl = `https://affiliate-campaigns.pages.dev/${chan.campaignId}/?utm_source=organic&utm_medium=community&utm_campaign=${chan.campaignId}&s1=${trackingSub}&ml_sub1=${trackingSub}&ml_sub2=${chan.campaignId}&ml_sub3=v1`;
 
         const contribution = await synthesizeOrganicContribution(chan, kw);
+        state.metrics.replies_generated = (state.metrics.replies_generated || 0) + 1;
+        state.metrics.links_posted = (state.metrics.links_posted || 0) + 1;
 
         const record: OrganicEngagementRecord = {
           id: `eng_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
@@ -162,6 +223,9 @@ export async function runOrganicDiscoveryCycle(options: { dryRun?: boolean; head
         };
 
         discoveredRecords.push(record);
+        const timeShort = new Date().toLocaleTimeString('en-US', { hour12: false });
+        const eventStr = `[${timeShort}] Found topic "${kw}" (${chan.niche}) -> Value answer synthesized -> Link [${trackingSub}] queued`;
+        state.recentEvents = [eventStr, ...(state.recentEvents || []).slice(0, 49)];
         await logMsg(`   ✨ Discovered keyword opportunity: "${kw}" (Intent: ${intentScore}%) -> ${chan.campaignId}`);
       }
     }
@@ -172,6 +236,10 @@ export async function runOrganicDiscoveryCycle(options: { dryRun?: boolean; head
     cacheObj.engagements = [...(cacheObj.engagements || []).slice(-100), ...discoveredRecords];
     cacheObj.lastRun = new Date().toISOString();
     await fs.writeFile(DISCOVERY_CACHE_FILE, JSON.stringify(cacheObj, null, 2));
+
+    state.lastCycleTimestamp = new Date().toISOString();
+    state.nextRunTimestamp = new Date(Date.now() + (state.intervalMinutes || 15) * 60 * 1000).toISOString();
+    await saveOrganicState(state);
 
     await context.close();
     await browser.close();
@@ -187,6 +255,11 @@ export async function runOrganicDiscoveryCycle(options: { dryRun?: boolean; head
 }
 
 export async function runOrganicDaemon() {
+  const state = await getOrganicState();
+  state.status = 'running';
+  state.startTime = new Date().toISOString();
+  await saveOrganicState(state);
+
   await logMsg('====================================================');
   await logMsg('🤖 Autonomous Organic Traffic Agent Daemon Started');
   await logMsg(`📂 Auth Directory: ${AUTH_DIR}`);
@@ -195,12 +268,20 @@ export async function runOrganicDaemon() {
 
   while (true) {
     try {
+      const currentState = await getOrganicState();
+      if (currentState.status === 'paused') {
+        await logMsg('⏸️ Organic Agent is in PAUSED state. Sleeping...');
+        await new Promise(resolve => setTimeout(resolve, 30 * 1000));
+        continue;
+      }
+
       await runOrganicDiscoveryCycle({ headless: true });
     } catch (err: any) {
       await logMsg(`Daemon loop exception: ${err.message}`);
     }
 
-    const sleepMinutes = 15;
+    const stateAfter = await getOrganicState();
+    const sleepMinutes = stateAfter.intervalMinutes || 15;
     await logMsg(`💤 Sleeping for ${sleepMinutes} minutes before next organic distribution cycle...`);
     await new Promise(resolve => setTimeout(resolve, sleepMinutes * 60 * 1000));
   }
@@ -220,3 +301,4 @@ if (require.main === module) {
     });
   }
 }
+

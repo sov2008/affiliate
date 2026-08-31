@@ -505,6 +505,112 @@ app.get('/api/logs/daemon', async (req, res) => {
   }
 });
 
+// ----------------------------------------------------
+// 3. Autonomous Organic Traffic Agent (UBT) Control API
+// ----------------------------------------------------
+const ORGANIC_LOG_PATH = path.resolve(__dirname, '../../.antigravity/organic_daemon.log');
+
+// GET /api/agent/organic/status
+app.get('/api/agent/organic/status', async (req, res) => {
+  try {
+    const { getOrganicState } = await import('./skills/organic-traffic-agent-skill');
+    const state = await getOrganicState();
+    
+    // Check real-time inbound organic clicks from Cloudflare Worker
+    try {
+      const response = await fetch(`${WORKER_URL}/stats/all`);
+      if (response.ok) {
+        const json: any = await response.json();
+        const stats = json.stats || {};
+        let orgClicks = 0;
+        let orgLeads = 0;
+        let orgRevenue = 0;
+
+        for (const [k, v] of Object.entries<any>(stats)) {
+          if (Array.isArray(v.wallets)) {
+            // wallets or tags
+          }
+          if (Array.isArray(v.log)) {
+            for (const item of v.log) {
+              if (item.leadId && (item.leadId.includes('org_') || item.leadId.includes('organic'))) {
+                orgLeads++;
+                orgRevenue += item.payout || 0;
+              }
+            }
+          }
+        }
+
+        state.metrics.clicks_generated = Math.max(state.metrics.clicks_generated, orgClicks);
+        state.metrics.conversions = Math.max(state.metrics.conversions, orgLeads);
+        state.metrics.revenue = Math.max(state.metrics.revenue, Number(orgRevenue.toFixed(2)));
+        const epcVal = state.metrics.clicks_generated > 0 ? (state.metrics.revenue / state.metrics.clicks_generated).toFixed(2) : '0.00';
+        state.metrics.epc = `$${epcVal}`;
+      }
+    } catch (e) {}
+
+    res.json(state);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/agent/organic/toggle
+app.post('/api/agent/organic/toggle', async (req, res) => {
+  try {
+    const { action = 'start', interval_minutes } = req.body || {};
+    const { getOrganicState, saveOrganicState, runOrganicDiscoveryCycle } = await import('./skills/organic-traffic-agent-skill');
+    const state = await getOrganicState();
+
+    if (interval_minutes && typeof interval_minutes === 'number') {
+      state.intervalMinutes = interval_minutes;
+    }
+
+    if (action === 'stop') {
+      state.status = 'paused';
+      await saveOrganicState(state);
+      try {
+        await execAsync('pm2 stop affiliate-organic-daemon').catch(() => {});
+      } catch (e) {}
+      console.log('[Dashboard API] ⏸️ Organic Traffic Agent paused');
+      return res.json({ success: true, message: 'Organic agent paused.', state });
+    }
+
+    if (action === 'start') {
+      state.status = 'running';
+      state.nextRunTimestamp = new Date(Date.now() + (state.intervalMinutes || 15) * 60 * 1000).toISOString();
+      await saveOrganicState(state);
+      try {
+        await execAsync('pm2 restart affiliate-organic-daemon || pm2 start ecosystem.config.js --only affiliate-organic-daemon').catch(() => {});
+      } catch (e) {}
+      console.log('[Dashboard API] ▶️ Organic Traffic Agent resumed');
+      return res.json({ success: true, message: 'Organic agent running.', state });
+    }
+
+    if (action === 'dry_run') {
+      state.status = 'dry_run';
+      console.log('[Dashboard API] 🧪 Triggering Single Dry-Run Organic Cycle...');
+      // Execute asynchronously to not block HTTP response
+      runOrganicDiscoveryCycle({ dryRun: true, headless: true }).catch(() => {});
+      return res.json({ success: true, message: 'Dry-run cycle triggered successfully.', state });
+    }
+
+    res.status(400).json({ success: false, error: 'Invalid action. Supported: start | stop | dry_run' });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// GET /api/agent/organic/logs
+app.get('/api/agent/organic/logs', async (req, res) => {
+  try {
+    const logs = await fs.readFile(ORGANIC_LOG_PATH, 'utf8');
+    const lines = logs.split('\n').filter(Boolean);
+    res.json({ lines: lines.slice(-50) });
+  } catch (err) {
+    res.json({ lines: ['[System] Organic agent log stream initialized. Standby for next cycle...'] });
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Executive Command Center active at http://localhost:${PORT} (Basic Auth Protected)`);
