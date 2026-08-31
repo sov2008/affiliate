@@ -132,8 +132,8 @@ app.get('/api/stats/overview', async (req, res) => {
 
     res.json({
       totalRevenue: Number(totalRevenue.toFixed(2)),
-      todayRevenue: Number((totalRevenue * 0.45).toFixed(2)),
-      revenueDeltaPct: '+18.4%',
+      todayRevenue: Number(totalRevenue.toFixed(2)),
+      revenueDeltaPct: totalRevenue > 0 ? '+100%' : '0.0%',
       totalClicks,
       totalLeads: totalConversions,
       globalCR,

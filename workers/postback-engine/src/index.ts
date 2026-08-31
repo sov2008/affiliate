@@ -222,6 +222,26 @@ export default {
       });
     }
 
-    return new Response(JSON.stringify({ error: 'Endpoint Not Found', available: ['/click', '/telemetry', '/postback', '/webhook/mylead', '/stats', '/stats/all'] }), { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    // 6. Reset / Clear All Stats & Demo Data
+    if (pathname === '/reset-stats' || pathname === '/api/reset-stats') {
+      const listStats = await env.STATS_KV.list({ prefix: 'stats_' });
+      const listTelem = await env.STATS_KV.list({ prefix: 'telemetry_' });
+      let deleted = 0;
+
+      for (const k of listStats.keys) {
+        await env.STATS_KV.delete(k.name);
+        deleted++;
+      }
+      for (const k of listTelem.keys) {
+        await env.STATS_KV.delete(k.name);
+        deleted++;
+      }
+
+      return new Response(JSON.stringify({ success: true, message: `Flushed all demo data. Deleted ${deleted} keys from STATS_KV.` }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+
+    return new Response(JSON.stringify({ error: 'Endpoint Not Found', available: ['/click', '/telemetry', '/postback', '/webhook/mylead', '/stats', '/stats/all', '/reset-stats'] }), { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
   }
 };
