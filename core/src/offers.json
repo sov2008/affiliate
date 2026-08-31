@@ -62,5 +62,15 @@
       "NZ"
     ],
     "payout": 350
+  },
+  {
+    "id": "cmp_crypto_bot",
+    "name": "Trading AI Bot",
+    "targetGeo": [
+      "AU",
+      "UK",
+      "NZ"
+    ],
+    "payout": 350
   }
 ]
