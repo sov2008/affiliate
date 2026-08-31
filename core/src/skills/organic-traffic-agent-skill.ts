@@ -107,15 +107,17 @@ export interface OrganicAgentState {
 export async function getOrganicState(): Promise<OrganicAgentState> {
   try {
     const raw = await fs.readFile(STATE_FILE, 'utf8');
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    parsed.intervalMinutes = parsed.intervalMinutes || 3;
+    return parsed;
   } catch {
     return {
       status: 'running',
       uptime: '0m',
       startTime: new Date().toISOString(),
       lastCycleTimestamp: null,
-      nextRunTimestamp: new Date(Date.now() + 15 * 60 * 1000).toISOString(),
-      intervalMinutes: 15,
+      nextRunTimestamp: new Date(Date.now() + 3 * 60 * 1000).toISOString(),
+      intervalMinutes: 3,
       metrics: {
         scanned_threads: 0,
         replies_generated: 0,
