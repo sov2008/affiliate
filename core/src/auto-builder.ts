@@ -10,6 +10,7 @@ import { injectSeoMetadata } from './skills/seo-metadata-skill';
 import { optimizeHtml } from './skills/html-optimizer-skill';
 import { auditTrackingLinks } from './skills/tracking-audit-skill';
 import { generateGeoRouterScript } from './geo-localizer';
+import { injectWeb3Connect } from './skills/web3-connect-skill';
 
 const execAsync = util.promisify(exec);
 
@@ -119,7 +120,7 @@ ${htmlContent}`;
     htmlContent = htmlContent.replace('</body>', `\n${geoRouter}\n</body>`);
   }
   
-  // Inject Click Beacon Script
+  // Inject Click Beacon Script (Default)
   const trackingBeacon = `
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -144,6 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     htmlContent += trackingBeacon;
   }
+  
+  // Inject Web3 Connect Skill (Overrides default beacon if applicable)
+  htmlContent = injectWeb3Connect(htmlContent, offer, campaignId);
 
   console.log('Writing files...');
   await fs.writeFile(htmlPath, htmlContent);
