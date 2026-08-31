@@ -1081,6 +1081,11 @@
           const diffMins = Math.max(0, Math.round((next.getTime() - Date.now()) / 60000));
           document.getElementById('orgNextCycle').innerText = `Next cycle: ~${diffMins}m (${next.toLocaleTimeString()})`;
         }
+
+        if (state.recentEvents && state.recentEvents.length > 0) {
+          const div = document.getElementById('orgTerminalLogs');
+          div.innerText = state.recentEvents.slice(0, 15).join('\n');
+        }
       } catch (e) {}
     }
 
