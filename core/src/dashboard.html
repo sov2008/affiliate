@@ -145,6 +145,65 @@
     </div>
   </div>
 
+  <!-- Modal for Autonomous Visual QA Inspector -->
+  <div id="visualQaModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel max-w-2xl w-full rounded-2xl p-6 border border-slate-700 shadow-2xl space-y-4 font-mono">
+      <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+        <h3 class="font-bold text-base text-sky-400 flex items-center">
+          <span class="mr-2">🔍</span> Visual QA Inspector: <span id="qaModalCampTitle" class="text-emerald-300 ml-2"></span>
+        </h3>
+        <button onclick="closeModal('visualQaModal')" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <!-- QA Score & Status Header -->
+      <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+        <div>
+          <div class="text-[11px] text-slate-400 uppercase">AffOps Visual Conversion Score</div>
+          <div class="flex items-baseline space-x-2 mt-1">
+            <span id="qaScoreDisplay" class="text-3xl font-extrabold text-emerald-400">--</span>
+            <span class="text-xs text-slate-500">/ 100</span>
+          </div>
+        </div>
+        <div id="qaBadgeDisplay" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 border border-slate-700 text-slate-400">
+          Standby
+        </div>
+      </div>
+
+      <!-- Rubric Check Matrix -->
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <div id="checkAtf" class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center space-x-2">
+          <span>📱 Above-the-Fold Step 1</span>
+        </div>
+        <div id="checkTouch" class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center space-x-2">
+          <span>🔤 Touch Targets (≥48px)</span>
+        </div>
+        <div id="checkPolish" class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center space-x-2">
+          <span>✨ Zero Broken Assets</span>
+        </div>
+        <div id="checkTokens" class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center space-x-2">
+          <span>🌍 Resolved Edge Tokens</span>
+        </div>
+      </div>
+
+      <!-- Recommendations / Auto-Fix Output -->
+      <div>
+        <label class="block text-slate-300 text-xs mb-1">Inspector Log & Recommendations</label>
+        <div id="qaLogOutput" class="h-28 bg-slate-950 border border-slate-800 rounded-lg p-3 text-[11px] text-sky-300 overflow-y-auto term-scroll whitespace-pre-wrap leading-relaxed">
+          Ready to inspect multi-viewport renders (iPhone 14 Pro, Pixel 7, Desktop FHD)...
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-3 pt-2">
+        <button onclick="closeModal('visualQaModal')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs">
+          Close
+        </button>
+        <button onclick="executeVisualQaInspection()" id="btnRunQa" class="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-lg text-xs transition">
+          ⚡ Run Multi-Viewport Inspection
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="max-w-7xl mx-auto w-full space-y-6">
 
     <!-- Top Mission Control Header -->
@@ -647,6 +706,9 @@
               </div>
             </td>
             <td class="py-3 px-4 text-right space-x-1.5 whitespace-nowrap">
+              <button onclick="openVisualQa('${c.id}')" class="px-2 py-1 rounded bg-sky-950 border border-sky-500/40 text-sky-300 hover:bg-sky-900 text-[10px] font-bold">
+                🔍 QA
+              </button>
               <button onclick="openIngestPromo('${c.id}')" class="px-2 py-1 rounded bg-indigo-950 border border-indigo-500/40 text-indigo-300 hover:bg-indigo-900 text-[10px] font-bold">
                 📥 Ingest
               </button>
@@ -659,6 +721,87 @@
         `;
       }
       tbody.innerHTML = html || '<tr><td colspan="10" class="text-center py-6 text-slate-500">No campaigns found.</td></tr>';
+    }
+
+    // Visual QA Modal Logic
+    let currentQaCid = '';
+    function openVisualQa(cid) {
+      currentQaCid = cid;
+      document.getElementById('qaModalCampTitle').innerText = cid;
+      document.getElementById('qaScoreDisplay').innerText = '--';
+      document.getElementById('qaBadgeDisplay').innerText = 'Standby';
+      document.getElementById('qaBadgeDisplay').className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 border border-slate-700 text-slate-400';
+      document.getElementById('qaLogOutput').innerText = 'Click "Run Multi-Viewport Inspection" to launch Playwright headless capture & conversion evaluation...';
+      ['checkAtf', 'checkTouch', 'checkPolish', 'checkTokens'].forEach(id => {
+        document.getElementById(id).className = 'p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center space-x-2 text-slate-400';
+      });
+      document.getElementById('visualQaModal').classList.remove('hidden');
+    }
+
+    async function executeVisualQaInspection() {
+      const btn = document.getElementById('btnRunQa');
+      btn.disabled = true;
+      btn.innerText = '⏳ Inspecting Viewports...';
+      document.getElementById('qaLogOutput').innerText = `[Visual QA Engine] Launching headless browser...\n- iPhone 14 Pro (393x852 @3x)\n- Pixel 7 (412x915 @2x)\n- Desktop Full HD (1920x1080 @1x)\n\nAnalyzing Above-the-Fold Step 1 visibility, touch targets, and token integrity...`;
+
+      try {
+        const res = await apiFetch(`/api/campaigns/${currentQaCid}/audit-visual`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ variant: 'v1', autoFix: true })
+        });
+        const d = await res.json();
+
+        if (d.success) {
+          document.getElementById('qaScoreDisplay').innerText = d.score;
+          const badge = document.getElementById('qaBadgeDisplay');
+          if (d.score >= 95) {
+            badge.innerText = 'PASSED (95+)';
+            badge.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-950 border border-emerald-500 text-emerald-400';
+          } else {
+            badge.innerText = 'REVISE';
+            badge.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-950 border border-amber-500 text-amber-400';
+          }
+
+          // Update rubric badges
+          const setCheck = (id, passed) => {
+            const el = document.getElementById(id);
+            if (passed) {
+              el.className = 'p-2.5 rounded-lg bg-emerald-950/60 border border-emerald-500/40 flex items-center space-x-2 text-emerald-300';
+            } else {
+              el.className = 'p-2.5 rounded-lg bg-rose-950/60 border border-rose-500/40 flex items-center space-x-2 text-rose-300';
+            }
+          };
+
+          setCheck('checkAtf', d.checks.aboveTheFold);
+          setCheck('checkTouch', d.checks.typographyAndTouchTargets);
+          setCheck('checkPolish', d.checks.visualPolishAndImages);
+          setCheck('checkTokens', d.checks.localizationAndNoRawTokens);
+
+          let logText = `✅ QA Score: ${d.score}/100 | Passed: ${d.passed}\n\n`;
+          logText += `📱 Mobile ATF Status: ${d.checks.aboveTheFold ? 'Step 1 100% visible Above-the-Fold' : 'Scrolled below fold'}\n`;
+          logText += `🔤 Min Touch Target: ${Math.round(d.domTelemetry.touchTargetsMinHeight)}px\n`;
+          logText += `🖼️ Broken Images: ${d.domTelemetry.brokenImagesCount}\n`;
+          logText += `🌍 Raw Unparsed Tokens: ${d.domTelemetry.rawTokensFound.length === 0 ? 'None (Clean)' : d.domTelemetry.rawTokensFound.join(', ')}\n\n`;
+          if (d.recommendations && d.recommendations.length > 0) {
+            logText += `Recommendations:\n` + d.recommendations.map(r => `• ${r}`).join('\n');
+          } else {
+            logText += `✨ All conversion and visual criteria perfectly satisfied!`;
+          }
+
+          document.getElementById('qaLogOutput').innerText = logText;
+          showToast(`🔍 Visual QA Complete: Score ${d.score}/100`, d.passed ? 'success' : 'info');
+        } else {
+          document.getElementById('qaLogOutput').innerText = `Error: ${d.error}`;
+          showToast(`QA Inspection failed: ${d.error}`, 'error');
+        }
+      } catch (err) {
+        document.getElementById('qaLogOutput').innerText = `Fatal: ${err.message}`;
+        showToast(`Error: ${err.message}`, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerText = '⚡ Run Multi-Viewport Inspection';
+      }
     }
 
     // Ingest Promo Modal Logic

@@ -348,6 +348,22 @@ app.post('/api/campaigns/:id/ingest-promo', async (req, res) => {
   }
 });
 
+// POST /api/campaigns/:id/audit-visual
+app.post('/api/campaigns/:id/audit-visual', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { variant = 'v1', autoFix = true } = req.body || {};
+    console.log(`[Dashboard API] Triggering Visual QA Audit for: ${id} (${variant})`);
+    
+    const { runVisualQAAudit } = await import('./skills/visual-qa-audit-skill');
+    const result = await runVisualQAAudit(id, variant, { autoFix });
+
+    res.json({ success: true, ...result });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // POST /api/campaigns/:id/mab-optimize
 app.post('/api/campaigns/:id/mab-optimize', async (req, res) => {
   try {

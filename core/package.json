@@ -37,6 +37,7 @@
     "skill:lospollos": "tsx src/skills/lospollos-auto-config-skill.ts",
     "skill:ingest": "tsx src/skills/promo-asset-ingestor-skill.ts",
     "lospollos:adapter": "tsx src/adapters/lospollos-adapter.ts",
+    "audit:visual": "tsx src/skills/visual-qa-audit-skill.ts",
     "audit": "tsx -e \"import { auditTrackingLinks } from './src/skills/tracking-audit-skill'; import fs from 'fs'; ['cmp_trading_au', 'cmp_elite_de', 'cmp_vpn_us', 'cmp_lospollos_dating'].forEach(c => ['v1', 'v2'].forEach(v => { const html = fs.readFileSync('../campaigns/' + c + '/' + v + '/index.html', 'utf8'); console.log(c, v, auditTrackingLinks(html)); }))\""
   },
   "keywords": [],
