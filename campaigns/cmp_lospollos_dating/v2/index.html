@@ -2,73 +2,539 @@
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compatibility Match Test 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Local Match VIP 2026 | Private Dating Network</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
-    h1, h2, h3 { font-family: 'Outfit', sans-serif; }
-    .glass { background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #090d16;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, .font-heading { font-family: 'Outfit', sans-serif; }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 15px 35px -10px rgba(244, 63, 94, 0.25);
+    }
+    .touch-target {
+      min-height: 48px;
+    }
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.02); }
+    }
+    .pulse-action {
+      animation: pulse-slow 2.5s infinite ease-in-out;
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between p-4 sm:p-6 bg-slate-950">
+<body class="min-h-screen flex flex-col justify-between p-3 sm:p-5 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#090d16] to-[#04070e]">
 
-  <header class="max-w-4xl mx-auto w-full flex justify-between items-center py-4 border-b border-slate-800">
+  <!-- Header -->
+  <header class="max-w-md mx-auto w-full flex justify-between items-center py-2.5 border-b border-slate-800/60">
     <div class="flex items-center space-x-2">
-      <span class="text-indigo-400 text-2xl">⚡</span>
-      <span class="text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
-        SMART MATCH // AI 2026
+      <span class="text-xl">💎</span>
+      <span class="text-base font-heading font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
+        LOCAL MATCH // 2026
       </span>
     </div>
-    <div class="text-xs text-slate-400">
-      Region: <span class="text-indigo-400 font-bold">{city}</span>
+    <div class="flex items-center space-x-1.5 text-[11px] font-mono text-rose-400 bg-rose-950/60 border-rose-500/30 px-2.5 py-0.5 rounded-full border">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      <span>🟢 <span class="font-bold">388</span> in <strong class="underline">{city}</strong></span>
     </div>
   </header>
 
-  <main class="max-w-lg mx-auto w-full my-8 text-center space-y-6">
-    <div class="glass p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6">
-      <div class="space-y-2">
-        <span class="text-xs font-mono uppercase tracking-wider text-indigo-400">Step 1 of 3: Verification</span>
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-white">
-          Are you looking for verified singles in <span class="text-indigo-400">{city}</span>?
-        </h1>
-        <p class="text-xs text-slate-400">Please answer honestly to see active member profiles near you.</p>
+  <!-- Main Conversion Container -->
+  <main class="max-w-md mx-auto w-full my-auto py-2.5 space-y-3">
+    
+    <!-- Hero Title & Micro Hook -->
+    <div class="text-center space-y-1">
+      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium bg-slate-900/80 border border-slate-700 text-slate-300">
+        ⚠️ Verified 21+ Members Only
+      </span>
+      <h1 class="text-xl sm:text-2xl font-heading font-extrabold text-white leading-tight tracking-tight pt-1">
+        Meet Attractive Locals Tonight in <span class="text-rose-400 underline decoration-rose-500/40">{city}</span>
+      </h1>
+      <p class="text-xs text-slate-400 leading-normal max-w-xs mx-auto">
+        Over 12,000 active members looking for spontaneous meetups in your neighborhood.
+      </p>
+    </div>
+
+    
+    <!-- Compact Mobile-Optimized VIP Match Preview (Above-The-Fold) -->
+    <div class="relative overflow-hidden rounded-xl border border-slate-800 bg-slate-900/80 p-2.5 shadow-lg">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800/80 text-[11px] font-mono">
+        <span class="flex items-center text-emerald-400 font-bold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping mr-1.5"></span>
+          ACTIVE PROFILES NEARBY
+        </span>
+        <span class="text-slate-400 font-mono text-[10px]">Radius: <strong class="text-sky-300">10 km</strong></span>
       </div>
 
-      <div class="space-y-3">
-        <a id="ctaLink1" href="https://trk.lospollos.com/smartlink/dating?aff=sov208&s1=[ml_sub1]&s2=cmp_lospollos_dating&s3=v2&s4={country}&ml_sub1=[ml_sub1]&ml_sub2=cmp_lospollos_dating&ml_sub3=v2" class="block w-full py-3.5 rounded-xl font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition transform active:scale-95 shadow-lg shadow-indigo-600/30">
-          YES, SHOW PROFILES &rarr;
-        </a>
-        <a id="ctaLink2" href="https://trk.lospollos.com/smartlink/dating?aff=sov208&s1=[ml_sub1]&s2=cmp_lospollos_dating&s3=v2&s4={country}&ml_sub1=[ml_sub1]&ml_sub2=cmp_lospollos_dating&ml_sub3=v2" class="block w-full py-3.5 rounded-xl font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 transition transform active:scale-95">
-          I AM JUST BROWSING &rarr;
-        </a>
-      </div>
+      <!-- 3 Verified VIP Avatars -->
+      <div class="grid grid-cols-3 gap-2 pt-2 text-center">
+        <div class="bg-slate-950/70 border border-slate-800 rounded-lg p-1.5 relative group">
+          <div class="w-10 h-10 mx-auto rounded-full bg-gradient-to-tr from-rose-500 to-pink-400 flex items-center justify-center text-base font-bold text-white shadow-md relative">
+            👩
+            <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full"></span>
+          </div>
+          <div class="text-[11px] font-bold text-slate-200 mt-1 truncate">Elena (26)</div>
+          <div class="text-[9px] text-rose-300 font-mono">2.4 km</div>
+        </div>
 
-      <div class="pt-4 border-t border-slate-800 text-xs text-slate-500 flex justify-between items-center">
-        <span>🔒 100% Private & Anonymous</span>
-        <span>⏱️ Offer valid: <span class="font-mono text-slate-400">{date}</span></span>
+        <div class="bg-slate-950/70 border border-slate-800 rounded-lg p-1.5 relative group">
+          <div class="w-10 h-10 mx-auto rounded-full bg-gradient-to-tr from-purple-500 to-indigo-400 flex items-center justify-center text-base font-bold text-white shadow-md relative">
+            👱‍♀️
+            <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full"></span>
+          </div>
+          <div class="text-[11px] font-bold text-slate-200 mt-1 truncate">Sophie (29)</div>
+          <div class="text-[9px] text-rose-300 font-mono">3.8 km</div>
+        </div>
+
+        <div class="bg-slate-950/70 border border-slate-800 rounded-lg p-1.5 relative group">
+          <div class="w-10 h-10 mx-auto rounded-full bg-gradient-to-tr from-sky-500 to-blue-400 flex items-center justify-center text-base font-bold text-white shadow-md relative">
+            🧑
+            <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full"></span>
+          </div>
+          <div class="text-[11px] font-bold text-slate-200 mt-1 truncate">Max (32)</div>
+          <div class="text-[9px] text-rose-300 font-mono">1.9 km</div>
+        </div>
       </div>
     </div>
+  
+
+    <!-- Micro-Funnel Interactive Quiz Card (100% Above-the-Fold) -->
+    <div class="glass-card rounded-2xl p-4 sm:p-5 space-y-4">
+      
+      <!-- STEP 1: Micro-Commitment -->
+      <div id="quizStep1" class="space-y-3 transition-all duration-300">
+        <div class="flex justify-between items-center text-[10px] font-mono text-slate-400 pb-1.5 border-b border-slate-800">
+          <span>STEP 1 OF 2</span>
+          <span class="text-emerald-400 font-bold">50% READY</span>
+        </div>
+        <h3 class="text-sm sm:text-base font-heading font-bold text-white text-center">
+          Select your preferred age range:
+        </h3>
+        <div class="grid grid-cols-2 gap-2.5 pt-0.5">
+          
+            <button type="button" onclick="nextQuizStep(2)" class="touch-target py-3 px-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 hover:border-emerald-400 text-white font-medium text-xs sm:text-sm transition flex items-center justify-center space-x-1.5 shadow-sm">
+              <span>18 - 29 Years</span>
+            </button>
+          
+            <button type="button" onclick="nextQuizStep(2)" class="touch-target py-3 px-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 hover:border-emerald-400 text-white font-medium text-xs sm:text-sm transition flex items-center justify-center space-x-1.5 shadow-sm">
+              <span>30 - 45+ Years</span>
+            </button>
+          
+        </div>
+      </div>
+
+      <!-- STEP 2: Intent & Location Validation -->
+      <div id="quizStep2" class="space-y-3 hidden transition-all duration-300">
+        <div class="flex justify-between items-center text-[10px] font-mono text-slate-400 pb-1.5 border-b border-slate-800">
+          <span>STEP 2 OF 2</span>
+          <span class="text-emerald-400 font-bold">90% READY</span>
+        </div>
+        <h3 class="text-sm sm:text-base font-heading font-bold text-white text-center">
+          Are you open to meeting someone this week?
+        </h3>
+        <div class="space-y-2 pt-0.5">
+          
+            <button type="button" onclick="runAnalysisStep()" class="touch-target w-full py-3 px-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 hover:border-emerald-400 text-white font-medium text-xs sm:text-sm transition text-left flex items-center justify-between">
+              <span>Yes, absolutely</span>
+              <span class="text-slate-400">&rarr;</span>
+            </button>
+          
+            <button type="button" onclick="runAnalysisStep()" class="touch-target w-full py-3 px-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 hover:border-emerald-400 text-white font-medium text-xs sm:text-sm transition text-left flex items-center justify-between">
+              <span>Let us chat first</span>
+              <span class="text-slate-400">&rarr;</span>
+            </button>
+          
+        </div>
+      </div>
+
+      <!-- STEP 3: Animated Verification Progress Bar (2.2s) -->
+      <div id="quizStep3" class="space-y-3 hidden text-center py-3">
+        <div class="w-10 h-10 mx-auto rounded-full border-2 border-t-emerald-400 border-r-transparent border-b-sky-400 border-l-transparent animate-spin"></div>
+        <h4 id="analysisText" class="text-xs sm:text-sm font-heading font-bold text-slate-200">
+          Filtering profiles within 10km of {city}...
+        </h4>
+        <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+          <div id="analysisBar" class="bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-400 h-2 rounded-full w-0 transition-all duration-1000 ease-out"></div>
+        </div>
+        <p class="text-[10px] text-slate-500 font-mono">Scanning local member profiles in <span class="text-slate-300 font-bold">{city}</span>...</p>
+      </div>
+
+      <!-- STEP 4: Unlocked High-Impact CTA Reveal -->
+      <div id="quizStep4" class="space-y-3.5 hidden text-center transition-all duration-300">
+        <div class="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-emerald-950/90 border border-emerald-500/40 text-emerald-300 text-[11px] font-bold font-mono">
+          <span>✓</span>
+          <span>12 VERIFIED MATCHES UNLOCKED</span>
+        </div>
+
+        <div class="space-y-0.5">
+          <h3 class="text-lg font-heading font-extrabold text-white">
+            Result: 98.6% Compatibility Rate
+          </h3>
+          <p class="text-xs text-slate-300">
+            Profiles in <strong class="text-rose-400 underline">{city}</strong> are waiting for your message!
+          </p>
+        </div>
+
+        <div class="pt-1">
+          <a id="ctaLink" href="https://postback-engine.sov7.workers.dev/click?click_id=[ml_sub1]&campaign_id=cmp_lospollos_dating&variant=v2&s1=[ml_sub1]&s2=cmp_lospollos_dating&s3=v2&ml_sub1=[ml_sub1]&ml_sub2=cmp_lospollos_dating&ml_sub3=v2" class="pulse-action touch-target block w-full py-3.5 rounded-xl font-heading font-extrabold text-sm sm:text-base bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 hover:from-rose-500 hover:to-pink-400 text-white shadow-xl shadow-slate-950/50 transform hover:-translate-y-0.5 active:scale-95 transition text-center tracking-wide">
+            UNLOCK PRIVATE PROFILES &rarr;
+          </a>
+        </div>
+
+        <div class="text-[10px] text-slate-500 flex justify-between items-center pt-1.5 border-t border-slate-800/80 font-mono">
+          <span>⏱️ Invitation valid: <span class="text-slate-300 font-bold">{date}</span></span>
+          <span class="text-rose-400 font-bold dynamic-countdown">14:59</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Live Social Proof Notification Banner -->
+    <div id="liveProofToast" class="bg-slate-900/80 border border-slate-800/90 rounded-xl p-2 flex items-center space-x-2 text-[11px] text-slate-300">
+      <span class="text-sm">🔔</span>
+      <span class="truncate">Verified member from <strong class="text-sky-300">{city}</strong> joined • 2 min ago</span>
+    </div>
+
+    <!-- Trust Badges Bar -->
+    <div class="grid grid-cols-3 gap-1.5 text-center text-[10px] text-slate-400 font-mono">
+      
+        <div class="bg-slate-900/50 border border-slate-800/60 rounded-lg py-1 px-1 truncate">
+          ✓ Photo Verified
+        </div>
+      
+        <div class="bg-slate-900/50 border border-slate-800/60 rounded-lg py-1 px-1 truncate">
+          ✓ Private Chat Rooms
+        </div>
+      
+        <div class="bg-slate-900/50 border border-slate-800/60 rounded-lg py-1 px-1 truncate">
+          ✓ Safe & Confidential
+        </div>
+      
+    </div>
+
   </main>
 
-  <footer class="max-w-4xl mx-auto w-full text-center py-6 text-xs text-slate-600 border-t border-slate-900">
-    © 2026 LosPollos Dating Network. 18+ Verification required.
+  <!-- Footer -->
+  <footer class="max-w-md mx-auto w-full text-center py-2 text-[10px] text-slate-600 border-t border-slate-900">
+    © 2026 LOCAL MATCH // 2026 • 256-Bit Encryption • Verified Security
   </footer>
 
+  <!-- Micro-Funnel Controller & Dynamic Tracking Script -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const clickId = urlParams.get('click_id') || urlParams.get('gclid') || 'clk_' + Math.random().toString(36).substring(2, 9);
-      ['ctaLink1', 'ctaLink2'].forEach(id => {
-        const cta = document.getElementById(id);
+    function nextQuizStep(step) {
+      document.getElementById('quizStep1').classList.add('hidden');
+      document.getElementById('quizStep2').classList.remove('hidden');
+    }
+
+    function runAnalysisStep() {
+      document.getElementById('quizStep2').classList.add('hidden');
+      document.getElementById('quizStep3').classList.remove('hidden');
+      
+      const bar = document.getElementById('analysisBar');
+      const text = document.getElementById('analysisText');
+      
+      setTimeout(() => { if (bar) bar.style.width = '45%'; }, 200);
+      setTimeout(() => { 
+        if (bar) bar.style.width = '85%'; 
+        if (text) text.innerText = 'Filtering inactive member profiles...';
+      }, 900);
+      setTimeout(() => {
+        if (bar) bar.style.width = '100%';
+        if (text) text.innerText = 'Matching profiles found successfully!';
+      }, 1700);
+      setTimeout(() => {
+        document.getElementById('quizStep3').classList.add('hidden');
+        document.getElementById('quizStep4').classList.remove('hidden');
+      }, 2100);
+    }
+
+    // Dynamic Tracking & Macro Replacement Engine
+    (function() {
+      function resolveClickTracking() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var clickId = urlParams.get('click_id') || 
+                      urlParams.get('gclid') || 
+                      urlParams.get('s1') || 
+                      urlParams.get('ml_sub1') || 
+                      urlParams.get('sub1') || 
+                      ('clk_' + Math.random().toString(36).substring(2, 9));
+
+        var cta = document.getElementById('ctaLink');
         if (cta) {
-          let href = cta.getAttribute('href');
-          href = href.replace(/\[ml_sub1\]/g, clickId);
+          var href = cta.getAttribute('href') || '';
+          href = href.replace(/\[ml_sub1\]/g, clickId)
+                     .replace(/\[click_id\]/g, clickId)
+                     .replace(/\[s1\]/g, clickId);
           cta.setAttribute('href', href);
+
+          cta.addEventListener('click', function(e) {
+            // Safety double check on actual click
+            var currentHref = cta.getAttribute('href');
+            if (currentHref.indexOf('[ml_sub1]') !== -1) {
+              cta.setAttribute('href', currentHref.replace(/\[ml_sub1\]/g, clickId));
+            }
+          });
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', resolveClickTracking);
+      } else {
+        resolveClickTracking();
+      }
+    })();
+  </script>
+
+
+
+<script id="dynamic-creative-engine">
+(function() {
+  var urlParams = new URLSearchParams(window.location.search);
+  var docLang = (document.documentElement.lang || 'en').toLowerCase();
+  
+  // Localized defaults
+  var defaults = {
+    de: { city: 'Berlin / Umgebung', country: 'Deutschland' },
+    fr: { city: 'Paris / Région', country: 'France' },
+    es: { city: 'Madrid / Área', country: 'España' },
+    en: { city: 'Sydney / Local Metro', country: 'Australia' }
+  };
+  var localized = defaults[docLang] || defaults.en;
+
+  function getClientContext() {
+    var ua = navigator.userAgent || '';
+    var device = 'Smartphone';
+    var os = 'System';
+
+    if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+      device = 'iPhone';
+      os = 'iOS';
+    } else if (/Android/.test(ua)) {
+      device = 'Android Phone';
+      os = 'Android';
+    } else if (/Windows NT/.test(ua)) {
+      device = 'PC';
+      os = 'Windows';
+    } else if (/Macintosh/.test(ua)) {
+      device = 'Mac';
+      os = 'macOS';
+    }
+
+    var now = new Date();
+    var localeCode = docLang === 'de' ? 'de-DE' : docLang === 'fr' ? 'fr-FR' : docLang === 'es' ? 'es-ES' : 'en-US';
+    var dateFormatted = now.toLocaleDateString(localeCode, { month: 'long', day: 'numeric', year: 'numeric' });
+    var yearFormatted = now.getFullYear().toString();
+    var monthFormatted = now.toLocaleDateString(localeCode, { month: 'long' });
+
+    var queryCity = urlParams.get('city') || urlParams.get('utm_city') || urlParams.get('region');
+    var queryCountry = urlParams.get('country') || urlParams.get('utm_country');
+
+    return {
+      device: device,
+      os: os,
+      date: dateFormatted,
+      year: yearFormatted,
+      month: monthFormatted,
+      city: queryCity || localized.city,
+      country: queryCountry || localized.country
+    };
+  }
+
+  function replaceInString(str, ctx) {
+    if (!str || typeof str !== 'string' || str.indexOf('{') === -1) return str;
+    return str.replace(/{device}/gi, ctx.device)
+              .replace(/{os}/gi, ctx.os)
+              .replace(/{date}/gi, ctx.date)
+              .replace(/{year}/gi, ctx.year)
+              .replace(/{month}/gi, ctx.month)
+              .replace(/{city}/gi, ctx.city)
+              .replace(/{country}/gi, ctx.country);
+  }
+
+  function applyTokens(ctx) {
+    // 1. Text nodes
+    var walker = document.createTreeWalker(document.body || document.documentElement, NodeFilter.SHOW_TEXT, null, false);
+    var node;
+    while (node = walker.nextNode()) {
+      var val = node.nodeValue;
+      if (val && val.indexOf('{') !== -1) {
+        node.nodeValue = replaceInString(val, ctx);
+      }
+    }
+
+    // 2. Element attributes (title, alt, aria-label, href, placeholder)
+    var allEls = document.querySelectorAll('*');
+    for (var i = 0; i < allEls.length; i++) {
+      var el = allEls[i];
+      ['title', 'alt', 'placeholder', 'aria-label'].forEach(function(attr) {
+        if (el.hasAttribute(attr)) {
+          var val = el.getAttribute(attr);
+          if (val && val.indexOf('{') !== -1) {
+            el.setAttribute(attr, replaceInString(val, ctx));
+          }
         }
       });
+    }
+
+    // Update document title if needed
+    if (document.title && document.title.indexOf('{') !== -1) {
+      document.title = replaceInString(document.title, ctx);
+    }
+  }
+
+  function resolveLiveGeo() {
+    var ctx = getClientContext();
+    applyTokens(ctx);
+
+    // Watch for dynamic DOM changes (e.g. quiz transitions)
+    if (typeof MutationObserver !== 'undefined' && document.body) {
+      var observer = new MutationObserver(function(mutations) {
+        applyTokens(ctx);
+      });
+      observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+    }
+
+    // If query params already supplied city, skip external fetch
+    if (urlParams.get('city') || urlParams.get('utm_city')) return;
+
+    // Asynchronous edge / ipapi resolution with timeout
+    var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timeoutId = controller ? setTimeout(function() { controller.abort(); }, 1200) : null;
+
+    fetch('https://ipapi.co/json/', { signal: controller ? controller.signal : undefined })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (timeoutId) clearTimeout(timeoutId);
+        if (data && (data.city || data.region)) {
+          ctx.city = data.city || data.region;
+          if (data.country_name) ctx.country = data.country_name;
+          applyTokens(ctx);
+        }
+      })
+      .catch(function() {
+        // Safe localized fallback already applied
+      });
+  }
+
+  // Countdown timer injector
+  function initCountdown() {
+    var timerElements = document.querySelectorAll('.dynamic-countdown, [data-countdown]');
+    if (timerElements.length > 0) {
+      var totalSeconds = 14 * 60 + 59;
+      setInterval(function() {
+        var m = Math.floor(totalSeconds / 60);
+        var s = totalSeconds % 60;
+        var formatted = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+        timerElements.forEach(function(el) { el.innerText = formatted; });
+        if (totalSeconds > 0) totalSeconds--;
+      }, 1000);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      resolveLiveGeo();
+      initCountdown();
     });
-  </script>
+  } else {
+    resolveLiveGeo();
+    initCountdown();
+  }
+})();
+</script>
+
+
+
+<script id="micro-clickstream-telemetry">
+(function() {
+  var loadTime = Date.now();
+  var sentCheckpoints = { 25: false, 50: false, 75: false, 100: false };
+  var exitIntentSent = false;
+  var ctaClicked = false;
+  var campaign = "cmp_lospollos_dating".split('/')[0];
+  var variant = "v2";
+  var endpoint = "https://postback-engine.sov7.workers.dev/telemetry";
+
+  function sendTelemetry(eventData) {
+    var payload = Object.assign({
+      campaign_id: campaign,
+      variant: variant,
+      viewport: window.innerWidth + 'x' + window.innerHeight,
+      screen: window.screen.width + 'x' + window.screen.height,
+      timestamp: new Date().toISOString()
+    }, eventData);
+
+    var blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(endpoint, blob);
+    } else {
+      fetch(endpoint, { method: 'POST', body: blob, keepalive: true }).catch(function(){});
+    }
+  }
+
+  // 1. Scroll Depth Tracking (25%, 50%, 75%, 100%)
+  function checkScroll() {
+    var doc = document.documentElement;
+    var top = doc.scrollTop || document.body.scrollTop;
+    var height = doc.scrollHeight - doc.clientHeight;
+    if (height <= 0) return;
+    var pct = Math.round((top / height) * 100);
+
+    [25, 50, 75, 100].forEach(function(cp) {
+      if (pct >= cp && !sentCheckpoints[cp]) {
+        sentCheckpoints[cp] = true;
+        sendTelemetry({ event: 'scroll_depth', depth_pct: cp, time_spent_ms: Date.now() - loadTime });
+      }
+    });
+  }
+
+  window.addEventListener('scroll', checkScroll, { passive: true });
+
+  // 2. Time-to-Action (TTA) & CTA Click Telemetry
+  document.addEventListener('click', function(e) {
+    var target = e.target && e.target.closest('a, button, [role="button"]');
+    if (target && !ctaClicked) {
+      ctaClicked = true;
+      var tta = Date.now() - loadTime;
+      sendTelemetry({ event: 'cta_click', time_to_action_ms: tta, target_tag: target.tagName, href: target.href || '' });
+    }
+  }, { capture: true });
+
+  // 3. Exit Intent Detection (Desktop mouseout top + Mobile visibilitychange)
+  document.addEventListener('mouseleave', function(e) {
+    if (e.clientY <= 0 && !exitIntentSent) {
+      exitIntentSent = true;
+      sendTelemetry({ event: 'exit_intent', trigger: 'mouse_leave_top', time_spent_ms: Date.now() - loadTime });
+    }
+  });
+
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'hidden' && !exitIntentSent) {
+      exitIntentSent = true;
+      sendTelemetry({ event: 'exit_intent', trigger: 'tab_hidden', time_spent_ms: Date.now() - loadTime });
+    }
+  });
+
+  // Initial Pageview Telemetry
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    sendTelemetry({ event: 'pageview', time_spent_ms: 0 });
+  } else {
+    document.addEventListener('DOMContentLoaded', function() {
+      sendTelemetry({ event: 'pageview', time_spent_ms: Date.now() - loadTime });
+    });
+  }
+})();
+</script>
+
 </body>
 </html>

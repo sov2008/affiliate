@@ -3,11 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "test": "npm --prefix core test",
+    "typecheck": "npm --prefix core run typecheck",
+    "audit": "npm --prefix core run audit",
     "start:gateway": "node mock-gateway.js",
     "deploy:pages": "npx wrangler pages deploy campaigns/ --project-name affiliate-campaigns --branch main --commit-dirty=true"
   },
   "workspaces": [
     "core",
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "ssh2": "^1.17.0"
+  }
 }

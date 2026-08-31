@@ -5,7 +5,33 @@
       "name": "Trading AI Bot",
       "geo": "AU,UK,NZ",
       "vertical": "finance",
-      "payout": 350
+      "payout": 350,
+      "extractedHooks": {
+        "title": "Mock Forex & Crypto Robot Official",
+        "headlines": [
+          "Automated Market Precision System 2026"
+        ],
+        "descriptions": [
+          "Discover real-time algorithmic trades generated for your regional market."
+        ]
+      },
+      "performance": {
+        "v1": {
+          "clicks": 0,
+          "leads": 0,
+          "sales": 0,
+          "revenue": 0,
+          "cr": "0%"
+        },
+        "v2": {
+          "clicks": 0,
+          "leads": 0,
+          "sales": 0,
+          "revenue": 0,
+          "cr": "0%"
+        },
+        "lastSynced": "2026-08-31T18:06:31.934Z"
+      }
     },
     "cmp_elite_de": {
       "offer_id": "cmp_dating_vip",
@@ -56,5 +82,14 @@
     "micro_clickstream_telemetry": "active",
     "mab_traffic_allocator": "active",
     "ads_campaign_exporter": "active"
+  },
+  "affiliate_networks": {
+    "mylead": {
+      "login": "sov2008",
+      "status": "connected",
+      "postbackUrl": "https://postback-engine.sov7.workers.dev/postback?status=[status]&payout=[payout]&currency=[currency]&ml_sub1=[ml_sub1]&ml_sub2=[ml_sub2]&ml_sub3=[ml_sub3]",
+      "apiKey": "configured",
+      "lastConfigured": "2026-08-31T16:40:12.766Z"
+    }
   }
 }

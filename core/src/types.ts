@@ -16,7 +16,7 @@ export const CampaignConfigSchema = z.object({
   campaignId: z.string(),
   offerId: z.string(),
   templateName: z.string(),
-  subIds: z.record(z.string()).optional(),
+  subIds: z.record(z.string(), z.string()).optional(),
   trafficSource: z.string(),
 });
 

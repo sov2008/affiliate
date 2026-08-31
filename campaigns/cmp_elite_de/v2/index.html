@@ -54,7 +54,7 @@
     
     <!-- Hero Title & Micro Hook -->
     <div class="text-center space-y-1">
-      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium bg-rose-950/80 border border-rose-500/40 text-rose-300">
+      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium bg-slate-900/80 border border-slate-700 text-slate-300">
         ⚠️ Nur für niveauvolle Kontakte ab 21 Jahren
       </span>
       <h1 class="text-xl sm:text-2xl font-heading font-extrabold text-white leading-tight tracking-tight pt-1">
@@ -122,11 +122,11 @@
         </h3>
         <div class="grid grid-cols-2 gap-2.5 pt-0.5">
           
-            <button type="button" onclick="nextQuizStep(2)" class="touch-target py-3 px-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 hover:border-rose-400 text-white font-medium text-xs sm:text-sm transition flex items-center justify-center space-x-1.5 shadow-sm">
+            <button type="button" onclick="nextQuizStep(2)" class="touch-target py-3 px-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 hover:border-emerald-400 text-white font-medium text-xs sm:text-sm transition flex items-center justify-center space-x-1.5 shadow-sm">
               <span>18 - 35 Jahre</span>
             </button>
           
-            <button type="button" onclick="nextQuizStep(2)" class="touch-target py-3 px-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 hover:border-rose-400 text-white font-medium text-xs sm:text-sm transition flex items-center justify-center space-x-1.5 shadow-sm">
+            <button type="button" onclick="nextQuizStep(2)" class="touch-target py-3 px-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 hover:border-emerald-400 text-white font-medium text-xs sm:text-sm transition flex items-center justify-center space-x-1.5 shadow-sm">
               <span>36 - 55+ Jahre</span>
             </button>
           
@@ -159,12 +159,12 @@
 
       <!-- STEP 3: Animated Verification Progress Bar (2.2s) -->
       <div id="quizStep3" class="space-y-3 hidden text-center py-3">
-        <div class="w-10 h-10 mx-auto rounded-full border-2 border-t-emerald-400 border-r-transparent border-b-rose-400 border-l-transparent animate-spin"></div>
+        <div class="w-10 h-10 mx-auto rounded-full border-2 border-t-emerald-400 border-r-transparent border-b-sky-400 border-l-transparent animate-spin"></div>
         <h4 id="analysisText" class="text-xs sm:text-sm font-heading font-bold text-slate-200">
           Berechne Kompatibilität mit aktiven Mitgliedern in {city}...
         </h4>
         <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
-          <div id="analysisBar" class="bg-gradient-to-r from-rose-500 via-pink-500 to-emerald-400 h-2 rounded-full w-0 transition-all duration-1000 ease-out"></div>
+          <div id="analysisBar" class="bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-400 h-2 rounded-full w-0 transition-all duration-1000 ease-out"></div>
         </div>
         <p class="text-[10px] text-slate-500 font-mono">Prüfe regionale Profile in <span class="text-slate-300 font-bold">{city}</span>...</p>
       </div>
@@ -186,7 +186,7 @@
         </div>
 
         <div class="pt-1">
-          <a id="ctaLink" href="https://postback-engine.sov7.workers.dev/click?click_id=[ml_sub1]&campaign_id=cmp_elite_de&variant=v2&s1=[ml_sub1]&s2=cmp_elite_de&s3=v2&ml_sub1=[ml_sub1]&ml_sub2=cmp_elite_de&ml_sub3=v2" class="pulse-action touch-target block w-full py-3.5 rounded-xl font-heading font-extrabold text-sm sm:text-base bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 hover:from-rose-500 hover:to-pink-400 text-white shadow-xl shadow-rose-950/50 transform hover:-translate-y-0.5 active:scale-95 transition text-center tracking-wide">
+          <a id="ctaLink" href="https://postback-engine.sov7.workers.dev/click?click_id=[ml_sub1]&campaign_id=cmp_elite_de&variant=v2&s1=[ml_sub1]&s2=cmp_elite_de&s3=v2&ml_sub1=[ml_sub1]&ml_sub2=cmp_elite_de&ml_sub3=v2" class="pulse-action touch-target block w-full py-3.5 rounded-xl font-heading font-extrabold text-sm sm:text-base bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 hover:from-rose-500 hover:to-pink-400 text-white shadow-xl shadow-slate-950/50 transform hover:-translate-y-0.5 active:scale-95 transition text-center tracking-wide">
             ZUGANG JETZT AKTIVIEREN &rarr;
           </a>
         </div>
@@ -226,7 +226,7 @@
 
   <!-- Footer -->
   <footer class="max-w-md mx-auto w-full text-center py-2 text-[10px] text-slate-600 border-t border-slate-900">
-    © 2026 VIP ROMANCE // 2026 • 18+ Verifikation • 100% Diskretion
+    © 2026 VIP ROMANCE // 2026 • 100% Verifiziert & Sicher
   </footer>
 
   <!-- Micro-Funnel Controller & Dynamic Tracking Script -->
@@ -300,16 +300,16 @@
 <script id="dynamic-creative-engine">
 (function() {
   var urlParams = new URLSearchParams(window.location.search);
-  var lang = (document.documentElement.lang || 'de').toLowerCase();
+  var docLang = (document.documentElement.lang || 'en').toLowerCase();
   
   // Localized defaults
   var defaults = {
     de: { city: 'Berlin / Umgebung', country: 'Deutschland' },
     fr: { city: 'Paris / Région', country: 'France' },
     es: { city: 'Madrid / Área', country: 'España' },
-    en: { city: 'London / Metro', country: 'United Kingdom' }
+    en: { city: 'Sydney / Local Metro', country: 'Australia' }
   };
-  var localized = defaults[lang] || defaults.de;
+  var localized = defaults[docLang] || defaults.en;
 
   function getClientContext() {
     var ua = navigator.userAgent || '';
@@ -331,9 +331,10 @@
     }
 
     var now = new Date();
-    var dateFormatted = now.toLocaleDateString(lang === 'de' ? 'de-DE' : undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+    var localeCode = docLang === 'de' ? 'de-DE' : docLang === 'fr' ? 'fr-FR' : docLang === 'es' ? 'es-ES' : 'en-US';
+    var dateFormatted = now.toLocaleDateString(localeCode, { month: 'long', day: 'numeric', year: 'numeric' });
     var yearFormatted = now.getFullYear().toString();
-    var monthFormatted = now.toLocaleDateString(lang === 'de' ? 'de-DE' : undefined, { month: 'long' });
+    var monthFormatted = now.toLocaleDateString(localeCode, { month: 'long' });
 
     var queryCity = urlParams.get('city') || urlParams.get('utm_city') || urlParams.get('region');
     var queryCountry = urlParams.get('country') || urlParams.get('utm_country');
@@ -349,21 +350,45 @@
     };
   }
 
+  function replaceInString(str, ctx) {
+    if (!str || typeof str !== 'string' || str.indexOf('{') === -1) return str;
+    return str.replace(/{device}/gi, ctx.device)
+              .replace(/{os}/gi, ctx.os)
+              .replace(/{date}/gi, ctx.date)
+              .replace(/{year}/gi, ctx.year)
+              .replace(/{month}/gi, ctx.month)
+              .replace(/{city}/gi, ctx.city)
+              .replace(/{country}/gi, ctx.country);
+  }
+
   function applyTokens(ctx) {
+    // 1. Text nodes
     var walker = document.createTreeWalker(document.body || document.documentElement, NodeFilter.SHOW_TEXT, null, false);
     var node;
     while (node = walker.nextNode()) {
       var val = node.nodeValue;
       if (val && val.indexOf('{') !== -1) {
-        val = val.replace(/{device}/gi, ctx.device)
-                 .replace(/{os}/gi, ctx.os)
-                 .replace(/{date}/gi, ctx.date)
-                 .replace(/{year}/gi, ctx.year)
-                 .replace(/{month}/gi, ctx.month)
-                 .replace(/{city}/gi, ctx.city)
-                 .replace(/{country}/gi, ctx.country);
-        node.nodeValue = val;
+        node.nodeValue = replaceInString(val, ctx);
       }
+    }
+
+    // 2. Element attributes (title, alt, aria-label, href, placeholder)
+    var allEls = document.querySelectorAll('*');
+    for (var i = 0; i < allEls.length; i++) {
+      var el = allEls[i];
+      ['title', 'alt', 'placeholder', 'aria-label'].forEach(function(attr) {
+        if (el.hasAttribute(attr)) {
+          var val = el.getAttribute(attr);
+          if (val && val.indexOf('{') !== -1) {
+            el.setAttribute(attr, replaceInString(val, ctx));
+          }
+        }
+      });
+    }
+
+    // Update document title if needed
+    if (document.title && document.title.indexOf('{') !== -1) {
+      document.title = replaceInString(document.title, ctx);
     }
   }
 
@@ -371,10 +396,18 @@
     var ctx = getClientContext();
     applyTokens(ctx);
 
+    // Watch for dynamic DOM changes (e.g. quiz transitions)
+    if (typeof MutationObserver !== 'undefined' && document.body) {
+      var observer = new MutationObserver(function(mutations) {
+        applyTokens(ctx);
+      });
+      observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+    }
+
     // If query params already supplied city, skip external fetch
     if (urlParams.get('city') || urlParams.get('utm_city')) return;
 
-    // Asynchronous edge / ipapi resolution with 1.2s timeout
+    // Asynchronous edge / ipapi resolution with timeout
     var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
     var timeoutId = controller ? setTimeout(function() { controller.abort(); }, 1200) : null;
 
@@ -389,7 +422,7 @@
         }
       })
       .catch(function() {
-        // Safe fallback already applied
+        // Safe localized fallback already applied
       });
   }
 

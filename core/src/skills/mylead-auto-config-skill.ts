@@ -7,8 +7,8 @@ import { remember, recall } from '../memory-engine';
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
-const LOGIN = process.env.MYLEAD_LOGIN || 'sov2008';
-const PASSWORD = process.env.MYLEAD_PASSWORD || 'W2#8zhk7BYn#PmS';
+const LOGIN = process.env.MYLEAD_LOGIN || '';
+const PASSWORD = process.env.MYLEAD_PASSWORD || process.env.MYLEAD_PASS || '';
 const AUTH_DIR = path.resolve(__dirname, '../../.auth');
 const SESSION_FILE = path.resolve(AUTH_DIR, 'session.json');
 

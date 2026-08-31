@@ -118,7 +118,7 @@ ${htmlContent}`;
   htmlContent = await injectSeoMetadata(htmlContent, offer);
   htmlContent = await optimizeHtml(htmlContent);
   htmlContent = injectDynamicCreatives(htmlContent);
-  htmlContent = injectMicroClickstream(htmlContent, campaignId, variant);
+  htmlContent = injectMicroClickstream(htmlContent, campaignId, 'v1');
 
   // Inject Geo Router Script right before </body>
   if (geoRouter) {

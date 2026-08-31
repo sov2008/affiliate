@@ -1,12 +1,35 @@
+# Environment Variables & Secrets
 .env
 .env.*
 *.env
 core/.env
+*.pem
+*.key
+
+# Authentication Sessions & Storage
 .auth/
 core/.auth/
+**/.auth/
+
+# Dependencies & Build Outputs
 node_modules/
 dist/
+build/
 .wrangler/
+**/.wrangler/
+
+# Logs & Debugging
+*.log
+.antigravity/*.log
+.antigravity/daemon.log
+.antigravity/audits/
+
+# Scratch & Temporary Folders
 scratch/
+core/scratch/
+**/scratch/
+
+# Deployment scripts containing runtime credentials
 deploy-do.js
+
 

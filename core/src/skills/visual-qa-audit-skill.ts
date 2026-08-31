@@ -147,7 +147,7 @@ async function captureAndEvaluate(
 
       // Check touch targets height for visible interactive elements
       const heights = await page.$$eval('button, .touch-target, a[href]:not(.hidden *)', els => 
-        els.filter(e => e.offsetParent !== null && e.getBoundingClientRect().height > 0)
+        els.filter(e => (e as HTMLElement).offsetParent !== null && e.getBoundingClientRect().height > 0)
            .map(e => e.getBoundingClientRect().height)
       );
       if (heights.length > 0) {

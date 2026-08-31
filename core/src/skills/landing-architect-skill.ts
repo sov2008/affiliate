@@ -46,22 +46,98 @@ export function generateHighConvertingLandingHtml(opts: LandingArchitectOptions)
     step2Options,
     analyzingText,
     finalCtaText,
-    trustNotes = [
-      '256-Bit SSL Verschlüsselung',
-      '100% ID-Verifiziert',
-      'Keine Bot-Profile'
-    ],
+    trustNotes,
     activeUsersCount = 142
   } = opts;
 
   const isDating = niche === 'dating';
-  const primaryGlow = isDating ? 'rgba(244, 63, 94, 0.25)' : 'rgba(99, 102, 241, 0.25)';
+  const isFinance = niche === 'finance';
+  const isSoftware = niche === 'software';
+
+  const primaryGlow = isDating ? 'rgba(244, 63, 94, 0.25)' : isFinance ? 'rgba(16, 185, 129, 0.25)' : 'rgba(99, 102, 241, 0.25)';
   const primaryBtn = isDating
     ? 'from-rose-600 via-pink-600 to-rose-500 hover:from-rose-500 hover:to-pink-400'
+    : isFinance
+    ? 'from-emerald-600 via-teal-600 to-emerald-500 hover:from-emerald-500 hover:to-teal-400'
     : 'from-indigo-600 via-sky-600 to-emerald-500 hover:from-indigo-500 hover:to-sky-400';
   const badgeColor = isDating ? 'text-rose-400 bg-rose-950/60 border-rose-500/30' : 'text-sky-400 bg-sky-950/60 border-sky-500/30';
 
   const ctaUrl = `${POSTBACK_WORKER_URL}/click?click_id=[ml_sub1]&campaign_id=${campaignId}&variant=${variant}&s1=[ml_sub1]&s2=${campaignId}&s3=${variant}&ml_sub1=[ml_sub1]&ml_sub2=${campaignId}&ml_sub3=${variant}`;
+
+  // Localized texts dictionary
+  const i18n = {
+    DE: {
+      warningBadge: isDating ? '⚠️ Nur für niveauvolle Kontakte ab 21 Jahren' : isFinance ? '⚡ Hochfrequenz-Trading KI-System 2026' : '🛡️ 10Gbps Militärverschlüsselung 2026',
+      step1Badge: 'FRAGE 1 VON 2',
+      step1Ready: '50% BEREIT',
+      step2Badge: 'FRAGE 2 VON 2',
+      step2Ready: '90% BEREIT',
+      step3Sub: isDating ? 'Prüfe regionale Profile in <span class="text-slate-300 font-bold">{city}</span>...' : 'Verifiziere lokale Server in <span class="text-slate-300 font-bold">{city}</span>...',
+      step4Badge: isDating ? '12 PASSENDE MATCHES FREIGESCHALTET' : 'ZUGANG ERFOLGREICH FREIGESCHALTET',
+      step4Title: 'Ergebnis: 98.6% Kompatibilität',
+      step4Sub: isDating ? 'Profile in <strong class="text-rose-400 underline">{city}</strong> warten auf Ihre Nachricht!' : 'Lokale Knotenpunkte in <strong class="text-emerald-400 underline">{city}</strong> bereit!',
+      timerPrefix: '⏱️ Einladung gültig:',
+      socialProof: isDating ? 'Verifiziertes Mitglied aus <strong class="text-sky-300">{city}</strong> beigetreten • vor 2 Min.' : 'Verifizierter Nutzer in <strong class="text-emerald-300">{city}</strong> aktiv • vor 2 Min.',
+      footer: `© 2026 ${brandName} • 100% Verifiziert & Sicher`,
+      defaultTrust: isDating ? ['256-Bit SSL Verschlüsselung', '100% ID-Verifiziert', 'Keine Bot-Profile'] : ['256-Bit SSL Schutz', 'Zero-Lag Execution', '100% Sicher'],
+      jsFilterText: isDating ? 'Filtere inaktive Profile heraus...' : 'Kalibriere Echtzeit-Datenströme...',
+      jsSuccessText: isDating ? 'Matches erfolgreich gefunden!' : 'Zugangskanal freigeschaltet!'
+    },
+    EN: {
+      warningBadge: isDating ? '⚠️ Verified 21+ Members Only' : isFinance ? '⚡ Institutional Algorithmic Feed • 2026 Edition' : '🛡️ Military-Grade 10Gbps Encrypted Tunnel',
+      step1Badge: 'STEP 1 OF 2',
+      step1Ready: '50% READY',
+      step2Badge: 'STEP 2 OF 2',
+      step2Ready: '90% READY',
+      step3Sub: isDating ? 'Scanning local member profiles in <span class="text-slate-300 font-bold">{city}</span>...' : 'Verifying ultra-fast node routing in <span class="text-slate-300 font-bold">{city}</span>...',
+      step4Badge: isDating ? '12 VERIFIED MATCHES UNLOCKED' : 'INSTITUTIONAL ACCESS UNLOCKED',
+      step4Title: isDating ? 'Result: 98.6% Compatibility Rate' : 'System Ready: 98.6% Calibration Score',
+      step4Sub: isDating ? 'Profiles in <strong class="text-rose-400 underline">{city}</strong> are waiting for your message!' : 'Dedicated high-speed execution feed ready in <strong class="text-emerald-400 underline">{city}</strong>',
+      timerPrefix: '⏱️ Invitation valid:',
+      socialProof: isDating ? 'Verified member from <strong class="text-sky-300">{city}</strong> joined • 2 min ago' : 'Active connection established in <strong class="text-emerald-300">{city}</strong> • 2 min ago',
+      footer: `© 2026 ${brandName} • 256-Bit Encryption • Verified Security`,
+      defaultTrust: isDating ? ['256-Bit Encryption', '100% ID-Verified', 'Zero Bot Profiles'] : ['256-Bit Security', 'Zero Lag Latency', 'Verified Node Feed'],
+      jsFilterText: isDating ? 'Filtering inactive member profiles...' : 'Calibrating low-latency execution node...',
+      jsSuccessText: isDating ? 'Matching profiles found successfully!' : 'Direct routing channel established!'
+    },
+    FR: {
+      warningBadge: isDating ? '⚠️ Réservé aux membres vérifiés 21+' : '⚡ Système d\'exécution algorithmique 2026',
+      step1Badge: 'ÉTAPE 1 SUR 2',
+      step1Ready: '50% PRÊT',
+      step2Badge: 'ÉTAPE 2 SUR 2',
+      step2Ready: '90% PRÊT',
+      step3Sub: 'Recherche des profils actifs à <span class="text-slate-300 font-bold">{city}</span>...',
+      step4Badge: '12 PROFILS COMPATIBLES DÉBLOQUÉS',
+      step4Title: 'Résultat: 98.6% de compatibilité',
+      step4Sub: 'Des profils à <strong class="text-rose-400 underline">{city}</strong> attendent votre réponse!',
+      timerPrefix: '⏱️ Invitation valide:',
+      socialProof: 'Membre vérifié de <strong class="text-sky-300">{city}</strong> connecté • il y a 2 min',
+      footer: `© 2026 ${brandName} • 100% Vérifié & Sécurisé`,
+      defaultTrust: ['Chiffrement SSL 256-bit', 'Profils vérifiés', 'Discrétion totale'],
+      jsFilterText: 'Filtrage des profils inactifs...',
+      jsSuccessText: 'Profils correspondants trouvés avec succès!'
+    },
+    ES: {
+      warningBadge: isDating ? '⚠️ Acceso solo para miembros mayores de 21 años' : '⚡ Sistema de trading algorítmico 2026',
+      step1Badge: 'PASO 1 DE 2',
+      step1Ready: '50% LISTO',
+      step2Badge: 'PASO 2 DE 2',
+      step2Ready: '90% LISTO',
+      step3Sub: 'Verificando perfiles activos en <span class="text-slate-300 font-bold">{city}</span>...',
+      step4Badge: '12 PERFILES COMPATIBLES DESBLOQUEADOS',
+      step4Title: 'Resultado: 98.6% de compatibilidad',
+      step4Sub: '¡Perfiles en <strong class="text-rose-400 underline">{city}</strong> esperando tu mensaje!',
+      timerPrefix: '⏱️ Invitación válida:',
+      socialProof: 'Miembro verificado de <strong class="text-sky-300">{city}</strong> conectado • hace 2 min',
+      footer: `© 2026 ${brandName} • 100% Verificado y Seguro`,
+      defaultTrust: ['Cifrado SSL de 256 bits', 'Perfiles verificados', 'Total discreción'],
+      jsFilterText: 'Filtrando perfiles inactivos...',
+      jsSuccessText: '¡Perfiles coincidentes encontrados con éxito!'
+    }
+  };
+
+  const loc = i18n[lang] || i18n.EN;
+  const activeTrustNotes = trustNotes && trustNotes.length > 0 ? trustNotes : loc.defaultTrust;
 
   const heroSectionHtml = isDating ? `
     <!-- Compact Mobile-Optimized VIP Match Preview (Above-The-Fold) -->
@@ -69,9 +145,9 @@ export function generateHighConvertingLandingHtml(opts: LandingArchitectOptions)
       <div class="flex items-center justify-between pb-2 border-b border-slate-800/80 text-[11px] font-mono">
         <span class="flex items-center text-emerald-400 font-bold">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping mr-1.5"></span>
-          AKTIVE PROFILE IN DER NÄHE
+          ${lang === 'DE' ? 'AKTIVE PROFILE IN DER NÄHE' : 'ACTIVE PROFILES NEARBY'}
         </span>
-        <span class="text-slate-400 font-mono text-[10px]">Umkreis: <strong class="text-sky-300">10 km</strong></span>
+        <span class="text-slate-400 font-mono text-[10px]">${lang === 'DE' ? 'Umkreis:' : 'Radius:'} <strong class="text-sky-300">10 km</strong></span>
       </div>
 
       <!-- 3 Verified VIP Avatars -->
@@ -168,8 +244,8 @@ export function generateHighConvertingLandingHtml(opts: LandingArchitectOptions)
     
     <!-- Hero Title & Micro Hook -->
     <div class="text-center space-y-1">
-      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium bg-rose-950/80 border border-rose-500/40 text-rose-300">
-        ⚠️ Nur für niveauvolle Kontakte ab 21 Jahren
+      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium bg-slate-900/80 border border-slate-700 text-slate-300">
+        ${loc.warningBadge}
       </span>
       <h1 class="text-xl sm:text-2xl font-heading font-extrabold text-white leading-tight tracking-tight pt-1">
         ${headline}
@@ -187,15 +263,15 @@ export function generateHighConvertingLandingHtml(opts: LandingArchitectOptions)
       <!-- STEP 1: Micro-Commitment -->
       <div id="quizStep1" class="space-y-3 transition-all duration-300">
         <div class="flex justify-between items-center text-[10px] font-mono text-slate-400 pb-1.5 border-b border-slate-800">
-          <span>FRAGE 1 VON 2</span>
-          <span class="text-emerald-400 font-bold">50% BEREIT</span>
+          <span>${loc.step1Badge}</span>
+          <span class="text-emerald-400 font-bold">${loc.step1Ready}</span>
         </div>
         <h3 class="text-sm sm:text-base font-heading font-bold text-white text-center">
           ${step1Question}
         </h3>
         <div class="grid grid-cols-2 gap-2.5 pt-0.5">
           ${step1Options.map((opt, i) => `
-            <button type="button" onclick="nextQuizStep(2)" class="touch-target py-3 px-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 hover:border-rose-400 text-white font-medium text-xs sm:text-sm transition flex items-center justify-center space-x-1.5 shadow-sm">
+            <button type="button" onclick="nextQuizStep(2)" class="touch-target py-3 px-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 hover:border-emerald-400 text-white font-medium text-xs sm:text-sm transition flex items-center justify-center space-x-1.5 shadow-sm">
               <span>${opt}</span>
             </button>
           `).join('')}
@@ -205,8 +281,8 @@ export function generateHighConvertingLandingHtml(opts: LandingArchitectOptions)
       <!-- STEP 2: Intent & Location Validation -->
       <div id="quizStep2" class="space-y-3 hidden transition-all duration-300">
         <div class="flex justify-between items-center text-[10px] font-mono text-slate-400 pb-1.5 border-b border-slate-800">
-          <span>FRAGE 2 VON 2</span>
-          <span class="text-emerald-400 font-bold">90% BEREIT</span>
+          <span>${loc.step2Badge}</span>
+          <span class="text-emerald-400 font-bold">${loc.step2Ready}</span>
         </div>
         <h3 class="text-sm sm:text-base font-heading font-bold text-white text-center">
           ${step2Question}
@@ -223,40 +299,40 @@ export function generateHighConvertingLandingHtml(opts: LandingArchitectOptions)
 
       <!-- STEP 3: Animated Verification Progress Bar (2.2s) -->
       <div id="quizStep3" class="space-y-3 hidden text-center py-3">
-        <div class="w-10 h-10 mx-auto rounded-full border-2 border-t-emerald-400 border-r-transparent border-b-rose-400 border-l-transparent animate-spin"></div>
+        <div class="w-10 h-10 mx-auto rounded-full border-2 border-t-emerald-400 border-r-transparent border-b-sky-400 border-l-transparent animate-spin"></div>
         <h4 id="analysisText" class="text-xs sm:text-sm font-heading font-bold text-slate-200">
           ${analyzingText}
         </h4>
         <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
-          <div id="analysisBar" class="bg-gradient-to-r from-rose-500 via-pink-500 to-emerald-400 h-2 rounded-full w-0 transition-all duration-1000 ease-out"></div>
+          <div id="analysisBar" class="bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-400 h-2 rounded-full w-0 transition-all duration-1000 ease-out"></div>
         </div>
-        <p class="text-[10px] text-slate-500 font-mono">Prüfe regionale Profile in <span class="text-slate-300 font-bold">{city}</span>...</p>
+        <p class="text-[10px] text-slate-500 font-mono">${loc.step3Sub}</p>
       </div>
 
       <!-- STEP 4: Unlocked High-Impact CTA Reveal -->
       <div id="quizStep4" class="space-y-3.5 hidden text-center transition-all duration-300">
         <div class="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-emerald-950/90 border border-emerald-500/40 text-emerald-300 text-[11px] font-bold font-mono">
           <span>✓</span>
-          <span>12 PASSENDE MATCHES FREIGESCHALTET</span>
+          <span>${loc.step4Badge}</span>
         </div>
 
         <div class="space-y-0.5">
           <h3 class="text-lg font-heading font-extrabold text-white">
-            Ergebnis: 98.6% Kompatibilität
+            ${loc.step4Title}
           </h3>
           <p class="text-xs text-slate-300">
-            Profile in <strong class="text-rose-400 underline">{city}</strong> warten auf Ihre Nachricht!
+            ${loc.step4Sub}
           </p>
         </div>
 
         <div class="pt-1">
-          <a id="ctaLink" href="${ctaUrl}" class="pulse-action touch-target block w-full py-3.5 rounded-xl font-heading font-extrabold text-sm sm:text-base bg-gradient-to-r ${primaryBtn} text-white shadow-xl shadow-rose-950/50 transform hover:-translate-y-0.5 active:scale-95 transition text-center tracking-wide">
+          <a id="ctaLink" href="${ctaUrl}" class="pulse-action touch-target block w-full py-3.5 rounded-xl font-heading font-extrabold text-sm sm:text-base bg-gradient-to-r ${primaryBtn} text-white shadow-xl shadow-slate-950/50 transform hover:-translate-y-0.5 active:scale-95 transition text-center tracking-wide">
             ${finalCtaText} &rarr;
           </a>
         </div>
 
         <div class="text-[10px] text-slate-500 flex justify-between items-center pt-1.5 border-t border-slate-800/80 font-mono">
-          <span>⏱️ Einladung gültig: <span class="text-slate-300 font-bold">{date}</span></span>
+          <span>${loc.timerPrefix} <span class="text-slate-300 font-bold">{date}</span></span>
           <span class="text-rose-400 font-bold dynamic-countdown">14:59</span>
         </div>
       </div>
@@ -266,12 +342,12 @@ export function generateHighConvertingLandingHtml(opts: LandingArchitectOptions)
     <!-- Live Social Proof Notification Banner -->
     <div id="liveProofToast" class="bg-slate-900/80 border border-slate-800/90 rounded-xl p-2 flex items-center space-x-2 text-[11px] text-slate-300">
       <span class="text-sm">🔔</span>
-      <span class="truncate">Verifiziertes Mitglied aus <strong class="text-sky-300">{city}</strong> beigetreten • vor 2 Min.</span>
+      <span class="truncate">${loc.socialProof}</span>
     </div>
 
     <!-- Trust Badges Bar -->
     <div class="grid grid-cols-3 gap-1.5 text-center text-[10px] text-slate-400 font-mono">
-      ${trustNotes.map(n => `
+      ${activeTrustNotes.map(n => `
         <div class="bg-slate-900/50 border border-slate-800/60 rounded-lg py-1 px-1 truncate">
           ✓ ${n}
         </div>
@@ -282,7 +358,7 @@ export function generateHighConvertingLandingHtml(opts: LandingArchitectOptions)
 
   <!-- Footer -->
   <footer class="max-w-md mx-auto w-full text-center py-2 text-[10px] text-slate-600 border-t border-slate-900">
-    © 2026 ${brandName} • 18+ Verifikation • 100% Diskretion
+    ${loc.footer}
   </footer>
 
   <!-- Micro-Funnel Controller & Dynamic Tracking Script -->
@@ -302,11 +378,11 @@ export function generateHighConvertingLandingHtml(opts: LandingArchitectOptions)
       setTimeout(() => { if (bar) bar.style.width = '45%'; }, 200);
       setTimeout(() => { 
         if (bar) bar.style.width = '85%'; 
-        if (text) text.innerText = 'Filtere inaktive Profile heraus...';
+        if (text) text.innerText = '${loc.jsFilterText}';
       }, 900);
       setTimeout(() => {
         if (bar) bar.style.width = '100%';
-        if (text) text.innerText = 'Matches erfolgreich gefunden!';
+        if (text) text.innerText = '${loc.jsSuccessText}';
       }, 1700);
       setTimeout(() => {
         document.getElementById('quizStep3').classList.add('hidden');
@@ -373,3 +449,4 @@ export async function scaffoldEngineeredLanding(opts: LandingArchitectOptions): 
   console.log(`✨ [Landing Architect Skill] Scaffolded ${opts.campaignId}/${opts.variant} -> ${outPath}`);
   return outPath;
 }
+

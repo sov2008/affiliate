@@ -45,5 +45,5 @@ if (require.main === module) {
     console.error('Usage: tsx src/stats-syncer.ts <campaign_id>');
     process.exit(1);
   }
-  syncStats(campaignId).then(() => process.exit(0));
+  syncStats(campaignId);
 }
