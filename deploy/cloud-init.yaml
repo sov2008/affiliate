@@ -1,0 +1,35 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+packages:
+  - git
+  - curl
+  - build-essential
+
+runcmd:
+  # Install Node.js 20
+  - curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+  - apt-get install -y nodejs
+  
+  # Install pm2 globally
+  - npm install -g pm2 concurrently tsx
+
+  # Setup App Directory
+  - mkdir -p /var/www/affiliate
+  - cd /var/www/affiliate
+
+  # Clone repo using GitHub Token for auth so we can push back
+  - git clone https://{{GITHUB_TOKEN}}@github.com/{{GITHUB_USER}}/{{GITHUB_REPO}}.git .
+
+  # Install dependencies
+  - npm install
+  - cd core && npm install
+
+  # Setup Dummy memory if missing
+  - mkdir -p .antigravity
+  - echo '{"deployed_campaigns": {}}' > .antigravity/memory.json
+
+  # Start the full autopilot suite in background using pm2
+  - cd core && pm2 start npm --name "autopilot" -- run start:all
+  - pm2 save
+  - pm2 startup
