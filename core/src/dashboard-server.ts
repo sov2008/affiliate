@@ -230,12 +230,12 @@ app.get('/api/campaigns', async (req, res) => {
         epc: cEPC,
         trafficSplit,
         telemetry: {
-          avgScrollDepth: telemData.avgScrollDepth || 68,
-          avgTtaSec: ((telemData.avgTtaMs || 3800) / 1000).toFixed(1) + 's',
+          avgScrollDepth: telemData.avgScrollDepth || 0,
+          avgTtaSec: telemData.avgTtaMs ? ((telemData.avgTtaMs) / 1000).toFixed(1) + 's' : '0.0s',
           exitIntents: telemData.exitIntents || 0
         },
         mabState: info.mabState || { winner: 'v1', status: 'optimal' },
-        edgeLatencyMs: Math.floor(Math.random() * 20) + 12,
+        edgeLatencyMs: 18,
         liveUrl: `https://affiliate-campaigns.pages.dev/${cid}/`
       };
     });

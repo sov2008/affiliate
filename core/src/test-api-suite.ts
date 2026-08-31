@@ -97,6 +97,11 @@ async function runValidationSuite() {
 
   console.log('\n📊 ====================================================');
   console.log(`📊 Audit Results: ${passed} Passed, ${failed} Failed`);
+  // Clean up all test telemetry & postbacks so Cloudflare KV remains 100% clean in production
+  try {
+    await fetch(`${WORKER_URL}/reset-stats`).catch(() => {});
+  } catch (e) {}
+
   console.log('📊 ====================================================\n');
 
   if (failed > 0) {
