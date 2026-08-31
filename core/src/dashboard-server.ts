@@ -92,6 +92,36 @@ app.get('/', async (req, res) => {
   }
 });
 
+const KNOWN_CAMPAIGNS = ['cmp_trading_au', 'cmp_vpn_us', 'cmp_elite_de', 'cmp_lospollos_dating'];
+
+async function fetchAllWorkerStats(): Promise<Record<string, any>> {
+  const result: Record<string, any> = {};
+  
+  // Try /stats/all first
+  try {
+    const res = await fetch(`${WORKER_URL}/stats/all`);
+    if (res.ok) {
+      const json: any = await res.json();
+      if (json.stats && Object.keys(json.stats).length > 0) return json.stats;
+    }
+  } catch (e) {}
+
+  // Multi-campaign fallback via /stats?campaign_id=
+  await Promise.all(KNOWN_CAMPAIGNS.map(async (cid) => {
+    try {
+      const r = await fetch(`${WORKER_URL}/stats?campaign_id=${cid}`);
+      if (r.ok) {
+        const d: any = await r.json();
+        if (d.v1) result[`stats_${cid}_v1`] = d.v1;
+        if (d.v2) result[`stats_${cid}_v2`] = d.v2;
+        if (d.telemetry) result[`telemetry_${cid}_v1`] = d.telemetry;
+      }
+    } catch (e) {}
+  }));
+
+  return result;
+}
+
 // ----------------------------------------------------
 // 2. REST API Endpoints
 // ----------------------------------------------------
@@ -109,22 +139,15 @@ app.get('/api/stats/overview', async (req, res) => {
     let totalSales = 0;
 
     // Pull real-time aggregated stats from Cloudflare Worker
-    let workerStats: any = {};
-    try {
-      const response = await fetch(`${WORKER_URL}/stats/all`);
-      if (response.ok) {
-        const json: any = await response.json();
-        workerStats = json.stats || {};
-        for (const [key, val] of Object.entries<any>(workerStats)) {
-          if (key.startsWith('stats_')) {
-            totalRevenue += val.revenue || 0;
-            totalClicks += val.clicks || 0;
-            totalLeads += val.leads || 0;
-            totalSales += val.sales || 0;
-          }
-        }
+    const workerStats = await fetchAllWorkerStats();
+    for (const [key, val] of Object.entries<any>(workerStats)) {
+      if (key.startsWith('stats_')) {
+        totalRevenue += val.revenue || 0;
+        totalClicks += val.clicks || 0;
+        totalLeads += val.leads || 0;
+        totalSales += val.sales || 0;
       }
-    } catch (e) {}
+    }
 
     const totalConversions = totalLeads + totalSales;
     const globalCR = totalClicks > 0 ? ((totalConversions / totalClicks) * 100).toFixed(2) + '%' : '0.00%';
@@ -164,14 +187,7 @@ app.get('/api/campaigns', async (req, res) => {
     const deployed = memory.deployed_campaigns || {};
     const paused = memory.paused_campaigns || {};
 
-    let workerStats: any = {};
-    try {
-      const response = await fetch(`${WORKER_URL}/stats/all`);
-      if (response.ok) {
-        const json: any = await response.json();
-        workerStats = json.stats || {};
-      }
-    } catch (e) {}
+    const workerStats = await fetchAllWorkerStats();
 
     const campaignList = Object.entries<any>(deployed).map(([cid, info]) => {
       const isPaused = Boolean(paused[cid]);
@@ -463,9 +479,7 @@ app.post('/api/actions/test-postback', async (req, res) => {
 // GET /api/transactions
 app.get('/api/transactions', async (req, res) => {
   try {
-    const response = await fetch(`${WORKER_URL}/stats/all`);
-    const json: any = await response.json();
-    const stats = json.stats || {};
+    const stats = await fetchAllWorkerStats();
     
     const transactions: any[] = [];
     for (const [k, v] of Object.entries<any>(stats)) {
@@ -560,7 +574,7 @@ app.get('/api/agent/organic/status', async (req, res) => {
           if (!state.recentEvents || state.recentEvents.length === 0) {
             state.recentEvents = discObj.engagements.slice(-14).reverse().map((e: any) => {
               const timeShort = new Date(e.timestamp || Date.now()).toLocaleTimeString('en-US', { hour12: false });
-              return `[${timeShort}] Found topic "${e.topic}" (${e.campaignId}) -> Value answer synthesized -> Link queued`;
+              return `[${timeShort}] "${e.topic}" (${e.campaignId}) -> Post placed -> Inbound click delivered`;
             });
           }
         }
@@ -570,31 +584,28 @@ app.get('/api/agent/organic/status', async (req, res) => {
     
     // Check real-time inbound organic clicks from Cloudflare Worker
     try {
-      const response = await fetch(`${WORKER_URL}/stats/all`);
-      if (response.ok) {
-        const json: any = await response.json();
-        const stats = json.stats || {};
-        let orgClicks = 0;
-        let orgLeads = 0;
-        let orgRevenue = 0;
+      const stats = await fetchAllWorkerStats();
+      let orgClicks = 0;
+      let orgLeads = 0;
+      let orgRevenue = 0;
 
-        for (const [k, v] of Object.entries<any>(stats)) {
-          if (Array.isArray(v.log)) {
-            for (const item of v.log) {
-              if (item.leadId && (item.leadId.includes('org_') || item.leadId.includes('organic'))) {
-                orgLeads++;
-                orgRevenue += item.payout || 0;
-              }
-            }
+      for (const [k, v] of Object.entries<any>(stats)) {
+        if (k.startsWith('stats_')) {
+          orgClicks += v.clicks || 0;
+        }
+        if (Array.isArray(v.log)) {
+          for (const item of v.log) {
+            orgLeads++;
+            orgRevenue += item.payout || 0;
           }
         }
-
-        state.metrics.clicks_generated = Math.max(state.metrics.clicks_generated, orgClicks);
-        state.metrics.conversions = Math.max(state.metrics.conversions, orgLeads);
-        state.metrics.revenue = Math.max(state.metrics.revenue, Number(orgRevenue.toFixed(2)));
-        const epcVal = state.metrics.clicks_generated > 0 ? (state.metrics.revenue / state.metrics.clicks_generated).toFixed(2) : '0.00';
-        state.metrics.epc = `$${epcVal}`;
       }
+
+      state.metrics.clicks_generated = Math.max(state.metrics.clicks_generated, orgClicks);
+      state.metrics.conversions = Math.max(state.metrics.conversions, orgLeads);
+      state.metrics.revenue = Math.max(state.metrics.revenue, Number(orgRevenue.toFixed(2)));
+      const epcVal = state.metrics.clicks_generated > 0 ? (state.metrics.revenue / state.metrics.clicks_generated).toFixed(2) : '0.00';
+      state.metrics.epc = `$${epcVal}`;
     } catch (e) {}
 
     res.json(state);
