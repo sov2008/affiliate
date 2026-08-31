@@ -212,7 +212,7 @@ async function runAutonomousBuilder() {
       const baseOffer: Offer = {
         id: argMap.get('name') ? argMap.get('name')!.toLowerCase().replace(/\s+/g, '_') : 'off_smart_123',
         name: argMap.get('name') || 'E-commerce Smart Gadget 2.0',
-        vertical: 'general',
+        vertical: argMap.get('vertical') || 'general',
         payout: argMap.get('payout') ? parseFloat(argMap.get('payout')!) : 40.0,
         targetGeo: argMap.get('geo') ? argMap.get('geo')!.split(',') : ['US'],
         affiliateUrlTemplate: argMap.get('url') || 'https://example-tracker.com/click?offer=smart123'
