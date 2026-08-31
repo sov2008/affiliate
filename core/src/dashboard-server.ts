@@ -125,15 +125,15 @@ const HTML_CONTENT = `
            leads += p.leads || 0;
            leads += p.sales || 0;
            
-           tbody += `
+           tbody += \`
              <tr>
-               <td class="py-3 text-slate-300">${cid}</td>
-               <td class="py-3"><span class="bg-indigo-900/50 text-indigo-300 px-2 py-1 rounded text-xs">${v}</span></td>
-               <td class="py-3">${p.clicks || 0}</td>
-               <td class="py-3 text-emerald-400">$${p.revenue || 0}</td>
-               <td class="py-3">${p.cr || '0%'}</td>
+               <td class="py-3 text-slate-300">\${cid}</td>
+               <td class="py-3"><span class="bg-indigo-900/50 text-indigo-300 px-2 py-1 rounded text-xs">\${v}</span></td>
+               <td class="py-3">\${p.clicks || 0}</td>
+               <td class="py-3 text-emerald-400">$\${p.revenue || 0}</td>
+               <td class="py-3">\${p.cr || '0%'}</td>
              </tr>
-           `;
+           \`;
         }
       }
       
@@ -204,11 +204,11 @@ app.post('/api/launch', (req, res) => {
   if (!name || !geo) return res.status(400).send('Missing name or geo');
   
   // Fire and forget background process
-  exec(`npx tsx src/cli.ts launch --name="${name}" --geo="${geo}"`, { cwd: __dirname });
+  exec(\`npx tsx src/cli.ts launch --name="\${name}" --geo="\${geo}"\`, { cwd: __dirname });
   res.send('Launched');
 });
 
 const PORT = 5000;
 app.listen(PORT, () => {
-  console.log(`Dashboard running at http://localhost:${PORT}`);
+  console.log(\`Dashboard running at http://localhost:\${PORT}\`);
 });
