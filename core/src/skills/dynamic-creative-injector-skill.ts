@@ -3,6 +3,7 @@ export interface DynamicInjectorOptions {
   enableDevice?: boolean;
   enableDate?: boolean;
   enableCountdown?: boolean;
+  defaultLang?: 'DE' | 'EN' | 'FR' | 'ES';
 }
 
 export function injectDynamicCreatives(html: string, options: DynamicInjectorOptions = {}): string {
@@ -11,13 +12,23 @@ export function injectDynamicCreatives(html: string, options: DynamicInjectorOpt
   const dynamicEngineScript = `
 <script id="dynamic-creative-engine">
 (function() {
+  var urlParams = new URLSearchParams(window.location.search);
+  var lang = (document.documentElement.lang || 'de').toLowerCase();
+  
+  // Localized defaults
+  var defaults = {
+    de: { city: 'Berlin / Umgebung', country: 'Deutschland' },
+    fr: { city: 'Paris / Région', country: 'France' },
+    es: { city: 'Madrid / Área', country: 'España' },
+    en: { city: 'London / Metro', country: 'United Kingdom' }
+  };
+  var localized = defaults[lang] || defaults.de;
+
   function getClientContext() {
     var ua = navigator.userAgent || '';
-    var device = 'Device';
+    var device = 'Smartphone';
     var os = 'System';
-    var browser = 'Browser';
 
-    // Device detection
     if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
       device = 'iPhone';
       os = 'iOS';
@@ -32,11 +43,13 @@ export function injectDynamicCreatives(html: string, options: DynamicInjectorOpt
       os = 'macOS';
     }
 
-    // Date & Time localized
     var now = new Date();
-    var dateFormatted = now.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+    var dateFormatted = now.toLocaleDateString(lang === 'de' ? 'de-DE' : undefined, { month: 'long', day: 'numeric', year: 'numeric' });
     var yearFormatted = now.getFullYear().toString();
-    var monthFormatted = now.toLocaleDateString(undefined, { month: 'long' });
+    var monthFormatted = now.toLocaleDateString(lang === 'de' ? 'de-DE' : undefined, { month: 'long' });
+
+    var queryCity = urlParams.get('city') || urlParams.get('utm_city') || urlParams.get('region');
+    var queryCountry = urlParams.get('country') || urlParams.get('utm_country');
 
     return {
       device: device,
@@ -44,16 +57,12 @@ export function injectDynamicCreatives(html: string, options: DynamicInjectorOpt
       date: dateFormatted,
       year: yearFormatted,
       month: monthFormatted,
-      city: 'Your Area',
-      country: 'Your Country'
+      city: queryCity || localized.city,
+      country: queryCountry || localized.country
     };
   }
 
-  function applyTokens() {
-    var ctx = getClientContext();
-    var elements = document.querySelectorAll('*');
-    
-    // Replace text node tokens
+  function applyTokens(ctx) {
     var walker = document.createTreeWalker(document.body || document.documentElement, NodeFilter.SHOW_TEXT, null, false);
     var node;
     while (node = walker.nextNode()) {
@@ -69,8 +78,36 @@ export function injectDynamicCreatives(html: string, options: DynamicInjectorOpt
         node.nodeValue = val;
       }
     }
+  }
 
-    // Dynamic countdown timer injector if span.dynamic-countdown exists
+  function resolveLiveGeo() {
+    var ctx = getClientContext();
+    applyTokens(ctx);
+
+    // If query params already supplied city, skip external fetch
+    if (urlParams.get('city') || urlParams.get('utm_city')) return;
+
+    // Asynchronous edge / ipapi resolution with 1.2s timeout
+    var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timeoutId = controller ? setTimeout(function() { controller.abort(); }, 1200) : null;
+
+    fetch('https://ipapi.co/json/', { signal: controller ? controller.signal : undefined })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (timeoutId) clearTimeout(timeoutId);
+        if (data && (data.city || data.region)) {
+          ctx.city = data.city || data.region;
+          if (data.country_name) ctx.country = data.country_name;
+          applyTokens(ctx);
+        }
+      })
+      .catch(function() {
+        // Safe fallback already applied
+      });
+  }
+
+  // Countdown timer injector
+  function initCountdown() {
     var timerElements = document.querySelectorAll('.dynamic-countdown, [data-countdown]');
     if (timerElements.length > 0) {
       var totalSeconds = 14 * 60 + 59;
@@ -85,9 +122,13 @@ export function injectDynamicCreatives(html: string, options: DynamicInjectorOpt
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', applyTokens);
+    document.addEventListener('DOMContentLoaded', function() {
+      resolveLiveGeo();
+      initCountdown();
+    });
   } else {
-    applyTokens();
+    resolveLiveGeo();
+    initCountdown();
   }
 })();
 </script>
@@ -97,10 +138,4 @@ export function injectDynamicCreatives(html: string, options: DynamicInjectorOpt
     return html.replace('</body>', `\n${dynamicEngineScript}\n</body>`);
   }
   return html + dynamicEngineScript;
-}
-
-if (require.main === module) {
-  const sampleHtml = `<!DOCTYPE html><html><body><h1>Special Offer for {device} users in {city}!</h1><p>Expires on {date}. <span class="dynamic-countdown">15:00</span> remaining.</p></body></html>`;
-  const result = injectDynamicCreatives(sampleHtml);
-  console.log('\n📄 Injected HTML Output:\n', result);
 }
