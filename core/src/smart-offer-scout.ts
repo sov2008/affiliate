@@ -49,9 +49,14 @@ async function runScout() {
   const memory = await recall('deployed_campaigns');
   const deployedIds = new Set(Object.keys(memory));
 
+  // Merge mock offers with real API offers
+  const admitadOffers = await fetchAdmitadOffers();
+  const myleadOffers = await fetchMyLeadOffers();
+  const allOffers = [...MOCK_NETWORKS_DATA, ...admitadOffers, ...myleadOffers];
+
   let scoredOffers = [];
 
-  for (const offer of MOCK_NETWORKS_DATA) {
+  for (const offer of allOffers) {
     if (deployedIds.has(offer.id)) {
       console.log(`[Skip] Offer ${offer.id} is already deployed.`);
       continue;
