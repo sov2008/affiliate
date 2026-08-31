@@ -1,225 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Smart Financial Solutions | FinTech Smartlink</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Tailwind Config for Custom Colors/Animations -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#f0fdf4',
-              100: '#dcfce7',
-              500: '#22c55e',
-              600: '#16a34a',
-              700: '#15803d',
-              900: '#14532d',
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SmartFin | Top European FinTech Offers, Loans & Banking (DE, FR, ES)</title><meta name="description" content="Compare and match with top European banking solutions, credit cards, and instant micro-loans in Germany, France, and Spain. Get 60-second digital approvals with 0% fee impact."><meta name="keywords" content="FinTech smartlink, European loans, banking offers Germany, credit cards France, micro loans Spain, SmartFin financial matching"><meta name="robots" content="index, follow"><link rel="canonical" href="https://smartfin.eu/"><!-- OpenGraph Tags --><meta property="og:type" content="website"><meta property="og:url" content="https://smartfin.eu/"><meta property="og:title" content="SmartFin | Next-Gen European FinTech Matching Engine"><meta property="og:description" content="Unlock premium European banking solutions, credit cards, and micro-loan approvals in under 60 seconds across Germany, France, and Spain."><meta property="og:image" content="https://smartfin.eu/og-image.jpg"><meta property="og:site_name" content="SmartFin"><meta property="og:locale" content="en_EU"><meta property="og:locale:alternate" content="de_DE"><meta property="og:locale:alternate" content="fr_FR"><meta property="og:locale:alternate" content="es_ES"><!-- Twitter Card Tags --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:url" content="https://smartfin.eu/"><meta name="twitter:title" content="SmartFin | Premium FinTech Offers in DE, FR & ES"><meta name="twitter:description" content="Connect with top-tier European banking, smart credit cards, and micro-loans instantly with zero registration fees."><meta name="twitter:image" content="https://smartfin.eu/og-image.jpg"><!-- JSON-LD Structured Data --><script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://smartfin.eu/#website",
+          "url": "https://smartfin.eu/",
+          "name": "SmartFin",
+          "description": "Next-Gen Financial Matching Engine for Germany, France, and Spain"
+        },
+        {
+          "@type": "FinancialService",
+          "@id": "https://smartfin.eu/#organization",
+          "name": "SmartFin",
+          "url": "https://smartfin.eu/",
+          "description": "Smart match algorithm connecting users to premier European banking solutions, credit cards, and micro-loan approvals across Germany, France, and Spain.",
+          "areaServed": [
+            {
+              "@type": "Country",
+              "name": "Germany",
+              "identifier": "DE"
             },
-            dark: {
-              800: '#0f172a',
-              900: '#020617',
+            {
+              "@type": "Country",
+              "name": "France",
+              "identifier": "FR"
+            },
+            {
+              "@type": "Country",
+              "name": "Spain",
+              "identifier": "ES"
             }
+          ],
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "bestRating": "5",
+            "worstRating": "1",
+            "ratingCount": "1250"
           },
-          animation: {
-            'pulse-subtle': 'pulseSubtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-          },
-          keyframes: {
-            pulseSubtle: {
-              '0%, 100%': { opacity: '1', transform: 'scale(1)' },
-              '50%': { opacity: '.95', transform: 'scale(1.02)' },
-            }
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "EUR",
+            "price": "0",
+            "description": "100% free instant smart matching service for European financial offers."
           }
         }
-      }
+      ]
     }
-  </script>
-  <style>
-    /* Custom utility for smooth scrolling & font optimization */
-    html { scroll-behavior: smooth; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
-    .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-  </style>
-</head>
-<body class="bg-dark-900 text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-brand-500 selection:text-white pb-24 md:pb-0">
-
-  <!-- Header Section -->
-  <header class="w-full border-b border-slate-800 bg-dark-900/90 backdrop-blur sticky top-0 z-40">
-    <div class="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <div class="h-9 w-9 bg-brand-500 rounded-lg flex items-center justify-center font-black text-slate-900 text-xl tracking-tighter">
-          F
-        </div>
-        <span class="font-bold text-lg text-white tracking-tight">FinSmart <span class="text-brand-500 text-xs px-1.5 py-0.5 rounded bg-brand-500/10 border border-brand-500/20 font-semibold">EU</span></span>
-      </div>
-      <div class="flex items-center gap-2 text-xs text-slate-400 bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700/50">
-        <svg class="w-3.5 h-3.5 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-        </svg>
-        <span class="font-medium text-slate-300">256-Bit SSL Encrypted</span>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Hero Section -->
-  <main class="flex-grow">
-    <section class="max-w-4xl mx-auto px-4 pt-8 pb-12 text-center md:pt-16">
-      
-      <!-- Live Indicator Badge -->
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-500 text-xs font-semibold mb-6 animate-pulse">
-        <span class="w-2 h-2 rounded-full bg-brand-500 animate-ping"></span>
-        <span>Top Finance Offers Matched For DE, FR & ES</span>
-      </div>
-
-      <!-- Main Headline -->
-      <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
-        Unlock Premium Financial Tools Tailored For You
-      </h1>
-
-      <!-- Subheadline -->
-      <p class="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto font-normal mb-8 leading-relaxed">
-        Compare, select, and access smart financial instruments with fast approval, zero hidden fees, and maximum security in under 2 minutes.
-      </p>
-
-      <!-- CTA Card Widget -->
-      <div class="glass-card rounded-2xl p-6 sm:p-8 max-w-xl mx-auto shadow-2xl border border-slate-700/60 relative overflow-hidden">
-        <div class="absolute top-0 right-0 -mr-12 -mt-12 w-32 h-32 bg-brand-500/10 rounded-full blur-2xl pointer-events-none"></div>
-
-        <!-- Micro Features List -->
-        <div class="space-y-3 text-left mb-6 text-sm text-slate-200">
-          <div class="flex items-center gap-3">
-            <div class="w-5 h-5 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center flex-shrink-0">✓</div>
-            <span><strong>Instant Matching:</strong> Automated selection of high-yield offers</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="w-5 h-5 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center flex-shrink-0">✓</div>
-            <span><strong>100% Free & No Obligation:</strong> Takes less than 60 seconds</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="w-5 h-5 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center flex-shrink-0">✓</div>
-            <span><strong>Verified Partners:</strong> Fully compliant across EU regulations</span>
-          </div>
-        </div>
-
-        <!-- Primary Call to Action Button -->
-        <a href="https://example-tracker.com/click?offer=fin02" class="cta-link block w-full bg-brand-500 hover:bg-brand-600 active:bg-brand-700 text-slate-950 font-extrabold text-lg sm:text-xl py-4 px-6 rounded-xl shadow-lg shadow-brand-500/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0 animate-pulse-subtle text-center">
-          Get Started Now &rarr;
-        </a>
-
-        <!-- Subtext under CTA -->
-        <p class="text-xs text-slate-400 mt-3 flex items-center justify-center gap-1">
-          <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-          </svg>
-          No credit check required to view options.
-        </p>
-      </div>
-
-      <!-- Social Proof Trust Stats -->
-      <div class="grid grid-cols-3 gap-2 max-w-lg mx-auto mt-10 text-center border-t border-slate-800 pt-6">
-        <div>
-          <div class="text-xl sm:text-2xl font-bold text-white">€15M+</div>
-          <div class="text-xs text-slate-400">Processed</div>
-        </div>
-        <div>
-          <div class="text-xl sm:text-2xl font-bold text-white">150k+</div>
-          <div class="text-xs text-slate-400">EU Users</div>
-        </div>
-        <div>
-          <div class="text-xl sm:text-2xl font-bold text-white">4.9/5</div>
-          <div class="text-xs text-slate-400">User Rating</div>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- How It Works Section -->
-    <section class="border-t border-slate-800 bg-slate-900/40 py-12">
-      <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-xl sm:text-2xl font-bold text-center text-white mb-8">How FinSmart Works For You</h2>
-        
-        <div class="grid md:grid-cols-3 gap-6">
-          <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700/50">
-            <div class="w-8 h-8 bg-brand-500/20 text-brand-500 font-bold rounded-lg flex items-center justify-center mb-3">1</div>
-            <h3 class="font-bold text-white text-base mb-1">Click & Connect</h3>
-            <p class="text-xs text-slate-300">Access our smart matching protocol seamlessly without complex registration forms.</p>
-          </div>
-
-          <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700/50">
-            <div class="w-8 h-8 bg-brand-500/20 text-brand-500 font-bold rounded-lg flex items-center justify-center mb-3">2</div>
-            <h3 class="font-bold text-white text-base mb-1">Smart Engine Match</h3>
-            <p class="text-xs text-slate-300">Our system scans available top-tier financial solutions optimized for DE, FR & ES residents.</p>
-          </div>
-
-          <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700/50">
-            <div class="w-8 h-8 bg-brand-500/20 text-brand-500 font-bold rounded-lg flex items-center justify-center mb-3">3</div>
-            <h3 class="font-bold text-white text-base mb-1">Instant Approval</h3>
-            <p class="text-xs text-slate-300">Review your personal smart recommendation and get approval directly on screen.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Sticky Bottom CTA for Mobile -->
-  <div class="fixed bottom-0 left-0 right-0 p-3 bg-slate-900/95 border-t border-slate-800 backdrop-blur-md md:hidden z-50">
-    <a href="https://example-tracker.com/click?offer=fin02" class="cta-link block w-full bg-brand-500 hover:bg-brand-600 text-slate-950 font-extrabold text-base py-3.5 px-4 rounded-xl shadow-lg text-center">
-      Get Started Free &rarr;
-    </a>
-  </div>
-
-  <!-- Footer -->
-  <footer class="border-t border-slate-800 py-8 bg-dark-900 text-xs text-slate-500">
-    <div class="max-w-4xl mx-auto px-4 text-center space-y-4">
-      <p>
-        <strong>Disclaimer:</strong> FinSmart provides an automated financial matching service. We work with trusted EU partners in Germany, France, and Spain. Services may vary based on user qualification and location.
-      </p>
-      <div class="flex justify-center space-x-4 text-slate-400">
-        <a href="#" class="hover:underline">Privacy Policy</a>
-        <span>•</span>
-        <a href="#" class="hover:underline">Terms of Service</a>
-        <span>•</span>
-        <a href="#" class="hover:underline">Contact Support</a>
-      </div>
-      <p>© <script>document.write(new Date().getFullYear())</script> FinSmart Ltd. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- Dynamic Parameter Extraction & Link Injection Script -->
-  <script>
-    (function() {
-      // Configuration
-      const BASE_URL = 'https://example-tracker.com/click?offer=fin02';
-      const PARAMS_TO_PASS = ['click_id', 'sub1', 'sub2'];
-
-      // Extract parameters from current page URL
-      const currentSearchParams = new URLSearchParams(window.location.search);
-      const targetUrl = new URL(BASE_URL);
-
-      // Append required parameters if present
-      PARAMS_TO_PASS.forEach(param => {
-        if (currentSearchParams.has(param)) {
-          const value = currentSearchParams.get(param);
-          if (value) {
-            targetUrl.searchParams.set(param, value);
-          }
+    </script><script src="https://cdn.tailwindcss.com"></script><link rel="preconnect" href="https://fonts.googleapis.com?click_id={click_id}&sub1={sub1}&sub2={sub2}&sub_id={sub_id}"><link rel="preconnect" href="https://fonts.gstatic.com?click_id={click_id}&sub1={sub1}&sub2={sub2}&sub_id={sub_id}" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap&click_id={click_id}&sub1={sub1}&sub2={sub2}&sub_id={sub_id}" rel="stylesheet"><style>
+        body { font-family: 'Inter', sans-serif; }
+        .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(37, 99, 235, 0.4);
         }
-      });
+    </style></head><body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-blue-500 selection:text-white"><!-- Header Navigation --><header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50"><div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between"><div class="flex items-center space-x-2"><div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-emerald-400 flex items-center justify-center font-bold text-white shadow-lg">
+                    S
+                </div><span class="font-bold text-xl tracking-tight text-white">Smart<span class="text-blue-500">Fin</span></span></div><div class="flex items-center space-x-2"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span>
+                    EU Verified Portal
+                </span></div></div></header><!-- Main Hero Section --><main class="flex-grow"><!-- Hero Banner --><section class="pt-8 pb-12 px-4 max-w-4xl mx-auto text-center"><!-- Region Badge --><div class="inline-flex items-center space-x-2 bg-slate-800/80 border border-slate-700 rounded-full px-3 py-1 text-xs text-slate-300 mb-6"><span class="flex space-x-1"><span>🇩🇪</span><span>🇫🇷</span><span>🇪🇸</span></span><span>• Available in DE, FR & ES</span></div><h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight mb-4">
+                Unlock Premium <span class="bg-gradient-to-r from-blue-400 via-indigo-300 to-emerald-400 bg-clip-text text-transparent">FinTech Offers</span> Tailored To You
+            </h1><p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-8">
+                Connect with top-tier European banking solutions, smart credit cards, and micro-loan approvals in under 60 seconds with 0% fee impact.
+            </p><!-- Main CTA Container --><div class="bg-slate-800/60 border border-slate-700/80 rounded-2xl p-6 sm:p-8 backdrop-blur-xl max-w-md mx-auto shadow-2xl glow-effect"><div class="space-y-4"><div class="flex items-center justify-between text-xs text-slate-400 pb-2 border-b border-slate-700"><span>Approval Likelihood: <strong class="text-emerald-400">98.2%</strong></span><span>Avg Speed: <strong class="text-slate-200">Instant</strong></span></div><!-- Micro Feature List --><ul class="text-left text-sm text-slate-300 space-y-2.5 py-2"><li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Instant smart matching algorithm
+                        </li><li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Fully digital, paperless application
+                        </li><li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            256-Bit encrypted & GDPR compliant
+                        </li></ul><!-- CTA Button --><a href="https://example-tracker.com/click?offer=fin02&click_id={click_id}&sub1={sub1}&sub2={sub2}&sub_id={sub_id}" class="cta-link w-full inline-flex items-center justify-center px-6 py-4 rounded-xl text-base font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 transition-all duration-200 shadow-lg transform active:scale-95"><span>Access Smartlink Offers</span><svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></a><p class="text-[11px] text-slate-500 text-center">
+                        🔒 Safe & Secure. No registration fees required.
+                    </p></div></div></section><!-- Social Proof Grid --><section class="py-10 bg-slate-950/50 border-y border-slate-800/80"><div class="max-w-5xl mx-auto px-4"><div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center"><div class="p-4 rounded-lg bg-slate-900/40 border border-slate-800"><p class="text-2xl sm:text-3xl font-extrabold text-white">€12.4M+</p><p class="text-xs text-slate-400 mt-1">Total Credit Matched</p></div><div class="p-4 rounded-lg bg-slate-900/40 border border-slate-800"><p class="text-2xl sm:text-3xl font-extrabold text-white">60 Sec</p><p class="text-xs text-slate-400 mt-1">Average Turnaround</p></div><div class="p-4 rounded-lg bg-slate-900/40 border border-slate-800"><p class="text-2xl sm:text-3xl font-extrabold text-white">4.9 / 5</p><p class="text-xs text-slate-400 mt-1">User Satisfaction Rating</p></div><div class="p-4 rounded-lg bg-slate-900/40 border border-slate-800"><p class="text-2xl sm:text-3xl font-extrabold text-emerald-400">100%</p><p class="text-xs text-slate-400 mt-1">Free Service</p></div></div></div></section><!-- How It Works --><section class="py-12 px-4 max-w-4xl mx-auto"><h2 class="text-xl sm:text-2xl font-bold text-center text-white mb-8">How SmartFin Works</h2><div class="grid sm:grid-cols-3 gap-6"><div class="bg-slate-800/40 border border-slate-800 p-6 rounded-xl relative"><div class="w-8 h-8 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center font-bold text-sm mb-4">1</div><h3 class="font-semibold text-white mb-2">Select Preferences</h3><p class="text-xs text-slate-400">Choose your desired financial product, amount, or card features.</p></div><div class="bg-slate-800/40 border border-slate-800 p-6 rounded-xl relative"><div class="w-8 h-8 bg-indigo-600/20 text-indigo-400 rounded-full flex items-center justify-center font-bold text-sm mb-4">2</div><h3 class="font-semibold text-white mb-2">Smart Match</h3><p class="text-xs text-slate-400">Our engine scans verified lenders and banks in DE, FR, & ES.</p></div><div class="bg-slate-800/40 border border-slate-800 p-6 rounded-xl relative"><div class="w-8 h-8 bg-emerald-600/20 text-emerald-400 rounded-full flex items-center justify-center font-bold text-sm mb-4">3</div><h3 class="font-semibold text-white mb-2">Instant Approval</h3><p class="text-xs text-slate-400">Get redirected directly to your pre-approved financial offer.</p></div></div><!-- Secondary CTA --><div class="mt-10 text-center"><a href="https://example-tracker.com/click?offer=fin02&click_id={click_id}&sub1={sub1}&sub2={sub2}&sub_id={sub_id}" class="cta-link inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-sm font-bold text-white bg-slate-800 hover:bg-slate-700 border border-slate-600 transition-all duration-200">
+                    Find My Financial Match Now →
+                </a></div></section></main><!-- Footer --><footer class="bg-slate-950 border-t border-slate-800 py-8 px-4 text-xs text-slate-500"><div class="max-w-4xl mx-auto space-y-4 text-center sm:text-left"><div class="flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0"><p>&copy; <script>document.write(new Date().getFullYear())</script> SmartFin Portal. All rights reserved.</p><div class="flex space-x-4"><a href="#" class="hover:underline">Privacy Policy</a><a href="#" class="hover:underline">Terms of Service</a><a href="#" class="hover:underline">GDPR Compliance</a></div></div><p class="text-[10px] leading-relaxed text-slate-600">
+                Disclaimer: SmartFin operates as an independent financial matching service. We are not a direct lender or bank. Offers presented are subject to individual eligibility criteria, credit evaluation, and regional availability across Germany, France, and Spain.
+            </p></div></footer><!-- Dynamic URL Parameter Tracking Injection Script --><script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const clickId = urlParams.get('click_id');
+            const sub1 = urlParams.get('sub1');
+            const sub2 = urlParams.get('sub2');
 
-      // Update all outbound CTA links on page load
-      document.addEventListener('DOMContentLoaded', function() {
-        const ctaLinks = document.querySelectorAll('a.cta-link');
-        const finalUrlString = targetUrl.toString();
+            const ctaLinks = document.querySelectorAll('.cta-link');
 
-        ctaLinks.forEach(link => {
-          link.href = finalUrlString;
+            ctaLinks.forEach(link => {
+                try {
+                    let href = link.getAttribute('href');
+                    let url = new URL(href);
+
+                    if (clickId) url.searchParams.set('click_id', clickId);
+                    if (sub1) url.searchParams.set('sub1', sub1);
+                    if (sub2) url.searchParams.set('sub2', sub2);
+
+                    link.setAttribute('href', url.toString());
+                } catch (e) {
+                    console.error('Error parsing CTA link URL:', e);
+                }
+            });
         });
-      });
-    })();
-  </script>
-
-</body>
-</html>
+    </script></body></html>
