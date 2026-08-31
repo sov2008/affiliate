@@ -31,7 +31,17 @@ async function runDaemonLoop() {
     await logMsg('--- Starting Optimization Cycle ---');
     
     try {
-      // 1. Sync stats
+      // 1. Scout for new offers (Every 12 loops = ~6 hours in prod, but we trigger randomly for dev)
+      if (Math.random() < 0.2) {
+         await logMsg('Triggering Autonomous Offer Scout...');
+         try {
+           await execAsync(`npx tsx src/smart-offer-scout.ts`, { cwd: __dirname });
+         } catch(e:any) {
+           await logMsg(`Scout Failed: ${e.message}`);
+         }
+      }
+
+      // 2. Sync stats
       await logMsg('Syncing latest stats from Cloudflare Worker...');
       const memoryObj = require('../../.antigravity/memory.json');
       const campaigns = Object.keys(memoryObj.deployed_campaigns || {});
