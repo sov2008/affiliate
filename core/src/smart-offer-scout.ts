@@ -110,6 +110,16 @@ async function runScout() {
   await fs.writeFile(OFFERS_FILE, JSON.stringify(currentOffers, null, 2));
   console.log(`✅ Saved ${topOffers.length} offers to offers.json.`);
 
+  // Auto-Apply to locked/gated top offers via Playwright skill
+  console.log('\n📝 Checking and applying to gated top offers via MyLead Auto-Apply Skill...');
+  const { applyToOffer } = await import('./skills/mylead-auto-apply-skill');
+  for (const topOffer of topOffers) {
+    if (topOffer.score >= 10.0) {
+      console.log(`[Auto-Apply] Offer ${topOffer.name} (${topOffer.id}) qualified (Score: ${topOffer.score.toFixed(2)} >= 10.0). Submitting application...`);
+      await applyToOffer(topOffer.id, `Direct contextual and social ads to pre-lander with postback tracking for ${topOffer.name}`, { dryRun: isDryRun });
+    }
+  }
+
   console.log('\n🚀 Handing over to Auto-Builder Engine...');
   for (const topOffer of topOffers) {
     try {
