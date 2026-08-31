@@ -7,6 +7,7 @@ interface MemoryStore {
   architectural_rules: Record<string, any>;
   deployed_campaigns: Record<string, any>;
   pipeline_preferences: Record<string, any>;
+  web3_config: Record<string, any>;
   [key: string]: any;
 }
 
@@ -19,6 +20,10 @@ const DEFAULT_MEMORY: MemoryStore = {
   pipeline_preferences: {
     llm_provider: "gemini_direct",
     default_model: "gemini-3.6-flash"
+  },
+  web3_config: {
+    default_evm_payout_wallet: process.env.DEFAULT_EVM_PAYOUT_WALLET || "0x1796EaD42E41dDCB692fD82C8b71A7ec4FC8Adf1",
+    supported_chains: process.env.SUPPORTED_PAYOUT_CHAINS ? process.env.SUPPORTED_PAYOUT_CHAINS.split(',') : ["BSC", "POLYGON", "ETHEREUM", "ARBITRUM"]
   }
 };
 
@@ -73,6 +78,13 @@ export async function exportContextForPrompt(): Promise<string> {
   context += `\nPipeline Preferences:\n`;
   for (const [key, val] of Object.entries(memory.pipeline_preferences || {})) {
     context += `- ${key}: ${JSON.stringify(val)}\n`;
+  }
+  
+  if (memory.web3_config) {
+    context += `\nWeb3 Configuration:\n`;
+    for (const [key, val] of Object.entries(memory.web3_config)) {
+      context += `- ${key}: ${JSON.stringify(val)}\n`;
+    }
   }
   
   return context;
