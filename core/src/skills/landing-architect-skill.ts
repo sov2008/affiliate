@@ -18,6 +18,7 @@ export interface LandingArchitectOptions {
   brandName: string;
   headline: string;
   subheadline: string;
+  heroImage?: string;
   step1Question: string;
   step1Options: string[];
   step2Question: string;
@@ -38,6 +39,7 @@ export function generateHighConvertingLandingHtml(opts: LandingArchitectOptions)
     brandName,
     headline,
     subheadline,
+    heroImage,
     step1Question,
     step1Options,
     step2Question,
@@ -60,6 +62,22 @@ export function generateHighConvertingLandingHtml(opts: LandingArchitectOptions)
   const badgeColor = isDating ? 'text-rose-400 bg-rose-950/60 border-rose-500/30' : 'text-sky-400 bg-sky-950/60 border-sky-500/30';
 
   const ctaUrl = `${POSTBACK_WORKER_URL}/click?click_id=[ml_sub1]&campaign_id=${campaignId}&variant=${variant}&s1=[ml_sub1]&s2=${campaignId}&s3=${variant}&ml_sub1=[ml_sub1]&ml_sub2=${campaignId}&ml_sub3=${variant}`;
+
+  const imageHtml = heroImage ? `
+    <!-- Vibrant Offer Hero Asset -->
+    <div class="relative overflow-hidden rounded-2xl border border-slate-800 shadow-xl group">
+      <img src="${heroImage}" alt="${title}" loading="lazy" class="w-full h-44 sm:h-52 object-cover transition-transform duration-500 group-hover:scale-105">
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
+      <div class="absolute bottom-3 left-3 right-3 flex justify-between items-end">
+        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-slate-950/80 backdrop-blur border border-slate-700/60 text-emerald-400 font-bold">
+          LIVE VERIFIED FEED 🟢
+        </span>
+        <span class="text-[10px] text-slate-300 font-mono bg-black/60 px-2 py-0.5 rounded">
+          {city} Region
+        </span>
+      </div>
+    </div>
+  ` : '';
 
   return `<!DOCTYPE html>
 <html lang="${lang.toLowerCase()}" class="dark">
@@ -131,6 +149,8 @@ export function generateHighConvertingLandingHtml(opts: LandingArchitectOptions)
         ${subheadline}
       </p>
     </div>
+
+    ${imageHtml}
 
     <!-- Micro-Funnel Interactive Quiz Card -->
     <div class="glass-card rounded-2xl p-5 sm:p-6 space-y-5">
