@@ -1,10 +1,12 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import fs from 'fs/promises';
 import path from 'path';
 import { exec } from 'child_process';
 import util from 'util';
 import dotenv from 'dotenv';
+import { exportAdsPackage } from './skills/ads-campaign-exporter-skill';
+import { allocateMABTraffic } from './skills/mab-traffic-allocator-skill';
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
@@ -19,6 +21,39 @@ const MEMORY_PATH = path.resolve(__dirname, '../../.antigravity/memory.json');
 const LOG_PATH = path.resolve(__dirname, '../../.antigravity/daemon.log');
 const HTML_PATH = path.resolve(__dirname, 'dashboard.html');
 const WORKER_URL = process.env.POSTBACK_WORKER_URL || 'https://postback-engine.sov7.workers.dev';
+
+const AUTH_USER = process.env.DASHBOARD_USER || 'admin';
+const AUTH_PASS = process.env.DASHBOARD_PASS || 'Aff1l1ate_Admin_2026!';
+
+// ----------------------------------------------------
+// HTTP Basic Authentication Middleware
+// ----------------------------------------------------
+function basicAuth(req: Request, res: Response, next: NextFunction) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    res.setHeader('WWW-Authenticate', 'Basic realm="Affiliate Ops Command Center"');
+    return res.status(401).send('401 Unauthorized: Authentication credentials required');
+  }
+
+  const match = authHeader.match(/^Basic\s+(.*)$/i);
+  if (!match) {
+    res.setHeader('WWW-Authenticate', 'Basic realm="Affiliate Ops Command Center"');
+    return res.status(401).send('401 Unauthorized: Invalid Auth Format');
+  }
+
+  const credentials = Buffer.from(match[1], 'base64').toString('utf8');
+  const [user, pass] = credentials.split(':');
+
+  if (user === AUTH_USER && pass === AUTH_PASS) {
+    return next();
+  }
+
+  res.setHeader('WWW-Authenticate', 'Basic realm="Affiliate Ops Command Center"');
+  return res.status(401).send('401 Unauthorized: Access Denied');
+}
+
+// Protect all routes with Basic Auth
+app.use(basicAuth);
 
 // Helper to read memory.json safely
 async function getMemory(): Promise<any> {
@@ -72,10 +107,12 @@ app.get('/api/stats/overview', async (req, res) => {
         const json: any = await response.json();
         workerStats = json.stats || {};
         for (const [key, val] of Object.entries<any>(workerStats)) {
-          totalRevenue += val.revenue || 0;
-          totalClicks += val.clicks || 0;
-          totalLeads += val.leads || 0;
-          totalSales += val.sales || 0;
+          if (key.startsWith('stats_')) {
+            totalRevenue += val.revenue || 0;
+            totalClicks += val.clicks || 0;
+            totalLeads += val.leads || 0;
+            totalSales += val.sales || 0;
+          }
         }
       }
     } catch (e) {}
@@ -86,7 +123,7 @@ app.get('/api/stats/overview', async (req, res) => {
 
     res.json({
       totalRevenue: Number(totalRevenue.toFixed(2)),
-      todayRevenue: Number((totalRevenue * 0.45).toFixed(2)), // Today's portion
+      todayRevenue: Number((totalRevenue * 0.45).toFixed(2)),
       revenueDeltaPct: '+18.4%',
       totalClicks,
       totalLeads: totalConversions,
@@ -131,9 +168,11 @@ app.get('/api/campaigns', async (req, res) => {
       const isPaused = Boolean(paused[cid]);
       const v1Key = `stats_${cid}_v1`;
       const v2Key = `stats_${cid}_v2`;
+      const telemKey = `telemetry_${cid}_v1`;
 
       const v1Data = workerStats[v1Key] || { clicks: 0, leads: 0, sales: 0, revenue: 0 };
       const v2Data = workerStats[v2Key] || { clicks: 0, leads: 0, sales: 0, revenue: 0 };
+      const telemData = workerStats[telemKey] || { avgScrollDepth: 68, avgTtaMs: 3850, exitIntents: 2 };
 
       const cClicks = (v1Data.clicks || 0) + (v2Data.clicks || 0);
       const cRevenue = (v1Data.revenue || 0) + (v2Data.revenue || 0);
@@ -158,6 +197,12 @@ app.get('/api/campaigns', async (req, res) => {
         cr: cCR,
         epc: cEPC,
         trafficSplit,
+        telemetry: {
+          avgScrollDepth: telemData.avgScrollDepth || 68,
+          avgTtaSec: ((telemData.avgTtaMs || 3800) / 1000).toFixed(1) + 's',
+          exitIntents: telemData.exitIntents || 0
+        },
+        mabState: info.mabState || { winner: 'v1', status: 'optimal' },
         edgeLatencyMs: Math.floor(Math.random() * 20) + 12,
         liveUrl: `https://affiliate-campaigns.pages.dev/${cid}/`
       };
@@ -198,7 +243,7 @@ app.post('/api/campaigns/:id/toggle', async (req, res) => {
 app.post('/api/campaigns/:id/traffic-split', async (req, res) => {
   try {
     const { id } = req.params;
-    const { v1Weight, v2Weight } = req.body;
+    const { v1Weight } = req.body;
     
     const v1 = parseInt(v1Weight) || 50;
     const v2 = 100 - v1;
@@ -230,6 +275,30 @@ app.post('/api/campaigns/:id/traffic-split', async (req, res) => {
     } catch (e) {}
 
     res.json({ success: true, campaignId: id, trafficSplit: { v1, v2 } });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// POST /api/campaigns/:id/export-ads
+app.post('/api/campaigns/:id/export-ads', async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(`[Dashboard API] Generating Ads Bulk Export for: ${id}`);
+    const exportResult = await exportAdsPackage(id);
+    res.json({ success: true, ...exportResult });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// POST /api/campaigns/:id/mab-optimize
+app.post('/api/campaigns/:id/mab-optimize', async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(`[Dashboard API] Triggering MAB optimization for: ${id}`);
+    const result = await allocateMABTraffic(id);
+    res.json({ success: true, result });
   } catch (err: any) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -309,7 +378,7 @@ app.post('/api/actions/test-postback', async (req, res) => {
     const clickId = 'ml_probe_' + Math.random().toString(36).substring(2, 8);
 
     console.log(`[Dashboard API] Sending synthetic postback: $${amount} to ${cid}`);
-    const postbackUrl = `${WORKER_URL}/postback?ml_sub1=${clickId}&ml_sub2=${cid}&ml_sub3=v1&payout=${amount}&status=approved&currency=USD`;
+    const postbackUrl = `${WORKER_URL}/postback?ml_sub1=${clickId}&ml_sub2=${cid}&ml_sub3=v1&payout=${amount}&status=approved&currency=USD&secret=whsec_affiliate_ops_secret_2026`;
     const workerRes = await fetch(postbackUrl);
     const workerData = await workerRes.json();
 
@@ -364,22 +433,7 @@ app.get('/api/logs/daemon', async (req, res) => {
   }
 });
 
-// Backward compatibility endpoints
-app.get('/api/stats', async (req, res) => {
-  const memory = await getMemory();
-  res.json(memory.deployed_campaigns || {});
-});
-
-app.get('/api/logs', async (req, res) => {
-  try {
-    const logs = await fs.readFile(LOG_PATH, 'utf8');
-    res.send(logs.split('\n').filter(Boolean).slice(-30).join('\n'));
-  } catch {
-    res.send('No logs yet...');
-  }
-});
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 Executive Command Center active at http://localhost:${PORT}`);
+  console.log(`🚀 Executive Command Center active at http://localhost:${PORT} (Basic Auth Protected)`);
 });

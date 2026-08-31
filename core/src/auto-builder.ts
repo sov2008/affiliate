@@ -12,6 +12,7 @@ import { auditTrackingLinks } from './skills/tracking-audit-skill';
 import { generateGeoRouterScript } from './geo-localizer';
 import { injectWeb3Connect } from './skills/web3-connect-skill';
 import { injectDynamicCreatives } from './skills/dynamic-creative-injector-skill';
+import { injectMicroClickstream } from './skills/micro-clickstream-skill';
 
 const execAsync = util.promisify(exec);
 const WORKER_URL = process.env.POSTBACK_WORKER_URL || 'https://postback-engine.sov7.workers.dev';
@@ -117,6 +118,7 @@ ${htmlContent}`;
   htmlContent = await injectSeoMetadata(htmlContent, offer);
   htmlContent = await optimizeHtml(htmlContent);
   htmlContent = injectDynamicCreatives(htmlContent);
+  htmlContent = injectMicroClickstream(htmlContent, campaignId, variant);
 
   // Inject Geo Router Script right before </body>
   if (geoRouter) {

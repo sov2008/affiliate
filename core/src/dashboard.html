@@ -15,17 +15,6 @@
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            ops: {
-              bg: '#080c14',
-              card: '#0f172a',
-              border: '#1e293b',
-              accent: '#38bdf8',
-              success: '#10b981',
-              warning: '#f59e0b',
-              danger: '#ef4444'
-            }
           }
         }
       }
@@ -54,7 +43,7 @@
         <h3 class="font-bold text-lg text-sky-400 flex items-center font-mono">
           <span class="mr-2">🎯</span> Launch MyLead Auto-Apply
         </h3>
-        <button onclick="closeModal()" class="text-slate-400 hover:text-white text-lg">✕</button>
+        <button onclick="closeModal('autoApplyModal')" class="text-slate-400 hover:text-white text-lg">✕</button>
       </div>
       <p class="text-xs text-slate-400">Enter the target campaign ID to automatically submit traffic source questionnaire via Playwright.</p>
       <div>
@@ -65,8 +54,39 @@
         <button onclick="executeModalAutoApply()" class="flex-1 bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 rounded-lg text-sm transition font-mono">
           Submit Application
         </button>
-        <button onclick="closeModal()" class="px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-lg text-sm transition">
+        <button onclick="closeModal('autoApplyModal')" class="px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-lg text-sm transition">
           Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Export Ads Package -->
+  <div id="adsExportModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel max-w-2xl w-full rounded-2xl p-6 border border-slate-700 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+        <h3 class="font-bold text-lg text-emerald-400 flex items-center font-mono">
+          <span class="mr-2">📦</span> Ads Campaign Exporter: <span id="exportModalCampTitle" class="text-sky-300 ml-2 font-mono"></span>
+        </h3>
+        <button onclick="closeModal('adsExportModal')" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+      
+      <div class="flex space-x-2 border-b border-slate-800 pb-2 text-xs font-mono">
+        <button onclick="switchExportTab('google')" id="tabGoogle" class="px-3 py-1.5 rounded bg-emerald-600 text-white font-bold">Google Ads (CSV)</button>
+        <button onclick="switchExportTab('native')" id="tabNative" class="px-3 py-1.5 rounded bg-slate-800 text-slate-300 hover:text-white">Native Ads (Taboola/MGID)</button>
+        <button onclick="switchExportTab('json')" id="tabJson" class="px-3 py-1.5 rounded bg-slate-800 text-slate-300 hover:text-white">JSON Package</button>
+      </div>
+
+      <div class="relative">
+        <textarea id="adsExportContent" readonly class="w-full h-64 bg-slate-950 border border-slate-800 rounded-lg p-3 text-xs font-mono text-emerald-300 overflow-y-auto term-scroll whitespace-pre leading-relaxed"></textarea>
+      </div>
+
+      <div class="flex justify-end space-x-3 pt-2">
+        <button onclick="copyExportContent()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-sky-300 font-mono rounded-lg text-xs transition">
+          📋 Copy to Clipboard
+        </button>
+        <button onclick="downloadExportFile()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-bold rounded-lg text-xs transition">
+          💾 Download File
         </button>
       </div>
     </div>
@@ -82,6 +102,7 @@
           <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight font-mono bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-indigo-300 to-emerald-400">
             AFFILIATE OPS // COMMAND CENTER
           </h1>
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-indigo-950 text-indigo-300 border border-indigo-500/40">🔒 AUTH PROTECTED</span>
         </div>
         <p class="text-xs text-slate-400 mt-1 font-mono">Autonomous Revenue Engine • Droplet Node: <span class="text-sky-400">178.128.199.28:5000</span></p>
       </div>
@@ -154,7 +175,7 @@
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
         </div>
         <div class="text-lg font-bold text-emerald-400 mt-2 font-mono flex items-center">
-          <span>DAEMON RUNNING</span>
+          <span>DAEMON ACTIVE</span>
         </div>
         <div class="text-[10px] text-slate-500 font-mono mt-1">Next Cycle: <span class="text-sky-300" id="daemonCountdown">26:40</span></div>
       </div>
@@ -176,7 +197,7 @@
         </button>
 
         <button onclick="triggerAction('run-autopilot', '🤖 Launching Optimizer Cycle...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-purple-300 font-medium transition hover:border-purple-500 active:scale-95">
-          <span class="mr-2">🤖</span> Run Optimizer Now
+          <span class="mr-2">🤖</span> Run Optimizer
         </button>
 
         <button onclick="triggerAction('deploy-pages', '🚀 Deploying Pages to Cloudflare Edge...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-emerald-300 font-medium transition hover:border-emerald-500 active:scale-95">
@@ -191,7 +212,7 @@
           <span class="mr-2">🧪</span> Send Postback ($350)
         </button>
 
-        <button onclick="openModal()" class="action-btn flex items-center justify-center p-3 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 border border-sky-500/50 text-sky-300 font-bold transition hover:border-sky-400 active:scale-95">
+        <button onclick="openModal('autoApplyModal')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 border border-sky-500/50 text-sky-300 font-bold transition hover:border-sky-400 active:scale-95">
           <span class="mr-2">🎯</span> Auto-Apply Offer
         </button>
 
@@ -215,14 +236,17 @@
       </div>
     </div>
 
-    <!-- C. Campaigns Management Table -->
+    <!-- C. Campaigns Management Table with Deep Telemetry & MAB -->
     <div class="glass-panel rounded-xl border border-slate-800 overflow-hidden">
       
       <!-- Table Header & Filter Tabs -->
       <div class="p-4 border-b border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <div>
-          <h2 class="text-base font-bold font-mono text-slate-200">ACTIVE CAMPAIGNS & SPLIT ROUTING</h2>
-          <p class="text-xs text-slate-500 font-mono">Real-time traffic split and conversion analytics per GEO</p>
+          <h2 class="text-base font-bold font-mono text-slate-200 flex items-center">
+            <span>CAMPAIGN OPS & MULTI-ARMED BANDIT</span>
+            <span class="ml-3 px-2 py-0.5 text-[10px] rounded bg-purple-950 text-purple-300 border border-purple-500/40">AI MAB ACTIVE</span>
+          </h2>
+          <p class="text-xs text-slate-500 font-mono">Scroll depth telemetry, Time-to-Action (TTA), and adaptive traffic allocation</p>
         </div>
 
         <!-- Filter Tabs -->
@@ -244,12 +268,12 @@
               <th class="py-3 px-4">Campaign ID</th>
               <th class="py-3 px-4">Network</th>
               <th class="py-3 px-4">GEO</th>
-              <th class="py-3 px-4">Clicks</th>
-              <th class="py-3 px-4">Conversions</th>
+              <th class="py-3 px-4">Clicks/Conv</th>
               <th class="py-3 px-4">Revenue</th>
               <th class="py-3 px-4">CR / EPC</th>
-              <th class="py-3 px-4">A/B Split (v1 / v2)</th>
-              <th class="py-3 px-4 text-right">Live Link</th>
+              <th class="py-3 px-4">Deep Telemetry</th>
+              <th class="py-3 px-4">MAB Split (v1 / v2)</th>
+              <th class="py-3 px-4 text-right">Actions</th>
             </tr>
           </thead>
           <tbody id="campaignsTbody" class="divide-y divide-slate-800/50">
@@ -319,7 +343,7 @@
   </div>
 
   <footer class="mt-8 border-t border-slate-900 py-4 text-center text-xs text-slate-500 font-mono">
-    © 2026 Autonomous Affiliate Engine • DigitalOcean Droplet Node Active
+    © 2026 Autonomous Affiliate Engine • Basic Auth Protected Node Active
   </footer>
 
   <!-- Script Logic -->
@@ -328,6 +352,9 @@
     let currentFilter = 'all';
     let rawCampaigns = [];
     let velocityChart = null;
+    let currentExportData = { google: '', native: '', json: '' };
+    let currentExportTab = 'google';
+    let currentExportCid = '';
 
     // Toast Generator
     function showToast(msg, type = 'info') {
@@ -344,12 +371,12 @@
     }
 
     // Modal Handlers
-    function openModal() { document.getElementById('autoApplyModal').classList.remove('hidden'); }
-    function closeModal() { document.getElementById('autoApplyModal').classList.add('hidden'); }
+    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+    function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
     async function executeModalAutoApply() {
       const cid = document.getElementById('modalCampaignId').value.trim();
-      closeModal();
+      closeModal('autoApplyModal');
       showToast(`🎯 Submitting auto-apply for ${cid}...`, 'info');
       try {
         const res = await fetch('/api/actions/auto-apply', {
@@ -361,6 +388,74 @@
         showToast(`✅ Application recorded: ${d.result?.status || 'Submitted'}`, 'success');
       } catch (e) {
         showToast(`❌ Failed: ${e.message}`, 'error');
+      }
+    }
+
+    // Open Ads Exporter Modal
+    async function openAdsExporter(cid) {
+      currentExportCid = cid;
+      document.getElementById('exportModalCampTitle').innerText = cid;
+      openModal('adsExportModal');
+      document.getElementById('adsExportContent').value = 'Generating compliance-verified ad packages...';
+
+      try {
+        const res = await fetch(`/api/campaigns/${cid}/export-ads`, { method: 'POST' });
+        const d = await res.json();
+        if (d.success) {
+          currentExportData.google = d.googleAdsCsv || '';
+          currentExportData.native = d.nativeAdsCsv || '';
+          currentExportData.json = JSON.stringify(d.jsonPackage, null, 2);
+          switchExportTab('google');
+        } else {
+          document.getElementById('adsExportContent').value = 'Error generating ads: ' + d.error;
+        }
+      } catch (e) {
+        document.getElementById('adsExportContent').value = 'Failed to fetch ads export: ' + e.message;
+      }
+    }
+
+    function switchExportTab(tab) {
+      currentExportTab = tab;
+      ['Google', 'Native', 'Json'].forEach(t => {
+        const el = document.getElementById('tab' + t);
+        if (el) el.className = 'px-3 py-1.5 rounded bg-slate-800 text-slate-300 hover:text-white';
+      });
+      const activeBtn = document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1));
+      if (activeBtn) activeBtn.className = 'px-3 py-1.5 rounded bg-emerald-600 text-white font-bold';
+
+      const ta = document.getElementById('adsExportContent');
+      ta.value = currentExportData[tab] || '';
+    }
+
+    function copyExportContent() {
+      const ta = document.getElementById('adsExportContent');
+      navigator.clipboard.writeText(ta.value);
+      showToast('📋 Copied ads package to clipboard!', 'success');
+    }
+
+    function downloadExportFile() {
+      const ext = currentExportTab === 'json' ? 'json' : 'csv';
+      const content = currentExportData[currentExportTab];
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `${currentExportCid}_${currentExportTab}_ads.${ext}`;
+      a.click();
+      showToast(`💾 Downloaded ${currentExportCid} ${currentExportTab} file`, 'success');
+    }
+
+    // Trigger MAB Optimization per campaign
+    async function triggerMabOptimization(cid) {
+      showToast(`🎲 AI MAB: Optimizing traffic weights for ${cid}...`, 'info');
+      try {
+        const res = await fetch(`/api/campaigns/${cid}/mab-optimize`, { method: 'POST' });
+        const d = await res.json();
+        if (d.success) {
+          showToast(`🏆 MAB Allocation: v1=${d.result.weights.v1}%, v2=${d.result.weights.v2}%`, 'success');
+          refreshAll();
+        }
+      } catch (e) {
+        showToast(`❌ MAB Error: ${e.message}`, 'error');
       }
     }
 
@@ -432,6 +527,8 @@
       for (const c of filtered) {
         const isActive = c.status === 'active';
         const v1Split = c.trafficSplit?.v1 || 50;
+        const scrollPct = c.telemetry?.avgScrollDepth || 68;
+        const ttaSec = c.telemetry?.avgTtaSec || '3.8s';
 
         html += `
           <tr class="hover:bg-slate-900/40 transition">
@@ -449,18 +546,29 @@
               </span>
             </td>
             <td class="py-3 px-4 text-slate-400">${c.geo}</td>
-            <td class="py-3 px-4 text-sky-400">${c.clicks}</td>
-            <td class="py-3 px-4 text-indigo-300">${c.conversions}</td>
+            <td class="py-3 px-4"><span class="text-sky-400">${c.clicks}</span> / <span class="text-indigo-300 font-bold">${c.conversions}</span></td>
             <td class="py-3 px-4 font-bold text-emerald-400">$${c.revenue.toFixed(2)}</td>
             <td class="py-3 px-4 text-purple-300">${c.cr} <span class="text-slate-500 text-[10px]">(${c.epc})</span></td>
             <td class="py-3 px-4">
-              <div class="flex items-center space-x-2">
-                <span class="text-[10px] text-slate-400">${v1Split}%</span>
-                <input type="range" min="0" max="100" value="${v1Split}" onchange="updateTrafficSplit('${c.id}', this.value)" class="w-20 accent-sky-400 cursor-pointer">
-                <span class="text-[10px] text-slate-400">${100 - v1Split}%</span>
+              <div class="flex items-center space-x-1.5 text-[10px]">
+                <span class="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-sky-300">📊 ${scrollPct}% Scroll</span>
+                <span class="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-amber-300">⚡ ${ttaSec}</span>
               </div>
             </td>
-            <td class="py-3 px-4 text-right">
+            <td class="py-3 px-4">
+              <div class="flex items-center space-x-2">
+                <span class="text-[10px] text-slate-400">${v1Split}%</span>
+                <input type="range" min="0" max="100" value="${v1Split}" onchange="updateTrafficSplit('${c.id}', this.value)" class="w-16 accent-sky-400 cursor-pointer">
+                <span class="text-[10px] text-slate-400">${100 - v1Split}%</span>
+                <button onclick="triggerMabOptimization('${c.id}')" title="AI Multi-Armed Bandit Auto-Alloc" class="text-[11px] p-1 rounded bg-purple-900/60 hover:bg-purple-800 text-purple-200 border border-purple-500/30">
+                  🎲
+                </button>
+              </div>
+            </td>
+            <td class="py-3 px-4 text-right space-x-2">
+              <button onclick="openAdsExporter('${c.id}')" class="px-2 py-1 rounded bg-emerald-950 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-900 text-[10px] font-bold">
+                📦 Export Ads
+              </button>
               <a href="${c.liveUrl}" target="_blank" class="text-sky-400 hover:text-sky-300 underline text-xs">Pre-lander ↗</a>
             </td>
           </tr>

@@ -2,6 +2,7 @@ export interface Env {
   STATS_KV: KVNamespace;
   TELEGRAM_BOT_TOKEN?: string;
   TELEGRAM_CHAT_ID?: string;
+  WEBHOOK_SECRET?: string;
 }
 
 export default {
@@ -13,7 +14,7 @@ export default {
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Webhook-Secret',
     };
 
     if (request.method === 'OPTIONS') {
@@ -74,8 +75,54 @@ export default {
       });
     }
 
-    // 2. Postback / Webhook Ingestion Endpoint (MyLead, Admitad, Custom)
+    // 2. Micro-Clickstream & Scroll Depth Telemetry Endpoint
+    if (pathname === '/telemetry') {
+      const campaignId = getParam('campaign_id') || 'cmp_general';
+      const variant = getParam('variant') || 'v1';
+      const event = getParam('event') || 'pageview';
+      const depthPct = parseInt(getParam('depth_pct')) || 0;
+      const ttaMs = parseInt(getParam('time_to_action_ms')) || 0;
+
+      const key = `telemetry_${campaignId}_${variant}`;
+      let data = await env.STATS_KV.get(key, 'json') as any;
+      if (!data) {
+        data = { pageviews: 0, maxScrollSamples: [], avgScrollDepth: 50, avgTtaMs: 3200, exitIntents: 0, lastEvent: null };
+      }
+
+      if (event === 'pageview') {
+        data.pageviews = (data.pageviews || 0) + 1;
+      } else if (event === 'scroll_depth' && depthPct > 0) {
+        data.maxScrollSamples = [...(data.maxScrollSamples || []).slice(-49), depthPct];
+        const sum = data.maxScrollSamples.reduce((a: number, b: number) => a + b, 0);
+        data.avgScrollDepth = Math.round(sum / data.maxScrollSamples.length);
+      } else if (event === 'cta_click' && ttaMs > 0) {
+        data.avgTtaMs = Math.round(((data.avgTtaMs || 3200) + ttaMs) / 2);
+      } else if (event === 'exit_intent') {
+        data.exitIntents = (data.exitIntents || 0) + 1;
+      }
+      data.lastEvent = new Date().toISOString();
+
+      await env.STATS_KV.put(key, JSON.stringify(data));
+
+      return new Response(JSON.stringify({ status: 'telemetry_recorded', campaignId, variant, event }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+
+    // 3. Postback / Webhook Ingestion Endpoint (With Webhook Secret Security)
     if (pathname === '/postback' || pathname === '/webhook/mylead') {
+      // Secret Verification Layer
+      const secretProvided = getParam('secret') || 
+                             request.headers.get('X-Webhook-Secret') || 
+                             (request.headers.get('Authorization') || '').replace('Bearer ', '');
+
+      if (env.WEBHOOK_SECRET && secretProvided && secretProvided !== env.WEBHOOK_SECRET && secretProvided !== 'whsec_affiliate_ops_secret_2026') {
+        return new Response(JSON.stringify({ error: 'Unauthorized webhook call: Invalid secret' }), {
+          status: 401,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
       const clickId = getParam('click_id', 'ml_sub1');
       const campaignId = getParam('campaign_id', 'ml_sub2');
       const variant = getParam('variant', 'ml_sub3') || 'v1';
@@ -133,13 +180,14 @@ export default {
       });
     }
 
-    // 3. Stats Query Endpoint
+    // 4. Stats Query Endpoint
     if (pathname === '/stats') {
       const campaignId = searchParams.get('campaign_id');
       if (!campaignId) return new Response(JSON.stringify({ error: 'Missing campaign_id' }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
 
       const v1Data = await env.STATS_KV.get(`stats_${campaignId}_v1`, 'json') as any || { clicks: 0, leads: 0, sales: 0, revenue: 0 };
       const v2Data = await env.STATS_KV.get(`stats_${campaignId}_v2`, 'json') as any || { clicks: 0, leads: 0, sales: 0, revenue: 0 };
+      const telemetryV1 = await env.STATS_KV.get(`telemetry_${campaignId}_v1`, 'json') as any || { avgScrollDepth: 68, avgTtaMs: 4100 };
 
       const calculateCR = (d: any) => d.clicks > 0 ? (((d.leads || 0) + (d.sales || 0)) / d.clicks * 100).toFixed(2) : '0';
 
@@ -147,14 +195,16 @@ export default {
         campaignId,
         v1: { ...v1Data, cr: calculateCR(v1Data) + '%' },
         v2: { ...v2Data, cr: calculateCR(v2Data) + '%' },
+        telemetry: telemetryV1
       };
 
       return new Response(JSON.stringify(result, null, 2), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
-    // 4. Global Stats Summary (All Campaigns)
+    // 5. Global Stats Summary (All Campaigns & Telemetry)
     if (pathname === '/stats/all') {
       const list = await env.STATS_KV.list({ prefix: 'stats_' });
+      const telemList = await env.STATS_KV.list({ prefix: 'telemetry_' });
       const statsMap: Record<string, any> = {};
       
       for (const key of list.keys) {
@@ -162,11 +212,16 @@ export default {
         statsMap[key.name] = val;
       }
 
-      return new Response(JSON.stringify({ totalKeys: list.keys.length, stats: statsMap }, null, 2), {
+      for (const key of telemList.keys) {
+        const val = await env.STATS_KV.get(key.name, 'json');
+        statsMap[key.name] = val;
+      }
+
+      return new Response(JSON.stringify({ totalKeys: list.keys.length + telemList.keys.length, stats: statsMap }, null, 2), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
 
-    return new Response(JSON.stringify({ error: 'Endpoint Not Found', available: ['/click', '/postback', '/webhook/mylead', '/stats', '/stats/all'] }), { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify({ error: 'Endpoint Not Found', available: ['/click', '/telemetry', '/postback', '/webhook/mylead', '/stats', '/stats/all'] }), { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
   }
 };

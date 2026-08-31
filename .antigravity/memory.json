@@ -38,5 +38,10 @@
     "cloaking_geo_router": "active",
     "auto_rollback_engine": "active",
     "telegram_commander": "active"
+  },
+  "advanced_intelligence_and_telemetry": {
+    "micro_clickstream_telemetry": "active",
+    "mab_traffic_allocator": "active",
+    "ads_campaign_exporter": "active"
   }
 }
