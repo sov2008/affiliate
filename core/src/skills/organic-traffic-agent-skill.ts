@@ -7,10 +7,13 @@ import { generateContent } from '../llm-gateway';
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
-const AUTH_DIR = process.env.AUTH_DIR || path.resolve(__dirname, '../../.auth');
-const DATA_DIR = process.env.DATA_DIR || path.resolve(__dirname, '../../data');
+const ROOT_DIR = path.resolve(__dirname, __dirname.includes('dist') ? '../../..' : '../..');
+const AUTH_DIR = process.env.AUTH_DIR || path.join(ROOT_DIR, 'core/.auth');
+const DATA_DIR = process.env.DATA_DIR || path.join(ROOT_DIR, 'core/data');
 const DISCOVERY_CACHE_FILE = path.join(DATA_DIR, 'organic_discovery.json');
-const LOG_FILE = path.resolve(__dirname, '../../.antigravity/organic_daemon.log');
+const ANTIGRAVITY_DIR = path.join(ROOT_DIR, '.antigravity');
+const LOG_FILE = path.join(ANTIGRAVITY_DIR, 'organic_daemon.log');
+const STATE_FILE = path.join(ANTIGRAVITY_DIR, 'organic_state.json');
 
 export interface OrganicTrafficChannel {
   id: string;
@@ -81,8 +84,6 @@ export const CHANNELS: OrganicTrafficChannel[] = [
     ]
   }
 ];
-
-const STATE_FILE = path.resolve(__dirname, '../../.antigravity/organic_state.json');
 
 export interface OrganicAgentState {
   status: 'running' | 'paused' | 'dry_run' | 'idle';
