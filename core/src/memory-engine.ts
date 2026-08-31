@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-const MEMORY_FILE = path.resolve(__dirname, '../../../.antigravity/memory.json');
+const MEMORY_FILE = path.resolve(__dirname, '../../.antigravity/memory.json');
 
 interface MemoryStore {
   architectural_rules: Record<string, any>;

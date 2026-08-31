@@ -289,6 +289,31 @@ app.post('/api/campaigns/:id/traffic-split', async (req, res) => {
   }
 });
 
+// GET /api/campaigns/export-active-ads
+app.get('/api/campaigns/export-active-ads', async (req, res) => {
+  try {
+    const { exportActiveGoogleAdsScriptPayload } = await import('./skills/ads-campaign-exporter-skill');
+    const payload = await exportActiveGoogleAdsScriptPayload();
+    res.json(payload);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/scripts/google-ads-sync.js
+app.get('/api/scripts/google-ads-sync.js', async (req, res) => {
+  try {
+    const { generateGoogleAdsSyncScriptCode } = await import('./skills/ads-campaign-exporter-skill');
+    const endpoint = `http://${req.headers.host || '178.128.199.28:5000'}/api/campaigns/export-active-ads`;
+    const basicAuth = 'Basic ' + Buffer.from(`${AUTH_USER}:${AUTH_PASS}`).toString('base64');
+    const scriptCode = generateGoogleAdsSyncScriptCode(endpoint, basicAuth);
+    res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+    res.send(scriptCode);
+  } catch (err: any) {
+    res.status(500).send('// Error generating script: ' + err.message);
+  }
+});
+
 // POST /api/campaigns/:id/export-ads
 app.post('/api/campaigns/:id/export-ads', async (req, res) => {
   try {
