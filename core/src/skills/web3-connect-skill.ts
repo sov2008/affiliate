@@ -1,7 +1,7 @@
 import { Offer } from '../types';
 
 export function injectWeb3Connect(html: string, offer: Offer, campaignId: string): string {
-  if (offer.vertical !== 'crypto' && offer.vertical !== 'web3') {
+  if (offer.vertical !== 'crypto' && offer.vertical !== 'web3' && offer.vertical !== 'trading' && offer.vertical !== 'finance') {
     return html;
   }
 
