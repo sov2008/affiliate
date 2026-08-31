@@ -33,5 +33,10 @@
     "ad_copy_generator": "active",
     "dynamic_creative_injector": "active",
     "landing_cloner_translator": "active"
+  },
+  "traffic_security_and_management": {
+    "cloaking_geo_router": "active",
+    "auto_rollback_engine": "active",
+    "telegram_commander": "active"
   }
 }

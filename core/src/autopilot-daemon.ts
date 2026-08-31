@@ -57,6 +57,19 @@ async function runDaemonLoop() {
       // 2. Run optimizer with auto-evolve
       await logMsg('Running Optimizer Agent...');
       const { stdout } = await execAsync(`npx tsx src/optimizer-agent.ts --auto-evolve`, { cwd: __dirname });
+      
+      // 3. Health & Auto-Rollback check for each campaign
+      const { evaluateAndRollbackCampaign } = await import('./skills/auto-rollback-skill');
+      for (const cid of campaigns) {
+        try {
+          const rollbackRes = await evaluateAndRollbackCampaign(cid, { clicksThreshold: 100 });
+          if (rollbackRes.rollbackTriggered) {
+            await logMsg(`🚨 Auto-Rollback triggered for ${cid}: ${rollbackRes.actionTaken}`);
+          }
+        } catch (e: any) {
+          await logMsg(`Rollback check notice for ${cid}: ${e.message}`);
+        }
+      }
       if (stdout.includes('Winner designated') || stdout.includes('Synthesizing Challenger')) {
          await logMsg(`Optimization actions taken:\n${stdout}`);
          

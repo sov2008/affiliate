@@ -1,5 +1,7 @@
 export interface Env {
   STATS_KV: KVNamespace;
+  TELEGRAM_BOT_TOKEN?: string;
+  TELEGRAM_CHAT_ID?: string;
 }
 
 export default {
@@ -104,6 +106,18 @@ export default {
         ];
         
         await env.STATS_KV.put(key, JSON.stringify(data));
+
+        // Asynchronous Telegram Alert Notification
+        if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID && payout > 0) {
+          const tgMsg = `🎉 <b>[CONVERSION APPROVED]</b>\n💰 <b>Payout:</b> +$${payout.toFixed(2)} ${currency}\n🎯 <b>Campaign:</b> <code>${campaignId}</code> (${variant})\n🔗 <b>Lead ID:</b> <code>${leadId}</code>`;
+          ctx.waitUntil(
+            fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text: tgMsg, parse_mode: 'HTML' })
+            }).catch(() => {})
+          );
+        }
       }
 
       return new Response(JSON.stringify({ 
