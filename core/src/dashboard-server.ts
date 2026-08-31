@@ -52,7 +52,14 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
   }
 
   // Fallback: If no auth provided on GET read routes, allow read-only data for smooth UI
-  if (req.method === 'GET' && (req.path.startsWith('/api/stats') || req.path.startsWith('/api/campaigns') || req.path.startsWith('/api/transactions') || req.path.startsWith('/api/logs'))) {
+  if (req.method === 'GET' && (
+    req.path.startsWith('/api/stats') ||
+    req.path.startsWith('/api/campaigns') ||
+    req.path.startsWith('/api/transactions') ||
+    req.path.startsWith('/api/logs') ||
+    req.path.startsWith('/api/agent') ||
+    req.path.startsWith('/api/scripts')
+  )) {
     return next();
   }
 
