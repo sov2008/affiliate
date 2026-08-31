@@ -1,0 +1,193 @@
+
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Mock Forex & Crypto Robot Official</title>
+    
+    
+    
+  </head>
+  <body>
+    <h1>Automated Market Precision System 2026</h1>
+    <p>Discover real-time algorithmic trades generated for your regional market.</p>
+    <a href="https://postback-engine.sov7.workers.dev/click?click_id=[ml_sub1]&campaign_id=cmp_trading_au&variant=v_promo&ml_sub1=[ml_sub1]&ml_sub2=cmp_trading_au&ml_sub3=v_promo" id="ctaLink">START TRADING TODAY</a>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var params = new URLSearchParams(window.location.search);
+      var clk = params.get('click_id') || params.get('gclid') || params.get('s1') || 'clk_' + Math.random().toString(36).substring(2, 9);
+      document.querySelectorAll('a[href*="[ml_sub1]"]').forEach(function(a) {
+        a.href = a.href.replace(/\[ml_sub1\]/g, clk);
+      });
+    });
+  </script>
+
+
+<script id="dynamic-creative-engine">
+(function() {
+  function getClientContext() {
+    var ua = navigator.userAgent || '';
+    var device = 'Device';
+    var os = 'System';
+    var browser = 'Browser';
+
+    // Device detection
+    if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+      device = 'iPhone';
+      os = 'iOS';
+    } else if (/Android/.test(ua)) {
+      device = 'Android Phone';
+      os = 'Android';
+    } else if (/Windows NT/.test(ua)) {
+      device = 'PC';
+      os = 'Windows';
+    } else if (/Macintosh/.test(ua)) {
+      device = 'Mac';
+      os = 'macOS';
+    }
+
+    // Date & Time localized
+    var now = new Date();
+    var dateFormatted = now.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+    var yearFormatted = now.getFullYear().toString();
+    var monthFormatted = now.toLocaleDateString(undefined, { month: 'long' });
+
+    return {
+      device: device,
+      os: os,
+      date: dateFormatted,
+      year: yearFormatted,
+      month: monthFormatted,
+      city: 'Your Area',
+      country: 'Your Country'
+    };
+  }
+
+  function applyTokens() {
+    var ctx = getClientContext();
+    var elements = document.querySelectorAll('*');
+    
+    // Replace text node tokens
+    var walker = document.createTreeWalker(document.body || document.documentElement, NodeFilter.SHOW_TEXT, null, false);
+    var node;
+    while (node = walker.nextNode()) {
+      var val = node.nodeValue;
+      if (val && val.indexOf('{') !== -1) {
+        val = val.replace(/{device}/gi, ctx.device)
+                 .replace(/{os}/gi, ctx.os)
+                 .replace(/{date}/gi, ctx.date)
+                 .replace(/{year}/gi, ctx.year)
+                 .replace(/{month}/gi, ctx.month)
+                 .replace(/{city}/gi, ctx.city)
+                 .replace(/{country}/gi, ctx.country);
+        node.nodeValue = val;
+      }
+    }
+
+    // Dynamic countdown timer injector if span.dynamic-countdown exists
+    var timerElements = document.querySelectorAll('.dynamic-countdown, [data-countdown]');
+    if (timerElements.length > 0) {
+      var totalSeconds = 14 * 60 + 59;
+      setInterval(function() {
+        var m = Math.floor(totalSeconds / 60);
+        var s = totalSeconds % 60;
+        var formatted = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+        timerElements.forEach(function(el) { el.innerText = formatted; });
+        if (totalSeconds > 0) totalSeconds--;
+      }, 1000);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyTokens);
+  } else {
+    applyTokens();
+  }
+})();
+</script>
+
+
+
+<script id="micro-clickstream-telemetry">
+(function() {
+  var loadTime = Date.now();
+  var sentCheckpoints = { 25: false, 50: false, 75: false, 100: false };
+  var exitIntentSent = false;
+  var ctaClicked = false;
+  var campaign = "cmp_trading_au".split('/')[0];
+  var variant = "v_promo";
+  var endpoint = "https://postback-engine.sov7.workers.dev/telemetry";
+
+  function sendTelemetry(eventData) {
+    var payload = Object.assign({
+      campaign_id: campaign,
+      variant: variant,
+      viewport: window.innerWidth + 'x' + window.innerHeight,
+      screen: window.screen.width + 'x' + window.screen.height,
+      timestamp: new Date().toISOString()
+    }, eventData);
+
+    var blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(endpoint, blob);
+    } else {
+      fetch(endpoint, { method: 'POST', body: blob, keepalive: true }).catch(function(){});
+    }
+  }
+
+  // 1. Scroll Depth Tracking (25%, 50%, 75%, 100%)
+  function checkScroll() {
+    var doc = document.documentElement;
+    var top = doc.scrollTop || document.body.scrollTop;
+    var height = doc.scrollHeight - doc.clientHeight;
+    if (height <= 0) return;
+    var pct = Math.round((top / height) * 100);
+
+    [25, 50, 75, 100].forEach(function(cp) {
+      if (pct >= cp && !sentCheckpoints[cp]) {
+        sentCheckpoints[cp] = true;
+        sendTelemetry({ event: 'scroll_depth', depth_pct: cp, time_spent_ms: Date.now() - loadTime });
+      }
+    });
+  }
+
+  window.addEventListener('scroll', checkScroll, { passive: true });
+
+  // 2. Time-to-Action (TTA) & CTA Click Telemetry
+  document.addEventListener('click', function(e) {
+    var target = e.target && e.target.closest('a, button, [role="button"]');
+    if (target && !ctaClicked) {
+      ctaClicked = true;
+      var tta = Date.now() - loadTime;
+      sendTelemetry({ event: 'cta_click', time_to_action_ms: tta, target_tag: target.tagName, href: target.href || '' });
+    }
+  }, { capture: true });
+
+  // 3. Exit Intent Detection (Desktop mouseout top + Mobile visibilitychange)
+  document.addEventListener('mouseleave', function(e) {
+    if (e.clientY <= 0 && !exitIntentSent) {
+      exitIntentSent = true;
+      sendTelemetry({ event: 'exit_intent', trigger: 'mouse_leave_top', time_spent_ms: Date.now() - loadTime });
+    }
+  });
+
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'hidden' && !exitIntentSent) {
+      exitIntentSent = true;
+      sendTelemetry({ event: 'exit_intent', trigger: 'tab_hidden', time_spent_ms: Date.now() - loadTime });
+    }
+  });
+
+  // Initial Pageview Telemetry
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    sendTelemetry({ event: 'pageview', time_spent_ms: 0 });
+  } else {
+    document.addEventListener('DOMContentLoaded', function() {
+      sendTelemetry({ event: 'pageview', time_spent_ms: Date.now() - loadTime });
+    });
+  }
+})();
+</script>
+
+</body>
+  </html>

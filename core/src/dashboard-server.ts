@@ -326,6 +326,28 @@ app.post('/api/campaigns/:id/export-ads', async (req, res) => {
   }
 });
 
+// POST /api/campaigns/:id/ingest-promo
+app.post('/api/campaigns/:id/ingest-promo', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { promoType = 'raw_html', sourceUrl, customHtml, variantName = 'v_promo' } = req.body || {};
+    console.log(`[Dashboard API] Processing Promo Asset Ingestion for: ${id} (${variantName})`);
+    
+    const { ingestPromoAssets } = await import('./skills/promo-asset-ingestor-skill');
+    const result = await ingestPromoAssets({
+      campaignId: id,
+      promoType,
+      sourceUrl,
+      customHtml,
+      variantName
+    });
+
+    res.json({ success: true, ...result });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // POST /api/campaigns/:id/mab-optimize
 app.post('/api/campaigns/:id/mab-optimize', async (req, res) => {
   try {

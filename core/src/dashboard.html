@@ -93,6 +93,58 @@
     </div>
   </div>
 
+  <!-- Modal for Ingest Promo Materials -->
+  <div id="ingestPromoModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel max-w-xl w-full rounded-2xl p-6 border border-slate-700 shadow-2xl space-y-4 font-mono">
+      <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+        <h3 class="font-bold text-base text-indigo-400 flex items-center">
+          <span class="mr-2">📥</span> Ingest Official Promo Assets: <span id="ingestModalCampTitle" class="text-sky-300 ml-2"></span>
+        </h3>
+        <button onclick="closeModal('ingestPromoModal')" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 mb-1">Target Campaign ID</label>
+          <input type="text" id="ingestCampId" readonly class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-sky-400">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 mb-1">Ingestion Mode</label>
+            <select id="ingestMode" onchange="toggleIngestMode(this.value)" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-indigo-300">
+              <option value="raw_html">Paste Raw HTML</option>
+              <option value="url">Fetch Remote URL</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1">Variant Target</label>
+            <input type="text" id="ingestVariant" value="v_promo" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-slate-200">
+          </div>
+        </div>
+
+        <div id="ingestUrlGroup" class="hidden">
+          <label class="block text-slate-300 mb-1">Remote Landing Page URL</label>
+          <input type="url" id="ingestUrl" placeholder="https://promo-network.com/land/offer1" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-sky-300">
+        </div>
+
+        <div id="ingestHtmlGroup">
+          <label class="block text-slate-300 mb-1">Raw HTML Template (Auto-Sanitized)</label>
+          <textarea id="ingestHtml" rows="6" placeholder="Paste landing page HTML here with buttons, text, and styles..." class="w-full bg-slate-950 border border-slate-800 rounded p-3 text-[11px] text-emerald-300"></textarea>
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-3 pt-2">
+        <button onclick="closeModal('ingestPromoModal')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs">
+          Cancel
+        </button>
+        <button onclick="submitPromoIngest()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-xs">
+          🚀 Ingest & Refactor Pre-lander
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="max-w-7xl mx-auto w-full space-y-6">
 
     <!-- Top Mission Control Header -->
@@ -594,9 +646,12 @@
                 </button>
               </div>
             </td>
-            <td class="py-3 px-4 text-right space-x-2">
+            <td class="py-3 px-4 text-right space-x-1.5 whitespace-nowrap">
+              <button onclick="openIngestPromo('${c.id}')" class="px-2 py-1 rounded bg-indigo-950 border border-indigo-500/40 text-indigo-300 hover:bg-indigo-900 text-[10px] font-bold">
+                📥 Ingest
+              </button>
               <button onclick="openAdsExporter('${c.id}')" class="px-2 py-1 rounded bg-emerald-950 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-900 text-[10px] font-bold">
-                📦 Export Ads
+                📦 Ads
               </button>
               <a href="${c.liveUrl}" target="_blank" class="text-sky-400 hover:text-sky-300 underline text-xs">Pre-lander ↗</a>
             </td>
@@ -604,6 +659,57 @@
         `;
       }
       tbody.innerHTML = html || '<tr><td colspan="10" class="text-center py-6 text-slate-500">No campaigns found.</td></tr>';
+    }
+
+    // Ingest Promo Modal Logic
+    function openIngestPromo(cid) {
+      document.getElementById('ingestCampId').value = cid;
+      document.getElementById('ingestModalCampTitle').innerText = cid;
+      document.getElementById('ingestPromoModal').classList.remove('hidden');
+    }
+
+    function toggleIngestMode(mode) {
+      if (mode === 'url') {
+        document.getElementById('ingestUrlGroup').classList.remove('hidden');
+        document.getElementById('ingestHtmlGroup').classList.add('hidden');
+      } else {
+        document.getElementById('ingestUrlGroup').classList.add('hidden');
+        document.getElementById('ingestHtmlGroup').classList.remove('hidden');
+      }
+    }
+
+    async function submitPromoIngest() {
+      const cid = document.getElementById('ingestCampId').value;
+      const mode = document.getElementById('ingestMode').value;
+      const variant = document.getElementById('ingestVariant').value || 'v_promo';
+      const sourceUrl = document.getElementById('ingestUrl').value;
+      const customHtml = document.getElementById('ingestHtml').value;
+
+      showToast(`📥 Ingesting and refactoring promo assets for ${cid}...`, 'info');
+      closeModal('ingestPromoModal');
+
+      try {
+        const res = await apiFetch(`/api/campaigns/${cid}/ingest-promo`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            promoType: mode,
+            variantName: variant,
+            sourceUrl: sourceUrl || undefined,
+            customHtml: customHtml || undefined
+          })
+        });
+
+        const d = await res.json();
+        if (d.success) {
+          showToast(`✅ Ingested variant '${d.variantName}': ${d.sanitizedTrackersCount} trackers sanitized!`, 'success');
+          loadOverview();
+        } else {
+          showToast(`❌ Ingestion failed: ${d.error}`, 'error');
+        }
+      } catch (err) {
+        showToast(`❌ Error: ${err.message}`, 'error');
+      }
     }
 
     // Load Overview KPI & Campaigns
