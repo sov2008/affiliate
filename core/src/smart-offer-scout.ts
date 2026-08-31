@@ -2,6 +2,8 @@ import fs from 'fs/promises';
 import path from 'path';
 import { execSync } from 'child_process';
 import { recall } from './memory-engine';
+import dotenv from 'dotenv';
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 const OFFERS_FILE = path.resolve(__dirname, 'offers.json');
 
@@ -13,6 +15,28 @@ const MOCK_NETWORKS_DATA = [
   { id: 'cmp_diet_keto', name: 'Keto Blast', vertical: 'nutra', epc: 0.40, payout: 25, tier1_traffic_pct: 40, geo: 'ES,BR,MX' },
   { id: 'cmp_sweep_iphone', name: 'Win iPhone 15', vertical: 'sweepstakes', epc: 0.20, payout: 2, tier1_traffic_pct: 20, geo: 'IN,ID,PH' }
 ];
+
+async function fetchMyLeadOffers() {
+  if (!process.env.MYLEAD_API_KEY) return [];
+  console.log('📡 Fetching offers from MyLead API...');
+  try {
+    // const res = await fetch(`https://mylead.global/api/v1/offers?token=${process.env.MYLEAD_API_KEY}`);
+    // const json = await res.json();
+    // return json.data.map(mapToOfferFormat);
+    
+    // Stub returning fake API data for now
+    return [{ id: 'cmp_mylead_loan', name: 'Fast Cash Loan', vertical: 'finance', epc: 1.2, payout: 15, tier1_traffic_pct: 100, geo: 'US' }];
+  } catch (err) {
+    console.error('MyLead API Error', err);
+    return [];
+  }
+}
+
+async function fetchAdmitadOffers() {
+  if (!process.env.ADMITAD_CLIENT_ID) return [];
+  console.log('📡 Fetching offers from Admitad API...');
+  return [{ id: 'cmp_adm_ecom', name: 'AliExpress Flash Sale', vertical: 'ecom', epc: 0.5, payout: 5, tier1_traffic_pct: 50, geo: 'BR,MX' }];
+}
 
 async function runScout() {
   const args = process.argv.slice(2);
