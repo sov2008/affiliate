@@ -20,6 +20,19 @@
       "geo": "US,UK,CA",
       "vertical": "software",
       "payout": 45
+    },
+    "cmp_lospollos_dating": {
+      "offer_id": "lospollos_dating_smartlink",
+      "name": "LosPollos Dating Smartlink",
+      "network": "LosPollos",
+      "vertical": "dating",
+      "geo": "US,DE,FR,UK,AU,CA,IT,ES",
+      "payout": 65,
+      "smartlinkUrl": "https://trk.lospollos.com/smartlink/dating?aff=sov208",
+      "trafficSplit": {
+        "v1": 50,
+        "v2": 50
+      }
     }
   },
   "POSTBACK_WORKER_URL": "https://postback-engine.sov7.workers.dev",

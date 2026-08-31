@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Dating Smartlink Router</title>
+</head>
+<body>
+<script>
+  var r = Math.random() * 100;
+  var v = (r < 50) ? 'v1' : 'v2';
+  localStorage.setItem('cmp_lospollos_dating_variant', v);
+  window.location.href = './' + v + '/index.html' + window.location.search;
+</script>
+</body>
+</html>

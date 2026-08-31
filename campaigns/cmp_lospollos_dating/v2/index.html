@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compatibility Match Test 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
+    h1, h2, h3 { font-family: 'Outfit', sans-serif; }
+    .glass { background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-4 sm:p-6 bg-slate-950">
+
+  <header class="max-w-4xl mx-auto w-full flex justify-between items-center py-4 border-b border-slate-800">
+    <div class="flex items-center space-x-2">
+      <span class="text-indigo-400 text-2xl">⚡</span>
+      <span class="text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+        SMART MATCH // AI 2026
+      </span>
+    </div>
+    <div class="text-xs text-slate-400">
+      Region: <span class="text-indigo-400 font-bold">{city}</span>
+    </div>
+  </header>
+
+  <main class="max-w-lg mx-auto w-full my-8 text-center space-y-6">
+    <div class="glass p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6">
+      <div class="space-y-2">
+        <span class="text-xs font-mono uppercase tracking-wider text-indigo-400">Step 1 of 3: Verification</span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-white">
+          Are you looking for verified singles in <span class="text-indigo-400">{city}</span>?
+        </h1>
+        <p class="text-xs text-slate-400">Please answer honestly to see active member profiles near you.</p>
+      </div>
+
+      <div class="space-y-3">
+        <a id="ctaLink1" href="https://trk.lospollos.com/smartlink/dating?aff=sov208&s1=[ml_sub1]&s2=cmp_lospollos_dating&s3=v2&s4={country}&ml_sub1=[ml_sub1]&ml_sub2=cmp_lospollos_dating&ml_sub3=v2" class="block w-full py-3.5 rounded-xl font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition transform active:scale-95 shadow-lg shadow-indigo-600/30">
+          YES, SHOW PROFILES &rarr;
+        </a>
+        <a id="ctaLink2" href="https://trk.lospollos.com/smartlink/dating?aff=sov208&s1=[ml_sub1]&s2=cmp_lospollos_dating&s3=v2&s4={country}&ml_sub1=[ml_sub1]&ml_sub2=cmp_lospollos_dating&ml_sub3=v2" class="block w-full py-3.5 rounded-xl font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 transition transform active:scale-95">
+          I AM JUST BROWSING &rarr;
+        </a>
+      </div>
+
+      <div class="pt-4 border-t border-slate-800 text-xs text-slate-500 flex justify-between items-center">
+        <span>🔒 100% Private & Anonymous</span>
+        <span>⏱️ Offer valid: <span class="font-mono text-slate-400">{date}</span></span>
+      </div>
+    </div>
+  </main>
+
+  <footer class="max-w-4xl mx-auto w-full text-center py-6 text-xs text-slate-600 border-t border-slate-900">
+    © 2026 LosPollos Dating Network. 18+ Verification required.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const clickId = urlParams.get('click_id') || urlParams.get('gclid') || 'clk_' + Math.random().toString(36).substring(2, 9);
+      ['ctaLink1', 'ctaLink2'].forEach(id => {
+        const cta = document.getElementById(id);
+        if (cta) {
+          let href = cta.getAttribute('href');
+          href = href.replace(/\[ml_sub1\]/g, clickId);
+          cta.setAttribute('href', href);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
