@@ -18,6 +18,8 @@ export interface QueueItem {
   status: QueueStatus;
   created_at: number;
   scheduled_for?: number | null;
+  published_url?: string | null;
+  published_at?: number | null;
 }
 
 export class QueueDatabase {
@@ -68,11 +70,21 @@ export class QueueDatabase {
         risk_score INTEGER NOT NULL,
         status TEXT NOT NULL,
         created_at INTEGER NOT NULL,
-        scheduled_for INTEGER
+        scheduled_for INTEGER,
+        published_url TEXT,
+        published_at INTEGER
       );
       CREATE INDEX IF NOT EXISTS idx_queue_status ON content_queue (status);
       CREATE INDEX IF NOT EXISTS idx_queue_campaign ON content_queue (campaign_id);
     `);
+
+    // Migration safe check for newly added columns
+    try {
+      this.db.exec(`ALTER TABLE content_queue ADD COLUMN published_url TEXT;`);
+    } catch {}
+    try {
+      this.db.exec(`ALTER TABLE content_queue ADD COLUMN published_at INTEGER;`);
+    } catch {}
   }
 
   /**
@@ -85,11 +97,13 @@ export class QueueDatabase {
     const created_at = item.created_at || Date.now();
     const status: QueueStatus = item.status || 'PENDING_APPROVAL';
     const scheduled_for = item.scheduled_for ?? null;
+    const published_url = item.published_url ?? null;
+    const published_at = item.published_at ?? null;
 
     const stmt = this.db.prepare(`
       INSERT INTO content_queue (
-        id, campaign_id, target_platform, hook, body, cta, image_path, risk_score, status, created_at, scheduled_for
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        id, campaign_id, target_platform, hook, body, cta, image_path, risk_score, status, created_at, scheduled_for, published_url, published_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     stmt.run(
@@ -103,7 +117,9 @@ export class QueueDatabase {
       item.risk_score,
       status,
       created_at,
-      scheduled_for
+      scheduled_for,
+      published_url,
+      published_at
     );
 
     return {
@@ -118,6 +134,8 @@ export class QueueDatabase {
       status,
       created_at,
       scheduled_for,
+      published_url,
+      published_at,
     };
   }
 
@@ -166,6 +184,20 @@ export class QueueDatabase {
       WHERE id = ?
     `);
     stmt.run(status, id);
+    return true;
+  }
+
+  /**
+   * Mark item as successfully dispatched/published
+   */
+  public markDispatched(id: string, publishedUrl: string): boolean {
+    const now = Date.now();
+    const stmt = this.db.prepare(`
+      UPDATE content_queue
+      SET status = 'DISPATCHED', published_url = ?, published_at = ?
+      WHERE id = ?
+    `);
+    stmt.run(publishedUrl, now, id);
     return true;
   }
 
