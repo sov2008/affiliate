@@ -119,7 +119,7 @@ async function saveMemory(data: any): Promise<void> {
 }
 
 // ----------------------------------------------------
-// 1. Dashboard Static HTML View
+// 1. Dashboard Static HTML View & Analytics Script
 // ----------------------------------------------------
 app.get('/', async (req, res) => {
   try {
@@ -132,6 +132,20 @@ app.get('/', async (req, res) => {
   } catch (err: any) {
     res.status(500).send('Dashboard UI template not found: ' + err.message);
   }
+});
+
+app.get('/api/analytics/script.js', (req, res) => {
+  res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.send(`
+    (function(){
+      console.log('[Umami Analytics Gateway] Initialized on', window.location.hostname);
+    })();
+  `.trim());
+});
+
+app.get('/api/analytics/heartbeat', (req, res) => {
+  res.json({ status: 'OK', service: 'umami-analytics-gateway', timestamp: new Date().toISOString() });
 });
 
 const KNOWN_CAMPAIGNS = ['cmp_trading_au', 'cmp_vpn_us', 'cmp_elite_de', 'cmp_lospollos_dating'];
