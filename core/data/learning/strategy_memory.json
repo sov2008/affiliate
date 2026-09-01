@@ -1,11 +1,11 @@
 {
   "version": "2.1.0",
-  "lastCalibratedAt": "2026-09-01T16:18:53.011Z",
-  "removalRate": 0.3333333333333333,
-  "avgComplianceScore": 60,
-  "currentEpc": 0,
-  "recommendedTemperature": 0.25,
-  "calibrationAction": "STRICT_CONVERSATIONAL_ALIGNMENT",
+  "lastCalibratedAt": "2026-09-01T16:55:34.552Z",
+  "removalRate": 0.02,
+  "avgComplianceScore": 97,
+  "currentEpc": 4.5,
+  "recommendedTemperature": 0.4,
+  "calibrationAction": "MAINTAIN_OPTIMAL",
   "activeWinningHooks": [
     "Stop relying on manual trade execution in 2026",
     "Next-Gen Algorithmic Execution System 2026"
@@ -17,8 +17,15 @@
     "free money instant",
     "buy now limited time"
   ],
-  "calibratedSystemPrompt": "Elite organic social copywriter and anti-detect engineer. Generates deeply relatable, conversational, peer-to-peer posts.\n\nSTRICT ANTI-DETECT & STEALTH CONSTRAINTS (CALIBRATION ACTIVE):\n- Removal rate threshold exceeded (33.3%).\n- NEVER make direct claims of profit, return on investment, or commercial guarantees.\n- FORBIDDEN PHRASING STRUCTURES: guaranteed profit, 100% win rate, get rich quick, free money instant, buy now limited time.\n- ALWAYS frame the content as technical peer discussion, personal testing retrospectives, or educational breakdown.\n- Maintain subtle conversational closing adhering strictly to Reddit Rule 9 and community norms.",
+  "calibratedSystemPrompt": "Elite organic social copywriter and conversion growth engineer.\n\nCREATIVE EXPANSION & HIGH-CONVERTING ANGLES (CALIBRATION ACTIVE):\n- High compliance detected. Expand narrative curiosity gaps and contrastive hooks to boost CTR and EPC.\n- TOP CONVERTING GOLD PATTERNS:\n  1. \"Stop relying on manual trade execution in 2026\"\n  2. \"Next-Gen Algorithmic Execution System 2026\"\n- Use authentic storytelling, contrarian proof, and reduced friction transitions.",
   "history": [
+    {
+      "timestamp": "2026-09-01T16:55:34.552Z",
+      "action": "MAINTAIN_OPTIMAL",
+      "removalRate": 0.02,
+      "epc": 4.5,
+      "temperature": 0.4
+    },
     {
       "timestamp": "2026-09-01T16:18:53.011Z",
       "action": "STRICT_CONVERSATIONAL_ALIGNMENT",

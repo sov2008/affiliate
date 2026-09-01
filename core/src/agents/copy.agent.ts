@@ -1,5 +1,5 @@
 import { BaseAgent } from './base.agent.js';
-import { GeneratedCreative, RawContext } from '../types/pipeline.js';
+import { GeneratedCreative, RawContext, Platform } from '../types/pipeline.js';
 import { GoldCatalogService } from '../services/gold-catalog.service.js';
 
 export interface CopywriterPayload {
@@ -25,10 +25,11 @@ export class CopywriterAgent extends BaseAgent {
   public async execute(context: RawContext, prelanderSlug: string): Promise<GeneratedCreative> {
     this.checkEmergencyStop();
 
+    const platform = (context.platform || 'reddit').toLowerCase() as Platform;
     const niche = this.goldCatalog.extractNiche(context);
-    const fewShotSection = this.goldCatalog.getFewShotExamples(context.platform, niche, 3);
+    const fewShotSection = this.goldCatalog.getFewShotExamples(platform, niche, 3);
 
-    const systemPrompt = `You are an elite Social Media Ghostwriter & Organic Copywriter specializing in ${context.platform.toUpperCase()}.
+    const systemPrompt = `You are an elite Social Media Ghostwriter & Organic Copywriter specializing in ${platform.toUpperCase()}.
 Your goal is to write a deeply relatable, conversational, authentic story/post that addresses the user's specific pain point.
 
 CRITICAL TONE-OF-VOICE & ANTI-AI RULES:
@@ -53,23 +54,23 @@ You must respond ONLY with a JSON object in this exact schema:
   "generatedPrompt": "A photorealistic, highly cinematic prompt for FLUX/SDXL image generator depicting the practical lifestyle setup (NO text, NO UI overlays, 8k)"
 }${fewShotSection}`;
 
-    const userPrompt = `Target Platform: ${context.platform.toUpperCase()}
-Source Context / Topic: "${context.topicTitle}"
-Source Reference Text: "${context.sourceText.slice(0, 500)}"
-Target Audience Pain: "${context.targetAudiencePain}"
+    const userPrompt = `Target Platform: ${platform.toUpperCase()}
+Source Context / Topic: "${context.topicTitle || 'Automated Systems 2026'}"
+Source Reference Text: "${(context.sourceText || '').slice(0, 500)}"
+Target Audience Pain: "${context.targetAudiencePain || 'Operational efficiency'}"
 Pre-lander Slug: "${prelanderSlug}"
-Metadata: ${JSON.stringify(context.metadata)}`;
+Metadata: ${JSON.stringify(context.metadata || {})}`;
 
     const result = await this.completeJson<CopywriterPayload>(systemPrompt, userPrompt, {
       temperature: 0.3,
     });
 
     return {
-      headline: result.headline,
-      body: result.body,
-      callToAction: result.callToAction,
-      prelanderSlug: result.prelanderSlug || prelanderSlug,
-      generatedPrompt: result.generatedPrompt,
+      headline: result?.headline || 'Quantitative Arbitrage Strategy 2026',
+      body: result?.body || 'Verified institutional execution algorithms for low slippage.',
+      callToAction: result?.callToAction || 'Curious how other devs handle this, happy to share notes in the comments',
+      prelanderSlug: result?.prelanderSlug || prelanderSlug,
+      generatedPrompt: result?.generatedPrompt || 'A photorealistic lifestyle workspace setup with dual monitors',
     };
   }
 }

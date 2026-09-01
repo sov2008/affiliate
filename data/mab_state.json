@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-09-01T16:13:42.694Z",
+  "updatedAt": "2026-09-01T16:55:34.610Z",
   "epsilon": 0.15,
   "minConfidenceClicks": 20,
   "campaigns": {
@@ -431,6 +431,66 @@
       "confidenceMet": false,
       "status": "COLLECTING_SAMPLE",
       "lastOptimizedAt": "2026-09-01T16:13:42.694Z"
+    },
+    "cmp_act_test_offer_us": {
+      "campaignId": "cmp_act_test_offer_us",
+      "winnerVariant": "v1",
+      "weights": {
+        "v1": 50,
+        "v2": 50
+      },
+      "variants": {
+        "v1": {
+          "clicks": 0,
+          "conversions": 0,
+          "revenue": 0,
+          "epc": 0,
+          "cr": 0
+        },
+        "v2": {
+          "clicks": 0,
+          "conversions": 0,
+          "revenue": 0,
+          "epc": 0,
+          "cr": 0
+        }
+      },
+      "totalClicks": 0,
+      "totalRevenue": 0,
+      "totalConversions": 0,
+      "confidenceMet": false,
+      "status": "COLLECTING_SAMPLE",
+      "lastOptimizedAt": "2026-09-01T16:55:34.603Z"
+    },
+    "cmp_act_test_offer_de": {
+      "campaignId": "cmp_act_test_offer_de",
+      "winnerVariant": "v1",
+      "weights": {
+        "v1": 50,
+        "v2": 50
+      },
+      "variants": {
+        "v1": {
+          "clicks": 0,
+          "conversions": 0,
+          "revenue": 0,
+          "epc": 0,
+          "cr": 0
+        },
+        "v2": {
+          "clicks": 0,
+          "conversions": 0,
+          "revenue": 0,
+          "epc": 0,
+          "cr": 0
+        }
+      },
+      "totalClicks": 0,
+      "totalRevenue": 0,
+      "totalConversions": 0,
+      "confidenceMet": false,
+      "status": "COLLECTING_SAMPLE",
+      "lastOptimizedAt": "2026-09-01T16:55:34.609Z"
     }
   }
 }

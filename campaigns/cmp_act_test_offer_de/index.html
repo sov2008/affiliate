@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Affiliate Split Router // MAB Engine</title>
+</head>
+<body style="background:#0b0f17;color:#94a3b8;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+  <div style="text-align:center;">
+    <div style="font-size:14px;color:#38bdf8;margin-bottom:8px;">⚡ Multi-Armed Bandit Dynamic Routing...</div>
+    <div style="font-size:11px;color:#64748b;">Redirecting to high-converting variant</div>
+  </div>
+  <script>
+    (function() {
+      try {
+        var weights = {"v1":50,"v2":50};
+        var stored = localStorage.getItem('cmp_act_test_offer_de_variant');
+        if (stored && weights[stored] !== undefined) {
+          window.location.replace('./' + stored + '/index.html' + window.location.search);
+          return;
+        }
+
+        var rand = Math.random() * 100;
+        var cumulative = 0;
+        var chosen = Object.keys(weights)[0] || 'v1';
+
+        for (var v in weights) {
+          cumulative += weights[v];
+          if (rand < cumulative) {
+            chosen = v;
+            break;
+          }
+        }
+
+        localStorage.setItem('cmp_act_test_offer_de_variant', chosen);
+        window.location.replace('./' + chosen + '/index.html' + window.location.search);
+      } catch (err) {
+        window.location.replace('./v1/index.html' + window.location.search);
+      }
+    })();
+  </script>
+</body>
+</html>
+<!-- MAB Optimized: 2026-09-01T16:55:34.609Z -->

@@ -9,6 +9,7 @@ import dotenv from 'dotenv';
 import { exportAdsPackage } from './skills/ads-campaign-exporter-skill';
 import { allocateMABTraffic } from './skills/mab-traffic-allocator-skill';
 import { postbackRouter } from './server/routes/postback.router.js';
+import { actionsRouter } from './server/routes/actions.router.js';
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
@@ -20,6 +21,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(postbackRouter);
+app.use('/api/actions', actionsRouter);
 
 const MEMORY_PATH = path.resolve(__dirname, '../../.antigravity/memory.json');
 const LOG_PATH = path.resolve(__dirname, '../../.antigravity/daemon.log');

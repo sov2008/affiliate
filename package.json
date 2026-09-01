@@ -39,7 +39,8 @@
     "hitl:review": "tsx core/src/index.ts",
     "deploy:pages": "npx wrangler pages deploy campaigns/ --project-name affiliate-campaigns --branch main --commit-dirty=true",
     "deploy:prod": "tsx src/scripts/deployProduction.ts",
-    "audit:prod": "tsx src/scripts/verifyProductionNode.ts"
+    "audit:prod": "tsx src/scripts/verifyProductionNode.ts",
+    "test:actions": "tsx src/tests/actions-router.spec.ts"
   },
   "workspaces": [
     "core",

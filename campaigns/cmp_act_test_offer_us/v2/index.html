@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Qualification Quiz // Quantitative Access</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="/api/analytics/script.js" data-website-id="cmp_act_test_offer_us" data-auto-track="true"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4 font-sans">
+  <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-5">
+    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+      <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Step 1 of 2: Eligibility Check</span>
+      <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-950 text-purple-300 border border-purple-500/40">US Region</span>
+    </div>
+
+    <div class="space-y-2">
+      <h1 class="text-xl font-bold text-white">Do you currently trade crypto or equities?</h1>
+      <p class="text-xs text-slate-400">Answer 2 simple questions to qualify for private beta allocation.</p>
+    </div>
+
+    <div class="space-y-2.5">
+      <button onclick="document.getElementById('ctaBlock').classList.remove('hidden')" class="w-full py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 text-left rounded-xl border border-slate-700 text-sm font-medium transition flex items-center justify-between">
+        <span>Yes, actively trading weekly</span>
+        <span class="text-sky-400">&rarr;</span>
+      </button>
+      <button onclick="document.getElementById('ctaBlock').classList.remove('hidden')" class="w-full py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 text-left rounded-xl border border-slate-700 text-sm font-medium transition flex items-center justify-between">
+        <span>Beginner looking for automated solutions</span>
+        <span class="text-sky-400">&rarr;</span>
+      </button>
+    </div>
+
+    <div id="ctaBlock" class="pt-2 border-t border-slate-800 space-y-3">
+      <div class="p-3 bg-emerald-950/40 border border-emerald-500/40 rounded-xl text-xs text-emerald-300">
+        ✓ <strong>Congratulations!</strong> Your region (US) is eligible for 0% commission onboarding.
+      </div>
+      <a id="ctaLink" href="https://postback-engine.sov7.workers.dev/click?click_id={click_id}&sub1={sub1}&sub2=act_test_offer&geo=US&city={city}&device={device}" class="block w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-center rounded-xl transition duration-200 shadow-lg text-base">
+        Claim Your Offer Now &rarr;
+      </a>
+    </div>
+  </div>
+</body>
+</html>

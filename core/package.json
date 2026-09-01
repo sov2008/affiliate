@@ -70,7 +70,8 @@
     "hitl:review": "tsx src/index.ts",
     "build": "tsc --outDir dist --rootDir src",
     "deploy:prod": "tsx ../src/scripts/deployProduction.ts",
-    "audit:prod": "tsx ../src/scripts/verifyProductionNode.ts"
+    "audit:prod": "tsx ../src/scripts/verifyProductionNode.ts",
+    "test:actions": "tsx ../src/tests/actions-router.spec.ts"
   },
   "keywords": [],
   "author": "",

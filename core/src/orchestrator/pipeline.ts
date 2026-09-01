@@ -55,8 +55,9 @@ export class PipelineOrchestrator {
       this.emergencyController.check();
 
       // 3. Execute CopywriterAgent
+      const platformName = (context.platform || 'reddit').toUpperCase();
       console.log(
-        `\x1b[36m[PipelineOrchestrator]\x1b[0m Generating copy for [${context.platform.toUpperCase()}] "${context.topicTitle.slice(0, 40)}..." (Bundle: ${bundleId.slice(0, 8)})`
+        `\x1b[36m[PipelineOrchestrator]\x1b[0m Generating copy for [${platformName}] "${(context.topicTitle || 'Automated Systems').slice(0, 40)}..." (Bundle: ${bundleId.slice(0, 8)})`
       );
       creative = await this.copywriter.execute(context, prelanderSlug);
       status = 'GENERATED';
@@ -67,9 +68,9 @@ export class PipelineOrchestrator {
 
       // 5. Execute ComplianceGuardAgent
       console.log(
-        `\x1b[35m[PipelineOrchestrator]\x1b[0m Evaluating compliance for [${context.platform.toUpperCase()}] "${creative.headline.slice(0, 40)}..."`
+        `\x1b[35m[PipelineOrchestrator]\x1b[0m Evaluating compliance for [${platformName}] "${(creative?.headline || '').slice(0, 40)}..."`
       );
-      compliance = await this.complianceGuard.evaluate(creative, context.platform);
+      compliance = await this.complianceGuard.evaluate(creative, context.platform || 'reddit');
 
       if (compliance.passed) {
         status = 'COMPLIANT';
