@@ -12,6 +12,7 @@
     "pipeline:test": "tsx src/scripts/runPipelineTest.ts",
     "queue:generate": "tsx src/scripts/generateBatch.ts",
     "queue:review": "tsx src/scripts/reviewQueue.ts",
+    "affiliate:test": "tsx src/scripts/testAffiliateAdapters.ts",
     "deploy:pages": "npx wrangler pages deploy campaigns/ --project-name affiliate-campaigns --branch main --commit-dirty=true"
   },
   "workspaces": [

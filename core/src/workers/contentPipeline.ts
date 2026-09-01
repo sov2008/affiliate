@@ -3,11 +3,15 @@ import { AIGateway } from '../services/aiGateway.js';
 import { ImageGateway } from '../services/imageGateway.js';
 import { StorageGateway, UploadResult } from '../services/storageGateway.js';
 import { HumanizerSkill, HumanizedOutput } from '../skills/humanizer-skill.js';
+import { AffiliateAdapterFactory } from '../adapters/adapterFactory.js';
+import { PrelanderService, PrelanderMetadataPayload } from '../services/prelanderService.js';
+import { NetworkName, PrelanderType } from '../adapters/affiliateAdapter.interface.js';
 
 export interface PipelineInput {
   topic: string;
   niche: string;
   campaignId?: string;
+  network?: NetworkName;
   targetAudience?: string;
   targetPlatform?: 'reddit' | 'quora' | 'twitter' | 'medium';
   geo?: string;
@@ -78,6 +82,8 @@ export interface ReadyToPostPayload {
   campaignId: string;
   niche: string;
   topic: string;
+  network: NetworkName;
+  prelanderType: PrelanderType;
   rawAngle: {
     hook: string;
     body: string;
@@ -103,6 +109,7 @@ export interface ReadyToPostPayload {
     storageType: 'r2' | 'local';
     bytes: number;
   };
+  prelanderConfig: PrelanderMetadataPayload;
   telemetry: {
     totalDurationMs: number;
     stages: {
@@ -125,10 +132,18 @@ export class ContentPipeline {
     const startTime = Date.now();
     const campaignId = input.campaignId || `cmp_${input.niche.toLowerCase().replace(/[^a-z0-9]/g, '_')}`;
     const language = input.language || 'English';
-    const geo = input.geo || 'Global / US';
+    const geo = input.geo || 'US';
     const platform = input.targetPlatform || 'reddit';
 
-    console.log(`\n\x1b[1m\x1b[35m=== [ContentPipeline] Starting Autonomous Run for "${input.topic}" (${input.niche}) ===\x1b[0m`);
+    // Resolve affiliate network adapter strategy
+    const adapter = input.network
+      ? AffiliateAdapterFactory.getAdapter(input.network)
+      : AffiliateAdapterFactory.getAdapterForCampaign(campaignId);
+    const prelanderType = adapter.getPrelanderType(input.niche);
+
+    console.log(
+      `\n\x1b[1m\x1b[35m=== [ContentPipeline] Starting Autonomous Run for "${input.topic}" (${input.niche} | Network: ${adapter.name.toUpperCase()} | Strategy: ${prelanderType}) ===\x1b[0m`
+    );
 
     // ----------------------------------------------------
     // STAGE 1: Scout & Angle Generator
@@ -137,6 +152,7 @@ export class ContentPipeline {
     const s1Start = Date.now();
     const stage1SystemPrompt = `You are a Direct-Response Strategy Architect.
 Identify a high-converting psychological angle, core story, and direct value proposition for the topic.
+Align the hook with the pre-lander funnel strategy: "${prelanderType}".
 
 Respond with JSON:
 {
@@ -149,6 +165,7 @@ Respond with JSON:
 
     const stage1UserPrompt = `Topic: "${input.topic}"
 Niche: "${input.niche}"
+Pre-lander Funnel: "${prelanderType}"
 Target Audience: "${input.targetAudience || 'Active community members seeking genuine solutions'}"
 Target GEO: "${geo}"
 Preferred Language: "${language}"`;
@@ -276,8 +293,16 @@ Craft an aesthetic visual prompt capturing the lifestyle/context of this offer.`
     console.log(`\x1b[32m[Stage 5 OK]\x1b[0m Uploaded to ${uploadResult.storageType.toUpperCase()} -> ${uploadResult.url} (${s5Duration}ms)`);
 
     // ----------------------------------------------------
-    // Compilation & Return
+    // Pre-lander & Tracking Metadata Assembly
     // ----------------------------------------------------
+    const prelanderConfig = PrelanderService.generatePrelanderConfig({
+      campaignId,
+      niche: input.niche,
+      headline: activeHook,
+      targetPlatform: platform,
+      geo,
+    });
+
     const totalDurationMs = Date.now() - startTime;
     console.log(`\x1b[1m\x1b[32m✨ [ContentPipeline Completed in ${(totalDurationMs / 1000).toFixed(2)}s]\x1b[0m\n`);
 
@@ -285,6 +310,8 @@ Craft an aesthetic visual prompt capturing the lifestyle/context of this offer.`
       campaignId,
       niche: input.niche,
       topic: input.topic,
+      network: adapter.name,
+      prelanderType,
       rawAngle: {
         hook: rawAngleData.hook,
         body: rawAngleData.body,
@@ -310,6 +337,7 @@ Craft an aesthetic visual prompt capturing the lifestyle/context of this offer.`
         storageType: uploadResult.storageType,
         bytes: uploadResult.bytes,
       },
+      prelanderConfig,
       telemetry: {
         totalDurationMs,
         stages: {

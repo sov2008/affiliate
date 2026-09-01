@@ -46,7 +46,8 @@
     "verify:keys": "tsx src/scripts/verifyCredentials.ts",
     "pipeline:test": "tsx src/scripts/runPipelineTest.ts",
     "queue:generate": "tsx src/scripts/generateBatch.ts",
-    "queue:review": "tsx src/scripts/reviewQueue.ts"
+    "queue:review": "tsx src/scripts/reviewQueue.ts",
+    "affiliate:test": "tsx src/scripts/testAffiliateAdapters.ts"
   },
   "keywords": [],
   "author": "",
