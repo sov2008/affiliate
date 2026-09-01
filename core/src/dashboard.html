@@ -780,7 +780,7 @@
 
     <!-- B4. Разведка офферов (LosPollos & MyLead Scouts Intelligence) -->
     <div class="glass-panel p-5 rounded-xl border border-emerald-900/60 bg-slate-900/40 space-y-4 glow-border">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800 cursor-pointer select-none" onclick="toggleAccordion('scoutsAccordionBody', 'scoutsChevron')">
         <div class="flex items-center space-x-3">
           <span class="text-2xl">🛰️</span>
           <div>
@@ -797,14 +797,15 @@
         </div>
 
         <div class="flex items-center space-x-2 font-mono text-xs">
-          <button id="btnRunScouts" onclick="triggerScoutDiscoveryRun()" class="px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/50 text-emerald-300 font-bold transition active:scale-95 flex items-center">
-            <span class="mr-1.5">⚡</span> Запустить разведку и генерацию
+          <button id="btnRunScouts" onclick="event.stopPropagation(); triggerScoutDiscoveryRun()" class="px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/50 text-emerald-300 font-bold transition active:scale-95 flex items-center">
+            <span class="mr-1.5">⚡</span> Запустить разведку
           </button>
+          <span id="scoutsChevron" class="text-slate-400 text-xs px-2 py-1 rounded bg-slate-800/80 border border-slate-700">▼ Свернуть</span>
         </div>
       </div>
 
       <!-- Таблица разведанных офферов -->
-      <div class="overflow-x-auto">
+      <div id="scoutsAccordionBody" class="overflow-x-auto transition-all duration-300">
         <table class="w-full text-left font-mono text-xs">
           <thead class="text-slate-400 bg-slate-950/60 border-b border-slate-800">
             <tr>
@@ -1046,7 +1047,7 @@
 
     <!-- B5. ИИ Multi-Armed Bandit (MAB) & Автономный синтез вариантов (Evolution Matrix) -->
     <div class="glass-panel p-5 rounded-xl border border-purple-900/60 bg-slate-900/40 space-y-4 glow-border font-mono">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800 cursor-pointer select-none" onclick="toggleAccordion('mabAccordionBody', 'mabChevron')">
         <div class="flex items-center space-x-3">
           <div class="w-8 h-8 rounded-lg bg-purple-950 border border-purple-500/40 flex items-center justify-center text-purple-300 text-base">
             🎲
@@ -1067,34 +1068,37 @@
         </div>
 
         <div class="flex items-center space-x-2 text-xs">
-          <button onclick="optimizeAllMab()" class="px-3 py-1.5 rounded bg-purple-950 hover:bg-purple-900 text-purple-200 border border-purple-600/50 font-bold transition flex items-center space-x-1">
+          <button onclick="event.stopPropagation(); optimizeAllMab()" class="px-3 py-1.5 rounded bg-purple-950 hover:bg-purple-900 text-purple-200 border border-purple-600/50 font-bold transition flex items-center space-x-1">
             <span>⚡ Оптимизировать MAB сплит</span>
           </button>
+          <span id="mabChevron" class="text-slate-400 text-xs px-2 py-1 rounded bg-slate-800/80 border border-slate-700">▼ Свернуть</span>
         </div>
       </div>
 
-      <!-- Матрица MAB кампаний -->
-      <div class="space-y-3">
-        <div class="flex justify-between items-center text-xs text-slate-400 uppercase font-bold">
-          <span>Матрица распределения трафика (Active Campaign MAB Matrix)</span>
-          <span id="mabCampaignCount">0 кампаний</span>
-        </div>
-        <div id="mabCampaignsContainer" class="space-y-3">
-          <div class="p-4 bg-slate-950/40 rounded border border-dashed border-slate-800 text-slate-500 text-center text-xs">
-            Загрузка матрицы MAB...
+      <div id="mabAccordionBody" class="space-y-4 transition-all duration-300">
+        <!-- Матрица MAB кампаний -->
+        <div class="space-y-3">
+          <div class="flex justify-between items-center text-xs text-slate-400 uppercase font-bold">
+            <span>Матрица распределения трафика (Active Campaign MAB Matrix)</span>
+            <span id="mabCampaignCount">0 кампаний</span>
+          </div>
+          <div id="mabCampaignsContainer" class="space-y-3">
+            <div class="p-4 bg-slate-950/40 rounded border border-dashed border-slate-800 text-slate-500 text-center text-xs">
+              Загрузка матрицы MAB...
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Журнал эволюции и синтеза претендентов -->
-      <div class="space-y-2 pt-2 border-t border-slate-800">
-        <div class="flex justify-between items-center text-xs text-slate-400 uppercase font-bold">
-          <span>Журнал эволюции и синтеза (Challenger Evolution Log)</span>
-          <span class="text-[10px] text-slate-500">Автономный отсев</span>
-        </div>
-        <div id="evolutionLogContainer" class="space-y-1.5">
-          <div class="p-2.5 bg-slate-950/40 rounded border border-dashed border-slate-800 text-slate-500 text-center text-xs">
-            Синтезированные варианты будут отображаться здесь по мере обнаружения неконвертящих связок.
+        <!-- Журнал эволюции и синтеза претендентов -->
+        <div class="space-y-2 pt-2 border-t border-slate-800">
+          <div class="flex justify-between items-center text-xs text-slate-400 uppercase font-bold">
+            <span>Журнал эволюции и синтеза (Challenger Evolution Log)</span>
+            <span class="text-[10px] text-slate-500">Автономный отсев</span>
+          </div>
+          <div id="evolutionLogContainer" class="space-y-1.5">
+            <div class="p-2.5 bg-slate-950/40 rounded border border-dashed border-slate-800 text-slate-500 text-center text-xs">
+              Синтезированные варианты будут отображаться здесь по мере обнаружения неконвертящих связок.
+            </div>
           </div>
         </div>
       </div>
@@ -1180,26 +1184,41 @@
         </div>
       </div>
 
-      <!-- E. Консоль демона автопилота (PM2) -->
-      <div class="glass-panel rounded-xl border border-slate-800 p-4 space-y-3">
-        <div class="flex justify-between items-center pb-2 border-b border-slate-800">
-          <h3 class="font-bold text-xs font-mono text-sky-400 uppercase tracking-wider flex items-center">
-            <span class="w-2 h-2 rounded-full bg-sky-400 mr-2"></span>
-            Консоль демона автопилота (PM2)
-          </h3>
-          <div class="flex items-center space-x-2">
-            <button onclick="toggleScroll()" id="btnScroll" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300">
-              Автопрокрутка: Вкл
+      <!-- E. Единая консоль логов (Unified Log Terminal) -->
+      <div class="glass-panel rounded-xl border border-slate-800/90 bg-slate-950/90 backdrop-blur-xl shadow-2xl p-4 space-y-3 font-mono text-xs">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-2 border-b border-slate-800 gap-2">
+          <div class="flex items-center space-x-1 overflow-x-auto pb-1 sm:pb-0">
+            <button onclick="switchUnifiedLogTab('all')" id="tabLogAll" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-sky-500/20 text-sky-300 border border-sky-500/50">🖥️ Все</button>
+            <button onclick="switchUnifiedLogTab('daemon')" id="tabLogDaemon" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-slate-900 text-slate-400 hover:text-slate-200 border border-transparent">⚙️ Демон</button>
+            <button onclick="switchUnifiedLogTab('scheduler')" id="tabLogScheduler" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-slate-900 text-slate-400 hover:text-slate-200 border border-transparent">📡 Постинг</button>
+            <button onclick="switchUnifiedLogTab('telemetry')" id="tabLogTelemetry" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-slate-900 text-slate-400 hover:text-slate-200 border border-transparent">📊 Постбеки</button>
+          </div>
+
+          <div class="flex items-center space-x-1.5">
+            <select id="logLevelSelect" onchange="filterLogsByLevel(this.value)" class="bg-slate-900 border border-slate-800 rounded px-2 py-0.5 text-[10px] text-slate-300">
+              <option value="ALL">Уровень: ВСЕ</option>
+              <option value="INFO">INFO</option>
+              <option value="WARN">WARN</option>
+              <option value="ERROR">ERROR</option>
+            </select>
+            <button onclick="toggleUnifiedScroll()" id="btnUnifiedScroll" class="text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40">
+              Скролл: Вкл
             </button>
-            <button onclick="clearConsole()" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300">
+            <button onclick="clearUnifiedLogs()" class="text-[10px] px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-400">
               Очистить
             </button>
           </div>
         </div>
 
-        <div id="daemonTerminal" class="h-[340px] bg-slate-950 rounded-lg p-3 font-mono text-xs text-emerald-400 overflow-y-auto term-scroll whitespace-pre-wrap leading-relaxed">
-          [Система] Подключение к потоку терминала сервера...
+        <div id="daemonTerminal" class="h-[300px] bg-slate-950 rounded-lg p-3 font-mono text-[11px] text-emerald-400 overflow-y-auto term-scroll whitespace-pre-wrap leading-relaxed border border-slate-900 select-text">
+          [Система] Подключение к объединенному потоку терминала сервера...
         </div>
+
+        <div class="flex justify-between items-center text-[10px] text-slate-500 border-t border-slate-900 pt-1.5">
+          <span>Буфер: <strong id="unifiedBufferCount" class="text-slate-300">0</strong> / 200 строк</span>
+          <span class="text-emerald-400 flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 status-pulse mr-1"></span> LIVE STREAMING</span>
+        </div>
+      </div>
       <!-- F. Золотой датасет агентов (Few-Shot Gold Catalog) & Live CPA Performance -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         
@@ -1811,24 +1830,135 @@
       } catch (e) {}
     }
 
+    // ----------------------------------------------------
+    // Accordion Panels Toggle Helper
+    // ----------------------------------------------------
+    function toggleAccordion(bodyId, chevronId) {
+      const el = document.getElementById(bodyId);
+      const chevron = document.getElementById(chevronId);
+      if (!el) return;
+      if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+        if (chevron) chevron.innerText = '▼ Свернуть';
+      } else {
+        el.classList.add('hidden');
+        if (chevron) chevron.innerText = '▶ Развернуть';
+      }
+    }
+
+    // ----------------------------------------------------
+    // Unified Log Terminal Stream & Ring Buffer Manager
+    // ----------------------------------------------------
+    let unifiedLogsBuffer = [];
+    let currentLogTab = 'all';
+    let currentLogLevel = 'ALL';
+    let unifiedAutoScroll = true;
+
+    function appendUnifiedLog(stream, message) {
+      if (!message || typeof message !== 'string') return;
+      const lower = message.toLowerCase();
+      const level = (lower.includes('error') || lower.includes('fail') || lower.includes('fatal'))
+        ? 'ERROR'
+        : (lower.includes('warn') || lower.includes('timeout') || lower.includes('retry'))
+        ? 'WARN'
+        : 'INFO';
+
+      const clean = message.replace(/\u001b\[[0-9;]*m/g, '');
+      const entry = {
+        id: Date.now() + Math.random(),
+        time: new Date().toLocaleTimeString('ru-RU', { hour12: false }),
+        stream,
+        level,
+        message: clean
+      };
+
+      unifiedLogsBuffer.push(entry);
+      if (unifiedLogsBuffer.length > 200) {
+        unifiedLogsBuffer.shift();
+      }
+      renderUnifiedLogs();
+    }
+
+    function renderUnifiedLogs() {
+      const terminal = document.getElementById('daemonTerminal');
+      const countEl = document.getElementById('unifiedBufferCount');
+      if (!terminal) return;
+
+      const filtered = unifiedLogsBuffer.filter(item => {
+        if (currentLogTab !== 'all' && item.stream !== currentLogTab) return false;
+        if (currentLogLevel !== 'ALL' && item.level !== currentLogLevel) return false;
+        return true;
+      });
+
+      if (countEl) countEl.innerText = filtered.length;
+
+      if (filtered.length === 0) {
+        terminal.innerHTML = '<div class="text-slate-600 italic py-6 text-center">Нет записей лога по заданным фильтрам...</div>';
+        return;
+      }
+
+      terminal.innerHTML = filtered.map(item => `
+        <div class="flex items-start space-x-2 py-0.5 hover:bg-slate-900/40 rounded px-1">
+          <span class="text-slate-600 text-[10px] select-none">${item.time}</span>
+          <span class="px-1.5 py-0.2 rounded text-[9px] font-bold uppercase select-none ${item.stream === 'daemon' ? 'bg-sky-950 text-sky-400 border border-sky-800/40' : item.stream === 'scheduler' ? 'bg-indigo-950 text-indigo-400 border border-indigo-800/40' : 'bg-emerald-950 text-emerald-400 border border-emerald-800/40'}">${item.stream}</span>
+          <span class="px-1 py-0.2 rounded text-[9px] font-bold uppercase select-none ${item.level === 'ERROR' ? 'bg-rose-950 text-rose-400 border border-rose-800/40' : item.level === 'WARN' ? 'bg-amber-950 text-amber-400 border border-amber-800/40' : 'bg-slate-900 text-slate-400'}">${item.level}</span>
+          <span class="flex-1 break-all whitespace-pre-wrap ${item.level === 'ERROR' ? 'text-rose-300 font-semibold' : item.level === 'WARN' ? 'text-amber-300' : item.message.includes('OK') || item.message.includes('✅') || item.message.includes('SUCCESS') ? 'text-emerald-300' : 'text-slate-300'}">${item.message}</span>
+        </div>
+      `).join('');
+
+      if (unifiedAutoScroll) {
+        terminal.scrollTop = terminal.scrollHeight;
+      }
+    }
+
+    function switchUnifiedLogTab(tab) {
+      currentLogTab = tab;
+      const tabs = ['all', 'daemon', 'scheduler', 'telemetry'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('tabLog' + t.charAt(0).toUpperCase() + t.slice(1));
+        if (btn) {
+          btn.className = (t === tab)
+            ? 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-sky-500/20 text-sky-300 border border-sky-500/50'
+            : 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-slate-900 text-slate-400 hover:text-slate-200 border border-transparent';
+        }
+      });
+      renderUnifiedLogs();
+    }
+
+    function filterLogsByLevel(lvl) {
+      currentLogLevel = lvl;
+      renderUnifiedLogs();
+    }
+
+    function toggleUnifiedScroll() {
+      unifiedAutoScroll = !unifiedAutoScroll;
+      const btn = document.getElementById('btnUnifiedScroll');
+      if (btn) {
+        btn.innerText = 'Скролл: ' + (unifiedAutoScroll ? 'Вкл' : 'Выкл');
+        btn.className = unifiedAutoScroll
+          ? 'text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40'
+          : 'text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400';
+      }
+    }
+
+    function clearUnifiedLogs() {
+      unifiedLogsBuffer = [];
+      renderUnifiedLogs();
+    }
+
     // Загрузка логов консоли демона
     async function loadLogs() {
       try {
         const res = await apiFetch('/api/logs/daemon');
         const data = await res.json();
-        const div = document.getElementById('daemonTerminal');
-        div.innerText = data.lines ? data.lines.join('\n') : 'Ожидание...';
-        if (autoScroll) div.scrollTop = div.scrollHeight;
+        if (data.lines && Array.isArray(data.lines)) {
+          data.lines.forEach(line => {
+            if (!unifiedLogsBuffer.some(b => b.message === line.replace(/\u001b\[[0-9;]*m/g, ''))) {
+              appendUnifiedLog('daemon', line);
+            }
+          });
+        }
       } catch (e) {}
-    }
-
-    function toggleScroll() {
-      autoScroll = !autoScroll;
-      document.getElementById('btnScroll').innerText = 'Автопрокрутка: ' + (autoScroll ? 'Вкл' : 'Выкл');
-    }
-
-    function clearConsole() {
-      document.getElementById('daemonTerminal').innerText = '[Консоль очищена]';
     }
 
     // Инициализация графика
@@ -2006,6 +2136,12 @@
         const countEl = document.getElementById('orgLogCount');
 
         if (d.lines && d.lines.length > 0) {
+          d.lines.forEach(line => {
+            if (!unifiedLogsBuffer.some(b => b.message === line.replace(/\u001b\[[0-9;]*m/g, ''))) {
+              appendUnifiedLog('scheduler', line);
+            }
+          });
+
           const newText = d.lines.slice(-60).join('\n');
           const hasError = newText.includes('[Fatal]') || newText.includes('[Error]') || newText.includes('UnhandledPromiseRejection');
           
@@ -2017,13 +2153,11 @@
             countEl.innerText = `${d.lines.length} событий в логе`;
           }
 
-          // Автоскролл ТОЛЬКО когда появилась новая активность (содержимое реально изменилось)
-          if (newText !== lastOrganicLogsText) {
+          if (div && newText !== lastOrganicLogsText) {
             const isScrolledToBottom = div.scrollHeight - div.clientHeight <= div.scrollTop + 60;
             div.innerText = newText;
             lastOrganicLogsText = newText;
 
-            // Если включен автоскролл и контент обновился
             if (orgAutoScroll && (isScrolledToBottom || lastOrganicLogsText === '')) {
               div.scrollTop = div.scrollHeight;
             }

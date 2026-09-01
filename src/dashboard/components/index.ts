@@ -5,3 +5,4 @@ export * from './GoldCatalogInspector.js';
 export * from './DistributionSchedulerWidget.js';
 export * from './MabEvolutionWidget.js';
 export * from './CommandActionBar.js';
+export * from './UnifiedLogTerminal.js';

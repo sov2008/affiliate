@@ -24,6 +24,41 @@ export interface FinancialKpiData {
   lastUpdated: string;
 }
 
+// Sleek Mini Sparkline Component
+export const MiniSparkline: React.FC<{
+  dataPoints?: number[];
+  color?: string;
+  width?: number;
+  height?: number;
+}> = ({ dataPoints = [0, 0, 0, 0, 0, 0, 0], color = '#10B981', width = 75, height = 24 }) => {
+  const max = Math.max(...dataPoints, 1);
+  const min = Math.min(...dataPoints, 0);
+  const range = max - min || 1;
+
+  const points = dataPoints
+    .map((val, idx) => {
+      const x = (idx / (dataPoints.length - 1)) * width;
+      const y = height - ((val - min) / range) * (height - 4) - 2;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(' ');
+
+  return (
+    <svg width={width} height={height} className="overflow-visible inline-block">
+      <polyline fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" points={points} />
+      {dataPoints.length > 0 && (
+        <circle
+          cx={(width).toFixed(1)}
+          cy={(height - ((dataPoints[dataPoints.length - 1] - min) / range) * (height - 4) - 2).toFixed(1)}
+          r="2.5"
+          fill={color}
+          className="animate-pulse"
+        />
+      )}
+    </svg>
+  );
+};
+
 export const FinancialMetricsWidget: React.FC<{
   apiBaseUrl?: string;
   refreshIntervalMs?: number;
@@ -158,11 +193,14 @@ export const FinancialMetricsWidget: React.FC<{
             <span className="text-2xl font-black text-emerald-400 font-mono">
               ${data.todayRevenue.toFixed(2)}
             </span>
-            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-              data.todayRevenue > 0 ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-slate-800 text-slate-400'
-            }`}>
-              {data.revenueDeltaPct}
-            </span>
+            <div className="flex items-center space-x-1.5">
+              <MiniSparkline color="#10B981" />
+              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                data.todayRevenue > 0 ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-slate-800 text-slate-400'
+              }`}>
+                {data.revenueDeltaPct}
+              </span>
+            </div>
           </div>
           <div className="text-[10px] text-slate-400 mt-1 flex justify-between">
             <span>Вчера: ${data.yesterdayRevenue.toFixed(2)}</span>
@@ -176,10 +214,11 @@ export const FinancialMetricsWidget: React.FC<{
             <span className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Сквозной EPC</span>
             <span className="text-xs">🎯</span>
           </div>
-          <div className="mt-2">
+          <div className="mt-2 flex items-baseline justify-between">
             <span className="text-2xl font-black text-cyan-400 font-mono">
               {data.networkEpc}
             </span>
+            <MiniSparkline color="#06B6D4" />
           </div>
           <div className="text-[10px] text-slate-400 mt-1 flex justify-between">
             <span>Доход на 1 клик</span>
