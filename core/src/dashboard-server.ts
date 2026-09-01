@@ -972,6 +972,72 @@ app.get('/api/runs/bundles', async (req, res) => {
   }
 });
 
+// ----------------------------------------------------
+// 9. Umami Analytics & Funnel Telemetry API
+// ----------------------------------------------------
+app.get('/api/analytics/umami/stats', async (req, res) => {
+  try {
+    const { websiteId = process.env.UMAMI_WEBSITE_ID || '8f92b7c4-2a1d-4e56-98c3-4d7a8b1e2f3a', startAt, endAt } = req.query as any;
+    const { UmamiClient } = await import('./analytics/umami.client.js');
+    const stats = await UmamiClient.getInstance().getStats(
+      websiteId,
+      startAt ? parseInt(startAt) : undefined,
+      endAt ? parseInt(endAt) : undefined
+    );
+    res.json({ success: true, stats });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.get('/api/analytics/umami/funnel', async (req, res) => {
+  try {
+    const { websiteId = process.env.UMAMI_WEBSITE_ID || '8f92b7c4-2a1d-4e56-98c3-4d7a8b1e2f3a', startAt, endAt } = req.query as any;
+    const { UmamiClient } = await import('./analytics/umami.client.js');
+    const [funnel, stats] = await Promise.all([
+      UmamiClient.getInstance().getFunnelSummary(
+        websiteId,
+        startAt ? parseInt(startAt) : undefined,
+        endAt ? parseInt(endAt) : undefined
+      ),
+      UmamiClient.getInstance().getStats(
+        websiteId,
+        startAt ? parseInt(startAt) : undefined,
+        endAt ? parseInt(endAt) : undefined
+      ),
+    ]);
+
+    res.json({
+      success: true,
+      funnel,
+      stats: {
+        totalVisitors: stats.visitors.value || 0,
+        totalPageviews: stats.pageviews.value || 0,
+        todayVisitors: stats.visitors.value || 0,
+        todayPageviews: stats.pageviews.value || 0,
+        bounceRate: stats.bounces.value ? (stats.bounces.value / (stats.visitors.value || 1)) * 100 : 0,
+      },
+    });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.get('/api/analytics/umami/events', async (req, res) => {
+  try {
+    const { websiteId = process.env.UMAMI_WEBSITE_ID || '8f92b7c4-2a1d-4e56-98c3-4d7a8b1e2f3a', startAt, endAt } = req.query as any;
+    const { UmamiClient } = await import('./analytics/umami.client.js');
+    const events = await UmamiClient.getInstance().getEvents(
+      websiteId,
+      startAt ? parseInt(startAt) : undefined,
+      endAt ? parseInt(endAt) : undefined
+    );
+    res.json({ success: true, events });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Executive Command Center active at http://localhost:${PORT} (Basic Auth Protected)`);

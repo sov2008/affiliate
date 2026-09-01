@@ -41,6 +41,11 @@ export interface PrelanderMetadataPayload {
     subParams: Record<string, string>;
     forwardingUrlPattern: string;
   };
+  analytics?: {
+    umamiHost: string;
+    websiteId: string;
+    scriptTag: string;
+  };
   quiz?: {
     steps: QuizStep[];
     passingThresholdNote: string;
@@ -116,6 +121,11 @@ export class PrelanderService {
           variant,
         },
         forwardingUrlPattern: outboundUrl,
+      },
+      analytics: {
+        umamiHost: process.env.UMAMI_HOST || 'http://178.128.199.28:3000',
+        websiteId: process.env.UMAMI_WEBSITE_ID || '8f92b7c4-2a1d-4e56-98c3-4d7a8b1e2f3a',
+        scriptTag: `<script defer src="${process.env.UMAMI_HOST || 'http://178.128.199.28:3000'}/script.js" data-website-id="${process.env.UMAMI_WEBSITE_ID || '8f92b7c4-2a1d-4e56-98c3-4d7a8b1e2f3a'}" data-auto-track="true"></script>`,
       },
       createdAt: new Date().toISOString(),
     };

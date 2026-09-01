@@ -32,14 +32,32 @@
         </div>
     </main>
 
+    <!-- Umami Self-Hosted Analytics Script -->
+    <script defer src="http://178.128.199.28:3000/script.js" data-website-id="8f92b7c4-2a1d-4e56-98c3-4d7a8b1e2f3a" data-auto-track="true"></script>
+
     <script>
+        // Global Umami helper with safe fallback
+        window.trackQuizEvent = function(eventName, data) {
+            try {
+                if (typeof window.umami !== 'undefined' && typeof window.umami.track === 'function') {
+                    window.umami.track(eventName, data);
+                    console.log(`📊 [Umami] Event dispatched: ${eventName}`, data);
+                }
+            } catch (e) {
+                console.warn('⚠️ [Umami] Failed to dispatch event:', e);
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const clickId = urlParams.get('click_id') || urlParams.get('sub_id') || '';
             
-            if (clickId) {
-                const ctaButton = document.getElementById('cta-button');
-                if (ctaButton) {
+            // Track initial page milestone
+            window.trackQuizEvent('quiz_step_view', { step: 1, click_id: clickId });
+
+            const ctaButton = document.getElementById('cta-button');
+            if (ctaButton) {
+                if (clickId) {
                     try {
                         const originalUrl = new URL(ctaButton.href);
                         originalUrl.searchParams.set('click_id', clickId);
@@ -49,6 +67,14 @@
                         console.error('Error updating URL:', e);
                     }
                 }
+
+                ctaButton.addEventListener('click', (e) => {
+                    window.trackQuizEvent('quiz_completed', {
+                        target: 'offer_redirect',
+                        sub_id: clickId || 'direct_organic',
+                        timestamp: new Date().toISOString()
+                    });
+                });
             }
         });
     </script>

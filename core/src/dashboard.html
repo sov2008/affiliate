@@ -650,6 +650,104 @@
       </div>
     </div>
 
+    <!-- B6. Телеметрия и Аналитика Прелендеров (Umami Analytics Self-Hosted) -->
+    <div class="glass-panel p-5 rounded-xl border border-indigo-900/60 bg-slate-900/40 space-y-4 glow-border">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">📊</span>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-base font-bold font-mono text-slate-200">
+                ТЕЛЕМЕТРИЯ ПРЕЛЕНДЕРОВ & ВОРОНКА (UMAMI ANALYTICS)
+              </h2>
+              <span id="umamiStatusBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-indigo-950 text-indigo-300 border border-indigo-500/40 flex items-center space-x-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 status-pulse"></span>
+                <span>SELF-HOSTED // DOCKER</span>
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 font-mono mt-0.5">Сквозная воронка квиз-шагов (Land -> Quiz Complete -> CTA Click) и распределение источников (Reddit/Quora/Organic)</p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2 font-mono text-xs">
+          <button onclick="loadUmamiTelemetry()" class="px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/50 transition active:scale-95 flex items-center">
+            <span class="mr-1.5">🔄</span> Обновить
+          </button>
+        </div>
+      </div>
+
+      <!-- Карточки показателей Umami -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 font-mono text-xs">
+        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-3">
+          <div class="text-[10px] text-slate-400 uppercase">Посетители (Всего / Сегодня)</div>
+          <div class="text-lg font-extrabold text-indigo-300 mt-1 flex items-baseline space-x-1.5">
+            <span id="umamiTotalVisitors">0</span>
+            <span class="text-xs text-emerald-400 font-normal" id="umamiTodayVisitors">(0 сег.)</span>
+          </div>
+          <div class="text-[10px] text-slate-500 mt-0.5">Уникальные IP без куков</div>
+        </div>
+
+        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-3">
+          <div class="text-[10px] text-slate-400 uppercase">Просмотры (Pageviews)</div>
+          <div class="text-lg font-extrabold text-sky-300 mt-1 flex items-baseline space-x-1.5">
+            <span id="umamiTotalPageviews">0</span>
+            <span class="text-xs text-sky-400 font-normal" id="umamiTodayPageviews">(0 сег.)</span>
+          </div>
+          <div class="text-[10px] text-slate-500 mt-0.5">Загрузки DOM прелендеров</div>
+        </div>
+
+        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-3">
+          <div class="text-[10px] text-slate-400 uppercase">Воронка Прелендера (CR)</div>
+          <div class="text-lg font-extrabold text-emerald-400 mt-1" id="umamiFunnelCR">
+            0.0%
+          </div>
+          <div class="text-[10px] text-slate-500 mt-0.5">Сквозной переход на оффер</div>
+        </div>
+
+        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-3">
+          <div class="text-[10px] text-slate-400 uppercase">Отказы (Bounce Rate)</div>
+          <div class="text-lg font-extrabold text-amber-400 mt-1" id="umamiBounceRate">
+            0.0%
+          </div>
+          <div class="text-[10px] text-slate-500 mt-0.5">Уход без взаимодействия</div>
+        </div>
+      </div>
+
+      <!-- Детализация этапов воронки и источники трафика -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 font-mono text-xs">
+        <!-- Шаги воронки -->
+        <div class="lg:col-span-2 bg-slate-950/70 border border-slate-800 rounded-xl p-3.5 space-y-3">
+          <div class="flex justify-between items-center text-xs font-bold text-slate-300 pb-1.5 border-b border-slate-900">
+            <span class="text-indigo-400 flex items-center">
+              <span class="mr-1.5">🎯</span> Воронка микро-шагов квиза (Pre-lander Drop-off)
+            </span>
+            <span class="text-[10px] text-slate-500">Авто-трекинг этапов</span>
+          </div>
+          <div id="umamiFunnelStepsContainer" class="space-y-2.5">
+            <div class="text-[11px] text-slate-500 text-center py-2">Загрузка данных воронки...</div>
+          </div>
+        </div>
+
+        <!-- Топ источников трафика (Referrers) -->
+        <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3.5 space-y-3 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center text-xs font-bold text-slate-300 pb-1.5 border-b border-slate-900">
+              <span class="text-sky-400 flex items-center">
+                <span class="mr-1.5">🌐</span> Источники трафика
+              </span>
+              <span class="text-[10px] text-slate-500">Referrers</span>
+            </div>
+            <div id="umamiReferrersContainer" class="space-y-1.5 mt-2">
+              <div class="text-[11px] text-slate-500 text-center py-2">Загрузка источников...</div>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-900 text-[10px] text-slate-500 text-right">
+            Синхронизировано с Umami API
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- C. Таблица управления кампаниями с глубокой телеметрией и MAB -->
     <div class="glass-panel rounded-xl border border-slate-800 overflow-hidden">
       
@@ -1939,6 +2037,71 @@
       } catch (e) {}
     }
 
+    // ----------------------------------------------------
+    // Umami Telemetry & Funnel JS
+    // ----------------------------------------------------
+    async function loadUmamiTelemetry() {
+      try {
+        const res = await apiFetch('/api/analytics/umami/funnel');
+        const data = await res.json();
+        if (!data.success || !data.funnel) return;
+
+        const f = data.funnel;
+        const s = data.stats || {};
+
+        const totVis = document.getElementById('umamiTotalVisitors');
+        const todVis = document.getElementById('umamiTodayVisitors');
+        const totPv = document.getElementById('umamiTotalPageviews');
+        const todPv = document.getElementById('umamiTodayPageviews');
+        const fCr = document.getElementById('umamiFunnelCR');
+        const bRate = document.getElementById('umamiBounceRate');
+
+        if (totVis) totVis.innerText = f.totalVisitors || 0;
+        if (todVis) todVis.innerText = `(${s.todayVisitors || 0} сег.)`;
+        if (totPv) totPv.innerText = f.totalPageviews || 0;
+        if (todPv) todPv.innerText = `(${s.todayPageviews || 0} сег.)`;
+        if (fCr) fCr.innerText = `${(f.overallConversionRatePct || 0).toFixed(1)}%`;
+        if (bRate) bRate.innerText = `${(s.bounceRate || 0).toFixed(1)}%`;
+
+        // Render Funnel Steps
+        const stepsContainer = document.getElementById('umamiFunnelStepsContainer');
+        if (stepsContainer && f.steps) {
+          stepsContainer.innerHTML = f.steps.map(step => `
+            <div class="space-y-1">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-slate-300">${step.stepName}</span>
+                <span class="text-slate-400">
+                  <strong class="text-slate-100">${step.count}</strong> соб. (<span class="text-emerald-400 font-bold">${step.conversionRatePct}%</span>)
+                </span>
+              </div>
+              <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                <div class="bg-gradient-to-r from-indigo-500 to-emerald-400 h-full rounded-full transition-all duration-500" style="width: ${Math.min(100, Math.max(0, step.conversionRatePct))}%"></div>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        // Render Referrers
+        const refContainer = document.getElementById('umamiReferrersContainer');
+        if (refContainer) {
+          if (!f.topReferrers || f.topReferrers.length === 0) {
+            refContainer.innerHTML = `
+              <div class="text-[11px] text-slate-500 italic text-center py-3">
+                Прямой органический трафик
+              </div>
+            `;
+          } else {
+            refContainer.innerHTML = f.topReferrers.map(r => `
+              <div class="flex justify-between items-center text-[11px] bg-slate-900/60 p-1.5 rounded border border-slate-800/60">
+                <span class="text-slate-300 truncate max-w-[130px]">${r.source}</span>
+                <span class="text-sky-400 font-bold">${r.count} (${r.sharePct}%)</span>
+              </div>
+            `).join('');
+          }
+        }
+      } catch (e) {}
+    }
+
     function refreshAll() {
       loadOverview();
       loadTransactions();
@@ -1950,6 +2113,7 @@
       loadQueueItems();
       loadScoutsOffers();
       loadEvidenceBundles();
+      loadUmamiTelemetry();
     }
 
     // Периодический опрос данных
@@ -1966,6 +2130,7 @@
       setInterval(loadQueueItems, 5000);
       setInterval(loadScoutsOffers, 10000);
       setInterval(loadEvidenceBundles, 8000);
+      setInterval(loadUmamiTelemetry, 6000);
     });
   </script>
 </body>
