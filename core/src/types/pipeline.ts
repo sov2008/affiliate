@@ -8,6 +8,7 @@ export type BundleStatus =
   | 'GENERATED'
   | 'COMPLIANT'
   | 'REJECTED'
+  | 'REJECTED_MALFORMED'
   | 'APPROVED'
   | 'DISPATCHED'
   | 'HALTED';

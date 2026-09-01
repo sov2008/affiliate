@@ -8,6 +8,22 @@ interface RawCompliancePayload {
   violationsDetected: string[];
 }
 
+export const BLACKLISTED_SPAM_PATTERNS = [
+  'buy now',
+  'click here',
+  'limited time',
+  'free money',
+  'guaranteed profit',
+  '100% success',
+  'get rich quick',
+  'earn $$$',
+  'free access now',
+  'download immediately',
+  'secret formula',
+  'guaranteed returns',
+  'miracle cure',
+];
+
 export class ComplianceGuardAgent extends BaseAgent {
   constructor() {
     super('ComplianceGuardAgent');
@@ -19,6 +35,16 @@ export class ComplianceGuardAgent extends BaseAgent {
    */
   public async evaluate(creative: GeneratedCreative, platform: Platform): Promise<ComplianceReport> {
     this.checkEmergencyStop();
+
+    // 1. Deterministic Blacklist & Spam Trigger Pre-scan
+    const combinedText = `${creative.headline} ${creative.body} ${creative.callToAction}`.toLowerCase();
+    const locallyFlagged: string[] = [];
+
+    for (const pattern of BLACKLISTED_SPAM_PATTERNS) {
+      if (combinedText.includes(pattern)) {
+        locallyFlagged.push(pattern);
+      }
+    }
 
     const systemPrompt = `You are a Strict Platform Compliance Officer & Anti-Spam Auditor for ${platform.toUpperCase()}.
 Your mission is to audit user-generated posts before publication and block any spam, deceptive marketing, aggressive claims, or platform ban triggers.
@@ -68,14 +94,35 @@ IMAGE PROMPT:
       temperature: 0.1,
     });
 
-    const normalizedScore = Math.max(0, Math.min(100, Math.round(Number(result.score) || 0)));
-    const passed = normalizedScore >= 80;
+    let normalizedScore = Math.max(0, Math.min(100, Math.round(Number(result.score) || 0)));
+    const allFlagged = Array.from(
+      new Set([
+        ...locallyFlagged,
+        ...(Array.isArray(result.flaggedKeywords) ? result.flaggedKeywords : []),
+      ])
+    );
+
+    // If blacklisted spam keywords detected locally, hard-clamp score below pass threshold
+    if (locallyFlagged.length > 0) {
+      normalizedScore = Math.min(normalizedScore, 45);
+    }
+
+    const passed = normalizedScore >= 80 && locallyFlagged.length === 0;
+
+    let reasoning = result.reasoning || '';
+    if (locallyFlagged.length > 0) {
+      reasoning = `Rejected due to blacklisted spam triggers: [${locallyFlagged.join(', ')}]. ${reasoning}`.trim();
+    } else if (!passed && !reasoning) {
+      reasoning = `Failed compliance threshold (Score: ${normalizedScore}/100 < 80)`;
+    } else if (passed && !reasoning) {
+      reasoning = `Compliant with ${platform.toUpperCase()} organic community guidelines.`;
+    }
 
     return {
       passed,
       score: normalizedScore,
-      flaggedKeywords: Array.isArray(result.flaggedKeywords) ? result.flaggedKeywords : [],
-      reasoning: result.reasoning || (passed ? 'Compliant with platform rules' : 'Failed compliance threshold (< 80)'),
+      flaggedKeywords: allFlagged,
+      reasoning,
     };
   }
 

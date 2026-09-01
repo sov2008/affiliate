@@ -24,11 +24,18 @@ export class AgentExecutionError extends Error {
   }
 }
 
+export class MalformedJsonError extends AgentExecutionError {
+  constructor(agentName: string, message: string, public readonly rawPayload?: string, originalError?: unknown) {
+    super(agentName, `[MALFORMED_JSON] ${message}`, originalError);
+    this.name = 'MalformedJsonError';
+  }
+}
+
 export abstract class BaseAgent {
   protected readonly agentName: string;
   protected readonly groqClient: OpenAI;
   protected readonly openRouterClient?: OpenAI;
-  protected readonly defaultModel: string = 'llama-3.3-70b-versatile';
+  protected readonly defaultModel: string = 'qwen/qwen3.8-27b';
 
   constructor(agentName: string) {
     this.agentName = agentName;
@@ -65,25 +72,25 @@ export abstract class BaseAgent {
 
   /**
    * Executes LLM inference with enforced structured JSON output, deterministic temperature,
-   * atomic emergency halt verification, and strict type parsing.
+   * atomic emergency halt verification, 1 automatic retry on malformed output, and strict type parsing.
    */
   public async completeJson<T>(
     systemPrompt: string,
     userPrompt: string,
     options: CompleteJsonOptions = {}
   ): Promise<T> {
-    // 1. Atomic halt check before LLM invocation
+    // 1. Pre-execution atomic halt check
     this.checkEmergencyStop();
 
     const model = options.model || this.defaultModel;
     const temperature = options.temperature ?? 0.2;
     const maxTokens = options.maxTokens ?? 4096;
 
-    // Ensure system prompt instructs JSON response
     const sanitizedSystemPrompt = systemPrompt.includes('JSON')
       ? systemPrompt
       : `${systemPrompt}\n\nIMPORTANT: You must respond ONLY with a valid JSON object.`;
 
+    // Attempt 1
     try {
       const response = await this.groqClient.chat.completions.create({
         model,
@@ -103,59 +110,83 @@ export abstract class BaseAgent {
 
       return this.parseJsonSafely<T>(content);
     } catch (err: unknown) {
-      const errorMsg = err instanceof Error ? err.message : String(err);
+      // If halted by E-STOP, rethrow immediately without retries
+      this.checkEmergencyStop();
 
-      // Fallback to OpenRouter if available
-      if (this.openRouterClient) {
-        console.warn(
-          `\x1b[33m[${this.agentName}] Groq call failed (${errorMsg}). Retrying via OpenRouter fallback...\x1b[0m`
-        );
-        try {
-          this.checkEmergencyStop();
-          const fallbackResponse = await this.openRouterClient.chat.completions.create({
-            model: 'meta-llama/llama-3.3-70b-instruct:free',
-            temperature,
-            max_tokens: maxTokens,
-            response_format: { type: 'json_object' },
-            messages: [
-              { role: 'system', content: sanitizedSystemPrompt },
-              { role: 'user', content: userPrompt },
-            ],
-          });
+      console.warn(`\x1b[33m[${this.agentName}] Attempt 1 failed (${err instanceof Error ? err.message : String(err)}). Triggering 1 automatic retry...\x1b[0m`);
 
-          const fbContent = fallbackResponse.choices[0]?.message?.content;
-          if (!fbContent) {
-            throw new Error('Received empty completion from OpenRouter fallback.');
-          }
+      // Attempt 2: Retry with explicit strict JSON enforcement
+      try {
+        this.checkEmergencyStop();
+        const retryResponse = await this.groqClient.chat.completions.create({
+          model,
+          temperature: 0.1, // Lower temperature for deterministic formatting
+          max_tokens: maxTokens,
+          response_format: { type: 'json_object' },
+          messages: [
+            { role: 'system', content: `${sanitizedSystemPrompt}\nCRITICAL: Respond STRICTLY with raw JSON. No explanations, no markdown fences.` },
+            { role: 'user', content: userPrompt },
+          ],
+        });
 
-          return this.parseJsonSafely<T>(fbContent);
-        } catch (fallbackErr: unknown) {
-          const fbMsg = fallbackErr instanceof Error ? fallbackErr.message : String(fallbackErr);
-          throw new AgentExecutionError(
-            this.agentName,
-            `Primary and fallback LLM inference failed: Groq (${errorMsg}) | OpenRouter (${fbMsg})`,
-            fallbackErr
-          );
+        const retryContent = retryResponse.choices[0]?.message?.content;
+        if (!retryContent) {
+          throw new Error('Empty payload on retry attempt.');
         }
-      }
 
-      throw new AgentExecutionError(this.agentName, `LLM inference failed: ${errorMsg}`, err);
+        return this.parseJsonSafely<T>(retryContent);
+      } catch (retryErr: unknown) {
+        this.checkEmergencyStop();
+
+        // Fallback to OpenRouter if available
+        if (this.openRouterClient) {
+          console.warn(`\x1b[33m[${this.agentName}] Groq retry failed. Attempting OpenRouter fallback...\x1b[0m`);
+          try {
+            this.checkEmergencyStop();
+            const fallbackResponse = await this.openRouterClient.chat.completions.create({
+              model: 'meta-llama/llama-3.3-70b-instruct:free',
+              temperature: 0.1,
+              max_tokens: maxTokens,
+              response_format: { type: 'json_object' },
+              messages: [
+                { role: 'system', content: sanitizedSystemPrompt },
+                { role: 'user', content: userPrompt },
+              ],
+            });
+
+            const fbContent = fallbackResponse.choices[0]?.message?.content;
+            if (fbContent) {
+              return this.parseJsonSafely<T>(fbContent);
+            }
+          } catch (fbErr: unknown) {
+            this.checkEmergencyStop();
+          }
+        }
+
+        const parseMsg = retryErr instanceof Error ? retryErr.message : String(retryErr);
+        throw new MalformedJsonError(
+          this.agentName,
+          `LLM generated malformed JSON after retry and fallback attempts: ${parseMsg}`,
+          undefined,
+          retryErr
+        );
+      }
     }
   }
 
-  private parseJsonSafely<T>(rawContent: string): T {
+  protected parseJsonSafely<T>(rawContent: string): T {
     try {
       let cleaned = rawContent.trim();
-      // Remove markdown ```json fences if present
       if (cleaned.startsWith('```')) {
         cleaned = cleaned.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
       }
       return JSON.parse(cleaned) as T;
     } catch (jsonErr: unknown) {
       const parseMsg = jsonErr instanceof Error ? jsonErr.message : String(jsonErr);
-      throw new AgentExecutionError(
+      throw new MalformedJsonError(
         this.agentName,
-        `Failed to parse JSON response: ${parseMsg}. Raw payload: "${rawContent.slice(0, 150)}..."`,
+        `Failed to parse JSON: ${parseMsg}`,
+        rawContent,
         jsonErr
       );
     }
