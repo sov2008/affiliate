@@ -1,37 +1,30 @@
 {
-  "version": "1.0.0",
-  "lastUpdated": "2026-08-31T22:00:00.000Z",
-  "aiConfidenceScore": 92,
-  "defaultTemperature": 0.65,
-  "activeCopywritingGuidelines": [
-    "Всегда предоставляйте экспертные советы и технические бенчмарки перед упоминанием любого инструмента или ссылки.",
-    "Пишите от лица опытного разработчика/коллеги, избегая прямого рекламного или маркетингового тона.",
-    "Структурируйте ответы в 3 емких абзаца: Контекст/Анализ -> Техническое решение -> Нейтральная ссылка на ресурс.",
-    "Используйте естественные анкоры с прозрачной атрибуцией (например, 'результаты теста', 'замеры задержек')."
+  "version": "2.1.0",
+  "lastCalibratedAt": "2026-09-01T16:18:53.011Z",
+  "removalRate": 0.3333333333333333,
+  "avgComplianceScore": 60,
+  "currentEpc": 0,
+  "recommendedTemperature": 0.25,
+  "calibrationAction": "STRICT_CONVERSATIONAL_ALIGNMENT",
+  "activeWinningHooks": [
+    "Stop relying on manual trade execution in 2026",
+    "Next-Gen Algorithmic Execution System 2026"
   ],
-  "successfulIntentAngles": [
-    {
-      "niche": "finance",
-      "angle": "Количественный бенчмарк и сравнение скорости исполнения",
-      "effectivenessScore": 94
-    },
-    {
-      "niche": "software",
-      "angle": "Тест пропускной способности WireGuard и криптографический аудит",
-      "effectivenessScore": 92
-    },
-    {
-      "niche": "dating",
-      "angle": "Анализ алгоритмов верификации анкет и фильтрации ботов",
-      "effectivenessScore": 89
-    }
+  "blacklistedPhrasingStructures": [
+    "guaranteed profit",
+    "100% win rate",
+    "get rich quick",
+    "free money instant",
+    "buy now limited time"
   ],
-  "evolutionLog": [
+  "calibratedSystemPrompt": "Elite organic social copywriter and anti-detect engineer. Generates deeply relatable, conversational, peer-to-peer posts.\n\nSTRICT ANTI-DETECT & STEALTH CONSTRAINTS (CALIBRATION ACTIVE):\n- Removal rate threshold exceeded (33.3%).\n- NEVER make direct claims of profit, return on investment, or commercial guarantees.\n- FORBIDDEN PHRASING STRUCTURES: guaranteed profit, 100% win rate, get rich quick, free money instant, buy now limited time.\n- ALWAYS frame the content as technical peer discussion, personal testing retrospectives, or educational breakdown.\n- Maintain subtle conversational closing adhering strictly to Reddit Rule 9 and community norms.",
+  "history": [
     {
-      "timestamp": "2026-08-31T22:00:00.000Z",
-      "trigger": "Инициализация системы",
-      "ruleAdded": "Правило: Фокус на технических замерах, объективных сравнениях и полное отсутствие спама.",
-      "constraintAdded": "Ограничение: Запрет прямых продающих клише ('гарантия', '100% бесплатно')."
+      "timestamp": "2026-09-01T16:18:53.011Z",
+      "action": "STRICT_CONVERSATIONAL_ALIGNMENT",
+      "removalRate": 0.3333333333333333,
+      "epc": 0,
+      "temperature": 0.25
     }
   ]
 }

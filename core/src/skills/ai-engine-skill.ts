@@ -1,9 +1,10 @@
-import { GoogleGenAI } from '@google/genai';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
+import { LlmGatewayService } from '../services/llm-gateway.service.js';
 
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), 'core/.env') });
 
 export interface AIEngineOptions {
   model?: string;
@@ -12,80 +13,33 @@ export interface AIEngineOptions {
   systemInstruction?: string;
 }
 
-class FreeTierRateLimiter {
-  private lastRequestTime: number = 0;
-  private minIntervalMs: number = 4000; // ~15 RPM free tier pacing
-
-  async pace(): Promise<void> {
-    const now = Date.now();
-    const elapsed = now - this.lastRequestTime;
-    if (elapsed < this.minIntervalMs) {
-      const waitTime = this.minIntervalMs - elapsed;
-      await new Promise(resolve => setTimeout(resolve, waitTime));
-    }
-    this.lastRequestTime = Date.now();
-  }
-}
-
-const limiter = new FreeTierRateLimiter();
-
 /**
- * Free Gemini API integration with intelligent rate-limiting, exponential backoff,
- * and deterministic fallback to ensure 24/7 continuous operation without crashing.
+ * Resilient AI Engine execution using LlmGatewayService with deterministic fallback.
  */
 export async function executeGeminiPrompt(
   prompt: string, 
   options: AIEngineOptions = {}
 ): Promise<string> {
-  const apiKey = process.env.GEMINI_API_KEY || process.env.LLM_API_KEY || '';
-  const modelName = options.model || process.env.LLM_MODEL || 'gemini-2.0-flash';
   const temperature = options.temperature ?? 0.7;
-  const maxOutputTokens = options.maxOutputTokens || 2048;
+  const systemInstruction = options.systemInstruction || 'You are an autonomous affiliate intelligence agent.';
 
-  let retries = 3;
-  let delay = 3000;
+  try {
+    const gateway = LlmGatewayService.getInstance();
+    const result = await gateway.executeInference('agent-context-copywriter-02', {
+      systemPrompt: systemInstruction,
+      userPrompt: prompt,
+      temperature,
+      maxTokens: options.maxOutputTokens || 2048,
+    });
 
-  while (retries > 0) {
-    await limiter.pace();
-    try {
-      if (!apiKey) {
-        throw new Error('GEMINI_API_KEY is not set in environment.');
-      }
-
-      const ai = new GoogleGenAI({ apiKey });
-      const response = await ai.models.generateContent({
-        model: modelName,
-        contents: prompt,
-        config: {
-          temperature,
-          maxOutputTokens,
-          systemInstruction: options.systemInstruction
-        }
-      });
-
-      const text = response.text;
-      if (text && text.trim().length > 0) {
-        return text.trim();
-      }
-      throw new Error('Empty response returned by Gemini API.');
-    } catch (err: any) {
-      retries--;
-      const isRateLimit = err.status === 429 || (err.message && (err.message.includes('429') || err.message.includes('RESOURCE_EXHAUSTED')));
-      
-      console.warn(`[AI Engine] Call warning (${err.message}). Retries left: ${retries}`);
-      
-      if (retries === 0) {
-        console.warn(`[AI Engine] Max retries reached. Using resilient heuristic generator.`);
-        return generateDeterministicHeuristic(prompt);
-      }
-
-      const sleepTime = isRateLimit ? delay * 2 : delay;
-      await new Promise(resolve => setTimeout(resolve, sleepTime));
-      delay *= 2;
+    if (result.rawText && result.rawText.trim().length > 0) {
+      return result.rawText.trim();
     }
+    return generateDeterministicHeuristic(prompt);
+  } catch (err: any) {
+    console.warn(`[AI Engine] Inference warning: ${err.message}. Using resilient fallback.`);
+    return generateDeterministicHeuristic(prompt);
   }
-
-  return generateDeterministicHeuristic(prompt);
 }
 
 function generateDeterministicHeuristic(prompt: string): string {

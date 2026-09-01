@@ -827,6 +827,152 @@
       </div>
     </div>
 
+    <!-- B4. Автономный планировщик дистрибуции & Состояние пула прокси -->
+    <div class="glass-panel p-5 rounded-xl border border-sky-900/60 bg-slate-900/40 space-y-4 glow-border font-mono">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-sky-950 border border-sky-500/40 flex items-center justify-center text-sky-300 text-base">
+            📡
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-base font-bold text-slate-100 tracking-wide">
+                DISTRIBUTION SCHEDULER & PROXY HEALTH // ПЛАНИРОВЩИК ДИСТРИБУЦИИ
+              </h2>
+              <span id="schedStatusBadge" class="px-2 py-0.5 rounded text-[10px] font-bold border border-slate-700 bg-slate-900 text-slate-400">
+                INITIALIZING
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">
+              Скрытная ротация очередей Playwright с контролем интервалов, геотаргетингом и авто-паузой
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2 text-xs">
+          <button id="btnSchedulerToggle" onclick="toggleSchedulerState()" class="px-3 py-1.5 rounded font-bold border border-emerald-600/50 bg-emerald-950/60 hover:bg-emerald-900 text-emerald-300 transition">
+            ▶️ Запустить
+          </button>
+          <button onclick="forceDispatchApproved()" class="px-3 py-1.5 rounded bg-sky-950 hover:bg-sky-900 text-sky-300 border border-sky-600/50 font-bold transition flex items-center space-x-1">
+            <span>⚡ Отправить следующий</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Метрики планировщика и прокси -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bg-slate-950/80 border border-slate-800 rounded-lg p-3 space-y-1">
+          <div class="text-[10px] text-slate-400 uppercase">Следующая отправка</div>
+          <div class="text-xl font-bold text-sky-400" id="schedCountdownDisplay">
+            Готов
+          </div>
+          <div class="text-[10px] text-slate-500">
+            Reddit 45–90м | Quora 30–60м
+          </div>
+        </div>
+
+        <div class="bg-slate-950/80 border border-slate-800 rounded-lg p-3 space-y-1">
+          <div class="text-[10px] text-slate-400 uppercase">Опубликовано постов</div>
+          <div class="text-xl font-bold text-emerald-400" id="schedDispatchedDisplay">
+            0
+          </div>
+          <div class="text-[10px] text-slate-500">
+            Ошибок: <span class="text-rose-400 font-bold" id="schedFailedDisplay">0</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-950/80 border border-slate-800 rounded-lg p-3 space-y-1">
+          <div class="text-[10px] text-slate-400 uppercase">Здоровье пула прокси</div>
+          <div class="flex items-baseline space-x-2">
+            <span class="text-xl font-bold text-emerald-400" id="schedHealthyProxies">0</span>
+            <span class="text-xs text-slate-400">/ <span id="schedTotalProxies">0</span> нод</span>
+          </div>
+          <div class="text-[10px] text-slate-500">
+            В черном списке: <span class="text-rose-400 font-bold" id="schedBlacklistProxies">0</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-950/80 border border-slate-800 rounded-lg p-3 space-y-1">
+          <div class="text-[10px] text-slate-400 uppercase">Активные Playwright сессии</div>
+          <div class="text-xl font-bold text-indigo-400" id="schedActiveSessions">
+            0
+          </div>
+          <div class="text-[10px] text-slate-500">
+            Анти-детект профили активны
+          </div>
+        </div>
+      </div>
+
+      <!-- Список последних опубликованных ссылок -->
+      <div class="space-y-2 pt-2 border-t border-slate-800">
+        <div class="flex justify-between items-center text-xs text-slate-400 uppercase font-bold">
+          <span>Последние опубликованные ссылки (Live Dispatched URLs)</span>
+          <span id="schedRecentCount">0 постов</span>
+        </div>
+        <div id="schedRecentListContainer" class="space-y-2">
+          <div class="p-2.5 bg-slate-950/40 rounded border border-dashed border-slate-800 text-slate-500 text-center text-xs">
+            0 опубликованных постов в очереди.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- B5. ИИ Multi-Armed Bandit (MAB) & Автономный синтез вариантов (Evolution Matrix) -->
+    <div class="glass-panel p-5 rounded-xl border border-purple-900/60 bg-slate-900/40 space-y-4 glow-border font-mono">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-purple-950 border border-purple-500/40 flex items-center justify-center text-purple-300 text-base">
+            🎲
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-base font-bold text-slate-100 tracking-wide">
+                MULTI-ARMED BANDIT (MAB) & VARIANT EVOLUTION // СИНТЕЗ ВАРИАНТОВ
+              </h2>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-950 text-purple-300 border border-purple-500/40">
+                &epsilon; = 0.15 (85/15)
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">
+              Адаптивная максимизация EPC, отсев неконвертящих прелендингов и автономный синтез претендентов
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2 text-xs">
+          <button onclick="optimizeAllMab()" class="px-3 py-1.5 rounded bg-purple-950 hover:bg-purple-900 text-purple-200 border border-purple-600/50 font-bold transition flex items-center space-x-1">
+            <span>⚡ Оптимизировать MAB сплит</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Матрица MAB кампаний -->
+      <div class="space-y-3">
+        <div class="flex justify-between items-center text-xs text-slate-400 uppercase font-bold">
+          <span>Матрица распределения трафика (Active Campaign MAB Matrix)</span>
+          <span id="mabCampaignCount">0 кампаний</span>
+        </div>
+        <div id="mabCampaignsContainer" class="space-y-3">
+          <div class="p-4 bg-slate-950/40 rounded border border-dashed border-slate-800 text-slate-500 text-center text-xs">
+            Загрузка матрицы MAB...
+          </div>
+        </div>
+      </div>
+
+      <!-- Журнал эволюции и синтеза претендентов -->
+      <div class="space-y-2 pt-2 border-t border-slate-800">
+        <div class="flex justify-between items-center text-xs text-slate-400 uppercase font-bold">
+          <span>Журнал эволюции и синтеза (Challenger Evolution Log)</span>
+          <span class="text-[10px] text-slate-500">Автономный отсев</span>
+        </div>
+        <div id="evolutionLogContainer" class="space-y-1.5">
+          <div class="p-2.5 bg-slate-950/40 rounded border border-dashed border-slate-800 text-slate-500 text-center text-xs">
+            Синтезированные варианты будут отображаться здесь по мере обнаружения неконвертящих связок.
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- C. Таблица управления кампаниями с глубокой телеметрией и MAB -->
     <div class="glass-panel rounded-xl border border-slate-800 overflow-hidden">
       
@@ -926,6 +1072,125 @@
 
         <div id="daemonTerminal" class="h-[340px] bg-slate-950 rounded-lg p-3 font-mono text-xs text-emerald-400 overflow-y-auto term-scroll whitespace-pre-wrap leading-relaxed">
           [Система] Подключение к потоку терминала сервера...
+        </div>
+      <!-- F. Золотой датасет агентов (Few-Shot Gold Catalog) & Live CPA Performance -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        
+        <!-- Левая колонка: Top Performing Bundle & CPA Telemetry -->
+        <div class="glass-panel rounded-xl border border-slate-800 p-4 space-y-3">
+          <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+            <h3 class="font-bold text-xs font-mono text-emerald-400 uppercase tracking-wider flex items-center">
+              <span class="mr-2">💰</span> CPA Телеметрия & Top-Бандл
+            </h3>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40 font-bold" id="liveSseBadge">
+              ⚡ LIVE SSE
+            </span>
+          </div>
+
+          <div id="topBundleBannerContainer" class="space-y-2">
+            <!-- JS Injection -->
+          </div>
+
+          <div class="bg-slate-950/60 p-3 rounded-lg border border-slate-800 text-xs space-y-2">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Сквозной EPC:</span>
+              <span class="text-cyan-400 font-bold font-mono" id="cpaEpcDisplay">$0.00</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Сквозная конверсия (CR):</span>
+              <span class="text-indigo-400 font-bold font-mono" id="cpaCrDisplay">0.00%</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Принято кликов:</span>
+              <span class="text-slate-200 font-bold font-mono" id="cpaClicksDisplay">0</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Оплачено продаж / лидов:</span>
+              <span class="text-emerald-400 font-bold font-mono" id="cpaLeadsDisplay">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Правая колонка: Инспектор Few-Shot Gold Catalog (2 cols) -->
+        <div class="lg:col-span-2 glass-panel rounded-xl border border-amber-900/60 p-4 space-y-3">
+          <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+            <div class="flex items-center space-x-2">
+              <span class="text-base">⭐</span>
+              <h3 class="font-bold text-xs font-mono text-amber-400 uppercase tracking-wider">
+                Few-Shot Gold Catalog // Обучающая выборка CopywriterAgent
+              </h3>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-500/40 font-bold" id="goldCatalogCountBadge">
+                0 / 50 ОБРАЗЦОВ
+              </span>
+            </div>
+            <button onclick="loadGoldCatalog()" class="text-[10px] font-mono px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">
+              ↻ Обновить
+            </button>
+          </div>
+
+          <div id="goldCatalogListContainer" class="space-y-2 max-h-[360px] overflow-y-auto term-scroll pr-1">
+            <!-- JS Injection -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- G. Автономный планировщик дистрибуции & Состояние прокси -->
+      <div class="glass-panel rounded-xl border border-sky-900/60 p-4 space-y-3">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pb-2 border-b border-slate-800">
+          <div class="flex items-center space-x-2">
+            <span class="text-base">📡</span>
+            <h3 class="font-bold text-xs font-mono text-sky-400 uppercase tracking-wider">
+              DISTRIBUTION WORKERS & PROXY STATUS // ДИСТРИБУЦИЯ И ПРОКСИ
+            </h3>
+            <span id="schedStatusBadge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 border border-slate-700 text-slate-400">
+              INITIALIZING
+            </span>
+          </div>
+          <div class="flex items-center space-x-2 text-xs font-mono">
+            <button id="btnToggleSched" onclick="toggleSchedulerState()" class="px-3 py-1 rounded font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+              ⏯️ Переключить
+            </button>
+            <button onclick="forceDispatchApproved()" class="px-3 py-1 rounded font-bold bg-sky-950 hover:bg-sky-900 text-sky-300 border border-sky-700/60 transition">
+              ⚡ Отправить следующий
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+          <div class="bg-slate-950/80 p-2.5 rounded-lg border border-slate-800">
+            <div class="text-[10px] text-slate-400 uppercase">След. отправка</div>
+            <div class="text-base font-bold text-sky-400" id="schedCountdownDisplay">--</div>
+            <div class="text-[9px] text-slate-500">Гауссово окно активности</div>
+          </div>
+          <div class="bg-slate-950/80 p-2.5 rounded-lg border border-slate-800">
+            <div class="text-[10px] text-slate-400 uppercase">Опубликовано</div>
+            <div class="text-base font-bold text-emerald-400" id="schedDispatchedDisplay">0</div>
+            <div class="text-[9px] text-slate-500">Ошибок: <span class="text-rose-400" id="schedFailedDisplay">0</span></div>
+          </div>
+          <div class="bg-slate-950/80 p-2.5 rounded-lg border border-slate-800">
+            <div class="text-[10px] text-slate-400 uppercase">Здоровье прокси</div>
+            <div class="text-base font-bold text-emerald-400">
+              <span id="schedHealthyProxies">0</span> <span class="text-xs text-slate-500">/ <span id="schedTotalProxies">0</span></span>
+            </div>
+            <div class="text-[9px] text-slate-500">Черный список: <span class="text-rose-400 font-bold" id="schedBlacklistProxies">0</span></div>
+          </div>
+          <div class="bg-slate-950/80 p-2.5 rounded-lg border border-slate-800">
+            <div class="text-[10px] text-slate-400 uppercase">Playwright профили</div>
+            <div class="text-base font-bold text-indigo-400" id="schedActiveSessions">1</div>
+            <div class="text-[9px] text-slate-500">Анти-детект сессии</div>
+          </div>
+        </div>
+
+        <!-- Последние опубликованные ссылки -->
+        <div class="space-y-1.5 pt-1">
+          <div class="text-[11px] font-bold text-slate-400 uppercase flex justify-between">
+            <span>Последние 5 опубликованных ссылок</span>
+            <span class="text-slate-500" id="schedRecentCount">0 постов</span>
+          </div>
+          <div id="schedRecentListContainer" class="space-y-1.5 max-h-[160px] overflow-y-auto term-scroll">
+            <!-- JS Injection -->
+          </div>
         </div>
       </div>
 
@@ -2462,6 +2727,446 @@
       } catch (e) {}
     }
 
+    // ----------------------------------------------------
+    // Financial Performance & Live KPI JS
+    // ----------------------------------------------------
+    async function loadFinancialKpi() {
+      try {
+        const res = await apiFetch('/api/financials/kpi');
+        const data = await res.json();
+        if (!data.success) return;
+
+        const kpiTodayRev = document.getElementById('kpiTodayRev');
+        const kpiTotalRev = document.getElementById('kpiTotalRev');
+        const revDelta = document.getElementById('revDelta');
+        const kpiTotalClicks = document.getElementById('kpiTotalClicks');
+        const kpiTotalLeads = document.getElementById('kpiTotalLeads');
+        const kpiGlobalCR = document.getElementById('kpiGlobalCR');
+        const kpiEPC = document.getElementById('kpiEPC');
+
+        if (kpiTodayRev) kpiTodayRev.innerText = `$${(data.todayRevenue || 0).toFixed(2)}`;
+        if (kpiTotalRev) kpiTotalRev.innerText = `$${(data.todayRevenue || 0).toFixed(2)}`;
+        if (revDelta) revDelta.innerText = data.revenueDeltaPct || '0.0%';
+        if (kpiTotalClicks) kpiTotalClicks.innerText = data.totalClicks || 0;
+        if (kpiTotalLeads) kpiTotalLeads.innerText = data.totalConversions || 0;
+        if (kpiGlobalCR) kpiGlobalCR.innerText = data.overallCr || '0.00%';
+        if (kpiEPC) kpiEPC.innerText = data.networkEpc || '$0.00';
+
+        const cpaEpc = document.getElementById('cpaEpcDisplay');
+        const cpaCr = document.getElementById('cpaCrDisplay');
+        const cpaClicks = document.getElementById('cpaClicksDisplay');
+        const cpaLeads = document.getElementById('cpaLeadsDisplay');
+
+        if (cpaEpc) cpaEpc.innerText = data.networkEpc || '$0.00';
+        if (cpaCr) cpaCr.innerText = data.overallCr || '0.00%';
+        if (cpaClicks) cpaClicks.innerText = data.totalClicks || 0;
+        if (cpaLeads) cpaLeads.innerText = data.totalConversions || 0;
+
+        const topContainer = document.getElementById('topBundleBannerContainer');
+        if (topContainer) {
+          if (data.topBundle) {
+            topContainer.innerHTML = `
+              <div class="bg-amber-950/40 border border-amber-500/40 rounded-lg p-2.5 flex justify-between items-center text-xs">
+                <div>
+                  <span class="text-amber-400 font-bold">🏆 TOP BUNDLE:</span>
+                  <span class="text-slate-200 ml-1 font-mono font-bold">${data.topBundle.id.slice(0, 10)}...</span>
+                </div>
+                <div class="flex items-center space-x-2 text-[11px]">
+                  <span class="text-emerald-400 font-bold">+$${(data.topBundle.revenue || 0).toFixed(2)}</span>
+                  <span class="text-slate-400">CR: ${data.topBundle.cr}%</span>
+                </div>
+              </div>
+            `;
+          } else {
+            topContainer.innerHTML = `
+              <div class="bg-slate-950/40 border border-slate-800 rounded-lg p-2 text-slate-500 text-[11px] text-center">
+                0 активных продаж по связкам
+              </div>
+            `;
+          }
+        }
+      } catch (e) {}
+    }
+
+    // ----------------------------------------------------
+    // Few-Shot Gold Catalog Inspector JS
+    // ----------------------------------------------------
+    async function loadGoldCatalog() {
+      try {
+        const res = await apiFetch('/api/agent/gold-catalog');
+        const data = await res.json();
+        if (!data.success) return;
+
+        const container = document.getElementById('goldCatalogListContainer');
+        const countBadge = document.getElementById('goldCatalogCountBadge');
+        if (countBadge) countBadge.innerText = `${data.count || 0} / 50 ОБРАЗЦОВ`;
+        if (!container) return;
+
+        const entries = data.entries || [];
+        if (entries.length === 0) {
+          container.innerHTML = `
+            <div class="p-4 bg-slate-950/70 rounded-lg text-slate-500 text-center text-xs">
+              📭 Золотой датасет пуст. Образцы добавляются автоматически при Score ≥ 90 или подтвержденных конверсиях.
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = entries.map((item, idx) => {
+          const isPinned = Boolean(item.isPinned);
+          const pinBadge = isPinned ? '⭐ PINNED' : 'PIN';
+          const pinClass = isPinned ? 'bg-amber-950 text-amber-300 border-amber-500' : 'bg-slate-900 text-slate-400 border-slate-700 hover:text-amber-400';
+          const borderClass = isPinned ? 'border-amber-500/50' : 'border-slate-800';
+
+          return `
+            <div class="p-2.5 bg-slate-950/80 border ${borderClass} rounded-lg space-y-1.5 hover:border-slate-700 transition text-xs">
+              <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-1.5">
+                  <span class="text-slate-500 font-bold text-[10px]">#${idx + 1}</span>
+                  <button onclick="togglePinGoldSample('${item.id}', ${isPinned})" class="px-1.5 py-0.5 rounded text-[10px] font-bold border ${pinClass}">
+                    ${pinBadge}
+                  </button>
+                  <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-900 text-sky-300 uppercase">${item.platform}</span>
+                  <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-900 text-emerald-300 lowercase">${item.niche}</span>
+                  <span class="text-emerald-400 font-bold text-[11px]">Score: ${item.complianceScore}/100</span>
+                </div>
+                <div class="flex items-center space-x-2 text-[11px]">
+                  <span class="text-slate-300">Conv: <strong class="text-emerald-400">${item.performanceMetrics?.conversions || 0}</strong></span>
+                  <span class="text-slate-300">Rev: <strong class="text-emerald-400">$${(item.performanceMetrics?.revenue || 0).toFixed(2)}</strong></span>
+                  <button onclick="deleteGoldSample('${item.id}')" class="px-1.5 py-0.5 rounded bg-rose-950/60 text-rose-300 hover:bg-rose-900 border border-rose-800 text-[10px]" title="Удалить">
+                    ✕
+                  </button>
+                </div>
+              </div>
+              <div class="text-[11px] text-slate-200">
+                <span class="text-amber-400 font-bold">Hook:</span> "${item.approvedCreative?.headline || ''}"
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (e) {}
+    }
+
+    async function togglePinGoldSample(id, currentPin) {
+      try {
+        const res = await apiFetch(`/api/agent/gold-catalog/${id}/pin`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ isPinned: !currentPin })
+        });
+        if (res.ok) {
+          showToast(!currentPin ? '⭐ Образец закреплен на вершине Gold Catalog' : 'Образец откреплен', 'success');
+          loadGoldCatalog();
+        }
+      } catch (err) {
+        showToast('Ошибка при изменении закрепления', 'error');
+      }
+    }
+
+    async function deleteGoldSample(id) {
+      if (!confirm('Удалить этот образец из Gold Catalog?')) return;
+      try {
+        const res = await apiFetch(`/api/agent/gold-catalog/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          showToast('❌ Образец удален из Gold Catalog', 'info');
+          loadGoldCatalog();
+        }
+      } catch (err) {
+        showToast('Ошибка удаления', 'error');
+      }
+    }
+
+    // ----------------------------------------------------
+    // Distribution Scheduler & Proxy JS
+    // ----------------------------------------------------
+    async function loadSchedulerStatus() {
+      try {
+        const res = await apiFetch('/api/scheduler/status');
+        const data = await res.json();
+        if (!data.success) return;
+
+        const sched = data.scheduler || {};
+        const proxy = data.proxyHealth || {};
+        const dispatches = data.recentDispatches || [];
+
+        const badge = document.getElementById('schedStatusBadge');
+        const btnToggle = document.getElementById('btnToggleSched');
+        const countdown = document.getElementById('schedCountdownDisplay');
+        const dispatched = document.getElementById('schedDispatchedDisplay');
+        const failed = document.getElementById('schedFailedDisplay');
+        const healthyP = document.getElementById('schedHealthyProxies');
+        const totalP = document.getElementById('schedTotalProxies');
+        const blackP = document.getElementById('schedBlacklistProxies');
+        const activeS = document.getElementById('schedActiveSessions');
+        const recentCount = document.getElementById('schedRecentCount');
+        const container = document.getElementById('schedRecentListContainer');
+
+        if (badge) {
+          badge.innerText = sched.status || 'STOPPED';
+          badge.className = `px-2 py-0.5 rounded text-[10px] font-bold border ${
+            sched.status === 'RUNNING' ? 'bg-emerald-950 text-emerald-300 border-emerald-500' :
+            sched.status === 'COOLDOWN' ? 'bg-sky-950 text-sky-300 border-sky-500' :
+            sched.status === 'HALTED' ? 'bg-rose-950 text-rose-300 border-rose-500' :
+            sched.status === 'CIRCUIT_BROKEN' ? 'bg-amber-950 text-amber-300 border-amber-500' :
+            'bg-slate-900 text-slate-400 border-slate-700'
+          }`;
+        }
+
+        if (btnToggle) {
+          btnToggle.innerText = sched.isRunning ? '⏸️ Приостановить' : '▶️ Запустить';
+          btnToggle.className = `px-3 py-1 rounded font-bold border transition text-xs ${
+            sched.isRunning ? 'bg-amber-950/60 hover:bg-amber-900 text-amber-300 border-amber-600/50' : 'bg-emerald-950/60 hover:bg-emerald-900 text-emerald-300 border-emerald-600/50'
+          }`;
+        }
+
+        if (countdown) countdown.innerText = sched.nextDispatchCountdownFormatted || 'Готов';
+        if (dispatched) dispatched.innerText = sched.totalDispatched || 0;
+        if (failed) failed.innerText = sched.totalFailed || 0;
+        if (healthyP) healthyP.innerText = proxy.healthy || 0;
+        if (totalP) totalP.innerText = proxy.total || 0;
+        if (blackP) blackP.innerText = proxy.blacklisted || 0;
+        if (activeS) activeS.innerText = proxy.activeSessions || 0;
+        if (recentCount) recentCount.innerText = `${dispatches.length} постов`;
+
+        if (container) {
+          if (dispatches.length === 0) {
+            container.innerHTML = `
+              <div class="p-2.5 bg-slate-950/40 rounded border border-dashed border-slate-800 text-slate-500 text-center text-xs">
+                0 опубликованных постов в очереди.
+              </div>
+            `;
+          } else {
+            container.innerHTML = dispatches.map(d => `
+              <div class="p-2 bg-slate-950/80 rounded border border-slate-800 flex justify-between items-center text-xs hover:border-slate-700 transition">
+                <div class="flex items-center space-x-2 truncate max-w-[70%]">
+                  <span class="px-1.5 py-0.2 rounded text-[10px] uppercase font-bold bg-slate-900 text-sky-300 border border-slate-800">${d.platform}</span>
+                  <span class="text-slate-200 truncate">${d.hook}</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-[10px] text-slate-500">${new Date(d.dispatchedAt).toLocaleTimeString('ru-RU')}</span>
+                  ${d.publishedUrl ? `<a href="${d.publishedUrl}" target="_blank" class="px-2 py-0.5 bg-sky-950 hover:bg-sky-900 text-sky-300 rounded border border-sky-700 text-[10px] font-bold">Открыть ↗</a>` : ''}
+                </div>
+              </div>
+            `).join('');
+          }
+        }
+      } catch (e) {}
+    }
+
+    async function toggleSchedulerState() {
+      try {
+        const res = await apiFetch('/api/scheduler/toggle', { method: 'POST' });
+        const data = await res.json();
+        if (data.success) {
+          showToast(data.isRunning ? '🚀 Планировщик дистрибуции запущен' : '⏸️ Планировщик приостановлен', 'info');
+          loadSchedulerStatus();
+        }
+      } catch (err) {
+        showToast('Ошибка переключения планировщика', 'error');
+      }
+    }
+
+    async function forceDispatchApproved() {
+      showToast('⚡ Принудительная отправка следующего одобренного поста...', 'info');
+      try {
+        const res = await apiFetch('/api/scheduler/dispatch-now', { method: 'POST' });
+        const data = await res.json();
+        if (data.success && data.result) {
+          if (data.result.dispatched) {
+            showToast(`✅ Опубликован пост [${data.result.item?.id?.slice(0, 8)}]`, 'success');
+          } else {
+            showToast(`⚠️ Не отправлено: ${data.result.reason || data.result.status}`, 'info');
+          }
+          loadSchedulerStatus();
+          loadQueueItems();
+        }
+      } catch (err) {
+        showToast('Ошибка принудительной отправки', 'error');
+      }
+    }
+
+    async function loadMabState() {
+      try {
+        const res = await apiFetch('/api/mab/status');
+        const data = await res.json();
+        if (!data.success || !data.state) return;
+
+        const state = data.state;
+        const campaigns = Object.values(state.campaigns || {});
+        const countBadge = document.getElementById('mabCampaignCount');
+        if (countBadge) countBadge.innerText = `${campaigns.length} кампаний`;
+
+        const container = document.getElementById('mabCampaignsContainer');
+        if (container) {
+          if (campaigns.length === 0) {
+            container.innerHTML = `
+              <div class="p-4 bg-slate-950/40 rounded border border-dashed border-slate-800 text-slate-500 text-center text-xs">
+                0 кампаний в ротации MAB.
+              </div>
+            `;
+          } else {
+            const colors = ['bg-emerald-500', 'bg-sky-500', 'bg-indigo-500', 'bg-purple-500', 'bg-amber-500'];
+            container.innerHTML = campaigns.map(c => {
+              const variantsList = Object.entries(c.variants || {});
+              const statusBadge = c.status === 'OPTIMIZED'
+                ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-950/80 text-emerald-400 border border-emerald-500/40">✓ ОПТИМИЗИРОВАНО (85/15)</span>'
+                : c.status === 'COLLECTING_SAMPLE'
+                ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-sky-950/80 text-sky-400 border border-sky-500/40">● СБОР ВЫБОРКИ (&lt;20 кл)</span>'
+                : '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-950/80 text-amber-400 border border-amber-500/40">⚖️ РАВЕНСТВО EPC (50/50)</span>';
+
+              const progressBars = variantsList.map(([vk], idx) => {
+                const w = c.weights?.[vk] || 0;
+                if (w === 0) return '';
+                const bg = colors[idx % colors.length];
+                return `<div style="width: ${w}%" class="${bg} h-full transition-all duration-500 flex items-center justify-center text-[9px] font-bold text-slate-950" title="${vk}: ${w}%">${w >= 15 ? vk + ': ' + w + '%' : ''}</div>`;
+              }).join('');
+
+              const tiles = variantsList.map(([vk, vm]) => {
+                const isWinner = c.winnerVariant === vk && c.status === 'OPTIMIZED';
+                const w = c.weights?.[vk] || 0;
+                return `
+                  <div class="p-2 rounded border flex justify-between items-center ${isWinner ? 'bg-emerald-950/40 border-emerald-500/50 text-emerald-200' : 'bg-slate-900/60 border-slate-800 text-slate-300'}">
+                    <div class="space-y-0.5">
+                      <div class="flex items-center space-x-1.5">
+                        <span class="font-bold text-xs">${vk}</span>
+                        ${isWinner ? '<span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-emerald-500 text-slate-950 uppercase">Winner</span>' : ''}
+                        <span class="text-[10px] text-slate-400">(${w}%)</span>
+                      </div>
+                      <div class="text-[10px] text-slate-400 font-mono">
+                        EPC: <span class="text-emerald-400 font-bold">$${vm.epc.toFixed(2)}</span> • CR: <span class="text-sky-300">${vm.cr.toFixed(1)}%</span> • Кликов: ${vm.clicks}
+                      </div>
+                    </div>
+                    <button onclick="lockVariantTraffic('${c.campaignId}', '${vk}')" title="Зафиксировать 100% трафика" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-[10px] font-bold transition">
+                      🔒 100%
+                    </button>
+                  </div>
+                `;
+              }).join('');
+
+              return `
+                <div class="bg-slate-950/80 border border-slate-800 rounded-lg p-3 space-y-3 hover:border-slate-700 transition">
+                  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <div class="flex items-center space-x-2">
+                      <span class="text-sm font-bold text-slate-100 font-mono">${c.campaignId}</span>
+                      ${statusBadge}
+                    </div>
+                    <div class="flex items-center space-x-3 text-xs">
+                      <span class="text-slate-400">Клики: <strong class="text-sky-300">${c.totalClicks}</strong></span>
+                      <span class="text-slate-400">Выручка: <strong class="text-emerald-400">$${c.totalRevenue.toFixed(2)}</strong></span>
+                      <span class="text-slate-400">Лиды: <strong class="text-purple-300">${c.totalConversions}</strong></span>
+                      <button onclick="forceEvolveVariant('${c.campaignId}', '${c.winnerVariant || 'v1'}')" class="px-2.5 py-1 rounded bg-indigo-950/80 hover:bg-indigo-900 text-indigo-300 border border-indigo-700/60 font-bold transition text-[11px] flex items-center space-x-1">
+                        <span>🧬 Синтез v${variantsList.length + 1}</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="space-y-2 pt-1 border-t border-slate-900">
+                    <div class="w-full bg-slate-900 rounded-full h-3 flex overflow-hidden border border-slate-800">${progressBars}</div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">${tiles}</div>
+                  </div>
+                </div>
+              `;
+            }).join('');
+          }
+        }
+      } catch (e) {}
+    }
+
+    async function optimizeAllMab() {
+      showToast('⚡ Оптимизация сплита Multi-Armed Bandit...', 'info');
+      try {
+        const res = await apiFetch('/api/mab/optimize', { method: 'POST' });
+        const data = await res.json();
+        if (data.success) {
+          showToast('⚡ Все сплит-роутеры MAB оптимизированы', 'success');
+          loadMabState();
+        }
+      } catch (err) {
+        showToast('Ошибка оптимизации MAB', 'error');
+      }
+    }
+
+    async function forceEvolveVariant(cid, variant) {
+      showToast(`🧬 Синтез нового претендента для ${cid}...`, 'info');
+      try {
+        const res = await apiFetch(`/api/campaigns/${cid}/evolve`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ variant, angleConcept: 'Radical Hook Shift & 2-Step Reduced Friction' })
+        });
+        const data = await res.json();
+        if (data.success && data.result) {
+          showToast(`✅ Создан претендент [${data.result.newVariant}] для ${cid}`, 'success');
+          
+          const logContainer = document.getElementById('evolutionLogContainer');
+          if (logContainer) {
+            const row = `
+              <div class="p-2 bg-slate-950/80 border border-slate-800 rounded flex justify-between items-center text-xs">
+                <div class="flex items-center space-x-2">
+                  <span class="text-indigo-400">🧬</span>
+                  <span class="font-bold text-slate-200">${cid}</span>
+                  <span class="text-slate-400">${variant} &rarr; <strong class="text-emerald-400">${data.result.newVariant}</strong></span>
+                  <span class="text-[10px] text-slate-500 italic">(${data.result.angleConcept || 'Contrarian Curiosity'})</span>
+                </div>
+                <div class="text-[10px] text-slate-500">${new Date().toLocaleTimeString('ru-RU')}</div>
+              </div>
+            `;
+            if (logContainer.innerText.includes('Синтезированные варианты будут отображаться здесь')) {
+              logContainer.innerHTML = row;
+            } else {
+              logContainer.innerHTML = row + logContainer.innerHTML;
+            }
+          }
+          loadMabState();
+        }
+      } catch (err) {
+        showToast('Ошибка синтеза претендента', 'error');
+      }
+    }
+
+    async function lockVariantTraffic(cid, variant) {
+      showToast(`🔒 Фиксация 100% трафика на [${variant}] для ${cid}...`, 'info');
+      try {
+        const res = await apiFetch(`/api/campaigns/${cid}/lock`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ variant })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast(`🔒 Трафик зафиксирован на 100% [${variant}]`, 'success');
+          loadMabState();
+        }
+      } catch (err) {
+        showToast('Ошибка фиксации трафика', 'error');
+      }
+    }
+
+    // ----------------------------------------------------
+    // Live Server-Sent Events (SSE) Stream
+    // ----------------------------------------------------
+    function connectEventStream() {
+      try {
+        const es = new EventSource('/api/stream/events');
+        es.addEventListener('connected', () => {
+          const badge = document.getElementById('liveSseBadge');
+          if (badge) badge.innerText = '⚡ LIVE SSE STREAM';
+        });
+        es.addEventListener('telemetry_update', () => {
+          loadFinancialKpi();
+          loadGoldCatalog();
+          loadEvidenceBundles();
+          loadSchedulerStatus();
+          loadMabState();
+        });
+        es.onerror = () => {
+          es.close();
+          setTimeout(connectEventStream, 5000);
+        };
+      } catch (err) {
+        console.warn('[SSE Stream] Fallback to polling mode');
+      }
+    }
+
     function refreshAll() {
       loadOverview();
       loadTransactions();
@@ -2475,12 +3180,17 @@
       loadScoutsOffers();
       loadEvidenceBundles();
       loadUmamiTelemetry();
+      loadFinancialKpi();
+      loadGoldCatalog();
+      loadSchedulerStatus();
+      loadMabState();
     }
 
     // Периодический опрос данных
     document.addEventListener('DOMContentLoaded', () => {
       initChart();
       refreshAll();
+      connectEventStream();
       setInterval(loadOverview, 5000);
       setInterval(loadTransactions, 5000);
       setInterval(loadLogs, 3000);
@@ -2493,6 +3203,10 @@
       setInterval(loadScoutsOffers, 10000);
       setInterval(loadEvidenceBundles, 8000);
       setInterval(loadUmamiTelemetry, 6000);
+      setInterval(loadFinancialKpi, 4000);
+      setInterval(loadGoldCatalog, 5000);
+      setInterval(loadSchedulerStatus, 4000);
+      setInterval(loadMabState, 5000);
     });
   </script>
 </body>

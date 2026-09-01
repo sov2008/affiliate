@@ -38,5 +38,17 @@ content_queue.db
 # Deployment scripts containing runtime credentials
 deploy-do.js
 
+# Browser Profiles Caches & Lock Files (Preserves Cookie & Session State)
+storage/profiles/**/Cache/
+storage/profiles/**/cache/
+storage/profiles/**/Code Cache/
+storage/profiles/**/DawnGraphiteCache/
+storage/profiles/**/DawnWebGPUCache/
+storage/profiles/**/GPUCache/
+storage/profiles/**/LOCK
+storage/profiles/**/LOG*
+storage/profiles/**/Network/NetworkDataMigrated
+storage/profiles/**/Shared Dictionary/cache/
+
 
 

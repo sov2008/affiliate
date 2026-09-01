@@ -1,7 +1,7 @@
 import path from 'path';
 import dotenv from 'dotenv';
 import { ContentPipeline, PipelineInput } from '../workers/contentPipeline.js';
-import { QueueDatabase, TargetPlatform } from '../db/queueDb.js';
+import { ContentQueueRepository, TargetPlatform } from '../db/queueRepository.js';
 
 dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
@@ -86,7 +86,7 @@ async function runWithConcurrency<T, R>(items: T[], fn: (item: T, idx: number) =
 
 async function main() {
   const config = parseArgs();
-  const db = QueueDatabase.getInstance();
+  const db = ContentQueueRepository.getInstance();
 
   console.log(`\n${colors.bold}${colors.cyan}================================================================================${colors.reset}`);
   console.log(`${colors.bold}${colors.cyan} ⚡  BATCH CONTENT GENERATOR & SQLITE QUEUE INGESTION${colors.reset}`);

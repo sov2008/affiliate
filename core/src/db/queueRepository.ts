@@ -5,6 +5,7 @@ import crypto from 'crypto';
 export type QueueStatus = 'PENDING_APPROVAL' | 'APPROVED' | 'REJECTED' | 'DISPATCHED' | 'FAILED';
 export type TargetPlatform = 'reddit' | 'quora' | 'medium';
 export type NetworkName = 'lospollos' | 'mylead';
+export type PostHealthStatus = 'POST_ACTIVE' | 'SHADOWBANNED_OR_REMOVED' | 'THREAD_LOCKED' | 'UNVERIFIED' | 'ERROR';
 
 export interface ContentQueueItem {
   id: string;
@@ -19,8 +20,32 @@ export interface ContentQueueItem {
   risk_score: number;
   status: QueueStatus;
   published_url?: string | null;
+  health_status?: PostHealthStatus;
+  live_upvotes?: number;
+  last_health_check_at?: number;
   created_at: number;
   updated_at: number;
+}
+
+export interface EnqueueItemInput {
+  id?: string;
+  campaign_id: string;
+  network?: NetworkName;
+  target_platform?: TargetPlatform;
+  hook: string;
+  body: string;
+  stealth_cta?: string;
+  cta?: string;
+  tracking_url?: string;
+  image_path: string;
+  risk_score: number;
+  status?: QueueStatus;
+  published_url?: string | null;
+  health_status?: PostHealthStatus;
+  live_upvotes?: number;
+  last_health_check_at?: number;
+  created_at?: number;
+  updated_at?: number;
 }
 
 export class ContentQueueRepository {
@@ -90,12 +115,19 @@ export class ContentQueueRepository {
           risk_score INTEGER NOT NULL,
           status TEXT NOT NULL,
           published_url TEXT,
+          health_status TEXT,
+          live_upvotes INTEGER,
+          last_health_check_at INTEGER,
           created_at INTEGER NOT NULL,
           updated_at INTEGER NOT NULL
         );
         CREATE INDEX IF NOT EXISTS idx_cq2_status ON content_queue_v2 (status);
         CREATE INDEX IF NOT EXISTS idx_cq2_campaign ON content_queue_v2 (campaign_id);
       `);
+
+      try { this.db.exec(`ALTER TABLE content_queue_v2 ADD COLUMN health_status TEXT`); } catch {}
+      try { this.db.exec(`ALTER TABLE content_queue_v2 ADD COLUMN live_upvotes INTEGER`); } catch {}
+      try { this.db.exec(`ALTER TABLE content_queue_v2 ADD COLUMN last_health_check_at INTEGER`); } catch {}
     } catch (e) {}
   }
 
@@ -123,25 +155,25 @@ export class ContentQueueRepository {
   /**
    * Enqueues a new item into the queue
    */
-  public enqueue(
-    item: Omit<ContentQueueItem, 'id' | 'created_at' | 'updated_at' | 'status'> &
-      Partial<Pick<ContentQueueItem, 'id' | 'status' | 'created_at' | 'updated_at'>>
-  ): ContentQueueItem {
+  public enqueue(item: EnqueueItemInput): ContentQueueItem {
     const id = item.id || crypto.randomUUID();
     const now = Date.now();
     const created_at = item.created_at || now;
     const updated_at = item.updated_at || now;
     const status: QueueStatus = item.status || 'PENDING_APPROVAL';
     const published_url = item.published_url ?? null;
+    const stealth_cta = item.stealth_cta || item.cta || '';
+    const network: NetworkName = item.network || (item.campaign_id.includes('mylead') ? 'mylead' : 'lospollos');
+    const target_platform: TargetPlatform = item.target_platform || 'reddit';
 
     const record: ContentQueueItem = {
       id,
       campaign_id: item.campaign_id,
-      network: item.network || 'lospollos',
-      target_platform: item.target_platform || 'reddit',
+      network,
+      target_platform,
       hook: item.hook,
       body: item.body,
-      stealth_cta: item.stealth_cta,
+      stealth_cta,
       tracking_url: item.tracking_url || '',
       image_path: item.image_path,
       risk_score: item.risk_score,
@@ -236,6 +268,34 @@ export class ContentQueueRepository {
   }
 
   /**
+   * Updates health verification status and live upvotes
+   */
+  public updateHealth(id: string, healthStatus: PostHealthStatus, liveUpvotes?: number): boolean {
+    const now = Date.now();
+    if (this.isSqlite && this.db) {
+      try {
+        const stmt = this.db.prepare(`
+          UPDATE content_queue_v2
+          SET health_status = ?, live_upvotes = ?, last_health_check_at = ?, updated_at = ?
+          WHERE id = ?
+        `);
+        stmt.run(healthStatus, liveUpvotes || 0, now, now, id);
+      } catch {}
+    }
+
+    const item = this.memoryItems.get(id);
+    if (item) {
+      item.health_status = healthStatus;
+      if (liveUpvotes !== undefined) item.live_upvotes = liveUpvotes;
+      item.last_health_check_at = now;
+      item.updated_at = now;
+      this.saveJsonDb();
+      return true;
+    }
+    return true;
+  }
+
+  /**
    * Clears all queue items
    */
   public clearAll(): void {
@@ -268,6 +328,35 @@ export class ContentQueueRepository {
       .filter((it) => it.status === 'PENDING_APPROVAL')
       .sort((a, b) => a.created_at - b.created_at)
       .slice(0, limit);
+  }
+
+  /**
+   * List all dispatched items created within window
+   */
+  public listDispatched(sinceTimestamp: number = Date.now() - 72 * 3600 * 1000, limit: number = 100): ContentQueueItem[] {
+    if (this.isSqlite && this.db) {
+      try {
+        const stmt = this.db.prepare(`
+          SELECT * FROM content_queue_v2
+          WHERE status = 'DISPATCHED' AND updated_at >= ?
+          ORDER BY updated_at DESC
+          LIMIT ?
+        `);
+        return stmt.all(sinceTimestamp, limit) as unknown as ContentQueueItem[];
+      } catch {}
+    }
+
+    return Array.from(this.memoryItems.values())
+      .filter((it) => it.status === 'DISPATCHED' && it.updated_at >= sinceTimestamp)
+      .sort((a, b) => b.updated_at - a.updated_at)
+      .slice(0, limit);
+  }
+
+  /**
+   * List all approved items ready for stealth dispatch
+   */
+  public listApproved(limit: number = 50): ContentQueueItem[] {
+    return this.listAll('APPROVED', limit);
   }
 
   /**
@@ -314,6 +403,13 @@ export class ContentQueueRepository {
       } catch {}
     }
     return this.memoryItems.get(id) || null;
+  }
+
+  /**
+   * Alias for getItem()
+   */
+  public fetchById(id: string): ContentQueueItem | null {
+    return this.getItem(id);
   }
 
   /**
@@ -417,6 +513,7 @@ export class ContentQueueRepository {
   public getStats(): {
     total: number;
     pending: number;
+    pendingApproval: number;
     approved: number;
     rejected: number;
     dispatched: number;
@@ -431,6 +528,7 @@ export class ContentQueueRepository {
         const stats = {
           total: 0,
           pending: 0,
+          pendingApproval: 0,
           approved: 0,
           rejected: 0,
           dispatched: 0,
@@ -439,7 +537,10 @@ export class ContentQueueRepository {
 
         for (const r of rows) {
           stats.total += Number(r.count);
-          if (r.status === 'PENDING_APPROVAL') stats.pending = Number(r.count);
+          if (r.status === 'PENDING_APPROVAL') {
+            stats.pending = Number(r.count);
+            stats.pendingApproval = Number(r.count);
+          }
           if (r.status === 'APPROVED') stats.approved = Number(r.count);
           if (r.status === 'REJECTED') stats.rejected = Number(r.count);
           if (r.status === 'DISPATCHED') stats.dispatched = Number(r.count);
@@ -453,6 +554,7 @@ export class ContentQueueRepository {
     const stats = {
       total: this.memoryItems.size,
       pending: 0,
+      pendingApproval: 0,
       approved: 0,
       rejected: 0,
       dispatched: 0,
@@ -460,7 +562,10 @@ export class ContentQueueRepository {
     };
 
     for (const it of this.memoryItems.values()) {
-      if (it.status === 'PENDING_APPROVAL') stats.pending++;
+      if (it.status === 'PENDING_APPROVAL') {
+        stats.pending++;
+        stats.pendingApproval++;
+      }
       if (it.status === 'APPROVED') stats.approved++;
       if (it.status === 'REJECTED') stats.rejected++;
       if (it.status === 'DISPATCHED') stats.dispatched++;

@@ -1,5 +1,6 @@
 import { BaseAgent } from './base.agent.js';
 import { GeneratedCreative, RawContext } from '../types/pipeline.js';
+import { GoldCatalogService } from '../services/gold-catalog.service.js';
 
 export interface CopywriterPayload {
   headline: string;
@@ -10,8 +11,11 @@ export interface CopywriterPayload {
 }
 
 export class CopywriterAgent extends BaseAgent {
+  private readonly goldCatalog: GoldCatalogService;
+
   constructor() {
     super('CopywriterAgent');
+    this.goldCatalog = GoldCatalogService.getInstance();
   }
 
   /**
@@ -20,6 +24,9 @@ export class CopywriterAgent extends BaseAgent {
    */
   public async execute(context: RawContext, prelanderSlug: string): Promise<GeneratedCreative> {
     this.checkEmergencyStop();
+
+    const niche = this.goldCatalog.extractNiche(context);
+    const fewShotSection = this.goldCatalog.getFewShotExamples(context.platform, niche, 3);
 
     const systemPrompt = `You are an elite Social Media Ghostwriter & Organic Copywriter specializing in ${context.platform.toUpperCase()}.
 Your goal is to write a deeply relatable, conversational, authentic story/post that addresses the user's specific pain point.
@@ -44,7 +51,7 @@ You must respond ONLY with a JSON object in this exact schema:
   "callToAction": "Natural conversation closing (e.g. 'Curious how other nomads handle this, or happy to drop my checklist in the comments if helpful')",
   "prelanderSlug": "${prelanderSlug}",
   "generatedPrompt": "A photorealistic, highly cinematic prompt for FLUX/SDXL image generator depicting the practical lifestyle setup (NO text, NO UI overlays, 8k)"
-}`;
+}${fewShotSection}`;
 
     const userPrompt = `Target Platform: ${context.platform.toUpperCase()}
 Source Context / Topic: "${context.topicTitle}"

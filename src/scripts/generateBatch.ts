@@ -2,7 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { ContentPipeline, PipelineInput } from '../../core/src/workers/contentPipeline.js';
-import { QueueDatabase, TargetPlatform } from '../../core/src/db/queueDb.js';
+import { ContentQueueRepository, TargetPlatform } from '../../core/src/db/queueRepository.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -90,7 +90,7 @@ async function runWithConcurrency<T, R>(items: T[], fn: (item: T, idx: number) =
 
 async function main() {
   const config = parseArgs();
-  const db = QueueDatabase.getInstance();
+  const db = ContentQueueRepository.getInstance();
 
   console.log(`\n${colors.bold}${colors.cyan}================================================================================${colors.reset}`);
   console.log(`${colors.bold}${colors.cyan} ⚡  BATCH CONTENT GENERATOR & SQLITE QUEUE INGESTION${colors.reset}`);

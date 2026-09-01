@@ -1,5 +1,5 @@
-import { Offer } from '../types';
-import { generateContent } from '../llm-gateway';
+import { Offer } from '../types.js';
+import { LlmGatewayService } from '../services/llm-gateway.service.js';
 
 export async function injectSeoMetadata(html: string, offer: Offer): Promise<string> {
   console.log('[SEO Skill] Generating and injecting SEO metadata...');
@@ -17,10 +17,15 @@ export async function injectSeoMetadata(html: string, offer: Offer): Promise<str
   `;
 
   try {
-    let optimizedHtml = await generateContent(prompt);
-    optimizedHtml = optimizedHtml.trim();
-    if (optimizedHtml.startsWith('\`\`\`html')) {
-      optimizedHtml = optimizedHtml.replace(/^\`\`\`html\s*/, '').replace(/\s*\`\`\`$/, '');
+    const gateway = LlmGatewayService.getInstance();
+    const result = await gateway.executeInference('agent-context-copywriter-02', {
+      systemPrompt: 'You are an expert technical SEO specialist.',
+      userPrompt: prompt,
+      temperature: 0.3,
+    });
+    let optimizedHtml = result.rawText.trim();
+    if (optimizedHtml.startsWith('```html')) {
+      optimizedHtml = optimizedHtml.replace(/^```html\s*/, '').replace(/\s*```$/, '');
     }
     return optimizedHtml;
   } catch (err) {

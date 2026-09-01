@@ -8,6 +8,7 @@ import util from 'util';
 import dotenv from 'dotenv';
 import { exportAdsPackage } from './skills/ads-campaign-exporter-skill';
 import { allocateMABTraffic } from './skills/mab-traffic-allocator-skill';
+import { postbackRouter } from './server/routes/postback.router.js';
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
@@ -17,6 +18,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(postbackRouter);
 
 const MEMORY_PATH = path.resolve(__dirname, '../../.antigravity/memory.json');
 const LOG_PATH = path.resolve(__dirname, '../../.antigravity/daemon.log');
@@ -49,8 +52,8 @@ const AUTH_PASS = process.env.DASHBOARD_PASS || '';
 // HTTP Basic Authentication & Token Middleware
 // ----------------------------------------------------
 function authMiddleware(req: Request, res: Response, next: NextFunction) {
-  // Allow root UI page and static assets
-  if (req.path === '/' || req.path === '/favicon.ico') {
+  // Allow root UI page, static assets, and postback webhooks
+  if (req.path === '/' || req.path === '/favicon.ico' || req.path.includes('/postback')) {
     return next();
   }
 
@@ -424,8 +427,79 @@ app.post('/api/campaigns/:id/mab-optimize', async (req, res) => {
   try {
     const { id } = req.params;
     console.log(`[Dashboard API] Triggering MAB optimization for: ${id}`);
-    const result = await allocateMABTraffic(id);
+    const { MabEngineService } = await import('./services/mab-engine.service.js');
+    const mab = MabEngineService.getInstance();
+    const result = await mab.optimizeCampaign(id);
     res.json({ success: true, result });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// GET /api/mab/status
+app.get('/api/mab/status', async (req, res) => {
+  try {
+    const { MabEngineService } = await import('./services/mab-engine.service.js');
+    const mab = MabEngineService.getInstance();
+    const state = mab.getState();
+    res.json({ success: true, state });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// POST /api/mab/optimize
+app.post('/api/mab/optimize', async (req, res) => {
+  try {
+    const { MabEngineService } = await import('./services/mab-engine.service.js');
+    const mab = MabEngineService.getInstance();
+    const results = await mab.optimizeAllCampaigns();
+    res.json({ success: true, results, state: mab.getState() });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// POST /api/campaigns/:id/evolve
+app.post('/api/campaigns/:id/evolve', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { variant = 'v1', angleConcept } = req.body || {};
+    console.log(`[Dashboard API] Triggering challenger evolution for: ${id} (${variant})`);
+    const { VariantEvolutionAgent } = await import('./agents/evolution.agent.js');
+    const agent = VariantEvolutionAgent.getInstance();
+    const result = await agent.synthesizeChallenger(id, variant, { angleConcept });
+    res.json({ success: true, result });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// POST /api/campaigns/:id/lock
+app.post('/api/campaigns/:id/lock', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { variant = 'v1' } = req.body || {};
+    console.log(`[Dashboard API] Freezing 100% traffic on variant: ${variant} for campaign: ${id}`);
+    const { MabEngineService } = await import('./services/mab-engine.service.js');
+    const mab = MabEngineService.getInstance();
+    const campDir = path.resolve(process.cwd(), `campaigns/${id}`);
+    const weights: Record<string, number> = { [variant]: 100 };
+    
+    if (fsSync.existsSync(campDir)) {
+      const routerHtml = mab.generateRouterHtml(id, weights);
+      fsSync.writeFileSync(path.join(campDir, 'index.html'), routerHtml, 'utf8');
+    }
+    
+    const state = mab.getState();
+    if (state.campaigns[id]) {
+      state.campaigns[id].winnerVariant = variant;
+      state.campaigns[id].weights = weights;
+      state.campaigns[id].status = 'OPTIMIZED';
+      mab.saveState();
+    }
+    
+    res.json({ success: true, message: `Трафик зафиксирован на 100% на варианте ${variant}`, weights });
   } catch (err: any) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -887,11 +961,309 @@ app.post('/api/queue/items/:id/status', async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
     const { ContentQueueRepository } = await import('./db/queueRepository.js');
-    ContentQueueRepository.getInstance().updateStatus(id, status);
+    const { GoldCatalogService } = await import('./services/gold-catalog.service.js');
+    const repo = ContentQueueRepository.getInstance();
+    const item = repo.getItem(id);
+    repo.updateStatus(id, status);
+
+    if (status === 'APPROVED' && item) {
+      const fs = await import('fs');
+      const path = await import('path');
+      const candidateBundlePaths = [
+        path.resolve(process.cwd(), `runs/${id}/bundle.json`),
+        path.resolve(process.cwd(), `runs/pending/${id}/bundle.json`),
+        path.resolve(process.cwd(), `core/runs/${id}/bundle.json`),
+      ];
+      let bundle: any = null;
+      for (const p of candidateBundlePaths) {
+        if (fs.existsSync(p)) {
+          try {
+            bundle = JSON.parse(fs.readFileSync(p, 'utf8'));
+            if (bundle) break;
+          } catch {}
+        }
+      }
+
+      if (bundle) {
+        GoldCatalogService.getInstance().ingestApprovedBundle(bundle);
+      } else {
+        const complianceScore = Math.max(0, 100 - (item.risk_score || 10));
+        if (complianceScore >= 90) {
+          GoldCatalogService.getInstance().upsertEntry({
+            id: item.id,
+            platform: (item.target_platform as any) || 'reddit',
+            niche: item.campaign_id || 'general',
+            inputContext: {
+              platform: (item.target_platform as any) || 'reddit',
+              sourceUrl: item.tracking_url || `https://${item.target_platform}.com/post/${item.id}`,
+              topicTitle: item.hook,
+              sourceText: item.body,
+              targetAudiencePain: item.hook,
+              metadata: { campaign_id: item.campaign_id, network: item.network },
+            },
+            approvedCreative: {
+              headline: item.hook,
+              body: item.body,
+              callToAction: item.stealth_cta || '',
+              prelanderSlug: 'prelander-v1',
+              generatedPrompt: item.image_path || '',
+            },
+            complianceScore,
+            performanceMetrics: { clicks: 0, conversions: 0, revenue: 0 },
+            addedAt: new Date().toISOString(),
+          });
+        }
+      }
+    }
+
     res.json({ success: true, id, status });
   } catch (err: any) {
     res.status(500).json({ success: false, error: err.message });
   }
+});
+
+app.get('/api/agent/gold-catalog', async (req, res) => {
+  try {
+    const { GoldCatalogService } = await import('./services/gold-catalog.service.js');
+    const catalog = GoldCatalogService.getInstance();
+    const entries = catalog.getEntries();
+    res.json({
+      success: true,
+      count: entries.length,
+      entries,
+    });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/agent/gold-catalog/:id/pin', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { isPinned = true } = req.body || {};
+    const { GoldCatalogService } = await import('./services/gold-catalog.service.js');
+    const success = GoldCatalogService.getInstance().pinEntry(id, Boolean(isPinned));
+    res.json({ success, id, isPinned: Boolean(isPinned) });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.delete('/api/agent/gold-catalog/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { GoldCatalogService } = await import('./services/gold-catalog.service.js');
+    const success = GoldCatalogService.getInstance().deleteEntry(id);
+    res.json({ success, id });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ----------------------------------------------------
+// 9. Financial Performance & Live KPI API
+// ----------------------------------------------------
+app.get('/api/financials/kpi', async (req, res) => {
+  try {
+    const { FinancialTelemetryMatcher } = await import('./server/telemetry-matcher.js');
+    const matcher = FinancialTelemetryMatcher.getInstance();
+    const telemetry = matcher.getTelemetrySummary();
+
+    let totalRevenue = 0;
+    let totalConversions = 0;
+    let totalClicks = 0;
+
+    let topBundle: any = null;
+    let maxRevenue = -1;
+
+    for (const [bId, bMetrics] of Object.entries(telemetry.bundles)) {
+      totalRevenue += bMetrics.revenue || 0;
+      totalConversions += bMetrics.conversions || 0;
+      totalClicks += bMetrics.clicks || 0;
+
+      if ((bMetrics.revenue || 0) > maxRevenue) {
+        maxRevenue = bMetrics.revenue || 0;
+        topBundle = {
+          id: bId,
+          ...bMetrics,
+        };
+      }
+    }
+
+    if (totalClicks === 0) {
+      const workerStats = await fetchAllWorkerStats();
+      for (const [key, val] of Object.entries<any>(workerStats)) {
+        if (key.startsWith('stats_')) {
+          totalRevenue += val.revenue || 0;
+          totalClicks += val.clicks || 0;
+          totalConversions += (val.leads || 0) + (val.sales || 0);
+        }
+      }
+    }
+
+    const networkEpc = totalClicks > 0 ? (totalRevenue / totalClicks).toFixed(2) : '0.00';
+    const overallCr = totalClicks > 0 ? ((totalConversions / totalClicks) * 100).toFixed(2) + '%' : '0.00%';
+
+    res.json({
+      success: true,
+      todayRevenue: Number(totalRevenue.toFixed(2)),
+      yesterdayRevenue: 0.00,
+      revenueDeltaPct: totalRevenue > 0 ? '+100%' : '0.0%',
+      topBundle,
+      networkEpc: `$${networkEpc}`,
+      overallCr,
+      totalClicks,
+      totalConversions,
+      bundlesTracked: telemetry.bundlesTracked,
+    });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ----------------------------------------------------
+// 10. Distribution Scheduler & Proxy Status API
+// ----------------------------------------------------
+app.get('/api/scheduler/status', async (req, res) => {
+  try {
+    const { DistributionScheduler } = await import('./automation/distribution-scheduler.js');
+    const { proxyRotator } = await import('./skills/proxy-rotator-skill.js');
+    const { ContentQueueRepository } = await import('./db/queueRepository.js');
+    const { EmergencyStopController } = await import('./types/pipeline.js');
+
+    const scheduler = DistributionScheduler.getInstance();
+    const status = scheduler.getStatus();
+    const eStopHalted = EmergencyStopController.getInstance().isHalted();
+
+    // Proxies summary
+    const allProxies = proxyRotator.getProxies();
+    const blacklistedCount = allProxies.filter((p) => proxyRotator.isBlacklisted(p)).length;
+    const healthyCount = Math.max(0, allProxies.length - blacklistedCount);
+
+    // Calculate next dispatch countdown
+    let nextDispatchCountdownMs = 0;
+    const now = Date.now();
+    let minFutureAllowedAt = Infinity;
+
+    for (const [, platInfo] of Object.entries(status.lastPlatformDispatch)) {
+      if (platInfo.nextAllowedAt && platInfo.nextAllowedAt > now) {
+        if (platInfo.nextAllowedAt < minFutureAllowedAt) {
+          minFutureAllowedAt = platInfo.nextAllowedAt;
+        }
+      }
+    }
+
+    if (minFutureAllowedAt !== Infinity) {
+      nextDispatchCountdownMs = Math.max(0, minFutureAllowedAt - now);
+    }
+
+    const mins = Math.floor(nextDispatchCountdownMs / 60000);
+    const secs = Math.floor((nextDispatchCountdownMs % 60000) / 1000);
+    const nextDispatchCountdownFormatted = nextDispatchCountdownMs > 0 ? `${mins}m ${secs}s` : 'Ready';
+
+    // State determination
+    let stateLabel: string = status.status;
+    if (eStopHalted) {
+      stateLabel = 'HALTED';
+    } else if (status.status === 'RUNNING' && nextDispatchCountdownMs > 0) {
+      stateLabel = 'COOLDOWN';
+    }
+
+    // Recent dispatches
+    const repo = ContentQueueRepository.getInstance();
+    const recentDispatches = repo.listAll('DISPATCHED', 5).map((item) => ({
+      id: item.id,
+      bundleId: item.id,
+      campaignId: item.campaign_id,
+      platform: item.target_platform,
+      publishedUrl: item.published_url || '',
+      hook: item.hook,
+      dispatchedAt: new Date(item.updated_at).toISOString(),
+      status: item.status,
+    }));
+
+    res.json({
+      success: true,
+      scheduler: {
+        status: stateLabel,
+        rawStatus: status.status,
+        isRunning: status.isRunning,
+        pollIntervalMs: status.pollIntervalMs,
+        totalDispatched: status.totalDispatched,
+        totalFailed: status.totalFailed,
+        nextDispatchCountdownMs,
+        nextDispatchCountdownFormatted,
+        circuitBreakerReason: status.circuitBreakerReason,
+        lastCycleAt: status.lastCycleAt,
+      },
+      proxyHealth: {
+        total: allProxies.length,
+        healthy: healthyCount,
+        blacklisted: blacklistedCount,
+        activeSessions: status.isRunning ? 1 : 0,
+      },
+      recentDispatches,
+    });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/scheduler/toggle', async (req, res) => {
+  try {
+    const { DistributionScheduler } = await import('./automation/distribution-scheduler.js');
+    const scheduler = DistributionScheduler.getInstance();
+    const status = scheduler.getStatus();
+
+    if (status.isRunning) {
+      scheduler.stop();
+    } else {
+      scheduler.start();
+    }
+
+    const updated = scheduler.getStatus();
+    res.json({ success: true, isRunning: updated.isRunning, status: updated.status });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/scheduler/dispatch-now', async (req, res) => {
+  try {
+    const { DistributionScheduler } = await import('./automation/distribution-scheduler.js');
+    const scheduler = DistributionScheduler.getInstance();
+    const result = await scheduler.runCycle({ dryRun: false });
+    res.json({ success: true, result });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// SSE Stream Endpoint for Live Dashboard updates on port 5000
+app.get('/api/stream/events', (req, res) => {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.flushHeaders?.();
+
+  const sendEvent = (event: string, data: any) => {
+    res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
+  };
+
+  sendEvent('connected', { timestamp: new Date().toISOString(), status: 'LIVE_STREAMING' });
+
+  const interval = setInterval(async () => {
+    try {
+      const { FinancialTelemetryMatcher } = await import('./server/telemetry-matcher.js');
+      const telemetry = FinancialTelemetryMatcher.getInstance().getTelemetrySummary();
+      sendEvent('telemetry_update', telemetry);
+    } catch {}
+  }, 4000);
+
+  req.on('close', () => {
+    clearInterval(interval);
+    res.end();
+  });
 });
 
 app.post('/api/queue/items/:id/reroll', async (req, res) => {

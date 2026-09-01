@@ -36,7 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       
       // 3. Send analytics beacon
-      const beaconUrl = \`http://localhost:8787/click?click_id=\${clickId}&variant=\${variant}&campaign_id=\${baseCampaignId}\${walletAddress ? '&wallet_address=' + walletAddress : ''}\`;
+      const workerBaseUrl = "${process.env.POSTBACK_WORKER_URL || 'https://postback-engine.sov7.workers.dev'}";
+      const beaconUrl = \`\${workerBaseUrl}/click?click_id=\${clickId}&variant=\${variant}&campaign_id=\${baseCampaignId}\${walletAddress ? '&wallet_address=' + walletAddress : ''}\`;
       navigator.sendBeacon(beaconUrl);
       
       // 4. Redirect user

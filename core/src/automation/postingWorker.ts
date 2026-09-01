@@ -20,6 +20,7 @@ export interface PostingOptions {
   profileId?: string;
   headless?: boolean;
   targetUrlOverride?: string;
+  proxy?: import('./profileManager.js').ProxyConfig;
 }
 
 export class PostingWorker {
@@ -57,6 +58,7 @@ export class PostingWorker {
       console.log(`[Worker] Launching persistent browser session for "${profileId}"...`);
       session = await ProfileSessionManager.launchProfile(profileId, {
         headless: options.headless ?? true,
+        proxy: options.proxy,
       });
       const { page } = session;
 

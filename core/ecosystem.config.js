@@ -9,35 +9,50 @@ module.exports = {
       instances: 1,
       autorestart: true,
       max_memory_restart: "400M",
+      restart_delay: 2000,
       env: {
         NODE_ENV: "production",
         PORT: 5000
       }
     },
     {
-      name: "affiliate-autopilot",
-      script: "./dist/autopilot-daemon.js",
+      name: "affiliate-scheduler",
+      script: "./dist/automation/distribution-scheduler.js",
       cwd: __dirname,
       instances: 1,
       autorestart: true,
       max_memory_restart: "400M",
+      exp_backoff_restart_delay: 500,
+      restart_delay: 3000,
       env: {
         NODE_ENV: "production"
       }
     },
     {
-      name: "affiliate-organic-daemon",
-      script: "./dist/skills/organic-traffic-agent-skill.js",
-      args: "--daemon",
+      name: "affiliate-health-monitor",
+      script: "./dist/automation/post-health-monitor.js",
       cwd: __dirname,
       instances: 1,
       autorestart: true,
-      exp_backoff_restart_delay: 200,
-      max_memory_restart: "600M",
+      max_memory_restart: "400M",
+      exp_backoff_restart_delay: 500,
+      restart_delay: 3000,
+      env: {
+        NODE_ENV: "production"
+      }
+    },
+    {
+      name: "affiliate-telegram-bot",
+      script: "./dist/services/telegram-control-bot.service.js",
+      cwd: __dirname,
+      instances: 1,
+      autorestart: true,
+      max_memory_restart: "400M",
+      exp_backoff_restart_delay: 500,
+      restart_delay: 3000,
       env: {
         NODE_ENV: "production"
       }
     }
   ]
 };
-

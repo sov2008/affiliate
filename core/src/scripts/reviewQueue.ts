@@ -2,6 +2,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import prompts from 'prompts';
 import { ContentQueueRepository, ContentQueueItem } from '../db/queueRepository.js';
+import { GoldCatalogService } from '../services/gold-catalog.service.js';
 
 dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
@@ -124,6 +125,34 @@ async function main() {
       repo.updateStatus(item.id, 'APPROVED');
       approved++;
       console.log(`${colors.green}${colors.bold}  ✅ Status updated to: APPROVED${colors.reset}`);
+
+      const complianceScore = Math.max(0, 100 - (item.risk_score || 10));
+      if (complianceScore >= 90) {
+        GoldCatalogService.getInstance().upsertEntry({
+          id: item.id,
+          platform: (item.target_platform as any) || 'reddit',
+          niche: item.campaign_id || 'general',
+          inputContext: {
+            platform: (item.target_platform as any) || 'reddit',
+            sourceUrl: item.tracking_url || `https://${item.target_platform}.com/post/${item.id}`,
+            topicTitle: item.hook,
+            sourceText: item.body,
+            targetAudiencePain: item.hook,
+            metadata: { campaign_id: item.campaign_id, network: item.network },
+          },
+          approvedCreative: {
+            headline: item.hook,
+            body: item.body,
+            callToAction: item.stealth_cta || '',
+            prelanderSlug: 'prelander-v1',
+            generatedPrompt: item.image_path || '',
+          },
+          complianceScore,
+          performanceMetrics: { clicks: 0, conversions: 0, revenue: 0 },
+          addedAt: new Date().toISOString(),
+        });
+        console.log(`${colors.cyan}  ✨ High-quality sample (Score: ${complianceScore}/100) added to Gold Catalog.${colors.reset}`);
+      }
     } else if (response.action === 'REJECT') {
       repo.updateStatus(item.id, 'REJECTED');
       rejected++;

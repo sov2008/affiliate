@@ -41,6 +41,16 @@ export interface ComplianceReport {
   violationsDetected?: string[];
 }
 
+export interface BundleFinancials {
+  clicks?: number;
+  conversions: number;
+  totalPayout: number;
+  lastConversionAt: string;
+  currency?: string;
+  epc?: number;
+  cr?: number;
+}
+
 export interface BundleArtifact {
   id: string;
   createdAt: number;
@@ -49,6 +59,7 @@ export interface BundleArtifact {
   compliance?: ComplianceReport;
   status: BundleStatus;
   tracePath: string[];
+  financials?: BundleFinancials;
 }
 
 export interface EmergencyStopState {
@@ -188,6 +199,13 @@ export class EmergencyStopController {
     }
 
     console.log(`\x1b[32m[EmergencyStopController] Emergency stop cleared by ${operator}. Pipeline operational.\x1b[0m`);
+  }
+
+  /**
+   * Alias for reset()
+   */
+  public clear(operator: string = 'OPERATOR'): void {
+    this.reset(operator);
   }
 
   /**

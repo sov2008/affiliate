@@ -1,11 +1,11 @@
-import { Offer } from './types';
-import { generateContent } from './llm-gateway';
-import { optimizeContext } from './context-optimizer';
+import { Offer } from './types.js';
+import { LlmGatewayService } from './services/llm-gateway.service.js';
+import { optimizeContext } from './context-optimizer.js';
 import fs from 'fs/promises';
 import path from 'path';
 
 export async function generateTaskPrompt(offer: Offer): Promise<string> {
-  const uiUxSkillPath = path.resolve(__dirname, '../../.antigravity/skills/ui_ux_pro_max.md');
+  const uiUxSkillPath = path.resolve(process.cwd(), '.antigravity/skills/ui_ux_pro_max.md');
   let uiUxSkill = '';
   try {
     uiUxSkill = await fs.readFile(uiUxSkillPath, 'utf8');
@@ -48,7 +48,13 @@ export async function generateTaskPrompt(offer: Offer): Promise<string> {
   });
 
   try {
-    return await generateContent(optimizedPrompt);
+    const gateway = LlmGatewayService.getInstance();
+    const result = await gateway.executeInference('agent-context-copywriter-02', {
+      systemPrompt: 'You are an Elite Traffic & Affiliate Architect.',
+      userPrompt: optimizedPrompt,
+      temperature: 0.7,
+    });
+    return result.rawText;
   } catch (error) {
     console.error("Error generating task prompt:", error);
     throw error;

@@ -1,10 +1,10 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { recall, remember } from './memory-engine';
-import { generateContent } from './llm-gateway';
-import { auditTrackingLinks } from './skills/tracking-audit-skill';
+import { recall, remember } from './memory-engine.js';
+import { LlmGatewayService } from './services/llm-gateway.service.js';
+import { auditTrackingLinks } from './skills/tracking-audit-skill.js';
 
-const CAMPAIGNS_DIR = path.resolve(__dirname, '../../campaigns');
+const CAMPAIGNS_DIR = path.resolve(process.cwd(), 'campaigns');
 
 async function optimizeCampaign(campaignId: string, campaignData: any, autoEvolve: boolean) {
   console.log(`\n--- Optimizing Campaign: ${campaignId} ---`);
@@ -72,9 +72,16 @@ Original HTML:
 ${winnerHtml.substring(0, 4000)} // Truncating for API limits
       `;
       
-      let newHtml = await generateContent(evolvePrompt);
-      if (newHtml.startsWith('\`\`\`html')) {
-        newHtml = newHtml.replace(/^\`\`\`html\s*/, '').replace(/\s*\`\`\`$/, '');
+      const gateway = LlmGatewayService.getInstance();
+      const result = await gateway.executeInference('agent-context-copywriter-02', {
+        systemPrompt: 'You are an Elite Traffic & Affiliate Architect.',
+        userPrompt: evolvePrompt,
+        temperature: 0.7,
+      });
+
+      let newHtml = result.rawText;
+      if (newHtml.startsWith('```html')) {
+        newHtml = newHtml.replace(/^```html\s*/, '').replace(/\s*```$/, '');
       }
 
       // Quick fix loop for tracking links

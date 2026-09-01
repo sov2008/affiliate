@@ -1,9 +1,10 @@
 import path from 'path';
 import dotenv from 'dotenv';
-import { recall, remember } from '../memory-engine';
+import { recall, remember } from '../memory-engine.js';
 
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), 'core/.env') });
 
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '';
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID || '';
@@ -24,6 +25,9 @@ export async function sendTelegramMessage(text: string): Promise<boolean> {
     return true;
   }
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
+
   try {
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
     const res = await fetch(url, {
@@ -32,13 +36,16 @@ export async function sendTelegramMessage(text: string): Promise<boolean> {
       body: JSON.stringify({
         chat_id: CHAT_ID,
         text: text,
-        parse_mode: 'HTML'
-      })
+        parse_mode: 'HTML',
+      }),
+      signal: controller.signal,
     });
     return res.ok;
   } catch (err: any) {
-    console.warn('   ⚠️ Failed to dispatch Telegram message:', err.message);
+    // Fallback silently if Telegram API is unreachable without crashing the daemon
     return false;
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
 
@@ -84,9 +91,11 @@ export async function processTelegramCommand(commandText: string): Promise<strin
   }
 
   if (cmd === '/stats' || cmd === 'stats') {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
     try {
-      const res = await fetch(`${WORKER_URL}/stats/all`);
-      const data = await res.json();
+      const res = await fetch(`${WORKER_URL}/stats/all`, { signal: controller.signal });
+      const data: any = await res.json();
       let totalRev = 0;
       let totalClicks = 0;
 
@@ -105,6 +114,8 @@ export async function processTelegramCommand(commandText: string): Promise<strin
       `.trim();
     } catch {
       return '⚠️ Failed to fetch live stats from Cloudflare Edge.';
+    } finally {
+      clearTimeout(timeoutId);
     }
   }
 
@@ -124,20 +135,4 @@ export async function processTelegramCommand(commandText: string): Promise<strin
 • <code>/pause &lt;campaign_id&gt;</code> - Pause traffic to campaign
 • <code>/resume &lt;campaign_id&gt;</code> - Resume campaign traffic
   `.trim();
-}
-
-if (require.main === module) {
-  console.log('🤖 [Telegram Commander Skill] Running self-test...');
-  sendConversionAlert({
-    campaignId: 'cmp_trading_au',
-    variant: 'v1',
-    sub1: 'clk_test_tg_101',
-    payout: 350.00,
-    status: 'approved',
-    currency: 'USD'
-  }).then(async () => {
-    const statusResp = await processTelegramCommand('/status');
-    console.log('\nCommand Response (/status):\n' + statusResp);
-    process.exit(0);
-  });
 }

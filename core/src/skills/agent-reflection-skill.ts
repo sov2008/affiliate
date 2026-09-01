@@ -1,8 +1,8 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { executeGeminiPrompt } from './ai-engine-skill';
+import { executeGeminiPrompt } from './ai-engine-skill.js';
 
-const ROOT_DIR = path.resolve(__dirname, __dirname.includes('dist') ? '../../..' : '../..');
+const ROOT_DIR = path.resolve(process.cwd());
 const LEARNING_DIR = path.join(ROOT_DIR, 'core/data/learning');
 const STRATEGY_FILE = path.join(LEARNING_DIR, 'strategy_memory.json');
 const WINNING_FILE = path.join(LEARNING_DIR, 'winning_patterns.json');

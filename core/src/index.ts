@@ -6,6 +6,7 @@ import { BundleArtifact, EmergencyStopController, RawContext } from './types/pip
 import { PipelineOrchestrator } from './orchestrator/pipeline.js';
 import { CopywriterAgent } from './agents/copy.agent.js';
 import { ComplianceGuardAgent } from './agents/guard.agent.js';
+import { GoldCatalogService } from './services/gold-catalog.service.js';
 
 const colors = {
   reset: '\x1b[0m',
@@ -107,6 +108,13 @@ export async function runApprovalLoop(bundles: BundleArtifact[]): Promise<Bundle
         currentBundle.status = 'APPROVED';
         currentBundle.tracePath.push('APPROVED');
         updateBundleOnDisk(currentBundle);
+
+        // Automated Few-Shot Dataset Collector: Ingest if score >= 90
+        const goldIngested = GoldCatalogService.getInstance().ingestApprovedBundle(currentBundle);
+        if (goldIngested) {
+          console.log(`${colors.cyan}  ✨ High-quality sample (Score: ${currentBundle.compliance?.score || 0}) ingested into Gold Dataset for Few-Shot learning.${colors.reset}`);
+        }
+
         approvedCount++;
         resolved = true;
         console.log(`${colors.green}${colors.bold}  ✅ Bundle Approved for Dispatch${colors.reset}`);

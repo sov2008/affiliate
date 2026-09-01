@@ -1,10 +1,16 @@
-import fs from 'fs';
-import path from 'path';
-import crypto from 'crypto';
-import { DatabaseSync } from 'node:sqlite';
+/**
+ * @deprecated Use ContentQueueRepository from './queueRepository.js' instead.
+ * This file is retained as a backward-compatibility proxy.
+ */
 
-export type QueueStatus = 'PENDING_APPROVAL' | 'APPROVED' | 'REJECTED' | 'DISPATCHED' | 'FAILED';
-export type TargetPlatform = 'reddit' | 'quora' | 'twitter' | 'medium';
+import {
+  ContentQueueRepository,
+  ContentQueueItem,
+  QueueStatus,
+  TargetPlatform,
+} from './queueRepository.js';
+
+export { QueueStatus, TargetPlatform };
 
 export interface QueueItem {
   id: string;
@@ -22,32 +28,15 @@ export interface QueueItem {
   published_at?: number | null;
 }
 
+/**
+ * @deprecated Use ContentQueueRepository instead.
+ */
 export class QueueDatabase {
   private static instance: QueueDatabase | null = null;
-  private db: DatabaseSync;
+  private repo: ContentQueueRepository;
 
   private constructor() {
-    const candidates = [
-      path.resolve(process.cwd(), '.antigravity'),
-      path.resolve(process.cwd(), 'core/data'),
-      path.resolve(process.cwd(), 'data'),
-    ];
-
-    let dbDir = candidates[0];
-    for (const c of candidates) {
-      if (fs.existsSync(c)) {
-        dbDir = c;
-        break;
-      }
-    }
-
-    if (!fs.existsSync(dbDir)) {
-      fs.mkdirSync(dbDir, { recursive: true });
-    }
-
-    const dbPath = path.join(dbDir, 'content_queue.db');
-    this.db = new DatabaseSync(dbPath);
-    this.initSchema();
+    this.repo = ContentQueueRepository.getInstance();
   }
 
   public static getInstance(): QueueDatabase {
@@ -57,200 +46,85 @@ export class QueueDatabase {
     return this.instance;
   }
 
-  private initSchema(): void {
-    this.db.exec(`
-      CREATE TABLE IF NOT EXISTS content_queue (
-        id TEXT PRIMARY KEY,
-        campaign_id TEXT NOT NULL,
-        target_platform TEXT NOT NULL,
-        hook TEXT NOT NULL,
-        body TEXT NOT NULL,
-        cta TEXT NOT NULL,
-        image_path TEXT NOT NULL,
-        risk_score INTEGER NOT NULL,
-        status TEXT NOT NULL,
-        created_at INTEGER NOT NULL,
-        scheduled_for INTEGER,
-        published_url TEXT,
-        published_at INTEGER
-      );
-      CREATE INDEX IF NOT EXISTS idx_queue_status ON content_queue (status);
-      CREATE INDEX IF NOT EXISTS idx_queue_campaign ON content_queue (campaign_id);
-    `);
-
-    // Migration safe check for newly added columns
-    try {
-      this.db.exec(`ALTER TABLE content_queue ADD COLUMN published_url TEXT;`);
-    } catch {}
-    try {
-      this.db.exec(`ALTER TABLE content_queue ADD COLUMN published_at INTEGER;`);
-    } catch {}
-  }
-
-  /**
-   * Enqueue a newly generated content item
-   */
   public enqueue(
     item: Omit<QueueItem, 'id' | 'created_at' | 'status'> & Partial<Pick<QueueItem, 'id' | 'status' | 'created_at'>>
   ): QueueItem {
-    const id = item.id || crypto.randomUUID();
-    const created_at = item.created_at || Date.now();
-    const status: QueueStatus = item.status || 'PENDING_APPROVAL';
-    const scheduled_for = item.scheduled_for ?? null;
-    const published_url = item.published_url ?? null;
-    const published_at = item.published_at ?? null;
-
-    const stmt = this.db.prepare(`
-      INSERT INTO content_queue (
-        id, campaign_id, target_platform, hook, body, cta, image_path, risk_score, status, created_at, scheduled_for, published_url, published_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `);
-
-    stmt.run(
-      id,
-      item.campaign_id,
-      item.target_platform,
-      item.hook,
-      item.body,
-      item.cta,
-      item.image_path,
-      item.risk_score,
-      status,
-      created_at,
-      scheduled_for,
-      published_url,
-      published_at
-    );
-
-    return {
-      id,
+    const record = this.repo.enqueue({
+      id: item.id,
       campaign_id: item.campaign_id,
+      network: 'lospollos',
       target_platform: item.target_platform,
       hook: item.hook,
       body: item.body,
-      cta: item.cta,
+      stealth_cta: item.cta,
+      tracking_url: '',
       image_path: item.image_path,
       risk_score: item.risk_score,
-      status,
-      created_at,
-      scheduled_for,
-      published_url,
-      published_at,
+      status: item.status,
+      published_url: item.published_url,
+      created_at: item.created_at,
+    });
+
+    return {
+      id: record.id,
+      campaign_id: record.campaign_id,
+      target_platform: record.target_platform,
+      hook: record.hook,
+      body: record.body,
+      cta: record.stealth_cta,
+      image_path: record.image_path,
+      risk_score: record.risk_score,
+      status: record.status,
+      created_at: record.created_at,
+      published_url: record.published_url,
+      published_at: record.updated_at,
     };
   }
 
-  /**
-   * List all pending items awaiting operator approval
-   */
   public listPending(limit: number = 50): QueueItem[] {
-    const stmt = this.db.prepare(`
-      SELECT * FROM content_queue
-      WHERE status = 'PENDING_APPROVAL'
-      ORDER BY created_at ASC
-      LIMIT ?
-    `);
-    const rows = stmt.all(limit);
-    return rows as unknown as QueueItem[];
+    return this.repo.listPending(limit).map((r) => this.mapRecord(r));
   }
 
-  /**
-   * List all items regardless of status (with optional status filter)
-   */
   public listAll(status?: QueueStatus, limit: number = 100): QueueItem[] {
-    if (status) {
-      const stmt = this.db.prepare(`
-        SELECT * FROM content_queue
-        WHERE status = ?
-        ORDER BY created_at DESC
-        LIMIT ?
-      `);
-      return stmt.all(status, limit) as unknown as QueueItem[];
-    }
-    const stmt = this.db.prepare(`
-      SELECT * FROM content_queue
-      ORDER BY created_at DESC
-      LIMIT ?
-    `);
-    return stmt.all(limit) as unknown as QueueItem[];
+    return this.repo.listAll(status, limit).map((r) => this.mapRecord(r));
   }
 
-  /**
-   * Update the status of a specific item
-   */
   public updateStatus(id: string, status: QueueStatus): boolean {
-    const stmt = this.db.prepare(`
-      UPDATE content_queue
-      SET status = ?
-      WHERE id = ?
-    `);
-    stmt.run(status, id);
-    return true;
+    return this.repo.updateStatus(id, status);
   }
 
-  /**
-   * Mark item as successfully dispatched/published
-   */
   public markDispatched(id: string, publishedUrl: string): boolean {
-    const now = Date.now();
-    const stmt = this.db.prepare(`
-      UPDATE content_queue
-      SET status = 'DISPATCHED', published_url = ?, published_at = ?
-      WHERE id = ?
-    `);
-    stmt.run(publishedUrl, now, id);
-    return true;
+    return this.repo.markDispatched(id, publishedUrl);
   }
 
-  /**
-   * Fetch next approved item ready for organic dispatch
-   */
   public getNextApproved(platform?: TargetPlatform): QueueItem | null {
-    if (platform) {
-      const stmt = this.db.prepare(`
-        SELECT * FROM content_queue
-        WHERE status = 'APPROVED' AND target_platform = ?
-        ORDER BY created_at ASC
-        LIMIT 1
-      `);
-      const row = stmt.get(platform);
-      return (row as unknown as QueueItem) || null;
-    }
-    const stmt = this.db.prepare(`
-      SELECT * FROM content_queue
-      WHERE status = 'APPROVED'
-      ORDER BY created_at ASC
-      LIMIT 1
-    `);
-    const row = stmt.get();
-    return (row as unknown as QueueItem) || null;
+    const approved = this.repo.listApproved(10);
+    const item = platform ? approved.find((a) => a.target_platform === platform) : approved[0];
+    return item ? this.mapRecord(item) : null;
   }
 
-  /**
-   * Delete an item from the queue
-   */
   public deleteItem(id: string): boolean {
-    const stmt = this.db.prepare(`DELETE FROM content_queue WHERE id = ?`);
-    stmt.run(id);
-    return true;
+    return this.repo.deleteItem(id);
   }
 
-  /**
-   * Get queue statistics summary
-   */
   public getStats(): { total: number; pending: number; approved: number; rejected: number; dispatched: number } {
-    const rows = this.db.prepare(`SELECT status, COUNT(*) as count FROM content_queue GROUP BY status`).all() as { status: string; count: number }[];
-    const counts: Record<string, number> = {};
-    let total = 0;
-    for (const r of rows) {
-      counts[r.status] = Number(r.count);
-      total += Number(r.count);
-    }
+    return this.repo.getStats();
+  }
+
+  private mapRecord(r: ContentQueueItem): QueueItem {
     return {
-      total,
-      pending: counts['PENDING_APPROVAL'] || 0,
-      approved: counts['APPROVED'] || 0,
-      rejected: counts['REJECTED'] || 0,
-      dispatched: counts['DISPATCHED'] || 0,
+      id: r.id,
+      campaign_id: r.campaign_id,
+      target_platform: r.target_platform,
+      hook: r.hook,
+      body: r.body,
+      cta: r.stealth_cta,
+      image_path: r.image_path,
+      risk_score: r.risk_score,
+      status: r.status,
+      created_at: r.created_at,
+      published_url: r.published_url,
+      published_at: r.updated_at,
     };
   }
 }

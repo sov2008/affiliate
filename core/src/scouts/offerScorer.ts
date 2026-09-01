@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { ScoutedOffer } from './scout.interface.js';
 import { AIGateway } from '../services/aiGateway.js';
+import { EmergencyStopController } from '../types/pipeline.js';
 
 export interface ScoredOfferResult {
   offer: ScoutedOffer;
@@ -40,6 +41,8 @@ export class OfferScorer {
    * Returns sorted list with top opportunity offer first.
    */
   public static async rankAndScoreOffers(offers: ScoutedOffer[]): Promise<ScoredOfferResult[]> {
+    EmergencyStopController.getInstance().check();
+
     if (offers.length === 0) {
       throw new Error('[OfferScorer] No offers provided for scoring.');
     }

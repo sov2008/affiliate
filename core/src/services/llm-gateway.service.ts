@@ -7,9 +7,9 @@ import { EmergencyStopController } from '../types/pipeline.js';
 import { MalformedJsonError } from '../agents/base.agent.js';
 
 // Ensure environment variables are loaded
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), 'core/.env') });
 
 export interface InferencePayload {
   systemPrompt: string;
@@ -63,7 +63,6 @@ export class LlmGatewayService {
     const candidatePaths = [
       path.resolve(process.cwd(), 'src/config/agent-registry.json'),
       path.resolve(process.cwd(), 'core/src/config/agent-registry.json'),
-      path.resolve(__dirname, '../config/agent-registry.json'),
     ];
 
     this.registryFilePath = candidatePaths.find((p) => fs.existsSync(p)) || candidatePaths[0];

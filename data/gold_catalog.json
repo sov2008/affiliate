@@ -1,0 +1,61 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-09-01T16:13:42.591Z",
+  "entries": [
+    {
+      "id": "bun_tg_test_101",
+      "platform": "reddit",
+      "niche": "general",
+      "inputContext": {
+        "platform": "reddit",
+        "sourceUrl": "https://reddit.com/r/investing/test_post",
+        "topicTitle": "Best algorithmic trading bots 2026",
+        "sourceText": "Looking for verified automated strategies",
+        "targetAudiencePain": "Losing manual trades without risk management",
+        "metadata": {}
+      },
+      "approvedCreative": {
+        "headline": "Stop relying on manual trade execution in 2026",
+        "body": "Verified quantitative arbitrage algorithm with 94.8% risk-reversal.",
+        "callToAction": "Access Institutional Quant Bot",
+        "prelanderSlug": "cmp_trading_au",
+        "generatedPrompt": "prompt_101"
+      },
+      "complianceScore": 96,
+      "performanceMetrics": {
+        "clicks": 0,
+        "conversions": 0,
+        "revenue": 0
+      },
+      "addedAt": "2026-09-01T16:08:00.187Z",
+      "updatedAt": "2026-09-01T16:09:38.630Z"
+    },
+    {
+      "id": "bun_qa_hitl_888",
+      "platform": "reddit",
+      "niche": "general",
+      "inputContext": {
+        "platform": "reddit",
+        "sourceUrl": "https://reddit.com/r/web3/test",
+        "topicTitle": "Decentralized High Yield Arbitrage",
+        "sourceText": "Seeking automated risk-reversal trading strategies",
+        "targetAudiencePain": "High volatility slippage",
+        "metadata": {}
+      },
+      "approvedCreative": {
+        "headline": "Next-Gen Algorithmic Execution System 2026",
+        "body": "Verified low-latency institutional quant execution.",
+        "callToAction": "Unlock Instant Access",
+        "prelanderSlug": "cmp_web3_de",
+        "generatedPrompt": "prompt_qa"
+      },
+      "complianceScore": 95,
+      "performanceMetrics": {
+        "clicks": 0,
+        "conversions": 0,
+        "revenue": 0
+      },
+      "addedAt": "2026-09-01T16:13:42.590Z"
+    }
+  ]
+}

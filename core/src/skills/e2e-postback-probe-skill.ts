@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 const WORKER_URL = 'https://postback-engine.sov7.workers.dev';
 
 export async function runPostbackProbe() {
