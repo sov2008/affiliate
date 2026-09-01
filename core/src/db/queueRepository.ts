@@ -184,6 +184,71 @@ export class ContentQueueRepository {
   }
 
   /**
+   * Fetch the next approved item waiting to be dispatched
+   */
+  public fetchNextApproved(): ContentQueueItem | null {
+    if (this.isSqlite && this.db) {
+      try {
+        const stmt = this.db.prepare(`
+          SELECT * FROM content_queue_v2
+          WHERE status = 'APPROVED'
+          ORDER BY created_at ASC
+          LIMIT 1
+        `);
+        const row = stmt.get() as unknown as ContentQueueItem | undefined;
+        return row || null;
+      } catch {}
+    }
+
+    const approved = Array.from(this.memoryItems.values())
+      .filter((it) => it.status === 'APPROVED')
+      .sort((a, b) => a.created_at - b.created_at);
+
+    return approved.length > 0 ? approved[0] : null;
+  }
+
+  /**
+   * Marks item as DISPATCHED with published URL
+   */
+  public markDispatched(id: string, published_url: string): boolean {
+    return this.updateStatus(id, 'DISPATCHED', published_url);
+  }
+
+  /**
+   * Marks item as FAILED
+   */
+  public markFailed(id: string): boolean {
+    return this.updateStatus(id, 'FAILED');
+  }
+
+  /**
+   * Marks item as APPROVED
+   */
+  public markApproved(id: string): boolean {
+    return this.updateStatus(id, 'APPROVED');
+  }
+
+  /**
+   * Marks item as REJECTED
+   */
+  public markRejected(id: string): boolean {
+    return this.updateStatus(id, 'REJECTED');
+  }
+
+  /**
+   * Clears all queue items
+   */
+  public clearAll(): void {
+    if (this.isSqlite && this.db) {
+      try {
+        this.db.exec(`DELETE FROM content_queue_v2`);
+      } catch {}
+    }
+    this.memoryItems.clear();
+    this.saveJsonDb();
+  }
+
+  /**
    * List all pending items awaiting human review
    */
   public listPending(limit: number = 50): ContentQueueItem[] {
