@@ -243,6 +243,89 @@
     </div>
   </div>
 
+  <!-- Модальное окно: Пакетная генерация промо-контента -->
+  <div id="batchGenerateModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel max-w-md w-full rounded-2xl p-6 border border-slate-700 shadow-2xl space-y-4 font-mono">
+      <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+        <h3 class="font-bold text-base text-indigo-400 flex items-center">
+          <span class="mr-2">⚡</span> Пакетная Генерация Промо-Контента
+        </h3>
+        <button onclick="closeModal('batchGenerateModal')" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 mb-1">ID целевой кампании</label>
+          <input type="text" id="modalBatchCampaignId" value="cmp_trading_au" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-sky-400 font-mono">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 mb-1">Площадка</label>
+            <select id="modalBatchPlatform" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-indigo-300 font-mono">
+              <option value="reddit">Reddit</option>
+              <option value="quora">Quora</option>
+              <option value="medium">Medium</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1">Количество (1-10)</label>
+            <input type="number" id="modalBatchCount" min="1" max="10" value="3" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-slate-200 font-mono">
+          </div>
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1">Ниша / Направление</label>
+          <input type="text" id="modalBatchNiche" value="finance" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-slate-300 font-mono">
+        </div>
+      </div>
+      <div class="flex justify-end space-x-3 pt-2">
+        <button onclick="closeModal('batchGenerateModal')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-mono">
+          Отмена
+        </button>
+        <button onclick="executeModalBatchGenerate()" id="btnSubmitBatchGen" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-xs font-mono transition">
+          🚀 Запустить Генерацию
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно: Мульти-ГЕО Скаффолдинг -->
+  <div id="scaffoldCampaignModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel max-w-md w-full rounded-2xl p-6 border border-slate-700 shadow-2xl space-y-4 font-mono">
+      <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+        <h3 class="font-bold text-base text-emerald-400 flex items-center">
+          <span class="mr-2">🎯</span> Скаффолдинг Мульти-ГЕО Связок
+        </h3>
+        <button onclick="closeModal('scaffoldCampaignModal')" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 mb-1">ID Оффера</label>
+          <input type="text" id="modalScaffoldOfferId" value="crypto_alpha_v1" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-emerald-400 font-mono">
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1">Вертикаль</label>
+          <select id="modalScaffoldVertical" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-sky-300 font-mono">
+            <option value="finance">Финансы / Трейдинг</option>
+            <option value="crypto">Crypto & Web3</option>
+            <option value="vpn">VPN & Privacy</option>
+            <option value="dating">Dating Smartlink</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1">Целевые ГЕО (через запятую)</label>
+          <input type="text" id="modalScaffoldGeos" value="US, DE, AU" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-amber-300 font-mono">
+        </div>
+      </div>
+      <div class="flex justify-end space-x-3 pt-2">
+        <button onclick="closeModal('scaffoldCampaignModal')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-mono">
+          Отмена
+        </button>
+        <button onclick="executeModalScaffoldCampaign()" id="btnSubmitScaffold" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-xs font-mono transition">
+          ⚡ Развернуть Связки
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="max-w-7xl mx-auto w-full space-y-6">
 
     <!-- Верхний командный заголовок -->
@@ -285,6 +368,50 @@
         </div>
       </div>
     </header>
+
+    <!-- ⚡ COMMAND ACTION BAR & QUICK TRIGGER DECK -->
+    <section class="glass-panel p-3.5 rounded-2xl border border-slate-700/80 bg-slate-900/90 backdrop-blur-xl shadow-2xl">
+      <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 font-mono">
+        <div class="flex items-center space-x-2.5 px-3 py-1.5 bg-slate-950/80 border border-slate-800 rounded-xl">
+          <span id="deckStatusDot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 status-pulse"></span>
+          <span class="text-[11px] uppercase tracking-wider text-slate-300">
+            DECK: <span id="deckStatusText" class="text-emerald-400 font-bold">READY</span>
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 flex-1">
+          <!-- 1. Сгенерировать батч -->
+          <button onclick="openModal('batchGenerateModal')" id="btnActBatch" class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-500/40 hover:border-indigo-400 text-indigo-300 transition-all active:scale-95">
+            <span>⚡ Сгенерировать батч</span>
+          </button>
+
+          <!-- 2. Форсировать постинг -->
+          <button onclick="triggerDirectAction('force-dispatch', '🚀 Форсировать Постинг')" id="btnActDispatch" class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-sky-950/80 hover:bg-sky-900 border border-sky-500/40 hover:border-sky-400 text-sky-300 transition-all active:scale-95">
+            <span>🚀 Форсировать постинг</span>
+          </button>
+
+          <!-- 3. Скаут офферов -->
+          <button onclick="triggerDirectAction('trigger-scout', '🛰️ Скаут Офферов')" id="btnActScout" class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-amber-950/80 hover:bg-amber-900 border border-amber-500/40 hover:border-amber-400 text-amber-300 transition-all active:scale-95">
+            <span>🛰️ Запустить скаут</span>
+          </button>
+
+          <!-- 4. MAB Эволюция & Калибровка -->
+          <button onclick="triggerDirectAction('calibrate-prompts', '🧬 MAB Эволюция')" id="btnActCalibrate" class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-purple-950/80 hover:bg-purple-900 border border-purple-500/40 hover:border-purple-400 text-purple-300 transition-all active:scale-95">
+            <span>🧬 MAB Эволюция</span>
+          </button>
+
+          <!-- 5. Мульти-ГЕО скаффолдинг -->
+          <button onclick="openModal('scaffoldCampaignModal')" id="btnActScaffold" class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/40 hover:border-emerald-400 text-emerald-300 transition-all active:scale-95">
+            <span>🎯 Мульти-ГЕО</span>
+          </button>
+
+          <!-- 6. E-STOP Быстрый переключатель -->
+          <button onclick="toggleEstopState()" id="btnActEstop" class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-rose-950/80 hover:bg-rose-900 border border-rose-500/50 hover:border-rose-400 text-rose-300 transition-all active:scale-95">
+            <span>🚨 E-STOP / СБРОС</span>
+          </button>
+        </div>
+      </div>
+    </section>
 
     <!-- A. Верхняя панель ключевых показателей (KPI) -->
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -3139,6 +3266,66 @@
       } catch (err) {
         showToast('Ошибка фиксации трафика', 'error');
       }
+    }
+
+    // ----------------------------------------------------
+    // Command Action Bar & Quick Trigger Deck Handlers
+    // ----------------------------------------------------
+    async function triggerDirectAction(endpoint, actionName, body = {}) {
+      showToast(`${actionName}: Запуск операции...`, 'info');
+      const dot = document.getElementById('deckStatusDot');
+      const txt = document.getElementById('deckStatusText');
+      if (dot) { dot.className = 'w-2.5 h-2.5 rounded-full bg-amber-400 animate-spin'; }
+      if (txt) { txt.className = 'text-amber-400 font-bold'; txt.innerText = 'EXECUTING...'; }
+
+      try {
+        const res = await apiFetch(`/api/actions/${endpoint}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        const data = await res.json();
+        if (res.ok && data.success !== false) {
+          showToast(`✅ ${actionName}: ${data.message || 'Успешно выполнено'}`, 'success');
+          refreshAll();
+        } else {
+          showToast(`❌ ${actionName}: ${data.error || data.message || 'Ошибка выполнения'}`, 'error');
+        }
+      } catch (err) {
+        showToast(`❌ ${actionName}: ${err.message}`, 'error');
+      } finally {
+        if (dot) { dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400 status-pulse'; }
+        if (txt) { txt.className = 'text-emerald-400 font-bold'; txt.innerText = 'READY'; }
+      }
+    }
+
+    async function executeModalBatchGenerate() {
+      const campaignId = document.getElementById('modalBatchCampaignId')?.value || 'cmp_trading_au';
+      const platform = document.getElementById('modalBatchPlatform')?.value || 'reddit';
+      const count = parseInt(document.getElementById('modalBatchCount')?.value || '3', 10);
+      const niche = document.getElementById('modalBatchNiche')?.value || 'finance';
+
+      closeModal('batchGenerateModal');
+      await triggerDirectAction('generate-batch', '⚡ Генерация Батча', {
+        campaignId,
+        platform,
+        count,
+        niche
+      });
+    }
+
+    async function executeModalScaffoldCampaign() {
+      const offerId = document.getElementById('modalScaffoldOfferId')?.value || 'crypto_alpha_v1';
+      const vertical = document.getElementById('modalScaffoldVertical')?.value || 'finance';
+      const rawGeos = document.getElementById('modalScaffoldGeos')?.value || 'US, DE, AU';
+      const geos = rawGeos.split(',').map(s => s.trim().toUpperCase()).filter(Boolean);
+
+      closeModal('scaffoldCampaignModal');
+      await triggerDirectAction('scaffold-campaign', '🎯 Мульти-ГЕО Скаффолдинг', {
+        offerId,
+        vertical,
+        geos
+      });
     }
 
     // ----------------------------------------------------
