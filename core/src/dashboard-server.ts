@@ -894,14 +894,63 @@ app.post('/api/queue/items/:id/status', async (req, res) => {
   }
 });
 
+app.post('/api/queue/items/:id/reroll', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { ContentQueueRepository } = await import('./db/queueRepository.js');
+    const { CopywriterAgent } = await import('./agents/copy.agent.js');
+    const { ComplianceGuardAgent } = await import('./agents/guard.agent.js');
+
+    const repo = ContentQueueRepository.getInstance();
+    const item = repo.getItem(id);
+
+    if (!item) {
+      return res.status(404).json({ success: false, error: 'Queue item not found' });
+    }
+
+    const copywriter = new CopywriterAgent();
+    const guard = new ComplianceGuardAgent();
+
+    const creative = await copywriter.execute(
+      {
+        platform: (item.target_platform as any) || 'reddit',
+        sourceUrl: '',
+        topicTitle: item.hook,
+        sourceText: item.body,
+        targetAudiencePain: item.hook,
+        metadata: { campaign_id: item.campaign_id, network: item.network },
+      },
+      'dating-quiz-v1'
+    );
+
+    const report = await guard.evaluate(creative, (item.target_platform as any) || 'reddit');
+    const riskScore = Math.max(5, Math.min(95, 100 - report.score));
+
+    repo.updateItem(id, {
+      hook: creative.headline,
+      body: creative.body,
+      stealth_cta: creative.callToAction,
+      risk_score: riskScore,
+      status: report.passed ? 'PENDING_APPROVAL' : 'REJECTED',
+    });
+
+    const updated = repo.getItem(id);
+    res.json({ success: true, item: updated, report });
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : String(err);
+    res.status(500).json({ success: false, error: errorMsg });
+  }
+});
+
 app.delete('/api/queue/items/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { ContentQueueRepository } = await import('./db/queueRepository.js');
     ContentQueueRepository.getInstance().deleteItem(id);
     res.json({ success: true, id });
-  } catch (err: any) {
-    res.status(500).json({ success: false, error: err.message });
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : String(err);
+    res.status(500).json({ success: false, error: errorMsg });
   }
 });
 

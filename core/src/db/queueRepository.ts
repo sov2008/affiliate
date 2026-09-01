@@ -303,6 +303,61 @@ export class ContentQueueRepository {
   }
 
   /**
+   * Get single item by ID
+   */
+  public getItem(id: string): ContentQueueItem | null {
+    if (this.isSqlite && this.db) {
+      try {
+        const stmt = this.db.prepare(`SELECT * FROM content_queue_v2 WHERE id = ?`);
+        const row = stmt.get(id) as unknown as ContentQueueItem | undefined;
+        return row || null;
+      } catch {}
+    }
+    return this.memoryItems.get(id) || null;
+  }
+
+  /**
+   * Update item fields
+   */
+  public updateItem(id: string, partial: Partial<ContentQueueItem>): boolean {
+    const item = this.getItem(id);
+    if (!item) return false;
+
+    const updated: ContentQueueItem = {
+      ...item,
+      ...partial,
+      updated_at: Date.now(),
+    };
+
+    if (this.isSqlite && this.db) {
+      try {
+        const stmt = this.db.prepare(`
+          UPDATE content_queue_v2
+          SET hook = ?, body = ?, stealth_cta = ?, tracking_url = ?, image_path = ?, risk_score = ?, status = ?, published_url = ?, updated_at = ?
+          WHERE id = ?
+        `);
+        stmt.run(
+          updated.hook,
+          updated.body,
+          updated.stealth_cta,
+          updated.tracking_url,
+          updated.image_path,
+          updated.risk_score,
+          updated.status,
+          updated.published_url || null,
+          updated.updated_at,
+          id
+        );
+        return true;
+      } catch {}
+    }
+
+    this.memoryItems.set(id, updated);
+    this.saveJsonDb();
+    return true;
+  }
+
+  /**
    * Update item status
    */
   public updateStatus(id: string, status: QueueStatus, published_url?: string): boolean {

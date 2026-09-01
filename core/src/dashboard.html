@@ -21,23 +21,56 @@
     }
   </script>
   <style>
-    body { background-color: #080c14; color: #f1f5f9; }
-    .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-    .glow-border:hover { border-color: rgba(56, 189, 248, 0.4); box-shadow: 0 0 20px rgba(56, 189, 248, 0.15); }
+    :root {
+      --bg-main: #0a0e14;
+      --bg-card: #121820;
+      --border-main: #1e293b;
+      --neon-green: #00FF66;
+      --cyber-amber: #FFB800;
+      --plasma-red: #FF3366;
+      --electric-cyan: #00E5FF;
+    }
+    body {
+      background-color: #0a0e14;
+      color: #f1f5f9;
+      font-family: 'JetBrains Mono', monospace;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(0, 229, 255, 0.05) 0%, transparent 65%),
+        radial-gradient(circle at 100% 100%, rgba(0, 255, 102, 0.03) 0%, transparent 50%);
+    }
+    .glass-panel {
+      background: #121820;
+      backdrop-filter: blur(16px);
+      border: 1px solid #1e293b;
+      box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.65);
+    }
+    .glow-border:hover {
+      border-color: rgba(0, 229, 255, 0.45);
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.15);
+    }
     .term-scroll::-webkit-scrollbar { width: 6px; }
-    .term-scroll::-webkit-scrollbar-track { background: #090d16; }
-    .term-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
-    .term-scroll::-webkit-scrollbar-thumb:hover { background: #475569; }
+    .term-scroll::-webkit-scrollbar-track { background: #0a0e14; }
+    .term-scroll::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+    .term-scroll::-webkit-scrollbar-thumb:hover { background: #334155; }
     .status-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+    .cyber-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+    .badge-green { background: rgba(0, 255, 102, 0.12); color: #00FF66; border: 1px solid rgba(0, 255, 102, 0.4); }
+    .badge-amber { background: rgba(255, 184, 0, 0.12); color: #FFB800; border: 1px solid rgba(255, 184, 0, 0.4); }
+    .badge-red { background: rgba(255, 51, 102, 0.12); color: #FF3366; border: 1px solid rgba(255, 51, 102, 0.4); }
+    .badge-cyan { background: rgba(0, 229, 255, 0.12); color: #00E5FF; border: 1px solid rgba(0, 229, 255, 0.4); }
     .resize-y { resize: vertical; overflow-y: auto; }
     .resize-y::-webkit-resizer {
-      background: linear-gradient(135deg, transparent 50%, #38bdf8 50%);
+      background: linear-gradient(135deg, transparent 50%, #00E5FF 50%);
       border-bottom-right-radius: 6px;
     }
   </style>
 </head>
-<body class="p-4 sm:p-6 lg:p-8 font-sans antialiased min-h-screen flex flex-col justify-between">
+<body class="p-4 sm:p-6 lg:p-8 font-mono antialiased min-h-screen flex flex-col justify-between">
 
   <!-- Контейнер всплывающих уведомлений (Toast) -->
   <div id="toastContainer" class="fixed top-6 right-6 z-50 space-y-3 pointer-events-none"></div>
@@ -1815,54 +1848,87 @@
 
         container.innerHTML = items.map(it => {
           const statusColors = {
-            PENDING_APPROVAL: 'bg-amber-950 text-amber-300 border-amber-500/40',
-            APPROVED: 'bg-emerald-950 text-emerald-300 border-emerald-500/40',
-            DISPATCHED: 'bg-sky-950 text-sky-300 border-sky-500/40',
-            REJECTED: 'bg-rose-950 text-rose-300 border-rose-500/40',
-            FAILED: 'bg-red-950 text-red-300 border-red-500/40'
+            PENDING_APPROVAL: 'badge-amber',
+            APPROVED: 'badge-green',
+            DISPATCHED: 'badge-cyan',
+            REJECTED: 'badge-red',
+            REJECTED_MALFORMED: 'badge-red',
+            FAILED: 'badge-red'
           };
-          const badgeClass = statusColors[it.status] || 'bg-slate-900 text-slate-300';
+          const badgeClass = statusColors[it.status] || 'badge-cyan';
+          const riskColor = it.risk_score < 30 ? '#00FF66' : it.risk_score < 70 ? '#FFB800' : '#FF3366';
 
           return `
-            <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4 flex flex-col justify-between space-y-3 hover:border-slate-700 transition">
+            <div class="glass-panel rounded-xl p-4 flex flex-col justify-between space-y-3 hover:border-sky-500/40 glow-border transition min-h-[220px]">
               <div>
                 <div class="flex justify-between items-start gap-2">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${badgeClass}">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold ${badgeClass}">
                     ${it.status}
                   </span>
                   <span class="text-[10px] text-slate-500 uppercase">${it.network.toUpperCase()} • ${it.target_platform.toUpperCase()}</span>
                 </div>
-                <div class="mt-2 text-xs font-bold text-slate-200 line-clamp-2">
+                <div class="mt-2.5 text-xs font-bold text-slate-100 line-clamp-2">
                   "${it.hook}"
                 </div>
-                <div class="mt-1 text-[11px] text-slate-400 line-clamp-3 leading-relaxed">
+                <div class="mt-1.5 text-[11px] text-slate-400 line-clamp-3 leading-relaxed">
                   ${it.body}
                 </div>
-                <div class="mt-2 text-[10px] text-emerald-400 bg-slate-900 p-1.5 rounded border border-slate-800/80 line-clamp-2">
-                  🎯 <strong>CTA:</strong> ${it.stealth_cta}
+                <div class="mt-2 text-[10px] text-emerald-300 bg-[#0a0e14] p-2 rounded border border-slate-800 line-clamp-2">
+                  🎯 <strong class="text-sky-300">CTA:</strong> ${it.stealth_cta}
                 </div>
               </div>
 
-              <div class="pt-2 border-t border-slate-900 flex justify-between items-center text-[11px]">
-                <span class="text-slate-500">Риск: <strong class="${it.risk_score < 25 ? 'text-emerald-400' : 'text-amber-400'}">${it.risk_score}/100</strong></span>
-                <div class="flex space-x-1.5">
-                  ${it.status === 'PENDING_APPROVAL' ? `
-                    <button onclick="setQueueStatus('${it.id}', 'APPROVED')" class="px-2 py-1 bg-emerald-600/30 hover:bg-emerald-600 text-emerald-300 hover:text-white rounded transition text-[10px] font-bold">
-                      ✓ Одобрить
+              <div class="space-y-2 pt-2 border-t border-[#1e293b]">
+                <div class="space-y-1">
+                  <div class="flex justify-between text-[10px] text-slate-400">
+                    <span>Риск блокировки (0-100):</span>
+                    <strong style="color: ${riskColor}">${it.risk_score}/100</strong>
+                  </div>
+                  <div class="w-full bg-[#0a0e14] h-1.5 rounded-full overflow-hidden border border-[#1e293b]">
+                    <div class="h-full rounded-full transition-all duration-500" style="width: ${it.risk_score}%; background: ${riskColor}"></div>
+                  </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-1 text-[11px]">
+                  <span class="text-[10px] text-slate-500">${new Date(it.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                  <div class="flex items-center space-x-1.5">
+                    ${it.status === 'PENDING_APPROVAL' ? `
+                      <button onclick="setQueueStatus('${it.id}', 'APPROVED')" title="Одобрить для постинга" class="px-2 py-1 bg-[#00FF66]/20 hover:bg-[#00FF66] text-[#00FF66] hover:text-black rounded transition text-[10px] font-bold border border-[#00FF66]/40">
+                        ✓ Одобрить
+                      </button>
+                      <button onclick="rerollQueuePost('${it.id}')" title="Сгенерировать другой вариант" class="px-2 py-1 bg-[#FFB800]/20 hover:bg-[#FFB800] text-[#FFB800] hover:text-black rounded transition text-[10px] font-bold border border-[#FFB800]/40">
+                        🔄 Re-roll
+                      </button>
+                      <button onclick="setQueueStatus('${it.id}', 'REJECTED')" title="Отклонить" class="px-2 py-1 bg-[#FF3366]/20 hover:bg-[#FF3366] text-[#FF3366] hover:text-white rounded transition text-[10px] font-bold border border-[#FF3366]/40">
+                        ✕
+                      </button>
+                    ` : ''}
+                    <button onclick="deleteQueuePost('${it.id}')" title="Удалить из базы" class="px-2 py-1 bg-[#121820] hover:bg-[#FF3366]/40 text-slate-400 hover:text-white rounded transition text-[10px] border border-[#1e293b]">
+                      🗑️
                     </button>
-                    <button onclick="setQueueStatus('${it.id}', 'REJECTED')" class="px-2 py-1 bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white rounded transition text-[10px]">
-                      ✕
-                    </button>
-                  ` : ''}
-                  <button onclick="deleteQueuePost('${it.id}')" class="px-2 py-1 bg-slate-800 hover:bg-rose-900/60 text-slate-400 hover:text-rose-200 rounded transition text-[10px]">
-                    🗑️
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>
           `;
         }).join('');
       } catch (e) {}
+    }
+
+    async function rerollQueuePost(id) {
+      try {
+        showToast('🔄 Перегенерация креатива через Copywriter & ComplianceGuard...', 'info');
+        const res = await apiFetch(`/api/queue/items/${id}/reroll`, { method: 'POST' });
+        const data = await res.json();
+        if (data.success) {
+          showToast('✨ Креатив успешно перегенерирован!', 'success');
+          loadQueueItems();
+        } else {
+          showToast(`❌ Ошибка реролла: ${data.error}`, 'error');
+        }
+      } catch (err) {
+        showToast(`❌ Ошибка: ${err.message}`, 'error');
+      }
     }
 
     async function setQueueStatus(id, status) {
