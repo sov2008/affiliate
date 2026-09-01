@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="ru" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Affiliate Ops Command Center | Executive Mission Control</title>
+  <title>Affiliate Ops // Центр Управления и Мониторинга</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -33,49 +33,49 @@
 </head>
 <body class="p-4 sm:p-6 lg:p-8 font-sans antialiased min-h-screen flex flex-col justify-between">
 
-  <!-- Toast Notification Container -->
+  <!-- Контейнер всплывающих уведомлений (Toast) -->
   <div id="toastContainer" class="fixed top-6 right-6 z-50 space-y-3 pointer-events-none"></div>
 
-  <!-- Modal for Auto-Apply -->
+  <!-- Модальное окно: Автоподача заявок MyLead -->
   <div id="autoApplyModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="glass-panel max-w-md w-full rounded-2xl p-6 border border-slate-700 shadow-2xl space-y-4">
       <div class="flex justify-between items-center pb-2 border-b border-slate-800">
         <h3 class="font-bold text-lg text-sky-400 flex items-center font-mono">
-          <span class="mr-2">🎯</span> Launch MyLead Auto-Apply
+          <span class="mr-2">🎯</span> Авто-подача заявки MyLead
         </h3>
         <button onclick="closeModal('autoApplyModal')" class="text-slate-400 hover:text-white text-lg">✕</button>
       </div>
-      <p class="text-xs text-slate-400">Enter the target campaign ID to automatically submit traffic source questionnaire via Playwright.</p>
+      <p class="text-xs text-slate-400">Введите ID целевой кампании для автоматической отправки опросника источников трафика через Playwright.</p>
       <div>
-        <label class="block text-xs font-mono text-slate-300 mb-1">Campaign ID / Offer Slug</label>
+        <label class="block text-xs font-mono text-slate-300 mb-1">ID кампании / Ссылка оффера</label>
         <input type="text" id="modalCampaignId" value="cmp_crypto_bot" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-sky-300 font-mono focus:outline-none focus:border-sky-500">
       </div>
       <div class="flex space-x-3 pt-2">
         <button onclick="executeModalAutoApply()" class="flex-1 bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 rounded-lg text-sm transition font-mono">
-          Submit Application
+          Отправить заявку
         </button>
         <button onclick="closeModal('autoApplyModal')" class="px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-lg text-sm transition">
-          Cancel
+          Отмена
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Modal for Export Ads Package -->
+  <!-- Модальное окно: Экспорт рекламных кампаний -->
   <div id="adsExportModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="glass-panel max-w-2xl w-full rounded-2xl p-6 border border-slate-700 shadow-2xl space-y-4">
       <div class="flex justify-between items-center pb-2 border-b border-slate-800">
         <h3 class="font-bold text-lg text-emerald-400 flex items-center font-mono">
-          <span class="mr-2">📦</span> Ads Campaign Exporter: <span id="exportModalCampTitle" class="text-sky-300 ml-2 font-mono"></span>
+          <span class="mr-2">📦</span> Экспорт кампаний: <span id="exportModalCampTitle" class="text-sky-300 ml-2 font-mono"></span>
         </h3>
         <button onclick="closeModal('adsExportModal')" class="text-slate-400 hover:text-white text-lg">✕</button>
       </div>
       
       <div class="flex space-x-2 border-b border-slate-800 pb-2 text-xs font-mono">
         <button onclick="switchExportTab('google')" id="tabGoogle" class="px-3 py-1.5 rounded bg-emerald-600 text-white font-bold">Google Ads (CSV)</button>
-        <button onclick="switchExportTab('script')" id="tabScript" class="px-3 py-1.5 rounded bg-slate-800 text-slate-300 hover:text-white">🤖 Google Ads Script (JS)</button>
-        <button onclick="switchExportTab('native')" id="tabNative" class="px-3 py-1.5 rounded bg-slate-800 text-slate-300 hover:text-white">Native Ads (Taboola/MGID)</button>
-        <button onclick="switchExportTab('json')" id="tabJson" class="px-3 py-1.5 rounded bg-slate-800 text-slate-300 hover:text-white">JSON Package</button>
+        <button onclick="switchExportTab('script')" id="tabScript" class="px-3 py-1.5 rounded bg-slate-800 text-slate-300 hover:text-white">🤖 Скрипт Google Ads (JS)</button>
+        <button onclick="switchExportTab('native')" id="tabNative" class="px-3 py-1.5 rounded bg-slate-800 text-slate-300 hover:text-white">Тизерные сети (Taboola/MGID)</button>
+        <button onclick="switchExportTab('json')" id="tabJson" class="px-3 py-1.5 rounded bg-slate-800 text-slate-300 hover:text-white">JSON Пакет</button>
       </div>
 
       <div class="relative">
@@ -84,121 +84,121 @@
 
       <div class="flex justify-end space-x-3 pt-2">
         <button onclick="copyExportContent()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-sky-300 font-mono rounded-lg text-xs transition">
-          📋 Copy to Clipboard
+          📋 Скопировать в буфер
         </button>
         <button onclick="downloadExportFile()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-bold rounded-lg text-xs transition">
-          💾 Download File
+          💾 Скачать файл
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Modal for Ingest Promo Materials -->
+  <!-- Модальное окно: Импорт промо-материалов -->
   <div id="ingestPromoModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="glass-panel max-w-xl w-full rounded-2xl p-6 border border-slate-700 shadow-2xl space-y-4 font-mono">
       <div class="flex justify-between items-center pb-2 border-b border-slate-800">
         <h3 class="font-bold text-base text-indigo-400 flex items-center">
-          <span class="mr-2">📥</span> Ingest Official Promo Assets: <span id="ingestModalCampTitle" class="text-sky-300 ml-2"></span>
+          <span class="mr-2">📥</span> Импорт промо-материалов: <span id="ingestModalCampTitle" class="text-sky-300 ml-2"></span>
         </h3>
         <button onclick="closeModal('ingestPromoModal')" class="text-slate-400 hover:text-white text-lg">✕</button>
       </div>
 
       <div class="space-y-3 text-xs">
         <div>
-          <label class="block text-slate-300 mb-1">Target Campaign ID</label>
+          <label class="block text-slate-300 mb-1">ID целевой кампании</label>
           <input type="text" id="ingestCampId" readonly class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-sky-400">
         </div>
 
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="block text-slate-300 mb-1">Ingestion Mode</label>
+            <label class="block text-slate-300 mb-1">Режим импорта</label>
             <select id="ingestMode" onchange="toggleIngestMode(this.value)" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-indigo-300">
-              <option value="raw_html">Paste Raw HTML</option>
-              <option value="url">Fetch Remote URL</option>
+              <option value="raw_html">Вставить чистый HTML</option>
+              <option value="url">Загрузить по URL</option>
             </select>
           </div>
           <div>
-            <label class="block text-slate-300 mb-1">Variant Target</label>
+            <label class="block text-slate-300 mb-1">Целевой вариант</label>
             <input type="text" id="ingestVariant" value="v_promo" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-slate-200">
           </div>
         </div>
 
         <div id="ingestUrlGroup" class="hidden">
-          <label class="block text-slate-300 mb-1">Remote Landing Page URL</label>
+          <label class="block text-slate-300 mb-1">URL удаленного лендинга</label>
           <input type="url" id="ingestUrl" placeholder="https://promo-network.com/land/offer1" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-sky-300">
         </div>
 
         <div id="ingestHtmlGroup">
-          <label class="block text-slate-300 mb-1">Raw HTML Template (Auto-Sanitized)</label>
-          <textarea id="ingestHtml" rows="6" placeholder="Paste landing page HTML here with buttons, text, and styles..." class="w-full bg-slate-950 border border-slate-800 rounded p-3 text-[11px] text-emerald-300"></textarea>
+          <label class="block text-slate-300 mb-1">HTML-шаблон лендинга (с автоочисткой)</label>
+          <textarea id="ingestHtml" rows="6" placeholder="Вставьте сюда HTML лендинга с кнопками, текстами и стилями..." class="w-full bg-slate-950 border border-slate-800 rounded p-3 text-[11px] text-emerald-300"></textarea>
         </div>
       </div>
 
       <div class="flex justify-end space-x-3 pt-2">
         <button onclick="closeModal('ingestPromoModal')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs">
-          Cancel
+          Отмена
         </button>
         <button onclick="submitPromoIngest()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-xs">
-          🚀 Ingest & Refactor Pre-lander
+          🚀 Импортировать и адаптировать прелендинг
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Modal for Autonomous Visual QA Inspector -->
+  <!-- Модальное окно: Автономный визуальный QA-аудит -->
   <div id="visualQaModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="glass-panel max-w-2xl w-full rounded-2xl p-6 border border-slate-700 shadow-2xl space-y-4 font-mono">
       <div class="flex justify-between items-center pb-2 border-b border-slate-800">
         <h3 class="font-bold text-base text-sky-400 flex items-center">
-          <span class="mr-2">🔍</span> Visual QA Inspector: <span id="qaModalCampTitle" class="text-emerald-300 ml-2"></span>
+          <span class="mr-2">🔍</span> Визуальный аудит прелендинга: <span id="qaModalCampTitle" class="text-emerald-300 ml-2"></span>
         </h3>
         <button onclick="closeModal('visualQaModal')" class="text-slate-400 hover:text-white text-lg">✕</button>
       </div>
 
-      <!-- QA Score & Status Header -->
+      <!-- QA Оценка & Статус -->
       <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
         <div>
-          <div class="text-[11px] text-slate-400 uppercase">AffOps Visual Conversion Score</div>
+          <div class="text-[11px] text-slate-400 uppercase">Оценка визуальной конверсии AffOps</div>
           <div class="flex items-baseline space-x-2 mt-1">
             <span id="qaScoreDisplay" class="text-3xl font-extrabold text-emerald-400">--</span>
             <span class="text-xs text-slate-500">/ 100</span>
           </div>
         </div>
         <div id="qaBadgeDisplay" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 border border-slate-700 text-slate-400">
-          Standby
+          Ожидание
         </div>
       </div>
 
-      <!-- Rubric Check Matrix -->
+      <!-- Матрица критериев качества -->
       <div class="grid grid-cols-2 gap-2 text-xs">
         <div id="checkAtf" class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center space-x-2">
-          <span>📱 Above-the-Fold Step 1</span>
+          <span>📱 Шаг 1 в первом экране (Above-the-Fold)</span>
         </div>
         <div id="checkTouch" class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center space-x-2">
-          <span>🔤 Touch Targets (≥48px)</span>
+          <span>🔤 Кнопки и цели кликов (≥48px)</span>
         </div>
         <div id="checkPolish" class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center space-x-2">
-          <span>✨ Zero Broken Assets</span>
+          <span>✨ Без битых изображений и ресурсов</span>
         </div>
         <div id="checkTokens" class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center space-x-2">
-          <span>🌍 Resolved Edge Tokens</span>
+          <span>🌍 Корректные токены и гео</span>
         </div>
       </div>
 
-      <!-- Recommendations / Auto-Fix Output -->
+      <!-- Лог аудита и рекомендации -->
       <div>
-        <label class="block text-slate-300 text-xs mb-1">Inspector Log & Recommendations</label>
+        <label class="block text-slate-300 text-xs mb-1">Лог аудита и рекомендации</label>
         <div id="qaLogOutput" class="h-28 bg-slate-950 border border-slate-800 rounded-lg p-3 text-[11px] text-sky-300 overflow-y-auto term-scroll whitespace-pre-wrap leading-relaxed">
-          Ready to inspect multi-viewport renders (iPhone 14 Pro, Pixel 7, Desktop FHD)...
+          Готов к анализу адаптивности (iPhone 14 Pro, Pixel 7, Desktop FHD)...
         </div>
       </div>
 
       <div class="flex justify-end space-x-3 pt-2">
         <button onclick="closeModal('visualQaModal')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs">
-          Close
+          Закрыть
         </button>
         <button onclick="executeVisualQaInspection()" id="btnRunQa" class="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-lg text-xs transition">
-          ⚡ Run Multi-Viewport Inspection
+          ⚡ Запустить мульти-экранный аудит
         </button>
       </div>
     </div>
@@ -206,20 +206,20 @@
 
   <div class="max-w-7xl mx-auto w-full space-y-6">
 
-    <!-- Top Mission Control Header -->
+    <!-- Верхний командный заголовок -->
     <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-800/80">
       <div>
         <div class="flex items-center space-x-3">
           <div class="w-3 h-3 rounded-full bg-emerald-400 status-pulse"></div>
           <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight font-mono bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-indigo-300 to-emerald-400">
-            AFFILIATE OPS // COMMAND CENTER
+            ЦЕНТР УПРАВЛЕНИЯ // AFFILIATE OPS
           </h1>
-          <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-indigo-950 text-indigo-300 border border-indigo-500/40">🔒 AUTH PROTECTED</span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-indigo-950 text-indigo-300 border border-indigo-500/40">🔒 ЗАЩИЩЕНО АВТОРИЗАЦИЕЙ</span>
         </div>
-        <p class="text-xs text-slate-400 mt-1 font-mono">Autonomous Revenue Engine • Droplet Node: <span class="text-sky-400">178.128.199.28:5000</span></p>
+        <p class="text-xs text-slate-400 mt-1 font-mono">Автономный движок монетизации • Серверный узел: <span class="text-sky-400">178.128.199.28:5000</span></p>
       </div>
 
-      <!-- Network Health Indicators -->
+      <!-- Индикаторы состояния сетей -->
       <div class="flex items-center space-x-2 text-xs font-mono">
         <div class="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg flex items-center space-x-2">
           <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
@@ -239,108 +239,108 @@
       </div>
     </header>
 
-    <!-- A. Top Executive KPI Bar -->
+    <!-- A. Верхняя панель ключевых показателей (KPI) -->
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
       
-      <!-- Total Revenue -->
+      <!-- Общий доход -->
       <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
         <div class="text-xs font-mono text-slate-400 uppercase tracking-wider flex justify-between">
-          <span>Gross Revenue</span>
+          <span>Выручка / Доход</span>
           <span class="text-emerald-400 font-bold" id="revDelta">+18.4%</span>
         </div>
         <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-2 font-mono" id="kpiTotalRev">$0.00</div>
-        <div class="text-[10px] text-slate-500 font-mono mt-1">Today: <span class="text-slate-300" id="kpiTodayRev">$0.00</span></div>
+        <div class="text-[10px] text-slate-500 font-mono mt-1">Сегодня: <span class="text-slate-300" id="kpiTodayRev">$0.00</span></div>
       </div>
 
-      <!-- Total Clicks -->
+      <!-- Всего кликов -->
       <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
-        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Total Clicks</div>
+        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Всего кликов</div>
         <div class="text-2xl sm:text-3xl font-extrabold text-sky-400 mt-2 font-mono" id="kpiTotalClicks">0</div>
-        <div class="text-[10px] text-slate-500 font-mono mt-1">Edge Ingested (24h)</div>
+        <div class="text-[10px] text-slate-500 font-mono mt-1">Принято на Edge (24ч)</div>
       </div>
 
-      <!-- Conversions / Leads -->
+      <!-- Конверсии / Лиды -->
       <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
-        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Total Leads</div>
+        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Всего лидов</div>
         <div class="text-2xl sm:text-3xl font-extrabold text-indigo-400 mt-2 font-mono" id="kpiTotalLeads">0</div>
-        <div class="text-[10px] text-slate-500 font-mono mt-1">Status: Approved / Paid</div>
+        <div class="text-[10px] text-slate-500 font-mono mt-1">Статус: Подтверждено / Оплачено</div>
       </div>
 
-      <!-- Conversion Rate (CR) -->
+      <!-- Конверсия (CR) -->
       <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
-        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Global CR</div>
+        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Общий CR</div>
         <div class="text-2xl sm:text-3xl font-extrabold text-purple-400 mt-2 font-mono" id="kpiGlobalCR">0.00%</div>
-        <div class="text-[10px] text-slate-500 font-mono mt-1">Avg EPC: <span class="text-slate-300" id="kpiEPC">$0.00</span></div>
+        <div class="text-[10px] text-slate-500 font-mono mt-1">Средний EPC: <span class="text-slate-300" id="kpiEPC">$0.00</span></div>
       </div>
 
-      <!-- Active Campaigns -->
+      <!-- Активные кампании -->
       <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
-        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Campaigns</div>
+        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Кампании</div>
         <div class="text-2xl sm:text-3xl font-extrabold text-amber-400 mt-2 font-mono" id="kpiActiveCamps">3</div>
-        <div class="text-[10px] text-slate-500 font-mono mt-1">Active: <span class="text-emerald-400" id="kpiActiveCount">3</span> | Paused: <span class="text-rose-400" id="kpiPausedCount">0</span></div>
+        <div class="text-[10px] text-slate-500 font-mono mt-1">Активно: <span class="text-emerald-400" id="kpiActiveCount">3</span> | Пауза: <span class="text-rose-400" id="kpiPausedCount">0</span></div>
       </div>
 
-      <!-- Autopilot Status -->
+      <!-- Статус автопилота -->
       <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
         <div class="text-xs font-mono text-slate-400 uppercase tracking-wider flex justify-between">
-          <span>Autopilot</span>
+          <span>Автопилот</span>
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
         </div>
         <div class="text-lg font-bold text-emerald-400 mt-2 font-mono flex items-center">
-          <span>DAEMON ACTIVE</span>
+          <span>ДЕМОН АКТИВЕН</span>
         </div>
-        <div class="text-[10px] text-slate-500 font-mono mt-1">Next Cycle: <span class="text-sky-300" id="daemonCountdown">26:40</span></div>
+        <div class="text-[10px] text-slate-500 font-mono mt-1">След. цикл: <span class="text-sky-300" id="daemonCountdown">26:40</span></div>
       </div>
     </div>
 
-    <!-- B. Interactive Action Matrix -->
+    <!-- B. Операционная матрица команд -->
     <div class="glass-panel p-4 rounded-xl border border-slate-800">
       <div class="flex items-center justify-between mb-3">
         <h2 class="text-xs font-mono uppercase tracking-wider text-sky-400 font-semibold flex items-center">
-          <span class="mr-2">⚡</span> Operational Command Matrix
+          <span class="mr-2">⚡</span> Операционная матрица команд
         </h2>
-        <span class="text-[11px] text-slate-500 font-mono">Direct Execution Triggers</span>
+        <span class="text-[11px] text-slate-500 font-mono">Быстрые действия</span>
       </div>
 
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 font-mono text-xs">
         
-        <button onclick="triggerAction('sync-kv', '🔄 Forcing Bidirectional KV Sync...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-sky-300 font-medium transition hover:border-sky-500 active:scale-95">
-          <span class="mr-2">🔄</span> Force KV Sync
+        <button onclick="triggerAction('sync-kv', '🔄 Принудительная синхронизация KV...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-sky-300 font-medium transition hover:border-sky-500 active:scale-95">
+          <span class="mr-2">🔄</span> Синхронизация KV
         </button>
 
-        <button onclick="triggerAction('run-autopilot', '🤖 Launching Optimizer Cycle...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-purple-300 font-medium transition hover:border-purple-500 active:scale-95">
-          <span class="mr-2">🤖</span> Run Optimizer
+        <button onclick="triggerAction('run-autopilot', '🤖 Запуск цикла оптимизатора...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-purple-300 font-medium transition hover:border-purple-500 active:scale-95">
+          <span class="mr-2">🤖</span> Запуск оптимизатора
         </button>
 
-        <button onclick="triggerAction('deploy-pages', '🚀 Deploying Pages to Cloudflare Edge...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-emerald-300 font-medium transition hover:border-emerald-500 active:scale-95">
-          <span class="mr-2">🚀</span> Deploy Pages
+        <button onclick="triggerAction('deploy-pages', '🚀 Деплой страниц на Cloudflare Edge...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-emerald-300 font-medium transition hover:border-emerald-500 active:scale-95">
+          <span class="mr-2">🚀</span> Деплой на Pages
         </button>
 
-        <button onclick="triggerAction('purge-cache', '🧹 Purging Edge Cache...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-amber-300 font-medium transition hover:border-amber-500 active:scale-95">
-          <span class="mr-2">🧹</span> Purge CF Cache
+        <button onclick="triggerAction('purge-cache', '🧹 Очистка кэша Edge...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-amber-300 font-medium transition hover:border-amber-500 active:scale-95">
+          <span class="mr-2">🧹</span> Сброс кэша CF
         </button>
 
-        <button onclick="triggerAction('reset-data', '🧹 Flushing All Data to Clean Zero...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-rose-300 font-medium transition hover:border-rose-500 active:scale-95">
-          <span class="mr-2">🧹</span> Reset All Data (0)
+        <button onclick="triggerAction('reset-data', '🧹 Полный сброс всех тестовых данных...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-rose-300 font-medium transition hover:border-rose-500 active:scale-95">
+          <span class="mr-2">🧹</span> Сброс данных (0)
         </button>
 
         <button onclick="openModal('autoApplyModal')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 border border-sky-500/50 text-sky-300 font-bold transition hover:border-sky-400 active:scale-95">
-          <span class="mr-2">🎯</span> Auto-Apply Offer
+          <span class="mr-2">🎯</span> Заявка на оффер
         </button>
 
       </div>
     </div>
 
-    <!-- Performance Chart -->
+    <!-- График производительности -->
     <div class="glass-panel p-5 rounded-xl border border-slate-800">
       <div class="flex justify-between items-center mb-4">
         <div>
-          <h2 class="text-sm font-mono font-bold text-slate-200">24-HOUR VELOCITY & REVENUE STREAM</h2>
-          <p class="text-xs text-slate-500 font-mono">Aggregated conversion spikes across Cloudflare Edge</p>
+          <h2 class="text-sm font-mono font-bold text-slate-200">ДИНАМИКА И ПОТОК ВЫРУЧКИ (24 ЧАСА)</h2>
+          <p class="text-xs text-slate-500 font-mono">Агрегированная статистика конверсий и кликов на Cloudflare Edge</p>
         </div>
         <div class="flex space-x-2 text-xs font-mono">
-          <span class="px-2 py-1 rounded bg-emerald-950/60 border border-emerald-500/30 text-emerald-400">● Revenue ($)</span>
-          <span class="px-2 py-1 rounded bg-sky-950/60 border border-sky-500/30 text-sky-400">● Clicks</span>
+          <span class="px-2 py-1 rounded bg-emerald-950/60 border border-emerald-500/30 text-emerald-400">● Выручка ($)</span>
+          <span class="px-2 py-1 rounded bg-sky-950/60 border border-sky-500/30 text-sky-400">● Клики</span>
         </div>
       </div>
       <div class="h-44 w-full">
@@ -348,84 +348,84 @@
       </div>
     </div>
 
-    <!-- B. Autonomous Organic Traffic Agent (UBT / Organic Traffic Engine) Widget -->
+    <!-- B. Автономный агент органического трафика (УБТ) -->
     <div class="glass-panel p-5 rounded-xl border border-slate-800 space-y-4 glow-border">
       
-      <!-- Widget Header & Controls -->
+      <!-- Заголовок и кнопки управления -->
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
         <div class="flex items-center space-x-3">
           <span class="text-2xl">🤖</span>
           <div>
             <div class="flex items-center space-x-2">
               <h2 class="text-base font-bold font-mono text-slate-200">
-                AUTONOMOUS UBT // ORGANIC TRAFFIC AGENT
+                АВТОНОМНЫЙ УБТ // АГЕНТ ОРГАНИЧЕСКОГО ТРАФИКА
               </h2>
               <span id="organicStatusBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-emerald-950 text-emerald-400 border border-emerald-500/40">
-                🟢 RUNNING (Auto-Pilot)
+                🟢 РАБОТАЕТ (Автопилот)
               </span>
             </div>
-            <p class="text-xs text-slate-500 font-mono mt-0.5">High-intent discussion discovery, value-first contextual posting & organic UTM attribution</p>
+            <p class="text-xs text-slate-500 font-mono mt-0.5">Поиск целевых обсуждений, полезный контекстный постинг и органическая UTM-атрибуция</p>
           </div>
         </div>
 
-        <!-- Quick Action Buttons -->
+        <!-- Кнопки быстрых действий агента -->
         <div class="flex items-center space-x-2 font-mono text-xs">
           <button onclick="controlOrganicAgent('start')" class="px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/50 text-emerald-300 font-medium transition active:scale-95 flex items-center">
-            <span class="mr-1.5">▶️</span> Start Agent
+            <span class="mr-1.5">▶️</span> Запустить агента
           </button>
           <button onclick="controlOrganicAgent('stop')" class="px-3 py-1.5 rounded-lg bg-amber-600/20 hover:bg-amber-600/30 border border-amber-500/50 text-amber-300 font-medium transition active:scale-95 flex items-center">
-            <span class="mr-1.5">⏸️</span> Pause
+            <span class="mr-1.5">⏸️</span> Приостановить
           </button>
           <button onclick="controlOrganicAgent('dry_run')" class="px-3 py-1.5 rounded-lg bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/50 text-purple-300 font-bold transition active:scale-95 flex items-center">
-            <span class="mr-1.5">🧪</span> Run Single Dry-Run
+            <span class="mr-1.5">🧪</span> Тестовый запуск (Dry-Run)
           </button>
         </div>
       </div>
 
-      <!-- 4-Column Stat Grid -->
+      <!-- Сетка показателей: 4 колонки -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 font-mono">
         <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
-          <div class="text-[11px] text-slate-400 uppercase">1. Scanned Threads</div>
+          <div class="text-[11px] text-slate-400 uppercase">1. Проверено тредов</div>
           <div class="text-xl sm:text-2xl font-bold text-sky-400 mt-1" id="orgScannedCount">--</div>
-          <div class="text-[10px] text-slate-500 mt-0.5">High-intent discussions</div>
+          <div class="text-[10px] text-slate-500 mt-0.5">Целевые обсуждения</div>
         </div>
 
         <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
-          <div class="text-[11px] text-slate-400 uppercase">2. Contextual Posts Placed</div>
+          <div class="text-[11px] text-slate-400 uppercase">2. Размещено ответов</div>
           <div class="text-xl sm:text-2xl font-bold text-purple-400 mt-1" id="orgPostsCount">--</div>
-          <div class="text-[10px] text-slate-500 mt-0.5">Reddit / Quora / Forums</div>
+          <div class="text-[10px] text-slate-500 mt-0.5">Reddit / Quora / Форумы</div>
         </div>
 
         <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
-          <div class="text-[11px] text-slate-400 uppercase">3. Inbound Organic Clicks</div>
+          <div class="text-[11px] text-slate-400 uppercase">3. Органических кликов</div>
           <div class="text-xl sm:text-2xl font-bold text-emerald-400 mt-1" id="orgClicksCount">--</div>
-          <div class="text-[10px] text-slate-500 mt-0.5">Tracked via ?s1=org_*</div>
+          <div class="text-[10px] text-slate-500 mt-0.5">Учтено через ?s1=org_*</div>
         </div>
 
         <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
-          <div class="text-[11px] text-slate-400 uppercase">4. Free Traffic Revenue</div>
+          <div class="text-[11px] text-slate-400 uppercase">4. Доход с бесплатного трафика</div>
           <div class="text-xl sm:text-2xl font-bold text-amber-400 mt-1" id="orgRevenueDisplay">$0.00</div>
           <div class="text-[10px] text-slate-500 mt-0.5" id="orgEpcDisplay">EPC: $0.00</div>
         </div>
       </div>
 
-      <!-- Real-Time Activity Terminal (Collapsible) -->
+      <!-- Терминал активности в реальном времени -->
       <div class="bg-slate-950/90 border border-slate-800/90 rounded-xl p-3 space-y-2 font-mono">
         <div class="flex justify-between items-center text-xs">
           <span class="text-slate-400 flex items-center font-bold">
             <span class="w-2 h-2 rounded-full bg-emerald-400 status-pulse mr-2"></span>
-            Real-Time Agent Activity & Discovery Stream
+            Поток активности агента и поиск лидов в реальном времени
           </span>
-          <span class="text-[11px] text-slate-500" id="orgNextCycle">Next cycle: in 3m</span>
+          <span class="text-[11px] text-slate-500" id="orgNextCycle">След. цикл: через ~3м</span>
         </div>
         <div id="orgTerminalLogs" class="h-28 bg-black/60 rounded-lg p-2.5 text-[11px] text-emerald-300 overflow-y-auto term-scroll whitespace-pre-wrap leading-relaxed border border-slate-900">
-          [System Standby] Monitoring organic communities (Reddit, Quora, HackerNews, Niche Forums)...
+          [Система в режиме ожидания] Мониторинг органических сообществ (Reddit, Quora, HackerNews, тематические форумы)...
         </div>
       </div>
 
     </div>
 
-    <!-- B2. Autonomous Agent Self-Learning & Evolving Strategy Engine Widget -->
+    <!-- B2. ИИ-система самообучения и рефлексии -->
     <div class="glass-panel p-5 rounded-xl border border-indigo-900/60 bg-slate-900/40 space-y-4 glow-border">
       
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
@@ -434,174 +434,174 @@
           <div>
             <div class="flex items-center space-x-2">
               <h2 class="text-base font-bold font-mono text-slate-200">
-                AI SELF-LEARNING & REFLECTION ENGINE
+                ИИ-СИСТЕМА САМООБУЧЕНИЯ И РЕФЛЕКСИИ
               </h2>
               <span id="aiConfidenceBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-indigo-950 text-indigo-300 border border-indigo-500/40">
-                ⚡ 92% STRATEGY CONFIDENCE
+                ⚡ 92% УВЕРЕННОСТЬ СТРАТЕГИИ
               </span>
             </div>
-            <p class="text-xs text-slate-500 font-mono mt-0.5">Automated prompt mutation, anti-moderation guardrails & winning copywriting vectors via Gemini Flash</p>
+            <p class="text-xs text-slate-500 font-mono mt-0.5">Автоматическая мутация промптов, защита от модерации и успешные паттерны копирайтинга на базе Gemini Flash</p>
           </div>
         </div>
 
         <div class="flex items-center space-x-2 font-mono text-xs">
           <button onclick="triggerReflectionCycle()" id="btnTriggerReflection" class="px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/50 text-indigo-300 font-bold transition active:scale-95 flex items-center">
-            <span class="mr-1.5">🧪</span> Run Self-Reflection Cycle
+            <span class="mr-1.5">🧪</span> Запустить цикл рефлексии
           </button>
         </div>
       </div>
 
-      <!-- 3-Column Learning Insights Grid -->
+      <!-- Сетка инсайтов самообучения: 3 колонки -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3 font-mono text-xs">
-        <!-- 1. Active Evolved Guidelines -->
+        <!-- 1. Активные правила копирайтинга -->
         <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3 space-y-2">
           <div class="flex justify-between items-center text-slate-400 font-bold text-[11px] uppercase border-b border-slate-900 pb-1.5">
-            <span class="text-emerald-400 flex items-center"><span>📐</span> Active Learned Rules</span>
-            <span id="activeRulesCount" class="text-[10px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">-- active</span>
+            <span class="text-emerald-400 flex items-center"><span>📐</span> Активные правила копирайтинга</span>
+            <span id="activeRulesCount" class="text-[10px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">-- активно</span>
           </div>
           <div id="activeRulesList" class="space-y-1.5 text-[11px] text-slate-300 max-h-36 overflow-y-auto term-scroll">
-            <div class="p-1.5 bg-slate-900/50 rounded border border-slate-800/80">• Loading active copywriting guidelines...</div>
+            <div class="p-1.5 bg-slate-900/50 rounded border border-slate-800/80">• Загрузка активных правил копирайтинга...</div>
           </div>
         </div>
 
-        <!-- 2. Winning Angles & Top Hooks -->
+        <!-- 2. Конвертящие хуки и углы подачи -->
         <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3 space-y-2">
           <div class="flex justify-between items-center text-slate-400 font-bold text-[11px] uppercase border-b border-slate-900 pb-1.5">
-            <span class="text-sky-400 flex items-center"><span>🎯</span> Winning Hooks & Angles</span>
-            <span id="winningHooksCount" class="text-[10px] bg-sky-950 text-sky-300 px-1.5 py-0.5 rounded">-- hooks</span>
+            <span class="text-sky-400 flex items-center"><span>🎯</span> Успешные хуки и углы подачи</span>
+            <span id="winningHooksCount" class="text-[10px] bg-sky-950 text-sky-300 px-1.5 py-0.5 rounded">-- хуков</span>
           </div>
           <div id="winningHooksList" class="space-y-1.5 text-[11px] text-slate-300 max-h-36 overflow-y-auto term-scroll">
-            <div class="p-1.5 bg-slate-900/50 rounded border border-slate-800/80">• Loading top converting hook patterns...</div>
+            <div class="p-1.5 bg-slate-900/50 rounded border border-slate-800/80">• Загрузка конвертящих хуков...</div>
           </div>
         </div>
 
-        <!-- 3. Anti-Moderation Guardrails -->
+        <!-- 3. Ограничения модерации и анти-спам -->
         <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3 space-y-2">
           <div class="flex justify-between items-center text-slate-400 font-bold text-[11px] uppercase border-b border-slate-900 pb-1.5">
-            <span class="text-rose-400 flex items-center"><span>🛡️</span> Negative Constraints</span>
-            <span id="negativeRulesCount" class="text-[10px] bg-rose-950 text-rose-300 px-1.5 py-0.5 rounded">Banned: --</span>
+            <span class="text-rose-400 flex items-center"><span>🛡️</span> Защита от модерации (Анти-спам)</span>
+            <span id="negativeRulesCount" class="text-[10px] bg-rose-950 text-rose-300 px-1.5 py-0.5 rounded">Защита: --</span>
           </div>
           <div id="negativeRulesList" class="space-y-1.5 text-[11px] text-slate-300 max-h-36 overflow-y-auto term-scroll">
-            <div class="p-1.5 bg-slate-900/50 rounded border border-slate-800/80">• Loading spam triggers & blacklist heuristics...</div>
+            <div class="p-1.5 bg-slate-900/50 rounded border border-slate-800/80">• Загрузка стоп-слов и ограничений...</div>
           </div>
         </div>
       </div>
 
-      <!-- Live Evolution Mutation Stream -->
+      <!-- Журнал эволюции стратегии -->
       <div class="bg-slate-950/90 border border-slate-800/90 rounded-xl p-3 space-y-2 font-mono">
         <div class="flex justify-between items-center text-xs">
           <span class="text-indigo-400 flex items-center font-bold">
             <span class="w-2 h-2 rounded-full bg-indigo-400 status-pulse mr-2"></span>
-            Strategy Evolution & Self-Correction Log
+            Журнал эволюции стратегии и самокоррекции
           </span>
-          <span class="text-[11px] text-slate-500" id="lastReflectionTime">Last reflected: Just now</span>
+          <span class="text-[11px] text-slate-500" id="lastReflectionTime">Посл. рефлексия: Только что</span>
         </div>
         <div id="learningEvolutionLog" class="h-24 bg-black/60 rounded-lg p-2.5 text-[11px] text-indigo-300 overflow-y-auto term-scroll whitespace-pre-wrap leading-relaxed border border-slate-900">
-          [Self-Reflection] AI knowledge base initialized. Monitoring community response vectors...
+          [Саморефлексия] База знаний ИИ инициализирована. Мониторинг реакции сообществ...
         </div>
       </div>
 
     </div>
 
-    <!-- C. Campaigns Management Table with Deep Telemetry & MAB -->
+    <!-- C. Таблица управления кампаниями с глубокой телеметрией и MAB -->
     <div class="glass-panel rounded-xl border border-slate-800 overflow-hidden">
       
-      <!-- Table Header & Filter Tabs -->
+      <!-- Заголовок таблицы и фильтры -->
       <div class="p-4 border-b border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <div>
           <h2 class="text-base font-bold font-mono text-slate-200 flex items-center">
-            <span>CAMPAIGN OPS & MULTI-ARMED BANDIT</span>
-            <span class="ml-3 px-2 py-0.5 text-[10px] rounded bg-purple-950 text-purple-300 border border-purple-500/40">AI MAB ACTIVE</span>
+            <span>УПРАВЛЕНИЕ КАМПАНИЯМИ И MULTI-ARMED BANDIT (MAB)</span>
+            <span class="ml-3 px-2 py-0.5 text-[10px] rounded bg-purple-950 text-purple-300 border border-purple-500/40">ИИ MAB АКТИВЕН</span>
           </h2>
-          <p class="text-xs text-slate-500 font-mono">Scroll depth telemetry, Time-to-Action (TTA), and adaptive traffic allocation</p>
+          <p class="text-xs text-slate-500 font-mono">Телеметрия скролла, время до действия (TTA) и адаптивное распределение трафика</p>
         </div>
 
-        <!-- Filter Tabs -->
+        <!-- Вкладки фильтра -->
         <div class="flex space-x-1 bg-slate-950 p-1 rounded-lg border border-slate-800 font-mono text-xs" id="filterTabs">
-          <button onclick="filterCampaigns('all')" class="tab-btn px-3 py-1 rounded bg-indigo-600 text-white font-medium">All</button>
-          <button onclick="filterCampaigns('active')" class="tab-btn px-3 py-1 rounded text-slate-400 hover:text-white">Active</button>
-          <button onclick="filterCampaigns('paused')" class="tab-btn px-3 py-1 rounded text-slate-400 hover:text-white">Paused</button>
+          <button onclick="filterCampaigns('all')" class="tab-btn px-3 py-1 rounded bg-indigo-600 text-white font-medium">Все</button>
+          <button onclick="filterCampaigns('active')" class="tab-btn px-3 py-1 rounded text-slate-400 hover:text-white">Активные</button>
+          <button onclick="filterCampaigns('paused')" class="tab-btn px-3 py-1 rounded text-slate-400 hover:text-white">На паузе</button>
           <button onclick="filterCampaigns('MyLead')" class="tab-btn px-3 py-1 rounded text-slate-400 hover:text-white">MyLead</button>
           <button onclick="filterCampaigns('LosPollos')" class="tab-btn px-3 py-1 rounded text-slate-400 hover:text-white">LosPollos</button>
         </div>
       </div>
 
-      <!-- Table -->
+      <!-- Таблица -->
       <div class="overflow-x-auto">
         <table class="w-full text-left font-mono text-xs">
           <thead class="text-slate-400 bg-slate-950/60 border-b border-slate-800">
             <tr>
-              <th class="py-3 px-4">Status</th>
-              <th class="py-3 px-4">Campaign ID</th>
-              <th class="py-3 px-4">Network</th>
-              <th class="py-3 px-4">GEO</th>
-              <th class="py-3 px-4">Clicks/Conv</th>
-              <th class="py-3 px-4">Revenue</th>
+              <th class="py-3 px-4">Статус</th>
+              <th class="py-3 px-4">ID Кампании</th>
+              <th class="py-3 px-4">Партнерка</th>
+              <th class="py-3 px-4">ГЕО</th>
+              <th class="py-3 px-4">Клики / Лиды</th>
+              <th class="py-3 px-4">Доход</th>
               <th class="py-3 px-4">CR / EPC</th>
-              <th class="py-3 px-4">Deep Telemetry</th>
-              <th class="py-3 px-4">MAB Split (v1 / v2)</th>
-              <th class="py-3 px-4 text-right">Actions</th>
+              <th class="py-3 px-4">Глубокая телеметрия</th>
+              <th class="py-3 px-4">Сплит трафика (v1 / v2)</th>
+              <th class="py-3 px-4 text-right">Действия</th>
             </tr>
           </thead>
           <tbody id="campaignsTbody" class="divide-y divide-slate-800/50">
-            <!-- Dynamic Injection -->
+            <!-- Динамическое наполнение -->
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- D & E: Transactions Stream + Daemon Terminal Console -->
+    <!-- D & E: Поток транзакций + Консоль демона -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-      <!-- D. Real-time Postback & Event Stream -->
+      <!-- D. Поток транзакций и постбеков (Live) -->
       <div class="glass-panel rounded-xl border border-slate-800 p-4 space-y-3 flex flex-col justify-between">
         <div>
           <div class="flex justify-between items-center pb-2 border-b border-slate-800">
             <h3 class="font-bold text-xs font-mono text-emerald-400 uppercase tracking-wider flex items-center">
               <span class="w-2 h-2 rounded-full bg-emerald-400 mr-2 status-pulse"></span>
-              Live Transaction & Postback Stream
+              Поток транзакций и постбеков (Live)
             </h3>
-            <span class="text-[11px] text-slate-500 font-mono" id="txCount">Last 20 Events</span>
+            <span class="text-[11px] text-slate-500 font-mono" id="txCount">Последние 20 событий</span>
           </div>
 
           <div class="overflow-x-auto mt-2 max-h-[340px] overflow-y-auto term-scroll">
             <table class="w-full text-left font-mono text-xs">
               <thead class="text-slate-500 border-b border-slate-800/80 sticky top-0 bg-slate-900">
                 <tr>
-                  <th class="pb-2">Time</th>
-                  <th class="pb-2">Status</th>
-                  <th class="pb-2">Campaign</th>
-                  <th class="pb-2">Lead ID</th>
-                  <th class="pb-2 text-right">Payout</th>
+                  <th class="pb-2">Время</th>
+                  <th class="pb-2">Статус</th>
+                  <th class="pb-2">Кампания</th>
+                  <th class="pb-2">ID Лида</th>
+                  <th class="pb-2 text-right">Выплата</th>
                 </tr>
               </thead>
               <tbody id="txTbody" class="divide-y divide-slate-800/40">
-                <!-- JS Injected -->
+                <!-- JS Инъекция -->
               </tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- E. Live System Console & Daemon Terminal -->
+      <!-- E. Консоль демона автопилота (PM2) -->
       <div class="glass-panel rounded-xl border border-slate-800 p-4 space-y-3">
         <div class="flex justify-between items-center pb-2 border-b border-slate-800">
           <h3 class="font-bold text-xs font-mono text-sky-400 uppercase tracking-wider flex items-center">
             <span class="w-2 h-2 rounded-full bg-sky-400 mr-2"></span>
-            Autopilot Daemon Console (PM2)
+            Консоль демона автопилота (PM2)
           </h3>
           <div class="flex items-center space-x-2">
             <button onclick="toggleScroll()" id="btnScroll" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300">
-              Scroll: Auto
+              Автопрокрутка: Вкл
             </button>
             <button onclick="clearConsole()" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300">
-              Clear
+              Очистить
             </button>
           </div>
         </div>
 
         <div id="daemonTerminal" class="h-[340px] bg-slate-950 rounded-lg p-3 font-mono text-xs text-emerald-400 overflow-y-auto term-scroll whitespace-pre-wrap leading-relaxed">
-          [System Standby] Connecting to droplet terminal stream...
+          [Система] Подключение к потоку терминала сервера...
         </div>
       </div>
 
@@ -610,10 +610,10 @@
   </div>
 
   <footer class="mt-8 border-t border-slate-900 py-4 text-center text-xs text-slate-500 font-mono">
-    © 2026 Autonomous Affiliate Engine • Basic Auth Protected Node Active
+    © 2026 Автономный Affiliate Движок • Защищенный узел активен
   </footer>
 
-  <!-- Script Logic -->
+  <!-- Клиентская логика -->
   <script>
     let autoScroll = true;
     let currentFilter = 'all';
@@ -623,7 +623,7 @@
     let currentExportTab = 'google';
     let currentExportCid = '';
 
-    // Dynamic Auth for API calls
+    // Базовая аутентификация для вызовов API
     async function apiFetch(url, options = {}) {
       options.headers = options.headers || {};
       const token = localStorage.getItem('aff_ops_auth') || sessionStorage.getItem('aff_ops_auth');
@@ -633,7 +633,7 @@
       
       const res = await fetch(url, options);
       if (res.status === 401) {
-        const pass = prompt('Enter Affiliate Ops Command Center Password:');
+        const pass = prompt('Введите пароль для доступа к Центру Управления Affiliate Ops:');
         if (pass) {
           const authVal = 'Basic ' + btoa('admin:' + pass);
           sessionStorage.setItem('aff_ops_auth', authVal);
@@ -645,7 +645,7 @@
       return res;
     }
 
-    // Toast Generator
+    // Генератор всплывающих уведомлений
     function showToast(msg, type = 'info') {
       const c = document.getElementById('toastContainer');
       const t = document.createElement('div');
@@ -659,14 +659,14 @@
       setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 400); }, 3500);
     }
 
-    // Modal Handlers
+    // Управление модальными окнами
     function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
     async function executeModalAutoApply() {
       const cid = document.getElementById('modalCampaignId').value.trim();
       closeModal('autoApplyModal');
-      showToast(`🎯 Submitting auto-apply for ${cid}...`, 'info');
+      showToast(`🎯 Отправка авто-заявки для ${cid}...`, 'info');
       try {
         const res = await apiFetch('/api/actions/auto-apply', {
           method: 'POST',
@@ -674,18 +674,18 @@
           body: JSON.stringify({ campaignId: cid })
         });
         const d = await res.json();
-        showToast(`✅ Application recorded: ${d.result?.status || 'Submitted'}`, 'success');
+        showToast(`✅ Заявка зарегистрирована: ${d.result?.status || 'Отправлена'}`, 'success');
       } catch (e) {
-        showToast(`❌ Failed: ${e.message}`, 'error');
+        showToast(`❌ Ошибка: ${e.message}`, 'error');
       }
     }
 
-    // Open Ads Exporter Modal
+    // Модальное окно экспорта рекламы
     async function openAdsExporter(cid) {
       currentExportCid = cid;
       document.getElementById('exportModalCampTitle').innerText = cid;
       openModal('adsExportModal');
-      document.getElementById('adsExportContent').value = 'Generating compliance-verified ad packages...';
+      document.getElementById('adsExportContent').value = 'Генерация рекламных пакетов с проверкой требований...';
 
       try {
         const [res, scriptRes] = await Promise.all([
@@ -702,10 +702,10 @@
           currentExportData.json = JSON.stringify(d.jsonPackage, null, 2);
           switchExportTab('google');
         } else {
-          document.getElementById('adsExportContent').value = 'Error generating ads: ' + d.error;
+          document.getElementById('adsExportContent').value = 'Ошибка генерации рекламы: ' + d.error;
         }
       } catch (e) {
-        document.getElementById('adsExportContent').value = 'Failed to fetch ads export: ' + e.message;
+        document.getElementById('adsExportContent').value = 'Не удалось загрузить экспорт: ' + e.message;
       }
     }
 
@@ -725,7 +725,7 @@
     function copyExportContent() {
       const ta = document.getElementById('adsExportContent');
       navigator.clipboard.writeText(ta.value);
-      showToast('📋 Copied ads package to clipboard!', 'success');
+      showToast('📋 Рекламный пакет скопирован в буфер обмена!', 'success');
     }
 
     function downloadExportFile() {
@@ -736,54 +736,55 @@
       a.href = URL.createObjectURL(blob);
       a.download = currentExportTab === 'script' ? 'google-ads-sync-script.js' : `${currentExportCid}_${currentExportTab}_ads.${ext}`;
       a.click();
-      showToast(`💾 Downloaded ${currentExportTab} file`, 'success');
+      showToast(`💾 Скачан файл: ${currentExportTab}`, 'success');
     }
 
-    // Trigger MAB Optimization per campaign
+    // Запуск MAB Оптимизации кампании
     async function triggerMabOptimization(cid) {
-      showToast(`🎲 AI MAB: Optimizing traffic weights for ${cid}...`, 'info');
+      showToast(`🎲 ИИ MAB: Оптимизация весов трафика для ${cid}...`, 'info');
       try {
         const res = await apiFetch(`/api/campaigns/${cid}/mab-optimize`, { method: 'POST' });
         const d = await res.json();
         if (d.success) {
-          showToast(`🏆 MAB Allocation: v1=${d.result.weights.v1}%, v2=${d.result.weights.v2}%`, 'success');
+          showToast(`🏆 MAB Распределение: v1=${d.result.weights.v1}%, v2=${d.result.weights.v2}%`, 'success');
           refreshAll();
         }
       } catch (e) {
-        showToast(`❌ MAB Error: ${e.message}`, 'error');
+        showToast(`❌ Ошибка MAB: ${e.message}`, 'error');
       }
     }
 
-    // Direct Action Trigger
+    // Вызов прямых операционных действий
     async function triggerAction(action, msg) {
       showToast(msg, 'info');
       try {
         const res = await apiFetch(`/api/actions/${action}`, { method: 'POST' });
         const d = await res.json();
         if (d.success) {
-          showToast(`✅ ${d.message || 'Action executed successfully.'}`, 'success');
+          showToast(`✅ ${d.message || 'Действие успешно выполнено.'}`, 'success');
           refreshAll();
         } else {
-          showToast(`❌ Error: ${d.error}`, 'error');
+          showToast(`❌ Ошибка: ${d.error}`, 'error');
         }
       } catch (e) {
-        showToast(`❌ Connection Error: ${e.message}`, 'error');
+        showToast(`❌ Ошибка соединения: ${e.message}`, 'error');
       }
     }
 
-    // Toggle Campaign Status
+    // Переключение активности кампании (Старт / Пауза)
     async function toggleCampaign(cid) {
       try {
         const res = await apiFetch(`/api/campaigns/${cid}/toggle`, { method: 'POST' });
         const d = await res.json();
-        showToast(`Campaign ${cid} status: ${d.status.toUpperCase()}`, d.status === 'active' ? 'success' : 'warning');
+        const statusRu = d.status === 'active' ? 'АКТИВНА' : 'НА ПАУЗЕ';
+        showToast(`Статус кампании ${cid}: ${statusRu}`, d.status === 'active' ? 'success' : 'warning');
         refreshAll();
       } catch (e) {
-        showToast(`Failed to toggle: ${e.message}`, 'error');
+        showToast(`Не удалось переключить статус: ${e.message}`, 'error');
       }
     }
 
-    // Update Traffic Split
+    // Обновление сплита трафика вручную
     async function updateTrafficSplit(cid, sliderVal) {
       const v1 = parseInt(sliderVal);
       try {
@@ -792,13 +793,13 @@
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({ v1Weight: v1 })
         });
-        showToast(`Split updated for ${cid}: v1=${v1}%, v2=${100 - v1}%`, 'success');
+        showToast(`Сплит обновлен для ${cid}: v1=${v1}%, v2=${100 - v1}%`, 'success');
       } catch (e) {
-        showToast(`Failed to update split`, 'error');
+        showToast(`Не удалось обновить сплит трафика`, 'error');
       }
     }
 
-    // Filter campaigns
+    // Фильтрация кампаний
     function filterCampaigns(tab) {
       currentFilter = tab;
       document.querySelectorAll('#filterTabs button').forEach(b => {
@@ -808,7 +809,7 @@
       renderCampaignsTable();
     }
 
-    // Render Table
+    // Отрисовка таблицы кампаний
     function renderCampaignsTable() {
       const tbody = document.getElementById('campaignsTbody');
       let filtered = rawCampaigns;
@@ -824,6 +825,7 @@
         const v1Split = c.trafficSplit?.v1 || 50;
         const scrollPct = c.telemetry?.avgScrollDepth || 68;
         const ttaSec = c.telemetry?.avgTtaSec || '3.8s';
+        const statusLabel = isActive ? 'Активна' : 'Пауза';
 
         html += `
           <tr class="hover:bg-slate-900/40 transition">
@@ -831,7 +833,7 @@
               <button onclick="toggleCampaign('${c.id}')" class="px-2.5 py-1 rounded text-[10px] font-bold uppercase transition ${
                 isActive ? 'bg-emerald-950 border border-emerald-500/40 text-emerald-400' : 'bg-rose-950 border border-rose-500/40 text-rose-400'
               }">
-                ${c.status}
+                ${statusLabel}
               </button>
             </td>
             <td class="py-3 px-4 font-bold text-slate-200">${c.id}</td>
@@ -846,7 +848,7 @@
             <td class="py-3 px-4 text-purple-300">${c.cr} <span class="text-slate-500 text-[10px]">(${c.epc})</span></td>
             <td class="py-3 px-4">
               <div class="flex items-center space-x-1.5 text-[10px]">
-                <span class="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-sky-300">📊 ${scrollPct}% Scroll</span>
+                <span class="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-sky-300">📊 Скролл ${scrollPct}%</span>
                 <span class="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-amber-300">⚡ ${ttaSec}</span>
               </div>
             </td>
@@ -855,38 +857,38 @@
                 <span class="text-[10px] text-slate-400">${v1Split}%</span>
                 <input type="range" min="0" max="100" value="${v1Split}" onchange="updateTrafficSplit('${c.id}', this.value)" class="w-16 accent-sky-400 cursor-pointer">
                 <span class="text-[10px] text-slate-400">${100 - v1Split}%</span>
-                <button onclick="triggerMabOptimization('${c.id}')" title="AI Multi-Armed Bandit Auto-Alloc" class="text-[11px] p-1 rounded bg-purple-900/60 hover:bg-purple-800 text-purple-200 border border-purple-500/30">
+                <button onclick="triggerMabOptimization('${c.id}')" title="ИИ Multi-Armed Bandit: Автораспределение трафика" class="text-[11px] p-1 rounded bg-purple-900/60 hover:bg-purple-800 text-purple-200 border border-purple-500/30">
                   🎲
                 </button>
               </div>
             </td>
             <td class="py-3 px-4 text-right space-x-1.5 whitespace-nowrap">
               <button onclick="openVisualQa('${c.id}')" class="px-2 py-1 rounded bg-sky-950 border border-sky-500/40 text-sky-300 hover:bg-sky-900 text-[10px] font-bold">
-                🔍 QA
+                🔍 Аудит
               </button>
               <button onclick="openIngestPromo('${c.id}')" class="px-2 py-1 rounded bg-indigo-950 border border-indigo-500/40 text-indigo-300 hover:bg-indigo-900 text-[10px] font-bold">
-                📥 Ingest
+                📥 Импорт
               </button>
               <button onclick="openAdsExporter('${c.id}')" class="px-2 py-1 rounded bg-emerald-950 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-900 text-[10px] font-bold">
-                📦 Ads
+                📦 Реклама
               </button>
-              <a href="${c.liveUrl}" target="_blank" class="text-sky-400 hover:text-sky-300 underline text-xs">Pre-lander ↗</a>
+              <a href="${c.liveUrl}" target="_blank" class="text-sky-400 hover:text-sky-300 underline text-xs">Прелендинг ↗</a>
             </td>
           </tr>
         `;
       }
-      tbody.innerHTML = html || '<tr><td colspan="10" class="text-center py-6 text-slate-500">No campaigns found.</td></tr>';
+      tbody.innerHTML = html || '<tr><td colspan="10" class="text-center py-6 text-slate-500">Кампании не найдены.</td></tr>';
     }
 
-    // Visual QA Modal Logic
+    // Логика визуального QA-аудита
     let currentQaCid = '';
     function openVisualQa(cid) {
       currentQaCid = cid;
       document.getElementById('qaModalCampTitle').innerText = cid;
       document.getElementById('qaScoreDisplay').innerText = '--';
-      document.getElementById('qaBadgeDisplay').innerText = 'Standby';
+      document.getElementById('qaBadgeDisplay').innerText = 'Ожидание';
       document.getElementById('qaBadgeDisplay').className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 border border-slate-700 text-slate-400';
-      document.getElementById('qaLogOutput').innerText = 'Click "Run Multi-Viewport Inspection" to launch Playwright headless capture & conversion evaluation...';
+      document.getElementById('qaLogOutput').innerText = 'Нажмите "Запустить мульти-экранный аудит" для запуска Playwright и проверки адаптивности...';
       ['checkAtf', 'checkTouch', 'checkPolish', 'checkTokens'].forEach(id => {
         document.getElementById(id).className = 'p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center space-x-2 text-slate-400';
       });
@@ -896,8 +898,8 @@
     async function executeVisualQaInspection() {
       const btn = document.getElementById('btnRunQa');
       btn.disabled = true;
-      btn.innerText = '⏳ Inspecting Viewports...';
-      document.getElementById('qaLogOutput').innerText = `[Visual QA Engine] Launching headless browser...\n- iPhone 14 Pro (393x852 @3x)\n- Pixel 7 (412x915 @2x)\n- Desktop Full HD (1920x1080 @1x)\n\nAnalyzing Above-the-Fold Step 1 visibility, touch targets, and token integrity...`;
+      btn.innerText = '⏳ Анализ экранов...';
+      document.getElementById('qaLogOutput').innerText = `[Движок Visual QA] Запуск браузера...\n- iPhone 14 Pro (393x852 @3x)\n- Pixel 7 (412x915 @2x)\n- Desktop Full HD (1920x1080 @1x)\n\nПроверка видимости Шага 1 в первом экране (Above-the-Fold), размеров кнопок и целостности токенов...`;
 
       try {
         const res = await apiFetch(`/api/campaigns/${currentQaCid}/audit-visual`, {
@@ -911,14 +913,14 @@
           document.getElementById('qaScoreDisplay').innerText = d.score;
           const badge = document.getElementById('qaBadgeDisplay');
           if (d.score >= 95) {
-            badge.innerText = 'PASSED (95+)';
+            badge.innerText = 'ПРОЙДЕН (95+)';
             badge.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-950 border border-emerald-500 text-emerald-400';
           } else {
-            badge.innerText = 'REVISE';
+            badge.innerText = 'ДОРАБОТАТЬ';
             badge.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-950 border border-amber-500 text-amber-400';
           }
 
-          // Update rubric badges
+          // Обновление бейджей критериев
           const setCheck = (id, passed) => {
             const el = document.getElementById(id);
             if (passed) {
@@ -933,33 +935,33 @@
           setCheck('checkPolish', d.checks.visualPolishAndImages);
           setCheck('checkTokens', d.checks.localizationAndNoRawTokens);
 
-          let logText = `✅ QA Score: ${d.score}/100 | Passed: ${d.passed}\n\n`;
-          logText += `📱 Mobile ATF Status: ${d.checks.aboveTheFold ? 'Step 1 100% visible Above-the-Fold' : 'Scrolled below fold'}\n`;
-          logText += `🔤 Min Touch Target: ${Math.round(d.domTelemetry.touchTargetsMinHeight)}px\n`;
-          logText += `🖼️ Broken Images: ${d.domTelemetry.brokenImagesCount}\n`;
-          logText += `🌍 Raw Unparsed Tokens: ${d.domTelemetry.rawTokensFound.length === 0 ? 'None (Clean)' : d.domTelemetry.rawTokensFound.join(', ')}\n\n`;
+          let logText = `✅ Оценка качества: ${d.score}/100 | Пройден: ${d.passed ? 'Да' : 'Нет'}\n\n`;
+          logText += `📱 Шаг 1 на мобильных (ATF): ${d.checks.aboveTheFold ? '100% виден в первом экране' : 'Смещен ниже первого экрана'}\n`;
+          logText += `🔤 Мин. размер кнопок: ${Math.round(d.domTelemetry.touchTargetsMinHeight)}px\n`;
+          logText += `🖼️ Битые изображения: ${d.domTelemetry.brokenImagesCount}\n`;
+          logText += `🌍 Нераспарсенные токены: ${d.domTelemetry.rawTokensFound.length === 0 ? 'Отсутствуют (Чисто)' : d.domTelemetry.rawTokensFound.join(', ')}\n\n`;
           if (d.recommendations && d.recommendations.length > 0) {
-            logText += `Recommendations:\n` + d.recommendations.map(r => `• ${r}`).join('\n');
+            logText += `Рекомендации:\n` + d.recommendations.map(r => `• ${r}`).join('\n');
           } else {
-            logText += `✨ All conversion and visual criteria perfectly satisfied!`;
+            logText += `✨ Все визуальные и конверсионные стандарты полностью соблюдены!`;
           }
 
           document.getElementById('qaLogOutput').innerText = logText;
-          showToast(`🔍 Visual QA Complete: Score ${d.score}/100`, d.passed ? 'success' : 'info');
+          showToast(`🔍 Визуальный аудит завершен: ${d.score}/100`, d.passed ? 'success' : 'info');
         } else {
-          document.getElementById('qaLogOutput').innerText = `Error: ${d.error}`;
-          showToast(`QA Inspection failed: ${d.error}`, 'error');
+          document.getElementById('qaLogOutput').innerText = `Ошибка: ${d.error}`;
+          showToast(`Аудит завершился с ошибкой: ${d.error}`, 'error');
         }
       } catch (err) {
-        document.getElementById('qaLogOutput').innerText = `Fatal: ${err.message}`;
-        showToast(`Error: ${err.message}`, 'error');
+        document.getElementById('qaLogOutput').innerText = `Критическая ошибка: ${err.message}`;
+        showToast(`Ошибка: ${err.message}`, 'error');
       } finally {
         btn.disabled = false;
-        btn.innerText = '⚡ Run Multi-Viewport Inspection';
+        btn.innerText = '⚡ Запустить мульти-экранный аудит';
       }
     }
 
-    // Ingest Promo Modal Logic
+    // Логика импорта промо
     function openIngestPromo(cid) {
       document.getElementById('ingestCampId').value = cid;
       document.getElementById('ingestModalCampTitle').innerText = cid;
@@ -983,7 +985,7 @@
       const sourceUrl = document.getElementById('ingestUrl').value;
       const customHtml = document.getElementById('ingestHtml').value;
 
-      showToast(`📥 Ingesting and refactoring promo assets for ${cid}...`, 'info');
+      showToast(`📥 Импорт и адаптация промо-материалов для ${cid}...`, 'info');
       closeModal('ingestPromoModal');
 
       try {
@@ -1000,17 +1002,17 @@
 
         const d = await res.json();
         if (d.success) {
-          showToast(`✅ Ingested variant '${d.variantName}': ${d.sanitizedTrackersCount} trackers sanitized!`, 'success');
+          showToast(`✅ Импортирован вариант '${d.variantName}': очищено ${d.sanitizedTrackersCount} сторонних трекеров!`, 'success');
           loadOverview();
         } else {
-          showToast(`❌ Ingestion failed: ${d.error}`, 'error');
+          showToast(`❌ Ошибка импорта промо: ${d.error}`, 'error');
         }
       } catch (err) {
-        showToast(`❌ Error: ${err.message}`, 'error');
+        showToast(`❌ Ошибка: ${err.message}`, 'error');
       }
     }
 
-    // Load Overview KPI & Campaigns
+    // Загрузка общих KPI и кампаний
     async function loadOverview() {
       try {
         const [kpiRes, campRes] = await Promise.all([
@@ -1040,21 +1042,31 @@
 
         renderCampaignsTable();
       } catch (e) {
-        console.error('Failed to load KPIs:', e);
+        console.error('Ошибка загрузки KPI:', e);
       }
     }
 
-    // Load Transactions Feed
+    // Загрузка ленты транзакций
     async function loadTransactions() {
       try {
         const res = await apiFetch('/api/transactions');
         const list = await res.json();
         const tbody = document.getElementById('txTbody');
         
+        const statusMap = {
+          approved: 'Подтверждено',
+          sale: 'Продажа',
+          lead: 'Лид',
+          declined: 'Отклонено',
+          trash: 'Трэш',
+          pending: 'В обработке'
+        };
+
         let html = '';
         for (const t of list) {
-          const time = new Date(t.date).toLocaleTimeString();
+          const time = new Date(t.date).toLocaleTimeString('ru-RU');
           const isApproved = t.status === 'approved' || t.status === 'sale';
+          const statusText = statusMap[t.status] || t.status;
           html += `
             <tr class="hover:bg-slate-900/30">
               <td class="py-2 text-slate-400 text-[11px]">${time}</td>
@@ -1062,49 +1074,49 @@
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
                   isApproved ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/30' : 'bg-amber-950 text-amber-400 border border-amber-500/30'
                 }">
-                  ${t.status}
+                  ${statusText}
                 </span>
               </td>
               <td class="py-2 text-slate-300">${t.campaignId} <span class="text-slate-500 text-[10px]">(${t.variant})</span></td>
-              <td class="py-2 text-slate-400 font-mono text-[11px]">${t.leadId || 'N/A'}</td>
+              <td class="py-2 text-slate-400 font-mono text-[11px]">${t.leadId || 'Н/Д'}</td>
               <td class="py-2 text-right font-bold text-emerald-400">+$${Number(t.payout || 0).toFixed(2)}</td>
             </tr>
           `;
         }
-        tbody.innerHTML = html || '<tr><td colspan="5" class="text-center py-4 text-slate-500">No incoming transactions yet.</td></tr>';
+        tbody.innerHTML = html || '<tr><td colspan="5" class="text-center py-4 text-slate-500">Входящих транзакций пока нет.</td></tr>';
       } catch (e) {}
     }
 
-    // Load Daemon Console Logs
+    // Загрузка логов консоли демона
     async function loadLogs() {
       try {
         const res = await apiFetch('/api/logs/daemon');
         const data = await res.json();
         const div = document.getElementById('daemonTerminal');
-        div.innerText = data.lines ? data.lines.join('\n') : 'Standby...';
+        div.innerText = data.lines ? data.lines.join('\n') : 'Ожидание...';
         if (autoScroll) div.scrollTop = div.scrollHeight;
       } catch (e) {}
     }
 
     function toggleScroll() {
       autoScroll = !autoScroll;
-      document.getElementById('btnScroll').innerText = 'Scroll: ' + (autoScroll ? 'Auto' : 'Manual');
+      document.getElementById('btnScroll').innerText = 'Автопрокрутка: ' + (autoScroll ? 'Вкл' : 'Выкл');
     }
 
     function clearConsole() {
-      document.getElementById('daemonTerminal').innerText = '[Console cleared]';
+      document.getElementById('daemonTerminal').innerText = '[Консоль очищена]';
     }
 
-    // Initialize Chart
+    // Инициализация графика
     function initChart() {
       const ctx = document.getElementById('velocityChart').getContext('2d');
       velocityChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', 'Now'],
+          labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', 'Сейчас'],
           datasets: [
             {
-              label: 'Revenue ($)',
+              label: 'Выручка ($)',
               data: [0, 0, 0, 0, 0, 0, 0],
               borderColor: '#10b981',
               backgroundColor: 'rgba(16, 185, 129, 0.1)',
@@ -1113,7 +1125,7 @@
               fill: true
             },
             {
-              label: 'Clicks',
+              label: 'Клики',
               data: [0, 0, 0, 0, 0, 0, 0],
               borderColor: '#38bdf8',
               backgroundColor: 'rgba(56, 189, 248, 0.05)',
@@ -1135,26 +1147,26 @@
       });
     }
 
-    // Load Organic Traffic Agent Status & Telemetry
+    // Загрузка состояния агента органического трафика (УБТ)
     async function loadOrganicStatus() {
       try {
         const res = await apiFetch('/api/agent/organic/status');
         const state = await res.json();
         
-        // Status Badge
+        // Бейдж статуса
         const badge = document.getElementById('organicStatusBadge');
         if (state.status === 'running') {
           badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-emerald-950 text-emerald-400 border border-emerald-500/40';
-          badge.innerText = '🟢 RUNNING (Auto-Pilot)';
+          badge.innerText = '🟢 РАБОТАЕТ (Автопилот)';
         } else if (state.status === 'dry_run') {
           badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-purple-950 text-purple-400 border border-purple-500/40';
-          badge.innerText = '🟡 DRY-RUN CYCLE';
+          badge.innerText = '🟡 ТЕСТОВЫЙ ПРОГОН';
         } else {
           badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-slate-900 text-slate-400 border border-slate-700';
-          badge.innerText = '⚪ PAUSED / IDLE';
+          badge.innerText = '⚪ НА ПАУЗЕ';
         }
 
-        // Metrics
+        // Метрики
         const m = state.metrics || {};
         document.getElementById('orgScannedCount').innerText = m.scanned_threads || 0;
         document.getElementById('orgPostsCount').innerText = m.links_posted || m.replies_generated || 0;
@@ -1165,7 +1177,7 @@
         if (state.nextRunTimestamp) {
           const next = new Date(state.nextRunTimestamp);
           const diffMins = Math.max(0, Math.round((next.getTime() - Date.now()) / 60000));
-          document.getElementById('orgNextCycle').innerText = `Next cycle: ~${diffMins}m (${next.toLocaleTimeString()})`;
+          document.getElementById('orgNextCycle').innerText = `След. цикл: ~${diffMins}м (${next.toLocaleTimeString('ru-RU')})`;
         }
 
         if (state.recentEvents && state.recentEvents.length > 0) {
@@ -1175,7 +1187,7 @@
       } catch (e) {}
     }
 
-    // Load Organic Activity Logs
+    // Загрузка логов органической активности
     async function loadOrganicLogs() {
       try {
         const res = await apiFetch('/api/agent/organic/logs');
@@ -1188,14 +1200,14 @@
       } catch (e) {}
     }
 
-    // Control Organic Agent (start / stop / dry_run)
+    // Управление органическим агентом
     async function controlOrganicAgent(action) {
       const actionLabels = {
-        start: '▶️ Resuming Autonomous Organic Agent...',
-        stop: '⏸️ Pausing Organic Agent...',
-        dry_run: '🧪 Triggering Single Dry-Run Discovery...'
+        start: '▶️ Запуск автономного агента органического трафика...',
+        stop: '⏸️ Приостановка органического агента...',
+        dry_run: '🧪 Запуск тестового поиска (Dry-Run)...'
       };
-      showToast(actionLabels[action] || `Executing ${action}...`, 'info');
+      showToast(actionLabels[action] || `Выполнение: ${action}...`, 'info');
 
       try {
         const res = await apiFetch('/api/agent/organic/toggle', {
@@ -1205,35 +1217,35 @@
         });
         const d = await res.json();
         if (d.success) {
-          showToast(`✅ Agent action '${action}' applied!`, 'success');
+          showToast(`✅ Действие агента '${action}' успешно применено!`, 'success');
           loadOrganicStatus();
           loadOrganicLogs();
         } else {
-          showToast(`❌ Action error: ${d.error}`, 'error');
+          showToast(`❌ Ошибка действия: ${d.error}`, 'error');
         }
       } catch (err) {
-        showToast(`❌ Network error: ${err.message}`, 'error');
+        showToast(`❌ Ошибка сети: ${err.message}`, 'error');
       }
     }
 
-    // Load AI Self-Learning Insights & Strategy
+    // Загрузка данных системы самообучения и рефлексии
     async function loadLearningInsights() {
       try {
         const res = await apiFetch('/api/agent/learning/insights');
         const data = await res.json();
         if (!data.success) return;
 
-        // Confidence Badge
+        // Бейдж уверенности
         const confBadge = document.getElementById('aiConfidenceBadge');
         if (confBadge) {
-          confBadge.innerText = `⚡ ${data.confidenceScore}% STRATEGY CONFIDENCE`;
+          confBadge.innerText = `⚡ ${data.confidenceScore}% УВЕРЕННОСТЬ СТРАТЕГИИ`;
         }
 
-        // Active Rules List
+        // Список активных правил
         const rulesList = document.getElementById('activeRulesList');
         const rulesCount = document.getElementById('activeRulesCount');
         if (rulesList && data.activeGuidelines) {
-          rulesCount.innerText = `${data.activeGuidelines.length} active`;
+          rulesCount.innerText = `${data.activeGuidelines.length} активно`;
           rulesList.innerHTML = data.activeGuidelines.map(r => `
             <div class="p-1.5 bg-slate-900/60 rounded border border-slate-800/80 text-[11px] text-emerald-300/90 leading-tight">
               • ${r}
@@ -1241,11 +1253,11 @@
           `).join('');
         }
 
-        // Winning Hooks List
+        // Список успешных хуков
         const hooksList = document.getElementById('winningHooksList');
         const hooksCount = document.getElementById('winningHooksCount');
         if (hooksList && data.topHooks) {
-          hooksCount.innerText = `${data.winningHooksCount} hooks`;
+          hooksCount.innerText = `${data.winningHooksCount} хуков`;
           hooksList.innerHTML = data.topHooks.map(h => `
             <div class="p-1.5 bg-slate-900/60 rounded border border-slate-800/80 text-[11px] text-sky-300/90 leading-tight">
               "${h}"
@@ -1253,16 +1265,15 @@
           `).join('');
         }
 
-        // Negative Constraints List
+        // Ограничения и стоп-слова
         const negList = document.getElementById('negativeRulesList');
         const negCount = document.getElementById('negativeRulesCount');
         if (negList) {
-          negCount.innerText = `Guardrails: ${data.negativeConstraintsCount}`;
+          negCount.innerText = `Защита: ${data.negativeConstraintsCount}`;
           const triggersSnippet = (data.bannedTriggers || []).slice(0, 6).join(', ');
-          const heuristicsSnippet = (data.heuristics || []).slice(0, 2).map(h => `• ${h}`).join('<br>');
           negList.innerHTML = `
             <div class="p-1.5 bg-slate-900/60 rounded border border-slate-800/80 text-[11px] text-rose-300/90 leading-tight">
-              <strong>Banned Triggers:</strong> ${triggersSnippet}
+              <strong>Запрещенные триггеры:</strong> ${triggersSnippet}
             </div>
             ${(data.heuristics || []).slice(0, 2).map(h => `
               <div class="p-1.5 bg-slate-900/60 rounded border border-slate-800/80 text-[11px] text-rose-300/80 leading-tight">
@@ -1272,45 +1283,45 @@
           `;
         }
 
-        // Evolution Log Stream
+        // Журнал эволюции
         const evoLog = document.getElementById('learningEvolutionLog');
         const lastReflected = document.getElementById('lastReflectionTime');
         if (evoLog && data.evolutionLog && data.evolutionLog.length > 0) {
           evoLog.innerHTML = data.evolutionLog.map(ev => {
-            const time = new Date(ev.timestamp).toLocaleTimeString();
+            const time = new Date(ev.timestamp).toLocaleTimeString('ru-RU');
             return `[${time}] ${ev.ruleAdded} | ${ev.constraintAdded || ''}`;
           }).join('\n');
           if (data.lastReflected) {
-            lastReflected.innerText = `Last reflected: ${new Date(data.lastReflected).toLocaleTimeString()}`;
+            lastReflected.innerText = `Посл. рефлексия: ${new Date(data.lastReflected).toLocaleTimeString('ru-RU')}`;
           }
         }
       } catch (e) {}
     }
 
-    // Trigger On-Demand Reflection Cycle
+    // Запуск цикла саморефлексии по требованию
     async function triggerReflectionCycle() {
       const btn = document.getElementById('btnTriggerReflection');
       if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '<span class="mr-1.5">⏳</span> Reflecting & Mutating...';
+        btn.innerHTML = '<span class="mr-1.5">⏳</span> Анализ и мутация...';
       }
-      showToast('🧠 Running Autonomous Gemini Reflection & Strategy Mutation...', 'info');
+      showToast('🧠 Запуск саморефлексии Gemini и мутации стратегии...', 'info');
 
       try {
         const res = await apiFetch('/api/agent/learning/reflect', { method: 'POST' });
         const data = await res.json();
         if (data.success && data.result) {
-          showToast(`✨ Strategy Evolved! Rule added: "${data.result.actionableRule}"`, 'success');
+          showToast(`✨ Стратегия обновлена! Добавлено правило: "${data.result.actionableRule}"`, 'success');
           loadLearningInsights();
         } else {
-          showToast(`❌ Reflection failed: ${data.error || 'Unknown error'}`, 'error');
+          showToast(`❌ Ошибка рефлексии: ${data.error || 'Неизвестная ошибка'}`, 'error');
         }
       } catch (err) {
-        showToast(`❌ Network error: ${err.message}`, 'error');
+        showToast(`❌ Ошибка сети: ${err.message}`, 'error');
       } finally {
         if (btn) {
           btn.disabled = false;
-          btn.innerHTML = '<span class="mr-1.5">🧪</span> Run Self-Reflection Cycle';
+          btn.innerHTML = '<span class="mr-1.5">🧪</span> Запустить цикл рефлексии';
         }
       }
     }
@@ -1324,7 +1335,7 @@
       loadLearningInsights();
     }
 
-    // Periodic Polling
+    // Периодический опрос данных
     document.addEventListener('DOMContentLoaded', () => {
       initChart();
       refreshAll();
@@ -1338,4 +1349,3 @@
   </script>
 </body>
 </html>
-

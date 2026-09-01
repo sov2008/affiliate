@@ -177,28 +177,28 @@ async function captureAndEvaluate(
   if (checks.aboveTheFold) {
     score += 35;
   } else {
-    recommendations.push('Reduce vertical padding on Header/Hero to ensure Step 1 Quiz card is 100% Above-the-Fold on mobile.');
+    recommendations.push('Уменьшите вертикальные отступы в шапке/Hero, чтобы карточка 1-го шага опросника полностью помещалась в первом экране (Above-the-Fold) на мобильных устройствах.');
   }
 
   // 2. Typography & Touch Targets (25 pts)
   if (checks.typographyAndTouchTargets) {
     score += 25;
   } else {
-    recommendations.push(`Increase touch target button heights (currently ${Math.round(minTouchTargetHeight)}px, standard is >= 48px).`);
+    recommendations.push(`Увеличьте высоту кнопок и интерактивных элементов (сейчас ${Math.round(minTouchTargetHeight)}px, стандарт >= 48px).`);
   }
 
   // 3. Visual Polish & Images (20 pts)
   if (checks.visualPolishAndImages) {
     score += 20;
   } else {
-    recommendations.push(`Fix ${brokenImages} broken image asset(s) on the landing page.`);
+    recommendations.push(`Исправьте ${brokenImages} битых изображений на посадочной странице.`);
   }
 
   // 4. Localization & Tokens (20 pts)
   if (checks.localizationAndNoRawTokens) {
     score += 20;
   } else {
-    recommendations.push(`Unresolved raw template tokens detected in DOM: ${rawTokensList.join(', ')}.`);
+    recommendations.push(`Обнаружены нераспарсенные токены шаблона в DOM: ${rawTokensList.join(', ')}.`);
   }
 
   return {

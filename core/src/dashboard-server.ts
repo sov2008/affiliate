@@ -19,8 +19,27 @@ app.use(express.json());
 
 const MEMORY_PATH = path.resolve(__dirname, '../../.antigravity/memory.json');
 const LOG_PATH = path.resolve(__dirname, '../../.antigravity/daemon.log');
-const HTML_PATH = path.resolve(__dirname, 'dashboard.html');
 const WORKER_URL = process.env.POSTBACK_WORKER_URL || 'https://postback-engine.sov7.workers.dev';
+
+async function getDashboardHtml(): Promise<string> {
+  const candidatePaths = [
+    path.resolve(__dirname, 'dashboard.html'),
+    path.resolve(__dirname, '../src/dashboard.html'),
+    path.resolve(__dirname, 'src/dashboard.html'),
+    path.resolve(__dirname, '../../core/src/dashboard.html'),
+    '/var/www/affiliate/core/src/dashboard.html',
+    '/var/www/affiliate/core/dist/dashboard.html',
+    '/root/affiliate/core/src/dashboard.html'
+  ];
+
+  for (const p of candidatePaths) {
+    try {
+      const data = await fs.readFile(p, 'utf8');
+      if (data && data.length > 0) return data;
+    } catch {}
+  }
+  throw new Error('Dashboard UI template not found in search paths');
+}
 
 const AUTH_USER = process.env.DASHBOARD_USER || 'admin';
 const AUTH_PASS = process.env.DASHBOARD_PASS || '';
@@ -91,11 +110,14 @@ async function saveMemory(data: any): Promise<void> {
 // ----------------------------------------------------
 app.get('/', async (req, res) => {
   try {
-    const html = await fs.readFile(HTML_PATH, 'utf8');
+    const html = await getDashboardHtml();
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
     res.send(html);
-  } catch (err) {
-    res.status(500).send('Dashboard UI template not found');
+  } catch (err: any) {
+    res.status(500).send('Dashboard UI template not found: ' + err.message);
   }
 });
 
@@ -171,12 +193,12 @@ app.get('/api/stats/overview', async (req, res) => {
       activeCampaignsCount: Object.keys(deployed).length,
       pausedCampaignsCount: Object.keys(paused).length,
       networks: [
-        { name: 'MyLead.global', status: 'OK', latencyMs: 38, health: 'Healthy' },
-        { name: 'LosPollos Smartlink', status: 'OK', latencyMs: 52, health: 'Healthy' },
-        { name: 'Cloudflare Edge KV', status: 'OK', latencyMs: 14, health: 'Synchronized' }
+        { name: 'MyLead.global', status: 'OK', latencyMs: 38, health: 'Стабильно' },
+        { name: 'LosPollos Smartlink', status: 'OK', latencyMs: 52, health: 'Стабильно' },
+        { name: 'Cloudflare Edge KV', status: 'OK', latencyMs: 14, health: 'Синхронизировано' }
       ],
       autopilotDaemon: {
-        status: 'RUNNING',
+        status: 'АКТИВЕН',
         intervalMinutes: 30,
         lastCycleTimestamp: new Date(Date.now() - 4 * 60 * 1000).toISOString(),
         nextRunSeconds: 1560
@@ -410,7 +432,7 @@ app.post('/api/actions/sync-kv', async (req, res) => {
       await execAsync(`npx tsx src/stats-syncer.ts ${cid}`, { cwd: __dirname }).catch(() => {});
     }
 
-    res.json({ success: true, message: `Synced ${campaigns.length} campaigns with Cloudflare KV.` });
+    res.json({ success: true, message: `Синхронизировано ${campaigns.length} кампаний с Cloudflare KV.` });
   } catch (err: any) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -421,7 +443,7 @@ app.post('/api/actions/run-autopilot', async (req, res) => {
   try {
     console.log('[Dashboard API] Manually invoking Optimization Cycle...');
     exec(`npx tsx src/optimizer-agent.ts --auto-evolve`, { cwd: __dirname });
-    res.json({ success: true, message: 'Autopilot optimization cycle triggered.' });
+    res.json({ success: true, message: 'Цикл оптимизации автопилота запущен.' });
   } catch (err: any) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -432,7 +454,7 @@ app.post('/api/actions/deploy-pages', async (req, res) => {
   try {
     console.log('[Dashboard API] Triggering Cloudflare Pages Deploy...');
     exec(`npm run deploy:pages`, { cwd: path.resolve(__dirname, '../../') });
-    res.json({ success: true, message: 'Cloudflare Pages deployment initiated.' });
+    res.json({ success: true, message: 'Деплой на Cloudflare Pages запущен.' });
   } catch (err: any) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -442,7 +464,7 @@ app.post('/api/actions/deploy-pages', async (req, res) => {
 app.post('/api/actions/purge-cache', async (req, res) => {
   try {
     console.log('[Dashboard API] Purging Global Cloudflare Edge Cache...');
-    res.json({ success: true, message: 'Global Cloudflare Edge Cache purged successfully.' });
+    res.json({ success: true, message: 'Глобальный кэш Cloudflare Edge успешно очищен.' });
   } catch (err: any) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -505,7 +527,7 @@ app.post('/api/actions/reset-data', async (req, res) => {
     // 3. Truncate logs
     for (const lp of ORGANIC_LOG_PATHS) {
       try {
-        await fs.writeFile(lp, `[${new Date().toISOString()}] [Organic Traffic Daemon] Logs reset. Monitoring live opportunities...\n`);
+        await fs.writeFile(lp, `[${new Date().toISOString()}] [Органический демон] Логи очищены. Мониторинг целевых обсуждений...\n`);
       } catch (e) {}
     }
 
@@ -514,7 +536,7 @@ app.post('/api/actions/reset-data', async (req, res) => {
       await fetch(`${WORKER_URL}/reset-stats`).catch(() => {});
     } catch (e) {}
 
-    res.json({ success: true, message: 'All demo and test data has been completely flushed.' });
+    res.json({ success: true, message: 'Все тестовые данные полностью сброшены.' });
   } catch (err: any) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -676,7 +698,7 @@ app.post('/api/agent/organic/toggle', async (req, res) => {
         await execAsync('pm2 stop affiliate-organic-daemon').catch(() => {});
       } catch (e) {}
       console.log('[Dashboard API] ⏸️ Organic Traffic Agent paused');
-      return res.json({ success: true, message: 'Organic agent paused.', state });
+      return res.json({ success: true, message: 'Органический агент приостановлен.', state });
     }
 
     if (action === 'start') {
@@ -687,7 +709,7 @@ app.post('/api/agent/organic/toggle', async (req, res) => {
         await execAsync('pm2 restart affiliate-organic-daemon || pm2 start ecosystem.config.js --only affiliate-organic-daemon').catch(() => {});
       } catch (e) {}
       console.log('[Dashboard API] ▶️ Organic Traffic Agent resumed');
-      return res.json({ success: true, message: 'Organic agent running.', state });
+      return res.json({ success: true, message: 'Органический агент запущен.', state });
     }
 
     if (action === 'dry_run') {
@@ -695,10 +717,10 @@ app.post('/api/agent/organic/toggle', async (req, res) => {
       console.log('[Dashboard API] 🧪 Triggering Single Dry-Run Organic Cycle...');
       // Execute asynchronously to not block HTTP response
       runOrganicDiscoveryCycle({ dryRun: true, headless: true }).catch(() => {});
-      return res.json({ success: true, message: 'Dry-run cycle triggered successfully.', state });
+      return res.json({ success: true, message: 'Тестовый цикл (dry-run) запущен.', state });
     }
 
-    res.status(400).json({ success: false, error: 'Invalid action. Supported: start | stop | dry_run' });
+    res.status(400).json({ success: false, error: 'Недопустимое действие. Поддерживается: start | stop | dry_run' });
   } catch (err: any) {
     res.status(500).json({ success: false, error: err.message });
   }

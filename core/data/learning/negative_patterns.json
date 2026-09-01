@@ -1,24 +1,25 @@
 {
   "lastUpdated": "2026-08-31T22:00:00.000Z",
   "bannedTriggerWords": [
+    "гарантия",
+    "100% бесплатно",
+    "кликни сюда",
+    "переходи по ссылке",
+    "промокод",
+    "легкие деньги",
+    "пиши в лс",
+    "телеграм канал",
     "guaranteed",
-    "100% free",
-    "click here",
-    "check out my link",
-    "promo code",
-    "best app ever",
-    "easy money",
-    "dm me for info",
-    "telegram channel"
+    "click here"
   ],
   "disallowedFormats": [
-    "Single-sentence replies containing only a promotional URL.",
-    "Generic praise without specific technical reasoning or benchmarks.",
-    "Multiple duplicate links placed within the same thread."
+    "Односложные ответы, содержащие только рекламную ссылку.",
+    "Шаблонные хвалебные отзывы без технических аргументов и цифр.",
+    "Дублирование одинаковых ссылок в одной ветке обсуждения."
   ],
   "moderationAvoidanceHeuristics": [
-    "Maintain a minimum 85% domain-specific content ratio before any link reference.",
-    "Ensure markdown formatting matches the native subreddit / forum styling.",
-    "Never post more than 2 distinct responses in the same subreddit within a 2-hour window."
+    "Сохранять минимум 85% полезного экспертного контента до любого упоминания ресурса.",
+    "Строго соблюдать стиль разметки конкретного сабреддита или форума.",
+    "Не публиковать более 2 ответов в одном сабреддите в течение 2-часового окна."
   ]
 }

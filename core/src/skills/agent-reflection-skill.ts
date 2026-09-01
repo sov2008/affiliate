@@ -36,8 +36,8 @@ export async function getStrategyMemory(): Promise<any> {
       aiConfidenceScore: 88,
       defaultTemperature: 0.65,
       activeCopywritingGuidelines: [
-        "Always provide actionable domain advice and technical benchmarks before mentioning any tool or link.",
-        "Adopt the tone of an experienced peer or senior developer, never a marketer or promoter."
+        "Всегда предоставляйте экспертные советы и технические бенчмарки перед упоминанием любого инструмента или ссылки.",
+        "Пишите от лица опытного разработчика/коллеги, избегая прямого рекламного или маркетингового тона."
       ],
       successfulIntentAngles: [],
       evolutionLog: []
@@ -54,19 +54,19 @@ export async function getWinningPatterns(): Promise<any> {
   return {
     lastOptimized: new Date().toISOString(),
     topConvertingHooks: [
-      "Tested this exact setup across multiple latency nodes last week...",
-      "From an infrastructure perspective, here is what actually happens under load...",
-      "If you're running automated scripts, the primary bottleneck is usually...",
-      "Having reviewed the server protocols and peer benchmarks..."
+      "Протестировал эту конфигурацию на нескольких серверах на прошлой неделе...",
+      "С точки зрения сетевой инфраструктуры под нагрузкой происходит следующее...",
+      "При запуске автоматических скриптов основным узким местом обычно является...",
+      "Проанализировав серверные протоколы и независимые бенчмарки..."
     ],
     structuralTemplates: [
       {
-        name: "Benchmark & Case Study Pattern",
-        format: "[Direct Answer to Question] -> [Technical Deep-Dive / Metrics] -> [Neutral Verification Link]"
+        name: "Шаблон бенчмарка и кейс-стади",
+        format: "[Прямой ответ на вопрос] -> [Технический разбор / Метрики] -> [Нейтральная ссылка на тест]"
       },
       {
-        name: "Pitfall Warning & Alternative Pattern",
-        format: "[Common Industry Pitfalls] -> [How to Avoid Them] -> [Tested Reference Solution]"
+        name: "Шаблон разбора типичных ошибок",
+        format: "[Частые ошибки в нише] -> [Как их избежать] -> [Проверенное решение]"
       }
     ],
     highAffinityChannels: [
@@ -88,15 +88,16 @@ export async function getNegativePatterns(): Promise<any> {
   return {
     lastUpdated: new Date().toISOString(),
     bannedTriggerWords: [
+      "гарантия",
+      "100% бесплатно",
+      "кликни сюда",
+      "переходи по ссылке",
+      "промокод",
+      "легкие деньги",
+      "пиши в лс",
+      "телеграм канал",
       "guaranteed",
-      "100% free",
-      "click here",
-      "check out my link",
-      "promo code",
-      "best app ever",
-      "easy money",
-      "dm me for info",
-      "telegram channel"
+      "click here"
     ],
     disallowedFormats: [
       "Single-sentence replies containing only a promotional URL.",

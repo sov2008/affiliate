@@ -1,19 +1,19 @@
 {
   "lastOptimized": "2026-08-31T22:00:00.000Z",
   "topConvertingHooks": [
-    "Tested this exact setup across multiple latency nodes last week...",
-    "From an infrastructure perspective, here is what actually happens under load...",
-    "If you're running automated scripts, the primary bottleneck is usually...",
-    "Having reviewed the server protocols and peer benchmarks..."
+    "Протестировал эту конфигурацию на нескольких серверах на прошлой неделе...",
+    "С точки зрения сетевой инфраструктуры под нагрузкой происходит следующее...",
+    "При запуске автоматических скриптов основным узким местом обычно является...",
+    "Проанализировав серверные протоколы и независимые бенчмарки..."
   ],
   "structuralTemplates": [
     {
-      "name": "Benchmark & Case Study Pattern",
-      "format": "[Direct Answer to Question] -> [Technical Deep-Dive / Metrics] -> [Neutral Verification Link]"
+      "name": "Шаблон бенчмарка и кейс-стади",
+      "format": "[Прямой ответ на вопрос] -> [Технический разбор / Метрики] -> [Нейтральная ссылка на тест]"
     },
     {
-      "name": "Pitfall Warning & Alternative Pattern",
-      "format": "[Common Industry Pitfalls] -> [How to Avoid Them] -> [Tested Reference Solution]"
+      "name": "Шаблон разбора типичных ошибок",
+      "format": "[Частые ошибки в нише] -> [Как их избежать] -> [Проверенное решение]"
     }
   ],
   "highAffinityChannels": [
