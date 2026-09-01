@@ -49,7 +49,7 @@ export class UmamiClient {
   private tokenExpiresAt: number = 0;
 
   // In-memory cache to prevent hammering the Umami API
-  private cache: Map<string, { data: any; expiresAt: number }> = new Map();
+  private cache: Map<string, { data: unknown; expiresAt: number }> = new Map();
   private readonly CACHE_TTL_MS = 15_000; // 15 seconds
 
   private constructor() {
@@ -98,8 +98,9 @@ export class UmamiClient {
         return this.authToken;
       }
       return null;
-    } catch (err: any) {
-      console.warn(`[UmamiClient] Connection to Umami server failed (${this.baseUrl}):`, err.message);
+    } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : String(err);
+      console.warn(`[UmamiClient] Connection to Umami server failed (${this.baseUrl}):`, errorMsg);
       return null;
     }
   }
@@ -147,7 +148,7 @@ export class UmamiClient {
 
       this.setCache(cacheKey, result);
       return result;
-    } catch (err: any) {
+    } catch {
       return fallback;
     }
   }

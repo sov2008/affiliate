@@ -28,8 +28,15 @@ build/
 scratch/
 core/scratch/
 **/scratch/
+runs/
+output/
+core/output/
+*.db
+*.sqlite
+content_queue.db
 
 # Deployment scripts containing runtime credentials
 deploy-do.js
+
 
 

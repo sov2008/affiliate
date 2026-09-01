@@ -156,7 +156,7 @@ export const AnalyticsWidget: React.FC<{ refreshIntervalMs?: number; websiteId?:
           </div>
 
           <div className="space-y-2.5">
-            {data.steps.map((step, idx) => (
+            {data.steps.map((step: UmamiFunnelStep, idx: number) => (
               <div key={idx} className="space-y-1">
                 <div className="flex justify-between text-[11px]">
                   <span className="text-slate-300">{step.stepName}</span>
@@ -192,7 +192,7 @@ export const AnalyticsWidget: React.FC<{ refreshIntervalMs?: number; websiteId?:
                   Нет зарегистрированных рефереров.
                 </div>
               ) : (
-                data.topReferrers.map((ref, idx) => (
+                data.topReferrers.map((ref: { source: string; count: number; sharePct: number }, idx: number) => (
                   <div key={idx} className="flex justify-between items-center text-[11px] bg-slate-900/50 p-1.5 rounded border border-slate-800/50">
                     <span className="text-slate-300 truncate max-w-[140px]">{ref.source}</span>
                     <span className="text-sky-400 font-bold">{ref.count} ({ref.sharePct}%)</span>
