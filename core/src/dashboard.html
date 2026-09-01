@@ -225,8 +225,16 @@
         <p class="text-xs text-slate-400 mt-1 font-mono">Автономный движок монетизации • Серверный узел: <span class="text-sky-400">178.128.199.28:5000</span></p>
       </div>
 
-      <!-- Индикаторы состояния сетей -->
-      <div class="flex items-center space-x-2 text-xs font-mono">
+      <!-- Индикаторы состояния сетей и E-STOP -->
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+        <div id="estopBadgeContainer" class="bg-slate-900 border border-emerald-500/40 px-3 py-1.5 rounded-lg flex items-center space-x-2">
+          <span id="estopDot" class="w-2 h-2 rounded-full bg-emerald-400 status-pulse"></span>
+          <span class="text-slate-300 font-bold">E-STOP:</span>
+          <span id="estopText" class="text-emerald-400 font-bold">НОРМА</span>
+        </div>
+        <button id="btnEstopToggle" onclick="toggleEstopState()" class="px-3 py-1.5 rounded-lg bg-rose-600/20 hover:bg-rose-600/30 border border-rose-500/50 text-rose-300 font-bold transition active:scale-95 flex items-center">
+          <span class="mr-1">🚨</span> Аварийный СТОП
+        </button>
         <div class="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg flex items-center space-x-2">
           <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
           <span class="text-slate-300">MyLead:</span>
@@ -529,6 +537,117 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- B3. Очередь контента и HITL Модерация (Content Queue) -->
+    <div class="glass-panel p-5 rounded-xl border border-sky-900/60 bg-slate-900/40 space-y-4 glow-border">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">📦</span>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-base font-bold font-mono text-slate-200">
+                ОЧЕРЕДЬ КОНТЕНТА & HITL МОДЕРАЦИЯ (SQLITE QUEUE)
+              </h2>
+              <span id="queueCountBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-sky-950 text-sky-300 border border-sky-500/40">
+                Всего: -- | Ожидают: --
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 font-mono mt-0.5">Очередь постов, готовых к публикации в Reddit/Quora/Forum через Playwright Stealth Worker</p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2 font-mono text-xs">
+          <button onclick="loadQueueItems()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 transition active:scale-95 flex items-center">
+            <span class="mr-1.5">🔄</span> Обновить
+          </button>
+        </div>
+      </div>
+
+      <!-- Сетка карточек постов в очереди -->
+      <div id="queueItemsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 font-mono text-xs">
+        <div class="p-4 bg-slate-950/70 rounded-xl border border-slate-800 text-slate-400 text-center col-span-full">
+          Загрузка очереди постов из SQLite базы данных...
+        </div>
+      </div>
+    </div>
+
+    <!-- B4. Разведка офферов (LosPollos & MyLead Scouts Intelligence) -->
+    <div class="glass-panel p-5 rounded-xl border border-emerald-900/60 bg-slate-900/40 space-y-4 glow-border">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">🛰️</span>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-base font-bold font-mono text-slate-200">
+                РАЗВЕДКА ОФФЕРОВ (OFFER SCOUTS INTELLIGENCE)
+              </h2>
+              <span id="scoutsCountBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-emerald-950 text-emerald-300 border border-emerald-500/40">
+                LosPollos + MyLead
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 font-mono mt-0.5">Автоматический мониторинг Smartlink/CPA офферов, EPC, конверсий и AI-скоринг коммерческой эффективности</p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2 font-mono text-xs">
+          <button id="btnRunScouts" onclick="triggerScoutDiscoveryRun()" class="px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/50 text-emerald-300 font-bold transition active:scale-95 flex items-center">
+            <span class="mr-1.5">⚡</span> Запустить разведку и генерацию
+          </button>
+        </div>
+      </div>
+
+      <!-- Таблица разведанных офферов -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-mono text-xs">
+          <thead class="text-slate-400 bg-slate-950/60 border-b border-slate-800">
+            <tr>
+              <th class="py-2.5 px-3">Сеть</th>
+              <th class="py-2.5 px-3">Оффер / Смартлинк</th>
+              <th class="py-2.5 px-3">Выплата</th>
+              <th class="py-2.5 px-3">EPC / CR</th>
+              <th class="py-2.5 px-3">AI Оценка</th>
+              <th class="py-2.5 px-3">TOS Правила</th>
+              <th class="py-2.5 px-3">ГЕО</th>
+            </tr>
+          </thead>
+          <tbody id="scoutsOffersTbody" class="divide-y divide-slate-800/50">
+            <tr>
+              <td colspan="7" class="py-4 text-center text-slate-500">Загрузка данных скаутов офферов...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- B5. Журнал артефактов Evidence Bundles -->
+    <div class="glass-panel p-5 rounded-xl border border-purple-900/60 bg-slate-900/40 space-y-4 glow-border">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">📁</span>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-base font-bold font-mono text-slate-200">
+                ЖУРНАЛ АРТЕФАКТОВ EVIDENCE BUNDLES (/runs/)
+              </h2>
+              <span id="bundlesCountBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-purple-950 text-purple-300 border border-purple-500/40">
+                HITL Трейсинг
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 font-mono mt-0.5">Снимки генерации контента, оценки комплаенса и аудит-трейсы безопасности</p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2 font-mono text-xs">
+          <button onclick="loadEvidenceBundles()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-purple-300 border border-slate-700 transition active:scale-95 flex items-center">
+            <span class="mr-1.5">🔄</span> Обновить
+          </button>
+        </div>
+      </div>
+
+      <div id="bundlesListContainer" class="space-y-2 font-mono text-xs max-h-56 overflow-y-auto term-scroll">
+        <div class="p-3 bg-slate-950/70 rounded-lg text-slate-500 text-center">Загрузка артефактов Evidence Bundles...</div>
+      </div>
     </div>
 
     <!-- C. Таблица управления кампаниями с глубокой телеметрией и MAB -->
@@ -1479,6 +1598,347 @@
       }
     }
 
+    // ----------------------------------------------------
+    // E-STOP Emergency Stop Controller JS
+    // ----------------------------------------------------
+    let currentEstopHalted = false;
+
+    async function loadEstopStatus() {
+      try {
+        const res = await apiFetch('/api/estop/status');
+        const data = await res.json();
+        if (!data.success) return;
+
+        currentEstopHalted = Boolean(data.isHalted);
+        const container = document.getElementById('estopBadgeContainer');
+        const dot = document.getElementById('estopDot');
+        const text = document.getElementById('estopText');
+        const btn = document.getElementById('btnEstopToggle');
+
+        if (currentEstopHalted) {
+          if (container) {
+            container.className = 'bg-rose-950/80 border border-rose-500 px-3 py-1.5 rounded-lg flex items-center space-x-2';
+          }
+          if (dot) {
+            dot.className = 'w-2 h-2 rounded-full bg-rose-500 status-pulse';
+          }
+          if (text) {
+            text.className = 'text-rose-400 font-bold';
+            text.innerText = 'ОСТАНОВЛЕН';
+          }
+          if (btn) {
+            btn.className = 'px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition active:scale-95 flex items-center shadow-lg shadow-emerald-900/30';
+            btn.innerHTML = '<span class="mr-1">✅</span> Снять СТОП-КРАН';
+          }
+        } else {
+          if (container) {
+            container.className = 'bg-slate-900 border border-emerald-500/40 px-3 py-1.5 rounded-lg flex items-center space-x-2';
+          }
+          if (dot) {
+            dot.className = 'w-2 h-2 rounded-full bg-emerald-400 status-pulse';
+          }
+          if (text) {
+            text.className = 'text-emerald-400 font-bold';
+            text.innerText = 'НОРМА';
+          }
+          if (btn) {
+            btn.className = 'px-3 py-1.5 rounded-lg bg-rose-600/20 hover:bg-rose-600/30 border border-rose-500/50 text-rose-300 font-bold transition active:scale-95 flex items-center';
+            btn.innerHTML = '<span class="mr-1">🚨</span> Аварийный СТОП';
+          }
+        }
+      } catch (e) {}
+    }
+
+    async function toggleEstopState() {
+      if (currentEstopHalted) {
+        showToast('🔄 Снятие аварийной остановки...', 'info');
+        try {
+          const res = await apiFetch('/api/estop/reset', { method: 'POST' });
+          const data = await res.json();
+          if (data.success) {
+            showToast('✅ Аварийная остановка снята. Пайплайн активен!', 'success');
+            loadEstopStatus();
+          }
+        } catch (err) {
+          showToast(`❌ Ошибка: ${err.message}`, 'error');
+        }
+      } else {
+        if (!confirm('Вы уверены, что хотите экстренно остановить все воркеры и процессы генерации трафика?')) {
+          return;
+        }
+        showToast('🚨 Активация аварийной остановки E-STOP...', 'error');
+        try {
+          const res = await apiFetch('/api/estop/trigger', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ reason: 'Operator pressed E-STOP in Dashboard' })
+          });
+          const data = await res.json();
+          if (data.success) {
+            showToast('🚨 ВСЕ АГЕНТЫ И ВОРКЕРЫ АТОМАРНО ОСТАНОВЛЕНЫ!', 'error');
+            loadEstopStatus();
+          }
+        } catch (err) {
+          showToast(`❌ Ошибка: ${err.message}`, 'error');
+        }
+      }
+    }
+
+    // ----------------------------------------------------
+    // Content Queue & Moderation JS
+    // ----------------------------------------------------
+    async function loadQueueItems() {
+      try {
+        const [statsRes, itemsRes] = await Promise.all([
+          apiFetch('/api/queue/stats'),
+          apiFetch('/api/queue/items?limit=12')
+        ]);
+        const statsData = await statsRes.json();
+        const itemsData = await itemsRes.json();
+
+        const badge = document.getElementById('queueCountBadge');
+        if (badge && statsData.stats) {
+          const s = statsData.stats;
+          badge.innerText = `Всего: ${s.total} | Ожидают: ${s.pending} | Одобрено: ${s.approved} | Опубликовано: ${s.dispatched}`;
+        }
+
+        const container = document.getElementById('queueItemsContainer');
+        if (!container) return;
+
+        const items = itemsData.items || [];
+        if (items.length === 0) {
+          container.innerHTML = `
+            <div class="p-6 bg-slate-950/60 rounded-xl border border-slate-800 text-center col-span-full text-slate-500">
+              ✨ В очереди SQLite нет постов. Все сгенерированные креативы промодерированы.
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = items.map(it => {
+          const statusColors = {
+            PENDING_APPROVAL: 'bg-amber-950 text-amber-300 border-amber-500/40',
+            APPROVED: 'bg-emerald-950 text-emerald-300 border-emerald-500/40',
+            DISPATCHED: 'bg-sky-950 text-sky-300 border-sky-500/40',
+            REJECTED: 'bg-rose-950 text-rose-300 border-rose-500/40',
+            FAILED: 'bg-red-950 text-red-300 border-red-500/40'
+          };
+          const badgeClass = statusColors[it.status] || 'bg-slate-900 text-slate-300';
+
+          return `
+            <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4 flex flex-col justify-between space-y-3 hover:border-slate-700 transition">
+              <div>
+                <div class="flex justify-between items-start gap-2">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${badgeClass}">
+                    ${it.status}
+                  </span>
+                  <span class="text-[10px] text-slate-500 uppercase">${it.network.toUpperCase()} • ${it.target_platform.toUpperCase()}</span>
+                </div>
+                <div class="mt-2 text-xs font-bold text-slate-200 line-clamp-2">
+                  "${it.hook}"
+                </div>
+                <div class="mt-1 text-[11px] text-slate-400 line-clamp-3 leading-relaxed">
+                  ${it.body}
+                </div>
+                <div class="mt-2 text-[10px] text-emerald-400 bg-slate-900 p-1.5 rounded border border-slate-800/80 line-clamp-2">
+                  🎯 <strong>CTA:</strong> ${it.stealth_cta}
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-900 flex justify-between items-center text-[11px]">
+                <span class="text-slate-500">Риск: <strong class="${it.risk_score < 25 ? 'text-emerald-400' : 'text-amber-400'}">${it.risk_score}/100</strong></span>
+                <div class="flex space-x-1.5">
+                  ${it.status === 'PENDING_APPROVAL' ? `
+                    <button onclick="setQueueStatus('${it.id}', 'APPROVED')" class="px-2 py-1 bg-emerald-600/30 hover:bg-emerald-600 text-emerald-300 hover:text-white rounded transition text-[10px] font-bold">
+                      ✓ Одобрить
+                    </button>
+                    <button onclick="setQueueStatus('${it.id}', 'REJECTED')" class="px-2 py-1 bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white rounded transition text-[10px]">
+                      ✕
+                    </button>
+                  ` : ''}
+                  <button onclick="deleteQueuePost('${it.id}')" class="px-2 py-1 bg-slate-800 hover:bg-rose-900/60 text-slate-400 hover:text-rose-200 rounded transition text-[10px]">
+                    🗑️
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (e) {}
+    }
+
+    async function setQueueStatus(id, status) {
+      try {
+        const res = await apiFetch(`/api/queue/items/${id}/status`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status })
+        });
+        const d = await res.json();
+        if (d.success) {
+          showToast(`✅ Статус поста обновлен на: ${status}`, 'success');
+          loadQueueItems();
+        }
+      } catch (err) {
+        showToast(`❌ Ошибка: ${err.message}`, 'error');
+      }
+    }
+
+    async function deleteQueuePost(id) {
+      if (!confirm('Удалить пост из очереди?')) return;
+      try {
+        const res = await apiFetch(`/api/queue/items/${id}`, { method: 'DELETE' });
+        const d = await res.json();
+        if (d.success) {
+          showToast('🗑️ Пост удален из очереди', 'info');
+          loadQueueItems();
+        }
+      } catch (err) {
+        showToast(`❌ Ошибка: ${err.message}`, 'error');
+      }
+    }
+
+    // ----------------------------------------------------
+    // Offer Scouts & Intelligence JS
+    // ----------------------------------------------------
+    async function loadScoutsOffers() {
+      try {
+        const res = await apiFetch('/api/scouts/offers');
+        const data = await res.json();
+        if (!data.success) return;
+
+        const tbody = document.getElementById('scoutsOffersTbody');
+        if (!tbody) return;
+
+        const offers = data.offers || [];
+        if (offers.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="7" class="py-4 text-center text-slate-500">Нет активных разведанных офферов.</td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = offers.map(sc => {
+          const o = sc.offer;
+          const netBadge = o.network === 'lospollos' ? 'bg-orange-950 text-orange-300 border-orange-500/40' : 'bg-blue-950 text-blue-300 border-blue-500/40';
+          const scoreClass = sc.opportunity_score >= 85 ? 'text-emerald-400 font-bold' : (sc.opportunity_score >= 75 ? 'text-sky-400' : 'text-amber-400');
+
+          return `
+            <tr class="hover:bg-slate-900/60 transition">
+              <td class="py-2.5 px-3">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${netBadge}">
+                  ${o.network.toUpperCase()}
+                </span>
+              </td>
+              <td class="py-2.5 px-3">
+                <div class="font-bold text-slate-200">${o.title}</div>
+                <div class="text-[10px] text-slate-500">Категория: ${o.category.toUpperCase()} • ${sc.recommended_angle_concept || ''}</div>
+              </td>
+              <td class="py-2.5 px-3 font-bold text-emerald-400">
+                $${o.payout.toFixed(2)}
+              </td>
+              <td class="py-2.5 px-3 text-slate-300">
+                EPC: <strong class="text-sky-400">$${o.epc.toFixed(2)}</strong> | CR: ${o.cr}%
+              </td>
+              <td class="py-2.5 px-3 ${scoreClass}">
+                ⚡ ${sc.opportunity_score}/100
+              </td>
+              <td class="py-2.5 px-3">
+                <span class="px-2 py-0.5 rounded text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-500/40">
+                  ✓ ОРГАНИКА РАЗРЕШЕНА
+                </span>
+              </td>
+              <td class="py-2.5 px-3 text-slate-400 text-[10px]">
+                ${(o.target_geos || []).slice(0, 4).join(', ')}
+              </td>
+            </tr>
+          `;
+        }).join('');
+      } catch (e) {}
+    }
+
+    async function triggerScoutDiscoveryRun() {
+      const btn = document.getElementById('btnRunScouts');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="mr-1.5">⏳</span> Сканирование и генерация...';
+      }
+      showToast('🛰️ Запуск разведки LosPollos & MyLead и авто-генерации...', 'info');
+
+      try {
+        const res = await apiFetch('/api/scouts/discover', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ network: 'both', targetPlatform: 'reddit' })
+        });
+        const data = await res.json();
+        if (data.success && data.result) {
+          showToast(`🏆 Выбран топ-оффер: "${data.result.topOffer?.offer?.title}" (Оценка: ${data.result.topOffer?.opportunity_score}/100)`, 'success');
+          loadScoutsOffers();
+          loadQueueItems();
+          loadEvidenceBundles();
+        } else {
+          showToast(`❌ Ошибка сканирования: ${data.error || 'Сбой'}`, 'error');
+        }
+      } catch (err) {
+        showToast(`❌ Ошибка сети: ${err.message}`, 'error');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span class="mr-1.5">⚡</span> Запустить разведку и генерацию';
+        }
+      }
+    }
+
+    // ----------------------------------------------------
+    // Evidence Bundles JS
+    // ----------------------------------------------------
+    async function loadEvidenceBundles() {
+      try {
+        const res = await apiFetch('/api/runs/bundles');
+        const data = await res.json();
+        if (!data.success) return;
+
+        const container = document.getElementById('bundlesListContainer');
+        if (!container) return;
+
+        const bundles = data.bundles || [];
+        if (bundles.length === 0) {
+          container.innerHTML = `
+            <div class="p-3 bg-slate-950/70 rounded-lg text-slate-500 text-center">
+              Пока нет сохраненных Evidence Bundles в /runs/
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = bundles.map(b => {
+          const compScore = b.compliance?.score ?? '--';
+          const scoreColor = compScore >= 80 ? 'text-emerald-400' : 'text-rose-400';
+          const dateStr = b.createdAt ? new Date(b.createdAt).toLocaleString('ru-RU') : 'Недавно';
+
+          return `
+            <div class="p-2.5 bg-slate-950/80 border border-slate-800 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 hover:border-slate-700 transition">
+              <div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-sky-400 font-bold">Bundle: ${b.id.slice(0, 8)}</span>
+                  <span class="text-[10px] text-slate-500 uppercase">${b.context?.platform || 'web'}</span>
+                  <span class="px-1.5 py-0.2 rounded text-[10px] bg-slate-900 border border-slate-700 text-slate-300">${b.status}</span>
+                </div>
+                <div class="text-[11px] text-slate-300 line-clamp-1 mt-0.5">"${b.creative?.headline || b.context?.topicTitle || ''}"</div>
+              </div>
+              <div class="flex items-center space-x-3 text-[11px]">
+                <span class="text-slate-400">Compliance: <strong class="${scoreColor}">${compScore}/100</strong></span>
+                <span class="text-slate-500 text-[10px]">${dateStr}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (e) {}
+    }
+
     function refreshAll() {
       loadOverview();
       loadTransactions();
@@ -1486,6 +1946,10 @@
       loadOrganicStatus();
       loadOrganicLogs();
       loadLearningInsights();
+      loadEstopStatus();
+      loadQueueItems();
+      loadScoutsOffers();
+      loadEvidenceBundles();
     }
 
     // Периодический опрос данных
@@ -1498,6 +1962,10 @@
       setInterval(loadOrganicStatus, 5000);
       setInterval(loadOrganicLogs, 4000);
       setInterval(loadLearningInsights, 8000);
+      setInterval(loadEstopStatus, 3000);
+      setInterval(loadQueueItems, 5000);
+      setInterval(loadScoutsOffers, 10000);
+      setInterval(loadEvidenceBundles, 8000);
     });
   </script>
 </body>

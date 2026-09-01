@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import fs from 'fs/promises';
+import fsSync from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
 import util from 'util';
@@ -815,6 +816,157 @@ app.post('/api/agent/learning/reflect', async (req, res) => {
     const { runSelfReflectionCycle } = await import('./skills/agent-reflection-skill');
     const result = await runSelfReflectionCycle({ force: true });
     res.json({ success: true, result });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ----------------------------------------------------
+// 5. Emergency Stop (E-STOP) Control API
+// ----------------------------------------------------
+app.get('/api/estop/status', async (req, res) => {
+  try {
+    const { EmergencyStopController } = await import('./types/pipeline.js');
+    const status = EmergencyStopController.getInstance().getStatus();
+    res.json({ success: true, ...status });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/estop/trigger', async (req, res) => {
+  try {
+    const { reason = 'Operator triggered emergency halt via Dashboard UI', operator = 'DASHBOARD_UI' } = req.body || {};
+    const { EmergencyStopController } = await import('./types/pipeline.js');
+    EmergencyStopController.getInstance().trigger(reason, operator);
+    const status = EmergencyStopController.getInstance().getStatus();
+    res.json({ success: true, message: '🚨 Аварийная остановка (E-STOP) активирована!', ...status });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/estop/reset', async (req, res) => {
+  try {
+    const { operator = 'DASHBOARD_UI' } = req.body || {};
+    const { EmergencyStopController } = await import('./types/pipeline.js');
+    EmergencyStopController.getInstance().reset(operator);
+    const status = EmergencyStopController.getInstance().getStatus();
+    res.json({ success: true, message: '✅ Аварийная остановка снята. Пайплайн в рабочем состоянии.', ...status });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ----------------------------------------------------
+// 6. SQLite Content Queue & HITL Review API
+// ----------------------------------------------------
+app.get('/api/queue/stats', async (req, res) => {
+  try {
+    const { ContentQueueRepository } = await import('./db/queueRepository.js');
+    const stats = ContentQueueRepository.getInstance().getStats();
+    res.json({ success: true, stats });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.get('/api/queue/items', async (req, res) => {
+  try {
+    const { status, limit = 50 } = req.query as { status?: string; limit?: string };
+    const { ContentQueueRepository } = await import('./db/queueRepository.js');
+    const items = ContentQueueRepository.getInstance().listAll(status as any, parseInt(limit as string) || 50);
+    res.json({ success: true, items });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/queue/items/:id/status', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const { ContentQueueRepository } = await import('./db/queueRepository.js');
+    ContentQueueRepository.getInstance().updateStatus(id, status);
+    res.json({ success: true, id, status });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.delete('/api/queue/items/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { ContentQueueRepository } = await import('./db/queueRepository.js');
+    ContentQueueRepository.getInstance().deleteItem(id);
+    res.json({ success: true, id });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ----------------------------------------------------
+// 7. Offer Scouts & Intelligence API
+// ----------------------------------------------------
+app.get('/api/scouts/offers', async (req, res) => {
+  try {
+    const { LosPollosScout } = await import('./scouts/lospollosScout.js');
+    const { MyLeadScout } = await import('./scouts/myleadScout.js');
+    const { OfferScorer } = await import('./scouts/offerScorer.js');
+
+    const lpScout = new LosPollosScout();
+    const mlScout = new MyLeadScout();
+
+    const [lpOffers, mlOffers] = await Promise.all([
+      lpScout.discoverOffers({ limit: 5 }),
+      mlScout.discoverOffers({ limit: 5 }),
+    ]);
+
+    const allOffers = [...lpOffers, ...mlOffers];
+    const scoredOffers = await OfferScorer.rankAndScoreOffers(allOffers);
+
+    res.json({ success: true, count: scoredOffers.length, offers: scoredOffers });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/scouts/discover', async (req, res) => {
+  try {
+    const { network = 'both', targetPlatform = 'reddit' } = req.body || {};
+    const { ScoutCoordinator } = await import('./scouts/scoutCoordinator.js');
+    const result = await ScoutCoordinator.runScoutAndPipeline({
+      network,
+      targetPlatform,
+      executePipeline: true,
+    });
+    res.json({ success: true, result });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ----------------------------------------------------
+// 8. Evidence Bundles / Runs API
+// ----------------------------------------------------
+app.get('/api/runs/bundles', async (req, res) => {
+  try {
+    const runsDir = path.resolve(process.cwd(), 'runs');
+    const bundles: any[] = [];
+
+    if (fsSync.existsSync(runsDir)) {
+      const dirs = await fs.readdir(runsDir);
+      for (const d of dirs.slice(-20)) {
+        const bundlePath = path.join(runsDir, d, 'bundle.json');
+        try {
+          const raw = await fs.readFile(bundlePath, 'utf8');
+          bundles.push(JSON.parse(raw));
+        } catch (e) {}
+      }
+    }
+
+    bundles.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    res.json({ success: true, bundles: bundles.slice(0, 15) });
   } catch (err: any) {
     res.status(500).json({ success: false, error: err.message });
   }
