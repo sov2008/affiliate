@@ -9,8 +9,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Load environment variables from workspace root and core folder
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../../core/.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 // ANSI Color Helpers for rich terminal output
