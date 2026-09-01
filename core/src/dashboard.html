@@ -27,8 +27,14 @@
     .term-scroll::-webkit-scrollbar { width: 6px; }
     .term-scroll::-webkit-scrollbar-track { background: #090d16; }
     .term-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    .term-scroll::-webkit-scrollbar-thumb:hover { background: #475569; }
     .status-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+    .resize-y { resize: vertical; overflow-y: auto; }
+    .resize-y::-webkit-resizer {
+      background: linear-gradient(135deg, transparent 50%, #38bdf8 50%);
+      border-bottom-right-radius: 6px;
+    }
   </style>
 </head>
 <body class="p-4 sm:p-6 lg:p-8 font-sans antialiased min-h-screen flex flex-col justify-between">
@@ -411,15 +417,37 @@
 
       <!-- Терминал активности в реальном времени -->
       <div class="bg-slate-950/90 border border-slate-800/90 rounded-xl p-3 space-y-2 font-mono">
-        <div class="flex justify-between items-center text-xs">
-          <span class="text-slate-400 flex items-center font-bold">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 status-pulse mr-2"></span>
-            Поток активности агента и поиск лидов в реальном времени
-          </span>
-          <span class="text-[11px] text-slate-500" id="orgNextCycle">След. цикл: через ~3м</span>
+        <div class="flex flex-wrap justify-between items-center gap-2 text-xs">
+          <div class="flex items-center space-x-2">
+            <span id="orgTerminalPulseDot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 status-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
+            <span class="text-slate-300 font-bold">
+              Поток активности агента и поиск лидов в реальном времени
+            </span>
+            <span id="orgIndicatorLabel" class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-950/80 text-emerald-400 border border-emerald-500/30">АКТИВЕН</span>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <span class="text-[11px] text-slate-500 mr-1" id="orgNextCycle">След. цикл: ~3м</span>
+            <button onclick="toggleOrgScroll()" id="btnOrgScroll" title="Переключить автоскролл ленты" class="text-[10px] font-mono px-2 py-1 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-900 transition">
+              Скролл: Авто
+            </button>
+            <button onclick="toggleOrgExpand()" id="btnOrgExpand" title="Изменить высоту окна (160px / 280px / 450px / 600px)" class="text-[10px] font-mono px-2 py-1 rounded bg-indigo-950/60 hover:bg-indigo-900 border border-indigo-500/30 text-indigo-300 transition">
+              ⤢ Высота: 280px
+            </button>
+            <button onclick="clearOrgLogs()" title="Очистить терминал" class="text-[10px] font-mono px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition">
+              Очистить
+            </button>
+          </div>
         </div>
-        <div id="orgTerminalLogs" class="h-28 bg-black/60 rounded-lg p-2.5 text-[11px] text-emerald-300 overflow-y-auto term-scroll whitespace-pre-wrap leading-relaxed border border-slate-900">
-          [Система в режиме ожидания] Мониторинг органических сообществ (Reddit, Quora, HackerNews, тематические форумы)...
+
+        <div class="relative">
+          <div id="orgTerminalLogs" style="height: 280px;" class="min-h-[140px] max-h-[750px] resize-y bg-black/70 rounded-lg p-3 text-[11px] text-emerald-300 overflow-y-auto term-scroll whitespace-pre-wrap leading-relaxed border border-slate-800/80 font-mono">
+            [Система в режиме ожидания] Мониторинг органических сообществ (Reddit, Quora, HackerNews, тематические форумы)...
+          </div>
+          <div class="text-[9px] text-slate-600 text-right mt-1 flex justify-between items-center px-1">
+            <span>💡 Нижний правый угол можно тянуть мышкой вниз для расширения окна</span>
+            <span id="orgLogCount" class="text-slate-500 font-mono">0 событий</span>
+          </div>
         </div>
       </div>
 
@@ -1155,24 +1183,109 @@
       });
     }
 
+    // Состояние терминала органического агента
+    let orgAutoScroll = true;
+    let lastOrganicLogsText = '';
+    const orgHeightPresets = ['160px', '280px', '450px', '600px'];
+    let currentOrgHeightIdx = 1; // 280px по умолчанию
+
+    function toggleOrgScroll() {
+      orgAutoScroll = !orgAutoScroll;
+      const btn = document.getElementById('btnOrgScroll');
+      if (btn) {
+        btn.innerText = 'Скролл: ' + (orgAutoScroll ? 'Авто' : 'Ручной');
+        btn.className = orgAutoScroll 
+          ? 'text-[10px] font-mono px-2 py-1 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-900 transition'
+          : 'text-[10px] font-mono px-2 py-1 rounded bg-slate-800 text-slate-400 hover:text-white transition';
+      }
+      showToast(`Автоскролл ленты активности: ${orgAutoScroll ? 'ВКЛ' : 'ВЫКЛ'}`, 'info');
+    }
+
+    function toggleOrgExpand() {
+      currentOrgHeightIdx = (currentOrgHeightIdx + 1) % orgHeightPresets.length;
+      const newHeight = orgHeightPresets[currentOrgHeightIdx];
+      const div = document.getElementById('orgTerminalLogs');
+      const btn = document.getElementById('btnOrgExpand');
+      if (div) {
+        div.style.height = newHeight;
+      }
+      if (btn) {
+        btn.innerText = `⤢ Высота: ${newHeight}`;
+      }
+      showToast(`Высота окна активности: ${newHeight}`, 'info');
+    }
+
+    function clearOrgLogs() {
+      const div = document.getElementById('orgTerminalLogs');
+      if (div) {
+        div.innerText = '[Терминал активности очищен] Ожидание новых событий...';
+        lastOrganicLogsText = div.innerText;
+      }
+      const countEl = document.getElementById('orgLogCount');
+      if (countEl) countEl.innerText = '0 событий';
+    }
+
+    // Динамическое переключение маркера индикатора (Зеленый / Желтый / Красный)
+    function updateOrgIndicator(status, hasError = false) {
+      const dot = document.getElementById('orgTerminalPulseDot');
+      const label = document.getElementById('orgIndicatorLabel');
+      const badge = document.getElementById('organicStatusBadge');
+
+      if (hasError || status === 'error') {
+        if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-rose-500 status-pulse shadow-[0_0_8px_rgba(244,63,94,0.9)]';
+        if (label) {
+          label.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-rose-950/80 text-rose-400 border border-rose-500/40';
+          label.innerText = 'СБОЙ';
+        }
+        if (badge) {
+          badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-rose-950 text-rose-400 border border-rose-500/40';
+          badge.innerText = '🔴 СБОЙ / ОШИБКА';
+        }
+      } else if (status === 'running') {
+        if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400 status-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)]';
+        if (label) {
+          label.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-950/80 text-emerald-400 border border-emerald-500/30';
+          label.innerText = 'АКТИВЕН';
+        }
+        if (badge) {
+          badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-emerald-950 text-emerald-400 border border-emerald-500/40';
+          badge.innerText = '🟢 РАБОТАЕТ (Автопилот)';
+        }
+      } else if (status === 'dry_run') {
+        if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-purple-400 status-pulse shadow-[0_0_8px_rgba(192,132,252,0.8)]';
+        if (label) {
+          label.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-purple-950/80 text-purple-400 border border-purple-500/30';
+          label.innerText = 'ТЕСТ (DRY-RUN)';
+        }
+        if (badge) {
+          badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-purple-950 text-purple-400 border border-purple-500/40';
+          badge.innerText = '🟡 ТЕСТОВЫЙ ПРОГОН';
+        }
+      } else {
+        // Paused / stopped -> Желтый индикатор
+        if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_6px_rgba(251,191,36,0.6)]';
+        if (label) {
+          label.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-amber-950/80 text-amber-400 border border-amber-500/30';
+          label.innerText = 'НА ПАУЗЕ';
+        }
+        if (badge) {
+          badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-amber-950 text-amber-400 border border-amber-500/40';
+          badge.innerText = '⏸️ НА ПАУЗЕ';
+        }
+      }
+    }
+
     // Загрузка состояния агента органического трафика (УБТ)
     async function loadOrganicStatus() {
       try {
         const res = await apiFetch('/api/agent/organic/status');
+        if (!res.ok) {
+          updateOrgIndicator('error', true);
+          return;
+        }
         const state = await res.json();
         
-        // Бейдж статуса
-        const badge = document.getElementById('organicStatusBadge');
-        if (state.status === 'running') {
-          badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-emerald-950 text-emerald-400 border border-emerald-500/40';
-          badge.innerText = '🟢 РАБОТАЕТ (Автопилот)';
-        } else if (state.status === 'dry_run') {
-          badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-purple-950 text-purple-400 border border-purple-500/40';
-          badge.innerText = '🟡 ТЕСТОВЫЙ ПРОГОН';
-        } else {
-          badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-slate-900 text-slate-400 border border-slate-700';
-          badge.innerText = '⚪ НА ПАУЗЕ';
-        }
+        updateOrgIndicator(state.status || 'paused', false);
 
         // Метрики
         const m = state.metrics || {};
@@ -1187,25 +1300,50 @@
           const diffMins = Math.max(0, Math.round((next.getTime() - Date.now()) / 60000));
           document.getElementById('orgNextCycle').innerText = `След. цикл: ~${diffMins}м (${next.toLocaleTimeString('ru-RU')})`;
         }
-
-        if (state.recentEvents && state.recentEvents.length > 0) {
-          const div = document.getElementById('orgTerminalLogs');
-          div.innerText = state.recentEvents.slice(0, 15).join('\n');
-        }
-      } catch (e) {}
+      } catch (e) {
+        updateOrgIndicator('error', true);
+      }
     }
 
     // Загрузка логов органической активности
     async function loadOrganicLogs() {
       try {
         const res = await apiFetch('/api/agent/organic/logs');
+        if (!res.ok) {
+          updateOrgIndicator('error', true);
+          return;
+        }
         const d = await res.json();
         const div = document.getElementById('orgTerminalLogs');
+        const countEl = document.getElementById('orgLogCount');
+
         if (d.lines && d.lines.length > 0) {
-          div.innerText = d.lines.slice(-30).join('\n');
-          div.scrollTop = div.scrollHeight;
+          const newText = d.lines.slice(-60).join('\n');
+          const hasError = newText.includes('[Fatal]') || newText.includes('[Error]') || newText.includes('UnhandledPromiseRejection');
+          
+          if (hasError) {
+            updateOrgIndicator('error', true);
+          }
+
+          if (countEl) {
+            countEl.innerText = `${d.lines.length} событий в логе`;
+          }
+
+          // Автоскролл ТОЛЬКО когда появилась новая активность (содержимое реально изменилось)
+          if (newText !== lastOrganicLogsText) {
+            const isScrolledToBottom = div.scrollHeight - div.clientHeight <= div.scrollTop + 60;
+            div.innerText = newText;
+            lastOrganicLogsText = newText;
+
+            // Если включен автоскролл и контент обновился
+            if (orgAutoScroll && (isScrolledToBottom || lastOrganicLogsText === '')) {
+              div.scrollTop = div.scrollHeight;
+            }
+          }
         }
-      } catch (e) {}
+      } catch (e) {
+        updateOrgIndicator('error', true);
+      }
     }
 
     // Управление органическим агентом
@@ -1217,20 +1355,8 @@
       };
       showToast(actionLabels[action] || `Выполнение: ${action}...`, 'info');
 
-      // Мгновенное оптимистичное обновление бейджа
-      const badge = document.getElementById('organicStatusBadge');
-      if (badge) {
-        if (action === 'stop') {
-          badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-amber-950 text-amber-400 border border-amber-500/40';
-          badge.innerText = '⏸️ НА ПАУЗЕ';
-        } else if (action === 'start') {
-          badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-emerald-950 text-emerald-400 border border-emerald-500/40';
-          badge.innerText = '🟢 РАБОТАЕТ (Автопилот)';
-        } else if (action === 'dry_run') {
-          badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-purple-950 text-purple-400 border border-purple-500/40';
-          badge.innerText = '🟡 ТЕСТОВЫЙ ПРОГОН';
-        }
-      }
+      // Мгновенное оптимистичное обновление индикатора и бейджа
+      updateOrgIndicator(action === 'stop' ? 'paused' : (action === 'start' ? 'running' : 'dry_run'), false);
 
       try {
         const res = await apiFetch('/api/agent/organic/toggle', {
@@ -1245,10 +1371,12 @@
           await loadOrganicLogs();
         } else {
           showToast(`❌ Ошибка действия: ${d.error || 'Сбой'}`, 'error');
+          updateOrgIndicator('error', true);
           await loadOrganicStatus();
         }
       } catch (err) {
         showToast(`❌ Ошибка сети: ${err.message}`, 'error');
+        updateOrgIndicator('error', true);
         await loadOrganicStatus();
       }
     }
