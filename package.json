@@ -9,6 +9,7 @@
     "audit": "npm --prefix core run audit",
     "start:gateway": "node mock-gateway.js",
     "verify:keys": "tsx src/scripts/verifyCredentials.ts",
+    "pipeline:test": "tsx src/scripts/runPipelineTest.ts",
     "deploy:pages": "npx wrangler pages deploy campaigns/ --project-name affiliate-campaigns --branch main --commit-dirty=true"
   },
   "workspaces": [
