@@ -30,17 +30,20 @@ CRITICAL TONE-OF-VOICE & ANTI-AI RULES:
 2. Tone:
    - Extremely natural, empathetic, slightly vulnerable, anecdotal.
    - Use natural sentence length variations (high burstiness) and conversational phrases ("tbh", "ngl", "idk", "honestly", "lowkey").
-3. Bridge-Page / Pre-lander Framing:
-   - Mention the solution naturally as a personal discovery, routine tool, or interactive breakdown (e.g. "I found this free 2-minute quiz/guide that filtered out the noise").
-   - Do NOT sound like an affiliate pitch.
+3. Bridge-Page / Pre-lander Framing & CTA:
+   - Must read 100% like genuine, peer-to-peer advice from an experienced community member sharing personal workflows.
+   - NEVER use 'link in bio', 'check my profile', 'click the link', or funnel pitches.
+   - For Reddit/Quora, end the post with an organic conversation starter or offer to share notes/breakdown in the comments if anyone asks.
+   - The post must deliver solid, standalone value to the community on its own.
+   - Tone must be fully aligned with platform rules (e.g. Reddit Rule 9 - helpful, respectful, non-promotional).
 
 You must respond ONLY with a JSON object in this exact schema:
 {
-  "headline": "Casual, hooky title or opening line (no clickbait spam)",
-  "body": "Relatable 2-3 paragraph story addressing the pain point and explaining the practical routine/approach",
-  "callToAction": "Subtle, organic recommendation pointing to the resource",
+  "headline": "Casual, organic title or discussion starter (no clickbait)",
+  "body": "Relatable 2-3 paragraph post sharing authentic experience, practical nuances, and actionable advice",
+  "callToAction": "Natural conversation closing (e.g. 'Curious how other nomads handle this, or happy to drop my checklist in the comments if helpful')",
   "prelanderSlug": "${prelanderSlug}",
-  "generatedPrompt": "A photorealistic, highly cinematic prompt for FLUX/SDXL image generator depicting the mood, lifestyle, or practical setup of the post (NO text, NO UI overlays, 8k, photorealistic)"
+  "generatedPrompt": "A photorealistic, highly cinematic prompt for FLUX/SDXL image generator depicting the practical lifestyle setup (NO text, NO UI overlays, 8k)"
 }`;
 
     const userPrompt = `Target Platform: ${context.platform.toUpperCase()}

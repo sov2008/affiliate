@@ -35,6 +35,7 @@ export interface ComplianceReport {
   score: number; // 0..100
   flaggedKeywords: string[];
   reasoning: string;
+  violationsDetected?: string[];
 }
 
 export interface BundleArtifact {

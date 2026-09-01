@@ -46,6 +46,17 @@ export class ComplianceGuardAgent extends BaseAgent {
       }
     }
 
+    // Fast-path: Instant rejection on deterministic blacklisted triggers without wasting LLM calls
+    if (locallyFlagged.length > 0) {
+      return {
+        passed: false,
+        score: 0,
+        flaggedKeywords: locallyFlagged,
+        reasoning: `Deterministic anti-spam pre-scanner detected ${locallyFlagged.length} prohibited keyword(s): [${locallyFlagged.join(', ')}]. Blocked immediately with zero tolerance.`,
+        violationsDetected: ['BLACKLISTED_SPAM_PATTERN_TRIGGERED', 'ZERO_TOLERANCE_POLICY'],
+      };
+    }
+
     const systemPrompt = `You are a Strict Platform Compliance Officer & Anti-Spam Auditor for ${platform.toUpperCase()}.
 Your mission is to audit user-generated posts before publication and block any spam, deceptive marketing, aggressive claims, or platform ban triggers.
 

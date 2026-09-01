@@ -17,6 +17,7 @@
     "worker:test": "tsx src/scripts/testPostingWorker.ts",
     "scout:test": "tsx src/scripts/testDualScoutPipeline.ts",
     "test:phase2": "tsx src/scripts/testPhase2Guardrails.ts",
+    "test:smoke": "tsx src/scripts/runSmokeTestSuite.ts",
     "hitl:review": "tsx core/src/index.ts",
     "deploy:pages": "npx wrangler pages deploy campaigns/ --project-name affiliate-campaigns --branch main --commit-dirty=true"
   },
