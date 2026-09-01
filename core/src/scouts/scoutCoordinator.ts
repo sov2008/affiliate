@@ -81,6 +81,17 @@ export class ScoutCoordinator {
     });
     console.log(`🔗 Generated SubID Tracking Link: \x1b[36m${trackingUrl}\x1b[0m`);
 
+    // 3.1 Pre-flight Health & SSL Probe on Smartlink
+    const { LinkIntegrityService } = await import('../services/link-integrity.service.js');
+    const linkService = LinkIntegrityService.getInstance();
+    console.log(`🔍 [ScoutCoordinator] Running pre-flight health probe on smartlink...`);
+    const probeResult = await linkService.validateCpaUrl(trackingUrl);
+    if (!probeResult.isValid) {
+      console.warn(`⚠️ [ScoutCoordinator] Smartlink pre-flight probe warning: ${probeResult.errors.join(', ')}`);
+    } else {
+      console.log(`✅ [ScoutCoordinator] Smartlink healthy (Latency: ${probeResult.latencyMs}ms, Status: ${probeResult.statusCode || 200})`);
+    }
+
     // 4. Trigger ContentPipeline with HumanizerSkill
     let pipelinePayload: ReadyToPostPayload | undefined;
     if (options.executePipeline !== false) {

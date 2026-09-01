@@ -12,6 +12,7 @@ export type BundleStatus =
   | 'PERMISSION_DENIED'
   | 'REJECTED'
   | 'REJECTED_MALFORMED'
+  | 'BROKEN_TARGET_LINK'
   | 'APPROVED'
   | 'DISPATCHED'
   | 'HALTED';

@@ -261,3 +261,54 @@ actionsRouter.post('/scaffold-campaign', async (req: Request, res: Response) => 
     return res.status(500).json({ success: false, error: err.message });
   }
 });
+
+/**
+ * 8. POST /api/actions/validate-links
+ * Runs an end-to-end audit of landing page links, macros, and post tracking routes across active campaigns
+ */
+actionsRouter.post('/validate-links', async (req: Request, res: Response) => {
+  try {
+    const { LinkIntegrityService } = await import('../../services/link-integrity.service.js');
+    const linkService = LinkIntegrityService.getInstance();
+
+    const activeCampaigns = [
+      { id: 'cmp_trading_au', variants: ['v1', 'v2'] },
+      { id: 'cmp_elite_de', variants: ['v1', 'v2'] },
+      { id: 'cmp_vpn_us', variants: ['v1', 'v2'] },
+      { id: 'cmp_lospollos_dating', variants: ['v1', 'v2'] },
+    ];
+
+    const landingReports = [];
+    let totalCheckedLinks = 0;
+    let allValid = true;
+
+    for (const c of activeCampaigns) {
+      for (const v of c.variants) {
+        const report = linkService.validateLandingPageLinks(c.id, v);
+        landingReports.push(report);
+        totalCheckedLinks += report.checkedCount;
+        if (!report.isValid) allValid = false;
+      }
+    }
+
+    // Also validate primary edge worker tracking endpoint
+    const edgeProbe = await linkService.validateCpaUrl('https://postback-engine.sov7.workers.dev/click?campaign_id=cmp_trading_au&click_id=health_probe', 3);
+
+    return res.status(200).json({
+      success: true,
+      isValid: allValid,
+      totalCheckedTemplates: landingReports.length,
+      totalCheckedLinks,
+      edgeRouterHealth: {
+        isValid: edgeProbe.isValid,
+        statusCode: edgeProbe.statusCode,
+        latencyMs: edgeProbe.latencyMs,
+        hops: edgeProbe.hops,
+      },
+      reports: landingReports,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});

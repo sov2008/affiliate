@@ -1,5 +1,12 @@
 import { BaseAgent } from './base.agent.js';
 import { ComplianceReport, GeneratedCreative, Platform } from '../types/pipeline.js';
+import { LinkIntegrityService } from '../services/link-integrity.service.js';
+
+export interface GuardEvaluationOptions {
+  trackingUrl?: string;
+  campaignId?: string;
+  variant?: string;
+}
 
 interface RawCompliancePayload {
   score: number;
@@ -32,11 +39,42 @@ export class ComplianceGuardAgent extends BaseAgent {
   /**
    * Evaluates generated creative copy against platform terms of service,
    * anti-spam policies, false claim regulations, and community guidelines.
+   * Also verifies tracking URL integrity and landing page macros.
    */
-  public async evaluate(creative: GeneratedCreative, platform: Platform): Promise<ComplianceReport> {
+  public async evaluate(
+    creative: GeneratedCreative,
+    platform: Platform,
+    options: GuardEvaluationOptions = {}
+  ): Promise<ComplianceReport> {
     this.checkEmergencyStop();
 
-    // 1. Deterministic Blacklist & Spam Trigger Pre-scan
+    // 1. Link & Macro Integrity Pre-flight Validation
+    if (options.trackingUrl && options.campaignId) {
+      const linkService = LinkIntegrityService.getInstance();
+      const trackValidation = linkService.validatePostTrackingUrl(options.trackingUrl, options.campaignId);
+      if (!trackValidation.isValid) {
+        return {
+          passed: false,
+          score: 0,
+          flaggedKeywords: ['BROKEN_TRACKING_URL'],
+          reasoning: `Target tracking URL integrity failed: ${trackValidation.errors.join('; ')}`,
+          violationsDetected: ['BROKEN_TARGET_LINK', 'MISSING_ATTRIBUTION_TAGS'],
+        };
+      }
+
+      const landingReport = linkService.validateLandingPageLinks(options.campaignId, options.variant || 'v1');
+      if (!landingReport.isValid) {
+        return {
+          passed: false,
+          score: 0,
+          flaggedKeywords: ['BROKEN_LANDING_MACROS'],
+          reasoning: `Landing page macro integrity failed: ${landingReport.brokenLinks.concat(landingReport.missingMacros).join('; ')}`,
+          violationsDetected: ['BROKEN_TARGET_LINK', 'CORRUPTED_CTA_MACRO'],
+        };
+      }
+    }
+
+    // 2. Deterministic Blacklist & Spam Trigger Pre-scan
     const combinedText = `${creative.headline} ${creative.body} ${creative.callToAction}`.toLowerCase();
     const locallyFlagged: string[] = [];
 

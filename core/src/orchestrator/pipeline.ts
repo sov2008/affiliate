@@ -66,16 +66,25 @@ export class PipelineOrchestrator {
       // 4. Pre-compliance Emergency Stop Check
       this.emergencyController.check();
 
-      // 5. Execute ComplianceGuardAgent
+      // 5. Execute ComplianceGuardAgent with Link & Macro Integrity Verification
       console.log(
-        `\x1b[35m[PipelineOrchestrator]\x1b[0m Evaluating compliance for [${platformName}] "${(creative?.headline || '').slice(0, 40)}..."`
+        `\x1b[35m[PipelineOrchestrator]\x1b[0m Evaluating compliance and link integrity for [${platformName}] "${(creative?.headline || '').slice(0, 40)}..."`
       );
-      compliance = await this.complianceGuard.evaluate(creative, context.platform || 'reddit');
+      const trackingUrl = `https://postback-engine.sov7.workers.dev/click?campaign_id=${prelanderSlug}&click_id={click_id}`;
+      compliance = await this.complianceGuard.evaluate(creative, context.platform || 'reddit', {
+        trackingUrl,
+        campaignId: prelanderSlug,
+        variant: 'v1',
+      });
 
       if (compliance.passed) {
         status = 'COMPLIANT';
         tracePath.push('COMPLIANT');
         console.log(`  \x1b[32m✅ COMPLIANT\x1b[0m (Score: ${compliance.score}/100)`);
+      } else if (compliance.reasoning?.includes('BROKEN_TARGET_LINK') || compliance.flaggedKeywords?.includes('BROKEN_TRACKING_URL') || compliance.flaggedKeywords?.includes('BROKEN_LANDING_MACROS')) {
+        status = 'BROKEN_TARGET_LINK';
+        tracePath.push('BROKEN_TARGET_LINK');
+        console.warn(`  \x1b[31m❌ BROKEN_TARGET_LINK\x1b[0m (Score: 0/100 | Reason: ${compliance.reasoning})`);
       } else {
         status = 'REJECTED';
         tracePath.push('REJECTED');
