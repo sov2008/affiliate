@@ -197,10 +197,10 @@ if (
 ) {
   runProductionHealthAudit()
     .then((res) => {
-      process.exit(res.allPassed ? 0 : 0);
+      process.exitCode = res.allPassed ? 0 : 0;
     })
     .catch((err) => {
       console.error('[FATAL]', err);
-      process.exit(1);
+      process.exitCode = 1;
     });
 }

@@ -22,55 +22,73 @@
   </script>
   <style>
     :root {
-      --bg-main: #0a0e14;
-      --bg-card: #121820;
-      --border-main: #1e293b;
-      --neon-green: #00FF66;
-      --cyber-amber: #FFB800;
-      --plasma-red: #FF3366;
-      --electric-cyan: #00E5FF;
+      --bg-main: #0d1117;
+      --bg-card: #161b22;
+      --border-main: #30363d;
+      --text-main: #c9d1d9;
+      --text-dim: #8b949e;
+      --color-green: #2ea043;
+      --color-amber: #d29922;
+      --color-red: #f85149;
+      --color-blue: #58a6ff;
+    }
+    * {
+      box-sizing: border-box;
+      text-shadow: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      transition: none !important;
+      animation: none !important;
     }
     body {
-      background-color: #0a0e14;
-      color: #f1f5f9;
-      font-family: 'JetBrains Mono', monospace;
-      background-image: 
-        radial-gradient(circle at 50% 0%, rgba(0, 229, 255, 0.05) 0%, transparent 65%),
-        radial-gradient(circle at 100% 100%, rgba(0, 255, 102, 0.03) 0%, transparent 50%);
+      background-color: #0d1117;
+      color: #c9d1d9;
+      font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+      font-size: 11px;
+      line-height: 1.3;
     }
-    .glass-panel {
-      background: #121820;
-      backdrop-filter: blur(16px);
-      border: 1px solid #1e293b;
-      box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.65);
+    .glass-panel, .eng-panel {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 2px;
+    }
+    .glow-border {
+      border: 1px solid #30363d;
     }
     .glow-border:hover {
-      border-color: rgba(0, 229, 255, 0.45);
-      box-shadow: 0 0 25px rgba(0, 229, 255, 0.15);
+      border-color: #58a6ff;
     }
-    .term-scroll::-webkit-scrollbar { width: 6px; }
-    .term-scroll::-webkit-scrollbar-track { background: #0a0e14; }
-    .term-scroll::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
-    .term-scroll::-webkit-scrollbar-thumb:hover { background: #334155; }
-    .status-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+    .term-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
+    .term-scroll::-webkit-scrollbar-track { background: #0d1117; }
+    .term-scroll::-webkit-scrollbar-thumb { background: #30363d; }
+    .status-pulse { opacity: 1; }
     .cyber-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.5rem;
     }
-    .badge-green { background: rgba(0, 255, 102, 0.12); color: #00FF66; border: 1px solid rgba(0, 255, 102, 0.4); }
-    .badge-amber { background: rgba(255, 184, 0, 0.12); color: #FFB800; border: 1px solid rgba(255, 184, 0, 0.4); }
-    .badge-red { background: rgba(255, 51, 102, 0.12); color: #FF3366; border: 1px solid rgba(255, 51, 102, 0.4); }
-    .badge-cyan { background: rgba(0, 229, 255, 0.12); color: #00E5FF; border: 1px solid rgba(0, 229, 255, 0.4); }
+    .badge-green { background: #1b4725; color: #3fb950; border: 1px solid #2ea043; }
+    .badge-amber { background: #3b2e04; color: #d29922; border: 1px solid #bb8009; }
+    .badge-red { background: #4c1d1e; color: #f85149; border: 1px solid #da3633; }
+    .badge-cyan { background: #1f242c; color: #58a6ff; border: 1px solid #388bfd; }
     .resize-y { resize: vertical; overflow-y: auto; }
     .resize-y::-webkit-resizer {
-      background: linear-gradient(135deg, transparent 50%, #00E5FF 50%);
-      border-bottom-right-radius: 6px;
+      background: #30363d;
+    }
+    input, select, textarea {
+      background: #0d1117 !important;
+      border: 1px solid #30363d !important;
+      color: #c9d1d9 !important;
+      border-radius: 2px !important;
+      font-family: inherit !important;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #58a6ff !important;
+      outline: none !important;
     }
   </style>
 </head>
-<body class="p-4 sm:p-6 lg:p-8 font-mono antialiased min-h-screen flex flex-col justify-between">
+<body class="p-2 sm:p-3 font-mono antialiased min-h-screen flex flex-col justify-between bg-[#0d1117] text-[#c9d1d9]">
 
   <!-- Контейнер всплывающих уведомлений (Toast) -->
   <div id="toastContainer" class="fixed top-6 right-6 z-50 space-y-3 pointer-events-none"></div>
@@ -326,201 +344,59 @@
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto w-full space-y-6">
+  <div class="w-full space-y-2">
 
-    <!-- Верхний командный заголовок -->
-    <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-800/80">
-      <div>
-        <div class="flex items-center space-x-3">
-          <div class="w-3 h-3 rounded-full bg-emerald-400 status-pulse"></div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight font-mono bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-indigo-300 to-emerald-400">
-            ЦЕНТР УПРАВЛЕНИЯ // AFFILIATE OPS
-          </h1>
-          <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-indigo-950 text-indigo-300 border border-indigo-500/40">🔒 ЗАЩИЩЕНО АВТОРИЗАЦИЕЙ</span>
-        </div>
-        <p class="text-xs text-slate-400 mt-1 font-mono">Автономный движок монетизации • Серверный узел: <span class="text-sky-400">178.128.199.28:5000</span></p>
+    <!-- ======================================================== -->
+    <!-- ZONE 1: TOP STRIP (KPI & MASTER CONTROLS)                 -->
+    <!-- ======================================================== -->
+    <header class="eng-panel p-2 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 text-[11px] font-mono border border-[#30363d] bg-[#161b22]">
+      <div class="flex items-center space-x-2">
+        <span class="w-2 h-2 rounded-full bg-[#2ea043]"></span>
+        <span class="font-bold text-[#c9d1d9]">AFFILIATE OPS // ENGINEERING CONSOLE</span>
+        <span class="text-[#8b949e]">|</span>
+        <span class="text-[#8b949e]">NODE: <strong class="text-[#58a6ff]">178.128.199.28:5000</strong></span>
+        <span class="text-[#8b949e]">|</span>
+        <span class="text-[#3fb950] font-bold">DAEMONS: 5/5 ONLINE</span>
       </div>
 
-      <!-- Индикаторы состояния сетей и E-STOP -->
-      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
-        <div id="estopBadgeContainer" class="bg-slate-900 border border-emerald-500/40 px-3 py-1.5 rounded-lg flex items-center space-x-2">
-          <span id="estopDot" class="w-2 h-2 rounded-full bg-emerald-400 status-pulse"></span>
-          <span class="text-slate-300 font-bold">E-STOP:</span>
-          <span id="estopText" class="text-emerald-400 font-bold">НОРМА</span>
+      <!-- Quick KPI Strip -->
+      <div class="flex flex-wrap items-center gap-3 text-[11px]">
+        <div>
+          <span class="text-[#8b949e]">REV_24H:</span>
+          <strong class="text-[#3fb950] ml-1" id="kpiTotalRev">$0.00</strong>
         </div>
-        <button id="btnEstopToggle" onclick="toggleEstopState()" class="px-3 py-1.5 rounded-lg bg-rose-600/20 hover:bg-rose-600/30 border border-rose-500/50 text-rose-300 font-bold transition active:scale-95 flex items-center">
-          <span class="mr-1">🚨</span> Аварийный СТОП
-        </button>
-        <div class="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg flex items-center space-x-2">
-          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span class="text-slate-300">MyLead:</span>
-          <span class="text-emerald-400" id="myleadPing">38ms</span>
+        <div>
+          <span class="text-[#8b949e]">CLICKS:</span>
+          <strong class="text-[#58a6ff] ml-1" id="kpiTotalClicks">0</strong>
         </div>
-        <div class="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg flex items-center space-x-2">
-          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span class="text-slate-300">LosPollos:</span>
-          <span class="text-emerald-400" id="lospollosPing">52ms</span>
+        <div>
+          <span class="text-[#8b949e]">LEADS:</span>
+          <strong class="text-[#bc8cff] ml-1" id="kpiTotalLeads">0</strong>
         </div>
-        <div class="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg flex items-center space-x-2">
-          <span class="w-2 h-2 rounded-full bg-sky-400"></span>
-          <span class="text-slate-300">KV Edge:</span>
-          <span class="text-sky-400" id="kvPing">14ms</span>
+        <div>
+          <span class="text-[#8b949e]">CR:</span>
+          <strong class="text-[#d29922] ml-1" id="kpiGlobalCR">0.00%</strong>
+        </div>
+        <div>
+          <span class="text-[#8b949e]">EPC:</span>
+          <strong class="text-[#58a6ff] ml-1" id="kpiEPC">$0.00</strong>
+        </div>
+        
+        <!-- E-STOP Status & Toggle -->
+        <div class="flex items-center space-x-1.5 pl-2 border-l border-[#30363d]">
+          <div id="estopBadgeContainer" class="px-1.5 py-0.5 rounded-sm bg-[#1b4725] text-[#3fb950] border border-[#2ea043] font-bold text-[10px]">
+            <span id="estopText">E-STOP: CLEAR</span>
+          </div>
+          <button id="btnEstopToggle" onclick="toggleEstopState()" class="px-2 py-0.5 rounded-sm bg-[#4c1d1e] hover:bg-[#b62324] text-[#f85149] hover:text-white border border-[#f85149] font-bold text-[10px]">
+            🚨 E-STOP
+          </button>
+          <button onclick="refreshAll()" class="px-2 py-0.5 rounded-sm bg-[#21262d] hover:bg-[#30363d] text-[#c9d1d9] border border-[#30363d] text-[10px]">
+            ↻ SYNC
+          </button>
         </div>
       </div>
     </header>
 
-    <!-- ⚡ COMMAND ACTION BAR & QUICK TRIGGER DECK -->
-    <section class="glass-panel p-3.5 rounded-2xl border border-slate-700/80 bg-slate-900/90 backdrop-blur-xl shadow-2xl">
-      <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 font-mono">
-        <div class="flex items-center space-x-2.5 px-3 py-1.5 bg-slate-950/80 border border-slate-800 rounded-xl">
-          <span id="deckStatusDot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 status-pulse"></span>
-          <span class="text-[11px] uppercase tracking-wider text-slate-300">
-            DECK: <span id="deckStatusText" class="text-emerald-400 font-bold">READY</span>
-          </span>
-        </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 flex-1">
-          <!-- 1. Сгенерировать батч -->
-          <button onclick="openModal('batchGenerateModal')" id="btnActBatch" class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-500/40 hover:border-indigo-400 text-indigo-300 transition-all active:scale-95">
-            <span>⚡ Сгенерировать батч</span>
-          </button>
-
-          <!-- 2. Форсировать постинг -->
-          <button onclick="triggerDirectAction('force-dispatch', '🚀 Форсировать Постинг')" id="btnActDispatch" class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-sky-950/80 hover:bg-sky-900 border border-sky-500/40 hover:border-sky-400 text-sky-300 transition-all active:scale-95">
-            <span>🚀 Форсировать постинг</span>
-          </button>
-
-          <!-- 3. Скаут офферов -->
-          <button onclick="triggerDirectAction('trigger-scout', '🛰️ Скаут Офферов')" id="btnActScout" class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-amber-950/80 hover:bg-amber-900 border border-amber-500/40 hover:border-amber-400 text-amber-300 transition-all active:scale-95">
-            <span>🛰️ Запустить скаут</span>
-          </button>
-
-          <!-- 4. MAB Эволюция & Калибровка -->
-          <button onclick="triggerDirectAction('calibrate-prompts', '🧬 MAB Эволюция')" id="btnActCalibrate" class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-purple-950/80 hover:bg-purple-900 border border-purple-500/40 hover:border-purple-400 text-purple-300 transition-all active:scale-95">
-            <span>🧬 MAB Эволюция</span>
-          </button>
-
-          <!-- 5. Мульти-ГЕО скаффолдинг -->
-          <button onclick="openModal('scaffoldCampaignModal')" id="btnActScaffold" class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/40 hover:border-emerald-400 text-emerald-300 transition-all active:scale-95">
-            <span>🎯 Мульти-ГЕО</span>
-          </button>
-
-          <!-- 6. E-STOP Быстрый переключатель -->
-          <button onclick="toggleEstopState()" id="btnActEstop" class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-rose-950/80 hover:bg-rose-900 border border-rose-500/50 hover:border-rose-400 text-rose-300 transition-all active:scale-95">
-            <span>🚨 E-STOP / СБРОС</span>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- A. Верхняя панель ключевых показателей (KPI) -->
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-      
-      <!-- Общий доход -->
-      <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
-        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider flex justify-between">
-          <span>Выручка / Доход</span>
-          <span class="text-emerald-400 font-bold" id="revDelta">+18.4%</span>
-        </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-2 font-mono" id="kpiTotalRev">$0.00</div>
-        <div class="text-[10px] text-slate-500 font-mono mt-1">Сегодня: <span class="text-slate-300" id="kpiTodayRev">$0.00</span></div>
-      </div>
-
-      <!-- Всего кликов -->
-      <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
-        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Всего кликов</div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-sky-400 mt-2 font-mono" id="kpiTotalClicks">0</div>
-        <div class="text-[10px] text-slate-500 font-mono mt-1">Принято на Edge (24ч)</div>
-      </div>
-
-      <!-- Конверсии / Лиды -->
-      <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
-        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Всего лидов</div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-indigo-400 mt-2 font-mono" id="kpiTotalLeads">0</div>
-        <div class="text-[10px] text-slate-500 font-mono mt-1">Статус: Подтверждено / Оплачено</div>
-      </div>
-
-      <!-- Конверсия (CR) -->
-      <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
-        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Общий CR</div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-purple-400 mt-2 font-mono" id="kpiGlobalCR">0.00%</div>
-        <div class="text-[10px] text-slate-500 font-mono mt-1">Средний EPC: <span class="text-slate-300" id="kpiEPC">$0.00</span></div>
-      </div>
-
-      <!-- Активные кампании -->
-      <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
-        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Кампании</div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-amber-400 mt-2 font-mono" id="kpiActiveCamps">3</div>
-        <div class="text-[10px] text-slate-500 font-mono mt-1">Активно: <span class="text-emerald-400" id="kpiActiveCount">3</span> | Пауза: <span class="text-rose-400" id="kpiPausedCount">0</span></div>
-      </div>
-
-      <!-- Статус автопилота -->
-      <div class="glass-panel p-4 rounded-xl border border-slate-800/80 glow-border transition">
-        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider flex justify-between">
-          <span>Автопилот</span>
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-        </div>
-        <div class="text-lg font-bold text-emerald-400 mt-2 font-mono flex items-center">
-          <span>ДЕМОН АКТИВЕН</span>
-        </div>
-        <div class="text-[10px] text-slate-500 font-mono mt-1">След. цикл: <span class="text-sky-300" id="daemonCountdown">26:40</span></div>
-      </div>
-    </div>
-
-    <!-- B. Операционная матрица команд -->
-    <div class="glass-panel p-4 rounded-xl border border-slate-800">
-      <div class="flex items-center justify-between mb-3">
-        <h2 class="text-xs font-mono uppercase tracking-wider text-sky-400 font-semibold flex items-center">
-          <span class="mr-2">⚡</span> Операционная матрица команд
-        </h2>
-        <span class="text-[11px] text-slate-500 font-mono">Быстрые действия</span>
-      </div>
-
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 font-mono text-xs">
-        
-        <button onclick="triggerAction('sync-kv', '🔄 Принудительная синхронизация KV...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-sky-300 font-medium transition hover:border-sky-500 active:scale-95">
-          <span class="mr-2">🔄</span> Синхронизация KV
-        </button>
-
-        <button onclick="triggerAction('run-autopilot', '🤖 Запуск цикла оптимизатора...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-purple-300 font-medium transition hover:border-purple-500 active:scale-95">
-          <span class="mr-2">🤖</span> Запуск оптимизатора
-        </button>
-
-        <button onclick="triggerAction('deploy-pages', '🚀 Деплой страниц на Cloudflare Edge...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-emerald-300 font-medium transition hover:border-emerald-500 active:scale-95">
-          <span class="mr-2">🚀</span> Деплой на Pages
-        </button>
-
-        <button onclick="triggerAction('purge-cache', '🧹 Очистка кэша Edge...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-amber-300 font-medium transition hover:border-amber-500 active:scale-95">
-          <span class="mr-2">🧹</span> Сброс кэша CF
-        </button>
-
-        <button onclick="triggerAction('reset-data', '🧹 Полный сброс всех тестовых данных...')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-rose-300 font-medium transition hover:border-rose-500 active:scale-95">
-          <span class="mr-2">🧹</span> Сброс данных (0)
-        </button>
-
-        <button onclick="openModal('autoApplyModal')" class="action-btn flex items-center justify-center p-3 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 border border-sky-500/50 text-sky-300 font-bold transition hover:border-sky-400 active:scale-95">
-          <span class="mr-2">🎯</span> Заявка на оффер
-        </button>
-
-      </div>
-    </div>
-
-    <!-- График производительности -->
-    <div class="glass-panel p-5 rounded-xl border border-slate-800">
-      <div class="flex justify-between items-center mb-4">
-        <div>
-          <h2 class="text-sm font-mono font-bold text-slate-200">ДИНАМИКА И ПОТОК ВЫРУЧКИ (24 ЧАСА)</h2>
-          <p class="text-xs text-slate-500 font-mono">Агрегированная статистика конверсий и кликов на Cloudflare Edge</p>
-        </div>
-        <div class="flex space-x-2 text-xs font-mono">
-          <span class="px-2 py-1 rounded bg-emerald-950/60 border border-emerald-500/30 text-emerald-400">● Выручка ($)</span>
-          <span class="px-2 py-1 rounded bg-sky-950/60 border border-sky-500/30 text-sky-400">● Клики</span>
-        </div>
-      </div>
-      <div class="h-44 w-full">
-        <canvas id="velocityChart"></canvas>
-      </div>
-    </div>
 
     <!-- B. Автономный агент органического трафика (УБТ) -->
     <div class="glass-panel p-5 rounded-xl border border-slate-800 space-y-4 glow-border">

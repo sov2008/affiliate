@@ -142,39 +142,28 @@ export const FinancialMetricsWidget: React.FC<{
   }, [apiBaseUrl, refreshIntervalMs]);
 
   return (
-    <div className="bg-slate-900/70 backdrop-blur-xl border border-emerald-900/60 rounded-xl p-5 font-mono text-xs text-slate-200 space-y-4 shadow-2xl">
+    <div className="bg-[#161b22] border border-[#30363d] rounded-sm p-3 font-mono text-[11px] text-[#c9d1d9] space-y-2.5">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 rounded-lg bg-emerald-950 border border-emerald-500/40 flex items-center justify-center text-emerald-300 text-base">
-            💰
-          </div>
-          <div>
-            <div className="flex items-center space-x-2">
-              <h3 className="text-sm font-bold text-slate-100 tracking-wide">
-                FINANCIAL TELEMETRY & CPA KPI // ДОХОД И EPC
-              </h3>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold flex items-center space-x-1 ${
-                data.isLiveStream
-                  ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/40'
-                  : 'bg-cyan-950 text-cyan-300 border border-cyan-500/40'
-              }`}>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>{data.isLiveStream ? 'LIVE SSE STREAM' : 'POLLING 4s'}</span>
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-400 mt-0.5">
-              Сквозная аналитика: реальные постбеки сетей MyLead & LosPollos vs кликстрим Umami
-            </p>
-          </div>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pb-2 border-b border-[#30363d]">
+        <div className="flex items-center space-x-2">
+          <span className="font-bold text-[#c9d1d9] text-xs">
+            FINANCIAL TELEMETRY & CPA KPI
+          </span>
+          <span className={`px-1.5 py-0.2 rounded-sm text-[10px] font-bold ${
+            data.isLiveStream
+              ? 'bg-[#1b4725] text-[#3fb950] border border-[#2ea043]'
+              : 'bg-[#1f242c] text-[#8b949e] border border-[#30363d]'
+          }`}>
+            {data.isLiveStream ? 'LIVE SSE' : 'POLLING 4s'}
+          </span>
         </div>
 
-        <div className="flex items-center space-x-3 text-[11px] text-slate-400">
-          <span className="text-slate-400">Обновлено: <strong className="text-slate-200">{data.lastUpdated}</strong></span>
+        <div className="flex items-center space-x-2 text-[10px] text-[#8b949e]">
+          <span>Обновлено: <strong className="text-[#c9d1d9]">{data.lastUpdated}</strong></span>
           <button
             onClick={() => fetchKpi()}
             disabled={loading}
-            className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
+            className="px-2 py-0.5 rounded-sm bg-[#21262d] hover:bg-[#30363d] text-[#c9d1d9] border border-[#30363d]"
           >
             ↻ Обновить
           </button>
@@ -182,101 +171,101 @@ export const FinancialMetricsWidget: React.FC<{
       </div>
 
       {/* KPI Tiles Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
         {/* Tile 1: Total Revenue Today */}
-        <div className="bg-slate-950/70 border border-slate-800 rounded-lg p-3.5 flex flex-col justify-between hover:border-emerald-500/40 transition">
+        <div className="bg-[#0d1117] border border-[#30363d] rounded-sm p-2.5 flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Выручка сегодня (USD)</span>
-            <span className="text-xs">💵</span>
+            <span className="text-[10px] text-[#8b949e] font-bold uppercase tracking-wider">Выручка сегодня (USD)</span>
+            <span className="text-[10px] text-[#8b949e]">USD</span>
           </div>
-          <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl font-black text-emerald-400 font-mono">
+          <div className="mt-1 flex items-baseline justify-between">
+            <span className="text-xl font-bold text-[#3fb950] font-mono">
               ${data.todayRevenue.toFixed(2)}
             </span>
-            <div className="flex items-center space-x-1.5">
-              <MiniSparkline color="#10B981" />
-              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                data.todayRevenue > 0 ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-slate-800 text-slate-400'
+            <div className="flex items-center space-x-1">
+              <MiniSparkline color="#2ea043" />
+              <span className={`text-[9px] font-bold px-1 py-0.2 rounded-sm ${
+                data.todayRevenue > 0 ? 'bg-[#1b4725] text-[#3fb950] border border-[#2ea043]' : 'bg-[#21262d] text-[#8b949e]'
               }`}>
                 {data.revenueDeltaPct}
               </span>
             </div>
           </div>
-          <div className="text-[10px] text-slate-400 mt-1 flex justify-between">
+          <div className="text-[9px] text-[#8b949e] mt-1 flex justify-between">
             <span>Вчера: ${data.yesterdayRevenue.toFixed(2)}</span>
             <span>Конверсий: {data.totalConversions}</span>
           </div>
         </div>
 
         {/* Tile 2: Network EPC */}
-        <div className="bg-slate-950/70 border border-slate-800 rounded-lg p-3.5 flex flex-col justify-between hover:border-cyan-500/40 transition">
+        <div className="bg-[#0d1117] border border-[#30363d] rounded-sm p-2.5 flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Сквозной EPC</span>
-            <span className="text-xs">🎯</span>
+            <span className="text-[10px] text-[#8b949e] font-bold uppercase tracking-wider">Сквозной EPC</span>
+            <span className="text-[10px] text-[#8b949e]">EPC</span>
           </div>
-          <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl font-black text-cyan-400 font-mono">
+          <div className="mt-1 flex items-baseline justify-between">
+            <span className="text-xl font-bold text-[#58a6ff] font-mono">
               {data.networkEpc}
             </span>
-            <MiniSparkline color="#06B6D4" />
+            <MiniSparkline color="#58a6ff" />
           </div>
-          <div className="text-[10px] text-slate-400 mt-1 flex justify-between">
+          <div className="text-[9px] text-[#8b949e] mt-1 flex justify-between">
             <span>Доход на 1 клик</span>
             <span>Кликов: {data.totalClicks}</span>
           </div>
         </div>
 
         {/* Tile 3: Overall Conversion Rate (CR) */}
-        <div className="bg-slate-950/70 border border-slate-800 rounded-lg p-3.5 flex flex-col justify-between hover:border-indigo-500/40 transition">
+        <div className="bg-[#0d1117] border border-[#30363d] rounded-sm p-2.5 flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Конверсия (CR)</span>
-            <span className="text-xs">⚡</span>
+            <span className="text-[10px] text-[#8b949e] font-bold uppercase tracking-wider">Конверсия (CR)</span>
+            <span className="text-[10px] text-[#8b949e]">CR%</span>
           </div>
-          <div className="mt-2">
-            <span className="text-2xl font-black text-indigo-400 font-mono">
+          <div className="mt-1">
+            <span className="text-xl font-bold text-[#d29922] font-mono">
               {data.overallCr}
             </span>
           </div>
-          <div className="text-[10px] text-slate-400 mt-1 flex justify-between">
+          <div className="text-[9px] text-[#8b949e] mt-1 flex justify-between">
             <span>Sales / Clicks ratio</span>
-            <span>Сеть: MyLead/LosPollos</span>
+            <span>Сети: MyLead/LosPollos</span>
           </div>
         </div>
 
         {/* Tile 4: Top Performing Bundle ID */}
-        <div className="bg-slate-950/70 border border-slate-800 rounded-lg p-3.5 flex flex-col justify-between hover:border-amber-500/40 transition">
+        <div className="bg-[#0d1117] border border-[#30363d] rounded-sm p-2.5 flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Top-Связка (Bundle)</span>
-            <span className="text-xs">🏆</span>
+            <span className="text-[10px] text-[#8b949e] font-bold uppercase tracking-wider">Top-Связка (Bundle)</span>
+            <span className="text-[10px] text-[#8b949e]">WINNER</span>
           </div>
           <div className="mt-1">
             {data.topBundle ? (
               <div>
-                <div className="flex items-center space-x-1.5">
+                <div className="flex items-center space-x-1">
                   <button
                     onClick={() => onSelectBundle?.(data.topBundle!.id)}
-                    className="text-xs font-bold text-amber-300 hover:text-amber-200 underline font-mono text-left truncate max-w-[150px]"
+                    className="text-xs font-bold text-[#58a6ff] underline font-mono text-left truncate max-w-[130px]"
                     title={`Открыть бандл ${data.topBundle.id}`}
                   >
                     {data.topBundle.id.slice(0, 12)}...
                   </button>
-                  <span className="text-[9px] bg-amber-950 text-amber-300 border border-amber-800 px-1 rounded">
+                  <span className="text-[9px] bg-[#1b4725] text-[#3fb950] px-1 rounded-sm">
                     +${data.topBundle.revenue.toFixed(2)}
                   </span>
                 </div>
-                <div className="text-[10px] text-slate-400 mt-0.5 truncate">
+                <div className="text-[9px] text-[#8b949e] mt-0.5 truncate">
                   CR: {data.topBundle.cr}% | EPC: ${data.topBundle.epc.toFixed(2)}
                 </div>
               </div>
             ) : (
-              <div className="text-slate-400 text-xs italic py-1">
+              <div className="text-[#8b949e] text-[10px] italic py-0.5">
                 0 активных продаж
               </div>
             )}
           </div>
-          <div className="text-[10px] text-slate-400 mt-1 flex justify-between">
+          <div className="text-[9px] text-[#8b949e] mt-1 flex justify-between">
             <span>Бандлов на трекинге:</span>
-            <span className="text-slate-300 font-bold">{data.bundlesTracked}</span>
+            <span className="text-[#c9d1d9] font-bold">{data.bundlesTracked}</span>
           </div>
         </div>
       </div>

@@ -142,26 +142,26 @@ export const UnifiedLogTerminal: React.FC<UnifiedLogTerminalProps> = ({
   };
 
   return (
-    <div className="glass-panel rounded-2xl border border-slate-800/90 bg-slate-950/90 backdrop-blur-xl shadow-2xl overflow-hidden font-mono text-xs">
+    <div className="rounded-sm border border-[#30363d] bg-[#161b22] overflow-hidden font-mono text-[11px]">
       {/* Console Top Toolbar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between p-3 border-b border-slate-800/80 gap-3 bg-slate-900/60">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between p-2 border-b border-[#30363d] gap-2 bg-[#161b22]">
         {/* Stream Tabs */}
-        <div className="flex items-center space-x-1 overflow-x-auto pb-1 sm:pb-0">
+        <div className="flex items-center space-x-1 overflow-x-auto pb-0.5 sm:pb-0">
           {(
             [
-              { id: 'all', label: '🖥️ All Streams' },
-              { id: 'daemon', label: '⚙️ Daemon Ops' },
-              { id: 'scheduler', label: '📡 Posting Scheduler' },
-              { id: 'telemetry', label: '📊 Postback / Telemetry' },
+              { id: 'all', label: 'All Streams' },
+              { id: 'daemon', label: 'Daemon Ops' },
+              { id: 'scheduler', label: 'Posting Scheduler' },
+              { id: 'telemetry', label: 'Postback / Telemetry' },
             ] as const
           ).map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
+              className={`px-2 py-0.5 rounded-sm text-[11px] font-bold whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'bg-sky-500/20 text-sky-300 border border-sky-500/50 shadow-sm'
-                  : 'bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-transparent'
+                  ? 'bg-[#21262d] text-[#58a6ff] border border-[#58a6ff]'
+                  : 'bg-[#0d1117] text-[#8b949e] hover:text-[#c9d1d9] border border-[#30363d]'
               }`}
             >
               {tab.label}
@@ -170,46 +170,46 @@ export const UnifiedLogTerminal: React.FC<UnifiedLogTerminalProps> = ({
         </div>
 
         {/* Console Controls & Filters */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1.5">
           {/* Level Filter */}
           <select
             value={levelFilter}
             onChange={(e) => setLevelFilter(e.target.value as LogLevel)}
-            className="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1 text-[11px] text-slate-300 focus:outline-none focus:border-sky-500"
+            className="bg-[#0d1117] border border-[#30363d] rounded-sm px-2 py-0.5 text-[10px] text-[#c9d1d9] focus:outline-none"
           >
-            <option value="ALL">Уровень: ALL</option>
-            <option value="INFO">INFO Only</option>
-            <option value="WARN">WARN Only</option>
-            <option value="ERROR">ERROR Only</option>
+            <option value="ALL">ALL</option>
+            <option value="INFO">INFO</option>
+            <option value="WARN">WARN</option>
+            <option value="ERROR">ERROR</option>
           </select>
 
           {/* Search Query Input */}
           <input
             type="text"
-            placeholder="Фильтр по ключевым словам..."
+            placeholder="Filter keywords..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1 text-[11px] text-sky-300 placeholder-slate-600 focus:outline-none focus:border-sky-500 w-36 sm:w-48"
+            className="bg-[#0d1117] border border-[#30363d] rounded-sm px-2 py-0.5 text-[10px] text-[#58a6ff] placeholder-[#8b949e] focus:outline-none w-32 sm:w-40"
           />
 
           {/* Auto-scroll Toggle */}
           <button
             onClick={() => setAutoScroll(!autoScroll)}
-            className={`px-2.5 py-1 rounded-lg text-[11px] border font-bold transition flex items-center space-x-1 ${
+            className={`px-2 py-0.5 rounded-sm text-[10px] border font-bold ${
               autoScroll
-                ? 'bg-emerald-950/80 border-emerald-500/50 text-emerald-300'
-                : 'bg-slate-900 border-slate-800 text-slate-500'
+                ? 'bg-[#1b4725] border-[#2ea043] text-[#3fb950]'
+                : 'bg-[#21262d] border-[#30363d] text-[#8b949e]'
             }`}
           >
-            <span>{autoScroll ? '⬇ Автоскролл' : '⏸ Пауза'}</span>
+            {autoScroll ? 'AUTO-SCROLL' : 'PAUSED'}
           </button>
 
           {/* Clear Button */}
           <button
             onClick={clearBuffer}
-            className="px-2.5 py-1 rounded-lg text-[11px] bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-slate-200 transition"
+            className="px-2 py-0.5 rounded-sm text-[10px] bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-[#8b949e] hover:text-[#c9d1d9]"
           >
-            🗑️ Очистить
+            CLEAR
           </button>
         </div>
       </div>
@@ -217,32 +217,32 @@ export const UnifiedLogTerminal: React.FC<UnifiedLogTerminalProps> = ({
       {/* Log Output Stream */}
       <div
         ref={logContainerRef}
-        className="h-64 sm:h-80 overflow-y-auto p-3.5 space-y-1 term-scroll bg-slate-950/95 font-mono text-[11px] leading-relaxed select-text"
+        className="h-64 sm:h-72 overflow-y-auto p-2 space-y-0.5 term-scroll bg-[#0d1117] font-mono text-[11px] leading-[1.3] select-text"
       >
         {filteredLogs.length === 0 ? (
-          <div className="text-slate-600 italic py-8 text-center">Нет записей лога по заданным фильтрам...</div>
+          <div className="text-[#8b949e] italic py-6 text-center">No log entries for specified stream filters...</div>
         ) : (
           filteredLogs.map((item) => (
-            <div key={item.id} className="flex items-start space-x-2 font-mono hover:bg-slate-900/40 px-1.5 py-0.5 rounded">
-              <span className="text-slate-600 select-none text-[10px]">{item.timestamp}</span>
+            <div key={item.id} className="flex items-start space-x-1.5 font-mono hover:bg-[#161b22] px-1 py-0.2 rounded-none">
+              <span className="text-[#8b949e] select-none text-[10px]">{item.timestamp}</span>
               <span
-                className={`px-1.5 py-0.2 rounded text-[9px] font-bold uppercase select-none ${
+                className={`px-1 py-0 rounded-sm text-[9px] font-bold uppercase select-none ${
                   item.stream === 'daemon'
-                    ? 'bg-sky-950 text-sky-400 border border-sky-800/40'
+                    ? 'bg-[#1f242c] text-[#58a6ff] border border-[#30363d]'
                     : item.stream === 'scheduler'
-                    ? 'bg-indigo-950 text-indigo-400 border border-indigo-800/40'
-                    : 'bg-emerald-950 text-emerald-400 border border-emerald-800/40'
+                    ? 'bg-[#1f242c] text-[#bc8cff] border border-[#30363d]'
+                    : 'bg-[#1f242c] text-[#3fb950] border border-[#30363d]'
                 }`}
               >
                 {item.stream}
               </span>
               <span
-                className={`px-1 py-0.2 rounded text-[9px] font-bold uppercase select-none ${
+                className={`px-1 py-0 rounded-sm text-[9px] font-bold uppercase select-none ${
                   item.level === 'ERROR'
-                    ? 'bg-rose-950 text-rose-400 border border-rose-800/40'
+                    ? 'bg-[#4c1d1e] text-[#f85149] border border-[#f85149]'
                     : item.level === 'WARN'
-                    ? 'bg-amber-950 text-amber-400 border border-amber-800/40'
-                    : 'bg-slate-900 text-slate-400'
+                    ? 'bg-[#3b2e04] text-[#d29922] border border-[#d29922]'
+                    : 'bg-[#21262d] text-[#8b949e]'
                 }`}
               >
                 {item.level}
@@ -250,12 +250,12 @@ export const UnifiedLogTerminal: React.FC<UnifiedLogTerminalProps> = ({
               <span
                 className={`flex-1 break-all whitespace-pre-wrap ${
                   item.level === 'ERROR'
-                    ? 'text-rose-300 font-semibold'
+                    ? 'text-[#f85149] font-semibold'
                     : item.level === 'WARN'
-                    ? 'text-amber-300'
+                    ? 'text-[#d29922]'
                     : item.message.includes('OK') || item.message.includes('SUCCESS') || item.message.includes('✅')
-                    ? 'text-emerald-300'
-                    : 'text-slate-300'
+                    ? 'text-[#3fb950]'
+                    : 'text-[#c9d1d9]'
                 }`}
               >
                 {item.message}
@@ -266,18 +266,18 @@ export const UnifiedLogTerminal: React.FC<UnifiedLogTerminalProps> = ({
       </div>
 
       {/* Footer Status Bar */}
-      <div className="px-3.5 py-2 border-t border-slate-800/80 bg-slate-900/40 flex items-center justify-between text-[10px] text-slate-500 font-mono">
+      <div className="px-2.5 py-1.5 border-t border-[#30363d] bg-[#161b22] flex items-center justify-between text-[10px] text-[#8b949e] font-mono">
         <div className="flex items-center space-x-3">
           <span>
-            Буфер: <strong className="text-slate-300">{filteredLogs.length}</strong> / {maxBufferLines} строк
+            BUFFER: <strong className="text-[#c9d1d9]">{filteredLogs.length}</strong> / {maxBufferLines} LINES
           </span>
           <span>
-            Поток: <strong className="text-sky-400 uppercase">{activeTab}</strong>
+            STREAM: <strong className="text-[#58a6ff] uppercase">{activeTab}</strong>
           </span>
         </div>
-        <div className="flex items-center space-x-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 status-pulse" />
-          <span className="text-emerald-400">Стриминг активен (Ring Buffer)</span>
+        <div className="flex items-center space-x-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#2ea043]" />
+          <span className="text-[#3fb950]">RING BUFFER ACTIVE</span>
         </div>
       </div>
     </div>
