@@ -1,8 +1,8 @@
 import path from 'path';
 import fs from 'fs';
 import dotenv from 'dotenv';
-import { QueueDatabase, QueueItem } from '../../core/src/db/queueDb.js';
-import { SocialPostingWorker } from '../../core/src/workers/postingWorker.js';
+import { ContentQueueRepository, ContentQueueItem } from '../../core/src/db/queueRepository.js';
+import { StealthPoster } from '../../core/src/automation/stealthPoster.js';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 dotenv.config({ path: path.resolve(process.cwd(), 'core/.env') });
@@ -77,22 +77,24 @@ async function main() {
   console.log(`${colors.dim} Humanized Keystrokes, Bezier Mouse Trajectory & Sandbox Submission${colors.reset}`);
   console.log(`${colors.bold}${colors.cyan}================================================================================${colors.reset}\n`);
 
-  const db = QueueDatabase.getInstance();
-  let item = db.getNextApproved();
+  const repo = ContentQueueRepository.getInstance();
+  let item = repo.fetchNextApproved();
 
   // If no approved item exists, create or pick one for the dry-run test
   if (!item) {
-    const existing = db.listAll(undefined, 1);
+    const existing = repo.listAll(undefined, 1);
     if (existing.length > 0) {
       item = existing[0];
-      db.updateStatus(item.id, 'APPROVED');
+      repo.updateStatus(item.id, 'APPROVED');
     } else {
-      item = db.enqueue({
+      item = repo.enqueue({
         campaign_id: 'cmp_lospollos_dating',
+        network: 'lospollos',
         target_platform: 'reddit',
         hook: 'swiping forever and still getting ghosted? lowkey feels like a waste of time.',
         body: 'I quit the apps for 30 days and only attended verified social meetups. Meeting people in context builds instant rapport, no awkward small talk.',
-        cta: 'if you’re curious, the quiz was free and gave me a few solid matches, thought I’d share the link.',
+        stealth_cta: 'if you’re curious, the quiz was free and gave me a few solid matches, thought I’d share the link.',
+        tracking_url: 'https://trk.lospollos.com/smartlink/dating?aff=sov208&s1=clk_dryrun_01&s2=cmp_lospollos_dating',
         image_path: '/output/creatives/1788247762659_cmp_lospollos_dating_creative.jpg',
         risk_score: 15,
         status: 'APPROVED',
@@ -106,18 +108,19 @@ async function main() {
 
   console.log(`📦 ${colors.bold}Target Post to Dispatch:${colors.reset}`);
   console.log(`   - ID:       ${colors.cyan}${item.id}${colors.reset}`);
+  console.log(`   - Network:  ${colors.bold}${item.network.toUpperCase()}${colors.reset}`);
   console.log(`   - Platform: ${colors.yellow}${item.target_platform.toUpperCase()}${colors.reset}`);
   console.log(`   - Hook:     "${item.hook}"`);
   console.log(`   - Image:    ${item.image_path}`);
 
-  // Dispatch item through SocialPostingWorker
-  const result = await SocialPostingWorker.dispatchItem(item, {
-    profileId: 'reddit_stealth_profile_01',
+  // Dispatch item through StealthPoster
+  const result = await StealthPoster.post(item, {
+    profileId: 'stealth_lospollos_reddit_01',
     headless: true,
     targetUrlOverride: sandboxUrl,
   });
 
-  const updatedStats = db.getStats();
+  const updatedStats = repo.getStats();
 
   console.log(`\n${colors.bold}📊 Execution & Dispatch Results:${colors.reset}`);
   console.log('+' + '-'.repeat(16) + '+' + '-'.repeat(18) + '+' + '-'.repeat(14) + '+' + '-'.repeat(28) + '+');
@@ -127,7 +130,7 @@ async function main() {
   console.log('+' + '-'.repeat(16) + '+' + '-'.repeat(18) + '+' + '-'.repeat(14) + '+' + '-'.repeat(28) + '+');
 
   const statusStr = result.success ? `${colors.green}${colors.bold}DISPATCHED    ${colors.reset}` : `${colors.red}${colors.bold}FAILED        ${colors.reset}`;
-  const profileStr = result.profileId.slice(0, 16).padEnd(16);
+  const profileStr = 'stealth_reddit'.slice(0, 16).padEnd(16);
   const durationStr = `${(result.durationMs / 1000).toFixed(2)}s`.padEnd(12);
   const urlStr = (result.publishedUrl || 'N/A').slice(0, 26).padEnd(26);
 
