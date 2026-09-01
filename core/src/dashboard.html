@@ -537,8 +537,8 @@
             tbody.innerHTML = items.map(item => `
               <tr>
                 <td style="font-weight: 700; color: var(--blue);">${item.id.slice(0, 8)}</td>
-                <td style="color: var(--dim); text-transform: uppercase;">${item.platform}</td>
-                <td>[====>     ] ${item.risk_score || 25}%</td>
+                <td style="color: var(--dim); text-transform: uppercase;">${item.target_platform || item.platform || 'REDDIT'}</td>
+                <td>[====>     ] ${item.risk_score !== undefined ? item.risk_score : 4}%</td>
                 <td><span class="badge ${item.status === 'APPROVED' ? 'badge-ok' : item.status === 'REJECTED' ? 'badge-err' : 'badge-dim'}">${item.status}</span></td>
                 <td style="text-align: right;">
                   ${item.status === 'PENDING_APPROVAL' ? `
