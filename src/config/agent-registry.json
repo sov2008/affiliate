@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": "2026-09-01T09:14:42.304Z",
+  "lastUpdated": "2026-09-01T09:18:03.505Z",
   "agents": [
     {
       "id": "agent-scout-scraper-01",
@@ -11,7 +11,7 @@
       "fallbackModel": "openrouter/qwen/qwen-2.5-72b-instruct",
       "systemPrompt": "Autonomous community trend hunter and scraper. Ingests high-intent discussion threads from Reddit, Quora, and niche forums. Extracts audience pain points, questions, and topic context while respecting platform crawl delays and rate limits.",
       "tokenBudgetDaily": 500000,
-      "tokensConsumedToday": 0,
+      "tokensConsumedToday": 64,
       "requireHumanReview": false,
       "allowedTools": [
         "PLAYWRIGHT_AUTOMATION",
@@ -21,8 +21,8 @@
       "isPaused": false,
       "metrics": {
         "passRate": 100,
-        "avgLatencyMs": 0,
-        "totalRuns": 0
+        "avgLatencyMs": 1007,
+        "totalRuns": 2
       }
     },
     {
@@ -80,7 +80,7 @@
       "requireHumanReview": true,
       "allowedTools": [
         "PLAYWRIGHT_AUTOMATION",
-        "PROXIES_ROTATION",
+        "DIRECT_HTTP_POST",
         "EVIDENCE_WRITER"
       ],
       "isPaused": false,

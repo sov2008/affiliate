@@ -9,6 +9,7 @@ export * from '../core/src/agents/base.agent.js';
 export * from '../core/src/agents/copy.agent.js';
 export * from '../core/src/agents/guard.agent.js';
 export * from '../core/src/orchestrator/pipeline.js';
+export * from '../core/src/orchestrator/worker-controller.js';
 export * from '../core/src/analytics/umami.client.js';
 export * from '../core/src/db/queueRepository.js';
 export * from '../core/src/services/llm-gateway.service.js';
