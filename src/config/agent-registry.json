@@ -1,0 +1,140 @@
+{
+  "version": "2.0.0",
+  "lastUpdated": "2026-09-01T12:00:00.000Z",
+  "agents": [
+    {
+      "id": "agent-scout-scraper-01",
+      "role": "SCOUT_SCRAPER",
+      "name": "Scout Scraper & Community Trend Hunter",
+      "clearanceTier": "FAST_LPU",
+      "primaryModel": "groq/qwen/qwen3.8-27b",
+      "fallbackModel": "openrouter/qwen/qwen-2.5-72b-instruct",
+      "systemPrompt": "Autonomous community trend hunter and scraper. Ingests high-intent discussion threads from Reddit, Quora, and niche forums. Extracts audience pain points, questions, and topic context while respecting platform crawl delays and rate limits.",
+      "tokenBudgetDaily": 500000,
+      "tokensConsumedToday": 0,
+      "requireHumanReview": false,
+      "allowedTools": [
+        "PLAYWRIGHT_AUTOMATION",
+        "DIRECT_HTTP_POST",
+        "PROXIES_ROTATION"
+      ],
+      "isPaused": false,
+      "metrics": {
+        "passRate": 100.0,
+        "avgLatencyMs": 0,
+        "totalRuns": 0
+      }
+    },
+    {
+      "id": "agent-context-copywriter-02",
+      "role": "CONTEXT_COPYWRITER",
+      "name": "Native Context Copywriter & Quiz Architect",
+      "clearanceTier": "BALANCED",
+      "primaryModel": "groq/qwen/qwen3.8-27b",
+      "fallbackModel": "openrouter/meta-llama/llama-3.3-70b-instruct",
+      "systemPrompt": "Elite organic social copywriter. Generates deeply relatable, conversational, peer-to-peer posts addressing user pain points with authentic storytelling. Never uses AI clichés, aggressive sales pitches, or deceptive quiz funnels. All CTAs must be conversational discussion closings adhering to Reddit Rule 9.",
+      "tokenBudgetDaily": 1000000,
+      "tokensConsumedToday": 0,
+      "requireHumanReview": true,
+      "allowedTools": [
+        "EVIDENCE_WRITER"
+      ],
+      "isPaused": false,
+      "metrics": {
+        "passRate": 100.0,
+        "avgLatencyMs": 0,
+        "totalRuns": 0
+      }
+    },
+    {
+      "id": "agent-compliance-guard-03",
+      "role": "COMPLIANCE_GUARD",
+      "name": "Strict Platform Compliance & Anti-Spam Officer",
+      "clearanceTier": "DEEP_REASONING",
+      "primaryModel": "groq/qwen/qwen3.8-27b",
+      "fallbackModel": "openrouter/meta-llama/llama-3.3-70b-instruct",
+      "systemPrompt": "Strict platform compliance officer and anti-spam auditor. Enforces zero-tolerance against blacklisted spam keywords (BUY NOW, 100% SUCCESS, GUARANTEED PROFIT, EARN $$$), flags astroturfing and hidden marketing links, and verifies consumer protection rules before content can enter the dispatch queue.",
+      "tokenBudgetDaily": 1000000,
+      "tokensConsumedToday": 0,
+      "requireHumanReview": false,
+      "allowedTools": [
+        "EVIDENCE_WRITER"
+      ],
+      "isPaused": false,
+      "metrics": {
+        "passRate": 100.0,
+        "avgLatencyMs": 0,
+        "totalRuns": 0
+      }
+    },
+    {
+      "id": "agent-distribution-worker-04",
+      "role": "DISTRIBUTION_WORKER",
+      "name": "Playwright Stealth Distribution & Dispatch Worker",
+      "clearanceTier": "FAST_LPU",
+      "primaryModel": "groq/qwen/qwen3.8-27b",
+      "fallbackModel": "openrouter/qwen/qwen-2.5-72b-instruct",
+      "systemPrompt": "Autonomous stealth distribution executor. Dispatches human-approved content to Reddit, Quora, and forums using isolated Playwright browser contexts, residential proxy rotation, realistic human typing cadences, and session persistence.",
+      "tokenBudgetDaily": 300000,
+      "tokensConsumedToday": 0,
+      "requireHumanReview": true,
+      "allowedTools": [
+        "PLAYWRIGHT_AUTOMATION",
+        "PROXIES_ROTATION",
+        "EVIDENCE_WRITER"
+      ],
+      "isPaused": false,
+      "metrics": {
+        "passRate": 100.0,
+        "avgLatencyMs": 0,
+        "totalRuns": 0
+      }
+    },
+    {
+      "id": "agent-postback-matcher-05",
+      "role": "POSTBACK_MATCHER",
+      "name": "SubID Postback & Revenue Matcher",
+      "clearanceTier": "FAST_LPU",
+      "primaryModel": "groq/qwen/qwen3.8-27b",
+      "fallbackModel": "openrouter/qwen/qwen-2.5-72b-instruct",
+      "systemPrompt": "Financial telemetry and conversion attribution auditor. Matches affiliate network postbacks (MyLead, LosPollos) with Cloudflare Edge subIDs and Umami analytics events. Strictly rejects fake/synthetic conversions, enforcing 100% verified real revenue recording.",
+      "tokenBudgetDaily": 200000,
+      "tokensConsumedToday": 0,
+      "requireHumanReview": false,
+      "allowedTools": [
+        "UMAMI_ANALYTICS",
+        "DIRECT_HTTP_POST",
+        "EVIDENCE_WRITER"
+      ],
+      "isPaused": false,
+      "metrics": {
+        "passRate": 100.0,
+        "avgLatencyMs": 0,
+        "totalRuns": 0
+      }
+    },
+    {
+      "id": "agent-strategist-orchestrator-06",
+      "role": "STRATEGIST_ORCHESTRATOR",
+      "name": "Campaign Strategist & Pipeline Orchestrator",
+      "clearanceTier": "DEEP_REASONING",
+      "primaryModel": "groq/qwen/qwen3.8-27b",
+      "fallbackModel": "openrouter/meta-llama/llama-3.3-70b-instruct",
+      "systemPrompt": "Master pipeline orchestrator and campaign strategist. Coordinates scout discovery, copy generation, compliance filtering, and distribution cycles. Dynamically shifts traffic allocation towards high-EPC angles, triggers emergency stops (E-STOP) upon anomaly detection, and logs end-to-end evidence bundles.",
+      "tokenBudgetDaily": 1500000,
+      "tokensConsumedToday": 0,
+      "requireHumanReview": true,
+      "allowedTools": [
+        "UMAMI_ANALYTICS",
+        "EVIDENCE_WRITER",
+        "DIRECT_HTTP_POST"
+      ],
+      "isPaused": false,
+      "metrics": {
+        "passRate": 100.0,
+        "avgLatencyMs": 0,
+        "totalRuns": 0
+      }
+    }
+  ]
+}

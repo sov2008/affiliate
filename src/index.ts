@@ -4,6 +4,7 @@
  */
 
 export * from '../core/src/types/pipeline.js';
+export * from '../core/src/types/agent-config.js';
 export * from '../core/src/agents/base.agent.js';
 export * from '../core/src/agents/copy.agent.js';
 export * from '../core/src/agents/guard.agent.js';
