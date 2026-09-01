@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
-import { DatabaseSync } from 'node:sqlite';
 
 export type QueueStatus = 'PENDING_APPROVAL' | 'APPROVED' | 'REJECTED' | 'DISPATCHED' | 'FAILED';
 export type TargetPlatform = 'reddit' | 'quora' | 'medium';
@@ -26,7 +25,10 @@ export interface ContentQueueItem {
 
 export class ContentQueueRepository {
   private static instance: ContentQueueRepository | null = null;
-  private db: DatabaseSync;
+  private db: any = null;
+  private isSqlite: boolean = false;
+  private jsonPath: string;
+  private memoryItems: Map<string, ContentQueueItem> = new Map();
 
   private constructor() {
     const candidates = [
@@ -48,8 +50,20 @@ export class ContentQueueRepository {
     }
 
     const dbPath = path.join(dbDir, 'content_queue.db');
-    this.db = new DatabaseSync(dbPath);
-    this.initSchema();
+    this.jsonPath = path.join(dbDir, 'content_queue.json');
+
+    try {
+      // Dynamic require for node:sqlite
+      const sqliteModule = require('node:sqlite');
+      if (sqliteModule && sqliteModule.DatabaseSync) {
+        this.db = new sqliteModule.DatabaseSync(dbPath);
+        this.isSqlite = true;
+        this.initSchema();
+      }
+    } catch {
+      this.isSqlite = false;
+      this.loadJsonDb();
+    }
   }
 
   public static getInstance(): ContentQueueRepository {
@@ -60,33 +74,49 @@ export class ContentQueueRepository {
   }
 
   private initSchema(): void {
-    this.db.exec(`
-      CREATE TABLE IF NOT EXISTS content_queue_v2 (
-        id TEXT PRIMARY KEY,
-        campaign_id TEXT NOT NULL,
-        network TEXT NOT NULL,
-        target_platform TEXT NOT NULL,
-        hook TEXT NOT NULL,
-        body TEXT NOT NULL,
-        stealth_cta TEXT NOT NULL,
-        tracking_url TEXT NOT NULL,
-        image_path TEXT NOT NULL,
-        risk_score INTEGER NOT NULL,
-        status TEXT NOT NULL,
-        published_url TEXT,
-        created_at INTEGER NOT NULL,
-        updated_at INTEGER NOT NULL
-      );
-      CREATE INDEX IF NOT EXISTS idx_cq2_status ON content_queue_v2 (status);
-      CREATE INDEX IF NOT EXISTS idx_cq2_campaign ON content_queue_v2 (campaign_id);
-    `);
-
-    // Create backward compatibility view / table
+    if (!this.isSqlite || !this.db) return;
     try {
       this.db.exec(`
-        CREATE VIEW IF NOT EXISTS content_queue_view AS
-        SELECT * FROM content_queue_v2;
+        CREATE TABLE IF NOT EXISTS content_queue_v2 (
+          id TEXT PRIMARY KEY,
+          campaign_id TEXT NOT NULL,
+          network TEXT NOT NULL,
+          target_platform TEXT NOT NULL,
+          hook TEXT NOT NULL,
+          body TEXT NOT NULL,
+          stealth_cta TEXT NOT NULL,
+          tracking_url TEXT NOT NULL,
+          image_path TEXT NOT NULL,
+          risk_score INTEGER NOT NULL,
+          status TEXT NOT NULL,
+          published_url TEXT,
+          created_at INTEGER NOT NULL,
+          updated_at INTEGER NOT NULL
+        );
+        CREATE INDEX IF NOT EXISTS idx_cq2_status ON content_queue_v2 (status);
+        CREATE INDEX IF NOT EXISTS idx_cq2_campaign ON content_queue_v2 (campaign_id);
       `);
+    } catch (e) {}
+  }
+
+  private loadJsonDb(): void {
+    try {
+      if (fs.existsSync(this.jsonPath)) {
+        const raw = fs.readFileSync(this.jsonPath, 'utf8');
+        const items = JSON.parse(raw);
+        if (Array.isArray(items)) {
+          for (const item of items) {
+            this.memoryItems.set(item.id, item);
+          }
+        }
+      }
+    } catch {}
+  }
+
+  private saveJsonDb(): void {
+    try {
+      const items = Array.from(this.memoryItems.values());
+      fs.writeFileSync(this.jsonPath, JSON.stringify(items, null, 2), 'utf8');
     } catch {}
   }
 
@@ -104,30 +134,7 @@ export class ContentQueueRepository {
     const status: QueueStatus = item.status || 'PENDING_APPROVAL';
     const published_url = item.published_url ?? null;
 
-    const stmt = this.db.prepare(`
-      INSERT INTO content_queue_v2 (
-        id, campaign_id, network, target_platform, hook, body, stealth_cta, tracking_url, image_path, risk_score, status, published_url, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `);
-
-    stmt.run(
-      id,
-      item.campaign_id,
-      item.network || 'lospollos',
-      item.target_platform || 'reddit',
-      item.hook,
-      item.body,
-      item.stealth_cta,
-      item.tracking_url || '',
-      item.image_path,
-      item.risk_score,
-      status,
-      published_url,
-      created_at,
-      updated_at
-    );
-
-    return {
+    const record: ContentQueueItem = {
       id,
       campaign_id: item.campaign_id,
       network: item.network || 'lospollos',
@@ -143,123 +150,204 @@ export class ContentQueueRepository {
       created_at,
       updated_at,
     };
+
+    if (this.isSqlite && this.db) {
+      try {
+        const stmt = this.db.prepare(`
+          INSERT INTO content_queue_v2 (
+            id, campaign_id, network, target_platform, hook, body, stealth_cta, tracking_url, image_path, risk_score, status, published_url, created_at, updated_at
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `);
+        stmt.run(
+          id,
+          record.campaign_id,
+          record.network,
+          record.target_platform,
+          record.hook,
+          record.body,
+          record.stealth_cta,
+          record.tracking_url,
+          record.image_path,
+          record.risk_score,
+          status,
+          published_url,
+          created_at,
+          updated_at
+        );
+        return record;
+      } catch {}
+    }
+
+    this.memoryItems.set(id, record);
+    this.saveJsonDb();
+    return record;
   }
 
   /**
    * List all pending items awaiting human review
    */
   public listPending(limit: number = 50): ContentQueueItem[] {
-    const stmt = this.db.prepare(`
-      SELECT * FROM content_queue_v2
-      WHERE status = 'PENDING_APPROVAL'
-      ORDER BY created_at ASC
-      LIMIT ?
-    `);
-    return stmt.all(limit) as unknown as ContentQueueItem[];
+    if (this.isSqlite && this.db) {
+      try {
+        const stmt = this.db.prepare(`
+          SELECT * FROM content_queue_v2
+          WHERE status = 'PENDING_APPROVAL'
+          ORDER BY created_at ASC
+          LIMIT ?
+        `);
+        return stmt.all(limit) as unknown as ContentQueueItem[];
+      } catch {}
+    }
+
+    return Array.from(this.memoryItems.values())
+      .filter((it) => it.status === 'PENDING_APPROVAL')
+      .sort((a, b) => a.created_at - b.created_at)
+      .slice(0, limit);
   }
 
   /**
-   * List all items with optional status filter
+   * List all items by status or all
    */
   public listAll(status?: QueueStatus, limit: number = 100): ContentQueueItem[] {
+    if (this.isSqlite && this.db) {
+      try {
+        if (status) {
+          const stmt = this.db.prepare(`
+            SELECT * FROM content_queue_v2
+            WHERE status = ?
+            ORDER BY created_at DESC
+            LIMIT ?
+          `);
+          return stmt.all(status, limit) as unknown as ContentQueueItem[];
+        } else {
+          const stmt = this.db.prepare(`
+            SELECT * FROM content_queue_v2
+            ORDER BY created_at DESC
+            LIMIT ?
+          `);
+          return stmt.all(limit) as unknown as ContentQueueItem[];
+        }
+      } catch {}
+    }
+
+    let items = Array.from(this.memoryItems.values());
     if (status) {
-      const stmt = this.db.prepare(`
-        SELECT * FROM content_queue_v2
-        WHERE status = ?
-        ORDER BY created_at DESC
-        LIMIT ?
-      `);
-      return stmt.all(status, limit) as unknown as ContentQueueItem[];
+      items = items.filter((it) => it.status === status);
     }
-    const stmt = this.db.prepare(`
-      SELECT * FROM content_queue_v2
-      ORDER BY created_at DESC
-      LIMIT ?
-    `);
-    return stmt.all(limit) as unknown as ContentQueueItem[];
+    return items.sort((a, b) => b.created_at - a.created_at).slice(0, limit);
   }
 
   /**
-   * Update item status and timestamp
+   * Update item status
    */
-  public updateStatus(id: string, status: QueueStatus): boolean {
-    const stmt = this.db.prepare(`
-      UPDATE content_queue_v2
-      SET status = ?, updated_at = ?
-      WHERE id = ?
-    `);
-    stmt.run(status, Date.now(), id);
-    return true;
-  }
-
-  /**
-   * Mark item as DISPATCHED with published URL
-   */
-  public markDispatched(id: string, publishedUrl: string): boolean {
+  public updateStatus(id: string, status: QueueStatus, published_url?: string): boolean {
     const now = Date.now();
-    const stmt = this.db.prepare(`
-      UPDATE content_queue_v2
-      SET status = 'DISPATCHED', published_url = ?, updated_at = ?
-      WHERE id = ?
-    `);
-    stmt.run(publishedUrl, now, id);
-    return true;
-  }
-
-  /**
-   * Fetch the next approved item ready for dispatch
-   */
-  public fetchNextApproved(platform?: TargetPlatform): ContentQueueItem | null {
-    if (platform) {
-      const stmt = this.db.prepare(`
-        SELECT * FROM content_queue_v2
-        WHERE status = 'APPROVED' AND target_platform = ?
-        ORDER BY created_at ASC
-        LIMIT 1
-      `);
-      const row = stmt.get(platform);
-      return (row as unknown as ContentQueueItem) || null;
+    if (this.isSqlite && this.db) {
+      try {
+        if (published_url !== undefined) {
+          const stmt = this.db.prepare(`
+            UPDATE content_queue_v2
+            SET status = ?, published_url = ?, updated_at = ?
+            WHERE id = ?
+          `);
+          stmt.run(status, published_url, now, id);
+        } else {
+          const stmt = this.db.prepare(`
+            UPDATE content_queue_v2
+            SET status = ?, updated_at = ?
+            WHERE id = ?
+          `);
+          stmt.run(status, now, id);
+        }
+        return true;
+      } catch {}
     }
-    const stmt = this.db.prepare(`
-      SELECT * FROM content_queue_v2
-      WHERE status = 'APPROVED'
-      ORDER BY created_at ASC
-      LIMIT 1
-    `);
-    const row = stmt.get();
-    return (row as unknown as ContentQueueItem) || null;
+
+    const item = this.memoryItems.get(id);
+    if (item) {
+      item.status = status;
+      if (published_url !== undefined) item.published_url = published_url;
+      item.updated_at = now;
+      this.saveJsonDb();
+      return true;
+    }
+    return false;
   }
 
   /**
-   * Delete item by ID
+   * Delete item
    */
   public deleteItem(id: string): boolean {
-    const stmt = this.db.prepare(`DELETE FROM content_queue_v2 WHERE id = ?`);
-    stmt.run(id);
-    return true;
+    if (this.isSqlite && this.db) {
+      try {
+        const stmt = this.db.prepare(`DELETE FROM content_queue_v2 WHERE id = ?`);
+        stmt.run(id);
+        return true;
+      } catch {}
+    }
+
+    const deleted = this.memoryItems.delete(id);
+    if (deleted) this.saveJsonDb();
+    return deleted;
   }
 
   /**
-   * Get queue summary statistics
+   * Get Queue Statistics
    */
-  public getStats(): { total: number; pending: number; approved: number; rejected: number; dispatched: number; failed: number } {
-    const rows = this.db.prepare(`SELECT status, COUNT(*) as count FROM content_queue_v2 GROUP BY status`).all() as {
-      status: string;
-      count: number;
-    }[];
-    const counts: Record<string, number> = {};
-    let total = 0;
-    for (const r of rows) {
-      counts[r.status] = Number(r.count);
-      total += Number(r.count);
+  public getStats(): {
+    total: number;
+    pending: number;
+    approved: number;
+    rejected: number;
+    dispatched: number;
+    failed: number;
+  } {
+    if (this.isSqlite && this.db) {
+      try {
+        const rows = this.db
+          .prepare(`SELECT status, COUNT(*) as count FROM content_queue_v2 GROUP BY status`)
+          .all() as Array<{ status: string; count: number }>;
+
+        const stats = {
+          total: 0,
+          pending: 0,
+          approved: 0,
+          rejected: 0,
+          dispatched: 0,
+          failed: 0,
+        };
+
+        for (const r of rows) {
+          stats.total += Number(r.count);
+          if (r.status === 'PENDING_APPROVAL') stats.pending = Number(r.count);
+          if (r.status === 'APPROVED') stats.approved = Number(r.count);
+          if (r.status === 'REJECTED') stats.rejected = Number(r.count);
+          if (r.status === 'DISPATCHED') stats.dispatched = Number(r.count);
+          if (r.status === 'FAILED') stats.failed = Number(r.count);
+        }
+
+        return stats;
+      } catch {}
     }
-    return {
-      total,
-      pending: counts['PENDING_APPROVAL'] || 0,
-      approved: counts['APPROVED'] || 0,
-      rejected: counts['REJECTED'] || 0,
-      dispatched: counts['DISPATCHED'] || 0,
-      failed: counts['FAILED'] || 0,
+
+    const stats = {
+      total: this.memoryItems.size,
+      pending: 0,
+      approved: 0,
+      rejected: 0,
+      dispatched: 0,
+      failed: 0,
     };
+
+    for (const it of this.memoryItems.values()) {
+      if (it.status === 'PENDING_APPROVAL') stats.pending++;
+      if (it.status === 'APPROVED') stats.approved++;
+      if (it.status === 'REJECTED') stats.rejected++;
+      if (it.status === 'DISPATCHED') stats.dispatched++;
+      if (it.status === 'FAILED') stats.failed++;
+    }
+
+    return stats;
   }
 }
+export default ContentQueueRepository;
