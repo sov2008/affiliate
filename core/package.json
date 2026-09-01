@@ -67,7 +67,8 @@
     "campaign:scaffold": "tsx ../src/services/campaign-scaffolder.service.ts",
     "bot:start": "tsx ../src/services/telegram-control-bot.service.ts",
     "scheduler:start": "tsx src/automation/distribution-scheduler.ts",
-    "hitl:review": "tsx src/index.ts"
+    "hitl:review": "tsx src/index.ts",
+    "deploy:prod": "tsx ../src/scripts/deployProduction.ts"
   },
   "keywords": [],
   "author": "",

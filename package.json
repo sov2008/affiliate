@@ -37,7 +37,8 @@
     "bot:start": "tsx src/services/telegram-control-bot.service.ts",
     "scheduler:start": "tsx src/automation/distribution-scheduler.ts",
     "hitl:review": "tsx core/src/index.ts",
-    "deploy:pages": "npx wrangler pages deploy campaigns/ --project-name affiliate-campaigns --branch main --commit-dirty=true"
+    "deploy:pages": "npx wrangler pages deploy campaigns/ --project-name affiliate-campaigns --branch main --commit-dirty=true",
+    "deploy:prod": "tsx src/scripts/deployProduction.ts"
   },
   "workspaces": [
     "core",
