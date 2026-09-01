@@ -1,6 +1,11 @@
 const path = require('path');
 const fs = require('fs');
 
+try {
+  require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+  require('dotenv').config({ path: path.resolve(__dirname, 'core/.env') });
+} catch (e) {}
+
 const logsDir = path.resolve(__dirname, '.antigravity', 'logs');
 
 if (!fs.existsSync(logsDir)) {

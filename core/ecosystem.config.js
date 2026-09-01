@@ -1,6 +1,11 @@
 const path = require('path');
 const fs = require('fs');
 
+try {
+  require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+  require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+} catch (e) {}
+
 const rootDir = path.resolve(__dirname, '..');
 const logsDir = path.join(rootDir, '.antigravity', 'logs');
 
