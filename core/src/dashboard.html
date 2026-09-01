@@ -2877,19 +2877,42 @@
     }
 
     // ----------------------------------------------------
-    // Evidence Bundles JS
+    // Evidence Bundles JS (Paginated / Virtualized Loader)
     // ----------------------------------------------------
-    async function loadEvidenceBundles() {
+    let bundlesOffset = 0;
+    const BUNDLES_PER_PAGE = 10;
+    let cachedBundles = [];
+    let bundlesHasMore = false;
+
+    async function loadEvidenceBundles(reset = true) {
+      if (reset) {
+        bundlesOffset = 0;
+        cachedBundles = [];
+      }
       try {
-        const res = await apiFetch('/api/runs/bundles');
+        const res = await apiFetch(`/api/runs/bundles?limit=${BUNDLES_PER_PAGE}&offset=${bundlesOffset}`);
         const data = await res.json();
         if (!data.success) return;
 
         const container = document.getElementById('bundlesListContainer');
+        const countBadge = document.getElementById('bundlesCountBadge');
         if (!container) return;
 
-        const bundles = data.bundles || [];
-        if (bundles.length === 0) {
+        const newBundles = data.bundles || [];
+        if (reset) {
+          cachedBundles = newBundles;
+        } else {
+          cachedBundles = [...cachedBundles, ...newBundles];
+        }
+
+        bundlesHasMore = !!data.hasMore;
+        bundlesOffset = cachedBundles.length;
+
+        if (countBadge) {
+          countBadge.innerText = `Всего: ${data.total || cachedBundles.length} | Загружено: ${cachedBundles.length}`;
+        }
+
+        if (cachedBundles.length === 0) {
           container.innerHTML = `
             <div class="p-3 bg-slate-950/70 rounded-lg text-slate-500 text-center">
               Пока нет сохраненных Evidence Bundles в /runs/
@@ -2898,7 +2921,7 @@
           return;
         }
 
-        container.innerHTML = bundles.map(b => {
+        const itemsHtml = cachedBundles.map(b => {
           const compScore = b.compliance?.score ?? '--';
           const scoreColor = compScore >= 80 ? 'text-emerald-400' : 'text-rose-400';
           const dateStr = b.createdAt ? new Date(b.createdAt).toLocaleString('ru-RU') : 'Недавно';
@@ -2907,11 +2930,11 @@
             <div class="p-2.5 bg-slate-950/80 border border-slate-800 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 hover:border-slate-700 transition">
               <div>
                 <div class="flex items-center space-x-2">
-                  <span class="text-sky-400 font-bold">Bundle: ${b.id.slice(0, 8)}</span>
-                  <span class="text-[10px] text-slate-500 uppercase">${b.context?.platform || 'web'}</span>
-                  <span class="px-1.5 py-0.2 rounded text-[10px] bg-slate-900 border border-slate-700 text-slate-300">${b.status}</span>
+                  <span class="text-sky-400 font-bold font-mono">Bundle: ${b.id ? b.id.slice(0, 8) : 'unknown'}</span>
+                  <span class="text-[10px] text-slate-500 uppercase">${b.context?.platform || 'reddit'}</span>
+                  <span class="px-1.5 py-0.2 rounded text-[10px] ${b.status === 'APPROVED' ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : b.status === 'REJECTED' ? 'bg-rose-950 text-rose-300 border border-rose-800' : 'bg-slate-900 border border-slate-700 text-slate-300'}">${b.status || 'PENDING'}</span>
                 </div>
-                <div class="text-[11px] text-slate-300 line-clamp-1 mt-0.5">"${b.creative?.headline || b.context?.topicTitle || ''}"</div>
+                <div class="text-[11px] text-slate-300 line-clamp-1 mt-0.5">"${b.creative?.headline || b.context?.topicTitle || b.copywriting?.hook || 'Сгенерированный креатив'}"</div>
               </div>
               <div class="flex items-center space-x-3 text-[11px]">
                 <span class="text-slate-400">Compliance: <strong class="${scoreColor}">${compScore}/100</strong></span>
@@ -2920,6 +2943,16 @@
             </div>
           `;
         }).join('');
+
+        const loadMoreHtml = bundlesHasMore ? `
+          <div class="pt-2 text-center">
+            <button onclick="loadEvidenceBundles(false)" class="px-4 py-1.5 rounded-lg bg-purple-950/70 hover:bg-purple-900 border border-purple-500/40 text-purple-300 text-xs font-bold transition">
+              ⬇ Загрузить еще (+${BUNDLES_PER_PAGE})
+            </button>
+          </div>
+        ` : '';
+
+        container.innerHTML = itemsHtml + loadMoreHtml;
       } catch (e) {}
     }
 

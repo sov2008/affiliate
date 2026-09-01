@@ -1533,6 +1533,156 @@ app.get('/api/analytics/umami/events', async (req, res) => {
   }
 });
 
+// ----------------------------------------------------
+// Financials KPI Endpoint
+// ----------------------------------------------------
+app.get('/api/financials/kpi', async (req, res) => {
+  try {
+    const workerStats = await fetchAllWorkerStats();
+    let totalRevenue = 0;
+    let totalClicks = 0;
+    let totalLeads = 0;
+    let totalSales = 0;
+
+    for (const [key, val] of Object.entries<any>(workerStats)) {
+      if (key.startsWith('stats_')) {
+        totalRevenue += val.revenue || 0;
+        totalClicks += val.clicks || 0;
+        totalLeads += val.leads || 0;
+        totalSales += val.sales || 0;
+      }
+    }
+
+    const totalConversions = totalLeads + totalSales;
+    const overallCr = totalClicks > 0 ? ((totalConversions / totalClicks) * 100).toFixed(2) + '%' : '0.00%';
+    const networkEpc = totalClicks > 0 ? `$${(totalRevenue / totalClicks).toFixed(2)}` : '$0.00';
+
+    res.json({
+      success: true,
+      todayRevenue: Number(totalRevenue.toFixed(2)),
+      yesterdayRevenue: 0.0,
+      revenueDeltaPct: totalRevenue > 0 ? '+100%' : '0.0%',
+      networkEpc,
+      overallCr,
+      totalClicks,
+      totalConversions,
+      bundlesTracked: 0,
+      topBundle: null,
+      lastUpdated: new Date().toLocaleTimeString('ru-RU', { hour12: false })
+    });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ----------------------------------------------------
+// Paginated Evidence Bundles API (/api/runs/bundles)
+// ----------------------------------------------------
+app.get('/api/runs/bundles', async (req, res) => {
+  try {
+    const limit = Math.max(1, Math.min(100, parseInt(req.query.limit as string || '10', 10)));
+    const offset = Math.max(0, parseInt(req.query.offset as string || '0', 10));
+
+    const candidateRunDirs = [
+      path.resolve(__dirname, '../../runs'),
+      path.resolve(__dirname, '../runs'),
+      path.resolve(__dirname, 'runs'),
+      path.resolve(process.cwd(), 'runs'),
+      '/root/affiliate/runs'
+    ];
+
+    let runsDir = '';
+    for (const d of candidateRunDirs) {
+      if (fsSync.existsSync(d)) {
+        runsDir = d;
+        break;
+      }
+    }
+
+    const allBundles: any[] = [];
+    if (runsDir) {
+      const entries = await fs.readdir(runsDir, { withFileTypes: true });
+      for (const ent of entries) {
+        if (ent.isDirectory()) {
+          const bundleFilePath = path.join(runsDir, ent.name, 'bundle.json');
+          if (fsSync.existsSync(bundleFilePath)) {
+            try {
+              const content = await fs.readFile(bundleFilePath, 'utf8');
+              const parsed = JSON.parse(content);
+              allBundles.push(parsed);
+            } catch {}
+          }
+        }
+      }
+    }
+
+    // Sort descending by creation timestamp
+    allBundles.sort((a, b) => {
+      const timeA = new Date(a.createdAt || a.timestamp || 0).getTime();
+      const timeB = new Date(b.createdAt || b.timestamp || 0).getTime();
+      return timeB - timeA;
+    });
+
+    const paged = allBundles.slice(offset, offset + limit);
+    const hasMore = offset + limit < allBundles.length;
+
+    res.json({
+      success: true,
+      bundles: paged,
+      total: allBundles.length,
+      limit,
+      offset,
+      hasMore
+    });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ----------------------------------------------------
+// SSE Unified Event Stream Endpoint (/api/stream/events)
+// ----------------------------------------------------
+const sseClients = new Set<Response>();
+
+export function broadcastSseEvent(eventType: string, data: any) {
+  const payload = `event: ${eventType}\ndata: ${JSON.stringify(data)}\n\n`;
+  for (const client of sseClients) {
+    try {
+      client.write(payload);
+    } catch {
+      sseClients.delete(client);
+    }
+  }
+}
+
+app.get('/api/stream/events', (req: Request, res: Response) => {
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'X-Accel-Buffering': 'no',
+    'Access-Control-Allow-Origin': '*'
+  });
+
+  res.write(`event: connected\ndata: ${JSON.stringify({ status: 'connected', time: new Date().toISOString() })}\n\n`);
+  sseClients.add(res);
+
+  // Send periodic 25s heartbeat
+  const heartbeatTimer = setInterval(() => {
+    try {
+      res.write(`event: heartbeat\ndata: ${JSON.stringify({ timestamp: new Date().toISOString(), subscribers: sseClients.size })}\n\n`);
+    } catch {
+      clearInterval(heartbeatTimer);
+      sseClients.delete(res);
+    }
+  }, 25000);
+
+  req.on('close', () => {
+    clearInterval(heartbeatTimer);
+    sseClients.delete(res);
+  });
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Executive Command Center active at http://localhost:${PORT} (Basic Auth Protected)`);
