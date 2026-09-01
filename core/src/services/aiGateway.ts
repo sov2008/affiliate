@@ -1,17 +1,12 @@
 import path from 'path';
-import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import OpenAI from 'openai';
 import axios from 'axios';
 import { z } from 'zod';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Ensure environment variables are loaded
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), 'core/.env') });
 
 export interface AITelemetry {
   provider: 'groq' | 'openrouter' | 'cloudflare' | 'heuristic';
@@ -237,18 +232,15 @@ export class AIGateway {
    */
   private static extractJSON(text: string): any {
     let clean = text.trim();
-    // Remove markdown ```json ... ``` codeblocks if present
     if (clean.startsWith('```json')) {
       clean = clean.replace(/^```json\s*/i, '').replace(/\s*```$/, '');
     } else if (clean.startsWith('```')) {
       clean = clean.replace(/^```\s*/, '').replace(/\s*```$/, '');
     }
 
-    // Try direct parse
     try {
       return JSON.parse(clean);
     } catch {
-      // Find first { and last }
       const firstBrace = clean.indexOf('{');
       const lastBrace = clean.lastIndexOf('}');
       if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {

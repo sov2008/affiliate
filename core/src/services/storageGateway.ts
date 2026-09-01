@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import {
   S3Client,
@@ -9,12 +8,9 @@ import {
   CreateBucketCommand,
 } from '@aws-sdk/client-s3';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), 'core/.env') });
 
 export interface UploadResult {
   url: string;
@@ -59,7 +55,6 @@ export class StorageGateway {
       await s3.send(new HeadBucketCommand({ Bucket: bucketName }));
       this.bucketInitialized = true;
     } catch (err: any) {
-      // Bucket not found (404) -> create it
       if (err?.$metadata?.httpStatusCode === 404 || err?.name === 'NotFound') {
         console.log(`[StorageGateway] Bucket "${bucketName}" not found. Creating bucket on Cloudflare R2...`);
         try {
@@ -70,7 +65,6 @@ export class StorageGateway {
           console.warn(`[StorageGateway] Could not auto-create bucket: ${createErr.message}`);
         }
       } else {
-        // Other error (e.g. permission or already exists)
         this.bucketInitialized = true;
       }
     }

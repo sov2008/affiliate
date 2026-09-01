@@ -1,14 +1,10 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), 'core/.env') });
 
 export interface ImageGenerationOptions {
   width?: number;
@@ -55,7 +51,7 @@ export class ImageGateway {
 
       const latencyMs = Date.now() - start;
       const buffer = Buffer.from(response.data);
-      const contentType = response.headers['content-type'] || 'image/jpeg';
+      const contentType = String(response.headers['content-type'] || 'image/jpeg');
 
       console.log(`\x1b[2m[ImageGateway]\x1b[0m Generated ${buffer.byteLength} bytes image in \x1b[36m${latencyMs}ms\x1b[0m (seed: ${seed})`);
       return { buffer, contentType, latencyMs };

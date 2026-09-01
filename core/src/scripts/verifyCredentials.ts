@@ -1,17 +1,13 @@
 import path from 'path';
-import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import OpenAI from 'openai';
 import axios from 'axios';
 import { S3Client, ListBucketsCommand } from '@aws-sdk/client-s3';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Load environment variables from workspace root and core folder
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+// Load environment variables from both workspace root and core folder
+dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), 'core/.env') });
 
 // ANSI Color Helpers for rich terminal output
 const colors = {
@@ -44,7 +40,6 @@ const results: VerificationResult[] = [];
 
 /**
  * 1. Groq API Verification
- * Sends a mini test prompt ("ping") to llama-3.3-70b-versatile with intelligent active model discovery.
  */
 async function testGroq(): Promise<VerificationResult> {
   const apiKey = process.env.GROQ_API_KEY;
@@ -119,7 +114,6 @@ async function testGroq(): Promise<VerificationResult> {
 
 /**
  * 2. Cerebras API Verification
- * Sends a test prompt ("ping") to llama-3.3-70b / available Cerebras fast models.
  */
 async function testCerebras(): Promise<VerificationResult> {
   const apiKey = process.env.CEREBRAS_API_KEY;
@@ -197,7 +191,6 @@ async function testCerebras(): Promise<VerificationResult> {
 
 /**
  * 3. OpenRouter API Verification
- * Sends a test prompt to meta-llama/llama-3.3-70b-instruct:free / instruct.
  */
 async function testOpenRouter(): Promise<VerificationResult> {
   const apiKey = process.env.OPENROUTER_API_KEY;
@@ -271,7 +264,7 @@ async function testOpenRouter(): Promise<VerificationResult> {
 }
 
 /**
- * 4. Pollinations API Verification (Image endpoint connectivity via GET)
+ * 4. Pollinations API Verification
  */
 async function testPollinations(): Promise<VerificationResult> {
   const apiKey = process.env.POLLINATIONS_API_KEY;
@@ -289,7 +282,7 @@ async function testPollinations(): Promise<VerificationResult> {
 
     const latency = Date.now() - start;
     const byteLength = response.data ? (response.data as Buffer).byteLength : 0;
-    const contentType = response.headers['content-type'] || 'image/jpeg';
+    const contentType = String(response.headers['content-type'] || 'image/jpeg');
 
     return {
       provider: 'Pollinations.ai',
@@ -318,7 +311,6 @@ async function testPollinations(): Promise<VerificationResult> {
 
 /**
  * 5. Cloudflare Workers AI Verification
- * Lightweight test against @cf/meta/llama-3.3-70b-instruct or 8b model.
  */
 async function testCloudflareWorkersAI(): Promise<VerificationResult> {
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
@@ -364,7 +356,6 @@ async function testCloudflareWorkersAI(): Promise<VerificationResult> {
       rawPayload: data,
     };
   } catch (err: any) {
-    // Fallback to fast 8B model
     try {
       model = '@cf/meta/llama-3.1-8b-instruct';
       const fallbackEndpoint = `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/${model}`;
@@ -400,8 +391,7 @@ async function testCloudflareWorkersAI(): Promise<VerificationResult> {
 }
 
 /**
- * 6. Cloudflare R2 Bucket Connection Test (S3 API Client)
- * Sends ListBucketsCommand to verify access keys.
+ * 6. Cloudflare R2 Bucket Connection Test
  */
 async function testCloudflareR2(): Promise<VerificationResult> {
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
@@ -456,7 +446,6 @@ async function testCloudflareR2(): Promise<VerificationResult> {
     let rawPayload: any = { error: err?.message || String(err) };
     let diagnosticNote = err?.message || String(err);
 
-    // Deep diagnostic via Cloudflare REST API to extract exact error code & payload
     if (accountId && apiToken) {
       try {
         const checkRes = await axios.get(`https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets`, {
@@ -566,32 +555,12 @@ export async function runVerificationSuite() {
   }
   console.log('+' + '-'.repeat(18) + '+' + '-'.repeat(36) + '+' + '-'.repeat(10) + '+' + '-'.repeat(10) + '+' + '-'.repeat(45) + '+');
 
-  // Print exact HTTP response payloads for debugging if any errors occurred
-  const failedResults = results.filter((r) => r.status === 'FAIL');
-  if (failedResults.length > 0) {
-    console.log(`\n${colors.bold}${colors.yellow}🔍 Debugging & HTTP Payload Diagnostics for Failed Services:${colors.reset}`);
-    for (const f of failedResults) {
-      console.log(`\n  ${colors.red}${colors.bold}► [${f.provider}] - ${f.serviceOrModel}${colors.reset}`);
-      console.log(`    ${colors.dim}HTTP Status:${colors.reset} ${colors.yellow}${f.httpStatus || 'N/A'}${colors.reset}`);
-      console.log(`    ${colors.dim}Error Summary:${colors.reset} ${f.error || f.details}`);
-      console.log(`    ${colors.dim}Response Payload:${colors.reset}`);
-      console.log(`    ${colors.cyan}${JSON.stringify(f.rawPayload, null, 2).replace(/\n/g, '\n    ')}${colors.reset}`);
-    }
-  }
-
   // Summary Banner
   console.log(`\n${colors.bold}🎯 Test Results:${colors.reset} Total: ${results.length} | Passed: ${colors.green}${passedCount}${colors.reset} | Failed: ${failedCount > 0 ? colors.red + failedCount + colors.reset : '0'} | Skipped: ${colors.yellow}${skippedCount}${colors.reset}`);
-
-  if (failedCount === 0) {
-    console.log(`\n${colors.bgGreen}${colors.bold}  ✨ ALL MULTI-PROVIDER AI & R2 CREDENTIALS VERIFIED & OPERATIONAL  ${colors.reset}\n`);
-  } else {
-    console.log(`\n${colors.bgYellow}${colors.bold}  ℹ️  ${passedCount}/${results.length} PROVIDERS OPERATIONAL (${failedCount} REQUIRE ACCOUNT / BILLING ACTIVATION)  ${colors.reset}\n`);
-  }
 
   return { passedCount, failedCount, skippedCount };
 }
 
-// Direct CLI Execution
 if (process.argv[1] && (process.argv[1].endsWith('verifyCredentials.ts') || process.argv[1].endsWith('verifyCredentials.js'))) {
   runVerificationSuite()
     .then(() => process.exit(0))
