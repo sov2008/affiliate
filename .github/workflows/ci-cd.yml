@@ -1,0 +1,95 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  # ----------------------------------------------------
+  # 1. CI Validation: Typecheck, Build, and QA Audit
+  # ----------------------------------------------------
+  validate:
+    name: 🧪 CI Typecheck & Code Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install Root & Core Dependencies
+        run: |
+          npm install
+          cd core && npm install
+
+      - name: 🔍 TypeScript Typecheck (Zero Errors Enforced)
+        run: |
+          npm run typecheck
+
+      - name: 🛡️ Audit Affiliate Tracking Links & Macro Resolvers
+        run: |
+          npm --prefix core run audit
+
+      - name: 🔨 Compile Production Distribution (tsc)
+        run: |
+          npm --prefix core run build
+
+  # ----------------------------------------------------
+  # 2. CD: Deploy Campaigns to Cloudflare Pages
+  # ----------------------------------------------------
+  deploy-campaigns:
+    name: 🚀 Deploy Campaigns to Cloudflare Pages
+    needs: validate
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ⚡ Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          command: pages deploy campaigns/ --project-name affiliate-campaigns --commit-dirty=true
+
+  # ----------------------------------------------------
+  # 3. CD: Deploy Postback Engine Worker
+  # ----------------------------------------------------
+  deploy-worker:
+    name: ⚡ Deploy Postback Engine Worker
+    needs: validate
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📦 Install Worker Dependencies
+        working-directory: workers/postback-engine
+        run: npm install
+
+      - name: 🚀 Deploy Cloudflare Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          workingDirectory: workers/postback-engine
+          command: deploy
