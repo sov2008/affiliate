@@ -15,3 +15,5 @@ declare module 'ssh2' {
     [key: string]: any;
   }
 }
+
+declare module 'prompts';
