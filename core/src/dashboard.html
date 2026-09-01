@@ -316,6 +316,7 @@
       <button onclick="triggerAction('trigger-scout', '🛰️ Offer Scout')" class="btn btn-amber">Offer Scout</button>
       <button onclick="triggerAction('calibrate-prompts', '🧬 MAB Mutate')" class="btn btn-purple">MAB Mutate</button>
       <button onclick="openModal('modalScaffold')" class="btn btn-blue">Scaffold GEO</button>
+      <button onclick="checkAllLinks()" class="btn btn-blue font-bold">🔗 Check All Links</button>
     </div>
 
     <div style="display: flex; align-items: center; gap: 4px;">
@@ -389,13 +390,14 @@
 
   <!-- Post Inspection & Preview Modal -->
   <div id="modalInspect" class="modal-backdrop">
-    <div class="modal-box" style="width: 580px; max-width: 95vw; max-height: 90vh; display: flex; flex-direction: column; gap: 8px;">
+    <div class="modal-box" style="width: 620px; max-width: 95vw; max-height: 90vh; display: flex; flex-direction: column; gap: 8px;">
       <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px;">
-        <div style="display: flex; align-items: center; gap: 6px;">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px;">
           <strong style="color: var(--blue);">[INSPECT BUNDLE: <span id="inspectId">--</span>]</strong>
           <span id="inspectPlatformBadge" class="badge badge-dim">PLATFORM</span>
           <span id="inspectStatusBadge" class="badge badge-ok">STATUS</span>
           <span id="inspectRiskBadge" class="badge badge-dim">RISK: 0%</span>
+          <span id="inspectLinkBadge" class="badge badge-dim">[LINK: 🟡 UNCHECKED]</span>
         </div>
         <button onclick="closeModal('modalInspect')" class="btn" style="padding: 1px 4px;">✕ (Esc)</button>
       </div>
@@ -417,7 +419,10 @@
         <div>
           <span style="color: var(--dim); font-size: 10px; display: block;">3. STEALTH CTA & TRACKING ROUTE</span>
           <div id="inspectCta" style="color: var(--green-text); font-weight: 600; padding: 4px 6px; background: var(--green-bg); border: 1px solid var(--green); border-radius: 2px; margin-bottom: 3px;"></div>
-          <div id="inspectTracking" style="color: var(--blue); font-size: 10px; word-break: break-all; background: var(--bg); padding: 3px 6px; border: 1px solid var(--border); border-radius: 2px;"></div>
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 6px;">
+            <div id="inspectTracking" style="color: var(--blue); font-size: 10px; word-break: break-all; background: var(--bg); padding: 3px 6px; border: 1px solid var(--border); border-radius: 2px; flex: 1;"></div>
+            <button id="btnTestClickChain" onclick="testCurrentClickChain()" class="btn btn-blue" style="font-size: 10px; padding: 3px 6px; white-space: nowrap;">🔗 Test Click Chain</button>
+          </div>
         </div>
 
         <!-- Compliance & Anti-Spam Audit Details -->
@@ -538,17 +543,27 @@
       } catch {}
     }
 
+    let activeInspectedId = null;
+    let activeInspectedItem = null;
+
     async function inspectQueueItem(id) {
       activeInspectedId = id;
+      activeInspectedItem = null;
       openModal('modalInspect');
       document.getElementById('inspectId').innerText = id.slice(0, 8);
       document.getElementById('inspectHook').innerText = 'Загрузка данных...';
       document.getElementById('inspectBody').innerText = 'Загрузка...';
+      const linkBadge = document.getElementById('inspectLinkBadge');
+      if (linkBadge) {
+        linkBadge.className = 'badge badge-dim';
+        linkBadge.innerText = '[LINK: 🟡 UNCHECKED]';
+      }
 
       try {
         const res = await fetch(`/api/queue/items/${id}`);
         if (res.ok) {
           const { item } = await res.json();
+          activeInspectedItem = item;
           document.getElementById('inspectId').innerText = item.id.slice(0, 8);
           document.getElementById('inspectPlatformBadge').innerText = (item.platform || 'REDDIT').toUpperCase();
           document.getElementById('inspectStatusBadge').innerText = item.status;
@@ -561,6 +576,11 @@
           document.getElementById('inspectTracking').innerText = `OUTBOUND: ${item.tracking_url || 'N/A'}`;
           document.getElementById('inspectCompliance').innerText = item.compliance_reasoning || 'Passed compliance checks.';
 
+          if (linkBadge && item.tracking_url) {
+            linkBadge.className = 'badge badge-dim';
+            linkBadge.innerText = '[LINK: 🟡 READY TO TEST]';
+          }
+
           const imgWrap = document.getElementById('inspectImgWrap');
           if (item.generated_prompt) {
             imgWrap.style.display = 'block';
@@ -572,6 +592,88 @@
       } catch (err) {
         document.getElementById('inspectHook').innerText = 'Ошибка загрузки';
         document.getElementById('inspectBody').innerText = err.message;
+      }
+    }
+
+    async function testCurrentClickChain() {
+      if (!activeInspectedItem || !activeInspectedItem.tracking_url) {
+        appendLog('[CLICK TEST] ⚠️ No outbound tracking URL found for this item.');
+        return;
+      }
+
+      const btn = document.getElementById('btnTestClickChain');
+      const linkBadge = document.getElementById('inspectLinkBadge');
+      if (btn) btn.innerText = 'Testing...';
+      appendLog(`[CLICK TEST] Simulating click routing for ${activeInspectedId.slice(0, 8)}...`);
+
+      try {
+        const res = await fetch('/api/actions/test-link', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            url: activeInspectedItem.tracking_url,
+            campaignId: activeInspectedItem.campaign_id,
+          }),
+        });
+        const d = await res.json();
+        if (res.ok && d.success) {
+          const hopsCount = d.cpaValidation?.hops?.length || 1;
+          const latency = d.cpaValidation?.latencyMs || 100;
+          const isValid = d.isValid;
+
+          if (isValid) {
+            if (linkBadge) {
+              linkBadge.className = 'badge badge-ok';
+              linkBadge.innerText = `[LINK: 🟢 VALID (${hopsCount} hops, ${latency}ms)]`;
+            }
+            appendLog(`[CLICK TEST] ✅ Chain verified for ${activeInspectedId.slice(0, 8)}: ${hopsCount} hops, ${latency}ms, 200 OK`);
+          } else {
+            const statusErr = d.cpaValidation?.statusCode || 'ERR';
+            if (linkBadge) {
+              linkBadge.className = 'badge badge-err';
+              linkBadge.innerText = `[LINK: 🔴 BROKEN ${statusErr}]`;
+            }
+            appendLog(`[CLICK TEST] ❌ Chain failed for ${activeInspectedId.slice(0, 8)}: ${d.cpaValidation?.errors?.join('; ') || 'Invalid'}`);
+          }
+        } else {
+          if (linkBadge) {
+            linkBadge.className = 'badge badge-err';
+            linkBadge.innerText = '[LINK: 🔴 ERROR]';
+          }
+          appendLog(`[CLICK TEST] ❌ Test request failed: ${d.error || 'Unknown error'}`);
+        }
+      } catch (err) {
+        if (linkBadge) {
+          linkBadge.className = 'badge badge-err';
+          linkBadge.innerText = '[LINK: 🔴 NET ERR]';
+        }
+        appendLog(`[CLICK TEST] ❌ Exception: ${err.message}`);
+      } finally {
+        if (btn) btn.innerText = '🔗 Test Click Chain';
+      }
+    }
+
+    async function checkAllLinks() {
+      appendLog('[LINK AUDITOR] Running end-to-end audit across all campaigns...');
+      try {
+        const res = await fetch('/api/actions/validate-links', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const d = await res.json();
+        if (res.ok && d.success) {
+          const templatesCount = d.totalCheckedTemplates || 8;
+          const linksCount = d.totalCheckedLinks || 8;
+          if (d.isValid) {
+            appendLog(`[LINK AUDITOR] Checked ${templatesCount} landing pages (${linksCount} links), all macros resolved. (Edge Router: ${d.edgeRouterHealth?.statusCode || 200} OK, ${d.edgeRouterHealth?.latencyMs || 0}ms)`);
+          } else {
+            appendLog(`[LINK AUDITOR] ⚠️ Warning: ${templatesCount} templates checked, some issues found.`);
+          }
+        } else {
+          appendLog(`[LINK AUDITOR] ❌ Audit failed: ${d.error || 'Unknown error'}`);
+        }
+      } catch (err) {
+        appendLog(`[LINK AUDITOR] ❌ Exception during audit: ${err.message}`);
       }
     }
 

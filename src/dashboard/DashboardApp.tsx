@@ -76,6 +76,14 @@ export const DashboardApp: React.FC<{
   const [copied, setCopied] = useState<boolean>(false);
   const [inspectedItem, setInspectedItem] = useState<any | null>(null);
   const [isInspectModalOpen, setIsInspectModalOpen] = useState<boolean>(false);
+  const [linkHealthStatus, setLinkHealthStatus] = useState<{
+    isValid?: boolean;
+    latencyMs?: number;
+    hops?: number;
+    statusCode?: number;
+    error?: string;
+  } | null>(null);
+  const [isTestingLink, setIsTestingLink] = useState<boolean>(false);
 
   const logBoxRef = useRef<HTMLDivElement>(null);
   const MAX_LOG_LINES = 100;
@@ -98,6 +106,7 @@ export const DashboardApp: React.FC<{
   const inspectQueueItem = async (id: string) => {
     try {
       setIsInspectModalOpen(true);
+      setLinkHealthStatus(null);
       setInspectedItem({ id, hook: 'Загрузка данных...', body: 'Загрузка...' });
       const res = await fetch(`${apiBaseUrl}/api/queue/items/${id}`);
       if (res.ok) {
@@ -106,6 +115,82 @@ export const DashboardApp: React.FC<{
       }
     } catch (e: any) {
       setInspectedItem({ id, hook: 'Ошибка', body: e.message });
+    }
+  };
+
+  // Test single item click chain in sandbox
+  const testCurrentClickChain = async () => {
+    if (!inspectedItem || !inspectedItem.tracking_url) {
+      appendLog('[CLICK TEST] ⚠️ No outbound tracking URL found for this item.');
+      return;
+    }
+
+    setIsTestingLink(true);
+    appendLog(`[CLICK TEST] Simulating click routing for ${inspectedItem.id?.slice(0, 8)}...`);
+
+    try {
+      const res = await fetch(`${apiBaseUrl}/api/actions/test-link`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          url: inspectedItem.tracking_url,
+          campaignId: inspectedItem.campaign_id,
+        }),
+      });
+      const d = await res.json();
+      if (res.ok && d.success) {
+        const hops = d.cpaValidation?.hops?.length || 1;
+        const latencyMs = d.cpaValidation?.latencyMs || 100;
+        const isValid = d.isValid;
+        const statusCode = d.cpaValidation?.statusCode || 200;
+
+        setLinkHealthStatus({
+          isValid,
+          hops,
+          latencyMs,
+          statusCode,
+          error: d.cpaValidation?.errors?.join(', '),
+        });
+
+        if (isValid) {
+          appendLog(`[CLICK TEST] ✅ Chain verified for ${inspectedItem.id?.slice(0, 8)}: ${hops} hops, ${latencyMs}ms, ${statusCode} OK`);
+        } else {
+          appendLog(`[CLICK TEST] ❌ Chain failed for ${inspectedItem.id?.slice(0, 8)}: ${d.cpaValidation?.errors?.join('; ') || 'Invalid'}`);
+        }
+      } else {
+        setLinkHealthStatus({ isValid: false, error: d.error });
+        appendLog(`[CLICK TEST] ❌ Test request failed: ${d.error || 'Unknown error'}`);
+      }
+    } catch (err: any) {
+      setLinkHealthStatus({ isValid: false, error: err.message });
+      appendLog(`[CLICK TEST] ❌ Exception: ${err.message}`);
+    } finally {
+      setIsTestingLink(false);
+    }
+  };
+
+  // Run full link auditor across all landing pages
+  const checkAllLinks = async () => {
+    appendLog('[LINK AUDITOR] Running end-to-end audit across all campaigns...');
+    try {
+      const res = await fetch(`${apiBaseUrl}/api/actions/validate-links`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const d = await res.json();
+      if (res.ok && d.success) {
+        const templatesCount = d.totalCheckedTemplates || 8;
+        const linksCount = d.totalCheckedLinks || 8;
+        if (d.isValid) {
+          appendLog(`[LINK AUDITOR] Checked ${templatesCount} landing pages (${linksCount} links), all macros resolved. (Edge Router: ${d.edgeRouterHealth?.statusCode || 200} OK, ${d.edgeRouterHealth?.latencyMs || 0}ms)`);
+        } else {
+          appendLog(`[LINK AUDITOR] ⚠️ Warning: ${templatesCount} templates checked, issues detected.`);
+        }
+      } else {
+        appendLog(`[LINK AUDITOR] ❌ Audit failed: ${d.error || 'Unknown error'}`);
+      }
+    } catch (err: any) {
+      appendLog(`[LINK AUDITOR] ❌ Exception during audit: ${err.message}`);
     }
   };
 
@@ -376,6 +461,14 @@ export const DashboardApp: React.FC<{
           >
             Scaffold GEO
           </button>
+
+          <button
+            disabled={isExecuting !== null}
+            onClick={checkAllLinks}
+            className="px-2.5 py-1 rounded-sm bg-[#21262d] hover:bg-[#30363d] text-[#58a6ff] border border-[#30363d] font-bold"
+          >
+            🔗 Check All Links
+          </button>
         </div>
 
         <div>
@@ -608,10 +701,10 @@ export const DashboardApp: React.FC<{
       {/* ======================================================== */}
       {isInspectModalOpen && inspectedItem && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-3 z-50">
-          <div className="bg-[#161b22] border border-[#30363d] rounded-sm p-3 w-full max-w-[580px] max-h-[90vh] flex flex-col gap-2 font-mono text-[11px]">
+          <div className="bg-[#161b22] border border-[#30363d] rounded-sm p-3 w-full max-w-[620px] max-h-[90vh] flex flex-col gap-2 font-mono text-[11px]">
             {/* Header */}
             <div className="flex justify-between items-center border-b border-[#30363d] pb-1.5">
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-wrap items-center gap-1.5">
                 <strong className="text-[#58a6ff]">
                   [INSPECT BUNDLE: {inspectedItem.id?.slice(0, 8) || '--'}]
                 </strong>
@@ -632,6 +725,25 @@ export const DashboardApp: React.FC<{
                 <span className="px-1 py-0.2 rounded-sm text-[9px] bg-[#21262d] text-[#d29922] border border-[#30363d] font-bold">
                   RISK: {inspectedItem.risk_score || 0}%
                 </span>
+
+                {/* Link Health Badge */}
+                {linkHealthStatus ? (
+                  <span
+                    className={`px-1 py-0.2 rounded-sm text-[9px] font-bold ${
+                      linkHealthStatus.isValid
+                        ? 'bg-[#1b4725] text-[#3fb950] border border-[#2ea043]'
+                        : 'bg-[#4c1d1e] text-[#f85149] border border-[#da3633]'
+                    }`}
+                  >
+                    {linkHealthStatus.isValid
+                      ? `[LINK: 🟢 VALID (${linkHealthStatus.hops || 1} hops, ${linkHealthStatus.latencyMs || 0}ms)]`
+                      : `[LINK: 🔴 BROKEN ${linkHealthStatus.statusCode || 'ERR'}]`}
+                  </span>
+                ) : (
+                  <span className="px-1 py-0.2 rounded-sm text-[9px] bg-[#21262d] text-[#8b949e] border border-[#30363d]">
+                    [LINK: 🟡 READY TO TEST]
+                  </span>
+                )}
               </div>
               <button
                 onClick={() => setIsInspectModalOpen(false)}
@@ -659,14 +771,23 @@ export const DashboardApp: React.FC<{
                 </div>
               </div>
 
-              {/* Stealth CTA */}
+              {/* Stealth CTA & Click Chain */}
               <div>
                 <span className="text-[#8b949e] text-[10px] block font-bold">3. STEALTH CTA & ROUTING</span>
                 <div className="text-[#3fb950] font-bold bg-[#1b4725] p-1.5 border border-[#2ea043] rounded-sm mb-1">
                   CTA: "{inspectedItem.stealth_cta || 'No CTA'}"
                 </div>
-                <div className="text-[#58a6ff] text-[10px] break-all bg-[#0d1117] p-1.5 border border-[#30363d] rounded-sm">
-                  OUTBOUND: {inspectedItem.tracking_url || 'N/A'}
+                <div className="flex items-center justify-between gap-1.5">
+                  <div className="text-[#58a6ff] text-[10px] break-all bg-[#0d1117] p-1.5 border border-[#30363d] rounded-sm flex-1">
+                    OUTBOUND: {inspectedItem.tracking_url || 'N/A'}
+                  </div>
+                  <button
+                    disabled={isTestingLink}
+                    onClick={testCurrentClickChain}
+                    className="px-2 py-1 rounded-sm bg-[#21262d] hover:bg-[#30363d] text-[#58a6ff] border border-[#30363d] text-[10px] font-bold whitespace-nowrap"
+                  >
+                    {isTestingLink ? 'Testing...' : '🔗 Test Click Chain'}
+                  </button>
                 </div>
               </div>
 

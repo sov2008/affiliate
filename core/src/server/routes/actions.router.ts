@@ -312,3 +312,34 @@ actionsRouter.post('/validate-links', async (req: Request, res: Response) => {
     return res.status(500).json({ success: false, error: err.message });
   }
 });
+
+/**
+ * 9. POST /api/actions/test-link
+ * Simulates and validates a single click tracking chain for a queue item
+ */
+actionsRouter.post('/test-link', async (req: Request, res: Response) => {
+  try {
+    const { url, campaignId } = req.body;
+    if (!url) {
+      return res.status(400).json({ success: false, error: 'Missing required parameter: url' });
+    }
+
+    const { LinkIntegrityService } = await import('../../services/link-integrity.service.js');
+    const linkService = LinkIntegrityService.getInstance();
+
+    const trackingValidation = linkService.validatePostTrackingUrl(url, campaignId || 'cmp_trading_au');
+    const cpaValidation = await linkService.validateCpaUrl(url, 5);
+
+    return res.status(200).json({
+      success: true,
+      url,
+      campaignId,
+      trackingValidation,
+      cpaValidation,
+      isValid: trackingValidation.isValid && cpaValidation.isValid,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
