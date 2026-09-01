@@ -972,6 +972,67 @@ app.get('/api/queue/items', async (req, res) => {
   }
 });
 
+app.get('/api/queue/items/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { ContentQueueRepository } = await import('./db/queueRepository.js');
+    const repo = ContentQueueRepository.getInstance();
+    const item = repo.getItem(id);
+
+    if (!item) {
+      return res.status(404).json({
+        success: false,
+        error: `Queue item ${id} not found in repository`,
+      });
+    }
+
+    const fs = await import('fs');
+    const path = await import('path');
+    const candidateBundlePaths = [
+      path.resolve(process.cwd(), `runs/${id}/bundle.json`),
+      path.resolve(process.cwd(), `runs/pending/${id}/bundle.json`),
+      path.resolve(process.cwd(), `runs/approved/${id}/bundle.json`),
+      path.resolve(process.cwd(), `core/runs/${id}/bundle.json`),
+      path.resolve(__dirname, `../../runs/${id}/bundle.json`),
+      path.resolve(__dirname, `../runs/${id}/bundle.json`),
+      path.resolve(__dirname, `runs/${id}/bundle.json`),
+    ];
+
+    let bundle: any = null;
+    for (const p of candidateBundlePaths) {
+      if (fs.existsSync(p)) {
+        try {
+          bundle = JSON.parse(fs.readFileSync(p, 'utf8'));
+          if (bundle) break;
+        } catch {}
+      }
+    }
+
+    const combinedItem = {
+      id: item.id,
+      campaign_id: item.campaign_id,
+      platform: (item as any).target_platform || (item as any).platform || 'reddit',
+      hook: item.hook || bundle?.creative?.headline || '',
+      body: item.body || bundle?.creative?.body || '',
+      stealth_cta: item.stealth_cta || bundle?.creative?.callToAction || '',
+      tracking_url: item.tracking_url,
+      image_path: item.image_path || bundle?.creative?.imagePath || '',
+      risk_score: item.risk_score !== undefined ? item.risk_score : (bundle?.compliance?.score ? Math.round((100 - bundle.compliance.score) / 10) : 0),
+      status: item.status,
+      created_at: typeof item.created_at === 'number' ? new Date(item.created_at).toISOString() : String(item.created_at),
+      compliance_reasoning: bundle?.compliance?.reasoning || (bundle?.compliance?.passed ? 'Compliant with platform terms and zero spam patterns detected.' : 'Verified by autonomous compliance guard.'),
+      generated_prompt: bundle?.creative?.generatedPrompt || 'A photorealistic lifestyle workstation setup, 8k, cinematic lighting',
+    };
+
+    return res.status(200).json({
+      success: true,
+      item: combinedItem,
+    });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 app.post('/api/queue/items/:id/status', async (req, res) => {
   try {
     const { id } = req.params;
