@@ -48,7 +48,8 @@
     "queue:generate": "tsx src/scripts/generateBatch.ts",
     "queue:review": "tsx src/scripts/reviewQueue.ts",
     "affiliate:test": "tsx src/scripts/testAffiliateAdapters.ts",
-    "worker:dry-run": "tsx src/scripts/testPostingWorker.ts"
+    "worker:dry-run": "tsx src/scripts/testPostingWorker.ts",
+    "scout:test": "tsx src/scripts/testDualScoutPipeline.ts"
   },
   "keywords": [],
   "author": "",
