@@ -2,17 +2,19 @@ import { z } from 'zod';
 import { AIGateway } from '../services/aiGateway.js';
 import { ImageGateway } from '../services/imageGateway.js';
 import { StorageGateway, UploadResult } from '../services/storageGateway.js';
+import { HumanizerSkill, HumanizedOutput } from '../skills/humanizer-skill.js';
 
 export interface PipelineInput {
   topic: string;
   niche: string;
   campaignId?: string;
   targetAudience?: string;
+  targetPlatform?: 'reddit' | 'quora' | 'twitter' | 'medium';
   geo?: string;
   language?: string;
 }
 
-// Stage 1 Schema: Scout & Angle Generator (with flexible normalization)
+// Stage 1 Schema: Scout & Angle Generator
 export const AngleSchema = z.preprocess((raw: any) => {
   if (typeof raw !== 'object' || raw === null) return raw;
   return {
@@ -31,7 +33,7 @@ export const AngleSchema = z.preprocess((raw: any) => {
 }));
 export type AngleResult = z.infer<typeof AngleSchema>;
 
-// Stage 2 Schema: Compliance Gatekeeper (with flexible normalization)
+// Stage 2 Schema: Compliance Gatekeeper
 export const ComplianceSchema = z.preprocess((raw: any) => {
   if (typeof raw !== 'object' || raw === null) return raw;
   return {
@@ -54,7 +56,7 @@ export const ComplianceSchema = z.preprocess((raw: any) => {
 }));
 export type ComplianceResult = z.infer<typeof ComplianceSchema>;
 
-// Stage 3 Schema: Visual Prompt Crafter (with flexible normalization)
+// Stage 3 Schema: Visual Prompt Crafter
 export const VisualPromptSchema = z.preprocess((raw: any) => {
   if (typeof raw !== 'object' || raw === null) return raw;
   return {
@@ -71,16 +73,26 @@ export const VisualPromptSchema = z.preprocess((raw: any) => {
 }));
 export type VisualPromptResult = z.infer<typeof VisualPromptSchema>;
 
-// Final Output Payload
+// Final Output Payload Contract
 export interface ReadyToPostPayload {
   campaignId: string;
   niche: string;
   topic: string;
+  rawAngle: {
+    hook: string;
+    body: string;
+    cta: string;
+    angle: string;
+  };
   copy: {
     hook: string;
     body: string;
     callToAction: string;
     angle: string;
+  };
+  humanizer: {
+    ai_detection_risk: 'LOW' | 'MEDIUM' | 'HIGH';
+    slang_markers_used: string[];
   };
   compliance: ComplianceResult;
   creative: {
@@ -95,6 +107,7 @@ export interface ReadyToPostPayload {
     totalDurationMs: number;
     stages: {
       angleGenMs: number;
+      humanizeMs: number;
       complianceCheckMs: number;
       promptCraftMs: number;
       imageGenAndUploadMs: number;
@@ -105,32 +118,33 @@ export interface ReadyToPostPayload {
 
 export class ContentPipeline {
   /**
-   * Executes the full 4-stage autonomous content and creative generation pipeline.
+   * Executes the full 5-stage autonomous content and creative generation pipeline:
+   * [Raw Hook/Angle] -> [Humanizer Transformation] -> [Compliance Check] -> [Image Prompt] -> [Asset Gen]
    */
   public static async execute(input: PipelineInput): Promise<ReadyToPostPayload> {
     const startTime = Date.now();
     const campaignId = input.campaignId || `cmp_${input.niche.toLowerCase().replace(/[^a-z0-9]/g, '_')}`;
     const language = input.language || 'English';
     const geo = input.geo || 'Global / US';
+    const platform = input.targetPlatform || 'reddit';
 
     console.log(`\n\x1b[1m\x1b[35m=== [ContentPipeline] Starting Autonomous Run for "${input.topic}" (${input.niche}) ===\x1b[0m`);
 
     // ----------------------------------------------------
     // STAGE 1: Scout & Angle Generator
     // ----------------------------------------------------
-    console.log(`\x1b[36m[Stage 1/4]\x1b[0m Generating native story-driven social hook and angle...`);
+    console.log(`\x1b[36m[Stage 1/5]\x1b[0m Generating raw strategic social angle & value proposition...`);
     const s1Start = Date.now();
-    const stage1SystemPrompt = `You are a world-class Direct-Response Copywriter and Viral Growth Strategist.
-Generate high-converting, native, organic social copy tailored for Reddit, Telegram, Threads, or Facebook groups.
-Avoid obvious affiliate clichés. Focus on curiosity, personal experience, and authentic value.
+    const stage1SystemPrompt = `You are a Direct-Response Strategy Architect.
+Identify a high-converting psychological angle, core story, and direct value proposition for the topic.
 
 Respond with JSON:
 {
-  "hook": "string (Catchy headline)",
-  "body": "string (2-3 sentences authentic insight/story)",
-  "callToAction": "string (Low friction CTA)",
-  "angle": "string (Marketing angle)",
-  "emotionalTrigger": "string (Target emotion)"
+  "hook": "string (Strategic core hook)",
+  "body": "string (Core story / value proposition)",
+  "callToAction": "string (Target action)",
+  "angle": "string (Psychological angle)",
+  "emotionalTrigger": "string (Core emotion)"
 }`;
 
     const stage1UserPrompt = `Topic: "${input.topic}"
@@ -139,16 +153,37 @@ Target Audience: "${input.targetAudience || 'Active community members seeking ge
 Target GEO: "${geo}"
 Preferred Language: "${language}"`;
 
-    const { data: angleData } = await AIGateway.generateJSON(stage1SystemPrompt, stage1UserPrompt, AngleSchema);
+    const { data: rawAngleData } = await AIGateway.generateJSON(stage1SystemPrompt, stage1UserPrompt, AngleSchema);
     const s1Duration = Date.now() - s1Start;
-    console.log(`\x1b[32m[Stage 1 OK]\x1b[0m Hook: "${angleData.hook.slice(0, 45)}..." (${s1Duration}ms)`);
+    console.log(`\x1b[32m[Stage 1 OK]\x1b[0m Raw Hook: "${rawAngleData.hook.slice(0, 45)}..." (${s1Duration}ms)`);
 
     // ----------------------------------------------------
-    // STAGE 2: Compliance Gatekeeper
+    // STAGE 2: Humanizer Transformation Stage
     // ----------------------------------------------------
-    console.log(`\x1b[36m[Stage 2/4]\x1b[0m Running independent policy & compliance safety audit...`);
+    console.log(`\x1b[36m[Stage 2/5]\x1b[0m Running HumanizerSkill (Eliminating AI markers & injecting authentic slang/persona)...`);
     const s2Start = Date.now();
-    const stage2SystemPrompt = `You are an elite Ad Network Compliance Officer and Anti-Spam Moderator.
+    const humanizedData: HumanizedOutput = await HumanizerSkill.humanize(
+      rawAngleData.hook,
+      rawAngleData.body,
+      rawAngleData.callToAction,
+      { platform, niche: input.niche, topic: input.topic }
+    );
+    const s2Duration = Date.now() - s2Start;
+    console.log(
+      `\x1b[32m[Stage 2 OK]\x1b[0m Humanized Hook: "${humanizedData.humanized_hook.slice(0, 45)}..." (AI Risk: ${humanizedData.ai_detection_risk}, Slang: [${humanizedData.slang_markers_used.join(', ')}], ${s2Duration}ms)`
+    );
+
+    // Active copy is now the humanized version
+    let activeHook = humanizedData.humanized_hook;
+    let activeBody = humanizedData.humanized_body;
+    let activeCta = humanizedData.stealth_cta;
+
+    // ----------------------------------------------------
+    // STAGE 3: Compliance Gatekeeper
+    // ----------------------------------------------------
+    console.log(`\x1b[36m[Stage 3/5]\x1b[0m Running independent policy & compliance safety audit on humanized copy...`);
+    const s3Start = Date.now();
+    const stage3SystemPrompt = `You are an elite Ad Network Compliance Officer and Anti-Spam Moderator.
 Review promotional copy for:
 1. Fake guarantees or unrealistic overpromises ("guaranteed 100%", "get rich quick", "cures all").
 2. Banned affiliate triggers and aggressive spam phrasing.
@@ -164,41 +199,41 @@ Respond with JSON:
   "suggestedFix": "optional string"
 }`;
 
-    const stage2UserPrompt = `Inspect the following copy:
-Hook: "${angleData.hook}"
-Body: "${angleData.body}"
-CTA: "${angleData.callToAction}"
+    const stage3UserPrompt = `Inspect the following humanized copy:
+Hook: "${activeHook}"
+Body: "${activeBody}"
+CTA: "${activeCta}"
 Niche: "${input.niche}"`;
 
-    let { data: complianceData } = await AIGateway.generateJSON(stage2SystemPrompt, stage2UserPrompt, ComplianceSchema);
-    const s2Duration = Date.now() - s2Start;
-    console.log(`\x1b[32m[Stage 2 OK]\x1b[0m Compliance Score: ${complianceData.is_compliant ? '✅ PASS' : '⚠️ WARNING'} (Risk: ${complianceData.risk_score}/100, ${s2Duration}ms)`);
+    let { data: complianceData } = await AIGateway.generateJSON(stage3SystemPrompt, stage3UserPrompt, ComplianceSchema);
+    const s3Duration = Date.now() - s3Start;
+    console.log(`\x1b[32m[Stage 3 OK]\x1b[0m Compliance Score: ${complianceData.is_compliant ? '✅ PASS' : '⚠️ WARNING'} (Risk: ${complianceData.risk_score}/100, ${s3Duration}ms)`);
 
     // Auto-remediation if risk score is high
     if (!complianceData.is_compliant || complianceData.risk_score > 35) {
-      console.warn(`[Stage 2 Remediation] Risk score ${complianceData.risk_score} exceeded threshold. Auto-refining copy...`);
-      const remediationUserPrompt = `Rewrite the following copy to be 100% compliant, removing all flagged terms: ${complianceData.flagged_terms.join(', ')}.
+      console.warn(`[Stage 3 Remediation] Risk score ${complianceData.risk_score} exceeded threshold. Sanitizing copy...`);
+      const remediationUserPrompt = `Rewrite the following humanized copy to be 100% compliant and natural, removing all flagged terms: ${complianceData.flagged_terms.join(', ')}.
 Critique to address: ${complianceData.critique}
 Original:
-Hook: ${angleData.hook}
-Body: ${angleData.body}
-CTA: ${angleData.callToAction}`;
+Hook: ${activeHook}
+Body: ${activeBody}
+CTA: ${activeCta}`;
 
       const { data: refinedAngle } = await AIGateway.generateJSON(stage1SystemPrompt, remediationUserPrompt, AngleSchema);
-      angleData.hook = refinedAngle.hook;
-      angleData.body = refinedAngle.body;
-      angleData.callToAction = refinedAngle.callToAction;
+      activeHook = refinedAngle.hook;
+      activeBody = refinedAngle.body;
+      activeCta = refinedAngle.callToAction;
       complianceData.is_compliant = true;
       complianceData.risk_score = 15;
-      complianceData.critique = 'Remediated & sanitized for zero-risk distribution.';
+      complianceData.critique = 'Remediated & sanitized for zero-risk organic distribution.';
     }
 
     // ----------------------------------------------------
-    // STAGE 3: Visual Prompt Crafter
+    // STAGE 4: Visual Prompt Crafter
     // ----------------------------------------------------
-    console.log(`\x1b[36m[Stage 3/4]\x1b[0m Crafting photorealistic visual prompt for FLUX engine...`);
-    const s3Start = Date.now();
-    const stage3SystemPrompt = `You are a Visual Director and Prompt Engineer specializing in state-of-the-art FLUX.1 and Stable Diffusion image generation.
+    console.log(`\x1b[36m[Stage 4/5]\x1b[0m Crafting photorealistic visual prompt for FLUX engine...`);
+    const s4Start = Date.now();
+    const stage4SystemPrompt = `You are a Visual Director and Prompt Engineer specializing in state-of-the-art FLUX.1 and Stable Diffusion image generation.
 Generate a vivid, photorealistic visual prompt in pure English.
 Rules:
 - High detail, lighting description (e.g. volumetric light, golden hour, soft studio illumination).
@@ -213,22 +248,22 @@ Respond with JSON:
   "mood": "string (Atmosphere)"
 }`;
 
-    const stage3UserPrompt = `Hook: "${angleData.hook}"
+    const stage4UserPrompt = `Hook: "${activeHook}"
 Niche: "${input.niche}"
 Topic: "${input.topic}"
-Mood: "${angleData.emotionalTrigger}"
+Mood: "${rawAngleData.emotionalTrigger}"
 
 Craft an aesthetic visual prompt capturing the lifestyle/context of this offer.`;
 
-    const { data: visualData } = await AIGateway.generateJSON(stage3SystemPrompt, stage3UserPrompt, VisualPromptSchema);
-    const s3Duration = Date.now() - s3Start;
-    console.log(`\x1b[32m[Stage 3 OK]\x1b[0m Prompt: "${visualData.image_prompt.slice(0, 50)}..." (${s3Duration}ms)`);
+    const { data: visualData } = await AIGateway.generateJSON(stage4SystemPrompt, stage4UserPrompt, VisualPromptSchema);
+    const s4Duration = Date.now() - s4Start;
+    console.log(`\x1b[32m[Stage 4 OK]\x1b[0m Prompt: "${visualData.image_prompt.slice(0, 50)}..." (${s4Duration}ms)`);
 
     // ----------------------------------------------------
-    // STAGE 4: Asset Generation & Storage Gateway
+    // STAGE 5: Asset Generation & Storage Gateway
     // ----------------------------------------------------
-    console.log(`\x1b[36m[Stage 4/4]\x1b[0m Generating visual asset & uploading to Cloudflare R2 / Storage Gateway...`);
-    const s4Start = Date.now();
+    console.log(`\x1b[36m[Stage 5/5]\x1b[0m Generating visual asset & uploading to Cloudflare R2 / Storage Gateway...`);
+    const s5Start = Date.now();
     const { buffer, contentType } = await ImageGateway.generate(visualData.image_prompt, {
       width: 768,
       height: 768,
@@ -237,8 +272,8 @@ Craft an aesthetic visual prompt capturing the lifestyle/context of this offer.`
 
     const filename = `${campaignId}_creative.jpg`;
     const uploadResult: UploadResult = await StorageGateway.uploadCreative(buffer, filename, contentType);
-    const s4Duration = Date.now() - s4Start;
-    console.log(`\x1b[32m[Stage 4 OK]\x1b[0m Uploaded to ${uploadResult.storageType.toUpperCase()} -> ${uploadResult.url} (${s4Duration}ms)`);
+    const s5Duration = Date.now() - s5Start;
+    console.log(`\x1b[32m[Stage 5 OK]\x1b[0m Uploaded to ${uploadResult.storageType.toUpperCase()} -> ${uploadResult.url} (${s5Duration}ms)`);
 
     // ----------------------------------------------------
     // Compilation & Return
@@ -250,11 +285,21 @@ Craft an aesthetic visual prompt capturing the lifestyle/context of this offer.`
       campaignId,
       niche: input.niche,
       topic: input.topic,
+      rawAngle: {
+        hook: rawAngleData.hook,
+        body: rawAngleData.body,
+        cta: rawAngleData.callToAction,
+        angle: rawAngleData.angle,
+      },
       copy: {
-        hook: angleData.hook,
-        body: angleData.body,
-        callToAction: angleData.callToAction,
-        angle: angleData.angle,
+        hook: activeHook,
+        body: activeBody,
+        callToAction: activeCta,
+        angle: rawAngleData.angle,
+      },
+      humanizer: {
+        ai_detection_risk: humanizedData.ai_detection_risk,
+        slang_markers_used: humanizedData.slang_markers_used,
       },
       compliance: complianceData,
       creative: {
@@ -269,9 +314,10 @@ Craft an aesthetic visual prompt capturing the lifestyle/context of this offer.`
         totalDurationMs,
         stages: {
           angleGenMs: s1Duration,
-          complianceCheckMs: s2Duration,
-          promptCraftMs: s3Duration,
-          imageGenAndUploadMs: s4Duration,
+          humanizeMs: s2Duration,
+          complianceCheckMs: s3Duration,
+          promptCraftMs: s4Duration,
+          imageGenAndUploadMs: s5Duration,
         },
       },
       createdAt: new Date().toISOString(),
