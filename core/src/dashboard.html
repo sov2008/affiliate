@@ -387,12 +387,71 @@
     </div>
   </div>
 
+  <!-- Post Inspection & Preview Modal -->
+  <div id="modalInspect" class="modal-backdrop">
+    <div class="modal-box" style="width: 580px; max-width: 95vw; max-height: 90vh; display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <strong style="color: var(--blue);">[INSPECT BUNDLE: <span id="inspectId">--</span>]</strong>
+          <span id="inspectPlatformBadge" class="badge badge-dim">PLATFORM</span>
+          <span id="inspectStatusBadge" class="badge badge-ok">STATUS</span>
+          <span id="inspectRiskBadge" class="badge badge-dim">RISK: 0%</span>
+        </div>
+        <button onclick="closeModal('modalInspect')" class="btn" style="padding: 1px 4px;">✕ (Esc)</button>
+      </div>
+
+      <div class="scroll" style="display: flex; flex-direction: column; gap: 6px; overflow-y: auto; padding-right: 4px; max-height: calc(85vh - 80px);">
+        <!-- Hook -->
+        <div>
+          <span style="color: var(--dim); font-size: 10px; display: block;">1. HOOK / OPENER</span>
+          <div id="inspectHook" style="font-weight: 700; color: var(--blue); padding: 4px 6px; background: var(--bg); border: 1px solid var(--border); border-radius: 2px;"></div>
+        </div>
+
+        <!-- Body Content -->
+        <div>
+          <span style="color: var(--dim); font-size: 10px; display: block;">2. BODY CONTENT</span>
+          <div id="inspectBody" style="white-space: pre-wrap; font-family: inherit; font-size: 11px; padding: 6px; background: var(--bg); border: 1px solid var(--border); border-radius: 2px; max-height: 160px; overflow-y: auto;"></div>
+        </div>
+
+        <!-- Stealth CTA & Outbound Link -->
+        <div>
+          <span style="color: var(--dim); font-size: 10px; display: block;">3. STEALTH CTA & TRACKING ROUTE</span>
+          <div id="inspectCta" style="color: var(--green-text); font-weight: 600; padding: 4px 6px; background: var(--green-bg); border: 1px solid var(--green); border-radius: 2px; margin-bottom: 3px;"></div>
+          <div id="inspectTracking" style="color: var(--blue); font-size: 10px; word-break: break-all; background: var(--bg); padding: 3px 6px; border: 1px solid var(--border); border-radius: 2px;"></div>
+        </div>
+
+        <!-- Compliance & Anti-Spam Audit Details -->
+        <div>
+          <span style="color: var(--dim); font-size: 10px; display: block;">4. COMPLIANCE & ANTI-SPAM AUDIT REASONING</span>
+          <div id="inspectCompliance" style="font-size: 10px; color: var(--dim); padding: 4px 6px; background: var(--bg); border: 1px solid var(--border); border-radius: 2px;"></div>
+        </div>
+
+        <!-- Visual / Image Asset -->
+        <div id="inspectImgWrap" style="display: none;">
+          <span style="color: var(--dim); font-size: 10px; display: block;">5. VISUAL PROMPT ASSET</span>
+          <div id="inspectPrompt" style="font-size: 10px; color: var(--purple); padding: 4px 6px; background: var(--bg); border: 1px solid var(--border); border-radius: 2px;"></div>
+        </div>
+      </div>
+
+      <!-- Footer Buttons -->
+      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 6px; margin-top: 2px;">
+        <span style="color: var(--dim); font-size: 10px;">Горячие клавиши: [A] - Одобрить, [R] - Отклонить, [Esc] - Закрыть</span>
+        <div style="display: flex; gap: 4px;">
+          <button onclick="inspectAction('APPROVED')" id="btnInspectApprove" class="btn btn-green font-bold">✓ Approve & Queue (A)</button>
+          <button onclick="inspectAction('REJECTED')" id="btnInspectReject" class="btn btn-red font-bold">✕ Reject (R)</button>
+          <button onclick="closeModal('modalInspect')" class="btn">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // State & Ring buffer
     const MAX_LOGS = 100;
     let logBuffer = [];
     let isAutoScroll = true;
     let isHalted = false;
+    let activeInspectedId = null;
 
     function appendLog(text) {
       const clean = text.replace(/\u001b\[[0-9;]*m/g, '');
@@ -435,7 +494,10 @@
     }
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+      if (id === 'modalInspect') activeInspectedId = null;
+    }
 
     async function triggerAction(endpoint, label, body = {}) {
       appendLog(`[ACTION] Dispatching ${label}...`);
@@ -474,6 +536,49 @@
           fetchQueue();
         }
       } catch {}
+    }
+
+    async function inspectQueueItem(id) {
+      activeInspectedId = id;
+      openModal('modalInspect');
+      document.getElementById('inspectId').innerText = id.slice(0, 8);
+      document.getElementById('inspectHook').innerText = 'Загрузка данных...';
+      document.getElementById('inspectBody').innerText = 'Загрузка...';
+
+      try {
+        const res = await fetch(`/api/queue/items/${id}`);
+        if (res.ok) {
+          const { item } = await res.json();
+          document.getElementById('inspectId').innerText = item.id.slice(0, 8);
+          document.getElementById('inspectPlatformBadge').innerText = (item.platform || 'REDDIT').toUpperCase();
+          document.getElementById('inspectStatusBadge').innerText = item.status;
+          document.getElementById('inspectStatusBadge').className = `badge ${item.status === 'APPROVED' ? 'badge-ok' : item.status === 'REJECTED' ? 'badge-err' : 'badge-dim'}`;
+          document.getElementById('inspectRiskBadge').innerText = `RISK: ${item.risk_score || 0}%`;
+
+          document.getElementById('inspectHook').innerText = item.hook || 'No headline available';
+          document.getElementById('inspectBody').innerText = item.body || 'No post body';
+          document.getElementById('inspectCta').innerText = `CTA: "${item.stealth_cta || 'No CTA'}"`;
+          document.getElementById('inspectTracking').innerText = `OUTBOUND: ${item.tracking_url || 'N/A'}`;
+          document.getElementById('inspectCompliance').innerText = item.compliance_reasoning || 'Passed compliance checks.';
+
+          const imgWrap = document.getElementById('inspectImgWrap');
+          if (item.generated_prompt) {
+            imgWrap.style.display = 'block';
+            document.getElementById('inspectPrompt').innerText = `Prompt: ${item.generated_prompt}`;
+          } else {
+            imgWrap.style.display = 'none';
+          }
+        }
+      } catch (err) {
+        document.getElementById('inspectHook').innerText = 'Ошибка загрузки';
+        document.getElementById('inspectBody').innerText = err.message;
+      }
+    }
+
+    async function inspectAction(status) {
+      if (!activeInspectedId) return;
+      await updateQueue(activeInspectedId, status);
+      closeModal('modalInspect');
     }
 
     function submitBatch() {
@@ -535,12 +640,13 @@
             tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--dim); padding: 12px;">Очередь пуста. Нажмите [+ Batch Gen] для создания постов.</td></tr>';
           } else {
             tbody.innerHTML = items.map(item => `
-              <tr>
+              <tr style="cursor: pointer;" onclick="inspectQueueItem('${item.id}')">
                 <td style="font-weight: 700; color: var(--blue);">${item.id.slice(0, 8)}</td>
                 <td style="color: var(--dim); text-transform: uppercase;">${item.target_platform || item.platform || 'REDDIT'}</td>
                 <td>[====>     ] ${item.risk_score !== undefined ? item.risk_score : 4}%</td>
                 <td><span class="badge ${item.status === 'APPROVED' ? 'badge-ok' : item.status === 'REJECTED' ? 'badge-err' : 'badge-dim'}">${item.status}</span></td>
-                <td style="text-align: right;">
+                <td style="text-align: right;" onclick="event.stopPropagation();">
+                  <button onclick="inspectQueueItem('${item.id}')" class="btn btn-blue" style="padding: 1px 4px; font-size: 10px;">👁 Preview</button>
                   ${item.status === 'PENDING_APPROVAL' ? `
                     <button onclick="updateQueue('${item.id}', 'APPROVED')" class="btn btn-green" style="padding: 1px 4px; font-size: 10px;">✓ Approve</button>
                     <button onclick="updateQueue('${item.id}', 'REJECTED')" class="btn btn-red" style="padding: 1px 4px; font-size: 10px;">✕</button>
@@ -586,6 +692,24 @@
         appendLog('[SSE] EventSource init failed, relying on polling.');
       }
     }
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', e => {
+      const inspectModal = document.getElementById('modalInspect');
+      const isInspectOpen = inspectModal && inspectModal.style.display === 'flex';
+
+      if (e.key === 'Escape') {
+        closeModal('modalBatch');
+        closeModal('modalScaffold');
+        closeModal('modalInspect');
+      } else if (isInspectOpen) {
+        if (e.key === 'a' || e.key === 'A' || e.key === 'ф' || e.key === 'Ф') {
+          inspectAction('APPROVED');
+        } else if (e.key === 'r' || e.key === 'R' || e.key === 'к' || e.key === 'К') {
+          inspectAction('REJECTED');
+        }
+      }
+    });
 
     // Init
     window.addEventListener('DOMContentLoaded', () => {

@@ -74,6 +74,8 @@ export const DashboardApp: React.FC<{
   const [autoScroll, setAutoScroll] = useState<boolean>(true);
   const [isExecuting, setIsExecuting] = useState<string | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
+  const [inspectedItem, setInspectedItem] = useState<any | null>(null);
+  const [isInspectModalOpen, setIsInspectModalOpen] = useState<boolean>(false);
 
   const logBoxRef = useRef<HTMLDivElement>(null);
   const MAX_LOG_LINES = 100;
@@ -91,6 +93,44 @@ export const DashboardApp: React.FC<{
       return next.length > MAX_LOG_LINES ? next.slice(next.length - MAX_LOG_LINES) : next;
     });
   }, []);
+
+  // Fetch inspection details for a single item
+  const inspectQueueItem = async (id: string) => {
+    try {
+      setIsInspectModalOpen(true);
+      setInspectedItem({ id, hook: 'Загрузка данных...', body: 'Загрузка...' });
+      const res = await fetch(`${apiBaseUrl}/api/queue/items/${id}`);
+      if (res.ok) {
+        const { item } = await res.json();
+        setInspectedItem(item);
+      }
+    } catch (e: any) {
+      setInspectedItem({ id, hook: 'Ошибка', body: e.message });
+    }
+  };
+
+  // Keyboard Shortcuts (Esc, A, R)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isInspectModalOpen || !inspectedItem?.id) {
+        if (e.key === 'Escape') setIsInspectModalOpen(false);
+        return;
+      }
+
+      if (e.key === 'Escape') {
+        setIsInspectModalOpen(false);
+      } else if (e.key === 'a' || e.key === 'A' || e.key === 'ф' || e.key === 'Ф') {
+        updateQueueStatus(inspectedItem.id, 'APPROVED');
+        setIsInspectModalOpen(false);
+      } else if (e.key === 'r' || e.key === 'R' || e.key === 'к' || e.key === 'К') {
+        updateQueueStatus(inspectedItem.id, 'REJECTED');
+        setIsInspectModalOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isInspectModalOpen, inspectedItem]);
 
   // Fetch initial telemetry & queue
   const fetchData = useCallback(async () => {
@@ -385,11 +425,17 @@ export const DashboardApp: React.FC<{
                     </tr>
                   ) : (
                     queue.map((item) => (
-                      <tr key={item.id} className="hover:bg-[#0d1117]">
+                      <tr
+                        key={item.id}
+                        onClick={() => inspectQueueItem(item.id)}
+                        className="hover:bg-[#0d1117] cursor-pointer"
+                      >
                         <td className="py-1 px-1.5 font-bold text-[#58a6ff]">{item.id.slice(0, 8)}</td>
-                        <td className="py-1 px-1.5 text-[#8b949e] uppercase">{item.platform}</td>
+                        <td className="py-1 px-1.5 text-[#8b949e] uppercase">
+                          {(item as any).target_platform || item.platform || 'REDDIT'}
+                        </td>
                         <td className="py-1 px-1.5 text-[10px]">
-                          {renderAsciiBar(item.risk_score || 25, 6)}
+                          {renderAsciiBar(item.risk_score !== undefined ? item.risk_score : 4, 6)}
                         </td>
                         <td className="py-1 px-1.5">
                           <span
@@ -404,7 +450,16 @@ export const DashboardApp: React.FC<{
                             {item.status}
                           </span>
                         </td>
-                        <td className="py-1 px-1.5 text-right space-x-1">
+                        <td
+                          className="py-1 px-1.5 text-right space-x-1"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <button
+                            onClick={() => inspectQueueItem(item.id)}
+                            className="px-1.5 py-0.2 rounded-sm bg-[#21262d] hover:bg-[#30363d] text-[#58a6ff] text-[10px]"
+                          >
+                            👁 Preview
+                          </button>
                           {item.status === 'PENDING_APPROVAL' && (
                             <>
                               <button
@@ -547,6 +602,128 @@ export const DashboardApp: React.FC<{
           </div>
         </div>
       </div>
+
+      {/* ======================================================== */}
+      {/* 4. POST PREVIEW & INSPECTION MODAL (MONOSPACE CONSOLE)    */}
+      {/* ======================================================== */}
+      {isInspectModalOpen && inspectedItem && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-3 z-50">
+          <div className="bg-[#161b22] border border-[#30363d] rounded-sm p-3 w-full max-w-[580px] max-h-[90vh] flex flex-col gap-2 font-mono text-[11px]">
+            {/* Header */}
+            <div className="flex justify-between items-center border-b border-[#30363d] pb-1.5">
+              <div className="flex items-center space-x-2">
+                <strong className="text-[#58a6ff]">
+                  [INSPECT BUNDLE: {inspectedItem.id?.slice(0, 8) || '--'}]
+                </strong>
+                <span className="px-1 py-0.2 rounded-sm text-[9px] bg-[#21262d] text-[#8b949e] border border-[#30363d] uppercase font-bold">
+                  {inspectedItem.platform || 'REDDIT'}
+                </span>
+                <span
+                  className={`px-1 py-0.2 rounded-sm text-[9px] font-bold ${
+                    inspectedItem.status === 'APPROVED'
+                      ? 'bg-[#1b4725] text-[#3fb950] border border-[#2ea043]'
+                      : inspectedItem.status === 'REJECTED'
+                      ? 'bg-[#4c1d1e] text-[#f85149] border border-[#da3633]'
+                      : 'bg-[#21262d] text-[#8b949e]'
+                  }`}
+                >
+                  {inspectedItem.status || 'PENDING'}
+                </span>
+                <span className="px-1 py-0.2 rounded-sm text-[9px] bg-[#21262d] text-[#d29922] border border-[#30363d] font-bold">
+                  RISK: {inspectedItem.risk_score || 0}%
+                </span>
+              </div>
+              <button
+                onClick={() => setIsInspectModalOpen(false)}
+                className="px-1.5 py-0.2 rounded-sm bg-[#21262d] hover:bg-[#30363d] text-[#8b949e] hover:text-white border border-[#30363d] text-[10px]"
+              >
+                ✕ (Esc)
+              </button>
+            </div>
+
+            {/* Scrollable Content */}
+            <div className="overflow-y-auto space-y-2 pr-1 term-scroll max-h-[calc(85vh-90px)]">
+              {/* Hook */}
+              <div>
+                <span className="text-[#8b949e] text-[10px] block font-bold">1. HOOK / OPENER</span>
+                <div className="font-bold text-[#58a6ff] bg-[#0d1117] p-2 border border-[#30363d] rounded-sm">
+                  {inspectedItem.hook || 'No headline available'}
+                </div>
+              </div>
+
+              {/* Body */}
+              <div>
+                <span className="text-[#8b949e] text-[10px] block font-bold">2. BODY CONTENT</span>
+                <div className="whitespace-pre-wrap text-[#c9d1d9] bg-[#0d1117] p-2 border border-[#30363d] rounded-sm max-h-40 overflow-y-auto term-scroll leading-relaxed">
+                  {inspectedItem.body || 'No content body'}
+                </div>
+              </div>
+
+              {/* Stealth CTA */}
+              <div>
+                <span className="text-[#8b949e] text-[10px] block font-bold">3. STEALTH CTA & ROUTING</span>
+                <div className="text-[#3fb950] font-bold bg-[#1b4725] p-1.5 border border-[#2ea043] rounded-sm mb-1">
+                  CTA: "{inspectedItem.stealth_cta || 'No CTA'}"
+                </div>
+                <div className="text-[#58a6ff] text-[10px] break-all bg-[#0d1117] p-1.5 border border-[#30363d] rounded-sm">
+                  OUTBOUND: {inspectedItem.tracking_url || 'N/A'}
+                </div>
+              </div>
+
+              {/* Compliance reasoning */}
+              <div>
+                <span className="text-[#8b949e] text-[10px] block font-bold">4. COMPLIANCE & REASONING</span>
+                <div className="text-[#8b949e] text-[10px] bg-[#0d1117] p-2 border border-[#30363d] rounded-sm">
+                  {inspectedItem.compliance_reasoning || 'Passed compliance audit checks.'}
+                </div>
+              </div>
+
+              {/* Generated visual prompt */}
+              {inspectedItem.generated_prompt && (
+                <div>
+                  <span className="text-[#8b949e] text-[10px] block font-bold">5. VISUAL PROMPT</span>
+                  <div className="text-[#bc8cff] text-[10px] bg-[#0d1117] p-2 border border-[#30363d] rounded-sm">
+                    {inspectedItem.generated_prompt}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Footer buttons */}
+            <div className="flex justify-between items-center border-t border-[#30363d] pt-2 mt-1">
+              <span className="text-[#8b949e] text-[10px]">
+                Hotkeys: [A] Approve, [R] Reject, [Esc] Close
+              </span>
+              <div className="flex space-x-1.5">
+                <button
+                  onClick={() => {
+                    updateQueueStatus(inspectedItem.id, 'APPROVED');
+                    setIsInspectModalOpen(false);
+                  }}
+                  className="px-2.5 py-1 rounded-sm bg-[#1b4725] text-[#3fb950] border border-[#2ea043] font-bold hover:bg-[#2ea043] hover:text-white"
+                >
+                  ✓ Approve & Queue (A)
+                </button>
+                <button
+                  onClick={() => {
+                    updateQueueStatus(inspectedItem.id, 'REJECTED');
+                    setIsInspectModalOpen(false);
+                  }}
+                  className="px-2.5 py-1 rounded-sm bg-[#4c1d1e] text-[#f85149] border border-[#da3633] font-bold hover:bg-[#da3633] hover:text-white"
+                >
+                  ✕ Reject (R)
+                </button>
+                <button
+                  onClick={() => setIsInspectModalOpen(false)}
+                  className="px-2.5 py-1 rounded-sm bg-[#21262d] hover:bg-[#30363d] text-[#c9d1d9] border border-[#30363d]"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
