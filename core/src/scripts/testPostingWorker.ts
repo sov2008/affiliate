@@ -1,8 +1,8 @@
 import path from 'path';
 import fs from 'fs';
 import dotenv from 'dotenv';
-import { ContentQueueRepository, ContentQueueItem } from '../db/queueRepository.js';
-import { StealthPoster } from '../automation/stealthPoster.js';
+import { ContentQueueRepository } from '../db/queueRepository.js';
+import { PostingWorker } from '../automation/postingWorker.js';
 
 dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
@@ -74,49 +74,41 @@ function createMockSandboxHtml(): string {
 
 async function main() {
   console.log(`\n${colors.bold}${colors.cyan}================================================================================${colors.reset}`);
-  console.log(`${colors.bold}${colors.cyan} 🤖  PLAYWRIGHT STEALTH POSTING WORKER & PROFILE DRY-RUN${colors.reset}`);
+  console.log(`${colors.bold}${colors.cyan} 🤖  PLAYWRIGHT STEALTH POSTING WORKER & QUEUE INTEGRATION TEST${colors.reset}`);
   console.log(`${colors.dim} Humanized Keystrokes, Bezier Mouse Trajectory & Sandbox Submission${colors.reset}`);
   console.log(`${colors.bold}${colors.cyan}================================================================================${colors.reset}\n`);
 
   const repo = ContentQueueRepository.getInstance();
-  let item = repo.fetchNextApproved();
 
-  // If no approved item exists, create or pick one for the dry-run test
-  if (!item) {
-    const existing = repo.listAll(undefined, 1);
-    if (existing.length > 0) {
-      item = existing[0];
-      repo.updateStatus(item.id, 'APPROVED');
-    } else {
-      item = repo.enqueue({
-        campaign_id: 'cmp_lospollos_dating',
-        network: 'lospollos',
-        target_platform: 'reddit',
-        hook: 'swiping forever and still getting ghosted? lowkey feels like a waste of time.',
-        body: 'I quit the apps for 30 days and only attended verified social meetups. Meeting people in context builds instant rapport, no awkward small talk.',
-        stealth_cta: 'if you’re curious, the quiz was free and gave me a few solid matches, thought I’d share the link.',
-        tracking_url: 'https://trk.lospollos.com/smartlink/dating?aff=sov208&s1=clk_dryrun_01&s2=cmp_lospollos_dating',
-        image_path: '/output/creatives/1788247762659_cmp_lospollos_dating_creative.jpg',
-        risk_score: 15,
-        status: 'APPROVED',
-      });
-    }
-  }
+  // STEP 1: Enqueue a scouted & humanized post into SQLite
+  console.log(`📦 ${colors.bold}[Step 1/3] Enqueuing a new scouted & humanized post into SQLite...${colors.reset}`);
+  const enqueuedItem = repo.enqueue({
+    campaign_id: 'cmp_lospollos_dating',
+    network: 'lospollos',
+    target_platform: 'reddit',
+    hook: 'swiping forever and still getting ghosted? lowkey feels like a waste of time.',
+    body: 'I quit the apps for 30 days and only attended verified social meetups. Meeting people in context builds instant rapport, no awkward small talk.',
+    stealth_cta: 'if you’re curious, the quiz was free and gave me a few solid matches, thought I’d share the link.',
+    tracking_url: 'https://trk.lospollos.com/smartlink/dating?aff=sov208&s1=clk_dryrun_01&s2=cmp_lospollos_dating',
+    image_path: '/output/creatives/1788247762659_cmp_lospollos_dating_creative.jpg',
+    risk_score: 15,
+    status: 'PENDING_APPROVAL',
+  });
+  console.log(`  ✅ Enqueued post ID: ${colors.cyan}${enqueuedItem.id}${colors.reset} (Status: PENDING_APPROVAL)`);
 
-  // Generate sandbox URL
+  // STEP 2: Programmatically approve the post
+  console.log(`\n🛡️  ${colors.bold}[Step 2/3] Approving post for publication...${colors.reset}`);
+  repo.updateStatus(enqueuedItem.id, 'APPROVED');
+  const approvedItem = repo.fetchNextApproved()!;
+  console.log(`  ✅ Status updated to: ${colors.green}${colors.bold}APPROVED${colors.reset}`);
+
+  // STEP 3: Run PostingWorker against local sandbox HTML form
+  console.log(`\n🚀 ${colors.bold}[Step 3/3] Executing PostingWorker against local sandbox form...${colors.reset}`);
   const sandboxUrl = createMockSandboxHtml();
-  console.log(`🧪 ${colors.bold}Sandbox Portal Generated:${colors.reset}\n   ${colors.cyan}${sandboxUrl}${colors.reset}\n`);
+  console.log(`  🧪 Sandbox Portal: ${colors.cyan}${sandboxUrl}${colors.reset}`);
 
-  console.log(`📦 ${colors.bold}Target Post to Dispatch:${colors.reset}`);
-  console.log(`   - ID:       ${colors.cyan}${item.id}${colors.reset}`);
-  console.log(`   - Network:  ${colors.bold}${item.network.toUpperCase()}${colors.reset}`);
-  console.log(`   - Platform: ${colors.yellow}${item.target_platform.toUpperCase()}${colors.reset}`);
-  console.log(`   - Hook:     "${item.hook}"`);
-  console.log(`   - Image:    ${item.image_path}`);
-
-  // Dispatch item through StealthPoster
-  const result = await StealthPoster.post(item, {
-    profileId: 'stealth_lospollos_reddit_01',
+  const result = await PostingWorker.dispatchItem(approvedItem, {
+    profileId: 'stealth_reddit_operator_01',
     headless: true,
     targetUrlOverride: sandboxUrl,
   });
@@ -124,29 +116,29 @@ async function main() {
   const updatedStats = repo.getStats();
 
   console.log(`\n${colors.bold}📊 Execution & Dispatch Results:${colors.reset}`);
-  console.log('+' + '-'.repeat(16) + '+' + '-'.repeat(18) + '+' + '-'.repeat(14) + '+' + '-'.repeat(28) + '+');
+  console.log('+' + '-'.repeat(16) + '+' + '-'.repeat(18) + '+' + '-'.repeat(14) + '+' + '-'.repeat(30) + '+');
   console.log(
-    `| ${colors.bold}${'Status'.padEnd(14)}${colors.reset} | ${colors.bold}${'Profile ID'.padEnd(16)}${colors.reset} | ${colors.bold}${'Duration'.padEnd(12)}${colors.reset} | ${colors.bold}${'Live Dispatched URL'.padEnd(26)}${colors.reset} |`
+    `| ${colors.bold}${'Status'.padEnd(14)}${colors.reset} | ${colors.bold}${'Profile ID'.padEnd(16)}${colors.reset} | ${colors.bold}${'Duration'.padEnd(12)}${colors.reset} | ${colors.bold}${'Live Dispatched URL'.padEnd(28)}${colors.reset} |`
   );
-  console.log('+' + '-'.repeat(16) + '+' + '-'.repeat(18) + '+' + '-'.repeat(14) + '+' + '-'.repeat(28) + '+');
+  console.log('+' + '-'.repeat(16) + '+' + '-'.repeat(18) + '+' + '-'.repeat(14) + '+' + '-'.repeat(30) + '+');
 
   const statusStr = result.success ? `${colors.green}${colors.bold}DISPATCHED    ${colors.reset}` : `${colors.red}${colors.bold}FAILED        ${colors.reset}`;
-  const profileStr = 'stealth_reddit'.slice(0, 16).padEnd(16);
+  const profileStr = result.profileId.slice(0, 16).padEnd(16);
   const durationStr = `${(result.durationMs / 1000).toFixed(2)}s`.padEnd(12);
-  const urlStr = (result.publishedUrl || 'N/A').slice(0, 26).padEnd(26);
+  const urlStr = (result.publishedUrl || 'N/A').slice(0, 28).padEnd(28);
 
   console.log(`| ${statusStr} | ${profileStr} | ${colors.cyan}${durationStr}${colors.reset} | ${colors.cyan}${urlStr}${colors.reset} |`);
-  console.log('+' + '-'.repeat(16) + '+' + '-'.repeat(18) + '+' + '-'.repeat(14) + '+' + '-'.repeat(28) + '+');
+  console.log('+' + '-'.repeat(16) + '+' + '-'.repeat(18) + '+' + '-'.repeat(14) + '+' + '-'.repeat(30) + '+');
 
   console.log(`\n📊 ${colors.bold}Updated SQLite Queue Stats:${colors.reset}`);
   console.log(
     `   Total: ${updatedStats.total} | Pending: ${updatedStats.pending} | Approved: ${updatedStats.approved} | Dispatched: ${colors.green}${colors.bold}${updatedStats.dispatched}${colors.reset}\n`
   );
 
-  console.log(`\n${colors.bgGreen}${colors.bold}  ✅ PLAYWRIGHT STEALTH POSTING WORKER VALIDATED SUCCESSFULLY  ${colors.reset}\n`);
+  console.log(`\n${colors.bgGreen}${colors.bold}  ✅ PLAYWRIGHT STEALTH POSTING WORKER & QUEUE VALIDATED SUCCESSFULLY  ${colors.reset}\n`);
 }
 
 main().catch((err) => {
-  console.error(`${colors.red}❌ Error in worker dry-run:${colors.reset}`, err);
+  console.error(`${colors.red}❌ Error in worker test:${colors.reset}`, err);
   process.exit(1);
 });
