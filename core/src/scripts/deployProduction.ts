@@ -177,7 +177,7 @@ export async function executeProductionDeployment(): Promise<void> {
         const npmInstall = await runRemoteCmd(conn, `cd ${APP_ROOT}/core && npm install --omit=dev`);
         console.log('   ' + npmInstall.split('\n').join('\n   '));
 
-        const buildOut = await runRemoteCmd(conn, `cd ${APP_ROOT}/core && npx tsc --outDir dist --rootDir src`);
+        const buildOut = await runRemoteCmd(conn, `cd ${APP_ROOT}/core && npm run build`);
         console.log('   ' + (buildOut || 'Build complete.'));
 
         // 3. Reload PM2 ecosystem with updated environment
