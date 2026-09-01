@@ -955,6 +955,64 @@ app.delete('/api/queue/items/:id', async (req, res) => {
 });
 
 // ----------------------------------------------------
+// 8. Agent Recruitment & Configuration API
+// ----------------------------------------------------
+app.get('/api/agents', async (req, res) => {
+  try {
+    const { LlmGatewayService } = await import('./services/llm-gateway.service.js');
+    const gateway = LlmGatewayService.getInstance();
+    gateway.loadRegistry();
+    const agents = gateway.listAgents();
+    res.json({ success: true, count: agents.length, agents });
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : String(err);
+    res.status(500).json({ success: false, error: errorMsg });
+  }
+});
+
+app.post('/api/agents/:id/config', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { LlmGatewayService } = await import('./services/llm-gateway.service.js');
+    const gateway = LlmGatewayService.getInstance();
+    const updated = gateway.updateAgent(id, req.body);
+    if (!updated) {
+      return res.status(404).json({ success: false, error: 'Agent not found' });
+    }
+    const agent = gateway.getAgent(id);
+    res.json({ success: true, agent });
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : String(err);
+    res.status(500).json({ success: false, error: errorMsg });
+  }
+});
+
+app.post('/api/agents/:id/reset', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const fs = await import('fs');
+    const path = await import('path');
+    const { LlmGatewayService } = await import('./services/llm-gateway.service.js');
+
+    const defaultRegistryPath = path.resolve(__dirname, '../config/agent-registry.json');
+    if (fs.existsSync(defaultRegistryPath)) {
+      const raw = fs.readFileSync(defaultRegistryPath, 'utf8');
+      const data = JSON.parse(raw);
+      const defaultAgent = data.agents?.find((a: any) => a.id === id);
+      if (defaultAgent) {
+        const gateway = LlmGatewayService.getInstance();
+        gateway.updateAgent(id, defaultAgent);
+        return res.json({ success: true, agent: defaultAgent });
+      }
+    }
+    res.status(404).json({ success: false, error: 'Default preset not found for agent' });
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : String(err);
+    res.status(500).json({ success: false, error: errorMsg });
+  }
+});
+
+// ----------------------------------------------------
 // 7. Offer Scouts & Intelligence API
 // ----------------------------------------------------
 app.get('/api/scouts/offers', async (req, res) => {

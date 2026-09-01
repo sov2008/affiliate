@@ -572,6 +572,52 @@
 
     </div>
 
+    <!-- B2.8. Реестр Агентов и Терминал Рекрутинга (Agent Control Terminal) -->
+    <div class="glass-panel p-5 rounded-xl border border-sky-900/60 bg-slate-900/40 space-y-4 glow-border">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">🤖</span>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-base font-bold font-mono text-slate-200">
+                РЕЕСТР АГЕНТОВ & ТЕРМИНАЛ РЕКРУТИНГА (AGENT RECRUITMENT & CONTROL)
+              </h2>
+              <span id="agentsCountBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-[#121820] text-[#00E5FF] border border-[#00E5FF]/40">
+                6 РОЛЕЙ АКТИВНО
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 font-mono mt-0.5">Маршрутизация LLM-ядер (Groq LPU / R1), лимиты токенов, разграничение прав инструментов и HITL-шлюз</p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2 font-mono text-xs">
+          <button onclick="loadAgentRegistry()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[#00E5FF] border border-slate-700 transition active:scale-95 flex items-center">
+            <span class="mr-1.5">🔄</span> Обновить
+          </button>
+        </div>
+      </div>
+
+      <!-- Двухколоночный макет терминала агентов -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 font-mono text-xs">
+        
+        <!-- Левая панель: Список ролей -->
+        <div class="lg:col-span-4 space-y-2">
+          <div class="text-[11px] text-slate-400 uppercase tracking-wider font-bold mb-1">
+            Агенты пайплайна
+          </div>
+          <div id="agentRolesListContainer" class="space-y-2 max-h-[520px] overflow-y-auto term-scroll">
+            <div class="p-3 bg-slate-950/70 rounded-lg text-slate-500 text-center">Загрузка реестра агентов...</div>
+          </div>
+        </div>
+
+        <!-- Правая панель: Форма конфигурации активного агента -->
+        <div id="agentConfigFormContainer" class="lg:col-span-8 bg-[#121820] border border-[#1e293b] rounded-xl p-5 space-y-4">
+          <div class="text-slate-500 text-center py-12">Выберите агента из списка слева для настройки</div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- B3. Очередь контента и HITL Модерация (Content Queue) -->
     <div class="glass-panel p-5 rounded-xl border border-sky-900/60 bg-slate-900/40 space-y-4 glow-border">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-800">
@@ -1816,6 +1862,254 @@
     }
 
     // ----------------------------------------------------
+    // Agent Registry & Recruitment Terminal JS
+    // ----------------------------------------------------
+    let cachedAgents = [];
+    let activeSelectedAgentId = '';
+    const AGENT_TOOLS_SPEC = [
+      { id: 'PLAYWRIGHT_AUTOMATION', label: 'Playwright Browser Automation', icon: '🎭' },
+      { id: 'UMAMI_ANALYTICS', label: 'Umami Analytics & Telemetry API', icon: '📊' },
+      { id: 'EVIDENCE_WRITER', label: 'Evidence Bundle Disk Writer (/runs/)', icon: '💾' },
+      { id: 'DIRECT_HTTP_POST', label: 'Direct HTTP Postback & API Dispatch', icon: '⚡' },
+      { id: 'PROXIES_ROTATION', label: 'Residential Proxy Rotator & Anti-Ban', icon: '🛡️' }
+    ];
+
+    async function loadAgentRegistry() {
+      try {
+        const res = await apiFetch('/api/agents');
+        const data = await res.json();
+        if (!data.success || !Array.isArray(data.agents)) return;
+
+        cachedAgents = data.agents;
+        const badge = document.getElementById('agentsCountBadge');
+        if (badge) badge.innerText = `${cachedAgents.length} РОЛЕЙ АКТИВНО`;
+
+        if (!activeSelectedAgentId && cachedAgents.length > 0) {
+          activeSelectedAgentId = cachedAgents[0].id;
+        }
+
+        renderAgentRolesList();
+        renderActiveAgentConfig();
+      } catch (e) {}
+    }
+
+    function renderAgentRolesList() {
+      const container = document.getElementById('agentRolesListContainer');
+      if (!container) return;
+
+      container.innerHTML = cachedAgents.map(agent => {
+        const isSelected = agent.id === activeSelectedAgentId;
+        const statusBadge = agent.isPaused ? 'ПАУЗА' : 'АКТИВЕН';
+        const badgeClass = agent.isPaused ? 'bg-amber-950/80 text-[#FFB800] border-[#FFB800]/40' : 'bg-emerald-950/80 text-[#00FF66] border-[#00FF66]/40';
+        const budgetPct = Math.round((agent.tokensConsumedToday / agent.tokenBudgetDaily) * 100);
+
+        return `
+          <div onclick="selectAgentRole('${agent.id}')" class="p-3 rounded-xl border transition cursor-pointer flex flex-col justify-between space-y-2 ${isSelected ? 'bg-[#121820] border-[#00E5FF]/60 shadow-[0_0_15px_rgba(0,229,255,0.12)]' : 'bg-[#0a0e14] border-[#1e293b] hover:border-slate-700'}">
+            <div class="flex justify-between items-start">
+              <span class="font-bold text-slate-200 text-xs">${agent.name}</span>
+              <span class="text-[9px] font-bold px-2 py-0.5 rounded border ${badgeClass}">
+                ${statusBadge}
+              </span>
+            </div>
+            <div class="flex justify-between items-center text-[10px] text-slate-400">
+              <span class="text-sky-400 uppercase">${agent.clearanceTier}</span>
+              <span class="text-slate-500">${budgetPct}% токенов</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectAgentRole(id) {
+      activeSelectedAgentId = id;
+      renderAgentRolesList();
+      renderActiveAgentConfig();
+    }
+
+    function renderActiveAgentConfig() {
+      const container = document.getElementById('agentConfigFormContainer');
+      if (!container) return;
+
+      const agent = cachedAgents.find(a => a.id === activeSelectedAgentId);
+      if (!agent) {
+        container.innerHTML = '<div class="text-slate-500 text-center py-12">Выберите агента из списка слева</div>';
+        return;
+      }
+
+      const budgetPct = Math.min(100, Math.round((agent.tokensConsumedToday / agent.tokenBudgetDaily) * 100));
+
+      container.innerHTML = `
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pb-3 border-b border-[#1e293b]">
+          <div>
+            <span class="text-xs text-sky-400 uppercase font-bold">${agent.role}</span>
+            <h3 class="text-base font-bold text-slate-100">${agent.name}</h3>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] text-slate-400">ID:</span>
+            <code class="text-[10px] text-[#00E5FF] bg-[#0a0e14] px-2 py-0.5 rounded border border-[#1e293b]">${agent.id}</code>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-[11px] text-slate-300 uppercase mb-1">Уровень мощности (Tier)</label>
+            <select id="cfgTier" class="w-full bg-[#0a0e14] border border-[#1e293b] rounded-lg px-3 py-2 text-xs text-sky-300 focus:border-[#00E5FF] focus:outline-none">
+              <option value="FAST_LPU" ${agent.clearanceTier === 'FAST_LPU' ? 'selected' : ''}>⚡ FAST_LPU (Groq LPU)</option>
+              <option value="BALANCED" ${agent.clearanceTier === 'BALANCED' ? 'selected' : ''}>⚖️ BALANCED (Оптимальный)</option>
+              <option value="DEEP_REASONING" ${agent.clearanceTier === 'DEEP_REASONING' ? 'selected' : ''}>🧠 DEEP_REASONING (R1 / Sonnet)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[11px] text-slate-300 uppercase mb-1">Основная LLM-модель</label>
+            <input type="text" id="cfgPrimaryModel" value="${agent.primaryModel}" class="w-full bg-[#0a0e14] border border-[#1e293b] rounded-lg px-3 py-2 text-xs text-[#00FF66] focus:border-[#00FF66] focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-[11px] text-slate-300 uppercase mb-1">Резервная LLM-модель</label>
+            <input type="text" id="cfgFallbackModel" value="${agent.fallbackModel}" class="w-full bg-[#0a0e14] border border-[#1e293b] rounded-lg px-3 py-2 text-xs text-[#FFB800] focus:border-[#FFB800] focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-[11px] text-slate-300 uppercase font-bold">Системная директива и промпт (System Directive)</label>
+            <span class="text-[10px] text-slate-500">${agent.systemPrompt.length} символов</span>
+          </div>
+          <textarea id="cfgSystemPrompt" rows="4" class="w-full bg-[#0a0e14] border border-[#1e293b] rounded-lg p-3 text-xs text-emerald-300 leading-relaxed focus:border-[#00FF66] focus:outline-none font-mono resize-y">${agent.systemPrompt}</textarea>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-[#0a0e14] border border-[#1e293b] rounded-xl">
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" id="cfgReviewGate" ${agent.requireHumanReview ? 'checked' : ''} class="w-4 h-4 rounded bg-slate-900 border-slate-700 text-sky-500">
+            <div>
+              <div class="text-xs font-bold text-slate-200">Требовать HITL-проверку оператора</div>
+              <div class="text-[10px] text-slate-500">Пост попадает в очередь до ручного одобрения</div>
+            </div>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" id="cfgIsPaused" ${agent.isPaused ? 'checked' : ''} class="w-4 h-4 rounded bg-slate-900 border-slate-700 text-amber-500">
+            <div>
+              <div class="text-xs font-bold text-[#FFB800]">Приостановить воркера (Изолировать)</div>
+              <div class="text-[10px] text-slate-500">Блокирует выполнение без глобального E-STOP</div>
+            </div>
+          </label>
+        </div>
+
+        <div>
+          <label class="block text-[11px] text-slate-300 uppercase font-bold mb-2">Разрешения инструментов (Tool Permissions)</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="cfgToolsGrid">
+            ${AGENT_TOOLS_SPEC.map(tool => {
+              const isChecked = agent.allowedTools.includes(tool.id);
+              return `
+                <div onclick="toggleAgentPermission('${tool.id}')" class="p-2.5 rounded-lg border flex items-center space-x-2.5 cursor-pointer transition ${isChecked ? 'bg-[#00E5FF]/10 border-[#00E5FF]/40 text-slate-100' : 'bg-[#0a0e14] border-[#1e293b] text-slate-500'}">
+                  <span class="text-sm">${tool.icon}</span>
+                  <div class="flex-1">
+                    <div class="text-xs font-medium ${isChecked ? 'text-[#00E5FF]' : 'text-slate-400'}">${tool.label}</div>
+                    <div class="text-[9px] text-slate-500">${tool.id}</div>
+                  </div>
+                  <span class="text-xs">${isChecked ? '✅' : '⬜'}</span>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+
+        <div class="p-3 bg-[#0a0e14] border border-[#1e293b] rounded-xl space-y-2">
+          <div class="flex justify-between items-center text-[10px] text-slate-400">
+            <span>Расход суточного бюджета токенов (${agent.tokensConsumedToday.toLocaleString()} / ${agent.tokenBudgetDaily.toLocaleString()})</span>
+            <span class="text-[#00E5FF] font-bold">${budgetPct}%</span>
+          </div>
+          <div class="w-full bg-[#121820] h-2 rounded-full overflow-hidden border border-[#1e293b]">
+            <div class="h-full rounded-full transition-all duration-500 bg-gradient-to-r from-[#00FF66] via-[#00E5FF] to-[#FFB800]" style="width: ${budgetPct}%"></div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-[#1e293b] text-[10px]">
+            <span class="px-2 py-0.5 rounded bg-emerald-950/60 text-[#00FF66] border border-[#00FF66]/30">Успешность: ${agent.metrics.passRate.toFixed(1)}%</span>
+            <span class="px-2 py-0.5 rounded bg-sky-950/60 text-[#00E5FF] border border-[#00E5FF]/30">Средняя задержка: ${agent.metrics.avgLatencyMs} ms</span>
+            <span class="px-2 py-0.5 rounded bg-indigo-950/60 text-indigo-300 border border-indigo-500/30">Всего запусков: ${agent.metrics.totalRuns}</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-end items-center gap-3 pt-2">
+          <button onclick="resetAgentPreset('${agent.id}')" class="w-full sm:w-auto px-4 py-2 bg-[#0a0e14] hover:bg-[#1e293b] text-slate-300 hover:text-white rounded-lg text-xs transition border border-[#1e293b]">
+            🔄 Сбросить к золотому пресету
+          </button>
+          <button onclick="saveAgentConfig('${agent.id}')" class="w-full sm:w-auto px-5 py-2 bg-[#00E5FF] hover:bg-[#00E5FF]/80 text-black font-bold rounded-lg text-xs transition shadow-[0_0_15px_rgba(0,229,255,0.25)] flex items-center justify-center">
+            💾 Сохранить конфигурацию
+          </button>
+        </div>
+      `;
+    }
+
+    function toggleAgentPermission(toolId) {
+      const agent = cachedAgents.find(a => a.id === activeSelectedAgentId);
+      if (!agent) return;
+
+      if (agent.allowedTools.includes(toolId)) {
+        agent.allowedTools = agent.allowedTools.filter(t => t !== toolId);
+      } else {
+        agent.allowedTools.push(toolId);
+      }
+      renderActiveAgentConfig();
+    }
+
+    async function saveAgentConfig(id) {
+      const agent = cachedAgents.find(a => a.id === id);
+      if (!agent) return;
+
+      const tier = document.getElementById('cfgTier').value;
+      const primaryModel = document.getElementById('cfgPrimaryModel').value;
+      const fallbackModel = document.getElementById('cfgFallbackModel').value;
+      const systemPrompt = document.getElementById('cfgSystemPrompt').value;
+      const requireHumanReview = document.getElementById('cfgReviewGate').checked;
+      const isPaused = document.getElementById('cfgIsPaused').checked;
+
+      const payload = {
+        clearanceTier: tier,
+        primaryModel,
+        fallbackModel,
+        systemPrompt,
+        requireHumanReview,
+        isPaused,
+        allowedTools: agent.allowedTools
+      };
+
+      try {
+        showToast('💾 Сохранение конфигурации агента...', 'info');
+        const res = await apiFetch(`/api/agents/${id}/config`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast(`✅ Настройки агента "${agent.name}" сохранены!`, 'success');
+          loadAgentRegistry();
+        } else {
+          showToast(`❌ Ошибка сохранения: ${data.error}`, 'error');
+        }
+      } catch (err) {
+        showToast(`❌ Ошибка: ${err.message}`, 'error');
+      }
+    }
+
+    async function resetAgentPreset(id) {
+      if (!confirm('Сбросить настройки агента к золотому пресету?')) return;
+      try {
+        showToast('🔄 Сброс к золотому пресету...', 'info');
+        const res = await apiFetch(`/api/agents/${id}/reset`, { method: 'POST' });
+        const data = await res.json();
+        if (data.success) {
+          showToast('✨ Настройки агента сброшены к пресету!', 'success');
+          loadAgentRegistry();
+        }
+      } catch (err) {
+        showToast(`❌ Ошибка: ${err.message}`, 'error');
+      }
+    }
+
+    // ----------------------------------------------------
     // Content Queue & Moderation JS
     // ----------------------------------------------------
     async function loadQueueItems() {
@@ -2176,6 +2470,7 @@
       loadOrganicLogs();
       loadLearningInsights();
       loadEstopStatus();
+      loadAgentRegistry();
       loadQueueItems();
       loadScoutsOffers();
       loadEvidenceBundles();
@@ -2193,6 +2488,7 @@
       setInterval(loadOrganicLogs, 4000);
       setInterval(loadLearningInsights, 8000);
       setInterval(loadEstopStatus, 3000);
+      setInterval(loadAgentRegistry, 10000);
       setInterval(loadQueueItems, 5000);
       setInterval(loadScoutsOffers, 10000);
       setInterval(loadEvidenceBundles, 8000);
