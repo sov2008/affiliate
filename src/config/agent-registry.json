@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": "2026-09-01T12:00:00.000Z",
+  "lastUpdated": "2026-09-01T09:11:34.911Z",
   "agents": [
     {
       "id": "agent-scout-scraper-01",
@@ -20,7 +20,7 @@
       ],
       "isPaused": false,
       "metrics": {
-        "passRate": 100.0,
+        "passRate": 100,
         "avgLatencyMs": 0,
         "totalRuns": 0
       }
@@ -34,16 +34,16 @@
       "fallbackModel": "openrouter/meta-llama/llama-3.3-70b-instruct",
       "systemPrompt": "Elite organic social copywriter. Generates deeply relatable, conversational, peer-to-peer posts addressing user pain points with authentic storytelling. Never uses AI clichés, aggressive sales pitches, or deceptive quiz funnels. All CTAs must be conversational discussion closings adhering to Reddit Rule 9.",
       "tokenBudgetDaily": 1000000,
-      "tokensConsumedToday": 0,
+      "tokensConsumedToday": 241,
       "requireHumanReview": true,
       "allowedTools": [
         "EVIDENCE_WRITER"
       ],
       "isPaused": false,
       "metrics": {
-        "passRate": 100.0,
-        "avgLatencyMs": 0,
-        "totalRuns": 0
+        "passRate": 100,
+        "avgLatencyMs": 486,
+        "totalRuns": 3
       }
     },
     {
@@ -62,7 +62,7 @@
       ],
       "isPaused": false,
       "metrics": {
-        "passRate": 100.0,
+        "passRate": 100,
         "avgLatencyMs": 0,
         "totalRuns": 0
       }
@@ -85,7 +85,7 @@
       ],
       "isPaused": false,
       "metrics": {
-        "passRate": 100.0,
+        "passRate": 100,
         "avgLatencyMs": 0,
         "totalRuns": 0
       }
@@ -108,7 +108,7 @@
       ],
       "isPaused": false,
       "metrics": {
-        "passRate": 100.0,
+        "passRate": 100,
         "avgLatencyMs": 0,
         "totalRuns": 0
       }
@@ -131,7 +131,7 @@
       ],
       "isPaused": false,
       "metrics": {
-        "passRate": 100.0,
+        "passRate": 100,
         "avgLatencyMs": 0,
         "totalRuns": 0
       }

@@ -11,4 +11,5 @@ export * from '../core/src/agents/guard.agent.js';
 export * from '../core/src/orchestrator/pipeline.js';
 export * from '../core/src/analytics/umami.client.js';
 export * from '../core/src/db/queueRepository.js';
+export * from '../core/src/services/llm-gateway.service.js';
 export { runApprovalLoop } from '../core/src/index.js';
