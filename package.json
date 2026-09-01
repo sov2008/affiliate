@@ -21,6 +21,7 @@
     "test:smoke": "tsx src/scripts/runSmokeTestSuite.ts",
     "test:gateway": "tsx src/scripts/testLlmGateway.ts",
     "test:spec": "tsx src/tests/agent-config.spec.ts",
+    "test:integrity": "tsx src/tests/link-integrity.spec.ts",
     "test:gold": "tsx src/tests/gold-catalog.spec.ts",
     "test:postback": "tsx src/tests/postback.spec.ts",
     "test:scheduler": "tsx src/tests/distribution-scheduler.spec.ts",
