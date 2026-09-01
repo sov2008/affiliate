@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "npm --prefix core run build",
     "test": "npm --prefix core test",
     "typecheck": "npm --prefix core run typecheck",
     "audit": "npm --prefix core run audit",
