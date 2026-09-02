@@ -14,6 +14,7 @@ export * from '../core/src/analytics/umami.client.js';
 export * from '../core/src/db/queueRepository.js';
 export * from '../core/src/services/llm-gateway.service.js';
 export * from '../core/src/services/gold-catalog.service.js';
+export * from '../core/src/services/network-memory.service.js';
 export * from '../core/src/server/telemetry-matcher.js';
 export * from '../core/src/server/routes/postback.router.js';
 export * from '../core/src/automation/distribution-scheduler.js';

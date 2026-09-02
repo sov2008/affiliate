@@ -1,6 +1,7 @@
 import { BaseAgent } from './base.agent.js';
 import { GeneratedCreative, RawContext, Platform } from '../types/pipeline.js';
 import { GoldCatalogService } from '../services/gold-catalog.service.js';
+import { NetworkMemoryService } from '../services/network-memory.service.js';
 
 export interface CopywriterPayload {
   headline: string;
@@ -12,10 +13,12 @@ export interface CopywriterPayload {
 
 export class CopywriterAgent extends BaseAgent {
   private readonly goldCatalog: GoldCatalogService;
+  private readonly networkMemory: NetworkMemoryService;
 
   constructor() {
     super('CopywriterAgent');
     this.goldCatalog = GoldCatalogService.getInstance();
+    this.networkMemory = NetworkMemoryService.getInstance();
   }
 
   /**
@@ -33,6 +36,7 @@ export class CopywriterAgent extends BaseAgent {
     const network = ((context.metadata?.network as string) || 'mylead').toLowerCase().trim();
     const networkFewShots = this.goldCatalog.getNetworkFewShotExamples(network, platform, niche, 3);
     const negativeExamples = this.goldCatalog.getNegativeFeedbackExamples(network, platform, 2);
+    const networkMemoryPrompt = this.networkMemory.getFewShotPrompt(network, 3);
 
     const systemPrompt = `You are an elite Social Media Ghostwriter & Organic Copywriter specializing in ${platform.toUpperCase()}.
 Your goal is to write a deeply relatable, conversational, authentic story/post that addresses the user's specific pain point.
@@ -57,7 +61,7 @@ You must respond ONLY with a JSON object in this exact schema:
   "callToAction": "Natural conversation closing (e.g. 'Curious how other nomads handle this, or happy to drop my checklist in the comments if helpful')",
   "prelanderSlug": "${prelanderSlug}",
   "generatedPrompt": "A photorealistic, highly cinematic prompt for FLUX/SDXL image generator depicting the practical lifestyle setup (NO text, NO UI overlays, 8k)"
-}${fewShotSection}${networkFewShots}${negativeExamples}`;
+}${fewShotSection}${networkFewShots}${negativeExamples}${networkMemoryPrompt}`;
 
     const userPrompt = `Target Platform: ${platform.toUpperCase()}
 Source Context / Topic: "${context.topicTitle || 'Automated Systems 2026'}"

@@ -52,14 +52,19 @@ export class WorkerController {
 
     switch (network) {
       case 'lospollos':
-        return 'agent-lospollos-specialist';
+        return 'agent-copywriter-lospollos';
       case 'mylead':
-        return 'agent-mylead-specialist';
-      default:
+        return 'agent-copywriter-mylead';
+      default: {
+        const fallback = this.gateway.getAgent('agent-copywriter-mylead')
+          ? 'agent-copywriter-mylead'
+          : 'agent-copywriter-lospollos';
+
         console.warn(
-          `\x1b[33m[WorkerController]\x1b[0m Unknown network "${network}" in context.metadata.network. Defaulting to agent-mylead-specialist.`
+          `\x1b[33m[WorkerController]\x1b[0m Unknown network "${network}" in context.metadata.network. Defaulting to ${fallback}.`
         );
-        return 'agent-mylead-specialist';
+        return fallback;
+      }
     }
   }
 

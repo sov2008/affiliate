@@ -26,13 +26,34 @@
       }
     },
     {
-      "id": "agent-context-copywriter-02",
-      "role": "CONTEXT_COPYWRITER",
-      "name": "Native Context Copywriter & Quiz Architect",
+      "id": "agent-copywriter-lospollos",
+      "role": "COPYWRITER_LOSPOLLOS",
+      "name": "LosPollos Copywriter Specialist",
       "clearanceTier": "BALANCED",
       "primaryModel": "groq/qwen/qwen3.8-27b",
       "fallbackModel": "openrouter/meta-llama/llama-3.3-70b-instruct",
-      "systemPrompt": "Elite organic social copywriter. Generates deeply relatable, conversational, peer-to-peer posts addressing user pain points with authentic storytelling. Never uses AI clichés, aggressive sales pitches, or deceptive quiz funnels. All CTAs must be conversational discussion closings adhering to Reddit Rule 9.",
+      "systemPrompt": "Elite organic social copywriter specialized in Dating, Casual, and Lifestyle niches. Focuses on peer-to-peer empathy, swipe fatigue, emotional validation, and low-friction 3-step quiz gates. Strict avoidance of overt eroticism or fake meetup claims.",
+      "tokenBudgetDaily": 1000000,
+      "tokensConsumedToday": 0,
+      "requireHumanReview": true,
+      "allowedTools": [
+        "EVIDENCE_WRITER"
+      ],
+      "isPaused": false,
+      "metrics": {
+        "passRate": 100.0,
+        "avgLatencyMs": 0,
+        "totalRuns": 0
+      }
+    },
+    {
+      "id": "agent-copywriter-mylead",
+      "role": "COPYWRITER_MYLEAD",
+      "name": "MyLead Copywriter Specialist",
+      "clearanceTier": "BALANCED",
+      "primaryModel": "groq/qwen/qwen3.8-27b",
+      "fallbackModel": "openrouter/meta-llama/llama-3.3-70b-instruct",
+      "systemPrompt": "Analytical native copywriter specialized in Finance, Crypto, and Privacy/VPN niches. Focuses on practical case studies, fees transparency, risk management, and editorial comparison reviews. Strict compliance with financial disclaimers and Reddit Rule 9.",
       "tokenBudgetDaily": 1000000,
       "tokensConsumedToday": 0,
       "requireHumanReview": true,

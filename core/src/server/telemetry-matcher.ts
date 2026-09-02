@@ -3,6 +3,7 @@ import path from 'path';
 import crypto from 'crypto';
 import { BundleArtifact, Platform } from '../types/pipeline.js';
 import { GoldCatalogService } from '../services/gold-catalog.service.js';
+import { NetworkMemoryService } from '../services/network-memory.service.js';
 
 export interface PostbackEvent {
   clickId: string;
@@ -304,10 +305,10 @@ export class FinancialTelemetryMatcher {
       }
 
       // 4a. Network-specific positive feedback: record winning pattern
+      let bundleData: BundleArtifact | null = null;
       if (event.payout > 0 && isSuccessful) {
         try {
           const network = this.resolveNetworkFromBundle(event.bundleId, event.campaignId);
-          // Load full bundle from disk for the win record
           const bundleCandidates = [
             path.resolve(process.cwd(), `runs/${event.bundleId}/bundle.json`),
             path.resolve(process.cwd(), `runs/pending/${event.bundleId}/bundle.json`),
@@ -319,9 +320,11 @@ export class FinancialTelemetryMatcher {
             if (fs.existsSync(bp)) {
               try {
                 const bundleRaw = fs.readFileSync(bp, 'utf8');
-                const bundleData: BundleArtifact = JSON.parse(bundleRaw);
-                if (bundleData && bundleData.creative) {
-                  GoldCatalogService.getInstance().recordNetworkWin(network, bundleData, event.payout);
+                const parsedBundle: BundleArtifact = JSON.parse(bundleRaw);
+                if (parsedBundle && parsedBundle.creative) {
+                  bundleData = parsedBundle;
+                  GoldCatalogService.getInstance().recordNetworkWin(network, parsedBundle, event.payout);
+                  NetworkMemoryService.getInstance().recordPositiveConversion(network, parsedBundle, event.payout);
                   break;
                 }
               } catch {}
@@ -341,6 +344,15 @@ export class FinancialTelemetryMatcher {
           GoldCatalogService.getInstance().recordNegativeFeedback(
             network, event.bundleId, bMetrics.clicks
           );
+
+          if (bundleData && bundleData.creative && bundleData.creative.headline) {
+            NetworkMemoryService.getInstance().recordNegativePattern(
+              network,
+              bundleData.creative.headline,
+              `High click volume (${bMetrics.clicks}) with zero conversions; likely non-converting structure or weak offer match.`,
+              bMetrics.clicks,
+            );
+          }
         } catch (err: unknown) {
           const msg = err instanceof Error ? err.message : String(err);
           console.warn(`[FinancialTelemetryMatcher] Negative feedback recording notice: ${msg}`);

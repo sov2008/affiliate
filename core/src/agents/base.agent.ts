@@ -71,7 +71,31 @@ export abstract class BaseAgent {
    */
   protected generateHeuristicFallback<T>(userPrompt: string): T {
     if (this.agentName === 'CopywriterAgent') {
-      const isQuora = userPrompt.includes('QUORA');
+      const lowerPrompt = userPrompt.toLowerCase();
+      const isLosPollos = lowerPrompt.includes('lospollos') || lowerPrompt.includes('dating') || lowerPrompt.includes('swipe');
+      const isMylead = lowerPrompt.includes('mylead') || lowerPrompt.includes('finance') || lowerPrompt.includes('crypto') || lowerPrompt.includes('vpn');
+      const isQuora = lowerPrompt.includes('quora');
+
+      if (isLosPollos) {
+        return {
+          headline: 'What your dating profile says about your attachment style, no filter',
+          body: 'I kept trying to optimize my profile for better matches and honestly the real issue was swipe fatigue and vague expectations. The pattern was less about chemistry and more about the same repetitive loops over and over. A quick compatibility quiz helped me spot the mismatch much faster than another round of dead-end chats.',
+          callToAction: 'Curious what your dating patterns look like? Happy to share the 3-step quiz angle in the comments if it helps.',
+          prelanderSlug: 'dating-quiz-v1',
+          generatedPrompt: 'A realistic dating app conversation scene with a soft warm aesthetic, casual lifestyle portrait, peer-to-peer social vibe, photorealistic, cinematic daylight, no text overlays',
+        } as unknown as T;
+      }
+
+      if (isMylead) {
+        return {
+          headline: 'What actually changed in my fintech setup after comparing fees and execution quality',
+          body: 'I ended up comparing several wallet and exchange workflows side by side to see where the real friction was. The big difference wasn’t the headline promise — it was fee transparency, risk framing, and whether the platform made the trade-offs obvious before the money moved.',
+          callToAction: 'Happy to share the comparison checklist in the comments if anyone is evaluating similar tools.',
+          prelanderSlug: 'finance-review-v1',
+          generatedPrompt: 'A polished fintech comparison desk with dashboards, cards, and subtle editorial review styling, realistic, high-detail, professional lighting',
+        } as unknown as T;
+      }
+
       return {
         headline: isQuora
           ? 'What are the most reliable quantitative execution models for automated arbitrage?'

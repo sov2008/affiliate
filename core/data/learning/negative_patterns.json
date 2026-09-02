@@ -1,25 +1,14 @@
 {
-  "lastUpdated": "2026-08-31T22:00:00.000Z",
-  "bannedTriggerWords": [
-    "гарантия",
-    "100% бесплатно",
-    "кликни сюда",
-    "переходи по ссылке",
-    "промокод",
-    "легкие деньги",
-    "пиши в лс",
-    "телеграм канал",
-    "guaranteed",
-    "click here"
-  ],
-  "disallowedFormats": [
-    "Односложные ответы, содержащие только рекламную ссылку.",
-    "Шаблонные хвалебные отзывы без технических аргументов и цифр.",
-    "Дублирование одинаковых ссылок в одной ветке обсуждения."
-  ],
-  "moderationAvoidanceHeuristics": [
-    "Сохранять минимум 85% полезного экспертного контента до любого упоминания ресурса.",
-    "Строго соблюдать стиль разметки конкретного сабреддита или форума.",
-    "Не публиковать более 2 ответов в одном сабреддите в течение 2-часового окна."
+  "version": "1.0.0",
+  "updatedAt": "2026-09-02T02:27:06.738Z",
+  "entries": [
+    {
+      "id": "ab412ca7-b8a8-457c-8759-a66c290a0fdd",
+      "network": "lospollos",
+      "hook": "What your dating profile says about your attachment style, no filter",
+      "reason": "High clicks but zero conversions due to light emotional bait without real offer value.",
+      "clicks": 50,
+      "addedAt": "2026-09-02T02:27:06.737Z"
+    }
   ]
 }
