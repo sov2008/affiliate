@@ -157,8 +157,44 @@ export class FinancialTelemetryMatcher {
   }
 
   /**
+   * Resolves the CPA network name from a bundle's context.metadata.network field.
+   * Falls back to campaignId-based heuristic if metadata is unavailable.
+   */
+  private resolveNetworkFromBundle(bundleId: string, campaignId?: string): string {
+    // Try loading bundle from disk to read context.metadata.network
+    const candidates = [
+      path.resolve(process.cwd(), `runs/${bundleId}/bundle.json`),
+      path.resolve(process.cwd(), `runs/pending/${bundleId}/bundle.json`),
+      path.resolve(process.cwd(), `core/runs/${bundleId}/bundle.json`),
+      path.resolve(process.cwd(), `core/runs/pending/${bundleId}/bundle.json`),
+    ];
+
+    for (const p of candidates) {
+      if (fs.existsSync(p)) {
+        try {
+          const raw = fs.readFileSync(p, 'utf8');
+          const bundle: BundleArtifact = JSON.parse(raw);
+          const network = (bundle.context?.metadata?.network as string || '').toLowerCase().trim();
+          if (network) return network;
+        } catch {}
+      }
+    }
+
+    // Fallback: infer from campaignId
+    if (campaignId) {
+      const cid = campaignId.toLowerCase();
+      if (cid.includes('dating') || cid.includes('social') || cid.includes('lospollos') || cid.includes('quiz')) {
+        return 'lospollos';
+      }
+    }
+
+    return 'mylead'; // Default fallback
+  }
+
+  /**
    * Processes a live CPA postback event with deduplication,
-   * bundle financial enrichment, metrics calculation, and GoldCatalog trigger.
+   * bundle financial enrichment, metrics calculation, GoldCatalog trigger,
+   * and network-specific positive/negative feedback loops.
    */
   public processPostback(rawEvent: Partial<PostbackEvent>): ProcessPostbackResult {
     const startTime = performance.now();
@@ -264,6 +300,50 @@ export class FinancialTelemetryMatcher {
         } catch (err: unknown) {
           const msg = err instanceof Error ? err.message : String(err);
           console.warn(`[FinancialTelemetryMatcher] GoldCatalog update notice: ${msg}`);
+        }
+      }
+
+      // 4a. Network-specific positive feedback: record winning pattern
+      if (event.payout > 0 && isSuccessful) {
+        try {
+          const network = this.resolveNetworkFromBundle(event.bundleId, event.campaignId);
+          // Load full bundle from disk for the win record
+          const bundleCandidates = [
+            path.resolve(process.cwd(), `runs/${event.bundleId}/bundle.json`),
+            path.resolve(process.cwd(), `runs/pending/${event.bundleId}/bundle.json`),
+            path.resolve(process.cwd(), `core/runs/${event.bundleId}/bundle.json`),
+            path.resolve(process.cwd(), `core/runs/pending/${event.bundleId}/bundle.json`),
+          ];
+
+          for (const bp of bundleCandidates) {
+            if (fs.existsSync(bp)) {
+              try {
+                const bundleRaw = fs.readFileSync(bp, 'utf8');
+                const bundleData: BundleArtifact = JSON.parse(bundleRaw);
+                if (bundleData && bundleData.creative) {
+                  GoldCatalogService.getInstance().recordNetworkWin(network, bundleData, event.payout);
+                  break;
+                }
+              } catch {}
+            }
+          }
+        } catch (err: unknown) {
+          const msg = err instanceof Error ? err.message : String(err);
+          console.warn(`[FinancialTelemetryMatcher] Network win recording notice: ${msg}`);
+        }
+      }
+
+      // 4b. Negative feedback detection: high clicks with zero conversions
+      const negThreshold = GoldCatalogService.getInstance().getNegativeClickThreshold();
+      if (bMetrics.clicks >= negThreshold && bMetrics.conversions === 0) {
+        try {
+          const network = this.resolveNetworkFromBundle(event.bundleId, event.campaignId);
+          GoldCatalogService.getInstance().recordNegativeFeedback(
+            network, event.bundleId, bMetrics.clicks
+          );
+        } catch (err: unknown) {
+          const msg = err instanceof Error ? err.message : String(err);
+          console.warn(`[FinancialTelemetryMatcher] Negative feedback recording notice: ${msg}`);
         }
       }
     }

@@ -44,8 +44,29 @@ export class WorkerController {
   }
 
   /**
+   * Resolves the specialized copywriter agent ID based on CPA network from context metadata.
+   * Routes LosPollos traffic to the dating/social specialist and MyLead traffic to the finance specialist.
+   */
+  private resolveCopywriterAgentId(context: RawContext): string {
+    const network = (context.metadata?.network as string || '').toLowerCase().trim();
+
+    switch (network) {
+      case 'lospollos':
+        return 'agent-lospollos-specialist';
+      case 'mylead':
+        return 'agent-mylead-specialist';
+      default:
+        console.warn(
+          `\x1b[33m[WorkerController]\x1b[0m Unknown network "${network}" in context.metadata.network. Defaulting to agent-mylead-specialist.`
+        );
+        return 'agent-mylead-specialist';
+    }
+  }
+
+  /**
    * Orchestrates the agent execution loop with live registry configuration,
    * tool permission checks, worker pause guards, and Review Gate routing.
+   * Routes to network-specialized copywriter agents based on context.metadata.network.
    */
   public async executePipeline(context: RawContext, prelanderSlug: string): Promise<BundleArtifact> {
     const bundleId = crypto.randomUUID();
@@ -63,9 +84,16 @@ export class WorkerController {
 
       // 3. Inspect Live Agent Configurations
       this.gateway.loadRegistry();
-      const copywriterConfig = this.gateway.getAgent('agent-context-copywriter-02');
+
+      // 3a. Resolve network-specialized copywriter agent
+      const copywriterAgentId = this.resolveCopywriterAgentId(context);
+      const copywriterConfig = this.gateway.getAgent(copywriterAgentId);
       const guardConfig = this.gateway.getAgent('agent-compliance-guard-03');
       const workerConfig = this.gateway.getAgent('agent-distribution-worker-04');
+
+      console.log(
+        `\x1b[36m[WorkerController]\x1b[0m Network "${context.metadata?.network || 'unknown'}" -> routed to agent "${copywriterAgentId}"`
+      );
 
       // 4. Worker Pause Check: Copywriter
       if (copywriterConfig?.isPaused) {
@@ -79,7 +107,7 @@ export class WorkerController {
 
       // 5. Generate Creative
       console.log(
-        `\x1b[36m[WorkerController]\x1b[0m Running CopywriterAgent for [${context.platform.toUpperCase()}] "${context.topicTitle.slice(0, 35)}..."`
+        `\x1b[36m[WorkerController]\x1b[0m Running CopywriterAgent [${copywriterAgentId}] for [${context.platform.toUpperCase()}] "${context.topicTitle.slice(0, 35)}..."`
       );
       creative = await this.copywriter.execute(context, prelanderSlug);
       status = 'GENERATED';
