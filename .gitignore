@@ -28,6 +28,7 @@ build/
 scratch/
 core/scratch/
 **/scratch/
+learning/
 runs/
 output/
 core/output/

@@ -34,12 +34,62 @@ export interface IngestOptions {
   metrics?: Partial<PerformanceMetrics>;
 }
 
+/**
+ * Network-specific winning pattern entry, stored in isolated per-network chambers.
+ */
+export interface NetworkWinEntry {
+  id: string;
+  hook: string;
+  body: string;
+  callToAction: string;
+  platform: Platform;
+  niche: string;
+  payout: number;
+  conversions: number;
+  addedAt: string;
+  sourceUrl?: string;
+  audiencePain?: string;
+}
+
+export interface NetworkWinStorage {
+  version: string;
+  updatedAt: string;
+  network: string;
+  entries: NetworkWinEntry[];
+}
+
+/**
+ * Negative feedback entry: hooks/structures that attracted high clicks but zero conversions.
+ * Used as anti-examples (DO NOT EMULATE) in copywriter prompt injection.
+ */
+export interface NegativeFeedbackEntry {
+  id: string;
+  hook: string;
+  bodySnippet: string;
+  platform: Platform;
+  network: string;
+  clicks: number;
+  conversions: number;
+  flaggedAt: string;
+  reason: string;
+}
+
+export interface NegativeFeedbackStorage {
+  version: string;
+  updatedAt: string;
+  entries: NegativeFeedbackEntry[];
+}
+
 export class GoldCatalogService {
   private static instance: GoldCatalogService | null = null;
   private readonly storageFilePath: string;
   private entries: GoldCatalogEntry[] = [];
   private readonly maxEntries = 50;
   private readonly minComplianceThreshold = 90;
+  private readonly maxNetworkWins = 30;
+  private readonly maxNegativeEntries = 20;
+  private readonly negativeClickThreshold = 50;
+  private readonly learningBaseDir: string;
 
   private constructor(customPath?: string) {
     if (customPath) {
@@ -60,7 +110,11 @@ export class GoldCatalogService {
       }
     }
 
+    // Resolve learning directory (same level as gold_catalog.json)
+    this.learningBaseDir = path.join(path.dirname(this.storageFilePath), 'learning');
+
     this.ensureDirectory();
+    this.ensureLearningDirectory();
     this.loadCatalog();
   }
 
@@ -79,6 +133,12 @@ export class GoldCatalogService {
     const dir = path.dirname(this.storageFilePath);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
+    }
+  }
+
+  private ensureLearningDirectory(): void {
+    if (!fs.existsSync(this.learningBaseDir)) {
+      fs.mkdirSync(this.learningBaseDir, { recursive: true });
     }
   }
 
@@ -451,5 +511,357 @@ Study and emulate the tone, conversational empathy, natural cadence, and native 
 ${formattedBlocks.join('\n\n')}
 
 CRITICAL INSTRUCTION: Adapt these winning stylistic patterns and psychological hooks to the target topic while maintaining 100% uniqueness and zero synthetic tone.\n`;
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  // NETWORK-SPECIFIC LEARNING CHAMBERS
+  // ═══════════════════════════════════════════════════════════════════
+
+  /**
+   * Resolves the file path for a network-specific winning patterns chamber.
+   */
+  private getNetworkWinFilePath(network: string): string {
+    const sanitized = network.toLowerCase().replace(/[^a-z0-9_]/g, '');
+    return path.join(this.learningBaseDir, `${sanitized}_wins.json`);
+  }
+
+  /**
+   * Resolves the file path for the structured negative feedback store.
+   */
+  private getNegativeFeedbackFilePath(): string {
+    return path.join(this.learningBaseDir, 'negative_patterns_v2.json');
+  }
+
+  /**
+   * Loads network-specific winning patterns from disk.
+   */
+  private loadNetworkWins(network: string): NetworkWinEntry[] {
+    const filePath = this.getNetworkWinFilePath(network);
+    try {
+      if (fs.existsSync(filePath)) {
+        const raw = fs.readFileSync(filePath, 'utf8');
+        const parsed = JSON.parse(raw) as NetworkWinStorage;
+        if (parsed && Array.isArray(parsed.entries)) {
+          return parsed.entries;
+        }
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.warn(`[GoldCatalogService] Failed to load network wins for ${network}: ${msg}`);
+    }
+    return [];
+  }
+
+  /**
+   * Persists network-specific winning patterns atomically.
+   */
+  private saveNetworkWins(network: string, entries: NetworkWinEntry[]): void {
+    try {
+      this.ensureLearningDirectory();
+      const filePath = this.getNetworkWinFilePath(network);
+      const payload: NetworkWinStorage = {
+        version: '1.0.0',
+        updatedAt: new Date().toISOString(),
+        network,
+        entries,
+      };
+      const tmpPath = `${filePath}.tmp.${Date.now()}`;
+      fs.writeFileSync(tmpPath, JSON.stringify(payload, null, 2), 'utf8');
+      fs.renameSync(tmpPath, filePath);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error(`[GoldCatalogService] Failed to save network wins for ${network}: ${msg}`);
+    }
+  }
+
+  /**
+   * Loads structured negative feedback entries from disk.
+   */
+  private loadNegativeFeedback(): NegativeFeedbackEntry[] {
+    const filePath = this.getNegativeFeedbackFilePath();
+    try {
+      if (fs.existsSync(filePath)) {
+        const raw = fs.readFileSync(filePath, 'utf8');
+        const parsed = JSON.parse(raw) as NegativeFeedbackStorage;
+        if (parsed && Array.isArray(parsed.entries)) {
+          return parsed.entries;
+        }
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.warn(`[GoldCatalogService] Failed to load negative feedback: ${msg}`);
+    }
+    return [];
+  }
+
+  /**
+   * Persists structured negative feedback entries atomically.
+   */
+  private saveNegativeFeedback(entries: NegativeFeedbackEntry[]): void {
+    try {
+      this.ensureLearningDirectory();
+      const filePath = this.getNegativeFeedbackFilePath();
+      const payload: NegativeFeedbackStorage = {
+        version: '1.0.0',
+        updatedAt: new Date().toISOString(),
+        entries,
+      };
+      const tmpPath = `${filePath}.tmp.${Date.now()}`;
+      fs.writeFileSync(tmpPath, JSON.stringify(payload, null, 2), 'utf8');
+      fs.renameSync(tmpPath, filePath);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error(`[GoldCatalogService] Failed to save negative feedback: ${msg}`);
+    }
+  }
+
+  /**
+   * Records a winning pattern into the network-specific chamber when a postback
+   * with payout > 0 arrives. Deduplicates by sourceUrl, ranks by payout descending,
+   * and enforces max capacity (30 per network).
+   */
+  public recordNetworkWin(
+    network: string,
+    bundle: BundleArtifact,
+    payout: number
+  ): boolean {
+    if (!bundle || !bundle.creative || !network) return false;
+
+    const normalizedNetwork = network.toLowerCase().trim();
+    const entries = this.loadNetworkWins(normalizedNetwork);
+
+    const sourceUrl = (bundle.context?.sourceUrl || '').trim();
+    const existingIdx = entries.findIndex(
+      (e) => (e.sourceUrl || '') === sourceUrl && sourceUrl.length > 0
+    );
+
+    const newEntry: NetworkWinEntry = {
+      id: bundle.id || crypto.randomUUID(),
+      hook: bundle.creative.headline,
+      body: bundle.creative.body,
+      callToAction: bundle.creative.callToAction,
+      platform: bundle.context?.platform || 'reddit',
+      niche: this.extractNiche(bundle.context),
+      payout,
+      conversions: (existingIdx >= 0 ? entries[existingIdx].conversions : 0) + 1,
+      addedAt: new Date().toISOString(),
+      sourceUrl,
+      audiencePain: bundle.context?.targetAudiencePain || '',
+    };
+
+    if (existingIdx >= 0) {
+      // Merge: keep higher payout, increment conversions
+      entries[existingIdx] = {
+        ...entries[existingIdx],
+        payout: Math.max(entries[existingIdx].payout, payout),
+        conversions: newEntry.conversions,
+        hook: bundle.creative.headline,
+        body: bundle.creative.body,
+        callToAction: bundle.creative.callToAction,
+        addedAt: new Date().toISOString(),
+      };
+    } else {
+      entries.push(newEntry);
+    }
+
+    // Rank by payout desc, then conversions desc
+    entries.sort((a, b) => {
+      const payoutDiff = b.payout - a.payout;
+      if (payoutDiff !== 0) return payoutDiff;
+      return b.conversions - a.conversions;
+    });
+
+    // Enforce capacity
+    const pruned = entries.slice(0, this.maxNetworkWins);
+    this.saveNetworkWins(normalizedNetwork, pruned);
+
+    console.log(
+      `\x1b[32m[GoldCatalogService]\x1b[0m Recorded network win for "${normalizedNetwork}": "${bundle.creative.headline.slice(0, 50)}..." (payout: $${payout})`
+    );
+    return true;
+  }
+
+  /**
+   * Records a negative feedback entry when a bundle reaches the click threshold
+   * with zero conversions. Deduplicates by bundle ID, enforces max capacity per network.
+   */
+  public recordNegativeFeedback(
+    network: string,
+    bundleId: string,
+    clicks: number
+  ): boolean {
+    if (!bundleId || !network) return false;
+
+    const normalizedNetwork = network.toLowerCase().trim();
+    const entries = this.loadNegativeFeedback();
+
+    // Dedup: don't re-record same bundle
+    if (entries.some((e) => e.id === bundleId)) {
+      return false;
+    }
+
+    // Resolve bundle from disk to extract creative
+    const bundle = this.loadBundleFromDisk(bundleId);
+    if (!bundle || !bundle.creative) {
+      return false;
+    }
+
+    const entry: NegativeFeedbackEntry = {
+      id: bundleId,
+      hook: bundle.creative.headline,
+      bodySnippet: (bundle.creative.body || '').slice(0, 300),
+      platform: bundle.context?.platform || 'reddit',
+      network: normalizedNetwork,
+      clicks,
+      conversions: 0,
+      flaggedAt: new Date().toISOString(),
+      reason: `High engagement (${clicks} clicks) with zero conversions — likely clickbait without actionable funnel value.`,
+    };
+
+    entries.push(entry);
+
+    // Keep only most recent entries per network, enforce global cap
+    const networkEntries = entries.filter((e) => e.network === normalizedNetwork);
+    const otherEntries = entries.filter((e) => e.network !== normalizedNetwork);
+
+    const prunedNetwork = networkEntries
+      .sort((a, b) => new Date(b.flaggedAt).getTime() - new Date(a.flaggedAt).getTime())
+      .slice(0, this.maxNegativeEntries);
+
+    this.saveNegativeFeedback([...prunedNetwork, ...otherEntries]);
+
+    console.warn(
+      `\x1b[33m[GoldCatalogService]\x1b[0m Negative feedback recorded for "${normalizedNetwork}": "${bundle.creative.headline.slice(0, 50)}..." (${clicks} clicks, 0 conversions)`
+    );
+    return true;
+  }
+
+  /**
+   * Loads a BundleArtifact from disk by bundle ID.
+   */
+  private loadBundleFromDisk(bundleId: string): BundleArtifact | null {
+    const candidates = [
+      path.resolve(process.cwd(), `runs/${bundleId}/bundle.json`),
+      path.resolve(process.cwd(), `runs/pending/${bundleId}/bundle.json`),
+      path.resolve(process.cwd(), `core/runs/${bundleId}/bundle.json`),
+      path.resolve(process.cwd(), `core/runs/pending/${bundleId}/bundle.json`),
+    ];
+
+    for (const p of candidates) {
+      if (fs.existsSync(p)) {
+        try {
+          const raw = fs.readFileSync(p, 'utf8');
+          return JSON.parse(raw) as BundleArtifact;
+        } catch {}
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Formats top winning patterns from a specific network's chamber into a
+   * structured few-shot prompt section for CopywriterAgent injection.
+   */
+  public getNetworkFewShotExamples(
+    network: string,
+    platform: Platform,
+    niche: string,
+    limit = 3
+  ): string {
+    const normalizedNetwork = network.toLowerCase().trim();
+    const entries = this.loadNetworkWins(normalizedNetwork);
+
+    if (entries.length === 0) {
+      return '';
+    }
+
+    const targetPlatform = platform.toLowerCase();
+    const targetNiche = niche.toLowerCase();
+
+    // Prioritize: same platform+niche > same platform > all
+    const nicheMatches = entries.filter(
+      (e) => e.platform.toLowerCase() === targetPlatform && (e.niche || '').toLowerCase() === targetNiche
+    );
+    const platformMatches = entries.filter(
+      (e) => e.platform.toLowerCase() === targetPlatform
+    );
+
+    const candidates = nicheMatches.length > 0
+      ? nicheMatches
+      : platformMatches.length > 0
+        ? platformMatches
+        : entries;
+
+    const selected = candidates.slice(0, Math.max(1, limit));
+
+    if (selected.length === 0) {
+      return '';
+    }
+
+    const formattedBlocks = selected.map((entry, idx) => {
+      return `--- ${normalizedNetwork.toUpperCase()} WIN ${idx + 1} [${entry.platform.toUpperCase()} | Payout: $${entry.payout} | Conversions: ${entry.conversions}] ---
+[WINNING HOOK]: "${entry.hook}"
+[BODY]:
+${entry.body.slice(0, 500)}
+[CTA]: "${entry.callToAction}"
+[AUDIENCE PAIN]: "${entry.audiencePain || 'Not specified'}"`;
+    });
+
+    return `\n\n### NETWORK-SPECIFIC WINNING PATTERNS (${normalizedNetwork.toUpperCase()}):
+These hooks and structures have PROVEN conversions on the ${normalizedNetwork.toUpperCase()} network. Emulate their tone, psychological triggers, and structural patterns:
+
+${formattedBlocks.join('\n\n')}
+
+CRITICAL: Adapt these proven patterns to the current topic. Do NOT copy verbatim.\n`;
+  }
+
+  /**
+   * Formats negative feedback entries for a specific network into an anti-example
+   * prompt section. These patterns MUST NOT be emulated.
+   */
+  public getNegativeFeedbackExamples(
+    network: string,
+    platform: Platform,
+    limit = 2
+  ): string {
+    const normalizedNetwork = network.toLowerCase().trim();
+    const allEntries = this.loadNegativeFeedback();
+
+    // Filter by network and optionally platform
+    const networkEntries = allEntries.filter((e) => e.network === normalizedNetwork);
+
+    if (networkEntries.length === 0) {
+      return '';
+    }
+
+    const targetPlatform = platform.toLowerCase();
+    const platformMatches = networkEntries.filter(
+      (e) => e.platform.toLowerCase() === targetPlatform
+    );
+
+    const candidates = platformMatches.length > 0 ? platformMatches : networkEntries;
+    const selected = candidates.slice(0, Math.max(1, limit));
+
+    const formattedBlocks = selected.map((entry, idx) => {
+      return `--- FAILED PATTERN ${idx + 1} [${entry.platform.toUpperCase()} | ${entry.clicks} clicks | 0 conversions] ---
+Hook: "${entry.hook}"
+Structure: "${entry.bodySnippet.slice(0, 200)}..."
+Reason: ${entry.reason}`;
+    });
+
+    return `\n\n### ⚠️ ANTI-PATTERNS (DO NOT EMULATE):
+The following hooks and structures have been tested on ${normalizedNetwork.toUpperCase()} and FAILED (high clicks, zero conversions).
+You MUST NOT replicate these patterns, tones, or structural approaches:
+
+${formattedBlocks.join('\n\n')}
+
+CRITICAL: These patterns attract attention but fail to convert. Avoid similar hooks, framings, and CTA structures.\n`;
+  }
+
+  /**
+   * Returns the negative click threshold used for feedback detection.
+   */
+  public getNegativeClickThreshold(): number {
+    return this.negativeClickThreshold;
   }
 }
