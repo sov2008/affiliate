@@ -10,7 +10,7 @@ dotenv.config({ path: path.resolve(process.cwd(), 'core/.env') });
 
 const DO_HOST = process.env.DO_SSH_HOST || process.env.DO_HOST || process.env.DROPLET_IP || '178.128.199.28';
 const DO_USER = process.env.DO_SSH_USER || process.env.DO_USER || 'root';
-const DO_PASS = process.env.SSH_ROOT_PASSWORD || process.env.DO_SSH_PASS || process.env.SSH_PASS || process.env.DROPLET_PASSWORD || process.env.DO_PASSWORD || 'AffOps_Root_Secure_2026!k9P2w8';
+const DO_PASS = process.env.SSH_ROOT_PASSWORD || process.env.DO_SSH_PASS || process.env.SSH_PASS || process.env.DROPLET_PASSWORD || process.env.DO_PASSWORD || '';
 const DASHBOARD_PASS = process.env.DASHBOARD_PASS || 'AffOps_Secure_k9P2w8Nx7Q4m';
 
 interface PreflightCheckResult {
