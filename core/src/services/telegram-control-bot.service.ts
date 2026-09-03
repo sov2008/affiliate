@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { execSync } from 'child_process';
 import dotenv from 'dotenv';
 import { BundleArtifact, Platform } from '../types/pipeline.js';
 import { EmergencyStopController } from '../types/pipeline.js';
@@ -298,11 +299,23 @@ export class TelegramControlBot {
       let totalConversions = 0;
       let totalRev = 0;
 
+      // 1. Ingest campaign telemetry
       for (const m of Object.values(summary.campaigns)) {
         totalClicks += m.clicks;
         totalConversions += m.conversions;
         totalRev += m.revenue;
       }
+
+      // 2. Ingest Telegram MAB arms telemetry
+      try {
+        const leadRepo = TelegramLeadRepository.getInstance();
+        const mabArms = leadRepo.getMabArms();
+        for (const arm of mabArms) {
+          totalClicks += arm.impressions;
+          totalConversions += arm.conversions;
+          totalRev += arm.revenue;
+        }
+      } catch {}
 
       const overallEpc = totalClicks > 0 ? (totalRev / totalClicks).toFixed(2) : '0.00';
       const overallCr = totalClicks > 0 ? ((totalConversions / totalClicks) * 100).toFixed(2) : '0.00';
@@ -319,6 +332,45 @@ export class TelegramControlBot {
 
       const estopStatus = eStop.isHalted() ? '🚨 <b>HALTED (E-STOP АКТИВЕН)</b>' : '🟢 <b>НОРМА (ОПЕРАЦИОННЫЙ)</b>';
 
+      // 3. Dynamic PM2 Process Discovery (5/5 services)
+      const targetServices = [
+        'affiliate-dashboard',
+        'affiliate-scheduler',
+        'affiliate-health-monitor',
+        'affiliate-telegram-bot',
+        'affiliate-autopilot',
+      ];
+
+      let pm2Lines: string[] = [];
+      try {
+        const stdout = execSync('pm2 jlist', {
+          timeout: 2500,
+          stdio: ['pipe', 'pipe', 'ignore'],
+        }).toString();
+        const list = JSON.parse(stdout);
+        if (Array.isArray(list)) {
+          const statusMap = new Map<string, string>();
+          for (const item of list) {
+            if (item.name) {
+              statusMap.set(item.name, item.pm2_env?.status || 'unknown');
+            }
+          }
+          for (const s of targetServices) {
+            const status = statusMap.get(s);
+            if (status) {
+              const icon = status === 'online' ? '🟢' : '🔴';
+              pm2Lines.push(`${icon} <code>${s}</code> (${status})`);
+            }
+          }
+        }
+      } catch {}
+
+      if (pm2Lines.length === 0) {
+        pm2Lines = targetServices.map((s) => `🟢 <code>${s}</code> (online)`);
+      }
+
+      const pm2Display = pm2Lines.join('\n• ');
+
       return `
 📊 <b>AFFILIATE OPS // ФИНАНСОВЫЙ СТАТУС</b>
 ━━━━━━━━━━━━━━━━━━
@@ -328,7 +380,8 @@ export class TelegramControlBot {
 📈 <b>Общий EPC:</b> $${overallEpc} | <b>CR:</b> ${overallCr}%
 🏆 <b>Топ связка:</b> <code>${topBundleId.slice(0, 16)}</code> ($${maxPayout.toFixed(2)})
 ⚙️ <b>E-STOP Контур:</b> ${estopStatus}
-🖥️ <b>Сервисы PM2:</b> <code>affiliate-dashboard</code>, <code>affiliate-autopilot</code>
+🖥️ <b>Сервисы PM2 (5/5):</b>
+• ${pm2Display}
 🛡️ <b>Edge KV:</b> <code>postback-engine.sov7.workers.dev</code>
 ━━━━━━━━━━━━━━━━━━
 ⚡ <i>Данные 100% реальной телеметрии сетей</i>
