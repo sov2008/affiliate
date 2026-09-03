@@ -6,6 +6,8 @@ import {
   GoldCatalogService,
   BundleArtifact,
 } from '../index.js';
+import { handlePostback } from '../../core/src/server/routes/postback.router.js';
+import { TelegramLeadRepository } from '../../core/src/db/tg-leads.repository.js';
 
 let passed = 0;
 let failed = 0;
@@ -213,6 +215,49 @@ async function runPostbackSpec() {
     bundleAfterRej.financials?.conversions === 2,
     'Conversions not incremented for rejected postback'
   );
+
+  // --- [TEST 7] NanoID Click-ID Attribution Bridge ---
+  console.log('\n--- [TEST 7] NanoID Click-ID Attribution Bridge ---');
+  const leadRepo = TelegramLeadRepository.getInstance();
+  const testChatId = '555444333';
+  const testClickId = 'clk_abc123xyz';
+
+  // Seed a quiz completed lead
+  leadRepo.saveLead({
+    chat_id: testChatId,
+    username: 'attribution_tester',
+    status: 'QUIZ_COMPLETED',
+    selected_offer: 'mylead',
+  });
+
+  // Save click attribution
+  leadRepo.saveClickAttribution(testClickId, testChatId, 'mylead');
+
+  // Simulate postback with click_id as sub1
+  let responseData: any = null;
+  const mockReq: any = {
+    path: '/api/postback',
+    method: 'GET',
+    query: {
+      sub1: testClickId,
+      payout: '32.50',
+      status: 'sale',
+    },
+    body: {},
+  };
+  const mockRes: any = {
+    status: (code: number) => ({
+      json: (data: any) => {
+        responseData = data;
+      },
+    }),
+  };
+
+  await handlePostback(mockReq, mockRes);
+  assert(responseData !== null && responseData.success === true, 'handlePostback returned 200 success for NanoID click');
+
+  const convertedLead = leadRepo.getLead(testChatId);
+  assert(convertedLead?.status === 'CONVERTED', 'Lead status upgraded to CONVERTED via click attribution');
 
   console.log('\n================================================================');
   console.log(`📊 POSTBACK SPEC RESULTS: ${passed} PASSED, ${failed} FAILED`);

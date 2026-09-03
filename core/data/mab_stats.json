@@ -1,0 +1,20 @@
+{
+  "lospollos": {
+    "offerId": "lospollos",
+    "network": "lospollos",
+    "impressions": 1,
+    "conversions": 1,
+    "revenue": 15.5,
+    "epc": 15.5,
+    "lastUpdated": 1788410307846
+  },
+  "mylead": {
+    "offerId": "mylead",
+    "network": "mylead",
+    "impressions": 0,
+    "conversions": 0,
+    "revenue": 0,
+    "epc": 0,
+    "lastUpdated": 1788410306778
+  }
+}

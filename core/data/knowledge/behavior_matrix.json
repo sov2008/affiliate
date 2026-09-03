@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "vertical": "dating",
+  "angles": {
+    "elo_trap": {
+      "name": "ELO Rating Trap & Paywall Throttling",
+      "hook": "Why mainstream apps deliberately throttle your visibility once you hit the free engagement ceiling.",
+      "psychological_trigger": "Vindication against paywalled algorithmic traps.",
+      "open_loop": "The moment you stop swiping like an infinite slot machine, the matching dynamic flips completely.",
+      "barnum_effect_formula": "If you've noticed that matches drop off sharply after the first week of creating an account, you're not imagining it—that's standard ELO decay designed to trigger subscription sales.",
+      "resolution_bridge": "Switching to direct verified activity pools cuts out the artificial ELO barrier entirely."
+    },
+    "ghosting_epidemic": {
+      "name": "Ghosting & Zombie-Profiles Epidemic",
+      "hook": "Why infinite swipe queues turn genuine conversations into abandoned dead ends.",
+      "psychological_trigger": "Validation of conversational burnout and pen pal fatigue.",
+      "open_loop": "Response rates jump by 400% when you remove the unread pen pal queue format.",
+      "barnum_effect_formula": "You probably have a graveyard of 20+ matches where you had great banter for two days, and then complete radio silence out of nowhere.",
+      "resolution_bridge": "Platforms organized around mutual verified intent filter out idle window-shoppers from day one."
+    },
+    "algorithmic_exhaustion": {
+      "name": "Algorithmic Dating Burnout",
+      "hook": "The SaaS business model of dating apps mathematically requires you to stay single to keep paying subscriptions.",
+      "psychological_trigger": "Anti-monopoly consumer awakening and desire for sovereignty.",
+      "open_loop": "Direct intent filters solve in 3 minutes what swipe apps fail to deliver in 3 months.",
+      "barnum_effect_formula": "You are constantly shown profiles just outside your preferred age and location radius so you are tempted to buy premium filters.",
+      "resolution_bridge": "Direct matching hubs prioritize local proximity and confirmed availability without artificial paywalls."
+    }
+  }
+}

@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Affiliate Ops // High-Density Engineering Console</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -122,6 +125,9 @@
       <span style="color: var(--dim);">NODE: <strong style="color: var(--blue);">178.128.199.28:5000</strong></span>
       <span style="color: var(--dim);">|</span>
       <span class="badge badge-ok">DAEMONS: 5/5 ONLINE</span>
+      <span id="sseStatusBadge" class="badge badge-dim">SSE: CONNECTING...</span>
+      <span id="botShieldBadge" class="badge badge-ok">SHIELD: ACTIVE</span>
+      <span id="creditsBadge" class="badge badge-ok">LLM: HEALTHY</span>
     </div>
 
     <!-- Metrics Strip -->
@@ -145,7 +151,7 @@
   <!-- ======================================================== -->
   <main class="grid-2">
     
-    <!-- LEFT COLUMN: QUEUE & MAB MATRIX -->
+    <!-- LEFT COLUMN: QUEUE, MAB MATRIX, BOT SHIELD, ACCOUNT TRUST -->
     <div style="display: flex; flex-direction: column; gap: 8px;">
       
       <!-- SQLite Content Queue -->
@@ -154,7 +160,7 @@
           <strong style="color: var(--text);">SQLITE CONTENT QUEUE (content_queue_v2)</strong>
           <span id="queueCount" style="color: var(--dim);">0 items</span>
         </div>
-        <div class="table-wrap scroll" style="max-height: 190px;">
+        <div class="table-wrap scroll" style="max-height: 180px;">
           <table>
             <thead>
               <tr>
@@ -175,10 +181,10 @@
       <!-- Active Campaigns & MAB Matrix -->
       <section class="panel">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px;">
-          <strong style="color: var(--text);">CAMPAIGNS & MAB SPLIT MATRIX</strong>
+          <strong style="color: var(--text);">CAMPAIGNS &amp; MAB SPLIT MATRIX</strong>
           <span style="color: var(--dim);">Dynamic MAB Router</span>
         </div>
-        <div class="table-wrap scroll" style="max-height: 170px;">
+        <div class="table-wrap scroll" style="max-height: 140px;">
           <table>
             <thead>
               <tr>
@@ -220,9 +226,9 @@
       <section class="panel">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px;">
           <strong style="color: var(--text);">OFFER SCOUTS INTELLIGENCE</strong>
-          <span style="color: var(--dim);">LosPollos & MyLead</span>
+          <span style="color: var(--dim);">LosPollos &amp; MyLead</span>
         </div>
-        <div class="table-wrap scroll" style="max-height: 140px;">
+        <div class="table-wrap scroll" style="max-height: 120px;">
           <table>
             <thead>
               <tr>
@@ -253,16 +259,107 @@
         </div>
       </section>
 
+      <!-- Bot Shield & Anti-Fraud Inspection Panel -->
+      <section class="panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <strong style="color: var(--text);">BOT SHIELD &amp; CLOAKING ENGINE (/api/test/bot-shield)</strong>
+            <span class="badge badge-ok">CPA.RIP HEURISTICS</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 4px;">
+            <span id="shieldRoutingState" class="badge badge-ok">ROUTE: READY</span>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;">
+          <!-- Presets -->
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px;">
+            <span style="color: var(--dim); font-size: 10px;">PRESETS:</span>
+            <button onclick="runBotShieldTest('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)', '66.249.66.1')" class="btn" style="padding: 1px 5px; font-size: 10px;">Googlebot</button>
+            <button onclick="runBotShieldTest('facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)', '31.13.115.1')" class="btn" style="padding: 1px 5px; font-size: 10px;">Facebook Crawler</button>
+            <button onclick="runBotShieldTest('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', '185.190.140.25')" class="btn btn-green" style="padding: 1px 5px; font-size: 10px;">Real Human (Chrome)</button>
+            <button onclick="runBotShieldTest('python-requests/2.31.0', '54.239.28.85', 'AMAZON')" class="btn btn-red" style="padding: 1px 5px; font-size: 10px;">AWS Datacenter Bot</button>
+          </div>
+
+          <!-- Custom Test Inputs -->
+          <div style="display: grid; grid-template-columns: 2fr 1fr auto; gap: 4px;">
+            <input id="shieldInputUa" placeholder="User-Agent string..." value="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" style="font-size: 10px;">
+            <input id="shieldInputIp" placeholder="IP / ASN..." value="66.249.66.1" style="font-size: 10px;">
+            <button onclick="submitCustomBotShieldTest()" class="btn btn-blue" style="padding: 2px 8px; font-size: 10px; font-weight: 700;">PROBE</button>
+          </div>
+
+          <!-- Results Card -->
+          <div id="shieldResultBox" style="background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 6px; font-size: 10px; display: flex; flex-direction: column; gap: 3px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>TARGET ROUTE: <strong id="shieldResultRoute" style="color: var(--amber);">[CLICK PROBE TO EVALUATE]</strong></div>
+              <div>CONFIDENCE: <strong id="shieldResultConfidence" style="color: var(--dim);">--%</strong></div>
+            </div>
+            <div style="color: var(--dim);" id="shieldResultReason">Heuristic match: None. Waiting for test execution...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Account Trust & Anti-Fraud Hygiene Matrix -->
+      <section class="panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px;">
+          <strong style="color: var(--text);">ACCOUNT TRUST &amp; OPERATIONAL LIMITS</strong>
+          <span style="color: var(--dim);">Fingerprint Hygiene &amp; Isolation</span>
+        </div>
+        <div class="table-wrap scroll" style="max-height: 120px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Phase</th>
+                <th>Warmup Rule</th>
+                <th>Daily Limit</th>
+                <th>Fingerprint Policy</th>
+                <th style="text-align: right;">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color: var(--blue); font-weight: 700;">1. COLD_SEED</td>
+                <td>Age &lt; 7d / Karma &lt; 15</td>
+                <td>0 links / 24h</td>
+                <td>Dedicated StorageState</td>
+                <td style="text-align: right;"><span class="badge badge-dim">SEEDING</span></td>
+              </tr>
+              <tr>
+                <td style="color: var(--purple); font-weight: 700;">2. WARMUP_ORGANIC</td>
+                <td>Upvotes &ge; 15 / Zero links</td>
+                <td>0 links / 24h</td>
+                <td>WebRTC Spoofed + Canvas</td>
+                <td style="text-align: right;"><span class="badge badge-ok">ACTIVE</span></td>
+              </tr>
+              <tr>
+                <td style="color: var(--green-text); font-weight: 700;">3. ESTABLISHED_POSTER</td>
+                <td>Age &gt; 7d / Passed Warmup</td>
+                <td>Max 2 links / 24h</td>
+                <td>Strict Proxy Match</td>
+                <td style="text-align: right;"><span class="badge badge-ok">QUALIFIED</span></td>
+              </tr>
+              <tr>
+                <td style="color: var(--red); font-weight: 700;">4. COOLDOWN_QUARANTINE</td>
+                <td>Shadowban / Spike detected</td>
+                <td>HALTED (E-STOP)</td>
+                <td>Profile Refresh Required</td>
+                <td style="text-align: right;"><span class="badge badge-dim">STANDBY</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
     </div>
 
-    <!-- RIGHT COLUMN: UNIFIED LOG TERMINAL & FUNNEL -->
+    <!-- RIGHT COLUMN: UNIFIED LOG TERMINAL, AI CREDITS, FUNNEL -->
     <div style="display: flex; flex-direction: column; gap: 8px;">
       
-      <!-- Unified Raw Stream Console (Fixed 300px) -->
+      <!-- Unified Raw Stream Console (Fixed 280px) -->
       <section class="panel" style="display: flex; flex-direction: column; gap: 4px;">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px;">
           <div style="display: flex; align-items: center; gap: 6px;">
-            <strong style="color: var(--text);">LIVE LOG STREAM</strong>
+            <strong style="color: var(--text);">LIVE LOG &amp; TELEMETRY STREAM</strong>
             <span id="logCountBadge" class="badge badge-dim">0 / 100 LINES</span>
           </div>
           <div style="display: flex; align-items: center; gap: 4px;">
@@ -272,8 +369,41 @@
           </div>
         </div>
 
-        <div id="logBox" class="scroll" style="height: 300px; background: #080c10; border: 1px solid var(--border); padding: 6px; overflow-y: auto; font-size: 10px; line-height: 1.35; user-select: text;">
-          <div style="color: var(--dim); text-align: center; padding: 20px;">Ожидание потока событий SSE (/api/stream/events)...</div>
+        <div id="logBox" class="scroll" style="height: 280px; background: #080c10; border: 1px solid var(--border); padding: 6px; overflow-y: auto; font-size: 10px; line-height: 1.35; user-select: text;">
+          <div style="color: var(--dim); text-align: center; padding: 20px;">Подключение к потоку SSE (/api/telemetry/stream)...</div>
+        </div>
+      </section>
+
+      <!-- AI Credits & Model Gateway Status (/api/credits/status) -->
+      <section class="panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <strong style="color: var(--text);">AI CREDITS &amp; MODEL GATEWAY (/api/credits/status)</strong>
+            <span id="creditsHealthTag" class="badge badge-ok">HEALTHY</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 4px;">
+            <span id="creditsActiveCount" style="color: var(--dim);">2/5 ACTIVE</span>
+            <button onclick="fetchCredits()" class="btn" style="padding: 1px 4px; font-size: 9px;">↻ SYNC</button>
+          </div>
+        </div>
+        <div class="table-wrap scroll" style="max-height: 150px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Provider</th>
+                <th>Primary Model</th>
+                <th>Daily Budget</th>
+                <th style="text-align: right;">Status</th>
+              </tr>
+            </thead>
+            <tbody id="creditsTbody">
+              <tr><td colspan="4" style="text-align: center; color: var(--dim); padding: 8px;">Опрос провайдеров (/api/credits/status)...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--border); font-size: 9px; color: var(--dim);">
+          <div>CLOUDFLARE: <span id="cfAccountStatus" style="color: var(--blue);">KV &amp; Edge Sync Ready</span></div>
+          <div>LAST SYNC: <span id="creditsLastSync">--:--:--</span></div>
         </div>
       </section>
 
@@ -317,6 +447,8 @@
       <button onclick="triggerAction('calibrate-prompts', '🧬 MAB Mutate')" class="btn btn-purple">MAB Mutate</button>
       <button onclick="openModal('modalScaffold')" class="btn btn-blue">Scaffold GEO</button>
       <button onclick="checkAllLinks()" class="btn btn-blue font-bold">🔗 Check All Links</button>
+      <button onclick="runBotShieldTest('Mozilla/5.0 (compatible; Googlebot/2.1)', '66.249.66.1')" class="btn btn-green">🛡️ Probe Shield</button>
+      <button onclick="fetchCredits()" class="btn btn-amber">⚡ Sync Credits</button>
     </div>
 
     <div style="display: flex; align-items: center; gap: 4px;">
@@ -417,7 +549,7 @@
 
         <!-- Stealth CTA & Outbound Link -->
         <div>
-          <span style="color: var(--dim); font-size: 10px; display: block;">3. STEALTH CTA & TRACKING ROUTE</span>
+          <span style="color: var(--dim); font-size: 10px; display: block;">3. STEALTH CTA &amp; TRACKING ROUTE</span>
           <div id="inspectCta" style="color: var(--green-text); font-weight: 600; padding: 4px 6px; background: var(--green-bg); border: 1px solid var(--green); border-radius: 2px; margin-bottom: 3px;"></div>
           <div style="display: flex; justify-content: space-between; align-items: center; gap: 6px;">
             <div id="inspectTracking" style="color: var(--blue); font-size: 10px; word-break: break-all; background: var(--bg); padding: 3px 6px; border: 1px solid var(--border); border-radius: 2px; flex: 1;"></div>
@@ -427,7 +559,7 @@
 
         <!-- Compliance & Anti-Spam Audit Details -->
         <div>
-          <span style="color: var(--dim); font-size: 10px; display: block;">4. COMPLIANCE & ANTI-SPAM AUDIT REASONING</span>
+          <span style="color: var(--dim); font-size: 10px; display: block;">4. COMPLIANCE &amp; ANTI-SPAM AUDIT REASONING</span>
           <div id="inspectCompliance" style="font-size: 10px; color: var(--dim); padding: 4px 6px; background: var(--bg); border: 1px solid var(--border); border-radius: 2px;"></div>
         </div>
 
@@ -442,7 +574,7 @@
       <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 6px; margin-top: 2px;">
         <span style="color: var(--dim); font-size: 10px;">Горячие клавиши: [A] - Одобрить, [R] - Отклонить, [Esc] - Закрыть</span>
         <div style="display: flex; gap: 4px;">
-          <button onclick="inspectAction('APPROVED')" id="btnInspectApprove" class="btn btn-green font-bold">✓ Approve & Queue (A)</button>
+          <button onclick="inspectAction('APPROVED')" id="btnInspectApprove" class="btn btn-green font-bold">✓ Approve &amp; Queue (A)</button>
           <button onclick="inspectAction('REJECTED')" id="btnInspectReject" class="btn btn-red font-bold">✕ Reject (R)</button>
           <button onclick="closeModal('modalInspect')" class="btn">Close</button>
         </div>
@@ -457,6 +589,7 @@
     let isAutoScroll = true;
     let isHalted = false;
     let activeInspectedId = null;
+    let activeInspectedItem = null;
 
     function appendLog(text) {
       const clean = text.replace(/\u001b\[[0-9;]*m/g, '');
@@ -501,7 +634,10 @@
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) {
       document.getElementById(id).style.display = 'none';
-      if (id === 'modalInspect') activeInspectedId = null;
+      if (id === 'modalInspect') {
+        activeInspectedId = null;
+        activeInspectedItem = null;
+      }
     }
 
     async function triggerAction(endpoint, label, body = {}) {
@@ -542,9 +678,6 @@
         }
       } catch {}
     }
-
-    let activeInspectedId = null;
-    let activeInspectedItem = null;
 
     async function inspectQueueItem(id) {
       activeInspectedId = id;
@@ -761,16 +894,122 @@
       } catch {}
     }
 
-    function refreshAll() {
-      fetchKpi();
-      fetchQueue();
+    // AI Credits Monitor (/api/credits/status)
+    async function fetchCredits() {
+      try {
+        const res = await fetch('/api/credits/status');
+        if (res.ok) {
+          const d = await res.json();
+          const tbody = document.getElementById('creditsTbody');
+          const providers = d.providers || [];
+          const active = d.summary?.activeProviders || 0;
+          const total = d.summary?.totalProviders || providers.length;
+          
+          const countEl = document.getElementById('creditsActiveCount');
+          if (countEl) countEl.innerText = `${active}/${total} ACTIVE`;
+          
+          const healthBadge = document.getElementById('creditsHealthTag');
+          const headerBadge = document.getElementById('creditsBadge');
+          const isHealthy = d.summary?.healthStatus === 'HEALTHY';
+          
+          if (healthBadge) {
+            healthBadge.className = isHealthy ? 'badge badge-ok' : 'badge badge-warn';
+            healthBadge.innerText = d.summary?.healthStatus || 'HEALTHY';
+          }
+          if (headerBadge) {
+            headerBadge.className = isHealthy ? 'badge badge-ok' : 'badge badge-warn';
+            headerBadge.innerText = `LLM: ${d.summary?.healthStatus || 'HEALTHY'}`;
+          }
+
+          const syncEl = document.getElementById('creditsLastSync');
+          if (syncEl) syncEl.innerText = new Date().toLocaleTimeString('ru-RU');
+
+          if (providers.length > 0 && tbody) {
+            tbody.innerHTML = providers.map(p => `
+              <tr>
+                <td style="font-weight: 700; color: ${p.configured ? 'var(--blue)' : 'var(--dim)'};">${p.name}</td>
+                <td style="color: var(--dim); font-size: 10px;">${p.model}</td>
+                <td style="color: var(--text);">${(p.dailyTokenBudget || 0).toLocaleString()} tok</td>
+                <td style="text-align: right;">
+                  <span class="badge ${p.configured ? 'badge-ok' : 'badge-dim'}">${p.configured ? 'ACTIVE' : 'OFFLINE'}</span>
+                </td>
+              </tr>
+            `).join('');
+          }
+        }
+      } catch (err) {
+        console.warn('Credits fetch error:', err);
+      }
     }
 
-    // SSE Setup
-    function initSse() {
+    // Bot Shield live evaluation (/api/test/bot-shield)
+    async function runBotShieldTest(ua, ip = '127.0.0.1', asn = '') {
+      document.getElementById('shieldInputUa').value = ua;
+      document.getElementById('shieldInputIp').value = ip;
+      submitCustomBotShieldTest(asn);
+    }
+
+    async function submitCustomBotShieldTest(customAsn = '') {
+      const ua = document.getElementById('shieldInputUa').value;
+      const ip = document.getElementById('shieldInputIp').value;
+      const routeEl = document.getElementById('shieldResultRoute');
+      const confEl = document.getElementById('shieldResultConfidence');
+      const reasonEl = document.getElementById('shieldResultReason');
+      const stateBadge = document.getElementById('shieldRoutingState');
+
+      routeEl.innerText = 'PROBING...';
+      routeEl.style.color = 'var(--blue)';
+
       try {
-        const es = new EventSource('/api/stream/events');
-        es.addEventListener('connected', () => appendLog('[SSE] Connected to event stream.'));
+        const url = `/api/test/bot-shield?ua=${encodeURIComponent(ua)}&ip=${encodeURIComponent(ip)}${customAsn ? `&asn=${encodeURIComponent(customAsn)}` : ''}`;
+        const res = await fetch(url);
+        if (res.ok) {
+          const d = await res.json();
+          const isWhite = d.routing === 'WHITE' || d.analysis?.isBot;
+          const routeText = isWhite ? 'WHITE_PAGE (CRAWLER / BOT DETECTED)' : 'BLACK_PAGE (LEGITIMATE USER -> OFFER)';
+          
+          routeEl.innerText = routeText;
+          routeEl.style.color = isWhite ? 'var(--amber)' : 'var(--green-text)';
+          confEl.innerText = `${d.analysis?.confidence || 0}%`;
+          
+          if (stateBadge) {
+            stateBadge.className = isWhite ? 'badge badge-warn' : 'badge badge-ok';
+            stateBadge.innerText = `ROUTE: ${d.routing || 'EVALUATED'}`;
+          }
+
+          const reasons = d.analysis?.reasons || [];
+          const recs = d.analysis?.recommendations || [];
+          reasonEl.innerText = reasons.length > 0
+            ? `Detected: ${reasons.join(', ')} | Action: ${recs.join(', ')}`
+            : `Clean signature. Headers Legitimate. Proceeding to offer stream.`;
+
+          appendLog(`[BOT SHIELD] Tested UA: "${ua.slice(0, 32)}..." -> ROUTED: ${d.routing} (${d.analysis?.confidence}% conf)`);
+        }
+      } catch (err) {
+        routeEl.innerText = 'ERROR';
+        routeEl.style.color = 'var(--red)';
+        reasonEl.innerText = `Probe failed: ${err.message}`;
+      }
+    }
+
+    // SSE Telemetry Stream (/api/telemetry/stream)
+    function initSse() {
+      const sseBadge = document.getElementById('sseStatusBadge');
+      try {
+        const es = new EventSource('/api/telemetry/stream');
+        es.addEventListener('connected', () => {
+          appendLog('[SSE] Connected to /api/telemetry/stream.');
+          if (sseBadge) {
+            sseBadge.className = 'badge badge-ok';
+            sseBadge.innerText = 'SSE: STREAMING';
+          }
+        });
+        es.addEventListener('heartbeat', () => {
+          if (sseBadge) {
+            sseBadge.className = 'badge badge-ok';
+            sseBadge.innerText = 'SSE: LIVE';
+          }
+        });
         es.addEventListener('kpi_update', e => {
           try {
             const d = JSON.parse(e.data);
@@ -789,10 +1028,23 @@
             appendLog(String(e.data));
           }
         });
-        es.onerror = () => { es.close(); setTimeout(initSse, 5000); };
+        es.onerror = () => {
+          if (sseBadge) {
+            sseBadge.className = 'badge badge-warn';
+            sseBadge.innerText = 'SSE: RECONNECTING';
+          }
+          es.close();
+          setTimeout(initSse, 5000);
+        };
       } catch {
         appendLog('[SSE] EventSource init failed, relying on polling.');
       }
+    }
+
+    function refreshAll() {
+      fetchKpi();
+      fetchQueue();
+      fetchCredits();
     }
 
     // Keyboard Shortcuts
@@ -811,12 +1063,14 @@
           inspectAction('REJECTED');
         }
       }
-    });
+    } );
 
-    // Init
+    // Init on DOM ready
     window.addEventListener('DOMContentLoaded', () => {
       refreshAll();
       initSse();
+      // Initial probe on load
+      runBotShieldTest('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)', '66.249.66.1');
       setInterval(refreshAll, 30000);
     });
   </script>

@@ -1,0 +1,35 @@
+{
+  "version": "1.0.0",
+  "name": "Zero-Domain Telegram Quiz Converter",
+  "quiz_schema": {
+    "step_1": {
+      "step_index": 1,
+      "question": "What age range are you looking for?",
+      "options": ["18-25", "26-35", "36+"],
+      "callback_prefix": "quiz_age:"
+    },
+    "step_2": {
+      "step_index": 2,
+      "question": "Target connection type?",
+      "options": ["Casual", "Serious", "Any"],
+      "callback_prefix": "quiz_type:"
+    },
+    "step_3": {
+      "step_index": 3,
+      "action": "SAVE_LEAD_SQLITE",
+      "target_table": "tg_leads",
+      "assigned_status": "QUIZ_COMPLETED"
+    },
+    "final_step": {
+      "action": "GENERATE_PERSONALIZED_SMARTLINK",
+      "macro_mapping": "${LOSPOLLOS_SMARTLINK_URL}&s1=tg_${chatId}",
+      "cta_button_text": "🔥 View Matches Now 👉"
+    }
+  },
+  "message_match_rules": {
+    "dating": "👋 Welcome! Looking for genuine matches without algorithmic paywalls? Let's dial in your preferences:",
+    "Tinder": "👋 Welcome! Tired of inactive zombie profiles? Let's find real active singles near you:",
+    "dating_advice": "👋 Welcome! Skip the endless swiping and connect directly with verified singles in your area:",
+    "default": "👋 Welcome! Let's find your perfect local match. Please answer a couple of quick questions:"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-09-03",
+  "universal_rules": {
+    "zero_external_urls": true,
+    "min_word_count": 45,
+    "max_word_count": 130,
+    "enforce_profile_bridge": true
+  },
+  "platforms": {
+    "reddit": {
+      "native_slang": [
+        "tbh",
+        "ngl",
+        "imo",
+        "fwiw",
+        "lowkey",
+        "sanity check",
+        "elo-hell",
+        "dating app fatigue",
+        "zombie profiles",
+        "pen pal",
+        "paywall boost",
+        "deadass"
+      ],
+      "banned_commercial_triggers": [
+        "click here",
+        "link in bio",
+        "check out my",
+        "promo code",
+        "discount",
+        "free trial",
+        "guaranteed match",
+        "secret formula",
+        "dm me for link",
+        "sign up here",
+        "download now",
+        "exclusive offer",
+        "affiliate link",
+        "100% free hookup",
+        "buy subscription",
+        "visit website"
+      ],
+      "bridge_phrase_variations": [
+        "Documented the full breakdown and the filtering bot I use in my profile bio if anyone needs a sanity check.",
+        "Mapped out the exact difference between swipe apps and local intent pools—pinned the routing bot in my bio.",
+        "Put together a quick summary and the free quiz filter I use in my profile description. Save your energy.",
+        "I stopped feeding their paywalls and left the breakdown/bot link over in my profile if helpful."
+      ]
+    },
+    "quora": {
+      "native_slang": [
+        "algorithmic misalignment",
+        "ELO rating trap",
+        "monetization bottleneck",
+        "intent-filtered discovery",
+        "peer-to-peer matching",
+        "activity-based pools"
+      ],
+      "banned_commercial_triggers": [
+        "click this link",
+        "buy now",
+        "affiliate link",
+        "best website ever",
+        "download app here",
+        "sign up today",
+        "special discount"
+      ],
+      "bridge_phrase_variations": [
+        "For those interested in how these direct routing smartlinks work, I've linked the Telegram converter tool I use to filter local connections directly in my profile description.",
+        "I’ve documented the exact technical differences between these ecosystems, along with the automated Telegram matching assistant I personally run, in my Quora author bio."
+      ]
+    }
+  }
+}

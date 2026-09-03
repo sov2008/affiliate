@@ -220,6 +220,98 @@ async function runTelegramBotTestSuite() {
   // Check Gold Catalog (compliance score was 96 >= 90)
   assert(goldCatalog.getGoldSamplesCount() >= initialGoldCount, 'Bundle ingested into GoldCatalogService on approval');
 
+  // --- [TEST 7] Public Quiz Converter Flow ---
+  console.log('\n--- [TEST 7] Public Quiz Converter Flow ---');
+  const publicChatId = '777666555';
+  const publicMsg = {
+    message_id: 20,
+    chat: { id: Number(publicChatId), type: 'private' },
+    from: { id: Number(publicChatId), is_bot: false, first_name: 'QuizSeeker', username: 'dating_fan' },
+    date: Date.now(),
+    text: '/start',
+  };
+
+  const startResp = await bot.handleCommand(publicMsg);
+  assert(startResp.includes('Welcome!'), 'Public /start returns welcome quiz banner');
+  assert(startResp.includes('age range'), 'Public /start asks for age range');
+
+  // Step 1: User chooses age range 26-35
+  await bot.handleCallbackQuery({
+    id: 'quiz_cb_age',
+    from: { id: Number(publicChatId), first_name: 'QuizSeeker', username: 'dating_fan' },
+    message: {
+      message_id: 21,
+      chat: { id: Number(publicChatId), type: 'private' },
+      date: Date.now(),
+      text: 'What age range?',
+    },
+    data: 'quiz_age:26-35',
+  });
+
+  const { TelegramLeadRepository } = await import('../../core/src/db/tg-leads.repository.js');
+  const leadRepo = TelegramLeadRepository.getInstance();
+  const inProgressLead = leadRepo.getLead(publicChatId);
+  assert(inProgressLead !== null, 'Lead created in SQLite repository');
+  assert(inProgressLead?.age_range === '26-35', 'Age range 26-35 saved');
+  assert(inProgressLead?.status === 'QUIZ_IN_PROGRESS', 'Lead status is QUIZ_IN_PROGRESS');
+
+  // Step 2 -> Step 3: User chooses connection type: Casual
+  await bot.handleCallbackQuery({
+    id: 'quiz_cb_type',
+    from: { id: Number(publicChatId), first_name: 'QuizSeeker', username: 'dating_fan' },
+    message: {
+      message_id: 22,
+      chat: { id: Number(publicChatId), type: 'private' },
+      date: Date.now(),
+      text: 'Target connection type?',
+    },
+    data: 'quiz_type:Casual:26-35',
+  });
+
+  const completedLead = leadRepo.getLead(publicChatId);
+  assert(completedLead?.status === 'QUIZ_COMPLETED', 'Lead status upgraded to QUIZ_COMPLETED');
+  assert(completedLead?.connection_type === 'Casual', 'Connection type saved as Casual');
+  assert(
+    completedLead?.tracking_url !== undefined &&
+      (completedLead.tracking_url.includes('s1=') || completedLead.tracking_url.includes('sub1=')),
+    'Tracking URL includes secure click parameter (s1 or sub1)'
+  );
+  assert(
+    completedLead?.tracking_url?.includes(`tg_${publicChatId}`) === false,
+    'Zero-PII: Raw Telegram chatId is not leaked in tracking URL'
+  );
+
+  // --- [TEST 8] Postback Route Integration & Conversion Status Update ---
+  console.log('\n--- [TEST 8] Postback Route Integration & Conversion Status Update ---');
+  const { handlePostback, sendConversionNotification } = await import('../../core/src/server/routes/postback.router.js');
+
+  const mockPostbackReq = {
+    path: '/api/postback',
+    method: 'GET',
+    query: {
+      payout: '15.50',
+      s1: `tg_${publicChatId}`,
+      status: 'sale',
+    },
+    body: {},
+  } as any;
+
+  let postbackResJson: any = null;
+  const mockPostbackRes = {
+    status: () => ({
+      json: (data: any) => { postbackResJson = data; return data; },
+    }),
+  } as any;
+
+  await handlePostback(mockPostbackReq, mockPostbackRes);
+  assert(postbackResJson?.success === true, 'handlePostback returned success: true for /api/postback');
+
+  const convertedLead = leadRepo.getLead(publicChatId);
+  assert(convertedLead?.status === 'CONVERTED', 'Lead status updated to CONVERTED upon postback arrival');
+
+  const notificationSent = await sendConversionNotification(15.50, `tg_${publicChatId}`);
+  assert(notificationSent === true, 'Conversion notification successfully generated and dispatched');
+
   // Clean test sandbox
   try {
     fs.rmSync(testDir, { recursive: true, force: true });

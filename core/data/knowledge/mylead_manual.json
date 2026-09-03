@@ -1,0 +1,69 @@
+{
+  "version": "1.0.0",
+  "network": "mylead",
+  "subIdMapping": {
+    "sub1": "source_or_platform",
+    "sub2": "geo_or_audience_segment",
+    "sub3": "creative_variant",
+    "sub4": "placement_or_campaign_group",
+    "sub5": "publisher_or_worker_id"
+  },
+  "postback": {
+    "method": "POST",
+    "endpoint": "/postback/mylead",
+    "requiredFields": [
+      "event_name",
+      "campaign_id",
+      "subscriber_id",
+      "payout",
+      "currency",
+      "source_subid",
+      "timestamp"
+    ],
+    "payloadExample": {
+      "event_name": "lead_approved",
+      "campaign_id": "cmp_trading_au",
+      "subscriber_id": "user_123",
+      "payout": "58.00",
+      "currency": "USD",
+      "source_subid": "sub1=reddit|sub2=au|sub3=finance_review",
+      "timestamp": "2026-09-02T12:00:00Z"
+    },
+    "verification": [
+      "Validate payout and campaign match before accepting the conversion.",
+      "Check the source_subid chain to confirm sub1-sub5 attribution integrity.",
+      "Reject events with missing or malformed webhook data."
+    ]
+  },
+  "compliance": [
+    {
+      "level": "mandatory",
+      "rule": "Finance and crypto offers must include a clear risk warning before any recommendation or call-to-action.",
+      "category": "financial_risk"
+    },
+    {
+      "level": "mandatory",
+      "rule": "Review-based offers must include a visible FTC disclosure or equivalent clear disclosure statement in the page copy.",
+      "category": "review_disclosure"
+    },
+    {
+      "level": "mandatory",
+      "rule": "SubID values must be generated consistently and remain traceable to the exact campaign and traffic source.",
+      "category": "attribution"
+    }
+  ],
+  "funnel": {
+    "name": "finance review pre-lander",
+    "steps": [
+      "Step 1: editorial hook that frames the comparison, trend, or review angle.",
+      "Step 2: short proof block with transparent risk language and a qualifying prompt.",
+      "Step 3: CTA to a review or comparison page with required disclosure and risk notice."
+    ],
+    "objective": "Establish trust and parity with an editorial review while preserving compliance and attribution traceability.",
+    "notes": [
+      "Use risk warnings for finance or crypto offers without making aggressive claims.",
+      "Disclose that the content is educational, comparative, or review-led where applicable.",
+      "Do not hide burden, risk, or qualification context behind the CTA."
+    ]
+  }
+}

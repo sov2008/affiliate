@@ -5,9 +5,11 @@ import { BundleArtifact, Platform } from '../types/pipeline.js';
 import { EmergencyStopController } from '../types/pipeline.js';
 import { LlmGatewayService } from './llm-gateway.service.js';
 import { ContentQueueRepository } from '../db/queueRepository.js';
+import { TelegramLeadRepository } from '../db/tg-leads.repository.js';
 import { FinancialTelemetryMatcher } from '../server/telemetry-matcher.js';
 import { GoldCatalogService } from './gold-catalog.service.js';
 import { MabEngineService } from './mab-engine.service.js';
+import { OfferRoutingService } from './offer-routing.service.js';
 
 dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
@@ -52,15 +54,17 @@ export class TelegramControlBot {
   private static instance: TelegramControlBot | null = null;
   private botToken: string;
   private defaultChatId: string;
+  private adminChatId: string;
   private allowedUserIds: Set<string> = new Set();
   private isPolling: boolean = false;
   private pollingAbortController: AbortController | null = null;
   private lastUpdateId: number = 0;
   private runsDir: string;
 
-  private constructor(options: { botToken?: string; defaultChatId?: string; allowedUserIds?: string[]; runsDir?: string } = {}) {
+  private constructor(options: { botToken?: string; defaultChatId?: string; adminChatId?: string; allowedUserIds?: string[]; runsDir?: string } = {}) {
     this.botToken = options.botToken || process.env.TELEGRAM_BOT_TOKEN || '';
     this.defaultChatId = options.defaultChatId || process.env.TELEGRAM_CHAT_ID || '';
+    this.adminChatId = options.adminChatId || process.env.ADMIN_CHAT_ID || this.defaultChatId;
     this.runsDir = options.runsDir || path.resolve(process.cwd(), 'runs');
 
     const rawAllowed = options.allowedUserIds || (process.env.TELEGRAM_ALLOWED_USER_IDS || '').split(',').map((s) => s.trim()).filter(Boolean);
@@ -68,13 +72,16 @@ export class TelegramControlBot {
       this.allowedUserIds.add(String(uid).toLowerCase());
     }
 
-    // Also whitelist defaultChatId if provided
+    // Also whitelist defaultChatId and adminChatId if provided
     if (this.defaultChatId) {
       this.allowedUserIds.add(String(this.defaultChatId).toLowerCase());
     }
+    if (this.adminChatId) {
+      this.allowedUserIds.add(String(this.adminChatId).toLowerCase());
+    }
   }
 
-  public static getInstance(options?: { botToken?: string; defaultChatId?: string; allowedUserIds?: string[]; runsDir?: string }): TelegramControlBot {
+  public static getInstance(options?: { botToken?: string; defaultChatId?: string; adminChatId?: string; allowedUserIds?: string[]; runsDir?: string }): TelegramControlBot {
     if (!this.instance) {
       this.instance = new TelegramControlBot(options);
     }
@@ -101,6 +108,9 @@ export class TelegramControlBot {
       if (this.defaultChatId && String(userId) === String(this.defaultChatId)) {
         return true;
       }
+      if (this.adminChatId && String(userId) === String(this.adminChatId)) {
+        return true;
+      }
       // If completely unconfigured whitelist, open for development
       return true;
     }
@@ -114,6 +124,50 @@ export class TelegramControlBot {
     }
 
     return false;
+  }
+
+  /**
+   * Checks if user matches ADMIN_CHAT_ID or authorized operator list
+   */
+  public isAdmin(userId?: string | number, username?: string): boolean {
+    if (this.adminChatId && userId && String(userId).toLowerCase() === String(this.adminChatId).toLowerCase()) {
+      return true;
+    }
+    return this.isAuthorized(userId, username);
+  }
+
+  public getAdminChatId(): string {
+    return this.adminChatId || this.defaultChatId || '';
+  }
+
+  /**
+   * Builds personalized LosPollos Smartlink tracking URL: ${LOSPOLLOS_URL}&s1=tg_${chatId}
+   */
+  public getPersonalizedLosPollosUrl(chatId: string | number): string {
+    const baseUrl =
+      process.env.LOSPOLLOS_SMARTLINK_URL ||
+      process.env.LOSPOLLOS_URL ||
+      'https://trk.lospollos.com/smartlink/dating?aff=sov208';
+    const sep = baseUrl.includes('?') ? '&' : '?';
+    return `${baseUrl}${sep}s1=tg_${chatId}`;
+  }
+
+  /**
+   * Step 1: Send greeting + Inline buttons: "What age range are you looking for?" [18-25] [26-35] [36+]
+   */
+  public async sendPublicQuizStep1(chatId: string | number, firstName?: string): Promise<boolean> {
+    const greeting = firstName ? `👋 Welcome, ${firstName}!` : '👋 Welcome!';
+    const text = `${greeting} Let's find your perfect local match.\n\n<b>What age range are you looking for?</b>`;
+    const keyboard = {
+      inline_keyboard: [
+        [
+          { text: '18-25', callback_data: 'quiz_age:18-25' },
+          { text: '26-35', callback_data: 'quiz_age:26-35' },
+          { text: '36+', callback_data: 'quiz_age:36+' },
+        ],
+      ],
+    };
+    return this.sendMessage(chatId, text, { reply_markup: keyboard });
   }
 
   /**
@@ -217,17 +271,22 @@ export class TelegramControlBot {
     const text = (message.text || '').trim();
     const fromId = message.from?.id || message.chat.id;
     const username = message.from?.username;
-
-    if (!this.isAuthorized(fromId, username)) {
-      console.warn(`[TelegramControlBot] Unauthorized access attempt from User ID: ${fromId} (@${username || 'anon'})`);
-      return `⛔ <b>ДОСТУП ЗАПРЕЩЕН // ACCESS DENIED</b>\n━━━━━━━━━━━━━━━━━━\nВаш Telegram ID <code>${fromId}</code> не авторизован для управления Affiliate Ops.`;
-    }
-
     const parts = text.split(/\s+/);
     const cmd = parts[0].toLowerCase().replace(/@.+$/, ''); // strip bot username if present
     const arg = parts[1];
 
-    console.log(`🤖 [TelegramControlBot] Executing command: ${cmd} (Arg: ${arg || 'none'}) from user: ${fromId}`);
+    // For public users on /start: trigger Step 1 of Public Quiz Converter
+    if (!this.isAdmin(fromId, username)) {
+      if (cmd === '/start' || cmd === 'start' || !text.startsWith('/')) {
+        await this.sendPublicQuizStep1(message.chat.id, message.from?.first_name);
+        return `👋 <b>Welcome! Let's find your perfect match.</b>\n\nWhat age range are you looking for? [18-25] [26-35] [36+]`;
+      }
+
+      console.warn(`[TelegramControlBot] Unauthorized access attempt from User ID: ${fromId} (@${username || 'anon'})`);
+      return `⛔ <b>ДОСТУП ЗАПРЕЩЕН // ACCESS DENIED</b>\n━━━━━━━━━━━━━━━━━━\nВаш Telegram ID <code>${fromId}</code> не авторизован для управления Affiliate Ops.`;
+    }
+
+    console.log(`🤖 [TelegramControlBot] Executing command: ${cmd} (Arg: ${arg || 'none'}) from admin: ${fromId}`);
 
     // --- 1. /status & /stats ---
     if (cmd === '/stats' || cmd === '/status' || cmd === 'stats' || cmd === 'status') {
@@ -466,14 +525,99 @@ ${bodyExcerpt}
     const data = query.data || '';
     const fromId = query.from.id;
     const username = query.from.username;
+    const firstName = query.from.first_name;
+    const chatId = query.message?.chat.id || fromId;
+    const messageId = query.message?.message_id;
 
-    if (!this.isAuthorized(fromId, username)) {
-      await this.answerCallbackQuery(query.id, '⛔ Доступ запрещен. Ваш аккаунт не авторизован.', true);
+    // --- Public Quiz Converter Actions ---
+    // Step 1 -> Step 2: User picked age range [18-25] [26-35] [36+]
+    if (data.startsWith('quiz_age:')) {
+      const ageRange = data.replace('quiz_age:', '');
+      const leadRepo = TelegramLeadRepository.getInstance();
+      leadRepo.saveLead({
+        chat_id: fromId,
+        username,
+        first_name: firstName,
+        age_range: ageRange,
+        status: 'QUIZ_IN_PROGRESS',
+      });
+
+      await this.answerCallbackQuery(query.id, 'Age preference selected');
+
+      // Step 2: "Target connection type?" [Casual] [Serious] [Any]
+      const step2Text = `❤️ <b>Target connection type?</b>\n\nSelected age: <b>${ageRange}</b>\nChoose what kind of relationship you are seeking:`;
+      const step2Keyboard = {
+        inline_keyboard: [
+          [
+            { text: 'Casual', callback_data: `quiz_type:Casual:${ageRange}` },
+            { text: 'Serious', callback_data: `quiz_type:Serious:${ageRange}` },
+            { text: 'Any', callback_data: `quiz_type:Any:${ageRange}` },
+          ],
+        ],
+      };
+
+      if (chatId && messageId) {
+        await this.editMessageText(chatId, messageId, step2Text, { reply_markup: step2Keyboard });
+      } else {
+        await this.sendMessage(chatId, step2Text, { reply_markup: step2Keyboard });
+      }
       return;
     }
 
-    const chatId = query.message?.chat.id;
-    const messageId = query.message?.message_id;
+    // Step 2 -> Step 3 & Final: User picked connection type
+    if (data.startsWith('quiz_type:')) {
+      const [, connType, ageRange] = data.split(':');
+      const routing = OfferRoutingService.getInstance().selectBestOffer(fromId, { ageRange, connType });
+      const trackingUrl = routing.url;
+
+      // Step 3: Save user to SQLite (core/data/tg_leads.db) with status QUIZ_COMPLETED
+      const leadRepo = TelegramLeadRepository.getInstance();
+      leadRepo.saveLead({
+        chat_id: fromId,
+        username,
+        first_name: firstName,
+        age_range: ageRange,
+        connection_type: connType,
+        status: 'QUIZ_COMPLETED',
+        tracking_url: trackingUrl,
+        selected_offer: routing.offerId,
+      });
+
+      await this.answerCallbackQuery(query.id, '🎉 Matches ready!');
+
+      // Final Step: Generate personalized LosPollos URL with tracking parameter: ${LOSPOLLOS_URL}&s1=tg_${msg.chat.id}
+      const finalText = `
+🎉 <b>MATCHES READY!</b>
+━━━━━━━━━━━━━━━━━━
+We found <b>15+ verified profiles</b> matching your preferences:
+• <b>Age range:</b> ${ageRange}
+• <b>Connection:</b> ${connType}
+• <b>Location:</b> Nearby / Verified Active
+
+👇 <b>Tap below to view matches and chat now:</b>
+      `.trim();
+
+      const finalKeyboard = {
+        inline_keyboard: [
+          [
+            { text: '🔥 View Matches Now 👉', url: trackingUrl },
+          ],
+        ],
+      };
+
+      if (chatId && messageId) {
+        await this.editMessageText(chatId, messageId, finalText, { reply_markup: finalKeyboard });
+      } else {
+        await this.sendMessage(chatId, finalText, { reply_markup: finalKeyboard });
+      }
+      return;
+    }
+
+    // Security check: Operator/Admin credentials required for pipeline control
+    if (!this.isAdmin(fromId, username)) {
+      await this.answerCallbackQuery(query.id, '⛔ Доступ запрещен. Ваш аккаунт не авторизован.', true);
+      return;
+    }
 
     // --- 1. Approve Action ---
     if (data.startsWith('approve_')) {
@@ -608,8 +752,19 @@ ${bodyExcerpt}
             this.lastUpdateId = Math.max(this.lastUpdateId, update.update_id);
 
             if (update.message && update.message.text) {
-              const responseText = await this.handleCommand(update.message);
-              await this.sendMessage(update.message.chat.id, responseText);
+              const fromId = update.message.from?.id || update.message.chat.id;
+              const username = update.message.from?.username;
+              const rawCmd = (update.message.text || '').trim().toLowerCase();
+              const isStart = rawCmd.startsWith('/start') || rawCmd === 'start';
+
+              if (!this.isAdmin(fromId, username) && isStart) {
+                await this.sendPublicQuizStep1(update.message.chat.id, update.message.from?.first_name);
+              } else {
+                const responseText = await this.handleCommand(update.message);
+                if (responseText) {
+                  await this.sendMessage(update.message.chat.id, responseText);
+                }
+              }
             } else if (update.callback_query) {
               await this.handleCallbackQuery(update.callback_query);
             }

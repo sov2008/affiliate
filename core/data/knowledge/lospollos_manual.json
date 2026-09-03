@@ -1,0 +1,63 @@
+{
+  "version": "1.0.0",
+  "network": "lospollos",
+  "trackingSyntax": {
+    "s1": "traffic_source",
+    "s2": "geo_or_segment",
+    "s3": "campaign_id_or_offer",
+    "s4": "creative_variant",
+    "s5": "publisher_or_operator"
+  },
+  "redirectRules": [
+    "Use a clean redirect chain that preserves the original source token and campaign context.",
+    "Do not insert arbitrary destination hops between landing page and final offer.",
+    "Ensure the final destination matches the approved offer path for the selected campaign.",
+    "Preserve s1-s5 values through the redirect to maintain attribution integrity."
+  ],
+  "trafficPolicy": {
+    "allowed": [
+      "native social traffic",
+      "contextual traffic",
+      "qualifying direct response traffic",
+      "approved creator placements"
+    ],
+    "banned": [
+      "bot traffic",
+      "non-human click generation",
+      "malware or redirect spam",
+      "misleading domain cloaking",
+      "expired or off-topic landing pages"
+    ]
+  },
+  "funnel": {
+    "name": "3-step micro-quiz",
+    "steps": [
+      "Step 1: attention hook with one clear pain point or curiosity trigger.",
+      "Step 2: short micro-quiz or opinion prompt that qualifies the visitor.",
+      "Step 3: match or recommendation with a clear CTA to the final offer."
+    ],
+    "objective": "Qualify interest before the offer while maintaining a fast, low-friction user journey.",
+    "notes": [
+      "Keep the pre-lander short and native to the audience.",
+      "Avoid heavy copy blocks or generic claims before the user answers the micro-quiz.",
+      "Use the quiz to anchor the CTA around a single outcome, not a broad promise."
+    ]
+  },
+  "compliance": [
+    {
+      "level": "mandatory",
+      "rule": "Only run traffic that is explicitly allowed under the current campaign source and geolocation.",
+      "category": "traffic_policy"
+    },
+    {
+      "level": "mandatory",
+      "rule": "Do not use deceptive redirect chains, cloaked destination URLs, or hidden final pages.",
+      "category": "redirect_policy"
+    },
+    {
+      "level": "mandatory",
+      "rule": "The final landing page must match the approved offer intent and not alter the objective of the tracked campaign.",
+      "category": "offer_integrity"
+    }
+  ]
+}

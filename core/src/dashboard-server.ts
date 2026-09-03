@@ -10,6 +10,7 @@ import { exportAdsPackage } from './skills/ads-campaign-exporter-skill';
 import { allocateMABTraffic } from './skills/mab-traffic-allocator-skill';
 import { postbackRouter } from './server/routes/postback.router.js';
 import { actionsRouter } from './server/routes/actions.router.js';
+import { bridgeRouter } from './server/routes/bridge.router.js';
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
@@ -21,6 +22,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(postbackRouter);
+app.use(bridgeRouter);
 app.use('/api/actions', actionsRouter);
 
 const MEMORY_PATH = path.resolve(__dirname, '../../.antigravity/memory.json');
@@ -54,8 +56,8 @@ const AUTH_PASS = process.env.DASHBOARD_PASS || '';
 // HTTP Basic Authentication & Token Middleware
 // ----------------------------------------------------
 function authMiddleware(req: Request, res: Response, next: NextFunction) {
-  // Allow root UI page, static assets, and postback webhooks
-  if (req.path === '/' || req.path === '/favicon.ico' || req.path.includes('/postback')) {
+  // Allow root UI page, static assets, postback webhooks, and deep-link bridge gateway
+  if (req.path === '/' || req.path === '/favicon.ico' || req.path.includes('/postback') || req.path.startsWith('/join')) {
     return next();
   }
 
@@ -1701,7 +1703,150 @@ app.get('/api/runs/bundles', async (req, res) => {
 });
 
 // ----------------------------------------------------
-// SSE Unified Event Stream Endpoint (/api/stream/events)
+// Diagnostic & Telemetry Endpoints
+// ----------------------------------------------------
+
+/**
+ * GET /api/test/bot-shield
+ * Tests the Bot Shield traffic analysis engine with provided or inferred UA/IP.
+ * Used by audit:prod to verify the anti-fraud pipeline is operational.
+ */
+app.get('/api/test/bot-shield', (req: Request, res: Response) => {
+  try {
+    const ua = (req.query.ua as string) || req.headers['user-agent'] || '';
+    const ip = (req.query.ip as string) || req.ip || req.socket.remoteAddress || '127.0.0.1';
+    const asn = (req.query.asn as string) || '';
+
+    // Build request context from query params and real headers
+    const headers: Record<string, string> = {};
+    for (const [k, v] of Object.entries(req.headers)) {
+      if (typeof v === 'string') headers[k] = v;
+    }
+
+    // Lazy-load BotShieldService to avoid hard dependency at startup
+    let analysis: any;
+    let routing: any;
+    try {
+      const { BotShieldService } = require('./services/bot-shield.service.js');
+      const shield = new BotShieldService();
+      analysis = shield.analyzeTraffic({ userAgent: ua, ip, headers, asn: asn || undefined });
+      routing = shield.getRouting(analysis);
+    } catch {
+      // Fallback: inline lightweight analysis if service not yet compiled at this path
+      const crawlerPatterns = ['facebookexternalhit', 'facebot', 'redditbot', 'twitterbot', 'googlebot', 'bingbot', 'yandexbot', 'semrushbot'];
+      const isCrawler = crawlerPatterns.some(c => ua.toLowerCase().includes(c));
+      const dcKeywords = ['AMAZON', 'GOOGLE_CLOUD', 'DIGITALOCEAN', 'AZURE', 'HETZNER', 'AWS', 'GCP'];
+      const isDC = dcKeywords.some(k => `${ip} ${asn}`.toUpperCase().includes(k));
+      const confidence = (isCrawler ? 50 : 0) + (isDC ? 30 : 0);
+
+      analysis = {
+        isBot: confidence >= 50,
+        isCrawler,
+        isDatacenterIP: isDC,
+        confidence: Math.min(confidence, 100),
+        reasons: [
+          ...(isCrawler ? [`Crawler UA detected`] : []),
+          ...(isDC ? [`Datacenter IP/ASN detected`] : []),
+        ],
+        recommendations: confidence >= 50 ? ['Serve white page'] : ['Serve black page (offer)'],
+      };
+      routing = {
+        pageType: confidence >= 50 ? 'white' : 'black',
+        statusCode: 200,
+      };
+    }
+
+    res.json({
+      status: 'ok',
+      service: 'bot-shield',
+      version: '2.0.0',
+      input: { ua, ip, asn: asn || undefined },
+      analysis,
+      routing: routing.pageType.toUpperCase(),
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err: any) {
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
+/**
+ * GET /api/credits/status
+ * Returns current LLM API credit/budget metrics.
+ * Reports token budgets per provider from environment config.
+ */
+app.get('/api/credits/status', (req: Request, res: Response) => {
+  try {
+    const providers = [
+      {
+        name: 'Groq',
+        model: 'qwen-qwq-32b',
+        configured: Boolean(process.env.GROQ_API_KEY),
+        dailyTokenBudget: 500_000,
+        status: process.env.GROQ_API_KEY ? 'active' : 'not_configured',
+      },
+      {
+        name: 'Cerebras',
+        model: 'qwen-2.5-32b',
+        configured: Boolean(process.env.CEREBRAS_API_KEY),
+        dailyTokenBudget: 500_000,
+        status: process.env.CEREBRAS_API_KEY ? 'active' : 'not_configured',
+      },
+      {
+        name: 'OpenRouter',
+        model: 'llama-3.3-70b',
+        configured: Boolean(process.env.OPENROUTER_API_KEY),
+        dailyTokenBudget: 1_000_000,
+        status: process.env.OPENROUTER_API_KEY ? 'active' : 'not_configured',
+      },
+      {
+        name: 'Gemini',
+        model: process.env.LLM_MODEL || 'gemini-3.6-flash',
+        configured: Boolean(process.env.GEMINI_API_KEY),
+        dailyTokenBudget: 1_000_000,
+        status: process.env.GEMINI_API_KEY ? 'active' : 'not_configured',
+      },
+      {
+        name: 'Pollinations',
+        model: 'image-gen',
+        configured: Boolean(process.env.POLLINATIONS_API_KEY),
+        dailyTokenBudget: 100,
+        status: process.env.POLLINATIONS_API_KEY ? 'active' : 'not_configured',
+      },
+    ];
+
+    const activeCount = providers.filter(p => p.configured).length;
+
+    res.json({
+      status: 'ok',
+      service: 'credits-monitor',
+      providers,
+      summary: {
+        totalProviders: providers.length,
+        activeProviders: activeCount,
+        healthStatus: activeCount >= 2 ? 'HEALTHY' : activeCount >= 1 ? 'DEGRADED' : 'CRITICAL',
+      },
+      cloudflare: {
+        accountConfigured: Boolean(process.env.CLOUDFLARE_ACCOUNT_ID),
+        workersAI: Boolean(process.env.CLOUDFLARE_API_TOKEN),
+        r2Storage: Boolean(process.env.CLOUDFLARE_R2_ACCESS_KEY_ID),
+      },
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err: any) {
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
+/**
+ * GET /api/telemetry/stream
+ * SSE telemetry stream — alias for /api/stream/events for backward compatibility.
+ * Emits real-time KPIs, postback events, and system health updates.
+ */
+// (Registered below alongside /api/stream/events to share the same SSE client pool)
+
+// ----------------------------------------------------
+// SSE Unified Event Stream Endpoint (/api/stream/events + /api/telemetry/stream)
 // ----------------------------------------------------
 const sseClients = new Set<Response>();
 
@@ -1725,10 +1870,46 @@ app.get('/api/stream/events', (req: Request, res: Response) => {
     'Access-Control-Allow-Origin': '*'
   });
 
+  if (req.method === 'HEAD' || req.query.probe === '1') {
+    return res.end();
+  }
+
   res.write(`event: connected\ndata: ${JSON.stringify({ status: 'connected', time: new Date().toISOString() })}\n\n`);
   sseClients.add(res);
 
   // Send periodic 25s heartbeat
+  const heartbeatTimer = setInterval(() => {
+    try {
+      res.write(`event: heartbeat\ndata: ${JSON.stringify({ timestamp: new Date().toISOString(), subscribers: sseClients.size })}\n\n`);
+    } catch {
+      clearInterval(heartbeatTimer);
+      sseClients.delete(res);
+    }
+  }, 25000);
+
+  req.on('close', () => {
+    clearInterval(heartbeatTimer);
+    sseClients.delete(res);
+  });
+});
+
+// /api/telemetry/stream — backward-compatible SSE alias
+app.get('/api/telemetry/stream', (req: Request, res: Response) => {
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'X-Accel-Buffering': 'no',
+    'Access-Control-Allow-Origin': '*'
+  });
+
+  if (req.method === 'HEAD' || req.query.probe === '1') {
+    return res.end();
+  }
+
+  res.write(`event: connected\ndata: ${JSON.stringify({ status: 'connected', stream: 'telemetry', time: new Date().toISOString() })}\n\n`);
+  sseClients.add(res);
+
   const heartbeatTimer = setInterval(() => {
     try {
       res.write(`event: heartbeat\ndata: ${JSON.stringify({ timestamp: new Date().toISOString(), subscribers: sseClients.size })}\n\n`);

@@ -1,0 +1,21 @@
+{
+  "network": "lospollos",
+  "verticals": ["dating", "casual", "lifestyle"],
+  "macro_syntax": {
+    "click_id": "s1",
+    "campaign_id": "s2",
+    "variant": "s3",
+    "geo": "s4",
+    "traffic_source": "s5"
+  },
+  "traffic_rules": {
+    "allowed": ["organic_social", "reddit", "quora", "ugc", "lifestyle_forums", "native_reviews"],
+    "prohibited": ["bot_traffic", "incent_spam", "misleading_physical_meetups", "forced_redirects"]
+  },
+  "funnel_blueprint": {
+    "type": "quiz_gate",
+    "steps": ["Age Verification (18+)", "Intent Matching", "Location Handshake"],
+    "conversion_trigger": "Curiosity gap, peer empathy, swipe fatigue solution"
+  },
+  "mandatory_disclaimers": ["18+ Community Guidelines", "Confidentiality Notice"]
+}

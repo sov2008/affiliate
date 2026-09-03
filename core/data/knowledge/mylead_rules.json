@@ -1,0 +1,21 @@
+{
+  "network": "mylead",
+  "verticals": ["finance", "crypto", "vpn", "software"],
+  "macro_syntax": {
+    "traffic_source": "sub1",
+    "campaign_id": "sub2",
+    "variant": "sub3",
+    "click_id": "sub4",
+    "geo": "sub5"
+  },
+  "traffic_rules": {
+    "allowed": ["organic_discussions", "case_studies", "editorial_reviews", "tutorials"],
+    "prohibited": ["brand_bidding", "guaranteed_profit_claims", "misleading_discounts", "incentivized_actions"]
+  },
+  "funnel_blueprint": {
+    "type": "native_review",
+    "steps": ["Real-world Problem Breakdown", "Transparent Comparison / Fees", "Direct Value Action"],
+    "conversion_trigger": "Skepticism reduction, risk management, fee transparency"
+  },
+  "mandatory_disclaimers": ["Capital at risk warning for trading/crypto", "Independent reviewer disclosure (FTC compliant)"]
+}

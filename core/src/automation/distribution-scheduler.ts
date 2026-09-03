@@ -69,6 +69,9 @@ export function getGaussianDelay(minMs: number, maxMs: number): number {
 export class DistributionScheduler {
   private static instance: DistributionScheduler | null = null;
   private timer: NodeJS.Timeout | null = null;
+  private redditScoutTimer: NodeJS.Timeout | null = null;
+  private dripRetentionTimer: NodeJS.Timeout | null = null;
+  private quoraScoutTimer: NodeJS.Timeout | null = null;
   private isRunning: boolean = false;
   private pollIntervalMs: number = 60000;
   private state: SchedulerState;
@@ -491,6 +494,48 @@ export class DistributionScheduler {
         console.error('[DistributionScheduler Cycle Error]', err);
       });
     }, this.pollIntervalMs);
+
+    // Initial Reddit Scout run (warmup 10s)
+    setTimeout(() => {
+      import('../workers/scout-reddit.worker.js')
+        .then(({ ScoutRedditWorker }) => ScoutRedditWorker.getInstance().runScoutCycle())
+        .catch((err) => console.error('[DistributionScheduler Scout Reddit Initial Error]', err));
+    }, 10000);
+
+    // Periodic Reddit Scout Watcher interval (every 15 minutes)
+    this.redditScoutTimer = setInterval(() => {
+      import('../workers/scout-reddit.worker.js')
+        .then(({ ScoutRedditWorker }) => ScoutRedditWorker.getInstance().runScoutCycle())
+        .catch((err) => console.error('[DistributionScheduler Scout Reddit Periodic Error]', err));
+    }, 15 * 60 * 1000);
+
+    // Initial Drip Retention run (warmup 15s)
+    setTimeout(() => {
+      import('../workers/drip-retention.worker.js')
+        .then(({ DripRetentionWorker }) => DripRetentionWorker.getInstance().runCycle())
+        .catch((err) => console.error('[DistributionScheduler Drip Retention Initial Error]', err));
+    }, 15000);
+
+    // Periodic Drip Retention interval (every 10 minutes)
+    this.dripRetentionTimer = setInterval(() => {
+      import('../workers/drip-retention.worker.js')
+        .then(({ DripRetentionWorker }) => DripRetentionWorker.getInstance().runCycle())
+        .catch((err) => console.error('[DistributionScheduler Drip Retention Periodic Error]', err));
+    }, 10 * 60 * 1000);
+
+    // Initial Quora Scout run (warmup 20s)
+    setTimeout(() => {
+      import('../workers/scout-quora.worker.js')
+        .then(({ ScoutQuoraWorker }) => ScoutQuoraWorker.getInstance().runCycle())
+        .catch((err) => console.error('[DistributionScheduler Quora Scout Initial Error]', err));
+    }, 20000);
+
+    // Periodic Quora Scout interval (every 30 minutes)
+    this.quoraScoutTimer = setInterval(() => {
+      import('../workers/scout-quora.worker.js')
+        .then(({ ScoutQuoraWorker }) => ScoutQuoraWorker.getInstance().runCycle())
+        .catch((err) => console.error('[DistributionScheduler Quora Scout Periodic Error]', err));
+    }, 30 * 60 * 1000);
   }
 
   /**
@@ -500,6 +545,18 @@ export class DistributionScheduler {
     if (this.timer) {
       clearInterval(this.timer);
       this.timer = null;
+    }
+    if (this.redditScoutTimer) {
+      clearInterval(this.redditScoutTimer);
+      this.redditScoutTimer = null;
+    }
+    if (this.dripRetentionTimer) {
+      clearInterval(this.dripRetentionTimer);
+      this.dripRetentionTimer = null;
+    }
+    if (this.quoraScoutTimer) {
+      clearInterval(this.quoraScoutTimer);
+      this.quoraScoutTimer = null;
     }
     this.isRunning = false;
     this.state.status = 'STOPPED';

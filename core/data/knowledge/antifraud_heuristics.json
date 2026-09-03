@@ -1,0 +1,26 @@
+{
+  "profile_hierarchy": {
+    "phases": ["COLD_SEED", "WARMUP_ORGANIC", "ESTABLISHED_POSTER", "COOLDOWN_QUARANTINE"],
+    "warmup_criteria": {
+      "min_upvotes_or_interactions": 15,
+      "min_age_days": 7,
+      "zero_links_rule_during_warmup": true
+    },
+    "operational_limits": {
+      "max_links_per_24h": 2,
+      "min_interval_between_posts_sec": 3600,
+      "max_consecutive_posts": 3
+    }
+  },
+  "fingerprint_hygiene": {
+    "strict_proxy_geo_match": true,
+    "webrtc_policy": "disable_or_spoof",
+    "canvas_noise": true,
+    "storage_isolation": "dedicated_storage_state_per_profile"
+  },
+  "bot_shielding": {
+    "datacenter_asn_blocklist": ["AMAZON", "GOOGLE_CLOUD", "DIGITALOCEAN", "MICROSOFT_AZURE", "HETZNER"],
+    "crawler_user_agents": ["facebookexternalhit", "Facebot", "RedditBot", "Twitterbot", "Googlebot"],
+    "action_on_crawler": "SERVE_WHITE_PAGE"
+  }
+}

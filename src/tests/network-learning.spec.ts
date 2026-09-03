@@ -3,6 +3,7 @@ import path from 'path';
 import { CopywriterAgent } from '../../core/src/agents/copy.agent.js';
 import { NetworkMemoryService } from '../../core/src/services/network-memory.service.js';
 import { RawContext } from '../../core/src/types/pipeline.js';
+import { CpaKnowledgeService } from '../services/cpa-knowledge.service.js';
 
 let passed = 0;
 let failed = 0;
@@ -24,6 +25,7 @@ async function runNetworkLearningSpec() {
 
   const copywriter = new CopywriterAgent();
   const memory = NetworkMemoryService.getInstance();
+  const knowledge = new CpaKnowledgeService(path.resolve(process.cwd(), 'core/data/knowledge'));
   const lospollosFile = path.resolve(process.cwd(), 'core/data/learning/lospollos_wins.json');
   const myleadFile = path.resolve(process.cwd(), 'core/data/learning/mylead_wins.json');
   const negativeFile = path.resolve(process.cwd(), 'core/data/learning/negative_patterns.json');
@@ -45,6 +47,7 @@ async function runNetworkLearningSpec() {
   console.log('\n--- [TEST A] LosPollos copy generation includes dating context and quiz CTA ---');
   const generated = await copywriter.execute(lospollosContext, 'dating-quiz-v1');
   const bodyText = `${generated.headline} ${generated.body} ${generated.callToAction}`.toLowerCase();
+  const lospollosRules = knowledge.getNetworkRules('lospollos');
   assert(
     bodyText.includes('dating') || bodyText.includes('swipe') || bodyText.includes('quiz') || bodyText.includes('compatibility'),
     'Generated LosPollos creative includes dating/swipe/quiz-specific language'
@@ -52,6 +55,14 @@ async function runNetworkLearningSpec() {
   assert(
     generated.callToAction.toLowerCase().includes('comments') || generated.callToAction.toLowerCase().includes('quiz') || generated.callToAction.toLowerCase().includes('happy to share'),
     'Generated CTA remains native and conversational for the target audience'
+  );
+  assert(
+    lospollosRules.funnel.name.toLowerCase().includes('quiz') && lospollosRules.trafficPolicy.banned.some((value) => value.toLowerCase().includes('bot')),
+    'LosPollos generated rules honor the stored quiz funnel and banned traffic policy from documentation'
+  );
+  assert(
+    !bodyText.includes('guaranteed') && !bodyText.includes('click here') && !bodyText.includes('free money'),
+    'LosPollos creative respects the network ban list and avoids prohibited promotional language'
   );
 
   // Test B
@@ -117,6 +128,7 @@ async function runNetworkLearningSpec() {
   };
 
   const myleadCreative = await copywriter.execute(myleadContext, 'finance-review-v1');
+  const myleadRules = knowledge.getNetworkRules('mylead');
   const myleadText = `${myleadCreative.headline} ${myleadCreative.body} ${myleadCreative.callToAction}`.toLowerCase();
   assert(
     myleadText.includes('fee') || myleadText.includes('risk') || myleadText.includes('compare') || myleadText.includes('review'),
@@ -125,6 +137,10 @@ async function runNetworkLearningSpec() {
   assert(
     myleadText.includes('disclaimer') || myleadText.includes('research') || myleadText.includes('not financial advice') || myleadText.includes('risk'),
     'MyLead creative keeps disclaimers and risk framing in the production copy'
+  );
+  assert(
+    (myleadRules.funnel.name.toLowerCase().includes('editorial') || myleadRules.funnel.name.toLowerCase().includes('case-study') || myleadRules.funnel.name.toLowerCase().includes('review')) && (myleadRules.compliance.some((directive) => directive.rule.toLowerCase().includes('risk')) || myleadRules.compliance.some((directive) => directive.rule.toLowerCase().includes('disclosure'))),
+    'MyLead generated rules respect the stored finance review funnel and mandatory disclosure/risk conditions'
   );
 
   // Test F
@@ -161,6 +177,18 @@ async function runNetworkLearningSpec() {
   assert(
     !myleadFewShot.includes('dating') || !lospollosFewShot.includes('finance'),
     'MyLead and LosPollos contexts remain isolated in the network memory prompt'
+  );
+
+  // Test H
+  console.log('\n--- [TEST H] CPA documentation enforcement: MyLead requires disclaimers and LosPollos follows quiz gate flow ---');
+  const lospollosQuizTrigger = generated.headline.toLowerCase().includes('quiz') || generated.body.toLowerCase().includes('quiz') || generated.callToAction.toLowerCase().includes('quiz');
+  assert(
+    myleadText.includes('risk') && (myleadText.includes('disclaimer') || myleadText.includes('not financial advice') || myleadText.includes('research')),
+    'Generated MyLead copy contains the mandatory risk disclaimer language required by network rules'
+  );
+  assert(
+    lospollosRules.funnel.name.toLowerCase().includes('quiz') && lospollosQuizTrigger,
+    'Generated LosPollos copy adheres to the documented quiz-gate flow and avoids a direct conversion pitch'
   );
 
   console.log('\n📊 ================================================================');

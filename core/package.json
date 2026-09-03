@@ -68,7 +68,7 @@
     "bot:start": "tsx ../src/services/telegram-control-bot.service.ts",
     "scheduler:start": "tsx src/automation/distribution-scheduler.ts",
     "hitl:review": "tsx src/index.ts",
-    "build": "tsc --outDir dist --rootDir src",
+    "build": "tsc --outDir dist --rootDir src && node -e \"const fs=require('fs'); fs.copyFileSync('src/dashboard.html', 'dist/dashboard.html');\"",
     "deploy:prod": "tsx ../src/scripts/deployProduction.ts",
     "audit:prod": "tsx ../src/scripts/verifyProductionNode.ts",
     "test:actions": "tsx ../src/tests/actions-router.spec.ts",

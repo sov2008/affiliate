@@ -1,0 +1,35 @@
+{
+  "strategies": {
+    "reddit_parasite_seo": {
+      "target_selection": "High Google-ranking Reddit threads (>500 monthly search volume)",
+      "structure": "Empathy hook -> Personal vulnerability -> Transparent case breakdown -> Zero-push recommendation",
+      "link_placement_policy": "NEVER drop raw affiliate link in top-level comment. Use profile-bio bridge or DM request prompt.",
+      "cooldown_period": "Max 2 contributions per subreddit per 24 hours per account"
+    },
+    "quora_authority_clusters": {
+      "target_selection": "Commercial intent questions with >50 followers and consistent organic impressions",
+      "structure": "Direct TL;DR -> Comparison table (Pros/Cons) -> Risk disclaimer -> Educational conclusion",
+      "link_placement_policy": "Anchor link to independent review prelander only (no direct affiliate redirects)"
+    },
+    "shorts_scripting_engine": {
+      "target_selection": "Short-form video scripts (TikTok/Reels/Shorts) under 45 seconds",
+      "structure": "0-3s Visceral Hook -> 3-15s Agitation/Proof -> 15-35s Solution Walkthrough -> 35-45s Bio Action Trigger",
+      "vertical_specialization": {
+        "dating": "Relatable app fatigue humor -> Quiz filter reveal",
+        "finance": "Hidden fee receipts breakdown -> Self-hosted tracking proof"
+      }
+    }
+  },
+  "anti_detection_heuristics": {
+    "forbidden_openers": [
+      "Check this out",
+      "Looking for the best",
+      "I found this amazing app"
+    ],
+    "mandatory_stealth_markers": [
+      "first_person_past_tense",
+      "acknowledgment_of_flaws",
+      "no_hyperbolic_adjectives"
+    ]
+  }
+}

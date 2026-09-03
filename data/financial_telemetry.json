@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-09-03T03:55:52.366Z",
+  "dedupKeys": [
+    "tx_tg_777666555"
+  ],
+  "campaigns": {
+    "cmp_organic_v1": {
+      "clicks": 1,
+      "conversions": 1,
+      "revenue": 15.5,
+      "epc": 15.5,
+      "cr": 100,
+      "lastConversionAt": "2026-09-03T03:55:52.365Z"
+    }
+  },
+  "bundles": {},
+  "recentEvents": [
+    {
+      "clickId": "tg_777666555",
+      "transactionId": "tg_777666555",
+      "campaignId": "cmp_organic_v1",
+      "platform": "reddit",
+      "payout": 15.5,
+      "currency": "USD",
+      "status": "sale",
+      "receivedAt": "2026-09-03T03:55:52.365Z"
+    }
+  ]
+}
