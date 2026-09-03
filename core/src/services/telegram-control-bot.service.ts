@@ -801,12 +801,16 @@ We found <b>15+ verified profiles</b> matching your preferences:
 
 export const telegramControlBot = TelegramControlBot.getInstance();
 
-// Standalone runner execution
-if (
-  process.argv[1] &&
-  (process.argv[1].endsWith('telegram-control-bot.service.ts') ||
-    process.argv[1].endsWith('telegram-control-bot.service.js'))
-) {
+// Standalone runner or PM2 dedicated service execution
+const isDedicatedRunner = Boolean(
+  process.env.RUN_TELEGRAM_POLLING === 'true' ||
+    (process.env.name && process.env.name.includes('telegram-bot')) ||
+    (process.argv[1] &&
+      (process.argv[1].endsWith('telegram-control-bot.service.ts') ||
+        process.argv[1].endsWith('telegram-control-bot.service.js')))
+);
+
+if (isDedicatedRunner) {
   console.log('\n🚀 Starting Telegram Control Bot standalone runner...');
   const bot = TelegramControlBot.getInstance();
   bot.startPolling();
