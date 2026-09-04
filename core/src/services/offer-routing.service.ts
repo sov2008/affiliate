@@ -245,10 +245,16 @@ export class OfferRoutingService {
     this.recordImpression(chosenOffer.id);
 
     const trafficSource = context.startParam || context.sub1 || 'reddit_dating';
-    const cleanBase = chosenOffer.baseUrl.trim().replace(/\/+$/, '');
-    const sep = cleanBase.includes('?') ? '&' : '?';
-
-    const trackingUrl = `${cleanBase}${sep}sub1=${encodeURIComponent(trafficSource)}&sub2=${encodeURIComponent(String(context.chatId))}&cid=${encodeURIComponent(clickId)}`;
+    const baseDomain = process.env.BASE_DOMAIN || process.env.BASE_URL;
+    let trackingUrl: string;
+    if (baseDomain && baseDomain.trim()) {
+      const cleanDomain = baseDomain.trim().replace(/\/+$/, '');
+      trackingUrl = `${cleanDomain}/go?cid=${encodeURIComponent(clickId)}&offer=${encodeURIComponent(chosenOffer.id)}&sub1=${encodeURIComponent(trafficSource)}&sub2=${encodeURIComponent(String(context.chatId))}`;
+    } else {
+      const cleanBase = chosenOffer.baseUrl.trim().replace(/\/+$/, '');
+      const sep = cleanBase.includes('?') ? '&' : '?';
+      trackingUrl = `${cleanBase}${sep}sub1=${encodeURIComponent(trafficSource)}&sub2=${encodeURIComponent(String(context.chatId))}&cid=${encodeURIComponent(clickId)}`;
+    }
 
     const currentStats = this.getStats()[chosenOffer.id] || { impressions: 0, conversions: 0, revenue: 0, epc: 0 };
 
@@ -323,11 +329,16 @@ export class OfferRoutingService {
     this.recordImpression(chosenOffer.id);
 
     const trafficSource = metadata?.sub1 || metadata?.startParam || 'reddit_dating';
-    const cleanBase = chosenOffer.baseUrl.trim().replace(/\/+$/, '');
-    const sep = cleanBase.includes('?') ? '&' : '?';
-
-    // Uniform SubID structure across all outbound links: {targetUrl}?sub1={traffic_source}&sub2={tg_user_id}&cid={clickId}
-    const trackingUrl = `${cleanBase}${sep}sub1=${encodeURIComponent(trafficSource)}&sub2=${encodeURIComponent(String(chatId))}&cid=${encodeURIComponent(clickId)}`;
+    const baseDomain = process.env.BASE_DOMAIN || process.env.BASE_URL;
+    let trackingUrl: string;
+    if (baseDomain && baseDomain.trim()) {
+      const cleanDomain = baseDomain.trim().replace(/\/+$/, '');
+      trackingUrl = `${cleanDomain}/go?cid=${encodeURIComponent(clickId)}&offer=${encodeURIComponent(chosenOffer.id)}&sub1=${encodeURIComponent(trafficSource)}&sub2=${encodeURIComponent(String(chatId))}`;
+    } else {
+      const cleanBase = chosenOffer.baseUrl.trim().replace(/\/+$/, '');
+      const sep = cleanBase.includes('?') ? '&' : '?';
+      trackingUrl = `${cleanBase}${sep}sub1=${encodeURIComponent(trafficSource)}&sub2=${encodeURIComponent(String(chatId))}&cid=${encodeURIComponent(clickId)}`;
+    }
 
     const chosenStats = this.getStats()[chosenOffer.id] || { impressions: 0, conversions: 0, revenue: 0, epc: 0 };
 

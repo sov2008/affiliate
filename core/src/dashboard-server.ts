@@ -11,6 +11,7 @@ import { allocateMABTraffic } from './skills/mab-traffic-allocator-skill';
 import { postbackRouter } from './server/routes/postback.router.js';
 import { actionsRouter } from './server/routes/actions.router.js';
 import { bridgeRouter } from './server/routes/bridge.router.js';
+import { tdsRouter, handleTdsRedirect } from './server/routes/tds.router.js';
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
@@ -146,7 +147,7 @@ async function saveMemory(data: any): Promise<void> {
 // ----------------------------------------------------
 // 1. Dashboard Static HTML View & Analytics Script
 // ----------------------------------------------------
-app.get('/', async (req, res) => {
+app.get(['/', '/dashboard', '/dashboard/'], async (req, res) => {
   try {
     const html = await getDashboardHtml();
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -158,6 +159,8 @@ app.get('/', async (req, res) => {
     res.status(500).send('Dashboard UI template not found: ' + err.message);
   }
 });
+
+app.get('/go', handleTdsRedirect);
 
 app.get('/api/analytics/script.js', (req, res) => {
   res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
@@ -1949,4 +1952,12 @@ app.get('/api/telemetry/stream', (req: Request, res: Response) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Executive Command Center active at http://localhost:${PORT} (Basic Auth Protected)`);
+});
+
+const TDS_PORT = process.env.TDS_PORT || 3000;
+const tdsApp = express();
+tdsApp.use(cors());
+tdsApp.use(tdsRouter);
+tdsApp.listen(TDS_PORT, () => {
+  console.log(`🧭 Affiliate TDS Routing Engine active on port ${TDS_PORT}`);
 });
