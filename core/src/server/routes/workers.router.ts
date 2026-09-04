@@ -140,7 +140,8 @@ workersRouter.get('/status', async (req: Request, res: Response) => {
  * Safely executes start | stop | restart on whitelist services
  */
 workersRouter.post('/:service/:action', async (req: Request, res: Response) => {
-  const { service, action } = req.params;
+  const service = req.params.service || req.params.name;
+  const action = req.params.action;
 
   // Strict whitelist validation
   if (!ALLOWED_SERVICES.includes(service as any)) {
