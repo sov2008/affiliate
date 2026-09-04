@@ -110,6 +110,116 @@
       background: var(--card); border: 1px solid var(--border);
       border-radius: 2px; padding: 12px; width: 420px; max-width: 95vw;
     }
+
+    /* ======================================================== */
+    /* RETRO TERMINAL TOOLTIPS (.term-tooltip / [data-tooltip]) */
+    /* ======================================================== */
+    .term-tooltip, [data-tooltip] {
+      position: relative;
+    }
+    .term-tooltip::after, [data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%) translateY(3px);
+      background: #090d13 !important;
+      color: #7ee787 !important;
+      border: 1px solid #238636 !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.95), 0 0 8px rgba(46, 160, 67, 0.4) !important;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      line-height: 1.3;
+      white-space: nowrap;
+      border-radius: 2px;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s !important;
+      z-index: 99999;
+    }
+    .term-tooltip::before, [data-tooltip]::before {
+      content: '';
+      position: absolute;
+      bottom: calc(100% + 1px);
+      left: 50%;
+      transform: translateX(-50%) translateY(3px);
+      border-width: 5px 5px 0 5px;
+      border-style: solid;
+      border-color: #238636 transparent transparent transparent !important;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s !important;
+      z-index: 99999;
+      pointer-events: none;
+    }
+    .term-tooltip:hover::after, [data-tooltip]:hover::after,
+    .term-tooltip:hover::before, [data-tooltip]:hover::before {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    /* Modifier: Tooltip opens downwards (for top header strip) */
+    .tooltip-bottom::after {
+      bottom: auto;
+      top: calc(100% + 6px);
+      transform: translateX(-50%) translateY(-3px);
+    }
+    .tooltip-bottom::before {
+      bottom: auto;
+      top: calc(100% + 1px);
+      border-width: 0 5px 5px 5px;
+      border-color: transparent transparent #238636 transparent !important;
+      transform: translateX(-50%) translateY(-3px);
+    }
+    .tooltip-bottom:hover::after, .tooltip-bottom:hover::before {
+      transform: translateX(-50%) translateY(0);
+    }
+    /* Modifier: Tooltip aligns to the right side of button (prevents horizontal overflow) */
+    .tooltip-left::after {
+      left: auto;
+      right: 0;
+      transform: translateY(3px);
+    }
+    .tooltip-left::before {
+      left: auto;
+      right: 10px;
+      transform: translateY(3px);
+    }
+    .tooltip-left:hover::after, .tooltip-left:hover::before {
+      transform: translateY(0);
+    }
+    .tooltip-bottom.tooltip-left::after {
+      transform: translateY(-3px);
+    }
+    .tooltip-bottom.tooltip-left::before {
+      transform: translateY(-3px);
+    }
+    .tooltip-bottom.tooltip-left:hover::after, .tooltip-bottom.tooltip-left:hover::before {
+      transform: translateY(0);
+    }
+
+    /* Filter Tabs styling */
+    .filter-tab {
+      background: #161b22;
+      color: var(--dim);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 1px 6px;
+      font-size: 9px;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+    }
+    .filter-tab:hover { background: #21262d; color: var(--text); }
+    .filter-tab.active {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border-color: var(--blue);
+    }
   </style>
 </head>
 <body>
@@ -139,9 +249,9 @@
       <div><span style="color: var(--dim);">EPC:</span> <strong id="kpiEpc" style="color: var(--blue);">$0.00</strong></div>
       
       <div style="display: flex; align-items: center; gap: 4px; padding-left: 8px; border-left: 1px solid var(--border);">
-        <span id="estopBadge" class="badge badge-ok">E-STOP: CLEAR</span>
-        <button id="btnEstop" onclick="toggleEstop()" class="btn btn-red" style="padding: 2px 6px; font-size: 10px;">🚨 E-STOP</button>
-        <button onclick="refreshAll()" class="btn" style="padding: 2px 6px; font-size: 10px;">↻ SYNC</button>
+        <span id="estopBadge" class="badge badge-ok term-tooltip tooltip-bottom" data-tooltip="Статус аварийного останова: Норма. Блокировок нет.">E-STOP: CLEAR</span>
+        <button id="btnEstop" onclick="toggleEstop()" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Экстренная остановка: немедленно глушит всех воркеров публикации." style="padding: 2px 6px; font-size: 10px;">🚨 E-STOP</button>
+        <button onclick="refreshAll()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Принудительная синхронизация состояния демонов и метрик." style="padding: 2px 6px; font-size: 10px;">↻ SYNC</button>
       </div>
     </div>
   </header>
@@ -156,9 +266,19 @@
       
       <!-- SQLite Content Queue -->
       <section class="panel">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px;">
-          <strong style="color: var(--text);">SQLITE CONTENT QUEUE (content_queue_v2)</strong>
-          <span id="queueCount" style="color: var(--dim);">0 items</span>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px; gap: 4px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <strong style="color: var(--text);">SQLITE CONTENT QUEUE (content_queue_v2)</strong>
+            <span id="queueCount" style="color: var(--dim);">0 items</span>
+          </div>
+          <!-- Queue Filter Tabs -->
+          <div style="display: flex; gap: 2px;" id="queueFilterTabs">
+            <button onclick="setQueueFilter('ALL')" id="qf_ALL" class="filter-tab active term-tooltip tooltip-bottom" data-tooltip="Показать все задачи очереди">ALL (<span id="qc_ALL">0</span>)</button>
+            <button onclick="setQueueFilter('PENDING')" id="qf_PENDING" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Ожидают модерации оператором">PENDING (<span id="qc_PENDING">0</span>)</button>
+            <button onclick="setQueueFilter('APPROVED')" id="qf_APPROVED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Одобрено к отправке в Reddit">APPROVED (<span id="qc_APPROVED">0</span>)</button>
+            <button onclick="setQueueFilter('DISPATCHED')" id="qf_DISPATCHED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Успешно отправлено в сабреддиты">DISPATCHED (<span id="qc_DISPATCHED">0</span>)</button>
+            <button onclick="setQueueFilter('REJECTED')" id="qf_REJECTED" class="filter-tab term-tooltip tooltip-bottom tooltip-left" data-tooltip="Отклонено модератором">REJECTED (<span id="qc_REJECTED">0</span>)</button>
+          </div>
         </div>
         <div class="table-wrap scroll" style="max-height: 180px;">
           <table>
@@ -305,6 +425,21 @@
           <strong style="color: var(--text);">ACCOUNT TRUST &amp; OPERATIONAL LIMITS</strong>
           <span style="color: var(--dim);">Fingerprint Hygiene &amp; Isolation</span>
         </div>
+
+        <!-- Live Reddit Session Watchdog Card -->
+        <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 5px 8px; margin-bottom: 6px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--green); display: inline-block;"></span>
+            <span>ACCOUNT: <strong style="color: var(--blue);">u/sov2008</strong></span>
+            <span id="sessionStatusBadge" class="badge badge-ok term-tooltip tooltip-bottom" data-tooltip="Сессия Reddit проверена watchdog сервисом">SESSION: ACTIVE</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 10px;">
+            <div><span style="color: var(--dim);">KARMA:</span> <strong id="redditKarmaVal" style="color: var(--green-text);" class="term-tooltip tooltip-bottom" data-tooltip="Текущая карма Reddit аккаунта">1 (Cold Seed)</strong></div>
+            <div><span style="color: var(--dim);">WARMUP:</span> <strong style="color: var(--purple);">PHASE 1 (HitL)</strong></div>
+            <div><span style="color: var(--dim);">COOLDOWN:</span> <strong id="redditCooldownVal" style="color: var(--amber);" class="term-tooltip tooltip-bottom tooltip-left" data-tooltip="Пауза между публикациями. Воркер готов к отправке.">READY (0m)</strong></div>
+          </div>
+        </div>
+
         <div class="table-wrap scroll" style="max-height: 120px;">
           <table>
             <thead>
@@ -357,15 +492,23 @@
       
       <!-- Unified Raw Stream Console (Fixed 280px) -->
       <section class="panel" style="display: flex; flex-direction: column; gap: 4px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; gap: 4px;">
           <div style="display: flex; align-items: center; gap: 6px;">
             <strong style="color: var(--text);">LIVE LOG &amp; TELEMETRY STREAM</strong>
             <span id="logCountBadge" class="badge badge-dim">0 / 100 LINES</span>
+            <span id="logSpeedBadge" class="badge badge-ok term-tooltip tooltip-bottom" data-tooltip="Скорость поступления логов телеметрии">0.0 стр/сек</span>
           </div>
           <div style="display: flex; align-items: center; gap: 4px;">
-            <button id="btnAutoScroll" onclick="toggleAutoScroll()" class="btn btn-green" style="padding: 2px 6px; font-size: 10px;">AUTO-SCROLL</button>
-            <button onclick="copyLogs()" class="btn" style="padding: 2px 6px; font-size: 10px;">COPY</button>
-            <button onclick="clearLogs()" class="btn" style="padding: 2px 6px; font-size: 10px;">CLEAR</button>
+            <!-- Source Filters -->
+            <div style="display: flex; gap: 2px; margin-right: 4px;" id="logFilterTabs">
+              <button onclick="setLogFilter('ALL')" id="lf_ALL" class="filter-tab active term-tooltip tooltip-bottom" data-tooltip="Все источники логов">ALL</button>
+              <button onclick="setLogFilter('REDDIT')" id="lf_REDDIT" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Логи сабреддитов и скаута">REDDIT</button>
+              <button onclick="setLogFilter('SHIELD')" id="lf_SHIELD" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Логи Bot Shield и клоакинга">SHIELD</button>
+              <button onclick="setLogFilter('CRON')" id="lf_CRON" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Логи демонов, кронов и watchdog">CRON</button>
+            </div>
+            <button id="btnAutoScroll" onclick="toggleAutoScroll()" class="btn btn-green term-tooltip tooltip-bottom" data-tooltip="Автоматическая прокрутка к новым строкам" style="padding: 2px 6px; font-size: 10px;">AUTO-SCROLL</button>
+            <button onclick="copyLogs()" class="btn term-tooltip tooltip-bottom" data-tooltip="Скопировать логи в буфер обмена" style="padding: 2px 6px; font-size: 10px;">COPY</button>
+            <button onclick="clearLogs()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Очистить терминальное окно" style="padding: 2px 6px; font-size: 10px;">CLEAR</button>
           </div>
         </div>
 
@@ -441,18 +584,18 @@
   <!-- ======================================================== -->
   <footer class="panel" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px;">
     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px;">
-      <button onclick="openModal('modalBatch')" class="btn btn-blue">+ Batch Gen</button>
-      <button onclick="triggerAction('force-dispatch', '🚀 Force Dispatch')" class="btn btn-green">Force Dispatch</button>
-      <button onclick="triggerAction('trigger-scout', '🛰️ Offer Scout')" class="btn btn-amber">Offer Scout</button>
-      <button onclick="triggerAction('calibrate-prompts', '🧬 MAB Mutate')" class="btn btn-purple">MAB Mutate</button>
-      <button onclick="openModal('modalScaffold')" class="btn btn-blue">Scaffold GEO</button>
-      <button onclick="checkAllLinks()" class="btn btn-blue font-bold">🔗 Check All Links</button>
-      <button onclick="runBotShieldTest('Mozilla/5.0 (compatible; Googlebot/2.1)', '66.249.66.1')" class="btn btn-green">🛡️ Probe Shield</button>
-      <button onclick="fetchCredits()" class="btn btn-amber">⚡ Sync Credits</button>
+      <button onclick="openModal('modalBatch')" class="btn btn-blue term-tooltip" data-tooltip="Генерация пакета: запуск LLM для подготовки пачки постов в очередь.">+ Batch Gen</button>
+      <button onclick="triggerAction('force-dispatch', '🚀 Force Dispatch')" class="btn btn-green term-tooltip" data-tooltip="Принудительная отправка: проталкивает одобренные посты в Reddit в обход таймера.">Force Dispatch</button>
+      <button onclick="triggerAction('trigger-scout', '🛰️ Offer Scout')" class="btn btn-amber term-tooltip" data-tooltip="Скаутинг офферов: опрос сетей LosPollos / MyLead на свежие связки.">Offer Scout</button>
+      <button onclick="triggerAction('calibrate-prompts', '🧬 MAB Mutate')" class="btn btn-purple term-tooltip" data-tooltip="Мутация Multi-Armed Bandit: пересчет весов распределения трафика.">MAB Mutate</button>
+      <button onclick="openModal('modalScaffold')" class="btn btn-blue term-tooltip" data-tooltip="Развертывание прелендинга под новый GEO-таргет.">Scaffold GEO</button>
+      <button onclick="checkAllLinks()" class="btn btn-blue font-bold term-tooltip" data-tooltip="Проверка ссылок: аудит доступности доменов и редиректов.">🔗 Check All Links</button>
+      <button onclick="runBotShieldTest('Mozilla/5.0 (compatible; Googlebot/2.1)', '66.249.66.1')" class="btn btn-green term-tooltip" data-tooltip="Тест клоакинга: симуляция перехода бота/модератора через Bot Shield.">🛡️ Probe Shield</button>
+      <button onclick="fetchCredits()" class="btn btn-amber term-tooltip" data-tooltip="Синхронизация квот: обновление баланса токенов LLM-провайдеров.">⚡ Sync Credits</button>
     </div>
 
     <div style="display: flex; align-items: center; gap: 4px;">
-      <button id="btnActionEstop" onclick="toggleEstop()" class="btn btn-red">🚨 EMERGENCY STOP</button>
+      <button id="btnActionEstop" onclick="toggleEstop()" class="btn btn-red term-tooltip tooltip-left" data-tooltip="ГЛОБАЛЬНЫЙ СТОП: заморозка сетевых соединений и PM2-процессов.">🚨 EMERGENCY STOP</button>
     </div>
   </footer>
 
@@ -591,10 +734,47 @@
     let activeInspectedId = null;
     let activeInspectedItem = null;
 
-    function appendLog(text) {
+    // Log Stream Filtering & Rate Measurement
+    let currentLogFilter = 'ALL';
+    let logSpeedTimestamps = [];
+
+    function calcLogSpeed() {
+      const now = Date.now();
+      logSpeedTimestamps.push(now);
+      logSpeedTimestamps = logSpeedTimestamps.filter(t => now - t <= 3000);
+      const rate = (logSpeedTimestamps.length / 3).toFixed(1);
+      const speedBadge = document.getElementById('logSpeedBadge');
+      if (speedBadge) {
+        speedBadge.innerText = `${rate} стр/сек`;
+      }
+    }
+
+    function setLogFilter(filter) {
+      currentLogFilter = filter;
+      ['ALL', 'REDDIT', 'SHIELD', 'CRON'].forEach(f => {
+        const btn = document.getElementById(`lf_${f}`);
+        if (btn) {
+          if (f === filter) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
+      });
+      renderLogs();
+    }
+
+    function detectStreamSource(text) {
+      const up = text.toUpperCase();
+      if (up.includes('REDDIT') || up.includes('SCOUT') || up.includes('SUBREDDIT') || up.includes('SOV2008')) return 'REDDIT';
+      if (up.includes('SHIELD') || up.includes('BOT') || up.includes('PROBE') || up.includes('CLOAK')) return 'SHIELD';
+      if (up.includes('CRON') || up.includes('DAEMON') || up.includes('WATCHDOG') || up.includes('QUEUE') || up.includes('PM2') || up.includes('SYNC')) return 'CRON';
+      return 'SYS';
+    }
+
+    function appendLog(text, stream) {
+      calcLogSpeed();
       const clean = text.replace(/\u001b\[[0-9;]*m/g, '');
       const time = new Date().toLocaleTimeString('ru-RU', { hour12: false });
-      logBuffer.push({ time, text: clean });
+      const detectedStream = stream || detectStreamSource(clean);
+      logBuffer.push({ time, text: clean, stream: detectedStream });
       if (logBuffer.length > MAX_LOGS) logBuffer.shift();
       renderLogs();
     }
@@ -602,8 +782,29 @@
     function renderLogs() {
       const el = document.getElementById('logBox');
       if (!el) return;
-      document.getElementById('logCountBadge').innerText = `${logBuffer.length} / ${MAX_LOGS} LINES`;
-      el.innerHTML = logBuffer.map(l => {
+
+      const filteredLogs = logBuffer.filter(l => {
+        if (currentLogFilter === 'ALL') return true;
+        if (currentLogFilter === 'REDDIT') {
+          return l.stream === 'REDDIT' || l.text.toUpperCase().includes('REDDIT') || l.text.toUpperCase().includes('SCOUT');
+        }
+        if (currentLogFilter === 'SHIELD') {
+          return l.stream === 'SHIELD' || l.text.toUpperCase().includes('SHIELD') || l.text.toUpperCase().includes('BOT');
+        }
+        if (currentLogFilter === 'CRON') {
+          return l.stream === 'CRON' || l.text.toUpperCase().includes('CRON') || l.text.toUpperCase().includes('WATCHDOG') || l.text.toUpperCase().includes('DAEMON');
+        }
+        return true;
+      });
+
+      document.getElementById('logCountBadge').innerText = `${filteredLogs.length} / ${logBuffer.length} LINES`;
+
+      if (filteredLogs.length === 0) {
+        el.innerHTML = `<div style="color: var(--dim); text-align: center; padding: 20px;">Нет логов для фильтра [${currentLogFilter}]</div>`;
+        return;
+      }
+
+      el.innerHTML = filteredLogs.map(l => {
         let color = 'var(--text)';
         if (l.text.includes('FAIL') || l.text.includes('ERR') || l.text.includes('❌')) color = 'var(--red)';
         else if (l.text.includes('OK') || l.text.includes('SUCCESS') || l.text.includes('✅')) color = 'var(--green-text)';
@@ -863,35 +1064,135 @@
       } catch {}
     }
 
+    let allQueueItems = [];
+    let currentQueueFilter = 'ALL';
+
+    function setQueueFilter(filter) {
+      currentQueueFilter = filter;
+      ['ALL', 'PENDING', 'APPROVED', 'DISPATCHED', 'REJECTED'].forEach(f => {
+        const btn = document.getElementById(`qf_${f}`);
+        if (btn) {
+          if (f === filter) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
+      });
+      renderQueueTable();
+    }
+
+    async function deleteQueueItem(id) {
+      if (!confirm(`Удалить задачу ${id.slice(0, 8)} из очереди SQLite?`)) return;
+      appendLog(`[QUEUE] Удаление задачи ${id.slice(0, 8)}...`, 'CRON');
+      try {
+        const res = await fetch(`/api/queue/items/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          appendLog(`[QUEUE] ✅ Задача ${id.slice(0, 8)} удалена из очереди.`, 'CRON');
+          fetchQueue();
+        } else {
+          const d = await res.json();
+          appendLog(`[QUEUE] ❌ Ошибка удаления: ${d.error || 'Server Error'}`, 'CRON');
+        }
+      } catch (err) {
+        appendLog(`[QUEUE] ❌ Исключение при удалении: ${err.message}`, 'CRON');
+      }
+    }
+
+    function renderQueueTable() {
+      const tbody = document.getElementById('queueTbody');
+      if (!tbody) return;
+
+      const filteredItems = allQueueItems.filter(item => {
+        if (currentQueueFilter === 'ALL') return true;
+        if (currentQueueFilter === 'PENDING') return (item.status || '').includes('PENDING');
+        if (currentQueueFilter === 'APPROVED') return item.status === 'APPROVED';
+        if (currentQueueFilter === 'DISPATCHED') return item.status === 'DISPATCHED' || item.status === 'POSTED';
+        if (currentQueueFilter === 'REJECTED') return item.status === 'REJECTED';
+        return true;
+      });
+
+      if (filteredItems.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--dim); padding: 12px;">Нет задач для фильтра [${currentQueueFilter}].</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filteredItems.map(item => {
+        const isApproved = item.status === 'APPROVED';
+        const isDispatched = item.status === 'DISPATCHED' || item.status === 'POSTED';
+        const statusBadgeClass = isApproved || isDispatched ? 'badge-ok' : item.status === 'REJECTED' ? 'badge-err' : 'badge-dim';
+
+        return `
+          <tr style="cursor: pointer;" onclick="inspectQueueItem('${item.id}')">
+            <td style="font-weight: 700; color: var(--blue);">${item.id.slice(0, 8)}</td>
+            <td style="color: var(--dim); text-transform: uppercase;">${item.target_platform || item.platform || 'REDDIT'}</td>
+            <td>[====>     ] ${item.risk_score !== undefined ? item.risk_score : 4}%</td>
+            <td><span class="badge ${statusBadgeClass}">${item.status}</span></td>
+            <td style="text-align: right;" onclick="event.stopPropagation();">
+              <button onclick="inspectQueueItem('${item.id}')" class="btn btn-blue term-tooltip" data-tooltip="Предпросмотр сгенерированного ответа и параметров треда." style="padding: 1px 5px; font-size: 10px;">👁 Preview</button>
+              ${!isApproved && !isDispatched ? `
+                <button onclick="updateQueue('${item.id}', 'APPROVED')" class="btn btn-green term-tooltip" data-tooltip="Одобрить задачу к публикации в Reddit без Telegram" style="padding: 1px 5px; font-size: 10px;">✓ Approve</button>
+              ` : ''}
+              <button onclick="deleteQueueItem('${item.id}')" class="btn btn-red term-tooltip" data-tooltip="Удалить пост из очереди SQLite" style="padding: 1px 5px; font-size: 10px;">✕ Delete</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function updateRedditCooldown() {
+      const dispatched = allQueueItems
+        .filter(i => i.status === 'DISPATCHED' || i.status === 'POSTED')
+        .sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
+      
+      const coolEl = document.getElementById('redditCooldownVal');
+      if (!coolEl) return;
+
+      if (dispatched.length === 0) {
+        coolEl.innerText = 'READY (0m)';
+        coolEl.style.color = 'var(--green-text)';
+        coolEl.setAttribute('data-tooltip', 'Аккаунт готов к публикации. Постов за последние 24ч: 0.');
+      } else {
+        const lastTime = new Date(dispatched[0].created_at || 0).getTime();
+        const diffMin = Math.floor((Date.now() - lastTime) / 60000);
+        const cooldownMinutes = 10;
+        if (diffMin < cooldownMinutes) {
+          const left = cooldownMinutes - diffMin;
+          coolEl.innerText = `COOLDOWN (${left}m)`;
+          coolEl.style.color = 'var(--amber)';
+          coolEl.setAttribute('data-tooltip', `Пауза между постами: осталось ${left} минут до следующей отправки.`);
+        } else {
+          coolEl.innerText = 'READY TO POST';
+          coolEl.style.color = 'var(--green-text)';
+          coolEl.setAttribute('data-tooltip', `Прошло ${diffMin}м с последнего поста. Воркер свободен.`);
+        }
+      }
+    }
+
     async function fetchQueue() {
       try {
         const res = await fetch('/api/queue/items');
         if (res.ok) {
           const d = await res.json();
-          const items = d.items || [];
-          document.getElementById('queueCount').innerText = `${items.length} items`;
-          const tbody = document.getElementById('queueTbody');
-          if (items.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--dim); padding: 12px;">Очередь пуста. Нажмите [+ Batch Gen] для создания постов.</td></tr>';
-          } else {
-            tbody.innerHTML = items.map(item => `
-              <tr style="cursor: pointer;" onclick="inspectQueueItem('${item.id}')">
-                <td style="font-weight: 700; color: var(--blue);">${item.id.slice(0, 8)}</td>
-                <td style="color: var(--dim); text-transform: uppercase;">${item.target_platform || item.platform || 'REDDIT'}</td>
-                <td>[====>     ] ${item.risk_score !== undefined ? item.risk_score : 4}%</td>
-                <td><span class="badge ${item.status === 'APPROVED' ? 'badge-ok' : item.status === 'REJECTED' ? 'badge-err' : 'badge-dim'}">${item.status}</span></td>
-                <td style="text-align: right;" onclick="event.stopPropagation();">
-                  <button onclick="inspectQueueItem('${item.id}')" class="btn btn-blue" style="padding: 1px 4px; font-size: 10px;">👁 Preview</button>
-                  ${item.status === 'PENDING_APPROVAL' ? `
-                    <button onclick="updateQueue('${item.id}', 'APPROVED')" class="btn btn-green" style="padding: 1px 4px; font-size: 10px;">✓ Approve</button>
-                    <button onclick="updateQueue('${item.id}', 'REJECTED')" class="btn btn-red" style="padding: 1px 4px; font-size: 10px;">✕</button>
-                  ` : ''}
-                </td>
-              </tr>
-            `).join('');
-          }
+          allQueueItems = d.items || [];
+          document.getElementById('queueCount').innerText = `${allQueueItems.length} items`;
+          
+          // Tab counters
+          const cAll = allQueueItems.length;
+          const cPending = allQueueItems.filter(i => (i.status || '').includes('PENDING')).length;
+          const cApproved = allQueueItems.filter(i => i.status === 'APPROVED').length;
+          const cDispatched = allQueueItems.filter(i => i.status === 'DISPATCHED' || i.status === 'POSTED').length;
+          const cRejected = allQueueItems.filter(i => i.status === 'REJECTED').length;
+
+          const elAll = document.getElementById('qc_ALL'); if (elAll) elAll.innerText = cAll;
+          const elPen = document.getElementById('qc_PENDING'); if (elPen) elPen.innerText = cPending;
+          const elApp = document.getElementById('qc_APPROVED'); if (elApp) elApp.innerText = cApproved;
+          const elDis = document.getElementById('qc_DISPATCHED'); if (elDis) elDis.innerText = cDispatched;
+          const elRej = document.getElementById('qc_REJECTED'); if (elRej) elRej.innerText = cRejected;
+
+          renderQueueTable();
+          updateRedditCooldown();
         }
-      } catch {}
+      } catch (err) {
+        console.warn('Queue fetch error:', err);
+      }
     }
 
     // AI Credits Monitor (/api/credits/status)
@@ -1072,6 +1373,14 @@
       // Initial probe on load
       runBotShieldTest('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)', '66.249.66.1');
       setInterval(refreshAll, 30000);
+      setInterval(updateRedditCooldown, 10000);
+      setInterval(() => {
+        const now = Date.now();
+        logSpeedTimestamps = logSpeedTimestamps.filter(t => now - t <= 3000);
+        const rate = (logSpeedTimestamps.length / 3).toFixed(1);
+        const speedBadge = document.getElementById('logSpeedBadge');
+        if (speedBadge) speedBadge.innerText = `${rate} стр/сек`;
+      }, 1000);
     });
   </script>
 </body>
