@@ -7,6 +7,7 @@ import {
   WARMUP_WHITELIST_SUBREDDITS,
   RedditAccountStatus,
 } from '../services/reddit-account-state.js';
+import { redditFetch, isRedditProxyEnabled } from '../services/reddit-proxy.service.js';
 
 // Загрузка переменных окружения
 dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
@@ -41,7 +42,7 @@ async function validateRedditSession(sessionCookie: string): Promise<ValidationS
   }
 
   try {
-    const res = await fetch('https://www.reddit.com/api/me.json', {
+    const res = await redditFetch('https://www.reddit.com/api/me.json', {
       headers: {
         'User-Agent': USER_AGENT,
         Cookie: `reddit_session=${sessionCookie}`,
@@ -155,7 +156,8 @@ async function dispatchKarmaMilestoneAlert(bot: TelegramControlBot, adminChatId:
 }
 
 async function runWatchdogLoop(): Promise<void> {
-  console.log(`[${timestamp()}] 🛡️ [RedditWatchdog] Запуск сторожевого сервиса проверки сессии и кармы Reddit...`);
+  const proxyStatus = isRedditProxyEnabled() ? 'ENABLED (Webshare)' : 'DISABLED';
+  console.log(`[${timestamp()}] 🛡️ [RedditWatchdog] Запуск сторожевого сервиса проверки сессии и кармы Reddit (Proxy: ${proxyStatus})...`);
   console.log(`[${timestamp()}] ⏱️ [RedditWatchdog] Интервал проверок: каждые ${CHECK_INTERVAL_MS / 60000} мин.`);
 
   const bot = TelegramControlBot.getInstance();

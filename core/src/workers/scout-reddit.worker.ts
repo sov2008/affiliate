@@ -10,6 +10,7 @@ import {
   WARMUP_WHITELIST_SUBREDDITS,
   getRedditAccountStatus,
 } from '../services/reddit-account-state.js';
+import { redditFetch, isRedditProxyEnabled } from '../services/reddit-proxy.service.js';
 
 export { WARMUP_BLACKLIST_SUBREDDITS, WARMUP_WHITELIST_SUBREDDITS };
 
@@ -136,10 +137,10 @@ export class ScoutRedditWorker {
 
     for (const url of urls) {
       try {
-        let res = await fetch(url, { headers });
+        let res = await redditFetch(url, { headers });
         if (!res.ok) {
           const fallbackUrl = url.replace('www.reddit.com', 'old.reddit.com');
-          res = await fetch(fallbackUrl, { headers });
+          res = await redditFetch(fallbackUrl, { headers });
         }
 
         if (!res.ok) {
@@ -354,7 +355,8 @@ export class ScoutRedditWorker {
       ? WARMUP_WHITELIST_SUBREDDITS
       : this.subreddits.filter((s) => !WARMUP_BLACKLIST_SUBREDDITS.has(s.toLowerCase()));
 
-    console.log(`\n🔍 [ScoutRedditWorker] Starting Reddit Scout Cycle across: ${activeSubreddits.join(', ')} (Account: u/${accountStatus.username}, Comment Karma: ${accountStatus.comment_karma})...`);
+    const proxyStatus = isRedditProxyEnabled() ? 'ENABLED (Webshare)' : 'DISABLED';
+    console.log(`\n🔍 [ScoutRedditWorker] Starting Reddit Scout Cycle across: ${activeSubreddits.join(', ')} (Account: u/${accountStatus.username}, Karma: ${accountStatus.comment_karma}, Proxy: ${proxyStatus})...`);
 
     let scanned = 0;
     let matched = 0;
