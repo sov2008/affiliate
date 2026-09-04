@@ -98,6 +98,53 @@ async function runDaemonLoop() {
         await logMsg(`Auto-rollback module note: ${e.message}`);
       }
 
+      // 5. Guarded Reddit Automated Posting Cycle
+      try {
+        const { RedditPosterService } = await import('./services/reddit-poster.service.js');
+        const poster = RedditPosterService.getInstance();
+        const eligibility = poster.canPost();
+
+        if (eligibility.allowed) {
+          await logMsg('Reddit Poster Guard: Eligible to post (cooldown cleared, <3 posts/24h). Checking Reddit matches...');
+          const { ScoutRedditWorker } = await import('./workers/scout-reddit.worker.js');
+          const scout = ScoutRedditWorker.getInstance();
+
+          const candidateSubs = ['dating', 'Tinder', 'dating_advice'];
+          const targetSubs = candidateSubs.filter((s) => poster.isSubredditAllowed(s).allowed);
+
+          let candidatePost: any = null;
+          for (const s of targetSubs) {
+            const posts = await scout.fetchSubredditPosts(s);
+            for (const p of posts) {
+              if (scout.filterPost(p)) {
+                candidatePost = p;
+                break;
+              }
+            }
+            if (candidatePost) break;
+          }
+
+          if (candidatePost) {
+            const hookType = eligibility.isBioHook ? 'Bio-Hook Conversion (1:3)' : 'Neutral Informative Advice';
+            await logMsg(`Targeting Reddit thread: "${candidatePost.title}" in r/${candidatePost.subreddit} [${hookType}]`);
+            scout.markPostSeen(candidatePost.id);
+            const copy = await scout.generateNativeResponse(candidatePost);
+            const postRes = await poster.postComment(`t3_${candidatePost.id}`, copy);
+            if (postRes.success) {
+              await logMsg(`✓ Successfully posted comment ${postRes.commentId} [${postRes.isBioHook ? 'Bio-Hook' : 'Neutral'}] (${postRes.permalink || ''})`);
+            } else {
+              await logMsg(`⚠ Reddit post deferred: ${postRes.error}`);
+            }
+          } else {
+            await logMsg('No eligible high-intent Reddit threads found in this cycle.');
+          }
+        } else {
+          await logMsg(`Reddit Poster Guard Active: ${eligibility.reason}`);
+        }
+      } catch (e: any) {
+        await logMsg(`Reddit Poster Cycle Notice: ${e.message}`);
+      }
+
       if (stdout.includes('Winner designated') || stdout.includes('Synthesizing Challenger')) {
         await logMsg(`Optimization actions taken:\n${stdout}`);
 

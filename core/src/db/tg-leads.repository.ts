@@ -9,6 +9,7 @@ export interface TgLeadItem {
   first_name?: string;
   age_range?: string;
   connection_type?: string;
+  source?: string;
   status: TgLeadStatus;
   tracking_url?: string;
   selected_offer?: string;
@@ -120,6 +121,7 @@ export class TelegramLeadRepository {
           first_name TEXT,
           age_range TEXT,
           connection_type TEXT,
+          source TEXT DEFAULT 'reddit_dating',
           status TEXT NOT NULL,
           tracking_url TEXT,
           selected_offer TEXT,
@@ -169,6 +171,9 @@ export class TelegramLeadRepository {
       try {
         this.db.exec(`ALTER TABLE tg_leads ADD COLUMN selected_offer TEXT;`);
       } catch {}
+      try {
+        this.db.exec(`ALTER TABLE tg_leads ADD COLUMN source TEXT DEFAULT 'reddit_dating';`);
+      } catch {}
 
       // Create index after ensuring columns exist
       try {
@@ -209,6 +214,7 @@ export class TelegramLeadRepository {
     first_name?: string;
     age_range?: string;
     connection_type?: string;
+    source?: string;
     status: TgLeadStatus;
     tracking_url?: string;
     selected_offer?: string;
@@ -227,6 +233,7 @@ export class TelegramLeadRepository {
       first_name: lead.first_name !== undefined ? lead.first_name : existing?.first_name,
       age_range: lead.age_range !== undefined ? lead.age_range : existing?.age_range,
       connection_type: lead.connection_type !== undefined ? lead.connection_type : existing?.connection_type,
+      source: lead.source !== undefined ? lead.source : (existing?.source || 'reddit_dating'),
       status: lead.status,
       tracking_url: lead.tracking_url !== undefined ? lead.tracking_url : existing?.tracking_url,
       selected_offer: lead.selected_offer !== undefined ? lead.selected_offer : existing?.selected_offer,
@@ -239,13 +246,14 @@ export class TelegramLeadRepository {
     if (this.isSqlite && this.db) {
       try {
         const stmt = this.db.prepare(`
-          INSERT INTO tg_leads (chat_id, username, first_name, age_range, connection_type, status, tracking_url, selected_offer, drip_step, last_drip_at, created_at, updated_at)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          INSERT INTO tg_leads (chat_id, username, first_name, age_range, connection_type, source, status, tracking_url, selected_offer, drip_step, last_drip_at, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
           ON CONFLICT(chat_id) DO UPDATE SET
             username = excluded.username,
             first_name = excluded.first_name,
             age_range = excluded.age_range,
             connection_type = excluded.connection_type,
+            source = COALESCE(excluded.source, tg_leads.source),
             status = excluded.status,
             tracking_url = excluded.tracking_url,
             selected_offer = excluded.selected_offer,
@@ -259,6 +267,7 @@ export class TelegramLeadRepository {
           record.first_name || null,
           record.age_range || null,
           record.connection_type || null,
+          record.source || 'reddit_dating',
           record.status,
           record.tracking_url || null,
           record.selected_offer || null,
@@ -295,6 +304,7 @@ export class TelegramLeadRepository {
             first_name: row.first_name || undefined,
             age_range: row.age_range || undefined,
             connection_type: row.connection_type || undefined,
+            source: row.source || 'reddit_dating',
             status: row.status as TgLeadStatus,
             tracking_url: row.tracking_url || undefined,
             selected_offer: row.selected_offer || undefined,

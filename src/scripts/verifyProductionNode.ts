@@ -159,6 +159,7 @@ class ProductionHealthAudit {
       'affiliate-health-monitor',
       'affiliate-telegram-bot',
       'affiliate-autopilot',
+      'affiliate-telegram-userbot',
     ];
 
     try {

@@ -25,6 +25,27 @@ app.use(postbackRouter);
 app.use(bridgeRouter);
 app.use('/api/actions', actionsRouter);
 
+// Public Reddit Profile Avatar
+app.get('/avatar.jpg', (req: Request, res: Response) => {
+  const candidatePaths = [
+    path.resolve(__dirname, 'public/avatar.jpg'),
+    path.resolve(__dirname, '../public/avatar.jpg'),
+    path.resolve(__dirname, 'src/public/avatar.jpg'),
+    path.resolve(__dirname, '../../public/avatar.jpg'),
+    '/var/www/affiliate/dist/public/avatar.jpg',
+    '/var/www/affiliate/core/dist/public/avatar.jpg',
+    '/var/www/affiliate/core/src/public/avatar.jpg',
+  ];
+  for (const p of candidatePaths) {
+    if (fsSync.existsSync(p)) {
+      res.setHeader('Content-Type', 'image/jpeg');
+      res.setHeader('Cache-Control', 'public, max-age=86400');
+      return res.sendFile(p);
+    }
+  }
+  res.status(404).send('Avatar not found');
+});
+
 const MEMORY_PATH = path.resolve(__dirname, '../../.antigravity/memory.json');
 const LOG_PATH = path.resolve(__dirname, '../../.antigravity/daemon.log');
 const WORKER_URL = process.env.POSTBACK_WORKER_URL || 'https://postback-engine.sov7.workers.dev';
@@ -56,8 +77,8 @@ const AUTH_PASS = process.env.DASHBOARD_PASS || '';
 // HTTP Basic Authentication & Token Middleware
 // ----------------------------------------------------
 function authMiddleware(req: Request, res: Response, next: NextFunction) {
-  // Allow root UI page, static assets, postback webhooks, and deep-link bridge gateway
-  if (req.path === '/' || req.path === '/favicon.ico' || req.path.includes('/postback') || req.path.startsWith('/join')) {
+  // Allow root UI page, static assets, postback webhooks, deep-link bridge gateway, and public avatar
+  if (req.path === '/' || req.path === '/favicon.ico' || req.path.includes('/postback') || req.path.startsWith('/join') || req.path === '/avatar.jpg') {
     return next();
   }
 
