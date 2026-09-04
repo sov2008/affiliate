@@ -204,7 +204,7 @@ export class RedditPosterService {
    * 3. Strict 2.5h - 4h pacing between posts with randomized jitter.
    * 4. Zero bio hooks during karma warmup phase.
    */
-  public canPost(now: number = Date.now()): PostEligibility {
+  public canPost(now: number = Date.now(), ignorePacing: boolean = false): PostEligibility {
     const ONE_HOUR = 3600 * 1000;
     const TWENTY_FOUR_HOURS = 24 * ONE_HOUR;
     const MIN_PACING_MS = Math.floor(2.5 * ONE_HOUR); // 2.5h base
@@ -223,36 +223,38 @@ export class RedditPosterService {
       };
     }
 
-    // 2. Filter posts within last 24h: Max 4 comments per 24h
     const posts24h = this.history.filter((h) => now - h.timestamp < TWENTY_FOUR_HOURS);
     const count24h = posts24h.length;
 
-    if (count24h >= 4) {
-      const oldestInWindow = posts24h[0];
-      const waitTimeMs = Math.max(0, oldestInWindow.timestamp + TWENTY_FOUR_HOURS - now);
-      return {
-        allowed: false,
-        reason: `Karma Warmup Limit reached: ${count24h}/4 comments in 24h window. Cooldown active.`,
-        waitTimeMs,
-        postsIn24h: count24h,
-        isBioHook: false,
-      };
-    }
-
-    // 3. Check 2.5h - 4h pacing guard
-    if (this.history.length > 0) {
-      const lastPost = this.history[this.history.length - 1];
-      const elapsedSinceLast = now - lastPost.timestamp;
-      if (elapsedSinceLast < MIN_PACING_MS) {
-        const waitTimeMs = MIN_PACING_MS - elapsedSinceLast;
+    if (!ignorePacing) {
+      // 2. Filter posts within last 24h: Max 4 comments per 24h
+      if (count24h >= 4) {
+        const oldestInWindow = posts24h[0];
+        const waitTimeMs = Math.max(0, oldestInWindow.timestamp + TWENTY_FOUR_HOURS - now);
         return {
           allowed: false,
-          reason: `Pacing guard: minimum 2.5h cooldown between posts. ${(waitTimeMs / 60000).toFixed(1)}m remaining.`,
+          reason: `Karma Warmup Limit reached: ${count24h}/4 comments in 24h window. Cooldown active.`,
           waitTimeMs,
           postsIn24h: count24h,
-          lastPostTime: lastPost.timestamp,
           isBioHook: false,
         };
+      }
+
+      // 3. Check 2.5h - 4h pacing guard
+      if (this.history.length > 0) {
+        const lastPost = this.history[this.history.length - 1];
+        const elapsedSinceLast = now - lastPost.timestamp;
+        if (elapsedSinceLast < MIN_PACING_MS) {
+          const waitTimeMs = MIN_PACING_MS - elapsedSinceLast;
+          return {
+            allowed: false,
+            reason: `Pacing guard: minimum 2.5h cooldown between posts. ${(waitTimeMs / 60000).toFixed(1)}m remaining.`,
+            waitTimeMs,
+            postsIn24h: count24h,
+            lastPostTime: lastPost.timestamp,
+            isBioHook: false,
+          };
+        }
       }
     }
 
@@ -422,9 +424,10 @@ export class RedditPosterService {
       simulate?: boolean;
       forceBioHook?: boolean;
       canaryDelayMs?: number;
+      ignorePacing?: boolean;
     } = {}
   ): Promise<{ success: boolean; commentId?: string; permalink?: string; error?: string; isBioHook?: boolean }> {
-    const eligibility = this.canPost();
+    const eligibility = this.canPost(Date.now(), options.ignorePacing);
     if (!eligibility.allowed) {
       return { success: false, error: eligibility.reason };
     }
