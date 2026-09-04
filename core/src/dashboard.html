@@ -717,9 +717,9 @@
       <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 6px; margin-top: 2px;">
         <span style="color: var(--dim); font-size: 10px;">Горячие клавиши: [A] - Одобрить, [R] - Отклонить, [Esc] - Закрыть</span>
         <div style="display: flex; gap: 4px;">
-          <button onclick="inspectAction('APPROVED')" id="btnInspectApprove" class="btn btn-green font-bold">✓ Approve &amp; Queue (A)</button>
-          <button onclick="inspectAction('REJECTED')" id="btnInspectReject" class="btn btn-red font-bold">✕ Reject (R)</button>
-          <button onclick="closeModal('modalInspect')" class="btn">Close</button>
+          <button onclick="inspectAction('APPROVED')" id="btnInspectApprove" class="btn btn-green font-bold term-tooltip tooltip-bottom" data-tooltip="Одобрить пост и поставить в очередь отправки (A)">✓ Approve &amp; Queue (A)</button>
+          <button onclick="inspectAction('REJECTED')" id="btnInspectReject" class="btn btn-red font-bold term-tooltip tooltip-bottom" data-tooltip="Отклонить черновик и снять с публикации (R)">✕ Reject (R)</button>
+          <button onclick="closeModal('modalInspect')" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Закрыть окно инспекции (Esc)">Close</button>
         </div>
       </div>
     </div>
@@ -1129,6 +1129,7 @@
               <button onclick="inspectQueueItem('${item.id}')" class="btn btn-blue term-tooltip" data-tooltip="Предпросмотр сгенерированного ответа и параметров треда." style="padding: 1px 5px; font-size: 10px;">👁 Preview</button>
               ${!isApproved && !isDispatched ? `
                 <button onclick="updateQueue('${item.id}', 'APPROVED')" class="btn btn-green term-tooltip" data-tooltip="Одобрить задачу к публикации в Reddit без Telegram" style="padding: 1px 5px; font-size: 10px;">✓ Approve</button>
+                <button onclick="updateQueue('${item.id}', 'REJECTED')" class="btn btn-amber term-tooltip" data-tooltip="Отклонить черновик модератором" style="padding: 1px 5px; font-size: 10px;">✕ Reject</button>
               ` : ''}
               <button onclick="deleteQueueItem('${item.id}')" class="btn btn-red term-tooltip" data-tooltip="Удалить пост из очереди SQLite" style="padding: 1px 5px; font-size: 10px;">✕ Delete</button>
             </td>
