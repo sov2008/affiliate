@@ -5,6 +5,13 @@ import { TelegramControlBot } from '../services/telegram-control-bot.service.js'
 import { KnowledgeService } from '../services/knowledge.service.js';
 import { ContentQueueRepository } from '../db/queueRepository.js';
 import { RawContext } from '../types/pipeline.js';
+import {
+  WARMUP_BLACKLIST_SUBREDDITS,
+  WARMUP_WHITELIST_SUBREDDITS,
+  getRedditAccountStatus,
+} from '../services/reddit-account-state.js';
+
+export { WARMUP_BLACKLIST_SUBREDDITS, WARMUP_WHITELIST_SUBREDDITS };
 
 export interface RedditPost {
   id: string;
@@ -38,13 +45,8 @@ export class ScoutRedditWorker {
   private copyAgent: CopywriterAgent;
 
   private constructor(options: ScoutRedditWorkerOptions = {}) {
-    // Warmup subreddits: High-traffic, soft moderation, organic karma accumulation
-    this.subreddits = options.subreddits || [
-      'AskReddit',
-      'CasualConversation',
-      'NoStupidQuestions',
-      'mildlyinteresting',
-    ];
+    // Warmup subreddits: High-traffic, soft moderation, zero karma barrier
+    this.subreddits = options.subreddits || [...WARMUP_WHITELIST_SUBREDDITS];
     this.keywords = options.keywords || [];
     this.maxAgeHours = options.maxAgeHours || 6;
     this.userAgent =
@@ -192,6 +194,23 @@ export class ScoutRedditWorker {
       return false;
     }
 
+    // Blacklist check during WARMUP (dating, tinder, dating_advice, relationship_advice)
+    const subClean = post.subreddit.trim().toLowerCase().replace(/^r\//, '');
+    if (WARMUP_BLACKLIST_SUBREDDITS.has(subClean)) {
+      return false;
+    }
+
+    // Whitelist check when comment_karma < 30
+    const accountStatus = getRedditAccountStatus();
+    if (accountStatus.comment_karma < 30) {
+      const isWhitelisted = WARMUP_WHITELIST_SUBREDDITS.some(
+        (w) => w.toLowerCase() === subClean
+      );
+      if (!isWhitelisted) {
+        return false;
+      }
+    }
+
     // Ignore deleted or empty title posts
     if (!post.title || post.title.includes('[deleted]') || post.title.includes('[removed]')) {
       return false;
@@ -221,7 +240,14 @@ export class ScoutRedditWorker {
   public async generateNativeResponse(post: RedditPost): Promise<string> {
     try {
       const generated = await this.copyAgent.generateKarmaWarmupComment(post.title, post.selftext, post.subreddit);
-      return generated;
+      // Strictly strip any links, bio references, or commercial hooks
+      return generated
+        .replace(/https?:\/\/[^\s]+/gi, '')
+        .replace(/www\.[^\s]+/gi, '')
+        .split('\n')
+        .filter((line) => !line.toLowerCase().includes('profile bio') && !line.toLowerCase().includes('in my bio'))
+        .join('\n')
+        .trim();
     } catch (err) {
       console.warn('[ScoutRedditWorker] LLM copy generation fallback:', err);
       return `That’s a really solid point. In my experience, the biggest shift came from focusing on small, consistent habits instead of waiting for a huge breakthrough. Once you remove the pressure of having everything figured out immediately, momentum naturally starts building up.`;
@@ -323,13 +349,18 @@ export class ScoutRedditWorker {
    * Executes a complete scout cycle across target subreddits
    */
   public async runScoutCycle(): Promise<{ scanned: number; matched: number; alerted: number }> {
-    console.log(`\n🔍 [ScoutRedditWorker] Starting Reddit Scout Cycle across: ${this.subreddits.join(', ')}...`);
+    const accountStatus = getRedditAccountStatus();
+    const activeSubreddits = accountStatus.comment_karma < 30
+      ? WARMUP_WHITELIST_SUBREDDITS
+      : this.subreddits.filter((s) => !WARMUP_BLACKLIST_SUBREDDITS.has(s.toLowerCase()));
+
+    console.log(`\n🔍 [ScoutRedditWorker] Starting Reddit Scout Cycle across: ${activeSubreddits.join(', ')} (Account: u/${accountStatus.username}, Comment Karma: ${accountStatus.comment_karma})...`);
 
     let scanned = 0;
     let matched = 0;
     let alerted = 0;
 
-    for (const sub of this.subreddits) {
+    for (const sub of activeSubreddits) {
       const posts = await this.fetchSubredditPosts(sub);
       scanned += posts.length;
 

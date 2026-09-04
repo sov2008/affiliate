@@ -2,6 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
 import { TelegramControlBot } from './telegram-control-bot.service.js';
+import {
+  WARMUP_BLACKLIST_SUBREDDITS,
+  WARMUP_WHITELIST_SUBREDDITS,
+  getRedditAccountStatus,
+} from './reddit-account-state.js';
 
 dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
@@ -274,9 +279,11 @@ export class RedditPosterService {
    */
   public sanitizeCopy(copy: string, forceBioHook?: boolean): string {
     // 1. Strip external URLs
-    let clean = copy.replace(/https?:\/\/[^\s]+/gi, '').trim();
+    let clean = copy.replace(/https?:\/\/[^\s]+/gi, '').replace(/www\.[^\s]+/gi, '').trim();
 
-    const isBio = forceBioHook !== undefined ? forceBioHook : this.isNextPostBioHook();
+    const accountStatus = getRedditAccountStatus();
+    // During karma warmup (comment_karma < 30), bio hooks and commercial links are strictly disabled
+    const isBio = accountStatus.comment_karma < 30 ? false : (forceBioHook !== undefined ? forceBioHook : this.isNextPostBioHook());
 
     if (!isBio) {
       // Neutral mode: strip any bio reference
@@ -302,14 +309,37 @@ export class RedditPosterService {
   /**
    * Verifies target subreddit karma/age restriction suitability
    */
-  public isSubredditAllowed(subreddit: string): { allowed: boolean; reason?: string } {
+  public isSubredditAllowed(subreddit: string, commentKarma?: number): { allowed: boolean; reason?: string } {
     const subClean = subreddit.trim().toLowerCase().replace(/^r\//, '');
+    const accountStatus = getRedditAccountStatus();
+    const karma = commentKarma !== undefined ? commentKarma : accountStatus.comment_karma;
+
+    // 1. Blacklist check during WARMUP (dating, Tinder, dating_advice, relationship_advice)
+    if (WARMUP_BLACKLIST_SUBREDDITS.has(subClean)) {
+      return {
+        allowed: false,
+        reason: `Subreddit r/${subreddit} is blacklisted during WARMUP (AutoModerator requires >= 30 comment karma).`,
+      };
+    }
 
     if (HIGH_RESTRICTION_SUBREDDITS.has(subClean)) {
       return {
         allowed: false,
         reason: `Subreddit r/${subreddit} has strict karma requirements. Omitted for low-karma account safety.`,
       };
+    }
+
+    // 2. If comment karma < 30, only whitelist is permitted
+    if (karma < 30) {
+      const isWhitelisted = WARMUP_WHITELIST_SUBREDDITS.some(
+        (w) => w.toLowerCase() === subClean
+      );
+      if (!isWhitelisted) {
+        return {
+          allowed: false,
+          reason: `Account comment karma (${karma}) < 30: posting is restricted strictly to whitelist (r/AskReddit, r/NoStupidQuestions, r/CasualConversation).`,
+        };
+      }
     }
 
     return { allowed: true };
@@ -425,8 +455,16 @@ export class RedditPosterService {
       forceBioHook?: boolean;
       canaryDelayMs?: number;
       ignorePacing?: boolean;
+      subreddit?: string;
     } = {}
   ): Promise<{ success: boolean; commentId?: string; permalink?: string; error?: string; isBioHook?: boolean }> {
+    if (options.subreddit) {
+      const subCheck = this.isSubredditAllowed(options.subreddit);
+      if (!subCheck.allowed) {
+        return { success: false, error: subCheck.reason };
+      }
+    }
+
     const eligibility = this.canPost(Date.now(), options.ignorePacing);
     if (!eligibility.allowed) {
       return { success: false, error: eligibility.reason };
