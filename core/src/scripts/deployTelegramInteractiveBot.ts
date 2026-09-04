@@ -54,8 +54,8 @@ async function main() {
     console.log(buildRes.stdout.trim() || buildRes.stderr.trim());
 
     // 3. Restart PM2 services
-    console.log('\n🔄 [3/4] Restarting affiliate-telegram-bot and scout-reddit-worker with --update-env...');
-    const restartRes = await runSsh(conn, `pm2 restart affiliate-telegram-bot scout-reddit-worker --update-env`);
+    console.log('\n🔄 [3/4] Restarting scout-reddit-worker, reddit-session-watchdog, affiliate-telegram-bot (--update-env)...');
+    const restartRes = await runSsh(conn, `pm2 restart scout-reddit-worker reddit-session-watchdog affiliate-telegram-bot --update-env`);
     console.log(restartRes.stdout.trim() || restartRes.stderr.trim());
 
     // Wait a brief moment for startup
@@ -66,15 +66,15 @@ async function main() {
     const statusRes = await runSsh(conn, `pm2 status`);
     console.log(statusRes.stdout.trim());
 
-    console.log('\n--- affiliate-telegram-bot Logs ---');
-    const tgLogs = await runSsh(conn, `pm2 logs affiliate-telegram-bot --lines 30 --nostream`);
-    console.log(tgLogs.stdout.trim() || tgLogs.stderr.trim());
+    console.log('\n--- reddit-session-watchdog Logs ---');
+    const watchdogLogs = await runSsh(conn, `pm2 logs reddit-session-watchdog --lines 25 --nostream`);
+    console.log(watchdogLogs.stdout.trim() || watchdogLogs.stderr.trim());
 
     console.log('\n--- scout-reddit-worker Logs ---');
-    const scoutLogs = await runSsh(conn, `pm2 logs scout-reddit-worker --lines 30 --nostream`);
+    const scoutLogs = await runSsh(conn, `pm2 logs scout-reddit-worker --lines 25 --nostream`);
     console.log(scoutLogs.stdout.trim() || scoutLogs.stderr.trim());
 
-    console.log('\n✅ [DEPLOY SUCCESS] Telegram Interactive Bot & Scout Worker updated and verified!');
+    console.log('\n✅ [DEPLOY SUCCESS] Scout Worker & Reddit Session Watchdog updated and verified!');
   } catch (err) {
     console.error('❌ Deployment error:', err);
     process.exit(1);
