@@ -112,40 +112,52 @@ export class ScoutRedditWorker {
    * Fetches latest posts from Reddit public JSON API
    */
   public async fetchSubredditPosts(sub: string): Promise<RedditPost[]> {
-    const url = `https://www.reddit.com/r/${sub}/new.json?limit=25`;
-    try {
-      const res = await fetch(url, {
-        headers: {
-          'User-Agent': this.userAgent,
-          Accept: 'application/json',
-        },
-      });
-
-      if (!res.ok) {
-        console.warn(`[ScoutRedditWorker] Notice for r/${sub}: HTTP ${res.status}`);
-        return [];
-      }
-
-      const json: any = await res.json();
-      const children = json?.data?.children || [];
-
-      return children.map((c: any) => ({
-        id: c.data.id,
-        subreddit: c.data.subreddit,
-        title: c.data.title || '',
-        selftext: c.data.selftext || '',
-        author: c.data.author || '',
-        permalink: c.data.permalink || '',
-        url: `https://www.reddit.com${c.data.permalink || ''}`,
-        created_utc: c.data.created_utc || Math.floor(Date.now() / 1000),
-        score: Number(c.data.score || 0),
-        num_comments: Number(c.data.num_comments || 0),
-      }));
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : String(err);
-      console.warn(`[ScoutRedditWorker] Fetch error for r/${sub}: ${msg}`);
-      return [];
+    const sessionCookie = process.env.REDDIT_SESSION_COOKIE || '';
+    const headers: Record<string, string> = {
+      'User-Agent': this.userAgent,
+      Accept: 'application/json',
+    };
+    if (sessionCookie) {
+      headers['Cookie'] = `reddit_session=${sessionCookie}`;
     }
+
+    // Try www.reddit.com first, then fallback to old.reddit.com if needed
+    const endpoints = [
+      `https://www.reddit.com/r/${sub}/new.json?limit=25`,
+      `https://old.reddit.com/r/${sub}/new.json?limit=25`,
+    ];
+
+    for (const url of endpoints) {
+      try {
+        const res = await fetch(url, { headers });
+
+        if (!res.ok) {
+          console.warn(`[ScoutRedditWorker] Notice for ${url}: HTTP ${res.status}`);
+          continue;
+        }
+
+        const json: any = await res.json();
+        const children = json?.data?.children || [];
+
+        return children.map((c: any) => ({
+          id: c.data.id,
+          subreddit: c.data.subreddit,
+          title: c.data.title || '',
+          selftext: c.data.selftext || '',
+          author: c.data.author || '',
+          permalink: c.data.permalink || '',
+          url: `https://www.reddit.com${c.data.permalink || ''}`,
+          created_utc: c.data.created_utc || Math.floor(Date.now() / 1000),
+          score: Number(c.data.score || 0),
+          num_comments: Number(c.data.num_comments || 0),
+        }));
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        console.warn(`[ScoutRedditWorker] Fetch error for ${url}: ${msg}`);
+      }
+    }
+
+    return [];
   }
 
   /**
