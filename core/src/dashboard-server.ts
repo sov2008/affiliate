@@ -162,6 +162,110 @@ app.get(['/', '/dashboard', '/dashboard/'], async (req, res) => {
   }
 });
 
+app.get('/logout', (req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.send(`<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сессия завершена // Affiliate Ops</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --dim: #8b949e;
+      --green: #238636;
+      --red: #f85149;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px 32px;
+      text-align: center;
+      max-width: 460px;
+      width: 100%;
+      box-shadow: 0 20px 48px rgba(0,0,0,0.7);
+    }
+    .badge-lock {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(248, 81, 73, 0.15);
+      color: var(--red);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(248, 81, 73, 0.35);
+    }
+    h1 {
+      font-size: 19px;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+    p {
+      font-size: 13px;
+      color: var(--dim);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--green);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #2ea043;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(46, 160, 67, 0.35);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge-lock">🔒 Session Terminated</div>
+    <h1>СЕССИЯ ЗАВЕРШЕНА</h1>
+    <p>Авторизационные данные успешно сброшены в браузере.<br>Для повторного входа в инженерную консоль нажмите кнопку ниже.</p>
+    <a href="/dashboard/" class="btn">🔑 ВОЙТИ В КОНСОЛЬ</a>
+  </div>
+</body>
+</html>`);
+});
+
 app.get('/go', handleTdsRedirect);
 
 app.get('/api/analytics/script.js', (req, res) => {

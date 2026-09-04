@@ -44,15 +44,9 @@ function runSSHCommand(cmd: string): Promise<string> {
 }
 
 async function main() {
-  console.log('Inspecting remote Nginx configuration on 178.128.199.28...');
-  const lsSites = await runSSHCommand('ls -la /etc/nginx/sites-enabled/ /etc/nginx/conf.d/');
-  console.log('--- Enabled sites & conf.d ---\n', lsSites);
-
-  const grepFlirtcheck = await runSSHCommand('grep -rn "flirtcheck" /etc/nginx/');
-  console.log('--- Grep flirtcheck ---\n', grepFlirtcheck);
-
-  const nginxVhost = await runSSHCommand('cat /etc/nginx/sites-available/* 2>/dev/null || true');
-  console.log('--- Sites available contents ---\n', nginxVhost);
+  console.log('Reading dashboard entries in auth_debug.log...');
+  const res = await runSSHCommand('grep -a "dashboard" /var/log/nginx/auth_debug.log | tail -n 20');
+  console.log('Result:\n', res);
 }
 
 main().catch(console.error);
