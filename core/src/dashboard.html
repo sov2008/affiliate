@@ -293,94 +293,26 @@
     }
 
     /* ======================================================== */
-    /* RETRO TERMINAL TOOLTIPS (.term-tooltip / [data-tooltip]) */
+    /* GLOBAL SINGLETON FLOATING TOOLTIP (#globalTooltip)       */
     /* ======================================================== */
-    .term-tooltip, [data-tooltip] {
-      position: relative;
-    }
-    .term-tooltip::after, [data-tooltip]::after {
-      content: attr(data-tooltip);
-      position: absolute;
-      bottom: calc(100% + 6px);
-      left: 50%;
-      transform: translateX(-50%) translateY(3px);
-      background: #090d13 !important;
-      color: #7ee787 !important;
-      border: 1px solid #238636 !important;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.95), 0 0 8px rgba(46, 160, 67, 0.4) !important;
+    #globalTooltip {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999999;
+      background: #090d13;
+      color: #7ee787;
+      border: 1px solid #238636;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.95), 0 0 10px rgba(46, 160, 67, 0.4);
       padding: 4px 8px;
       font-size: 10px;
       font-family: 'JetBrains Mono', monospace;
       font-weight: 500;
       line-height: 1.3;
       white-space: nowrap;
-      border-radius: 2px;
-      pointer-events: none;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s !important;
-      z-index: 99999;
+      border-radius: 4px;
+      transition: opacity 0.1s ease;
     }
-    .term-tooltip::before, [data-tooltip]::before {
-      content: '';
-      position: absolute;
-      bottom: calc(100% + 1px);
-      left: 50%;
-      transform: translateX(-50%) translateY(3px);
-      border-width: 5px 5px 0 5px;
-      border-style: solid;
-      border-color: #238636 transparent transparent transparent !important;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s !important;
-      z-index: 99999;
-      pointer-events: none;
-    }
-    .term-tooltip:hover::after, [data-tooltip]:hover::after,
-    .term-tooltip:hover::before, [data-tooltip]:hover::before {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(0);
-    }
-    /* Modifier: Tooltip opens downwards (for top header strip) */
-    .tooltip-bottom::after {
-      bottom: auto;
-      top: calc(100% + 6px);
-      transform: translateX(-50%) translateY(-3px);
-    }
-    .tooltip-bottom::before {
-      bottom: auto;
-      top: calc(100% + 1px);
-      border-width: 0 5px 5px 5px;
-      border-color: transparent transparent #238636 transparent !important;
-      transform: translateX(-50%) translateY(-3px);
-    }
-    .tooltip-bottom:hover::after, .tooltip-bottom:hover::before {
-      transform: translateX(-50%) translateY(0);
-    }
-    /* Modifier: Tooltip aligns to the right side of button (prevents horizontal overflow) */
-    .tooltip-left::after {
-      left: auto;
-      right: 0;
-      transform: translateY(3px);
-    }
-    .tooltip-left::before {
-      left: auto;
-      right: 10px;
-      transform: translateY(3px);
-    }
-    .tooltip-left:hover::after, .tooltip-left:hover::before {
-      transform: translateY(0);
-    }
-    .tooltip-bottom.tooltip-left::after {
-      transform: translateY(-3px);
-    }
-    .tooltip-bottom.tooltip-left::before {
-      transform: translateY(-3px);
-    }
-    .tooltip-bottom.tooltip-left:hover::after, .tooltip-bottom.tooltip-left:hover::before {
-      transform: translateY(0);
-    }
+
 
     /* Filter Tabs styling */
     .filter-tab {
@@ -2178,8 +2110,52 @@
       }
     } );
 
+    // Global Floating Tooltip Singleton Event Delegation
+    function initGlobalTooltip() {
+      const tip = document.getElementById('globalTooltip');
+      if (!tip) return;
+
+      document.addEventListener('mouseover', (e) => {
+        const target = e.target.closest('[data-tooltip]');
+        if (!target) return;
+        const text = target.getAttribute('data-tooltip');
+        if (!text) return;
+        tip.textContent = text;
+        tip.classList.remove('hidden');
+        tip.style.display = 'block';
+        tip.style.opacity = '1';
+
+        const rect = target.getBoundingClientRect();
+        const tipHeight = tip.offsetHeight || 24;
+        const tipWidth = tip.offsetWidth || 100;
+        
+        let top = rect.top - tipHeight - 6;
+        if (top < 8) {
+          top = rect.bottom + 6;
+        }
+
+        let left = rect.left + (rect.width / 2) - (tipWidth / 2);
+        if (left < 8) left = 8;
+        if (left + tipWidth > window.innerWidth - 8) {
+          left = window.innerWidth - tipWidth - 8;
+        }
+
+        tip.style.top = `${Math.round(top)}px`;
+        tip.style.left = `${Math.round(left)}px`;
+      });
+
+      document.addEventListener('mouseout', (e) => {
+        if (e.target.closest('[data-tooltip]')) {
+          tip.classList.add('hidden');
+          tip.style.display = 'none';
+          tip.style.opacity = '0';
+        }
+      });
+    }
+
     // Init on DOM ready
     window.addEventListener('DOMContentLoaded', () => {
+      initGlobalTooltip();
       initQueueResize();
       refreshAll();
       initSse();
@@ -2198,6 +2174,9 @@
       }, 1000);
     });
   </script>
+
+  <!-- Global Singleton Floating Tooltip Element -->
+  <div id="globalTooltip" class="hidden"></div>
 
   <!-- ======================================================== -->
   <!-- FLOATING BATCH ACTION BAR (ROOT BODY LEVEL, Z-INDEX 99999)-->
