@@ -51,7 +51,10 @@ export class ScoutRedditWorker {
       options.userAgent ||
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 (Antigravity Reddit Warmup/2.0)';
 
-    const defaultDir = path.resolve(process.cwd(), 'core/data');
+    const defaultDir = fs.existsSync('/var/www/affiliate/core/data')
+      ? '/var/www/affiliate/core/data'
+      : path.resolve(process.cwd(), process.cwd().endsWith('core') ? 'data' : 'core/data');
+
     if (!fs.existsSync(defaultDir)) {
       try {
         fs.mkdirSync(defaultDir, { recursive: true });
@@ -122,15 +125,20 @@ export class ScoutRedditWorker {
       headers['Cookie'] = `reddit_session=${sessionCookie}`;
     }
 
-    // Try www.reddit.com first, then fallback to old.reddit.com if needed
-    const endpoints = [
+    // Fetch rising & new feeds to discover high-traction posts (score >= 5, comments 3..30)
+    const urls = [
+      `https://www.reddit.com/r/${sub}/rising.json?limit=25`,
       `https://www.reddit.com/r/${sub}/new.json?limit=25`,
-      `https://old.reddit.com/r/${sub}/new.json?limit=25`,
     ];
+    const postMap = new Map<string, RedditPost>();
 
-    for (const url of endpoints) {
+    for (const url of urls) {
       try {
-        const res = await fetch(url, { headers });
+        let res = await fetch(url, { headers });
+        if (!res.ok) {
+          const fallbackUrl = url.replace('www.reddit.com', 'old.reddit.com');
+          res = await fetch(fallbackUrl, { headers });
+        }
 
         if (!res.ok) {
           console.warn(`[ScoutRedditWorker] Notice for ${url}: HTTP ${res.status}`);
@@ -140,25 +148,29 @@ export class ScoutRedditWorker {
         const json: any = await res.json();
         const children = json?.data?.children || [];
 
-        return children.map((c: any) => ({
-          id: c.data.id,
-          subreddit: c.data.subreddit,
-          title: c.data.title || '',
-          selftext: c.data.selftext || '',
-          author: c.data.author || '',
-          permalink: c.data.permalink || '',
-          url: `https://www.reddit.com${c.data.permalink || ''}`,
-          created_utc: c.data.created_utc || Math.floor(Date.now() / 1000),
-          score: Number(c.data.score || 0),
-          num_comments: Number(c.data.num_comments || 0),
-        }));
+        for (const c of children) {
+          if (c?.data?.id && !postMap.has(c.data.id)) {
+            postMap.set(c.data.id, {
+              id: c.data.id,
+              subreddit: c.data.subreddit,
+              title: c.data.title || '',
+              selftext: c.data.selftext || '',
+              author: c.data.author || '',
+              permalink: c.data.permalink || '',
+              url: `https://www.reddit.com${c.data.permalink || ''}`,
+              created_utc: c.data.created_utc || Math.floor(Date.now() / 1000),
+              score: Number(c.data.score || 0),
+              num_comments: Number(c.data.num_comments || 0),
+            });
+          }
+        }
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err);
         console.warn(`[ScoutRedditWorker] Fetch error for ${url}: ${msg}`);
       }
     }
 
-    return [];
+    return Array.from(postMap.values());
   }
 
   /**
