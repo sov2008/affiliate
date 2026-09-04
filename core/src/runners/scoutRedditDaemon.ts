@@ -14,7 +14,8 @@ function timestamp(): string {
 }
 
 async function runDaemonLoop(): Promise<void> {
-  console.log(`[${timestamp()}] 🛡️ [ScoutRedditDaemon] Инициализация демона Reddit Scout...`);
+  console.log(`[${timestamp()}] 🛡️ [ScoutRedditDaemon] Инициализация демона Reddit Scout [KARMA WARMUP / FARMING MODE]...`);
+  console.log(`[${timestamp()}] 🎯 [ScoutRedditDaemon] Целевые сабреддиты: r/AskReddit, r/CasualConversation, r/NoStupidQuestions, r/mildlyinteresting`);
   console.log(`[${timestamp()}] ⏱️ [ScoutRedditDaemon] Интервал опроса: ${CYCLE_INTERVAL_MS / 1000} сек (10 мин).`);
 
   while (true) {

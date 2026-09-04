@@ -251,4 +251,47 @@ Post Content: "${selftext.slice(0, 300)}"`;
       return check.sanitizedCopy || fallback;
     }
   }
+
+  /**
+   * Generates a warm, authentic, highly empathetic and expert peer-to-peer Reddit reply
+   * strictly for Organic Karma Warmup (Cold Seed phase).
+   * ZERO URLs, ZERO promotion, ZERO bio mentions, ZERO AI artifacts.
+   */
+  public async generateKarmaWarmupComment(
+    topicTitle: string,
+    selftext: string,
+    subreddit: string
+  ): Promise<string> {
+    const systemPrompt = `You are a genuine, helpful, thoughtful, and articulate Reddit user participating in r/${subreddit}.
+CRITICAL CONSTRAINTS:
+1. TONE: Warm, conversational, relatable, and authentic peer-to-peer personal perspective.
+2. LENGTH: 1 to 3 short paragraphs (between 60 and 120 words total).
+3. STRICT ZERO URLS: Absolutely NO links, http, https, markdown [text](url), or domain names.
+4. STRICT ZERO PROMOTION: Absolutely NO mentions of products, services, bots, links, "bio", "profile", "check out", "my page", or self-promotion.
+5. NO AI ARTIFACTS: Do NOT start with "As an AI...", "Great question!", "Ah,", "Hello fellow Redditors", or cliché chatbot phrases. Start naturally straight into the thought, personal reflection or practical tip.
+6. RELEVANCE: Directly answer the question or react to the story with genuine insight, empathy, or a practical tip.
+7. Return a JSON object with a single string field: { "comment": "the exact reply text" }`;
+
+    const userPrompt = `Subreddit: r/${subreddit}
+Post Title: "${topicTitle}"
+Post Body: "${(selftext || '').slice(0, 500) || 'None provided'}"`;
+
+    try {
+      const result = await this.completeJson<{ comment: string }>(systemPrompt, userPrompt, { temperature: 0.65 });
+      let text = (result?.comment || '').trim();
+      if (!text) {
+        throw new Error('Empty comment returned from LLM');
+      }
+      // Sanitize any accidental links or bio hooks
+      text = text.replace(/https?:\/\/[^\s]+/gi, '').trim();
+      text = text
+        .split('\n')
+        .filter((l) => !l.toLowerCase().includes('bio') && !l.toLowerCase().includes('profile'))
+        .join('\n')
+        .trim();
+      return text;
+    } catch {
+      return `That’s a really solid point. In my experience, the biggest shift came from focusing on small, consistent habits instead of waiting for a huge breakthrough. Once you remove the pressure of having everything figured out immediately, momentum naturally starts building up.`;
+    }
+  }
 }
