@@ -82,9 +82,14 @@ export class DripRetentionWorker {
    */
   private resolveTrackingUrl(lead: TgLeadItem): string {
     if (lead.tracking_url) return lead.tracking_url;
-    const base = process.env.LOSPOLLOS_SMARTLINK_URL || 'https://glstrck.com/aff_c?offer_id=123&aff_id=456';
-    const separator = base.includes('?') ? '&' : '?';
-    return `${base}${separator}s1=tg_${lead.chat_id}`;
+    const base =
+      process.env.AFFILIATE_OFFER_URL ||
+      process.env.LOSPOLLOS_SMARTLINK_URL ||
+      process.env.LOSPOLLOS_URL ||
+      'https://yex2brk.chemistrydrivensmile.org/rp1pd38';
+    const cleanBase = base.trim().replace(/\/+$/, '');
+    const separator = cleanBase.includes('?') ? '&' : '?';
+    return `${cleanBase}${separator}sub1=reddit_dating&sub2=${encodeURIComponent(lead.chat_id)}&cid=${encodeURIComponent(lead.chat_id)}`;
   }
 
   /**

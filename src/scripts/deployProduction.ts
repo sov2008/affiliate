@@ -366,13 +366,13 @@ class ProductionDeployer {
     // PM2: restart ecosystem with .cjs or by name
     try {
       const result = await this.ssh(
-        `cd ${this.remote} && (pm2 restart ecosystem.config.cjs --update-env || pm2 restart all) 2>&1`,
+        `cd ${this.remote} && (pm2 startOrRestart ecosystem.config.cjs --update-env || pm2 restart all) && pm2 save 2>&1`,
         30000
       );
       console.log('   ✓ PM2 перезагружен');
       const lines = result.split('\n').filter((l: string) => l.includes('✓') || l.includes('online'));
       if (lines.length > 0) {
-        for (const line of lines.slice(0, 6)) {
+        for (const line of lines.slice(0, 7)) {
           console.log(`     ${line.trim()}`);
         }
       }
@@ -385,6 +385,7 @@ class ProductionDeployer {
         'affiliate-health-monitor',
         'affiliate-telegram-bot',
         'affiliate-autopilot',
+        'affiliate-telegram-userbot',
       ];
       for (const svc of services) {
         try {

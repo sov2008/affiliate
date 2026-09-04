@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import { execSync } from 'child_process';
 import dotenv from 'dotenv';
 import { BundleArtifact, Platform } from '../types/pipeline.js';
@@ -142,15 +143,18 @@ export class TelegramControlBot {
   }
 
   /**
-   * Builds personalized LosPollos Smartlink tracking URL: ${LOSPOLLOS_URL}&s1=tg_${chatId}
+   * Builds personalized LosPollos Smartlink tracking URL: ${AFFILIATE_OFFER_URL}?sub1=reddit_dating&sub2=${chatId}&cid=${clickId}
    */
-  public getPersonalizedLosPollosUrl(chatId: string | number): string {
+  public getPersonalizedLosPollosUrl(chatId: string | number, sub1: string = 'reddit_dating', clickId?: string): string {
     const baseUrl =
+      process.env.AFFILIATE_OFFER_URL ||
       process.env.LOSPOLLOS_SMARTLINK_URL ||
       process.env.LOSPOLLOS_URL ||
-      'https://trk.lospollos.com/smartlink/dating?aff=sov208';
-    const sep = baseUrl.includes('?') ? '&' : '?';
-    return `${baseUrl}${sep}s1=tg_${chatId}`;
+      'https://yex2brk.chemistrydrivensmile.org/rp1pd38';
+    const cid = clickId || crypto.randomBytes(6).toString('hex');
+    const cleanBase = baseUrl.trim().replace(/\/+$/, '');
+    const sep = cleanBase.includes('?') ? '&' : '?';
+    return `${cleanBase}${sep}sub1=${encodeURIComponent(sub1)}&sub2=${encodeURIComponent(String(chatId))}&cid=${encodeURIComponent(cid)}`;
   }
 
   /**
@@ -279,6 +283,16 @@ export class TelegramControlBot {
     // For public users on /start: trigger Step 1 of Public Quiz Converter
     if (!this.isAdmin(fromId, username)) {
       if (cmd === '/start' || cmd === 'start' || !text.startsWith('/')) {
+        const startParam = arg || 'reddit_dating';
+        const leadRepo = TelegramLeadRepository.getInstance();
+        leadRepo.saveLead({
+          chat_id: fromId,
+          username,
+          first_name: message.from?.first_name,
+          source: startParam,
+          status: 'QUIZ_IN_PROGRESS',
+        });
+
         await this.sendPublicQuizStep1(message.chat.id, message.from?.first_name);
         return `👋 <b>Welcome! Let's find your perfect match.</b>\n\nWhat age range are you looking for? [18-25] [26-35] [36+]`;
       }
@@ -597,14 +611,17 @@ ${bodyExcerpt}
 
       await this.answerCallbackQuery(query.id, 'Age preference selected');
 
-      // Step 2: "Target connection type?" [Casual] [Serious] [Any]
-      const step2Text = `❤️ <b>Target connection type?</b>\n\nSelected age: <b>${ageRange}</b>\nChoose what kind of relationship you are seeking:`;
+      // Step 2: Preference (Serious Connection, Casual Flirt, Virtual / Cams, Interactive Fun)
+      const step2Text = `❤️ <b>What are you looking for?</b>\n\nSelected age: <b>${ageRange}</b>\nChoose your primary preference:`;
       const step2Keyboard = {
         inline_keyboard: [
           [
-            { text: 'Casual', callback_data: `quiz_type:Casual:${ageRange}` },
-            { text: 'Serious', callback_data: `quiz_type:Serious:${ageRange}` },
-            { text: 'Any', callback_data: `quiz_type:Any:${ageRange}` },
+            { text: '💍 Serious Connection', callback_data: `quiz_type:Serious Connection:${ageRange}` },
+            { text: '🔥 Casual Flirt', callback_data: `quiz_type:Casual Flirt:${ageRange}` },
+          ],
+          [
+            { text: '📹 Virtual / Cams', callback_data: `quiz_type:Virtual / Cams:${ageRange}` },
+            { text: '🎮 Interactive Fun', callback_data: `quiz_type:Interactive Fun:${ageRange}` },
           ],
         ],
       };
@@ -617,20 +634,30 @@ ${bodyExcerpt}
       return;
     }
 
-    // Step 2 -> Step 3 & Final: User picked connection type
+    // Step 2 -> Step 3 & Final: User picked connection preference
     if (data.startsWith('quiz_type:')) {
       const [, connType, ageRange] = data.split(':');
-      const routing = OfferRoutingService.getInstance().selectBestOffer(fromId, { ageRange, connType });
+      const leadRepo = TelegramLeadRepository.getInstance();
+      const existingLead = leadRepo.getLead(String(fromId));
+      const startParam = existingLead?.source || 'reddit_dating';
+
+      // Route through Multi-Vertical TDS Matrix
+      const routing = OfferRoutingService.getInstance().resolveOfferUrl({
+        chatId: fromId,
+        ageRange,
+        connType,
+        startParam,
+      });
       const trackingUrl = routing.url;
 
       // Step 3: Save user to SQLite (core/data/tg_leads.db) with status QUIZ_COMPLETED
-      const leadRepo = TelegramLeadRepository.getInstance();
       leadRepo.saveLead({
         chat_id: fromId,
         username,
         first_name: firstName,
         age_range: ageRange,
         connection_type: connType,
+        source: startParam,
         status: 'QUIZ_COMPLETED',
         tracking_url: trackingUrl,
         selected_offer: routing.offerId,
@@ -638,13 +665,12 @@ ${bodyExcerpt}
 
       await this.answerCallbackQuery(query.id, '🎉 Matches ready!');
 
-      // Final Step: Generate personalized LosPollos URL with tracking parameter: ${LOSPOLLOS_URL}&s1=tg_${msg.chat.id}
       const finalText = `
 🎉 <b>MATCHES READY!</b>
 ━━━━━━━━━━━━━━━━━━
 We found <b>15+ verified profiles</b> matching your preferences:
 • <b>Age range:</b> ${ageRange}
-• <b>Connection:</b> ${connType}
+• <b>Preference:</b> ${connType}
 • <b>Location:</b> Nearby / Verified Active
 
 👇 <b>Tap below to view matches and chat now:</b>
@@ -653,7 +679,7 @@ We found <b>15+ verified profiles</b> matching your preferences:
       const finalKeyboard = {
         inline_keyboard: [
           [
-            { text: '🔥 View Matches Now 👉', url: trackingUrl },
+            { text: '🔥 View Matches Now 👈', url: trackingUrl },
           ],
         ],
       };
