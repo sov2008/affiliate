@@ -90,22 +90,27 @@
       transform: translateX(-50%) translateY(20px);
       background: rgba(15, 23, 42, 0.96);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(16, 185, 129, 0.5);
-      box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.8), 0 0 20px rgba(16, 185, 129, 0.25);
-      border-radius: 6px;
-      padding: 8px 16px;
-      display: flex;
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(16, 185, 129, 0.6);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(16, 185, 129, 0.3);
+      border-radius: 12px;
+      padding: 10px 20px;
+      display: none;
       align-items: center;
-      gap: 12px;
-      z-index: 999;
+      gap: 16px;
+      z-index: 99999;
       opacity: 0;
       pointer-events: none;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .floating-batch-bar.active {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateX(-50%) translateY(0);
+      display: flex !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      transform: translateX(-50%) translateY(0) !important;
+    }
+    .hidden {
+      display: none !important;
     }
     .queue-cb {
       cursor: pointer;
@@ -1045,22 +1050,7 @@
     </div>
   </div>
 
-  <!-- Floating Batch Action Bar -->
-  <div id="batchActionBar" class="floating-batch-bar">
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #10b981; color: #000; font-weight: 700; font-size: 10px;">✓</span>
-      <span style="color: var(--text); font-size: 11px; font-weight: 600;">
-        Выбрано: <strong id="batchSelectedCount" style="color: #34d399;">0</strong> элементов
-      </span>
-    </div>
-    <div style="height: 18px; width: 1px; background: var(--border);"></div>
-    <div style="display: flex; align-items: center; gap: 6px;">
-      <button onclick="executeBatchAction('approve')" id="btnBatchApprove" class="btn btn-green term-tooltip tooltip-bottom" data-tooltip="Массовый перевод выбранных постов в статус APPROVED" style="padding: 3px 8px; font-size: 10px;">✓ Одобрить выбранные</button>
-      <button onclick="executeBatchAction('reject')" id="btnBatchReject" class="btn btn-amber term-tooltip tooltip-bottom" data-tooltip="Массовый перевод выбранных постов в статус REJECTED" style="padding: 3px 8px; font-size: 10px;">✕ Отклонить выбранные</button>
-      <button onclick="executeBatchAction('delete')" id="btnBatchDelete" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Безвозвратное удаление выбранных записей из базы SQLite" style="padding: 3px 8px; font-size: 10px;">🗑 Удалить выбранные</button>
-      <button onclick="clearBatchSelection()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Снять выделение со всех строк" style="padding: 3px 8px; font-size: 10px;">Сбросить выбор</button>
-    </div>
-  </div>
+
 
   <script>
     // State & Ring buffer
@@ -1511,16 +1501,20 @@
     }
 
     function updateBatchBar() {
-      const bar = document.getElementById('batchActionBar');
+      const bar = document.getElementById('floatingBatchBar') || document.getElementById('batchActionBar');
       const badge = document.getElementById('batchSelectedCount');
       const count = selectedQueueIds.size;
       
-      if (badge) badge.innerText = count;
+      if (badge) badge.textContent = count;
       if (bar) {
         if (count > 0) {
+          bar.classList.remove('hidden');
           bar.classList.add('active');
+          bar.style.display = 'flex';
         } else {
+          bar.classList.add('hidden');
           bar.classList.remove('active');
+          bar.style.display = 'none';
         }
       }
 
@@ -1570,10 +1564,18 @@
       updateBatchBar();
     }
 
-    function clearBatchSelection() {
+    function clearSelection() {
       selectedQueueIds.clear();
       renderQueueTable();
       updateBatchBar();
+    }
+
+    function clearBatchSelection() {
+      clearSelection();
+    }
+
+    function triggerBatchAction(action) {
+      return executeBatchAction(action);
     }
 
     async function executeBatchAction(action) {
@@ -2196,5 +2198,24 @@
       }, 1000);
     });
   </script>
+
+  <!-- ======================================================== -->
+  <!-- FLOATING BATCH ACTION BAR (ROOT BODY LEVEL, Z-INDEX 99999)-->
+  <!-- ======================================================== -->
+  <div id="floatingBatchBar" class="floating-batch-bar hidden">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: #10b981; color: #000; font-weight: 800; font-size: 11px;">✓</span>
+      <span style="color: #f1f5f9; font-size: 12px; font-weight: 600;">
+        Выбрано: <strong id="batchSelectedCount" style="color: #34d399; font-size: 13px; font-family: monospace;">0</strong> элементов
+      </span>
+    </div>
+    <div style="height: 20px; width: 1px; background: rgba(255, 255, 255, 0.15);"></div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button onclick="triggerBatchAction('approve')" id="btnBatchApprove" class="btn btn-green term-tooltip tooltip-bottom" data-tooltip="Массовый перевод выбранных постов в статус APPROVED" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">✓ Принять (Approve)</button>
+      <button onclick="triggerBatchAction('reject')" id="btnBatchReject" class="btn btn-amber term-tooltip tooltip-bottom" data-tooltip="Массовый перевод выбранных постов в статус REJECTED" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">✕ Отклонить (Reject)</button>
+      <button onclick="triggerBatchAction('delete')" id="btnBatchDelete" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Безвозвратное удаление выбранных записей из базы SQLite" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">🗑 Удалить (Delete)</button>
+      <button onclick="clearSelection()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Снять выделение со всех строк" style="padding: 4px 10px; font-size: 11px;">Сбросить выбор</button>
+    </div>
+  </div>
 </body>
 </html>
