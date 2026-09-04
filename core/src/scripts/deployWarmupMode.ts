@@ -8,6 +8,7 @@ dotenv.config({ path: path.resolve(process.cwd(), 'core/.env') });
 const HOST = process.env.DEPLOY_HOST || '178.128.199.28';
 const USER = process.env.DEPLOY_USER || 'root';
 const PASS = process.env.SSH_ROOT_PASSWORD || 'AffOps_Root_Secure_2026!k9P2w8';
+const DASH_PASS = process.env.DASHBOARD_PASS || 'AffOps_Secure_k9P2w8Nx7Q4m';
 const REMOTE_DIR = '/var/www/affiliate';
 
 function runSsh(conn: Client, cmd: string): Promise<{ stdout: string; stderr: string; code: number }> {
@@ -24,7 +25,7 @@ function runSsh(conn: Client, cmd: string): Promise<{ stdout: string; stderr: st
 }
 
 async function main() {
-  console.log(`\n🚀 [WARMUP DEPLOY] Подключение к DigitalOcean: ${USER}@${HOST}...`);
+  console.log(`\n🚀 [FULLSTACK DEPLOY] Подключение к DigitalOcean: ${USER}@${HOST}...`);
   const conn = new Client();
 
   await new Promise<void>((resolve, reject) => {
@@ -44,34 +45,64 @@ async function main() {
 
   try {
     // 1. Git pull / reset hard
-    console.log('📥 [1/5] Синхронизация репозитория на сервере (origin/main)...');
+    console.log('📥 [1/6] Синхронизация репозитория на сервере (origin/main)...');
     const gitRes = await runSsh(conn, `cd ${REMOTE_DIR} && git fetch origin && git reset --hard origin/main`);
     console.log(gitRes.stdout.trim() || gitRes.stderr.trim());
 
     // 2. Build core TypeScript
-    console.log('\n🔨 [2/5] Сборка TypeScript в core (npm run build)...');
+    console.log('\n🔨 [2/6] Сборка TypeScript в core (npm run build)...');
     const buildRes = await runSsh(conn, `cd ${REMOTE_DIR}/core && npm run build`);
     console.log(buildRes.stdout.trim() || buildRes.stderr.trim());
 
-    // 3. Restart scout-reddit-worker in PM2
-    console.log('\n🔄 [3/5] Перезапуск scout-reddit-worker в PM2 (--update-env)...');
-    const restartRes = await runSsh(conn, `pm2 restart scout-reddit-worker --update-env`);
+    // 3. Reset seen cache once so newly matched warmup posts get ingested into SQLite
+    console.log('\n🧹 [3/6] Сброс seen_reddit_posts.json для первичного наполнения очереди SQLite...');
+    await runSsh(conn, `rm -f ${REMOTE_DIR}/core/data/seen_reddit_posts.json`);
+
+    // 4. Restart affiliate-dashboard and scout-reddit-worker in PM2
+    console.log('\n🔄 [4/6] Перезапуск affiliate-dashboard и scout-reddit-worker в PM2 (--update-env)...');
+    const restartRes = await runSsh(conn, `pm2 restart affiliate-dashboard scout-reddit-worker --update-env`);
     console.log(restartRes.stdout.trim() || restartRes.stderr.trim());
 
-    // 4. Check PM2 status
-    console.log('\n📊 [4/5] Статус процессов PM2:');
-    const statusRes = await runSsh(conn, `pm2 status`);
-    console.log(statusRes.stdout.trim());
+    // 5. Wait for scout cycle to execute and ingest into SQLite
+    console.log('\n⏳ [5/6] Ожидание 14 секунд для выполнения цикла скаутинга и инжеста в SQLite...');
+    await new Promise((r) => setTimeout(r, 14000));
 
-    // 5. Wait 12 seconds and capture logs
-    console.log('\n⏳ [5/5] Ожидание 12 секунд для инициализации цикла сканирования...');
-    await new Promise((r) => setTimeout(r, 12000));
+    // 6. Query SQLite directly with sqlite3 CLI and inspect API
+    console.log('\n📊 [6/6] Срез записей из SQLite базы данных (/var/www/affiliate/core/data/content_queue.sqlite):');
+    const sqliteSchema = await runSsh(
+      conn,
+      `sqlite3 ${REMOTE_DIR}/core/data/content_queue.sqlite ".schema content_queue_v2"`
+    );
+    console.log('--- Схема таблицы content_queue_v2 ---');
+    console.log(sqliteSchema.stdout.trim());
 
-    console.log('\n📋 [LOGS] Логи запуска scout-reddit-worker:');
-    const logsRes = await runSsh(conn, `pm2 logs scout-reddit-worker --lines 45 --nostream`);
+    console.log('\n--- Записи в очереди SQLite (ORDER BY created_at DESC) ---');
+    const sqliteRows = await runSsh(
+      conn,
+      `sqlite3 -header -column ${REMOTE_DIR}/core/data/content_queue.sqlite "SELECT id, platform, status, subreddit, target_url, datetime(created_at/1000, 'unixepoch') as created_utc FROM content_queue_v2 ORDER BY created_at DESC LIMIT 10;"`
+    );
+    console.log(sqliteRows.stdout.trim() || '(База данных пока пуста или ожидает матчей)');
+
+    console.log('\n--- Проверка эндпоинта GET /api/queue/items в affiliate-dashboard (порт 5000) ---');
+    const apiRes = await runSsh(
+      conn,
+      `curl -s -u admin:${DASH_PASS} http://localhost:5000/api/queue/items`
+    );
+    try {
+      const parsed = JSON.parse(apiRes.stdout);
+      console.log(`✅ API Response: success=${parsed.success}, count=${parsed.count || (parsed.items ? parsed.items.length : 0)}`);
+      if (parsed.items && parsed.items.length > 0) {
+        console.log(`Первый элемент в очереди: ID=${parsed.items[0].id}, Platform=${parsed.items[0].platform || parsed.items[0].target_platform}, Subreddit=${parsed.items[0].subreddit || 'N/A'}, Status=${parsed.items[0].status}`);
+      }
+    } catch {
+      console.log('Raw API Response:', apiRes.stdout.slice(0, 300));
+    }
+
+    console.log('\n📋 [LOGS] Последние логи scout-reddit-worker:');
+    const logsRes = await runSsh(conn, `pm2 logs scout-reddit-worker --lines 25 --nostream`);
     console.log(logsRes.stdout.trim() || logsRes.stderr.trim());
 
-    console.log('\n✨ [DONE] Деплой и запуск режима Karma Warmup успешно завершены!');
+    console.log('\n✨ [DONE] Деплой, синхронизация SQLite и верификация очереди успешно завершены!');
   } catch (err) {
     console.error('❌ Ошибка при деплое:', err);
     process.exit(1);

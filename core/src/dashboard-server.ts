@@ -989,10 +989,11 @@ app.get('/api/queue/stats', async (req, res) => {
 
 app.get('/api/queue/items', async (req, res) => {
   try {
-    const { status, limit = 50 } = req.query as { status?: string; limit?: string };
+    const { status, limit } = req.query as { status?: string; limit?: string };
     const { ContentQueueRepository } = await import('./db/queueRepository.js');
-    const items = ContentQueueRepository.getInstance().listAll(status as any, parseInt(limit as string) || 50);
-    res.json({ success: true, items });
+    const parsedLimit = limit ? parseInt(limit as string) : 1000;
+    const items = ContentQueueRepository.getInstance().listAll(status as any, parsedLimit);
+    res.json({ success: true, count: items.length, items });
   } catch (err: any) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -1037,17 +1038,21 @@ app.get('/api/queue/items/:id', async (req, res) => {
     const combinedItem = {
       id: item.id,
       campaign_id: item.campaign_id,
-      platform: (item as any).target_platform || (item as any).platform || 'reddit',
+      platform: (item as any).platform || (item as any).target_platform || 'REDDIT',
+      target_platform: (item as any).target_platform || (item as any).platform || 'REDDIT',
+      subreddit: (item as any).subreddit || '',
+      target_url: (item as any).target_url || item.tracking_url || '',
       hook: item.hook || bundle?.creative?.headline || '',
       body: item.body || bundle?.creative?.body || '',
       stealth_cta: item.stealth_cta || bundle?.creative?.callToAction || '',
-      tracking_url: item.tracking_url,
+      tracking_url: item.tracking_url || (item as any).target_url || '',
+      payload: (item as any).payload || '',
       image_path: item.image_path || bundle?.creative?.imagePath || '',
       risk_score: item.risk_score !== undefined ? item.risk_score : (bundle?.compliance?.score ? Math.round((100 - bundle.compliance.score) / 10) : 0),
       status: item.status,
       created_at: typeof item.created_at === 'number' ? new Date(item.created_at).toISOString() : String(item.created_at),
-      compliance_reasoning: bundle?.compliance?.reasoning || (bundle?.compliance?.passed ? 'Compliant with platform terms and zero spam patterns detected.' : 'Verified by autonomous compliance guard.'),
-      generated_prompt: bundle?.creative?.generatedPrompt || 'A photorealistic lifestyle workstation setup, 8k, cinematic lighting',
+      compliance_reasoning: bundle?.compliance?.reasoning || (bundle?.compliance?.passed ? 'Compliant with platform terms and zero spam patterns detected.' : 'Karma Warmup Clean Peer-to-Peer Copy | Zero Links | Soft Moderation'),
+      generated_prompt: bundle?.creative?.generatedPrompt || '',
     };
 
     return res.status(200).json({
@@ -1068,6 +1073,7 @@ app.post('/api/queue/items/:id/status', async (req, res) => {
     const repo = ContentQueueRepository.getInstance();
     const item = repo.getItem(id);
     repo.updateStatus(id, status);
+    broadcastSseEvent('queue_update', { action: 'status_change', id, status, timestamp: Date.now() });
 
     if (status === 'APPROVED' && item) {
       const fs = await import('fs');
@@ -1422,6 +1428,7 @@ app.delete('/api/queue/items/:id', async (req, res) => {
     const { id } = req.params;
     const { ContentQueueRepository } = await import('./db/queueRepository.js');
     ContentQueueRepository.getInstance().deleteItem(id);
+    broadcastSseEvent('queue_update', { action: 'delete', id, timestamp: Date.now() });
     res.json({ success: true, id });
   } catch (err: unknown) {
     const errorMsg = err instanceof Error ? err.message : String(err);
@@ -1948,6 +1955,43 @@ app.get('/api/telemetry/stream', (req: Request, res: Response) => {
     sseClients.delete(res);
   });
 });
+
+// ----------------------------------------------------
+// Real-Time SQLite Content Queue Cross-Process Monitor
+// ----------------------------------------------------
+(async () => {
+  try {
+    const { ContentQueueRepository, resolveQueueDbPath } = await import('./db/queueRepository.js');
+    const repo = ContentQueueRepository.getInstance();
+
+    repo.onQueueChange((event, data) => {
+      broadcastSseEvent('queue_update', { source: 'local_repo', event, data, timestamp: Date.now() });
+    });
+
+    const fsModule = await import('fs');
+    const dbPath = resolveQueueDbPath();
+    let lastMtime = 0;
+    try {
+      if (fsModule.existsSync(dbPath)) {
+        lastMtime = fsModule.statSync(dbPath).mtimeMs;
+      }
+    } catch {}
+
+    setInterval(() => {
+      try {
+        if (fsModule.existsSync(dbPath)) {
+          const currentMtime = fsModule.statSync(dbPath).mtimeMs;
+          if (currentMtime > lastMtime) {
+            lastMtime = currentMtime;
+            broadcastSseEvent('queue_update', { source: 'sqlite_disk_change', timestamp: Date.now() });
+          }
+        }
+      } catch {}
+    }, 3000);
+  } catch (err: any) {
+    console.warn('[DashboardServer] Real-time queue watcher notice:', err.message);
+  }
+})();
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

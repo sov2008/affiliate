@@ -1330,6 +1330,12 @@
             appendLog(String(e.data));
           }
         });
+        es.addEventListener('queue_update', e => {
+          try {
+            appendLog('[SSE] 📥 Content Queue update event received — refreshing queue.');
+            fetchQueue();
+          } catch {}
+        });
         es.onerror = () => {
           if (sseBadge) {
             sseBadge.className = 'badge badge-warn';

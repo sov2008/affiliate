@@ -3,6 +3,7 @@ import path from 'path';
 import { CopywriterAgent } from '../agents/copy.agent.js';
 import { TelegramControlBot } from '../services/telegram-control-bot.service.js';
 import { KnowledgeService } from '../services/knowledge.service.js';
+import { ContentQueueRepository } from '../db/queueRepository.js';
 import { RawContext } from '../types/pipeline.js';
 
 export interface RedditPost {
@@ -218,7 +219,7 @@ export class ScoutRedditWorker {
   /**
    * Sends formatted HITL Alert to Admin Chat ID
    */
-  public async sendAdminAlert(post: RedditPost, proposedCopy: string): Promise<boolean> {
+  public async sendAdminAlert(post: RedditPost, proposedCopy: string, queueId?: string): Promise<boolean> {
     const bot = TelegramControlBot.getInstance();
     const adminChatId = bot.getAdminChatId() || process.env.ADMIN_CHAT_ID || process.env.TELEGRAM_CHAT_ID || '';
 
@@ -236,17 +237,18 @@ export class ScoutRedditWorker {
 📊 <b>Metrics:</b> ⬆️ ${post.score} score | 💬 ${post.num_comments} comments
 👤 <b>Author:</b> u/${post.author}
 ⏰ <b>Created:</b> ${new Date(post.created_utc * 1000).toLocaleTimeString('ru-RU')} (UTC)
-
+${queueId ? `📋 <b>Queue ID:</b> <code>${queueId}</code> (Status: PENDING)\n` : ''}
 📝 <b>Generated Warmup Reply (Zero Links / Clean):</b>
 <pre>${this.escapeHtml(proposedCopy)}</pre>
 ━━━━━━━━━━━━━━━━━━
-🛡️ <i>Cold Seed Warmup Phase | Zero Links | Friendly Peer-to-Peer</i>
+🛡️ <i>Cold Seed Warmup Phase | Zero Links | Stored in SQLite Content Queue</i>
     `.trim();
 
     const keyboard = {
       inline_keyboard: [
         [
           { text: '🌐 Open Reddit Thread', url: post.url },
+          { text: '💻 Dashboard Queue', url: 'http://178.128.199.28:5000' },
         ],
       ],
     };
@@ -287,8 +289,44 @@ export class ScoutRedditWorker {
           // Generate peer-to-peer copy
           const copy = await this.generateNativeResponse(post);
 
+          // Atomic SQLite Content Queue Ingestion (/var/www/affiliate/core/data/content_queue.sqlite)
+          let queueId = `reddit_${post.id}`;
+          try {
+            const queueItem = ContentQueueRepository.getInstance().enqueue({
+              id: queueId,
+              campaign_id: `warmup_${post.subreddit.toLowerCase()}`,
+              network: 'organic',
+              target_platform: 'reddit',
+              platform: 'REDDIT',
+              subreddit: post.subreddit,
+              target_url: post.url,
+              hook: post.title,
+              body: copy,
+              payload: JSON.stringify({
+                postId: post.id,
+                author: post.author,
+                subreddit: post.subreddit,
+                url: post.url,
+                score: post.score,
+                num_comments: post.num_comments,
+                created_utc: post.created_utc,
+                proposedCopy: copy,
+                warmupMode: true,
+              }),
+              stealth_cta: 'Zero Links | Friendly Peer-to-Peer',
+              tracking_url: post.url,
+              image_path: '',
+              risk_score: 0,
+              status: 'PENDING',
+            });
+            queueId = queueItem.id;
+            console.log(`📥 [ScoutRedditWorker] Draft enqueued into SQLite: ID=${queueItem.id} | Subreddit=r/${post.subreddit} | Status=PENDING`);
+          } catch (err: any) {
+            console.error('[ScoutRedditWorker] Failed to enqueue into SQLite Content Queue:', err.message);
+          }
+
           // Dispatch HITL alert to admin
-          const sent = await this.sendAdminAlert(post, copy);
+          const sent = await this.sendAdminAlert(post, copy, queueId);
           if (sent) {
             alerted++;
           }
