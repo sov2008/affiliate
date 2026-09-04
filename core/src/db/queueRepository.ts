@@ -648,33 +648,30 @@ export class ContentQueueRepository {
 
     if (this.isSqlite && this.db) {
       try {
+        this.db.exec('BEGIN IMMEDIATE TRANSACTION');
         if (action === 'delete') {
-          const deleteTx = this.db.transaction((targetIds: string[]) => {
-            const stmt = this.db.prepare(`DELETE FROM content_queue_v2 WHERE id = ?`);
-            for (const id of targetIds) {
-              const res = stmt.run(id);
-              if (res.changes && res.changes > 0) {
-                successCount++;
-              }
+          const stmt = this.db.prepare(`DELETE FROM content_queue_v2 WHERE id = ?`);
+          for (const id of ids) {
+            const res = stmt.run(id);
+            if (res && res.changes && res.changes > 0) {
+              successCount++;
             }
-          });
-          deleteTx(ids);
+          }
         } else {
           const targetStatus: QueueStatus = action === 'approve' ? 'APPROVED' : 'REJECTED';
-          const updateTx = this.db.transaction((targetIds: string[]) => {
-            const stmt = this.db.prepare(
-              `UPDATE content_queue_v2 SET status = ?, updated_at = ? WHERE id = ?`
-            );
-            for (const id of targetIds) {
-              const res = stmt.run(targetStatus, now, id);
-              if (res.changes && res.changes > 0) {
-                successCount++;
-              }
+          const stmt = this.db.prepare(
+            `UPDATE content_queue_v2 SET status = ?, updated_at = ? WHERE id = ?`
+          );
+          for (const id of ids) {
+            const res = stmt.run(targetStatus, now, id);
+            if (res && res.changes && res.changes > 0) {
+              successCount++;
             }
-          });
-          updateTx(ids);
+          }
         }
+        this.db.exec('COMMIT');
       } catch (err: any) {
+        try { this.db.exec('ROLLBACK'); } catch {}
         console.error('[ContentQueueRepository] Batch transaction error:', err.message);
         failedCount = ids.length - successCount;
       }
