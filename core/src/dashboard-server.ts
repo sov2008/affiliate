@@ -1003,20 +1003,21 @@ app.get('/api/queue/items', async (req, res) => {
 
 app.post('/api/queue/batch', async (req, res) => {
   try {
-    const { ids, action } = req.body as { ids?: string[]; action?: 'approve' | 'reject' | 'delete' };
+    const { ids, action } = req.body || {};
     if (!Array.isArray(ids) || ids.length === 0) {
       return res.status(400).json({ success: false, error: 'ids array is required and must not be empty' });
     }
-    if (!action || !['approve', 'reject', 'delete'].includes(action)) {
+    const cleanAction = String(action || '').toLowerCase().trim();
+    if (!['approve', 'reject', 'delete'].includes(cleanAction)) {
       return res.status(400).json({ success: false, error: 'action must be one of: approve, reject, delete' });
     }
 
     const { ContentQueueRepository } = await import('./db/queueRepository.js');
     const repo = ContentQueueRepository.getInstance();
-    const result = repo.batchProcess(ids, action);
+    const result = repo.batchProcess(ids, cleanAction as 'approve' | 'reject' | 'delete');
 
     broadcastSseEvent('queue_update', {
-      action: `batch_${action}`,
+      action: `batch_${cleanAction}`,
       count: result.successCount,
       ids,
       timestamp: Date.now(),
@@ -1024,20 +1025,65 @@ app.post('/api/queue/batch', async (req, res) => {
 
     return res.json({
       success: true,
-      action,
+      action: cleanAction,
       total: ids.length,
       successCount: result.successCount,
       failedCount: result.failedCount,
+      message: `Batch ${cleanAction} processed: ${result.successCount} items affected`,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : String(err);
+    console.error('❌ [API /api/queue/batch Error]:', errorMsg);
+    return res.status(500).json({ success: false, error: errorMsg });
+  }
+});
+
+// Inline Draft Editing Endpoint (PUT and POST support)
+const handleItemUpdate = async (req: Request, res: Response) => {
+  try {
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : String(req.params.id);
+    const { body, hook, status } = req.body || {};
+    const { ContentQueueRepository } = await import('./db/queueRepository.js');
+    const repo = ContentQueueRepository.getInstance();
+    const existing = repo.getItem(id);
+
+    if (!existing) {
+      return res.status(404).json({ success: false, error: `Queue item ${id} not found` });
+    }
+
+    const partialUpdates: any = {};
+    if (body !== undefined) partialUpdates.body = String(body);
+    if (hook !== undefined) partialUpdates.hook = String(hook);
+    if (status !== undefined) partialUpdates.status = status;
+
+    repo.updateItem(id, partialUpdates);
+
+    broadcastSseEvent('queue_update', {
+      action: 'item_updated',
+      id,
+      status: partialUpdates.status || existing.status,
+      timestamp: Date.now(),
+    });
+
+    const updatedItem = repo.getItem(id);
+    return res.json({
+      success: true,
+      message: `Item ${id.slice(0, 8)} successfully updated`,
+      item: updatedItem,
     });
   } catch (err: unknown) {
     const errorMsg = err instanceof Error ? err.message : String(err);
     return res.status(500).json({ success: false, error: errorMsg });
   }
-});
+};
+
+app.put('/api/queue/items/:id', handleItemUpdate);
+app.post('/api/queue/items/:id/update', handleItemUpdate);
 
 app.get('/api/queue/items/:id', async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : String(req.params.id);
     const { ContentQueueRepository } = await import('./db/queueRepository.js');
     const repo = ContentQueueRepository.getInstance();
     const item = repo.getItem(id);
@@ -1089,6 +1135,7 @@ app.get('/api/queue/items/:id', async (req, res) => {
       created_at: typeof item.created_at === 'number' ? new Date(item.created_at).toISOString() : String(item.created_at),
       compliance_reasoning: bundle?.compliance?.reasoning || (bundle?.compliance?.passed ? 'Compliant with platform terms and zero spam patterns detected.' : 'Karma Warmup Clean Peer-to-Peer Copy | Zero Links | Soft Moderation'),
       generated_prompt: bundle?.creative?.generatedPrompt || '',
+      ai_model: bundle?.audit?.model || bundle?.model || 'Qwen-2.5-72B (DeepSeek V3 Fallback)',
     };
 
     return res.status(200).json({
@@ -1096,45 +1143,6 @@ app.get('/api/queue/items/:id', async (req, res) => {
       item: combinedItem,
     });
   } catch (err: any) {
-    return res.status(500).json({ success: false, error: err.message });
-  }
-});
-
-// POST /api/queue/batch (Batch Approve, Reject, Delete with SSE Broadcast)
-app.post('/api/queue/batch', async (req, res) => {
-  try {
-    const { ids, action } = req.body || {};
-    if (!Array.isArray(ids) || ids.length === 0) {
-      return res.status(400).json({ success: false, error: 'Array of ids is required' });
-    }
-    const cleanAction = String(action || '').toLowerCase().trim();
-    if (!['approve', 'reject', 'delete'].includes(cleanAction)) {
-      return res.status(400).json({ success: false, error: 'Invalid action. Allowed: approve | reject | delete' });
-    }
-
-    const { ContentQueueRepository } = await import('./db/queueRepository.js');
-    const repo = ContentQueueRepository.getInstance();
-    const result = repo.batchProcess(ids, cleanAction as 'approve' | 'reject' | 'delete');
-
-    // Broadcast SSE update event to all connected dashboard clients
-    broadcastSseEvent('queue_update', {
-      action: `batch_${cleanAction}`,
-      ids,
-      affected: result.successCount,
-      timestamp: Date.now(),
-    });
-
-    return res.status(200).json({
-      success: true,
-      action: cleanAction,
-      count: ids.length,
-      affected: result.successCount,
-      failed: result.failedCount,
-      message: `Batch ${cleanAction} processed: ${result.successCount} items affected`,
-      timestamp: new Date().toISOString(),
-    });
-  } catch (err: any) {
-    console.error('❌ [API /api/queue/batch Error]:', err.message);
     return res.status(500).json({ success: false, error: err.message });
   }
 });
