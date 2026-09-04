@@ -114,7 +114,7 @@ export class ScoutRedditWorker {
       });
 
       if (!res.ok) {
-        console.warn(`[ScoutRedditWorker] Failed to fetch r/${sub}: HTTP ${res.status}`);
+        console.warn(`[ScoutRedditWorker] Notice for r/${sub}: HTTP ${res.status}`);
         return [];
       }
 
