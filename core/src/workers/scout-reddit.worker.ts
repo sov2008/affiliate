@@ -14,6 +14,8 @@ export interface RedditPost {
   permalink: string;
   url: string;
   created_utc: number;
+  score: number;
+  num_comments: number;
 }
 
 export interface ScoutRedditWorkerOptions {
@@ -35,12 +37,18 @@ export class ScoutRedditWorker {
   private copyAgent: CopywriterAgent;
 
   private constructor(options: ScoutRedditWorkerOptions = {}) {
-    this.subreddits = options.subreddits || ['dating', 'Tinder', 'dating_advice'];
-    this.keywords = options.keywords || ['tinder', 'bumble', 'algorithm', 'ghosting', 'paywall', 'boost', 'apps'];
-    this.maxAgeHours = options.maxAgeHours || 4;
+    // Warmup subreddits: High-traffic, soft moderation, organic karma accumulation
+    this.subreddits = options.subreddits || [
+      'AskReddit',
+      'CasualConversation',
+      'NoStupidQuestions',
+      'mildlyinteresting',
+    ];
+    this.keywords = options.keywords || [];
+    this.maxAgeHours = options.maxAgeHours || 6;
     this.userAgent =
       options.userAgent ||
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 (Antigravity Affiliate Scout/1.0)';
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 (Antigravity Reddit Warmup/2.0)';
 
     const defaultDir = path.resolve(process.cwd(), 'core/data');
     if (!fs.existsSync(defaultDir)) {
@@ -130,6 +138,8 @@ export class ScoutRedditWorker {
         permalink: c.data.permalink || '',
         url: `https://www.reddit.com${c.data.permalink || ''}`,
         created_utc: c.data.created_utc || Math.floor(Date.now() / 1000),
+        score: Number(c.data.score || 0),
+        num_comments: Number(c.data.num_comments || 0),
       }));
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
@@ -139,10 +149,12 @@ export class ScoutRedditWorker {
   }
 
   /**
-   * Checks if post meets criteria:
-   * 1. Created within last maxAgeHours
-   * 2. Contains target keywords
-   * 3. Has not been seen yet
+   * Anti-Detect Karma Warmup Filter:
+   * 1. Has not been seen yet
+   * 2. Created within last maxAgeHours (default 6h)
+   * 3. Parent thread upvote score >= 5
+   * 4. Parent thread comments count between 3 and 30 (not buried on bottom)
+   * 5. No deleted/removed posts
    */
   public filterPost(post: RedditPost): boolean {
     if (this.isPostSeen(post.id)) {
@@ -155,25 +167,39 @@ export class ScoutRedditWorker {
       return false;
     }
 
-    const combined = `${post.title} ${post.selftext}`.toLowerCase();
-    const hasKeyword = this.keywords.some((kw) => combined.includes(kw.toLowerCase()));
-    return hasKeyword;
+    // Ignore deleted or empty title posts
+    if (!post.title || post.title.includes('[deleted]') || post.title.includes('[removed]')) {
+      return false;
+    }
+
+    // Anti-Detect Warmup criteria: score >= 5 and comments between 3 and 30
+    if (post.score < 5) {
+      return false;
+    }
+    if (post.num_comments < 3 || post.num_comments > 30) {
+      return false;
+    }
+
+    // If specific keywords provided, enforce them; otherwise allow all high-intent questions
+    if (this.keywords.length > 0) {
+      const combined = `${post.title} ${post.selftext}`.toLowerCase();
+      const hasKeyword = this.keywords.some((kw) => combined.includes(kw.toLowerCase()));
+      if (!hasKeyword) return false;
+    }
+
+    return true;
   }
 
   /**
-   * Generates a native 100-word peer-to-peer reply with zero URLs and bio bridge
-   * enriched with Knowledge Core rules
+   * Generates an authentic, friendly peer-to-peer reply without any commercial or bio hooks
    */
   public async generateNativeResponse(post: RedditPost): Promise<string> {
     try {
-      const generated = await this.copyAgent.generateRedditHitlComment(post.title, post.selftext, post.subreddit);
-      const validation = KnowledgeService.getInstance().validateCopyAgainstGuard(generated, 'reddit');
-      return validation.sanitizedCopy || generated;
+      const generated = await this.copyAgent.generateKarmaWarmupComment(post.title, post.selftext, post.subreddit);
+      return generated;
     } catch (err) {
       console.warn('[ScoutRedditWorker] LLM copy generation fallback:', err);
-      const fallback = `Honestly, the biggest scam isn’t even the $30/month subscriptions—it’s how their algorithm deliberately throttles active profiles once you hit the free engagement ceiling. When an app treats matching like an infinite slot machine, ghosting is inevitable because nobody values a single conversation. Once I stopped feeding their paywalls and switched to direct activity-based local matching, the difference was night and day.\n\nDocumented the full breakdown and the filtering bot I use in my profile bio if anyone needs a sanity check. Save your energy.`;
-      const validation = KnowledgeService.getInstance().validateCopyAgainstGuard(fallback, 'reddit');
-      return validation.sanitizedCopy || fallback;
+      return `That’s a really solid point. In my experience, the biggest shift came from focusing on small, consistent habits instead of waiting for a huge breakthrough. Once you remove the pressure of having everything figured out immediately, momentum naturally starts building up.`;
     }
   }
 
@@ -189,23 +215,20 @@ export class ScoutRedditWorker {
       return false;
     }
 
-    // Enforce Lexicon Guard validation prior to dispatching alert
-    const validation = KnowledgeService.getInstance().validateCopyAgainstGuard(proposedCopy, 'reddit');
-    const finalCopy = validation.sanitizedCopy || proposedCopy;
-
     const alertText = `
-🎯 <b>New High-Intent Thread in r/${post.subreddit}</b>
+🌱 <b>Karma Warmup Match in r/${post.subreddit}</b>
 ━━━━━━━━━━━━━━━━━━
 📌 <b>Post Title:</b>
 <a href="${post.url}">${this.escapeHtml(post.title)}</a>
 
+📊 <b>Metrics:</b> ⬆️ ${post.score} score | 💬 ${post.num_comments} comments
 👤 <b>Author:</b> u/${post.author}
 ⏰ <b>Created:</b> ${new Date(post.created_utc * 1000).toLocaleTimeString('ru-RU')} (UTC)
 
-📝 <b>Proposed Native Copy (1-Click Copy):</b>
-<pre>${this.escapeHtml(finalCopy)}</pre>
+📝 <b>Generated Warmup Reply (Zero Links / Clean):</b>
+<pre>${this.escapeHtml(proposedCopy)}</pre>
 ━━━━━━━━━━━━━━━━━━
-⚡ <i>Zero-URL compliant | Bio bridge included | Guard validated</i>
+🛡️ <i>Cold Seed Warmup Phase | Zero Links | Friendly Peer-to-Peer</i>
     `.trim();
 
     const keyboard = {

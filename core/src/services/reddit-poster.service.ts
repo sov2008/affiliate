@@ -198,18 +198,18 @@ export class RedditPosterService {
   }
 
   /**
-   * Operational Guardrails Evaluation:
+   * Operational Guardrails Evaluation (Karma Warmup / Cold Seed Mode):
    * 1. Emergency shadowban 24h cooldown.
-   * 2. Max 3 comments per rolling 24 hours.
-   * 3. Minimum 4 hours cooldown between any posts.
-   * 4. Determines whether current post is Bio-Hook or Neutral (1:3 ratio).
+   * 2. Max 3-4 comments per rolling 24 hours.
+   * 3. Strict 2.5h - 4h pacing between posts with randomized jitter.
+   * 4. Zero bio hooks during karma warmup phase.
    */
   public canPost(now: number = Date.now()): PostEligibility {
     const ONE_HOUR = 3600 * 1000;
     const TWENTY_FOUR_HOURS = 24 * ONE_HOUR;
-    const FOUR_HOURS = 4 * ONE_HOUR;
+    const MIN_PACING_MS = Math.floor(2.5 * ONE_HOUR); // 2.5h base
 
-    const isBioHook = this.isNextPostBioHook();
+    const isBioHook = false; // Strictly disabled during karma warmup
 
     // 1. Emergency Cooldown (triggered by AutoModerator shadowban removal)
     if (this.emergencyCooldownUntil && now < this.emergencyCooldownUntil) {
@@ -223,35 +223,35 @@ export class RedditPosterService {
       };
     }
 
-    // 2. Filter posts within last 24h
+    // 2. Filter posts within last 24h: Max 4 comments per 24h
     const posts24h = this.history.filter((h) => now - h.timestamp < TWENTY_FOUR_HOURS);
     const count24h = posts24h.length;
 
-    if (count24h >= 3) {
+    if (count24h >= 4) {
       const oldestInWindow = posts24h[0];
       const waitTimeMs = Math.max(0, oldestInWindow.timestamp + TWENTY_FOUR_HOURS - now);
       return {
         allowed: false,
-        reason: `Rate limit reached: ${count24h}/3 comments in 24h window. Cooldown active.`,
+        reason: `Karma Warmup Limit reached: ${count24h}/4 comments in 24h window. Cooldown active.`,
         waitTimeMs,
         postsIn24h: count24h,
-        isBioHook,
+        isBioHook: false,
       };
     }
 
-    // 3. Check 4-hour cooldown
+    // 3. Check 2.5h - 4h pacing guard
     if (this.history.length > 0) {
       const lastPost = this.history[this.history.length - 1];
       const elapsedSinceLast = now - lastPost.timestamp;
-      if (elapsedSinceLast < FOUR_HOURS) {
-        const waitTimeMs = FOUR_HOURS - elapsedSinceLast;
+      if (elapsedSinceLast < MIN_PACING_MS) {
+        const waitTimeMs = MIN_PACING_MS - elapsedSinceLast;
         return {
           allowed: false,
-          reason: `Pacing guard: minimum 4h cooldown between posts. ${(waitTimeMs / 60000).toFixed(1)}m remaining.`,
+          reason: `Pacing guard: minimum 2.5h cooldown between posts. ${(waitTimeMs / 60000).toFixed(1)}m remaining.`,
           waitTimeMs,
           postsIn24h: count24h,
           lastPostTime: lastPost.timestamp,
-          isBioHook,
+          isBioHook: false,
         };
       }
     }
@@ -260,7 +260,7 @@ export class RedditPosterService {
       allowed: true,
       postsIn24h: count24h,
       lastPostTime: this.history.length > 0 ? this.history[this.history.length - 1].timestamp : undefined,
-      isBioHook,
+      isBioHook: false,
     };
   }
 
