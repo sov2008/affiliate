@@ -12,6 +12,7 @@ import { FinancialTelemetryMatcher } from '../server/telemetry-matcher.js';
 import { GoldCatalogService } from './gold-catalog.service.js';
 import { MabEngineService } from './mab-engine.service.js';
 import { OfferRoutingService } from './offer-routing.service.js';
+import { RedditPosterService } from './reddit-poster.service.js';
 
 dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
@@ -253,6 +254,34 @@ export class TelegramControlBot {
 
     const result = await this.apiCall('editMessageText', payload);
     return result.ok === true;
+  }
+
+  /**
+   * Edits an existing message reply markup
+   */
+  public async editMessageReplyMarkup(
+    chatId: string | number,
+    messageId: number,
+    replyMarkup: unknown = { inline_keyboard: [] }
+  ): Promise<boolean> {
+    const payload: Record<string, unknown> = {
+      chat_id: chatId,
+      message_id: messageId,
+      reply_markup: replyMarkup,
+    };
+    const result = await this.apiCall('editMessageReplyMarkup', payload);
+    return result.ok === true;
+  }
+
+  /**
+   * Escapes HTML entities to prevent Telegram parse errors
+   */
+  public escapeHtml(str: string): string {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
   }
 
   /**
@@ -698,48 +727,155 @@ We found <b>15+ verified profiles</b> matching your preferences:
       return;
     }
 
-    // --- 1. Approve Action ---
-    if (data.startsWith('approve_')) {
-      const bundleId = data.replace('approve_', '');
+    // --- 0. Publish Action (Immediate dispatch to Reddit) ---
+    if (data.startsWith('publish_')) {
+      const queueId = data.replace('publish_', '');
       const repo = ContentQueueRepository.getInstance();
-      repo.markApproved(bundleId);
+      const item = repo.getItem(queueId);
 
-      // Ingest to Gold Catalog if compliance threshold is met
-      const bundle = this.loadBundleFromDisk(bundleId);
+      // 1. Show immediate progress indicator
+      await this.answerCallbackQuery(query.id, '⏳ Публикую ответ в Reddit от u/sov2008...');
+
+      let thingId = '';
+      let bodyText = '';
+
+      if (item) {
+        bodyText = item.body;
+        try {
+          const p = item.payload ? JSON.parse(item.payload) : null;
+          if (p?.postId) {
+            thingId = p.postId.startsWith('t3_') ? p.postId : `t3_${p.postId}`;
+          }
+        } catch {}
+
+        if (!thingId && item.target_url) {
+          const m = item.target_url.match(/comments\/([a-z0-9]+)/i);
+          if (m) {
+            thingId = `t3_${m[1]}`;
+          }
+        }
+      }
+
+      if (!thingId && queueId.startsWith('reddit_')) {
+        const rawId = queueId.replace('reddit_', '');
+        thingId = `t3_${rawId}`;
+      }
+
+      if (!bodyText && query.message?.text) {
+        const match = query.message.text.match(/Generated Warmup Reply[^:]*:\s*\n([\s\S]+?)(?:\n━|\n🛡️|$)/i);
+        if (match) bodyText = match[1].trim();
+      }
+
+      if (!thingId || !bodyText) {
+        await this.answerCallbackQuery(query.id, '❌ Не удалось найти параметры поста или текст в базе.', true);
+        return;
+      }
+
+      try {
+        const poster = RedditPosterService.getInstance();
+        const result = await poster.postComment(thingId, bodyText, {
+          skipJitter: true,
+          ignorePacing: true,
+        });
+
+        if (result.success) {
+          const permalink = result.permalink || (item?.target_url ? item.target_url : `https://www.reddit.com/comments/${thingId.replace('t3_', '')}`);
+          repo.markDispatched(queueId, permalink);
+
+          const successBadge = `\n\n✅ <b>Опубликовано в Reddit!</b>\n🔗 Ссылка: <a href="${permalink}">${permalink}</a>\n👤 Оператор: @${username || fromId} (${new Date().toLocaleTimeString('ru-RU')})`;
+
+          const rawText = query.message?.text || '';
+          const escapedBase = this.escapeHtml(rawText);
+          const newText = `${escapedBase}${successBadge}`;
+
+          const keyboard = {
+            inline_keyboard: [
+              [{ text: '🌐 Открыть комментарий в Reddit', url: permalink }],
+            ],
+          };
+
+          if (chatId && messageId) {
+            const edited = await this.editMessageText(chatId, messageId, newText, { reply_markup: keyboard });
+            if (!edited) {
+              await this.editMessageReplyMarkup(chatId, messageId, keyboard);
+              await this.sendMessage(chatId, successBadge);
+            }
+          }
+          await this.answerCallbackQuery(query.id, '✅ Опубликовано в Reddit!');
+        } else {
+          await this.answerCallbackQuery(query.id, `❌ Ошибка публикации: ${result.error}`, true);
+          if (chatId) {
+            await this.sendMessage(
+              chatId,
+              `⚠️ <b>Ошибка Reddit при публикации [${queueId}]:</b>\n<code>${this.escapeHtml(result.error || 'Unknown error')}</code>`
+            );
+          }
+        }
+      } catch (err: any) {
+        console.error('[TelegramControlBot] publish callback error:', err);
+        await this.answerCallbackQuery(query.id, `❌ Ошибка: ${err.message}`, true);
+      }
+      return;
+    }
+
+    // --- 1. Approve Action (Queue for scheduled dispatch) ---
+    if (data.startsWith('approve_')) {
+      const queueId = data.replace('approve_', '');
+      const repo = ContentQueueRepository.getInstance();
+      repo.markApproved(queueId);
+
+      // Ingest to Gold Catalog if compliance threshold is met for bundles
+      const bundle = this.loadBundleFromDisk(queueId);
       if (bundle) {
         bundle.status = 'APPROVED';
-        this.saveBundleToDisk(bundleId, bundle);
+        this.saveBundleToDisk(queueId, bundle);
         if ((bundle.compliance?.score || 0) >= 90) {
           GoldCatalogService.getInstance().ingestApprovedBundle(bundle);
         }
       }
 
-      await this.answerCallbackQuery(query.id, `✅ Связка ${bundleId.slice(0, 8)} одобрена и добавлена в очередь!`);
+      await this.answerCallbackQuery(query.id, '📥 Переведено в очередь на отправку');
 
       if (chatId && messageId) {
-        const updatedText = (query.message?.text || '') + `\n\n✅ <b>ОДОБРЕНО ОПЕРАТОРОМ @${username || fromId}</b> (${new Date().toLocaleTimeString('ru-RU')})`;
-        await this.editMessageText(chatId, messageId, updatedText, { reply_markup: { inline_keyboard: [] } });
+        const rawText = query.message?.text || '';
+        const escapedBase = this.escapeHtml(rawText);
+        const notice = `\n\n📥 <b>Переведено в очередь на отправку диспетчером</b>\n👤 Оператор: @${username || fromId} (${new Date().toLocaleTimeString('ru-RU')})`;
+        const newText = `${escapedBase}${notice}`;
+
+        const edited = await this.editMessageText(chatId, messageId, newText, { reply_markup: { inline_keyboard: [] } });
+        if (!edited) {
+          await this.editMessageReplyMarkup(chatId, messageId, { inline_keyboard: [] });
+          await this.sendMessage(chatId, notice);
+        }
       }
       return;
     }
 
     // --- 2. Reject Action ---
     if (data.startsWith('reject_')) {
-      const bundleId = data.replace('reject_', '');
+      const queueId = data.replace('reject_', '');
       const repo = ContentQueueRepository.getInstance();
-      repo.markRejected(bundleId);
+      repo.markRejected(queueId);
 
-      const bundle = this.loadBundleFromDisk(bundleId);
+      const bundle = this.loadBundleFromDisk(queueId);
       if (bundle) {
         bundle.status = 'REJECTED';
-        this.saveBundleToDisk(bundleId, bundle);
+        this.saveBundleToDisk(queueId, bundle);
       }
 
-      await this.answerCallbackQuery(query.id, `❌ Связка ${bundleId.slice(0, 8)} отклонена.`);
+      await this.answerCallbackQuery(query.id, '❌ Отклонено оператором');
 
       if (chatId && messageId) {
-        const updatedText = (query.message?.text || '') + `\n\n❌ <b>ОТКЛОНЕНО ОПЕРАТОРОМ @${username || fromId}</b>`;
-        await this.editMessageText(chatId, messageId, updatedText, { reply_markup: { inline_keyboard: [] } });
+        const rawText = query.message?.text || '';
+        const escapedBase = this.escapeHtml(rawText);
+        const notice = `\n\n❌ <b>Отклонено оператором @${username || fromId}</b> (${new Date().toLocaleTimeString('ru-RU')})`;
+        const newText = `${escapedBase}${notice}`;
+
+        const edited = await this.editMessageText(chatId, messageId, newText, { reply_markup: { inline_keyboard: [] } });
+        if (!edited) {
+          await this.editMessageReplyMarkup(chatId, messageId, { inline_keyboard: [] });
+          await this.sendMessage(chatId, notice);
+        }
       }
       return;
     }

@@ -240,6 +240,43 @@ export class ScoutRedditWorker {
       return false;
     }
 
+    let finalQueueId = queueId;
+    if (!finalQueueId) {
+      finalQueueId = `reddit_${post.id}`;
+      try {
+        const queueItem = ContentQueueRepository.getInstance().enqueue({
+          id: finalQueueId,
+          campaign_id: `warmup_${post.subreddit.toLowerCase()}`,
+          network: 'organic',
+          target_platform: 'reddit',
+          platform: 'REDDIT',
+          subreddit: post.subreddit,
+          target_url: post.url,
+          hook: post.title,
+          body: proposedCopy,
+          payload: JSON.stringify({
+            postId: post.id,
+            author: post.author,
+            subreddit: post.subreddit,
+            url: post.url,
+            score: post.score,
+            num_comments: post.num_comments,
+            created_utc: post.created_utc,
+            proposedCopy,
+            warmupMode: true,
+          }),
+          stealth_cta: 'Zero Links | Friendly Peer-to-Peer',
+          tracking_url: post.url,
+          image_path: '',
+          risk_score: 0,
+          status: 'PENDING',
+        });
+        finalQueueId = queueItem.id;
+      } catch (e: any) {
+        console.error('[ScoutRedditWorker] Auto-enqueue fallback failed:', e.message);
+      }
+    }
+
     const alertText = `
 🌱 <b>Karma Warmup Match in r/${post.subreddit}</b>
 ━━━━━━━━━━━━━━━━━━
@@ -249,7 +286,7 @@ export class ScoutRedditWorker {
 📊 <b>Metrics:</b> ⬆️ ${post.score} score | 💬 ${post.num_comments} comments
 👤 <b>Author:</b> u/${post.author}
 ⏰ <b>Created:</b> ${new Date(post.created_utc * 1000).toLocaleTimeString('ru-RU')} (UTC)
-${queueId ? `📋 <b>Queue ID:</b> <code>${queueId}</code> (Status: PENDING)\n` : ''}
+📋 <b>Queue ID:</b> <code>${finalQueueId}</code> (Status: PENDING)
 📝 <b>Generated Warmup Reply (Zero Links / Clean):</b>
 <pre>${this.escapeHtml(proposedCopy)}</pre>
 ━━━━━━━━━━━━━━━━━━
@@ -259,8 +296,14 @@ ${queueId ? `📋 <b>Queue ID:</b> <code>${queueId}</code> (Status: PENDING)\n` 
     const keyboard = {
       inline_keyboard: [
         [
-          { text: '🌐 Open Reddit Thread', url: post.url },
-          { text: '💻 Dashboard Queue', url: 'http://178.128.199.28:5000' },
+          { text: '🚀 Опубликовать сейчас', callback_data: `publish_${finalQueueId}` },
+        ],
+        [
+          { text: '📥 В очередь (по расписанию)', callback_data: `approve_${finalQueueId}` },
+          { text: '❌ Отклонить', callback_data: `reject_${finalQueueId}` },
+        ],
+        [
+          { text: '🌐 Открыть тред Reddit', url: post.url },
         ],
       ],
     };
