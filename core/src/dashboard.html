@@ -365,6 +365,7 @@
         <span id="estopBadge" class="badge badge-ok term-tooltip tooltip-bottom" data-tooltip="Статус аварийного останова: Норма. Блокировок нет.">E-STOP: CLEAR</span>
         <button id="btnEstop" onclick="toggleEstop()" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Экстренная остановка: немедленно глушит всех воркеров публикации." style="padding: 2px 6px; font-size: 10px;">🚨 E-STOP</button>
         <button onclick="refreshAll()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Принудительная синхронизация состояния демонов и метрик." style="padding: 2px 6px; font-size: 10px;">↻ SYNC</button>
+        <button onclick="logoutConsole()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Завершить сессию и выйти из панели управления" style="padding: 2px 6px; font-size: 10px; background: rgba(248, 81, 73, 0.18); border-color: rgba(248, 81, 73, 0.5); color: #ff7b72; cursor: pointer;">🚪 ВЫЙТИ</button>
       </div>
     </div>
   </header>
@@ -1123,6 +1124,32 @@
     async function toggleEstop() {
       const endpoint = isHalted ? 'estop/reset' : 'estop/trigger';
       await triggerAction(endpoint, isHalted ? 'Сброс E-STOP' : 'Аварийный СТОП');
+    }
+
+    function logoutConsole() {
+      if (!confirm('Вы уверены, что хотите завершить сессию и выйти из панели управления?')) return;
+      try {
+        localStorage.clear();
+        sessionStorage.clear();
+      } catch (e) {}
+
+      // Сброс кэша Basic Auth в браузере через запрос с невалидными учетными данными
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', '/dashboard/', true, 'logout_' + Date.now(), 'invalid_token_' + Date.now());
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          window.location.href = '/logout';
+        }
+      };
+      try {
+        xhr.send();
+      } catch (err) {
+        window.location.href = '/logout';
+      }
+
+      setTimeout(function () {
+        window.location.href = '/logout';
+      }, 350);
     }
 
     async function updateQueue(id, status) {
