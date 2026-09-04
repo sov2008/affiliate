@@ -7,6 +7,7 @@ import {
   WARMUP_WHITELIST_SUBREDDITS,
   getRedditAccountStatus,
 } from './reddit-account-state.js';
+import { redditFetch, isRedditProxyEnabled } from './reddit-proxy.service.js';
 
 dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
@@ -156,7 +157,7 @@ export class RedditPosterService {
     }
 
     try {
-      const res = await fetch('https://www.reddit.com/api/me.json', {
+      const res = await redditFetch('https://www.reddit.com/api/me.json', {
         headers: {
           'User-Agent': this.userAgent,
           Cookie: `reddit_session=${cookie}`,
@@ -359,7 +360,7 @@ export class RedditPosterService {
     console.log(`🐤 [RedditPosterService] Executing Shadowban Canary Check for ${commentId}...`);
 
     try {
-      const res = await fetch(publicUrl, {
+      const res = await redditFetch(publicUrl, {
         headers: {
           'User-Agent': this.userAgent,
           Accept: 'application/json',
@@ -508,7 +509,7 @@ export class RedditPosterService {
     });
 
     try {
-      const res = await fetch('https://www.reddit.com/api/comment', {
+      const res = await redditFetch('https://www.reddit.com/api/comment', {
         method: 'POST',
         headers: {
           'User-Agent': this.userAgent,
