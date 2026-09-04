@@ -632,6 +632,75 @@ export class ContentQueueRepository {
   }
 
   /**
+   * Batch process items (approve, reject, delete) transactionally
+   */
+  public batchProcess(
+    ids: string[],
+    action: 'approve' | 'reject' | 'delete'
+  ): { successCount: number; failedCount: number } {
+    if (!ids || ids.length === 0) {
+      return { successCount: 0, failedCount: 0 };
+    }
+
+    const now = Date.now();
+    let successCount = 0;
+    let failedCount = 0;
+
+    if (this.isSqlite && this.db) {
+      try {
+        if (action === 'delete') {
+          const deleteTx = this.db.transaction((targetIds: string[]) => {
+            const stmt = this.db.prepare(`DELETE FROM content_queue_v2 WHERE id = ?`);
+            for (const id of targetIds) {
+              const res = stmt.run(id);
+              if (res.changes && res.changes > 0) {
+                successCount++;
+              }
+            }
+          });
+          deleteTx(ids);
+        } else {
+          const targetStatus: QueueStatus = action === 'approve' ? 'APPROVED' : 'REJECTED';
+          const updateTx = this.db.transaction((targetIds: string[]) => {
+            const stmt = this.db.prepare(
+              `UPDATE content_queue_v2 SET status = ?, updated_at = ? WHERE id = ?`
+            );
+            for (const id of targetIds) {
+              const res = stmt.run(targetStatus, now, id);
+              if (res.changes && res.changes > 0) {
+                successCount++;
+              }
+            }
+          });
+          updateTx(ids);
+        }
+      } catch (err: any) {
+        console.error('[ContentQueueRepository] Batch transaction error:', err.message);
+        failedCount = ids.length - successCount;
+      }
+    }
+
+    // Update in-memory cache as well
+    for (const id of ids) {
+      if (action === 'delete') {
+        const deleted = this.memoryItems.delete(id);
+        if (deleted && (!this.isSqlite || !this.db)) successCount++;
+      } else {
+        const item = this.memoryItems.get(id);
+        if (item) {
+          item.status = action === 'approve' ? 'APPROVED' : 'REJECTED';
+          item.updated_at = now;
+          if (!this.isSqlite || !this.db) successCount++;
+        }
+      }
+    }
+
+    this.saveJsonDb();
+    this.notifyChange('batch_update', { action, ids, successCount });
+    return { successCount, failedCount };
+  }
+
+  /**
    * Get Queue Statistics
    */
   public getStats(): {

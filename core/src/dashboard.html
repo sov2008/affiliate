@@ -32,11 +32,78 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      text-shadow: none !important;
-      box-shadow: none !important;
-      backdrop-filter: none !important;
-      transition: none !important;
-      animation: none !important;
+    }
+    @keyframes pulse-green {
+      0% {
+        box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.85);
+      }
+      70% {
+        box-shadow: 0 0 0 7px rgba(63, 185, 80, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(63, 185, 80, 0);
+      }
+    }
+    .pulse-online {
+      animation: pulse-green 1.8s infinite !important;
+    }
+    .resizable-panel {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 280px;
+      max-height: 85vh;
+      overflow: hidden;
+    }
+    .resize-handle-bar {
+      height: 10px;
+      background: #1c2128;
+      border-top: 1px solid var(--border);
+      cursor: row-resize;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: background 0.15s ease;
+      margin-top: auto;
+      flex-shrink: 0;
+    }
+    .resize-handle-bar:hover, .resize-handle-bar.dragging {
+      background: var(--blue);
+    }
+    .resize-handle-grip {
+      width: 42px;
+      height: 3px;
+      border-top: 1px solid var(--dim);
+      border-bottom: 1px solid var(--dim);
+    }
+    .sticky-header th {
+      position: sticky;
+      top: 0;
+      background: #161b22;
+      z-index: 10;
+      border-bottom: 2px solid var(--border);
+    }
+    .batch-bar {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      background: #1c2128;
+      border: 1px solid var(--blue);
+      border-radius: 2px;
+      margin-bottom: 6px;
+      animation: fadeIn 0.15s ease;
+    }
+    .batch-bar.active {
+      display: flex;
+    }
+    .queue-cb {
+      cursor: pointer;
+      accent-color: var(--blue);
+      width: 14px;
+      height: 14px;
+      vertical-align: middle;
     }
     body {
       background: var(--bg);
@@ -257,46 +324,79 @@
   </header>
 
   <!-- ======================================================== -->
+  <!-- ZONE 1.5: FULL-WIDTH SQLITE CONTENT QUEUE & BATCH PANEL  -->
+  <!-- ======================================================== -->
+  <section class="panel resizable-panel" id="queuePanel" style="height: 320px; width: 100%;">
+    <!-- Panel Header -->
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 6px; gap: 6px; flex-shrink: 0;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 13px;">📋</span>
+        <strong style="color: var(--text); font-size: 12px;">SQLITE CONTENT QUEUE (content_queue_v2)</strong>
+        <span id="queueCount" class="badge badge-dim">0 items</span>
+      </div>
+
+      <!-- Queue Filter Tabs & Actions -->
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <div style="display: flex; gap: 2px;" id="queueFilterTabs">
+          <button onclick="setQueueFilter('ALL')" id="qf_ALL" class="filter-tab active term-tooltip tooltip-bottom" data-tooltip="Показать все задачи очереди">ALL (<span id="qc_ALL">0</span>)</button>
+          <button onclick="setQueueFilter('PENDING')" id="qf_PENDING" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Ожидают модерации оператором">PENDING (<span id="qc_PENDING">0</span>)</button>
+          <button onclick="setQueueFilter('APPROVED')" id="qf_APPROVED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Одобрено к отправке в Reddit">APPROVED (<span id="qc_APPROVED">0</span>)</button>
+          <button onclick="setQueueFilter('DISPATCHED')" id="qf_DISPATCHED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Успешно отправлено в сабреддиты">DISPATCHED (<span id="qc_DISPATCHED">0</span>)</button>
+          <button onclick="setQueueFilter('REJECTED')" id="qf_REJECTED" class="filter-tab term-tooltip tooltip-bottom tooltip-left" data-tooltip="Отклонено модератором">REJECTED (<span id="qc_REJECTED">0</span>)</button>
+        </div>
+        <button onclick="fetchQueue()" class="btn" style="padding: 2px 6px; font-size: 10px;">↻ REFRESH</button>
+      </div>
+    </div>
+
+    <!-- Batch Actions Bar (Floating/Pinned when items selected) -->
+    <div id="batchActionBar" class="batch-bar" style="flex-shrink: 0;">
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <span class="badge badge-ok" id="batchSelectedBadge" style="font-size: 11px; padding: 3px 6px;">ВЫБРАНО: <span id="batchSelectedCount">0</span></span>
+      </div>
+      <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+        <button onclick="executeBatchAction('approve')" id="btnBatchApprove" class="btn btn-green" style="font-weight: 700; padding: 3px 8px;">✓ Одобрить выбранные</button>
+        <button onclick="executeBatchAction('reject')" id="btnBatchReject" class="btn btn-amber" style="font-weight: 700; padding: 3px 8px;">✕ Отклонить выбранные</button>
+        <button onclick="executeBatchAction('delete')" id="btnBatchDelete" class="btn btn-red" style="font-weight: 700; padding: 3px 8px;">🗑 Удалить выбранные</button>
+        <button onclick="clearBatchSelection()" class="btn" style="padding: 3px 8px; color: var(--dim);">Снять выделение</button>
+      </div>
+    </div>
+
+    <!-- Full-Width Scrollable Table Container with Sticky Header -->
+    <div class="table-wrap scroll" id="queueTableScrollWrap" style="overflow-y: auto; flex: 1; min-height: 160px;">
+      <table style="width: 100%;">
+        <thead class="sticky-header">
+          <tr>
+            <th style="width: 36px; text-align: center;">
+              <input type="checkbox" id="selectAllCheckbox" class="queue-cb" onchange="toggleSelectAll(this.checked)" title="Выбрать все элементы выборки">
+            </th>
+            <th style="width: 85px;">ID</th>
+            <th style="width: 130px;">Platform / Sub</th>
+            <th>Draft Hook / Content Preview</th>
+            <th style="width: 100px;">Risk</th>
+            <th style="width: 95px;">Status</th>
+            <th style="width: 120px;">Created</th>
+            <th style="width: 170px; text-align: right;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="queueTbody">
+          <tr><td colspan="8" style="text-align: center; color: var(--dim); padding: 18px;">Загрузка очереди...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Interactive Bottom Vertical Resize Handle Bar -->
+    <div class="resize-handle-bar" id="queueResizeHandle" title="Потяните вниз или вверх для изменения высоты блока очереди">
+      <div class="resize-handle-grip"></div>
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
   <!-- ZONE 2: CENTER SPLIT (EXECUTION MATRIX)                   -->
   <!-- ======================================================== -->
   <main class="grid-2">
     
-    <!-- LEFT COLUMN: QUEUE, MAB MATRIX, BOT SHIELD, ACCOUNT TRUST -->
+    <!-- LEFT COLUMN: CAMPAIGNS, SCOUTS, BOT SHIELD, WORKERS -->
     <div style="display: flex; flex-direction: column; gap: 8px;">
-      
-      <!-- SQLite Content Queue -->
-      <section class="panel">
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px; gap: 4px;">
-          <div style="display: flex; align-items: center; gap: 6px;">
-            <strong style="color: var(--text);">SQLITE CONTENT QUEUE (content_queue_v2)</strong>
-            <span id="queueCount" style="color: var(--dim);">0 items</span>
-          </div>
-          <!-- Queue Filter Tabs -->
-          <div style="display: flex; gap: 2px;" id="queueFilterTabs">
-            <button onclick="setQueueFilter('ALL')" id="qf_ALL" class="filter-tab active term-tooltip tooltip-bottom" data-tooltip="Показать все задачи очереди">ALL (<span id="qc_ALL">0</span>)</button>
-            <button onclick="setQueueFilter('PENDING')" id="qf_PENDING" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Ожидают модерации оператором">PENDING (<span id="qc_PENDING">0</span>)</button>
-            <button onclick="setQueueFilter('APPROVED')" id="qf_APPROVED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Одобрено к отправке в Reddit">APPROVED (<span id="qc_APPROVED">0</span>)</button>
-            <button onclick="setQueueFilter('DISPATCHED')" id="qf_DISPATCHED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Успешно отправлено в сабреддиты">DISPATCHED (<span id="qc_DISPATCHED">0</span>)</button>
-            <button onclick="setQueueFilter('REJECTED')" id="qf_REJECTED" class="filter-tab term-tooltip tooltip-bottom tooltip-left" data-tooltip="Отклонено модератором">REJECTED (<span id="qc_REJECTED">0</span>)</button>
-          </div>
-        </div>
-        <div class="table-wrap scroll" style="max-height: 180px;">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Platform</th>
-                <th>Risk</th>
-                <th>Status</th>
-                <th style="text-align: right;">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="queueTbody">
-              <tr><td colspan="5" style="text-align: center; color: var(--dim); padding: 12px;">Загрузка очереди...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
 
       <!-- Active Campaigns & MAB Matrix -->
       <section class="panel">
@@ -419,15 +519,17 @@
         </div>
       </section>
 
-      <!-- Reddit Automation Controls Panel -->
+      <!-- PM2 & Reddit Automation Controls Panel -->
       <section class="panel" id="redditControlsPanel">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 6px;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 6px; gap: 6px;">
           <div style="display: flex; align-items: center; gap: 6px;">
-            <strong style="color: var(--text);">REDDIT AUTOMATION CONTROLS (/api/workers)</strong>
+            <span style="font-size: 13px;">⚙️</span>
+            <strong style="color: var(--text);">PM2 WORKER SERVICES &amp; REDDIT CONTROLS</strong>
             <span class="badge badge-dim" id="workersLastSync">SYNC: --</span>
           </div>
-          <div style="display: flex; align-items: center; gap: 4px;">
-            <button onclick="fetchWorkerStatuses()" class="btn" style="padding: 1px 6px; font-size: 10px;">↻ REFRESH</button>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <button onclick="emergencyStopReddit(this)" id="btnHaltReddit" class="btn btn-red font-bold term-tooltip tooltip-bottom" data-tooltip="Немедленно глушит scout-reddit-worker и reddit-session-watchdog" style="padding: 2px 7px; font-size: 10px;">🚨 АВАРИЙНЫЙ СТОП REDDIT</button>
+            <button onclick="fetchWorkerStatuses()" class="btn" style="padding: 2px 6px; font-size: 10px;">↻ REFRESH</button>
           </div>
         </div>
 
@@ -435,8 +537,8 @@
           <!-- Card 1: scout-reddit-worker -->
           <div class="worker-card" id="card-scout-reddit-worker" style="background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 6px; display: flex; flex-direction: column; gap: 4px;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <div style="display: flex; align-items: center; gap: 5px;">
-                <span class="status-dot" id="dot-scout-reddit-worker" style="width: 7px; height: 7px; border-radius: 50%; background: var(--dim); display: inline-block;"></span>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span class="status-dot" id="dot-scout-reddit-worker" style="width: 8px; height: 8px; border-radius: 50%; background: var(--dim); display: inline-block;"></span>
                 <strong style="font-size: 11px; color: var(--blue);">scout-reddit-worker</strong>
               </div>
               <span class="badge badge-dim" id="badge-scout-reddit-worker">LOADING...</span>
@@ -445,20 +547,21 @@
               <span>PID: <strong id="pid-scout-reddit-worker" style="color: var(--text);">--</strong></span>
               <span>UPTIME: <strong id="uptime-scout-reddit-worker" style="color: var(--text);">--</strong></span>
               <span>MEM: <strong id="mem-scout-reddit-worker" style="color: var(--text);">--</strong></span>
-              <span>RESTARTS: <strong id="restarts-scout-reddit-worker" style="color: var(--text);">--</strong></span>
+              <span>CPU: <strong id="cpu-scout-reddit-worker" style="color: var(--text);">0%</strong></span>
+              <span>REST: <strong id="restarts-scout-reddit-worker" style="color: var(--text);">0</strong></span>
             </div>
             <div style="display: flex; gap: 4px; margin-top: 2px;">
               <button onclick="controlWorker('scout-reddit-worker', 'start', this)" id="btn-start-scout-reddit-worker" class="btn btn-green" style="flex: 1; padding: 2px 4px; font-size: 10px; justify-content: center;">▶ Запустить</button>
               <button onclick="controlWorker('scout-reddit-worker', 'stop', this)" id="btn-stop-scout-reddit-worker" class="btn btn-red" style="flex: 1; padding: 2px 4px; font-size: 10px; justify-content: center;">⏹ Остановить</button>
-              <button onclick="controlWorker('scout-reddit-worker', 'restart', this)" id="btn-restart-scout-reddit-worker" class="btn btn-amber" style="flex: 1; padding: 2px 4px; font-size: 10px; justify-content: center;">↻ Перезапуск</button>
+              <button onclick="controlWorker('scout-reddit-worker', 'restart', this)" id="btn-restart-scout-reddit-worker" class="btn btn-amber" style="flex: 1; padding: 2px 4px; font-size: 10px; justify-content: center;">↻ Рестарт</button>
             </div>
           </div>
 
           <!-- Card 2: reddit-session-watchdog -->
           <div class="worker-card" id="card-reddit-session-watchdog" style="background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 6px; display: flex; flex-direction: column; gap: 4px;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <div style="display: flex; align-items: center; gap: 5px;">
-                <span class="status-dot" id="dot-reddit-session-watchdog" style="width: 7px; height: 7px; border-radius: 50%; background: var(--dim); display: inline-block;"></span>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span class="status-dot" id="dot-reddit-session-watchdog" style="width: 8px; height: 8px; border-radius: 50%; background: var(--dim); display: inline-block;"></span>
                 <strong style="font-size: 11px; color: var(--purple);">reddit-session-watchdog</strong>
               </div>
               <span class="badge badge-dim" id="badge-reddit-session-watchdog">LOADING...</span>
@@ -467,12 +570,59 @@
               <span>PID: <strong id="pid-reddit-session-watchdog" style="color: var(--text);">--</strong></span>
               <span>UPTIME: <strong id="uptime-reddit-session-watchdog" style="color: var(--text);">--</strong></span>
               <span>MEM: <strong id="mem-reddit-session-watchdog" style="color: var(--text);">--</strong></span>
-              <span>RESTARTS: <strong id="restarts-reddit-session-watchdog" style="color: var(--text);">--</strong></span>
+              <span>CPU: <strong id="cpu-reddit-session-watchdog" style="color: var(--text);">0%</strong></span>
+              <span>REST: <strong id="restarts-reddit-session-watchdog" style="color: var(--text);">0</strong></span>
             </div>
             <div style="display: flex; gap: 4px; margin-top: 2px;">
               <button onclick="controlWorker('reddit-session-watchdog', 'start', this)" id="btn-start-reddit-session-watchdog" class="btn btn-green" style="flex: 1; padding: 2px 4px; font-size: 10px; justify-content: center;">▶ Запустить</button>
               <button onclick="controlWorker('reddit-session-watchdog', 'stop', this)" id="btn-stop-reddit-session-watchdog" class="btn btn-red" style="flex: 1; padding: 2px 4px; font-size: 10px; justify-content: center;">⏹ Остановить</button>
-              <button onclick="controlWorker('reddit-session-watchdog', 'restart', this)" id="btn-restart-reddit-session-watchdog" class="btn btn-amber" style="flex: 1; padding: 2px 4px; font-size: 10px; justify-content: center;">↻ Перезапуск</button>
+              <button onclick="controlWorker('reddit-session-watchdog', 'restart', this)" id="btn-restart-reddit-session-watchdog" class="btn btn-amber" style="flex: 1; padding: 2px 4px; font-size: 10px; justify-content: center;">↻ Рестарт</button>
+            </div>
+          </div>
+
+          <!-- Card 3: affiliate-scheduler -->
+          <div class="worker-card" id="card-affiliate-scheduler" style="background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 6px; display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span class="status-dot" id="dot-affiliate-scheduler" style="width: 8px; height: 8px; border-radius: 50%; background: var(--dim); display: inline-block;"></span>
+                <strong style="font-size: 11px; color: var(--text);">affiliate-scheduler</strong>
+              </div>
+              <span class="badge badge-dim" id="badge-affiliate-scheduler">LOADING...</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; color: var(--dim); font-size: 10px; border-top: 1px dashed #21262d; padding-top: 3px;">
+              <span>PID: <strong id="pid-affiliate-scheduler" style="color: var(--text);">--</strong></span>
+              <span>UPTIME: <strong id="uptime-affiliate-scheduler" style="color: var(--text);">--</strong></span>
+              <span>MEM: <strong id="mem-affiliate-scheduler" style="color: var(--text);">--</strong></span>
+              <span>CPU: <strong id="cpu-affiliate-scheduler" style="color: var(--text);">0%</strong></span>
+              <span>REST: <strong id="restarts-affiliate-scheduler" style="color: var(--text);">0</strong></span>
+            </div>
+            <div style="display: flex; gap: 4px; margin-top: 2px;">
+              <button onclick="controlWorker('affiliate-scheduler', 'start', this)" id="btn-start-affiliate-scheduler" class="btn btn-green" style="flex: 1; padding: 2px 4px; font-size: 10px; justify-content: center;">▶ Запустить</button>
+              <button onclick="controlWorker('affiliate-scheduler', 'stop', this)" id="btn-stop-affiliate-scheduler" class="btn btn-red" style="flex: 1; padding: 2px 4px; font-size: 10px; justify-content: center;">⏹ Остановить</button>
+              <button onclick="controlWorker('affiliate-scheduler', 'restart', this)" id="btn-restart-affiliate-scheduler" class="btn btn-amber" style="flex: 1; padding: 2px 4px; font-size: 10px; justify-content: center;">↻ Рестарт</button>
+            </div>
+          </div>
+
+          <!-- Card 4: affiliate-telegram-bot -->
+          <div class="worker-card" id="card-affiliate-telegram-bot" style="background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 6px; display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span class="status-dot" id="dot-affiliate-telegram-bot" style="width: 8px; height: 8px; border-radius: 50%; background: var(--dim); display: inline-block;"></span>
+                <strong style="font-size: 11px; color: var(--blue);">affiliate-telegram-bot</strong>
+              </div>
+              <span class="badge badge-dim" id="badge-affiliate-telegram-bot">LOADING...</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; color: var(--dim); font-size: 10px; border-top: 1px dashed #21262d; padding-top: 3px;">
+              <span>PID: <strong id="pid-affiliate-telegram-bot" style="color: var(--text);">--</strong></span>
+              <span>UPTIME: <strong id="uptime-affiliate-telegram-bot" style="color: var(--text);">--</strong></span>
+              <span>MEM: <strong id="mem-affiliate-telegram-bot" style="color: var(--text);">--</strong></span>
+              <span>CPU: <strong id="cpu-affiliate-telegram-bot" style="color: var(--text);">0%</strong></span>
+              <span>REST: <strong id="restarts-affiliate-telegram-bot" style="color: var(--text);">0</strong></span>
+            </div>
+            <div style="display: flex; gap: 4px; margin-top: 2px;">
+              <button onclick="controlWorker('affiliate-telegram-bot', 'start', this)" id="btn-start-affiliate-telegram-bot" class="btn btn-green" style="flex: 1; padding: 2px 4px; font-size: 10px; justify-content: center;">▶ Запустить</button>
+              <button onclick="controlWorker('affiliate-telegram-bot', 'stop', this)" id="btn-stop-affiliate-telegram-bot" class="btn btn-red" style="flex: 1; padding: 2px 4px; font-size: 10px; justify-content: center;">⏹ Остановить</button>
+              <button onclick="controlWorker('affiliate-telegram-bot', 'restart', this)" id="btn-restart-affiliate-telegram-bot" class="btn btn-amber" style="flex: 1; padding: 2px 4px; font-size: 10px; justify-content: center;">↻ Рестарт</button>
             </div>
           </div>
         </div>
@@ -1125,6 +1275,18 @@
 
     let allQueueItems = [];
     let currentQueueFilter = 'ALL';
+    let selectedQueueIds = new Set();
+
+    function getFilteredQueueItems() {
+      return allQueueItems.filter(item => {
+        if (currentQueueFilter === 'ALL') return true;
+        if (currentQueueFilter === 'PENDING') return (item.status || '').includes('PENDING');
+        if (currentQueueFilter === 'APPROVED') return item.status === 'APPROVED';
+        if (currentQueueFilter === 'DISPATCHED') return item.status === 'DISPATCHED' || item.status === 'POSTED';
+        if (currentQueueFilter === 'REJECTED') return item.status === 'REJECTED';
+        return true;
+      });
+    }
 
     function setQueueFilter(filter) {
       currentQueueFilter = filter;
@@ -1138,6 +1300,126 @@
       renderQueueTable();
     }
 
+    function updateBatchBar() {
+      const bar = document.getElementById('batchActionBar');
+      const badge = document.getElementById('batchSelectedCount');
+      const count = selectedQueueIds.size;
+      
+      if (badge) badge.innerText = count;
+      if (bar) {
+        if (count > 0) {
+          bar.classList.add('active');
+        } else {
+          bar.classList.remove('active');
+        }
+      }
+
+      // Sync selectAll master checkbox
+      const masterCb = document.getElementById('selectAllCheckbox');
+      if (masterCb) {
+        const visibleItems = getFilteredQueueItems();
+        if (visibleItems.length === 0) {
+          masterCb.checked = false;
+          masterCb.indeterminate = false;
+        } else {
+          const visibleSelectedCount = visibleItems.filter(i => selectedQueueIds.has(i.id)).length;
+          if (visibleSelectedCount === 0) {
+            masterCb.checked = false;
+            masterCb.indeterminate = false;
+          } else if (visibleSelectedCount === visibleItems.length) {
+            masterCb.checked = true;
+            masterCb.indeterminate = false;
+          } else {
+            masterCb.checked = false;
+            masterCb.indeterminate = true;
+          }
+        }
+      }
+    }
+
+    function toggleSelectAll(checked) {
+      const visibleItems = getFilteredQueueItems();
+      for (const item of visibleItems) {
+        if (checked) {
+          selectedQueueIds.add(item.id);
+        } else {
+          selectedQueueIds.delete(item.id);
+        }
+      }
+      renderQueueTable();
+      updateBatchBar();
+    }
+
+    function onRowCheckboxChange(e, id, checked) {
+      if (e) e.stopPropagation();
+      if (checked) {
+        selectedQueueIds.add(id);
+      } else {
+        selectedQueueIds.delete(id);
+      }
+      updateBatchBar();
+    }
+
+    function clearBatchSelection() {
+      selectedQueueIds.clear();
+      renderQueueTable();
+      updateBatchBar();
+    }
+
+    async function executeBatchAction(action) {
+      if (selectedQueueIds.size === 0) return;
+      const ids = Array.from(selectedQueueIds);
+      const actionLabels = {
+        approve: 'ОДОБРИТЬ',
+        reject: 'ОТКЛОНИТЬ',
+        delete: 'УДАЛИТЬ ИЗ БАЗЫ ДАННЫХ'
+      };
+      const label = actionLabels[action] || action.toUpperCase();
+
+      if (action === 'delete') {
+        if (!confirm(`Вы действительно хотите безвозвратно ${label} ${ids.length} записей из SQLite (content_queue_v2)?`)) {
+          return;
+        }
+      }
+
+      appendLog(`[BATCH QUEUE] Выполняется действие "${label}" для ${ids.length} элементов...`, 'CRON');
+      
+      const btnMap = {
+        approve: document.getElementById('btnBatchApprove'),
+        reject: document.getElementById('btnBatchReject'),
+        delete: document.getElementById('btnBatchDelete')
+      };
+      const targetBtn = btnMap[action];
+      const origText = targetBtn ? targetBtn.innerHTML : '';
+      if (targetBtn) {
+        targetBtn.disabled = true;
+        targetBtn.innerHTML = '⏳ ...';
+      }
+
+      try {
+        const res = await fetch('/api/queue/batch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ids, action })
+        });
+        const result = await res.json();
+        if (res.ok && result.success) {
+          appendLog(`[BATCH QUEUE] ✅ Успешно обработано: ${result.successCount} из ${result.total} (Действие: ${action})`, 'CRON');
+          clearBatchSelection();
+          await fetchQueue();
+        } else {
+          appendLog(`[BATCH QUEUE] ❌ Ошибка пакета: ${result.error || 'Server Error'}`, 'CRON');
+        }
+      } catch (err) {
+        appendLog(`[BATCH QUEUE] ❌ Исключение: ${err.message}`, 'CRON');
+      } finally {
+        if (targetBtn) {
+          targetBtn.disabled = false;
+          targetBtn.innerHTML = origText;
+        }
+      }
+    }
+
     async function deleteQueueItem(id) {
       if (!confirm(`Удалить задачу ${id.slice(0, 8)} из очереди SQLite?`)) return;
       appendLog(`[QUEUE] Удаление задачи ${id.slice(0, 8)}...`, 'CRON');
@@ -1145,6 +1427,7 @@
         const res = await fetch(`/api/queue/items/${id}`, { method: 'DELETE' });
         if (res.ok) {
           appendLog(`[QUEUE] ✅ Задача ${id.slice(0, 8)} удалена из очереди.`, 'CRON');
+          selectedQueueIds.delete(id);
           fetchQueue();
         } else {
           const d = await res.json();
@@ -1159,42 +1442,65 @@
       const tbody = document.getElementById('queueTbody');
       if (!tbody) return;
 
-      const filteredItems = allQueueItems.filter(item => {
-        if (currentQueueFilter === 'ALL') return true;
-        if (currentQueueFilter === 'PENDING') return (item.status || '').includes('PENDING');
-        if (currentQueueFilter === 'APPROVED') return item.status === 'APPROVED';
-        if (currentQueueFilter === 'DISPATCHED') return item.status === 'DISPATCHED' || item.status === 'POSTED';
-        if (currentQueueFilter === 'REJECTED') return item.status === 'REJECTED';
-        return true;
-      });
+      const filteredItems = getFilteredQueueItems();
 
       if (filteredItems.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--dim); padding: 12px;">Нет задач для фильтра [${currentQueueFilter}].</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--dim); padding: 18px;">Нет задач для фильтра [${currentQueueFilter}].</td></tr>`;
+        updateBatchBar();
         return;
       }
 
       tbody.innerHTML = filteredItems.map(item => {
+        const isSelected = selectedQueueIds.has(item.id);
         const isApproved = item.status === 'APPROVED';
         const isDispatched = item.status === 'DISPATCHED' || item.status === 'POSTED';
         const statusBadgeClass = isApproved || isDispatched ? 'badge-ok' : item.status === 'REJECTED' ? 'badge-err' : 'badge-dim';
 
+        const platformLabel = (item.platform || item.target_platform || 'REDDIT').toUpperCase();
+        const subLabel = item.subreddit ? `r/${item.subreddit}` : '';
+        const previewText = item.hook || item.body || (item.payload ? String(item.payload).slice(0, 80) : '—');
+        const truncatedPreview = previewText.length > 75 ? previewText.slice(0, 72) + '...' : previewText;
+
+        let createdFormatted = '--';
+        if (item.created_at) {
+          const rawTs = Number(item.created_at);
+          const d = new Date(rawTs < 1e11 ? rawTs * 1000 : rawTs);
+          if (!isNaN(d.getTime())) {
+            createdFormatted = d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit' }) + ' ' + d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+          }
+        }
+
         return `
-          <tr style="cursor: pointer;" onclick="inspectQueueItem('${item.id}')">
-            <td style="font-weight: 700; color: var(--blue);">${item.id.slice(0, 8)}</td>
-            <td style="color: var(--dim); text-transform: uppercase;">${item.target_platform || item.platform || 'REDDIT'}</td>
-            <td>[====>     ] ${item.risk_score !== undefined ? item.risk_score : 4}%</td>
+          <tr style="cursor: pointer; ${isSelected ? 'background: #1f242c;' : ''}" onclick="inspectQueueItem('${item.id}')">
+            <td style="text-align: center;" onclick="event.stopPropagation();">
+              <input type="checkbox" class="queue-cb" ${isSelected ? 'checked' : ''} onchange="onRowCheckboxChange(event, '${item.id}', this.checked)">
+            </td>
+            <td style="font-weight: 700; color: var(--blue); font-family: monospace;">${item.id.slice(0, 8)}</td>
+            <td>
+              <span style="color: var(--purple); font-weight: 600;">${platformLabel}</span>
+              ${subLabel ? `<span style="color: var(--dim); margin-left: 4px;">${subLabel}</span>` : ''}
+            </td>
+            <td style="color: var(--text); max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${previewText.replace(/"/g, '&quot;')}">
+              ${truncatedPreview}
+            </td>
+            <td>
+              <span style="color: ${(item.risk_score || 4) > 40 ? 'var(--red)' : 'var(--green-text)'};">[====> ] ${item.risk_score !== undefined ? item.risk_score : 4}%</span>
+            </td>
             <td><span class="badge ${statusBadgeClass}">${item.status}</span></td>
+            <td style="color: var(--dim); font-size: 10px;">${createdFormatted}</td>
             <td style="text-align: right;" onclick="event.stopPropagation();">
               <button onclick="inspectQueueItem('${item.id}')" class="btn btn-blue term-tooltip" data-tooltip="Предпросмотр сгенерированного ответа и параметров треда." style="padding: 1px 5px; font-size: 10px;">👁 Preview</button>
               ${!isApproved && !isDispatched ? `
                 <button onclick="updateQueue('${item.id}', 'APPROVED')" class="btn btn-green term-tooltip" data-tooltip="Одобрить задачу к публикации в Reddit без Telegram" style="padding: 1px 5px; font-size: 10px;">✓ Approve</button>
                 <button onclick="updateQueue('${item.id}', 'REJECTED')" class="btn btn-amber term-tooltip" data-tooltip="Отклонить черновик модератором" style="padding: 1px 5px; font-size: 10px;">✕ Reject</button>
               ` : ''}
-              <button onclick="deleteQueueItem('${item.id}')" class="btn btn-red term-tooltip" data-tooltip="Удалить пост из очереди SQLite" style="padding: 1px 5px; font-size: 10px;">✕ Delete</button>
+              <button onclick="deleteQueueItem('${item.id}')" class="btn btn-red term-tooltip" data-tooltip="Удалить пост из очереди SQLite" style="padding: 1px 5px; font-size: 10px;">✕</button>
             </td>
           </tr>
         `;
       }).join('');
+
+      updateBatchBar();
     }
 
     function updateRedditCooldown() {
@@ -1434,12 +1740,14 @@
       const pid = document.getElementById(`pid-${w.name}`);
       const uptime = document.getElementById(`uptime-${w.name}`);
       const mem = document.getElementById(`mem-${w.name}`);
+      const cpu = document.getElementById(`cpu-${w.name}`);
       const restarts = document.getElementById(`restarts-${w.name}`);
 
       if (pid) pid.innerText = w.pm_id >= 0 ? w.pm_id : '--';
       if (uptime) uptime.innerText = w.uptimeFormatted || '--';
       if (mem) mem.innerText = w.memoryFormatted || '--';
-      if (restarts) restarts.innerText = w.restarts ?? '--';
+      if (cpu) cpu.innerText = `${w.cpu || 0}%`;
+      if (restarts) restarts.innerText = w.restarts ?? '0';
 
       const status = (w.status || 'unknown').toLowerCase();
       if (badge && dot) {
@@ -1447,14 +1755,17 @@
           badge.className = 'badge badge-ok';
           badge.innerText = 'ONLINE';
           dot.style.background = 'var(--green)';
+          dot.classList.add('pulse-online');
         } else if (status === 'stopped') {
           badge.className = 'badge badge-dim';
           badge.innerText = 'STOPPED';
           dot.style.background = 'var(--dim)';
+          dot.classList.remove('pulse-online');
         } else {
           badge.className = 'badge badge-err';
           badge.innerText = status.toUpperCase();
           dot.style.background = 'var(--red)';
+          dot.classList.remove('pulse-online');
         }
       }
     }
@@ -1467,26 +1778,100 @@
       }
 
       try {
-        appendLog(`[WORKER CONTROL] Sending action: ${action.toUpperCase()} to ${service}...`);
+        appendLog(`[WORKER CONTROL] Отправка команды ${action.toUpperCase()} сервису ${service}...`, 'CRON');
         const res = await fetch(`/api/workers/${service}/${action}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' }
         });
         const result = await res.json();
         if (result.success) {
-          appendLog(`[WORKER CONTROL] ✅ ${service}: ${result.message}`);
+          appendLog(`[WORKER CONTROL] ✅ ${service}: ${result.message}`, 'CRON');
           await fetchWorkerStatuses();
         } else {
-          appendLog(`[WORKER CONTROL] ❌ ${service}: ${result.error || 'Failed'}`);
+          appendLog(`[WORKER CONTROL] ❌ ${service}: ${result.error || 'Ошибка исполнения'}`, 'CRON');
         }
       } catch (err) {
-        appendLog(`[WORKER CONTROL] ❌ Request failed: ${err.message}`);
+        appendLog(`[WORKER CONTROL] ❌ Ошибка запроса: ${err.message}`, 'CRON');
       } finally {
         if (btnEl) {
           btnEl.disabled = false;
           btnEl.innerHTML = originalText;
         }
       }
+    }
+
+    async function emergencyStopReddit(btnEl) {
+      if (!confirm('ВНИМАНИЕ: Немедленно остановить ВСЕ воркеры Reddit (scout-reddit-worker и reddit-session-watchdog)?')) {
+        return;
+      }
+      appendLog('[EMERGENCY HALT] 🚨 Выполняется экстренная остановка контура Reddit...', 'REDDIT');
+      const origText = btnEl ? btnEl.innerHTML : '';
+      if (btnEl) {
+        btnEl.disabled = true;
+        btnEl.innerHTML = '⏳ ОСТАНОВКА...';
+      }
+
+      try {
+        const [res1, res2] = await Promise.allSettled([
+          fetch('/api/workers/scout-reddit-worker/stop', { method: 'POST' }),
+          fetch('/api/workers/reddit-session-watchdog/stop', { method: 'POST' })
+        ]);
+        appendLog('[EMERGENCY HALT] 🛑 Команды аварийного останова отправлены воркерам Reddit.', 'REDDIT');
+        await fetchWorkerStatuses();
+      } catch (err) {
+        appendLog(`[EMERGENCY HALT] ❌ Ошибка аварийной остановки: ${err.message}`, 'REDDIT');
+      } finally {
+        if (btnEl) {
+          btnEl.disabled = false;
+          btnEl.innerHTML = origText;
+        }
+      }
+    }
+
+    function initQueueResize() {
+      const panel = document.getElementById('queuePanel');
+      const handle = document.getElementById('queueResizeHandle');
+      if (!panel || !handle) return;
+
+      // Restore saved user height if exists
+      const savedHeight = localStorage.getItem('queuePanelHeight');
+      if (savedHeight) {
+        panel.style.height = `${savedHeight}px`;
+      }
+
+      let isDragging = false;
+      let startY = 0;
+      let startH = 0;
+
+      handle.addEventListener('mousedown', e => {
+        isDragging = true;
+        startY = e.clientY;
+        startH = panel.getBoundingClientRect().height;
+        handle.classList.add('dragging');
+        document.body.style.cursor = 'row-resize';
+        document.body.style.userSelect = 'none';
+        e.preventDefault();
+      });
+
+      window.addEventListener('mousemove', e => {
+        if (!isDragging) return;
+        const delta = e.clientY - startY;
+        const maxH = Math.floor(window.innerHeight * 0.85);
+        const minH = 240;
+        let newH = Math.max(minH, Math.min(maxH, startH + delta));
+        panel.style.height = `${newH}px`;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          handle.classList.remove('dragging');
+          document.body.style.cursor = '';
+          document.body.style.userSelect = '';
+          const finalH = Math.round(panel.getBoundingClientRect().height);
+          localStorage.setItem('queuePanelHeight', finalH);
+        }
+      });
     }
 
     function refreshAll() {
@@ -1516,6 +1901,7 @@
 
     // Init on DOM ready
     window.addEventListener('DOMContentLoaded', () => {
+      initQueueResize();
       refreshAll();
       initSse();
       fetchWorkerStatuses();
