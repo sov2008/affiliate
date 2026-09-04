@@ -10,9 +10,12 @@ const USER = process.env.DEPLOY_USER || 'root';
 const PASS = process.env.SSH_ROOT_PASSWORD || '';
 const REMOTE_PATH = '/var/www/affiliate';
 
-const BOT_TOKEN = 'REDACTED_TELEGRAM_BOT_TOKEN';
-const ADMIN_CHAT_ID = '808343978';
-const BOT_USERNAME = 'local_match_filter_bot';
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+if (!BOT_TOKEN) {
+  throw new Error("TELEGRAM_BOT_TOKEN is missing in environment");
+}
+const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID || '808343978';
+const BOT_USERNAME = process.env.BOT_USERNAME || process.env.TELEGRAM_BOT_USERNAME || 'local_match_filter_bot';
 
 function runSshCommand(conn: Client, cmd: string): Promise<{ stdout: string; stderr: string; code: number }> {
   return new Promise((resolve, reject) => {
