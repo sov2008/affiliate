@@ -776,6 +776,7 @@ We found <b>15+ verified profiles</b> matching your preferences:
         const result = await poster.postComment(thingId, bodyText, {
           skipJitter: true,
           ignorePacing: true,
+          subreddit: item?.subreddit,
         });
 
         if (result.success) {
