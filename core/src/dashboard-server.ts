@@ -12,6 +12,7 @@ import { postbackRouter } from './server/routes/postback.router.js';
 import { actionsRouter } from './server/routes/actions.router.js';
 import { bridgeRouter } from './server/routes/bridge.router.js';
 import { tdsRouter, handleTdsRedirect } from './server/routes/tds.router.js';
+import { workersRouter } from './server/routes/workers.router.js';
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
@@ -25,6 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(postbackRouter);
 app.use(bridgeRouter);
 app.use('/api/actions', actionsRouter);
+app.use('/api/workers', workersRouter);
 
 // Public Reddit Profile Avatar
 app.get('/avatar.jpg', (req: Request, res: Response) => {
