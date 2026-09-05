@@ -2,11 +2,71 @@
 <html lang="ru" class="dark">
 <head>
   <meta charset="UTF-8">
+  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>Affiliate Ops // High-Density Engineering Console</title>
+  <script>
+    // ========================================================
+    // CREDENTIALS & URL SANITIZATION SHIM (WHATWG Fetch / Credentials Fix)
+    // ========================================================
+    (function() {
+      try {
+        if (window.location.href.includes('@')) {
+          var cleanUrl = window.location.protocol + '//' + window.location.host + window.location.pathname + window.location.search + window.location.hash;
+          window.history.replaceState(null, '', cleanUrl);
+        }
+      } catch (e) {
+        console.warn('[Sanitize] Failed to clean address bar:', e);
+      }
+
+      function cleanEndpoint(url) {
+        if (!url) return url;
+        if (typeof url === 'string') {
+          if (url.startsWith('/')) {
+            return window.location.protocol + '//' + window.location.host + url;
+          }
+          if (url.indexOf('@') !== -1) {
+            return url.replace(/\/\/[^@]+@/, '//');
+          }
+          return url;
+        }
+        if (typeof URL !== 'undefined' && url instanceof URL) {
+          url.username = '';
+          url.password = '';
+          return url.href;
+        }
+        return url;
+      }
+
+      var _fetch = window.fetch;
+      if (_fetch) {
+        window.fetch = function(input, init) {
+          if (typeof input === 'string' || (typeof URL !== 'undefined' && input instanceof URL)) {
+            return _fetch.call(this, cleanEndpoint(input), init);
+          }
+          if (typeof Request !== 'undefined' && input instanceof Request) {
+            if (input.url && input.url.indexOf('@') !== -1) {
+              var sanitized = input.url.replace(/\/\/[^@]+@/, '//');
+              var req = new Request(sanitized, input);
+              return _fetch.call(this, req, init);
+            }
+          }
+          return _fetch.call(this, input, init);
+        };
+      }
+
+      var _EventSource = window.EventSource;
+      if (_EventSource) {
+        window.EventSource = function(url, options) {
+          return new _EventSource(cleanEndpoint(url), options);
+        };
+        window.EventSource.prototype = _EventSource.prototype;
+      }
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">

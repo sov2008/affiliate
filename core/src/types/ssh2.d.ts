@@ -3,6 +3,7 @@ declare module 'ssh2' {
     connect(config: any): this;
     on(event: string, listener: (...args: any[]) => void): this;
     exec(command: string, callback: (err: Error | undefined, stream: any) => void): boolean;
+    sftp(callback: (err: any, sftp: any) => void): boolean;
     end(): void;
   }
   export interface ConnectConfig {
