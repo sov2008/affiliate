@@ -30,12 +30,12 @@ function runSSHCommand(conn: Client, cmd: string): Promise<{ stdout: string; std
 
 function uploadFile(conn: Client, localPath: string, remotePath: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    conn.sftp((err, sftp) => {
+    conn.sftp((err: any, sftp: any) => {
       if (err) return reject(err);
       const readStream = fs.createReadStream(localPath);
       const writeStream = sftp.createWriteStream(remotePath);
       writeStream.on('close', () => resolve());
-      writeStream.on('error', (e) => reject(e));
+      writeStream.on('error', (e: any) => reject(e));
       readStream.pipe(writeStream);
     });
   });
