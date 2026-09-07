@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import DatingSmartlinkCTA from '../components/DatingSmartlinkCTA.astro';
+import DatingRadarQuiz from '../components/DatingRadarQuiz.astro';
 
 interface Props {
   title: string;
@@ -194,13 +195,89 @@ const faqSchema = {
         <slot />
       </article>
 
-      <!-- Integrated Smartlink CTA Component -->
-      <DatingSmartlinkCTA
-        title="Ready to Meet Genuine, Verified Singles?"
-        subtitle="Skip the bot matches and romance trap accounts. Connect directly through our curated and verified dating network."
-        offerUrl="/r/dating"
-      />
+      <!-- Mid-Article Sticky Inline Radar Quiz (Injected dynamically into article midpoint) -->
+      <div id="mid-quiz-container" class="my-8 not-prose">
+        <DatingRadarQuiz
+          slug={slug}
+          variant="sticky"
+          quizId="mid-radar-quiz"
+          title="⚡ Quick Scan: Is Your Dating Match Real?"
+          subtitle="Instant cross-reference against verified anti-bot database and spoofing patterns."
+        />
+      </div>
+
+      <!-- Conversion Hook: Full AI Match & Integrity Radar Quiz -->
+      <section class="mt-12 mb-8">
+        <DatingRadarQuiz
+          slug={slug}
+          variant="full"
+          quizId="bottom-radar-quiz"
+          title="AI Match & Integrity Radar: Complete Profile Verification"
+          subtitle="Stop wasting time on catfish profiles and bot swarms. Verify safety clearance and access 100% verified singles."
+        />
+      </section>
+
+      <!-- Editorial FAQ Section -->
+      <section class="my-12 p-6 sm:p-8 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl">
+        <div class="flex items-center gap-2 text-xs font-mono uppercase text-rose-400 font-bold mb-2">
+          <span>● Verified Knowledgebase</span>
+        </div>
+        <h3 class="text-2xl font-black text-white tracking-tight mb-6">
+          Frequently Asked Questions About Profile Safety
+        </h3>
+        <div class="space-y-4">
+          <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80">
+            <h4 class="font-bold text-white text-sm sm:text-base mb-2 flex items-center gap-2">
+              <span class="text-rose-400 font-mono">Q1:</span> What is the fastest way to verify a dating profile?
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              The fastest zero-cost method is requesting a 15-second live video call or using our integrated safety lookup tool before exchanging personal social media or phone numbers.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80">
+            <h4 class="font-bold text-white text-sm sm:text-base mb-2 flex items-center gap-2">
+              <span class="text-rose-400 font-mono">Q2:</span> Can AI detect whether a dating profile is genuine?
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Yes. Automated security filters evaluate account creation velocity, IP fingerprint anomalies, syntactic repetition across chat logs, and visual GAN artifacts in uploaded gallery pictures.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80">
+            <h4 class="font-bold text-white text-sm sm:text-base mb-2 flex items-center gap-2">
+              <span class="text-rose-400 font-mono">Q3:</span> What should I do if I discover a scammer?
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Immediately capture screenshots of the profile and chat log, report the account within the dating platform's safety center, block all communication channels, and never send funds under any circumstances.
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
+
+    <script>
+      // Dynamically relocate mid-article quiz into article content midpoint
+      function injectMidArticleQuiz() {
+        const article = document.querySelector('article');
+        const midQuiz = document.getElementById('mid-quiz-container');
+        if (!article || !midQuiz) return;
+
+        const h2Elements = article.querySelectorAll('h2');
+        if (h2Elements.length >= 2) {
+          const targetIndex = Math.floor(h2Elements.length / 2);
+          h2Elements[targetIndex].before(midQuiz);
+        } else {
+          const paragraphs = article.querySelectorAll('p');
+          if (paragraphs.length >= 3) {
+            paragraphs[2].after(midQuiz);
+          }
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', injectMidArticleQuiz);
+      injectMidArticleQuiz();
+    </script>
 
     <Footer />
   </body>

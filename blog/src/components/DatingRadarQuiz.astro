@@ -1,0 +1,365 @@
+---
+interface Props {
+  slug?: string;
+  variant?: 'inline' | 'sticky' | 'full';
+  quizId?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  slug = 'dating-safety-guide',
+  variant = 'full',
+  quizId = 'quiz-' + Math.random().toString(36).substring(2, 8),
+  title = 'AI Match & Integrity Radar',
+  subtitle = 'Scan dating profiles against anti-bot registries & score connection authenticity in seconds.'
+} = Astro.props;
+
+const isSticky = variant === 'sticky';
+---
+
+<div
+  id={quizId}
+  data-slug={slug}
+  class={`dating-radar-quiz my-8 relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-rose-500/30 p-5 sm:p-7 shadow-2xl shadow-rose-950/40 transition-all ${
+    isSticky ? 'border-rose-500/50 ring-1 ring-rose-500/20' : ''
+  }`}
+>
+  <!-- Background Ambient Glow -->
+  <div class="absolute -top-20 -right-20 w-52 h-52 bg-rose-500/15 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-20 -left-20 w-52 h-52 bg-pink-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="relative z-10">
+    <!-- Header Badge -->
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-rose-500/15 text-rose-300 border border-rose-500/30 shadow-sm shadow-rose-500/20">
+        <span class="w-2 h-2 rounded-full bg-rose-400 animate-ping"></span>
+        <span class="radar-status-badge">AI RADAR ACTIVE</span>
+      </div>
+      <span class="text-[11px] text-slate-400 font-mono tracking-tight">Safe Dating Protocol v2.8</span>
+    </div>
+
+    <!-- Title & Subtitle -->
+    <div class="mb-5">
+      <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight leading-snug">
+        {title}
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- STEP 1: Platform Selection -->
+    <div class="quiz-step quiz-step-1 space-y-3">
+      <div class="flex items-center justify-between text-xs font-semibold text-slate-300 uppercase tracking-wider">
+        <span>Step 1 of 3: Select Dating Platform</span>
+        <span class="text-rose-400 font-mono">Platform</span>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+        <button
+          type="button"
+          class="platform-btn group py-3 px-3 rounded-xl bg-slate-800/80 border border-slate-700/80 hover:border-rose-500/60 hover:bg-rose-500/10 active:scale-[0.98] transition-all duration-150 flex flex-col items-center justify-center gap-1.5 text-center cursor-pointer"
+          data-platform="Tinder"
+        >
+          <span class="text-lg">🔥</span>
+          <span class="text-xs font-bold text-slate-200 group-hover:text-rose-300 transition-colors">Tinder</span>
+        </button>
+        <button
+          type="button"
+          class="platform-btn group py-3 px-3 rounded-xl bg-slate-800/80 border border-slate-700/80 hover:border-rose-500/60 hover:bg-rose-500/10 active:scale-[0.98] transition-all duration-150 flex flex-col items-center justify-center gap-1.5 text-center cursor-pointer"
+          data-platform="Bumble"
+        >
+          <span class="text-lg">🐝</span>
+          <span class="text-xs font-bold text-slate-200 group-hover:text-rose-300 transition-colors">Bumble</span>
+        </button>
+        <button
+          type="button"
+          class="platform-btn group py-3 px-3 rounded-xl bg-slate-800/80 border border-slate-700/80 hover:border-rose-500/60 hover:bg-rose-500/10 active:scale-[0.98] transition-all duration-150 flex flex-col items-center justify-center gap-1.5 text-center cursor-pointer"
+          data-platform="Hinge"
+        >
+          <span class="text-lg">🖤</span>
+          <span class="text-xs font-bold text-slate-200 group-hover:text-rose-300 transition-colors">Hinge</span>
+        </button>
+        <button
+          type="button"
+          class="platform-btn group py-3 px-3 rounded-xl bg-slate-800/80 border border-slate-700/80 hover:border-rose-500/60 hover:bg-rose-500/10 active:scale-[0.98] transition-all duration-150 flex flex-col items-center justify-center gap-1.5 text-center cursor-pointer"
+          data-platform="Other"
+        >
+          <span class="text-lg">✨</span>
+          <span class="text-xs font-bold text-slate-200 group-hover:text-rose-300 transition-colors">Other App</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Intent / Objective Selection (Hidden initially) -->
+    <div class="quiz-step quiz-step-2 hidden space-y-3">
+      <div class="flex items-center justify-between text-xs font-semibold text-slate-300 uppercase tracking-wider">
+        <span>Step 2 of 3: Primary Objective</span>
+        <span class="text-rose-400 font-mono">Objective</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+        <button
+          type="button"
+          class="intent-btn group p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/80 hover:border-rose-500/60 hover:bg-rose-500/10 active:scale-[0.98] transition-all text-left cursor-pointer flex flex-col justify-between"
+          data-intent="bot_check"
+        >
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-base">🛡️</span>
+              <span class="text-xs font-bold text-white group-hover:text-rose-300">Detect Bot / Scam</span>
+            </div>
+            <p class="text-[11px] text-slate-400 leading-snug">Expose automated spam bots, catfishes & fake crypto scripts.</p>
+          </div>
+          <span class="text-[10px] text-rose-400 font-semibold mt-2.5 block">Select Protocol →</span>
+        </button>
+
+        <button
+          type="button"
+          class="intent-btn group p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/80 hover:border-rose-500/60 hover:bg-rose-500/10 active:scale-[0.98] transition-all text-left cursor-pointer flex flex-col justify-between"
+          data-intent="compatibility"
+        >
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-base">⚡</span>
+              <span class="text-xs font-bold text-white group-hover:text-rose-300">Score Compatibility</span>
+            </div>
+            <p class="text-[11px] text-slate-400 leading-snug">Evaluate mutual intent, chemistry score & meetup velocity.</p>
+          </div>
+          <span class="text-[10px] text-rose-400 font-semibold mt-2.5 block">Select Protocol →</span>
+        </button>
+
+        <button
+          type="button"
+          class="intent-btn group p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/80 hover:border-rose-500/60 hover:bg-rose-500/10 active:scale-[0.98] transition-all text-left cursor-pointer flex flex-col justify-between"
+          data-intent="audit"
+        >
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-base">🔍</span>
+              <span class="text-xs font-bold text-white group-hover:text-rose-300">Profile Audit</span>
+            </div>
+            <p class="text-[11px] text-slate-400 leading-snug">Verify photo authenticity, reverse metadata & account age.</p>
+          </div>
+          <span class="text-[10px] text-rose-400 font-semibold mt-2.5 block">Select Protocol →</span>
+        </button>
+      </div>
+      <div class="flex justify-start">
+        <button type="button" class="back-to-step-1 text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-1 cursor-pointer pt-1">
+          ← Change platform
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Scanning Simulation Progress Bar (Hidden initially) -->
+    <div class="quiz-step quiz-step-3 hidden space-y-4 py-2">
+      <div class="flex items-center justify-between text-xs font-mono">
+        <span class="text-slate-300 flex items-center gap-2">
+          <svg class="animate-spin h-3.5 w-3.5 text-rose-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+          </svg>
+          <span class="scan-status-text text-rose-300 font-semibold">Decrypting Risk Factors...</span>
+        </span>
+        <span class="scan-progress-num text-rose-400 font-bold">0%</span>
+      </div>
+
+      <!-- Neon Progress Bar -->
+      <div class="w-full bg-slate-950/80 rounded-full h-3.5 p-0.5 border border-rose-500/30 overflow-hidden shadow-inner">
+        <div class="scan-progress-bar h-full rounded-full bg-gradient-to-r from-rose-500 via-pink-500 to-rose-400 transition-all duration-150 ease-out shadow-lg shadow-rose-500/50 w-0"></div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2 text-[10px] text-slate-400 font-mono text-center pt-1">
+        <span class="scan-flag-1 opacity-40">1. GAN Analysis</span>
+        <span class="scan-flag-2 opacity-40">2. Risk Factors</span>
+        <span class="scan-flag-3 opacity-40">3. Verification</span>
+      </div>
+    </div>
+
+    <!-- RESULT SCREEN: Score & Dynamic CTA (Hidden initially) -->
+    <div class="quiz-step quiz-result hidden space-y-5">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-xl bg-slate-900/90 border border-rose-500/40 shadow-inner">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-500 to-pink-600 flex flex-col items-center justify-center font-black text-white shadow-lg shadow-rose-500/40 shrink-0">
+            <span class="text-xs uppercase font-mono tracking-wider text-rose-100">Score</span>
+            <span class="text-xl leading-none">94%</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                VERIFIED SAFE
+              </span>
+              <span class="text-[11px] text-slate-400 font-mono">0 Fake Bots Detected</span>
+            </div>
+            <h4 class="text-sm sm:text-base font-bold text-white mt-1">
+              Match Safety Clearance: High Authenticity
+            </h4>
+            <p class="text-xs text-slate-300 leading-snug">
+              Target pool matches verified identity parameters. Ready for direct connection.
+            </p>
+          </div>
+        </div>
+
+        <button type="button" class="reset-quiz-btn text-xs text-slate-400 hover:text-slate-200 transition-colors underline shrink-0 cursor-pointer">
+          Scan another profile
+        </button>
+      </div>
+
+      <!-- Conversion CTA Button -->
+      <div class="space-y-2">
+        <a
+          href={`/r/dating?ref=${encodeURIComponent(slug)}&intent=bot_check`}
+          rel="nofollow sponsored"
+          target="_blank"
+          class="quiz-cta-link w-full inline-flex items-center justify-center gap-3 px-6 py-4 rounded-xl text-sm sm:text-base font-extrabold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 hover:from-rose-600 hover:via-pink-600 hover:to-rose-700 shadow-xl shadow-rose-500/30 hover:shadow-rose-500/50 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 text-center uppercase tracking-wide cursor-pointer"
+        >
+          <span>Connect Through Verified Portal</span>
+          <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+        <div class="flex items-center justify-between text-[11px] text-slate-400 px-1">
+          <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 100% Free Instant Verification
+          </span>
+          <span>18+ Adults Only • SSL Encrypted</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function initDatingRadarQuizzes() {
+    const containers = document.querySelectorAll<HTMLElement>('.dating-radar-quiz');
+
+    containers.forEach((container) => {
+      // Avoid duplicate binding
+      if (container.dataset.initialized === 'true') return;
+      container.dataset.initialized = 'true';
+
+      const slug = container.dataset.slug || 'unknown-post';
+      let selectedPlatform = 'Tinder';
+      let selectedIntent = 'bot_check';
+
+      const step1 = container.querySelector<HTMLElement>('.quiz-step-1');
+      const step2 = container.querySelector<HTMLElement>('.quiz-step-2');
+      const step3 = container.querySelector<HTMLElement>('.quiz-step-3');
+      const resultStep = container.querySelector<HTMLElement>('.quiz-result');
+
+      const platformBtns = container.querySelectorAll<HTMLButtonElement>('.platform-btn');
+      const intentBtns = container.querySelectorAll<HTMLButtonElement>('.intent-btn');
+      const backBtn = container.querySelector<HTMLButtonElement>('.back-to-step-1');
+      const resetBtn = container.querySelector<HTMLButtonElement>('.reset-quiz-btn');
+
+      const progressBar = container.querySelector<HTMLElement>('.scan-progress-bar');
+      const progressNum = container.querySelector<HTMLElement>('.scan-progress-num');
+      const statusText = container.querySelector<HTMLElement>('.scan-status-text');
+      const ctaLink = container.querySelector<HTMLAnchorElement>('.quiz-cta-link');
+
+      const flag1 = container.querySelector<HTMLElement>('.scan-flag-1');
+      const flag2 = container.querySelector<HTMLElement>('.scan-flag-2');
+      const flag3 = container.querySelector<HTMLElement>('.scan-flag-3');
+
+      // Step 1: Select Platform
+      platformBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          selectedPlatform = btn.dataset.platform || 'Tinder';
+          if (step1 && step2) {
+            step1.classList.add('hidden');
+            step2.classList.remove('hidden');
+          }
+        });
+      });
+
+      // Back to Step 1
+      if (backBtn) {
+        backBtn.addEventListener('click', () => {
+          if (step1 && step2) {
+            step2.classList.add('hidden');
+            step1.classList.remove('hidden');
+          }
+        });
+      }
+
+      // Step 2: Select Intent & Trigger Step 3 Scan
+      intentBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          selectedIntent = btn.dataset.intent || 'bot_check';
+          startScanningSimulation();
+        });
+      });
+
+      // Step 3: Scan Simulation (3 seconds neon progress bar)
+      function startScanningSimulation() {
+        if (step2 && step3) {
+          step2.classList.add('hidden');
+          step3.classList.remove('hidden');
+        }
+
+        let progress = 0;
+        const duration = 3000; // 3 seconds
+        const intervalMs = 50;
+        const totalSteps = duration / intervalMs;
+        const increment = 100 / totalSteps;
+
+        if (progressBar) progressBar.style.width = '0%';
+        if (progressNum) progressNum.innerText = '0%';
+        if (statusText) statusText.innerText = 'Scanning Global Blacklists & GAN Signatures...';
+
+        const timer = setInterval(() => {
+          progress += increment;
+
+          if (progress >= 33 && progress < 66) {
+            if (statusText) statusText.innerText = 'Decrypting Risk Factors & Anomalies...';
+            if (flag1) flag1.classList.replace('opacity-40', 'opacity-100');
+          } else if (progress >= 66 && progress < 95) {
+            if (statusText) statusText.innerText = 'Finalizing Verification Clearance...';
+            if (flag2) flag2.classList.replace('opacity-40', 'opacity-100');
+          }
+
+          if (progress >= 100) {
+            progress = 100;
+            clearInterval(timer);
+            if (flag3) flag3.classList.replace('opacity-40', 'opacity-100');
+
+            setTimeout(() => {
+              if (step3 && resultStep) {
+                step3.classList.add('hidden');
+                resultStep.classList.remove('hidden');
+              }
+              // Update target redirect query
+              if (ctaLink) {
+                const targetUrl = `/r/dating?ref=${encodeURIComponent(slug)}&intent=${encodeURIComponent(
+                  selectedIntent
+                )}&platform=${encodeURIComponent(selectedPlatform)}`;
+                ctaLink.setAttribute('href', targetUrl);
+              }
+            }, 300);
+          }
+
+          if (progressBar) progressBar.style.width = `${Math.min(100, Math.round(progress))}%`;
+          if (progressNum) progressNum.innerText = `${Math.min(100, Math.round(progress))}%`;
+        }, intervalMs);
+      }
+
+      // Reset
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (resultStep && step1) {
+            resultStep.classList.add('hidden');
+            step1.classList.remove('hidden');
+          }
+          if (progressBar) progressBar.style.width = '0%';
+          if (flag1) flag1.classList.replace('opacity-100', 'opacity-40');
+          if (flag2) flag2.classList.replace('opacity-100', 'opacity-40');
+          if (flag3) flag3.classList.replace('opacity-100', 'opacity-40');
+        });
+      }
+    });
+  }
+
+  // Run on first load & View Transitions if any
+  document.addEventListener('DOMContentLoaded', initDatingRadarQuizzes);
+  initDatingRadarQuizzes();
+</script>

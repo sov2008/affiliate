@@ -3,6 +3,7 @@ import cors from 'cors';
 import fs from 'fs/promises';
 import fsSync from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import { exec } from 'child_process';
 import util from 'util';
 import dotenv from 'dotenv';
@@ -301,6 +302,28 @@ export function handleDatingSmartlinkRedirect(req: Request, res: Response) {
       return res.redirect(302, '/blog/');
     }
 
+    // Extract conversion parameters from widget
+    const ref = (req.query.ref || req.query.slug || 'direct') as string;
+    const intent = (req.query.intent || 'bot_check') as string;
+    const referrer = (req.headers['referer'] || req.headers['referrer'] || '') as string;
+
+    // Log human conversion to SQLite blog_conversions
+    try {
+      const { ContentQueueRepository } = require('./db/queueRepository.js');
+      const repo = ContentQueueRepository.getInstance();
+      const ipHash = crypto.createHash('sha256').update(ip + '_flirt_secure_salt_2026').digest('hex').slice(0, 16);
+      repo.recordBlogConversion({
+        slug: ref,
+        ip: ipHash,
+        userAgent: ua,
+        referrer,
+        intent
+      });
+      console.log(`📊 [Blog TDS Conversion] Logged click: slug="${ref}", intent="${intent}", ipHash="${ipHash}"`);
+    } catch (e: any) {
+      console.warn('[Blog TDS Conversion] Could not log conversion:', e.message);
+    }
+
     const smartlinkUrl =
       process.env.LOSPOLLOS_DATING_URL ||
       process.env.LOSPOLLOS_SMARTLINK_URL ||
@@ -329,6 +352,24 @@ export function handleDatingSmartlinkRedirect(req: Request, res: Response) {
 
 app.get(['/r/dating', '/r/dating-smartlink'], handleDatingSmartlinkRedirect);
 tdsRouter.get(['/r/dating', '/r/dating-smartlink'], handleDatingSmartlinkRedirect);
+
+// ----------------------------------------------------
+// Blog Analytics API: Clicks & Top Converting Articles
+// ----------------------------------------------------
+app.get('/api/blog/analytics', (req: Request, res: Response) => {
+  try {
+    const { ContentQueueRepository } = require('./db/queueRepository.js');
+    const repo = ContentQueueRepository.getInstance();
+    const analytics = repo.getBlogAnalytics();
+    return res.json({
+      success: true,
+      data: analytics
+    });
+  } catch (err: any) {
+    console.error('Error in /api/blog/analytics:', err.message);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
 
 
 // ----------------------------------------------------

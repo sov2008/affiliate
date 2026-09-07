@@ -209,6 +209,18 @@ export class ContentQueueRepository {
         CREATE INDEX IF NOT EXISTS idx_cq2_campaign ON content_queue_v2 (campaign_id);
         CREATE INDEX IF NOT EXISTS idx_cq2_platform ON content_queue_v2 (platform);
         CREATE VIEW IF NOT EXISTS content_queue AS SELECT * FROM content_queue_v2;
+
+        CREATE TABLE IF NOT EXISTS blog_conversions (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          slug TEXT,
+          ip TEXT,
+          user_agent TEXT,
+          referrer TEXT,
+          intent TEXT,
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        );
+        CREATE INDEX IF NOT EXISTS idx_blog_conv_slug ON blog_conversions (slug);
+        CREATE INDEX IF NOT EXISTS idx_blog_conv_created ON blog_conversions (created_at);
       `);
 
       // Migrations for columns if table existed earlier
@@ -791,6 +803,63 @@ export class ContentQueueRepository {
     }
 
     return stats;
+  }
+
+  public recordBlogConversion(data: {
+    slug: string;
+    ip?: string;
+    userAgent?: string;
+    referrer?: string;
+    intent?: string;
+  }): void {
+    if (this.isSqlite && this.db) {
+      try {
+        const stmt = this.db.prepare(`
+          INSERT INTO blog_conversions (slug, ip, user_agent, referrer, intent)
+          VALUES (?, ?, ?, ?, ?)
+        `);
+        stmt.run(
+          data.slug || 'unknown-post',
+          data.ip || '',
+          data.userAgent || '',
+          data.referrer || '',
+          data.intent || 'bot_check'
+        );
+      } catch (err: any) {
+        console.error('[ContentQueueRepository] recordBlogConversion error:', err.message);
+      }
+    }
+  }
+
+  public getBlogAnalytics(): {
+    totalClicks: number;
+    topPosts: Array<{ slug: string; clicks: number; sharePct: number }>;
+  } {
+    if (this.isSqlite && this.db) {
+      try {
+        const totalRow = this.db.prepare(`SELECT COUNT(*) as total FROM blog_conversions`).get() as { total: number } | undefined;
+        const totalClicks = Number(totalRow?.total || 0);
+
+        const rows = this.db.prepare(`
+          SELECT slug, COUNT(*) as clicks
+          FROM blog_conversions
+          GROUP BY slug
+          ORDER BY clicks DESC
+          LIMIT 5
+        `).all() as Array<{ slug: string; clicks: number }>;
+
+        const topPosts = (rows || []).map((r) => ({
+          slug: r.slug,
+          clicks: Number(r.clicks),
+          sharePct: totalClicks > 0 ? Number(((Number(r.clicks) / totalClicks) * 100).toFixed(1)) : 0
+        }));
+
+        return { totalClicks, topPosts };
+      } catch (err: any) {
+        console.error('[ContentQueueRepository] getBlogAnalytics error:', err.message);
+      }
+    }
+    return { totalClicks: 0, topPosts: [] };
   }
 }
 
