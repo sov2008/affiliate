@@ -1,0 +1,167 @@
+{
+  "$schema": "https://antigravity.google.com/schemas/skills-manifest-v2.json",
+  "version": "2.1.0",
+  "project": "affiliate-blog-pipeline",
+  "environment": {
+    "runtime": "Node.js 20+",
+    "os": "windows/linux",
+    "primaryHost": "178.128.199.28",
+    "domain": "flirtcheck.site"
+  },
+  "skills": [
+    {
+      "id": "fs_workspace_manager",
+      "name": "File System & Workspace Manager",
+      "version": "1.0.0",
+      "description": "Чтение, создание, патчинг и безопасная модификация файлов проекта Astro, React дашборда, моделей SQLite и SEO-статей Markdown.",
+      "category": "filesystem",
+      "capabilities": ["read", "write", "patch", "glob"],
+      "allowedPaths": [
+        "blog/src/content/posts/**",
+        "blog/src/**",
+        "core/src/**",
+        "core/data/**",
+        "deploy/**",
+        "package.json",
+        "blog/package.json",
+        "core/package.json",
+        "TASK_SPEC.md",
+        "AGENTS.md"
+      ],
+      "deniedPaths": [
+        "**/.env*",
+        "**/*.pem",
+        "**/*.key",
+        "storage/profiles/**"
+      ],
+      "parameters": {
+        "atomicWrite": true,
+        "backupBeforePatch": false
+      }
+    },
+    {
+      "id": "bash_build_runner",
+      "name": "Autonomous Build & Validation Runner",
+      "version": "1.0.0",
+      "description": "Автономное выполнение валидации типов TypeScript, компиляции ядра и сборки статического блога Astro без блокирующих запросов подтверждения.",
+      "category": "build_automation",
+      "allowedCommands": [
+        "npm run build:blog",
+        "npm --prefix blog run build",
+        "npm --prefix core run build",
+        "npm run typecheck",
+        "npm --prefix core run typecheck",
+        "npm test"
+      ],
+      "environmentVariables": {
+        "NODE_ENV": "production",
+        "ASTRO_TELEMETRY_DISABLED": "1"
+      },
+      "timeoutMs": 120000,
+      "autoRetryOnTransientFailure": true
+    },
+    {
+      "id": "sqlite_queue_operator",
+      "name": "SQLite Content Queue Operator",
+      "version": "1.0.0",
+      "description": "Выполнение безопасных транзакций и запросов в базе данных SQLite (content_queue_v2): регистрация статей BLOG_POST, модерация, смена статусов и аудит.",
+      "category": "database",
+      "dbPaths": [
+        "core/data/content_queue.sqlite",
+        "data/content_queue.sqlite",
+        ".antigravity/content_queue.db"
+      ],
+      "supportedTaskTypes": [
+        "BLOG_POST",
+        "SOCIAL_SNIPPET",
+        "REDDIT",
+        "QUORA",
+        "MEDIUM"
+      ],
+      "supportedStatuses": [
+        "PENDING",
+        "PENDING_APPROVAL",
+        "APPROVED",
+        "REJECTED",
+        "DISPATCHED",
+        "POSTED",
+        "FAILED"
+      ],
+      "safetyRules": {
+        "strictZeroDemoData": true,
+        "disallowArbitraryRawDrops": true,
+        "enforceTransactions": true
+      }
+    },
+    {
+      "id": "ai_gateway_invoker",
+      "name": "AI Credits Gateway Invoker",
+      "version": "1.0.0",
+      "description": "Генерация структурированных лонгридов, чек-листов и микро-постов дейтинг-тематики через шлюз моделей (Gemini 1.5 Flash / Qwen 2.5 72B / Groq).",
+      "category": "ai_generation",
+      "models": [
+        "gemini-1.5-flash",
+        "qwen-2.5-72b",
+        "groq/compound-mini"
+      ],
+      "schemaValidation": {
+        "requireFrontmatter": true,
+        "frontmatterKeys": ["title", "description", "pubDate", "author", "tags", "keywords"],
+        "requireH1": true,
+        "requireSchemaOrgFaq": true,
+        "forbiddenSyntheticMetrics": true
+      },
+      "temperature": 0.65,
+      "maxOutputTokens": 8192
+    },
+    {
+      "id": "remote_ssh_deployer",
+      "name": "Remote SSH & PM2 Deployer",
+      "version": "1.0.0",
+      "description": "Синхронизация кодовой базы с GitHub, удаленное развертывание и перезапуск сервисов в PM2 на Droplet 178.128.199.28.",
+      "category": "deployment",
+      "targetHost": "178.128.199.28",
+      "targetUser": "root",
+      "deploymentScripts": [
+        "npx tsx core/src/scripts/deployProduction.ts",
+        "npx tsx core/src/scripts/deployDashboardUpdate.ts",
+        "npx tsx core/src/scripts/configureNginxAuth.ts"
+      ],
+      "managedPm2Services": [
+        "affiliate-dashboard",
+        "affiliate-scheduler",
+        "blog-publisher-worker",
+        "postback-listener"
+      ]
+    },
+    {
+      "id": "http_verifier",
+      "name": "HTTP & Live Endpoints Verifier",
+      "version": "1.0.0",
+      "description": "Автоматическая валидация доступности внешних сетевых эндпоинтов, SSL-сертификата и статус-кодов ответов после развертывания.",
+      "category": "healthcheck",
+      "checks": [
+        {
+          "name": "Blog Root Pre-render",
+          "url": "https://flirtcheck.site/blog/",
+          "expectedStatus": 200,
+          "method": "HEAD"
+        },
+        {
+          "name": "Dashboard Public Auth Gate",
+          "url": "https://flirtcheck.site/dashboard/",
+          "expectedStatus": 401,
+          "method": "GET",
+          "note": "Must require HTTP Basic Auth or session authentication"
+        },
+        {
+          "name": "Internal Worker Health API",
+          "url": "http://127.0.0.1:5000/api/workers/status",
+          "expectedStatus": 200,
+          "method": "GET"
+        }
+      ],
+      "timeoutMs": 10000
+    }
+  ]
+}
