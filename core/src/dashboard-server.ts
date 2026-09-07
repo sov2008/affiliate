@@ -271,7 +271,7 @@ app.get('/go', handleTdsRedirect);
 // ----------------------------------------------------
 // Protected Dating Smartlink Redirect Route with Bot Shield
 // ----------------------------------------------------
-app.get(['/r/dating', '/r/dating-smartlink'], (req: Request, res: Response) => {
+export function handleDatingSmartlinkRedirect(req: Request, res: Response) {
   try {
     const ua = (req.headers['user-agent'] as string) || '';
     const forwarded = req.headers['x-forwarded-for'];
@@ -325,7 +325,11 @@ app.get(['/r/dating', '/r/dating-smartlink'], (req: Request, res: Response) => {
     console.error('Error in /r/dating redirect:', err.message);
     return res.redirect(302, '/blog/');
   }
-});
+}
+
+app.get(['/r/dating', '/r/dating-smartlink'], handleDatingSmartlinkRedirect);
+tdsRouter.get(['/r/dating', '/r/dating-smartlink'], handleDatingSmartlinkRedirect);
+
 
 // ----------------------------------------------------
 // Autonomous Blog Batch Generation API
