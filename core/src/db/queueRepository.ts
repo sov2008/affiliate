@@ -651,6 +651,37 @@ export class ContentQueueRepository {
   }
 
   /**
+   * Get next pending social snippet for syndication
+   */
+  public getNextPendingSnippet(): ContentQueueItem | null {
+    if (this.isSqlite && this.db) {
+      try {
+        const stmt = this.db.prepare(`
+          SELECT * FROM content_queue_v2
+          WHERE (platform = 'SOCIAL_SNIPPET' OR target_platform = 'SOCIAL_SNIPPET')
+            AND status IN ('PENDING', 'PENDING_APPROVAL', 'APPROVED')
+          ORDER BY created_at ASC
+          LIMIT 1
+        `);
+        const row = stmt.get() as unknown as ContentQueueItem | undefined;
+        return row || null;
+      } catch (err: any) {
+        console.error('[ContentQueueRepository] getNextPendingSnippet error:', err.message);
+      }
+    }
+
+    for (const it of this.memoryItems.values()) {
+      if (
+        (it.platform === 'SOCIAL_SNIPPET' || it.target_platform === 'SOCIAL_SNIPPET') &&
+        (it.status === 'PENDING' || it.status === 'PENDING_APPROVAL' || it.status === 'APPROVED')
+      ) {
+        return it;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Delete item
    */
   public deleteItem(id: string): boolean {

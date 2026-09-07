@@ -451,6 +451,7 @@
           <button onclick="setQueueFilter('DISPATCHED')" id="qf_DISPATCHED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Успешно отправлено в сабреддиты">DISPATCHED (<span id="qc_DISPATCHED">0</span>)</button>
           <button onclick="setQueueFilter('REJECTED')" id="qf_REJECTED" class="filter-tab term-tooltip tooltip-bottom tooltip-left" data-tooltip="Отклонено модератором">REJECTED (<span id="qc_REJECTED">0</span>)</button>
         </div>
+        <button onclick="dispatchNextSocialSnippet()" id="btnDispatchSocialSnippet" class="btn btn-purple font-bold term-tooltip tooltip-bottom tooltip-left" data-tooltip="Принудительная публикация 1 сниппета в Telegram канал проекта" style="padding: 2px 8px; font-size: 10px;">📲 Dispatch Next Social Snippet</button>
         <button onclick="fetchQueue()" class="btn" style="padding: 2px 6px; font-size: 10px;">↻ REFRESH</button>
       </div>
     </div>
@@ -1603,6 +1604,30 @@
         }
       } catch (err) {
         appendLog(`[BLOG AUTO-PILOT] ❌ Ошибка сети: ${err.message}`, 'CRON');
+      }
+    }
+
+    async function dispatchNextSocialSnippet() {
+      const btn = document.getElementById('btnDispatchSocialSnippet');
+      if (btn) btn.disabled = true;
+      appendLog('[SOCIAL] 📲 Запуск синдикации промо-поста в Telegram-канал...', 'CRON');
+
+      try {
+        const res = await fetch('/api/social/dispatch-now', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const d = await res.json();
+        if (d.success) {
+          appendLog(`[SOCIAL] ✅ Успешно опубликован сниппет [${d.item?.id || '--'}] -> ${d.publishedUrl || 'Telegram Channel'}`, 'CRON');
+          await fetchQueue();
+        } else {
+          appendLog(`[SOCIAL] ⚠️ Синдикация: ${d.message || 'Ошибка или кулдаун'}`, 'CRON');
+        }
+      } catch (err) {
+        appendLog(`[SOCIAL] ❌ Ошибка сети: ${err.message}`, 'CRON');
+      } finally {
+        if (btn) btn.disabled = false;
       }
     }
 

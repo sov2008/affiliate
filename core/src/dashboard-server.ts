@@ -372,6 +372,21 @@ app.get('/api/blog/analytics', (req: Request, res: Response) => {
   }
 });
 
+// ----------------------------------------------------
+// Social Syndication API: Manual / Force Dispatch
+// ----------------------------------------------------
+app.post('/api/social/dispatch-now', async (req: Request, res: Response) => {
+  try {
+    const { SocialSyndicatorService } = require('./services/socialSyndicator.service.js');
+    const syndicator = SocialSyndicatorService.getInstance();
+    const result = await syndicator.dispatchNextSnippet({ force: true });
+    return res.json(result);
+  } catch (err: any) {
+    console.error('Error in /api/social/dispatch-now:', err.message);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 
 // ----------------------------------------------------
 // Autonomous Blog Batch Generation API

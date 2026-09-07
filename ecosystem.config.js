@@ -125,6 +125,23 @@ module.exports = {
       env: {
         NODE_ENV: "production"
       }
+    },
+    {
+      name: "affiliate-social-syndicator",
+      script: "./dist/workers/social-syndicator.worker.js",
+      cwd: coreDir,
+      instances: 1,
+      autorestart: true,
+      max_memory_restart: "150M",
+      restart_delay: 5000,
+      exp_backoff_restart_delay: 500,
+      out_file: path.join(logsDir, "pm2-affiliate-social-syndicator-out.log"),
+      error_file: path.join(logsDir, "pm2-affiliate-social-syndicator-error.log"),
+      merge_logs: true,
+      time: true,
+      env: {
+        NODE_ENV: "production"
+      }
     }
   ]
 };
