@@ -217,10 +217,14 @@ export class ContentQueueRepository {
           user_agent TEXT,
           referrer TEXT,
           intent TEXT,
+          variant TEXT DEFAULT 'A',
+          trigger_source TEXT DEFAULT 'inline_quiz',
           created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         );
         CREATE INDEX IF NOT EXISTS idx_blog_conv_slug ON blog_conversions (slug);
         CREATE INDEX IF NOT EXISTS idx_blog_conv_created ON blog_conversions (created_at);
+        CREATE INDEX IF NOT EXISTS idx_blog_conv_variant ON blog_conversions (variant);
+        CREATE INDEX IF NOT EXISTS idx_blog_conv_trigger ON blog_conversions (trigger_source);
       `);
 
       // Migrations for columns if table existed earlier
@@ -231,6 +235,8 @@ export class ContentQueueRepository {
       try { this.db.exec(`ALTER TABLE content_queue_v2 ADD COLUMN health_status TEXT`); } catch {}
       try { this.db.exec(`ALTER TABLE content_queue_v2 ADD COLUMN live_upvotes INTEGER DEFAULT 0`); } catch {}
       try { this.db.exec(`ALTER TABLE content_queue_v2 ADD COLUMN last_health_check_at INTEGER`); } catch {}
+      try { this.db.exec(`ALTER TABLE blog_conversions ADD COLUMN variant TEXT DEFAULT 'A'`); } catch {}
+      try { this.db.exec(`ALTER TABLE blog_conversions ADD COLUMN trigger_source TEXT DEFAULT 'inline_quiz'`); } catch {}
     } catch (e: any) {
       console.warn('[ContentQueueRepository] Schema initialization note:', e.message);
     }
@@ -842,19 +848,23 @@ export class ContentQueueRepository {
     userAgent?: string;
     referrer?: string;
     intent?: string;
+    variant?: string;
+    triggerSource?: string;
   }): void {
     if (this.isSqlite && this.db) {
       try {
         const stmt = this.db.prepare(`
-          INSERT INTO blog_conversions (slug, ip, user_agent, referrer, intent)
-          VALUES (?, ?, ?, ?, ?)
+          INSERT INTO blog_conversions (slug, ip, user_agent, referrer, intent, variant, trigger_source)
+          VALUES (?, ?, ?, ?, ?, ?, ?)
         `);
         stmt.run(
           data.slug || 'unknown-post',
           data.ip || '',
           data.userAgent || '',
           data.referrer || '',
-          data.intent || 'bot_check'
+          data.intent || 'bot_check',
+          data.variant || 'A',
+          data.triggerSource || 'inline_quiz'
         );
       } catch (err: any) {
         console.error('[ContentQueueRepository] recordBlogConversion error:', err.message);
@@ -865,6 +875,18 @@ export class ContentQueueRepository {
   public getBlogAnalytics(): {
     totalClicks: number;
     topPosts: Array<{ slug: string; clicks: number; sharePct: number }>;
+    split: {
+      variantA: number;
+      variantB: number;
+      ratioA: number;
+      ratioB: number;
+    };
+    triggers: {
+      inline_quiz: number;
+      sticky_radar: number;
+      exit_intent: number;
+      other: number;
+    };
   } {
     if (this.isSqlite && this.db) {
       try {
@@ -885,12 +907,66 @@ export class ContentQueueRepository {
           sharePct: totalClicks > 0 ? Number(((Number(r.clicks) / totalClicks) * 100).toFixed(1)) : 0
         }));
 
-        return { totalClicks, topPosts };
+        // Split variant breakdown
+        const splitRows = this.db.prepare(`
+          SELECT variant, COUNT(*) as count
+          FROM blog_conversions
+          GROUP BY variant
+        `).all() as Array<{ variant: string; count: number }>;
+
+        let variantA = 0;
+        let variantB = 0;
+        for (const row of splitRows || []) {
+          if (row.variant === 'B') {
+            variantB += Number(row.count);
+          } else {
+            variantA += Number(row.count);
+          }
+        }
+
+        const totalSplit = variantA + variantB;
+        const ratioA = totalSplit > 0 ? Number(((variantA / totalSplit) * 100).toFixed(1)) : 0;
+        const ratioB = totalSplit > 0 ? Number(((variantB / totalSplit) * 100).toFixed(1)) : 0;
+
+        // Trigger sources breakdown
+        const triggerRows = this.db.prepare(`
+          SELECT trigger_source, COUNT(*) as count
+          FROM blog_conversions
+          GROUP BY trigger_source
+        `).all() as Array<{ trigger_source: string; count: number }>;
+
+        const triggers = {
+          inline_quiz: 0,
+          sticky_radar: 0,
+          exit_intent: 0,
+          other: 0
+        };
+
+        for (const row of triggerRows || []) {
+          const t = row.trigger_source;
+          const c = Number(row.count);
+          if (t === 'inline_quiz') triggers.inline_quiz += c;
+          else if (t === 'sticky_radar') triggers.sticky_radar += c;
+          else if (t === 'exit_intent') triggers.exit_intent += c;
+          else triggers.other += c;
+        }
+
+        return {
+          totalClicks,
+          topPosts,
+          split: { variantA, variantB, ratioA, ratioB },
+          triggers
+        };
       } catch (err: any) {
         console.error('[ContentQueueRepository] getBlogAnalytics error:', err.message);
       }
     }
-    return { totalClicks: 0, topPosts: [] };
+    return {
+      totalClicks: 0,
+      topPosts: [],
+      split: { variantA: 0, variantB: 0, ratioA: 0, ratioB: 0 },
+      triggers: { inline_quiz: 0, sticky_radar: 0, exit_intent: 0, other: 0 }
+    };
   }
 }
 

@@ -1,0 +1,216 @@
+---
+interface Props {
+  slug?: string;
+}
+
+const { slug = 'dating-safety-guide' } = Astro.props;
+---
+
+<aside
+  id="exitIntentModal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="exitModalTitle"
+  aria-hidden="true"
+  data-slug={slug}
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300"
+>
+  <!-- Modal Card -->
+  <div
+    id="exitIntentCard"
+    class="relative w-full max-w-lg overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-rose-500/40 p-6 sm:p-8 shadow-2xl shadow-rose-950/60 transform scale-95 transition-all duration-300"
+  >
+    <!-- Background Ambient Glow -->
+    <div class="absolute -top-24 -right-24 w-52 h-52 bg-rose-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-24 -left-24 w-52 h-52 bg-pink-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- Close Button -->
+    <button
+      id="exitModalCloseBtn"
+      type="button"
+      aria-label="Close modal"
+      class="absolute top-4 right-4 p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700/60 transition-colors z-20 cursor-pointer"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <div class="relative z-10 space-y-4">
+      <!-- Warning Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-500/15 text-rose-300 border border-rose-500/30 shadow-sm shadow-rose-500/20">
+        <span class="w-2 h-2 rounded-full bg-rose-400 animate-ping"></span>
+        <span>SECURITY ALERT • UNVERIFIED MATCH</span>
+      </div>
+
+      <!-- Heading -->
+      <h3 id="exitModalTitle" class="text-xl sm:text-2xl font-black text-white tracking-tight leading-snug">
+        Wait! Before You Leave — Verify Match Risk
+        <span class="block text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-400 to-rose-300">
+          (94% Scam Detection Rate)
+        </span>
+      </h3>
+
+      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+        Over 1 in 4 online dating profiles utilize synthetic AI photos or deceptive scripts. Run a quick verification protocol before you close this page.
+      </p>
+
+      <!-- Key Security Signals -->
+      <div class="space-y-2 py-1 text-xs text-slate-300 font-medium">
+        <div class="flex items-center gap-2.5 p-2 rounded-lg bg-slate-900/90 border border-slate-800/90">
+          <span class="text-rose-400 font-mono text-sm">🛡️</span>
+          <span>Expose romance scammers, catfishes & AI-generated bots</span>
+        </div>
+        <div class="flex items-center gap-2.5 p-2 rounded-lg bg-slate-900/90 border border-slate-800/90">
+          <span class="text-emerald-400 font-mono text-sm">⚡</span>
+          <span>Instant 30-second automated integrity clearance check</span>
+        </div>
+        <div class="flex items-center gap-2.5 p-2 rounded-lg bg-slate-900/90 border border-slate-800/90">
+          <span class="text-blue-400 font-mono text-sm">🔒</span>
+          <span>100% Anonymous, encrypted & zero personal details stored</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="pt-2 space-y-3">
+        <a
+          id="exitModalCta"
+          href={`/r/dating?ref=${encodeURIComponent(slug)}&trigger=exit_intent&intent=exit_rescue`}
+          class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm sm:text-base font-bold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 hover:from-rose-600 hover:via-pink-600 hover:to-rose-700 shadow-lg shadow-rose-500/30 hover:shadow-rose-500/50 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 text-center cursor-pointer"
+        >
+          <span>Launch Instant 30-Sec Match Radar</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+
+        <div class="text-center">
+          <button
+            id="exitModalDismissBtn"
+            type="button"
+            class="text-[11px] text-slate-500 hover:text-slate-300 transition-colors underline cursor-pointer"
+          >
+            No thanks, I will take my chances
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script>
+  function initExitIntent() {
+    const modal = document.getElementById('exitIntentModal');
+    const card = document.getElementById('exitIntentCard');
+    const closeBtn = document.getElementById('exitModalCloseBtn');
+    const dismissBtn = document.getElementById('exitModalDismissBtn');
+    const ctaBtn = document.getElementById('exitModalCta');
+
+    if (!modal || !card) return;
+
+    const STORAGE_KEY = 'flirtcheck_exit_intent_shown';
+    let isShown = false;
+
+    // Check session frequency limit
+    try {
+      if (sessionStorage.getItem(STORAGE_KEY)) {
+        return; // Already triggered in this session
+      }
+    } catch {
+      // Ignore storage restrictions
+    }
+
+    function showModal() {
+      if (isShown) return;
+      try {
+        if (sessionStorage.getItem(STORAGE_KEY)) return;
+        sessionStorage.setItem(STORAGE_KEY, '1');
+      } catch {}
+
+      isShown = true;
+      modal.setAttribute('aria-hidden', 'false');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100', 'pointer-events-auto');
+
+      if (card) {
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+      }
+
+      // Detach listeners to conserve CPU
+      document.removeEventListener('mouseleave', handleDesktopMouseLeave);
+      window.removeEventListener('scroll', handleMobileScroll);
+    }
+
+    function closeModal() {
+      modal.setAttribute('aria-hidden', 'true');
+      modal.classList.remove('opacity-100', 'pointer-events-auto');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+
+      if (card) {
+        card.classList.remove('scale-100');
+        card.classList.add('scale-95');
+      }
+    }
+
+    // 1. Desktop Trigger: mouse leaves top of viewport (e.clientY <= 5)
+    function handleDesktopMouseLeave(e: MouseEvent) {
+      if (e.clientY <= 5) {
+        showModal();
+      }
+    }
+
+    // 2. Mobile Trigger: fast scroll up after reading (scroll velocity detection)
+    let lastScrollY = window.scrollY;
+    let lastScrollTime = Date.now();
+    let userHasScrolledDown = false;
+
+    function handleMobileScroll() {
+      const currentScrollY = window.scrollY;
+      const currentTime = Date.now();
+      const timeDelta = currentTime - lastScrollTime;
+
+      if (currentScrollY > 400) {
+        userHasScrolledDown = true;
+      }
+
+      if (userHasScrolledDown && timeDelta > 0 && timeDelta < 200) {
+        const scrollDelta = lastScrollY - currentScrollY; // Positive when scrolling up
+        const velocity = scrollDelta / timeDelta; // px per ms
+
+        // If user rapidly scrolls up towards exit (velocity > 1.2 px/ms and close to top)
+        if (velocity > 1.2 && currentScrollY < 300) {
+          showModal();
+        }
+      }
+
+      lastScrollY = currentScrollY;
+      lastScrollTime = currentTime;
+    }
+
+    // Attach listeners with a brief delay so page load events don't falsely fire
+    setTimeout(() => {
+      document.addEventListener('mouseleave', handleDesktopMouseLeave);
+      window.addEventListener('scroll', handleMobileScroll, { passive: true });
+    }, 1500);
+
+    // Close handlers
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (dismissBtn) dismissBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isShown) {
+        closeModal();
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initExitIntent);
+  initExitIntent();
+</script>

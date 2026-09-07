@@ -21,6 +21,7 @@ const isSticky = variant === 'sticky';
 <div
   id={quizId}
   data-slug={slug}
+  data-variant={variant}
   class={`dating-radar-quiz my-8 relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-rose-500/30 p-5 sm:p-7 shadow-2xl shadow-rose-950/40 transition-all ${
     isSticky ? 'border-rose-500/50 ring-1 ring-rose-500/20' : ''
   }`}
@@ -330,9 +331,10 @@ const isSticky = variant === 'sticky';
               }
               // Update target redirect query
               if (ctaLink) {
+                const triggerSource = quiz.getAttribute('data-variant') === 'sticky' ? 'sticky_radar' : 'inline_quiz';
                 const targetUrl = `/r/dating?ref=${encodeURIComponent(slug)}&intent=${encodeURIComponent(
                   selectedIntent
-                )}&platform=${encodeURIComponent(selectedPlatform)}`;
+                )}&platform=${encodeURIComponent(selectedPlatform)}&trigger=${encodeURIComponent(triggerSource)}`;
                 ctaLink.setAttribute('href', targetUrl);
               }
             }, 300);

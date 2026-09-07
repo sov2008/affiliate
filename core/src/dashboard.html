@@ -889,6 +889,32 @@
           </div>
           <span style="color: var(--dim); font-size: 10px;">Total Clicks: <strong id="blogTotalClicks" style="color: var(--green-text); font-family: monospace;">0</strong></span>
         </div>
+
+        <!-- A/B Split & Triggers Granular Telemetry -->
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; margin-bottom: 6px;">
+          <div style="background: var(--bg); border: 1px solid var(--border); padding: 4px 6px; border-radius: 2px;">
+            <div style="color: var(--dim); font-size: 9px; display: flex; justify-content: space-between;">
+              <span>A/B SPLIT (OFFER A vs B)</span>
+              <span style="color: var(--dim);">TDS Weight</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px; margin-top: 2px;">
+              <div>A: <strong id="blogSplitAClicks" style="color: var(--blue);">0</strong> <span id="blogSplitAPct" style="font-size: 9px; color: var(--dim);">(0%)</span></div>
+              <div>B: <strong id="blogSplitBClicks" style="color: var(--purple);">0</strong> <span id="blogSplitBPct" style="font-size: 9px; color: var(--dim);">(0%)</span></div>
+            </div>
+          </div>
+          <div style="background: var(--bg); border: 1px solid var(--border); padding: 4px 6px; border-radius: 2px;">
+            <div style="color: var(--dim); font-size: 9px; display: flex; justify-content: space-between;">
+              <span>TRIGGER FUNNEL</span>
+              <span style="color: var(--dim);">Retention</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 10px; margin-top: 2px;">
+              <div>Inline: <strong id="blogTriggerInline" style="color: var(--green-text);">0</strong></div>
+              <div>Sticky: <strong id="blogTriggerSticky" style="color: var(--amber);">0</strong></div>
+              <div>Exit: <strong id="blogTriggerExit" style="color: #f43f5e;">0</strong></div>
+            </div>
+          </div>
+        </div>
+
         <div class="table-wrap scroll" style="max-height: 130px; overflow-y: auto;">
           <table>
             <thead>
@@ -2361,6 +2387,28 @@
         const totalEl = document.getElementById('blogTotalClicks');
         if (totalEl) {
           totalEl.innerText = data.totalClicks || 0;
+        }
+
+        // A/B Split Telemetry
+        if (data.split) {
+          const splitA = document.getElementById('blogSplitAClicks');
+          const splitB = document.getElementById('blogSplitBClicks');
+          const splitAPct = document.getElementById('blogSplitAPct');
+          const splitBPct = document.getElementById('blogSplitBPct');
+          if (splitA) splitA.innerText = data.split.variantA || 0;
+          if (splitB) splitB.innerText = data.split.variantB || 0;
+          if (splitAPct) splitAPct.innerText = `(${data.split.ratioA || 0}%)`;
+          if (splitBPct) splitBPct.innerText = `(${data.split.ratioB || 0}%)`;
+        }
+
+        // Trigger Sources Funnel
+        if (data.triggers) {
+          const tInline = document.getElementById('blogTriggerInline');
+          const tSticky = document.getElementById('blogTriggerSticky');
+          const tExit = document.getElementById('blogTriggerExit');
+          if (tInline) tInline.innerText = data.triggers.inline_quiz || 0;
+          if (tSticky) tSticky.innerText = data.triggers.sticky_radar || 0;
+          if (tExit) tExit.innerText = data.triggers.exit_intent || 0;
         }
 
         const tbody = document.getElementById('blogAnalyticsTableBody');

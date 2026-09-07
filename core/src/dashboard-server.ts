@@ -286,8 +286,9 @@ export function handleDatingSmartlinkRedirect(req: Request, res: Response) {
     // Extract conversion parameters from widget
     const ref = (req.query.ref || req.query.slug || 'direct') as string;
     const intent = (req.query.intent || 'bot_check') as string;
+    const triggerSource = (req.query.trigger || req.query.trigger_source || 'inline_quiz') as string;
     const referrer = (req.headers['referer'] || req.headers['referrer'] || '') as string;
-    const isTestProbe = ref === 'test-quiz' || req.query.test === '1';
+    const isTestProbe = ref === 'test-quiz' || ref === 'test-split' || req.query.test === '1';
 
     let isBot = false;
     try {
@@ -308,6 +309,22 @@ export function handleDatingSmartlinkRedirect(req: Request, res: Response) {
       return res.redirect(302, '/blog/');
     }
 
+    // Evaluate A/B split decision via TdsRouterService
+    let decision: any;
+    try {
+      const { TdsRouterService } = require('./services/tdsRouter.service.js');
+      const routerService = TdsRouterService.getInstance();
+      decision = routerService.routeTraffic(req.query);
+    } catch (routeErr: any) {
+      console.warn('[TdsRouter] Fallback routeTraffic:', routeErr.message);
+      decision = {
+        variant: 'A',
+        targetUrl: process.env.LOSPOLLOS_SMARTLINK_URL || 'https://flirtcheck.site/blog/',
+        roll: 1,
+        ratioA: 70
+      };
+    }
+
     // Log human conversion to SQLite blog_conversions
     try {
       const { ContentQueueRepository } = require('./db/queueRepository.js');
@@ -318,33 +335,19 @@ export function handleDatingSmartlinkRedirect(req: Request, res: Response) {
         ip: ipHash,
         userAgent: ua,
         referrer,
-        intent
+        intent,
+        variant: decision.variant,
+        triggerSource
       });
-      console.log(`📊 [Blog TDS Conversion] Logged click: slug="${ref}", intent="${intent}", ipHash="${ipHash}"`);
+      console.log(`📊 [Blog TDS Conversion] Logged click: slug="${ref}", variant="${decision.variant}", trigger="${triggerSource}", ipHash="${ipHash}"`);
     } catch (e: any) {
       console.warn('[Blog TDS Conversion] Could not log conversion:', e.message);
     }
 
-    const smartlinkUrl =
-      process.env.LOSPOLLOS_DATING_URL ||
-      process.env.LOSPOLLOS_SMARTLINK_URL ||
-      process.env.AFFILIATE_OFFER_URL ||
-      'https://flirtcheck.site/blog/';
-
-    try {
-      const urlObj = new URL(smartlinkUrl);
-      for (const [key, value] of Object.entries(req.query)) {
-        if (typeof value === 'string') {
-          urlObj.searchParams.set(key, value);
-        }
-      }
-      console.log(`🚀 [Redirect /r/dating] Human visitor (${ip}). Redirecting -> LosPollos Smartlink`);
-      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
-      res.setHeader('X-Content-Type-Options', 'nosniff');
-      return res.redirect(302, urlObj.toString());
-    } catch {
-      return res.redirect(302, smartlinkUrl);
-    }
+    console.log(`🚀 [Redirect /r/dating] Human visitor (${ip}). Routing to Variant ${decision.variant} (roll=${decision.roll}, ratioA=${decision.ratioA}%) -> ${decision.targetUrl}`);
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    return res.redirect(302, decision.targetUrl);
   } catch (err: any) {
     console.error('Error in /r/dating redirect:', err.message);
     return res.redirect(302, '/blog/');
