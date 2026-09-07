@@ -325,11 +325,12 @@ export function handleDatingSmartlinkRedirect(req: Request, res: Response) {
       };
     }
 
+    const ipHash = crypto.createHash('sha256').update(ip + '_flirt_secure_salt_2026').digest('hex').slice(0, 16);
+
     // Log human conversion to SQLite blog_conversions
     try {
       const { ContentQueueRepository } = require('./db/queueRepository.js');
       const repo = ContentQueueRepository.getInstance();
-      const ipHash = crypto.createHash('sha256').update(ip + '_flirt_secure_salt_2026').digest('hex').slice(0, 16);
       repo.recordBlogConversion({
         slug: ref,
         ip: ipHash,
@@ -343,6 +344,49 @@ export function handleDatingSmartlinkRedirect(req: Request, res: Response) {
     } catch (e: any) {
       console.warn('[Blog TDS Conversion] Could not log conversion:', e.message);
     }
+
+    // Asynchronous Telegram Click Alert (Fire-and-Forget, non-blocking)
+    (async () => {
+      try {
+        const botToken = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+        const chatId = (
+          process.env.TELEGRAM_ALERT_CHAT_ID ||
+          process.env.ADMIN_CHAT_ID ||
+          process.env.TELEGRAM_CHAT_ID ||
+          ''
+        ).trim();
+
+        if (!botToken || !chatId) return;
+
+        const alertText = [
+          '🎯 <b>FlirtCheck Conversion Click</b>',
+          `• <b>Post:</b> <code>${ref}</code>`,
+          `• <b>Trigger:</b> <code>${triggerSource}</code>`,
+          `• <b>Offer Variant:</b> <b>${decision.variant}</b>`,
+          `• <b>Hash IP:</b> <code>${ipHash}</code>`,
+          `• <b>Time:</b> <code>${new Date().toISOString()}</code>`
+        ].join('\n');
+
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 4000);
+
+        await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: alertText,
+            parse_mode: 'HTML',
+            disable_web_page_preview: true
+          }),
+          signal: controller.signal
+        }).catch(() => {});
+
+        clearTimeout(timeout);
+      } catch (tgErr: any) {
+        console.warn('[Telegram Click Alert] Notification note:', tgErr.message);
+      }
+    })();
 
     console.log(`🚀 [Redirect /r/dating] Human visitor (${ip}). Routing to Variant ${decision.variant} (roll=${decision.roll}, ratioA=${decision.ratioA}%) -> ${decision.targetUrl}`);
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
