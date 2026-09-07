@@ -480,7 +480,21 @@ export class BotShieldService {
       },
       bot_shielding: {
         datacenter_asn_blocklist: ['AMAZON', 'GOOGLE_CLOUD', 'DIGITALOCEAN', 'MICROSOFT_AZURE', 'HETZNER'],
-        crawler_user_agents: ['facebookexternalhit', 'Facebot', 'RedditBot', 'Twitterbot', 'Googlebot'],
+        crawler_user_agents: [
+          'facebookexternalhit',
+          'Facebot',
+          'RedditBot',
+          'Twitterbot',
+          'Googlebot',
+          'bingbot',
+          'BingPreview',
+          'YandexBot',
+          'DuckDuckBot',
+          'Baiduspider',
+          'SemrushBot',
+          'AhrefsBot',
+          'Bytespider'
+        ],
         action_on_crawler: 'SERVE_WHITE_PAGE',
       },
     };

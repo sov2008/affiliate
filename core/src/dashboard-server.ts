@@ -291,15 +291,17 @@ export function handleDatingSmartlinkRedirect(req: Request, res: Response) {
     const isTestProbe = ref === 'test-quiz' || ref === 'test-split' || req.query.test === '1';
 
     let isBot = false;
+    const crawlerPatterns = ['googlebot', 'bingbot', 'bingpreview', 'yandex', 'duckduckbot', 'baiduspider', 'facebookexternalhit', 'facebot', 'twitterbot', 'redditbot', 'semrushbot', 'ahrefsbot', 'wget', 'python', 'bytespider'];
+    const uaLower = ua.toLowerCase();
+    const isCrawlerSignature = crawlerPatterns.some((p) => uaLower.includes(p)) || !headers['accept-language'];
+
     try {
       const { BotShieldService } = require('./services/bot-shield.service.js');
       const shield = new BotShieldService();
       const analysis = shield.analyzeTraffic({ userAgent: ua, ip, headers });
-      isBot = Boolean(analysis.isBot || analysis.isCrawler || analysis.isDatacenterIP || (analysis.confidence && analysis.confidence >= 50));
+      isBot = Boolean(isCrawlerSignature || analysis.isBot || analysis.isCrawler || analysis.isDatacenterIP || (analysis.confidence && analysis.confidence >= 50));
     } catch {
-      const crawlerPatterns = ['googlebot', 'bingbot', 'yandex', 'duckduckbot', 'baiduspider', 'facebookexternalhit', 'twitterbot', 'redditbot', 'semrushbot', 'ahrefsbot', 'wget', 'python', 'bytespider'];
-      const uaLower = ua.toLowerCase();
-      isBot = crawlerPatterns.some((p) => uaLower.includes(p)) || !headers['accept-language'];
+      isBot = isCrawlerSignature;
     }
 
     if (isBot && !isTestProbe) {
