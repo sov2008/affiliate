@@ -1,3 +1,4 @@
+import { URL } from 'url';
 import { ContentQueueRepository, ContentQueueItem } from '../db/queueRepository.js';
 
 export interface DispatchResult {
@@ -83,11 +84,28 @@ export class SocialSyndicatorService {
       }
     }
 
-    const targetUrl =
+    let targetUrl =
       parsedPayload.url ||
       item.target_url ||
       item.tracking_url ||
       'https://flirtcheck.site/blog/';
+
+    try {
+      const urlObj = new URL(targetUrl);
+      if (!urlObj.searchParams.has('utm_source')) {
+        urlObj.searchParams.set('utm_source', 'telegram');
+      }
+      if (!urlObj.searchParams.has('utm_medium')) {
+        urlObj.searchParams.set('utm_medium', 'social_snippet');
+      }
+      if (!urlObj.searchParams.has('utm_campaign')) {
+        urlObj.searchParams.set('utm_campaign', 'syndication');
+      }
+      targetUrl = urlObj.toString();
+    } catch {
+      const sep = targetUrl.includes('?') ? '&' : '?';
+      targetUrl += `${sep}utm_source=telegram&utm_medium=social_snippet&utm_campaign=syndication`;
+    }
 
     const rawTitle = parsedPayload.title || item.hook || 'FlirtCheck Dating Safety Alert';
     const rawContent = parsedPayload.content || item.body || '';
