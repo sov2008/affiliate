@@ -37,13 +37,18 @@ output/
 core/output/
 *.db
 *.sqlite
+*.db*
+*.sqlite*
 content_queue.db
+core/core/
+**/data/*.json
 core/data/*.json
 core/data/learning/
 core/dist-backup-*/
 core/storage/
 *.lock
 .antigravity/
+**/.antigravity/
 
 # Deployment scripts containing runtime credentials
 deploy-do.js
