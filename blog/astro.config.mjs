@@ -8,7 +8,7 @@ export default defineConfig({
   output: 'static',
   base: '/blog',
   site: 'https://flirtcheck.site',
-  trailingSlash: 'ignore',
+  trailingSlash: 'always',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]

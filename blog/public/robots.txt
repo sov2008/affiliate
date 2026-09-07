@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /blog/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /r/
+
+Sitemap: https://flirtcheck.site/blog/sitemap-index.xml

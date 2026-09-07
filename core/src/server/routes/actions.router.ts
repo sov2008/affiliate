@@ -404,3 +404,21 @@ actionsRouter.post('/publish-blog-post', async (req: Request, res: Response) => 
   }
 });
 
+/**
+ * 12. POST /api/actions/batch-generate-blog
+ * Executes autonomous batch generation of dating SEO articles, AI covers, and consolidated build
+ */
+actionsRouter.post('/batch-generate-blog', async (req: Request, res: Response) => {
+  try {
+    const count = Math.min(Math.max(parseInt(req.body.count, 10) || 10, 1), 20);
+    const offset = parseInt(req.body.offset, 10) || 0;
+    const { autoPublisherService } = await import('../../services/autoPublisher.service.js');
+
+    const result = await autoPublisherService.publishBatch({ count, offset });
+    return res.status(200).json(result);
+  } catch (err: any) {
+    console.error('❌ [ActionsRouter:batch-generate-blog] Error:', err.message);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+

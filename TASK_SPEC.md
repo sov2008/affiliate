@@ -9,10 +9,10 @@ Transform the project into a fully autonomous, self-publishing Dating SEO Conten
 ## 2. Target Constraints & Parameters
 
 - **Target Audience / GEO**: Tier-1 Organic Search & Social (US, UK, CA, AU). Language strictly English (EN-US).
-- **Offer / Monetization**: LosPollos Dating Smartlink. Internal routing via `/r/dating-smartlink` or `/api/redirect/dating` with strict `rel="nofollow sponsored"` and bot-shield filtering.
-- **Workflow Mode**: **AUTO-PILOT**. Generated posts automatically write to `blog/src/content/posts/*.md` and trigger `npm run build:blog`. Direct sync to SQLite status `DISPATCHED`.
+- **Offer / Monetization**: LosPollos Dating Smartlink via internal cloaked route `GET /r/dating?ref=[slug]`. All links enforce `rel="nofollow sponsored" target="_blank"`.
+- **Workflow Mode**: **AUTO-PILOT**. Generated posts automatically write to `blog/src/content/posts/*.md`, followed by a single batch trigger of `npm run build:blog`. Direct sync to SQLite status `DISPATCHED`.
 - **Batch Processing**: Batch generation cycle generates **10 to 20 low-competition long-tail keywords** per trigger.
-- **Visuals**: Cover images generated on-the-fly via **Pollinations Image-Gen API**, downloaded and placed into `blog/public/images/posts/[slug].webp` (or embedded via direct CDN URLs with fallbacks).
+- **Visuals**: Cover images generated on-the-fly via **Pollinations Image-Gen API** with a 10s network timeout, compressed using `sharp` to `blog/public/images/posts/[slug].webp`. Fallback to `/blog/images/posts/default-cover.webp` on API error.
 
 ---
 
@@ -26,15 +26,18 @@ Transform the project into a fully autonomous, self-publishing Dating SEO Conten
   2. _First Message & Icebreakers_ (e.g., "what to say after match disappears", "hinge opening lines that get replies")
   3. _Profile Optimization & Psychological Triggers_ (e.g., "dating profile bio red flags guys overlook", "optimal photo order for dating apps")
   4. _Safety & Identity Verification_ (e.g., "dating safety checklist before meeting IRL")
-- Service exposes `getNextKeywordBatch(count: number = 10): KeywordIntent[]`.
+- Deduplication: Cross-reference existing SQLite `content_queue_v2` and files in `blog/src/content/posts/` to avoid duplicate slugs/topics.
+- Service exposes `getNextKeywordBatch(count: number = 10): Promise<KeywordIntent[]>`.
 
-### Module B: Pollinations AI Image Cover Generator
+### Module B: Resilient Cover Generator (Pollinations + Sharp)
 
 - File: `core/src/services/imageGenerator.service.ts`
 - Method: `generateArticleCover(slug: string, promptTheme: string): Promise<string>`
-  - Uses Pollinations AI endpoint with stylized cinematic/editorial dating prompts: `minimalist modern dating lifestyle, neon bokeh, cyber-aesthetic, high quality, photorealistic, 16:9, no text, no watermark`.
-  - Downloads the generated image stream, optimizes/saves to `blog/public/images/posts/${slug}.webp` (or stores valid cached URL).
-  - Returns local path `/blog/images/posts/${slug}.webp`.
+  - Request Pollinations AI with prompt: `minimalist modern dating lifestyle, neon bokeh, editorial, high quality, photorealistic, 16:9, no text, no watermark`.
+  - Enforce a 10-second `AbortController` timeout.
+  - If successful: download stream, convert/compress to WebP (80% quality, max width 1200px) using `sharp`, save to `blog/public/images/posts/${slug}.webp`.
+  - Fallback logic: If request fails or times out, ensure a generated SVG/WebP placeholder is copied to `blog/public/images/posts/${slug}.webp`.
+  - Returns web path `/blog/images/posts/${slug}.webp`.
 
 ### Module C: Autonomous SEO Longread Generator
 
@@ -46,38 +49,43 @@ Transform the project into a fully autonomous, self-publishing Dating SEO Conten
   - Strict YAML Frontmatter matching `blog/src/content.config.ts`:
     - `title`, `description`, `pubDate`, `author`, `tags`, `seoKeywords`, `coverImage`, `draft: false`.
   - Structured Markdown: `H1`, `H2`, `H3`, key takeaways box, numbered actionable steps, comparative tables.
-  - Interactive Smartlink hook: Native context transition to verification/compatibility test inserting `<DatingSmartlinkCTA />` or markdown CTA buttons pointing to LosPollos link.
+  - Native Context CTA: Seamlessly embed `<DatingSmartlinkCTA />` or button linking to `/r/dating?ref=${slug}`.
   - FAQ schema block with 3–5 high-volume PAA (People Also Ask) questions.
 
-### Module D: Auto-Pilot Publisher & Static Site Builder
+### Module D: Auto-Pilot Publisher & Batch Site Builder
 
 - File: `core/src/services/autoPublisher.service.ts`
 - Workflow logic:
-  1. Iterates through the generated batch of articles.
-  2. Writes `.md` files directly to `blog/src/content/posts/${slug}.md`.
+  1. Executes batch generation for $N$ keywords sequentially or with concurrency of 2.
+  2. Writes all `.md` files to `blog/src/content/posts/${slug}.md`.
   3. Inserts task records into `core/data/content_queue.sqlite` (`content_queue_v2`) with status `DISPATCHED` and public URL `https://flirtcheck.site/blog/${slug}`.
-  4. Automatically derives 2 `SOCIAL_SNIPPET` tasks per article (Reddit case question + X/Twitter punchy thread) into `content_queue_v2` for downstream syndication.
-  5. Runs `npm run build:blog` synchronously or via worker queue to generate fresh static pages in `blog/dist/`.
-  6. Emits SSE event `queue_update` and `telemetry` for live logging.
+  4. Automatically derives 2 `SOCIAL_SNIPPET` tasks per article (Reddit discussion question + X thread snippet) into `content_queue_v2`.
+  5. **Post-Batch Build Trigger**: Executes `npm run build:blog` **ONCE** after the entire batch is written.
+  6. Emits SSE event `queue_update` and updates telemetry metrics.
 
-### Module E: Dashboard & API Controls
+### Module E: Dashboard, Cloaking Route & API Controls
 
 - File: `core/src/dashboard-server.ts` & `core/src/dashboard.html`
-- Add API route: `POST /api/blog/batch-generate` with payload `{ count: number }` (default: 10).
-- Update Dashboard UI:
+- Cloaking & Smartlink Route:
+  - Add `GET /r/dating`:
+    - Evaluates request with `bot-shield` (crawler/bot heuristics).
+    - Crawlers/Scrapers $\rightarrow$ 302 Redirect to `/blog/`.
+    - Valid Humans $\rightarrow$ 302 Redirect to `LOSPOLLOS_SMARTLINK_URL` from `.env`.
+- API endpoint: `POST /api/blog/batch-generate` with payload `{ count: number }` (default: 10).
+- Dashboard UI:
   - Add button `[ 🚀 Auto-Gen 10 Blog Posts ]` to the bottom toolbar.
-  - Add notification toast/telemetry log during batch execution.
-  - Filter in `SQLITE CONTENT QUEUE` for `BLOG_POST` items showing live URLs and cover thumbnails.
+  - Visual indicator / toast showing batch progress.
+  - Queue table filter/badge for `BLOG_POST` items showing thumbnail, slug, and live preview link.
 
 ### Module F: Remote Production Deployment & Nginx Verification
 
 - Target Server: `178.128.199.28` (Ubuntu, Nginx, PM2).
-- Update remote deployment script to:
-  - Pull latest code.
-  - Run `npm run build:blog`.
-  - Sync `blog/dist/` to `/var/www/affiliate/blog/dist/`.
-  - Ensure Nginx serves `/blog/` with `auth_basic off;` and proper mime-types/caching.
-  - Ensure PM2 services (`affiliate-dashboard`, `affiliate-scheduler`) are active, and Reddit bots remain `STOPPED`.
+- Deploy procedure:
+  - Sync codebase and run `npm run build:blog`.
+  - Ensure `blog/dist/` is served at `/blog/` with `auth_basic off;`.
+  - Ensure `blog/public/robots.txt` is served at `/robots.txt` or `/blog/robots.txt`.
+  - Restart PM2 service `affiliate-dashboard`.
+  - Guarantee Reddit bots remain strictly `STOPPED`.
 
 ---
 
@@ -86,11 +94,12 @@ Transform the project into a fully autonomous, self-publishing Dating SEO Conten
 The autonomous agent MUST NOT stop until ALL of the following criteria are validated:
 
 1. `npm run typecheck` in the root repository returns 0 errors.
-2. An automated test generates at least 3 live articles with real images into `blog/src/content/posts/`.
-3. `npm run build:blog` completes successfully with exit code 0, generating static HTML files in `blog/dist/`.
+2. An automated test generates at least 3 live articles with real images and valid Frontmatter into `blog/src/content/posts/`.
+3. `npm run build:blog` completes successfully with exit code 0, verifying `blog/dist/index.html` and `blog/dist/sitemap-index.xml` exist.
 4. Remote deploy script runs and updates the server `178.128.199.28`.
-5. Automated probe verifies:
-   - `curl -Is https://flirtcheck.site/blog/ | grep "HTTP/2 200"`
-   - `curl -Is https://flirtcheck.site/blog/[any-new-slug]/ | grep "HTTP/2 200"`
-6. Telemetry and queue tables in SQLite verify entries exist with `platform = 'BLOG_POST'` and `status = 'DISPATCHED'`.
+5. Automated HTTP probes verify:
+   - `curl -Is https://flirtcheck.site/blog/ | grep -E "HTTP/[12](\.[0-9])? 200"`
+   - `curl -Is https://flirtcheck.site/blog/[any-new-slug]/ | grep -E "HTTP/[12](\.[0-9])? 200"`
+   - `curl -Is https://flirtcheck.site/r/dating | grep -E "HTTP/[12](\.[0-9])? 302"`
+6. Telemetry and SQLite queue tables verify entries exist with `platform = 'BLOG_POST'` and `status = 'DISPATCHED'`.
 7. Reddit scrapers/posters remain safely `STOPPED`.

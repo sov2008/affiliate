@@ -13,6 +13,7 @@ interface Props {
   tags: string[];
   seoKeywords: string[];
   canonicalUrl?: string;
+  coverImage?: string;
   slug?: string;
 }
 
@@ -24,6 +25,7 @@ const {
   tags,
   seoKeywords,
   canonicalUrl = Astro.url.href,
+  coverImage,
   slug
 } = Astro.props;
 
@@ -168,6 +170,16 @@ const faqSchema = {
         </div>
       </header>
 
+      <!-- Featured Cover Image -->
+      <div class="mb-10 overflow-hidden rounded-2xl border border-slate-800 shadow-2xl bg-slate-900">
+        <img
+          src={coverImage || "/blog/images/posts/default-cover.webp"}
+          alt={title}
+          class="w-full aspect-video object-cover hover:scale-[1.01] transition-transform duration-500"
+          loading="eager"
+        />
+      </div>
+
       <!-- Article Markdown Typography Content -->
       <article class="prose prose-invert prose-rose max-w-none 
         [&_h1]:text-3xl [&_h1]:font-extrabold [&_h1]:text-white [&_h1]:mt-8 [&_h1]:mb-4
@@ -175,7 +187,7 @@ const faqSchema = {
         [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-rose-300 [&_h3]:mt-6 [&_h3]:mb-3
         [&_p]:text-slate-300 [&_p]:leading-relaxed [&_p]:mb-4 [&_p]:text-base
         [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:space-y-2 [&_ul]:text-slate-300
-        [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:space-y-2 [&_ol]:text-slate-300
+        [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:space-y-2 [&_ul]:text-slate-300
         [&_li]:text-slate-300
         [&_blockquote]:border-l-4 [&_blockquote]:border-rose-500 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-slate-400 [&_blockquote]:my-6 [&_blockquote]:bg-slate-900/40 [&_blockquote]:py-2 [&_blockquote]:rounded-r
         [&_hr]:border-slate-800 [&_hr]:my-8">
@@ -186,7 +198,7 @@ const faqSchema = {
       <DatingSmartlinkCTA
         title="Ready to Meet Genuine, Verified Singles?"
         subtitle="Skip the bot matches and romance trap accounts. Connect directly through our curated and verified dating network."
-        offerUrl="/go"
+        offerUrl="/r/dating"
       />
     </main>
 

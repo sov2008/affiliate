@@ -268,6 +268,82 @@ app.get('/logout', (req: Request, res: Response) => {
 
 app.get('/go', handleTdsRedirect);
 
+// ----------------------------------------------------
+// Protected Dating Smartlink Redirect Route with Bot Shield
+// ----------------------------------------------------
+app.get(['/r/dating', '/r/dating-smartlink'], (req: Request, res: Response) => {
+  try {
+    const ua = (req.headers['user-agent'] as string) || '';
+    const forwarded = req.headers['x-forwarded-for'];
+    const ip = (typeof forwarded === 'string' ? forwarded.split(',')[0].trim() : '') || req.ip || req.socket.remoteAddress || '127.0.0.1';
+
+    const headers: Record<string, string> = {};
+    for (const [k, v] of Object.entries(req.headers)) {
+      if (typeof v === 'string') headers[k] = v;
+    }
+
+    let isBot = false;
+    try {
+      const { BotShieldService } = require('./services/bot-shield.service.js');
+      const shield = new BotShieldService();
+      const analysis = shield.analyzeTraffic({ userAgent: ua, ip, headers });
+      isBot = Boolean(analysis.isBot || analysis.isCrawler || analysis.isDatacenterIP || (analysis.confidence && analysis.confidence >= 50));
+    } catch {
+      const crawlerPatterns = ['googlebot', 'bingbot', 'yandex', 'duckduckbot', 'baiduspider', 'facebookexternalhit', 'twitterbot', 'redditbot', 'semrushbot', 'ahrefsbot', 'curl', 'wget', 'python', 'bytespider'];
+      const uaLower = ua.toLowerCase();
+      isBot = crawlerPatterns.some((p) => uaLower.includes(p)) || !headers['accept-language'];
+    }
+
+    if (isBot) {
+      console.log(`🛡️ [BotShield /r/dating] Crawler detected (${ua.slice(0, 50)} | IP: ${ip}). Cloaking -> /blog/`);
+      res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+      return res.redirect(302, '/blog/');
+    }
+
+    const smartlinkUrl =
+      process.env.LOSPOLLOS_DATING_URL ||
+      process.env.LOSPOLLOS_SMARTLINK_URL ||
+      process.env.AFFILIATE_OFFER_URL ||
+      'https://flirtcheck.site/blog/';
+
+    try {
+      const urlObj = new URL(smartlinkUrl);
+      for (const [key, value] of Object.entries(req.query)) {
+        if (typeof value === 'string') {
+          urlObj.searchParams.set(key, value);
+        }
+      }
+      console.log(`🚀 [Redirect /r/dating] Human visitor (${ip}). Redirecting -> LosPollos Smartlink`);
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+      return res.redirect(302, urlObj.toString());
+    } catch {
+      return res.redirect(302, smartlinkUrl);
+    }
+  } catch (err: any) {
+    console.error('Error in /r/dating redirect:', err.message);
+    return res.redirect(302, '/blog/');
+  }
+});
+
+// ----------------------------------------------------
+// Autonomous Blog Batch Generation API
+// ----------------------------------------------------
+app.post('/api/blog/batch-generate', async (req: Request, res: Response) => {
+  try {
+    const count = Math.min(Math.max(parseInt(req.body.count, 10) || 10, 1), 20);
+    const offset = parseInt(req.body.offset, 10) || 0;
+    const { autoPublisherService } = await import('./services/autoPublisher.service.js');
+
+    const result = await autoPublisherService.publishBatch({ count, offset });
+    return res.status(200).json(result);
+  } catch (err: any) {
+    console.error('❌ [API /api/blog/batch-generate] Error:', err.message);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 app.get('/api/analytics/script.js', (req, res) => {
   res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
   res.setHeader('Cache-Control', 'public, max-age=86400');

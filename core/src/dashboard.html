@@ -889,6 +889,7 @@
     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; flex: 1; min-width: 280px;">
       <button onclick="openModal('modalBatch')" class="btn btn-blue term-tooltip" data-tooltip="Генерация пакета: запуск LLM для подготовки пачки постов в очередь.">+ Batch Gen</button>
       <button onclick="openModal('modalBlogGen')" class="btn btn-blue font-bold term-tooltip" data-tooltip="Генерация статьи: запуск LLM для подготовки SEO-лонгрида в Astro-блог.">✍️ + Gen Blog Post</button>
+      <button onclick="triggerBlogBatchGen(10)" class="btn btn-green font-bold term-tooltip" data-tooltip="Автопилот контент-хаба: пакетная генерация 10 SEO-статей с AI-обложками и единой сборкой блога.">🚀 Auto-Gen 10 Blog Posts</button>
       <button onclick="triggerAction('force-dispatch', '🚀 Force Dispatch')" class="btn btn-green term-tooltip" data-tooltip="Принудительная отправка: проталкивает одобренные посты в Reddit в обход таймера.">Force Dispatch</button>
       <button onclick="triggerAction('trigger-scout', '🛰️ Offer Scout')" class="btn btn-amber term-tooltip" data-tooltip="Скаутинг офферов: опрос сетей LosPollos / MyLead на свежие связки.">Offer Scout</button>
       <button onclick="triggerAction('calibrate-prompts', '🧬 MAB Mutate')" class="btn btn-purple term-tooltip" data-tooltip="Мутация Multi-Armed Bandit: пересчет весов распределения трафика.">MAB Mutate</button>
@@ -1553,6 +1554,28 @@
           btn.disabled = false;
           btn.innerHTML = origText || 'Сгенерировать статью';
         }
+      }
+    }
+
+    async function triggerBlogBatchGen(count = 10) {
+      if (!confirm(`Запустить автопилот генерации пакета из ${count} SEO-статей с AI-обложками и сборкой Astro?`)) return;
+      appendLog(`[BLOG AUTO-PILOT] 🚀 Запуск пакетной генерации ${count} статей через AutoPublisherService...`, 'CRON');
+
+      try {
+        const res = await fetch('/api/blog/batch-generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ count })
+        });
+        const d = await res.json();
+        if (res.ok && d.success) {
+          appendLog(`[BLOG AUTO-PILOT] 🎉 Батч из ${d.generatedCount} статей успешно создан и опубликован за ${(d.durationMs / 1000).toFixed(1)}s! Сгенерировано ${d.childSnippetCount} social-сниппетов.`, 'CRON');
+          await fetchQueue();
+        } else {
+          appendLog(`[BLOG AUTO-PILOT] ❌ Ошибка пакетной генерации: ${d.error || 'Unknown error'}`, 'CRON');
+        }
+      } catch (err) {
+        appendLog(`[BLOG AUTO-PILOT] ❌ Ошибка сети: ${err.message}`, 'CRON');
       }
     }
 
