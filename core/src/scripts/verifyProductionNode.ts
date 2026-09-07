@@ -13,7 +13,7 @@ const NODE_HOST = process.env.DO_SSH_HOST || process.env.DO_HOST || process.env.
 const DASHBOARD_PORT = 5000;
 const UMAMI_PORT = 3000;
 const DASHBOARD_USER = process.env.DASHBOARD_USER || 'admin';
-const DASHBOARD_PASS = process.env.DASHBOARD_PASS || 'AffOps_Secure_k9P2w8Nx7Q4m';
+const DASHBOARD_PASS = process.env.DASHBOARD_PASS || '';
 
 interface ProbeResult {
   name: string;

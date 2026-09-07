@@ -8,7 +8,12 @@ dotenv.config({ path: path.resolve(process.cwd(), 'core/.env') });
 const HOST = process.env.DEPLOY_HOST || '178.128.199.28';
 const USER = process.env.DEPLOY_USER || 'root';
 const PASS = process.env.SSH_ROOT_PASSWORD || '';
-const DASH_PASS = process.env.DASHBOARD_PASS || 'AffOps_Secure_k9P2w8Nx7Q4m';
+const DASH_USER = process.env.DASHBOARD_USER || 'admin';
+const DASH_PASS = process.env.DASHBOARD_PASS;
+if (!DASH_PASS) {
+  console.error('❌ FATAL: DASHBOARD_PASS environment variable is required.');
+  process.exit(1);
+}
 const REMOTE_DIR = '/var/www/affiliate';
 
 function runSsh(conn: Client, cmd: string): Promise<{ stdout: string; stderr: string; code: number }> {
@@ -86,7 +91,7 @@ async function main() {
     console.log('\n--- Проверка эндпоинта GET /api/queue/items в affiliate-dashboard (порт 5000) ---');
     const apiRes = await runSsh(
       conn,
-      `curl -s -u admin:${DASH_PASS} http://localhost:5000/api/queue/items`
+      `curl -s -u "${DASH_USER}:${DASH_PASS}" http://localhost:5000/api/queue/items`
     );
     try {
       const parsed = JSON.parse(apiRes.stdout);

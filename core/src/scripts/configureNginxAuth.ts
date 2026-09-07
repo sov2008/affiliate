@@ -9,7 +9,11 @@ const HOST = process.env.DO_SSH_HOST || process.env.DO_HOST || '178.128.199.28';
 const USERNAME = process.env.DO_SSH_USER || 'root';
 const PASSWORD = process.env.SSH_ROOT_PASSWORD || '';
 const DASHBOARD_USER = process.env.DASHBOARD_USER || 'admin';
-const DASHBOARD_PASS = process.env.DASHBOARD_PASS || 'AffOps_Secure_k9P2w8Nx7Q4m';
+const DASHBOARD_PASS = process.env.DASHBOARD_PASS;
+if (!DASHBOARD_PASS) {
+  console.error('❌ FATAL: DASHBOARD_PASS environment variable is required.');
+  process.exit(1);
+}
 
 function runSSHCommand(cmd: string): Promise<{ stdout: string; stderr: string; code: number }> {
   return new Promise((resolve, reject) => {

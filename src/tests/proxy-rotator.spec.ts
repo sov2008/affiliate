@@ -56,10 +56,10 @@ async function runProxyRotatorSpec() {
   console.log('--- [TEST 1] Geo Tag Extraction & Parsing ---');
   const rotator = new ProxyRotator('');
 
-  const p1 = rotator.parseProxyUrl('http://user-country-US:pass123@us-east.proxypool.net:8080');
+  const p1 = rotator.parseProxyUrl('http://user-country-US:mock-pass@us-east.proxypool.net:8080');
   assert(p1 !== null && p1.geo === 'US', 'Extracted geo "US" from username format');
 
-  const p2 = rotator.parseProxyUrl('http://admin:secret@au.residential-nodes.org:9000');
+  const p2 = rotator.parseProxyUrl('http://mock-user:mock-token@au.residential-nodes.org:9000');
   assert(p2 !== null && p2.geo === 'AU', 'Extracted geo "AU" from subdomain format');
 
   const p3 = rotator.parseProxyUrl('http://node1.proxies.de:8000?country=DE');
