@@ -180,6 +180,16 @@ export async function executeProductionDeployment(): Promise<void> {
         const buildOut = await runRemoteCmd(conn, `cd ${APP_ROOT}/core && npm run build`);
         console.log('   ' + (buildOut || 'Build complete.'));
 
+        // 2.1 Build Astro Blog
+        console.log('\n   🌐 [Remote 2.1/4] Installing blog dependencies & Building Astro blog...');
+        try {
+          await runRemoteCmd(conn, `cd ${APP_ROOT}/blog && npm install`);
+          const blogBuild = await runRemoteCmd(conn, `cd ${APP_ROOT} && npm run build:blog`);
+          console.log('   ' + (blogBuild || 'Blog build complete.'));
+        } catch (blogErr: any) {
+          console.warn('   ⚠️ Remote blog build note:', blogErr.message);
+        }
+
         // 3. Reload PM2 ecosystem with updated environment
         console.log('\n   🔄 [Remote 3/4] Reloading PM2 ecosystem with updated env...');
         const pm2Reload = await runRemoteCmd(

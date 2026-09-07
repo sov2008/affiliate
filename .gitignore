@@ -13,6 +13,7 @@ core/.auth/
 
 # Dependencies & Build Outputs
 node_modules/
+.venv/
 dist/
 build/
 .wrangler/
@@ -20,6 +21,8 @@ build/
 
 # Logs & Debugging
 *.log
+logs/
+.vscode/
 .antigravity/*.log
 .antigravity/daemon.log
 .antigravity/audits/
@@ -51,5 +54,7 @@ storage/profiles/**/LOG*
 storage/profiles/**/Network/NetworkDataMigrated
 storage/profiles/**/Shared Dictionary/cache/
 
-
+# Astro Blog Build Outputs & Cache
+blog/dist/
+blog/.astro/
 

@@ -1,0 +1,105 @@
+---
+interface Props {
+  offerUrl?: string;
+  variant?: 'inline' | 'floating' | 'banner';
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  offerUrl = '/go',
+  variant = 'inline',
+  title = 'Interactive Profile Safety & Compatibility Radar',
+  subtitle = 'Verify matches against verified databases and connect with 100% real singles in your region.'
+} = Astro.props;
+---
+
+<div class="my-10 relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-rose-500/30 p-6 sm:p-8 shadow-2xl shadow-rose-950/40">
+  <!-- Glowing Background Orbs -->
+  <div class="absolute -top-24 -right-24 w-64 h-64 bg-rose-500/15 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-pink-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="relative z-10">
+    <!-- Header Badge -->
+    <div class="flex items-center justify-between mb-4">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+        <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+        <span>VERIFICATION ENGINE ACTIVE</span>
+      </span>
+      <span class="text-xs text-slate-400 font-medium">Safe Dating Protocol v2.6</span>
+    </div>
+
+    <!-- Title & Subtitle -->
+    <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight mb-2">
+      {title}
+    </h3>
+    <p class="text-sm text-slate-300 mb-6 leading-relaxed">
+      {subtitle}
+    </p>
+
+    <!-- Interactive Interactive Quiz Container -->
+    <div class="bg-slate-900/90 rounded-xl p-4 sm:p-6 border border-slate-800 space-y-4 mb-6">
+      <div class="space-y-2">
+        <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider block">
+          Step 1: Select What You're Looking For
+        </label>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+          <button type="button" class="quiz-pill active py-2.5 px-3 rounded-lg bg-rose-500/20 border border-rose-500/50 text-white font-medium text-center hover:bg-rose-500/30 transition-all">
+            Casual Flirting
+          </button>
+          <button type="button" class="quiz-pill py-2.5 px-3 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 font-medium text-center hover:bg-slate-700 transition-all">
+            Serious Romance
+          </button>
+          <button type="button" class="quiz-pill py-2.5 px-3 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 font-medium text-center hover:bg-slate-700 transition-all">
+            Fast Safe Meetup
+          </button>
+        </div>
+      </div>
+
+      <div class="space-y-2 pt-2">
+        <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider block">
+          Step 2: Verification Level
+        </label>
+        <div class="flex items-center gap-2 text-xs text-slate-400">
+          <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>Anti-Bot Shield & 100% Photo Authenticity Filter enabled</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Button / Smartlink Redirect -->
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      <a
+        href={offerUrl}
+        rel="nofollow sponsored"
+        target="_blank"
+        class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl text-sm sm:text-base font-bold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 hover:from-rose-600 hover:via-pink-600 hover:to-rose-700 shadow-xl shadow-rose-500/30 hover:shadow-rose-500/50 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] text-center"
+      >
+        <span>Access Verified Singles Portal</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+      <div class="text-[11px] text-slate-400 text-center sm:text-left">
+        <span class="text-emerald-400 font-semibold">● 18+ Only</span> • 100% Free Signup • SSL Encrypted
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Simple interactive pill selector for the quiz widget
+  const pills = document.querySelectorAll('.quiz-pill');
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => {
+        p.classList.remove('bg-rose-500/20', 'border-rose-500/50', 'text-white');
+        p.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+      });
+      pill.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+      pill.classList.add('bg-rose-500/20', 'border-rose-500/50', 'text-white');
+    });
+  });
+</script>

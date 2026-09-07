@@ -1,0 +1,110 @@
+---
+import '../styles/global.css';
+import { getCollection } from 'astro:content';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PostCard from '../components/PostCard.astro';
+import DatingSmartlinkCTA from '../components/DatingSmartlinkCTA.astro';
+
+// Fetch non-draft posts sorted by pubDate descending
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Collect all unique tags
+const allTags = Array.from(new Set(allPosts.flatMap(post => post.data.tags)));
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://flirtcheck.site';
+const pageTitle = "FlirtCheck Safety Editorial | Online Dating Verification & Scam Guides";
+const pageDescription = "Authoritative guidebooks, scam detection protocols, and AI verification insights for modern dating platforms. Protect your heart and wallet.";
+---
+
+<!DOCTYPE html>
+<html lang="en" class="bg-slate-950 text-slate-100 antialiased scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={`${siteUrl}/blog/`} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- OpenGraph Metadata -->
+    <meta property="og:site_name" content="FlirtCheck" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={`${siteUrl}/blog/`} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+  </head>
+
+  <body class="min-h-screen flex flex-col bg-slate-950 text-slate-200">
+    <Header activePath="/blog" />
+
+    <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+      <!-- Hero Editorial Banner -->
+      <section class="text-center py-12 sm:py-16 relative">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20 mb-6">
+          <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+          <span>FLIRTCHECK SAFETY INTELLIGENCE 2026</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-tight max-w-3xl mx-auto mb-6">
+          Navigate Online Dating With <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-500 to-rose-500">Uncompromising Safety</span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
+          Field-tested playbooks, profile verification protocols, and anti-fraud insights to help you identify real singles and bypass synthetic romance scams.
+        </p>
+
+        <!-- Topic Tags Filter Bar -->
+        <div class="flex flex-wrap items-center justify-center gap-2 max-w-xl mx-auto">
+          <span class="text-xs text-slate-500 font-medium mr-1">Popular Topics:</span>
+          {allTags.map(tag => (
+            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-900 border border-slate-800 text-slate-300 hover:border-rose-500/40 hover:text-rose-400 transition-colors cursor-pointer">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <!-- Articles Grid Section -->
+      <section class="mt-8 mb-16">
+        <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-800">
+          <h2 class="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+            <span>Latest Verification Guides</span>
+            <span class="px-2 py-0.5 rounded text-xs font-semibold bg-slate-800 text-slate-400">
+              {sortedPosts.length}
+            </span>
+          </h2>
+        </div>
+
+        {sortedPosts.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sortedPosts.map(post => (
+              <PostCard post={post} />
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-16 bg-slate-900/40 rounded-2xl border border-slate-800">
+            <p class="text-slate-400 text-sm">No articles published yet. Stay tuned!</p>
+          </div>
+        )}
+      </section>
+
+      <!-- Interactive CTA Section -->
+      <section id="safety-quiz">
+        <DatingSmartlinkCTA
+          title="Instant Profile Safety & Compatibility Scan"
+          subtitle="Run our automated 30-second verification test to filter out automated bots and unlock verified, active profiles."
+          offerUrl="/go"
+        />
+      </section>
+    </main>
+
+    <Footer />
+  </body>
+</html>

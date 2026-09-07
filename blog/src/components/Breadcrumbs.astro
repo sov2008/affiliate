@@ -1,0 +1,65 @@
+---
+export interface BreadcrumbItem {
+  name: string;
+  url?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://flirtcheck.site';
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": siteUrl
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": `${siteUrl}/blog/`
+    },
+    ...items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 3,
+      "name": item.name,
+      ...(item.url ? { "item": item.url.startsWith('http') ? item.url : `${siteUrl}${item.url}` } : {})
+    }))
+  ]
+};
+---
+
+<nav aria-label="Breadcrumbs" class="py-3 text-xs text-slate-400 font-medium">
+  <ol class="flex flex-wrap items-center gap-2">
+    <li>
+      <a href="/" class="hover:text-rose-400 transition-colors">Home</a>
+    </li>
+    <li class="text-slate-600">/</li>
+    <li>
+      <a href={`${base}/`} class="hover:text-rose-400 transition-colors">Blog</a>
+    </li>
+    {items.map((item, index) => (
+      <>
+        <li class="text-slate-600">/</li>
+        <li class={index === items.length - 1 ? "text-rose-400 font-semibold truncate max-w-xs" : ""}>
+          {item.url && index !== items.length - 1 ? (
+            <a href={item.url} class="hover:text-rose-400 transition-colors">{item.name}</a>
+          ) : (
+            <span>{item.name}</span>
+          )}
+        </li>
+      </>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

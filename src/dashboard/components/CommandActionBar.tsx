@@ -25,6 +25,12 @@ export const CommandActionBar: React.FC<CommandActionBarProps> = ({
   // Modals
   const [isBatchModalOpen, setIsBatchModalOpen] = useState<boolean>(false);
   const [isScaffoldModalOpen, setIsScaffoldModalOpen] = useState<boolean>(false);
+  const [isBlogModalOpen, setIsBlogModalOpen] = useState<boolean>(false);
+
+  // Blog Form
+  const [blogTopic, setBlogTopic] = useState<string>('Dating Profile Verification & Scam Detection');
+  const [blogKeyword, setBlogKeyword] = useState<string>('dating profile verification');
+  const [blogAudience, setBlogAudience] = useState<string>('Singles seeking safe and genuine online dating');
 
   // Batch Form
   const [batchCount, setBatchCount] = useState<number>(3);
@@ -83,6 +89,16 @@ export const CommandActionBar: React.FC<CommandActionBarProps> = ({
       campaignId: batchCampaign,
       platform: batchPlatform,
       niche: batchNiche,
+    });
+  };
+
+  // 1.5. Generate Blog Post
+  const handleGenerateBlogPost = async () => {
+    setIsBlogModalOpen(false);
+    await executeApiAction('generate-blog-post', '✍️ Генерация SEO-Статьи', {
+      topic: blogTopic,
+      keyword: blogKeyword,
+      targetAudience: blogAudience,
     });
   };
 
@@ -182,6 +198,19 @@ export const CommandActionBar: React.FC<CommandActionBarProps> = ({
                 <span className="inline-block w-3.5 h-3.5 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin" />
               ) : (
                 <span>⚡ Батч</span>
+              )}
+            </button>
+
+            {/* 1.5. Gen Blog Post */}
+            <button
+              onClick={() => setIsBlogModalOpen(true)}
+              disabled={!!executingAction || isHalted}
+              className="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-mono font-bold bg-rose-950/80 hover:bg-rose-900 border border-rose-500/40 hover:border-rose-400 text-rose-300 transition-all disabled:opacity-40"
+            >
+              {executingAction === '✍️ Генерация SEO-Статьи' ? (
+                <span className="inline-block w-3.5 h-3.5 border-2 border-rose-400 border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <span>✍️ + Блог</span>
               )}
             </button>
 
@@ -326,6 +355,78 @@ export const CommandActionBar: React.FC<CommandActionBarProps> = ({
                 className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-xs"
               >
                 🚀 Запустить Генерацию
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal: Generate SEO Blog Post */}
+      {isBlogModalOpen && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="glass-panel max-w-md w-full rounded-2xl p-6 border border-slate-700 shadow-2xl space-y-4 font-mono">
+            <div className="flex justify-between items-center pb-2 border-b border-slate-800">
+              <h3 className="font-bold text-base text-rose-400 flex items-center">
+                <span className="mr-2">✍️</span> Генерация SEO-Статьи (Astro)
+              </h3>
+              <button onClick={() => setIsBlogModalOpen(false)} className="text-slate-400 hover:text-white">✕</button>
+            </div>
+
+            <div className="space-y-3 text-xs">
+              <div>
+                <label className="block text-slate-300 mb-1">Тема / Ключевой запрос статьи</label>
+                <select
+                  value={blogTopic}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setBlogTopic(val);
+                    if (val === 'Dating Profile Verification & Scam Detection') setBlogKeyword('dating profile verification');
+                    else if (val.includes('Romance Scams')) setBlogKeyword('romance scam red flags');
+                    else if (val.includes('Optimization')) setBlogKeyword('dating profile optimization');
+                    else if (val.includes('First Date')) setBlogKeyword('first date safety checklist');
+                    else if (val.includes('Icebreakers')) setBlogKeyword('best dating icebreakers');
+                  }}
+                  className="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-rose-300"
+                >
+                  <option value="Dating Profile Verification & Scam Detection">Dating Profile Verification & Scam Detection</option>
+                  <option value="How to Spot Romance Scams and Deepfake Photos in 2026">How to Spot Romance Scams and Deepfake Photos in 2026</option>
+                  <option value="High-Converting Dating Profile Optimization & Photo Bio Rules">High-Converting Dating Profile Optimization & Photo Bio Rules</option>
+                  <option value="Safe First Date Playbook: From Online Chat to Real-World Meetup">Safe First Date Playbook: From Online Chat to Real-World Meetup</option>
+                  <option value="Psychological Icebreakers & Opening Messages That Get High Responses">Psychological Icebreakers & Opening Messages That Get High Responses</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-slate-300 mb-1">Основное ключевое слово</label>
+                <input
+                  type="text"
+                  value={blogKeyword}
+                  onChange={(e) => setBlogKeyword(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-slate-200"
+                />
+              </div>
+              <div>
+                <label className="block text-slate-300 mb-1">Целевая аудитория (Intent)</label>
+                <input
+                  type="text"
+                  value={blogAudience}
+                  onChange={(e) => setBlogAudience(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-slate-300"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-end space-x-3 pt-2">
+              <button
+                onClick={() => setIsBlogModalOpen(false)}
+                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs"
+              >
+                Отмена
+              </button>
+              <button
+                onClick={handleGenerateBlogPost}
+                className="px-4 py-2 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-bold rounded-lg text-xs shadow-lg shadow-rose-950/30"
+              >
+                ✍️ Сгенерировать Лонгрид
               </button>
             </div>
           </div>

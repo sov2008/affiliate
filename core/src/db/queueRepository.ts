@@ -11,9 +11,23 @@ export type QueueStatus =
   | 'FAILED'
   | 'POSTED';
 
-export type TargetPlatform = 'reddit' | 'quora' | 'medium' | 'REDDIT' | string;
+export type TargetPlatform = 'reddit' | 'quora' | 'medium' | 'REDDIT' | 'BLOG_POST' | 'SOCIAL_SNIPPET' | string;
 export type NetworkName = 'lospollos' | 'mylead' | 'organic' | string;
 export type PostHealthStatus = 'POST_ACTIVE' | 'SHADOWBANNED_OR_REMOVED' | 'THREAD_LOCKED' | 'UNVERIFIED' | 'ERROR';
+
+export interface BlogPostPayload {
+  slug: string;
+  title: string;
+  description: string;
+  tags: string[];
+  seoKeywords: string[];
+  markdownContent: string;
+  targetAudience?: string;
+  intent?: string;
+  parentPostId?: string;
+  pubDate?: string;
+  author?: string;
+}
 
 export interface ContentQueueItem {
   id: string;
@@ -526,6 +540,20 @@ export class ContentQueueRepository {
    */
   public fetchById(id: string): ContentQueueItem | null {
     return this.getItem(id);
+  }
+
+  /**
+   * Alias for getItem()
+   */
+  public getItemById(id: string): ContentQueueItem | null {
+    return this.getItem(id);
+  }
+
+  /**
+   * Alias for listAll()
+   */
+  public getItems(limit?: number): ContentQueueItem[] {
+    return this.listAll(undefined, limit);
   }
 
   /**

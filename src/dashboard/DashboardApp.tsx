@@ -823,7 +823,7 @@ export const DashboardApp: React.FC<{
                   }}
                   className="px-2.5 py-1 rounded-sm bg-[#1b4725] text-[#3fb950] border border-[#2ea043] font-bold hover:bg-[#2ea043] hover:text-white"
                 >
-                  ✓ Approve & Queue (A)
+                  {inspectedItem.platform === 'BLOG_POST' ? '🚀 Одобрить и Собрать Блог (A)' : '✓ Approve & Queue (A)'}
                 </button>
                 <button
                   onClick={() => {

@@ -343,3 +343,64 @@ actionsRouter.post('/test-link', async (req: Request, res: Response) => {
     return res.status(500).json({ success: false, error: err.message });
   }
 });
+
+/**
+ * 10. POST /api/actions/generate-blog-post
+ * Generates an educational SEO long-read for the Astro blog
+ */
+actionsRouter.post('/generate-blog-post', async (req: Request, res: Response) => {
+  try {
+    const { topic, keyword, targetAudience, campaignId } = req.body || {};
+    const { BlogGeneratorService } = await import('../../services/blogGenerator.service.js');
+    const generator = BlogGeneratorService.getInstance();
+
+    const queueItem = await generator.generateBlogPost({
+      topic,
+      keyword,
+      targetAudience,
+      campaignId,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: `SEO Blog Post "${queueItem.hook}" generated and queued for approval`,
+      item: queueItem,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err: any) {
+    console.error('❌ [ActionsRouter:generate-blog-post] Error:', err.message);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+/**
+ * 11. POST /api/actions/publish-blog-post
+ * Publishes an approved blog post, compiles Astro static HTML, and creates social snippets
+ */
+actionsRouter.post('/publish-blog-post', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.body;
+    if (!id) {
+      return res.status(400).json({ success: false, error: 'Missing required parameter: id' });
+    }
+
+    const { BlogPublisherWorker } = await import('../../workers/blog-publisher-worker.js');
+    const worker = BlogPublisherWorker.getInstance();
+    const result = await worker.publishPost(id);
+
+    if (!result.success) {
+      return res.status(500).json({ success: false, error: result.error });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: `Blog post published successfully to ${result.publishedUrl}`,
+      result,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err: any) {
+    console.error('❌ [ActionsRouter:publish-blog-post] Error:', err.message);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+

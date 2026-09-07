@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Format pubDate
+const formattedDate = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric'
+}).format(post.data.pubDate);
+---
+
+<article class="group relative flex flex-col rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-rose-500/50 transition-all duration-300 overflow-hidden hover:shadow-xl hover:shadow-rose-950/20">
+  <div class="p-6 sm:p-7 flex flex-col flex-1">
+    <!-- Tag & Read time -->
+    <div class="flex items-center justify-between gap-2 mb-4">
+      <div class="flex flex-wrap gap-1.5">
+        {post.data.tags.slice(0, 2).map((tag: string) => (
+          <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+            {tag}
+          </span>
+        ))}
+      </div>
+      <span class="text-xs text-slate-500 font-medium">{formattedDate}</span>
+    </div>
+
+    <!-- Post Title -->
+    <h2 class="text-xl sm:text-2xl font-bold text-white group-hover:text-rose-400 transition-colors mb-3 leading-snug">
+      <a href={`${base}/${post.id || post.slug}/`}>
+        {post.data.title}
+      </a>
+    </h2>
+
+    <!-- Post Description -->
+    <p class="text-sm text-slate-300 line-clamp-3 mb-6 leading-relaxed flex-1">
+      {post.data.description}
+    </p>
+
+    <!-- Post Footer / Author & Read More -->
+    <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center font-bold text-rose-400 text-[10px]">
+          FC
+        </div>
+        <span class="font-medium text-slate-300">{post.data.author}</span>
+      </div>
+
+      <a
+        href={`${base}/${post.id || post.slug}/`}
+        class="inline-flex items-center gap-1 font-semibold text-rose-400 group-hover:text-rose-300 transition-colors"
+      >
+        <span>Read Guide</span>
+        <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</article>

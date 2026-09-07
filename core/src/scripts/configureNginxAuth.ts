@@ -271,6 +271,21 @@ server {
     }
 
     # ----------------------------------------------------
+    # 9.5. Public Static Astro Blog (/blog/)
+    # ----------------------------------------------------
+    location = /blog {
+        return 301 /blog/;
+    }
+
+    location /blog/ {
+        auth_basic off;
+        alias /var/www/affiliate/blog/dist/;
+        try_files $uri $uri/ /blog/index.html;
+        expires 7d;
+        add_header Cache-Control "public, no-transform";
+    }
+
+    # ----------------------------------------------------
     # 10. Public Whitelist: Affiliate TDS Engine & Traffic Router (/go & /)
     # ----------------------------------------------------
     location /go {

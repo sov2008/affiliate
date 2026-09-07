@@ -1163,6 +1163,16 @@ const handleItemUpdate = async (req: Request, res: Response) => {
 
     repo.updateItem(id, partialUpdates);
 
+    // Auto-publish if approved blog post
+    const finalStatus = partialUpdates.status || existing.status;
+    if (finalStatus === 'APPROVED' && ((existing.target_platform || (existing as any).platform) === 'BLOG_POST')) {
+      import('./workers/blog-publisher-worker.js').then(({ BlogPublisherWorker }) => {
+        BlogPublisherWorker.getInstance().publishPost(id).catch((err) => {
+          console.error(`❌ [BlogPublisherWorker Auto-publish Error for ${id}]:`, err.message);
+        });
+      });
+    }
+
     broadcastSseEvent('queue_update', {
       action: 'item_updated',
       id,
@@ -1263,6 +1273,14 @@ app.post('/api/queue/items/:id/status', async (req, res) => {
     broadcastSseEvent('queue_update', { action: 'status_change', id, status, timestamp: Date.now() });
 
     if (status === 'APPROVED' && item) {
+      if ((item.target_platform || (item as any).platform) === 'BLOG_POST') {
+        import('./workers/blog-publisher-worker.js').then(({ BlogPublisherWorker }) => {
+          BlogPublisherWorker.getInstance().publishPost(id).catch((err) => {
+            console.error(`❌ [BlogPublisherWorker Auto-publish Error for ${id}]:`, err.message);
+          });
+        });
+      }
+
       const fs = await import('fs');
       const path = await import('path');
       const candidateBundlePaths = [

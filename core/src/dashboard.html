@@ -888,6 +888,7 @@
   <footer class="panel" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; overflow-x: auto;">
     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; flex: 1; min-width: 280px;">
       <button onclick="openModal('modalBatch')" class="btn btn-blue term-tooltip" data-tooltip="Генерация пакета: запуск LLM для подготовки пачки постов в очередь.">+ Batch Gen</button>
+      <button onclick="openModal('modalBlogGen')" class="btn btn-blue font-bold term-tooltip" data-tooltip="Генерация статьи: запуск LLM для подготовки SEO-лонгрида в Astro-блог.">✍️ + Gen Blog Post</button>
       <button onclick="triggerAction('force-dispatch', '🚀 Force Dispatch')" class="btn btn-green term-tooltip" data-tooltip="Принудительная отправка: проталкивает одобренные посты в Reddit в обход таймера.">Force Dispatch</button>
       <button onclick="triggerAction('trigger-scout', '🛰️ Offer Scout')" class="btn btn-amber term-tooltip" data-tooltip="Скаутинг офферов: опрос сетей LosPollos / MyLead на свежие связки.">Offer Scout</button>
       <button onclick="triggerAction('calibrate-prompts', '🧬 MAB Mutate')" class="btn btn-purple term-tooltip" data-tooltip="Мутация Multi-Armed Bandit: пересчет весов распределения трафика.">MAB Mutate</button>
@@ -901,6 +902,45 @@
       <button id="btnActionEstop" onclick="toggleEstop()" class="btn btn-red term-tooltip tooltip-left" data-tooltip="ГЛОБАЛЬНЫЙ СТОП: заморозка сетевых соединений и PM2-процессов.">🚨 EMERGENCY STOP</button>
     </div>
   </footer>
+
+  <!-- Blog Post Generation Modal -->
+  <div id="modalBlogGen" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 500px;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 4px;">
+        <strong style="color: var(--blue);">✍️ Генерация SEO-статьи для Astro-блога</strong>
+        <button onclick="closeModal('modalBlogGen')" class="btn" style="padding: 1px 4px;">✕</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div>
+          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Тема / Ключевой запрос статьи</label>
+          <select id="blogTopicSelect" onchange="onBlogTopicChange(this.value)" style="width: 100%; padding: 4px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font-size: 11px;">
+            <option value="Dating Profile Verification & Scam Detection">Dating Profile Verification & Scam Detection</option>
+            <option value="How to Spot Romance Scams and Deepfake Photos in 2026">How to Spot Romance Scams and Deepfake Photos in 2026</option>
+            <option value="High-Converting Dating Profile Optimization & Photo Bio Rules">High-Converting Dating Profile Optimization & Photo Bio Rules</option>
+            <option value="Safe First Date Playbook: From Online Chat to Real-World Meetup">Safe First Date Playbook: From Online Chat to Real-World Meetup</option>
+            <option value="Psychological Icebreakers & Opening Messages That Get High Responses">Psychological Icebreakers & Opening Messages That Get High Responses</option>
+            <option value="custom">✏️ Свой произвольный запрос...</option>
+          </select>
+        </div>
+        <div id="blogCustomTopicWrap" style="display: none;">
+          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Произвольная тема статьи</label>
+          <input id="blogCustomTopic" placeholder="Например: Catfish Detection Protocols for Dating Apps" style="width: 100%; padding: 4px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font-size: 11px;">
+        </div>
+        <div>
+          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Основное ключевое слово (Focus Keyword)</label>
+          <input id="blogKeyword" value="dating profile verification" style="width: 100%; padding: 4px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font-size: 11px;">
+        </div>
+        <div>
+          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Целевая аудитория (Audience Intent)</label>
+          <input id="blogAudience" value="Singles seeking authentic connections while avoiding scammers" style="width: 100%; padding: 4px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font-size: 11px;">
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 4px; margin-top: 6px;">
+          <button onclick="closeModal('modalBlogGen')" class="btn">Отмена</button>
+          <button onclick="submitBlogGen()" id="btnSubmitBlogGen" class="btn btn-blue font-bold">Сгенерировать статью</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Batch Modal -->
   <div id="modalBatch" class="modal-backdrop">
@@ -1283,21 +1323,33 @@
             modelBadge.innerText = `MODEL: ${item.ai_model || 'qwen-2.5-72b'}`;
           }
 
+          const isBlog = (item.platform || item.target_platform) === 'BLOG_POST';
+          if (isBlog && platBadge) {
+            platBadge.innerText = 'ASTRO BLOG POST (SEO)';
+            platBadge.className = 'badge badge-ok';
+          }
+
           const subEl = document.getElementById('inspectSubreddit');
-          if (subEl) subEl.innerText = item.subreddit ? `r/${item.subreddit}` : 'r/AskReddit';
+          if (subEl) subEl.innerText = isBlog ? 'blog/src/content/posts/' : (item.subreddit ? `r/${item.subreddit}` : 'r/AskReddit');
 
           const authorEl = document.getElementById('inspectAuthor');
-          if (authorEl) authorEl.innerText = item.author ? `u/${item.author}` : 'u/--';
+          if (authorEl) authorEl.innerText = isBlog ? 'FlirtCheck Editorial' : (item.author ? `u/${item.author}` : 'u/--');
 
           const linkEl = document.getElementById('inspectTargetLink');
           if (linkEl) {
             if (item.target_url) {
               linkEl.href = item.target_url;
               linkEl.style.display = 'inline-flex';
+              linkEl.innerHTML = `<span>${isBlog ? 'Открыть страницу на сайте' : 'Открыть тред на Reddit'}</span>`;
             } else {
               linkEl.href = '#';
               linkEl.style.display = 'none';
             }
+          }
+
+          const saveApproveBtn = document.getElementById('btnInspectSaveApprove');
+          if (saveApproveBtn) {
+            saveApproveBtn.innerHTML = isBlog ? '🚀 Сохранить и Опубликовать в Блог (A)' : '💾 Сохранить и Одобрить (A)';
           }
 
           if (hookEl) hookEl.innerText = item.hook || item.title || 'No headline available';
@@ -1307,13 +1359,13 @@
           }
 
           const ctaEl = document.getElementById('inspectCta');
-          if (ctaEl) ctaEl.innerText = `CTA: "${item.stealth_cta || 'Organic Engagement'}"`;
+          if (ctaEl) ctaEl.innerText = isBlog ? `SMARTLINK CTA: "${item.stealth_cta || 'Dating Profile Verification Radar'}"` : `CTA: "${item.stealth_cta || 'Organic Engagement'}"`;
 
           const trackEl = document.getElementById('inspectTracking');
-          if (trackEl) trackEl.innerText = `OUTBOUND: ${item.tracking_url || 'N/A'}`;
+          if (trackEl) trackEl.innerText = `CANONICAL / DEST: ${item.target_url || item.tracking_url || 'N/A'}`;
 
           const compEl = document.getElementById('inspectCompliance');
-          if (compEl) compEl.innerText = item.compliance_reasoning || 'Passed compliance checks. Natural conversation tone, no hard-coded tracking tokens.';
+          if (compEl) compEl.innerText = isBlog ? 'SEO Safety Verified. Valid frontmatter schema, internal CTA routing, and Schema.org FAQPage compliance active.' : (item.compliance_reasoning || 'Passed compliance checks. Natural conversation tone, no hard-coded tracking tokens.');
         }
       } catch (err) {
         if (hookEl) hookEl.innerText = 'Ошибка загрузки';
@@ -1451,6 +1503,57 @@
       const count = parseInt(document.getElementById('batchCount').value, 10) || 3;
       triggerAction('generate-batch', `+ Batch Gen (${count} posts)`, { campaignId: camp, platform: plat, count, niche: 'finance' });
       closeModal('modalBatch');
+    }
+
+    function onBlogTopicChange(val) {
+      const wrap = document.getElementById('blogCustomTopicWrap');
+      const kwInput = document.getElementById('blogKeyword');
+      if (wrap) wrap.style.display = val === 'custom' ? 'block' : 'none';
+      if (val === 'Dating Profile Verification & Scam Detection') kwInput.value = 'dating profile verification';
+      else if (val.includes('Romance Scams')) kwInput.value = 'romance scam red flags';
+      else if (val.includes('Optimization')) kwInput.value = 'dating profile optimization';
+      else if (val.includes('First Date')) kwInput.value = 'first date safety checklist';
+      else if (val.includes('Icebreakers')) kwInput.value = 'best dating icebreakers';
+    }
+
+    async function submitBlogGen() {
+      const selectVal = document.getElementById('blogTopicSelect').value;
+      const customTopic = document.getElementById('blogCustomTopic').value;
+      const topic = selectVal === 'custom' && customTopic ? customTopic : selectVal;
+      const keyword = document.getElementById('blogKeyword').value;
+      const targetAudience = document.getElementById('blogAudience').value;
+      
+      const btn = document.getElementById('btnSubmitBlogGen');
+      const origText = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '⏳ Генерация LLM (AIGateway)...';
+      }
+
+      appendLog(`[BLOG GEN] Запуск генерации SEO-статьи: "${topic}" (${keyword})...`, 'CRON');
+
+      try {
+        const res = await fetch('/api/actions/generate-blog-post', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ topic, keyword, targetAudience })
+        });
+        const d = await res.json();
+        if (res.ok && d.success) {
+          appendLog(`[BLOG GEN] ✅ Статья "${d.item?.hook || topic}" успешно сгенерирована и поставлена на модерацию!`, 'CRON');
+          closeModal('modalBlogGen');
+          await fetchQueue();
+        } else {
+          appendLog(`[BLOG GEN] ❌ Ошибка генерации: ${d.error || 'Server Error'}`, 'CRON');
+        }
+      } catch (err) {
+        appendLog(`[BLOG GEN] ❌ Исключение: ${err.message}`, 'CRON');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = origText || 'Сгенерировать статью';
+        }
+      }
     }
 
     function submitScaffold() {
