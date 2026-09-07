@@ -223,8 +223,6 @@ export class ContentQueueRepository {
         );
         CREATE INDEX IF NOT EXISTS idx_blog_conv_slug ON blog_conversions (slug);
         CREATE INDEX IF NOT EXISTS idx_blog_conv_created ON blog_conversions (created_at);
-        CREATE INDEX IF NOT EXISTS idx_blog_conv_variant ON blog_conversions (variant);
-        CREATE INDEX IF NOT EXISTS idx_blog_conv_trigger ON blog_conversions (trigger_source);
       `);
 
       // Migrations for columns if table existed earlier
@@ -237,6 +235,8 @@ export class ContentQueueRepository {
       try { this.db.exec(`ALTER TABLE content_queue_v2 ADD COLUMN last_health_check_at INTEGER`); } catch {}
       try { this.db.exec(`ALTER TABLE blog_conversions ADD COLUMN variant TEXT DEFAULT 'A'`); } catch {}
       try { this.db.exec(`ALTER TABLE blog_conversions ADD COLUMN trigger_source TEXT DEFAULT 'inline_quiz'`); } catch {}
+      try { this.db.exec(`CREATE INDEX IF NOT EXISTS idx_blog_conv_variant ON blog_conversions (variant)`); } catch {}
+      try { this.db.exec(`CREATE INDEX IF NOT EXISTS idx_blog_conv_trigger ON blog_conversions (trigger_source)`); } catch {}
     } catch (e: any) {
       console.warn('[ContentQueueRepository] Schema initialization note:', e.message);
     }
