@@ -4,7 +4,7 @@
  * Routes traffic to appropriate content: White Page (bots) or Black/Offer Page (humans)
  */
 
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 
 interface BotShieldConfig {
@@ -63,13 +63,28 @@ export class BotShieldService {
   ];
 
   constructor(configPath?: string) {
-    try {
-      const path = configPath || join(process.cwd(), 'core/data/knowledge/antifraud_heuristics.json');
-      const configData = readFileSync(path, 'utf-8');
-      this.config = JSON.parse(configData);
-    } catch (error) {
-      console.error('Failed to load bot shield config:', error);
-      // Fallback config
+    this.config = this.getDefaultConfig();
+    const candidates = [
+      configPath,
+      join(process.cwd(), 'data/knowledge/antifraud_heuristics.json'),
+      join(process.cwd(), 'core/data/knowledge/antifraud_heuristics.json'),
+      join(__dirname, '../../data/knowledge/antifraud_heuristics.json'),
+      join(__dirname, '../data/knowledge/antifraud_heuristics.json'),
+      '/var/www/affiliate/core/data/knowledge/antifraud_heuristics.json',
+    ].filter(Boolean) as string[];
+
+    let loaded = false;
+    for (const p of candidates) {
+      if (existsSync(p)) {
+        try {
+          const configData = readFileSync(p, 'utf-8');
+          this.config = JSON.parse(configData);
+          loaded = true;
+          break;
+        } catch {}
+      }
+    }
+    if (!loaded) {
       this.config = this.getDefaultConfig();
     }
   }
