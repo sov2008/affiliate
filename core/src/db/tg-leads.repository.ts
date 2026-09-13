@@ -71,6 +71,9 @@ export class TelegramLeadRepository {
       const sqliteModule = require('node:sqlite');
       if (sqliteModule && sqliteModule.DatabaseSync) {
         this.db = new sqliteModule.DatabaseSync(this.dbPath);
+        this.db.exec("PRAGMA journal_mode = WAL;");
+        this.db.exec("PRAGMA busy_timeout = 5000;");
+        this.db.exec("PRAGMA synchronous = NORMAL;");
         this.isSqlite = true;
         this.initSchema();
       }

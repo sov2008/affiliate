@@ -141,9 +141,12 @@ export class ContentQueueRepository {
       const sqliteModule = require('node:sqlite');
       if (sqliteModule && sqliteModule.DatabaseSync) {
         this.db = new sqliteModule.DatabaseSync(this.dbPath);
+        this.db.exec("PRAGMA journal_mode = WAL;");
+        this.db.exec("PRAGMA busy_timeout = 5000;");
+        this.db.exec("PRAGMA synchronous = NORMAL;");
         this.isSqlite = true;
         this.initSchema();
-        console.log(`[ContentQueueRepository] ✅ SQLite connected: ${this.dbPath}`);
+        console.log(`[ContentQueueRepository] ✅ SQLite connected (WAL mode enabled): ${this.dbPath}`);
       }
     } catch (err: any) {
       console.warn(`[ContentQueueRepository] node:sqlite initialization notice (${err.message}). Using JSON fallback.`);
