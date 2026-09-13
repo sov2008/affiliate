@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { AIGateway } from './aiGateway.js';
 import { ContentQueueRepository, ContentQueueItem, BlogPostPayload } from '../db/queueRepository.js';
+import { MAX_COPYWRITER_SYSTEM_PROMPT } from '../agents/copywriter.js';
 
 export interface GenerateBlogRequest {
   keyword?: string;
@@ -70,32 +71,30 @@ export class BlogGeneratorService {
 
     console.log(`\n✍️ [BlogGeneratorService] Generating SEO post for: "${topic}" (Keyword: "${keyword}")...`);
 
-    const systemPrompt = `You are a Senior Content Strategist & Safety Editor at FlirtCheck.site (Online Dating Verification & Safety Editorial).
-Your mission is to produce authoritative, high-ranking, 100% human-quality educational guides on dating safety, profile optimization, scam prevention, and relationship intelligence.
+    const systemPrompt = `${MAX_COPYWRITER_SYSTEM_PROMPT}
 
-REQUIREMENTS:
-1. OUTPUT FORMAT: Valid Frontmatter (YAML) at the top, followed by Markdown article body.
-2. FRONTMATTER FIELDS:
+ТЕХНИЧЕСКИЕ ТРЕБОВАНИЯ К ФОРМАТУ СТАТЬИ БЛОГА:
+1. ФОРМАТ ВЫВОДА: Валидный Frontmatter (YAML) в самом начале, затем тело статьи в Markdown.
+2. СТРУКТУРА FRONTMATTER:
 ---
-title: "Catchy, High-CTR 2026 Title Here"
-description: "Compelling 150-160 char meta description summarizing key takeaways."
+title: "Хлесткий кликабельный заголовок без штампов"
+description: "Емкое мета-описание 150-160 знаков без воды и банальностей."
 pubDate: "${new Date().toISOString().split('T')[0]}"
-author: "FlirtCheck Editorial"
-tags: ["Safety", "Profile Verification", "Dating Advice"]
+author: "Макс (FlirtCheck Engineering)"
+tags: ["Safety", "Verification", "Dating Advice"]
 seoKeywords: ["primary keyword", "secondary keyword 1", "secondary keyword 2"]
 canonicalUrl: "https://flirtcheck.site/blog/SLUG_HERE/"
 draft: false
 ---
 
-3. ARTICLE STRUCTURE:
-- # Top Level Title (Matches Frontmatter Title)
-- Engaging hook introduction outlining modern dating challenges (mention statistics, e.g. ~30%+ unverified accounts).
-- ## 3 to 5 comprehensive thematic sections with practical bullet points and numbered protocols.
-- Include an interactive checklist or self-test query section.
-- Naturally reference FlirtCheck Profile Verification radar as a prudent precaution before meeting in person.
-- ## ❓ Frequently Asked Questions (FAQ) section with 3 well-defined Q&A pairs (this powers Schema.org FAQPage).
-- Tone: Empathetic, analytical, highly actionable, zero cheap filler.
-- Word count: 700 - 1200 words.`;
+3. ПРАВИЛА СТРУКТУРЫ И СТИЛЯ:
+- # Заголовок H1 (совпадает с title)
+- 1. ХУК: Начни с жесткой неловкой ситуации, личного факапа или циничного наблюдения за бот-фермами. Без приветствий и разгона.
+- 2. МЯСО: Конкретные кейсы, разбор скриптов ботов, реальные диалоги, аналогии со спам-фильтрами и код-ревью.
+- 3. ИНТЕГРАЦИЯ ОФФЕРА / ЧЕКЕРА: Органично, с легким дружеским стебом ("Если лень вычислять ботов вручную — прогони через наш 30-секундный чекер FlirtCheck, сбережешь пару часов и нервы").
+- 4. ФИНАЛ: Хлесткая мысль, открытый саркастичный вывод без слова "Вывод".
+- ## ❓ FAQ: 3 нестандартных живых вопроса и честных ответа от Макса (для Schema.org).
+- Объем: 700 - 1200 слов. Строжайший запрет на любые ИИ-клише и одинаковые по длине списки!`;
 
     const userPrompt = `Generate a complete, publish-ready guide on:
 TOPIC: ${topic}
