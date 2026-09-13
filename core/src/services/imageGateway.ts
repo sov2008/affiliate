@@ -170,7 +170,32 @@ export class ImageGateway {
           }
           responseData = await pollNvcfQueue(reqId, apiKey, options.maxPollAttempts || 30);
         } else {
-          throw new Error(`NVIDIA NIM вернул HTTP ${response.status}: ${JSON.stringify(response.data)}`);
+          // Если первичный эндпоинт SD3.5 недоступен (404), вызываем проверенный активный NVIDIA NIM FLUX.1-dev
+          console.warn(`[ImageGateway] Первичный эндпоинт вернул ${response.status}. Вызов активного движка NVIDIA NIM FLUX.1-dev...`);
+          const fluxKey = process.env.NVIDIA_FLUX_DEV_API_KEY || apiKey;
+          const fluxUrl = 'https://ai.api.nvidia.com/v1/genai/black-forest-labs/flux.1-dev';
+          const fluxRes = await axios.post(
+            fluxUrl,
+            { prompt: negativePrompt ? `${prompt}. (Avoid: ${negativePrompt})` : prompt, mode: 'base' },
+            {
+              headers: {
+                Authorization: `Bearer ${fluxKey}`,
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+              },
+              timeout: 60000,
+              validateStatus: () => true,
+            }
+          );
+
+          if (fluxRes.status === 200) {
+            responseData = fluxRes.data;
+          } else if (fluxRes.status === 202) {
+            const reqId = fluxRes.headers['nvcf-reqid'] as string;
+            responseData = await pollNvcfQueue(reqId, fluxKey, options.maxPollAttempts || 30);
+          } else {
+            throw new Error(`NVIDIA NIM FLUX вернул HTTP ${fluxRes.status}: ${JSON.stringify(fluxRes.data)}`);
+          }
         }
 
         const b64 = extractBase64(responseData);
