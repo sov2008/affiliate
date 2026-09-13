@@ -109,6 +109,23 @@ module.exports = {
       }
     },
     {
+      name: "affiliate-telegram-userbot",
+      script: "./dist/services/telegram-userbot.service.js",
+      cwd: __dirname,
+      instances: 1,
+      autorestart: true,
+      max_memory_restart: "100M",
+      restart_delay: 5000,
+      exp_backoff_restart_delay: 500,
+      out_file: path.join(logsDir, "pm2-affiliate-telegram-userbot-out.log"),
+      error_file: path.join(logsDir, "pm2-affiliate-telegram-userbot-error.log"),
+      merge_logs: true,
+      time: true,
+      env: {
+        NODE_ENV: "production"
+      }
+    },
+    {
       name: "affiliate-social-syndicator",
       script: "./dist/workers/social-syndicator.worker.js",
       cwd: __dirname,
