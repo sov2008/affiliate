@@ -400,8 +400,8 @@ export function handleDatingSmartlinkRedirect(req: Request, res: Response) {
   }
 }
 
-app.get(['/r/dating', '/r/dating-smartlink'], handleDatingSmartlinkRedirect);
-tdsRouter.get(['/r/dating', '/r/dating-smartlink'], handleDatingSmartlinkRedirect);
+app.get(['/r/dating', '/r/dating-smartlink', '/click', '/go'], handleDatingSmartlinkRedirect);
+tdsRouter.get(['/r/dating', '/r/dating-smartlink', '/click'], handleDatingSmartlinkRedirect);
 
 // ----------------------------------------------------
 // Blog Analytics API: Clicks & Top Converting Articles

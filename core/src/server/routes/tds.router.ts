@@ -71,5 +71,5 @@ export function handleRootRedirect(req: Request, res: Response): void {
   return res.redirect(302, `/go${query}${sep}sub1=root_direct&sub2=organic`);
 }
 
-tdsRouter.get('/go', handleTdsRedirect);
+tdsRouter.get(['/go', '/click'], handleTdsRedirect);
 tdsRouter.get('/', handleRootRedirect);
