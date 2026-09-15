@@ -488,9 +488,10 @@ export class TelegramLeadRepository {
       try {
         const stmt = this.db.prepare(`
           INSERT INTO mab_arms (offer_id, network, impressions, conversions, revenue, updated_at)
-          VALUES (?, 'unknown', 0, 1, ?, ?)
+          VALUES (?, 'unknown', 1, 1, ?, ?)
           ON CONFLICT(offer_id) DO UPDATE SET
             conversions = mab_arms.conversions + 1,
+            impressions = MAX(mab_arms.impressions, mab_arms.conversions + 1),
             revenue = mab_arms.revenue + excluded.revenue,
             updated_at = excluded.updated_at
         `);
@@ -505,13 +506,14 @@ export class TelegramLeadRepository {
     const prev = this.mabMemoryArms.get(offerId) || {
       offer_id: offerId,
       network: 'unknown',
-      impressions: 0,
+      impressions: 1,
       conversions: 0,
       revenue: 0,
       epc: 0,
       updated_at: now,
     };
     prev.conversions++;
+    prev.impressions = Math.max(prev.impressions, prev.conversions);
     prev.revenue += cleanPayout;
     prev.updated_at = now;
     const safeImp = Math.max(1, prev.impressions);

@@ -56,7 +56,8 @@
     "deploy:prod": "tsx src/scripts/deployProduction.ts",
     "audit:prod": "tsx src/scripts/verifyProductionNode.ts",
     "test:actions": "tsx src/tests/actions-router.spec.ts",
-    "test:action-controls": "tsx src/tests/action-controls.spec.ts"
+    "test:action-controls": "tsx src/tests/action-controls.spec.ts",
+    "mcp:sqlite": "node scripts/mcp-sqlite-server.cjs"
   },
   "workspaces": [
     "core",
