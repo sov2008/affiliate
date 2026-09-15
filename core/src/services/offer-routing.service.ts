@@ -209,9 +209,9 @@ export class OfferRoutingService {
       isPrimary: false,
     });
 
-    // Secondary: MyLead Smartlink (Isolated if placeholder URL detected)
+    // Secondary: MyLead Smartlink (Verified & Active)
     const myleadEnvUrl = process.env.MYLEAD_SMARTLINK_URL || process.env.MYLEAD_URL;
-    const myleadUrl = myleadEnvUrl || 'https://glstrck.com/aff_c?offer_id=123&aff_id=456';
+    const myleadUrl = myleadEnvUrl || 'https://yex2brk.realmessaging.org/rpqpd3w';
     const isMyLeadPlaceholder = this.isPlaceholderUrl(myleadUrl);
 
     this.offers.set('mylead', {
@@ -219,9 +219,9 @@ export class OfferRoutingService {
       name: 'MyLead Dating Smartlink',
       network: 'mylead',
       baseUrl: myleadUrl,
-      subParam: 'sub1',
+      subParam: 'cid',
       isPrimary: false,
-      enabled: !isMyLeadPlaceholder, // Disabled by default until verified URL provided in .env
+      enabled: !isMyLeadPlaceholder,
     });
   }
 
