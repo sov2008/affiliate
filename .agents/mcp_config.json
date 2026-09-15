@@ -31,6 +31,32 @@
         "mcp-server-sqlite-npx",
         "D:\\WEB\\antigravity\\affiliate\\core\\data\\content_queue.sqlite"
       ]
+    },
+    "ssh-production": {
+      "command": "node",
+      "args": [
+        "D:\\WEB\\antigravity\\affiliate\\scripts\\mcp-ssh-server.cjs",
+        "--host",
+        "178.128.199.28",
+        "--port",
+        "22",
+        "--user",
+        "root",
+        "--key-path",
+        "D:\\keys\\antigravity_digitalocean_ubuntu"
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "browser-validator": {
+      "command": "node",
+      "args": [
+        "D:\\WEB\\antigravity\\affiliate\\scripts\\mcp-browser-server.cjs"
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      }
     }
   }
 }

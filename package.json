@@ -57,7 +57,9 @@
     "audit:prod": "tsx src/scripts/verifyProductionNode.ts",
     "test:actions": "tsx src/tests/actions-router.spec.ts",
     "test:action-controls": "tsx src/tests/action-controls.spec.ts",
-    "mcp:sqlite": "node scripts/mcp-sqlite-server.cjs"
+    "mcp:sqlite": "node scripts/mcp-sqlite-server.cjs",
+    "mcp:ssh": "node scripts/mcp-ssh-server.cjs",
+    "mcp:browser": "node scripts/mcp-browser-server.cjs"
   },
   "workspaces": [
     "core",

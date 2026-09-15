@@ -9,6 +9,9 @@ export interface OfferConfig {
   baseUrl: string;
   subParam: 's1' | 'sub1' | 'cid' | string;
   isPrimary?: boolean;
+  enabled?: boolean;
+  degradedUntil?: number;
+  degradedReason?: string;
 }
 
 export interface OfferStats {
@@ -206,11 +209,10 @@ export class OfferRoutingService {
       isPrimary: false,
     });
 
-    // Secondary: MyLead Smartlink
-    const myleadUrl =
-      process.env.MYLEAD_SMARTLINK_URL ||
-      process.env.MYLEAD_URL ||
-      'https://glstrck.com/aff_c?offer_id=123&aff_id=456';
+    // Secondary: MyLead Smartlink (Isolated if placeholder URL detected)
+    const myleadEnvUrl = process.env.MYLEAD_SMARTLINK_URL || process.env.MYLEAD_URL;
+    const myleadUrl = myleadEnvUrl || 'https://glstrck.com/aff_c?offer_id=123&aff_id=456';
+    const isMyLeadPlaceholder = this.isPlaceholderUrl(myleadUrl);
 
     this.offers.set('mylead', {
       id: 'mylead',
@@ -219,7 +221,101 @@ export class OfferRoutingService {
       baseUrl: myleadUrl,
       subParam: 'sub1',
       isPrimary: false,
+      enabled: !isMyLeadPlaceholder, // Disabled by default until verified URL provided in .env
     });
+  }
+
+  /**
+   * Detects dummy placeholder or test URLs that cause 404 / traffic drains
+   */
+  public isPlaceholderUrl(url: string): boolean {
+    if (!url) return true;
+    const lower = url.toLowerCase();
+    return (
+      lower.includes('offer_id=123') ||
+      lower.includes('aff_id=456') ||
+      lower.includes('placeholder') ||
+      lower.includes('example.com') ||
+      lower.includes('test_offer')
+    );
+  }
+
+  /**
+   * Determines if an offer is healthy and eligible for traffic routing
+   */
+  public isOfferEligible(offer: OfferConfig): boolean {
+    if (offer.enabled === false) return false;
+    if (offer.degradedUntil && offer.degradedUntil > Date.now()) return false;
+    if (this.isPlaceholderUrl(offer.baseUrl)) return false;
+    return true;
+  }
+
+  /**
+   * Returns all healthy active offers eligible for MAB routing
+   */
+  public getEligibleOffers(): OfferConfig[] {
+    const allOffers = Array.from(this.offers.values());
+    const hasDating = allOffers.some((o) => o.id === 'lospollos_dating' && this.isOfferEligible(o));
+    return allOffers.filter((o) => {
+      // Exclude redundant alias
+      if (hasDating && o.id === 'lospollos') return false;
+      return this.isOfferEligible(o);
+    });
+  }
+
+  /**
+   * Returns guaranteed safe fallback offer (lospollos_casual or lospollos_dating)
+   */
+  public getFallbackOffer(): OfferConfig {
+    const casual = this.offers.get('lospollos_casual');
+    if (casual && this.isOfferEligible(casual)) return casual;
+    const dating = this.offers.get('lospollos_dating') || this.offers.get('lospollos');
+    if (dating && this.isOfferEligible(dating)) return dating;
+    const anyEligible = this.getEligibleOffers()[0];
+    if (anyEligible) return anyEligible;
+    return this.offers.get('lospollos_dating') || Array.from(this.offers.values())[0];
+  }
+
+  /**
+   * Circuit breaker: marks an offer degraded for a given cooldown duration
+   */
+  public markOfferDegraded(offerId: string, durationMs: number = 3600000, reason?: string): void {
+    const offer = this.offers.get(offerId);
+    if (offer) {
+      offer.degradedUntil = Date.now() + durationMs;
+      offer.degradedReason = reason || 'Health check failure';
+      console.warn(`[OfferRoutingService] ⚠️ Circuit Breaker TRIP: Offer "${offerId}" degraded for ${Math.round(durationMs / 60000)}m. Reason: ${offer.degradedReason}`);
+    }
+  }
+
+  /**
+   * Resets circuit breaker degradation
+   */
+  public clearOfferDegraded(offerId: string): void {
+    const offer = this.offers.get(offerId);
+    if (offer && offer.degradedUntil) {
+      offer.degradedUntil = undefined;
+      offer.degradedReason = undefined;
+      console.log(`[OfferRoutingService] 🟢 Circuit Breaker RESET: Offer "${offerId}" returned to healthy state.`);
+    }
+  }
+
+  /**
+   * Manually enables or disables an offer
+   */
+  public setOfferEnabled(offerId: string, enabled: boolean): void {
+    const offer = this.offers.get(offerId);
+    if (offer) {
+      offer.enabled = enabled;
+      console.log(`[OfferRoutingService] Offer "${offerId}" enabled status set to: ${enabled}`);
+    }
+  }
+
+  /**
+   * Returns all registered offer configurations
+   */
+  public getAllOffers(): OfferConfig[] {
+    return Array.from(this.offers.values());
   }
 
   /**
@@ -330,18 +426,13 @@ export class OfferRoutingService {
       });
     }
 
-    // Dynamic pool matching: all registered offers from mab_arms and registered offers (excluding redundant alias 'lospollos' if 'lospollos_dating' exists)
-    const allOffers = Array.from(this.offers.values());
-    const hasDating = allOffers.some((o) => o.id === 'lospollos_dating');
-    const candidatesPool = allOffers.filter((o) => {
-      if (hasDating && o.id === 'lospollos') return false;
-      return true;
-    });
-    const effectivePool = candidatesPool.length > 0 ? candidatesPool : allOffers;
+    // Dynamic pool matching: filtered by active, non-degraded, non-placeholder offers
+    const eligiblePool = this.getEligibleOffers();
+    const effectivePool = eligiblePool.length > 0 ? eligiblePool : [this.getFallbackOffer()];
 
     const currentStats = this.getStats();
 
-    // Check cold arms with impressions < 20
+    // Check cold arms with impressions < 20 in effectivePool
     const coldArms = effectivePool.filter((o) => {
       const s = currentStats[o.id];
       return !s || s.impressions < 20;
@@ -391,7 +482,12 @@ export class OfferRoutingService {
         }
       }
 
-      chosenOffer = winningCandidates.find((c) => c.isPrimary) || winningCandidates[0] || effectivePool[0];
+      // Calibration: Prefer proven converting favorite (lospollos_casual), then primary, then first winner
+      chosenOffer =
+        winningCandidates.find((c) => c.id === 'lospollos_casual') ||
+        winningCandidates.find((c) => c.isPrimary) ||
+        winningCandidates[0] ||
+        effectivePool[0];
       strategy = 'EXPLOITATION';
     }
 

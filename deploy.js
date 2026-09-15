@@ -52,12 +52,16 @@ conn.on('ready', async () => {
     console.log('\n--- [STEP 1] Pulling Latest Commits ---');
     await runCmd(conn, `cd ${APP_DIR} && git fetch origin && git reset --hard origin/main && git log -1 --oneline`);
 
-    // 2. Build Blog with New Posts
-    console.log('\n--- [STEP 2] Building Production Blog (Astro) ---');
-    await runCmd(conn, `cd ${APP_DIR} && npm run build:blog`);
+    // 2. Build Core & Production Blog
+    console.log('\n--- [STEP 2] Building Production Core & Blog (Astro) ---');
+    await runCmd(conn, `cd ${APP_DIR} && npm --prefix core run build && npm run build:blog`);
 
-    // 3. Check and Update Queue Status in SQLite on Production
-    console.log('\n--- [STEP 3] Updating & Verifying Status in SQLite on Production ---');
+    // 3. Reload PM2 Services with updated code
+    console.log('\n--- [STEP 3] Reloading PM2 Microservices ---');
+    await runCmd(conn, `cd ${APP_DIR} && pm2 reload ecosystem.config.js --update-env`);
+
+    // 4. Check and Update Queue Status in SQLite on Production
+    console.log('\n--- [STEP 4] Updating & Verifying Status in SQLite on Production ---');
     await runCmd(conn, `node -e "
       const { DatabaseSync } = require('node:sqlite');
       const db = new DatabaseSync('${APP_DIR}/core/data/content_queue.sqlite');
@@ -70,8 +74,8 @@ conn.on('ready', async () => {
       db.close();
     "`);
 
-    // 4. Verify PM2 Services
-    console.log('\n--- [STEP 4] Checking PM2 Microservices ---');
+    // 5. Verify PM2 Services
+    console.log('\n--- [STEP 5] Checking PM2 Microservices ---');
     await runCmd(conn, `pm2 status`);
 
     console.log('\n✅ Deployment finished successfully!');

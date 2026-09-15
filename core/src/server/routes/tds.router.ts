@@ -35,6 +35,12 @@ export function handleTdsRedirect(req: Request, res: Response): void {
         router.resolveTargetOffer({ chatId: sub2, sub1 });
     }
 
+    // 3. Circuit breaker & Placeholder protection: If offer is disabled or degraded, switch to safe fallback
+    if (!targetOffer || !router.isOfferEligible(targetOffer)) {
+      console.warn(`[TdsRouter] ⚠️ Offer "${targetOffer?.id || rawOffer}" is disabled or degraded. Auto-routing to fallback.`);
+      targetOffer = router.getFallbackOffer();
+    }
+
     // 3. Ensure click identifier exists
     const clickId = rawCid.trim() || router.generateClickId();
 

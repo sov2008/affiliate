@@ -84,8 +84,22 @@ async function runOfferRoutingTestSuite() {
     explorationRate: 0.0, // 100% exploitation mode
   });
 
+  // Verify MyLead is isolated by default (enabled: false due to dummy placeholder URL)
+  const myleadConf = exploitService.getOfferConfig('mylead');
+  assert(myleadConf?.enabled === false, 'Security Guardrail: MyLead is isolated (enabled: false) due to placeholder URL');
+
+  // Verify default Exploitation routes to healthy fallback (lospollos_casual) when mylead is isolated
+  const defaultSelection = exploitService.selectBestOffer('999111');
+  assert(defaultSelection.offerId === 'lospollos_casual', 'Exploitation safely defaults to healthy converting favorite (lospollos_casual)');
+
+  // Now simulate validated MyLead offer in production to test EPC winner mathematical shift
+  exploitService.setOfferEnabled('mylead', true);
+  if (myleadConf) {
+    myleadConf.baseUrl = 'https://mylead.global/offer_valid_test';
+  }
+
   const exploitSelection = exploitService.selectBestOffer('999222');
-  assert(exploitSelection.offerId === 'mylead', 'Exploitation routes directly to highest EPC offer (MyLead)');
+  assert(exploitSelection.offerId === 'mylead', 'Exploitation routes directly to highest EPC offer when enabled (MyLead)');
   assert(exploitSelection.strategy === 'EXPLOITATION', 'Strategy flagged as EXPLOITATION');
 
   // Now award LosPollos a massive payout ($100.00) so its EPC beats MyLead

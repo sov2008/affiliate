@@ -5,6 +5,7 @@ import { ContentQueueRepository, ContentQueueItem, PostHealthStatus } from '../d
 import { ProxyRotator } from '../skills/proxy-rotator-skill.js';
 import { EmergencyStopController } from '../types/pipeline.js';
 import { TelegramControlBot } from '../services/telegram-control-bot.service.js';
+import { OfferRoutingService } from '../services/offer-routing.service.js';
 
 dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
@@ -409,6 +410,62 @@ export class PostHealthMonitor {
     };
   }
 
+  private smartlinkTimer: NodeJS.Timeout | null = null;
+  private smartlinkIntervalMs: number = 30 * 60 * 1000; // 30 minutes
+
+  /**
+   * Probes all active smartlinks for HTTP errors (4xx, 5xx, timeouts)
+   * and trips circuit breaker (degrades offer for 1 hour) on failure.
+   */
+  public async checkSmartlinksHealth(): Promise<{ totalChecked: number; degradedCount: number; healthyCount: number }> {
+    console.log('\n🔍 [SmartlinkCircuitBreaker] Initiating periodic offer health audit (30m cycle)...');
+    const router = OfferRoutingService.getInstance();
+    const offers = router.getAllOffers();
+    let totalChecked = 0;
+    let degradedCount = 0;
+    let healthyCount = 0;
+
+    for (const offer of offers) {
+      // Skip intentionally disabled or placeholder offers
+      if (offer.enabled === false || router.isPlaceholderUrl(offer.baseUrl)) {
+        continue;
+      }
+
+      totalChecked++;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000); // 5s strict timeout
+
+      try {
+        const resp = await fetch(offer.baseUrl, {
+          method: 'GET',
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1',
+            'Accept': 'text/html,application/xhtml+xml,*/*'
+          },
+          redirect: 'follow',
+          signal: controller.signal
+        });
+        clearTimeout(timeout);
+
+        if (resp.status >= 400) {
+          router.markOfferDegraded(offer.id, 60 * 60 * 1000, `HTTP ${resp.status} on endpoint`);
+          degradedCount++;
+        } else {
+          router.clearOfferDegraded(offer.id);
+          healthyCount++;
+        }
+      } catch (err: any) {
+        clearTimeout(timeout);
+        const reason = err.name === 'AbortError' ? 'Probe timeout > 5000ms' : (err.message || 'Connection failure');
+        router.markOfferDegraded(offer.id, 60 * 60 * 1000, reason);
+        degradedCount++;
+      }
+    }
+
+    console.log(`🔍 [SmartlinkCircuitBreaker] Audit finished: ${totalChecked} checked | ${healthyCount} healthy | ${degradedCount} degraded.\n`);
+    return { totalChecked, degradedCount, healthyCount };
+  }
+
   /**
    * Starts background audit loop
    */
@@ -421,6 +478,12 @@ export class PostHealthMonitor {
     this.timer = setInterval(() => {
       this.runAuditCycle().catch(() => {});
     }, this.auditIntervalMs);
+
+    // Initial Smartlink Circuit Breaker check
+    this.checkSmartlinksHealth().catch(() => {});
+    this.smartlinkTimer = setInterval(() => {
+      this.checkSmartlinksHealth().catch(() => {});
+    }, this.smartlinkIntervalMs);
   }
 
   /**
@@ -431,6 +494,10 @@ export class PostHealthMonitor {
     if (this.timer) {
       clearInterval(this.timer);
       this.timer = null;
+    }
+    if (this.smartlinkTimer) {
+      clearInterval(this.smartlinkTimer);
+      this.smartlinkTimer = null;
     }
     console.log('[PostHealthMonitor] Daemon STOPPED.');
   }
