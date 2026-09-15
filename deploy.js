@@ -58,7 +58,7 @@ conn.on('ready', async () => {
 
     // 3. Reload PM2 Services with updated code
     console.log('\n--- [STEP 3] Reloading PM2 Microservices ---');
-    await runCmd(conn, `cd ${APP_DIR} && pm2 reload ecosystem.config.js --update-env`);
+    await runCmd(conn, `cd ${APP_DIR} && (pm2 reload ecosystem.config.cjs --update-env || pm2 restart all --update-env)`);
 
     // 4. Check and Update Queue Status in SQLite on Production
     console.log('\n--- [STEP 4] Updating & Verifying Status in SQLite on Production ---');
