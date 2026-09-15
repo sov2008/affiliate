@@ -1,0 +1,36 @@
+{
+  "mcpServers": {
+    "sqlite-content-queue": {
+      "command": "node",
+      "args": [
+        "D:\\WEB\\antigravity\\affiliate\\scripts\\mcp-sqlite-server.cjs",
+        "--db-path",
+        "D:\\WEB\\antigravity\\affiliate\\core\\data\\content_queue.sqlite"
+      ],
+      "env": {
+        "NODE_ENV": "production",
+        "SQLITE_READONLY": "true"
+      }
+    },
+    "sqlite-tg-leads": {
+      "command": "node",
+      "args": [
+        "D:\\WEB\\antigravity\\affiliate\\scripts\\mcp-sqlite-server.cjs",
+        "--db-path",
+        "D:\\WEB\\antigravity\\affiliate\\core\\data\\tg_leads.db"
+      ],
+      "env": {
+        "NODE_ENV": "production",
+        "SQLITE_READONLY": "true"
+      }
+    },
+    "sqlite-official-npx": {
+      "command": "npx.cmd",
+      "args": [
+        "-y",
+        "mcp-server-sqlite-npx",
+        "D:\\WEB\\antigravity\\affiliate\\core\\data\\content_queue.sqlite"
+      ]
+    }
+  }
+}
