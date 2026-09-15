@@ -5,6 +5,8 @@ import Footer from '../components/Footer.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import DatingSmartlinkCTA from '../components/DatingSmartlinkCTA.astro';
 import DatingRadarQuiz from '../components/DatingRadarQuiz.astro';
+import InlineQuiz from '../components/InlineQuiz.astro';
+import StickyRadar from '../components/StickyRadar.astro';
 import ExitIntentModal from '../components/ExitIntentModal.astro';
 
 interface Props {
@@ -229,9 +231,8 @@ const faqSchema = {
 
       <!-- Mid-Article Sticky Inline Radar Quiz (Injected dynamically into article midpoint) -->
       <div id="mid-quiz-container" class="my-8 not-prose">
-        <DatingRadarQuiz
+        <InlineQuiz
           slug={slug}
-          variant="sticky"
           quizId="mid-radar-quiz"
           title="⚡ Quick Scan: Is Your Dating Match Real?"
           subtitle="Instant cross-reference against verified anti-bot database and spoofing patterns."
@@ -240,9 +241,8 @@ const faqSchema = {
 
       <!-- Conversion Hook: Full AI Match & Integrity Radar Quiz -->
       <section class="mt-12 mb-8">
-        <DatingRadarQuiz
+        <InlineQuiz
           slug={slug}
-          variant="full"
           quizId="bottom-radar-quiz"
           title="AI Match & Integrity Radar: Complete Profile Verification"
           subtitle="Stop wasting time on catfish profiles and bot swarms. Verify safety clearance and access 100% verified singles."
@@ -336,6 +336,9 @@ const faqSchema = {
       document.addEventListener('DOMContentLoaded', initReadingExperience);
       initReadingExperience();
     </script>
+
+    <!-- Mobile Sticky Radar Bar with Geo-Personalization & Activity Ping -->
+    <StickyRadar slug={slug} />
 
     <!-- Exit-Intent Retention Modal -->
     <ExitIntentModal slug={slug} />

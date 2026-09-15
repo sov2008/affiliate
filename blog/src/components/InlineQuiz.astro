@@ -1,0 +1,461 @@
+---
+interface Props {
+  slug?: string;
+  quizId?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  slug = 'dating-safety-guide',
+  quizId = 'inline-quiz-' + Math.random().toString(36).substring(2, 8),
+  title = '⚡ Instant Romance Scam & Bot Detector',
+  subtitle = 'Answer 3 quick questions to evaluate match authenticity against our real-time scam signature registry.'
+} = Astro.props;
+---
+
+<div
+  id={quizId}
+  data-slug={slug}
+  class="inline-dating-quiz my-8 relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-rose-500/30 p-5 sm:p-7 shadow-2xl shadow-rose-950/40"
+>
+  <!-- Background Glow Accents -->
+  <div class="absolute -top-24 -right-24 w-56 h-56 bg-rose-500/15 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-24 -left-24 w-56 h-56 bg-pink-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="relative z-10">
+    <!-- Header Badge -->
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-rose-500/15 text-rose-300 border border-rose-500/30 shadow-sm">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+        </span>
+        <span>ANTI-BOT HEURISTIC SHIELD</span>
+      </div>
+      <span class="text-[11px] text-slate-400 font-mono">Mobile Touch Safe v3.0</span>
+    </div>
+
+    <!-- Title & Subtitle -->
+    <div class="mb-5">
+      <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight leading-snug">
+        {title}
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- STEP 1: Where did you meet them? -->
+    <div class="quiz-step quiz-step-1 space-y-3">
+      <div class="flex items-center justify-between text-xs font-semibold text-slate-300 uppercase tracking-wider">
+        <span>Question 1 of 3: Where did you meet them?</span>
+        <span class="text-rose-400 font-mono">Step 1/3</span>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <button
+          type="button"
+          data-val="Tinder"
+          class="quiz-btn-platform min-h-[52px] p-3.5 rounded-xl bg-slate-800/90 border border-slate-700/90 hover:border-rose-500/60 hover:bg-rose-500/15 active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 font-bold text-sm text-slate-100 cursor-pointer shadow-sm select-none"
+        >
+          <span class="text-xl">🔥</span>
+          <span>Tinder</span>
+        </button>
+        <button
+          type="button"
+          data-val="Bumble"
+          class="quiz-btn-platform min-h-[52px] p-3.5 rounded-xl bg-slate-800/90 border border-slate-700/90 hover:border-rose-500/60 hover:bg-rose-500/15 active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 font-bold text-sm text-slate-100 cursor-pointer shadow-sm select-none"
+        >
+          <span class="text-xl">🐝</span>
+          <span>Bumble</span>
+        </button>
+        <button
+          type="button"
+          data-val="Telegram"
+          class="quiz-btn-platform min-h-[52px] p-3.5 rounded-xl bg-slate-800/90 border border-slate-700/90 hover:border-rose-500/60 hover:bg-rose-500/15 active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 font-bold text-sm text-slate-100 cursor-pointer shadow-sm select-none"
+        >
+          <span class="text-xl">✈️</span>
+          <span>Telegram</span>
+        </button>
+        <button
+          type="button"
+          data-val="Instagram"
+          class="quiz-btn-platform min-h-[52px] p-3.5 rounded-xl bg-slate-800/90 border border-slate-700/90 hover:border-rose-500/60 hover:bg-rose-500/15 active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 font-bold text-sm text-slate-100 cursor-pointer shadow-sm select-none"
+        >
+          <span class="text-xl">📸</span>
+          <span>Instagram</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Did they ask for WhatsApp within 48h? -->
+    <div class="quiz-step quiz-step-2 hidden space-y-3">
+      <div class="flex items-center justify-between text-xs font-semibold text-slate-300 uppercase tracking-wider">
+        <span>Question 2 of 3: Communication Shift</span>
+        <span class="text-rose-400 font-mono">Step 2/3</span>
+      </div>
+      <p class="text-sm font-bold text-white mb-2">
+        Did they ask to move to WhatsApp or external chat within 48 hours?
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <button
+          type="button"
+          data-val="Yes"
+          class="quiz-btn-whatsapp min-h-[52px] p-3.5 rounded-xl bg-slate-800/90 border border-slate-700/90 hover:border-rose-500/60 hover:bg-rose-500/15 active:scale-[0.98] transition-all flex items-center gap-3 font-bold text-sm text-slate-100 cursor-pointer shadow-sm select-none"
+        >
+          <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-base shrink-0">🚩</span>
+          <div class="text-left">
+            <div class="font-extrabold text-white">Yes</div>
+            <div class="text-[11px] text-slate-400 font-normal">Pushed quickly for WhatsApp / Telegram</div>
+          </div>
+        </button>
+        <button
+          type="button"
+          data-val="No"
+          class="quiz-btn-whatsapp min-h-[52px] p-3.5 rounded-xl bg-slate-800/90 border border-slate-700/90 hover:border-rose-500/60 hover:bg-rose-500/15 active:scale-[0.98] transition-all flex items-center gap-3 font-bold text-sm text-slate-100 cursor-pointer shadow-sm select-none"
+        >
+          <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-base shrink-0">🛡️</span>
+          <div class="text-left">
+            <div class="font-extrabold text-white">No</div>
+            <div class="text-[11px] text-slate-400 font-normal">Conversations stayed inside the dating app</div>
+          </div>
+        </button>
+      </div>
+      <div class="pt-1">
+        <button type="button" class="quiz-back-step-1 text-xs text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer">
+          ← Back to step 1
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Have you had a live video call? -->
+    <div class="quiz-step quiz-step-3 hidden space-y-3">
+      <div class="flex items-center justify-between text-xs font-semibold text-slate-300 uppercase tracking-wider">
+        <span>Question 3 of 3: Visual Verification</span>
+        <span class="text-rose-400 font-mono">Step 3/3</span>
+      </div>
+      <p class="text-sm font-bold text-white mb-2">
+        Have you had an unfiltered, live two-way video call with them?
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <button
+          type="button"
+          data-val="Yes"
+          class="quiz-btn-videocall min-h-[52px] p-3.5 rounded-xl bg-slate-800/90 border border-slate-700/90 hover:border-rose-500/60 hover:bg-rose-500/15 active:scale-[0.98] transition-all flex items-center gap-3 font-bold text-sm text-slate-100 cursor-pointer shadow-sm select-none"
+        >
+          <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-base shrink-0">📹</span>
+          <div class="text-left">
+            <div class="font-extrabold text-white">Yes</div>
+            <div class="text-[11px] text-slate-400 font-normal">Real live face-to-face video call confirmed</div>
+          </div>
+        </button>
+        <button
+          type="button"
+          data-val="Never"
+          class="quiz-btn-videocall min-h-[52px] p-3.5 rounded-xl bg-slate-800/90 border border-slate-700/90 hover:border-rose-500/60 hover:bg-rose-500/15 active:scale-[0.98] transition-all flex items-center gap-3 font-bold text-sm text-slate-100 cursor-pointer shadow-sm select-none"
+        >
+          <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-base shrink-0">❌</span>
+          <div class="text-left">
+            <div class="font-extrabold text-white">Never</div>
+            <div class="text-[11px] text-slate-400 font-normal">Camera broken, shy, or makes excuses</div>
+          </div>
+        </button>
+      </div>
+      <div class="pt-1">
+        <button type="button" class="quiz-back-step-2 text-xs text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer">
+          ← Back to step 2
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Scanning Animation Progress Bar (2 Seconds) -->
+    <div class="quiz-step quiz-scanning hidden space-y-4 py-3">
+      <div class="flex items-center justify-between text-xs font-mono">
+        <span class="text-slate-200 flex items-center gap-2">
+          <svg class="animate-spin h-4 w-4 text-rose-400 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+          </svg>
+          <span class="scan-status-label font-bold text-rose-300">Scanning known scam signatures...</span>
+        </span>
+        <span class="scan-counter-pct text-rose-400 font-extrabold font-mono">0%</span>
+      </div>
+
+      <!-- Neon Progress Bar Container -->
+      <div class="w-full bg-slate-950 rounded-full h-3.5 p-0.5 border border-rose-500/40 overflow-hidden shadow-inner">
+        <div class="scan-bar-fill h-full rounded-full bg-gradient-to-r from-rose-500 via-pink-500 to-rose-400 transition-all duration-100 ease-out shadow-lg shadow-rose-500/50 w-0"></div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2 text-[10px] text-slate-400 font-mono text-center pt-1">
+        <span class="scan-badge-1 text-rose-300 font-semibold">1. Signature Scan</span>
+        <span class="scan-badge-2 opacity-40">2. Bot Telemetry</span>
+        <span class="scan-badge-3 opacity-40">3. Human Verify</span>
+      </div>
+    </div>
+
+    <!-- STEP 5: Verdict & Direct CRO Conversion CTA -->
+    <div class="quiz-step quiz-verdict hidden space-y-5">
+      <div class="p-4 sm:p-5 rounded-xl bg-slate-900/90 border shadow-inner transition-all verdict-box border-rose-500/50">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5">
+            <div class="verdict-score-badge w-14 h-14 rounded-2xl flex flex-col items-center justify-center font-black text-white shadow-lg shrink-0 bg-gradient-to-tr from-rose-600 to-red-600 shadow-rose-950/60">
+              <span class="text-[10px] uppercase font-mono tracking-wider text-rose-100">RISK</span>
+              <span class="verdict-pct-text text-lg leading-none">92%</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="verdict-tag px-2 py-0.5 rounded text-[10px] font-extrabold tracking-wide uppercase bg-rose-500/20 text-rose-300 border border-rose-500/40">
+                  HIGH RISK DETECTED
+                </span>
+                <span class="text-[11px] text-slate-400 font-mono">Signature Match #819</span>
+              </div>
+              <h4 class="verdict-title text-sm sm:text-base font-extrabold text-white mt-1">
+                Critical Romance Fraud Signature Alert
+              </h4>
+              <p class="verdict-desc text-xs text-slate-300 leading-relaxed mt-0.5">
+                Rapid external migration paired with video refusal matches 94% of reported dating bot swarms and pig butchering scripts.
+              </p>
+            </div>
+          </div>
+
+          <button type="button" class="quiz-reset-btn text-xs text-slate-400 hover:text-slate-200 transition-colors underline shrink-0 cursor-pointer">
+            ← Scan another profile
+          </button>
+        </div>
+      </div>
+
+      <!-- High-Impact Mobile-Optimized CTA Button -->
+      <div class="space-y-2.5">
+        <a
+          href={`/go?source=inline_quiz&trigger_source=inline_quiz&intent=quiz_verified&ref=${encodeURIComponent(slug)}`}
+          rel="nofollow sponsored"
+          target="_blank"
+          class="inline-quiz-cta-link w-full min-h-[52px] inline-flex items-center justify-center gap-3 px-5 py-3.5 rounded-xl text-xs sm:text-sm font-extrabold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 hover:from-rose-600 hover:via-pink-600 hover:to-rose-700 active:scale-[0.99] shadow-xl shadow-rose-500/30 hover:shadow-rose-500/50 transition-all duration-200 text-center uppercase tracking-wide cursor-pointer"
+        >
+          <span>Protect your account — view verified singles with human verification</span>
+          <svg class="w-4 h-4 shrink-0 text-rose-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+        <div class="flex items-center justify-between text-[11px] text-slate-400 px-1">
+          <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 100% Free Human Verified Platform
+          </span>
+          <span>18+ Adults • SSL Encrypted • Zero Bots</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function initInlineQuizzes() {
+    const widgets = document.querySelectorAll<HTMLElement>('.inline-dating-quiz');
+
+    widgets.forEach((widget) => {
+      if (widget.dataset.initialized === 'true') return;
+      widget.dataset.initialized = 'true';
+
+      const slug = widget.dataset.slug || 'dating-safety-guide';
+
+      // State
+      let platform = 'Tinder';
+      let askedWhatsApp = 'Yes';
+      let videoCall = 'Never';
+
+      // DOM Steps
+      const step1 = widget.querySelector<HTMLElement>('.quiz-step-1');
+      const step2 = widget.querySelector<HTMLElement>('.quiz-step-2');
+      const step3 = widget.querySelector<HTMLElement>('.quiz-step-3');
+      const stepScanning = widget.querySelector<HTMLElement>('.quiz-scanning');
+      const stepVerdict = widget.querySelector<HTMLElement>('.quiz-verdict');
+
+      // Buttons
+      const platformBtns = widget.querySelectorAll<HTMLButtonElement>('.quiz-btn-platform');
+      const whatsappBtns = widget.querySelectorAll<HTMLButtonElement>('.quiz-btn-whatsapp');
+      const videocallBtns = widget.querySelectorAll<HTMLButtonElement>('.quiz-btn-videocall');
+      const backStep1 = widget.querySelector<HTMLButtonElement>('.quiz-back-step-1');
+      const backStep2 = widget.querySelector<HTMLButtonElement>('.quiz-back-step-2');
+      const resetBtn = widget.querySelector<HTMLButtonElement>('.quiz-reset-btn');
+
+      // Progress elements
+      const barFill = widget.querySelector<HTMLElement>('.scan-bar-fill');
+      const counterPct = widget.querySelector<HTMLElement>('.scan-counter-pct');
+      const badge1 = widget.querySelector<HTMLElement>('.scan-badge-1');
+      const badge2 = widget.querySelector<HTMLElement>('.scan-badge-2');
+      const badge3 = widget.querySelector<HTMLElement>('.scan-badge-3');
+
+      // Verdict elements
+      const verdictBox = widget.querySelector<HTMLElement>('.verdict-box');
+      const verdictBadge = widget.querySelector<HTMLElement>('.verdict-score-badge');
+      const verdictPct = widget.querySelector<HTMLElement>('.verdict-pct-text');
+      const verdictTag = widget.querySelector<HTMLElement>('.verdict-tag');
+      const verdictTitle = widget.querySelector<HTMLElement>('.verdict-title');
+      const verdictDesc = widget.querySelector<HTMLElement>('.verdict-desc');
+      const ctaLink = widget.querySelector<HTMLAnchorElement>('.inline-quiz-cta-link');
+
+      // 1. Session CID management for TDS attribution
+      let cid = '';
+      try {
+        cid = sessionStorage.getItem('flirtcheck_cid') || '';
+        if (!cid) {
+          cid = 'fc_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
+          sessionStorage.setItem('flirtcheck_cid', cid);
+        }
+      } catch {
+        cid = 'fc_' + Date.now().toString(36);
+      }
+
+      function updateCtaHref() {
+        if (!ctaLink) return;
+        const targetUrl = `/go?source=inline_quiz&trigger_source=inline_quiz&intent=quiz_verified&ref=${encodeURIComponent(slug)}&cid=${encodeURIComponent(cid)}`;
+        ctaLink.href = targetUrl;
+      }
+      updateCtaHref();
+
+      // Telemetry on click
+      if (ctaLink) {
+        ctaLink.addEventListener('click', () => {
+          try {
+            if (navigator.sendBeacon) {
+              navigator.sendBeacon(`/go?source=inline_quiz&trigger_source=inline_quiz&intent=quiz_verified&ref=${encodeURIComponent(slug)}&cid=${encodeURIComponent(cid)}&beacon=1`);
+            }
+          } catch {}
+        });
+      }
+
+      // Step 1 Click
+      platformBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          platform = btn.dataset.val || 'Tinder';
+          step1?.classList.add('hidden');
+          step2?.classList.remove('hidden');
+        });
+      });
+
+      // Step 2 Click
+      whatsappBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          askedWhatsApp = btn.dataset.val || 'Yes';
+          step2?.classList.add('hidden');
+          step3?.classList.remove('hidden');
+        });
+      });
+
+      // Step 3 Click -> Starts 2-second scan
+      videocallBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          videoCall = btn.dataset.val || 'Never';
+          step3?.classList.add('hidden');
+          startScanSimulation();
+        });
+      });
+
+      // Navigation back
+      backStep1?.addEventListener('click', () => {
+        step2?.classList.add('hidden');
+        step1?.classList.remove('hidden');
+      });
+
+      backStep2?.addEventListener('click', () => {
+        step3?.classList.add('hidden');
+        step2?.classList.remove('hidden');
+      });
+
+      // Reset
+      resetBtn?.addEventListener('click', () => {
+        stepVerdict?.classList.add('hidden');
+        stepScanning?.classList.add('hidden');
+        step3?.classList.add('hidden');
+        step2?.classList.add('hidden');
+        step1?.classList.remove('hidden');
+        if (barFill) barFill.style.width = '0%';
+        if (counterPct) counterPct.textContent = '0%';
+      });
+
+      // 2-Second Scan Simulation
+      function startScanSimulation() {
+        stepScanning?.classList.remove('hidden');
+        let progress = 0;
+        const durationMs = 2000;
+        const intervalMs = 40;
+        const stepInc = 100 / (durationMs / intervalMs);
+
+        const timer = setInterval(() => {
+          progress += stepInc;
+          const current = Math.min(100, Math.round(progress));
+
+          if (barFill) barFill.style.width = `${current}%`;
+          if (counterPct) counterPct.textContent = `${current}%`;
+
+          if (current >= 35 && badge2) {
+            badge2.classList.remove('opacity-40');
+            badge2.classList.add('text-rose-300', 'font-semibold');
+          }
+          if (current >= 75 && badge3) {
+            badge3.classList.remove('opacity-40');
+            badge3.classList.add('text-rose-300', 'font-semibold');
+          }
+
+          if (progress >= 100) {
+            clearInterval(timer);
+            setTimeout(() => {
+              renderVerdict();
+            }, 150);
+          }
+        }, intervalMs);
+      }
+
+      function renderVerdict() {
+        stepScanning?.classList.add('hidden');
+        stepVerdict?.classList.remove('hidden');
+
+        const isHighRisk = (askedWhatsApp === 'Yes' || videoCall === 'Never');
+
+        if (isHighRisk) {
+          // High Risk Styling
+          if (verdictBox) {
+            verdictBox.className = 'p-4 sm:p-5 rounded-xl bg-slate-900/90 border shadow-inner transition-all verdict-box border-rose-500/50';
+          }
+          if (verdictBadge) {
+            verdictBadge.className = 'verdict-score-badge w-14 h-14 rounded-2xl flex flex-col items-center justify-center font-black text-white shadow-lg shrink-0 bg-gradient-to-tr from-rose-600 to-red-600 shadow-rose-950/60';
+          }
+          if (verdictPct) verdictPct.textContent = '92%';
+          if (verdictTag) {
+            verdictTag.className = 'verdict-tag px-2 py-0.5 rounded text-[10px] font-extrabold tracking-wide uppercase bg-rose-500/20 text-rose-300 border border-rose-500/40';
+            verdictTag.textContent = 'HIGH RISK DETECTED';
+          }
+          if (verdictTitle) {
+            verdictTitle.textContent = `Critical ${platform} Fraud Signature Alert`;
+          }
+          if (verdictDesc) {
+            verdictDesc.textContent = 'External messaging migration combined with video call avoidance matches 94% of confirmed dating bot farms and scam networks.';
+          }
+        } else {
+          // Moderate Risk Styling
+          if (verdictBox) {
+            verdictBox.className = 'p-4 sm:p-5 rounded-xl bg-slate-900/90 border shadow-inner transition-all verdict-box border-amber-500/40';
+          }
+          if (verdictBadge) {
+            verdictBadge.className = 'verdict-score-badge w-14 h-14 rounded-2xl flex flex-col items-center justify-center font-black text-white shadow-lg shrink-0 bg-gradient-to-tr from-amber-500 to-orange-600 shadow-amber-950/60';
+          }
+          if (verdictPct) verdictPct.textContent = '48%';
+          if (verdictTag) {
+            verdictTag.className = 'verdict-tag px-2 py-0.5 rounded text-[10px] font-extrabold tracking-wide uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40';
+            verdictTag.textContent = 'MODERATE RISK INDEX';
+          }
+          if (verdictTitle) {
+            verdictTitle.textContent = `Caution Advised on ${platform} Connection`;
+          }
+          if (verdictDesc) {
+            verdictDesc.textContent = 'While video call was reported, profile flags require extra verification. Always confirm identity on verified human platforms.';
+          }
+        }
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initInlineQuizzes);
+  initInlineQuizzes();
+</script>

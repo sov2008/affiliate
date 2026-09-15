@@ -286,7 +286,7 @@ export function handleDatingSmartlinkRedirect(req: Request, res: Response) {
     // Extract conversion parameters from widget
     const ref = (req.query.ref || req.query.slug || 'direct') as string;
     const intent = (req.query.intent || 'bot_check') as string;
-    const triggerSource = (req.query.trigger || req.query.trigger_source || 'inline_quiz') as string;
+    const triggerSource = (req.query.trigger || req.query.trigger_source || req.query.source || 'inline_quiz') as string;
     const referrer = (req.headers['referer'] || req.headers['referrer'] || '') as string;
     const isTestProbe = ref === 'test-quiz' || ref === 'test-split' || req.query.test === '1';
 

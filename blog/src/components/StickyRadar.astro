@@ -1,0 +1,144 @@
+---
+interface Props {
+  slug?: string;
+}
+
+const { slug = 'dating-safety-guide' } = Astro.props;
+---
+
+<div
+  id="sticky-radar-bar"
+  data-slug={slug}
+  class="fixed bottom-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-md border-t border-rose-500/40 shadow-[0_-6px_25px_rgba(244,63,94,0.25)] translate-y-full opacity-0 pointer-events-none transition-all duration-300 ease-out"
+  style="padding-bottom: env(safe-area-inset-bottom, 0px);"
+  role="region"
+  aria-label="Real-time Dating Match Radar"
+>
+  <div class="max-w-5xl mx-auto px-3 sm:px-6 h-14 flex items-center justify-between gap-2 sm:gap-4">
+    <!-- Status & Dynamic Geo Alert -->
+    <div class="flex items-center gap-2.5 min-w-0 flex-1">
+      <!-- Pulsing Emerald Activity Dot -->
+      <span class="relative flex h-2.5 w-2.5 shrink-0" title="Radar Live Activity">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+      </span>
+
+      <!-- Dynamic Geo Warning -->
+      <div class="min-w-0 flex-1">
+        <p class="text-[11px] sm:text-xs md:text-sm font-semibold text-slate-100 truncate">
+          <span class="text-amber-400 font-bold">⚠️ 14 bot farms active</span> in <span id="sticky-radar-location" class="text-rose-400 font-bold underline decoration-rose-500/50 underline-offset-2">your area</span>. <span class="hidden xs:inline sm:inline text-slate-300 font-normal">Run 15s check</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Action Button -->
+    <div class="shrink-0 flex items-center gap-2">
+      <a
+        id="sticky-radar-cta-btn"
+        href={`/go?source=sticky_radar&trigger_source=sticky_radar&intent=bot_check&ref=${encodeURIComponent(slug)}`}
+        rel="nofollow sponsored"
+        target="_blank"
+        class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-black text-white bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 hover:from-rose-600 hover:via-pink-600 hover:to-rose-700 active:scale-95 shadow-lg shadow-rose-500/30 transition-all duration-150 uppercase tracking-wider cursor-pointer whitespace-nowrap"
+      >
+        <span>Verify Now</span>
+        <svg class="w-3.5 h-3.5 text-rose-100" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initStickyRadar() {
+    const radarBar = document.getElementById('sticky-radar-bar');
+    if (!radarBar || radarBar.dataset.initialized === 'true') return;
+    radarBar.dataset.initialized = 'true';
+
+    const slug = radarBar.dataset.slug || 'dating-safety-guide';
+    const locEl = document.getElementById('sticky-radar-location');
+    const ctaBtn = document.getElementById('sticky-radar-cta-btn') as HTMLAnchorElement | null;
+
+    // 1. Session CID management for end-to-end attribution
+    let cid = '';
+    try {
+      cid = sessionStorage.getItem('flirtcheck_cid') || '';
+      if (!cid) {
+        cid = 'fc_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
+        sessionStorage.setItem('flirtcheck_cid', cid);
+      }
+    } catch {
+      cid = 'fc_' + Date.now().toString(36);
+    }
+
+    // 2. Dynamic Geo-Personalization via Intl/Timezone
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if (tz && locEl) {
+        const parts = tz.split('/');
+        const rawCity = parts[parts.length - 1].replace(/_/g, ' ');
+        if (rawCity && !['UTC', 'GMT', 'Etc'].includes(rawCity)) {
+          locEl.textContent = rawCity;
+        }
+      }
+    } catch (err) {
+      console.debug('StickyRadar geo detection fallback:', err);
+    }
+
+    // 3. Update CTA Link with full attribution payload
+    if (ctaBtn) {
+      const targetUrl = `/go?source=sticky_radar&trigger_source=sticky_radar&intent=bot_check&ref=${encodeURIComponent(slug)}&cid=${encodeURIComponent(cid)}`;
+      ctaBtn.href = targetUrl;
+
+      // Optional beacon telemetry on click
+      ctaBtn.addEventListener('click', () => {
+        try {
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon(`/go?source=sticky_radar&trigger_source=sticky_radar&intent=bot_check&ref=${encodeURIComponent(slug)}&cid=${encodeURIComponent(cid)}&beacon=1`);
+          }
+        } catch {}
+      });
+    }
+
+    // 4. Scroll Logic: Show after 25% scroll, hide when footer reached
+    let isVisible = false;
+    const footer = document.querySelector('footer');
+
+    function checkScroll() {
+      if (!radarBar) return;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+      if (docHeight <= 0) return;
+
+      const scrollPct = scrollTop / docHeight;
+      const reached25Percent = scrollPct >= 0.25;
+
+      // Check if footer is in viewport
+      let footerVisible = false;
+      if (footer) {
+        const footerRect = footer.getBoundingClientRect();
+        footerVisible = footerRect.top <= (window.innerHeight - 30);
+      }
+
+      const shouldShow = reached25Percent && !footerVisible;
+
+      if (shouldShow && !isVisible) {
+        isVisible = true;
+        radarBar.classList.remove('translate-y-full', 'opacity-0', 'pointer-events-none');
+        radarBar.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+      } else if (!shouldShow && isVisible) {
+        isVisible = false;
+        radarBar.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+        radarBar.classList.add('translate-y-full', 'opacity-0', 'pointer-events-none');
+      }
+    }
+
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    window.addEventListener('resize', checkScroll, { passive: true });
+    checkScroll();
+  }
+
+  document.addEventListener('DOMContentLoaded', initStickyRadar);
+  initStickyRadar();
+</script>
