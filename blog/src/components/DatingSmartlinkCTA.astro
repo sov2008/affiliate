@@ -14,55 +14,51 @@ const {
 } = Astro.props;
 ---
 
-<div class="my-10 relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-rose-500/30 p-6 sm:p-8 shadow-2xl shadow-rose-950/40">
-  <!-- Glowing Background Orbs -->
-  <div class="absolute -top-24 -right-24 w-64 h-64 bg-rose-500/15 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-pink-500/15 rounded-full blur-3xl pointer-events-none"></div>
-
+<div class="my-10 relative overflow-hidden rounded-2xl bg-[#FFFDF9] border-2 border-slate-900 p-6 sm:p-8 shadow-[6px_6px_0px_0px_#0f172a] text-slate-900">
   <div class="relative z-10">
     <!-- Header Badge -->
     <div class="flex items-center justify-between mb-4">
-      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">
-        <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded border border-slate-900 text-xs font-mono font-bold bg-amber-200 text-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
+        <span class="w-2 h-2 rounded-full bg-rose-600 animate-ping"></span>
         <span>VERIFICATION ENGINE ACTIVE</span>
       </span>
-      <span class="text-xs text-slate-400 font-medium">Safe Dating Protocol v2.6</span>
+      <span class="text-xs text-slate-600 font-mono font-bold">Safe Dating Protocol v2.6</span>
     </div>
 
     <!-- Title & Subtitle -->
-    <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight mb-2">
+    <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mb-2 font-sans">
       {title}
     </h3>
-    <p class="text-sm text-slate-300 mb-6 leading-relaxed">
+    <p class="text-sm text-slate-600 mb-6 leading-relaxed font-serif italic">
       {subtitle}
     </p>
 
     <!-- Interactive Interactive Quiz Container -->
-    <div class="bg-slate-900/90 rounded-xl p-4 sm:p-6 border border-slate-800 space-y-4 mb-6">
+    <div class="bg-amber-50/80 rounded-xl p-4 sm:p-6 border-2 border-slate-900 shadow-[3px_3px_0px_0px_#0f172a] space-y-4 mb-6">
       <div class="space-y-2">
-        <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider block">
-          Step 1: Select What You're Looking For
+        <label class="text-xs font-black text-slate-900 uppercase tracking-wider block font-mono">
+          Step 1: Select Your Dating Objective
         </label>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
-          <button type="button" class="quiz-pill active py-2.5 px-3 rounded-lg bg-rose-500/20 border border-rose-500/50 text-white font-medium text-center hover:bg-rose-500/30 transition-all">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs">
+          <button type="button" class="quiz-pill active py-2.5 px-3 rounded-lg bg-rose-600 border-2 border-slate-900 text-white font-black text-center shadow-[2px_2px_0px_0px_#0f172a] transition-all cursor-pointer">
             Casual Flirting
           </button>
-          <button type="button" class="quiz-pill py-2.5 px-3 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 font-medium text-center hover:bg-slate-700 transition-all">
+          <button type="button" class="quiz-pill py-2.5 px-3 rounded-lg bg-white border-2 border-slate-900 text-slate-800 font-bold text-center hover:bg-rose-50 hover:text-rose-600 transition-all cursor-pointer">
             Serious Romance
           </button>
-          <button type="button" class="quiz-pill py-2.5 px-3 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 font-medium text-center hover:bg-slate-700 transition-all">
+          <button type="button" class="quiz-pill py-2.5 px-3 rounded-lg bg-white border-2 border-slate-900 text-slate-800 font-bold text-center hover:bg-rose-50 hover:text-rose-600 transition-all cursor-pointer">
             Fast Safe Meetup
           </button>
         </div>
       </div>
 
-      <div class="space-y-2 pt-2">
-        <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider block">
+      <div class="space-y-2 pt-2 border-t border-slate-900/20">
+        <label class="text-xs font-black text-slate-900 uppercase tracking-wider block font-mono">
           Step 2: Verification Level
         </label>
-        <div class="flex items-center gap-2 text-xs text-slate-400">
-          <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        <div class="flex items-center gap-2 text-xs text-slate-700 font-medium">
+          <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
           </svg>
           <span>Anti-Bot Shield & 100% Photo Authenticity Filter enabled</span>
         </div>
@@ -75,15 +71,15 @@ const {
         href={offerUrl}
         rel="nofollow sponsored"
         target="_blank"
-        class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl text-sm sm:text-base font-bold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 hover:from-rose-600 hover:via-pink-600 hover:to-rose-700 shadow-xl shadow-rose-500/30 hover:shadow-rose-500/50 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] text-center"
+        class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl text-sm sm:text-base font-black text-white bg-rose-600 hover:bg-rose-700 border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_#0f172a] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all duration-150 text-center uppercase tracking-wider"
       >
         <span>Access Verified Singles Portal</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
         </svg>
       </a>
-      <div class="text-[11px] text-slate-400 text-center sm:text-left">
-        <span class="text-emerald-400 font-semibold">● 18+ Only</span> • 100% Free Signup • SSL Encrypted
+      <div class="text-[11px] text-slate-600 font-mono text-center sm:text-left font-bold">
+        <span class="text-emerald-700">● 18+ Only</span> • 100% Free Signup • SSL Encrypted
       </div>
     </div>
   </div>
@@ -95,11 +91,11 @@ const {
   pills.forEach(pill => {
     pill.addEventListener('click', () => {
       pills.forEach(p => {
-        p.classList.remove('bg-rose-500/20', 'border-rose-500/50', 'text-white');
-        p.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+        p.classList.remove('bg-rose-600', 'text-white', 'font-black', 'shadow-[2px_2px_0px_0px_#0f172a]');
+        p.classList.add('bg-white', 'text-slate-800', 'font-bold');
       });
-      pill.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
-      pill.classList.add('bg-rose-500/20', 'border-rose-500/50', 'text-white');
+      pill.classList.remove('bg-white', 'text-slate-800');
+      pill.classList.add('bg-rose-600', 'text-white', 'font-black', 'shadow-[2px_2px_0px_0px_#0f172a]');
     });
   });
 </script>

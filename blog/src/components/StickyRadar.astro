@@ -9,7 +9,7 @@ const { slug = 'dating-safety-guide' } = Astro.props;
 <div
   id="sticky-radar-bar"
   data-slug={slug}
-  class="fixed bottom-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-md border-t border-rose-500/40 shadow-[0_-6px_25px_rgba(244,63,94,0.25)] translate-y-full opacity-0 pointer-events-none transition-all duration-300 ease-out"
+  class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t-2 border-slate-900 shadow-[0_-4px_16px_rgba(15,23,42,0.12)] translate-y-full opacity-0 pointer-events-none transition-all duration-300 ease-out text-slate-900"
   style="padding-bottom: env(safe-area-inset-bottom, 0px);"
   role="region"
   aria-label="Real-time Dating Match Radar"
@@ -17,31 +17,32 @@ const { slug = 'dating-safety-guide' } = Astro.props;
   <div class="max-w-5xl mx-auto px-3 sm:px-6 h-14 flex items-center justify-between gap-2 sm:gap-4">
     <!-- Status & Dynamic Geo Alert -->
     <div class="flex items-center gap-2.5 min-w-0 flex-1">
-      <!-- Pulsing Emerald Activity Dot -->
-      <span class="relative flex h-2.5 w-2.5 shrink-0" title="Radar Live Activity">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+      <!-- Vintage Comic Radar Beep Dot -->
+      <span class="relative flex h-3 w-3 shrink-0" title="Radar Live Activity">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-600 border border-slate-900"></span>
       </span>
 
       <!-- Dynamic Geo Warning -->
       <div class="min-w-0 flex-1">
-        <p class="text-[11px] sm:text-xs md:text-sm font-semibold text-slate-100 truncate">
-          <span class="text-amber-400 font-bold">⚠️ 14 bot farms active</span> in <span id="sticky-radar-location" class="text-rose-400 font-bold underline decoration-rose-500/50 underline-offset-2">your area</span>. <span class="hidden xs:inline sm:inline text-slate-300 font-normal">Run 15s check</span>
+        <p class="text-[11px] sm:text-xs md:text-sm font-black text-slate-900 truncate font-mono">
+          <span class="bg-amber-200 border border-slate-900 px-1.5 py-0.5 rounded text-[10px] mr-1 shadow-[1px_1px_0px_0px_#0f172a]">ALERT</span>
+          <span>14 bot syndicates flagged near </span><span id="sticky-radar-location" class="text-rose-600 underline font-bold decoration-slate-900">your area</span>. <span class="hidden xs:inline sm:inline text-slate-600 font-normal">Run 15s dossier check.</span>
         </p>
       </div>
     </div>
 
-    <!-- Action Button -->
+    <!-- Action Button (Comic Style) -->
     <div class="shrink-0 flex items-center gap-2">
       <a
         id="sticky-radar-cta-btn"
         href={`/go?source=sticky_radar&trigger_source=sticky_radar&intent=bot_check&ref=${encodeURIComponent(slug)}`}
         rel="nofollow sponsored"
         target="_blank"
-        class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-black text-white bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 hover:from-rose-600 hover:via-pink-600 hover:to-rose-700 active:scale-95 shadow-lg shadow-rose-500/30 transition-all duration-150 uppercase tracking-wider cursor-pointer whitespace-nowrap"
+        class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-black text-white bg-rose-600 hover:bg-rose-700 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] transition-all duration-150 uppercase tracking-wider cursor-pointer whitespace-nowrap"
       >
-        <span>Verify Now</span>
-        <svg class="w-3.5 h-3.5 text-rose-100" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <span>Verify Dossier</span>
+        <svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
         </svg>
       </a>

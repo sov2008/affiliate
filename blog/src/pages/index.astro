@@ -14,12 +14,12 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pu
 const allTags = Array.from(new Set(allPosts.flatMap(post => post.data.tags)));
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://flirtcheck.site';
-const pageTitle = "FlirtCheck Safety Editorial | Online Dating Verification & Scam Guides";
-const pageDescription = "Authoritative guidebooks, scam detection protocols, and AI verification insights for modern dating platforms. Protect your heart and wallet.";
+const pageTitle = "FlirtCheck Safety Editorial | Vintage Love is... 90s Dating Dossier";
+const pageDescription = "Vintage 90s retro comic & editorial guidebooks, anti-scam verification heuristics, and safe dating insights. Safety is... knowing who is on the other side of the screen.";
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="bg-slate-950 text-slate-100 antialiased scroll-smooth">
+<html lang="en" class="bg-[#FBF8F3] text-slate-900 antialiased scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,9 +35,9 @@ const pageDescription = "Authoritative guidebooks, scam detection protocols, and
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={`${siteUrl}/blog/`} />
-    <meta property="og:image" content={`${siteUrl}/blog/images/posts/dating-scam-verification-guide-2026.webp`} />
+    <meta property="og:image" content={`${siteUrl}/blog/images/posts/reverse-image-search-lens-scam.webp`} />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:height" content="675" />
     <meta property="og:image:type" content="image/webp" />
 
     <!-- Twitter Card -->
@@ -45,59 +45,66 @@ const pageDescription = "Authoritative guidebooks, scam detection protocols, and
     <meta name="twitter:site" content="@flirtcheck" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
-    <meta name="twitter:image" content={`${siteUrl}/blog/images/posts/dating-scam-verification-guide-2026.webp`} />
+    <meta name="twitter:image" content={`${siteUrl}/blog/images/posts/reverse-image-search-lens-scam.webp`} />
   </head>
 
-  <body class="min-h-screen flex flex-col bg-slate-950 text-slate-200">
+  <body class="min-h-screen flex flex-col bg-[#FBF8F3] text-slate-900">
     <Header activePath="/blog" />
 
     <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
-      <!-- Hero Editorial Banner -->
-      <section class="text-center py-12 sm:py-16 relative">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20 mb-6">
-          <span class="w-2 h-2 rounded-full bg-rose-500"></span>
-          <span>FLIRTCHECK SAFETY INTELLIGENCE 2026</span>
+      <!-- Hero Editorial 90s Newspaper / Comic Banner -->
+      <section class="text-center py-10 sm:py-14 relative">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-md text-xs font-mono font-black uppercase bg-amber-200 text-slate-900 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] mb-6">
+          <span class="w-2 h-2 rounded-full bg-rose-600"></span>
+          <span>SPECIAL INVESTIGATIVE DOSSIER • ISSUE 2026</span>
         </div>
 
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-tight max-w-3xl mx-auto mb-6">
-          Navigate Online Dating With <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-500 to-rose-500">Uncompromising Safety</span>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight max-w-4xl mx-auto mb-4 font-sans">
+          Navigate Modern Dating With <span class="text-rose-600 underline decoration-slate-900 decoration-wavy decoration-2">Tactical Caution</span>
         </h1>
 
-        <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
-          Field-tested playbooks, profile verification protocols, and anti-fraud insights to help you identify real singles and bypass synthetic romance scams.
+        <!-- Iconic Love is... Comic Wrapper Motto -->
+        <div class="my-6 inline-block bg-white border-2 border-slate-900 rounded-xl px-6 py-3.5 shadow-[4px_4px_0px_0px_#0f172a] transform -rotate-1 hover:rotate-0 transition-transform">
+          <p class="font-serif italic text-lg sm:text-xl text-rose-600 font-bold">
+            "Safety is... knowing who is on the other side of the screen."
+          </p>
+        </div>
+
+        <p class="text-base sm:text-lg text-slate-700 max-w-2xl mx-auto leading-relaxed mb-8">
+          Field-tested verification playbooks, comic case studies, and bot-farm detection heuristics to protect your heart and crypto wallet from synthetic scams.
         </p>
 
-        <!-- Topic Tags Filter Bar -->
-        <div class="flex flex-wrap items-center justify-center gap-2 max-w-xl mx-auto">
-          <span class="text-xs text-slate-500 font-medium mr-1">Popular Topics:</span>
+        <!-- Topic Tags Filter Bar as Vintage Ink Stamps -->
+        <div class="flex flex-wrap items-center justify-center gap-2.5 max-w-2xl mx-auto">
+          <span class="text-xs font-mono uppercase text-slate-600 font-black mr-1">Classified Sections:</span>
           {allTags.map(tag => (
-            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-900 border border-slate-800 text-slate-300 hover:border-rose-500/40 hover:text-rose-400 transition-colors cursor-pointer">
+            <span class="px-3 py-1 rounded-md text-xs font-mono font-bold bg-white border-2 border-slate-900 text-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:bg-rose-50 hover:text-rose-600 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#0f172a] transition-all cursor-pointer">
               #{tag}
             </span>
           ))}
         </div>
       </section>
 
-      <!-- Articles Grid Section -->
-      <section class="mt-8 mb-16">
-        <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-800">
-          <h2 class="text-xl font-bold text-white tracking-tight flex items-center gap-2">
-            <span>Latest Verification Guides</span>
-            <span class="px-2 py-0.5 rounded text-xs font-semibold bg-slate-800 text-slate-400">
-              {sortedPosts.length}
+      <!-- Articles Grid Section (Comic Panels) -->
+      <section class="mt-6 mb-16">
+        <div class="flex items-center justify-between pb-4 mb-8 border-b-2 border-slate-900">
+          <h2 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3">
+            <span>Dispatched Field Reports</span>
+            <span class="px-2.5 py-0.5 rounded border-2 border-slate-900 text-xs font-mono font-black bg-rose-500 text-white shadow-[2px_2px_0px_0px_#0f172a]">
+              {sortedPosts.length} Guides
             </span>
           </h2>
         </div>
 
         {sortedPosts.length > 0 ? (
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {sortedPosts.map(post => (
               <PostCard post={post} />
             ))}
           </div>
         ) : (
-          <div class="text-center py-16 bg-slate-900/40 rounded-2xl border border-slate-800">
-            <p class="text-slate-400 text-sm">No articles published yet. Stay tuned!</p>
+          <div class="text-center py-16 bg-white rounded-2xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
+            <p class="text-slate-600 font-bold">No articles published yet. Stay tuned!</p>
           </div>
         )}
       </section>

@@ -13,60 +13,56 @@ const { slug = 'dating-safety-guide' } = Astro.props;
   aria-labelledby="exitModalTitle"
   aria-hidden="true"
   data-slug={slug}
-  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300"
 >
-  <!-- Modal Card -->
+  <!-- Modal Card (Comic Box) -->
   <div
     id="exitIntentCard"
-    class="relative w-full max-w-lg overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-rose-500/40 p-6 sm:p-8 shadow-2xl shadow-rose-950/60 transform scale-95 transition-all duration-300"
+    class="relative w-full max-w-lg overflow-hidden rounded-2xl bg-[#FFFDF9] border-2 border-slate-900 p-6 sm:p-8 shadow-[8px_8px_0px_0px_#0f172a] transform scale-95 transition-all duration-300 text-slate-900"
   >
-    <!-- Background Ambient Glow -->
-    <div class="absolute -top-24 -right-24 w-52 h-52 bg-rose-500/20 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute -bottom-24 -left-24 w-52 h-52 bg-pink-500/15 rounded-full blur-3xl pointer-events-none"></div>
-
     <!-- Close Button -->
     <button
       id="exitModalCloseBtn"
       type="button"
       aria-label="Close modal"
-      class="absolute top-4 right-4 p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700/60 transition-colors z-20 cursor-pointer"
+      class="absolute top-4 right-4 p-2 rounded-lg bg-white hover:bg-rose-50 text-slate-900 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] transition-all z-20 cursor-pointer"
     >
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
       </svg>
     </button>
 
     <div class="relative z-10 space-y-4">
       <!-- Warning Badge -->
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-500/15 text-rose-300 border border-rose-500/30 shadow-sm shadow-rose-500/20">
-        <span class="w-2 h-2 rounded-full bg-rose-400 animate-ping"></span>
-        <span>SECURITY ALERT • UNVERIFIED MATCH</span>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-slate-900 text-xs font-mono font-black uppercase tracking-wider bg-amber-200 text-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
+        <span class="w-2 h-2 rounded-full bg-rose-600 animate-ping"></span>
+        <span>SECURITY DOSSIER ALERT • MATCH UNVERIFIED</span>
       </div>
 
       <!-- Heading -->
-      <h3 id="exitModalTitle" class="text-xl sm:text-2xl font-black text-white tracking-tight leading-snug">
+      <h3 id="exitModalTitle" class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug font-sans">
         Wait! Before You Leave — Verify Match Risk
-        <span class="block text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-400 to-rose-300">
-          (94% Scam Detection Rate)
+        <span class="block text-rose-600 font-serif italic text-lg mt-0.5">
+          "Safety is... staying alert before you meet"
         </span>
       </h3>
 
-      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-serif italic">
         Over 1 in 4 online dating profiles utilize synthetic AI photos or deceptive scripts. Run a quick verification protocol before you close this page.
       </p>
 
       <!-- Key Security Signals -->
-      <div class="space-y-2 py-1 text-xs text-slate-300 font-medium">
-        <div class="flex items-center gap-2.5 p-2 rounded-lg bg-slate-900/90 border border-slate-800/90">
-          <span class="text-rose-400 font-mono text-sm">🛡️</span>
+      <div class="space-y-2 py-1 text-xs text-slate-800 font-bold">
+        <div class="flex items-center gap-2.5 p-2.5 rounded-lg bg-amber-50/80 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
+          <span class="text-rose-600 font-mono text-sm">🛡️</span>
           <span>Expose romance scammers, catfishes & AI-generated bots</span>
         </div>
-        <div class="flex items-center gap-2.5 p-2 rounded-lg bg-slate-900/90 border border-slate-800/90">
-          <span class="text-emerald-400 font-mono text-sm">⚡</span>
+        <div class="flex items-center gap-2.5 p-2.5 rounded-lg bg-amber-50/80 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
+          <span class="text-emerald-700 font-mono text-sm">⚡</span>
           <span>Instant 30-second automated integrity clearance check</span>
         </div>
-        <div class="flex items-center gap-2.5 p-2 rounded-lg bg-slate-900/90 border border-slate-800/90">
-          <span class="text-blue-400 font-mono text-sm">🔒</span>
+        <div class="flex items-center gap-2.5 p-2.5 rounded-lg bg-amber-50/80 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
+          <span class="text-blue-700 font-mono text-sm">🔒</span>
           <span>100% Anonymous, encrypted & zero personal details stored</span>
         </div>
       </div>
@@ -76,7 +72,7 @@ const { slug = 'dating-safety-guide' } = Astro.props;
         <a
           id="exitModalCta"
           href={`/r/dating?ref=${encodeURIComponent(slug)}&trigger=exit_intent&intent=exit_rescue`}
-          class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm sm:text-base font-bold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 hover:from-rose-600 hover:via-pink-600 hover:to-rose-700 shadow-lg shadow-rose-500/30 hover:shadow-rose-500/50 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 text-center cursor-pointer"
+          class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm sm:text-base font-black text-white bg-rose-600 hover:bg-rose-700 border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_#0f172a] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all duration-150 text-center uppercase tracking-wider cursor-pointer"
         >
           <span>Launch Instant 30-Sec Match Radar</span>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
