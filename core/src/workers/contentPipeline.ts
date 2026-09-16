@@ -6,6 +6,7 @@ import { HumanizerSkill, HumanizedOutput } from '../skills/humanizer-skill.js';
 import { AffiliateAdapterFactory } from '../adapters/adapterFactory.js';
 import { PrelanderService, PrelanderMetadataPayload } from '../services/prelanderService.js';
 import { NetworkName, PrelanderType } from '../adapters/affiliateAdapter.interface.js';
+import { AUTHOR_PERSONA } from '../services/character-bible.js';
 
 export interface PipelineInput {
   topic: string;
@@ -22,11 +23,11 @@ export interface PipelineInput {
 export const AngleSchema = z.preprocess((raw: any) => {
   if (typeof raw !== 'object' || raw === null) return raw;
   return {
-    hook: raw.hook ?? raw.headline ?? raw.title ?? 'Discover a new perspective on modern dating.',
-    body: raw.body ?? raw.content ?? raw.story ?? raw.text ?? 'Tired of endless swiping without real connection? Here is what really works.',
-    callToAction: raw.callToAction ?? raw.call_to_action ?? raw.cta ?? 'Check it out',
-    angle: raw.angle ?? raw.strategy ?? 'Authentic community connection',
-    emotionalTrigger: raw.emotionalTrigger ?? raw.emotional_trigger ?? raw.emotion ?? 'Relatability',
+    hook: raw.hook ?? raw.headline ?? raw.title ?? 'Love is... protecting your heart from scripted illusions, so it stays open for the real spark.',
+    body: raw.body ?? raw.content ?? raw.story ?? raw.text ?? 'Truth be told, real intimacy lives in the quiet, honest spaces between words, not inside clinical conversion scripts. Here is how to tell authentic human presence from synthetic mimicry.',
+    callToAction: raw.callToAction ?? raw.call_to_action ?? raw.cta ?? 'Verify authenticity before opening your heart.',
+    angle: raw.angle ?? raw.strategy ?? 'The Romantic Essayist - Defending Real Romance',
+    emotionalTrigger: raw.emotionalTrigger ?? raw.emotional_trigger ?? raw.emotion ?? 'Melancholy & Sincerity',
   };
 }, z.object({
   hook: z.string(),
@@ -146,21 +147,40 @@ export class ContentPipeline {
     );
 
     // ----------------------------------------------------
-    // STAGE 1: Scout & Angle Generator
+    // STAGE 1: Scout & Angle Generator (The Romantic Novelist & Essayist)
     // ----------------------------------------------------
-    console.log(`\x1b[36m[Stage 1/5]\x1b[0m Generating raw strategic social angle & value proposition...`);
+    console.log(`\x1b[36m[Stage 1/5]\x1b[0m Generating literary angle & 'Love is...' narrative hook...`);
     const s1Start = Date.now();
-    const stage1SystemPrompt = `You are a Direct-Response Strategy Architect.
-Identify a high-converting psychological angle, core story, and direct value proposition for the topic.
-Align the hook with the pre-lander funnel strategy: "${prelanderType}".
+    const stage1SystemPrompt = `You are ${AUTHOR_PERSONA.name} (${AUTHOR_PERSONA.role}).
+Philosophy: "${AUTHOR_PERSONA.philosophy}"
+
+You are an essayist, novelist, and old-school romantic defending authentic human intimacy from synthetic LLM scripts, deepfakes, and orchestrated conversion funnels.
+
+LITERARY CONVENTIONS & THEMATIC HOOK RULES:
+1. HOOK FORMULA:
+   The hook MUST open with a poetic "Love is..." aphorism that pairs emotional vulnerability with realistic digital awareness.
+   Thematic guidance:
+   - Voice deepfakes / audio notes: "Love is... remembering how her real voice trembles, before trusting a synthetic audio note."
+   - LLMs, bot punctuation & sterile scripts: "Love is... falling for honest typos, not for clinical LLM perfection."
+   - The 48-hour external messaging rush: "Love is... letting the story breathe, not rushing the chapter to close a deal."
+   - Photo verification / catfishing: "Love is... looking for warmth in real eyes, not flawless algorithmic diffusion."
+   - General romantic safety: "Love is... protecting your heart from scripted illusions, so it stays open for the real spark."
+
+2. BODY STRUCTURE (THE INVESTIGATION OF A CONNOISSEUR):
+   - The article is an elegant, observant investigation: dissect cheap counterfeits (bot swarms, scripted conversion illusions) not with rage, but with the melancholic smile of an art connoisseur discovering a forgery in a gallery.
+   - Contrast warm, messy human presence (unwritten letters, natural hesitations, honest typos, breath, vulnerability) against sterile, calculated optimization.
+   - Strictly avoid corporate marketing jargon ("lead gen", "sales funnel", "conversion optimization"). Use literary substitutes ("hasty transactions", "orchestrated illusions").
+
+3. UNDERSTATED CALL TO ACTION:
+   - An elegant, sincere invitation to step away from synthetic noise and verify matches where real humans gather.
 
 Respond with JSON:
 {
-  "hook": "string (Strategic core hook)",
-  "body": "string (Core story / value proposition)",
-  "callToAction": "string (Target action)",
-  "angle": "string (Psychological angle)",
-  "emotionalTrigger": "string (Core emotion)"
+  "hook": "string (Opens with 'Love is... ' poetic truth)",
+  "body": "string (Literary investigative narrative dissecting the counterfeit with gentle irony)",
+  "callToAction": "string (Understated, sincere closing path)",
+  "angle": "string (Narrative/philosophical angle)",
+  "emotionalTrigger": "string (Poetic emotion / yearning for truth)"
 }`;
 
     const stage1UserPrompt = `Topic: "${input.topic}"
@@ -248,18 +268,18 @@ CTA: ${activeCta}`;
     // ----------------------------------------------------
     // STAGE 4: Visual Prompt Crafter
     // ----------------------------------------------------
-    console.log(`\x1b[36m[Stage 4/5]\x1b[0m Crafting photorealistic visual prompt for FLUX engine...`);
+    console.log(`\x1b[36m[Stage 4/5]\x1b[0m Crafting evocative visual prompt for FLUX engine...`);
     const s4Start = Date.now();
-    const stage4SystemPrompt = `You are a Visual Director and Prompt Engineer specializing in state-of-the-art FLUX.1 and Stable Diffusion image generation.
-Generate a vivid, photorealistic visual prompt in pure English.
+    const stage4SystemPrompt = `You are a Visual Director and Narrative Artist specializing in cinematic editorial photography and vintage retro aesthetics (FLUX.1 / Stable Diffusion).
+Generate an evocative, candid visual prompt in pure English capturing the romantic atmosphere, human vulnerability, and narrative realism.
 Rules:
-- High detail, lighting description (e.g. volumetric light, golden hour, soft studio illumination).
-- Camera/sensor specs (e.g. 35mm lens, f/1.8, bokeh, realistic skin texture).
+- High detail, natural lighting description (e.g. golden hour, soft ambient window light, warm film grain, 35mm lens, gentle depth of field).
+- Candid natural poses, authentic human expressions (no plastic synthetic perfection, subtle genuine emotion).
 - NO AI clichés or buzzwords (do not use "photorealistic 8k unreal engine"). Describe the scene, subject, textures, and ambiance directly.
 
 Respond with JSON:
 {
-  "image_prompt": "string (Photorealistic prompt in English)",
+  "image_prompt": "string (Cinematic or editorial prompt in English)",
   "style": "string (Aesthetic style)",
   "aspect_ratio": "1:1",
   "mood": "string (Atmosphere)"

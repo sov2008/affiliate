@@ -48,10 +48,14 @@ export class HumanizerSkill {
     /testament to/i,
     /embark on/i,
     /delve into/i,
+    /lead gen(eration)?/i,
+    /sales funnel/i,
+    /лидогенераци[яиею]/i,
+    /воронк[аеуи]/i,
   ];
 
   /**
-   * Transforms raw marketing copy into 100% human-sounding organic social posts.
+   * Transforms raw marketing copy into soulful, literary-grade human essays & authentic organic narratives.
    */
   public static async humanize(
     rawHook: string,
@@ -60,43 +64,46 @@ export class HumanizerSkill {
     context: { platform?: string; niche?: string; topic?: string } = {}
   ): Promise<HumanizedOutput> {
     const rawInputSummary = `Hook: "${rawHook}" | Body: "${rawBody}" | CTA: "${rawCta}"`;
-    const platform = context.platform || 'Reddit / Social Community';
+    const platform = context.platform || 'Reddit / Essay Forum / Editorial';
     const niche = context.niche || 'General';
 
-    const systemPrompt = `You are a Senior NLP Engineer & Social Chameleon specializing in bypassing AI content detectors (GPTZero, Originality.ai, ZeroGPT).
-Your job is to rewrite marketing copy so it sounds like a REAL human typed it casually on their phone at 11 PM.
+    const systemPrompt = `You are a Senior Literary Editor, Essayist & Romantic Observer defending genuine human connection against synthetic illusions.
+Your role is to transform raw promotional or analytical copy into prose that reads like a page from a vintage journal or an intimate, honest personal essay.
 
-CRITICAL HUMANIZATION RULES:
-1. BANNED AI PHRASES (NEVER USE THESE):
-   - "Tired of..."
-   - "Let's dive in" / "Dive into"
-   - "In a world where..."
-   - "Hustle" / "Game-changer" / "Look no further"
-   - "Drop a comment below" / "Leave your thoughts"
-   - "In today's fast-paced world"
-   - "Unlock your potential" / "Here's the secret"
-   - "Delve", "Testament", "Beacon", "Embark"
+LITERARY HUMANIZATION PRINCIPLES:
+1. TONE & VOICE (THE ROMANTIC NOVELIST):
+   - Melancholic, observant, deeply romantic, yet analytically razor-sharp.
+   - Gentle, knowing irony towards clumsy bot scripts; tender reverence toward authentic human vulnerability.
+   - Rhythmic cadence: blend brief cinematic impressions (3-5 words) with rich, sensory reflections. Avoid cookie-cutter 3-part bullet structures.
 
-2. AUTHENTIC USER BEHAVIOR TO INJECT:
-   - Tone: Casual, slightly skeptical, anecdotal, informal, speaking from direct personal trial-and-error.
-   - Slang & Fillers: Use authentic organic markers naturally ("tbh", "ngl", "idk", "honestly", "lowkey", "imo", "kinda", "wild", "fr", "basically").
-   - Burstiness & Rhythm: Mix very short fragments (2-4 words) with natural conversational thoughts. Avoid cookie-cutter 3-part essay structures.
-   - Stealth CTA: NO hard selling. Make the call-to-action look like an afterthought or a casual discovery (e.g., "idk worked for me, someone asked earlier so here's where I found it", "curious if anyone else noticed this?").
+2. MANDATORY SEMANTIC & CONVERSATIONAL MARKERS:
+   - Naturally weave in authentic literary-conversational markers:
+     * English: "Truth be told", "You know, there is one telling detail", "A real human sounds different", "Too seamless to be genuine", "honestly", "between the lines".
+     * Russian (if target language is Russian): "По правде говоря", "Знаете, есть одна деталь", "Настоящий человек звучит иначе", "Слишком безупречно, чтобы быть правдой".
+
+3. STRICT BAN ON MACHINE & CORPORATE JARGON:
+   - NEVER use corporate or synthetic marketing terms in copy:
+     * Instead of "lead generation" / "лидогенерация" -> use "hasty transaction" / "поспешный расчёт".
+     * Instead of "funnel" / "воронка" -> use "orchestrated illusion" / "срежиссированная иллюзия".
+     * Banned: "in today's fast-paced world", "let's dive in", "game-changer", "look no further", "drop a comment", "unlock your potential", "delve".
+
+4. STEALTH CLOSING (STEALTH CTA):
+   - No aggressive pitching or corporate hype. Frame the resolution as an honest gift to the reader, like an old friend leaving a book recommendation on a nightstand.
 
 Respond with pure JSON:
 {
   "raw_input": "${rawHook.slice(0, 40)}...",
-  "humanized_hook": "casual organic first sentence",
-  "humanized_body": "authentic story with bursty sentence lengths",
-  "stealth_cta": "soft organic closing mention",
+  "humanized_hook": "evocative, sincere literary hook",
+  "humanized_body": "rhythmic narrative with sensory contrasts and authentic emotional depth",
+  "stealth_cta": "gentle, understated parting recommendation",
   "ai_detection_risk": "LOW",
-  "slang_markers_used": ["tbh", "lowkey"]
+  "slang_markers_used": ["truth be told", "too seamless to be genuine"]
 }`;
 
     const userPrompt = `Target Platform: ${platform}
 Niche: ${niche}
 
-Transform this raw marketing copy into a human post:
+Transform this raw copy into authentic literary prose:
 Raw Hook: "${rawHook}"
 Raw Body: "${rawBody}"
 Raw CTA: "${rawCta}"`;
@@ -116,12 +123,20 @@ Raw CTA: "${rawCta}"`;
 
   private static scrubClichés(text: string): string {
     let clean = text;
-    clean = clean.replace(/tired of\s+/gi, 'honestly sick of ');
-    clean = clean.replace(/let['’]s dive in/gi, 'here is what happened');
-    clean = clean.replace(/game[- ]changer/gi, 'actually useful');
-    clean = clean.replace(/look no further/gi, 'found this');
-    clean = clean.replace(/drop a comment/gi, 'let me know');
-    clean = clean.replace(/in a world where/gi, 'nowadays');
+    // Banned AI phrases
+    clean = clean.replace(/tired of\s+/gi, 'honestly weary of ');
+    clean = clean.replace(/let['’]s dive in/gi, 'here is the unvarnished truth');
+    clean = clean.replace(/game[- ]changer/gi, 'genuinely meaningful');
+    clean = clean.replace(/look no further/gi, 'I noticed this');
+    clean = clean.replace(/drop a comment/gi, 'think about it');
+    clean = clean.replace(/in a world where/gi, 'in an era where');
+
+    // Corporate / machine jargon replacement per instructions
+    clean = clean.replace(/лидогенераци[яиею]/gi, 'поспешный расчёт');
+    clean = clean.replace(/воронк[аеуи]/gi, 'срежиссированная иллюзия');
+    clean = clean.replace(/lead gen(eration)?/gi, 'hasty transaction');
+    clean = clean.replace(/sales funnel|marketing funnel|\bfunnel\b/gi, 'orchestrated illusion');
+
     return clean;
   }
 }
