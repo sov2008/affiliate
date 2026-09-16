@@ -23,9 +23,9 @@ const coverSrc = rawCover
   : null;
 ---
 
-<article class="group relative flex flex-col rounded-xl bg-white border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#0f172a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#0f172a] transition-all duration-200 overflow-hidden">
-  <!-- Comic Strip Header / Cover Thumbnail -->
-  <a href={`${base}/${post.id || post.slug}/`} class="block overflow-hidden aspect-video bg-[#FEF9EE] border-b-2 border-slate-900 relative">
+<article class="flex flex-col bg-white border-2 border-slate-900 rounded-xl shadow-[4px_4px_0px_0px_#0f172a] overflow-hidden transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#0f172a] active:translate-x-1 active:translate-y-1 active:shadow-none">
+  <!-- Image Frame or Fallback Panel -->
+  <a href={`${base}/${post.id || post.slug}/`} class="aspect-[16/9] w-full border-b-2 border-slate-900 bg-[#F4EFE6] overflow-hidden relative block">
     {hasCustomCover && coverSrc ? (
       <img
         src={coverSrc}
@@ -35,10 +35,10 @@ const coverSrc = rawCover
       />
     ) : (
       <div class="w-full h-full halftone-pattern flex flex-col items-center justify-center p-6 text-center select-none relative">
-        <div class="absolute top-2 left-2 px-2 py-0.5 rounded border border-slate-900 bg-white font-mono text-[9px] font-black text-slate-900 uppercase shadow-[1px_1px_0px_0px_#0f172a]">
-          FILE #{post.id?.substring(0, 8) || '2026-X'}
+        <div class="absolute top-2 left-2 border border-slate-900 bg-white font-mono text-[9px] font-black text-slate-900 uppercase px-2 py-0.5 rounded shadow-[1px_1px_0px_0px_#0f172a]">
+          DOSSIER FILE #{post.id?.substring(0, 6) || '2026-A'}
         </div>
-        <div class="w-12 h-12 rounded-xl bg-white border-2 border-slate-900 flex items-center justify-center shadow-[3px_3px_0px_0px_#0f172a] mb-2 group-hover:rotate-6 transition-transform">
+        <div class="w-12 h-12 rounded-lg bg-white border-2 border-slate-900 flex items-center justify-center shadow-[3px_3px_0px_0px_#0f172a] mb-2 hover:rotate-6 transition-transform">
           <svg class="w-6 h-6 text-rose-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
             <polyline points="14 2 14 8 20 8"/>
@@ -48,27 +48,27 @@ const coverSrc = rawCover
           </svg>
         </div>
         <span class="font-mono text-xs font-black uppercase text-slate-900 tracking-wider">
-          Field Report / Dossier
+          DOSSIER FILE
         </span>
         <span class="text-[10px] font-serif italic text-slate-600 mt-0.5">
-          "Love is... staying alert"
+          "Safety is... staying alert"
         </span>
       </div>
     )}
 
-    <!-- Vintage Panel Number Stamp -->
-    <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-white/95 border border-slate-900 text-[9px] font-mono font-black text-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
+    <!-- Vintage Volume Stamp -->
+    <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-white border border-slate-900 text-[9px] font-mono font-black text-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
       VOL. '26
     </div>
   </a>
 
-  <!-- Comic Panel Body -->
-  <div class="p-5 sm:p-6 flex flex-col flex-1 bg-white">
-    <!-- Vintage Ink Stamp Tags & Date -->
-    <div class="flex items-center justify-between gap-2 mb-3">
+  <!-- Card Body -->
+  <div class="p-4 sm:p-5 flex flex-col flex-1 bg-white">
+    <!-- Stamp Category Badge -->
+    <div class="flex items-center justify-between gap-2 mb-2.5">
       <div class="flex flex-wrap gap-1.5">
         {post.data.tags.slice(0, 2).map((tag: string) => (
-          <span class="border border-slate-900 rounded-md px-2 py-0.5 text-[10px] font-black uppercase tracking-wider bg-amber-100 text-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
+          <span class="border border-slate-900 bg-amber-100 text-slate-900 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded shadow-[1px_1px_0px_0px_#0f172a]">
             {tag}
           </span>
         ))}
@@ -76,20 +76,20 @@ const coverSrc = rawCover
       <span class="text-xs font-mono text-slate-500 font-bold">{formattedDate}</span>
     </div>
 
-    <!-- Post Title -->
-    <h2 class="text-lg sm:text-xl font-black text-slate-900 group-hover:text-rose-600 transition-colors mb-2.5 leading-snug font-sans">
+    <!-- Title -->
+    <h3 class="font-extrabold text-slate-900 text-base sm:text-lg leading-snug line-clamp-2 hover:text-rose-600 transition-colors mb-2 font-sans">
       <a href={`${base}/${post.id || post.slug}/`}>
         {post.data.title}
       </a>
-    </h2>
+    </h3>
 
-    <!-- Post Description -->
-    <p class="text-xs sm:text-sm text-slate-600 line-clamp-3 mb-5 leading-relaxed flex-1">
+    <!-- Description -->
+    <p class="text-xs sm:text-sm text-slate-600 line-clamp-3 mb-4 leading-relaxed flex-1">
       {post.data.description}
     </p>
 
-    <!-- Post Footer: Author & Comic Read Button -->
-    <div class="pt-3.5 border-t-2 border-slate-100 flex items-center justify-between text-xs text-slate-600">
+    <!-- Footer: Author & Action Button -->
+    <div class="pt-3 border-t-2 border-slate-100 flex items-center justify-between text-xs text-slate-600">
       <div class="flex items-center gap-2">
         <div class="w-6 h-6 rounded-md bg-slate-900 border border-slate-900 flex items-center justify-center font-bold text-white text-[10px]">
           FC
@@ -99,9 +99,9 @@ const coverSrc = rawCover
 
       <a
         href={`${base}/${post.id || post.slug}/`}
-        class="inline-flex items-center gap-1 font-black text-rose-600 group-hover:translate-x-1 transition-transform uppercase tracking-wider text-xs"
+        class="inline-flex items-center gap-1 font-black text-rose-600 hover:translate-x-0.5 transition-transform uppercase tracking-wider text-xs"
       >
-        <span>Open File</span>
+        <span>Open Dossier</span>
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
         </svg>

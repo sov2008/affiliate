@@ -1,8 +1,6 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import PostCard from '../components/PostCard.astro';
 import DatingSmartlinkCTA from '../components/DatingSmartlinkCTA.astro';
 
@@ -13,112 +11,74 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pu
 // Collect all unique tags
 const allTags = Array.from(new Set(allPosts.flatMap(post => post.data.tags)));
 
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://flirtcheck.site';
 const pageTitle = "FlirtCheck Safety Editorial | Vintage Love is... 90s Dating Dossier";
-const pageDescription = "Vintage 90s retro comic & editorial guidebooks, anti-scam verification heuristics, and safe dating insights. Safety is... knowing who is on the other side of the screen.";
+const pageDescription = "Vintage 90s retro comic & editorial guidebooks, anti-scam verification heuristics, and safe dating insights. Safety is... knowing who is behind the screen before catching feelings.";
 ---
 
-<!DOCTYPE html>
-<html lang="en" class="bg-[#FBF8F3] text-slate-900 antialiased scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{pageTitle}</title>
-    <meta name="description" content={pageDescription} />
-    <link rel="canonical" href={`${siteUrl}/blog/`} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="robots" content="noindex, nofollow, noarchive" />
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <!-- Hero Editorial 90s Newspaper / Comic Banner -->
+  <section class="text-center py-10 sm:py-14 relative">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-md text-xs font-mono font-black uppercase bg-amber-100 text-amber-900 border border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] mb-6">
+      <span class="w-2 h-2 rounded-full bg-rose-600"></span>
+      <span>INVESTIGATIVE DOSSIER • ISSUE 2026</span>
+    </div>
 
-    <!-- OpenGraph Metadata -->
-    <meta property="og:site_name" content="FlirtCheck Editorial" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={pageDescription} />
-    <meta property="og:url" content={`${siteUrl}/blog/`} />
-    <meta property="og:image" content={`${siteUrl}/blog/images/posts/reverse-image-search-lens-scam.webp`} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="675" />
-    <meta property="og:image:type" content="image/webp" />
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight max-w-4xl mx-auto mb-4 font-sans uppercase">
+      Navigate Modern Dating With <span class="text-rose-600 underline decoration-slate-900 decoration-wavy decoration-2">Tactical Caution</span>
+    </h1>
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@flirtcheck" />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={pageDescription} />
-    <meta name="twitter:image" content={`${siteUrl}/blog/images/posts/reverse-image-search-lens-scam.webp`} />
-  </head>
+    <!-- Canonical "Love is..." Signature Motto per docs/DESIGN_SYSTEM.md -->
+    <div class="my-6 inline-block bg-white border-2 border-slate-900 rounded-xl px-6 py-3.5 shadow-[4px_4px_0px_0px_#0f172a] transform -rotate-1 hover:rotate-0 transition-transform">
+      <p class="font-serif italic text-lg sm:text-xl text-rose-600 font-semibold">
+        "Safety is... knowing who is behind the screen before catching feelings."
+      </p>
+    </div>
 
-  <body class="min-h-screen flex flex-col bg-[#FBF8F3] text-slate-900">
-    <Header activePath="/blog" />
+    <p class="text-base sm:text-lg text-slate-700 max-w-2xl mx-auto leading-relaxed mb-8">
+      Field-tested verification playbooks, comic case studies, and bot-farm detection heuristics to protect your heart and digital safety from synthetic romance scams.
+    </p>
 
-    <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
-      <!-- Hero Editorial 90s Newspaper / Comic Banner -->
-      <section class="text-center py-10 sm:py-14 relative">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-md text-xs font-mono font-black uppercase bg-amber-200 text-slate-900 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] mb-6">
-          <span class="w-2 h-2 rounded-full bg-rose-600"></span>
-          <span>SPECIAL INVESTIGATIVE DOSSIER • ISSUE 2026</span>
-        </div>
+    <!-- Topic Tags Filter Bar as Vintage Ink Stamps -->
+    <div class="flex flex-wrap items-center justify-center gap-2.5 max-w-2xl mx-auto">
+      <span class="text-xs font-mono uppercase text-slate-600 font-black mr-1">Classified Sections:</span>
+      {allTags.map(tag => (
+        <span class="px-3 py-1 rounded-md text-xs font-mono font-bold bg-white border border-slate-900 text-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:bg-rose-50 hover:text-rose-600 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#0f172a] transition-all cursor-pointer">
+          #{tag}
+        </span>
+      ))}
+    </div>
+  </section>
 
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight max-w-4xl mx-auto mb-4 font-sans">
-          Navigate Modern Dating With <span class="text-rose-600 underline decoration-slate-900 decoration-wavy decoration-2">Tactical Caution</span>
-        </h1>
+  <!-- Articles Grid Section (Comic Strip Panels) -->
+  <section class="mt-6 mb-16">
+    <div class="flex items-center justify-between pb-4 mb-8 border-b-2 border-slate-900">
+      <h2 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3 font-sans">
+        <span>Dispatched Field Reports</span>
+        <span class="px-2.5 py-0.5 rounded border border-slate-900 text-xs font-mono font-black bg-rose-600 text-white shadow-[2px_2px_0px_0px_#0f172a]">
+          {sortedPosts.length} Guides
+        </span>
+      </h2>
+    </div>
 
-        <!-- Iconic Love is... Comic Wrapper Motto -->
-        <div class="my-6 inline-block bg-white border-2 border-slate-900 rounded-xl px-6 py-3.5 shadow-[4px_4px_0px_0px_#0f172a] transform -rotate-1 hover:rotate-0 transition-transform">
-          <p class="font-serif italic text-lg sm:text-xl text-rose-600 font-bold">
-            "Safety is... knowing who is on the other side of the screen."
-          </p>
-        </div>
+    {sortedPosts.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortedPosts.map(post => (
+          <PostCard post={post} />
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
+        <p class="text-slate-600 font-bold">No articles published yet. Stay tuned!</p>
+      </div>
+    )}
+  </section>
 
-        <p class="text-base sm:text-lg text-slate-700 max-w-2xl mx-auto leading-relaxed mb-8">
-          Field-tested verification playbooks, comic case studies, and bot-farm detection heuristics to protect your heart and crypto wallet from synthetic scams.
-        </p>
-
-        <!-- Topic Tags Filter Bar as Vintage Ink Stamps -->
-        <div class="flex flex-wrap items-center justify-center gap-2.5 max-w-2xl mx-auto">
-          <span class="text-xs font-mono uppercase text-slate-600 font-black mr-1">Classified Sections:</span>
-          {allTags.map(tag => (
-            <span class="px-3 py-1 rounded-md text-xs font-mono font-bold bg-white border-2 border-slate-900 text-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:bg-rose-50 hover:text-rose-600 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#0f172a] transition-all cursor-pointer">
-              #{tag}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      <!-- Articles Grid Section (Comic Panels) -->
-      <section class="mt-6 mb-16">
-        <div class="flex items-center justify-between pb-4 mb-8 border-b-2 border-slate-900">
-          <h2 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3">
-            <span>Dispatched Field Reports</span>
-            <span class="px-2.5 py-0.5 rounded border-2 border-slate-900 text-xs font-mono font-black bg-rose-500 text-white shadow-[2px_2px_0px_0px_#0f172a]">
-              {sortedPosts.length} Guides
-            </span>
-          </h2>
-        </div>
-
-        {sortedPosts.length > 0 ? (
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sortedPosts.map(post => (
-              <PostCard post={post} />
-            ))}
-          </div>
-        ) : (
-          <div class="text-center py-16 bg-white rounded-2xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
-            <p class="text-slate-600 font-bold">No articles published yet. Stay tuned!</p>
-          </div>
-        )}
-      </section>
-
-      <!-- Interactive CTA Section -->
-      <section id="safety-quiz">
-        <DatingSmartlinkCTA
-          title="Instant Profile Safety & Compatibility Scan"
-          subtitle="Run our automated 30-second verification test to filter out automated bots and unlock verified, active profiles."
-          offerUrl="/go"
-        />
-      </section>
-    </main>
-
-    <Footer />
-  </body>
-</html>
+  <!-- Interactive CTA Section -->
+  <section id="safety-quiz">
+    <DatingSmartlinkCTA
+      title="Instant Profile Safety & Compatibility Scan"
+      subtitle="Run our automated 30-second verification test to filter out automated bots and unlock verified, active profiles."
+      offerUrl="/go"
+    />
+  </section>
+</BaseLayout>

@@ -17,7 +17,7 @@ const {
 <div
   id={quizId}
   data-slug={slug}
-  class="inline-dating-quiz my-8 relative overflow-hidden rounded-2xl bg-[#FFFDF9] border-2 border-slate-900 p-6 sm:p-8 shadow-[6px_6px_0px_0px_#0f172a] text-slate-900"
+  class="inline-dating-quiz my-8 relative overflow-hidden rounded-xl bg-white border-2 border-slate-900 p-6 shadow-[4px_4px_0px_0px_#0f172a] text-slate-900"
 >
   <div class="relative z-10">
     <!-- Header Badge -->
@@ -383,11 +383,11 @@ const {
 
           if (current >= 35 && badge2) {
             badge2.classList.remove('opacity-40');
-            badge2.classList.add('text-rose-300', 'font-semibold');
+            badge2.classList.add('text-rose-600', 'font-bold');
           }
           if (current >= 75 && badge3) {
             badge3.classList.remove('opacity-40');
-            badge3.classList.add('text-rose-300', 'font-semibold');
+            badge3.classList.add('text-rose-600', 'font-bold');
           }
 
           if (progress >= 100) {
@@ -408,14 +408,14 @@ const {
         if (isHighRisk) {
           // High Risk Styling
           if (verdictBox) {
-            verdictBox.className = 'p-4 sm:p-5 rounded-xl bg-slate-900/90 border shadow-inner transition-all verdict-box border-rose-500/50';
+            verdictBox.className = 'p-5 rounded-xl bg-rose-50 border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a] transition-all verdict-box';
           }
           if (verdictBadge) {
-            verdictBadge.className = 'verdict-score-badge w-14 h-14 rounded-2xl flex flex-col items-center justify-center font-black text-white shadow-lg shrink-0 bg-gradient-to-tr from-rose-600 to-red-600 shadow-rose-950/60';
+            verdictBadge.className = 'verdict-score-badge w-14 h-14 rounded-xl flex flex-col items-center justify-center font-black text-white shrink-0 bg-rose-600 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]';
           }
           if (verdictPct) verdictPct.textContent = '92%';
           if (verdictTag) {
-            verdictTag.className = 'verdict-tag px-2 py-0.5 rounded text-[10px] font-extrabold tracking-wide uppercase bg-rose-500/20 text-rose-300 border border-rose-500/40';
+            verdictTag.className = 'verdict-tag px-2 py-0.5 rounded border border-slate-900 text-[10px] font-mono font-black tracking-wide uppercase bg-rose-200 text-rose-900 shadow-[1px_1px_0px_0px_#0f172a]';
             verdictTag.textContent = 'HIGH RISK DETECTED';
           }
           if (verdictTitle) {
@@ -427,14 +427,14 @@ const {
         } else {
           // Moderate Risk Styling
           if (verdictBox) {
-            verdictBox.className = 'p-4 sm:p-5 rounded-xl bg-slate-900/90 border shadow-inner transition-all verdict-box border-amber-500/40';
+            verdictBox.className = 'p-5 rounded-xl bg-amber-50 border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a] transition-all verdict-box';
           }
           if (verdictBadge) {
-            verdictBadge.className = 'verdict-score-badge w-14 h-14 rounded-2xl flex flex-col items-center justify-center font-black text-white shadow-lg shrink-0 bg-gradient-to-tr from-amber-500 to-orange-600 shadow-amber-950/60';
+            verdictBadge.className = 'verdict-score-badge w-14 h-14 rounded-xl flex flex-col items-center justify-center font-black text-white shrink-0 bg-amber-500 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]';
           }
           if (verdictPct) verdictPct.textContent = '48%';
           if (verdictTag) {
-            verdictTag.className = 'verdict-tag px-2 py-0.5 rounded text-[10px] font-extrabold tracking-wide uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40';
+            verdictTag.className = 'verdict-tag px-2 py-0.5 rounded border border-slate-900 text-[10px] font-mono font-black tracking-wide uppercase bg-amber-200 text-amber-900 shadow-[1px_1px_0px_0px_#0f172a]';
             verdictTag.textContent = 'MODERATE RISK INDEX';
           }
           if (verdictTitle) {

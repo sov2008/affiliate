@@ -2,24 +2,27 @@
 
 @layer base {
   :root {
-    --bg-canvas: #FBF8F3;
-    --text-primary: #1E293B;
-    --text-secondary: #475569;
-    --accent-primary: #E11D48;
-    --accent-secondary: #0284C7;
-    --border-ink: #0F172A;
+    --color-canvas: #FBF8F1;
+    --color-surface: #FFFFFF;
+    --color-surface-subtle: #F4EFE6;
+    --color-ink-solid: #0F172A;
+    --color-ink-muted: #475569;
+    --color-brand-red: #E11D48;
+    --color-retro-cobalt: #0284C7;
+    --color-stamp-amber: #D97706;
+    --color-stamp-emerald: #059669;
   }
 
   body {
-    background-color: #FBF8F3;
-    color: #1E293B;
+    background-color: #FBF8F1;
+    color: #0F172A;
     background-image: radial-gradient(#0f172a15 1px, transparent 1px);
     background-size: 20px 20px;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
-/* 90s Comic & Newspaper Stylings */
+/* 90s Comic & Newsprint Utilities per docs/DESIGN_SYSTEM.md */
 .comic-box {
   background-color: #ffffff;
   border: 2px solid #0F172A;
@@ -48,18 +51,18 @@
 }
 
 .comic-btn:hover {
-  transform: translate(1px, 1px);
-  box-shadow: 2px 2px 0px 0px #0F172A;
+  transform: translateY(-2px);
+  box-shadow: 5px 5px 0px 0px #0F172A;
 }
 
 .comic-btn:active {
-  transform: translate(3px, 3px);
+  transform: translate(2px, 2px);
   box-shadow: 0px 0px 0px 0px #0F172A;
 }
 
 /* Ben-Day Halftone dot pattern for comic panel fallbacks */
 .halftone-pattern {
-  background-color: #fef3c7;
-  background-image: radial-gradient(#d9770633 1.5px, transparent 1.5px);
+  background-color: #F4EFE6;
+  background-image: radial-gradient(#0f172a20 1.5px, transparent 1.5px);
   background-size: 8px 8px;
 }
