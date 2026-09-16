@@ -6,7 +6,8 @@ author: "Arthur"
 tags: ["Bot Detection", "AI Clichés", "Online Dating", "Safety"]
 seoKeywords: ["llm dating bio red flags", "spot ai dating profile", "tinder bot bio punctuation", "ai text detection dating apps"]
 canonicalUrl: "https://flirtcheck.site/blog/dead-giveaways-in-bio-punctuation-llm-spambots-dating/"
-coverImage: "/blog/images/posts/dead-giveaways-in-bio-punctuation-llm-spambots-dating.webp"
+coverImage: "/blog/images/posts/bio-punctuation-llm-spambots.webp"
+image: "/images/posts/bio-punctuation-llm-spambots.webp"
 draft: false
 ---
 

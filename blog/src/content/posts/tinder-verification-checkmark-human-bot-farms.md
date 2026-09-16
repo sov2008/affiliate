@@ -6,7 +6,8 @@ author: "Arthur"
 tags: ["Verification", "Bot Detection", "Online Dating", "Safety"]
 seoKeywords: ["tinder blue checkmark scam", "verified tinder bot", "photo verification bypass", "dating app account marketplace"]
 canonicalUrl: "https://flirtcheck.site/blog/tinder-verification-checkmark-human-bot-farms/"
-coverImage: "/blog/images/posts/tinder-verification-checkmark-human-bot-farms.webp"
+coverImage: "/blog/images/posts/tinder-verification-bot-farms.webp"
+image: "/images/posts/tinder-verification-bot-farms.webp"
 draft: false
 ---
 

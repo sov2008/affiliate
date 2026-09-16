@@ -18,6 +18,7 @@ interface Props {
   seoKeywords: string[];
   canonicalUrl?: string;
   coverImage?: string;
+  image?: string;
   slug?: string;
   readingTime?: number;
 }
@@ -31,17 +32,19 @@ const {
   seoKeywords,
   canonicalUrl = Astro.url.href,
   coverImage,
+  image,
   slug,
   readingTime = 4
 } = Astro.props;
 
 const siteBaseUrl = 'https://flirtcheck.site';
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || siteBaseUrl;
+const effectiveCoverImage = coverImage || (image ? (image.startsWith('/blog') ? image : `/blog${image.startsWith('/') ? '' : '/'}${image}`) : undefined);
 const canonicalAbsUrl = canonicalUrl.startsWith('http')
   ? canonicalUrl
   : `${siteBaseUrl}${canonicalUrl.startsWith('/') ? '' : '/'}${canonicalUrl}`;
-const ogImageAbsUrl = coverImage
-  ? (coverImage.startsWith('http') ? coverImage : `${siteBaseUrl}${coverImage.startsWith('/') ? '' : '/'}${coverImage}`)
+const ogImageAbsUrl = effectiveCoverImage
+  ? (effectiveCoverImage.startsWith('http') ? effectiveCoverImage : `${siteBaseUrl}${effectiveCoverImage.startsWith('/') ? '' : '/'}${effectiveCoverImage}`)
   : `${siteBaseUrl}/blog/images/posts/${slug || 'dating-scam-verification-guide-2026'}.webp`;
 const formattedDate = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
@@ -207,7 +210,7 @@ const faqSchema = {
       <!-- Featured Cover Image -->
       <div class="mb-10 overflow-hidden rounded-2xl border border-slate-800 shadow-2xl bg-slate-900">
         <img
-          src={coverImage || `/blog/images/posts/${slug || 'dating-scam-verification-guide-2026'}.webp`}
+          src={effectiveCoverImage || `/blog/images/posts/${slug || 'dating-scam-verification-guide-2026'}.webp`}
           alt={title}
           class="w-full aspect-video object-cover hover:scale-[1.01] transition-transform duration-500"
           loading="lazy"

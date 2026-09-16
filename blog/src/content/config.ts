@@ -12,6 +12,7 @@ const posts = defineCollection({
     seoKeywords: z.array(z.string()),
     canonicalUrl: z.string().optional(),
     coverImage: z.string().optional(),
+    image: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });
