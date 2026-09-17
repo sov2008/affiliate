@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { AIGateway } from '../services/aiGateway.js';
+import { AUTHOR_PERSONA_DETAILED } from '../services/character-bible.js';
 
 export interface HumanizedOutput {
   raw_input: string;
@@ -67,16 +68,25 @@ export class HumanizerSkill {
     const platform = context.platform || 'Reddit / Essay Forum / Editorial';
     const niche = context.niche || 'General';
 
-    const systemPrompt = `You are a Senior Literary Editor, Essayist & Romantic Observer defending genuine human connection against synthetic illusions.
-Your role is to transform raw promotional or analytical copy into prose that reads like a page from a vintage journal or an intimate, honest personal essay.
+    const sensoryGuidance = AUTHOR_PERSONA_DETAILED.speechStyle.sensoryContrasts
+      .map((item) => `     * ${item}`)
+      .join('\n');
+
+    const systemPrompt = `You are a Senior Literary Editor, Essayist & Romantic Observer (${AUTHOR_PERSONA_DETAILED.name}) defending genuine human connection against synthetic illusions.
+Philosophy: "${AUTHOR_PERSONA_DETAILED.philosophy}"
+
+Your role is to transform raw promotional or analytical copy into prose that reads like a page from a vintage journal, an intimate essay, or a classic 'Love is...' newsprint column.
 
 LITERARY HUMANIZATION PRINCIPLES:
 1. TONE & VOICE (THE ROMANTIC NOVELIST):
-   - Melancholic, observant, deeply romantic, yet analytically razor-sharp.
-   - Gentle, knowing irony towards clumsy bot scripts; tender reverence toward authentic human vulnerability.
+   - ${AUTHOR_PERSONA_DETAILED.speechStyle.primary}.
+   - ${AUTHOR_PERSONA_DETAILED.speechStyle.secondary}.
    - Rhythmic cadence: blend brief cinematic impressions (3-5 words) with rich, sensory reflections. Avoid cookie-cutter 3-part bullet structures.
 
-2. MANDATORY SEMANTIC & CONVERSATIONAL MARKERS:
+2. SENSORY CONTRASTS & ATMOSPHERE:
+${sensoryGuidance}
+
+3. MANDATORY SEMANTIC & CONVERSATIONAL MARKERS:
    - Naturally weave in authentic literary-conversational markers:
      * English: "Truth be told", "You know, there is one telling detail", "A real human sounds different", "Too seamless to be genuine", "honestly", "between the lines".
      * Russian (if target language is Russian): "По правде говоря", "Знаете, есть одна деталь", "Настоящий человек звучит иначе", "Слишком безупречно, чтобы быть правдой".

@@ -18,8 +18,9 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
 // Resolve cover image path
 const rawCover = post.data.coverImage || post.data.image;
 const hasCustomCover = rawCover && !rawCover.includes('default-cover.webp');
-const coverSrc = rawCover
-  ? (rawCover.startsWith('/blog') ? rawCover : `${base}${rawCover.startsWith('/') ? '' : '/'}${rawCover}`)
+const cleanCover = rawCover ? rawCover.replace(/^\/blog/, '') : null;
+const coverSrc = cleanCover
+  ? (cleanCover.startsWith('/') ? cleanCover : `/${cleanCover}`)
   : null;
 ---
 

@@ -5,8 +5,8 @@ pubDate: "2026-09-07"
 author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["Bumble Bio Filter Time Wasters: The 2026 Playbook for Attracting Intentional Partners"]
-canonicalUrl: "https://flirtcheck.site/blog/bumble-bio-filter-time-wasters-the-2026-playbook-for-attracting-i/"
-coverImage: "/blog/images/posts/default-cover.webp"
+canonicalUrl: "https://flirtcheck.site/bumble-bio-filter-time-wasters-the-2026-playbook-for-attracting-i/"
+coverImage: "/images/posts/default-cover.webp"
 draft: false
 ---
 

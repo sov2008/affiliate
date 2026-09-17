@@ -5,8 +5,8 @@ pubDate: "2026-09-07"
 author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["Optimal Photo Order Dating Apps: The Psychological Anchor Rule"]
-canonicalUrl: "https://flirtcheck.site/blog/optimal-photo-order-dating-apps-the-psychological-anchor-rule/"
-coverImage: "/blog/images/posts/default-cover.webp"
+canonicalUrl: "https://flirtcheck.site/optimal-photo-order-dating-apps-the-psychological-anchor-rule/"
+coverImage: "/images/posts/default-cover.webp"
 draft: false
 ---
 

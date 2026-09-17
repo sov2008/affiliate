@@ -5,8 +5,8 @@ pubDate: "2026-09-07"
 author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["Stolen Photos, Fake Dating Profile? How to Fight Back in 2026 🚨"]
-canonicalUrl: "https://flirtcheck.site/blog/stolen-photos-fake-dating-profile-how-to-fight-back-in-2026/"
-coverImage: "/blog/images/posts/default-cover.webp"
+canonicalUrl: "https://flirtcheck.site/stolen-photos-fake-dating-profile-how-to-fight-back-in-2026/"
+coverImage: "/images/posts/default-cover.webp"
 draft: false
 ---
 

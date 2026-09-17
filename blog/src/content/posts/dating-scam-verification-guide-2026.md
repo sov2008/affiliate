@@ -5,7 +5,7 @@ pubDate: 2026-03-01
 author: "Arthur"
 tags: ["Safety", "Profile Verification", "Dating Advice", "Romance Scams"]
 seoKeywords: ["dating profile verification", "spot dating scammer", "romance scam red flags", "ai dating profile checker", "online dating safety quiz"]
-canonicalUrl: "https://flirtcheck.site/blog/dating-scam-verification-guide-2026/"
+canonicalUrl: "https://flirtcheck.site/dating-scam-verification-guide-2026/"
 draft: false
 ---
 

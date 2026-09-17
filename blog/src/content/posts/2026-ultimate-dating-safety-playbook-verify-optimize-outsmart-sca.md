@@ -5,8 +5,8 @@ pubDate: "2026-09-07"
 author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Outsmart Scammers"]
-canonicalUrl: "https://flirtcheck.site/blog/2026-ultimate-dating-safety-playbook-verify-optimize-outsmart-sca/"
-coverImage: "/blog/images/posts/default-cover.webp"
+canonicalUrl: "https://flirtcheck.site/2026-ultimate-dating-safety-playbook-verify-optimize-outsmart-sca/"
+coverImage: "/images/posts/default-cover.webp"
 draft: false
 ---
 

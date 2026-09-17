@@ -85,6 +85,8 @@ log_format auth_debug '$remote_addr - $remote_user [$time_local] "$request" $sta
 
 server {
     server_name flirtcheck.site www.flirtcheck.site;
+    root /var/www/affiliate/blog/dist;
+    index index.html;
     access_log /var/log/nginx/auth_debug.log auth_debug;
 
     # ----------------------------------------------------
@@ -271,22 +273,18 @@ server {
     }
 
     # ----------------------------------------------------
-    # 9.5. Public Static Astro Blog (/blog/)
+    # 9.5. Legacy Blog URLs Redirect (/blog/ -> /)
     # ----------------------------------------------------
     location = /blog {
-        return 301 /blog/;
+        return 301 /;
     }
 
     location /blog/ {
-        auth_basic off;
-        alias /var/www/affiliate/blog/dist/;
-        try_files $uri $uri/ /blog/index.html;
-        expires 7d;
-        add_header Cache-Control "public, no-transform";
+        rewrite ^/blog/(.*)$ /$1 permanent;
     }
 
     # ----------------------------------------------------
-    # 10. Public Whitelist: Affiliate TDS Engine & Traffic Router (/go & /)
+    # 10. Public Whitelist: Affiliate TDS Engine & Traffic Router (/go)
     # ----------------------------------------------------
     location /go {
         auth_basic off;
@@ -299,15 +297,15 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 
+    # ----------------------------------------------------
+    # 11. Root / Blog Static Delivery (Primary Entrypoint)
+    # ----------------------------------------------------
     location / {
         auth_basic off;
-
-        proxy_pass http://127.0.0.1:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        try_files $uri $uri/ /index.html;
+        expires 7d;
+        add_header Cache-Control "public, no-transform";
+        add_header X-Robots-Tag "noindex, nofollow, noarchive" always;
     }
 
     listen 443 ssl; # managed by Certbot

@@ -5,8 +5,8 @@ pubDate: "2026-09-07"
 author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["Hinge Opening Lines That Get 85% Reply Rates: Data-Backed Strategies for 2026"]
-canonicalUrl: "https://flirtcheck.site/blog/hinge-opening-lines-that-get-85-reply-rates-data-backed-strategie/"
-coverImage: "/blog/images/posts/hinge-opening-lines-that-get-85-reply-rates-data-backed-strategie.webp"
+canonicalUrl: "https://flirtcheck.site/hinge-opening-lines-that-get-85-reply-rates-data-backed-strategie/"
+coverImage: "/images/posts/hinge-opening-lines-that-get-85-reply-rates-data-backed-strategie.webp"
 draft: false
 ---
 

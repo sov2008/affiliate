@@ -6,7 +6,7 @@ import { HumanizerSkill, HumanizedOutput } from '../skills/humanizer-skill.js';
 import { AffiliateAdapterFactory } from '../adapters/adapterFactory.js';
 import { PrelanderService, PrelanderMetadataPayload } from '../services/prelanderService.js';
 import { NetworkName, PrelanderType } from '../adapters/affiliateAdapter.interface.js';
-import { AUTHOR_PERSONA } from '../services/character-bible.js';
+import { AUTHOR_PERSONA, AUTHOR_PERSONA_DETAILED, SCENE_INTERACTION_RULES } from '../services/character-bible.js';
 
 export interface PipelineInput {
   topic: string;
@@ -151,14 +151,20 @@ export class ContentPipeline {
     // ----------------------------------------------------
     console.log(`\x1b[36m[Stage 1/5]\x1b[0m Generating literary angle & 'Love is...' narrative hook...`);
     const s1Start = Date.now();
-    const stage1SystemPrompt = `You are ${AUTHOR_PERSONA.name} (${AUTHOR_PERSONA.role}).
-Philosophy: "${AUTHOR_PERSONA.philosophy}"
+    const stage1SystemPrompt = `You are ${AUTHOR_PERSONA_DETAILED.name} (${AUTHOR_PERSONA_DETAILED.role}).
+Archetype: ${AUTHOR_PERSONA_DETAILED.archetype}
+Philosophy: "${AUTHOR_PERSONA_DETAILED.philosophy}"
 
 You are an essayist, novelist, and old-school romantic defending authentic human intimacy from synthetic LLM scripts, deepfakes, and orchestrated conversion funnels.
 
+NARRATIVE TRIAD (THREEFOLD DISSECTION IN INVESTIGATIONS):
+- Asuka (Lead Field Investigator): ${SCENE_INTERACTION_RULES.trioDissectionFormula.asukaStep}
+- Shinji (Technical Forensic Operator): ${SCENE_INTERACTION_RULES.trioDissectionFormula.shinjiStep}
+- Author (The Romantic Novelist): ${SCENE_INTERACTION_RULES.trioDissectionFormula.authorStep}
+
 LITERARY CONVENTIONS & THEMATIC HOOK RULES:
 1. HOOK FORMULA:
-   The hook MUST open with a poetic "Love is..." aphorism that pairs emotional vulnerability with realistic digital awareness.
+   The hook MUST open with a poetic "Love is... " aphorism that pairs emotional vulnerability with realistic digital awareness (${AUTHOR_PERSONA_DETAILED.mottoFormulas.template}).
    Thematic guidance:
    - Voice deepfakes / audio notes: "Love is... remembering how her real voice trembles, before trusting a synthetic audio note."
    - LLMs, bot punctuation & sterile scripts: "Love is... falling for honest typos, not for clinical LLM perfection."
@@ -168,6 +174,7 @@ LITERARY CONVENTIONS & THEMATIC HOOK RULES:
 
 2. BODY STRUCTURE (THE INVESTIGATION OF A CONNOISSEUR):
    - The article is an elegant, observant investigation: dissect cheap counterfeits (bot swarms, scripted conversion illusions) not with rage, but with the melancholic smile of an art connoisseur discovering a forgery in a gallery.
+   - Weave in the narrative triad: touch upon the psychological vanity exploited (Asuka's lens), the telltale technical anomalies (Shinji's forensic lens), and the warm yearning for real romance (Author's lens).
    - Contrast warm, messy human presence (unwritten letters, natural hesitations, honest typos, breath, vulnerability) against sterile, calculated optimization.
    - Strictly avoid corporate marketing jargon ("lead gen", "sales funnel", "conversion optimization"). Use literary substitutes ("hasty transactions", "orchestrated illusions").
 

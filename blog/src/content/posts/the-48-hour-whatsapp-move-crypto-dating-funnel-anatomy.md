@@ -5,8 +5,8 @@ pubDate: "2026-09-15"
 author: "Arthur"
 tags: ["Crypto Scams", "Safety", "Online Dating", "Bot Detection"]
 seoKeywords: ["crypto dating scam funnel", "pig butchering tinder", "whatsapp dating scam", "sha zhu pan mechanics"]
-canonicalUrl: "https://flirtcheck.site/blog/the-48-hour-whatsapp-move-crypto-dating-funnel-anatomy/"
-coverImage: "/blog/images/posts/whatsapp-crypto-funnel-anatomy.webp"
+canonicalUrl: "https://flirtcheck.site/the-48-hour-whatsapp-move-crypto-dating-funnel-anatomy/"
+coverImage: "/images/posts/whatsapp-crypto-funnel-anatomy.webp"
 image: "/images/posts/whatsapp-crypto-funnel-anatomy.webp"
 draft: false
 ---

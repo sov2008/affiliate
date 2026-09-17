@@ -5,8 +5,8 @@ pubDate: "2026-09-15"
 author: "Arthur"
 tags: ["Bot Detection", "AI Clichés", "Online Dating", "Safety"]
 seoKeywords: ["llm dating bio red flags", "spot ai dating profile", "tinder bot bio punctuation", "ai text detection dating apps"]
-canonicalUrl: "https://flirtcheck.site/blog/dead-giveaways-in-bio-punctuation-llm-spambots-dating/"
-coverImage: "/blog/images/posts/bio-punctuation-llm-spambots.webp"
+canonicalUrl: "https://flirtcheck.site/dead-giveaways-in-bio-punctuation-llm-spambots-dating/"
+coverImage: "/images/posts/bio-punctuation-llm-spambots.webp"
 image: "/images/posts/bio-punctuation-llm-spambots.webp"
 draft: false
 ---

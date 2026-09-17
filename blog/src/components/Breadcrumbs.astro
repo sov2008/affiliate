@@ -20,19 +20,13 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": siteUrl
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Blog",
-      "item": `${siteUrl}/blog/`
+      "item": `${siteUrl}/`
     },
     ...items.map((item, index) => ({
       "@type": "ListItem",
-      "position": index + 3,
+      "position": index + 2,
       "name": item.name,
-      ...(item.url ? { "item": item.url.startsWith('http') ? item.url : `${siteUrl}${item.url}` } : {})
+      ...(item.url ? { "item": item.url.startsWith('http') ? item.url : `${siteUrl}${item.url.startsWith('/') ? '' : '/'}${item.url}` } : {})
     }))
   ]
 };
@@ -42,10 +36,6 @@ const breadcrumbSchema = {
   <ol class="flex flex-wrap items-center gap-2">
     <li>
       <a href="/" class="hover:text-rose-600 transition-colors">Home</a>
-    </li>
-    <li class="text-slate-400">/</li>
-    <li>
-      <a href={`${base}/`} class="hover:text-rose-600 transition-colors">Blog</a>
     </li>
     {items.map((item, index) => (
       <>

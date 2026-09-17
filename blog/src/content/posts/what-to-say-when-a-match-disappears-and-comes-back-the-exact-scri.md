@@ -5,8 +5,8 @@ pubDate: "2026-09-07"
 author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["What to Say When a Match Disappears and Comes Back: The Exact Script"]
-canonicalUrl: "https://flirtcheck.site/blog/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri/"
-coverImage: "/blog/images/posts/default-cover.webp"
+canonicalUrl: "https://flirtcheck.site/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri/"
+coverImage: "/images/posts/default-cover.webp"
 draft: false
 ---
 

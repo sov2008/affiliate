@@ -5,8 +5,8 @@ pubDate: "2026-09-07"
 author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["2026 Dating Safety Guide: Optimize Your Profile, Spot Scams & Build Real Connections"]
-canonicalUrl: "https://flirtcheck.site/blog/2026-dating-safety-guide-optimize-your-profile-spot-scams-build-r/"
-coverImage: "/blog/images/posts/default-cover.webp"
+canonicalUrl: "https://flirtcheck.site/2026-dating-safety-guide-optimize-your-profile-spot-scams-build-r/"
+coverImage: "/images/posts/default-cover.webp"
 draft: false
 ---
 

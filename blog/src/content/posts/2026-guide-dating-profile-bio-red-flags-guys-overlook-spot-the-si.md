@@ -5,8 +5,8 @@ pubDate: "2026-09-07"
 author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["2026 Guide: Dating Profile Bio Red Flags Guys Overlook – Spot the Silent Deal‑Breakers"]
-canonicalUrl: "https://flirtcheck.site/blog/2026-guide-dating-profile-bio-red-flags-guys-overlook-spot-the-si/"
-coverImage: "/blog/images/posts/default-cover.webp"
+canonicalUrl: "https://flirtcheck.site/2026-guide-dating-profile-bio-red-flags-guys-overlook-spot-the-si/"
+coverImage: "/images/posts/default-cover.webp"
 draft: false
 ---
 

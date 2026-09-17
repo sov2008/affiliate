@@ -39,13 +39,18 @@ const {
 
 const siteBaseUrl = 'https://flirtcheck.site';
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || siteBaseUrl;
-const effectiveCoverImage = coverImage || (image ? (image.startsWith('/blog') ? image : `/blog${image.startsWith('/') ? '' : '/'}${image}`) : undefined);
-const canonicalAbsUrl = canonicalUrl.startsWith('http')
-  ? canonicalUrl
-  : `${siteBaseUrl}${canonicalUrl.startsWith('/') ? '' : '/'}${canonicalUrl}`;
+const rawImg = coverImage || image;
+const normalizedImg = rawImg ? rawImg.replace(/^\/blog/, '') : undefined;
+const effectiveCoverImage = normalizedImg
+  ? (normalizedImg.startsWith('/') ? normalizedImg : `/${normalizedImg}`)
+  : undefined;
+const normalizedCanonical = canonicalUrl ? canonicalUrl.replace(/https?:\/\/flirtcheck\.site\/blog\//, `${siteBaseUrl}/`) : '';
+const canonicalAbsUrl = normalizedCanonical.startsWith('http')
+  ? normalizedCanonical
+  : `${siteBaseUrl}${normalizedCanonical.startsWith('/') ? '' : '/'}${normalizedCanonical}`;
 const ogImageAbsUrl = effectiveCoverImage
   ? (effectiveCoverImage.startsWith('http') ? effectiveCoverImage : `${siteBaseUrl}${effectiveCoverImage.startsWith('/') ? '' : '/'}${effectiveCoverImage}`)
-  : `${siteBaseUrl}/blog/images/posts/${slug || 'dating-scam-verification-guide-2026'}.webp`;
+  : `${siteBaseUrl}/images/posts/${slug || 'dating-scam-verification-guide-2026'}.webp`;
 const formattedDate = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
   month: 'long',
@@ -169,7 +174,7 @@ const faqSchema = {
       aria-valuenow="0"
     ></div>
 
-    <Header activePath="/blog" />
+    <Header activePath="/" />
 
     <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
       <!-- Breadcrumbs Navigation -->
@@ -210,7 +215,7 @@ const faqSchema = {
       <!-- Featured Cover Image in Comic Frame -->
       <div class="mb-10 overflow-hidden rounded-2xl border-2 border-slate-900 shadow-[6px_6px_0px_0px_#0f172a] bg-white">
         <img
-          src={effectiveCoverImage || `/blog/images/posts/${slug || 'dating-scam-verification-guide-2026'}.webp`}
+          src={effectiveCoverImage || `/images/posts/${slug || 'dating-scam-verification-guide-2026'}.webp`}
           alt={title}
           class="w-full aspect-video object-cover hover:scale-[1.01] transition-transform duration-500"
           loading="lazy"

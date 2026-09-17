@@ -5,8 +5,8 @@ pubDate: "2026-09-07"
 author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["Detect Stolen Instagram Photos on Dating Profiles — Your 2026 Playbook to Spot Fakes Fast"]
-canonicalUrl: "https://flirtcheck.site/blog/detect-stolen-instagram-photos-on-dating-profiles-your-2026-playb/"
-coverImage: "/blog/images/posts/default-cover.webp"
+canonicalUrl: "https://flirtcheck.site/detect-stolen-instagram-photos-on-dating-profiles-your-2026-playb/"
+coverImage: "/images/posts/default-cover.webp"
 draft: false
 ---
 

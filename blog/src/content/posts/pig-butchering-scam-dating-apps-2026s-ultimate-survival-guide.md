@@ -5,8 +5,8 @@ pubDate: "2026-09-07"
 author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["Pig Butchering Scam Dating Apps: 2026’s Ultimate Survival Guide"]
-canonicalUrl: "https://flirtcheck.site/blog/pig-butchering-scam-dating-apps-2026s-ultimate-survival-guide/"
-coverImage: "/blog/images/posts/default-cover.webp"
+canonicalUrl: "https://flirtcheck.site/pig-butchering-scam-dating-apps-2026s-ultimate-survival-guide/"
+coverImage: "/images/posts/default-cover.webp"
 draft: false
 ---
 

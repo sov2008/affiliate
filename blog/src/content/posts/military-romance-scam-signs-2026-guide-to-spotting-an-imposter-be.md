@@ -5,8 +5,8 @@ pubDate: "2026-09-07"
 author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["Military Romance Scam Signs — 2026 Guide to Spotting an Imposter Before It’s Too Late"]
-canonicalUrl: "https://flirtcheck.site/blog/military-romance-scam-signs-2026-guide-to-spotting-an-imposter-be/"
-coverImage: "/blog/images/posts/default-cover.webp"
+canonicalUrl: "https://flirtcheck.site/military-romance-scam-signs-2026-guide-to-spotting-an-imposter-be/"
+coverImage: "/images/posts/default-cover.webp"
 draft: false
 ---
 

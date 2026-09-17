@@ -5,8 +5,8 @@ pubDate: "2026-09-07"
 author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["Why You Get Matches But No Dates: Cracking the 2026 “Matches‑But‑No‑Dates” Bottleneck on Dating Apps"]
-canonicalUrl: "https://flirtcheck.site/blog/why-you-get-matches-but-no-dates-cracking-the-2026-matchesbutnoda/"
-coverImage: "/blog/images/posts/default-cover.webp"
+canonicalUrl: "https://flirtcheck.site/why-you-get-matches-but-no-dates-cracking-the-2026-matchesbutnoda/"
+coverImage: "/images/posts/default-cover.webp"
 draft: false
 ---
 

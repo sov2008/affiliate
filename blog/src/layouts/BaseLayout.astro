@@ -16,12 +16,12 @@ const {
   title,
   description,
   canonicalUrl,
-  ogImage = '/blog/images/posts/reverse-image-search-lens-scam.webp',
-  activePath = '/blog'
+  ogImage = '/images/posts/reverse-image-search-lens-scam.webp',
+  activePath = '/'
 } = Astro.props;
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://flirtcheck.site';
-const fullCanonical = canonicalUrl || `${siteUrl}/blog/`;
+const fullCanonical = canonicalUrl || `${siteUrl}/`;
 const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage.startsWith('/') ? '' : '/'}${ogImage}`;
 ---
 

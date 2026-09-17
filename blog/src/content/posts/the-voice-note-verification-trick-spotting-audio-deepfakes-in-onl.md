@@ -5,8 +5,8 @@ pubDate: "2026-09-07"
 author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["The Voice Note Verification Trick: Spotting Audio Deepfakes in Online Dating (2026 Guide)"]
-canonicalUrl: "https://flirtcheck.site/blog/the-voice-note-verification-trick-spotting-audio-deepfakes-in-onl/"
-coverImage: "/blog/images/posts/default-cover.webp"
+canonicalUrl: "https://flirtcheck.site/the-voice-note-verification-trick-spotting-audio-deepfakes-in-onl/"
+coverImage: "/images/posts/default-cover.webp"
 draft: false
 ---
 

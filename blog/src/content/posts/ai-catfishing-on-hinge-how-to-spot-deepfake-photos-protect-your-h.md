@@ -5,8 +5,8 @@ pubDate: "2026-09-07"
 author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["AI Catfishing on Hinge: How to Spot Deepfake Photos & Protect Your Heart (and Wallet) in 2026"]
-canonicalUrl: "https://flirtcheck.site/blog/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h/"
-coverImage: "/blog/images/posts/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h.webp"
+canonicalUrl: "https://flirtcheck.site/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h/"
+coverImage: "/images/posts/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h.webp"
 draft: false
 ---
 
