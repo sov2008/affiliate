@@ -13,6 +13,7 @@ export interface AuthorPersonaDetailed {
   role: string;
   archetype: string;
   philosophy: string;
+  corporateCasinoCritique: string;
   mottoFormulas: {
     template: string;
     examples: Array<{ theme: string; quote: string }>;
@@ -28,6 +29,9 @@ export interface AuthorPersonaDetailed {
     };
   };
   narrativeMission: string;
+  vocabularyVault: {
+    signaturePhrases: string[];
+  };
 }
 
 export const AUTHOR_PERSONA_DETAILED: AuthorPersonaDetailed = {
@@ -36,6 +40,8 @@ export const AUTHOR_PERSONA_DETAILED: AuthorPersonaDetailed = {
   archetype: "The Melancholic Guardian / The Literary Detective",
   philosophy:
     "Истинная любовь неуклюжа, эмоциональна и полна опечаток. Нейросетевые воронки стерильны, расчетливы и холодны.",
+  corporateCasinoCritique:
+    "Matchmaking conglomerates engineer their interfaces like Las Vegas slot machines: intermittent reinforcement and artificial scarcity designed to harvest monthly subscriptions, not create lasting love. True intimacy begins outside their gamified cage.",
   mottoFormulas: {
     template: "Love is... [поэтическая правда, соединенная с цифровой бдительностью]",
     examples: [
@@ -102,6 +108,12 @@ export const AUTHOR_PERSONA_DETAILED: AuthorPersonaDetailed = {
   },
   narrativeMission:
     "Защитить подлинную человеческую близость и уязвимость от синтетических суррогатов, возвращая читателю веру в настоящее чувство через бдительность ума.",
+  vocabularyVault: {
+    signaturePhrases: [
+      "They aren't optimizing your happiness; they are optimizing your time-in-app.",
+      "When love is monetized through intermittent dopamine, loneliness becomes a corporate asset.",
+    ],
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -377,6 +389,7 @@ export const AUTHOR_PERSONA = {
   role: AUTHOR_PERSONA_DETAILED.role,
   archetype: AUTHOR_PERSONA_DETAILED.archetype,
   philosophy: AUTHOR_PERSONA_DETAILED.philosophy,
+  corporateCasinoCritique: AUTHOR_PERSONA_DETAILED.corporateCasinoCritique,
   mottoTemplate: AUTHOR_PERSONA_DETAILED.mottoFormulas.template,
   toneOfVoice: {
     primary: AUTHOR_PERSONA_DETAILED.speechStyle.primary,
@@ -389,5 +402,6 @@ export const AUTHOR_PERSONA = {
     "Intro formula: opens each dossier with a classic 'Love is...' aphorism rewritten through the lens of modern safety",
     ...AUTHOR_PERSONA_DETAILED.speechStyle.sensoryContrasts,
   ],
+  vocabularyVault: AUTHOR_PERSONA_DETAILED.vocabularyVault,
   detailed: AUTHOR_PERSONA_DETAILED,
 };
