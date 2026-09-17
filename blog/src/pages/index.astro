@@ -9,8 +9,8 @@ import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.con
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const pageTitle = "FlirtCheck: Хроники Современного Дейтинга | От Алгоритмов к Живому Сердцу";
-const pageDescription = "Культурное, психологическое и технологическое исследование дейтинга в 2026 году. От скрытых алгоритмов до искренней романтики.";
+const pageTitle = "FlirtCheck: Modern Dating Chronicles | From Algorithms to the Human Heart";
+const pageDescription = "Cultural, psychological, and algorithmic forensic study of modern romance in 2026. From automated black-box feeds to authentic human vulnerability.";
 
 const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key]);
 ---
@@ -18,14 +18,15 @@ const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key
 <BaseLayout title={pageTitle} description={pageDescription} activePath="/">
   <!-- Hero Editorial 90s Newspaper / Comic Banner -->
   <section class="text-center py-10 sm:py-14 relative">
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-md text-xs font-mono font-black uppercase bg-amber-100 text-amber-900 border border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] mb-6">
-      <span class="w-2 h-2 rounded-full bg-rose-600"></span>
-      <span>CULTURAL & INVESTIGATIVE DOSSIER • ISSUE 2026</span>
+    <div class="mb-4">
+      <span class="border border-slate-900 bg-amber-100 text-slate-900 px-3 py-1 text-[11px] font-mono font-bold tracking-widest uppercase shadow-[1px_1px_0px_0px_#0f172a]">
+        THE 2026 DATING FORENSICS & ROMANCE GAZETTE
+      </span>
     </div>
 
     <!-- Main H1 Header -->
-    <h1 class="text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight max-w-4xl mx-auto mb-4 font-sans uppercase">
-      Хроники Современного Дейтинга: <span class="text-rose-600 underline decoration-slate-900 decoration-wavy decoration-2">От Алгоритмов к Живому Сердцу</span>
+    <h1 class="font-black text-3xl sm:text-5xl text-slate-900 tracking-tight uppercase leading-none mt-4 mb-3">
+      MODERN DATING CHRONICLES: <span class="text-rose-600">FROM ALGORITHMS TO THE HUMAN HEART</span>
     </h1>
 
     <!-- Canonical "Love is..." Signature Motto & Author Epigraph -->
@@ -34,19 +35,20 @@ const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key
         "Love is... knowing that in a world of endless swipes and synthetic scripts, real chemistry happens between two imperfect souls."
       </p>
       <div class="mt-2 text-right">
-        <span class="text-xs font-mono font-bold text-slate-500 uppercase tracking-widest">— Заметки романиста & FlirtCheck Editorial</span>
+        <span class="text-xs font-mono font-bold text-slate-500 uppercase tracking-widest">— Notes from an Analog Romantic & FlirtCheck Editorial</span>
       </div>
     </div>
 
-    <p class="text-base sm:text-lg text-slate-700 max-w-2xl mx-auto leading-relaxed mb-8 font-medium">
-      Глобальное культурное, психологическое и технологическое исследование романтики: деконструкция ELO-алгоритмов, разбор переписок, преодоление нарциссических ловушек и возвращение к искренней близости.
+    <!-- Author Lead Manifest -->
+    <p class="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-normal mb-8">
+      Investigating the collision of synthetic AI personas, algorithmic traps, and genuine human vulnerability. Written from the perspective of an analog romantic in an automated age.
     </p>
 
     <!-- Interactive Category Filter Stamps Bar -->
     <div class="max-w-4xl mx-auto">
       <div class="flex items-center justify-center gap-2 mb-3">
         <span class="text-xs font-mono uppercase text-slate-600 font-black tracking-wider">
-          Тематические Рубрики:
+          THEMATIC DOSSIERS:
         </span>
       </div>
 
@@ -57,7 +59,7 @@ const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key
           data-filter="all"
           class="category-btn active px-3.5 py-1.5 rounded-lg text-xs font-mono font-black uppercase tracking-wider border-2 border-slate-900 bg-slate-900 text-white shadow-[2px_2px_0px_0px_#e11d48] transition-all cursor-pointer hover:-translate-y-0.5"
         >
-          Все хроники ({sortedPosts.length})
+          [ALL DOSSIERS] ({sortedPosts.length})
         </button>
 
         <!-- Category Buttons -->
@@ -73,7 +75,7 @@ const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key
               ]}
               title={cat.description}
             >
-              <span>{cat.shortTitle}</span>
+              <span>[{cat.shortTitle}]</span>
               <span class="ml-1 opacity-75 font-normal">({count})</span>
             </button>
           );
@@ -95,10 +97,10 @@ const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key
   <!-- Articles Grid Section (Comic Strip Panels) -->
   <section class="mt-6 mb-16">
     <div class="flex items-center justify-between pb-4 mb-8 border-b-2 border-slate-900">
-      <h2 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3 font-sans">
-        <span>Полевые Досье & Статьи</span>
+      <h2 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3 font-sans uppercase">
+        <span>FIELD DOSSIERS & ARTICLES</span>
         <span id="displayedCountBadge" class="px-2.5 py-0.5 rounded border border-slate-900 text-xs font-mono font-black bg-rose-600 text-white shadow-[2px_2px_0px_0px_#0f172a]">
-          {sortedPosts.length} Guides
+          ARCHIVE RECORDS: {sortedPosts.length} DISPATCHES FILED
         </span>
       </h2>
     </div>
@@ -111,19 +113,19 @@ const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key
       </div>
     ) : (
       <div class="text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
-        <p class="text-slate-600 font-bold">No articles published yet. Stay tuned!</p>
+        <p class="text-slate-600 font-bold">No dispatches filed yet. Stay tuned!</p>
       </div>
     )}
 
     <!-- Empty State for Filter -->
     <div id="noPostsFound" class="hidden text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
-      <p class="text-slate-700 font-bold font-sans text-base">В выбранной рубрике пока нет материалов.</p>
+      <p class="text-slate-700 font-bold font-sans text-base">No dispatches found in this category.</p>
       <button
         type="button"
         id="resetFilterBtn"
-        class="mt-4 px-4 py-2 bg-rose-600 text-white font-mono text-xs font-black uppercase rounded-lg border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none"
+        class="mt-4 px-4 py-2 bg-rose-600 text-white font-mono text-xs font-black uppercase rounded-lg border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none cursor-pointer"
       >
-        Показать все статьи
+        [SHOW ALL DOSSIERS]
       </button>
     </div>
   </section>
@@ -132,7 +134,7 @@ const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key
   <section id="safety-quiz">
     <DatingSmartlinkCTA
       title="Instant Profile Safety & Compatibility Scan"
-      subtitle="Запустите наш экспресс-радар проверки профиля: фильтрация бот-сетей, проверка метаданных фото и калибровка совместимости."
+      subtitle="Run our rapid profile verification radar: filter bot swarms, audit photo metadata, and calibrate authentic chemistry."
       offerUrl="/go"
     />
   </section>
@@ -153,6 +155,16 @@ const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key
 
     const catMetaMap = {};
     categoriesList.forEach(c => { catMetaMap[c.id] = c; });
+
+    const hashAliasMap = {
+      'safety-scams': 'safety-dossier',
+      'safety-dossier': 'safety-dossier',
+      'algo-mechanics': 'algo-mechanics',
+      'modern-psychology': 'modern-psychology',
+      'digital-dialogue': 'digital-dialogue',
+      'first-dates': 'first-dates',
+      'romantic-essays': 'romantic-essays'
+    };
 
     function applyFilter(filterVal) {
       let visibleCount = 0;
@@ -182,7 +194,7 @@ const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key
 
       // Update count badge
       if (displayedCountBadge) {
-        displayedCountBadge.textContent = `${visibleCount} ${visibleCount === 1 ? 'Guide' : 'Guides'}`;
+        displayedCountBadge.textContent = `ARCHIVE RECORDS: ${visibleCount} ${visibleCount === 1 ? 'DISPATCH FILED' : 'DISPATCHES FILED'}`;
       }
 
       // Show/hide empty notice
@@ -221,10 +233,15 @@ const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key
       });
     }
 
-    // Check URL hash if user loaded page with #category-name
-    const hash = window.location.hash.replace('#', '');
-    if (hash && catMetaMap[hash]) {
-      applyFilter(hash);
+    function checkHash() {
+      const rawHash = window.location.hash.replace('#', '');
+      const mapped = hashAliasMap[rawHash] || rawHash;
+      if (mapped && catMetaMap[mapped]) {
+        applyFilter(mapped);
+      }
     }
+
+    window.addEventListener('hashchange', checkHash);
+    checkHash();
   });
 </script>

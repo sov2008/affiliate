@@ -16,6 +16,10 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
   day: 'numeric'
 }).format(post.data.pubDate);
 
+// Estimate reading time
+const wordCount = post.body ? post.body.split(/\s+/).length : 800;
+const readingTime = Math.max(2, Math.ceil(wordCount / 200));
+
 // Category metadata
 const categoryMeta = post.data.category ? CATEGORIES_METADATA[post.data.category] : null;
 
@@ -41,7 +45,7 @@ const coverSrc = cleanCover
     ) : (
       <div class="w-full h-full halftone-pattern flex flex-col items-center justify-center p-6 text-center select-none relative">
         <div class="absolute top-2 left-2 border border-slate-900 bg-white font-mono text-[9px] font-black text-slate-900 uppercase px-2 py-0.5 rounded shadow-[1px_1px_0px_0px_#0f172a]">
-          DOSSIER FILE #{post.id?.substring(0, 6) || '2026-A'}
+          CONFIDENTIAL CASE // PENDING ANALYSIS
         </div>
         <div class="w-12 h-12 rounded-lg bg-white border-2 border-slate-900 flex items-center justify-center shadow-[3px_3px_0px_0px_#0f172a] mb-2 hover:rotate-6 transition-transform">
           <svg class="w-6 h-6 text-rose-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -53,7 +57,7 @@ const coverSrc = cleanCover
           </svg>
         </div>
         <span class="font-mono text-xs font-black uppercase text-slate-900 tracking-wider">
-          DOSSIER FILE
+          NO VISUAL ARTIFACT ATTACHED
         </span>
         <span class="text-[10px] font-serif italic text-slate-600 mt-0.5">
           "Safety is... staying alert"
@@ -86,7 +90,11 @@ const coverSrc = cleanCover
           </span>
         ))}
       </div>
-      <span class="text-xs font-mono text-slate-500 font-bold shrink-0">{formattedDate}</span>
+      <div class="flex items-center gap-1.5 text-xs font-mono text-slate-500 font-bold shrink-0">
+        <span class="text-rose-600">{readingTime} MIN READ</span>
+        <span>•</span>
+        <span>{formattedDate}</span>
+      </div>
     </div>
 
     <!-- Title -->
@@ -114,10 +122,7 @@ const coverSrc = cleanCover
         href={`${base}/${post.id || post.slug}/`}
         class="inline-flex items-center gap-1 font-black text-rose-600 hover:translate-x-0.5 transition-transform uppercase tracking-wider text-xs"
       >
-        <span>Open Dossier</span>
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-        </svg>
+        <span>READ DOSSIER →</span>
       </a>
     </div>
   </div>

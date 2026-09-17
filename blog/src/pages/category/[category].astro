@@ -20,7 +20,7 @@ const allPosts = await getCollection('posts', ({ data }) => !data.draft && data.
 const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const pageTitle = `${categoryMeta.title} | FlirtCheck Editorial`;
-const pageDescription = `${categoryMeta.description} Статьи и полевые руководства в рубрике ${categoryMeta.title}.`;
+const pageDescription = `${categoryMeta.description} Articles and forensic guides filed under ${categoryMeta.title}.`;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} activePath={`/category/${categoryKey}`}>
@@ -28,7 +28,7 @@ const pageDescription = `${categoryMeta.description} Статьи и полев�
   <section class="text-center py-10 sm:py-14 relative">
     <div class="inline-flex items-center gap-2 mb-4">
       <a href="/" class="text-xs font-mono font-bold text-slate-500 hover:text-rose-600 uppercase tracking-wider">
-        ← Все хроники дейтинга
+        ← All Dating Chronicles
       </a>
     </div>
 
@@ -37,7 +37,7 @@ const pageDescription = `${categoryMeta.description} Статьи и полев�
         "inline-block border-2 border-slate-900 px-4 py-1.5 rounded-lg text-xs font-mono font-black uppercase tracking-wider shadow-[2px_2px_0px_0px_#0f172a]",
         categoryMeta.badgeStyle
       ]}>
-        РУБРИКА: {categoryMeta.shortTitle}
+        DOSSIER: {categoryMeta.shortTitle}
       </span>
     </div>
 
@@ -60,10 +60,10 @@ const pageDescription = `${categoryMeta.description} Статьи и полев�
   <!-- Posts Grid for Category -->
   <section class="mt-6 mb-16">
     <div class="flex items-center justify-between pb-4 mb-8 border-b-2 border-slate-900">
-      <h2 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3 font-sans">
-        <span>Материалы Рубрики</span>
+      <h2 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3 font-sans uppercase">
+        <span>Dossier Dispatches</span>
         <span class="px-2.5 py-0.5 rounded border border-slate-900 text-xs font-mono font-black bg-slate-900 text-white shadow-[2px_2px_0px_0px_#e11d48]">
-          {sortedPosts.length} Guides
+          {sortedPosts.length} Records
         </span>
       </h2>
     </div>
@@ -76,9 +76,9 @@ const pageDescription = `${categoryMeta.description} Статьи и полев�
       </div>
     ) : (
       <div class="text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
-        <p class="text-slate-600 font-bold">В этой рубрике пока нет опубликованных материалов. Скоро здесь появятся новые досье!</p>
+        <p class="text-slate-600 font-bold">No dispatches filed in this dossier yet. New records coming soon!</p>
         <a href="/" class="mt-4 inline-block px-4 py-2 bg-slate-900 text-white text-xs font-mono font-black uppercase rounded-lg border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
-          Вернуться на главную
+          Return to Main Archive
         </a>
       </div>
     )}
@@ -88,7 +88,7 @@ const pageDescription = `${categoryMeta.description} Статьи и полев�
   <section id="safety-quiz">
     <DatingSmartlinkCTA
       title="Instant Profile Safety & Compatibility Scan"
-      subtitle="Запустите наш экспресс-радар проверки профиля: фильтрация бот-сетей, проверка метаданных фото и калибровка совместимости."
+      subtitle="Run our rapid profile verification radar: filter bot swarms, audit photo metadata, and calibrate authentic chemistry."
       offerUrl="/go"
     />
   </section>
