@@ -18,14 +18,8 @@ const POSTS_DIR = path.resolve(process.cwd(), 'blog/src/content/posts');
 const OUTPUT_DIR = path.resolve(process.cwd(), 'blog/public/images/posts');
 
 // ---------------------------------------------------------------------------
-// 1. Strict Anti-Blush 2D Forensic Prompt Architecture
+// 1. Strict 2D Gainax Cel-Shading Prompt Architecture (Asuka & Shinji)
 // ---------------------------------------------------------------------------
-
-const BASE_PROMPT =
-  '2D vintage comic strip panel, 1990s anime cel shading, newsprint paper texture, black ink contour lines, flat colors. On the left: Asuka with red twin-tails pointing at cyber equipment. On the right: Shinji looking at forensic logs. Serious focused forensic investigators, pale unblushing skin, completely neutral facial expressions, no blush, no cheek stripes, working at forensic desk with cyber equipment. Bold outlines, retro newspaper illustration, 16:9 aspect ratio, no 3D, no realistic shading';
-
-const SANITIZED_SAFE_PROMPT =
-  'vintage 1990s anime cel shading, retro comic panel, two forensic analysts working with vintage computers, black ink outlines, flat colors, no blush, pale skin, 16:9 aspect ratio';
 
 export type SceneArchetype =
   | 'algo-mechanics'
@@ -37,18 +31,29 @@ export type SceneArchetype =
 
 const SCENE_ACTIONS: Record<SceneArchetype, string> = {
   'algo-mechanics':
-    'analyzing glowing algorithm ranking chart on wall, data flow curves',
+    'analyzing glowing algorithm ranking chart on wall, technical data flow curves',
   'safety-dossier':
-    'holding magnifying glass over smartphone screen, forensic inspection of user profile',
+    'inspecting printed investigative reports with magnifying glass, verifying forensic records',
   'voice-and-acoustics':
     'listening to vintage cassette recorder with headphones, green audio spectrogram on oscilloscope',
   'bot-syntax':
-    'circling syntax anomalies and em-dashes with red marker on printed log',
+    'circling syntax anomalies and text patterns with red marker on printed technical log',
   'modern-psychology':
-    'examining case file at forensic desk in rain, coffee cup, document dossier',
+    'examining case dossier folder at forensic desk, paper reports, ceramic coffee cup',
   'romantic-essays':
-    'vintage typewriter on wooden desk, ink pen, unscripted reality case log',
+    'typing investigation dispatch on vintage typewriter, paper documents, desk lamp',
 };
+
+function buildStrictPrompt(categoryAction: string): string {
+  return [
+    "masterpiece, 2D retro anime comic panel, 1990s animation cel, bold clean black ink contour lines, flat colors, warm newsprint paper texture, 16:9 horizontal frame",
+    "On the left: Asuka, vibrant copper-red hair in two high twin-tails, dark oversized turtleneck sweater, sharp focused analytical expression",
+    "On the right: Shinji, short dark brown hair, crisp cream collared shirt, calm serious expression",
+    categoryAction,
+    "Setting: retro detective investigation office, CRT monitor screen, technical paper reports on desk, vintage equipment, warm ambient lighting",
+    "flat 2D cel shading, classic 1990s anime aesthetic, sharp lineart, no 3D, no photorealism"
+  ].join(", ");
+}
 
 /**
  * Resolves post archetype based on category, slug, and title keywords
@@ -199,7 +204,7 @@ async function generateViaNvidiaFlux(prompt: string, apiKey: string): Promise<Bu
 }
 
 /**
- * Robust NVIDIA NIM Cover Generation (Primary FLUX.1-dev with Sanitized Retry)
+ * Robust NVIDIA NIM Cover Generation (Strict 2D Gainax Cel-Shading Engine)
  */
 async function generateCoverForPost(
   slug: string,
@@ -207,7 +212,7 @@ async function generateCoverForPost(
   outputPath: string
 ): Promise<{ success: boolean; size: number; durationMs: number; provider: string }> {
   const action = SCENE_ACTIONS[archetype];
-  const fullPrompt = `${BASE_PROMPT}, ${action}`;
+  const prompt = buildStrictPrompt(action);
 
   const fluxKey =
     process.env.NVIDIA_FLUX_DEV_API_KEY || process.env.NVIDIA_API_KEY || '';
@@ -220,37 +225,37 @@ async function generateCoverForPost(
   let rawBuffer: Buffer | null = null;
   let usedProvider = '';
 
-  // Attempt 1: Standard full prompt
+  // Attempt 1: Strict 2D Cel-Shading Prompt
   try {
-    rawBuffer = await generateViaNvidiaFlux(fullPrompt, fluxKey);
-    usedProvider = 'NVIDIA NIM (FLUX.1-dev)';
+    rawBuffer = await generateViaNvidiaFlux(prompt, fluxKey);
+    usedProvider = 'NVIDIA NIM (FLUX.1-dev Strict 2D)';
   } catch (err: any) {
     const isFiltered = err.message.includes('CONTENT_FILTERED');
     if (isFiltered) {
-      console.warn(`   🛡️ Safety filter triggered for ${slug}. Retrying with sanitized forensic prompt...`);
+      console.warn(`   🛡️ Safety filter triggered for ${slug}. Retrying with sanitized action keeping Asuka & Shinji 2D...`);
     } else {
       console.warn(`   ⚠️ FLUX attempt 1 failed for ${slug} (${err.message}). Retrying in 3s...`);
       await sleep(3000);
     }
 
-    // Attempt 2: Retry with Sanitized Safe Prompt if filtered, or retry full prompt if transient error
+    // Attempt 2: If filtered, keep exact 2D characters with neutral paperwork action. Else retry same prompt.
+    const retryPrompt = isFiltered
+      ? buildStrictPrompt('reviewing paper evidence logs and charts on desk')
+      : prompt;
+
     try {
-      const retryPrompt = isFiltered ? SANITIZED_SAFE_PROMPT : fullPrompt;
       rawBuffer = await generateViaNvidiaFlux(retryPrompt, fluxKey);
-      usedProvider = isFiltered ? 'NVIDIA NIM (FLUX.1-dev Sanitized)' : 'NVIDIA NIM (FLUX.1-dev Retry)';
+      usedProvider = isFiltered ? 'NVIDIA NIM (FLUX.1-dev 2D Neutral Action)' : 'NVIDIA NIM (FLUX.1-dev Retry)';
     } catch (retryErr: any) {
-      // Attempt 3: Final attempt with Sanitized prompt if not already tried
-      if (!isFiltered) {
-        console.warn(`   🛡️ Falling back to clean sanitized prompt for ${slug}...`);
-        await sleep(3000);
-        try {
-          rawBuffer = await generateViaNvidiaFlux(SANITIZED_SAFE_PROMPT, fluxKey);
-          usedProvider = 'NVIDIA NIM (FLUX.1-dev SafeFallback)';
-        } catch (finalErr: any) {
-          throw new Error(`NVIDIA Pipeline Error: ${finalErr.message}`);
-        }
-      } else {
-        throw new Error(`NVIDIA Pipeline Error: ${retryErr.message}`);
+      // Attempt 3: Final attempt with safe neutral action
+      console.warn(`   🛡️ Final attempt with safe neutral 2D action for ${slug}...`);
+      await sleep(3500);
+      try {
+        const finalPrompt = buildStrictPrompt('examining technical documents on desk in investigation office');
+        rawBuffer = await generateViaNvidiaFlux(finalPrompt, fluxKey);
+        usedProvider = 'NVIDIA NIM (FLUX.1-dev Final 2D Safe)';
+      } catch (finalErr: any) {
+        throw new Error(`NVIDIA Pipeline Error: ${finalErr.message}`);
       }
     }
   }
