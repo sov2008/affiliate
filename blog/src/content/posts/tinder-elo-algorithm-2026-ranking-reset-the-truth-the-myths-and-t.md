@@ -8,6 +8,7 @@ seoKeywords: ["Tinder ELO Algorithm 2026 Ranking Reset: The Truth, the Myths, an
 canonicalUrl: "https://flirtcheck.site/tinder-elo-algorithm-2026-ranking-reset-the-truth-the-myths-and-t/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "algo-mechanics"
 ---
 
 **Tinder ELO Algorithm 2026: A Game of Whack-a-Mole**

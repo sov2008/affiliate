@@ -7,6 +7,7 @@ tags: ["Safety", "Profile Verification", "Dating Advice"]
 seoKeywords: ["how to avoid catfishing online dating safety guide", "catfishing detection tips", "online dating verification", "dating app safety checklist"]
 canonicalUrl: "https://flirtcheck.site/how-to-avoid-catfishing-2026-online-dating-safety-guide/"
 draft: false
+category: "safety-dossier"
 ---
 
 # How to Avoid Catfishing: The 2026 Online Dating Safety Guide Every Single Must Read  

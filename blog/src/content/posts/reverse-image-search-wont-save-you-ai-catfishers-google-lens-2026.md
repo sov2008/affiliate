@@ -9,6 +9,7 @@ canonicalUrl: "https://flirtcheck.site/reverse-image-search-wont-save-you-ai-cat
 coverImage: "/images/posts/reverse-image-search-lens-scam.webp"
 image: "/images/posts/reverse-image-search-lens-scam.webp"
 draft: false
+category: "algo-mechanics"
 ---
 
 ## The Illusion of the Visual Audit

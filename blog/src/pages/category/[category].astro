@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import PostCard from '../../components/PostCard.astro';
+import DatingSmartlinkCTA from '../../components/DatingSmartlinkCTA.astro';
+import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../../content.config';
+
+export async function getStaticPaths() {
+  return CategoryEnum.options.map((categoryKey) => ({
+    params: { category: categoryKey },
+    props: { categoryKey },
+  }));
+}
+
+const { categoryKey } = Astro.props;
+const categoryMeta = CATEGORIES_METADATA[categoryKey as Category];
+
+// Fetch posts belonging to this category
+const allPosts = await getCollection('posts', ({ data }) => !data.draft && data.category === categoryKey);
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const pageTitle = `${categoryMeta.title} | FlirtCheck Editorial`;
+const pageDescription = `${categoryMeta.description} Статьи и полевые руководства в рубрике ${categoryMeta.title}.`;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} activePath={`/category/${categoryKey}`}>
+  <!-- Category Header Banner -->
+  <section class="text-center py-10 sm:py-14 relative">
+    <div class="inline-flex items-center gap-2 mb-4">
+      <a href="/" class="text-xs font-mono font-bold text-slate-500 hover:text-rose-600 uppercase tracking-wider">
+        ← Все хроники дейтинга
+      </a>
+    </div>
+
+    <div class="mb-4">
+      <span class:list={[
+        "inline-block border-2 border-slate-900 px-4 py-1.5 rounded-lg text-xs font-mono font-black uppercase tracking-wider shadow-[2px_2px_0px_0px_#0f172a]",
+        categoryMeta.badgeStyle
+      ]}>
+        РУБРИКА: {categoryMeta.shortTitle}
+      </span>
+    </div>
+
+    <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight max-w-3xl mx-auto mb-4 font-sans uppercase">
+      {categoryMeta.title}
+    </h1>
+
+    <!-- Category Love is... Motto -->
+    <div class="my-5 inline-block bg-white border-2 border-slate-900 rounded-xl px-6 py-3.5 shadow-[4px_4px_0px_0px_#0f172a] transform -rotate-1 max-w-2xl">
+      <p class="font-serif italic text-base sm:text-lg text-rose-600 font-semibold leading-relaxed">
+        "{categoryMeta.motto}"
+      </p>
+    </div>
+
+    <p class="text-sm sm:text-base text-slate-700 max-w-xl mx-auto leading-relaxed font-medium">
+      {categoryMeta.description}
+    </p>
+  </section>
+
+  <!-- Posts Grid for Category -->
+  <section class="mt-6 mb-16">
+    <div class="flex items-center justify-between pb-4 mb-8 border-b-2 border-slate-900">
+      <h2 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3 font-sans">
+        <span>Материалы Рубрики</span>
+        <span class="px-2.5 py-0.5 rounded border border-slate-900 text-xs font-mono font-black bg-slate-900 text-white shadow-[2px_2px_0px_0px_#e11d48]">
+          {sortedPosts.length} Guides
+        </span>
+      </h2>
+    </div>
+
+    {sortedPosts.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortedPosts.map((post) => (
+          <PostCard post={post} />
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
+        <p class="text-slate-600 font-bold">В этой рубрике пока нет опубликованных материалов. Скоро здесь появятся новые досье!</p>
+        <a href="/" class="mt-4 inline-block px-4 py-2 bg-slate-900 text-white text-xs font-mono font-black uppercase rounded-lg border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
+          Вернуться на главную
+        </a>
+      </div>
+    )}
+  </section>
+
+  <!-- Interactive CTA Section -->
+  <section id="safety-quiz">
+    <DatingSmartlinkCTA
+      title="Instant Profile Safety & Compatibility Scan"
+      subtitle="Запустите наш экспресс-радар проверки профиля: фильтрация бот-сетей, проверка метаданных фото и калибровка совместимости."
+      offerUrl="/go"
+    />
+  </section>
+</BaseLayout>

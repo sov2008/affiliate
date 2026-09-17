@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { CATEGORIES_METADATA } from '../content.config';
 
 interface Props {
   post: CollectionEntry<'posts'>;
@@ -15,6 +16,9 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
   day: 'numeric'
 }).format(post.data.pubDate);
 
+// Category metadata
+const categoryMeta = post.data.category ? CATEGORIES_METADATA[post.data.category] : null;
+
 // Resolve cover image path
 const rawCover = post.data.coverImage || post.data.image;
 const hasCustomCover = rawCover && !rawCover.includes('default-cover.webp');
@@ -24,7 +28,7 @@ const coverSrc = cleanCover
   : null;
 ---
 
-<article class="flex flex-col bg-white border-2 border-slate-900 rounded-xl shadow-[4px_4px_0px_0px_#0f172a] overflow-hidden transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#0f172a] active:translate-x-1 active:translate-y-1 active:shadow-none">
+<article data-category={post.data.category || 'safety-dossier'} class="post-card flex flex-col bg-white border-2 border-slate-900 rounded-xl shadow-[4px_4px_0px_0px_#0f172a] overflow-hidden transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#0f172a] active:translate-x-1 active:translate-y-1 active:shadow-none">
   <!-- Image Frame or Fallback Panel -->
   <a href={`${base}/${post.id || post.slug}/`} class="aspect-[16/9] w-full border-b-2 border-slate-900 bg-[#F4EFE6] overflow-hidden relative block">
     {hasCustomCover && coverSrc ? (
@@ -67,14 +71,22 @@ const coverSrc = cleanCover
   <div class="p-4 sm:p-5 flex flex-col flex-1 bg-white">
     <!-- Stamp Category Badge -->
     <div class="flex items-center justify-between gap-2 mb-2.5">
-      <div class="flex flex-wrap gap-1.5">
-        {post.data.tags.slice(0, 2).map((tag: string) => (
-          <span class="border border-slate-900 bg-amber-100 text-slate-900 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded shadow-[1px_1px_0px_0px_#0f172a]">
-            {tag}
+      <div class="flex flex-wrap items-center gap-1.5">
+        {categoryMeta && (
+          <span class:list={[
+            "border border-slate-900 text-[10px] font-mono font-black uppercase tracking-wider px-2 py-0.5 rounded shadow-[1px_1px_0px_0px_#0f172a]",
+            categoryMeta.badgeStyle
+          ]}>
+            {categoryMeta.shortTitle}
+          </span>
+        )}
+        {post.data.tags.slice(0, 1).map((tag: string) => (
+          <span class="border border-slate-900/40 bg-slate-50 text-slate-700 text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded">
+            #{tag}
           </span>
         ))}
       </div>
-      <span class="text-xs font-mono text-slate-500 font-bold">{formattedDate}</span>
+      <span class="text-xs font-mono text-slate-500 font-bold shrink-0">{formattedDate}</span>
     </div>
 
     <!-- Title -->

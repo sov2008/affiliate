@@ -8,6 +8,7 @@ seoKeywords: ["2026 Guide: Spotting Narcissist Red Flags in Online Dating Bios &
 canonicalUrl: "https://flirtcheck.site/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "modern-psychology"
 ---
 
 ## The Unverified Reality  

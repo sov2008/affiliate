@@ -7,6 +7,7 @@ tags: ["Safety", "Profile Verification", "Dating Advice", "Romance Scams"]
 seoKeywords: ["dating profile verification", "spot dating scammer", "romance scam red flags", "ai dating profile checker", "online dating safety quiz"]
 canonicalUrl: "https://flirtcheck.site/dating-scam-verification-guide-2026/"
 draft: false
+category: "safety-dossier"
 ---
 
 # Dating Profile Verification Guide 2026: Spot Bots, Deepfakes & Catfishes  

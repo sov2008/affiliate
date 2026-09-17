@@ -8,6 +8,7 @@ seoKeywords: ["Dating Profile Image Reverse Search: Spot Fake Matches in Seconds
 canonicalUrl: "https://flirtcheck.site/dating-profile-image-reverse-search-spot-fake-matches-in-seconds-/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "algo-mechanics"
 ---
 
 ## The Unseen Threat in Your Inbox, Revisited

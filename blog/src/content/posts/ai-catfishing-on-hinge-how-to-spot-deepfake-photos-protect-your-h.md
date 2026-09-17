@@ -8,6 +8,7 @@ seoKeywords: ["AI Catfishing on Hinge: How to Spot Deepfake Photos & Protect You
 canonicalUrl: "https://flirtcheck.site/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h/"
 coverImage: "/images/posts/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h.webp"
 draft: false
+category: "safety-dossier"
 ---
 
 **The Unverified Crisis: A Tale of Casual Swipes and High-Stakes Cat-and-Mouse Games**

@@ -8,6 +8,7 @@ seoKeywords: ["What to Say When a Match Disappears and Comes Back: The Exact Scr
 canonicalUrl: "https://flirtcheck.site/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "modern-psychology"
 ---
 
 ## The "Zombie" Epidemic in Online Dating: A Sysadmin's Perspective

@@ -8,6 +8,7 @@ seoKeywords: ["Stolen Photos, Fake Dating Profile? How to Fight Back in 2026 ðŸš
 canonicalUrl: "https://flirtcheck.site/stolen-photos-fake-dating-profile-how-to-fight-back-in-2026/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "safety-dossier"
 ---
 
 ## The Utterly Unremarkable Epidemic of Unverified Profiles

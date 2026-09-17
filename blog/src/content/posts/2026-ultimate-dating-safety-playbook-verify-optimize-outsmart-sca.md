@@ -8,6 +8,7 @@ seoKeywords: ["2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Outsmar
 canonicalUrl: "https://flirtcheck.site/2026-ultimate-dating-safety-playbook-verify-optimize-outsmart-sca/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "romantic-essays"
 ---
 
 ## The Not-So-Glamorous World of Dating Apps

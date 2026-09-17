@@ -8,6 +8,7 @@ seoKeywords: ["The Voice Note Verification Trick: Spotting Audio Deepfakes in On
 canonicalUrl: "https://flirtcheck.site/the-voice-note-verification-trick-spotting-audio-deepfakes-in-onl/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "digital-dialogue"
 ---
 
 The perils of online dating in the era of audio deepfakes. It's a bit like trying to troubleshoot a network issue without the benefit of a decent packet sniffer. You're left wondering what's real and what's just a cleverly crafted illusion.

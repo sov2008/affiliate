@@ -8,6 +8,7 @@ seoKeywords: ["Military Romance Scam Signs — 2026 Guide to Spotting an I
 canonicalUrl: "https://flirtcheck.site/military-romance-scam-signs-2026-guide-to-spotting-an-imposter-be/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "safety-dossier"
 ---
 
 **The Baffling Case of the Deployed Soldier Scam**

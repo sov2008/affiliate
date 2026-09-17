@@ -8,6 +8,7 @@ seoKeywords: ["Optimal Photo Order Dating Apps: The Psychological Anchor Rule"]
 canonicalUrl: "https://flirtcheck.site/optimal-photo-order-dating-apps-the-psychological-anchor-rule/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "algo-mechanics"
 ---
 
 ## The Futility of Optimising Photo Order on Dating Apps

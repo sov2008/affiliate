@@ -8,6 +8,7 @@ seoKeywords: ["2026 Ultimate Online Dating Safety Guide: Verify, Optimize, & Dat
 canonicalUrl: "https://flirtcheck.site/2026-ultimate-online-dating-safety-guide-verify-optimize-date-con/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "romantic-essays"
 ---
 
 ## 🎯 The hidden risk in your inbox  

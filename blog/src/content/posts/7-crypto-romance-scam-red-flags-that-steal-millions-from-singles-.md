@@ -8,6 +8,7 @@ seoKeywords: ["7 **Crypto Romance Scam Red Flags** That Steal Millions From Sing
 canonicalUrl: "https://flirtcheck.site/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "safety-dossier"
 ---
 
 **The Dark Side of Digital Romance**  

@@ -9,6 +9,7 @@ canonicalUrl: "https://flirtcheck.site/dead-giveaways-in-bio-punctuation-llm-spa
 coverImage: "/images/posts/bio-punctuation-llm-spambots.webp"
 image: "/images/posts/bio-punctuation-llm-spambots.webp"
 draft: false
+category: "digital-dialogue"
 ---
 
 ## The Tell-Tale Em-Dash

@@ -8,6 +8,7 @@ seoKeywords: ["Detect Stolen Instagram Photos on Dating Profiles — Your 20
 canonicalUrl: "https://flirtcheck.site/detect-stolen-instagram-photos-on-dating-profiles-your-2026-playb/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "algo-mechanics"
 ---
 
 **The Unverified Epidemic: A Slightly Melancholic Observation**

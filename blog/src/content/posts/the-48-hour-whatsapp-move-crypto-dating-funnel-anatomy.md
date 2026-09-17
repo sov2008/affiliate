@@ -9,6 +9,7 @@ canonicalUrl: "https://flirtcheck.site/the-48-hour-whatsapp-move-crypto-dating-f
 coverImage: "/images/posts/whatsapp-crypto-funnel-anatomy.webp"
 image: "/images/posts/whatsapp-crypto-funnel-anatomy.webp"
 draft: false
+category: "safety-dossier"
 ---
 
 ## The Scheduled Exfiltration Window

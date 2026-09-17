@@ -8,6 +8,7 @@ seoKeywords: ["Why You Get Matches But No Dates: Cracking the 2026 “Matches‑
 canonicalUrl: "https://flirtcheck.site/why-you-get-matches-but-no-dates-cracking-the-2026-matchesbutnoda/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "modern-psychology"
 ---
 
 **The Silent Drop-Off: A Bottleneck of Unverified Accounts**

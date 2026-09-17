@@ -8,6 +8,7 @@ seoKeywords: ["How to Stay Safe, Spot Scams, and Optimize Your Dating Profile in
 canonicalUrl: "https://flirtcheck.site/how-to-stay-safe-spot-scams-and-optimize-your-dating-profile-in-2/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "first-dates"
 ---
 
 *The inbox is a lot like a legacy BGP table – most entries are harmless, a few are malformed routes that will crash the whole session.*

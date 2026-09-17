@@ -8,6 +8,7 @@ seoKeywords: ["How to Politely Decline a Date Request Without Burning the Bridge
 canonicalUrl: "https://flirtcheck.site/how-to-politely-decline-a-date-request-without-burning-the-bridge/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "first-dates"
 ---
 
 Declining a date request without causing a scene is a bit like troubleshooting a misconfigured BGP route - it requires finesse, a dash of empathy, and a healthy dose of realism. With the vast majority of online dating profiles remaining unverified, it's a wonder anyone manages to navigate this digital landscape without losing their mind.

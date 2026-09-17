@@ -8,6 +8,7 @@ seoKeywords: ["Voice Prompts on Hinge: What Vocal Tone Triggers Attraction or Re
 canonicalUrl: "https://flirtcheck.site/voice-prompts-on-hinge-what-vocal-tone-triggers-attraction-or-rep/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "digital-dialogue"
 ---
 
 **The Unspoken Risk of Unverified Audio**

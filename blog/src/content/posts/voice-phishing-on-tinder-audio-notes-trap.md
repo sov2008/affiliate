@@ -9,6 +9,7 @@ canonicalUrl: "https://flirtcheck.site/voice-phishing-on-tinder-audio-notes-trap
 coverImage: "/images/posts/voice-phishing-audio-trap.webp"
 image: "/images/posts/voice-phishing-audio-trap.webp"
 draft: false
+category: "digital-dialogue"
 ---
 
 ## The Biometric Extraction Disguised as Romance

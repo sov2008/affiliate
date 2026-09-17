@@ -8,6 +8,7 @@ seoKeywords: ["Dating Safety 2026: Verify, Optimize, Protect & Thrive — Yo
 canonicalUrl: "https://flirtcheck.site/dating-safety-2026-verify-optimize-protect-thrive-your-ultimate-g/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "romantic-essays"
 ---
 
 **Hook – The Quiet Hazard Lurking Behind Every Swipe**  

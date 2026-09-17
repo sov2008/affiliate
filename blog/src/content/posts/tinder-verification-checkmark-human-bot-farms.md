@@ -9,6 +9,7 @@ canonicalUrl: "https://flirtcheck.site/tinder-verification-checkmark-human-bot-f
 coverImage: "/images/posts/tinder-verification-bot-farms.webp"
 image: "/images/posts/tinder-verification-bot-farms.webp"
 draft: false
+category: "safety-dossier"
 ---
 
 ## The False Comfort of the Blue Badge

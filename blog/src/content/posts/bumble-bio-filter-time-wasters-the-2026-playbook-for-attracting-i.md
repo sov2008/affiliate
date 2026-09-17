@@ -8,6 +8,7 @@ seoKeywords: ["Bumble Bio Filter Time Wasters: The 2026 Playbook for Attracting 
 canonicalUrl: "https://flirtcheck.site/bumble-bio-filter-time-wasters-the-2026-playbook-for-attracting-i/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "modern-psychology"
 ---
 
 ## The hidden cost of unverified profiles  

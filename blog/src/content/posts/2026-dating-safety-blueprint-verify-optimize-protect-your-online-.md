@@ -8,6 +8,7 @@ seoKeywords: ["2026 Dating Safety Blueprint: Verify, Optimize, & Protect Your On
 canonicalUrl: "https://flirtcheck.site/2026-dating-safety-blueprint-verify-optimize-protect-your-online-/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "romantic-essays"
 ---
 
 ## Hook – The Hidden Risk in Your Inbox  

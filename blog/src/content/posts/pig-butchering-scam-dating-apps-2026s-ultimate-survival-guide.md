@@ -8,6 +8,7 @@ seoKeywords: ["Pig Butchering Scam Dating Apps: 2026’s Ultimate Survival Guide
 canonicalUrl: "https://flirtcheck.site/pig-butchering-scam-dating-apps-2026s-ultimate-survival-guide/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "safety-dossier"
 ---
 
 It's a bit of a mess, really. A recent study suggests over 30% of dating-app profiles are unverified, and about 1 in 5 of those will lead to a "pig-butchering" financial trap. If you've ever swiped right, you're already in the crosshairs, I suppose.

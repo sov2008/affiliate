@@ -8,6 +8,7 @@ seoKeywords: ["The 2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Thr
 canonicalUrl: "https://flirtcheck.site/the-2026-ultimate-dating-safety-playbook-verify-optimize-thrive-o/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "romantic-essays"
 ---
 
 ## The Invisible Scourge in Your Inbox

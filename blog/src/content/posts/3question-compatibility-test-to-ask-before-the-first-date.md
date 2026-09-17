@@ -8,6 +8,7 @@ seoKeywords: ["3‑Question Compatibility Test to Ask Before the First Date"]
 canonicalUrl: "https://flirtcheck.site/3question-compatibility-test-to-ask-before-the-first-date/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "first-dates"
 ---
 
 **Зачем нужно быстро проверять совместимость?**

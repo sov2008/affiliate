@@ -8,6 +8,7 @@ seoKeywords: ["2026 Dating Safety Guide: Optimize Your Profile, Spot Scams & Bui
 canonicalUrl: "https://flirtcheck.site/2026-dating-safety-guide-optimize-your-profile-spot-scams-build-r/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "first-dates"
 ---
 
 The average swipe feels a lot like a SYN‑packet that never gets an ACK – you keep sending, waiting for a response that never arrives, and the timeout is inevitable.

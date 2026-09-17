@@ -8,6 +8,7 @@ seoKeywords: ["2026 Guide: Dating Profile Bio Red Flags Guys Overlook – Spot t
 canonicalUrl: "https://flirtcheck.site/2026-guide-dating-profile-bio-red-flags-guys-overlook-spot-the-si/"
 coverImage: "/images/posts/default-cover.webp"
 draft: false
+category: "modern-psychology"
 ---
 
 ## The silent timeout in the 2026 dating stack  
