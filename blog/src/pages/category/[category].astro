@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import PostCard from '../../components/PostCard.astro';
+import FeedItem from '../../components/FeedItem.astro';
 import DatingSmartlinkCTA from '../../components/DatingSmartlinkCTA.astro';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../../content.config';
 
@@ -57,9 +57,9 @@ const pageDescription = `${categoryMeta.description} Articles and forensic guide
     </p>
   </section>
 
-  <!-- Posts Grid for Category -->
+  <!-- Posts Feed for Category -->
   <section class="mt-6 mb-16">
-    <div class="flex items-center justify-between pb-4 mb-8 border-b-2 border-slate-900">
+    <div class="max-w-4xl mx-auto flex items-center justify-between pb-4 mb-8 border-b-2 border-slate-900">
       <h2 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3 font-sans uppercase">
         <span>Dossier Dispatches</span>
         <span class="px-2.5 py-0.5 rounded border border-slate-900 text-xs font-mono font-black bg-slate-900 text-white shadow-[2px_2px_0px_0px_#e11d48]">
@@ -69,13 +69,13 @@ const pageDescription = `${categoryMeta.description} Articles and forensic guide
     </div>
 
     {sortedPosts.length > 0 ? (
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="max-w-4xl mx-auto space-y-6">
         {sortedPosts.map((post) => (
-          <PostCard post={post} />
+          <FeedItem post={post} />
         ))}
       </div>
     ) : (
-      <div class="text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
+      <div class="max-w-4xl mx-auto text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
         <p class="text-slate-600 font-bold">No dispatches filed in this dossier yet. New records coming soon!</p>
         <a href="/" class="mt-4 inline-block px-4 py-2 bg-slate-900 text-white text-xs font-mono font-black uppercase rounded-lg border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
           Return to Main Archive

@@ -92,6 +92,8 @@ const posts = defineCollection({
     canonicalUrl: z.string().optional(),
     coverImage: z.string().optional(),
     image: z.string().optional(),
+    motto: z.string().optional(),
+    hook: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });
