@@ -10,6 +10,35 @@ import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.con
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
+// Featured Lead Dispatch is the very first (most recent) dispatch
+const featuredPost = sortedPosts[0];
+const regularPosts = sortedPosts.slice(1);
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Featured post details
+const featuredFormattedDate = featuredPost ? new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric'
+}).format(featuredPost.data.pubDate) : '';
+
+const featuredWordCount = featuredPost?.body ? featuredPost.body.split(/\s+/).length : 600;
+const featuredReadingTime = Math.max(2, Math.ceil(featuredWordCount / 200));
+const featuredCategoryMeta = featuredPost?.data.category ? CATEGORIES_METADATA[featuredPost.data.category] : null;
+
+const featuredRawCover = featuredPost ? (featuredPost.data.coverImage || featuredPost.data.image) : null;
+const hasFeaturedCustomCover = Boolean(featuredRawCover && !featuredRawCover.includes('default-cover.webp'));
+const featuredCleanCover = featuredRawCover ? featuredRawCover.replace(/^\/blog/, '') : null;
+const featuredCoverSrc = hasFeaturedCustomCover && featuredCleanCover
+  ? (featuredCleanCover.startsWith('/') ? featuredCleanCover : `/${featuredCleanCover}`)
+  : null;
+
+const featuredSlug = featuredPost?.slug || featuredPost?.id || 'case-lead';
+const featuredCaseId = featuredSlug.replace(/[^a-zA-Z0-9]/g, '').slice(0, 8).toUpperCase() || 'FCLEAD';
+const featuredMotto = featuredPost?.data.motto || featuredPost?.data.hook || (featuredCategoryMeta ? featuredCategoryMeta.motto : null);
+const featuredPostUrl = featuredPost ? `${base}/${featuredPost.id || featuredPost.slug}/` : '#';
+
 const pageTitle = "FlirtCheck: Modern Dating Chronicles | From Algorithms to the Human Heart";
 const pageDescription = "Cultural, psychological, and algorithmic forensic study of modern romance in 2026. From automated black-box feeds to authentic human vulnerability.";
 
@@ -23,48 +52,48 @@ CategoryEnum.options.forEach((key) => {
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} activePath="/">
-  <!-- Hero Editorial 90s Newspaper / Comic Banner -->
-  <section class="text-center py-10 sm:py-14 relative">
-    <div class="mb-4">
+  <!-- Hero Editorial 90s Newspaper / Comic Banner (Compacted) -->
+  <section class="text-center py-4 sm:py-6 mb-6 relative">
+    <div>
       <span class="border border-slate-900 bg-amber-100 text-slate-900 px-3 py-1 text-[11px] font-mono font-bold tracking-widest uppercase shadow-[1px_1px_0px_0px_#0f172a]">
         THE 2026 DATING FORENSICS & ROMANCE GAZETTE
       </span>
     </div>
 
     <!-- Main H1 Header -->
-    <h1 class="font-black text-3xl sm:text-5xl text-slate-900 tracking-tight uppercase leading-none mt-4 mb-3">
+    <h1 class="font-black text-2xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight uppercase leading-tight mt-3 mb-2">
       MODERN DATING CHRONICLES: <span class="text-rose-600">FROM ALGORITHMS TO THE HUMAN HEART</span>
     </h1>
 
     <!-- Canonical "Love is..." Signature Motto & Author Epigraph -->
-    <div class="my-6 inline-block bg-white border-2 border-slate-900 rounded-xl px-6 py-4 shadow-[4px_4px_0px_0px_#0f172a] transform -rotate-1 hover:rotate-0 transition-transform max-w-3xl">
-      <p class="font-serif italic text-base sm:text-xl text-rose-600 font-semibold leading-relaxed">
+    <div class="my-3 sm:my-4 inline-block bg-white border-2 border-slate-900 rounded-xl px-5 py-3 shadow-[4px_4px_0px_0px_#0f172a] transform -rotate-1 hover:rotate-0 transition-transform max-w-2xl">
+      <p class="font-serif italic text-sm sm:text-lg text-rose-600 font-semibold leading-snug">
         "Love is... knowing that in a world of endless swipes and synthetic scripts, real chemistry happens between two imperfect souls."
       </p>
-      <div class="mt-2 text-right">
-        <span class="text-xs font-mono font-bold text-slate-500 uppercase tracking-widest">— Notes from an Analog Romantic & FlirtCheck Editorial</span>
+      <div class="mt-1 text-right">
+        <span class="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-widest">— Notes from an Analog Romantic & FlirtCheck Editorial</span>
       </div>
     </div>
 
     <!-- Author Lead Manifest -->
-    <p class="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-normal mb-8">
+    <p class="text-slate-600 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed font-normal mb-5">
       Investigating the collision of synthetic AI personas, algorithmic traps, and genuine human vulnerability. Written from the perspective of an analog romantic in an automated age.
     </p>
 
     <!-- Interactive Category Filter Stamps Bar -->
     <div class="max-w-4xl mx-auto">
-      <div class="flex items-center justify-center gap-2 mb-3">
+      <div class="flex items-center justify-center gap-2 mb-2.5">
         <span class="text-xs font-mono uppercase text-slate-600 font-black tracking-wider">
           THEMATIC DOSSIERS:
         </span>
       </div>
 
-      <div id="categoryFilterBar" class="flex flex-wrap items-center justify-center gap-2.5">
+      <div id="categoryFilterBar" class="flex flex-wrap items-center justify-center gap-2">
         <!-- "All" Filter Button -->
         <button
           type="button"
           data-filter="all"
-          class="category-btn active px-3.5 py-1.5 rounded-lg text-xs font-mono font-black uppercase tracking-wider border-2 border-slate-900 bg-slate-900 text-white shadow-[2px_2px_0px_0px_#e11d48] transition-all cursor-pointer hover:-translate-y-0.5"
+          class="category-btn active px-3 py-1 rounded-lg text-xs font-mono font-black uppercase tracking-wider border-2 border-slate-900 bg-slate-900 text-white shadow-[2px_2px_0px_0px_#e11d48] transition-all cursor-pointer hover:-translate-y-0.5"
         >
           [ALL DOSSIERS] ({sortedPosts.length})
         </button>
@@ -77,7 +106,7 @@ CategoryEnum.options.forEach((key) => {
               type="button"
               data-filter={cat.id}
               class:list={[
-                "category-btn px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-[3px_3px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all cursor-pointer",
+                "category-btn px-3 py-1 rounded-lg text-xs font-mono font-bold uppercase tracking-wider border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-[3px_3px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all cursor-pointer",
                 cat.badgeStyle
               ]}
               title={cat.description}
@@ -90,9 +119,9 @@ CategoryEnum.options.forEach((key) => {
       </div>
 
       <!-- Active Category Motto & Context Display -->
-      <div id="categoryInfoBox" class="hidden mt-6 p-4 bg-white border-2 border-slate-900 rounded-xl shadow-[3px_3px_0px_0px_#0f172a] max-w-2xl mx-auto text-left transition-all">
-        <div class="flex items-center gap-2 mb-1.5">
-          <span id="categoryInfoTitle" class="font-sans font-black text-sm text-slate-900 uppercase"></span>
+      <div id="categoryInfoBox" class="hidden mt-4 p-3.5 bg-white border-2 border-slate-900 rounded-xl shadow-[3px_3px_0px_0px_#0f172a] max-w-2xl mx-auto text-left transition-all">
+        <div class="flex items-center gap-2 mb-1">
+          <span id="categoryInfoTitle" class="font-sans font-black text-xs sm:text-sm text-slate-900 uppercase"></span>
           <span class="text-xs text-slate-400 font-mono">•</span>
           <span id="categoryInfoMotto" class="font-serif italic text-xs text-rose-600 font-semibold"></span>
         </div>
@@ -102,7 +131,7 @@ CategoryEnum.options.forEach((key) => {
   </section>
 
   <!-- 2-COLUMN LAYOUT: Sidebar (w-80 shrink-0) + Feed (flex-1) -->
-  <section id="feed" class="mt-6 mb-16">
+  <section id="feed" class="mt-2 mb-16">
     <div class="flex flex-col lg:flex-row gap-8 items-start">
       <!-- Left Column: Sticky Classifieds & Info Sidebar -->
       <Sidebar
@@ -113,8 +142,8 @@ CategoryEnum.options.forEach((key) => {
 
       <!-- Right Column: Editorial Dispatch Feed -->
       <div class="flex-1 w-full min-w-0 space-y-6">
-        <div class="flex items-center justify-between pb-4 border-b-2 border-slate-900">
-          <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3 font-sans uppercase">
+        <div class="flex items-center justify-between pb-3 border-b-2 border-slate-900">
+          <h2 class="text-lg sm:text-xl font-black text-slate-900 tracking-tight flex items-center gap-3 font-sans uppercase">
             <span>EDITORIAL DISPATCH FEED</span>
             <span id="displayedCountBadge" class="px-2.5 py-0.5 rounded border border-slate-900 text-xs font-mono font-black bg-rose-600 text-white shadow-[2px_2px_0px_0px_#0f172a]">
               ARCHIVE RECORDS: {sortedPosts.length} DISPATCHES FILED
@@ -122,19 +151,87 @@ CategoryEnum.options.forEach((key) => {
           </h2>
         </div>
 
-        {sortedPosts.length > 0 ? (
-          <div id="postsFeed" class="space-y-6">
-            {sortedPosts.map(post => (
-              <FeedItem post={post} />
-            ))}
-          </div>
-        ) : (
-          <div class="text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
-            <p class="text-slate-600 font-bold">No dispatches filed yet. Stay tuned!</p>
-          </div>
+        <!-- 1. Featured Lead Dispatch (Breaking Investigation) -->
+        {featuredPost && (
+          <article
+            id="featuredDispatch"
+            data-category={featuredPost.data.category || 'safety-dossier'}
+            class="featured-item bg-white border-2 border-slate-900 rounded-xl overflow-hidden shadow-[4px_4px_0px_0px_#0f172a] hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#0f172a] transition-all"
+          >
+            <!-- 16:9 Lead Banner Image -->
+            {featuredCoverSrc && (
+              <a href={featuredPostUrl} class="block aspect-[16/9] w-full overflow-hidden border-b-2 border-slate-900 bg-[#F4EFE6] relative group">
+                <img
+                  src={featuredCoverSrc}
+                  alt={featuredPost.data.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="eager"
+                />
+                <div class="absolute top-3 left-3 bg-rose-600 text-white font-mono font-black text-xs px-2.5 py-1 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] tracking-widest uppercase">
+                  [BREAKING INVESTIGATION]
+                </div>
+                <div class="absolute bottom-3 right-3 bg-white text-slate-900 font-mono font-black text-xs px-2 py-0.5 border border-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
+                  LEAD DISPATCH
+                </div>
+              </a>
+            )}
+            <div class="p-5 sm:p-6">
+              <div class="flex flex-wrap items-center gap-2 mb-2.5">
+                {!featuredCoverSrc && (
+                  <span class="bg-rose-600 text-white font-mono font-black text-[11px] px-2.5 py-0.5 border border-slate-900 shadow-[1px_1px_0px_0px_#0f172a] tracking-wider uppercase rounded">
+                    [BREAKING INVESTIGATION]
+                  </span>
+                )}
+                <span class:list={[
+                  "border border-slate-900 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider rounded shadow-[1px_1px_0px_0px_#0f172a]",
+                  featuredCategoryMeta ? featuredCategoryMeta.badgeStyle : "bg-amber-100 text-slate-900"
+                ]}>
+                  {featuredCategoryMeta ? `[${featuredCategoryMeta.shortTitle}]` : `[${featuredPost.data.category || 'DOSSIER'}]`}
+                </span>
+                <span class="font-mono text-xs text-slate-500">
+                  {featuredFormattedDate} • {featuredReadingTime} MIN FORENSIC READ
+                </span>
+              </div>
+
+              <h3 class="font-black text-xl sm:text-2xl lg:text-3xl text-slate-900 leading-tight hover:text-rose-600 transition-colors font-sans mb-2">
+                <a href={featuredPostUrl}>
+                  {featuredPost.data.title}
+                </a>
+              </h3>
+
+              {featuredMotto && (
+                <p class="font-serif italic font-semibold text-rose-600 text-sm sm:text-base mb-3">
+                  "{featuredMotto}"
+                </p>
+              )}
+
+              <p class="text-slate-600 text-sm sm:text-base leading-relaxed line-clamp-3 mb-4 font-normal">
+                {featuredPost.data.description || (featuredPost.body ? featuredPost.body.slice(0, 240) + '...' : '')}
+              </p>
+
+              <div class="pt-3 border-t border-slate-200 flex justify-between items-center text-xs font-mono">
+                <span class="text-slate-400 font-bold">CASE ID: #{featuredCaseId}</span>
+                <a
+                  href={featuredPostUrl}
+                  class="font-black text-rose-600 hover:text-slate-900 uppercase flex items-center gap-1 tracking-wider text-sm"
+                >
+                  OPEN FULL DOSSIER &rarr;
+                </a>
+              </div>
+            </div>
+          </article>
         )}
 
-        <!-- Empty State for Filter -->
+        <!-- 2. Paginated Regular Dispatches Feed -->
+        {regularPosts.length > 0 ? (
+          <div id="postsFeed" class="space-y-6">
+            {regularPosts.map((post, idx) => (
+              <FeedItem post={post} index={idx} />
+            ))}
+          </div>
+        ) : null}
+
+        <!-- 3. Empty State for Filter -->
         <div id="noPostsFound" class="hidden text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
           <p class="text-slate-700 font-bold font-sans text-base">No dispatches found in this category.</p>
           <button
@@ -144,6 +241,11 @@ CategoryEnum.options.forEach((key) => {
           >
             [SHOW ALL DOSSIERS]
           </button>
+        </div>
+
+        <!-- 4. Retro Newspaper Archive Pagination Bar -->
+        <div id="feedPagination" class="flex flex-wrap justify-center items-center gap-2 pt-6 border-t-2 border-slate-900 font-mono text-xs">
+          <!-- Dynamically generated page buttons -->
         </div>
       </div>
     </div>
@@ -159,15 +261,17 @@ CategoryEnum.options.forEach((key) => {
   </section>
 </BaseLayout>
 
-<!-- Client-side Interactive Filter Script -->
+<!-- Client-side Interactive Filter & Archive Pagination Script -->
 <script define:vars={{ categoriesList }}>
   document.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll('.category-btn');
     const sidebarFilters = document.querySelectorAll('[data-sidebar-filter]');
-    const feedItems = document.querySelectorAll('.feed-item');
+    const feedItems = Array.from(document.querySelectorAll('.feed-item'));
+    const featuredItem = document.getElementById('featuredDispatch');
     const displayedCountBadge = document.getElementById('displayedCountBadge');
     const noPostsFound = document.getElementById('noPostsFound');
     const resetFilterBtn = document.getElementById('resetFilterBtn');
+    const paginationContainer = document.getElementById('feedPagination');
     const infoBox = document.getElementById('categoryInfoBox');
     const infoTitle = document.getElementById('categoryInfoTitle');
     const infoMotto = document.getElementById('categoryInfoMotto');
@@ -186,10 +290,126 @@ CategoryEnum.options.forEach((key) => {
       'romantic-essays': 'romantic-essays'
     };
 
-    function applyFilter(filterVal) {
-      let visibleCount = 0;
+    const PAGE_SIZE = 8;
+    let currentFilter = 'all';
+    let currentPage = 1;
 
-      // Update top buttons state
+    function renderPagination(totalItems) {
+      if (!paginationContainer) return;
+      paginationContainer.innerHTML = '';
+
+      const totalPages = Math.ceil(totalItems / PAGE_SIZE) || 1;
+      if (totalPages <= 1) {
+        paginationContainer.classList.add('hidden');
+        return;
+      }
+      paginationContainer.classList.remove('hidden');
+
+      // Page buttons: [PAGE 1], [PAGE 2], ...
+      for (let p = 1; p <= totalPages; p++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = `[PAGE ${p}]`;
+        btn.setAttribute('data-page', String(p));
+        
+        const isCurrent = p === currentPage;
+        btn.className = `px-3 py-1.5 rounded-lg border-2 border-slate-900 font-bold uppercase transition-all cursor-pointer shadow-[2px_2px_0px_0px_#0f172a] ${
+          isCurrent 
+            ? 'bg-slate-900 text-white' 
+            : 'bg-white text-slate-900 hover:bg-amber-100 hover:-translate-y-0.5'
+        }`;
+
+        btn.addEventListener('click', () => {
+          currentPage = p;
+          updateView(true);
+        });
+        paginationContainer.appendChild(btn);
+      }
+
+      // [NEXT DISPATCHES →] button
+      if (currentPage < totalPages) {
+        const nextBtn = document.createElement('button');
+        nextBtn.type = 'button';
+        nextBtn.textContent = '[NEXT DISPATCHES →]';
+        nextBtn.className = 'px-3.5 py-1.5 rounded-lg border-2 border-slate-900 font-black uppercase bg-rose-600 text-white shadow-[2px_2px_0px_0px_#0f172a] hover:bg-rose-700 hover:-translate-y-0.5 transition-all cursor-pointer';
+        nextBtn.addEventListener('click', () => {
+          currentPage++;
+          updateView(true);
+        });
+        paginationContainer.appendChild(nextBtn);
+      }
+    }
+
+    function updateView(scrollUp = false) {
+      // 1. Featured Post check
+      let featuredVisible = false;
+      if (featuredItem) {
+        const featCat = featuredItem.getAttribute('data-category');
+        const matchesCat = currentFilter === 'all' || featCat === currentFilter;
+        // Only show featured item on page 1 of results
+        if (matchesCat && currentPage === 1) {
+          featuredItem.classList.remove('hidden');
+          featuredVisible = true;
+        } else {
+          featuredItem.classList.add('hidden');
+        }
+      }
+
+      // 2. Filter matching feed items
+      const matchingItems = feedItems.filter(item => {
+        const cat = item.getAttribute('data-category');
+        return currentFilter === 'all' || cat === currentFilter;
+      });
+
+      const totalMatching = matchingItems.length + (featuredItem && (currentFilter === 'all' || featuredItem.getAttribute('data-category') === currentFilter) ? 1 : 0);
+
+      // 3. Paginate regular items
+      const startIndex = (currentPage - 1) * PAGE_SIZE;
+      const endIndex = startIndex + PAGE_SIZE;
+
+      feedItems.forEach(item => {
+        item.classList.add('hidden');
+        item.classList.remove('flex');
+      });
+
+      matchingItems.forEach((item, idx) => {
+        if (idx >= startIndex && idx < endIndex) {
+          item.classList.remove('hidden');
+          item.classList.add('flex');
+        }
+      });
+
+      // 4. Update count badge
+      if (displayedCountBadge) {
+        displayedCountBadge.textContent = `ARCHIVE RECORDS: ${totalMatching} ${totalMatching === 1 ? 'DISPATCH FILED' : 'DISPATCHES FILED'}`;
+      }
+
+      // 5. Empty notice state
+      if (noPostsFound) {
+        if (totalMatching === 0) {
+          noPostsFound.classList.remove('hidden');
+        } else {
+          noPostsFound.classList.add('hidden');
+        }
+      }
+
+      // 6. Render pagination controls
+      renderPagination(matchingItems.length);
+
+      // 7. Smooth scroll to feed on page switch
+      if (scrollUp) {
+        const feedAnchor = document.getElementById('feed');
+        if (feedAnchor) {
+          feedAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+
+    function applyFilter(filterVal) {
+      currentFilter = filterVal;
+      currentPage = 1;
+
+      // Update top buttons styling
       filterButtons.forEach(btn => {
         const isCurrent = btn.getAttribute('data-filter') === filterVal;
         if (isCurrent) {
@@ -199,7 +419,7 @@ CategoryEnum.options.forEach((key) => {
         }
       });
 
-      // Update sidebar active link state
+      // Update sidebar category link styling
       sidebarFilters.forEach(link => {
         const isCurrent = link.getAttribute('data-sidebar-filter') === filterVal;
         if (isCurrent) {
@@ -221,33 +441,6 @@ CategoryEnum.options.forEach((key) => {
         }
       });
 
-      // Filter feed items
-      feedItems.forEach(card => {
-        const cardCat = card.getAttribute('data-category');
-        if (filterVal === 'all' || cardCat === filterVal) {
-          card.classList.remove('hidden');
-          card.classList.add('flex');
-          visibleCount++;
-        } else {
-          card.classList.add('hidden');
-          card.classList.remove('flex');
-        }
-      });
-
-      // Update count badge
-      if (displayedCountBadge) {
-        displayedCountBadge.textContent = `ARCHIVE RECORDS: ${visibleCount} ${visibleCount === 1 ? 'DISPATCH FILED' : 'DISPATCHES FILED'}`;
-      }
-
-      // Show/hide empty notice
-      if (noPostsFound) {
-        if (visibleCount === 0) {
-          noPostsFound.classList.remove('hidden');
-        } else {
-          noPostsFound.classList.add('hidden');
-        }
-      }
-
       // Update info banner
       if (infoBox && infoTitle && infoMotto && infoDesc) {
         if (filterVal !== 'all' && catMetaMap[filterVal]) {
@@ -260,9 +453,11 @@ CategoryEnum.options.forEach((key) => {
           infoBox.classList.add('hidden');
         }
       }
+
+      updateView(false);
     }
 
-    // Bind top filter buttons
+    // Bind filter buttons
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const filterVal = btn.getAttribute('data-filter');
@@ -270,7 +465,6 @@ CategoryEnum.options.forEach((key) => {
       });
     });
 
-    // Bind sidebar category filters
     sidebarFilters.forEach(link => {
       link.addEventListener('click', (e) => {
         const filterVal = link.getAttribute('data-sidebar-filter');
@@ -296,6 +490,8 @@ CategoryEnum.options.forEach((key) => {
       const mapped = hashAliasMap[rawHash] || rawHash;
       if (mapped && catMetaMap[mapped]) {
         applyFilter(mapped);
+      } else {
+        updateView(false);
       }
     }
 
