@@ -8,6 +8,7 @@ seoKeywords: ["how to avoid catfishing online dating safety guide", "catfishing 
 canonicalUrl: "https://flirtcheck.site/how-to-avoid-catfishing-2026-online-dating-safety-guide/"
 draft: false
 category: "safety-dossier"
+image: "/images/posts/how-to-avoid-catfishing-the-2026-online-dating-safety-guide-every.webp"
 ---
 
 # How to Avoid Catfishing: The 2026 Online Dating Safety Guide Every Single Must Read  

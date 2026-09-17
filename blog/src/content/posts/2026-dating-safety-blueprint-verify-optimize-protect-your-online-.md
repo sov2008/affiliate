@@ -6,7 +6,8 @@ author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["2026 Dating Safety Blueprint: Verify, Optimize, & Protect Your Online Romance"]
 canonicalUrl: "https://flirtcheck.site/2026-dating-safety-blueprint-verify-optimize-protect-your-online-/"
-coverImage: "/images/posts/default-cover.webp"
+coverImage: "/images/posts/2026-dating-safety-blueprint-verify-optimize-protect-your-online-.webp"
+image: "/images/posts/2026-dating-safety-blueprint-verify-optimize-protect-your-online-.webp"
 draft: false
 category: "romantic-essays"
 ---

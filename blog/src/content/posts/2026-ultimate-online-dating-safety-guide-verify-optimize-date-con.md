@@ -6,7 +6,8 @@ author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["2026 Ultimate Online Dating Safety Guide: Verify, Optimize, & Date Confidently"]
 canonicalUrl: "https://flirtcheck.site/2026-ultimate-online-dating-safety-guide-verify-optimize-date-con/"
-coverImage: "/images/posts/default-cover.webp"
+coverImage: "/images/posts/2026-ultimate-online-dating-safety-guide-verify-optimize-date-con.webp"
+image: "/images/posts/2026-ultimate-online-dating-safety-guide-verify-optimize-date-con.webp"
 draft: false
 category: "romantic-essays"
 ---

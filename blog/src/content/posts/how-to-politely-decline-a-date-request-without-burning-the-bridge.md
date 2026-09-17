@@ -6,7 +6,8 @@ author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["How to Politely Decline a Date Request Without Burning the Bridge: A Guide to Gracious Online Dating Rejection"]
 canonicalUrl: "https://flirtcheck.site/how-to-politely-decline-a-date-request-without-burning-the-bridge/"
-coverImage: "/images/posts/default-cover.webp"
+coverImage: "/images/posts/how-to-politely-decline-a-date-request-without-burning-the-bridge.webp"
+image: "/images/posts/how-to-politely-decline-a-date-request-without-burning-the-bridge.webp"
 draft: false
 category: "first-dates"
 ---

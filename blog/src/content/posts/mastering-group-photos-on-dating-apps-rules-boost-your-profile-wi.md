@@ -7,6 +7,7 @@ tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["Mastering Group Photos on Dating Apps Rules: Boost Your Profile Without Looking Deceitful"]
 canonicalUrl: "https://flirtcheck.site/mastering-group-photos-on-dating-apps-rules-boost-your-profile-wi/"
 coverImage: "/images/posts/mastering-group-photos-on-dating-apps-rules-boost-your-profile-wi.webp"
+image: "/images/posts/mastering-group-photos-on-dating-apps-rules-boost-your-profile-wi.webp"
 draft: false
 category: "algo-mechanics"
 ---

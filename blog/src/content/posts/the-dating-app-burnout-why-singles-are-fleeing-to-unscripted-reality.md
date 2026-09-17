@@ -9,6 +9,7 @@ author: "The Romantic Essayist"
 tags: ["Modern Psychology", "Swipe Burnout", "Dating Fatigue", "Offline Connection", "Unscripted Dating"]
 seoKeywords: ["dating app burnout 2026", "swipe fatigue psychology", "leaving tinder for real life", "dating app exodus", "offline courtship resurgence"]
 draft: false
+image: "/images/posts/the-dating-app-burnout-why-singles-are-fleeing-to-unscripted-reality.webp"
 ---
 
 > **Love is...** *stepping outside the sterile glass screen into the messy, unscripted rain.*

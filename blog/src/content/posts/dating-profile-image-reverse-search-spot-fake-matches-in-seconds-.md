@@ -6,7 +6,8 @@ author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["Dating Profile Image Reverse Search: Spot Fake Matches in Seconds (2026 Guide)"]
 canonicalUrl: "https://flirtcheck.site/dating-profile-image-reverse-search-spot-fake-matches-in-seconds-/"
-coverImage: "/images/posts/default-cover.webp"
+coverImage: "/images/posts/dating-profile-image-reverse-search-spot-fake-matches-in-seconds-.webp"
+image: "/images/posts/dating-profile-image-reverse-search-spot-fake-matches-in-seconds-.webp"
 draft: false
 category: "algo-mechanics"
 ---

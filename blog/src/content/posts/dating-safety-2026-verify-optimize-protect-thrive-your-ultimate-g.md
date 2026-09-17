@@ -6,7 +6,8 @@ author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["Dating Safety 2026: Verify, Optimize, Protect & Thrive — Your Ultimate Guide to Secure Online Romance"]
 canonicalUrl: "https://flirtcheck.site/dating-safety-2026-verify-optimize-protect-thrive-your-ultimate-g/"
-coverImage: "/images/posts/default-cover.webp"
+coverImage: "/images/posts/dating-safety-2026-verify-optimize-protect-thrive-your-ultimate-g.webp"
+image: "/images/posts/dating-safety-2026-verify-optimize-protect-thrive-your-ultimate-g.webp"
 draft: false
 category: "romantic-essays"
 ---

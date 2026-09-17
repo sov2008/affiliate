@@ -7,6 +7,7 @@ tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["How to Verify If a Tinder Match Is a Bot: 2026 Detection Blueprint"]
 canonicalUrl: "https://flirtcheck.site/how-to-verify-if-a-tinder-match-is-a-bot-2026-detection-blueprint/"
 coverImage: "/images/posts/how-to-verify-if-a-tinder-match-is-a-bot-2026-detection-blueprint.webp"
+image: "/images/posts/how-to-verify-if-a-tinder-match-is-a-bot-2026-detection-blueprint.webp"
 draft: false
 category: "safety-dossier"
 ---

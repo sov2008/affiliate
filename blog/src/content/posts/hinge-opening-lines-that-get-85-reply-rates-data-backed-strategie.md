@@ -7,6 +7,7 @@ tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["Hinge Opening Lines That Get 85% Reply Rates: Data-Backed Strategies for 2026"]
 canonicalUrl: "https://flirtcheck.site/hinge-opening-lines-that-get-85-reply-rates-data-backed-strategie/"
 coverImage: "/images/posts/hinge-opening-lines-that-get-85-reply-rates-data-backed-strategie.webp"
+image: "/images/posts/hinge-opening-lines-that-get-85-reply-rates-data-backed-strategie.webp"
 draft: false
 category: "digital-dialogue"
 ---

@@ -6,7 +6,8 @@ author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["3‑Question Compatibility Test to Ask Before the First Date"]
 canonicalUrl: "https://flirtcheck.site/3question-compatibility-test-to-ask-before-the-first-date/"
-coverImage: "/images/posts/default-cover.webp"
+coverImage: "/images/posts/3question-compatibility-test-to-ask-before-the-first-date.webp"
+image: "/images/posts/3question-compatibility-test-to-ask-before-the-first-date.webp"
 draft: false
 category: "first-dates"
 ---

@@ -6,7 +6,8 @@ author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["Voice Prompts on Hinge: What Vocal Tone Triggers Attraction or Repulsion (2026)"]
 canonicalUrl: "https://flirtcheck.site/voice-prompts-on-hinge-what-vocal-tone-triggers-attraction-or-rep/"
-coverImage: "/images/posts/default-cover.webp"
+coverImage: "/images/posts/voice-prompts-on-hinge-what-vocal-tone-triggers-attraction-or-rep.webp"
+image: "/images/posts/voice-prompts-on-hinge-what-vocal-tone-triggers-attraction-or-rep.webp"
 draft: false
 category: "digital-dialogue"
 ---

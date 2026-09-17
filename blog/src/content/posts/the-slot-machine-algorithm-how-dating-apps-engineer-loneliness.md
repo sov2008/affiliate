@@ -9,6 +9,7 @@ author: "The Romantic Essayist"
 tags: ["Algo Mechanics", "Tinder ELO", "Dopamine Traps", "Algorithmic Loneliness", "Match Group"]
 seoKeywords: ["slot machine algorithm dating apps", "dating app intermittent reinforcement", "match group engagement algorithm", "why tinder keeps you single", "dating app dopamine trap"]
 draft: false
+image: "/images/posts/the-slot-machine-algorithm-how-dating-apps-engineer-loneliness.webp"
 ---
 
 > **Love is...** *knowing that a casino algorithm cannot calculate the resonance of your soul.*

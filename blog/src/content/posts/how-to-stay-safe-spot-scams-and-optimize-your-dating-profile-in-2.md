@@ -6,7 +6,8 @@ author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["How to Stay Safe, Spot Scams, and Optimize Your Dating Profile in 2026"]
 canonicalUrl: "https://flirtcheck.site/how-to-stay-safe-spot-scams-and-optimize-your-dating-profile-in-2/"
-coverImage: "/images/posts/default-cover.webp"
+coverImage: "/images/posts/how-to-stay-safe-spot-scams-and-optimize-your-dating-profile-in-2.webp"
+image: "/images/posts/how-to-stay-safe-spot-scams-and-optimize-your-dating-profile-in-2.webp"
 draft: false
 category: "first-dates"
 ---

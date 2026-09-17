@@ -6,7 +6,8 @@ author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["7 **Crypto Romance Scam Red Flags** That Steal Millions From Singles (2026 Edition)"]
 canonicalUrl: "https://flirtcheck.site/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-/"
-coverImage: "/images/posts/default-cover.webp"
+coverImage: "/images/posts/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-.webp"
+image: "/images/posts/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-.webp"
 draft: false
 category: "safety-dossier"
 ---

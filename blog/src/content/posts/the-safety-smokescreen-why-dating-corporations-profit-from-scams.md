@@ -9,6 +9,7 @@ author: "The Romantic Essayist"
 tags: ["Safety Dossier", "Bot Farms", "Trust and Safety", "Dating Fraud", "Corporate Profit"]
 seoKeywords: ["dating app scam economics", "why dating apps allow bots", "trust and safety underfunding tinder", "match group fraud revenue", "pig butchering corporate complicity"]
 draft: false
+image: "/images/posts/the-safety-smokescreen-why-dating-corporations-profit-from-scams.webp"
 ---
 
 > **Love is...** *verifying their intentions yourself, when corporations only protect their quarterly balance sheets.*

@@ -6,7 +6,8 @@ author: "Arthur"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["2026 Guide: Spotting Narcissist Red Flags in Online Dating Bios & Photos"]
 canonicalUrl: "https://flirtcheck.site/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph/"
-coverImage: "/images/posts/default-cover.webp"
+coverImage: "/images/posts/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph.webp"
+image: "/images/posts/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph.webp"
 draft: false
 category: "modern-psychology"
 ---

@@ -8,6 +8,7 @@ seoKeywords: ["dating profile verification", "spot dating scammer", "romance sca
 canonicalUrl: "https://flirtcheck.site/dating-scam-verification-guide-2026/"
 draft: false
 category: "safety-dossier"
+image: "/images/posts/dating-scam-verification-guide-2026.webp"
 ---
 
 # Dating Profile Verification Guide 2026: Spot Bots, Deepfakes & Catfishes  
