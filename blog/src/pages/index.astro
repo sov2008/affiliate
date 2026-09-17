@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import FeedItem from '../components/FeedItem.astro';
+import Sidebar from '../components/Sidebar.astro';
 import DatingSmartlinkCTA from '../components/DatingSmartlinkCTA.astro';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.config';
 
@@ -13,6 +14,12 @@ const pageTitle = "FlirtCheck: Modern Dating Chronicles | From Algorithms to the
 const pageDescription = "Cultural, psychological, and algorithmic forensic study of modern romance in 2026. From automated black-box feeds to authentic human vulnerability.";
 
 const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key]);
+
+// Real dynamic category counts for strict zero demo data compliance
+const categoryCounts: Record<string, number> = {};
+CategoryEnum.options.forEach((key) => {
+  categoryCounts[key] = sortedPosts.filter((p) => p.data.category === key).length;
+});
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} activePath="/">
@@ -94,39 +101,51 @@ const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key
     </div>
   </section>
 
-  <!-- Articles Editorial Dispatch Feed -->
-  <section class="mt-6 mb-16">
-    <div class="max-w-4xl mx-auto flex items-center justify-between pb-4 mb-8 border-b-2 border-slate-900">
-      <h2 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3 font-sans uppercase">
-        <span>EDITORIAL DISPATCH FEED</span>
-        <span id="displayedCountBadge" class="px-2.5 py-0.5 rounded border border-slate-900 text-xs font-mono font-black bg-rose-600 text-white shadow-[2px_2px_0px_0px_#0f172a]">
-          ARCHIVE RECORDS: {sortedPosts.length} DISPATCHES FILED
-        </span>
-      </h2>
-    </div>
+  <!-- 2-COLUMN LAYOUT: Sidebar (w-80 shrink-0) + Feed (flex-1) -->
+  <section id="feed" class="mt-6 mb-16">
+    <div class="flex flex-col lg:flex-row gap-8 items-start">
+      <!-- Left Column: Sticky Classifieds & Info Sidebar -->
+      <Sidebar
+        activeCategory="all"
+        postCount={sortedPosts.length}
+        categoryCounts={categoryCounts}
+      />
 
-    {sortedPosts.length > 0 ? (
-      <div id="postsFeed" class="max-w-4xl mx-auto space-y-6">
-        {sortedPosts.map(post => (
-          <FeedItem post={post} />
-        ))}
-      </div>
-    ) : (
-      <div class="max-w-4xl mx-auto text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
-        <p class="text-slate-600 font-bold">No dispatches filed yet. Stay tuned!</p>
-      </div>
-    )}
+      <!-- Right Column: Editorial Dispatch Feed -->
+      <div class="flex-1 w-full min-w-0 space-y-6">
+        <div class="flex items-center justify-between pb-4 border-b-2 border-slate-900">
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3 font-sans uppercase">
+            <span>EDITORIAL DISPATCH FEED</span>
+            <span id="displayedCountBadge" class="px-2.5 py-0.5 rounded border border-slate-900 text-xs font-mono font-black bg-rose-600 text-white shadow-[2px_2px_0px_0px_#0f172a]">
+              ARCHIVE RECORDS: {sortedPosts.length} DISPATCHES FILED
+            </span>
+          </h2>
+        </div>
 
-    <!-- Empty State for Filter -->
-    <div id="noPostsFound" class="hidden max-w-4xl mx-auto text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
-      <p class="text-slate-700 font-bold font-sans text-base">No dispatches found in this category.</p>
-      <button
-        type="button"
-        id="resetFilterBtn"
-        class="mt-4 px-4 py-2 bg-rose-600 text-white font-mono text-xs font-black uppercase rounded-lg border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none cursor-pointer"
-      >
-        [SHOW ALL DOSSIERS]
-      </button>
+        {sortedPosts.length > 0 ? (
+          <div id="postsFeed" class="space-y-6">
+            {sortedPosts.map(post => (
+              <FeedItem post={post} />
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
+            <p class="text-slate-600 font-bold">No dispatches filed yet. Stay tuned!</p>
+          </div>
+        )}
+
+        <!-- Empty State for Filter -->
+        <div id="noPostsFound" class="hidden text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
+          <p class="text-slate-700 font-bold font-sans text-base">No dispatches found in this category.</p>
+          <button
+            type="button"
+            id="resetFilterBtn"
+            class="mt-4 px-4 py-2 bg-rose-600 text-white font-mono text-xs font-black uppercase rounded-lg border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none cursor-pointer"
+          >
+            [SHOW ALL DOSSIERS]
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -144,6 +163,7 @@ const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key
 <script define:vars={{ categoriesList }}>
   document.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll('.category-btn');
+    const sidebarFilters = document.querySelectorAll('[data-sidebar-filter]');
     const feedItems = document.querySelectorAll('.feed-item');
     const displayedCountBadge = document.getElementById('displayedCountBadge');
     const noPostsFound = document.getElementById('noPostsFound');
@@ -169,13 +189,35 @@ const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key
     function applyFilter(filterVal) {
       let visibleCount = 0;
 
-      // Update buttons state
+      // Update top buttons state
       filterButtons.forEach(btn => {
         const isCurrent = btn.getAttribute('data-filter') === filterVal;
         if (isCurrent) {
           btn.classList.add('ring-2', 'ring-slate-900', 'ring-offset-1', 'scale-105');
         } else {
           btn.classList.remove('ring-2', 'ring-slate-900', 'ring-offset-1', 'scale-105');
+        }
+      });
+
+      // Update sidebar active link state
+      sidebarFilters.forEach(link => {
+        const isCurrent = link.getAttribute('data-sidebar-filter') === filterVal;
+        if (isCurrent) {
+          link.classList.add('bg-slate-900', 'text-white', 'shadow-[2px_2px_0px_0px_#0f172a]');
+          link.classList.remove('bg-white', 'hover:bg-amber-50', 'text-slate-900');
+          const badge = link.querySelector('span:last-child');
+          if (badge) {
+            badge.classList.add('text-amber-300');
+            badge.classList.remove('text-slate-500');
+          }
+        } else {
+          link.classList.remove('bg-slate-900', 'text-white', 'shadow-[2px_2px_0px_0px_#0f172a]');
+          link.classList.add('bg-white', 'hover:bg-amber-50', 'text-slate-900');
+          const badge = link.querySelector('span:last-child');
+          if (badge) {
+            badge.classList.remove('text-amber-300');
+            badge.classList.add('text-slate-500');
+          }
         }
       });
 
@@ -220,10 +262,26 @@ const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key
       }
     }
 
+    // Bind top filter buttons
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const filterVal = btn.getAttribute('data-filter');
         applyFilter(filterVal);
+      });
+    });
+
+    // Bind sidebar category filters
+    sidebarFilters.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const filterVal = link.getAttribute('data-sidebar-filter');
+        if (filterVal) {
+          e.preventDefault();
+          applyFilter(filterVal);
+          const feedEl = document.getElementById('feed');
+          if (feedEl && window.innerWidth < 1024) {
+            feedEl.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
       });
     });
 
