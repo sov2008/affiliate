@@ -177,7 +177,6 @@ CategoryEnum.options.forEach((key) => {
   document.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll('.category-btn');
     const sidebarFilters = document.querySelectorAll('[data-sidebar-filter]');
-    const feedItems = Array.from(document.querySelectorAll('#postsFeed [data-feed-item]'));
     const featuredItem = document.getElementById('featuredDispatch');
     const displayedCountBadge = document.getElementById('displayedCountBadge');
     const noPostsFound = document.getElementById('noPostsFound');
@@ -201,15 +200,14 @@ CategoryEnum.options.forEach((key) => {
       'romantic-essays': 'romantic-essays'
     };
 
-    const PAGE_SIZE = 8;
-    let currentFilter = 'all';
+    const POSTS_PER_PAGE = 8;
+    let currentCategory = 'all';
     let currentPage = 1;
 
-    function renderPagination(totalItems) {
+    function renderPaginationControls(totalPages, page) {
       if (!paginationContainer) return;
       paginationContainer.innerHTML = '';
 
-      const totalPages = Math.ceil(totalItems / PAGE_SIZE) || 1;
       if (totalPages <= 1) {
         paginationContainer.classList.add('hidden');
         return;
@@ -223,7 +221,7 @@ CategoryEnum.options.forEach((key) => {
         btn.textContent = `[PAGE ${p}]`;
         btn.setAttribute('data-page', String(p));
         
-        const isCurrent = p === currentPage;
+        const isCurrent = p === page;
         btn.className = `px-3 py-1.5 rounded-lg border-2 border-slate-900 font-bold uppercase transition-all cursor-pointer shadow-[2px_2px_0px_0px_#0f172a] ${
           isCurrent 
             ? 'bg-slate-900 text-white' 
@@ -232,32 +230,33 @@ CategoryEnum.options.forEach((key) => {
 
         btn.addEventListener('click', () => {
           currentPage = p;
-          updateView(true);
+          updateFeedDisplay(true);
         });
         paginationContainer.appendChild(btn);
       }
 
       // [NEXT DISPATCHES →] button
-      if (currentPage < totalPages) {
+      if (page < totalPages) {
         const nextBtn = document.createElement('button');
         nextBtn.type = 'button';
         nextBtn.textContent = '[NEXT DISPATCHES →]';
         nextBtn.className = 'px-3.5 py-1.5 rounded-lg border-2 border-slate-900 font-black uppercase bg-rose-600 text-white shadow-[2px_2px_0px_0px_#0f172a] hover:bg-rose-700 hover:-translate-y-0.5 transition-all cursor-pointer';
         nextBtn.addEventListener('click', () => {
           currentPage++;
-          updateView(true);
+          updateFeedDisplay(true);
         });
         paginationContainer.appendChild(nextBtn);
       }
     }
 
-    function updateView(scrollUp = false) {
-      // 1. Featured Post check
+    function updateFeedDisplay(scrollUp = false) {
+      const allCards = Array.from(document.querySelectorAll('#postsFeed [data-feed-item]'));
+
+      // 1. Featured Post check (только на 1 странице и если подходит по категории)
       let featuredVisible = false;
       if (featuredItem) {
         const featCat = featuredItem.getAttribute('data-category');
-        const matchesCat = currentFilter === 'all' || featCat === currentFilter;
-        // Only show featured item on page 1 of results
+        const matchesCat = currentCategory === 'all' || featCat === currentCategory;
         if (matchesCat && currentPage === 1) {
           featuredItem.classList.remove('hidden');
           featuredVisible = true;
@@ -266,34 +265,41 @@ CategoryEnum.options.forEach((key) => {
         }
       }
 
-      // 2. Filter matching feed items
-      const matchingItems = feedItems.filter(item => {
-        const cat = item.getAttribute('data-category');
-        return currentFilter === 'all' || cat === currentFilter;
+      // 2. Фильтрация по активной категории
+      const visibleCards = allCards.filter(card => {
+        if (currentCategory === 'all') return true;
+        return card.getAttribute('data-category') === currentCategory;
       });
 
-      const totalMatching = matchingItems.length + (featuredItem && (currentFilter === 'all' || featuredItem.getAttribute('data-category') === currentFilter) ? 1 : 0);
-
-      // 3. Paginate regular items
-      const startIndex = (currentPage - 1) * PAGE_SIZE;
-      const endIndex = startIndex + PAGE_SIZE;
-
-      feedItems.forEach(item => {
-        item.classList.add('hidden');
-      });
-
-      matchingItems.forEach((item, idx) => {
-        if (idx >= startIndex && idx < endIndex) {
-          item.classList.remove('hidden');
+      // 3. Скрытие постов, не подходящих по категории
+      allCards.forEach(card => {
+        if (!visibleCards.includes(card)) {
+          card.classList.add('hidden');
         }
       });
 
-      // 4. Update count badge
+      // 4. Пагинация только для подходящих постов (строго 8 на страницу)
+      const totalPages = Math.ceil(visibleCards.length / POSTS_PER_PAGE) || 1;
+      if (currentPage > totalPages) currentPage = 1;
+
+      const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+      const endIndex = startIndex + POSTS_PER_PAGE;
+
+      visibleCards.forEach((card, idx) => {
+        if (idx >= startIndex && idx < endIndex) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // 5. Подсчет общего числа записей
+      const totalMatching = visibleCards.length + (featuredVisible ? 1 : 0);
       if (displayedCountBadge) {
         displayedCountBadge.textContent = `ARCHIVE RECORDS: ${totalMatching} ${totalMatching === 1 ? 'DISPATCH FILED' : 'DISPATCHES FILED'}`;
       }
 
-      // 5. Empty notice state
+      // 6. Состояние отсутствия записей
       if (noPostsFound) {
         if (totalMatching === 0) {
           noPostsFound.classList.remove('hidden');
@@ -302,20 +308,20 @@ CategoryEnum.options.forEach((key) => {
         }
       }
 
-      // 6. Render pagination controls
-      renderPagination(matchingItems.length);
+      // 7. Обновление кнопок пагинатора в DOM
+      renderPaginationControls(totalPages, currentPage);
 
-      // 7. Smooth scroll to feed on page switch
+      // 8. Скролл к началу фида при переключении страницы
       if (scrollUp) {
         const feedAnchor = document.getElementById('feed');
-        if (feedAnchor) {
+        if (feedAnchor && window.scrollY > 300) {
           feedAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
     }
 
     function applyFilter(filterVal) {
-      currentFilter = filterVal;
+      currentCategory = filterVal;
       currentPage = 1;
 
       // Update top buttons styling
@@ -363,7 +369,7 @@ CategoryEnum.options.forEach((key) => {
         }
       }
 
-      updateView(false);
+      updateFeedDisplay(false);
     }
 
     // Bind filter buttons
@@ -400,7 +406,7 @@ CategoryEnum.options.forEach((key) => {
       if (mapped && catMetaMap[mapped]) {
         applyFilter(mapped);
       } else {
-        updateView(false);
+        updateFeedDisplay(false);
       }
     }
 

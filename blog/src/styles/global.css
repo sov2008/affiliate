@@ -69,5 +69,9 @@
 
 /* Feed Card Vertical Structure Enforcement */
 .feed-card {
-  display: block !important;
+  display: block;
+}
+
+.feed-card.hidden {
+  display: none !important;
 }
