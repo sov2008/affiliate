@@ -1,7 +1,7 @@
 /**
  * Batch Generate Covers Pipeline (16:9 Cinematic 2D Cel-Shading WebP 1200x675)
  * Engine: PURE NVIDIA NIM Multi-Engine (FLUX.1-dev + Stable Diffusion 3.5 Large)
- * Aesthetic Core: 90s Cel Gazette / Love is... Strict Neutral Forensic Comic Style
+ * Aesthetic Core: 90s Gainax / Evangelion / Love is... Strict Forensic Anime Cel
  * Usage: npx tsx scripts/batch-generate-covers.ts [--all | --force] [--limit N]
  */
 
@@ -18,8 +18,66 @@ const POSTS_DIR = path.resolve(process.cwd(), 'blog/src/content/posts');
 const OUTPUT_DIR = path.resolve(process.cwd(), 'blog/public/images/posts');
 
 // ---------------------------------------------------------------------------
-// 1. Strict 2D Gainax Cel-Shading Prompt Architecture (Asuka & Shinji)
+// 1. Character Fidelity Anchors & Cinematic Camera Angles Matrix
 // ---------------------------------------------------------------------------
+
+export const ASUKA_CANON =
+  'Asuka, striking deep cobalt blue eyes, sharp determined gaze, vibrant copper-red hair in two signature high twin-tails, dark oversized turtleneck sweater';
+
+export const SHINJI_CANON =
+  'Shinji, distinct clear slate grey eyes, thoughtful analytical expression, short neat dark hair, crisp cream collared shirt';
+
+export interface CinematicAngle {
+  id: number;
+  name: string;
+  prompt: string;
+}
+
+export const CINEMATIC_ANGLES: CinematicAngle[] = [
+  {
+    id: 1,
+    name: 'Ракурс 1 (Over-the-shoulder / Forensic Screen)',
+    prompt:
+      'over-the-shoulder shot from behind Shinji, glowing CRT monitor screen showing code and ranking chart in foreground, Asuka standing in background with crossed arms looking critically at screen',
+  },
+  {
+    id: 2,
+    name: 'Ракурс 2 (Top-down Table Investigation)',
+    prompt:
+      'high-angle 45-degree top-down shot of wooden investigation desk, printed profile dossiers with red marker annotations, ceramic coffee cup, magnifying glass, Asuka and Shinji sitting across from each other analyzing forensic evidence',
+  },
+  {
+    id: 3,
+    name: 'Ракурс 3 (Dynamic Split / Two-Panel Comic)',
+    prompt:
+      'dynamic two-panel comic composition with bold black ink dividing line, left panel showing close-up of Asuka examining paper through magnifying glass, right panel showing Shinji wearing vintage headphones listening intently to audio recorder',
+  },
+  {
+    id: 4,
+    name: 'Ракурс 4 (Night Cafe Rainy Window)',
+    prompt:
+      'cinematic scene of Asuka and Shinji seated back-to-back by vintage cafe window, rain droplets running down glass, blurred retro neon city lights outside, open evidence case dossier on wooden table',
+  },
+  {
+    id: 5,
+    name: 'Ракурс 5 (Wall Flowchart Confrontation)',
+    prompt:
+      'Asuka standing by large cork bulletin board with red strings connecting suspect profile photos pointing with wooden pointer, Shinji standing beside making notes in forensic notepad',
+  },
+  {
+    id: 6,
+    name: 'Ракурс 6 (Microscope / Close-up Forensic)',
+    prompt:
+      'macro forensic close-up shot, hands holding precision tweezers over electronic circuit board and smartphone, Asuka with deep cobalt blue eyes and Shinji with slate grey eyes focused intently in background',
+  },
+];
+
+export const ATMOSPHERIC_ENVIRONMENTS: string[] = [
+  'retro navy archive with subtle desk illumination',
+  'warm amber desk light and tungsten desk lamp glow',
+  'rainy retro neon reflection with cool cyan and magenta highlights',
+  'green phosphor CRT terminal glow in dark 90s laboratory',
+];
 
 export type SceneArchetype =
   | 'algo-mechanics'
@@ -29,7 +87,7 @@ export type SceneArchetype =
   | 'modern-psychology'
   | 'romantic-essays';
 
-const SCENE_ACTIONS: Record<SceneArchetype, string> = {
+export const SCENE_ACTIONS: Record<SceneArchetype, string> = {
   'algo-mechanics':
     'analyzing glowing algorithm ranking chart on wall, technical data flow curves',
   'safety-dossier':
@@ -44,21 +102,61 @@ const SCENE_ACTIONS: Record<SceneArchetype, string> = {
     'typing investigation dispatch on vintage typewriter, paper documents, desk lamp',
 };
 
-function buildStrictPrompt(categoryAction: string): string {
+export interface CinematicSetup {
+  angle: CinematicAngle;
+  environment: string;
+}
+
+export function resolveCinematicSetup(slug: string, category: string): CinematicSetup {
+  let hash = 0;
+  const combined = `${slug}_${category}`;
+  for (let i = 0; i < combined.length; i++) {
+    hash = ((hash << 5) - hash) + combined.charCodeAt(i);
+    hash |= 0;
+  }
+  const absHash = Math.abs(hash);
+  const angleIndex = absHash % CINEMATIC_ANGLES.length;
+  const envIndex = (absHash >> 3) % ATMOSPHERIC_ENVIRONMENTS.length;
+
+  return {
+    angle: CINEMATIC_ANGLES[angleIndex],
+    environment: ATMOSPHERIC_ENVIRONMENTS[envIndex],
+  };
+}
+
+export function buildStrictPrompt(
+  setup: CinematicSetup,
+  categoryAction?: string
+): string {
   return [
-    "masterpiece, 2D retro anime comic panel, 1990s animation cel, bold clean black ink contour lines, flat colors, warm newsprint paper texture, 16:9 horizontal frame",
-    "On the left: Asuka, vibrant copper-red hair in two high twin-tails, dark oversized turtleneck sweater, sharp focused analytical expression",
-    "On the right: Shinji, short dark brown hair, crisp cream collared shirt, calm serious expression",
-    categoryAction,
-    "Setting: retro detective investigation office, CRT monitor screen, technical paper reports on desk, vintage equipment, warm ambient lighting",
-    "flat 2D cel shading, classic 1990s anime aesthetic, sharp lineart, no 3D, no photorealism"
-  ].join(", ");
+    'masterpiece, 2D retro anime comic panel, 1990s animation cel, bold clean black ink contour lines, flat colors, warm newsprint paper texture, 16:9 horizontal frame',
+    ASUKA_CANON,
+    SHINJI_CANON,
+    setup.angle.prompt,
+    categoryAction ? categoryAction : '',
+    `Atmospheric setting: ${setup.environment}, vintage equipment, paper investigative reports`,
+    'flat 2D cel shading, classic 1990s anime aesthetic, sharp lineart, no 3D, no photorealism',
+  ]
+    .filter(Boolean)
+    .join(', ');
+}
+
+export function buildSanitizedPrompt(setup: CinematicSetup): string {
+  return [
+    'masterpiece, 2D retro anime comic panel, 1990s animation cel, bold clean black ink contour lines, flat colors, warm newsprint paper texture, 16:9 horizontal frame',
+    ASUKA_CANON,
+    SHINJI_CANON,
+    setup.angle.prompt,
+    'reviewing paper evidence logs and charts on desk',
+    `Atmospheric setting: ${setup.environment}, vintage equipment`,
+    'flat 2D cel shading, classic 1990s anime aesthetic, sharp lineart, no 3D, no photorealism',
+  ].join(', ');
 }
 
 /**
  * Resolves post archetype based on category, slug, and title keywords
  */
-function resolvePostArchetype(
+export function resolvePostArchetype(
   category: string,
   slug: string,
   title: string
@@ -120,7 +218,7 @@ function resolvePostArchetype(
 }
 
 // ---------------------------------------------------------------------------
-// 2. Pure NVIDIA NIM Engine (FLUX.1-dev + Stable Diffusion 3.5 Large)
+// 2. Pure NVIDIA NIM Engine (FLUX.1-dev)
 // ---------------------------------------------------------------------------
 
 async function sleep(ms: number) {
@@ -204,15 +302,17 @@ async function generateViaNvidiaFlux(prompt: string, apiKey: string): Promise<Bu
 }
 
 /**
- * Robust NVIDIA NIM Cover Generation (Strict 2D Gainax Cel-Shading Engine)
+ * Robust NVIDIA NIM Cover Generation with Cinematic Setup
  */
-async function generateCoverForPost(
+export async function generateCoverForPost(
   slug: string,
+  category: string,
   archetype: SceneArchetype,
   outputPath: string
-): Promise<{ success: boolean; size: number; durationMs: number; provider: string }> {
+): Promise<{ success: boolean; size: number; durationMs: number; provider: string; angleName: string }> {
+  const setup = resolveCinematicSetup(slug, category);
   const action = SCENE_ACTIONS[archetype];
-  const prompt = buildStrictPrompt(action);
+  const prompt = buildStrictPrompt(setup, action);
 
   const fluxKey =
     process.env.NVIDIA_FLUX_DEV_API_KEY || process.env.NVIDIA_API_KEY || '';
@@ -228,7 +328,7 @@ async function generateCoverForPost(
   // Attempt 1: Strict 2D Cel-Shading Prompt
   try {
     rawBuffer = await generateViaNvidiaFlux(prompt, fluxKey);
-    usedProvider = 'NVIDIA NIM (FLUX.1-dev Strict 2D)';
+    usedProvider = 'NVIDIA NIM (FLUX.1-dev Cinematic 2D)';
   } catch (err: any) {
     const isFiltered = err.message.includes('CONTENT_FILTERED');
     if (isFiltered) {
@@ -238,20 +338,20 @@ async function generateCoverForPost(
       await sleep(3000);
     }
 
-    // Attempt 2: If filtered, keep exact 2D characters with neutral paperwork action. Else retry same prompt.
-    const retryPrompt = isFiltered
-      ? buildStrictPrompt('reviewing paper evidence logs and charts on desk')
-      : prompt;
+    // Attempt 2: If filtered, keep exact 2D characters with neutral action
+    const retryPrompt = isFiltered ? buildSanitizedPrompt(setup) : prompt;
 
     try {
       rawBuffer = await generateViaNvidiaFlux(retryPrompt, fluxKey);
-      usedProvider = isFiltered ? 'NVIDIA NIM (FLUX.1-dev 2D Neutral Action)' : 'NVIDIA NIM (FLUX.1-dev Retry)';
+      usedProvider = isFiltered
+        ? 'NVIDIA NIM (FLUX.1-dev 2D Neutral Action)'
+        : 'NVIDIA NIM (FLUX.1-dev Retry)';
     } catch (retryErr: any) {
       // Attempt 3: Final attempt with safe neutral action
       console.warn(`   🛡️ Final attempt with safe neutral 2D action for ${slug}...`);
       await sleep(3500);
       try {
-        const finalPrompt = buildStrictPrompt('examining technical documents on desk in investigation office');
+        const finalPrompt = buildSanitizedPrompt(setup);
         rawBuffer = await generateViaNvidiaFlux(finalPrompt, fluxKey);
         usedProvider = 'NVIDIA NIM (FLUX.1-dev Final 2D Safe)';
       } catch (finalErr: any) {
@@ -278,6 +378,7 @@ async function generateCoverForPost(
     size: stats.size,
     durationMs,
     provider: usedProvider,
+    angleName: setup.angle.name,
   };
 }
 
@@ -292,7 +393,8 @@ async function main() {
   const limit = limitIndex !== -1 ? parseInt(args[limitIndex + 1], 10) : Infinity;
 
   console.log('=================================================================');
-  console.log('⚡ PURE NVIDIA NIM 2D COVER GENERATOR (FLUX.1-dev + SD 3.5 Large)');
+  console.log('⚡ PURE NVIDIA NIM 2D COVER GENERATOR (FLUX.1-dev)');
+  console.log('🎬 Style: Gainax / Evangelion / Love is... 6 Cinematic Angles');
   console.log('=================================================================');
   console.log(`Directory: ${POSTS_DIR}`);
   console.log(`Output:    ${OUTPUT_DIR}`);
@@ -320,6 +422,7 @@ async function main() {
     const title = titleMatch ? titleMatch[1].trim() : slug;
 
     const archetype = resolvePostArchetype(category, slug, title);
+    const setup = resolveCinematicSetup(slug, category);
     const outputPath = path.join(OUTPUT_DIR, `${slug}.webp`);
 
     const exists =
@@ -333,6 +436,7 @@ async function main() {
       title,
       category,
       archetype,
+      setup,
       outputPath,
       exists,
     };
@@ -357,12 +461,14 @@ async function main() {
     console.log(
       `[${i + 1}/${pendingTasks.length}] Generating: ${task.slug}.webp`
     );
-    console.log(`   🏷️  Category:  ${task.category}  ->  Archetype: [${task.archetype}]`);
-    console.log(`   📖 Action:    "${SCENE_ACTIONS[task.archetype]}"`);
+    console.log(`   🎬 Camera:    ${task.setup.angle.name}`);
+    console.log(`   🌆 Env:       ${task.setup.environment}`);
+    console.log(`   🏷️ Category:  ${task.category} -> [${task.archetype}]`);
 
     try {
       const result = await generateCoverForPost(
         task.slug,
+        task.category,
         task.archetype,
         task.outputPath
       );
@@ -388,7 +494,12 @@ async function main() {
   console.log('=================================================================');
 }
 
-main().catch((err) => {
-  console.error('Fatal execution error:', err);
-  process.exit(1);
-});
+if (
+  process.argv[1] &&
+  (process.argv[1].endsWith('batch-generate-covers.ts') || process.argv[1].endsWith('batch-generate-covers.js'))
+) {
+  main().catch((err) => {
+    console.error('Fatal execution error:', err);
+    process.exit(1);
+  });
+}

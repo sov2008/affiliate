@@ -6,8 +6,8 @@ author: "Arthur"
 tags: ["Scams", "Bot Detection", "Online Dating", "Safety"]
 seoKeywords: ["reverse image search bypass", "ai catfish detection", "google lens dating scams", "deepfake dating profile"]
 canonicalUrl: "https://flirtcheck.site/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026/"
-coverImage: "/images/posts/reverse-image-search-lens-scam.webp"
-image: "/images/posts/reverse-image-search-lens-scam.webp"
+coverImage: "/images/posts/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026.webp"
+image: "/images/posts/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026.webp"
 draft: false
 category: "algo-mechanics"
 ---

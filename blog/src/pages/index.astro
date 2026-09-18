@@ -156,34 +156,36 @@ CategoryEnum.options.forEach((key) => {
           <article
             id="featuredDispatch"
             data-category={featuredPost.data.category || 'safety-dossier'}
-            class="featured-item bg-white border-2 border-slate-900 rounded-xl overflow-hidden shadow-[4px_4px_0px_0px_#0f172a] hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#0f172a] transition-all"
+            class="featured-item bg-white border-2 border-slate-900 rounded-xl overflow-hidden shadow-[4px_4px_0px_0px_#0f172a] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#0f172a] transition-all"
           >
-            <!-- 16:9 Lead Banner Image -->
+            <!-- 16:9 Lead Banner Image (Strictly No Zoom) -->
             {featuredCoverSrc && (
-              <a href={featuredPostUrl} class="block aspect-[16/9] w-full overflow-hidden border-b-2 border-slate-900 bg-[#F4EFE6] relative group">
-                <img
-                  src={featuredCoverSrc}
-                  alt={featuredPost.data.title}
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  loading="eager"
-                />
+              <div class="w-full aspect-[16/9] border-b-2 border-slate-900 bg-[#F4EFE6] overflow-hidden relative">
+                <a href={featuredPostUrl} class="block w-full h-full">
+                  <img
+                    src={featuredCoverSrc}
+                    alt={featuredPost.data.title}
+                    class="w-full h-full object-cover select-none pointer-events-none"
+                    loading="eager"
+                  />
+                </a>
                 <div class="absolute top-3 left-3 bg-rose-600 text-white font-mono font-black text-xs px-2.5 py-1 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] tracking-widest uppercase">
                   [BREAKING INVESTIGATION]
                 </div>
                 <div class="absolute bottom-3 right-3 bg-white text-slate-900 font-mono font-black text-xs px-2 py-0.5 border border-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
                   LEAD DISPATCH
                 </div>
-              </a>
+              </div>
             )}
-            <div class="p-5 sm:p-6">
-              <div class="flex flex-wrap items-center gap-2 mb-2.5">
+            <div class="p-6 sm:p-7">
+              <div class="flex flex-wrap items-center gap-2 mb-3">
                 {!featuredCoverSrc && (
                   <span class="bg-rose-600 text-white font-mono font-black text-[11px] px-2.5 py-0.5 border border-slate-900 shadow-[1px_1px_0px_0px_#0f172a] tracking-wider uppercase rounded">
                     [BREAKING INVESTIGATION]
                   </span>
                 )}
                 <span class:list={[
-                  "border border-slate-900 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider rounded shadow-[1px_1px_0px_0px_#0f172a]",
+                  "border border-slate-900 px-2.5 py-0.5 text-[11px] font-black uppercase tracking-wider rounded shadow-[1px_1px_0px_0px_#0f172a]",
                   featuredCategoryMeta ? featuredCategoryMeta.badgeStyle : "bg-amber-100 text-slate-900"
                 ]}>
                   {featuredCategoryMeta ? `[${featuredCategoryMeta.shortTitle}]` : `[${featuredPost.data.category || 'DOSSIER'}]`}
@@ -193,14 +195,14 @@ CategoryEnum.options.forEach((key) => {
                 </span>
               </div>
 
-              <h3 class="font-black text-xl sm:text-2xl lg:text-3xl text-slate-900 leading-tight hover:text-rose-600 transition-colors font-sans mb-2">
+              <h2 class="font-black text-xl sm:text-2xl text-slate-900 leading-tight hover:text-rose-600 transition-colors font-sans mb-2">
                 <a href={featuredPostUrl}>
                   {featuredPost.data.title}
                 </a>
-              </h3>
+              </h2>
 
               {featuredMotto && (
-                <p class="font-serif italic font-semibold text-rose-600 text-sm sm:text-base mb-3">
+                <p class="font-serif italic font-semibold text-rose-600 text-sm mt-2 mb-2">
                   "{featuredMotto}"
                 </p>
               )}
@@ -215,7 +217,7 @@ CategoryEnum.options.forEach((key) => {
                   href={featuredPostUrl}
                   class="font-black text-rose-600 hover:text-slate-900 uppercase flex items-center gap-1 tracking-wider text-sm"
                 >
-                  OPEN FULL DOSSIER &rarr;
+                  READ FULL DISPATCH &rarr;
                 </a>
               </div>
             </div>

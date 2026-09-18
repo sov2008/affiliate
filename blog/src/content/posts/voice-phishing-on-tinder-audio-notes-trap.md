@@ -6,8 +6,8 @@ author: "Arthur"
 tags: ["Voice Phishing", "Deepfakes", "Safety", "Online Dating"]
 seoKeywords: ["voice cloning tinder", "audio note dating scam", "vishing dating apps", "voice biometric spoofing"]
 canonicalUrl: "https://flirtcheck.site/voice-phishing-on-tinder-audio-notes-trap/"
-coverImage: "/images/posts/voice-phishing-audio-trap.webp"
-image: "/images/posts/voice-phishing-audio-trap.webp"
+coverImage: "/images/posts/voice-phishing-on-tinder-audio-notes-trap.webp"
+image: "/images/posts/voice-phishing-on-tinder-audio-notes-trap.webp"
 draft: false
 category: "digital-dialogue"
 ---

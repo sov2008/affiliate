@@ -24,16 +24,15 @@ const readingTime = Math.max(2, Math.ceil(wordCount / 200));
 // Category metadata
 const categoryMeta = post.data.category ? CATEGORIES_METADATA[post.data.category] : null;
 
-// Resolve cover image (render image column for all custom covers)
+// Resolve cover image
 const rawCover = post.data.coverImage || post.data.image;
-const hasCustomCover = Boolean(rawCover && !rawCover.includes('default-cover.webp'));
 const cleanCover = rawCover ? rawCover.replace(/^\/blog/, '') : null;
+const postSlug = post.slug || post.id || 'case-2026';
 const coverSrc = cleanCover
   ? (cleanCover.startsWith('/') ? cleanCover : `/${cleanCover}`)
-  : null;
+  : `/images/posts/${postSlug}.webp`;
 
 // Case ID
-const postSlug = post.slug || post.id || 'case-2026';
 const caseId = postSlug.replace(/[^a-zA-Z0-9]/g, '').slice(0, 8).toUpperCase() || 'FC2026A';
 
 // Love is... motto or hook
@@ -45,43 +44,42 @@ const postUrl = `${base}/${post.id || post.slug}/`;
   data-category={post.data.category || 'safety-dossier'}
   data-feed-item
   data-index={index}
-  class="feed-item bg-white border-2 border-slate-900 rounded-xl p-5 sm:p-6 shadow-[4px_4px_0px_0px_#0f172a] hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#0f172a] transition-all flex flex-col sm:flex-row gap-5 items-start"
+  class="feed-item bg-white border-2 border-slate-900 rounded-xl overflow-hidden shadow-[4px_4px_0px_0px_#0f172a] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#0f172a] transition-all"
 >
-  <!-- 16:9 Image Column (Consistent comic aspect ratio) -->
-  {hasCustomCover && coverSrc && (
-    <a
-      href={postUrl}
-      class="w-full sm:w-56 md:w-64 aspect-[16/9] overflow-hidden rounded-lg border-2 border-slate-900 shrink-0 block bg-[#F4EFE6] relative group shadow-[2px_2px_0px_0px_#0f172a]"
-    >
-      <img
-        src={coverSrc}
-        alt={post.data.title}
-        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-        loading="lazy"
-      />
-      <div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-white border border-slate-900 text-[9px] font-mono font-black text-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
+  <!-- Full-width 16:9 Image Block on Top (Strictly No Zoom) -->
+  {coverSrc && (
+    <div class="w-full aspect-[16/9] border-b-2 border-slate-900 bg-[#F4EFE6] overflow-hidden relative">
+      <a href={postUrl} class="block w-full h-full">
+        <img
+          src={coverSrc}
+          alt={post.data.title}
+          loading="lazy"
+          class="w-full h-full object-cover select-none pointer-events-none"
+        />
+      </a>
+      <div class="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-white border border-slate-900 text-[10px] font-mono font-black text-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
         VOL. '26
       </div>
-    </a>
+    </div>
   )}
 
-  <!-- Text Body -->
-  <div class="flex-1 flex flex-col justify-between w-full min-w-0">
-    <!-- Header: Stamp + Date + Reading Time -->
-    <div class="flex flex-wrap items-center gap-2 mb-2">
+  <!-- Card Body -->
+  <div class="p-6 sm:p-7">
+    <!-- Top Row: Category Stamp + PubDate + Reading Time -->
+    <div class="flex flex-wrap items-center gap-2 mb-3">
       <span class:list={[
-        "border border-slate-900 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider rounded shadow-[1px_1px_0px_0px_#0f172a]",
+        "border border-slate-900 px-2.5 py-0.5 text-[11px] font-black uppercase tracking-wider rounded shadow-[1px_1px_0px_0px_#0f172a]",
         categoryMeta ? categoryMeta.badgeStyle : "bg-amber-100 text-slate-900"
       ]}>
         {categoryMeta ? `[${categoryMeta.shortTitle}]` : `[${post.data.category || 'DOSSIER'}]`}
       </span>
       <span class="font-mono text-xs text-slate-500">
-        {formattedDate} • {readingTime} MIN READ
+        {formattedDate} • {readingTime} MIN FORENSIC READ
       </span>
     </div>
 
-    <!-- Title -->
-    <h2 class="font-black text-lg sm:text-xl text-slate-900 leading-snug hover:text-rose-600 transition-colors font-sans">
+    <!-- Title H2 -->
+    <h2 class="font-black text-xl sm:text-2xl text-slate-900 leading-tight hover:text-rose-600 transition-colors font-sans mb-2">
       <a href={postUrl}>
         {post.data.title}
       </a>
@@ -89,24 +87,24 @@ const postUrl = `${base}/${post.id || post.slug}/`;
 
     <!-- Love is... Motto / Epigraph -->
     {motto && (
-      <p class="font-serif italic font-semibold text-rose-600 text-xs sm:text-sm mt-1.5 mb-1.5">
+      <p class="font-serif italic font-semibold text-rose-600 text-sm mt-2 mb-2">
         "{motto}"
       </p>
     )}
 
-    <!-- Excerpt / Lead -->
-    <p class="text-slate-600 text-xs sm:text-sm leading-relaxed line-clamp-2 sm:line-clamp-3 mt-1 font-normal">
-      {post.data.description || (post.body ? post.body.slice(0, 200) + '...' : '')}
+    <!-- Excerpt / Lead (2-3 sentences, line-clamp-3) -->
+    <p class="text-slate-600 text-sm sm:text-base leading-relaxed line-clamp-3 mb-4 font-normal">
+      {post.data.description || (post.body ? post.body.slice(0, 240) + '...' : '')}
     </p>
 
-    <!-- Forensic Footer -->
-    <div class="mt-3.5 pt-2.5 border-t border-slate-200 w-full flex justify-between items-center text-xs font-mono">
+    <!-- Bottom Bar: Case ID + READ FULL DISPATCH Button -->
+    <div class="pt-3 border-t border-slate-200 flex justify-between items-center text-xs font-mono">
       <span class="text-slate-400 font-bold">CASE ID: #{caseId}</span>
       <a
         href={postUrl}
-        class="font-black text-rose-600 hover:text-slate-900 uppercase flex items-center gap-1 tracking-wider"
+        class="font-black text-rose-600 hover:text-slate-900 uppercase flex items-center gap-1 tracking-wider text-sm"
       >
-        READ DISPATCH &rarr;
+        READ FULL DISPATCH &rarr;
       </a>
     </div>
   </div>

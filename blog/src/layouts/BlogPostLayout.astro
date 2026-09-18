@@ -212,14 +212,13 @@ const faqSchema = {
         </div>
       </header>
 
-      <!-- Featured Cover Image in Comic Frame -->
+      <!-- Featured Cover Image in Comic Frame (Strictly No Zoom) -->
       <div class="mb-10 overflow-hidden rounded-2xl border-2 border-slate-900 shadow-[6px_6px_0px_0px_#0f172a] bg-white">
         <img
           src={effectiveCoverImage || `/images/posts/${slug || 'dating-scam-verification-guide-2026'}.webp`}
           alt={title}
-          class="w-full aspect-video object-cover hover:scale-[1.01] transition-transform duration-500"
-          loading="lazy"
-          decoding="async"
+          class="w-full aspect-video object-cover select-none pointer-events-none"
+          loading="eager"
         />
       </div>
 
