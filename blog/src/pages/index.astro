@@ -177,7 +177,7 @@ CategoryEnum.options.forEach((key) => {
   document.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll('.category-btn');
     const sidebarFilters = document.querySelectorAll('[data-sidebar-filter]');
-    const feedItems = Array.from(document.querySelectorAll('.feed-item'));
+    const feedItems = Array.from(document.querySelectorAll('#postsFeed [data-feed-item]'));
     const featuredItem = document.getElementById('featuredDispatch');
     const displayedCountBadge = document.getElementById('displayedCountBadge');
     const noPostsFound = document.getElementById('noPostsFound');
@@ -280,13 +280,11 @@ CategoryEnum.options.forEach((key) => {
 
       feedItems.forEach(item => {
         item.classList.add('hidden');
-        item.classList.remove('flex');
       });
 
       matchingItems.forEach((item, idx) => {
         if (idx >= startIndex && idx < endIndex) {
           item.classList.remove('hidden');
-          item.classList.add('flex');
         }
       });
 

@@ -253,6 +253,8 @@ export async function generateCoverForPost(
 async function main() {
   const args = process.argv.slice(2);
   const forceAll = args.includes('--all') || args.includes('--force');
+  const offsetIndex = args.indexOf('--offset');
+  const offset = offsetIndex !== -1 ? parseInt(args[offsetIndex + 1], 10) : 0;
   const limitIndex = args.indexOf('--limit');
   const limit = limitIndex !== -1 ? parseInt(args[limitIndex + 1], 10) : Infinity;
 
@@ -263,6 +265,7 @@ async function main() {
   console.log(`Directory: ${POSTS_DIR}`);
   console.log(`Output:    ${OUTPUT_DIR}`);
   console.log(`Mode:      ${forceAll ? 'FORCE OVERWRITE (ALL COVERS)' : 'INCREMENTAL'}`);
+  if (offset > 0) console.log(`Offset:    ${offset} articles`);
   if (limit !== Infinity) console.log(`Limit:     ${limit} articles`);
   console.log('-----------------------------------------------------------------\n');
 
@@ -304,10 +307,11 @@ async function main() {
     };
   });
 
-  const pendingTasks = tasks.filter((t) => forceAll || !t.exists).slice(0, limit);
+  const filteredTasks = tasks.filter((t) => forceAll || !t.exists);
+  const pendingTasks = filteredTasks.slice(offset, offset + limit);
 
   console.log(`🎯 Total articles:           ${tasks.length}`);
-  console.log(`🚀 Queue to generate:        ${pendingTasks.length}\n`);
+  console.log(`🚀 Queue to generate:        ${pendingTasks.length} (from total candidate pool of ${filteredTasks.length})\n`);
 
   if (pendingTasks.length === 0) {
     console.log('✨ All covers are already generated and up to date! Nothing to do.');

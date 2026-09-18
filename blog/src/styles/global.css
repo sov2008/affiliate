@@ -66,3 +66,8 @@
   background-image: radial-gradient(#0f172a20 1.5px, transparent 1.5px);
   background-size: 8px 8px;
 }
+
+/* Feed Card Vertical Structure Enforcement */
+.feed-card {
+  display: block !important;
+}
