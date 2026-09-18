@@ -16,29 +16,6 @@ const regularPosts = sortedPosts.slice(1);
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// Featured post details
-const featuredFormattedDate = featuredPost ? new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric'
-}).format(featuredPost.data.pubDate) : '';
-
-const featuredWordCount = featuredPost?.body ? featuredPost.body.split(/\s+/).length : 600;
-const featuredReadingTime = Math.max(2, Math.ceil(featuredWordCount / 200));
-const featuredCategoryMeta = featuredPost?.data.category ? CATEGORIES_METADATA[featuredPost.data.category] : null;
-
-const featuredRawCover = featuredPost ? (featuredPost.data.coverImage || featuredPost.data.image) : null;
-const hasFeaturedCustomCover = Boolean(featuredRawCover && !featuredRawCover.includes('default-cover.webp'));
-const featuredCleanCover = featuredRawCover ? featuredRawCover.replace(/^\/blog/, '') : null;
-const featuredCoverSrc = hasFeaturedCustomCover && featuredCleanCover
-  ? (featuredCleanCover.startsWith('/') ? featuredCleanCover : `/${featuredCleanCover}`)
-  : null;
-
-const featuredSlug = featuredPost?.slug || featuredPost?.id || 'case-lead';
-const featuredCaseId = featuredSlug.replace(/[^a-zA-Z0-9]/g, '').slice(0, 8).toUpperCase() || 'FCLEAD';
-const featuredMotto = featuredPost?.data.motto || featuredPost?.data.hook || (featuredCategoryMeta ? featuredCategoryMeta.motto : null);
-const featuredPostUrl = featuredPost ? `${base}/${featuredPost.id || featuredPost.slug}/` : '#';
-
 const pageTitle = "FlirtCheck: Modern Dating Chronicles | From Algorithms to the Human Heart";
 const pageDescription = "Cultural, psychological, and algorithmic forensic study of modern romance in 2026. From automated black-box feeds to authentic human vulnerability.";
 
@@ -153,80 +130,12 @@ CategoryEnum.options.forEach((key) => {
 
         <!-- 1. Featured Lead Dispatch (Breaking Investigation) -->
         {featuredPost && (
-          <article
-            id="featuredDispatch"
-            data-category={featuredPost.data.category || 'safety-dossier'}
-            class="featured-item bg-white border-2 border-slate-900 rounded-xl overflow-hidden shadow-[4px_4px_0px_0px_#0f172a] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#0f172a] transition-all"
-          >
-            <!-- 16:9 Lead Banner Image (Strictly No Zoom) -->
-            {featuredCoverSrc && (
-              <div class="w-full aspect-[16/9] border-b-2 border-slate-900 bg-[#F4EFE6] overflow-hidden relative">
-                <a href={featuredPostUrl} class="block w-full h-full">
-                  <img
-                    src={featuredCoverSrc}
-                    alt={featuredPost.data.title}
-                    class="w-full h-full object-cover select-none pointer-events-none"
-                    loading="eager"
-                  />
-                </a>
-                <div class="absolute top-3 left-3 bg-rose-600 text-white font-mono font-black text-xs px-2.5 py-1 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] tracking-widest uppercase">
-                  [BREAKING INVESTIGATION]
-                </div>
-                <div class="absolute bottom-3 right-3 bg-white text-slate-900 font-mono font-black text-xs px-2 py-0.5 border border-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
-                  LEAD DISPATCH
-                </div>
-              </div>
-            )}
-            <div class="p-6 sm:p-7">
-              <div class="flex flex-wrap items-center gap-2 mb-3">
-                {!featuredCoverSrc && (
-                  <span class="bg-rose-600 text-white font-mono font-black text-[11px] px-2.5 py-0.5 border border-slate-900 shadow-[1px_1px_0px_0px_#0f172a] tracking-wider uppercase rounded">
-                    [BREAKING INVESTIGATION]
-                  </span>
-                )}
-                <span class:list={[
-                  "border border-slate-900 px-2.5 py-0.5 text-[11px] font-black uppercase tracking-wider rounded shadow-[1px_1px_0px_0px_#0f172a]",
-                  featuredCategoryMeta ? featuredCategoryMeta.badgeStyle : "bg-amber-100 text-slate-900"
-                ]}>
-                  {featuredCategoryMeta ? `[${featuredCategoryMeta.shortTitle}]` : `[${featuredPost.data.category || 'DOSSIER'}]`}
-                </span>
-                <span class="font-mono text-xs text-slate-500">
-                  {featuredFormattedDate} • {featuredReadingTime} MIN FORENSIC READ
-                </span>
-              </div>
-
-              <h2 class="font-black text-xl sm:text-2xl text-slate-900 leading-tight hover:text-rose-600 transition-colors font-sans mb-2">
-                <a href={featuredPostUrl}>
-                  {featuredPost.data.title}
-                </a>
-              </h2>
-
-              {featuredMotto && (
-                <p class="font-serif italic font-semibold text-rose-600 text-sm mt-2 mb-2">
-                  "{featuredMotto}"
-                </p>
-              )}
-
-              <p class="text-slate-600 text-sm sm:text-base leading-relaxed line-clamp-3 mb-4 font-normal">
-                {featuredPost.data.description || (featuredPost.body ? featuredPost.body.slice(0, 240) + '...' : '')}
-              </p>
-
-              <div class="pt-3 border-t border-slate-200 flex justify-between items-center text-xs font-mono">
-                <span class="text-slate-400 font-bold">CASE ID: #{featuredCaseId}</span>
-                <a
-                  href={featuredPostUrl}
-                  class="font-black text-rose-600 hover:text-slate-900 uppercase flex items-center gap-1 tracking-wider text-sm"
-                >
-                  READ FULL DISPATCH &rarr;
-                </a>
-              </div>
-            </div>
-          </article>
+          <FeedItem post={featuredPost} isFeatured={true} />
         )}
 
         <!-- 2. Paginated Regular Dispatches Feed -->
         {regularPosts.length > 0 ? (
-          <div id="postsFeed" class="space-y-6">
+          <div id="postsFeed" class="w-full">
             {regularPosts.map((post, idx) => (
               <FeedItem post={post} index={idx} />
             ))}

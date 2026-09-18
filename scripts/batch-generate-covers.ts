@@ -1,6 +1,6 @@
 /**
  * Batch Generate Covers Pipeline (16:9 Cinematic 2D Cel-Shading WebP 1200x675)
- * Engine: PURE NVIDIA NIM Multi-Engine (FLUX.1-dev + Stable Diffusion 3.5 Large)
+ * Engine: PURE NVIDIA NIM Multi-Engine (FLUX.1-dev)
  * Aesthetic Core: 90s Gainax / Evangelion / Love is... Strict Forensic Anime Cel
  * Usage: npx tsx scripts/batch-generate-covers.ts [--all | --force] [--limit N]
  */
@@ -18,14 +18,8 @@ const POSTS_DIR = path.resolve(process.cwd(), 'blog/src/content/posts');
 const OUTPUT_DIR = path.resolve(process.cwd(), 'blog/public/images/posts');
 
 // ---------------------------------------------------------------------------
-// 1. Character Fidelity Anchors & Cinematic Camera Angles Matrix
+// 1. Scene-First Cinematic Camera Angles Matrix (Angle-First Attention)
 // ---------------------------------------------------------------------------
-
-export const ASUKA_CANON =
-  'Asuka, striking deep cobalt blue eyes, sharp determined gaze, vibrant copper-red hair in two signature high twin-tails, dark oversized turtleneck sweater';
-
-export const SHINJI_CANON =
-  'Shinji, distinct clear slate grey eyes, thoughtful analytical expression, short neat dark hair, crisp cream collared shirt';
 
 export interface CinematicAngle {
   id: number;
@@ -36,39 +30,39 @@ export interface CinematicAngle {
 export const CINEMATIC_ANGLES: CinematicAngle[] = [
   {
     id: 1,
-    name: 'Ракурс 1 (Over-the-shoulder / Forensic Screen)',
+    name: 'Ракурс 1 (CRT Terminal Glow)',
     prompt:
-      'over-the-shoulder shot from behind Shinji, glowing CRT monitor screen showing code and ranking chart in foreground, Asuka standing in background with crossed arms looking critically at screen',
+      'Over-the-shoulder camera shot looking at a glowing green CRT terminal screen filled with dating algorithm code. In the dim background, 1990s anime girl with copper twin-tails crossed arms looking skeptical. Vintage cel shading, 16:9 aspect ratio.',
   },
   {
     id: 2,
-    name: 'Ракурс 2 (Top-down Table Investigation)',
+    name: 'Ракурс 2 (Desk Evidence / Flat-lay angle)',
     prompt:
-      'high-angle 45-degree top-down shot of wooden investigation desk, printed profile dossiers with red marker annotations, ceramic coffee cup, magnifying glass, Asuka and Shinji sitting across from each other analyzing forensic evidence',
+      'High angle shot looking down at a retro detective desk: open case folder, magnifying glass, red marker circling text on printed dating profile, ceramic coffee cup. Two investigators taking notes. 1990s anime cel style, 16:9.',
   },
   {
     id: 3,
-    name: 'Ракурс 3 (Dynamic Split / Two-Panel Comic)',
+    name: 'Ракурс 3 (Rainy Window Noir)',
     prompt:
-      'dynamic two-panel comic composition with bold black ink dividing line, left panel showing close-up of Asuka examining paper through magnifying glass, right panel showing Shinji wearing vintage headphones listening intently to audio recorder',
+      'Moody vintage cafe window with heavy raindrops and neon reflections. Inside, a dark-haired young man in cream shirt analyzing printed server logs, serious expression. 1990s anime aesthetic, 16:9.',
   },
   {
     id: 4,
-    name: 'Ракурс 4 (Night Cafe Rainy Window)',
+    name: 'Ракурс 4 (Corkboard Conspiracy)',
     prompt:
-      'cinematic scene of Asuka and Shinji seated back-to-back by vintage cafe window, rain droplets running down glass, blurred retro neon city lights outside, open evidence case dossier on wooden table',
+      'Investigation corkboard with red yarn connecting suspect dating profile photos and printed chat screenshots. Anime girl with red hair pointing wooden stick at evidence board. 1990s anime cel art, 16:9.',
   },
   {
     id: 5,
-    name: 'Ракурс 5 (Wall Flowchart Confrontation)',
+    name: 'Ракурс 5 (Audio Lab / Oscilloscope)',
     prompt:
-      'Asuka standing by large cork bulletin board with red strings connecting suspect profile photos pointing with wooden pointer, Shinji standing beside making notes in forensic notepad',
+      'Close-up of vintage cassette tape recorder and audio oscilloscope with green sine wave. Anime boy wearing bulky 90s headphones taking analytical notes. Retro 90s animation cel, 16:9.',
   },
   {
     id: 6,
-    name: 'Ракурс 6 (Microscope / Close-up Forensic)',
+    name: 'Ракурс 6 (Hardware / Micro Forensic)',
     prompt:
-      'macro forensic close-up shot, hands holding precision tweezers over electronic circuit board and smartphone, Asuka with deep cobalt blue eyes and Shinji with slate grey eyes focused intently in background',
+      'Macro close-up shot of precision tweezers inspecting a damaged smartphone circuit board on forensic workbench. In the background, two anime investigators focused intently. 1990s anime cel style, 16:9.',
   },
 ];
 
@@ -78,29 +72,6 @@ export const ATMOSPHERIC_ENVIRONMENTS: string[] = [
   'rainy retro neon reflection with cool cyan and magenta highlights',
   'green phosphor CRT terminal glow in dark 90s laboratory',
 ];
-
-export type SceneArchetype =
-  | 'algo-mechanics'
-  | 'safety-dossier'
-  | 'voice-and-acoustics'
-  | 'bot-syntax'
-  | 'modern-psychology'
-  | 'romantic-essays';
-
-export const SCENE_ACTIONS: Record<SceneArchetype, string> = {
-  'algo-mechanics':
-    'analyzing glowing algorithm ranking chart on wall, technical data flow curves',
-  'safety-dossier':
-    'inspecting printed investigative reports with magnifying glass, verifying forensic records',
-  'voice-and-acoustics':
-    'listening to vintage cassette recorder with headphones, green audio spectrogram on oscilloscope',
-  'bot-syntax':
-    'circling syntax anomalies and text patterns with red marker on printed technical log',
-  'modern-psychology':
-    'examining case dossier folder at forensic desk, paper reports, ceramic coffee cup',
-  'romantic-essays':
-    'typing investigation dispatch on vintage typewriter, paper documents, desk lamp',
-};
 
 export interface CinematicSetup {
   angle: CinematicAngle;
@@ -124,97 +95,13 @@ export function resolveCinematicSetup(slug: string, category: string): Cinematic
   };
 }
 
-export function buildStrictPrompt(
-  setup: CinematicSetup,
-  categoryAction?: string
-): string {
+export function buildStrictPrompt(setup: CinematicSetup): string {
   return [
-    'masterpiece, 2D retro anime comic panel, 1990s animation cel, bold clean black ink contour lines, flat colors, warm newsprint paper texture, 16:9 horizontal frame',
-    ASUKA_CANON,
-    SHINJI_CANON,
     setup.angle.prompt,
-    categoryAction ? categoryAction : '',
+    '1990s animation cel style, masterpiece 2D retro anime comic panel, bold clean black ink contour lines, flat colors, warm newsprint paper texture, 16:9 horizontal frame',
     `Atmospheric setting: ${setup.environment}, vintage equipment, paper investigative reports`,
     'flat 2D cel shading, classic 1990s anime aesthetic, sharp lineart, no 3D, no photorealism',
-  ]
-    .filter(Boolean)
-    .join(', ');
-}
-
-export function buildSanitizedPrompt(setup: CinematicSetup): string {
-  return [
-    'masterpiece, 2D retro anime comic panel, 1990s animation cel, bold clean black ink contour lines, flat colors, warm newsprint paper texture, 16:9 horizontal frame',
-    ASUKA_CANON,
-    SHINJI_CANON,
-    setup.angle.prompt,
-    'reviewing paper evidence logs and charts on desk',
-    `Atmospheric setting: ${setup.environment}, vintage equipment`,
-    'flat 2D cel shading, classic 1990s anime aesthetic, sharp lineart, no 3D, no photorealism',
   ].join(', ');
-}
-
-/**
- * Resolves post archetype based on category, slug, and title keywords
- */
-export function resolvePostArchetype(
-  category: string,
-  slug: string,
-  title: string
-): SceneArchetype {
-  const text = `${category} ${slug} ${title}`.toLowerCase();
-
-  if (
-    text.includes('voice') ||
-    text.includes('audio') ||
-    text.includes('acoustic') ||
-    text.includes('soundwave') ||
-    text.includes('deepfake-audio') ||
-    text.includes('phishing')
-  ) {
-    return 'voice-and-acoustics';
-  }
-
-  if (
-    text.includes('punctuation') ||
-    text.includes('llm') ||
-    text.includes('syntax') ||
-    text.includes('em-dash') ||
-    text.includes('spambot')
-  ) {
-    return 'bot-syntax';
-  }
-
-  if (
-    category === 'algo-mechanics' ||
-    text.includes('elo') ||
-    text.includes('slot-machine') ||
-    text.includes('algorithm') ||
-    text.includes('ranking') ||
-    text.includes('shadowban')
-  ) {
-    return 'algo-mechanics';
-  }
-
-  if (
-    category === 'safety-dossier' ||
-    text.includes('scam') ||
-    text.includes('pig-butchering') ||
-    text.includes('crypto') ||
-    text.includes('whatsapp') ||
-    text.includes('reverse-image') ||
-    text.includes('catfish') ||
-    text.includes('military') ||
-    text.includes('bot-farm') ||
-    text.includes('checkmark')
-  ) {
-    return 'safety-dossier';
-  }
-
-  if (category === 'romantic-essays' || text.includes('essay') || text.includes('unscripted')) {
-    return 'romantic-essays';
-  }
-
-  return 'modern-psychology';
 }
 
 // ---------------------------------------------------------------------------
@@ -302,17 +189,15 @@ async function generateViaNvidiaFlux(prompt: string, apiKey: string): Promise<Bu
 }
 
 /**
- * Robust NVIDIA NIM Cover Generation with Cinematic Setup
+ * Robust NVIDIA NIM Cover Generation with Angle-First Architecture
  */
 export async function generateCoverForPost(
   slug: string,
   category: string,
-  archetype: SceneArchetype,
   outputPath: string
 ): Promise<{ success: boolean; size: number; durationMs: number; provider: string; angleName: string }> {
   const setup = resolveCinematicSetup(slug, category);
-  const action = SCENE_ACTIONS[archetype];
-  const prompt = buildStrictPrompt(setup, action);
+  const prompt = buildStrictPrompt(setup);
 
   const fluxKey =
     process.env.NVIDIA_FLUX_DEV_API_KEY || process.env.NVIDIA_API_KEY || '';
@@ -325,38 +210,17 @@ export async function generateCoverForPost(
   let rawBuffer: Buffer | null = null;
   let usedProvider = '';
 
-  // Attempt 1: Strict 2D Cel-Shading Prompt
   try {
     rawBuffer = await generateViaNvidiaFlux(prompt, fluxKey);
-    usedProvider = 'NVIDIA NIM (FLUX.1-dev Cinematic 2D)';
+    usedProvider = 'NVIDIA NIM (FLUX.1-dev Angle-First)';
   } catch (err: any) {
-    const isFiltered = err.message.includes('CONTENT_FILTERED');
-    if (isFiltered) {
-      console.warn(`   🛡️ Safety filter triggered for ${slug}. Retrying with sanitized action keeping Asuka & Shinji 2D...`);
-    } else {
-      console.warn(`   ⚠️ FLUX attempt 1 failed for ${slug} (${err.message}). Retrying in 3s...`);
-      await sleep(3000);
-    }
-
-    // Attempt 2: If filtered, keep exact 2D characters with neutral action
-    const retryPrompt = isFiltered ? buildSanitizedPrompt(setup) : prompt;
-
+    console.warn(`   ⚠️ FLUX attempt 1 failed for ${slug} (${err.message}). Retrying in 3s...`);
+    await sleep(3000);
     try {
-      rawBuffer = await generateViaNvidiaFlux(retryPrompt, fluxKey);
-      usedProvider = isFiltered
-        ? 'NVIDIA NIM (FLUX.1-dev 2D Neutral Action)'
-        : 'NVIDIA NIM (FLUX.1-dev Retry)';
+      rawBuffer = await generateViaNvidiaFlux(prompt, fluxKey);
+      usedProvider = 'NVIDIA NIM (FLUX.1-dev Retry)';
     } catch (retryErr: any) {
-      // Attempt 3: Final attempt with safe neutral action
-      console.warn(`   🛡️ Final attempt with safe neutral 2D action for ${slug}...`);
-      await sleep(3500);
-      try {
-        const finalPrompt = buildSanitizedPrompt(setup);
-        rawBuffer = await generateViaNvidiaFlux(finalPrompt, fluxKey);
-        usedProvider = 'NVIDIA NIM (FLUX.1-dev Final 2D Safe)';
-      } catch (finalErr: any) {
-        throw new Error(`NVIDIA Pipeline Error: ${finalErr.message}`);
-      }
+      throw new Error(`NVIDIA Pipeline Error: ${retryErr.message}`);
     }
   }
 
@@ -393,7 +257,7 @@ async function main() {
   const limit = limitIndex !== -1 ? parseInt(args[limitIndex + 1], 10) : Infinity;
 
   console.log('=================================================================');
-  console.log('⚡ PURE NVIDIA NIM 2D COVER GENERATOR (FLUX.1-dev)');
+  console.log('⚡ PURE NVIDIA NIM 2D COVER GENERATOR (FLUX.1-dev Angle-First)');
   console.log('🎬 Style: Gainax / Evangelion / Love is... 6 Cinematic Angles');
   console.log('=================================================================');
   console.log(`Directory: ${POSTS_DIR}`);
@@ -421,7 +285,6 @@ async function main() {
     const titleMatch = content.match(/^title:\s*["']?([^"'\r\n]+)["']?/m);
     const title = titleMatch ? titleMatch[1].trim() : slug;
 
-    const archetype = resolvePostArchetype(category, slug, title);
     const setup = resolveCinematicSetup(slug, category);
     const outputPath = path.join(OUTPUT_DIR, `${slug}.webp`);
 
@@ -435,7 +298,6 @@ async function main() {
       slug,
       title,
       category,
-      archetype,
       setup,
       outputPath,
       exists,
@@ -463,13 +325,12 @@ async function main() {
     );
     console.log(`   🎬 Camera:    ${task.setup.angle.name}`);
     console.log(`   🌆 Env:       ${task.setup.environment}`);
-    console.log(`   🏷️ Category:  ${task.category} -> [${task.archetype}]`);
+    console.log(`   🏷️ Category:  ${task.category}`);
 
     try {
       const result = await generateCoverForPost(
         task.slug,
         task.category,
-        task.archetype,
         task.outputPath
       );
 

@@ -5,9 +5,10 @@ import { CATEGORIES_METADATA } from '../content.config';
 interface Props {
   post: CollectionEntry<'posts'>;
   index?: number;
+  isFeatured?: boolean;
 }
 
-const { post, index } = Astro.props;
+const { post, index, isFeatured = false } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // Format pubDate
@@ -41,29 +42,44 @@ const postUrl = `${base}/${post.id || post.slug}/`;
 ---
 
 <article
+  id={isFeatured ? "featuredDispatch" : undefined}
   data-category={post.data.category || 'safety-dossier'}
   data-feed-item
   data-index={index}
-  class="feed-item bg-white border-2 border-slate-900 rounded-xl overflow-hidden shadow-[4px_4px_0px_0px_#0f172a] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#0f172a] transition-all"
+  class:list={[
+    isFeatured ? "featured-item" : "feed-item",
+    "bg-white border-2 border-slate-900 rounded-xl overflow-hidden shadow-[4px_4px_0px_0px_#0f172a] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#0f172a] transition-all mb-6"
+  ]}
 >
-  <!-- Full-width 16:9 Image Block on Top (Strictly No Zoom) -->
+  <!-- Top: Full Width 16:9 Image (Strictly No Zoom) -->
   {coverSrc && (
     <div class="w-full aspect-[16/9] border-b-2 border-slate-900 bg-[#F4EFE6] overflow-hidden relative">
       <a href={postUrl} class="block w-full h-full">
         <img
           src={coverSrc}
           alt={post.data.title}
-          loading="lazy"
+          loading={isFeatured ? "eager" : "lazy"}
           class="w-full h-full object-cover select-none pointer-events-none"
         />
       </a>
-      <div class="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-white border border-slate-900 text-[10px] font-mono font-black text-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
-        VOL. '26
-      </div>
+      {isFeatured ? (
+        <>
+          <div class="absolute top-3 left-3 bg-rose-600 text-white font-mono font-black text-xs px-2.5 py-1 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] tracking-widest uppercase">
+            [BREAKING INVESTIGATION]
+          </div>
+          <div class="absolute bottom-3 right-3 bg-white text-slate-900 font-mono font-black text-xs px-2 py-0.5 border border-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
+            LEAD DISPATCH
+          </div>
+        </>
+      ) : (
+        <div class="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-white border border-slate-900 text-[10px] font-mono font-black text-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
+          VOL. '26
+        </div>
+      )}
     </div>
   )}
 
-  <!-- Card Body -->
+  <!-- Bottom: Content Body -->
   <div class="p-6 sm:p-7">
     <!-- Top Row: Category Stamp + PubDate + Reading Time -->
     <div class="flex flex-wrap items-center gap-2 mb-3">
