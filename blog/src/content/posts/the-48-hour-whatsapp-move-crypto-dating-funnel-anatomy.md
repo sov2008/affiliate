@@ -1,15 +1,35 @@
 ---
-title: "The 48-Hour WhatsApp Move: Anatomy of a Crypto Dating Funnel"
-description: "Deconstructing the pig-butchering funnel: why scammers insist on moving off-app within 48 hours, the psychological engineering involved, and how to spot it."
-pubDate: "2026-09-15"
-author: "Arthur"
-tags: ["Crypto Scams", "Safety", "Online Dating", "Bot Detection"]
-seoKeywords: ["crypto dating scam funnel", "pig butchering tinder", "whatsapp dating scam", "sha zhu pan mechanics"]
-canonicalUrl: "https://flirtcheck.site/the-48-hour-whatsapp-move-crypto-dating-funnel-anatomy/"
-coverImage: "/images/posts/the-48-hour-whatsapp-move-crypto-dating-funnel-anatomy.webp"
-image: "/images/posts/the-48-hour-whatsapp-move-crypto-dating-funnel-anatomy.webp"
+title: 'The 48-Hour WhatsApp Move: Anatomy of a Crypto Dating Funnel'
+description: >-
+  Deconstructing the pig-butchering funnel: why scammers insist on moving
+  off-app within 48 hours, the psychological engineering involved, and how to
+  spot it.
+pubDate: '2026-09-15'
+category: safety-dossier
+caseId: FC-893-SEC
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: CRITICAL
+tags:
+  - Crypto Scams
+  - Safety
+  - Online Dating
+  - Bot Detection
+seoKeywords:
+  - crypto dating scam funnel
+  - pig butchering tinder
+  - whatsapp dating scam
+  - sha zhu pan mechanics
+canonicalUrl: >-
+  https://flirtcheck.site/the-48-hour-whatsapp-move-crypto-dating-funnel-anatomy/
+image: /images/posts/the-48-hour-whatsapp-move-crypto-dating-funnel-anatomy.webp
+coverImage: /images/posts/the-48-hour-whatsapp-move-crypto-dating-funnel-anatomy.webp
 draft: false
-category: "safety-dossier"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-893-SEC**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 ## The Scheduled Exfiltration Window

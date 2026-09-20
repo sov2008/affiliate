@@ -1,15 +1,39 @@
 ---
-title: "Reverse Image Search Won't Save You: How AI Catfishers Bypass Google Lens in 2026"
-description: "Why Google Lens and TinEye fail against modern dating catfishers. Technical analysis of diffusion pipelines, adversarial noise injection, and real verification heuristics."
-pubDate: "2026-09-15"
-author: "Arthur"
-tags: ["Scams", "Bot Detection", "Online Dating", "Safety"]
-seoKeywords: ["reverse image search bypass", "ai catfish detection", "google lens dating scams", "deepfake dating profile"]
-canonicalUrl: "https://flirtcheck.site/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026/"
-coverImage: "/images/posts/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026.webp"
-image: "/images/posts/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026.webp"
+title: >-
+  Reverse Image Search Won't Save You: How AI Catfishers Bypass Google Lens in
+  2026
+description: >-
+  Why Google Lens and TinEye fail against modern dating catfishers. Technical
+  analysis of diffusion pipelines, adversarial noise injection, and real
+  verification heuristics.
+pubDate: '2026-09-15'
+category: algo-mechanics
+caseId: FC-692-ALG
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: CRITICAL
+tags:
+  - Scams
+  - Bot Detection
+  - Online Dating
+  - Safety
+seoKeywords:
+  - reverse image search bypass
+  - ai catfish detection
+  - google lens dating scams
+  - deepfake dating profile
+canonicalUrl: >-
+  https://flirtcheck.site/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026/
+image: >-
+  /images/posts/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026.webp
+coverImage: >-
+  /images/posts/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026.webp
 draft: false
-category: "algo-mechanics"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-692-ALG**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 ## The Illusion of the Visual Audit

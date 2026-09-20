@@ -1,15 +1,33 @@
 ---
-title: "Dead Giveaways in Bio Punctuation: How LLM Spambots Write Dating Profiles"
-description: "Why em-dashes, symmetric triads, and immaculate Oxford commas are the clearest indicators that your dating app match was drafted by an LLM prompt."
-pubDate: "2026-09-15"
-author: "Arthur"
-tags: ["Bot Detection", "AI Clichés", "Online Dating", "Safety"]
-seoKeywords: ["llm dating bio red flags", "spot ai dating profile", "tinder bot bio punctuation", "ai text detection dating apps"]
-canonicalUrl: "https://flirtcheck.site/dead-giveaways-in-bio-punctuation-llm-spambots-dating/"
-coverImage: "/images/posts/dead-giveaways-in-bio-punctuation-llm-spambots-dating.webp"
-image: "/images/posts/dead-giveaways-in-bio-punctuation-llm-spambots-dating.webp"
+title: 'Dead Giveaways in Bio Punctuation: How LLM Spambots Write Dating Profiles'
+description: >-
+  Why em-dashes, symmetric triads, and immaculate Oxford commas are the clearest
+  indicators that your dating app match was drafted by an LLM prompt.
+pubDate: '2026-09-15'
+category: digital-dialogue
+caseId: FC-699-NET
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: ELEVATED
+tags:
+  - Bot Detection
+  - AI Clichés
+  - Online Dating
+  - Safety
+seoKeywords:
+  - llm dating bio red flags
+  - spot ai dating profile
+  - tinder bot bio punctuation
+  - ai text detection dating apps
+canonicalUrl: 'https://flirtcheck.site/dead-giveaways-in-bio-punctuation-llm-spambots-dating/'
+image: /images/posts/dead-giveaways-in-bio-punctuation-llm-spambots-dating.webp
+coverImage: /images/posts/dead-giveaways-in-bio-punctuation-llm-spambots-dating.webp
 draft: false
-category: "digital-dialogue"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-699-NET**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 ## The Tell-Tale Em-Dash

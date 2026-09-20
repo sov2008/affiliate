@@ -1,15 +1,36 @@
 ---
-title: "AI Catfishing on Hinge: How to Spot Deepfake Photos & Protect Your Heart (and Wallet) in 2026"
-description: "Discover expert tactics on ai catfishing hinge deepfake photos. Comprehensive 2026 dating safety and profile verification guide."
-pubDate: "2026-09-07"
-author: "Arthur"
-tags: ["Safety", "Dating Advice", "Verification"]
-seoKeywords: ["AI Catfishing on Hinge: How to Spot Deepfake Photos & Protect Your Heart (and Wallet) in 2026"]
-canonicalUrl: "https://flirtcheck.site/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h/"
-coverImage: "/images/posts/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h.webp"
-image: "/images/posts/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h.webp"
+title: >-
+  AI Catfishing on Hinge: How to Spot Deepfake Photos & Protect Your Heart (and
+  Wallet) in 2026
+description: >-
+  Discover expert tactics on ai catfishing hinge deepfake photos. Comprehensive
+  2026 dating safety and profile verification guide.
+pubDate: '2026-09-07'
+category: safety-dossier
+caseId: FC-446-SEC
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: CRITICAL
+tags:
+  - Safety
+  - Dating Advice
+  - Verification
+seoKeywords:
+  - >-
+    AI Catfishing on Hinge: How to Spot Deepfake Photos & Protect Your Heart
+    (and Wallet) in 2026
+canonicalUrl: >-
+  https://flirtcheck.site/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h/
+image: >-
+  /images/posts/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h.webp
+coverImage: >-
+  /images/posts/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h.webp
 draft: false
-category: "safety-dossier"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-446-SEC**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 **The Unverified Crisis: A Tale of Casual Swipes and High-Stakes Cat-and-Mouse Games**

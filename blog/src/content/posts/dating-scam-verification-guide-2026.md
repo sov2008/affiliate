@@ -1,14 +1,36 @@
 ---
-title: "Dating Profile Verification Guide 2026: How to Spot Romance Scams, Bots & Catfishes"
-description: "Comprehensive 2026 playbook on verifying dating profiles, detecting AI-generated photos, avoiding romance scam traps, and protecting your privacy before meeting in person."
-pubDate: 2026-03-01
-author: "Arthur"
-tags: ["Safety", "Profile Verification", "Dating Advice", "Romance Scams"]
-seoKeywords: ["dating profile verification", "spot dating scammer", "romance scam red flags", "ai dating profile checker", "online dating safety quiz"]
-canonicalUrl: "https://flirtcheck.site/dating-scam-verification-guide-2026/"
+title: >-
+  Dating Profile Verification Guide 2026: How to Spot Romance Scams, Bots &
+  Catfishes
+description: >-
+  Comprehensive 2026 playbook on verifying dating profiles, detecting
+  AI-generated photos, avoiding romance scam traps, and protecting your privacy
+  before meeting in person.
+pubDate: '2026-03-01'
+category: safety-dossier
+caseId: FC-778-SEC
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: CRITICAL
+tags:
+  - Safety
+  - Profile Verification
+  - Dating Advice
+  - Romance Scams
+seoKeywords:
+  - dating profile verification
+  - spot dating scammer
+  - romance scam red flags
+  - ai dating profile checker
+  - online dating safety quiz
+canonicalUrl: 'https://flirtcheck.site/dating-scam-verification-guide-2026/'
+image: /images/posts/dating-scam-verification-guide-2026.webp
 draft: false
-category: "safety-dossier"
-image: "/images/posts/dating-scam-verification-guide-2026.webp"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-778-SEC**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 # Dating Profile Verification Guide 2026: Spot Bots, Deepfakes & Catfishes  

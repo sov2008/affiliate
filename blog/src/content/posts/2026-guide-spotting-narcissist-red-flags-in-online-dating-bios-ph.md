@@ -1,15 +1,32 @@
 ---
-title: "2026 Guide: Spotting Narcissist Red Flags in Online Dating Bios & Photos"
-description: "Discover expert tactics on narcissist red flags online dating bios. Comprehensive 2026 dating safety and profile verification guide."
-pubDate: "2026-09-07"
-author: "Arthur"
-tags: ["Safety", "Dating Advice", "Verification"]
-seoKeywords: ["2026 Guide: Spotting Narcissist Red Flags in Online Dating Bios & Photos"]
-canonicalUrl: "https://flirtcheck.site/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph/"
-coverImage: "/images/posts/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph.webp"
-image: "/images/posts/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph.webp"
+title: '2026 Guide: Spotting Narcissist Red Flags in Online Dating Bios & Photos'
+description: >-
+  Discover expert tactics on narcissist red flags online dating bios.
+  Comprehensive 2026 dating safety and profile verification guide.
+pubDate: '2026-09-07'
+category: modern-psychology
+caseId: FC-271-PSY
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: ELEVATED
+tags:
+  - Safety
+  - Dating Advice
+  - Verification
+seoKeywords:
+  - '2026 Guide: Spotting Narcissist Red Flags in Online Dating Bios & Photos'
+canonicalUrl: >-
+  https://flirtcheck.site/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph/
+image: >-
+  /images/posts/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph.webp
+coverImage: >-
+  /images/posts/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph.webp
 draft: false
-category: "modern-psychology"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-271-PSY**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 ## The Unverified Reality  

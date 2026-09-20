@@ -1,15 +1,36 @@
 ---
-title: "Why You Get Matches But No Dates: Cracking the 2026 “Matches‑But‑No‑Dates” Bottleneck on Dating Apps"
-description: "Discover expert tactics on matches but no dates bottleneck dating apps. Comprehensive 2026 dating safety and profile verification guide."
-pubDate: "2026-09-07"
-author: "Arthur"
-tags: ["Safety", "Dating Advice", "Verification"]
-seoKeywords: ["Why You Get Matches But No Dates: Cracking the 2026 “Matches‑But‑No‑Dates” Bottleneck on Dating Apps"]
-canonicalUrl: "https://flirtcheck.site/why-you-get-matches-but-no-dates-cracking-the-2026-matchesbutnoda/"
-coverImage: "/images/posts/why-you-get-matches-but-no-dates-cracking-the-2026-matchesbutnoda.webp"
-image: "/images/posts/why-you-get-matches-but-no-dates-cracking-the-2026-matchesbutnoda.webp"
+title: >-
+  Why You Get Matches But No Dates: Cracking the 2026 “Matches‑But‑No‑Dates”
+  Bottleneck on Dating Apps
+description: >-
+  Discover expert tactics on matches but no dates bottleneck dating apps.
+  Comprehensive 2026 dating safety and profile verification guide.
+pubDate: '2026-09-07'
+category: modern-psychology
+caseId: FC-410-PSY
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: ELEVATED
+tags:
+  - Safety
+  - Dating Advice
+  - Verification
+seoKeywords:
+  - >-
+    Why You Get Matches But No Dates: Cracking the 2026 “Matches‑But‑No‑Dates”
+    Bottleneck on Dating Apps
+canonicalUrl: >-
+  https://flirtcheck.site/why-you-get-matches-but-no-dates-cracking-the-2026-matchesbutnoda/
+image: >-
+  /images/posts/why-you-get-matches-but-no-dates-cracking-the-2026-matchesbutnoda.webp
+coverImage: >-
+  /images/posts/why-you-get-matches-but-no-dates-cracking-the-2026-matchesbutnoda.webp
 draft: false
-category: "modern-psychology"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-410-PSY**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 **The Silent Drop-Off: A Bottleneck of Unverified Accounts**

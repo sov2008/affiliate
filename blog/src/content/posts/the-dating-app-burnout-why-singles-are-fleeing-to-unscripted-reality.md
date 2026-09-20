@@ -1,15 +1,40 @@
 ---
-title: "The Dating App Burnout: Why Singles Are Fleeing Algorithms for Unscripted Reality"
-description: "An essay on algorithmic exhaustion: how gamified courtships turned dates into job interviews and sparked a cultural exodus back to organic chemistry."
-pubDate: "2026-09-17"
-category: "modern-psychology"
-hook: "Love is... stepping outside the sterile glass screen into the messy, unscripted rain."
+title: >-
+  The Dating App Burnout: Why Singles Are Fleeing Algorithms for Unscripted
+  Reality
+description: >-
+  An essay on algorithmic exhaustion: how gamified courtships turned dates into
+  job interviews and sparked a cultural exodus back to organic chemistry.
+pubDate: '2026-09-17'
+category: modern-psychology
+caseId: FC-113-PSY
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: ELEVATED
+tags:
+  - Modern Psychology
+  - Swipe Burnout
+  - Dating Fatigue
+  - Offline Connection
+  - Unscripted Dating
+seoKeywords:
+  - dating app burnout 2026
+  - swipe fatigue psychology
+  - leaving tinder for real life
+  - dating app exodus
+  - offline courtship resurgence
+image: >-
+  /images/posts/the-dating-app-burnout-why-singles-are-fleeing-to-unscripted-reality.webp
 readingTime: 6
-author: "The Romantic Essayist"
-tags: ["Modern Psychology", "Swipe Burnout", "Dating Fatigue", "Offline Connection", "Unscripted Dating"]
-seoKeywords: ["dating app burnout 2026", "swipe fatigue psychology", "leaving tinder for real life", "dating app exodus", "offline courtship resurgence"]
+hook: >-
+  Love is... stepping outside the sterile glass screen into the messy,
+  unscripted rain.
 draft: false
-image: "/images/posts/the-dating-app-burnout-why-singles-are-fleeing-to-unscripted-reality.webp"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-113-PSY**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 > **Love is...** *stepping outside the sterile glass screen into the messy, unscripted rain.*

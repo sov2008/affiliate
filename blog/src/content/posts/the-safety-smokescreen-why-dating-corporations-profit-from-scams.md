@@ -1,15 +1,40 @@
 ---
-title: "The Safety Smokescreen: Why Tech Conglomerates Quietly Profit from Dating Scams"
-description: "Insiders from trust and safety departments explain why fraud detection is starved of resources while paying bot-farms generate steady corporate margin."
-pubDate: "2026-09-17"
-category: "safety-dossier"
-hook: "Love is... verifying their intentions yourself, when corporations only protect their quarterly balance sheets."
+title: >-
+  The Safety Smokescreen: Why Tech Conglomerates Quietly Profit from Dating
+  Scams
+description: >-
+  Insiders from trust and safety departments explain why fraud detection is
+  starved of resources while paying bot-farms generate steady corporate margin.
+pubDate: '2026-09-17'
+category: safety-dossier
+caseId: FC-689-SEC
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: CRITICAL
+tags:
+  - Safety Dossier
+  - Bot Farms
+  - Trust and Safety
+  - Dating Fraud
+  - Corporate Profit
+seoKeywords:
+  - dating app scam economics
+  - why dating apps allow bots
+  - trust and safety underfunding tinder
+  - match group fraud revenue
+  - pig butchering corporate complicity
+image: >-
+  /images/posts/the-safety-smokescreen-why-dating-corporations-profit-from-scams.webp
 readingTime: 7
-author: "The Romantic Essayist"
-tags: ["Safety Dossier", "Bot Farms", "Trust and Safety", "Dating Fraud", "Corporate Profit"]
-seoKeywords: ["dating app scam economics", "why dating apps allow bots", "trust and safety underfunding tinder", "match group fraud revenue", "pig butchering corporate complicity"]
+hook: >-
+  Love is... verifying their intentions yourself, when corporations only protect
+  their quarterly balance sheets.
 draft: false
-image: "/images/posts/the-safety-smokescreen-why-dating-corporations-profit-from-scams.webp"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-689-SEC**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 > **Love is...** *verifying their intentions yourself, when corporations only protect their quarterly balance sheets.*

@@ -24,6 +24,9 @@ interface Props {
   readingTime?: number;
   motto?: string;
   hook?: string;
+  caseId?: string;
+  classification?: string;
+  telemetryRisk?: string;
 }
 
 const {
@@ -40,12 +43,15 @@ const {
   slug,
   readingTime = 4,
   motto,
-  hook
+  hook,
+  caseId: explicitCaseId,
+  classification,
+  telemetryRisk
 } = Astro.props;
 
 const catId: Category = category && CATEGORIES_METADATA[category] ? category : 'safety-dossier';
 const catMeta = CATEGORIES_METADATA[catId];
-const caseId = (slug || '2026').replace(/[^a-zA-Z0-9]/g, '').slice(-4).toUpperCase() || '2026';
+const caseId = explicitCaseId || ((slug || '2026').replace(/[^a-zA-Z0-9]/g, '').slice(-4).toUpperCase() || '2026');
 const effectiveMotto = motto || hook || catMeta.motto || "Love is... knowing that in a world of endless swipes, real chemistry happens between two imperfect souls.";
 
 const siteBaseUrl = 'https://flirtcheck.site';
@@ -337,7 +343,7 @@ const faqSchema = {
           <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
             <h4 class="font-black text-sm uppercase text-slate-900 font-sans">Desk Editor & Investigator</h4>
             <span class="text-[10px] font-mono text-emerald-700 bg-emerald-100 border border-slate-900 px-2 py-0.5 rounded font-bold shadow-[1px_1px_0px_0px_#0f172a]">
-              BASE: KHARKIV // DISPATCH FILED
+              BASE: CHELTENHAM, UK // DISPATCH FILED
             </span>
           </div>
           <p class="text-xs text-slate-600 leading-relaxed font-serif italic">

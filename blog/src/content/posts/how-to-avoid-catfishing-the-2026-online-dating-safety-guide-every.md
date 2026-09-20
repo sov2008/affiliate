@@ -1,14 +1,35 @@
 ---
-title: "How to Avoid Catfishing: The 2026 Online Dating Safety Guide Every Single Must Read"
-description: "Discover proven tactics to spot catfish, verify profiles, and stay safe on dating apps. A 2026 guide for singles seeking genuine connections."
-pubDate: "2026-09-07"
-author: "Arthur"
-tags: ["Safety", "Profile Verification", "Dating Advice"]
-seoKeywords: ["how to avoid catfishing online dating safety guide", "catfishing detection tips", "online dating verification", "dating app safety checklist"]
-canonicalUrl: "https://flirtcheck.site/how-to-avoid-catfishing-2026-online-dating-safety-guide/"
+title: >-
+  How to Avoid Catfishing: The 2026 Online Dating Safety Guide Every Single Must
+  Read
+description: >-
+  Discover proven tactics to spot catfish, verify profiles, and stay safe on
+  dating apps. A 2026 guide for singles seeking genuine connections.
+pubDate: '2026-09-07'
+category: safety-dossier
+caseId: FC-930-SEC
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: CRITICAL
+tags:
+  - Safety
+  - Profile Verification
+  - Dating Advice
+seoKeywords:
+  - how to avoid catfishing online dating safety guide
+  - catfishing detection tips
+  - online dating verification
+  - dating app safety checklist
+canonicalUrl: >-
+  https://flirtcheck.site/how-to-avoid-catfishing-2026-online-dating-safety-guide/
+image: >-
+  /images/posts/how-to-avoid-catfishing-the-2026-online-dating-safety-guide-every.webp
 draft: false
-category: "safety-dossier"
-image: "/images/posts/how-to-avoid-catfishing-the-2026-online-dating-safety-guide-every.webp"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-930-SEC**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 # How to Avoid Catfishing: The 2026 Online Dating Safety Guide Every Single Must Read  

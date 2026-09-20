@@ -1,15 +1,39 @@
 ---
-title: "The Slot Machine Algorithm: How Dating Apps Engineer Artificial Loneliness"
-description: "Former engineers reveal how modern swipe mechanics were explicitly designed as dopamine traps to prolong bachelorhood and maximize monthly subscription revenue."
-pubDate: "2026-09-17"
-category: "algo-mechanics"
-hook: "Love is... knowing that a casino algorithm cannot calculate the resonance of your soul."
+title: 'The Slot Machine Algorithm: How Dating Apps Engineer Artificial Loneliness'
+description: >-
+  Former engineers reveal how modern swipe mechanics were explicitly designed as
+  dopamine traps to prolong bachelorhood and maximize monthly subscription
+  revenue.
+pubDate: '2026-09-17'
+category: algo-mechanics
+caseId: FC-257-ALG
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: CRITICAL
+tags:
+  - Algo Mechanics
+  - Tinder ELO
+  - Dopamine Traps
+  - Algorithmic Loneliness
+  - Match Group
+seoKeywords:
+  - slot machine algorithm dating apps
+  - dating app intermittent reinforcement
+  - match group engagement algorithm
+  - why tinder keeps you single
+  - dating app dopamine trap
+image: >-
+  /images/posts/the-slot-machine-algorithm-how-dating-apps-engineer-loneliness.webp
 readingTime: 6
-author: "The Romantic Essayist"
-tags: ["Algo Mechanics", "Tinder ELO", "Dopamine Traps", "Algorithmic Loneliness", "Match Group"]
-seoKeywords: ["slot machine algorithm dating apps", "dating app intermittent reinforcement", "match group engagement algorithm", "why tinder keeps you single", "dating app dopamine trap"]
+hook: >-
+  Love is... knowing that a casino algorithm cannot calculate the resonance of
+  your soul.
 draft: false
-image: "/images/posts/the-slot-machine-algorithm-how-dating-apps-engineer-loneliness.webp"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-257-ALG**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 > **Love is...** *knowing that a casino algorithm cannot calculate the resonance of your soul.*

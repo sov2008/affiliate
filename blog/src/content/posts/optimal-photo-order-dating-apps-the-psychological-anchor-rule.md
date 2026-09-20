@@ -1,15 +1,32 @@
 ---
-title: "Optimal Photo Order Dating Apps: The Psychological Anchor Rule"
-description: "Discover expert tactics on optimal photo order dating apps. Comprehensive 2026 dating safety and profile verification guide."
-pubDate: "2026-09-07"
-author: "Arthur"
-tags: ["Safety", "Dating Advice", "Verification"]
-seoKeywords: ["Optimal Photo Order Dating Apps: The Psychological Anchor Rule"]
-canonicalUrl: "https://flirtcheck.site/optimal-photo-order-dating-apps-the-psychological-anchor-rule/"
-coverImage: "/images/posts/optimal-photo-order-dating-apps-the-psychological-anchor-rule.webp"
-image: "/images/posts/optimal-photo-order-dating-apps-the-psychological-anchor-rule.webp"
+title: 'Optimal Photo Order Dating Apps: The Psychological Anchor Rule'
+description: >-
+  Discover expert tactics on optimal photo order dating apps. Comprehensive 2026
+  dating safety and profile verification guide.
+pubDate: '2026-09-07'
+category: algo-mechanics
+caseId: FC-138-ALG
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: CRITICAL
+tags:
+  - Safety
+  - Dating Advice
+  - Verification
+seoKeywords:
+  - 'Optimal Photo Order Dating Apps: The Psychological Anchor Rule'
+canonicalUrl: >-
+  https://flirtcheck.site/optimal-photo-order-dating-apps-the-psychological-anchor-rule/
+image: >-
+  /images/posts/optimal-photo-order-dating-apps-the-psychological-anchor-rule.webp
+coverImage: >-
+  /images/posts/optimal-photo-order-dating-apps-the-psychological-anchor-rule.webp
 draft: false
-category: "algo-mechanics"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-138-ALG**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 ## The Futility of Optimising Photo Order on Dating Apps

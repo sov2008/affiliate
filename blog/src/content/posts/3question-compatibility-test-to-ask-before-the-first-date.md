@@ -1,15 +1,30 @@
 ---
-title: "3‑Question Compatibility Test to Ask Before the First Date"
-description: "Discover expert tactics on compatibility questions before first date. Comprehensive 2026 dating safety and profile verification guide."
-pubDate: "2026-09-07"
-author: "Arthur"
-tags: ["Safety", "Dating Advice", "Verification"]
-seoKeywords: ["3‑Question Compatibility Test to Ask Before the First Date"]
-canonicalUrl: "https://flirtcheck.site/3question-compatibility-test-to-ask-before-the-first-date/"
-coverImage: "/images/posts/3question-compatibility-test-to-ask-before-the-first-date.webp"
-image: "/images/posts/3question-compatibility-test-to-ask-before-the-first-date.webp"
+title: 3‑Question Compatibility Test to Ask Before the First Date
+description: >-
+  Discover expert tactics on compatibility questions before first date.
+  Comprehensive 2026 dating safety and profile verification guide.
+pubDate: '2026-09-07'
+category: first-dates
+caseId: FC-525-OPS
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: MODERATE
+tags:
+  - Safety
+  - Dating Advice
+  - Verification
+seoKeywords:
+  - 3‑Question Compatibility Test to Ask Before the First Date
+canonicalUrl: >-
+  https://flirtcheck.site/3question-compatibility-test-to-ask-before-the-first-date/
+image: /images/posts/3question-compatibility-test-to-ask-before-the-first-date.webp
+coverImage: /images/posts/3question-compatibility-test-to-ask-before-the-first-date.webp
 draft: false
-category: "first-dates"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-525-OPS**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 **Why Run a Quick Pre-Date Compatibility Check?**

@@ -1,15 +1,36 @@
 ---
-title: "7 **Crypto Romance Scam Red Flags** That Steal Millions From Singles (2026 Edition)"
-description: "Discover expert tactics on crypto romance scam red flags. Comprehensive 2026 dating safety and profile verification guide."
-pubDate: "2026-09-07"
-author: "Arthur"
-tags: ["Safety", "Dating Advice", "Verification"]
-seoKeywords: ["7 **Crypto Romance Scam Red Flags** That Steal Millions From Singles (2026 Edition)"]
-canonicalUrl: "https://flirtcheck.site/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-/"
-coverImage: "/images/posts/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-.webp"
-image: "/images/posts/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-.webp"
+title: >-
+  7 **Crypto Romance Scam Red Flags** That Steal Millions From Singles (2026
+  Edition)
+description: >-
+  Discover expert tactics on crypto romance scam red flags. Comprehensive 2026
+  dating safety and profile verification guide.
+pubDate: '2026-09-07'
+category: safety-dossier
+caseId: FC-916-SEC
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: CRITICAL
+tags:
+  - Safety
+  - Dating Advice
+  - Verification
+seoKeywords:
+  - >-
+    7 **Crypto Romance Scam Red Flags** That Steal Millions From Singles (2026
+    Edition)
+canonicalUrl: >-
+  https://flirtcheck.site/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-/
+image: >-
+  /images/posts/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-.webp
+coverImage: >-
+  /images/posts/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-.webp
 draft: false
-category: "safety-dossier"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-916-SEC**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 **The Dark Side of Digital Romance**  

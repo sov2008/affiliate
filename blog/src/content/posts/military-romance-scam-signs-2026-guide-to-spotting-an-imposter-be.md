@@ -1,15 +1,36 @@
 ---
-title: "Military Romance Scam Signs — 2026 Guide to Spotting an Imposter Before It’s Too Late"
-description: "Discover expert tactics on military romance scam signs. Comprehensive 2026 dating safety and profile verification guide."
-pubDate: "2026-09-07"
-author: "Arthur"
-tags: ["Safety", "Dating Advice", "Verification"]
-seoKeywords: ["Military Romance Scam Signs — 2026 Guide to Spotting an Imposter Before It’s Too Late"]
-canonicalUrl: "https://flirtcheck.site/military-romance-scam-signs-2026-guide-to-spotting-an-imposter-be/"
-coverImage: "/images/posts/military-romance-scam-signs-2026-guide-to-spotting-an-imposter-be.webp"
-image: "/images/posts/military-romance-scam-signs-2026-guide-to-spotting-an-imposter-be.webp"
+title: >-
+  Military Romance Scam Signs — 2026 Guide to Spotting an Imposter Before It’s
+  Too Late
+description: >-
+  Discover expert tactics on military romance scam signs. Comprehensive 2026
+  dating safety and profile verification guide.
+pubDate: '2026-09-07'
+category: safety-dossier
+caseId: FC-512-SEC
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: CRITICAL
+tags:
+  - Safety
+  - Dating Advice
+  - Verification
+seoKeywords:
+  - >-
+    Military Romance Scam Signs — 2026 Guide to Spotting an Imposter Before It’s
+    Too Late
+canonicalUrl: >-
+  https://flirtcheck.site/military-romance-scam-signs-2026-guide-to-spotting-an-imposter-be/
+image: >-
+  /images/posts/military-romance-scam-signs-2026-guide-to-spotting-an-imposter-be.webp
+coverImage: >-
+  /images/posts/military-romance-scam-signs-2026-guide-to-spotting-an-imposter-be.webp
 draft: false
-category: "safety-dossier"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-512-SEC**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 **The Baffling Case of the Deployed Soldier Scam**

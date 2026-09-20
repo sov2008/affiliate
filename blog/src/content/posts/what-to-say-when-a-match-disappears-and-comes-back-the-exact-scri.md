@@ -1,15 +1,32 @@
 ---
-title: "What to Say When a Match Disappears and Comes Back: The Exact Script"
-description: "Discover expert tactics on what to say after match disappears. Comprehensive 2026 dating safety and profile verification guide."
-pubDate: "2026-09-07"
-author: "Arthur"
-tags: ["Safety", "Dating Advice", "Verification"]
-seoKeywords: ["What to Say When a Match Disappears and Comes Back: The Exact Script"]
-canonicalUrl: "https://flirtcheck.site/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri/"
-coverImage: "/images/posts/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri.webp"
-image: "/images/posts/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri.webp"
+title: 'What to Say When a Match Disappears and Comes Back: The Exact Script'
+description: >-
+  Discover expert tactics on what to say after match disappears. Comprehensive
+  2026 dating safety and profile verification guide.
+pubDate: '2026-09-07'
+category: modern-psychology
+caseId: FC-590-PSY
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: ELEVATED
+tags:
+  - Safety
+  - Dating Advice
+  - Verification
+seoKeywords:
+  - 'What to Say When a Match Disappears and Comes Back: The Exact Script'
+canonicalUrl: >-
+  https://flirtcheck.site/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri/
+image: >-
+  /images/posts/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri.webp
+coverImage: >-
+  /images/posts/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri.webp
 draft: false
-category: "modern-psychology"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-590-PSY**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 ## The "Zombie" Epidemic in Online Dating: A Sysadmin's Perspective

@@ -1,15 +1,36 @@
 ---
-title: "Bumble Bio Filter Time Wasters: The 2026 Playbook for Attracting Intentional Partners"
-description: "Discover expert tactics on bumble bio filter time wasters. Comprehensive 2026 dating safety and profile verification guide."
-pubDate: "2026-09-07"
-author: "Arthur"
-tags: ["Safety", "Dating Advice", "Verification"]
-seoKeywords: ["Bumble Bio Filter Time Wasters: The 2026 Playbook for Attracting Intentional Partners"]
-canonicalUrl: "https://flirtcheck.site/bumble-bio-filter-time-wasters-the-2026-playbook-for-attracting-i/"
-coverImage: "/images/posts/bumble-bio-filter-time-wasters-the-2026-playbook-for-attracting-i.webp"
-image: "/images/posts/bumble-bio-filter-time-wasters-the-2026-playbook-for-attracting-i.webp"
+title: >-
+  Bumble Bio Filter Time Wasters: The 2026 Playbook for Attracting Intentional
+  Partners
+description: >-
+  Discover expert tactics on bumble bio filter time wasters. Comprehensive 2026
+  dating safety and profile verification guide.
+pubDate: '2026-09-07'
+category: modern-psychology
+caseId: FC-708-PSY
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: ELEVATED
+tags:
+  - Safety
+  - Dating Advice
+  - Verification
+seoKeywords:
+  - >-
+    Bumble Bio Filter Time Wasters: The 2026 Playbook for Attracting Intentional
+    Partners
+canonicalUrl: >-
+  https://flirtcheck.site/bumble-bio-filter-time-wasters-the-2026-playbook-for-attracting-i/
+image: >-
+  /images/posts/bumble-bio-filter-time-wasters-the-2026-playbook-for-attracting-i.webp
+coverImage: >-
+  /images/posts/bumble-bio-filter-time-wasters-the-2026-playbook-for-attracting-i.webp
 draft: false
-category: "modern-psychology"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-708-PSY**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 ## The hidden cost of unverified profiles  

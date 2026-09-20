@@ -94,6 +94,10 @@ const posts = defineCollection({
     image: z.string().optional(),
     motto: z.string().optional(),
     hook: z.string().optional(),
+    caseId: z.string().optional(),
+    classification: z.string().optional(),
+    telemetryRisk: z.string().optional(),
+    readingTime: z.number().optional(),
     draft: z.boolean().default(false),
   }),
 });

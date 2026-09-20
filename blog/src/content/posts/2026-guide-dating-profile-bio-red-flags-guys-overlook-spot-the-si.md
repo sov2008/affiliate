@@ -1,15 +1,36 @@
 ---
-title: "2026 Guide: Dating Profile Bio Red Flags Guys Overlook – Spot the Silent Deal‑Breakers"
-description: "Discover expert tactics on dating profile bio red flags guys overlook. Comprehensive 2026 dating safety and profile verification guide."
-pubDate: "2026-09-07"
-author: "Arthur"
-tags: ["Safety", "Dating Advice", "Verification"]
-seoKeywords: ["2026 Guide: Dating Profile Bio Red Flags Guys Overlook – Spot the Silent Deal‑Breakers"]
-canonicalUrl: "https://flirtcheck.site/2026-guide-dating-profile-bio-red-flags-guys-overlook-spot-the-si/"
-coverImage: "/images/posts/2026-guide-dating-profile-bio-red-flags-guys-overlook-spot-the-si.webp"
-image: "/images/posts/2026-guide-dating-profile-bio-red-flags-guys-overlook-spot-the-si.webp"
+title: >-
+  2026 Guide: Dating Profile Bio Red Flags Guys Overlook – Spot the Silent
+  Deal‑Breakers
+description: >-
+  Discover expert tactics on dating profile bio red flags guys overlook.
+  Comprehensive 2026 dating safety and profile verification guide.
+pubDate: '2026-09-07'
+category: modern-psychology
+caseId: FC-129-PSY
+classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
+author: Cheltenham Investigation Desk
+telemetryRisk: ELEVATED
+tags:
+  - Safety
+  - Dating Advice
+  - Verification
+seoKeywords:
+  - >-
+    2026 Guide: Dating Profile Bio Red Flags Guys Overlook – Spot the Silent
+    Deal‑Breakers
+canonicalUrl: >-
+  https://flirtcheck.site/2026-guide-dating-profile-bio-red-flags-guys-overlook-spot-the-si/
+image: >-
+  /images/posts/2026-guide-dating-profile-bio-red-flags-guys-overlook-spot-the-si.webp
+coverImage: >-
+  /images/posts/2026-guide-dating-profile-bio-red-flags-guys-overlook-spot-the-si.webp
 draft: false
-category: "modern-psychology"
+---
+
+> **INCIDENT DISPATCH // CASE: #FC-129-PSY**  
+> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
+
 ---
 
 ## The silent timeout in the 2026 dating stack  
