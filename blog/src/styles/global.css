@@ -2,43 +2,67 @@
 
 @layer base {
   :root {
-    --color-canvas: #FBF8F1;
-    --color-surface: #FFFFFF;
-    --color-surface-subtle: #F4EFE6;
+    /* Базовый бумажный фон (архивная матовая бумага слоновой кости) */
+    --bg-canvas: #FAF7F2;
+    --bg-card: #FFFDF9;
+    --bg-surface-elevated: #F2ECE1;
+    
+    /* Чернила и текст (глубокий типографский графит, контраст к фону > 12:1) */
+    --ink-primary: #0F172A;     /* slate-900 */
+    --ink-secondary: #334155;   /* slate-700 */
+    --ink-muted: #64748B;       /* slate-500 */
+    
+    /* Контуры и разделители (газетная печатная сетка) */
+    --border-ledger: #0F172A;
+    --border-muted: #E2D9CC;
+    
+    /* Акцентный цвет улик и маркировок */
+    --accent-evidence: #BE123C; /* rose-700 (строгий чернильный бордовый, НЕ кислотный) */
+    --accent-verified: #047857; /* emerald-700 (глубокий штамп подтвержденной проверки) */
+    
+    /* Жесткие плоские тени (Paper Ledger Shadow) */
+    --shadow-flat: 4px 4px 0px 0px #0F172A;
+    --shadow-flat-hover: 6px 6px 0px 0px #0F172A;
+    --shadow-flat-sm: 2px 2px 0px 0px #0F172A;
+
+    /* Backward compatibility bridge */
+    --color-canvas: #FAF7F2;
+    --color-surface: #FFFDF9;
+    --color-surface-subtle: #F2ECE1;
     --color-ink-solid: #0F172A;
-    --color-ink-muted: #475569;
-    --color-brand-red: #E11D48;
+    --color-ink-muted: #334155;
+    --color-brand-red: #BE123C;
     --color-retro-cobalt: #0284C7;
     --color-stamp-amber: #D97706;
-    --color-stamp-emerald: #059669;
+    --color-stamp-emerald: #047857;
   }
 
   body {
-    background-color: #FBF8F1;
-    color: #0F172A;
-    background-image: radial-gradient(#0f172a15 1px, transparent 1px);
+    background-color: var(--bg-canvas);
+    color: var(--ink-primary);
+    background-image: radial-gradient(#0F172A12 1px, transparent 1px);
     background-size: 20px 20px;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
-/* 90s Comic & Newsprint Utilities per docs/DESIGN_SYSTEM.md */
+/* Forensic Evidence Ledger Box Utilities */
 .comic-box {
-  background-color: #ffffff;
+  background-color: #FFFDF9;
   border: 2px solid #0F172A;
   box-shadow: 4px 4px 0px 0px #0F172A;
   border-radius: 0.75rem;
 }
 
 .comic-box-sm {
-  background-color: #ffffff;
+  background-color: #FFFDF9;
   border: 2px solid #0F172A;
   box-shadow: 2px 2px 0px 0px #0F172A;
   border-radius: 0.5rem;
 }
 
 .comic-box-lg {
-  background-color: #ffffff;
+  background-color: #FFFDF9;
   border: 2px solid #0F172A;
   box-shadow: 6px 6px 0px 0px #0F172A;
   border-radius: 1rem;
@@ -60,10 +84,10 @@
   box-shadow: 0px 0px 0px 0px #0F172A;
 }
 
-/* Ben-Day Halftone dot pattern for comic panel fallbacks */
+/* Ben-Day Halftone dot pattern for archival evidence panels */
 .halftone-pattern {
-  background-color: #F4EFE6;
-  background-image: radial-gradient(#0f172a20 1.5px, transparent 1.5px);
+  background-color: #F2ECE1;
+  background-image: radial-gradient(#0F172A20 1.5px, transparent 1.5px);
   background-size: 8px 8px;
 }
 

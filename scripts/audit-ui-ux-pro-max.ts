@@ -89,9 +89,9 @@ function auditSourceFiles(files: string[]): AuditIssue[] {
       const hexMatches = line.match(/#[0-9a-fA-F]{6}/g);
       if (hexMatches) {
         const allowedHex = [
-          '#0F172A', '#FBF8F1', '#FFFDF7', '#FFFDF9', '#FEF9EE', '#F4EFE6',
-          '#E11D48', '#0284C7', '#D97706', '#059669', '#4F46E5', '#EA580C',
-          '#FFFFFF', '#475569', '#334155', '#1E293B'
+          '#0F172A', '#FBF8F1', '#FAF7F2', '#FFFDF7', '#FFFDF9', '#FEF9EE', '#F2ECE1', '#F4EFE6',
+          '#E11D48', '#BE123C', '#047857', '#0284C7', '#D97706', '#059669', '#4F46E5', '#EA580C',
+          '#FFFFFF', '#475569', '#64748B', '#334155', '#1E293B', '#E2D9CC'
         ];
         for (const hex of hexMatches) {
           if (!allowedHex.map(h => h.toLowerCase()).includes(hex.toLowerCase())) {

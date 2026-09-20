@@ -8,14 +8,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
       <!-- Col 1: About -->
       <div class="md:col-span-2 space-y-4">
-        <div class="flex items-center gap-2">
-          <span class="text-xl font-black text-slate-900">Flirt<span class="text-rose-600">Check</span></span>
-          <span class="px-2 py-0.5 rounded border border-slate-900 text-[10px] font-mono font-bold bg-amber-200 text-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
-            EST. 2026
-          </span>
-        </div>
+        <a href={`${base}/`} class="inline-block" aria-label="FlirtCheck Forensic Desk Homepage">
+          <img
+            src="/images/logo.svg"
+            alt="FlirtCheck Investigative Desk · Cheltenham"
+            class="h-8 w-auto select-none"
+            width="260"
+            height="36"
+          />
+        </a>
         <p class="text-sm text-slate-600 max-w-sm leading-relaxed">
-          Dispatches on deceptive social engineering, algorithmic incentives, and authentic human chemistry.
+          Independent digital forensics bureau in Cheltenham, UK. Deconstructing commercial matchmaking algorithms, synthetic fraud syndicates, and adversarial dating telemetry.
         </p>
       </div>
 
