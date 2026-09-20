@@ -238,18 +238,18 @@ const featuredPostCover = rawFeaturedCover
       }
       paginationContainer.classList.remove('hidden');
 
-      // Page buttons: [PAGE 1], [PAGE 2], ...
+      // Page buttons: 1, 2, ...
       for (let p = 1; p <= totalPages; p++) {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.textContent = `[PAGE ${p}]`;
+        btn.textContent = `Page ${p}`;
         btn.setAttribute('data-page', String(p));
         
         const isCurrent = p === page;
-        btn.className = `px-3 py-1.5 rounded-lg border-2 border-slate-900 font-bold uppercase transition-all cursor-pointer shadow-[2px_2px_0px_0px_#0f172a] ${
+        btn.className = `px-3.5 py-1.5 rounded-md border text-xs font-sans font-medium transition-colors cursor-pointer ${
           isCurrent 
-            ? 'bg-slate-900 text-white' 
-            : 'bg-white text-slate-900 hover:bg-amber-100 hover:-translate-y-0.5'
+            ? 'bg-slate-900 text-white border-slate-900 shadow-sm' 
+            : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50 hover:border-slate-400'
         }`;
 
         btn.addEventListener('click', () => {
@@ -261,12 +261,12 @@ const featuredPostCover = rawFeaturedCover
         paginationContainer.appendChild(btn);
       }
 
-      // [NEXT DISPATCHES →] button
+      // Next Page button
       if (page < totalPages) {
         const nextBtn = document.createElement('button');
         nextBtn.type = 'button';
-        nextBtn.textContent = '[NEXT DISPATCHES →]';
-        nextBtn.className = 'px-3.5 py-1.5 rounded-lg border-2 border-slate-900 font-black uppercase bg-rose-600 text-white shadow-[2px_2px_0px_0px_#0f172a] hover:bg-rose-700 hover:-translate-y-0.5 transition-all cursor-pointer';
+        nextBtn.innerHTML = 'Next Page &rarr;';
+        nextBtn.className = 'px-3.5 py-1.5 rounded-md border border-slate-900 font-sans font-semibold text-xs bg-slate-900 text-white shadow-sm hover:bg-slate-800 transition-colors cursor-pointer';
         nextBtn.addEventListener('click', () => {
           currentPage++;
           syncUrlState(false);
@@ -438,11 +438,21 @@ const featuredPostCover = rawFeaturedCover
     }
 
     // 3. Browser Back / Forward navigation handling (popstate)
-    window.addEventListener('popstate', () => {
-      const params = new URLSearchParams(window.location.search);
-      let pageFromUrl = parseInt(params.get('page') || '1', 10);
-      if (isNaN(pageFromUrl) || pageFromUrl < 1) pageFromUrl = 1;
-      const catFromUrl = params.get('category') || 'all';
+    window.addEventListener('popstate', (e) => {
+      const state = e.state;
+      let pageFromUrl = state && typeof state.page === 'number' ? state.page : null;
+      let catFromUrl = state && typeof state.category === 'string' ? state.category : null;
+
+      if (pageFromUrl === null || !catFromUrl) {
+        const params = new URLSearchParams(window.location.search);
+        if (pageFromUrl === null) {
+          pageFromUrl = parseInt(params.get('page') || '1', 10);
+          if (isNaN(pageFromUrl) || pageFromUrl < 1) pageFromUrl = 1;
+        }
+        if (!catFromUrl) {
+          catFromUrl = params.get('category') || 'all';
+        }
+      }
 
       currentPage = pageFromUrl;
       const validCategory = (catMetaMap[catFromUrl] || catFromUrl === 'all') ? catFromUrl : 'all';
