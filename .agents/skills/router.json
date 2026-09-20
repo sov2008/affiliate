@@ -1,26 +1,50 @@
 {
   "skills": {
+    "editorial_design_system_auditor": {
+      "name": "editorial_design_system_auditor",
+      "path": ".agents/skills/editorial_design_system_auditor/SKILL.md",
+      "description": "Validates typography rules (68ch, font-serif headings, mono labels), color palettes, and editorial design constraints preventing AI-slop.",
+      "command": "npx tsx scripts/audit-editorial-design.ts"
+    },
+    "cro_funnel_gatekeeper": {
+      "name": "cro_funnel_gatekeeper",
+      "path": ".agents/skills/cro_funnel_gatekeeper/SKILL.md",
+      "description": "Verifies /go smartlink attribution integrity, CID inheritance from sessionStorage, and safe affiliate disclosure attributes.",
+      "command": "npx tsx scripts/verify-cro-funnel.ts"
+    },
     "fs_workspace_manager": {
+      "name": "fs_workspace_manager",
+      "path": ".agents/skills/fs_workspace_manager/SKILL.md",
       "description": "Safe read, patch, and file creation for Astro pages, components, SQLite models, and blog markdown posts.",
       "command": "node -e 'console.log(\"fs_workspace_manager ready\")'"
     },
     "bash_build_runner": {
+      "name": "bash_build_runner",
+      "path": ".agents/skills/bash_build_runner/SKILL.md",
       "description": "Autonomous build and validation runner for Astro static blog and TypeScript core.",
       "command": "npm run build:blog"
     },
     "sqlite_queue_operator": {
+      "name": "sqlite_queue_operator",
+      "path": ".agents/skills/sqlite_queue_operator/SKILL.md",
       "description": "Transactional SQLite content queue manager for BLOG_POST and SOCIAL_SNIPPET lifecycle.",
       "command": "npx tsx core/src/db/queueRepository.ts"
     },
     "ai_gateway_invoker": {
-      "description": "Dating SEO longread and social snippet AI content generator with Frontmatter validation.",
+      "name": "ai_gateway_invoker",
+      "path": ".agents/skills/ai_gateway_invoker/SKILL.md",
+      "description": "Dating SEO longread and social snippet AI content generator with Frontmatter validation and Forensic Evidence visuals.",
       "command": "npx tsx core/src/services/blogGenerator.service.ts"
     },
     "remote_ssh_deployer": {
+      "name": "remote_ssh_deployer",
+      "path": ".agents/skills/remote_ssh_deployer/SKILL.md",
       "description": "Production sync and PM2 process deployment to DigitalOcean Droplet 178.128.199.28.",
       "command": "npx tsx core/src/scripts/deployDashboardUpdate.ts"
     },
     "http_verifier": {
+      "name": "http_verifier",
+      "path": ".agents/skills/http_verifier/SKILL.md",
       "description": "Automated verification of live HTTP status codes for flirtcheck.site blog and dashboard.",
       "command": "npx tsx core/src/scripts/verifyEndpoints.ts"
     },
