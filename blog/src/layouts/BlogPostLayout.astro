@@ -9,6 +9,7 @@ import InlineQuiz from '../components/InlineQuiz.astro';
 import ExitIntentModal from '../components/ExitIntentModal.astro';
 import SocialShareBar from '../components/SocialShareBar.astro';
 import ScamRiskMatrix from '../components/ScamRiskMatrix.astro';
+import CaseNotesFeed from '../components/CaseNotesFeed.astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.config';
 
@@ -384,6 +385,9 @@ const faqSchema = {
       {isSafetyDossier && (
         <ScamRiskMatrix />
       )}
+
+      <!-- Case Notes & Field Submissions Feed -->
+      <CaseNotesFeed postSlug={slug || ''} />
 
       <!-- Connected Telemetry // Related Dossiers -->
       {relatedPosts.length > 0 && (

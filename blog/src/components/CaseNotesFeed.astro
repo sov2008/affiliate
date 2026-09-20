@@ -1,0 +1,346 @@
+---
+// CaseNotesFeed.astro - Field Incident Submissions & Evidence Log
+interface Props {
+  postSlug: string;
+}
+
+const { postSlug } = Astro.props;
+---
+
+<section id="case-notes" class="scroll-mt-20 my-12 p-6 sm:p-8 bg-[#FFFDF9] border border-slate-300 rounded-none sm:rounded-sm shadow-none">
+  <!-- 1. Header Section -->
+  <div class="border-b border-slate-200 pb-4 mb-6">
+    <div class="flex items-center gap-2 mb-1.5">
+      <span class="text-rose-700 font-mono text-xs font-bold tracking-wider uppercase">
+        [ CASE NOTES // FIELD INCIDENT SUBMISSIONS ]
+      </span>
+    </div>
+    <h3 class="font-serif font-bold text-xl sm:text-2xl text-slate-900 tracking-tight">
+      Corroborating Field Reports & Observations
+    </h3>
+    <p class="font-sans text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+      Observed anomalies and corroborating reports logged by verified readers and field observers. All records undergo heuristic automated verification before public indexing.
+    </p>
+  </div>
+
+  <!-- 2. Dynamic Case Notes Feed Container -->
+  <div id="caseNotesFeedContainer" class="space-y-4 mb-8">
+    <div id="caseNotesLoadingState" class="py-6 text-center font-mono text-xs text-slate-500">
+      Loading case evidence records...
+    </div>
+    <div id="caseNotesEmptyState" class="hidden py-8 px-4 text-center bg-[#FAF7F2] border border-slate-200 rounded-none sm:rounded-sm">
+      <p class="font-mono text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+        [ NO UNVERIFIED CONFLICTS LOGGED ]
+      </p>
+      <p class="font-sans text-xs text-slate-600 max-w-md mx-auto">
+        No corroborating incident reports filed for this dossier yet. If you have observed matching behavioral patterns or profile anomalies, submit an incident record below.
+      </p>
+    </div>
+    <!-- Injected Comments List -->
+    <div id="caseNotesList" class="space-y-4 hidden"></div>
+  </div>
+
+  <!-- 3. Smartlink Bridge Notice (CRO Telemetry Verification Bridge) -->
+  <div class="mb-6 p-4 bg-[#FAF7F2] border-l-4 border-slate-900 text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+    <span class="font-mono font-bold text-slate-900 uppercase tracking-wide block mb-1">
+      PROTOCOL // TELEMETRY PRE-CHECK:
+    </span>
+    Facing an unverified match exhibiting these patterns? Cross-check telemetry against verified records before logging a report:
+    <a
+      href="/go?source=comments&trigger=evidence_form_bridge&intent=verify"
+      target="_blank"
+      rel="nofollow sponsored"
+      class="inline-flex items-center gap-1 font-mono text-xs font-bold text-slate-900 hover:text-rose-700 underline underline-offset-2 ml-1 transition-colors"
+    >
+      Verify Profile Signature ↗
+    </a>
+  </div>
+
+  <!-- 4. Incident Submission Terminal (Form) -->
+  <div class="border border-slate-200 bg-white p-5 sm:p-6 rounded-none sm:rounded-sm">
+    <div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-4">
+      <span class="font-mono text-xs font-bold uppercase tracking-wider text-slate-900">
+        INCIDENT SUBMISSION TERMINAL
+      </span>
+      <span class="font-mono text-[11px] text-slate-500 uppercase tracking-widest">
+        SECURE INGEST // ZERO-SPAM ENGINE
+      </span>
+    </div>
+
+    <form id="incidentSubmissionForm" class="space-y-4">
+      <input type="hidden" name="postSlug" value={postSlug} />
+
+      <!-- Honeypot field (hidden from real users, lures spam bots) -->
+      <div class="hidden" style="display:none !important;" aria-hidden="true">
+        <label for="telemetry_token_field">Leave this field blank</label>
+        <input
+          type="text"
+          id="telemetry_token_field"
+          name="telemetry_token_field"
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Callsign Input -->
+        <div>
+          <label for="authorCallsign" class="block font-mono text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+            Observer Callsign
+          </label>
+          <input
+            type="text"
+            id="authorCallsign"
+            name="authorCallsign"
+            required
+            maxlength="40"
+            class="w-full min-h-[44px] px-3.5 py-2 font-mono text-xs text-slate-900 bg-[#FAF7F2] border border-slate-300 rounded-none sm:rounded-sm focus:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 transition-colors"
+            placeholder="Observer_XXXX"
+          />
+        </div>
+
+        <!-- Incident Classification Selector -->
+        <div>
+          <label for="incidentType" class="block font-mono text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+            Incident Classification
+          </label>
+          <select
+            id="incidentType"
+            name="incidentType"
+            class="w-full min-h-[44px] px-3 py-2 font-mono text-xs text-slate-900 bg-[#FAF7F2] border border-slate-300 rounded-none sm:rounded-sm focus:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 transition-colors"
+          >
+            <option value="Profile Duplication">Profile Duplication / Stolen Photos</option>
+            <option value="Scripted Telemetry">Scripted Telemetry / Bot Loop</option>
+            <option value="WhatsApp Move Attempt">WhatsApp Move / External Diversion</option>
+            <option value="Voice Deepfake">Voice Deepfake / Synthetic Audio</option>
+            <option value="Crypto Escalation">Crypto / Investment Diversion</option>
+            <option value="Other">Other Suspicious Anomaly</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Field Notes / Evidence Area -->
+      <div>
+        <label for="evidenceText" class="block font-mono text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+          Field Notes / Evidence Description
+        </label>
+        <textarea
+          id="evidenceText"
+          name="evidenceText"
+          required
+          rows="4"
+          minlength="20"
+          maxlength="1200"
+          class="w-full p-3 font-sans text-xs sm:text-sm text-slate-900 bg-[#FAF7F2] border border-slate-300 rounded-none sm:rounded-sm focus:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 transition-colors leading-relaxed"
+          placeholder="Document factual observations, profile inconsistencies, syntax loops, or financial diversion attempts (min 20 characters, no external links)..."
+        ></textarea>
+        <div class="flex justify-between items-center mt-1">
+          <span class="font-mono text-[10px] text-slate-500">
+            Rules: No external URLs, no promotional spam, no crypto addresses.
+          </span>
+          <span id="charCounter" class="font-mono text-[10px] text-slate-500">
+            0 / 1200
+          </span>
+        </div>
+      </div>
+
+      <!-- Status Alert Box -->
+      <div id="formStatusBox" class="hidden p-3 font-mono text-xs rounded-none sm:rounded-sm"></div>
+
+      <!-- Submit Action -->
+      <div class="flex items-center justify-between pt-2">
+        <span class="font-mono text-[10px] text-slate-500 uppercase tracking-wider hidden sm:inline">
+          [ TIMESTAMP AUTO-ASSIGNED // CHELTENHAM INGEST ]
+        </span>
+        <button
+          type="submit"
+          id="submitCaseBtn"
+          class="min-h-[44px] px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-mono text-xs font-bold uppercase tracking-wider rounded transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 select-none shadow-none"
+        >
+          SUBMIT INCIDENT RECORD ↗
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script define:vars={{ postSlug }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const listEl = document.getElementById('caseNotesList');
+    const loadingEl = document.getElementById('caseNotesLoadingState');
+    const emptyEl = document.getElementById('caseNotesEmptyState');
+    const form = document.getElementById('incidentSubmissionForm');
+    const callsignInput = document.getElementById('authorCallsign');
+    const evidenceInput = document.getElementById('evidenceText');
+    const charCounter = document.getElementById('charCounter');
+    const statusBox = document.getElementById('formStatusBox');
+    const submitBtn = document.getElementById('submitCaseBtn');
+
+    // Auto-generate realistic Observer callsign if empty
+    if (callsignInput && !callsignInput.value) {
+      const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+      callsignInput.value = `Observer_${randomSuffix}`;
+    }
+
+    // Character counter listener
+    if (evidenceInput && charCounter) {
+      evidenceInput.addEventListener('input', () => {
+        const len = evidenceInput.value.length;
+        charCounter.textContent = `${len} / 1200`;
+        if (len < 20 || len > 1200) {
+          charCounter.classList.add('text-rose-700');
+          charCounter.classList.remove('text-slate-500');
+        } else {
+          charCounter.classList.remove('text-rose-700');
+          charCounter.classList.add('text-slate-500');
+        }
+      });
+    }
+
+    function renderItem(item) {
+      const card = document.createElement('div');
+      card.className = 'p-4 sm:p-5 bg-white border border-slate-200 rounded-none sm:rounded-sm transition-colors hover:border-slate-400';
+
+      const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      }) : 'LOGGED';
+
+      card.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2.5 mb-3 font-mono text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-rose-700 font-bold select-none">•</span>
+            <span class="font-bold text-slate-900">${escapeHtml(item.author_callsign || 'Observer')}</span>
+            <span class="text-slate-500 text-[11px]">[VERIFIED TELEMETRY]</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="bg-slate-100 text-slate-700 text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider rounded">
+              ${escapeHtml(item.incident_type || 'INCIDENT')}
+            </span>
+            <span class="text-slate-500 text-[11px] select-none">${dateStr}</span>
+          </div>
+        </div>
+        <p class="font-sans text-xs sm:text-[14px] text-slate-800 leading-relaxed whitespace-pre-line">
+          ${escapeHtml(item.evidence_text || '')}
+        </p>
+      `;
+      return card;
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    async function loadNotes() {
+      try {
+        const res = await fetch(`/api/comments/${encodeURIComponent(postSlug)}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        
+        loadingEl?.classList.add('hidden');
+
+        if (data.comments && data.comments.length > 0) {
+          listEl.innerHTML = '';
+          data.comments.forEach(c => listEl.appendChild(renderItem(c)));
+          listEl.classList.remove('hidden');
+          emptyEl?.classList.add('hidden');
+        } else {
+          emptyEl?.classList.remove('hidden');
+          listEl.classList.add('hidden');
+        }
+      } catch (err) {
+        if (loadingEl) {
+          loadingEl.textContent = 'Telemetry feed offline or under maintenance.';
+        }
+      }
+    }
+
+    // Initial fetch
+    loadNotes();
+
+    // Form Submission
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const callsign = callsignInput?.value.trim();
+        const incidentType = (document.getElementById('incidentType')).value;
+        const evidenceText = evidenceInput?.value.trim();
+        const honeypot = (document.getElementById('telemetry_token_field')).value;
+
+        if (!callsign || !evidenceText) return;
+
+        if (evidenceText.length < 20) {
+          showStatus('Field notes must be at least 20 characters in length.', 'error');
+          return;
+        }
+
+        if (submitBtn) {
+          submitBtn.setAttribute('disabled', 'true');
+          submitBtn.textContent = 'PROCESSING...';
+        }
+
+        try {
+          const res = await fetch(`/api/comments/${encodeURIComponent(postSlug)}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              callsign,
+              incidentType,
+              evidenceText,
+              telemetry_token_field: honeypot
+            })
+          });
+
+          const result = await res.json();
+
+          if (res.status === 201 && result.comment) {
+            showStatus('Incident record successfully verified and published to dossier archive.', 'success');
+            evidenceInput.value = '';
+            if (charCounter) charCounter.textContent = '0 / 1200';
+            
+            // Prepend new comment immediately
+            emptyEl?.classList.add('hidden');
+            listEl?.classList.remove('hidden');
+            listEl?.prepend(renderItem(result.comment));
+          } else if (res.status === 202) {
+            showStatus('Report recorded. Held in automated editorial queue for verification.', 'info');
+            evidenceInput.value = '';
+            if (charCounter) charCounter.textContent = '0 / 1200';
+          } else {
+            showStatus(result.error || 'Submission failed verification heuristics.', 'error');
+          }
+        } catch (err) {
+          showStatus('Network protocol timeout. Please retry submission.', 'error');
+        } finally {
+          if (submitBtn) {
+            submitBtn.removeAttribute('disabled');
+            submitBtn.textContent = 'SUBMIT INCIDENT RECORD ↗';
+          }
+        }
+      });
+    }
+
+    function showStatus(msg, type) {
+      if (!statusBox) return;
+      statusBox.classList.remove('hidden', 'bg-rose-50', 'text-rose-800', 'border-rose-300', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-300', 'bg-amber-50', 'text-amber-800', 'border-amber-300');
+      statusBox.classList.add('border');
+
+      if (type === 'error') {
+        statusBox.classList.add('bg-rose-50', 'text-rose-800', 'border-rose-300');
+      } else if (type === 'success') {
+        statusBox.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+      } else {
+        statusBox.classList.add('bg-amber-50', 'text-amber-800', 'border-amber-300');
+      }
+
+      statusBox.textContent = msg;
+    }
+  });
+</script>

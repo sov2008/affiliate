@@ -58,13 +58,34 @@ conn.on('ready', async () => {
 
     // 3. Reload PM2 Services with updated code
     console.log('\n--- [STEP 3] Reloading PM2 Microservices ---');
-    await runCmd(conn, `cd ${APP_DIR} && (pm2 reload ecosystem.config.cjs --update-env || pm2 restart all --update-env)`);
+    await runCmd(conn, `cd ${APP_DIR} && (pm2 reload ecosystem.config.cjs --update-env || pm2 restart all --update-env) && (pm2 reload affiliate-dashboard --update-env || true)`);
 
-    // 4. Check and Update Queue Status in SQLite on Production
-    console.log('\n--- [STEP 4] Updating & Verifying Status in SQLite on Production ---');
+    // 4. Check and Update Queue Status & Comments Schema in SQLite on Production
+    console.log('\n--- [STEP 4] Updating & Verifying SQLite Schema & Queue on Production ---');
     await runCmd(conn, `node -e "
       const { DatabaseSync } = require('node:sqlite');
       const db = new DatabaseSync('${APP_DIR}/core/data/content_queue.sqlite');
+      
+      // Case Notes & Field Submissions Table
+      db.exec(\`
+        CREATE TABLE IF NOT EXISTS case_submissions (
+          id TEXT PRIMARY KEY,
+          post_slug TEXT NOT NULL,
+          author_callsign TEXT NOT NULL,
+          incident_type TEXT NOT NULL,
+          evidence_text TEXT NOT NULL,
+          status TEXT CHECK(status IN ('VERIFIED', 'FLAGGED_AUTO', 'REJECTED')) DEFAULT 'VERIFIED',
+          risk_score INTEGER DEFAULT 0,
+          moderation_flags TEXT,
+          ip_hash TEXT NOT NULL,
+          user_agent_hash TEXT,
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        );
+        CREATE INDEX IF NOT EXISTS idx_case_submissions_slug ON case_submissions(post_slug, status);
+        CREATE INDEX IF NOT EXISTS idx_case_submissions_ip_time ON case_submissions(ip_hash, created_at);
+      \`);
+      console.log('✅ SQLite case_submissions table verified');
+
       const before = db.prepare('SELECT status, count(*) as cnt FROM content_queue_v2 GROUP BY status').all();
       console.log('Before update:', JSON.stringify(before));
       const res = db.prepare(\\"UPDATE content_queue_v2 SET status = 'APPROVED', updated_at = unixepoch() WHERE status = 'PENDING_APPROVAL'\\").run();
@@ -73,6 +94,17 @@ conn.on('ready', async () => {
       console.log('After update:', JSON.stringify(after));
       db.close();
     "`);
+
+    // 4.1. Ensure Nginx configuration allows public /api/comments/ without basic auth
+    console.log('\n--- [STEP 4.1] Ensuring Nginx Public Whitelist for /api/comments ---');
+    await runCmd(conn, `
+      if ! grep -q "location ^~ /api/comments/" /etc/nginx/sites-available/flirtcheck.site 2>/dev/null; then
+        echo "Adding /api/comments/ to Nginx...";
+        sed -i '/location \\/api\\/ {/i \\    location ^~ /api/comments/ {\\n        auth_basic off;\\n        proxy_pass http://127.0.0.1:5000;\\n        proxy_http_version 1.1;\\n        proxy_set_header Host $host;\\n        proxy_set_header X-Real-IP $remote_addr;\\n        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\\n        proxy_set_header X-Forwarded-Proto $scheme;\\n    }\\n\\n    location = /api/comments {\\n        auth_basic off;\\n        proxy_pass http://127.0.0.1:5000;\\n        proxy_http_version 1.1;\\n        proxy_set_header Host $host;\\n        proxy_set_header X-Real-IP $remote_addr;\\n        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\\n        proxy_set_header X-Forwarded-Proto $scheme;\\n    }\\n' /etc/nginx/sites-available/flirtcheck.site && nginx -t && systemctl reload nginx;
+      else
+        echo "✅ Nginx /api/comments location already configured.";
+      fi
+    `);
 
     // 5. Verify PM2 Services
     console.log('\n--- [STEP 5] Checking PM2 Microservices ---');
