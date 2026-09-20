@@ -1,0 +1,101 @@
+---
+// SocialShareBar.astro - Minimalist Technical Sharing Component
+interface Props {
+  title: string;
+  url: string;
+  className?: string;
+}
+
+const { title, url, className = '' } = Astro.props;
+
+const copyUrl = `${url}?utm_source=share_copy`;
+const xTweetText = `${title} — deconstructing dating mechanics and algorithmic anomalies: ${url}?utm_source=share_x`;
+const xShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(xTweetText)}`;
+const redditShareUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(url + '?utm_source=share_reddit')}&title=${encodeURIComponent(title + ' | FlirtCheck Investigation')}`;
+---
+
+<div class:list={["social-share-bar not-prose flex flex-wrap items-center justify-between gap-3 py-3 border-y border-slate-200 text-xs font-mono", className]}>
+  <div class="flex items-center gap-2 text-slate-500 font-bold uppercase tracking-wider text-[11px]">
+    <span class="w-2 h-2 rounded-full bg-slate-900"></span>
+    <span>Share Findings:</span>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-2">
+    <!-- Copy Link Button -->
+    <button
+      type="button"
+      data-share-copy={copyUrl}
+      class="share-copy-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 transition-colors font-medium cursor-pointer shadow-xs"
+      title="Copy Direct Link to Report"
+    >
+      <span class="copy-icon">🔗</span>
+      <span class="copy-text">Copy Link</span>
+    </button>
+
+    <!-- Share to X / Twitter -->
+    <a
+      href={xShareUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 transition-colors font-medium shadow-xs"
+      title="Share to X (Twitter)"
+    >
+      <span>𝕏</span>
+      <span>Post to X</span>
+    </a>
+
+    <!-- Share to Reddit -->
+    <a
+      href={redditShareUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 transition-colors font-medium shadow-xs"
+      title="Share on Reddit (r/Tinder, r/Cybersecurity)"
+    >
+      <span class="text-orange-600 font-bold">●</span>
+      <span>Reddit</span>
+    </a>
+  </div>
+</div>
+
+<script>
+  function initShareButtons() {
+    const copyBtns = document.querySelectorAll<HTMLButtonElement>('.share-copy-btn');
+    copyBtns.forEach(btn => {
+      if (btn.dataset.initialized === 'true') return;
+      btn.dataset.initialized = 'true';
+
+      btn.addEventListener('click', async () => {
+        const urlToCopy = btn.getAttribute('data-share-copy') || window.location.href;
+        const textSpan = btn.querySelector('.copy-text');
+        try {
+          await navigator.clipboard.writeText(urlToCopy);
+          if (textSpan) {
+            const orig = textSpan.textContent;
+            textSpan.textContent = 'Copied!';
+            btn.classList.add('bg-slate-900', 'text-white', 'border-slate-900');
+            setTimeout(() => {
+              textSpan.textContent = orig;
+              btn.classList.remove('bg-slate-900', 'text-white', 'border-slate-900');
+            }, 2000);
+          }
+        } catch {
+          // Fallback
+          const textarea = document.createElement('textarea');
+          textarea.value = urlToCopy;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          if (textSpan) {
+            textSpan.textContent = 'Copied!';
+            setTimeout(() => { textSpan.textContent = 'Copy Link'; }, 2000);
+          }
+        }
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initShareButtons);
+  initShareButtons();
+</script>

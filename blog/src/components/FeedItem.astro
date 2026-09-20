@@ -11,19 +11,20 @@ interface Props {
 const { post, index, isFeatured = false } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// Format pubDate: "September 14, 2026"
-const formattedDate = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
-}).format(post.data.pubDate);
-
 // Reading time estimation
 const wordCount = post.body ? post.body.split(/\s+/).length : (post.data.description ? post.data.description.split(/\s+/).length * 8 : 600);
 const readingTime = Math.max(2, Math.ceil(wordCount / 200));
 
+// Format date for ledger strip: "2026.09.14 · 6 MIN"
+const ledgerDate = new Intl.DateTimeFormat('en-CA', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit'
+}).format(post.data.pubDate).replace(/-/g, '.');
+
 // Category metadata
 const categoryMeta = post.data.category ? CATEGORIES_METADATA[post.data.category] : null;
+const categoryLabel = categoryMeta ? categoryMeta.shortTitle.toUpperCase() : 'INVESTIGATION';
 
 // Resolve cover image
 const rawCover = post.data.coverImage || post.data.image;
@@ -33,7 +34,7 @@ const coverSrc = cleanCover
   ? (cleanCover.startsWith('/') ? cleanCover : `/${cleanCover}`)
   : `/images/posts/${postSlug}.webp`;
 
-// Extract natural journalistic lead from the body or clean description
+// Extract natural journalistic lead from body or clean description
 function getAuthenticLead(body: string | undefined, desc: string | undefined): string {
   if (body) {
     const clean = body
@@ -62,6 +63,7 @@ function getAuthenticLead(body: string | undefined, desc: string | undefined): s
 
 const leadText = getAuthenticLead(post.body, post.data.description);
 const postUrl = `${base}/${post.id || post.slug}/`;
+const displayTags = (post.data.tags || []).slice(0, 2);
 ---
 
 <article
@@ -71,54 +73,70 @@ const postUrl = `${base}/${post.id || post.slug}/`;
   data-index={index}
   class:list={[
     isFeatured ? "featured-item" : "feed-item",
-    "feed-card w-full block bg-white border border-slate-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md hover:border-slate-400 transition-all mb-8",
+    "feed-card w-full bg-[#FFFDF7] border-2 border-slate-900 rounded-lg overflow-hidden shadow-[4px_4px_0px_0px_#0f172a] hover:shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all flex flex-col mb-8",
     (index !== undefined && index >= 8) ? "hidden" : ""
   ]}
 >
-  <!-- 1. Top Cover Block (16:9) -->
+  <!-- 1. Header Ledger Strip (Top Metadata Banner) -->
+  <div class="bg-slate-100 border-b border-slate-900 px-3 py-1.5 flex justify-between items-center text-[11px] font-mono font-bold text-slate-700 tracking-wider uppercase">
+    <div class="flex items-center gap-1.5 truncate mr-2">
+      <span class="w-2 h-2 rounded-full bg-slate-900 shrink-0"></span>
+      <span class="truncate">[{categoryLabel} // AUDIT REPORT]</span>
+    </div>
+    <div class="shrink-0 text-slate-600">
+      {ledgerDate} · {readingTime} MIN
+    </div>
+  </div>
+
+  <!-- 2. Image 16:9 Container -->
   {coverSrc && (
-    <div class="w-full aspect-[16/9] border-b border-slate-200 bg-slate-100 overflow-hidden relative block">
-      <a href={postUrl} class="block w-full h-full">
+    <div class="w-full aspect-[16/9] border-b border-slate-900 bg-[#F4EFE6] overflow-hidden relative block">
+      <a href={postUrl} class="block w-full h-full group">
         <img
           src={coverSrc}
           alt={post.data.title}
           loading={isFeatured ? "eager" : "lazy"}
-          class="w-full h-full object-cover select-none pointer-events-none block transition-transform duration-300 hover:scale-[1.01]"
+          class="w-full h-full object-cover select-none pointer-events-none block transition-transform duration-300 group-hover:scale-[1.01]"
         />
       </a>
       {isFeatured && (
-        <div class="absolute top-3 left-3 bg-slate-900 text-white font-sans font-bold text-[11px] px-2.5 py-1 rounded tracking-wider uppercase">
-          Featured Investigation
+        <div class="absolute top-2.5 left-2.5 bg-slate-900 text-white font-mono font-bold text-[10px] px-2 py-0.5 rounded tracking-wider uppercase border border-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
+          LEAD INVESTIGATION
         </div>
       )}
     </div>
   )}
 
-  <!-- 2. Body Block -->
-  <div class="w-full p-6 sm:p-7 block">
-    <!-- Clean Newspaper Dateline: "September 14, 2026 · 6 min read · Analysis" -->
-    <div class="flex flex-wrap items-center gap-2 text-xs font-sans text-slate-500 mb-3">
-      <span>{formattedDate}</span>
-      <span class="text-slate-300">·</span>
-      <span>{readingTime} min read</span>
-      <span class="text-slate-300">·</span>
-      <span class="font-semibold text-slate-700 uppercase tracking-wider text-[11px]">
-        {categoryMeta ? categoryMeta.shortTitle : 'Analysis'}
-      </span>
+  <!-- 3. Card Body -->
+  <div class="p-5 flex-1 flex flex-col justify-between">
+    <div>
+      <h2 class="font-serif font-black text-xl sm:text-2xl text-slate-900 leading-snug tracking-tight hover:text-rose-700 transition-colors mb-2.5">
+        <a href={postUrl}>{post.data.title}</a>
+      </h2>
+
+      <p class="line-clamp-3 text-sm text-slate-600 leading-relaxed font-sans mb-4">
+        {leadText}
+      </p>
     </div>
 
-    <h2 class="font-bold text-xl sm:text-2xl text-slate-900 leading-snug hover:text-rose-600 transition-colors font-sans mb-3">
-      <a href={postUrl}>{post.data.title}</a>
-    </h2>
+    <!-- 4. Footer Row: Tags + Action -->
+    <div class="pt-3.5 border-t border-slate-200 flex justify-between items-center gap-3">
+      <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px] text-slate-500 overflow-hidden">
+        {displayTags.map(tag => (
+          <span class="bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-600">
+            #{tag}
+          </span>
+        ))}
+        {displayTags.length === 0 && (
+          <span class="text-slate-400">#Forensics</span>
+        )}
+      </div>
 
-    <p class="text-slate-600 text-sm sm:text-base leading-relaxed line-clamp-3 mb-4 font-normal font-sans">
-      {leadText}
-    </p>
-
-    <div class="pt-3 border-t border-slate-100 flex justify-end items-center text-xs font-sans">
-      <a href={postUrl} class="font-semibold text-slate-900 hover:text-rose-600 inline-flex items-center gap-1.5 transition-colors text-sm">
-        <span>Read Investigation</span>
-        <span aria-hidden="true">&rarr;</span>
+      <a
+        href={postUrl}
+        class="font-mono font-bold text-xs uppercase text-slate-900 hover:text-rose-600 underline underline-offset-4 decoration-2 shrink-0 transition-colors"
+      >
+        Read Report ↗
       </a>
     </div>
   </div>

@@ -7,6 +7,7 @@ import DossierContextBox from '../components/DossierContextBox.astro';
 import MobileStickyCTA from '../components/MobileStickyCTA.astro';
 import InlineQuiz from '../components/InlineQuiz.astro';
 import ExitIntentModal from '../components/ExitIntentModal.astro';
+import SocialShareBar from '../components/SocialShareBar.astro';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.config';
 
 interface Props {
@@ -42,17 +43,12 @@ const {
   image,
   slug,
   readingTime = 4,
-  motto,
-  hook,
-  caseId: explicitCaseId,
-  classification,
-  telemetryRisk
+  caseId: explicitCaseId
 } = Astro.props;
 
 const catId: Category = category && CATEGORIES_METADATA[category] ? category : 'safety-dossier';
 const catMeta = CATEGORIES_METADATA[catId];
 const caseId = explicitCaseId || ((slug || '2026').replace(/[^a-zA-Z0-9]/g, '').slice(-4).toUpperCase() || '2026');
-const effectiveMotto = motto || hook || catMeta.motto || "Love is... knowing that in a world of endless swipes, real chemistry happens between two imperfect souls.";
 
 const siteBaseUrl = 'https://flirtcheck.site';
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || siteBaseUrl;
@@ -68,31 +64,39 @@ const canonicalAbsUrl = normalizedCanonical.startsWith('http')
 const ogImageAbsUrl = effectiveCoverImage
   ? (effectiveCoverImage.startsWith('http') ? effectiveCoverImage : `${siteBaseUrl}${effectiveCoverImage.startsWith('/') ? '' : '/'}${effectiveCoverImage}`)
   : `${siteBaseUrl}/images/posts/${slug || 'dating-scam-verification-guide-2026'}.webp`;
-const formattedDate = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
+
+const pubMonthYear = new Intl.DateTimeFormat('en-US', {
   month: 'long',
-  day: 'numeric'
+  year: 'numeric'
 }).format(pubDate);
+
+// Generate 3 contextual key takeaway bullets for Executive Summary
+const topicClean = title.replace(/^(the|how to|why|what to say when|what to)\s+/i, '');
+const findingsList = [
+  `Empirical analysis of ${topicClean.toLowerCase()}: identifying systematic algorithmic bias, behavioral funnels, and data telemetry.`,
+  `Audit protocols: recognizing unverified profile signatures, bot farm syntax loops, and high-risk extraction patterns.`,
+  `Technical defense checklist: operational guidelines for identity protection and mitigating digital manipulation.`
+];
 
 // Schema.org Article Structured Data
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": title,
+  "headline": `${title} | FlirtCheck Investigation`,
   "description": description,
   "inLanguage": "en-US",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": canonicalUrl
+    "@id": canonicalAbsUrl
   },
   "author": {
     "@type": "Person",
-    "name": author,
+    "name": "Senior Investigative Desk",
     "url": `${siteUrl}/author/editorial`
   },
   "publisher": {
     "@type": "Organization",
-    "name": "FlirtCheck Safety Editorial",
+    "name": "FlirtCheck Independent Forensics",
     "url": siteUrl,
     "logo": {
       "@type": "ImageObject",
@@ -130,7 +134,7 @@ const breadcrumbSchema = {
     {
       "@type": "ListItem",
       "position": 4,
-      "name": `CASE #${caseId}`,
+      "name": title,
       "item": canonicalAbsUrl
     }
   ]
@@ -146,7 +150,7 @@ const faqSchema = {
       "name": "What is the fastest way to verify a dating profile?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The fastest zero-cost method is requesting a 15-second live video call or using an automated safety lookup tool before exchanging social media or phone numbers."
+        "text": "The fastest zero-cost method is requesting a 15-second live video call or using our integrated safety lookup tool before exchanging personal social media or phone numbers."
       }
     },
     {
@@ -174,18 +178,18 @@ const faqSchema = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title} | FlirtCheck Editorial</title>
+    <title>{title} | FlirtCheck Investigation</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={seoKeywords.join(', ')} />
     <meta name="author" content={author} />
-    <link rel="canonical" href={canonicalUrl} />
+    <link rel="canonical" href={canonicalAbsUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="robots" content="noindex, nofollow, noarchive" />
 
     <!-- OpenGraph Metadata -->
-    <meta property="og:site_name" content="FlirtCheck Editorial" />
+    <meta property="og:site_name" content="FlirtCheck Independent Forensics" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={`${title} | FlirtCheck Investigation`} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalAbsUrl} />
     <meta property="og:image" content={ogImageAbsUrl} />
@@ -193,7 +197,7 @@ const faqSchema = {
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/webp" />
     <meta property="article:published_time" content={pubDate.toISOString()} />
-    <meta property="article:author" content={author} />
+    <meta property="article:author" content="https://flirtcheck.site" />
     {tags.map(tag => (
       <meta property="article:tag" content={tag} />
     ))}
@@ -201,7 +205,7 @@ const faqSchema = {
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@flirtcheck" />
-    <meta name="twitter:title" content={title} />
+    <meta name="twitter:title" content={`${title} | FlirtCheck Investigation`} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageAbsUrl} />
 
@@ -217,7 +221,7 @@ const faqSchema = {
 
     <Header activePath="/" />
 
-    <main class="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <main class="flex-1 max-w-[68ch] mx-auto px-4 sm:px-6 py-8 w-full">
       <!-- Editorial Breadcrumbs Navigation -->
       <nav aria-label="Breadcrumbs" class="py-2 mb-4 text-xs font-sans text-slate-500">
         <div class="flex flex-wrap items-center gap-2">
@@ -255,23 +259,37 @@ const faqSchema = {
           {title}
         </h1>
 
-        <!-- Description Summary -->
-        <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-5 font-serif italic">
-          {description}
-        </p>
-
-        <!-- Meta Dateline -->
-        <div class="flex items-center justify-between gap-3 pt-4 border-t border-slate-200 text-xs text-slate-500 font-sans">
-          <div class="flex items-center gap-2">
-            <span class="font-medium text-slate-900">{author}</span>
-            <span class="text-slate-300">·</span>
-            <span>{formattedDate}</span>
-          </div>
-          <span class="text-xs font-mono text-slate-400">
-            Cheltenham Desk
+        <!-- Editorial Authority Byline -->
+        <div class="flex flex-wrap items-center gap-x-2 gap-y-1 pt-3 border-t border-slate-200 text-xs text-slate-600 font-sans">
+          <span class="font-medium text-slate-900">By Senior Investigative Desk</span>
+          <span class="text-slate-300">·</span>
+          <span>Cheltenham Bureau</span>
+          <span class="text-slate-300">·</span>
+          <span>Published {pubMonthYear}</span>
+          <span class="text-slate-300">·</span>
+          <span class="inline-flex items-center gap-1 text-emerald-700 font-medium bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 text-[11px]">
+            ✓ Verified Independent
           </span>
         </div>
       </header>
+
+      <!-- Executive Summary / Key Findings Box (TL;DR) -->
+      <div class="bg-slate-50 border-l-4 border-slate-900 p-4 sm:p-5 my-6 rounded-r-lg font-sans">
+        <span class="font-mono text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">
+          Investigation Abstract & Key Findings
+        </span>
+        <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-sans mb-3">
+          {description}
+        </p>
+        <ul class="space-y-1.5 text-xs sm:text-sm text-slate-800 list-disc list-outside pl-4 font-sans">
+          {findingsList.map(item => (
+            <li class="leading-relaxed">{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Social Share Bar (Top) -->
+      <SocialShareBar title={title} url={canonicalAbsUrl} className="my-6" />
 
       <!-- 16:9 Full WebP Cover Frame -->
       <div class="mb-8 overflow-hidden rounded-lg border border-slate-200 shadow-sm bg-slate-100">
@@ -283,8 +301,8 @@ const faqSchema = {
         />
       </div>
 
-      <!-- Article Markdown Typography Content (Classic Journalistic Drop Cap) -->
-      <article class="prose prose-slate max-w-none 
+      <!-- Article Markdown Typography Content (Longform Readability) -->
+      <article class="prose prose-slate max-w-[68ch] mx-auto
         [&>p:first-of-type::first-letter]:float-left 
         [&>p:first-of-type::first-letter]:text-5xl sm:[&>p:first-of-type::first-letter]:text-6xl 
         [&>p:first-of-type::first-letter]:font-serif 
@@ -294,13 +312,13 @@ const faqSchema = {
         [&>p:first-of-type::first-letter]:leading-none 
         [&>p:first-of-type::first-letter]:text-slate-900
         [&_h1]:text-2xl sm:[&_h1]:text-3xl [&_h1]:font-bold [&_h1]:text-slate-900 [&_h1]:mt-8 [&_h1]:mb-4
-        [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-slate-900 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:pb-2 [&_h2]:border-b [&_h2]:border-slate-200
-        [&_h3]:text-lg sm:[&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-slate-900 [&_h3]:mt-6 [&_h3]:mb-3
-        [&_p]:text-slate-800 [&_p]:leading-relaxed [&_p]:mb-4 [&_p]:text-[15px] sm:[&_p]:text-base font-sans
-        [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:space-y-2 [&_ul]:text-slate-800
-        [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:space-y-2 [&_ol]:text-slate-800
-        [&_li]:text-slate-800
-        [&_blockquote]:border-l-4 [&_blockquote]:border-slate-400 [&_blockquote]:pl-4 [&_blockquote]:py-2 [&_blockquote]:italic [&_blockquote]:text-slate-700 [&_blockquote]:my-6 [&_blockquote]:bg-slate-50 [&_blockquote]:rounded-r-lg
+        [&_h2]:font-serif [&_h2]:font-bold [&_h2]:text-2xl sm:[&_h2]:text-3xl [&_h2]:text-slate-900 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:pt-6 [&_h2]:border-t [&_h2]:border-slate-200
+        [&_h3]:font-serif [&_h3]:font-bold [&_h3]:text-xl sm:[&_h3]:text-2xl [&_h3]:text-slate-900 [&_h3]:mt-6 [&_h3]:mb-3
+        [&_p]:font-sans [&_p]:text-[17px] sm:[&_p]:text-[18px] [&_p]:text-slate-800 [&_p]:leading-[1.75] [&_p]:tracking-[-0.01em] [&_p]:mb-5
+        [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-5 [&_ul]:space-y-2 [&_ul]:text-slate-800 [&_ul]:text-[16px] sm:[&_ul]:text-[17px]
+        [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-5 [&_ol]:space-y-2 [&_ol]:text-slate-800 [&_ol]:text-[16px] sm:[&_ol]:text-[17px]
+        [&_li]:text-slate-800 [&_li]:leading-relaxed
+        [&_blockquote]:font-serif [&_blockquote]:italic [&_blockquote]:text-lg sm:[&_blockquote]:text-xl [&_blockquote]:text-slate-800 [&_blockquote]:border-l-2 [&_blockquote]:border-rose-600 [&_blockquote]:pl-4 [&_blockquote]:py-1 [&_blockquote]:my-6
         [&_hr]:border-slate-200 [&_hr]:my-8">
         <slot />
       </article>
@@ -308,21 +326,28 @@ const faqSchema = {
       <!-- Contextual Editorial Note (Replaced DossierContextBox) -->
       <DossierContextBox />
 
-      <!-- Author Editorial Masthead Box -->
-      <div class="my-8 p-5 rounded-lg bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center gap-4">
-        <div class="w-10 h-10 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center text-lg shrink-0">
+      <!-- Social Share Bar (Bottom) -->
+      <SocialShareBar title={title} url={canonicalAbsUrl} className="my-8" />
+
+      <!-- Author Editorial Masthead & Confidential Desk Notice -->
+      <div class="my-8 p-5 sm:p-6 rounded-lg bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start gap-4">
+        <div class="w-11 h-11 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center text-xl shrink-0">
           🖋️
         </div>
-        <div class="flex-1 min-w-0">
-          <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
-            <h4 class="font-bold text-sm text-slate-900 font-sans">Lead Investigative Analyst</h4>
+        <div class="flex-1 min-w-0 font-sans">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+            <h4 class="font-bold text-sm text-slate-900">Senior Digital Forensic Desk</h4>
             <span class="text-[11px] font-mono text-slate-500">
-              Desk: Cheltenham, UK
+              Bureau Base: Cheltenham, UK
             </span>
           </div>
-          <p class="text-xs text-slate-600 leading-relaxed font-sans">
-            Independent coverage of dating mechanics, fraud vectors, and network integrity. All investigations conducted under FlirtCheck editorial standards.
+          <p class="text-xs text-slate-600 leading-relaxed mb-2.5">
+            Our researchers operate under confidential investigative protocols to safeguard academic and technical sources analyzing commercial dating telemetry, matchmaking algorithms, and fraud funnels.
           </p>
+          <div class="text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
+            <span class="text-slate-900 font-bold">Encrypted tips & leaks:</span>
+            <a href="mailto:desk@dating-radar.com" class="text-slate-900 underline hover:text-rose-600">desk@dating-radar.com</a>
+          </div>
         </div>
       </div>
 
@@ -346,38 +371,38 @@ const faqSchema = {
         />
       </section>
 
-      <!-- Editorial FAQ Section (Comic Dossier Box) -->
-      <section class="my-10 p-6 sm:p-8 rounded-2xl bg-white border-2 border-slate-900 shadow-[6px_6px_0px_0px_#0f172a]">
-        <div class="flex items-center gap-2 text-xs font-mono uppercase text-rose-600 font-black mb-2">
+      <!-- Editorial FAQ Section -->
+      <section class="my-10 p-6 sm:p-8 rounded-xl bg-white border border-slate-200 shadow-sm">
+        <div class="flex items-center gap-2 text-xs font-mono uppercase text-slate-500 font-bold mb-2">
           <span>● VERIFIED KNOWLEDGEBASE</span>
         </div>
-        <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mb-5 font-sans uppercase">
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mb-5 font-sans">
           Frequently Asked Questions About Profile Safety
         </h3>
-        <div class="space-y-4">
-          <div class="p-4 rounded-xl bg-amber-50/80 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
-            <h4 class="font-black text-slate-900 text-sm sm:text-base mb-1.5 flex items-center gap-2">
-              <span class="text-rose-600 font-mono font-black">Q1:</span> What is the fastest way to verify a dating profile?
+        <div class="space-y-3.5 font-sans">
+          <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-slate-900 text-sm sm:text-base mb-1.5">
+              What is the fastest way to verify a dating profile?
             </h4>
-            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-serif italic">
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
               The fastest zero-cost method is requesting a 15-second live video call or using our integrated safety lookup tool before exchanging personal social media or phone numbers.
             </p>
           </div>
 
-          <div class="p-4 rounded-xl bg-amber-50/80 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
-            <h4 class="font-black text-slate-900 text-sm sm:text-base mb-1.5 flex items-center gap-2">
-              <span class="text-rose-600 font-mono font-black">Q2:</span> Can AI detect whether a dating profile is genuine?
+          <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-slate-900 text-sm sm:text-base mb-1.5">
+              Can AI detect whether a dating profile is genuine?
             </h4>
-            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-serif italic">
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
               Yes. Automated security filters evaluate account creation velocity, IP fingerprint anomalies, syntactic repetition across chat logs, and visual GAN artifacts in uploaded gallery pictures.
             </p>
           </div>
 
-          <div class="p-4 rounded-xl bg-amber-50/80 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
-            <h4 class="font-black text-slate-900 text-sm sm:text-base mb-1.5 flex items-center gap-2">
-              <span class="text-rose-600 font-mono font-black">Q3:</span> What should I do if I discover a scammer?
+          <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-slate-900 text-sm sm:text-base mb-1.5">
+              What should I do if I discover a scammer?
             </h4>
-            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-serif italic">
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
               Immediately capture screenshots of the profile and chat log, report the account within the dating platform's safety center, block all communication channels, and never send funds under any circumstances.
             </p>
           </div>
@@ -408,20 +433,13 @@ const faqSchema = {
       injectMidArticleQuiz();
 
       // Ensure in-body article images are lazy-loaded
-      document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('article img').forEach((img) => {
-          if (!img.getAttribute('loading')) img.setAttribute('loading', 'lazy');
-          if (!img.getAttribute('decoding')) img.setAttribute('decoding', 'async');
-        });
+      document.querySelectorAll('article img').forEach((img) => {
+        img.setAttribute('loading', 'lazy');
       });
     </script>
 
-    <!-- Mobile Sticky Conversion Bar for mobile readers -->
-    <MobileStickyCTA />
-
-    <!-- Exit-Intent Retention Modal -->
-    <ExitIntentModal slug={slug} />
-
     <Footer />
+    <MobileStickyCTA />
+    <ExitIntentModal />
   </body>
 </html>
