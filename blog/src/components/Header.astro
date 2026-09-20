@@ -9,7 +9,7 @@ const { activePath = '/' } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const navItems = [
-  { title: 'Investigations', href: '/#feed' },
+  { title: 'Investigations', href: '/#investigations' },
   { title: 'The Desk', href: '/desk' },
   { title: 'Methodology', href: '/#protocol' },
 ];
@@ -32,7 +32,7 @@ const navItems = [
   <!-- Center: Refined Gazette Navigation (3 Key Anchors) -->
   <nav class="hidden md:flex items-center gap-2 lg:gap-4 font-mono text-xs uppercase tracking-wider text-slate-600" aria-label="Main Navigation">
     {navItems.map(item => {
-      const isActive = activePath === item.href || (item.href !== '/#feed' && activePath.startsWith(item.href));
+      const isActive = activePath === item.href || (item.href !== '/#investigations' && activePath.startsWith(item.href));
       return (
         <a
           href={item.href}
@@ -66,7 +66,9 @@ const navItems = [
 
     <!-- Restrained Newspaper Action Button -->
     <a
-      href="/#safety-quiz"
+      href="/go?source=header&trigger=audit_cta&intent=profile_audit"
+      target="_blank"
+      rel="nofollow sponsored"
       class="min-h-[44px] inline-flex items-center justify-center bg-slate-900 text-white font-mono text-xs font-bold px-4 py-2 rounded hover:bg-slate-800 transition-colors uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 shadow-none"
     >
       Audit Profile ↗
