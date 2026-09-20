@@ -62,7 +62,7 @@ const featuredPostCover = rawFeaturedCover
         <button
           type="button"
           data-filter="all"
-          class="category-btn active shrink-0 px-3.5 py-1.5 rounded-lg text-xs font-sans font-semibold uppercase tracking-wider border border-slate-900 bg-slate-900 text-white shadow-sm transition-all cursor-pointer hover:bg-slate-800"
+          class="category-btn active shrink-0 px-3.5 py-2 min-h-[44px] rounded text-xs font-mono font-bold uppercase tracking-wider border border-slate-900 bg-slate-900 text-white shadow-[2px_2px_0px_0px_#0f172a] transition-all cursor-pointer hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
         >
           All Topics ({sortedPosts.length})
         </button>
@@ -74,28 +74,102 @@ const featuredPostCover = rawFeaturedCover
             <button
               type="button"
               data-filter={cat.id}
-              class="category-btn shrink-0 px-3.5 py-1.5 rounded-lg text-xs font-sans font-medium uppercase tracking-wider border border-slate-300 bg-white hover:border-slate-400 hover:bg-slate-50 text-slate-700 shadow-sm transition-all cursor-pointer"
+              class="category-btn shrink-0 px-3.5 py-2 min-h-[44px] rounded text-xs font-mono font-medium uppercase tracking-wider border border-slate-900 bg-[#FFFDF9] hover:bg-[#FAF7F2] text-slate-900 shadow-[2px_2px_0px_0px_#0f172a] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
               title={cat.description}
             >
               <span>{cat.shortTitle}</span>
-              <span class="ml-1 opacity-70 font-normal">({count})</span>
+              <span class="ml-1 opacity-75 font-normal">({count})</span>
             </button>
           );
         })}
       </div>
 
       <!-- Active Category Context Display -->
-      <div id="categoryInfoBox" class="hidden mt-4 p-4 bg-white border border-slate-200 rounded-lg shadow-sm max-w-2xl mx-auto text-left transition-all">
+      <div id="categoryInfoBox" class="hidden mt-4 p-4 bg-[#FFFDF9] border-2 border-slate-900 rounded-lg shadow-[3px_3px_0px_0px_#0f172a] max-w-2xl mx-auto text-left transition-all">
         <div class="flex items-center gap-2 mb-1">
-          <span id="categoryInfoTitle" class="font-sans font-bold text-xs sm:text-sm text-slate-900 uppercase tracking-wide"></span>
+          <span id="categoryInfoTitle" class="font-mono font-black text-xs sm:text-sm text-slate-900 uppercase tracking-wide"></span>
         </div>
-        <p id="categoryInfoDesc" class="text-xs text-slate-600 leading-relaxed font-sans"></p>
+        <p id="categoryInfoDesc" class="text-xs text-slate-700 leading-relaxed font-sans"></p>
       </div>
     </div>
   </section>
 
-  <!-- 2-COLUMN LAYOUT: Sidebar (w-80 shrink-0) + Feed (flex-1) -->
+  <!-- 2-COLUMN LAYOUT: Hero Front-Page Spread + Sidebar + Regular Feed -->
   <section id="feed" class="mt-4 mb-16">
+    <!-- 1. Featured Lead Dispatch (Breaking Front-Page Spread) -->
+    {featuredPost && (
+      <article
+        id="featuredDispatch"
+        data-category={featuredPost.data.category || 'safety-dossier'}
+        class="grid grid-cols-1 lg:grid-cols-12 gap-8 border-2 border-slate-900 bg-[#FFFDF9] rounded-lg p-6 sm:p-8 shadow-[6px_6px_0px_0px_#0f172a] mb-12"
+      >
+        <!-- Left Column: 7 cols -->
+        <div class="lg:col-span-7 flex flex-col justify-between">
+          <a href={`${base}/${featuredPost.id || featuredPost.slug}/`} class="block group relative border-2 border-slate-900 overflow-hidden bg-[#F4EFE6] rounded shadow-[2px_2px_0px_0px_#0f172a]">
+            <div class="aspect-[16/9] w-full overflow-hidden">
+              <img
+                src={featuredPostCover}
+                alt={featuredPost.data.title}
+                width="800"
+                height="450"
+                loading="eager"
+                fetchpriority="high"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.01]"
+              />
+            </div>
+          </a>
+          <div class="mt-2.5 text-center sm:text-left">
+            <span class="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-700">
+              EXHIBIT // PRIMARY FIELD EVIDENCE · CHELTENHAM DESK
+            </span>
+          </div>
+        </div>
+
+        <!-- Right Column: 5 cols -->
+        <div class="lg:col-span-5 flex flex-col justify-between">
+          <div>
+            <div class="mb-2.5">
+              <span class="text-rose-700 font-mono text-xs font-black tracking-widest uppercase">
+                [LEAD INVESTIGATION // PRIORITY DISPATCH]
+              </span>
+            </div>
+
+            <h2 class="font-serif font-black text-2xl sm:text-3xl text-slate-900 leading-tight mb-4 hover:text-rose-700 transition-colors">
+              <a href={`${base}/${featuredPost.id || featuredPost.slug}/`}>
+                {featuredPost.data.title}
+              </a>
+            </h2>
+
+            <!-- Key Findings: 3 Monospace items with dashes -->
+            <div class="bg-[#FAF7F2] border border-slate-300 rounded p-3.5 mb-5 font-mono text-xs text-slate-800 space-y-2">
+              <div class="flex items-start gap-2">
+                <span class="text-rose-700 font-bold select-none shrink-0">-</span>
+                <span>Algorithmic bias & covert telemetry mapped across active matching pools.</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-rose-700 font-bold select-none shrink-0">-</span>
+                <span>Synthetic profile signatures and adversarial chat loops identified.</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-rose-700 font-bold select-none shrink-0">-</span>
+                <span>Countermeasure verification protocol validated by Cheltenham Desk.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <a
+              href={`${base}/${featuredPost.id || featuredPost.slug}/`}
+              class="inline-flex items-center justify-center min-h-[44px] bg-slate-900 text-white font-mono text-xs font-bold px-5 py-3 rounded border border-slate-900 hover:bg-rose-700 hover:border-rose-700 transition-all shadow-[3px_3px_0px_0px_#0f172a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2"
+            >
+              READ FULL INVESTIGATION ↗
+            </a>
+          </div>
+        </div>
+      </article>
+    )}
+
+    <!-- 2-COLUMN LAYOUT: Sidebar (w-80 shrink-0) + Feed (flex-1) -->
     <div class="flex flex-col lg:flex-row gap-8 items-start">
       <!-- Left Column: Sticky Classifieds & Info Sidebar -->
       <Sidebar
@@ -110,15 +184,10 @@ const featuredPostCover = rawFeaturedCover
           <h2 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2 font-sans">
             <span>Recent Investigations</span>
             <span id="displayedCountBadge" class="text-xs font-mono text-slate-500 font-medium">
-              ({sortedPosts.length} reports)
+              ({regularPosts.length} reports)
             </span>
           </h2>
         </div>
-
-        <!-- 1. Featured Lead Dispatch (Breaking Investigation) -->
-        {featuredPost && (
-          <FeedItem post={featuredPost} isFeatured={true} />
-        )}
 
         <!-- 2. Paginated Regular Dispatches Feed -->
         {regularPosts.length > 0 ? (
@@ -130,19 +199,19 @@ const featuredPostCover = rawFeaturedCover
         ) : null}
 
         <!-- 3. Empty State for Filter -->
-        <div id="noPostsFound" class="hidden text-center py-16 bg-white rounded-lg border border-slate-200 shadow-sm">
-          <p class="text-slate-700 font-medium font-sans text-base">No investigations found in this category.</p>
+        <div id="noPostsFound" class="hidden text-center py-16 bg-[#FFFDF9] rounded-lg border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
+          <p class="text-slate-800 font-medium font-sans text-base">No investigations found in this category.</p>
           <button
             type="button"
             id="resetFilterBtn"
-            class="mt-4 px-4 py-2 bg-slate-900 text-white font-sans text-xs font-semibold uppercase rounded-lg border border-slate-900 hover:bg-slate-800 transition-colors cursor-pointer"
+            class="mt-4 px-4 py-2 min-h-[44px] bg-slate-900 text-white font-mono text-xs font-bold uppercase rounded border border-slate-900 hover:bg-slate-800 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
           >
             Show All Articles
           </button>
         </div>
 
         <!-- 4. Archive Pagination Bar -->
-        <div id="feedPagination" class="flex flex-wrap justify-center items-center gap-2 pt-6 border-t border-slate-200 font-sans text-xs">
+        <div id="feedPagination" class="flex flex-wrap justify-center items-center gap-2 pt-6 border-t border-slate-200 font-mono text-xs">
           <!-- Dynamically generated page buttons -->
         </div>
       </div>
@@ -246,10 +315,10 @@ const featuredPostCover = rawFeaturedCover
         btn.setAttribute('data-page', String(p));
         
         const isCurrent = p === page;
-        btn.className = `px-3.5 py-1.5 rounded-md border text-xs font-sans font-medium transition-colors cursor-pointer ${
+        btn.className = `px-3.5 py-2 min-h-[44px] rounded border text-xs font-mono font-bold transition-all cursor-pointer ${
           isCurrent 
-            ? 'bg-slate-900 text-white border-slate-900 shadow-sm' 
-            : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50 hover:border-slate-400'
+            ? 'bg-slate-900 text-white border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]' 
+            : 'bg-[#FFFDF9] text-slate-800 border-slate-900 hover:bg-[#FAF7F2] shadow-[1px_1px_0px_0px_#0f172a]'
         }`;
 
         btn.addEventListener('click', () => {
@@ -266,7 +335,7 @@ const featuredPostCover = rawFeaturedCover
         const nextBtn = document.createElement('button');
         nextBtn.type = 'button';
         nextBtn.innerHTML = 'Next Page &rarr;';
-        nextBtn.className = 'px-3.5 py-1.5 rounded-md border border-slate-900 font-sans font-semibold text-xs bg-slate-900 text-white shadow-sm hover:bg-slate-800 transition-colors cursor-pointer';
+        nextBtn.className = 'px-3.5 py-2 min-h-[44px] rounded border border-slate-900 font-mono font-bold text-xs bg-slate-900 text-white shadow-[2px_2px_0px_0px_#0f172a] hover:bg-slate-800 transition-all cursor-pointer';
         nextBtn.addEventListener('click', () => {
           currentPage++;
           syncUrlState(false);
@@ -373,19 +442,19 @@ const featuredPostCover = rawFeaturedCover
         const isCurrent = link.getAttribute('data-sidebar-filter') === filterVal;
         if (isCurrent) {
           link.classList.add('bg-slate-900', 'text-white', 'shadow-[2px_2px_0px_0px_#0f172a]');
-          link.classList.remove('bg-white', 'hover:bg-amber-50', 'text-slate-900');
+          link.classList.remove('bg-white', 'hover:bg-[#FAF7F2]', 'text-slate-900');
           const badge = link.querySelector('span:last-child');
           if (badge) {
             badge.classList.add('text-amber-300');
-            badge.classList.remove('text-slate-500');
+            badge.classList.remove('text-slate-900');
           }
         } else {
           link.classList.remove('bg-slate-900', 'text-white', 'shadow-[2px_2px_0px_0px_#0f172a]');
-          link.classList.add('bg-white', 'hover:bg-amber-50', 'text-slate-900');
+          link.classList.add('bg-white', 'hover:bg-[#FAF7F2]', 'text-slate-900');
           const badge = link.querySelector('span:last-child');
           if (badge) {
             badge.classList.remove('text-amber-300');
-            badge.classList.add('text-slate-500');
+            badge.classList.add('text-slate-900');
           }
         }
       });

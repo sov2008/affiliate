@@ -13,87 +13,145 @@ const {
   categoryCounts = {}
 } = Astro.props;
 
-const categories = [
-  { id: 'algo-mechanics', title: '[•] ALGO MECHANICS', href: '/category/algo-mechanics' },
-  { id: 'modern-psychology', title: '[•] MODERN PSYCHOLOGY', href: '/category/modern-psychology' },
-  { id: 'digital-dialogue', title: '[•] DIGITAL DIALOGUE', href: '/category/digital-dialogue' },
-  { id: 'first-dates', title: '[•] OFFLINE DATES', href: '/category/first-dates' },
-  { id: 'safety-dossier', title: '[•] SAFETY & SCAMS', href: '/category/safety-dossier' },
-  { id: 'romantic-essays', title: '[•] ROMANTIC ESSAYS', href: '/category/romantic-essays' },
-];
+const categories = CategoryEnum.options.map((key) => {
+  const meta = CATEGORIES_METADATA[key];
+  return {
+    id: key,
+    shortTitle: meta.shortTitle,
+    title: meta.title,
+    href: `/category/${key}`
+  };
+});
 ---
 
 <aside class="w-full lg:w-80 shrink-0 space-y-6 lg:sticky lg:top-20 self-start">
   
-  <!-- WIDGET 1: Author Dossier -->
-  <div class="bg-white border-2 border-slate-900 rounded-xl p-4 shadow-[4px_4px_0px_0px_#0f172a]">
-    <div class="flex items-center gap-3 pb-3 border-b-2 border-slate-900">
+  <!-- WIDGET 1: The Desk Dispatcher / Arthur Vance Dossier -->
+  <div class="bg-[#FFFDF9] border-2 border-slate-900 rounded-lg p-5 shadow-[4px_4px_0px_0px_#0f172a]">
+    <div class="flex items-center gap-3.5 pb-3.5 border-b-2 border-slate-900">
       <img
         src="/images/author/arthur-vance-avatar.webp"
-        alt="Arthur Vance"
-        class="w-12 h-12 rounded-lg border-2 border-slate-900 object-cover shadow-[2px_2px_0px_0px_#0f172a]"
+        alt="Arthur Vance · Cheltenham Desk"
+        class="w-14 h-14 border-2 border-slate-900 object-cover shadow-[2px_2px_0px_0px_#0f172a] shrink-0"
         loading="lazy"
+        width="56"
+        height="56"
       />
-      <div>
-        <h3 class="font-black text-sm text-slate-900 uppercase">
-          <a href="/desk" class="hover:text-rose-600 hover:underline">Arthur Vance</a>
+      <div class="min-w-0">
+        <h3 class="font-serif font-black text-sm text-slate-900 truncate">
+          <a href="/desk" class="hover:text-rose-700 hover:underline">Arthur Vance</a>
         </h3>
-        <span class="text-[10px] font-mono text-rose-600 font-bold uppercase tracking-wide">Lead Forensic Investigator</span>
+        <span class="text-[10px] font-mono text-slate-700 font-bold uppercase tracking-wider block truncate">
+          Arthur Vance · Cheltenham Desk
+        </span>
       </div>
     </div>
-    <p class="text-xs text-slate-600 leading-relaxed mt-3">
-      Investigating synthetic intimacy, algorithmic traps, and commercial dating funnels from Cheltenham, UK.
+    
+    <p class="text-xs text-slate-700 leading-relaxed mt-3 font-sans">
+      Deconstructing algorithmic friction, bot syndicates, and digital deception.
     </p>
-    <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] font-mono text-slate-500 flex justify-between font-bold">
-      <a href="/desk" class="text-slate-900 hover:text-rose-600 underline">THE DESK & MANIFESTO →</a>
-      <span class="text-emerald-700">● ACTIVE</span>
+
+    <div class="mt-4 pt-3 border-t border-slate-300">
+      <a
+        href="/desk"
+        class="min-h-[44px] flex items-center justify-between px-3 py-2 bg-slate-100 hover:bg-rose-50 hover:border-rose-700 hover:text-rose-700 border border-slate-900 rounded font-mono text-xs font-bold text-slate-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+      >
+        <span>Read Bureau Manifesto & Arsenal →</span>
+      </a>
     </div>
   </div>
 
-  <!-- WIDGET 2: Navigation & Category Stamped Index -->
-  <div class="bg-white border-2 border-slate-900 rounded-xl p-4 shadow-[4px_4px_0px_0px_#0f172a]">
-    <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-900">
-      <span class="font-black text-xs text-slate-900 uppercase tracking-wider">DOSSIER INDEX</span>
-      <span class="text-[10px] font-mono bg-amber-100 px-1.5 py-0.5 border border-slate-900 font-bold shadow-[1px_1px_0px_0px_#0f172a]">VOL. 2026</span>
+  <!-- WIDGET 2: Active Telemetry Monitoring -->
+  <div class="bg-[#FFFDF9] border-2 border-slate-900 rounded-lg p-4 shadow-[4px_4px_0px_0px_#0f172a]">
+    <div class="flex items-center justify-between pb-2.5 border-b-2 border-slate-900 mb-3">
+      <div class="flex items-center gap-2">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-pulse absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-700"></span>
+        </span>
+        <span class="font-mono text-xs font-black uppercase tracking-wider text-slate-900">
+          Active Telemetry Monitoring
+        </span>
+      </div>
+      <span class="font-mono text-[9px] bg-slate-900 text-white px-1.5 py-0.5 rounded font-bold uppercase">
+        LIVE
+      </span>
+    </div>
+
+    <div class="space-y-2 font-mono text-xs">
+      <div class="p-2.5 bg-[#FAF7F2] border border-slate-300 rounded flex flex-col justify-between">
+        <span class="text-[10px] text-slate-700 uppercase font-medium">Tinder ELO Pipeline</span>
+        <span class="font-bold text-rose-700 tracking-tight">ANOMALOUS (HIGH FRICTION)</span>
+      </div>
+      <div class="p-2.5 bg-[#FAF7F2] border border-slate-300 rounded flex flex-col justify-between">
+        <span class="text-[10px] text-slate-700 uppercase font-medium">Diffusion Profile Clones</span>
+        <span class="font-bold text-amber-700 tracking-tight">SURGING (+42%)</span>
+      </div>
+      <div class="p-2.5 bg-[#FAF7F2] border border-slate-300 rounded flex flex-col justify-between">
+        <span class="text-[10px] text-slate-700 uppercase font-medium">Registry Status</span>
+        <span class="font-bold text-emerald-700 tracking-tight">{postCount} DOSSIERS FILED</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WIDGET 3: Archival Dossier Index (Category Folders) -->
+  <div class="bg-[#FFFDF9] border-2 border-slate-900 rounded-lg p-4 shadow-[4px_4px_0px_0px_#0f172a]">
+    <div class="flex justify-between items-center mb-3 pb-2 border-b-2 border-slate-900">
+      <span class="font-mono font-black text-xs text-slate-900 uppercase tracking-wider">ARCHIVAL DOSSIER INDEX</span>
+      <span class="text-[10px] font-mono bg-amber-100 px-1.5 py-0.5 border border-slate-900 font-bold shadow-[1px_1px_0px_0px_#0f172a]">
+        VOL. 2026
+      </span>
     </div>
     
-    <nav class="space-y-1.5 text-xs font-bold uppercase">
+    <nav class="space-y-1.5 font-mono text-xs font-bold uppercase" aria-label="Archive Categories">
       <!-- All Dispatches Button / Link -->
       <a
         href="/#feed"
         data-sidebar-filter="all"
         class:list={[
-          "flex justify-between items-center p-2 rounded-lg border border-slate-900 transition-all cursor-pointer",
+          "min-h-[44px] flex justify-between items-center px-3 py-2.5 rounded border border-slate-900 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900",
           activeCategory === 'all'
             ? "bg-slate-900 text-white shadow-[2px_2px_0px_0px_#0f172a]"
-            : "bg-white hover:bg-amber-50 text-slate-900"
+            : "bg-white hover:bg-[#FAF7F2] text-slate-900"
         ]}
       >
-        <span>[•] ALL DISPATCHES</span>
-        <span class="font-mono text-[10px] text-amber-300 font-black">{postCount}</span>
+        <span class="flex items-center gap-2 truncate pr-2">
+          <span class="text-slate-600 font-normal shrink-0">📁</span>
+          <span class="truncate">ALL DISPATCHES</span>
+        </span>
+        <span class:list={[
+          "text-xs font-black shrink-0",
+          activeCategory === 'all' ? "text-amber-300" : "text-slate-900"
+        ]}>
+          [{String(postCount).padStart(2, '0')}]
+        </span>
       </a>
 
-      <!-- Category Links -->
+      <!-- Category Links formatted as archival numbered folders -->
       {categories.map((cat) => {
         const count = categoryCounts[cat.id] ?? 0;
         const isActive = activeCategory === cat.id;
+        const folderNum = `[${String(count).padStart(2, '0')}]`;
         return (
           <a
             href={cat.href}
             data-sidebar-filter={cat.id}
             class:list={[
-              "flex justify-between items-center p-2 rounded-lg border border-slate-900 transition-colors cursor-pointer",
+              "min-h-[44px] flex justify-between items-center px-3 py-2.5 rounded border border-slate-900 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900",
               isActive
                 ? "bg-slate-900 text-white shadow-[2px_2px_0px_0px_#0f172a]"
-                : "bg-white hover:bg-amber-50 text-slate-900"
+                : "bg-white hover:bg-[#FAF7F2] text-slate-900"
             ]}
           >
-            <span>{cat.title}</span>
+            <span class="flex items-center gap-2 truncate pr-2">
+              <span class="text-slate-600 font-normal shrink-0">📁</span>
+              <span class="truncate">{cat.shortTitle}</span>
+            </span>
             <span class:list={[
-              "font-mono text-[10px] font-bold",
-              isActive ? "text-amber-300" : "text-slate-500"
+              "text-xs font-black shrink-0",
+              isActive ? "text-amber-300" : "text-slate-900"
             ]}>
-              {count}
+              {folderNum}
             </span>
           </a>
         );
@@ -101,17 +159,19 @@ const categories = [
     </nav>
   </div>
 
-  <!-- WIDGET 3: Vintage Classified Ad (CPA Smartlink Integration) -->
-  <div class="bg-[#FFFDF7] border-2 border-dashed border-slate-900 rounded-xl p-4 shadow-[4px_4px_0px_0px_#0f172a] relative overflow-hidden">
-    <div class="absolute -right-6 top-3 bg-rose-600 text-white text-[9px] font-black uppercase px-6 py-0.5 rotate-45 border-y border-slate-900 shadow-sm pointer-events-none">
+  <!-- WIDGET 4: Vintage Classified Ad (CPA Smartlink Integration) -->
+  <div class="bg-[#FFFDF9] border-2 border-dashed border-slate-900 rounded-lg p-4 shadow-[4px_4px_0px_0px_#0f172a] relative overflow-hidden">
+    <div class="absolute -right-6 top-3 bg-rose-700 text-white text-[9px] font-mono font-black uppercase px-6 py-0.5 rotate-45 border-y border-slate-900 shadow-sm pointer-events-none">
       VERIFIED
     </div>
     
-    <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest block mb-1 font-bold">CLASSIFIED AD // N° 402 • UNMASKED</span>
-    <h4 class="font-black text-sm text-slate-900 uppercase leading-snug">
+    <span class="text-[9px] font-mono text-slate-700 uppercase tracking-widest block mb-1 font-bold">
+      CLASSIFIED AD // N° 402 · UNMASKED
+    </span>
+    <h4 class="font-serif font-black text-sm text-slate-900 leading-snug">
       Tired of Corporate Slot-Machine Swipes?
     </h4>
-    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+    <p class="text-xs text-slate-700 mt-2 leading-relaxed font-sans">
       Dating conglomerates engineer algorithms to keep you paying and swiping. Bypass corporate dopamine traps and connect with ID-verified local singles ready for unscripted meetings.
     </p>
 
@@ -121,24 +181,14 @@ const categories = [
         id="sidebarAdCta"
         rel="nofollow sponsored"
         target="_blank"
-        class="block text-center py-2.5 px-3 bg-rose-600 hover:bg-rose-500 active:translate-x-[1px] active:translate-y-[1px] text-white font-black text-xs uppercase rounded-lg border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] tracking-wider transition-all cursor-pointer"
+        class="min-h-[44px] flex items-center justify-center text-center py-2.5 px-3 bg-rose-700 hover:bg-rose-800 active:translate-x-[1px] active:translate-y-[1px] text-white font-mono font-black text-xs uppercase rounded border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] tracking-wider transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700"
       >
-        BREAK OUT OF THE CASINO &rarr;
+        BREAK OUT OF THE CASINO ↗
       </a>
-      <span class="block text-center text-[9px] font-mono text-slate-500 font-medium mt-1.5">No Gamification • 100% ID-Verified Members</span>
-    </div>
-  </div>
-
-  <!-- WIDGET 4: Live Radar Telemetry Status -->
-  <div class="bg-white border-2 border-slate-900 rounded-xl p-3.5 shadow-[4px_4px_0px_0px_#0f172a] flex items-center justify-between text-xs font-mono">
-    <div class="flex items-center gap-2">
-      <span class="relative flex h-2.5 w-2.5">
-        <span class="animate-pulse absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+      <span class="block text-center text-[9px] font-mono text-slate-700 font-medium mt-1.5">
+        No Gamification · 100% ID-Verified Members
       </span>
-      <span class="font-bold text-slate-800 text-[11px]">RADAR TELEMETRY</span>
     </div>
-    <span class="text-[10px] text-slate-500 font-bold">ACCURACY: 98.4%</span>
   </div>
 
 </aside>
