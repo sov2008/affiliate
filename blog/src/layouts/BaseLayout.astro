@@ -9,6 +9,8 @@ interface Props {
   description: string;
   canonicalUrl?: string;
   ogImage?: string;
+  imageUrl?: string;
+  preloadImage?: string;
   activePath?: string;
 }
 
@@ -16,13 +18,18 @@ const {
   title,
   description,
   canonicalUrl,
-  ogImage = '/images/posts/reverse-image-search-lens-scam.webp',
+  ogImage,
+  imageUrl,
+  preloadImage,
   activePath = '/'
 } = Astro.props;
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://flirtcheck.site';
 const fullCanonical = canonicalUrl || `${siteUrl}/`;
-const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage.startsWith('/') ? '' : '/'}${ogImage}`;
+const rawImage = imageUrl || ogImage;
+const fullImageUrl = rawImage
+  ? (rawImage.startsWith('http') ? rawImage : new URL(rawImage, Astro.site || 'https://flirtcheck.site').href)
+  : 'https://flirtcheck.site/images/default-og.webp';
 ---
 
 <!DOCTYPE html>
@@ -36,13 +43,18 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage.
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="robots" content="noindex, nofollow, noarchive" />
 
+    {preloadImage && (
+      <link rel="preload" as="image" href={preloadImage} fetchpriority="high" type="image/webp" />
+    )}
+    <slot name="head" />
+
     <!-- OpenGraph Metadata -->
     <meta property="og:site_name" content="FlirtCheck Safety Editorial" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={fullCanonical} />
-    <meta property="og:image" content={fullOgImage} />
+    <meta property="og:image" content={fullImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="675" />
     <meta property="og:image:type" content="image/webp" />
@@ -52,7 +64,7 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage.
     <meta name="twitter:site" content="@flirtcheck" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={fullOgImage} />
+    <meta name="twitter:image" content={fullImageUrl} />
   </head>
 
   <body class="min-h-screen flex flex-col bg-[#FBF8F1] text-slate-900">

@@ -1,0 +1,397 @@
+---
+// ProfileScanner.astro - Interactive 90s Cel Gazette Profile Forensic Radar
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  title = "Instant Profile Safety & Compatibility Scan",
+  subtitle = "Run our rapid profile verification radar: filter bot swarms, audit photo metadata, and calibrate authentic chemistry."
+} = Astro.props;
+---
+
+<div
+  id="profileScannerWidget"
+  class="my-10 relative overflow-hidden rounded-2xl bg-[#FFFDF7] border-2 border-slate-900 p-6 sm:p-8 shadow-[6px_6px_0px_0px_#0f172a] text-slate-900"
+>
+  <!-- Top Dossier Telemetry Header -->
+  <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b-2 border-slate-900 mb-6">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-slate-900 text-xs font-mono font-black bg-amber-200 text-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
+      <span class="w-2 h-2 rounded-full bg-emerald-600 animate-ping"></span>
+      <span>FORENSIC PROFILE RADAR // SCANNER ACTIVE</span>
+    </div>
+    <span class="text-xs text-slate-600 font-mono font-bold">
+      Protocol v4.2 • Real-Time Heuristics
+    </span>
+  </div>
+
+  <!-- Title & "Love is..." Thematic Motto -->
+  <div class="mb-6">
+    <h3 class="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight leading-tight uppercase font-sans">
+      {title}
+    </h3>
+    <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed font-serif italic">
+      "Safety is... running a 3-point forensic check before investing your heart in an algorithmic ghost."
+    </p>
+    <p class="text-xs text-slate-500 font-mono mt-1">
+      {subtitle}
+    </p>
+  </div>
+
+  <!-- ==================== STEP 1: PARAMETER INPUT ==================== -->
+  <div id="scannerStep1" class="space-y-6">
+    <!-- Parameter A: Target Platform -->
+    <div class="space-y-2.5">
+      <div class="flex items-center justify-between">
+        <label class="text-xs font-mono font-black uppercase text-slate-900 tracking-wider">
+          1. Select Target Platform:
+        </label>
+        <span class="text-[11px] font-mono text-slate-500">[CHOOSE 1]</span>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="platformSelector">
+        <button
+          type="button"
+          data-platform="Tinder"
+          class="platform-btn selected py-2.5 px-3 rounded-lg border-2 border-slate-900 bg-slate-900 text-white font-black text-xs uppercase text-center shadow-[2px_2px_0px_0px_#e11d48] transition-all cursor-pointer flex items-center justify-center gap-1.5"
+        >
+          <span>🔥</span>
+          <span>Tinder</span>
+        </button>
+        <button
+          type="button"
+          data-platform="Hinge"
+          class="platform-btn py-2.5 px-3 rounded-lg border-2 border-slate-900 bg-white hover:bg-amber-50 text-slate-900 font-bold text-xs uppercase text-center shadow-[2px_2px_0px_0px_#0f172a] transition-all cursor-pointer flex items-center justify-center gap-1.5"
+        >
+          <span>🖤</span>
+          <span>Hinge</span>
+        </button>
+        <button
+          type="button"
+          data-platform="Bumble"
+          class="platform-btn py-2.5 px-3 rounded-lg border-2 border-slate-900 bg-white hover:bg-amber-50 text-slate-900 font-bold text-xs uppercase text-center shadow-[2px_2px_0px_0px_#0f172a] transition-all cursor-pointer flex items-center justify-center gap-1.5"
+        >
+          <span>🐝</span>
+          <span>Bumble</span>
+        </button>
+        <button
+          type="button"
+          data-platform="Telegram"
+          class="platform-btn py-2.5 px-3 rounded-lg border-2 border-slate-900 bg-white hover:bg-amber-50 text-slate-900 font-bold text-xs uppercase text-center shadow-[2px_2px_0px_0px_#0f172a] transition-all cursor-pointer flex items-center justify-center gap-1.5"
+        >
+          <span>✈️</span>
+          <span>Telegram</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Parameter B: Profile Age / Suspicion Level -->
+    <div class="space-y-2.5">
+      <div class="flex items-center justify-between">
+        <label class="text-xs font-mono font-black uppercase text-slate-900 tracking-wider">
+          2. Observed Anomaly / Suspicion Pattern:
+        </label>
+        <span class="text-[11px] font-mono text-slate-500">[PRIMARY FACTOR]</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5" id="suspicionSelector">
+        <button
+          type="button"
+          data-suspicion="new_profile"
+          class="suspicion-btn selected py-3 px-3.5 rounded-lg border-2 border-slate-900 bg-slate-900 text-white font-black text-xs uppercase text-left shadow-[2px_2px_0px_0px_#e11d48] transition-all cursor-pointer flex items-center gap-2.5"
+        >
+          <span class="text-base shrink-0">⚡</span>
+          <span class="leading-snug">New Account (&lt; 48h since creation)</span>
+        </button>
+        <button
+          type="button"
+          data-suspicion="unverified_photos"
+          class="suspicion-btn py-3 px-3.5 rounded-lg border-2 border-slate-900 bg-white hover:bg-amber-50 text-slate-900 font-bold text-xs uppercase text-left shadow-[2px_2px_0px_0px_#0f172a] transition-all cursor-pointer flex items-center gap-2.5"
+        >
+          <span class="text-base shrink-0">📷</span>
+          <span class="leading-snug">Unverified Photos (Filtered/Studio AI)</span>
+        </button>
+        <button
+          type="button"
+          data-suspicion="external_shift"
+          class="suspicion-btn py-3 px-3.5 rounded-lg border-2 border-slate-900 bg-white hover:bg-amber-50 text-slate-900 font-bold text-xs uppercase text-left shadow-[2px_2px_0px_0px_#0f172a] transition-all cursor-pointer flex items-center gap-2.5"
+        >
+          <span class="text-base shrink-0">🚩</span>
+          <span class="leading-snug">Asking for Crypto or WhatsApp</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Execution CTA Button -->
+    <div class="pt-2">
+      <button
+        type="button"
+        id="runScanBtn"
+        class="w-full py-4 px-6 bg-slate-900 hover:bg-rose-600 active:translate-x-1 active:translate-y-1 active:shadow-none text-white font-mono font-black text-sm uppercase tracking-wider rounded-lg border-2 border-slate-900 shadow-[3px_3px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all cursor-pointer flex items-center justify-center gap-2"
+      >
+        <span>[ RUN FORENSIC RADAR SCAN → ]</span>
+      </button>
+      <div class="text-[11px] text-slate-500 font-mono text-center mt-2">
+        Instant analysis against 1,400+ known dating fraud heuristics & bot clusters.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 2: REAL-TIME SIMULATION (2.5s) ==================== -->
+  <div id="scannerStep2" class="hidden space-y-5">
+    <!-- Retro 90s Console Box -->
+    <div class="bg-slate-950 border-2 border-slate-900 rounded-xl p-4 sm:p-5 shadow-[4px_4px_0px_0px_#0f172a] font-mono text-xs">
+      <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800 text-slate-400 text-[11px]">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          <span class="ml-1 text-slate-300 font-bold">RADAR-CORE://ANALYZER.EXE</span>
+        </div>
+        <span class="text-emerald-400 font-bold animate-pulse">STREAMING TELEMETRY...</span>
+      </div>
+
+      <!-- Progressive Terminal Lines -->
+      <div class="space-y-2 min-h-[96px] flex flex-col justify-center">
+        <div id="termLine1" class="text-emerald-400 flex items-center gap-1.5 opacity-0 transition-opacity duration-200">
+          <span class="text-emerald-600">&gt;</span>
+          <span>Connecting to Global Verification Registry...</span>
+        </div>
+        <div id="termLine2" class="text-emerald-400 flex items-center gap-1.5 opacity-0 transition-opacity duration-200">
+          <span class="text-emerald-600">&gt;</span>
+          <span>Checking reverse image hash against bot clusters...</span>
+        </div>
+        <div id="termLine3" class="text-rose-400 font-black flex items-center gap-1.5 opacity-0 transition-opacity duration-200">
+          <span class="text-rose-600">&gt;</span>
+          <span>Risk Factor: HIGH (Synthetic script detected)...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Retro Monochrome Green Progress Bar -->
+    <div class="space-y-1.5">
+      <div class="flex justify-between text-xs font-mono font-bold text-slate-800">
+        <span class="uppercase flex items-center gap-2">
+          <span class="inline-block w-2 h-2 bg-emerald-600 rounded-full animate-ping"></span>
+          Forensic Signal Processing
+        </span>
+        <span id="scanProgressPct" class="text-slate-900 font-black">0%</span>
+      </div>
+
+      <!-- Outer Track with Hard Ink Border -->
+      <div class="w-full bg-slate-200 border-2 border-slate-900 rounded-lg p-0.5 h-6 shadow-[2px_2px_0px_0px_#0f172a] overflow-hidden">
+        <!-- Running Green Indicator -->
+        <div
+          id="scanProgressBar"
+          class="h-full bg-emerald-500 rounded border border-slate-900 transition-all duration-75 ease-linear w-0 flex items-center justify-end pr-1"
+        >
+          <span class="w-1 h-3 bg-white/70 rounded-xs inline-block"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 3: RESULTS & CONVERSION ==================== -->
+  <div id="scannerStep3" class="hidden space-y-6">
+    <!-- Result Verdict Box -->
+    <div class="p-5 sm:p-6 rounded-xl bg-rose-50 border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a] space-y-4">
+      <!-- Verdict Warning Badge -->
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="inline-block px-3 py-1 bg-rose-600 text-white font-mono font-black text-xs sm:text-sm uppercase tracking-wider rounded border border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
+          [WARNING: 74% PROBABILITY OF AUTOMATED BOT FARM]
+        </div>
+        <span class="text-xs font-mono font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded border border-rose-300">
+          HEURISTIC MATCH CONFIRMED
+        </span>
+      </div>
+
+      <!-- Summary Metrics Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs font-mono pt-1">
+        <div class="bg-white p-2.5 rounded-lg border border-slate-900">
+          <span class="text-slate-500 block text-[10px] uppercase font-bold">PLATFORM AUDITED</span>
+          <span id="resultPlatform" class="font-black text-slate-900 uppercase">Tinder</span>
+        </div>
+        <div class="bg-white p-2.5 rounded-lg border border-slate-900">
+          <span class="text-slate-500 block text-[10px] uppercase font-bold">SYNTHETIC RISK</span>
+          <span class="font-black text-rose-600 uppercase">CRITICAL (HIGH)</span>
+        </div>
+        <div class="bg-white p-2.5 rounded-lg border border-slate-900 col-span-2 sm:col-span-1">
+          <span class="text-slate-500 block text-[10px] uppercase font-bold">BOT NETWORK TYPE</span>
+          <span class="font-black text-slate-900 uppercase">Automated Funnel</span>
+        </div>
+      </div>
+
+      <!-- Recommendation Quote -->
+      <div class="border-l-4 border-rose-600 pl-4 py-1 text-slate-900">
+        <p class="text-xs font-mono font-bold text-rose-700 uppercase mb-1">
+          Investigator Recommendation:
+        </p>
+        <p class="text-sm sm:text-base font-serif italic text-slate-900 leading-relaxed font-semibold">
+          "Bypass commercial bot algorithms. Connect directly to 100% ID-verified human singles in your region."
+        </p>
+      </div>
+
+      <!-- High-Conversion Primary CTA Button -->
+      <div class="pt-2">
+        <a
+          id="scannerResultCta"
+          href="/go?source=scanner_result&trigger=bot_detected&intent=verified_humans"
+          rel="nofollow sponsored"
+          target="_blank"
+          class="block w-full text-center py-3.5 sm:py-4 bg-rose-600 hover:bg-rose-500 active:translate-x-1 active:translate-y-1 active:shadow-none text-white font-black text-xs sm:text-sm uppercase rounded-lg border-2 border-slate-900 shadow-[3px_3px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all cursor-pointer tracking-wider"
+        >
+          ACCESS 100% VERIFIED HUMAN REGISTRY &rarr;
+        </a>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between text-[11px] text-slate-500 font-mono pt-1">
+        <span>● 18+ Verified Adult Directory</span>
+        <span class="text-emerald-700 font-bold">No Synthetic Accounts • Safe SSL Protocol</span>
+      </div>
+    </div>
+
+    <!-- Re-scan Action -->
+    <div class="text-center">
+      <button
+        type="button"
+        id="rescanBtn"
+        class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border-2 border-slate-900 bg-white hover:bg-amber-100 font-mono text-xs font-bold text-slate-800 uppercase shadow-[2px_2px_0px_0px_#0f172a] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
+      >
+        <span>↺ AUDIT ANOTHER PROFILE OR FACTOR</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initProfileScanner() {
+    const widget = document.getElementById('profileScannerWidget');
+    if (!widget || widget.dataset.initialized === 'true') return;
+    widget.dataset.initialized = 'true';
+
+    const step1 = document.getElementById('scannerStep1');
+    const step2 = document.getElementById('scannerStep2');
+    const step3 = document.getElementById('scannerStep3');
+
+    const runBtn = document.getElementById('runScanBtn');
+    const rescanBtn = document.getElementById('rescanBtn');
+    const ctaLink = document.getElementById('scannerResultCta') as HTMLAnchorElement | null;
+    const resultPlatform = document.getElementById('resultPlatform');
+
+    const termLine1 = document.getElementById('termLine1');
+    const termLine2 = document.getElementById('termLine2');
+    const termLine3 = document.getElementById('termLine3');
+
+    const progressBar = document.getElementById('scanProgressBar');
+    const progressPct = document.getElementById('scanProgressPct');
+
+    const platformBtns = document.querySelectorAll('.platform-btn');
+    const suspicionBtns = document.querySelectorAll('.suspicion-btn');
+
+    let selectedPlatform = 'Tinder';
+    let selectedSuspicion = 'new_profile';
+
+    // 1. CID Attribution Setup
+    let cid = '';
+    try {
+      cid = sessionStorage.getItem('flirtcheck_cid') || '';
+      if (!cid) {
+        cid = 'fc_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
+        sessionStorage.setItem('flirtcheck_cid', cid);
+      }
+    } catch {
+      cid = 'fc_' + Date.now().toString(36);
+    }
+
+    function updateCtaHref() {
+      if (!ctaLink) return;
+      ctaLink.href = `/go?source=scanner_result&trigger=bot_detected&intent=verified_humans&cid=${encodeURIComponent(cid)}`;
+    }
+    updateCtaHref();
+
+    // 2. Selectors Interactions
+    platformBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        platformBtns.forEach((b) => {
+          b.classList.remove('selected', 'bg-slate-900', 'text-white', 'shadow-[2px_2px_0px_0px_#e11d48]', 'font-black');
+          b.classList.add('bg-white', 'text-slate-900', 'shadow-[2px_2px_0px_0px_#0f172a]', 'font-bold');
+        });
+        btn.classList.remove('bg-white', 'text-slate-900', 'shadow-[2px_2px_0px_0px_#0f172a]', 'font-bold');
+        btn.classList.add('selected', 'bg-slate-900', 'text-white', 'shadow-[2px_2px_0px_0px_#e11d48]', 'font-black');
+        selectedPlatform = (btn as HTMLElement).dataset.platform || 'Tinder';
+      });
+    });
+
+    suspicionBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        suspicionBtns.forEach((b) => {
+          b.classList.remove('selected', 'bg-slate-900', 'text-white', 'shadow-[2px_2px_0px_0px_#e11d48]', 'font-black');
+          b.classList.add('bg-white', 'text-slate-900', 'shadow-[2px_2px_0px_0px_#0f172a]', 'font-bold');
+        });
+        btn.classList.remove('bg-white', 'text-slate-900', 'shadow-[2px_2px_0px_0px_#0f172a]', 'font-bold');
+        btn.classList.add('selected', 'bg-slate-900', 'text-white', 'shadow-[2px_2px_0px_0px_#e11d48]', 'font-black');
+        selectedSuspicion = (btn as HTMLElement).dataset.suspicion || 'new_profile';
+      });
+    });
+
+    // 3. Scan Simulation (Strict 2.5s duration)
+    runBtn?.addEventListener('click', () => {
+      step1?.classList.add('hidden');
+      step2?.classList.remove('hidden');
+
+      // Reset terminal & progress
+      if (termLine1) termLine1.style.opacity = '0';
+      if (termLine2) termLine2.style.opacity = '0';
+      if (termLine3) termLine3.style.opacity = '0';
+      if (progressBar) progressBar.style.width = '0%';
+      if (progressPct) progressPct.textContent = '0%';
+
+      const startTime = Date.now();
+      const totalDuration = 2500; // 2.5s
+
+      // Terminal lines reveal schedule
+      setTimeout(() => {
+        if (termLine1) termLine1.style.opacity = '1';
+      }, 100);
+
+      setTimeout(() => {
+        if (termLine2) termLine2.style.opacity = '1';
+      }, 900);
+
+      setTimeout(() => {
+        if (termLine3) termLine3.style.opacity = '1';
+      }, 1750);
+
+      // Smooth progress counter & bar animation
+      const interval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const pct = Math.min(100, Math.floor((elapsed / totalDuration) * 100));
+
+        if (progressBar) progressBar.style.width = `${pct}%`;
+        if (progressPct) progressPct.textContent = `${pct}%`;
+
+        if (elapsed >= totalDuration) {
+          clearInterval(interval);
+          setTimeout(() => {
+            // Show Step 3
+            if (resultPlatform) resultPlatform.textContent = selectedPlatform;
+            updateCtaHref();
+            step2?.classList.add('hidden');
+            step3?.classList.remove('hidden');
+          }, 150);
+        }
+      }, 40);
+    });
+
+    // 4. Re-scan button
+    rescanBtn?.addEventListener('click', () => {
+      step3?.classList.add('hidden');
+      step2?.classList.add('hidden');
+      step1?.classList.remove('hidden');
+      if (progressBar) progressBar.style.width = '0%';
+      if (progressPct) progressPct.textContent = '0%';
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initProfileScanner);
+  initProfileScanner();
+</script>

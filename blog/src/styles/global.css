@@ -75,3 +75,12 @@
 .feed-card.hidden {
   display: none !important;
 }
+
+/* Hide scrollbar utility for mobile filter bar */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

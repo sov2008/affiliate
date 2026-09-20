@@ -3,7 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import FeedItem from '../components/FeedItem.astro';
 import Sidebar from '../components/Sidebar.astro';
-import DatingSmartlinkCTA from '../components/DatingSmartlinkCTA.astro';
+import ProfileScanner from '../components/ProfileScanner.astro';
+import MobileStickyCTA from '../components/MobileStickyCTA.astro';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.config';
 
 // Fetch non-draft posts sorted by pubDate descending
@@ -26,9 +27,16 @@ const categoryCounts: Record<string, number> = {};
 CategoryEnum.options.forEach((key) => {
   categoryCounts[key] = sortedPosts.filter((p) => p.data.category === key).length;
 });
+
+// LCP Featured post cover preload calculation
+const rawFeaturedCover = featuredPost?.data?.coverImage || featuredPost?.data?.image;
+const featuredPostCover = rawFeaturedCover
+  ? (rawFeaturedCover.startsWith('/') ? rawFeaturedCover : `/${rawFeaturedCover}`)
+  : `/images/posts/${featuredPost?.id || 'dating-scam-verification-guide-2026'}.webp`;
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} activePath="/">
+<BaseLayout title={pageTitle} description={pageDescription} activePath="/" preloadImage={featuredPostCover}>
+  <link rel="preload" as="image" href={featuredPostCover} fetchpriority="high" type="image/webp" slot="head" />
   <!-- Hero Editorial 90s Newspaper / Comic Banner (Compacted) -->
   <section class="text-center py-4 sm:py-6 mb-6 relative">
     <div>
@@ -65,12 +73,12 @@ CategoryEnum.options.forEach((key) => {
         </span>
       </div>
 
-      <div id="categoryFilterBar" class="flex flex-wrap items-center justify-center gap-2">
+      <div id="categoryFilterBar" class="flex overflow-x-auto no-scrollbar py-2 gap-2 sm:flex-wrap sm:justify-center items-center">
         <!-- "All" Filter Button -->
         <button
           type="button"
           data-filter="all"
-          class="category-btn active px-3 py-1 rounded-lg text-xs font-mono font-black uppercase tracking-wider border-2 border-slate-900 bg-slate-900 text-white shadow-[2px_2px_0px_0px_#e11d48] transition-all cursor-pointer hover:-translate-y-0.5"
+          class="category-btn active shrink-0 px-3 py-1 rounded-lg text-xs font-mono font-black uppercase tracking-wider border-2 border-slate-900 bg-slate-900 text-white shadow-[2px_2px_0px_0px_#e11d48] transition-all cursor-pointer hover:-translate-y-0.5"
         >
           [ALL DOSSIERS] ({sortedPosts.length})
         </button>
@@ -83,7 +91,7 @@ CategoryEnum.options.forEach((key) => {
               type="button"
               data-filter={cat.id}
               class:list={[
-                "category-btn px-3 py-1 rounded-lg text-xs font-mono font-bold uppercase tracking-wider border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-[3px_3px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all cursor-pointer",
+                "category-btn shrink-0 px-3 py-1 rounded-lg text-xs font-mono font-bold uppercase tracking-wider border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-[3px_3px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all cursor-pointer",
                 cat.badgeStyle
               ]}
               title={cat.description}
@@ -162,14 +170,16 @@ CategoryEnum.options.forEach((key) => {
     </div>
   </section>
 
-  <!-- Interactive CTA Section -->
+  <!-- Interactive Forensic Scanner Section -->
   <section id="safety-quiz">
-    <DatingSmartlinkCTA
+    <ProfileScanner
       title="Instant Profile Safety & Compatibility Scan"
       subtitle="Run our rapid profile verification radar: filter bot swarms, audit photo metadata, and calibrate authentic chemistry."
-      offerUrl="/go"
     />
   </section>
+
+  <!-- Mobile Sticky Bottom Conversion Bar -->
+  <MobileStickyCTA />
 </BaseLayout>
 
 <!-- Client-side Interactive Filter & Archive Pagination Script -->

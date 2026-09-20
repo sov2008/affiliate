@@ -1,0 +1,127 @@
+---
+// MobileStickyCTA.astro - 90s Newsprint Mobile Sticky Conversion Bar
+---
+
+<aside
+  id="mobile-sticky-cta"
+  class="fixed bottom-0 left-0 right-0 z-50 p-3 bg-[#FFFDF7] border-t-2 border-slate-900 shadow-[0px_-4px_10px_rgba(15,23,42,0.15)] lg:hidden translate-y-full transition-transform duration-300"
+  style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom));"
+  role="complementary"
+  aria-label="Mobile Verification Quick Action"
+>
+  <!-- Close Button [×] -->
+  <button
+    type="button"
+    id="closeMobileCta"
+    class="absolute -top-3.5 right-3 w-6 h-6 rounded-full bg-[#FFFDF7] border-2 border-slate-900 text-slate-900 hover:bg-rose-100 hover:text-rose-600 flex items-center justify-center text-xs font-mono font-black shadow-[1px_1px_0px_0px_#0f172a] cursor-pointer transition-colors"
+    aria-label="Close Mobile Notification"
+    title="Close"
+  >
+    ×
+  </button>
+
+  <div class="max-w-md mx-auto flex items-center justify-between gap-3">
+    <!-- Left: Telemetry Dot + Unmasked Network Header -->
+    <div class="flex items-center gap-2.5 min-w-0 flex-1">
+      <span class="relative flex h-2.5 w-2.5 shrink-0" title="Telemetry Active">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+      </span>
+      <div class="min-w-0">
+        <span class="text-[10px] font-mono font-bold text-slate-500 uppercase block leading-tight">UNMASKED NETWORK</span>
+        <span class="text-xs font-black text-slate-900 uppercase truncate block leading-tight">Tired of Bot Profiles?</span>
+      </div>
+    </div>
+
+    <!-- Right: Conversion Action Link -->
+    <div class="shrink-0">
+      <a
+        id="mobileStickyCtaLink"
+        href="/go?source=mobile_sticky&trigger=unmasked_bar&intent=verified_singles"
+        rel="nofollow sponsored"
+        target="_blank"
+        class="px-3 py-2 bg-rose-600 hover:bg-rose-500 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none text-white font-black text-xs uppercase rounded border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] whitespace-nowrap transition-all inline-block"
+      >
+        VERIFY NOW &rarr;
+      </a>
+    </div>
+  </div>
+</aside>
+
+<script>
+  function initMobileStickyCTA() {
+    const bar = document.getElementById('mobile-sticky-cta');
+    const closeBtn = document.getElementById('closeMobileCta');
+    const ctaLink = document.getElementById('mobileStickyCtaLink') as HTMLAnchorElement | null;
+
+    if (!bar) return;
+
+    // Check session storage for dismissal
+    if (sessionStorage.getItem('hideMobileCta') === '1') {
+      bar.remove();
+      return;
+    }
+
+    // Manage CID attribution
+    let cid = '';
+    try {
+      cid = sessionStorage.getItem('flirtcheck_cid') || '';
+      if (!cid) {
+        cid = 'fc_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
+        sessionStorage.setItem('flirtcheck_cid', cid);
+      }
+    } catch {
+      cid = 'fc_' + Date.now().toString(36);
+    }
+
+    if (ctaLink) {
+      ctaLink.href = `/go?source=mobile_sticky&trigger=unmasked_bar&intent=verified_singles&cid=${encodeURIComponent(cid)}`;
+    }
+
+    let isVisible = false;
+    const footer = document.querySelector('footer');
+
+    function updateVisibility() {
+      if (sessionStorage.getItem('hideMobileCta') === '1') {
+        bar?.classList.add('translate-y-full');
+        return;
+      }
+
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+      // Check footer boundary
+      let footerVisible = false;
+      if (footer) {
+        const footerRect = footer.getBoundingClientRect();
+        footerVisible = footerRect.top <= (window.innerHeight - 10);
+      }
+
+      const shouldShow = scrollY > 350 && !footerVisible;
+
+      if (shouldShow && !isVisible) {
+        isVisible = true;
+        bar?.classList.remove('translate-y-full');
+      } else if (!shouldShow && isVisible) {
+        isVisible = false;
+        bar?.classList.add('translate-y-full');
+      }
+    }
+
+    closeBtn?.addEventListener('click', () => {
+      try {
+        sessionStorage.setItem('hideMobileCta', '1');
+      } catch {}
+      bar.classList.add('translate-y-full');
+      setTimeout(() => {
+        bar.remove();
+      }, 300);
+    });
+
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    window.addEventListener('resize', updateVisibility, { passive: true });
+    updateVisibility();
+  }
+
+  document.addEventListener('DOMContentLoaded', initMobileStickyCTA);
+  initMobileStickyCTA();
+</script>

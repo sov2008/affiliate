@@ -1,0 +1,41 @@
+---
+// ReadingProgressBar.astro - Fixed top reading progress indicator
+---
+
+<div
+  id="reading-progress-bar"
+  class="fixed top-0 left-0 h-1 bg-rose-600 z-50 transition-all duration-75 ease-out pointer-events-none shadow-[0_0_8px_rgba(225,29,72,0.6)]"
+  style="width: 0%;"
+  role="progressbar"
+  aria-label="Reading progress"
+  aria-valuemin="0"
+  aria-valuemax="100"
+  aria-valuenow="0"
+></div>
+
+<script>
+  function initReadingProgressBar() {
+    const bar = document.getElementById('reading-progress-bar');
+    if (!bar) return;
+
+    function updateProgress() {
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const innerHeight = window.innerHeight;
+      const totalDocScroll = scrollHeight - innerHeight;
+
+      const pct = totalDocScroll > 0 ? (scrollY / totalDocScroll) * 100 : 0;
+      const clamped = Math.min(100, Math.max(0, pct));
+
+      bar.style.width = `${clamped}%`;
+      bar.setAttribute('aria-valuenow', Math.round(clamped).toString());
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress, { passive: true });
+    updateProgress();
+  }
+
+  document.addEventListener('DOMContentLoaded', initReadingProgressBar);
+  initReadingProgressBar();
+</script>

@@ -2,18 +2,19 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import DatingSmartlinkCTA from '../components/DatingSmartlinkCTA.astro';
-import DatingRadarQuiz from '../components/DatingRadarQuiz.astro';
+import ReadingProgressBar from '../components/ReadingProgressBar.astro';
+import DossierContextBox from '../components/DossierContextBox.astro';
+import MobileStickyCTA from '../components/MobileStickyCTA.astro';
 import InlineQuiz from '../components/InlineQuiz.astro';
-import StickyRadar from '../components/StickyRadar.astro';
 import ExitIntentModal from '../components/ExitIntentModal.astro';
+import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.config';
 
 interface Props {
   title: string;
   description: string;
   pubDate: Date;
   author: string;
+  category?: Category;
   tags: string[];
   seoKeywords: string[];
   canonicalUrl?: string;
@@ -21,6 +22,8 @@ interface Props {
   image?: string;
   slug?: string;
   readingTime?: number;
+  motto?: string;
+  hook?: string;
 }
 
 const {
@@ -28,14 +31,22 @@ const {
   description,
   pubDate,
   author,
+  category,
   tags,
   seoKeywords,
   canonicalUrl = Astro.url.href,
   coverImage,
   image,
   slug,
-  readingTime = 4
+  readingTime = 4,
+  motto,
+  hook
 } = Astro.props;
+
+const catId: Category = category && CATEGORIES_METADATA[category] ? category : 'safety-dossier';
+const catMeta = CATEGORIES_METADATA[catId];
+const caseId = (slug || '2026').replace(/[^a-zA-Z0-9]/g, '').slice(-4).toUpperCase() || '2026';
+const effectiveMotto = motto || hook || catMeta.motto || "Love is... knowing that in a world of endless swipes, real chemistry happens between two imperfect souls.";
 
 const siteBaseUrl = 'https://flirtcheck.site';
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || siteBaseUrl;
@@ -85,6 +96,38 @@ const articleSchema = {
   "datePublished": pubDate.toISOString(),
   "dateModified": pubDate.toISOString(),
   "keywords": seoKeywords.join(', ')
+};
+
+// Schema.org Breadcrumbs
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": `${siteUrl}/`
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Archive",
+      "item": `${siteUrl}/#feed`
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": catMeta.shortTitle,
+      "item": `${siteUrl}/category/${catMeta.id}`
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": `CASE #${caseId}`,
+      "item": canonicalAbsUrl
+    }
+  ]
 };
 
 // Schema.org FAQPage Structured Data
@@ -158,76 +201,122 @@ const faqSchema = {
 
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </head>
 
   <body class="min-h-screen flex flex-col bg-[#FBF8F1] text-slate-900">
-    <!-- Reading Progress Bar (Fixed Top) -->
-    <div
-      id="reading-progress-bar"
-      class="reading-progress-bar fixed top-0 left-0 h-[4px] bg-rose-600 z-50 transition-[width] duration-75 ease-out pointer-events-none"
-      style="width: 0%;"
-      role="progressbar"
-      aria-label="Reading progress"
-      aria-valuemin="0"
-      aria-valuemax="100"
-      aria-valuenow="0"
-    ></div>
+    <!-- Top Reading Progress Indicator -->
+    <ReadingProgressBar />
 
     <Header activePath="/" />
 
-    <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-      <!-- Breadcrumbs Navigation -->
-      <Breadcrumbs items={[{ name: title, url: canonicalUrl }]} />
+    <main class="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+      <!-- Retro 90s Breadcrumbs Navigation -->
+      <nav aria-label="Breadcrumbs" class="py-2 mb-4 text-[11px] sm:text-xs font-mono font-bold text-slate-600">
+        <div class="flex flex-wrap items-center gap-1.5 uppercase">
+          <a href="/" class="hover:text-rose-600 transition-colors">HOME</a>
+          <span class="text-slate-400 font-bold">//</span>
+          <a href="/#feed" class="hover:text-rose-600 transition-colors">ARCHIVE</a>
+          <span class="text-slate-400 font-bold">//</span>
+          <a href={`/category/${catMeta.id}`} class="text-slate-900 hover:text-rose-600 transition-colors underline decoration-slate-400">
+            [{catMeta.shortTitle}]
+          </a>
+          <span class="text-slate-400 font-bold">//</span>
+          <span class="text-rose-600 font-black tracking-wider bg-rose-50 border border-slate-900 px-1.5 py-0.5 rounded shadow-[1px_1px_0px_0px_#0f172a]">
+            CASE #{caseId}
+          </span>
+        </div>
+      </nav>
 
       <!-- Article Header -->
-      <header class="my-8 pb-8 border-b-2 border-slate-900">
+      <header class="my-6 pb-6 border-b-2 border-slate-900">
         <div class="flex flex-wrap items-center gap-2 mb-4">
-          {tags.map(tag => (
-            <span class="px-2.5 py-0.5 rounded-md text-[11px] font-mono font-black uppercase bg-amber-100 text-slate-900 border border-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
-              {tag}
+          <a
+            href={`/category/${catMeta.id}`}
+            class={`px-2.5 py-0.5 rounded-md text-[11px] font-mono font-black uppercase border shadow-[1px_1px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-transform ${catMeta.badgeStyle}`}
+          >
+            [{catMeta.shortTitle}]
+          </a>
+          {tags.slice(0, 3).map(tag => (
+            <span class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase bg-white text-slate-700 border border-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
+              #{tag}
             </span>
           ))}
-          <span id="readingTimeBadge" class="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-slate-900 px-2.5 py-0.5 rounded-md bg-white border border-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
-            ⏱️ {readingTime} min read
+          <span id="readingTimeBadge" class="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-slate-900 px-2.5 py-0.5 rounded-md bg-amber-100 border border-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
+            ⏱️ {readingTime} MIN READ
           </span>
         </div>
 
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-6 font-sans">
+        <!-- Heavy Headline (90s Cel Gazette Style) -->
+        <h1 class="font-black text-2xl sm:text-4xl text-slate-900 tracking-tight leading-tight mb-4 font-sans uppercase">
           {title}
         </h1>
 
-        <p class="text-lg sm:text-xl text-slate-700 leading-relaxed mb-6 font-serif italic">
+        <!-- "Love is..." Signature Motto Epigraph -->
+        <div class="my-5 p-4 sm:p-5 rounded-xl border-2 border-slate-900 bg-gradient-to-r from-amber-50 to-rose-50 shadow-[4px_4px_0px_0px_#0f172a]">
+          <div class="flex items-center gap-2 mb-1.5 text-[10px] font-mono font-black uppercase text-rose-600 tracking-wider">
+            <span>❤️ NOTES FROM AN ANALOG ROMANTIC</span>
+            <span class="text-slate-400">•</span>
+            <span class="text-slate-600">EDITORIAL EPIGRAPH</span>
+          </div>
+          <p class="font-serif italic text-sm sm:text-base text-rose-700 font-semibold leading-relaxed">
+            "{effectiveMotto}"
+          </p>
+        </div>
+
+        <!-- Description Summary -->
+        <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-5 font-serif italic">
           {description}
         </p>
 
-        <div class="flex items-center gap-3 pt-4 border-t-2 border-slate-200 text-xs text-slate-600">
-          <div class="w-8 h-8 rounded-lg bg-rose-600 border-2 border-slate-900 flex items-center justify-center font-black text-white text-xs shadow-[2px_2px_0px_0px_#0f172a]">
-            FC
+        <!-- Meta Dateline -->
+        <div class="flex items-center justify-between gap-3 pt-3 border-t border-slate-300 text-xs text-slate-600 font-mono">
+          <div class="flex items-center gap-2.5">
+            <div class="w-7 h-7 rounded-lg bg-rose-600 border-2 border-slate-900 flex items-center justify-center font-black text-white text-xs shadow-[1px_1px_0px_0px_#0f172a]">
+              ✒️
+            </div>
+            <div>
+              <span class="font-black text-slate-900">{author}</span>
+              <span class="text-slate-400 mx-1">•</span>
+              <span class="text-slate-500">{formattedDate}</span>
+            </div>
           </div>
-          <div>
-            <div class="font-black text-slate-900">{author}</div>
-            <div class="font-mono text-slate-500">Published on {formattedDate}</div>
-          </div>
+          <span class="text-[10px] font-bold uppercase text-emerald-700 bg-emerald-100 border border-slate-900 px-2 py-0.5 rounded shadow-[1px_1px_0px_0px_#0f172a]">
+            VERIFIED REPORT
+          </span>
         </div>
       </header>
 
-      <!-- Featured Cover Image in Comic Frame (Strictly No Zoom) -->
-      <div class="mb-10 overflow-hidden rounded-2xl border-2 border-slate-900 shadow-[6px_6px_0px_0px_#0f172a] bg-white">
+      <!-- 16:9 Full WebP Cover Frame -->
+      <div class="mb-8 overflow-hidden rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a] bg-[#F4EFE6]">
         <img
           src={effectiveCoverImage || `/images/posts/${slug || 'dating-scam-verification-guide-2026'}.webp`}
           alt={title}
-          class="w-full aspect-video object-cover select-none pointer-events-none"
+          class="w-full aspect-[16/9] object-cover select-none pointer-events-none"
           loading="eager"
         />
       </div>
 
-      <!-- Article Markdown Typography Content (Vintage Editorial) -->
+      <!-- Article Markdown Typography Content (Vintage Editorial Column with Drop Cap) -->
       <article class="prose prose-slate max-w-none 
-        [&_h1]:text-3xl [&_h1]:font-black [&_h1]:text-slate-900 [&_h1]:mt-8 [&_h1]:mb-4
-        [&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-slate-900 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:pb-2 [&_h2]:border-b-2 [&_h2]:border-slate-900
-        [&_h3]:text-xl [&_h3]:font-black [&_h3]:text-rose-600 [&_h3]:mt-6 [&_h3]:mb-3
-        [&_p]:text-slate-800 [&_p]:leading-relaxed [&_p]:mb-4 [&_p]:text-base
+        [&>p:first-of-type::first-letter]:float-left 
+        [&>p:first-of-type::first-letter]:text-4xl sm:[&>p:first-of-type::first-letter]:text-5xl 
+        [&>p:first-of-type::first-letter]:font-black 
+        [&>p:first-of-type::first-letter]:mr-3.5 
+        [&>p:first-of-type::first-letter]:mb-1 
+        [&>p:first-of-type::first-letter]:px-3 
+        [&>p:first-of-type::first-letter]:py-1.5 
+        [&>p:first-of-type::first-letter]:bg-amber-100 
+        [&>p:first-of-type::first-letter]:border-2 
+        [&>p:first-of-type::first-letter]:border-slate-900 
+        [&>p:first-of-type::first-letter]:shadow-[2px_2px_0px_0px_#0f172a] 
+        [&>p:first-of-type::first-letter]:leading-none 
+        [&>p:first-of-type::first-letter]:text-slate-900
+        [&_h1]:text-2xl sm:[&_h1]:text-3xl [&_h1]:font-black [&_h1]:text-slate-900 [&_h1]:mt-8 [&_h1]:mb-4 [&_h1]:uppercase
+        [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-slate-900 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:pb-2 [&_h2]:border-b-2 [&_h2]:border-slate-900 [&_h2]:uppercase
+        [&_h3]:text-lg sm:[&_h3]:text-xl [&_h3]:font-black [&_h3]:text-rose-600 [&_h3]:mt-6 [&_h3]:mb-3 [&_h3]:uppercase
+        [&_p]:text-slate-800 [&_p]:leading-relaxed [&_p]:mb-4 [&_p]:text-[15px] sm:[&_p]:text-base
         [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:space-y-2 [&_ul]:text-slate-800
         [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:space-y-2 [&_ol]:text-slate-800
         [&_li]:text-slate-800
@@ -235,6 +324,27 @@ const faqSchema = {
         [&_hr]:border-slate-900/30 [&_hr]:my-8">
         <slot />
       </article>
+
+      <!-- Contextual Monetization Callout Box (Before concluding section) -->
+      <DossierContextBox />
+
+      <!-- Author Sign-off Dossier Box -->
+      <div class="my-8 p-5 rounded-xl bg-white border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a] flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <div class="w-12 h-12 rounded-lg bg-amber-100 border-2 border-slate-900 flex items-center justify-center text-2xl shadow-[2px_2px_0px_0px_#0f172a] shrink-0">
+          ✒️
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+            <h4 class="font-black text-sm uppercase text-slate-900 font-sans">Desk Editor & Investigator</h4>
+            <span class="text-[10px] font-mono text-emerald-700 bg-emerald-100 border border-slate-900 px-2 py-0.5 rounded font-bold shadow-[1px_1px_0px_0px_#0f172a]">
+              BASE: KHARKIV // DISPATCH FILED
+            </span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed font-serif italic">
+            Documenting the collision of synthetic romance scripts and authentic human chemistry. Verified for FlirtCheck Editorial Archive.
+          </p>
+        </div>
+      </div>
 
       <!-- Mid-Article Sticky Inline Radar Quiz (Injected dynamically into article midpoint) -->
       <div id="mid-quiz-container" class="my-8 not-prose">
@@ -247,7 +357,7 @@ const faqSchema = {
       </div>
 
       <!-- Conversion Hook: Full AI Match & Integrity Radar Quiz -->
-      <section class="mt-12 mb-8">
+      <section class="mt-10 mb-8">
         <InlineQuiz
           slug={slug}
           quizId="bottom-radar-quiz"
@@ -257,17 +367,17 @@ const faqSchema = {
       </section>
 
       <!-- Editorial FAQ Section (Comic Dossier Box) -->
-      <section class="my-12 p-6 sm:p-8 rounded-2xl bg-white border-2 border-slate-900 shadow-[6px_6px_0px_0px_#0f172a]">
+      <section class="my-10 p-6 sm:p-8 rounded-2xl bg-white border-2 border-slate-900 shadow-[6px_6px_0px_0px_#0f172a]">
         <div class="flex items-center gap-2 text-xs font-mono uppercase text-rose-600 font-black mb-2">
           <span>● VERIFIED KNOWLEDGEBASE</span>
         </div>
-        <h3 class="text-2xl font-black text-slate-900 tracking-tight mb-6 font-sans">
+        <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mb-5 font-sans uppercase">
           Frequently Asked Questions About Profile Safety
         </h3>
         <div class="space-y-4">
           <div class="p-4 rounded-xl bg-amber-50/80 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
-            <h4 class="font-black text-slate-900 text-sm sm:text-base mb-2 flex items-center gap-2">
-              <span class="text-rose-600 font-mono">Q1:</span> What is the fastest way to verify a dating profile?
+            <h4 class="font-black text-slate-900 text-sm sm:text-base mb-1.5 flex items-center gap-2">
+              <span class="text-rose-600 font-mono font-black">Q1:</span> What is the fastest way to verify a dating profile?
             </h4>
             <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-serif italic">
               The fastest zero-cost method is requesting a 15-second live video call or using our integrated safety lookup tool before exchanging personal social media or phone numbers.
@@ -275,8 +385,8 @@ const faqSchema = {
           </div>
 
           <div class="p-4 rounded-xl bg-amber-50/80 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
-            <h4 class="font-black text-slate-900 text-sm sm:text-base mb-2 flex items-center gap-2">
-              <span class="text-rose-600 font-mono">Q2:</span> Can AI detect whether a dating profile is genuine?
+            <h4 class="font-black text-slate-900 text-sm sm:text-base mb-1.5 flex items-center gap-2">
+              <span class="text-rose-600 font-mono font-black">Q2:</span> Can AI detect whether a dating profile is genuine?
             </h4>
             <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-serif italic">
               Yes. Automated security filters evaluate account creation velocity, IP fingerprint anomalies, syntactic repetition across chat logs, and visual GAN artifacts in uploaded gallery pictures.
@@ -284,8 +394,8 @@ const faqSchema = {
           </div>
 
           <div class="p-4 rounded-xl bg-amber-50/80 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
-            <h4 class="font-black text-slate-900 text-sm sm:text-base mb-2 flex items-center gap-2">
-              <span class="text-rose-600 font-mono">Q3:</span> What should I do if I discover a scammer?
+            <h4 class="font-black text-slate-900 text-sm sm:text-base mb-1.5 flex items-center gap-2">
+              <span class="text-rose-600 font-mono font-black">Q3:</span> What should I do if I discover a scammer?
             </h4>
             <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-serif italic">
               Immediately capture screenshots of the profile and chat log, report the account within the dating platform's safety center, block all communication channels, and never send funds under any circumstances.
@@ -317,35 +427,17 @@ const faqSchema = {
       document.addEventListener('DOMContentLoaded', injectMidArticleQuiz);
       injectMidArticleQuiz();
 
-      // Reading Progress Bar & Image Lazy Loading
-      function initReadingExperience() {
-        const progressBar = document.getElementById('reading-progress-bar');
-        function updateProgress() {
-          if (!progressBar) return;
-          const scrollTop = window.scrollY || document.documentElement.scrollTop;
-          const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-          const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-          const clamped = Math.min(100, Math.max(0, pct));
-          progressBar.style.width = `${clamped}%`;
-          progressBar.setAttribute('aria-valuenow', Math.round(clamped).toString());
-        }
-
-        window.addEventListener('scroll', updateProgress, { passive: true });
-        updateProgress();
-
-        // Ensure in-body article images are lazy-loaded
+      // Ensure in-body article images are lazy-loaded
+      document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('article img').forEach((img) => {
           if (!img.getAttribute('loading')) img.setAttribute('loading', 'lazy');
           if (!img.getAttribute('decoding')) img.setAttribute('decoding', 'async');
         });
-      }
-
-      document.addEventListener('DOMContentLoaded', initReadingExperience);
-      initReadingExperience();
+      });
     </script>
 
-    <!-- Mobile Sticky Radar Bar with Geo-Personalization & Activity Ping -->
-    <StickyRadar slug={slug} />
+    <!-- Mobile Sticky Conversion Bar for mobile readers -->
+    <MobileStickyCTA />
 
     <!-- Exit-Intent Retention Modal -->
     <ExitIntentModal slug={slug} />
