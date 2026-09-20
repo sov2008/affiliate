@@ -5,7 +5,7 @@ title: >-
 description: >-
   Discover expert tactics on matches but no dates bottleneck dating apps.
   Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-09-19'
 category: modern-psychology
 caseId: FC-410-PSY
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

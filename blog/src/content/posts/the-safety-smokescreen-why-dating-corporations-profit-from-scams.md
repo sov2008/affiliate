@@ -5,7 +5,7 @@ title: >-
 description: >-
   Insiders from trust and safety departments explain why fraud detection is
   starved of resources while paying bot-farms generate steady corporate margin.
-pubDate: '2026-09-17'
+pubDate: '2026-08-26'
 category: safety-dossier
 caseId: FC-689-SEC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

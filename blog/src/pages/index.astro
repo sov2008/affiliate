@@ -193,7 +193,7 @@ const featuredPostCover = rawFeaturedCover
 
         <!-- 2. Paginated Regular Dispatches Feed in 2-Column Grid -->
         {regularPosts.length > 0 ? (
-          <div id="postsFeed" class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+          <div id="postsFeed" class="grid grid-cols-1 gap-6 w-full">
             {regularPosts.map((post, idx) => (
               <FeedItem post={post} index={idx} />
             ))}

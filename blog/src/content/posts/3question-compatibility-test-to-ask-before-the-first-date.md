@@ -3,7 +3,7 @@ title: 3‑Question Compatibility Test to Ask Before the First Date
 description: >-
   Discover expert tactics on compatibility questions before first date.
   Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-06-24'
 category: first-dates
 caseId: FC-525-OPS
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

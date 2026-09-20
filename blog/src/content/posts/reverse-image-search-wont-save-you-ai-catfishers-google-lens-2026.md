@@ -6,7 +6,7 @@ description: >-
   Why Google Lens and TinEye fail against modern dating catfishers. Technical
   analysis of diffusion pipelines, adversarial noise injection, and real
   verification heuristics.
-pubDate: '2026-09-15'
+pubDate: '2026-08-11'
 category: algo-mechanics
 caseId: FC-692-ALG
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

@@ -3,7 +3,7 @@ title: 'The 2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Thrive Onl
 description: >-
   Discover expert tactics on bumble compliments spotlight worth it review.
   Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-08-17'
 category: romantic-essays
 caseId: FC-390-ARC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

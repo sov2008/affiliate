@@ -3,7 +3,7 @@ title: 'How to Verify If a Tinder Match Is a Bot: 2026 Detection Blueprint'
 description: >-
   Discover expert tactics on how to verify if tinder match is bot. Comprehensive
   2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-07-28'
 category: safety-dossier
 caseId: FC-829-SEC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

@@ -3,7 +3,7 @@ title: "Stolen Photos, Fake Dating Profile? How to Fight Back in 2026 \U0001F6A8
 description: >-
   Discover expert tactics on stolen photos fake dating profile. Comprehensive
   2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-08-14'
 category: safety-dossier
 caseId: FC-526-SEC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

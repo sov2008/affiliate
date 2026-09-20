@@ -3,7 +3,7 @@ title: 'Hinge Opening Lines That Get 85% Reply Rates: Data-Backed Strategies for
 description: >-
   Discover expert tactics on hinge opening lines that get replies. Comprehensive
   2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-07-17'
 category: digital-dialogue
 caseId: FC-425-NET
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

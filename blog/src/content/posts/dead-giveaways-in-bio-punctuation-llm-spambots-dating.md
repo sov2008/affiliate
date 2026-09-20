@@ -3,7 +3,7 @@ title: 'Dead Giveaways in Bio Punctuation: How LLM Spambots Write Dating Profile
 description: >-
   Why em-dashes, symmetric triads, and immaculate Oxford commas are the clearest
   indicators that your dating app match was drafted by an LLM prompt.
-pubDate: '2026-09-15'
+pubDate: '2026-07-12'
 category: digital-dialogue
 caseId: FC-699-NET
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

@@ -3,7 +3,7 @@ title: '2026 Dating Safety Playbook: Verify, Optimize, and Protect Your Online R
 description: >-
   Discover expert tactics on micro flirting texting attraction psychology.
   Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-06-09'
 category: romantic-essays
 caseId: FC-742-ARC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

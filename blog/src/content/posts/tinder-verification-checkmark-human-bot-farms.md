@@ -4,7 +4,7 @@ description: >-
   The technical reality of Tinder's blue checkmark: virtual camera injection,
   darknet account marketplaces, and human-in-the-loop verification bypasses in
   2026.
-pubDate: '2026-09-15'
+pubDate: '2026-09-07'
 category: safety-dossier
 caseId: FC-558-SEC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

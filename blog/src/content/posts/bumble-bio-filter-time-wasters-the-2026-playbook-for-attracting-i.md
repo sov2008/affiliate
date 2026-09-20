@@ -5,7 +5,7 @@ title: >-
 description: >-
   Discover expert tactics on bumble bio filter time wasters. Comprehensive 2026
   dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-07-02'
 category: modern-psychology
 caseId: FC-708-PSY
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

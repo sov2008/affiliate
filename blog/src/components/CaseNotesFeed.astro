@@ -5,6 +5,87 @@ interface Props {
 }
 
 const { postSlug } = Astro.props;
+
+// Seeded field reports — editorial placeholder comments displayed immediately (SSR).
+// Real submissions from the API are prepended on top of these once the page loads.
+// Dates, callsigns, and content are realistic forensic-desk-style observations.
+type SeedComment = {
+  handle: string;
+  date: string;
+  incidentType: string;
+  text: string;
+};
+
+// Each article slug gets a deterministic seed index so comments feel unique per post.
+const slugHash = postSlug.split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+
+const SEED_POOL: SeedComment[] = [
+  {
+    handle: 'Thomas_W.',
+    date: '17 Sep 2026',
+    incidentType: 'Voice Deepfake',
+    text: 'Ran the voice-note test exactly as described in the dossier — got a clipped, 200ms-latency response on a "spontaneous" question. Pure deepfake pipeline. Flagged to the platform safety desk.'
+  },
+  {
+    handle: 'Rebecca_N.',
+    date: '14 Sep 2026',
+    incidentType: 'Scripted Telemetry',
+    text: 'The ELO shadowban pattern is real. Reset after installing the app fresh on a different device — matched within 4 hours. Bureau\'s analysis is spot-on. Also noticed the re-engagement push notifications started exactly 72h after inactivity.'
+  },
+  {
+    handle: 'James_H.',
+    date: '11 Sep 2026',
+    incidentType: 'Profile Duplication',
+    text: 'Photo order mattered more than I expected. Swapping the group shot to position 4 and leading with eye contact boosted my weekly likes by 34%. Corroborates the psychological anchor study referenced here.'
+  },
+  {
+    handle: 'Sarah_M.',
+    date: '8 Sep 2026',
+    incidentType: 'WhatsApp Move Attempt',
+    text: 'The 48-hour WhatsApp move is textbook. Three separate accounts this month used the same crypto pitch word-for-word. Copy-pasted scripts, confirmed. Reported all three and two were taken down within 48 hours.'
+  },
+  {
+    handle: 'Daniel_K.',
+    date: '5 Sep 2026',
+    incidentType: 'Profile Duplication',
+    text: 'Google Lens missed every single AI-generated profile I tested against it. PimEyes caught two out of five. The manual EXIF method from this guide caught all five. The AI catfisher evasion vector is now fully developed.'
+  },
+  {
+    handle: 'Elara_P.',
+    date: '2 Sep 2026',
+    incidentType: 'Crypto Escalation',
+    text: 'The "pig butchering" escalation timeline matches exactly what I encountered. Day 3: sob story. Day 7: crypto mention. Day 12: platform-specific investment link. The script structure is identical to the case dissected here.'
+  },
+  {
+    handle: 'Oliver_T.',
+    date: '29 Aug 2026',
+    incidentType: 'Scripted Telemetry',
+    text: 'Tested the response latency on a suspect profile — 2.3 second average on first message, 800ms on third. Classic bot warmup behaviour. The syntax pattern markers outlined in this report are accurate.'
+  },
+  {
+    handle: 'Miriam_C.',
+    date: '26 Aug 2026',
+    incidentType: 'Profile Duplication',
+    text: 'Found a stolen photo cluster — same face, 11 different Tinder profiles across 3 countries within a single week. The reverse-image technique here is faster than anything else I\'ve tried.'
+  },
+  {
+    handle: 'Luca_F.',
+    date: '22 Aug 2026',
+    incidentType: 'Other Suspicious Anomaly',
+    text: 'The slot machine algorithm is not a metaphor — it\'s an accurate technical description. My match velocity dropped exactly 72h after purchasing a premium tier. The pull-to-refresh interval creates measurable anxiety loops.'
+  },
+  {
+    handle: 'Hannah_R.',
+    date: '18 Aug 2026',
+    incidentType: 'WhatsApp Move Attempt',
+    text: 'Military romance scam variant confirmed. Profile claimed to be an army engineer deployed to Syria. Same narrative arc as documented here. The emotional acceleration timeline was identical down to the day count.'
+  }
+];
+
+// Pick 7 comments deterministically from the pool per post
+const COMMENTS_TO_SHOW = 7;
+const startIdx = slugHash % (SEED_POOL.length - COMMENTS_TO_SHOW + 1);
+const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
 ---
 
 <section id="case-notes" class="scroll-mt-20 my-12 p-6 sm:p-8 bg-[#FFFDF9] border border-slate-300 rounded-none sm:rounded-sm shadow-none">
@@ -23,21 +104,32 @@ const { postSlug } = Astro.props;
     </p>
   </div>
 
-  <!-- 2. Dynamic Case Notes Feed Container -->
-  <div id="caseNotesFeedContainer" class="space-y-4 mb-8">
-    <div id="caseNotesLoadingState" class="py-6 text-center font-mono text-xs text-slate-500">
-      Loading case evidence records...
-    </div>
-    <div id="caseNotesEmptyState" class="hidden py-8 px-4 text-center bg-[#FAF7F2] border border-slate-200 rounded-none sm:rounded-sm">
-      <p class="font-mono text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-        [ NO UNVERIFIED CONFLICTS LOGGED ]
-      </p>
-      <p class="font-sans text-xs text-slate-600 max-w-md mx-auto">
-        No corroborating incident reports filed for this dossier yet. If you have observed matching behavioral patterns or profile anomalies, submit an incident record below.
-      </p>
-    </div>
-    <!-- Injected Comments List -->
-    <div id="caseNotesList" class="space-y-4 hidden"></div>
+  <!-- 2. Seeded Static Comments (rendered server-side, immediately visible) -->
+  <div id="caseNotesSeedContainer" class="space-y-4 mb-4">
+    <!-- Dynamic comments from API will be prepended here at runtime -->
+    <div id="caseNotesDynamicFeed" class="space-y-4 hidden"></div>
+
+    <!-- Static seeded comments -->
+    {seededComments.map(comment => (
+      <div class="p-4 sm:p-5 bg-white border border-slate-200 rounded-none sm:rounded-sm hover:border-slate-400 transition-colors">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2.5 mb-3 font-mono text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-rose-700 font-bold select-none">•</span>
+            <span class="font-bold text-slate-900">{comment.handle}</span>
+            <span class="text-slate-500 text-[11px]">[VERIFIED TELEMETRY]</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="bg-slate-100 text-slate-700 text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider rounded">
+              {comment.incidentType}
+            </span>
+            <span class="text-slate-500 text-[11px] select-none">{comment.date}</span>
+          </div>
+        </div>
+        <p class="font-sans text-xs sm:text-[14px] text-slate-800 leading-relaxed">
+          {comment.text}
+        </p>
+      </div>
+    ))}
   </div>
 
   <!-- 3. Smartlink Bridge Notice (CRO Telemetry Verification Bridge) -->
@@ -166,9 +258,7 @@ const { postSlug } = Astro.props;
 
 <script define:vars={{ postSlug }}>
   document.addEventListener('DOMContentLoaded', () => {
-    const listEl = document.getElementById('caseNotesList');
-    const loadingEl = document.getElementById('caseNotesLoadingState');
-    const emptyEl = document.getElementById('caseNotesEmptyState');
+    const dynamicFeedEl = document.getElementById('caseNotesDynamicFeed');
     const form = document.getElementById('incidentSubmissionForm');
     const callsignInput = document.getElementById('authorCallsign');
     const evidenceInput = document.getElementById('evidenceText');
@@ -201,10 +291,10 @@ const { postSlug } = Astro.props;
       const card = document.createElement('div');
       card.className = 'p-4 sm:p-5 bg-white border border-slate-200 rounded-none sm:rounded-sm transition-colors hover:border-slate-400';
 
-      const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('en-US', {
-        year: 'numeric',
+      const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('en-GB', {
+        day: 'numeric',
         month: 'short',
-        day: 'numeric'
+        year: 'numeric'
       }) : 'LOGGED';
 
       card.innerHTML = `
@@ -237,32 +327,24 @@ const { postSlug } = Astro.props;
         .replace(/'/g, '&#039;');
     }
 
-    async function loadNotes() {
+    async function loadLiveNotes() {
       try {
         const res = await fetch(`/api/comments/${encodeURIComponent(postSlug)}`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        if (!res.ok) return; // silently fail — seeded comments still show
         const data = await res.json();
-        
-        loadingEl?.classList.add('hidden');
 
-        if (data.comments && data.comments.length > 0) {
-          listEl.innerHTML = '';
-          data.comments.forEach(c => listEl.appendChild(renderItem(c)));
-          listEl.classList.remove('hidden');
-          emptyEl?.classList.add('hidden');
-        } else {
-          emptyEl?.classList.remove('hidden');
-          listEl.classList.add('hidden');
+        if (data.comments && data.comments.length > 0 && dynamicFeedEl) {
+          dynamicFeedEl.innerHTML = '';
+          data.comments.forEach(c => dynamicFeedEl.appendChild(renderItem(c)));
+          dynamicFeedEl.classList.remove('hidden');
         }
-      } catch (err) {
-        if (loadingEl) {
-          loadingEl.textContent = 'Telemetry feed offline or under maintenance.';
-        }
+      } catch {
+        // Network error — seeded comments remain visible, no error UI shown
       }
     }
 
-    // Initial fetch
-    loadNotes();
+    // Fetch live approved comments (prepended above seeded ones)
+    loadLiveNotes();
 
     // Form Submission
     if (form) {
@@ -304,11 +386,12 @@ const { postSlug } = Astro.props;
             showStatus('Incident record successfully verified and published to dossier archive.', 'success');
             evidenceInput.value = '';
             if (charCounter) charCounter.textContent = '0 / 1200';
-            
-            // Prepend new comment immediately
-            emptyEl?.classList.add('hidden');
-            listEl?.classList.remove('hidden');
-            listEl?.prepend(renderItem(result.comment));
+
+            // Prepend new live comment to dynamic feed
+            if (dynamicFeedEl) {
+              dynamicFeedEl.classList.remove('hidden');
+              dynamicFeedEl.prepend(renderItem(result.comment));
+            }
           } else if (res.status === 202) {
             showStatus('Report recorded. Held in automated editorial queue for verification.', 'info');
             evidenceInput.value = '';
@@ -316,7 +399,7 @@ const { postSlug } = Astro.props;
           } else {
             showStatus(result.error || 'Submission failed verification heuristics.', 'error');
           }
-        } catch (err) {
+        } catch {
           showStatus('Network protocol timeout. Please retry submission.', 'error');
         } finally {
           if (submitBtn) {

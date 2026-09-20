@@ -3,7 +3,7 @@ title: '2026 Ultimate Online Dating Safety Guide: Verify, Optimize, & Date Confi
 description: >-
   Discover expert tactics on tinder chat to real date script. Comprehensive 2026
   dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-06-21'
 category: romantic-essays
 caseId: FC-762-ARC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

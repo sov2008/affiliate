@@ -5,7 +5,7 @@ title: >-
 description: >-
   Discover expert tactics on group photos on dating apps rules. Comprehensive
   2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-07-31'
 category: algo-mechanics
 caseId: FC-102-ALG
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

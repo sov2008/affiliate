@@ -5,7 +5,7 @@ title: >-
 description: >-
   Discover expert tactics on revive dead tinder conversations pattern
   interrupts. Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-06-06'
 category: first-dates
 caseId: FC-839-OPS
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

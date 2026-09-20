@@ -3,7 +3,7 @@ title: 'Voice Phishing on Tinder: Why Sending Audio Notes Has Become a Trap'
 description: >-
   How a harmless 10-second voice note on dating apps can be weaponized into
   biometric voice cloning for banking fraud and emergency scams in 2026.
-pubDate: '2026-09-15'
+pubDate: '2026-09-10'
 category: digital-dialogue
 caseId: FC-381-NET
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

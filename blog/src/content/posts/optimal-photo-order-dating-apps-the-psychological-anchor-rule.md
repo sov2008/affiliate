@@ -3,7 +3,7 @@ title: 'Optimal Photo Order Dating Apps: The Psychological Anchor Rule'
 description: >-
   Discover expert tactics on optimal photo order dating apps. Comprehensive 2026
   dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-08-05'
 category: algo-mechanics
 caseId: FC-138-ALG
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

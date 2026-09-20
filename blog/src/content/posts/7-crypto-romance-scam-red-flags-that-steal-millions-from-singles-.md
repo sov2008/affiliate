@@ -5,7 +5,7 @@ title: >-
 description: >-
   Discover expert tactics on crypto romance scam red flags. Comprehensive 2026
   dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-06-27'
 category: safety-dossier
 caseId: FC-916-SEC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

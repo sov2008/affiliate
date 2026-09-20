@@ -15,12 +15,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const wordCount = post.body ? post.body.split(/\s+/).length : (post.data.description ? post.data.description.split(/\s+/).length * 8 : 600);
 const readingTime = Math.max(2, Math.ceil(wordCount / 200));
 
-// Format date for ledger strip: "2026.09.14 · 6 MIN"
-const ledgerDate = new Intl.DateTimeFormat('en-CA', {
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit'
-}).format(post.data.pubDate).replace(/-/g, '.');
+// Format date for ledger strip: "3 Jun 2026"
+const ledgerDate = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric'
+}).format(post.data.pubDate);
 
 // Category metadata
 const categoryMeta = post.data.category ? CATEGORIES_METADATA[post.data.category] : null;
@@ -52,7 +52,7 @@ function getAuthenticLead(body: string | undefined, desc: string | undefined): s
         const lead = sentences.slice(0, 2).join('').trim();
         if (lead.length >= 60) return lead;
       }
-      if (firstP.length >= 60) return firstP.slice(0, 240).trim() + '...';
+      if (firstP.length >= 60) return firstP.slice(0, 260).trim() + '...';
     }
   }
   if (desc && !/^(discover|learn|in this (comprehensive )?guide|master|explore|uncover)/i.test(desc)) {
@@ -73,74 +73,87 @@ const displayTags = (post.data.tags || []).slice(0, 2);
   data-index={index}
   class:list={[
     isFeatured ? "featured-item" : "feed-item",
-    "feed-card w-full bg-white border border-slate-300 hover:border-slate-500 transition-colors rounded-none sm:rounded-sm shadow-none flex flex-col h-full overflow-hidden",
+    "feed-card w-full bg-white border border-slate-300 hover:border-slate-500 transition-colors rounded-none sm:rounded-sm shadow-none overflow-hidden",
     (index !== undefined && index >= 8) ? "hidden" : ""
   ]}
 >
-  <!-- 1. Header Ledger Strip -->
-  <div class="bg-[#FAF7F2] border-b border-slate-200 px-3.5 py-2 flex justify-between items-center text-[10px] font-mono font-bold text-slate-600 tracking-wider uppercase">
-    <div class="flex items-center gap-1.5 truncate mr-2">
-      <span class="w-1.5 h-1.5 rounded-full bg-slate-800 shrink-0"></span>
-      <span class="truncate">[{categoryLabel}]</span>
-    </div>
-    <div class="shrink-0 text-slate-500 font-medium">
-      {ledgerDate} · {readingTime} MIN
-    </div>
-  </div>
+  <!-- Horizontal layout: image left (fixed width) + content right -->
+  <div class="flex flex-row">
+    <!-- Image: fixed 40% width on sm+, hidden on very small -->
+    <a
+      href={postUrl}
+      class="hidden sm:block shrink-0 w-48 md:w-56 lg:w-64 relative group bg-[#F4EFE6] overflow-hidden"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <img
+        src={coverSrc}
+        alt={post.data.title}
+        loading={isFeatured ? "eager" : "lazy"}
+        class="w-full h-full object-cover select-none pointer-events-none block transition-transform duration-300 group-hover:scale-[1.02] absolute inset-0"
+        width="256"
+        height="192"
+      />
+    </a>
 
-  <!-- 2. Image 16:9 Container -->
-  {coverSrc && (
-    <div class="w-full aspect-[16/9] border-b border-slate-200 bg-[#F4EFE6] overflow-hidden relative block">
-      <a href={postUrl} class="block w-full h-full group" tabindex="-1" aria-hidden="true">
+    <!-- Content column -->
+    <div class="flex flex-col flex-1 min-w-0">
+      <!-- Header Ledger Strip -->
+      <div class="bg-[#FAF7F2] border-b border-slate-200 px-4 py-2 flex justify-between items-center text-[10px] font-mono font-bold text-slate-600 tracking-wider uppercase">
+        <div class="flex items-center gap-1.5 truncate mr-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-slate-800 shrink-0"></span>
+          <span class="truncate">[{categoryLabel}]</span>
+        </div>
+        <div class="shrink-0 text-slate-500 font-medium">
+          {ledgerDate} · {readingTime} MIN
+        </div>
+      </div>
+
+      <!-- Mobile-only image (full width, below ledger strip) -->
+      <a href={postUrl} class="sm:hidden block w-full aspect-[16/9] bg-[#F4EFE6] overflow-hidden" tabindex="-1" aria-hidden="true">
         <img
           src={coverSrc}
           alt={post.data.title}
-          loading={isFeatured ? "eager" : "lazy"}
-          class="w-full h-full object-cover select-none pointer-events-none block transition-transform duration-300 group-hover:scale-[1.01]"
-          width="600"
-          height="338"
+          loading="lazy"
+          class="w-full h-full object-cover"
+          width="400"
+          height="225"
         />
       </a>
-      {isFeatured && (
-        <div class="absolute top-2.5 left-2.5 bg-slate-900 text-white font-mono font-bold text-[9px] px-2 py-0.5 rounded tracking-wider uppercase border border-slate-900">
-          LEAD INVESTIGATION
+
+      <!-- Body -->
+      <div class="p-4 sm:p-5 flex flex-col flex-1 justify-between">
+        <div>
+          <h2 class="font-serif font-bold text-lg sm:text-xl text-slate-900 leading-snug tracking-tight hover:text-rose-700 transition-colors mb-2 line-clamp-2">
+            <a href={postUrl} class="hover:underline">{post.data.title}</a>
+          </h2>
+
+          <p class="line-clamp-3 text-xs sm:text-sm text-slate-600 leading-relaxed font-sans mb-4">
+            {leadText}
+          </p>
         </div>
-      )}
-    </div>
-  )}
 
-  <!-- 3. Card Body -->
-  <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-    <div>
-      <!-- Strictly Black Headline with rose hover -->
-      <h2 class="font-serif font-bold text-lg sm:text-xl text-slate-900 leading-snug tracking-tight hover:text-rose-700 transition-colors mb-2.5 line-clamp-2">
-        <a href={postUrl} class="hover:underline">{post.data.title}</a>
-      </h2>
+        <!-- Footer Row: Tags + Action -->
+        <div class="pt-3 border-t border-slate-100 flex justify-between items-center gap-3">
+          <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px] text-slate-500 overflow-hidden">
+            {displayTags.map(tag => (
+              <span class="bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-600">
+                #{tag}
+              </span>
+            ))}
+            {displayTags.length === 0 && (
+              <span class="text-slate-600">#Forensics</span>
+            )}
+          </div>
 
-      <p class="line-clamp-3 text-xs sm:text-sm text-slate-600 leading-relaxed font-sans mb-4">
-        {leadText}
-      </p>
-    </div>
-
-    <!-- 4. Footer Row: Tags + Action -->
-    <div class="pt-3 border-t border-slate-100 flex justify-between items-center gap-3">
-      <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px] text-slate-500 overflow-hidden">
-        {displayTags.map(tag => (
-          <span class="bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-600">
-            #{tag}
-          </span>
-        ))}
-        {displayTags.length === 0 && (
-          <span class="text-slate-600">#Forensics</span>
-        )}
+          <a
+            href={postUrl}
+            class="min-h-[44px] inline-flex items-center font-mono font-bold text-xs uppercase text-slate-900 hover:text-rose-700 underline underline-offset-4 decoration-1 shrink-0 transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+          >
+            Read Report ↗
+          </a>
+        </div>
       </div>
-
-      <a
-        href={postUrl}
-        class="min-h-[44px] inline-flex items-center font-mono font-bold text-xs uppercase text-slate-900 hover:text-rose-700 underline underline-offset-4 decoration-1 shrink-0 transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
-      >
-        Read Report ↗
-      </a>
     </div>
   </div>
 </article>

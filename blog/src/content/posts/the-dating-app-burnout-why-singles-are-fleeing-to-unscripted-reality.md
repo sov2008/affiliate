@@ -5,7 +5,7 @@ title: >-
 description: >-
   An essay on algorithmic exhaustion: how gamified courtships turned dates into
   job interviews and sparked a cultural exodus back to organic chemistry.
-pubDate: '2026-09-17'
+pubDate: '2026-08-23'
 category: modern-psychology
 caseId: FC-113-PSY
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

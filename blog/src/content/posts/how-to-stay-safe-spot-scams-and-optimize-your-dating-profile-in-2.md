@@ -3,7 +3,7 @@ title: 'How to Stay Safe, Spot Scams, and Optimize Your Dating Profile in 2026'
 description: >-
   Discover expert tactics on high status hobbies dating profile photos.
   Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-07-25'
 category: first-dates
 caseId: FC-848-OPS
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

@@ -5,7 +5,7 @@ title: >-
 description: >-
   Discover expert tactics on ai catfishing hinge deepfake photos. Comprehensive
   2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-06-30'
 category: safety-dossier
 caseId: FC-446-SEC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

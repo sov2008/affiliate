@@ -6,7 +6,7 @@ description: >-
   Comprehensive 2026 playbook on verifying dating profiles, detecting
   AI-generated photos, avoiding romance scam traps, and protecting your privacy
   before meeting in person.
-pubDate: '2026-03-01'
+pubDate: '2026-07-10'
 category: safety-dossier
 caseId: FC-778-SEC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

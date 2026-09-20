@@ -5,7 +5,7 @@ title: >-
 description: >-
   Discover proven tactics to spot catfish, verify profiles, and stay safe on
   dating apps. A 2026 guide for singles seeking genuine connections.
-pubDate: '2026-09-07'
+pubDate: '2026-07-19'
 category: safety-dossier
 caseId: FC-930-SEC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

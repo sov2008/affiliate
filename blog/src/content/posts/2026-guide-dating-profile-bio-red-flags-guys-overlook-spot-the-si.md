@@ -5,7 +5,7 @@ title: >-
 description: >-
   Discover expert tactics on dating profile bio red flags guys overlook.
   Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-06-12'
 category: modern-psychology
 caseId: FC-129-PSY
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

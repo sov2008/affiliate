@@ -5,7 +5,7 @@ title: >-
 description: >-
   Discover expert tactics on voice prompts hinge vocal tone attraction.
   Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-09-13'
 category: digital-dialogue
 caseId: FC-908-NET
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

@@ -3,7 +3,7 @@ title: '2026 Dating Safety Blueprint: Verify, Optimize, & Protect Your Online Ro
 description: >-
   Discover expert tactics on bumble first message psychological hooks.
   Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-06-03'
 category: romantic-essays
 caseId: FC-412-ARC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

@@ -3,7 +3,7 @@ title: 'Pig Butchering Scam Dating Apps: 2026’s Ultimate Survival Guide'
 description: >-
   Discover expert tactics on pig butchering scam dating apps. Comprehensive 2026
   dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-08-08'
 category: safety-dossier
 caseId: FC-230-SEC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

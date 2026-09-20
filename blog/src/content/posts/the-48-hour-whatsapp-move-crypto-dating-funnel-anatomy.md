@@ -4,7 +4,7 @@ description: >-
   Deconstructing the pig-butchering funnel: why scammers insist on moving
   off-app within 48 hours, the psychological engineering involved, and how to
   spot it.
-pubDate: '2026-09-15'
+pubDate: '2026-08-20'
 category: safety-dossier
 caseId: FC-893-SEC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

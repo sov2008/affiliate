@@ -3,7 +3,7 @@ title: 'What to Say When a Match Disappears and Comes Back: The Exact Script'
 description: >-
   Discover expert tactics on what to say after match disappears. Comprehensive
   2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-09-16'
 category: modern-psychology
 caseId: FC-590-PSY
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

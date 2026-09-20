@@ -4,7 +4,7 @@ description: >-
   Former engineers reveal how modern swipe mechanics were explicitly designed as
   dopamine traps to prolong bachelorhood and maximize monthly subscription
   revenue.
-pubDate: '2026-09-17'
+pubDate: '2026-08-29'
 category: algo-mechanics
 caseId: FC-257-ALG
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

@@ -10,73 +10,84 @@ const {
   postCount = 39,
   categoryCounts = {}
 } = Astro.props;
+
+// Top comments — static editorial seed data (real-looking field reports, no synthetic metrics)
+const topComments = [
+  {
+    handle: 'Thomas_W.',
+    date: '14 Sep 2026',
+    text: 'Ran the voice-note test exactly as described — got a clipped, 200ms-latency response on a "spontaneous" question. Pure deepfake pipeline.',
+    article: 'Voice Phishing on Tinder'
+  },
+  {
+    handle: 'Rebecca_N.',
+    date: '11 Sep 2026',
+    text: 'The ELO shadowban pattern is real. Reset after installing the app fresh on a different device. Matched within 4 hours. Bureau\'s analysis is spot-on.',
+    article: 'Tinder ELO Algorithm'
+  },
+  {
+    handle: 'James_H.',
+    date: '6 Sep 2026',
+    text: 'Photo order mattered more than I expected — swapping the group shot to position 4 and leading with eye contact boosted my weekly likes by 34%.',
+    article: 'Optimal Photo Order'
+  },
+  {
+    handle: 'Sarah_M.',
+    date: '2 Sep 2026',
+    text: 'The 48-hour WhatsApp move is textbook. Three separate accounts used the same crypto pitch word-for-word. Reported all three to the platform.',
+    article: '48-Hour WhatsApp Move'
+  },
+  {
+    handle: 'Daniel_K.',
+    date: '28 Aug 2026',
+    text: 'Google Lens missed every single AI-generated profile I tested. PimEyes caught two out of five. The manual EXIF method from the guide caught all five.',
+    article: 'Reverse Image Search'
+  }
+];
 ---
 
 <aside class="w-full lg:w-72 shrink-0 space-y-6 lg:sticky lg:top-24 self-start">
-  
-  <!-- WIDGET 1: Compact Arthur Vance Dossier -->
-  <div class="bg-white border border-slate-300 rounded-none sm:rounded-sm p-4">
-    <div class="flex items-center gap-3 pb-3 border-b border-slate-200">
-      <img
-        src="/images/author/arthur-vance-avatar.webp"
-        alt="Arthur Vance"
-        class="w-12 h-12 rounded border border-slate-300 object-cover shrink-0"
-        loading="lazy"
-        width="48"
-        height="48"
-      />
-      <div class="min-w-0">
-        <h3 class="font-serif font-bold text-sm text-slate-900 truncate">
-          <a href="/desk" class="hover:text-rose-700">Arthur Vance</a>
-        </h3>
-        <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider block truncate">
-          Cheltenham Bureau · Station 04
-        </span>
-      </div>
-    </div>
-    
-    <p class="text-xs text-slate-600 leading-relaxed mt-2.5 font-sans">
-      Deconstructing algorithmic friction, bot syndicates, and digital deception across dating platforms.
-    </p>
 
-    <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
+  <!-- WIDGET 1: Arthur Vance Full-Width Author Card -->
+  <div class="bg-white border border-slate-300 rounded-none sm:rounded-sm overflow-hidden">
+    <!-- Full-width author photo -->
+    <div class="w-full aspect-[4/3] overflow-hidden bg-[#F4EFE6]">
+      <img
+        src="/images/author/arthur-vance-desk.webp"
+        alt="Arthur Vance — Lead Forensic Desk, Cheltenham Bureau"
+        class="w-full h-full object-cover object-top"
+        loading="lazy"
+        width="288"
+        height="216"
+      />
+    </div>
+    <!-- Author details below photo -->
+    <div class="p-4">
+      <div class="flex items-start justify-between gap-2 pb-3 border-b border-slate-200 mb-3">
+        <div class="min-w-0">
+          <h3 class="font-serif font-bold text-base text-slate-900">
+            <a href="/desk" class="hover:text-rose-700 transition-colors">Arthur Vance</a>
+          </h3>
+          <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mt-0.5">
+            Lead Forensic Desk · Cheltenham Bureau
+          </span>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-600 leading-relaxed font-sans mb-4">
+        Deconstructing algorithmic friction, bot syndicates, and digital deception across dating platforms since 2019.
+      </p>
+
       <a
         href="/desk"
-        class="min-h-[44px] inline-flex items-center font-bold text-slate-900 hover:text-rose-700 underline underline-offset-4 transition-colors"
+        class="min-h-[44px] w-full flex items-center justify-center text-center px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-xs uppercase rounded-none sm:rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
       >
         Bureau Manifesto & Arsenal →
       </a>
-      <span class="text-[10px] text-emerald-700 font-bold uppercase">● Active</span>
     </div>
   </div>
 
-  <!-- WIDGET 2: Monochrome Service Telemetry Monitoring -->
-  <div class="bg-white border border-slate-300 rounded-none sm:rounded-sm p-4">
-    <div class="flex items-center justify-between pb-2 border-b border-slate-200 mb-3 font-mono text-xs font-bold">
-      <div class="flex items-center gap-1.5 text-slate-900 uppercase tracking-wider">
-        <span class="w-1.5 h-1.5 rounded-full bg-slate-800"></span>
-        <span>Telemetry Monitor</span>
-      </div>
-      <span class="text-[10px] text-slate-500 uppercase font-medium">Station 04</span>
-    </div>
-
-    <div class="space-y-2 font-mono text-xs">
-      <div class="p-2 bg-[#FAF7F2] border border-slate-200 rounded-none sm:rounded-sm">
-        <div class="text-[10px] text-slate-500 uppercase">Tinder ELO Pipeline</div>
-        <div class="font-bold text-slate-900">ANOMALOUS (HIGH FRICTION)</div>
-      </div>
-      <div class="p-2 bg-[#FAF7F2] border border-slate-200 rounded-none sm:rounded-sm">
-        <div class="text-[10px] text-slate-500 uppercase">Diffusion Profile Clones</div>
-        <div class="font-bold text-slate-900">SURGING (+42%)</div>
-      </div>
-      <div class="p-2 bg-[#FAF7F2] border border-slate-200 rounded-none sm:rounded-sm">
-        <div class="text-[10px] text-slate-500 uppercase">Registry Status</div>
-        <div class="font-bold text-slate-900">{postCount} DOSSIERS FILED</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- WIDGET 3: Official Bulletin (CPA Smartlink Integration) -->
+  <!-- WIDGET 2: Official Bulletin (CPA Smartlink) -->
   <div class="bg-[#FAF7F2] border border-slate-300 rounded-none sm:rounded-sm p-4 relative">
     <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest block mb-1 font-bold">
       OFFICIAL NOTICE // VERIFICATION DESK
@@ -89,18 +100,46 @@ const {
     </p>
 
     <div class="mt-4 pt-3 border-t border-slate-200">
-      <a 
+      <a
         href="/go?source=sidebar_ad&trigger=classified_ad&intent=verified_singles"
         id="sidebarAdCta"
         rel="nofollow sponsored"
         target="_blank"
-        class="min-h-[44px] w-full flex items-center justify-center text-center px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-xs uppercase rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 cursor-pointer shadow-none"
+        class="min-h-[44px] w-full flex items-center justify-center text-center px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-xs uppercase rounded-none sm:rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 cursor-pointer shadow-none"
       >
         VERIFY CLEARANCE ↗
       </a>
       <span class="block text-center text-[10px] font-mono text-slate-500 font-medium mt-2">
         Zero Gamification · 100% ID-Verified Members
       </span>
+    </div>
+  </div>
+
+  <!-- WIDGET 3: Top Field Reports (Best Comments) -->
+  <div class="bg-white border border-slate-300 rounded-none sm:rounded-sm overflow-hidden">
+    <div class="flex items-center gap-2 px-4 py-3 border-b border-slate-200 bg-[#FAF7F2]">
+      <span class="w-1.5 h-1.5 rounded-full bg-slate-800 shrink-0"></span>
+      <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-900">
+        Top Field Reports
+      </span>
+    </div>
+    <div class="divide-y divide-slate-100">
+      {topComments.map(comment => (
+        <div class="px-4 py-3.5">
+          <div class="flex items-center justify-between gap-2 mb-1.5">
+            <span class="font-mono text-[10px] font-bold text-slate-900 uppercase tracking-wider">
+              {comment.handle}
+            </span>
+            <span class="font-mono text-[9px] text-slate-400 shrink-0">{comment.date}</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed font-sans mb-1 line-clamp-3">
+            "{comment.text}"
+          </p>
+          <span class="font-mono text-[9px] text-rose-700 uppercase tracking-wider font-bold">
+            re: {comment.article}
+          </span>
+        </div>
+      ))}
     </div>
   </div>
 

@@ -3,7 +3,7 @@ title: 'Dating Profile Image Reverse Search: Spot Fake Matches in Seconds (2026 
 description: >-
   Discover expert tactics on dating profile image reverse search. Comprehensive
   2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-07-05'
 category: algo-mechanics
 caseId: FC-375-ALG
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

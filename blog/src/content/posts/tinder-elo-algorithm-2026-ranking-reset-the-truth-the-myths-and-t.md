@@ -5,7 +5,7 @@ title: >-
 description: >-
   Discover expert tactics on tinder elo algorithm 2026 ranking reset.
   Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-09-04'
 category: algo-mechanics
 caseId: FC-294-ALG
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

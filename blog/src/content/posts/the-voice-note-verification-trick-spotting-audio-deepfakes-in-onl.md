@@ -5,7 +5,7 @@ title: >-
 description: >-
   Discover expert tactics on audio deepfake voice verification dating.
   Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-09-01'
 category: digital-dialogue
 caseId: FC-784-NET
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026

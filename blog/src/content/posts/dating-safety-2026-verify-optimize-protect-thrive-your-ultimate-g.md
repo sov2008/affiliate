@@ -5,7 +5,7 @@ title: >-
 description: >-
   Discover expert tactics on hinge most compatible algorithm explained.
   Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-09-07'
+pubDate: '2026-07-07'
 category: romantic-essays
 caseId: FC-122-ARC
 classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
