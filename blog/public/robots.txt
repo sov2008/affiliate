@@ -1,2 +1,6 @@
+# Staging Mode: Indexing disabled by design
 User-agent: *
 Disallow: /
+
+# Pre-configured Sitemap entry for production switch
+Sitemap: https://flirtcheck.site/sitemap-index.xml
