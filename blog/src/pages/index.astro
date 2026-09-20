@@ -212,7 +212,48 @@ const featuredPostCover = rawFeaturedCover
 
     const POSTS_PER_PAGE = 8;
     let currentCategory = 'all';
-    let currentPage = 1;
+
+    // 1. Initialize page and category from URLSearchParams
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentPage = parseInt(urlParams.get('page') || '1', 10);
+    if (isNaN(currentPage) || currentPage < 1) currentPage = 1;
+
+    let initialCategory = urlParams.get('category');
+    if (!initialCategory || !catMetaMap[initialCategory]) {
+      const rawHash = window.location.hash.replace('#', '');
+      const mapped = hashAliasMap[rawHash] || rawHash;
+      if (mapped && catMetaMap[mapped]) {
+        initialCategory = mapped;
+      } else {
+        initialCategory = 'all';
+      }
+    }
+    currentCategory = initialCategory;
+
+    // 2. Synchronize URL state without reload
+    function syncUrlState(replace = false) {
+      const url = new URL(window.location.href);
+      if (currentPage > 1) {
+        url.searchParams.set('page', String(currentPage));
+      } else {
+        url.searchParams.delete('page');
+      }
+
+      if (currentCategory && currentCategory !== 'all') {
+        url.searchParams.set('category', currentCategory);
+      } else {
+        url.searchParams.delete('category');
+      }
+
+      const targetUrl = url.pathname + (url.search ? url.search : '') + (url.hash ? url.hash : '');
+      const state = { page: currentPage, category: currentCategory };
+
+      if (replace) {
+        window.history.replaceState(state, '', targetUrl);
+      } else {
+        window.history.pushState(state, '', targetUrl);
+      }
+    }
 
     function renderPaginationControls(totalPages, page) {
       if (!paginationContainer) return;
@@ -239,7 +280,9 @@ const featuredPostCover = rawFeaturedCover
         }`;
 
         btn.addEventListener('click', () => {
+          if (currentPage === p) return;
           currentPage = p;
+          syncUrlState(false);
           updateFeedDisplay(true);
         });
         paginationContainer.appendChild(btn);
@@ -253,6 +296,7 @@ const featuredPostCover = rawFeaturedCover
         nextBtn.className = 'px-3.5 py-1.5 rounded-lg border-2 border-slate-900 font-black uppercase bg-rose-600 text-white shadow-[2px_2px_0px_0px_#0f172a] hover:bg-rose-700 hover:-translate-y-0.5 transition-all cursor-pointer';
         nextBtn.addEventListener('click', () => {
           currentPage++;
+          syncUrlState(false);
           updateFeedDisplay(true);
         });
         paginationContainer.appendChild(nextBtn);
@@ -290,7 +334,10 @@ const featuredPostCover = rawFeaturedCover
 
       // 4. Пагинация только для подходящих постов (строго 8 на страницу)
       const totalPages = Math.ceil(visibleCards.length / POSTS_PER_PAGE) || 1;
-      if (currentPage > totalPages) currentPage = 1;
+      if (currentPage > totalPages) {
+        currentPage = totalPages;
+        syncUrlState(true);
+      }
 
       const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
       const endIndex = startIndex + POSTS_PER_PAGE;
@@ -324,15 +371,19 @@ const featuredPostCover = rawFeaturedCover
       // 8. Скролл к началу фида при переключении страницы
       if (scrollUp) {
         const feedAnchor = document.getElementById('feed');
-        if (feedAnchor && window.scrollY > 300) {
+        if (feedAnchor && window.scrollY > 250) {
           feedAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
     }
 
-    function applyFilter(filterVal) {
+    function applyFilter(filterVal, updateHistory = true) {
+      const prevCat = currentCategory;
       currentCategory = filterVal;
-      currentPage = 1;
+
+      if (updateHistory && prevCat !== filterVal) {
+        currentPage = 1;
+      }
 
       // Update top buttons styling
       filterButtons.forEach(btn => {
@@ -379,6 +430,10 @@ const featuredPostCover = rawFeaturedCover
         }
       }
 
+      if (updateHistory) {
+        syncUrlState(false);
+      }
+
       updateFeedDisplay(false);
     }
 
@@ -386,7 +441,7 @@ const featuredPostCover = rawFeaturedCover
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const filterVal = btn.getAttribute('data-filter');
-        applyFilter(filterVal);
+        applyFilter(filterVal, true);
       });
     });
 
@@ -395,7 +450,7 @@ const featuredPostCover = rawFeaturedCover
         const filterVal = link.getAttribute('data-sidebar-filter');
         if (filterVal) {
           e.preventDefault();
-          applyFilter(filterVal);
+          applyFilter(filterVal, true);
           const feedEl = document.getElementById('feed');
           if (feedEl && window.innerWidth < 1024) {
             feedEl.scrollIntoView({ behavior: 'smooth' });
@@ -406,21 +461,33 @@ const featuredPostCover = rawFeaturedCover
 
     if (resetFilterBtn) {
       resetFilterBtn.addEventListener('click', () => {
-        applyFilter('all');
+        applyFilter('all', true);
       });
     }
+
+    // 3. Browser Back / Forward navigation handling (popstate)
+    window.addEventListener('popstate', () => {
+      const params = new URLSearchParams(window.location.search);
+      let pageFromUrl = parseInt(params.get('page') || '1', 10);
+      if (isNaN(pageFromUrl) || pageFromUrl < 1) pageFromUrl = 1;
+      const catFromUrl = params.get('category') || 'all';
+
+      currentPage = pageFromUrl;
+      const validCategory = (catMetaMap[catFromUrl] || catFromUrl === 'all') ? catFromUrl : 'all';
+      applyFilter(validCategory, false);
+    });
 
     function checkHash() {
       const rawHash = window.location.hash.replace('#', '');
       const mapped = hashAliasMap[rawHash] || rawHash;
       if (mapped && catMetaMap[mapped]) {
-        applyFilter(mapped);
-      } else {
-        updateFeedDisplay(false);
+        applyFilter(mapped, true);
       }
     }
-
     window.addEventListener('hashchange', checkHash);
-    checkHash();
+
+    // Initial run
+    applyFilter(currentCategory, false);
+    syncUrlState(true);
   });
 </script>
