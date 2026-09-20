@@ -77,7 +77,10 @@
     async function loadIndex() {
       if (isIndexLoaded) return;
       try {
-        const res = await fetch('/api/search-index.json');
+        let res = await fetch('/search-index.json');
+        if (!res.ok) {
+          res = await fetch('/api/search-index.json');
+        }
         if (res.ok) {
           searchIndex = await res.json();
           isIndexLoaded = true;
