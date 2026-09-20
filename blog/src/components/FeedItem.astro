@@ -73,34 +73,36 @@ const displayTags = (post.data.tags || []).slice(0, 2);
   data-index={index}
   class:list={[
     isFeatured ? "featured-item" : "feed-item",
-    "feed-card w-full bg-[#FFFDF7] border-2 border-slate-900 rounded-lg overflow-hidden shadow-[4px_4px_0px_0px_#0f172a] hover:shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all flex flex-col mb-8",
+    "feed-card w-full bg-white border border-slate-300 hover:border-slate-500 transition-colors rounded-none sm:rounded-sm shadow-none flex flex-col h-full overflow-hidden",
     (index !== undefined && index >= 8) ? "hidden" : ""
   ]}
 >
-  <!-- 1. Header Ledger Strip (Top Metadata Banner) -->
-  <div class="bg-slate-100 border-b border-slate-900 px-3 py-1.5 flex justify-between items-center text-[11px] font-mono font-bold text-slate-700 tracking-wider uppercase">
+  <!-- 1. Header Ledger Strip -->
+  <div class="bg-[#FAF7F2] border-b border-slate-200 px-3.5 py-2 flex justify-between items-center text-[10px] font-mono font-bold text-slate-600 tracking-wider uppercase">
     <div class="flex items-center gap-1.5 truncate mr-2">
-      <span class="w-2 h-2 rounded-full bg-slate-900 shrink-0"></span>
-      <span class="truncate">[{categoryLabel} // AUDIT REPORT]</span>
+      <span class="w-1.5 h-1.5 rounded-full bg-slate-800 shrink-0"></span>
+      <span class="truncate">[{categoryLabel}]</span>
     </div>
-    <div class="shrink-0 text-slate-600">
+    <div class="shrink-0 text-slate-500 font-medium">
       {ledgerDate} · {readingTime} MIN
     </div>
   </div>
 
   <!-- 2. Image 16:9 Container -->
   {coverSrc && (
-    <div class="w-full aspect-[16/9] border-b border-slate-900 bg-[#F4EFE6] overflow-hidden relative block">
-      <a href={postUrl} class="block w-full h-full group">
+    <div class="w-full aspect-[16/9] border-b border-slate-200 bg-[#F4EFE6] overflow-hidden relative block">
+      <a href={postUrl} class="block w-full h-full group" tabindex="-1" aria-hidden="true">
         <img
           src={coverSrc}
           alt={post.data.title}
           loading={isFeatured ? "eager" : "lazy"}
           class="w-full h-full object-cover select-none pointer-events-none block transition-transform duration-300 group-hover:scale-[1.01]"
+          width="600"
+          height="338"
         />
       </a>
       {isFeatured && (
-        <div class="absolute top-2.5 left-2.5 bg-slate-900 text-white font-mono font-bold text-[10px] px-2 py-0.5 rounded tracking-wider uppercase border border-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
+        <div class="absolute top-2.5 left-2.5 bg-slate-900 text-white font-mono font-bold text-[9px] px-2 py-0.5 rounded tracking-wider uppercase border border-slate-900">
           LEAD INVESTIGATION
         </div>
       )}
@@ -108,19 +110,20 @@ const displayTags = (post.data.tags || []).slice(0, 2);
   )}
 
   <!-- 3. Card Body -->
-  <div class="p-5 flex-1 flex flex-col justify-between">
+  <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
     <div>
-      <h2 class="font-serif font-black text-xl sm:text-2xl text-slate-900 leading-snug tracking-tight hover:text-rose-700 transition-colors mb-2.5">
-        <a href={postUrl}>{post.data.title}</a>
+      <!-- Strictly Black Headline with rose hover -->
+      <h2 class="font-serif font-bold text-lg sm:text-xl text-slate-900 leading-snug tracking-tight hover:text-rose-700 transition-colors mb-2.5 line-clamp-2">
+        <a href={postUrl} class="hover:underline">{post.data.title}</a>
       </h2>
 
-      <p class="line-clamp-3 text-sm text-slate-600 leading-relaxed font-sans mb-4">
+      <p class="line-clamp-3 text-xs sm:text-sm text-slate-600 leading-relaxed font-sans mb-4">
         {leadText}
       </p>
     </div>
 
     <!-- 4. Footer Row: Tags + Action -->
-    <div class="pt-3.5 border-t border-slate-200 flex justify-between items-center gap-3">
+    <div class="pt-3 border-t border-slate-100 flex justify-between items-center gap-3">
       <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px] text-slate-500 overflow-hidden">
         {displayTags.map(tag => (
           <span class="bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-600">
@@ -134,7 +137,7 @@ const displayTags = (post.data.tags || []).slice(0, 2);
 
       <a
         href={postUrl}
-        class="font-mono font-bold text-xs uppercase text-slate-900 hover:text-rose-700 underline underline-offset-4 decoration-2 shrink-0 transition-colors py-2 px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+        class="min-h-[44px] inline-flex items-center font-mono font-bold text-xs uppercase text-slate-900 hover:text-rose-700 underline underline-offset-4 decoration-1 shrink-0 transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
       >
         Read Report ↗
       </a>

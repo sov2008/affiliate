@@ -47,22 +47,23 @@ const featuredPostCover = rawFeaturedCover
     </div>
 
     <!-- Main H1 Header -->
+    <!-- Main H1 Header -->
     <h1 class="font-bold text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight font-sans leading-tight mt-1 mb-3">
-      Modern Dating Chronicles: <span class="text-rose-600">From Algorithms to Human Chemistry</span>
+      Modern Dating Chronicles: From Algorithms to Human Chemistry
     </h1>
 
     <p class="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-sans mb-6">
       Investigating the collision of commercial matchmaking black-boxes, synthetic persona swarms, and authentic human interaction. Empirical reports, heuristic teardowns, and safety telemetry.
     </p>
 
-    <!-- Category Filter Navigation Bar -->
+    <!-- Category Filter Navigation Bar (Strict Underline Tabs) -->
     <div class="max-w-4xl mx-auto">
-      <div id="categoryFilterBar" class="flex overflow-x-auto no-scrollbar py-2 gap-2 sm:flex-wrap sm:justify-center items-center">
+      <div id="categoryFilterBar" class="flex overflow-x-auto no-scrollbar py-2 gap-4 sm:flex-wrap sm:justify-center items-center border-b border-slate-200">
         <!-- "All" Filter Button -->
         <button
           type="button"
           data-filter="all"
-          class="category-btn active shrink-0 px-3.5 py-2 min-h-[44px] rounded text-xs font-mono font-bold uppercase tracking-wider border border-slate-900 bg-slate-900 text-white shadow-[2px_2px_0px_0px_#0f172a] transition-all cursor-pointer hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+          class="category-btn active shrink-0 px-2 py-2 min-h-[44px] text-xs font-mono font-bold uppercase tracking-wider text-slate-900 border-b-2 border-slate-900 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
         >
           All Topics ({sortedPosts.length})
         </button>
@@ -74,7 +75,7 @@ const featuredPostCover = rawFeaturedCover
             <button
               type="button"
               data-filter={cat.id}
-              class="category-btn shrink-0 px-3.5 py-2 min-h-[44px] rounded text-xs font-mono font-medium uppercase tracking-wider border border-slate-900 bg-[#FFFDF9] hover:bg-[#FAF7F2] text-slate-900 shadow-[2px_2px_0px_0px_#0f172a] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+              class="category-btn shrink-0 px-2 py-2 min-h-[44px] text-xs font-mono font-medium uppercase tracking-wider text-slate-500 hover:text-slate-900 border-b-2 border-transparent hover:border-slate-900 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
               title={cat.description}
             >
               <span>{cat.shortTitle}</span>
@@ -85,11 +86,11 @@ const featuredPostCover = rawFeaturedCover
       </div>
 
       <!-- Active Category Context Display -->
-      <div id="categoryInfoBox" class="hidden mt-4 p-4 bg-[#FFFDF9] border-2 border-slate-900 rounded-lg shadow-[3px_3px_0px_0px_#0f172a] max-w-2xl mx-auto text-left transition-all">
+      <div id="categoryInfoBox" class="hidden mt-4 p-4 bg-white border border-slate-300 rounded-none sm:rounded-sm max-w-2xl mx-auto text-left transition-all">
         <div class="flex items-center gap-2 mb-1">
-          <span id="categoryInfoTitle" class="font-mono font-black text-xs sm:text-sm text-slate-900 uppercase tracking-wide"></span>
+          <span id="categoryInfoTitle" class="font-mono font-bold text-xs sm:text-sm text-slate-900 uppercase tracking-wide"></span>
         </div>
-        <p id="categoryInfoDesc" class="text-xs text-slate-700 leading-relaxed font-sans"></p>
+        <p id="categoryInfoDesc" class="text-xs text-slate-600 leading-relaxed font-sans"></p>
       </div>
     </div>
   </section>
@@ -101,11 +102,11 @@ const featuredPostCover = rawFeaturedCover
       <article
         id="featuredDispatch"
         data-category={featuredPost.data.category || 'safety-dossier'}
-        class="grid grid-cols-1 lg:grid-cols-12 gap-8 border-2 border-slate-900 bg-[#FFFDF9] rounded-lg p-6 sm:p-8 shadow-[6px_6px_0px_0px_#0f172a] mb-12"
+        class="grid grid-cols-1 lg:grid-cols-12 gap-8 border border-slate-300 bg-white rounded-none sm:rounded-sm p-6 sm:p-8 hover:border-slate-400 transition-colors mb-10 shadow-none"
       >
         <!-- Left Column: 7 cols -->
         <div class="lg:col-span-7 flex flex-col justify-between">
-          <a href={`${base}/${featuredPost.id || featuredPost.slug}/`} class="block group relative border-2 border-slate-900 overflow-hidden bg-[#F4EFE6] rounded shadow-[2px_2px_0px_0px_#0f172a]">
+          <a href={`${base}/${featuredPost.id || featuredPost.slug}/`} class="block group relative border border-slate-200 overflow-hidden bg-[#F4EFE6] rounded-none sm:rounded-sm shadow-none" tabindex="-1" aria-hidden="true">
             <div class="aspect-[16/9] w-full overflow-hidden">
               <img
                 src={featuredPostCover}
@@ -119,7 +120,7 @@ const featuredPostCover = rawFeaturedCover
             </div>
           </a>
           <div class="mt-2.5 text-center sm:text-left">
-            <span class="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-700">
+            <span class="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-500">
               EXHIBIT // PRIMARY FIELD EVIDENCE · CHELTENHAM DESK
             </span>
           </div>
@@ -129,29 +130,29 @@ const featuredPostCover = rawFeaturedCover
         <div class="lg:col-span-5 flex flex-col justify-between">
           <div>
             <div class="mb-2.5">
-              <span class="text-rose-700 font-mono text-xs font-black tracking-widest uppercase">
+              <span class="text-rose-700 font-mono text-xs font-bold tracking-widest uppercase">
                 [LEAD INVESTIGATION // PRIORITY DISPATCH]
               </span>
             </div>
 
-            <h2 class="font-serif font-black text-2xl sm:text-3xl text-slate-900 leading-tight mb-4 hover:text-rose-700 transition-colors">
+            <h2 class="font-serif font-bold text-2xl sm:text-3xl text-slate-900 leading-tight mb-4 hover:text-rose-700 transition-colors">
               <a href={`${base}/${featuredPost.id || featuredPost.slug}/`}>
                 {featuredPost.data.title}
               </a>
             </h2>
 
             <!-- Key Findings: 3 Monospace items with dashes -->
-            <div class="bg-[#FAF7F2] border border-slate-300 rounded p-3.5 mb-5 font-mono text-xs text-slate-800 space-y-2">
+            <div class="bg-[#FAF7F2] border border-slate-200 rounded-none sm:rounded-sm p-3.5 mb-5 font-mono text-xs text-slate-700 space-y-2">
               <div class="flex items-start gap-2">
-                <span class="text-rose-700 font-bold select-none shrink-0">-</span>
+                <span class="text-slate-500 font-bold select-none shrink-0">-</span>
                 <span>Algorithmic bias & covert telemetry mapped across active matching pools.</span>
               </div>
               <div class="flex items-start gap-2">
-                <span class="text-rose-700 font-bold select-none shrink-0">-</span>
+                <span class="text-slate-500 font-bold select-none shrink-0">-</span>
                 <span>Synthetic profile signatures and adversarial chat loops identified.</span>
               </div>
               <div class="flex items-start gap-2">
-                <span class="text-rose-700 font-bold select-none shrink-0">-</span>
+                <span class="text-slate-500 font-bold select-none shrink-0">-</span>
                 <span>Countermeasure verification protocol validated by Cheltenham Desk.</span>
               </div>
             </div>
@@ -160,7 +161,7 @@ const featuredPostCover = rawFeaturedCover
           <div class="pt-2">
             <a
               href={`${base}/${featuredPost.id || featuredPost.slug}/`}
-              class="inline-flex items-center justify-center min-h-[44px] bg-slate-900 text-white font-mono text-xs font-bold px-5 py-3 rounded border border-slate-900 hover:bg-rose-700 hover:border-rose-700 transition-all shadow-[3px_3px_0px_0px_#0f172a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2"
+              class="inline-flex items-center justify-center min-h-[44px] bg-slate-900 text-white font-mono text-xs font-bold px-5 py-2.5 rounded hover:bg-slate-800 transition-colors shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
             >
               READ FULL INVESTIGATION ↗
             </a>
@@ -169,7 +170,7 @@ const featuredPostCover = rawFeaturedCover
       </article>
     )}
 
-    <!-- 2-COLUMN LAYOUT: Sidebar (w-80 shrink-0) + Feed (flex-1) -->
+    <!-- 2-COLUMN LAYOUT: Sidebar (w-72 shrink-0) + Feed (flex-1) -->
     <div class="flex flex-col lg:flex-row gap-8 items-start">
       <!-- Left Column: Sticky Classifieds & Info Sidebar -->
       <Sidebar
@@ -178,7 +179,7 @@ const featuredPostCover = rawFeaturedCover
         categoryCounts={categoryCounts}
       />
 
-      <!-- Right Column: Editorial Dispatch Feed -->
+      <!-- Right Column: Editorial Dispatch Feed (2-Column Grid) -->
       <div class="flex-1 w-full min-w-0 space-y-6">
         <div class="flex items-center justify-between pb-3 border-b border-slate-200">
           <h2 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2 font-sans">
@@ -189,9 +190,9 @@ const featuredPostCover = rawFeaturedCover
           </h2>
         </div>
 
-        <!-- 2. Paginated Regular Dispatches Feed -->
+        <!-- 2. Paginated Regular Dispatches Feed in 2-Column Grid -->
         {regularPosts.length > 0 ? (
-          <div id="postsFeed" class="w-full">
+          <div id="postsFeed" class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
             {regularPosts.map((post, idx) => (
               <FeedItem post={post} index={idx} />
             ))}
@@ -199,12 +200,12 @@ const featuredPostCover = rawFeaturedCover
         ) : null}
 
         <!-- 3. Empty State for Filter -->
-        <div id="noPostsFound" class="hidden text-center py-16 bg-[#FFFDF9] rounded-lg border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
-          <p class="text-slate-800 font-medium font-sans text-base">No investigations found in this category.</p>
+        <div id="noPostsFound" class="hidden text-center py-16 bg-white border border-slate-300 rounded-none sm:rounded-sm">
+          <p class="text-slate-700 font-medium font-sans text-base">No investigations found in this category.</p>
           <button
             type="button"
             id="resetFilterBtn"
-            class="mt-4 px-4 py-2 min-h-[44px] bg-slate-900 text-white font-mono text-xs font-bold uppercase rounded border border-slate-900 hover:bg-slate-800 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+            class="mt-4 px-4 py-2 min-h-[44px] bg-slate-900 text-white font-mono text-xs font-bold uppercase rounded hover:bg-slate-800 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
           >
             Show All Articles
           </button>
@@ -431,33 +432,27 @@ const featuredPostCover = rawFeaturedCover
       filterButtons.forEach(btn => {
         const isCurrent = btn.getAttribute('data-filter') === filterVal;
         if (isCurrent) {
-          btn.classList.add('ring-2', 'ring-slate-900', 'ring-offset-1', 'scale-105');
+          btn.classList.add('text-slate-900', 'border-slate-900', 'font-bold');
+          btn.classList.remove('text-slate-500', 'border-transparent', 'font-medium');
         } else {
-          btn.classList.remove('ring-2', 'ring-slate-900', 'ring-offset-1', 'scale-105');
+          btn.classList.remove('text-slate-900', 'border-slate-900', 'font-bold');
+          btn.classList.add('text-slate-500', 'border-transparent', 'font-medium');
         }
       });
 
-      // Update sidebar category link styling
-      sidebarFilters.forEach(link => {
-        const isCurrent = link.getAttribute('data-sidebar-filter') === filterVal;
-        if (isCurrent) {
-          link.classList.add('bg-slate-900', 'text-white', 'shadow-[2px_2px_0px_0px_#0f172a]');
-          link.classList.remove('bg-white', 'hover:bg-[#FAF7F2]', 'text-slate-900');
-          const badge = link.querySelector('span:last-child');
-          if (badge) {
-            badge.classList.add('text-amber-300');
-            badge.classList.remove('text-slate-900');
+      // Update sidebar category link styling if present
+      if (sidebarFilters && sidebarFilters.length > 0) {
+        sidebarFilters.forEach(link => {
+          const isCurrent = link.getAttribute('data-sidebar-filter') === filterVal;
+          if (isCurrent) {
+            link.classList.add('bg-slate-900', 'text-white');
+            link.classList.remove('bg-white', 'hover:bg-[#FAF7F2]', 'text-slate-900');
+          } else {
+            link.classList.remove('bg-slate-900', 'text-white');
+            link.classList.add('bg-white', 'hover:bg-[#FAF7F2]', 'text-slate-900');
           }
-        } else {
-          link.classList.remove('bg-slate-900', 'text-white', 'shadow-[2px_2px_0px_0px_#0f172a]');
-          link.classList.add('bg-white', 'hover:bg-[#FAF7F2]', 'text-slate-900');
-          const badge = link.querySelector('span:last-child');
-          if (badge) {
-            badge.classList.remove('text-amber-300');
-            badge.classList.add('text-slate-900');
-          }
-        }
-      });
+        });
+      }
 
       // Update info banner
       if (infoBox && infoTitle && infoDesc) {
