@@ -11,10 +11,10 @@ interface Props {
 const { post, index, isFeatured = false } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// Format pubDate
+// Format pubDate: "September 14, 2026"
 const formattedDate = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
-  month: 'short',
+  month: 'long',
   day: 'numeric'
 }).format(post.data.pubDate);
 
@@ -33,11 +33,34 @@ const coverSrc = cleanCover
   ? (cleanCover.startsWith('/') ? cleanCover : `/${cleanCover}`)
   : `/images/posts/${postSlug}.webp`;
 
-// Case ID
-const caseId = postSlug.replace(/[^a-zA-Z0-9]/g, '').slice(0, 8).toUpperCase() || 'FC2026A';
+// Extract natural journalistic lead from the body or clean description
+function getAuthenticLead(body: string | undefined, desc: string | undefined): string {
+  if (body) {
+    const clean = body
+      .replace(/^[>#\-*].*$/gm, '')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/\*\*([^*]+)\*\*/g, '$1')
+      .replace(/\*([^*]+)\*/g, '$1')
+      .replace(/`([^`]+)`/g, '$1')
+      .trim();
+    const paragraphs = clean.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+    if (paragraphs.length > 0) {
+      const firstP = paragraphs[0].replace(/\s+/g, ' ');
+      const sentences = firstP.match(/[^.!?]+[.!?]+(\s|$)/g);
+      if (sentences && sentences.length > 0) {
+        const lead = sentences.slice(0, 2).join('').trim();
+        if (lead.length >= 60) return lead;
+      }
+      if (firstP.length >= 60) return firstP.slice(0, 240).trim() + '...';
+    }
+  }
+  if (desc && !/^(discover|learn|in this (comprehensive )?guide|master|explore|uncover)/i.test(desc)) {
+    return desc;
+  }
+  return desc || '';
+}
 
-// Love is... motto or hook
-const motto = post.data.motto || post.data.hook || (categoryMeta ? categoryMeta.motto : null);
+const leadText = getAuthenticLead(post.body, post.data.description);
 const postUrl = `${base}/${post.id || post.slug}/`;
 ---
 
@@ -48,64 +71,54 @@ const postUrl = `${base}/${post.id || post.slug}/`;
   data-index={index}
   class:list={[
     isFeatured ? "featured-item" : "feed-item",
-    "feed-card w-full block bg-white border-2 border-slate-900 rounded-xl overflow-hidden shadow-[4px_4px_0px_0px_#0f172a] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#0f172a] transition-all mb-8",
+    "feed-card w-full block bg-white border border-slate-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md hover:border-slate-400 transition-all mb-8",
     (index !== undefined && index >= 8) ? "hidden" : ""
   ]}
 >
-  <!-- 1. Топовый блок: 100% ширины, строго 16:9 -->
+  <!-- 1. Top Cover Block (16:9) -->
   {coverSrc && (
-    <div class="w-full aspect-[16/9] border-b-2 border-slate-900 bg-[#F4EFE6] overflow-hidden relative block">
+    <div class="w-full aspect-[16/9] border-b border-slate-200 bg-slate-100 overflow-hidden relative block">
       <a href={postUrl} class="block w-full h-full">
         <img
           src={coverSrc}
           alt={post.data.title}
           loading={isFeatured ? "eager" : "lazy"}
-          class="w-full h-full object-cover select-none pointer-events-none block"
+          class="w-full h-full object-cover select-none pointer-events-none block transition-transform duration-300 hover:scale-[1.01]"
         />
       </a>
-      <div class="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-white border border-slate-900 text-[10px] font-mono font-black text-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
-        {isFeatured ? "LEAD DISPATCH" : "VOL. '26"}
-      </div>
       {isFeatured && (
-        <div class="absolute top-3 left-3 bg-rose-600 text-white font-mono font-black text-xs px-2.5 py-1 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] tracking-widest uppercase">
-          [BREAKING INVESTIGATION]
+        <div class="absolute top-3 left-3 bg-slate-900 text-white font-sans font-bold text-[11px] px-2.5 py-1 rounded tracking-wider uppercase">
+          Featured Investigation
         </div>
       )}
     </div>
   )}
 
-  <!-- 2. Нижний блок текста: отступы p-6 sm:p-7 -->
+  <!-- 2. Body Block -->
   <div class="w-full p-6 sm:p-7 block">
-    <div class="flex flex-wrap items-center gap-2 mb-3">
-      <span class:list={[
-        "border border-slate-900 px-2.5 py-0.5 text-[11px] font-black uppercase tracking-wider rounded shadow-[1px_1px_0px_0px_#0f172a]",
-        categoryMeta ? categoryMeta.badgeStyle : "bg-amber-100 text-slate-900"
-      ]}>
-        {categoryMeta ? `[${categoryMeta.shortTitle}]` : `[${post.data.category || 'DOSSIER'}]`}
-      </span>
-      <span class="font-mono text-xs text-slate-500">
-        {formattedDate} • {readingTime} MIN FORENSIC READ
+    <!-- Clean Newspaper Dateline: "September 14, 2026 · 6 min read · Analysis" -->
+    <div class="flex flex-wrap items-center gap-2 text-xs font-sans text-slate-500 mb-3">
+      <span>{formattedDate}</span>
+      <span class="text-slate-300">·</span>
+      <span>{readingTime} min read</span>
+      <span class="text-slate-300">·</span>
+      <span class="font-semibold text-slate-700 uppercase tracking-wider text-[11px]">
+        {categoryMeta ? categoryMeta.shortTitle : 'Analysis'}
       </span>
     </div>
 
-    <h2 class="font-black text-xl sm:text-2xl text-slate-900 leading-tight hover:text-rose-600 transition-colors font-sans mb-2">
+    <h2 class="font-bold text-xl sm:text-2xl text-slate-900 leading-snug hover:text-rose-600 transition-colors font-sans mb-3">
       <a href={postUrl}>{post.data.title}</a>
     </h2>
 
-    {motto && (
-      <p class="font-serif italic font-semibold text-rose-600 text-sm mt-2 mb-2">
-        "{motto}"
-      </p>
-    )}
-
-    <p class="text-slate-600 text-sm sm:text-base leading-relaxed line-clamp-3 mb-4 font-normal">
-      {post.data.description || (post.body ? post.body.slice(0, 240) + '...' : '')}
+    <p class="text-slate-600 text-sm sm:text-base leading-relaxed line-clamp-3 mb-4 font-normal font-sans">
+      {leadText}
     </p>
 
-    <div class="pt-3 border-t border-slate-200 flex justify-between items-center text-xs font-mono">
-      <span class="text-slate-400 font-bold">CASE ID: #{caseId}</span>
-      <a href={postUrl} class="font-black text-rose-600 hover:text-slate-900 uppercase flex items-center gap-1 tracking-wider text-sm">
-        READ FULL DISPATCH &rarr;
+    <div class="pt-3 border-t border-slate-100 flex justify-end items-center text-xs font-sans">
+      <a href={postUrl} class="font-semibold text-slate-900 hover:text-rose-600 inline-flex items-center gap-1.5 transition-colors text-sm">
+        <span>Read Investigation</span>
+        <span aria-hidden="true">&rarr;</span>
       </a>
     </div>
   </div>

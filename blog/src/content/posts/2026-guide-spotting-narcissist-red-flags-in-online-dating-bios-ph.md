@@ -24,11 +24,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-271-PSY**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## The Unverified Reality  
 
 Over a third of profiles on the major apps still lack any form of verification. Think of it as a massive open port on a public‑facing server – the perfect vector for covert narcissists to inject their perfectly‑crafted bios and photos.

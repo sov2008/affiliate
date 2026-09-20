@@ -24,11 +24,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-230-SEC**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 It's a bit of a mess, really. A recent study suggests over 30% of dating-app profiles are unverified, and about 1 in 5 of those will lead to a "pig-butchering" financial trap. If you've ever swiped right, you're already in the crosshairs, I suppose.
 
 ## Key Takeaways

@@ -1,0 +1,56 @@
+---
+// IndependenceProtocol.astro - Authentic Journalistic Independence Manifest
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<section
+  id="independence-protocol"
+  class:list={[
+    "my-12 p-6 sm:p-8 bg-white border border-slate-300 rounded-xl shadow-sm text-slate-900",
+    className
+  ]}
+>
+  <div class="max-w-3xl mx-auto">
+    <div class="flex items-center gap-2.5 mb-3">
+      <span class="w-2.5 h-2.5 rounded-full bg-slate-900"></span>
+      <span class="text-xs font-mono font-bold uppercase tracking-widest text-slate-500">
+        Editorial Standards & Transparency
+      </span>
+    </div>
+
+    <h2 class="text-xl sm:text-2xl font-bold font-sans tracking-tight text-slate-900 mb-4">
+      The Independence Protocol
+    </h2>
+
+    <div class="space-y-3.5 text-sm sm:text-[15px] text-slate-700 leading-relaxed font-sans">
+      <p>
+        FlirtCheck operates as an independent technical and forensic desk. We systematically test matchmaking platforms, analyze reverse-engineered reverse-matching algorithms, and document synthetic persona farms exploiting commercial dating apps.
+      </p>
+      <p>
+        Our editorial board maintains strict zero-sponsorship policies regarding matchmaking corporations: we do not accept sponsored reviews, corporate PR placement, or algorithmic rankings favor from dating platforms. Our investigations rely exclusively on empirical packet analysis, heuristic audits, and verified telemetry from affected users.
+      </p>
+      <p>
+        If you have encountered synthetic bot clusters, coordinated romance scam funnels, or security vulnerabilities within any major dating platform, submit encrypted telemetry and documentation directly to our research desk at <span class="font-mono text-xs text-slate-900 font-bold bg-slate-100 px-1.5 py-0.5 rounded">desk@dating-radar.com</span>.
+      </p>
+    </div>
+
+    <div class="mt-6 pt-5 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="text-xs text-slate-500 font-sans">
+        Need to cross-reference an unknown profile or domain against verified scam databases?
+      </div>
+      <a
+        href="/go?source=independence_manifest&intent=verify_match"
+        rel="nofollow sponsored"
+        target="_blank"
+        class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-900 hover:text-rose-600 transition-colors uppercase tracking-wider"
+      >
+        <span>Access Identity & Safety Directory</span>
+        <span aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>

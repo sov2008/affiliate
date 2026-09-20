@@ -28,11 +28,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-839-OPS**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 The average swipe feels a lot like a SYN‑packet that never gets an ACK – you keep sending, waiting for a response that never arrives, and the timeout is inevitable.
 
 ---

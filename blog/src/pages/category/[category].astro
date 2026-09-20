@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 import FeedItem from '../../components/FeedItem.astro';
 import Sidebar from '../../components/Sidebar.astro';
 import MobileStickyCTA from '../../components/MobileStickyCTA.astro';
-import ProfileScanner from '../../components/ProfileScanner.astro';
+import IndependenceProtocol from '../../components/IndependenceProtocol.astro';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../../content.config';
 
 export async function getStaticPaths() {
@@ -34,35 +34,25 @@ const pageDescription = `${categoryMeta.description} Articles and forensic guide
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} activePath={`/category/${categoryKey}`}>
-  <!-- Category Header Banner (Compacted Newsprint Edition) -->
-  <section class="text-center py-6 sm:py-8 mb-6 relative">
+  <!-- Category Header Banner -->
+  <section class="text-center py-6 sm:py-8 mb-6 border-b border-slate-200">
     <div class="inline-flex items-center gap-2 mb-3">
-      <a href="/" class="text-xs font-mono font-bold text-slate-500 hover:text-rose-600 uppercase tracking-wider">
-        ← Return to All Chronicles
+      <a href="/" class="text-xs font-sans text-slate-500 hover:text-slate-900 transition-colors">
+        &larr; Return to All Articles
       </a>
     </div>
 
-    <div class="mb-3">
-      <span class:list={[
-        "inline-block border-2 border-slate-900 px-3.5 py-1 rounded-lg text-xs font-mono font-black uppercase tracking-wider shadow-[2px_2px_0px_0px_#0f172a]",
-        categoryMeta.badgeStyle
-      ]}>
-        DOSSIER: {categoryMeta.shortTitle}
+    <div class="mb-2">
+      <span class="inline-block px-3 py-1 rounded text-xs font-sans font-medium uppercase tracking-wider bg-slate-100 text-slate-800 border border-slate-300">
+        {categoryMeta.shortTitle}
       </span>
     </div>
 
-    <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight max-w-3xl mx-auto mb-3 font-sans uppercase">
+    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight max-w-3xl mx-auto mb-3 font-sans">
       {categoryMeta.title}
     </h1>
 
-    <!-- Category Love is... Motto -->
-    <div class="my-4 inline-block bg-white border-2 border-slate-900 rounded-xl px-5 py-3 shadow-[4px_4px_0px_0px_#0f172a] transform -rotate-1 hover:rotate-0 transition-transform max-w-2xl">
-      <p class="font-serif italic text-sm sm:text-base text-rose-600 font-semibold leading-relaxed">
-        "{categoryMeta.motto}"
-      </p>
-    </div>
-
-    <p class="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto leading-relaxed font-normal">
+    <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed font-sans">
       {categoryMeta.description}
     </p>
   </section>
@@ -79,11 +69,11 @@ const pageDescription = `${categoryMeta.description} Articles and forensic guide
 
       <!-- Right Column: Category Dispatches Feed -->
       <div class="flex-1 w-full min-w-0 space-y-6">
-        <div class="flex items-center justify-between pb-3 border-b-2 border-slate-900">
-          <h2 class="text-lg sm:text-xl font-black text-slate-900 tracking-tight flex items-center gap-3 font-sans uppercase">
-            <span>DOSSIER DISPATCHES</span>
-            <span class="px-2.5 py-0.5 rounded border border-slate-900 text-xs font-mono font-black bg-rose-600 text-white shadow-[2px_2px_0px_0px_#0f172a]">
-              {categoryPosts.length} {categoryPosts.length === 1 ? 'RECORD' : 'RECORDS'} FILED
+        <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2 font-sans">
+            <span>{categoryMeta.shortTitle} Investigations</span>
+            <span class="text-xs font-mono text-slate-500 font-medium">
+              ({categoryPosts.length} {categoryPosts.length === 1 ? 'report' : 'reports'})
             </span>
           </h2>
         </div>
@@ -95,15 +85,15 @@ const pageDescription = `${categoryMeta.description} Articles and forensic guide
             ))}
           </div>
         ) : (
-          <div class="text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
-            <p class="text-slate-700 font-bold font-sans text-base">
-              No dispatches filed in this dossier yet.
+          <div class="text-center py-16 bg-white rounded-lg border border-slate-200 shadow-sm">
+            <p class="text-slate-700 font-medium font-sans text-base">
+              No investigations filed in this category yet.
             </p>
             <a
               href="/"
-              class="mt-4 inline-block px-4 py-2 bg-slate-900 text-white text-xs font-mono font-black uppercase rounded-lg border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all cursor-pointer"
+              class="mt-4 inline-block px-4 py-2 bg-slate-900 text-white text-xs font-sans font-medium uppercase rounded-lg border border-slate-900 hover:bg-slate-800 transition-colors cursor-pointer"
             >
-              [RETURN TO MAIN ARCHIVE]
+              Return to Main Archive
             </a>
           </div>
         )}
@@ -111,13 +101,8 @@ const pageDescription = `${categoryMeta.description} Articles and forensic guide
     </div>
   </section>
 
-  <!-- Interactive Forensic Scanner Section -->
-  <section id="safety-quiz">
-    <ProfileScanner
-      title="Instant Profile Safety & Compatibility Scan"
-      subtitle="Run our rapid profile verification radar: filter bot swarms, audit photo metadata, and calibrate authentic chemistry."
-    />
-  </section>
+  <!-- Editorial Transparency & Independence Protocol -->
+  <IndependenceProtocol />
 
   <!-- Mobile Sticky Bottom Conversion Bar -->
   <MobileStickyCTA />

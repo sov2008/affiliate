@@ -31,11 +31,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-692-ALG**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## The Illusion of the Visual Audit
 
 If your dating defense playbook still consists of dragging someone's profile snapshot into Google Lens and declaring yourself immune to fraud when zero matches pop up, I have bad news. You are operating on 2018 heuristics in an ecosystem that rebuilt its entire offensive stack roughly eighteen months ago.

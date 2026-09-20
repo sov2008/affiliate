@@ -1,60 +1,32 @@
 ---
-// DossierContextBox.astro - Contextual in-article monetization callout
+// DossierContextBox.astro - Natural Editorial Footnote & Verification Callout
 interface Props {
   source?: string;
   trigger?: string;
 }
 
 const {
-  source = 'article_dossier_box',
-  trigger = 'in_text_ad'
+  source = 'article_editorial_note',
+  trigger = 'in_text_note'
 } = Astro.props;
 ---
 
 <aside
-  class="dossier-context-box not-prose bg-[#FFFDF7] border-2 border-dashed border-slate-900 rounded-xl p-5 my-8 shadow-[4px_4px_0px_0px_#0f172a] relative overflow-hidden"
-  role="complementary"
-  aria-label="Confidential Match Verification Dossier"
+  class="editorial-footnote not-prose my-8 p-4 sm:p-5 bg-slate-50 border-l-4 border-slate-700 rounded-r-lg text-slate-800 text-sm font-sans"
+  role="note"
+  aria-label="Editorial Verification Note"
 >
-  <!-- Top Stamp Badge -->
-  <div class="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-slate-900/20">
-    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded border border-slate-900 text-[10px] font-mono font-black uppercase bg-amber-200 text-slate-900 shadow-[1px_1px_0px_0px_#0f172a]">
-      <span class="w-2 h-2 rounded-full bg-rose-600"></span>
-      <span>[CONFIDENTIAL DOSSIER PROTOCOL // EXP-2026]</span>
-    </span>
-    <span class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wide">
-      SEC-AUTH // 100% ID-VERIFIED
-    </span>
-  </div>
-
-  <div class="flex flex-col sm:flex-row items-start gap-4">
-    <!-- Retro Icon Box -->
-    <div class="w-12 h-12 rounded-lg bg-amber-100 border-2 border-slate-900 flex items-center justify-center text-xl shadow-[2px_2px_0px_0px_#0f172a] shrink-0">
-      🛡️
-    </div>
-
-    <!-- Content -->
-    <div class="space-y-2 flex-1 min-w-0">
-      <h4 class="font-black text-base sm:text-lg text-slate-900 uppercase leading-snug font-sans">
-        Encountering Suspicious Match Behavior?
-      </h4>
-      <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-serif italic">
-        If an online match shifts conversation to encrypted channels or displays synthetic syntax, bypass corporate automated algorithms. Verify identity via our decentralized registry.
-      </p>
-
-      <div class="pt-2 flex flex-col sm:flex-row sm:items-center gap-3">
-        <a
-          href={`/go?source=${source}&trigger=${trigger}&intent=verify_match`}
-          rel="nofollow sponsored"
-          target="_blank"
-          class="dossier-box-cta inline-flex items-center justify-center gap-2 py-2.5 px-4 bg-rose-600 hover:bg-rose-500 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none text-white font-black text-xs uppercase rounded border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] tracking-wider transition-all cursor-pointer whitespace-nowrap"
-        >
-          <span>CHECK MATCH AUTHENTICITY &rarr;</span>
-        </a>
-        <span class="text-[10px] font-mono text-slate-500 font-bold">
-          ● Zero Bot Swarms • Real-Time Human Radar
-        </span>
-      </div>
+  <div class="space-y-2">
+    <p class="leading-relaxed font-sans text-slate-700">
+      <strong class="text-slate-900 font-semibold font-serif italic">Note:</strong> If you are investigating a profile operating under these behavioral patterns, cross-check their registered domain, phone exchange, or photo signatures against our <a
+        href={`/go?source=${source}&trigger=${trigger}&intent=verify_match`}
+        rel="nofollow sponsored"
+        target="_blank"
+        class="dossier-box-cta font-medium text-slate-900 underline decoration-slate-400 hover:decoration-rose-600 hover:text-rose-600 transition-colors"
+      >centralized verification registry &rarr;</a>
+    </p>
+    <div class="text-[11px] text-slate-500 font-mono">
+      Independent telemetry: identity verification, reverse metadata lookup & bot signature screening.
     </div>
   </div>
 </aside>

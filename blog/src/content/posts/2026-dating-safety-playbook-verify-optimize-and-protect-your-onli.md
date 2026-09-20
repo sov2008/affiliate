@@ -26,11 +26,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-742-ARC**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## The Invisible Scourge of Your Inbox
 
 Did you know that over 30% of dating-app accounts remain unverified? That's a lovely way of saying that a significant portion of the people you're chatting with might be bots, cat-fish, or outright scammers. And with AI-generated avatars and deep-fake videos making it easier for ne'er-do-wells to pose as "the one", you'd do well to take notice.

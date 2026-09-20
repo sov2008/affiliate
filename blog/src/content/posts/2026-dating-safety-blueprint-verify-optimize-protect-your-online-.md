@@ -26,11 +26,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-412-ARC**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## Hook – The Hidden Risk in Your Inbox  
 
 A third of the faces you swipe past still carry the “unverified” flag. In practice it’s the same as a server that answers a SYN with a RST – you never know whether the other end will actually exist, or is just a bot spitting out canned payloads.

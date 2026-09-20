@@ -26,11 +26,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-762-ARC**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## 🎯 The hidden risk in your inbox  
 
 A little over a third of the profiles you’ll meet on the usual dating apps still lack any form of verification. In practice that means you’re as likely to be chatting with a bot as you are with a human who actually remembers how to use a telephone handset. The following checklist treats each match like a new network node – you’ll probe, you’ll log, you’ll decide whether to keep the connection alive.

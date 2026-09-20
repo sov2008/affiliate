@@ -27,11 +27,6 @@ image: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-930-SEC**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 # How to Avoid Catfishing: The 2026 Online Dating Safety Guide Every Single Must Read  
 
 The dating‑app landscape now feels a bit like a legacy BGP table full of stale routes – most entries are legitimate, but a handful of bogus prefixes can bring the whole session down.

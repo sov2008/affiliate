@@ -24,11 +24,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-138-ALG**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## The Futility of Optimising Photo Order on Dating Apps
 
 30%+ of dating-app profiles remain unverified, and the majority of those users never get past the first swipe. One would think this is due to their profiles being a mess of poorly formatted selfies, but no, it's actually because they've failed the anchor test. The first visual impression is the decisive "anchor" that determines whether a profile is scrolled past or saved. If your photo lineup fails the anchor test, you're invisible, no matter how witty your bio.

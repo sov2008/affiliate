@@ -24,11 +24,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-848-OPS**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 *The inbox is a lot like a legacy BGP table – most entries are harmless, a few are malformed routes that will crash the whole session.*
 
 ## 📌 Key Takeaways  

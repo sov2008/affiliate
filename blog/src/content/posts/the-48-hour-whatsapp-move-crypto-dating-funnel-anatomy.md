@@ -27,11 +27,6 @@ coverImage: /images/posts/the-48-hour-whatsapp-move-crypto-dating-funnel-anatomy
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-893-SEC**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## The Scheduled Exfiltration Window
 
 In software engineering, when an unauthorized process attempts to move encrypted payloads from a monitored sandbox into an unlogged external channel, your intrusion detection system triggers a Sev-1 incident alert.

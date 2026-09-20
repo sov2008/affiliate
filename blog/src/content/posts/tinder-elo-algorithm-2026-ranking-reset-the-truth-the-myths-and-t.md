@@ -28,11 +28,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-294-ALG**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 **Tinder ELO Algorithm 2026: A Game of Whack-a-Mole**
 
 I've got a bone to pick with the Tinder ELO algorithm. It's like trying to debug a server that's been hammered by a SYN-flood. You think you've fixed one issue, but another pops up, and another. It's a never-ending game of whack-a-mole.

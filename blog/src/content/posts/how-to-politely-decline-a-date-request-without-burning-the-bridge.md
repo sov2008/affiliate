@@ -28,11 +28,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-656-OPS**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 Declining a date request without causing a scene is a bit like troubleshooting a misconfigured BGP route - it requires finesse, a dash of empathy, and a healthy dose of realism. With the vast majority of online dating profiles remaining unverified, it's a wonder anyone manages to navigate this digital landscape without losing their mind.
 
 ## Key Takeaways Summary Box

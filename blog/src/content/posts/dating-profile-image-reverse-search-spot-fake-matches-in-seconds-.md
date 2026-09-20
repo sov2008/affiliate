@@ -26,11 +26,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-375-ALG**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## The Unseen Threat in Your Inbox, Revisited
 
 You'd think that with all the bells and whistles of modern dating apps, catfishers would be a relic of the past. Alas, they're not. In fact, they're getting smarter by the day. And it's not just the usual suspects – it's the ones who've mastered the art of swapping AI-generated faces and stock images faster than you can say "SYN-flood".

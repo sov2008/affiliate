@@ -26,11 +26,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-425-NET**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## Opening the Line‑Handshake
 
 Over a third of dating profiles still wander the net without a verification flag – think of it as a server running with a self‑signed cert. The result? A flood of SYN packets that never complete the three‑way handshake, and you end up with a log full of timeouts and “no‑reply” entries.

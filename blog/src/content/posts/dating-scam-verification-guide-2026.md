@@ -28,11 +28,6 @@ image: /images/posts/dating-scam-verification-guide-2026.webp
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-778-SEC**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 # Dating Profile Verification Guide 2026: Spot Bots, Deepfakes & Catfishes  
 
 A profile that looks like a stock‑photo‑plus‑a‑few‑typos is about as rare as a packet‑loss‑free BGP session on a Friday night.

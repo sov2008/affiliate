@@ -25,11 +25,6 @@ coverImage: /images/posts/voice-phishing-on-tinder-audio-notes-trap.webp
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-381-NET**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## The Biometric Extraction Disguised as Romance
 
 For years, internet safety advocates offered a pleasantly straightforward piece of advice to anyone suspicious of an online match: *"Ask them to send a quick voice note."* The underlying logic was sound enough in 2021: bots were text-only state machines, and generating natural human speech with authentic room acoustic reverberation was computationally prohibitive for common scammers.

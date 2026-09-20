@@ -22,11 +22,6 @@ coverImage: /images/posts/stolen-photos-fake-dating-profile-how-to-fight-back-in
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-526-SEC**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## The Utterly Unremarkable Epidemic of Unverified Profiles
 
 It appears that over 30% of dating app accounts are never verified. One could say it's a bit of a mess, really. If your photos have been hijacked for a fake dating profile, you're not alone in this delightful little debacle. You do, however, have some rather useful tools at your disposal to mitigate the damage.

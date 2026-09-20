@@ -28,11 +28,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-708-PSY**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## The hidden cost of unverified profiles  
 
 Roughly a third of Bumble accounts never bother with photo or identity verification. In practice that means a sizable slice of every swipe ends up on a bot, a casual flirter, or a plain‑old scammer. Think of your bio as a firewall rule‑set: the tighter the filter, the fewer stray packets reach your inbox.

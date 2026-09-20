@@ -28,11 +28,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-129-PSY**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## The silent timeout in the 2026 dating stack  
 
 Scrolling through a sea of unverified profiles feels a bit like watching a SYN‑flood in slow‑motion – the server never quite gets a proper handshake, and you’re left waiting for a FIN that never arrives.

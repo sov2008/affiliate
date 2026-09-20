@@ -28,11 +28,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-784-NET**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 The perils of online dating in the era of audio deepfakes. It's a bit like trying to troubleshoot a network issue without the benefit of a decent packet sniffer. You're left wondering what's real and what's just a cleverly crafted illusion.
 
 ## A Brief Primer on Audio Deepfakes

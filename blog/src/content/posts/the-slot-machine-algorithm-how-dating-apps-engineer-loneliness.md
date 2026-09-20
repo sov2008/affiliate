@@ -31,11 +31,6 @@ hook: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-257-ALG**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 > **Love is...** *knowing that a casino algorithm cannot calculate the resonance of your soul.*
 
 It is twenty minutes past one in the morning, and the blue glow of an OLED panel casts cold shadows across the ceiling. Somewhere outside your window, autumn rain taps against wet asphalt, rhythmic and real. Yet inside the room, an index finger continues its mechanical cadence: swipe left, swipe left, pause on a sunlit smile, swipe right, swipe left again. 

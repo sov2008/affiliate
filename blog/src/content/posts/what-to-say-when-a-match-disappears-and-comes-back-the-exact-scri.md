@@ -24,11 +24,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-590-PSY**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## The "Zombie" Epidemic in Online Dating: A Sysadmin's Perspective
 
 You'd think that in this day and age, people would be more considerate of others' time. But alas, the "zombie" phenomenon persists in online dating. It's not just a matter of someone losing interest; it's a deliberate attempt to disappear and reappear like a ghost. According to our internal FlirtCheck data, over 30% of dating-app profiles are still unverified, and "zombieing" is now the #2 reason people quit apps.

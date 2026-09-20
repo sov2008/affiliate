@@ -28,11 +28,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-410-PSY**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 **The Silent Drop-Off: A Bottleneck of Unverified Accounts**
 
 Did you know that over 30% of dating-app users are still on unverified accounts? Those ghostly profiles flood the feed, inflate match numbers, and create a hidden "matches but no dates" bottleneck. You may be racking up likes, yet the pipeline stalls before the first coffee. Let's expose the choke points and give you a step-by-step rescue plan.

@@ -24,11 +24,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-127-ARC**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## The Not-So-Glamorous World of Dating Apps
 
 It's come to this: over 32% of profiles on Tinder, Bumble, and Hinge are unverified. Roughly one in three potential matches might be a fake, a catfish, or a scammer. The rise of AI-generated avatars and deep-fake photos hasn't helped. If you're serious about finding genuine connections, you'll need a battle-tested safety system – not just a gut feeling.

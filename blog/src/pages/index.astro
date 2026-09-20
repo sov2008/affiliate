@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import FeedItem from '../components/FeedItem.astro';
 import Sidebar from '../components/Sidebar.astro';
-import ProfileScanner from '../components/ProfileScanner.astro';
+import IndependenceProtocol from '../components/IndependenceProtocol.astro';
 import MobileStickyCTA from '../components/MobileStickyCTA.astro';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.config';
 
@@ -17,8 +17,8 @@ const regularPosts = sortedPosts.slice(1);
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const pageTitle = "FlirtCheck: Modern Dating Chronicles | From Algorithms to the Human Heart";
-const pageDescription = "Cultural, psychological, and algorithmic forensic study of modern romance in 2026. From automated black-box feeds to authentic human vulnerability.";
+const pageTitle = "FlirtCheck: Dating Forensics & Algorithmic Analysis";
+const pageDescription = "Independent technical and psychological investigations into matchmaking algorithms, synthetic bot farms, and modern digital romance security.";
 
 const categoriesList = CategoryEnum.options.map((key) => CATEGORIES_METADATA[key]);
 
@@ -37,50 +37,34 @@ const featuredPostCover = rawFeaturedCover
 
 <BaseLayout title={pageTitle} description={pageDescription} activePath="/" preloadImage={featuredPostCover}>
   <link rel="preload" as="image" href={featuredPostCover} fetchpriority="high" type="image/webp" slot="head" />
-  <!-- Hero Editorial 90s Newspaper / Comic Banner (Compacted) -->
-  <section class="text-center py-4 sm:py-6 mb-6 relative">
-    <div>
-      <span class="border border-slate-900 bg-amber-100 text-slate-900 px-3 py-1 text-[11px] font-mono font-bold tracking-widest uppercase shadow-[1px_1px_0px_0px_#0f172a]">
-        THE 2026 DATING FORENSICS & ROMANCE GAZETTE
+  
+  <!-- Hero Editorial Header: Authentic Journalistic Publication -->
+  <section class="text-center py-6 sm:py-8 mb-4 border-b border-slate-200">
+    <div class="inline-block mb-2">
+      <span class="text-xs font-mono font-bold tracking-widest uppercase text-slate-500">
+        INDEPENDENT FORENSIC DESK // DATING SECURITY & ALGORITHMS
       </span>
     </div>
 
     <!-- Main H1 Header -->
-    <h1 class="font-black text-2xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight uppercase leading-tight mt-3 mb-2">
-      MODERN DATING CHRONICLES: <span class="text-rose-600">FROM ALGORITHMS TO THE HUMAN HEART</span>
+    <h1 class="font-bold text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight font-sans leading-tight mt-1 mb-3">
+      Modern Dating Chronicles: <span class="text-rose-600">From Algorithms to Human Chemistry</span>
     </h1>
 
-    <!-- Canonical "Love is..." Signature Motto & Author Epigraph -->
-    <div class="my-3 sm:my-4 inline-block bg-white border-2 border-slate-900 rounded-xl px-5 py-3 shadow-[4px_4px_0px_0px_#0f172a] transform -rotate-1 hover:rotate-0 transition-transform max-w-2xl">
-      <p class="font-serif italic text-sm sm:text-lg text-rose-600 font-semibold leading-snug">
-        "Love is... knowing that in a world of endless swipes and synthetic scripts, real chemistry happens between two imperfect souls."
-      </p>
-      <div class="mt-1 text-right">
-        <span class="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-widest">— Notes from an Analog Romantic & FlirtCheck Editorial</span>
-      </div>
-    </div>
-
-    <!-- Author Lead Manifest -->
-    <p class="text-slate-600 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed font-normal mb-5">
-      Investigating the collision of synthetic AI personas, algorithmic traps, and genuine human vulnerability. Written from the perspective of an analog romantic in an automated age.
+    <p class="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-sans mb-6">
+      Investigating the collision of commercial matchmaking black-boxes, synthetic persona swarms, and authentic human interaction. Empirical reports, heuristic teardowns, and safety telemetry.
     </p>
 
-    <!-- Interactive Category Filter Stamps Bar -->
+    <!-- Category Filter Navigation Bar -->
     <div class="max-w-4xl mx-auto">
-      <div class="flex items-center justify-center gap-2 mb-2.5">
-        <span class="text-xs font-mono uppercase text-slate-600 font-black tracking-wider">
-          THEMATIC DOSSIERS:
-        </span>
-      </div>
-
       <div id="categoryFilterBar" class="flex overflow-x-auto no-scrollbar py-2 gap-2 sm:flex-wrap sm:justify-center items-center">
         <!-- "All" Filter Button -->
         <button
           type="button"
           data-filter="all"
-          class="category-btn active shrink-0 px-3 py-1 rounded-lg text-xs font-mono font-black uppercase tracking-wider border-2 border-slate-900 bg-slate-900 text-white shadow-[2px_2px_0px_0px_#e11d48] transition-all cursor-pointer hover:-translate-y-0.5"
+          class="category-btn active shrink-0 px-3.5 py-1.5 rounded-lg text-xs font-sans font-semibold uppercase tracking-wider border border-slate-900 bg-slate-900 text-white shadow-sm transition-all cursor-pointer hover:bg-slate-800"
         >
-          [ALL DOSSIERS] ({sortedPosts.length})
+          All Topics ({sortedPosts.length})
         </button>
 
         <!-- Category Buttons -->
@@ -90,33 +74,28 @@ const featuredPostCover = rawFeaturedCover
             <button
               type="button"
               data-filter={cat.id}
-              class:list={[
-                "category-btn shrink-0 px-3 py-1 rounded-lg text-xs font-mono font-bold uppercase tracking-wider border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-[3px_3px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all cursor-pointer",
-                cat.badgeStyle
-              ]}
+              class="category-btn shrink-0 px-3.5 py-1.5 rounded-lg text-xs font-sans font-medium uppercase tracking-wider border border-slate-300 bg-white hover:border-slate-400 hover:bg-slate-50 text-slate-700 shadow-sm transition-all cursor-pointer"
               title={cat.description}
             >
-              <span>[{cat.shortTitle}]</span>
-              <span class="ml-1 opacity-75 font-normal">({count})</span>
+              <span>{cat.shortTitle}</span>
+              <span class="ml-1 opacity-70 font-normal">({count})</span>
             </button>
           );
         })}
       </div>
 
-      <!-- Active Category Motto & Context Display -->
-      <div id="categoryInfoBox" class="hidden mt-4 p-3.5 bg-white border-2 border-slate-900 rounded-xl shadow-[3px_3px_0px_0px_#0f172a] max-w-2xl mx-auto text-left transition-all">
+      <!-- Active Category Context Display -->
+      <div id="categoryInfoBox" class="hidden mt-4 p-4 bg-white border border-slate-200 rounded-lg shadow-sm max-w-2xl mx-auto text-left transition-all">
         <div class="flex items-center gap-2 mb-1">
-          <span id="categoryInfoTitle" class="font-sans font-black text-xs sm:text-sm text-slate-900 uppercase"></span>
-          <span class="text-xs text-slate-400 font-mono">•</span>
-          <span id="categoryInfoMotto" class="font-serif italic text-xs text-rose-600 font-semibold"></span>
+          <span id="categoryInfoTitle" class="font-sans font-bold text-xs sm:text-sm text-slate-900 uppercase tracking-wide"></span>
         </div>
-        <p id="categoryInfoDesc" class="text-xs text-slate-600 leading-relaxed"></p>
+        <p id="categoryInfoDesc" class="text-xs text-slate-600 leading-relaxed font-sans"></p>
       </div>
     </div>
   </section>
 
   <!-- 2-COLUMN LAYOUT: Sidebar (w-80 shrink-0) + Feed (flex-1) -->
-  <section id="feed" class="mt-2 mb-16">
+  <section id="feed" class="mt-4 mb-16">
     <div class="flex flex-col lg:flex-row gap-8 items-start">
       <!-- Left Column: Sticky Classifieds & Info Sidebar -->
       <Sidebar
@@ -127,11 +106,11 @@ const featuredPostCover = rawFeaturedCover
 
       <!-- Right Column: Editorial Dispatch Feed -->
       <div class="flex-1 w-full min-w-0 space-y-6">
-        <div class="flex items-center justify-between pb-3 border-b-2 border-slate-900">
-          <h2 class="text-lg sm:text-xl font-black text-slate-900 tracking-tight flex items-center gap-3 font-sans uppercase">
-            <span>EDITORIAL DISPATCH FEED</span>
-            <span id="displayedCountBadge" class="px-2.5 py-0.5 rounded border border-slate-900 text-xs font-mono font-black bg-rose-600 text-white shadow-[2px_2px_0px_0px_#0f172a]">
-              ARCHIVE RECORDS: {sortedPosts.length} DISPATCHES FILED
+        <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2 font-sans">
+            <span>Recent Investigations</span>
+            <span id="displayedCountBadge" class="text-xs font-mono text-slate-500 font-medium">
+              ({sortedPosts.length} reports)
             </span>
           </h2>
         </div>
@@ -151,32 +130,27 @@ const featuredPostCover = rawFeaturedCover
         ) : null}
 
         <!-- 3. Empty State for Filter -->
-        <div id="noPostsFound" class="hidden text-center py-16 bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
-          <p class="text-slate-700 font-bold font-sans text-base">No dispatches found in this category.</p>
+        <div id="noPostsFound" class="hidden text-center py-16 bg-white rounded-lg border border-slate-200 shadow-sm">
+          <p class="text-slate-700 font-medium font-sans text-base">No investigations found in this category.</p>
           <button
             type="button"
             id="resetFilterBtn"
-            class="mt-4 px-4 py-2 bg-rose-600 text-white font-mono text-xs font-black uppercase rounded-lg border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none cursor-pointer"
+            class="mt-4 px-4 py-2 bg-slate-900 text-white font-sans text-xs font-semibold uppercase rounded-lg border border-slate-900 hover:bg-slate-800 transition-colors cursor-pointer"
           >
-            [SHOW ALL DOSSIERS]
+            Show All Articles
           </button>
         </div>
 
-        <!-- 4. Retro Newspaper Archive Pagination Bar -->
-        <div id="feedPagination" class="flex flex-wrap justify-center items-center gap-2 pt-6 border-t-2 border-slate-900 font-mono text-xs">
+        <!-- 4. Archive Pagination Bar -->
+        <div id="feedPagination" class="flex flex-wrap justify-center items-center gap-2 pt-6 border-t border-slate-200 font-sans text-xs">
           <!-- Dynamically generated page buttons -->
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Interactive Forensic Scanner Section -->
-  <section id="safety-quiz">
-    <ProfileScanner
-      title="Instant Profile Safety & Compatibility Scan"
-      subtitle="Run our rapid profile verification radar: filter bot swarms, audit photo metadata, and calibrate authentic chemistry."
-    />
-  </section>
+  <!-- Editorial Transparency & Independence Protocol -->
+  <IndependenceProtocol />
 
   <!-- Mobile Sticky Bottom Conversion Bar -->
   <MobileStickyCTA />
@@ -194,7 +168,6 @@ const featuredPostCover = rawFeaturedCover
     const paginationContainer = document.getElementById('feedPagination');
     const infoBox = document.getElementById('categoryInfoBox');
     const infoTitle = document.getElementById('categoryInfoTitle');
-    const infoMotto = document.getElementById('categoryInfoMotto');
     const infoDesc = document.getElementById('categoryInfoDesc');
 
     const catMetaMap = {};
@@ -418,11 +391,10 @@ const featuredPostCover = rawFeaturedCover
       });
 
       // Update info banner
-      if (infoBox && infoTitle && infoMotto && infoDesc) {
+      if (infoBox && infoTitle && infoDesc) {
         if (filterVal !== 'all' && catMetaMap[filterVal]) {
           const meta = catMetaMap[filterVal];
           infoTitle.textContent = meta.title;
-          infoMotto.textContent = `"${meta.motto}"`;
           infoDesc.textContent = meta.description;
           infoBox.classList.remove('hidden');
         } else {

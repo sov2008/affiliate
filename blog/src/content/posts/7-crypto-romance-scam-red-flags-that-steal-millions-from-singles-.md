@@ -28,11 +28,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-916-SEC**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 **The Dark Side of Digital Romance**  
 A swipe left on a profile that never existed feels a bit like a 404 on a love‑router. The numbers are stark: over a third of dating‑app accounts still lack any verification, and the blockchain‑infused scams have already siphoned billions. Treat every new match as an inbound connection you haven’t yet authenticated.
 

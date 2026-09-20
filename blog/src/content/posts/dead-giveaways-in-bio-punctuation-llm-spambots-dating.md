@@ -25,11 +25,6 @@ coverImage: /images/posts/dead-giveaways-in-bio-punctuation-llm-spambots-dating.
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-699-NET**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 ## The Tell-Tale Em-Dash
 
 When humans write dating bios on a mobile device while squeezed into the Northern line or lounging on a sofa at 11:30 PM, their output reflects the chaotic friction of human thumb input. They forget apostrophes. They substitute commas for periods. They overuse lowercase letters, leave dangling prepositions, and pepper their sentences with erratic, hyper-local slang.

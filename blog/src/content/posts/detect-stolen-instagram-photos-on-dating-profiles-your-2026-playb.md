@@ -28,11 +28,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-425-ALG**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 **The Unverified Epidemic: A Slightly Melancholic Observation**
 
 Did you know that over 30% of dating-app profiles remain unverified in 2026? That's roughly a third of the people you swipe right on, potentially using borrowed images – often ripped straight from Instagram influencers, models, or even strangers' private feeds. The result? Emotional waste, financial scams, and wasted time. Let's arm you with the tools to detect stolen Instagram photos on dating profiles before you invest a single message.

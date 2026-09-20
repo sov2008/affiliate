@@ -28,11 +28,6 @@ coverImage: >-
 draft: false
 ---
 
-> **INCIDENT DISPATCH // CASE: #FC-512-SEC**  
-> **FIELD LOG:** Commercial matchmaking platforms operate on variable ratio reward mechanics and hidden ELO filtering. This dossier deconstructs underlying mechanics, synthetic bot telemetry, and reverse-engineered mitigation protocols.
-
----
-
 **The Baffling Case of the Deployed Soldier Scam**
 
 Did you know that over 30% of dating-app profiles are still unverified? It's a staggering statistic, really. In the world of "deployed soldier dating scams," that translates into thousands of hopeful romantics being duped every month. The allure of a brave, far-away hero can be powerful, but it also makes scammers thrive. This guide is here to equip you with the latest military romance scam signs and a verification playbook to keep love and your finances safe.
