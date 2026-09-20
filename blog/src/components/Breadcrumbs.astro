@@ -39,7 +39,7 @@ const breadcrumbSchema = {
     </li>
     {items.map((item, index) => (
       <>
-        <li class="text-slate-400">/</li>
+        <li class="text-slate-500 font-bold" aria-hidden="true">/</li>
         <li class={index === items.length - 1 ? "text-rose-600 font-black truncate max-w-xs" : ""}>
           {item.url && index !== items.length - 1 ? (
             <a href={item.url} class="hover:text-rose-600 transition-colors">{item.name}</a>

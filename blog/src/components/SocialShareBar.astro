@@ -25,7 +25,8 @@ const redditShareUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(u
     <button
       type="button"
       data-share-copy={copyUrl}
-      class="share-copy-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 transition-colors font-medium cursor-pointer shadow-xs"
+      aria-label="Copy direct link to report"
+      class="share-copy-btn inline-flex items-center gap-1.5 px-3 py-2 sm:py-1.5 min-h-[40px] sm:min-h-[36px] rounded-lg bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none transition-all font-medium cursor-pointer shadow-xs active:scale-95"
       title="Copy Direct Link to Report"
     >
       <span class="copy-icon">🔗</span>
@@ -37,7 +38,8 @@ const redditShareUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(u
       href={xShareUrl}
       target="_blank"
       rel="noopener noreferrer"
-      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 transition-colors font-medium shadow-xs"
+      aria-label="Share this report on X Twitter"
+      class="inline-flex items-center gap-1.5 px-3 py-2 sm:py-1.5 min-h-[40px] sm:min-h-[36px] rounded-lg bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none transition-all font-medium shadow-xs active:scale-95"
       title="Share to X (Twitter)"
     >
       <span>𝕏</span>
@@ -49,7 +51,8 @@ const redditShareUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(u
       href={redditShareUrl}
       target="_blank"
       rel="noopener noreferrer"
-      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 transition-colors font-medium shadow-xs"
+      aria-label="Share this investigation on Reddit"
+      class="inline-flex items-center gap-1.5 px-3 py-2 sm:py-1.5 min-h-[40px] sm:min-h-[36px] rounded-lg bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none transition-all font-medium shadow-xs active:scale-95"
       title="Share on Reddit (r/Tinder, r/Cybersecurity)"
     >
       <span class="text-orange-600 font-bold">●</span>

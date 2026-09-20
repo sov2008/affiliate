@@ -1,5 +1,11 @@
 {
   "skills": {
+    "ui_ux_pro_max_auditor": {
+      "name": "ui_ux_pro_max_auditor",
+      "path": ".agents/skills/ui_ux_pro_max_auditor/SKILL.md",
+      "description": "Performs automated UI/UX Pro Max audits: WCAG AAA contrast, 68ch typography rhythm, 44px touch targets, and layout density validation.",
+      "command": "npx tsx scripts/audit-ui-ux-pro-max.ts"
+    },
     "editorial_design_system_auditor": {
       "name": "editorial_design_system_auditor",
       "path": ".agents/skills/editorial_design_system_auditor/SKILL.md",
