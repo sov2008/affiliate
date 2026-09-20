@@ -1,0 +1,175 @@
+---
+// ScamRiskMatrix.astro - Interactive self-assessment risk telemetry widget
+---
+
+<div class="bg-[#FAF7F2] border-2 border-slate-900 rounded-lg p-5 sm:p-6 my-10 shadow-[4px_4px_0px_0px_#0f172a] font-sans not-prose">
+  <div class="flex items-center justify-between pb-3 border-b-2 border-slate-900 mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-rose-700 animate-pulse"></span>
+      <span class="font-mono text-xs font-black tracking-wider uppercase text-slate-900">
+        FIELD TELEMETRY TOOL // ROMANCE SCAM RISK MATRIX
+      </span>
+    </div>
+    <span class="font-mono text-[10px] bg-slate-900 text-white px-2 py-0.5 rounded font-bold uppercase">
+      INTERACTIVE AUDIT
+    </span>
+  </div>
+
+  <p class="text-xs sm:text-sm text-slate-700 mb-5 leading-relaxed">
+    Evaluate profile anomalies against observed forensic patterns. Mark all suspicious signals observed during match interaction:
+  </p>
+
+  <form id="scamRiskForm" class="space-y-3 mb-6" onsubmit="return false;">
+    <label class="flex items-start gap-3 p-3 bg-[#FFFDF9] border border-slate-900 rounded cursor-pointer hover:bg-slate-50 transition-colors">
+      <input
+        type="checkbox"
+        class="scam-checkbox mt-1 w-4 h-4 rounded text-rose-700 border-slate-900 focus:ring-rose-700 cursor-pointer"
+        data-weight="25"
+      />
+      <span class="text-xs sm:text-sm font-medium text-slate-900 leading-snug">
+        Profile uses luxury/travel photos or claims foreign investment/crypto background.
+      </span>
+    </label>
+
+    <label class="flex items-start gap-3 p-3 bg-[#FFFDF9] border border-slate-900 rounded cursor-pointer hover:bg-slate-50 transition-colors">
+      <input
+        type="checkbox"
+        class="scam-checkbox mt-1 w-4 h-4 rounded text-rose-700 border-slate-900 focus:ring-rose-700 cursor-pointer"
+        data-weight="25"
+      />
+      <span class="text-xs sm:text-sm font-medium text-slate-900 leading-snug">
+        Urged moving chat to WhatsApp/Telegram within first 48 hours of matching.
+      </span>
+    </label>
+
+    <label class="flex items-start gap-3 p-3 bg-[#FFFDF9] border border-slate-900 rounded cursor-pointer hover:bg-slate-50 transition-colors">
+      <input
+        type="checkbox"
+        class="scam-checkbox mt-1 w-4 h-4 rounded text-rose-700 border-slate-900 focus:ring-rose-700 cursor-pointer"
+        data-weight="25"
+      />
+      <span class="text-xs sm:text-sm font-medium text-slate-900 leading-snug">
+        Refused live two-way video verification citing poor camera, strict work, or travel.
+      </span>
+    </label>
+
+    <label class="flex items-start gap-3 p-3 bg-[#FFFDF9] border border-slate-900 rounded cursor-pointer hover:bg-slate-50 transition-colors">
+      <input
+        type="checkbox"
+        class="scam-checkbox mt-1 w-4 h-4 rounded text-rose-700 border-slate-900 focus:ring-rose-700 cursor-pointer"
+        data-weight="25"
+      />
+      <span class="text-xs sm:text-sm font-medium text-slate-900 leading-snug">
+        Mentioned trading, crypto platforms, liquidity mining, or an urgent financial emergency.
+      </span>
+    </label>
+  </form>
+
+  <!-- Risk Score & Evaluation Panel -->
+  <div class="bg-[#FFFDF9] border-2 border-slate-900 rounded p-4 shadow-[2px_2px_0px_0px_#0f172a]">
+    <div class="flex justify-between items-center mb-2 font-mono">
+      <span class="text-xs font-bold uppercase text-slate-700">Calculated Risk Index:</span>
+      <span id="riskScoreLabel" class="text-base font-black text-emerald-700">0% (LOW)</span>
+    </div>
+
+    <!-- Progress Meter -->
+    <div class="w-full h-3 bg-slate-200 border border-slate-900 rounded-full overflow-hidden mb-3">
+      <div
+        id="riskProgressBar"
+        class="h-full bg-emerald-600 transition-all duration-300 ease-out"
+        style="width: 0%;"
+      ></div>
+    </div>
+
+    <div id="riskVerdictText" class="font-mono text-xs font-bold text-slate-800 leading-relaxed mb-4">
+      LOW ANOMALY FOOTPRINT (Standard Verification Recommended)
+    </div>
+
+    <!-- Smartlink Conversion CTA Hook -->
+    <div id="riskActionContainer" class="pt-3 border-t border-slate-300">
+      <a
+        href="/go?source=blog&trigger=scam_matrix&intent=verify"
+        id="scamMatrixCta"
+        rel="nofollow sponsored"
+        target="_blank"
+        class="min-h-[44px] w-full flex items-center justify-center text-center px-4 py-3 bg-rose-700 hover:bg-rose-800 text-white font-mono font-black text-xs uppercase rounded border-2 border-slate-900 shadow-[3px_3px_0px_0px_#0f172a] tracking-wider transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700"
+      >
+        CROSS-CHECK PROFILE FOOTPRINT ↗
+      </a>
+      <span class="block text-center text-[10px] font-mono text-slate-600 font-medium mt-2">
+        Zero-log heuristic inspection · Direct verification protocol
+      </span>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initScamRiskMatrix() {
+    const checkboxes = document.querySelectorAll<HTMLInputElement>('.scam-checkbox');
+    const scoreLabel = document.getElementById('riskScoreLabel');
+    const progressBar = document.getElementById('riskProgressBar');
+    const verdictText = document.getElementById('riskVerdictText');
+    const cta = document.getElementById('scamMatrixCta') as HTMLAnchorElement | null;
+
+    if (!scoreLabel || !progressBar || !verdictText) return;
+
+    // Attach CID attribution
+    if (cta) {
+      let cid = '';
+      try {
+        cid = sessionStorage.getItem('flirtcheck_cid') || '';
+        if (!cid) {
+          cid = 'fc_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
+          sessionStorage.setItem('flirtcheck_cid', cid);
+        }
+      } catch {
+        cid = 'fc_' + Date.now().toString(36);
+      }
+      cta.href = `/go?source=blog&trigger=scam_matrix&intent=verify&cid=${encodeURIComponent(cid)}`;
+    }
+
+    function calculateRisk() {
+      let score = 0;
+      checkboxes.forEach(cb => {
+        if (cb.checked) {
+          score += parseInt(cb.getAttribute('data-weight') || '25', 10);
+        }
+      });
+
+      progressBar!.style.width = `${score}%`;
+
+      if (score === 0) {
+        scoreLabel!.textContent = '0% (CLEAR)';
+        scoreLabel!.className = 'text-base font-black text-emerald-700';
+        progressBar!.className = 'h-full bg-emerald-600 transition-all duration-300 ease-out';
+        verdictText!.textContent = 'LOW ANOMALY FOOTPRINT (Standard Verification Recommended)';
+        verdictText!.className = 'font-mono text-xs font-bold text-slate-800 leading-relaxed mb-4';
+      } else if (score <= 25) {
+        scoreLabel!.textContent = `${score}% (LOW)`;
+        scoreLabel!.className = 'text-base font-black text-emerald-700';
+        progressBar!.className = 'h-full bg-emerald-600 transition-all duration-300 ease-out';
+        verdictText!.textContent = 'LOW ANOMALY FOOTPRINT (Standard Verification Recommended)';
+        verdictText!.className = 'font-mono text-xs font-bold text-emerald-800 leading-relaxed mb-4';
+      } else if (score <= 75) {
+        scoreLabel!.textContent = `${score}% (ELEVATED)`;
+        scoreLabel!.className = 'text-base font-black text-amber-700';
+        progressBar!.className = 'h-full bg-amber-600 transition-all duration-300 ease-out';
+        verdictText!.textContent = 'ELEVATED THREAT PROFILE (Do not transfer funds or share identities)';
+        verdictText!.className = 'font-mono text-xs font-bold text-amber-800 leading-relaxed mb-4';
+      } else {
+        scoreLabel!.textContent = `${score}% (CRITICAL)`;
+        scoreLabel!.className = 'text-base font-black text-rose-700';
+        progressBar!.className = 'h-full bg-rose-700 transition-all duration-300 ease-out';
+        verdictText!.textContent = 'CRITICAL RISK INDICATOR (Syndicate Pig-Butchering Pattern Detected)';
+        verdictText!.className = 'font-mono text-xs font-bold text-rose-800 leading-relaxed mb-4';
+      }
+    }
+
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', calculateRisk);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initScamRiskMatrix);
+  initScamRiskMatrix();
+</script>

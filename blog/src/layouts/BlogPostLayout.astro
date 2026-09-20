@@ -8,6 +8,8 @@ import MobileStickyCTA from '../components/MobileStickyCTA.astro';
 import InlineQuiz from '../components/InlineQuiz.astro';
 import ExitIntentModal from '../components/ExitIntentModal.astro';
 import SocialShareBar from '../components/SocialShareBar.astro';
+import ScamRiskMatrix from '../components/ScamRiskMatrix.astro';
+import { getCollection } from 'astro:content';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.config';
 
 interface Props {
@@ -77,6 +79,28 @@ const findingsList = [
   `Audit protocols: recognizing unverified profile signatures, bot farm syntax loops, and high-risk extraction patterns.`,
   `Technical defense checklist: operational guidelines for identity protection and mitigating digital manipulation.`
 ];
+
+// Fetch non-draft posts to calculate related dossiers
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const currentId = slug || '';
+const relatedPosts = allPosts
+  .filter(p => (p.id || p.slug) !== currentId)
+  .map(p => {
+    let score = 0;
+    if (tags && p.data.tags) {
+      const commonTags = p.data.tags.filter(t => tags.includes(t)).length;
+      score += commonTags * 10;
+    }
+    if (p.data.category === catId) {
+      score += 5;
+    }
+    return { post: p, score };
+  })
+  .sort((a, b) => b.score - a.score || b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf())
+  .slice(0, 3)
+  .map(item => item.post);
+
+const isSafetyDossier = catId === 'safety-dossier' || (tags && tags.some(t => /scam|crypto|catfish|bot|imposter/i.test(t)));
 
 // Schema.org Article Structured Data
 const articleSchema = {
@@ -186,6 +210,7 @@ const faqSchema = {
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="robots" content="noindex, nofollow, noarchive" />
 
     <!-- OpenGraph Metadata -->
@@ -251,9 +276,32 @@ const faqSchema = {
               #{tag}
             </span>
           ))}
-          <span id="readingTimeBadge" class="text-xs font-sans text-slate-500 ml-auto">
-            {readingTime} min read
-          </span>
+          <div class="flex items-center gap-2 ml-auto">
+            <span id="readingTimeBadge" class="text-xs font-mono text-slate-600">
+              {readingTime} min read
+            </span>
+            <!-- Reading Scale Control -->
+            <div class="inline-flex items-center border border-slate-900 rounded bg-white shadow-[1px_1px_0px_0px_#0f172a] overflow-hidden ml-1">
+              <button
+                type="button"
+                id="fontScaleDownBtn"
+                aria-label="Decrease font size"
+                title="Decrease font size"
+                class="min-h-[44px] min-w-[44px] flex items-center justify-center font-mono font-bold text-xs text-slate-800 hover:bg-slate-100 active:bg-slate-200 cursor-pointer transition-colors border-r border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+              >
+                A-
+              </button>
+              <button
+                type="button"
+                id="fontScaleUpBtn"
+                aria-label="Increase font size"
+                title="Increase font size"
+                class="min-h-[44px] min-w-[44px] flex items-center justify-center font-mono font-bold text-xs text-slate-800 hover:bg-slate-100 active:bg-slate-200 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+              >
+                A+
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- Headline -->
@@ -304,7 +352,7 @@ const faqSchema = {
       </div>
 
       <!-- Article Markdown Typography Content (Longform Readability) -->
-      <article class="prose prose-slate max-w-[68ch] mx-auto
+      <article id="articleContent" class="prose prose-slate max-w-[68ch] mx-auto
         [&>p:first-of-type::first-letter]:float-left 
         [&>p:first-of-type::first-letter]:text-5xl sm:[&>p:first-of-type::first-letter]:text-6xl 
         [&>p:first-of-type::first-letter]:font-serif 
@@ -327,6 +375,45 @@ const faqSchema = {
 
       <!-- Contextual Editorial Note (Replaced DossierContextBox) -->
       <DossierContextBox />
+
+      <!-- Interactive Romance Scam Risk Matrix (For Safety & Scam Dossiers) -->
+      {isSafetyDossier && (
+        <ScamRiskMatrix />
+      )}
+
+      <!-- Connected Telemetry // Related Dossiers -->
+      {relatedPosts.length > 0 && (
+        <section class="my-10 pt-6 border-t-2 border-slate-900 not-prose">
+          <div class="font-mono text-xs font-black uppercase tracking-widest text-slate-700 mb-4 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-rose-700 shrink-0"></span>
+            <span>[CONNECTED TELEMETRY // RELATED DOSSIERS]</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6">
+            {relatedPosts.map((rel) => {
+              const relCategory = rel.data.category || 'safety-dossier';
+              const relUrl = `/${rel.id || rel.slug}/`;
+              return (
+                <article class="bg-[#FFFDF9] border border-slate-900 rounded p-4 shadow-[3px_3px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all flex flex-col justify-between">
+                  <div>
+                    <span class="font-mono text-[10px] text-slate-700 uppercase font-bold block mb-1.5">
+                      [{relCategory}]
+                    </span>
+                    <h3 class="font-serif font-bold text-sm text-slate-900 line-clamp-3 hover:text-rose-700 leading-snug mb-3">
+                      <a href={relUrl}>{rel.data.title}</a>
+                    </h3>
+                  </div>
+                  <a
+                    href={relUrl}
+                    class="min-h-[44px] flex items-center font-mono font-bold text-xs uppercase text-slate-900 hover:text-rose-700 underline underline-offset-4 transition-colors"
+                  >
+                    Read Dossier ↗
+                  </a>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       <!-- Social Share Bar (Bottom) -->
       <SocialShareBar title={title} url={canonicalAbsUrl} className="my-8" />
@@ -463,9 +550,57 @@ const faqSchema = {
 
       document.addEventListener('DOMContentLoaded', setupArticleEvidence);
       setupArticleEvidence();
+
+      // Font Scale Controller
+      function initFontScale() {
+        const article = document.getElementById('articleContent');
+        const downBtn = document.getElementById('fontScaleDownBtn');
+        const upBtn = document.getElementById('fontScaleUpBtn');
+        if (!article || !downBtn || !upBtn) return;
+
+        const scales = ['scale-sm', 'scale-md', 'scale-lg'];
+        let currentScale = 'scale-md';
+        try {
+          currentScale = localStorage.getItem('flirtcheck_font_scale') || 'scale-md';
+        } catch {}
+
+        function applyScale(scale: string) {
+          scales.forEach(s => article?.classList.remove(s));
+          article?.classList.add(scale);
+          try {
+            localStorage.setItem('flirtcheck_font_scale', scale);
+          } catch {}
+        }
+
+        applyScale(currentScale);
+
+        downBtn.addEventListener('click', () => {
+          const idx = scales.indexOf(currentScale);
+          if (idx > 0) {
+            currentScale = scales[idx - 1];
+            applyScale(currentScale);
+          }
+        });
+
+        upBtn.addEventListener('click', () => {
+          const idx = scales.indexOf(currentScale);
+          if (idx < scales.length - 1) {
+            currentScale = scales[idx + 1];
+            applyScale(currentScale);
+          }
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', initFontScale);
+      initFontScale();
     </script>
 
     <style is:global>
+      /* Reading Scale Adjustments */
+      #articleContent.scale-sm p { font-size: 16px !important; line-height: 1.65 !important; }
+      #articleContent.scale-md p { font-size: 18px !important; line-height: 1.75 !important; }
+      #articleContent.scale-lg p { font-size: 20px !important; line-height: 1.85 !important; }
+
       /* Evidence Photography & Visual Samples */
       article.prose img {
         border: 1px solid #0F172A !important;

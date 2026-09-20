@@ -1,0 +1,21 @@
+{
+  "name": "FlirtCheck Forensic Desk",
+  "short_name": "FlirtCheck",
+  "description": "Independent technical and psychological investigations into matchmaking algorithms, synthetic bot farms, and modern digital romance security.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#0F172A",
+  "background_color": "#FAF7F2",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
