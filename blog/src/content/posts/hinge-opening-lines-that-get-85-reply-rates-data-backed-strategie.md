@@ -34,7 +34,7 @@ Over a third of dating profiles still wander the net without a verification flag
 
 ## Crafting the Perfect Hinge Opener
 
-### The Psychology of Attraction – A Syslog Perspective  
+### The Psychology of Attraction – A Syslog Perspective
 
 Attraction behaves much like a routing protocol: the more specific the metric, the higher the chance the packet is accepted. A generic “hey” is the equivalent of a default route – it will get you nowhere fast. Instead, pull a field from the profile (hobby, favourite book, obscure meme) and treat it as a BGP community tag that narrows the path.
 
@@ -68,7 +68,7 @@ Each question is a “ping‑pong” that forces the other side to send data, ke
 
 ---
 
-## Data‑Backed Strategy Summary  
+## Data‑Backed Strategy Summary
 
 Our internal analytics (a modest log‑parser, not a black‑box AI) show a clear pattern: openers that combine a personal tag, a low‑latency joke, or a thought‑provoking query see reply rates approaching 85 %. Anything less resembles a malformed packet – it’s simply discarded.
 

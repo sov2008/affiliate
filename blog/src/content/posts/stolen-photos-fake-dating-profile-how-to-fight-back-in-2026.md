@@ -1,5 +1,5 @@
 ---
-title: "Stolen Photos, Fake Dating Profile? How to Fight Back in 2026 🚨"
+title: "Stolen Photos, Fake Dating Profile? How to Fight Back in 2026"
 description: "Discover expert tactics on stolen photos fake dating profile. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-08-14"
 category: "safety-dossier"

@@ -19,7 +19,7 @@ The average swipe feels a lot like a SYN‑packet that never gets an ACK – you
 
 ---
 
-## What you actually need to get past the noise  
+## What you actually need to get past the noise
 
 - **Verification first** – treat every new connection like a TLS handshake; a missing certificate is a red flag.  
 - **Profile that routes correctly** – a well‑structured bio is the equivalent of a clean routing table: no loops, no black holes.  
@@ -28,7 +28,7 @@ The average swipe feels a lot like a SYN‑packet that never gets an ACK – you
 
 ---
 
-## 1⃣ Profile optimisation – the “Triple‑Cue” packet payload
+## Profile optimisation – the “Triple‑Cue” packet payload
 
 | Cue | Why it works (network‑side) | How to build it |
 |-----|----------------------------|-----------------|
@@ -50,7 +50,7 @@ The average swipe feels a lot like a SYN‑packet that never gets an ACK – you
 
 ---
 
-## 2⃣ Scam prevention – the 5‑step red‑flag IDS
+## Scam prevention – the 5‑step red‑flag IDS
 
 | Step | Indicator (signature) | Immediate mitigation |
 |------|-----------------------|----------------------|
@@ -68,9 +68,9 @@ The average swipe feels a lot like a SYN‑packet that never gets an ACK – you
 
 ---
 
-## 3⃣ Relationship psychology – treating attachment like a TCP window
+## Relationship psychology – treating attachment like a TCP window
 
-### 3.1 Identify your own window size  
+### 3.1 Identify your own window size
 
 | Style | Core need (flow‑control) | Typical traffic pattern |
 |-------|--------------------------|--------------------------|
@@ -93,7 +93,7 @@ Result: breaks the “ghost‑loop” retransmission and establishes a predictab
 
 ---
 
-## 4⃣ Interactive verification checklist & self‑audit
+## Interactive verification checklist & self‑audit
 
 > **️ Quick self‑audit:** copy the table, fill it in while you’re swiping, and treat any “No” as a packet loss that needs retransmission.
 
@@ -111,7 +111,7 @@ If any row reads “No”, pause the session and re‑configure before proceedin
 
 ---
 
-## Transition to a verified platform  
+## Transition to a verified platform
 
 FlirtCheck’s Verified Portal adds an extra layer of TLS‑level encryption: AI‑driven ID verification, manual photo review, and a reputation score displayed on the profile. Join the community on **r/dating** for live safety threads, success logs, and real‑time scam alerts.
 

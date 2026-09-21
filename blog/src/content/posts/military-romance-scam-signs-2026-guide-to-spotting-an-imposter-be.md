@@ -1,5 +1,5 @@
 ---
-title: "Military Romance Scam Signs — 2026 Guide to Spotting an Imposter Before It’s Too Late"
+title: "Military Romance Scam Signs — 2026 Guide to Spotting an Imposter Before It’s Too Late"
 description: "Discover expert tactics on military romance scam signs. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-08-02"
 category: "safety-dossier"

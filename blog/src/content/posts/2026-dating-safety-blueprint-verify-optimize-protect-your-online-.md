@@ -15,13 +15,13 @@ image: "/images/posts/2026-dating-safety-blueprint-verify-optimize-protect-your-
 draft: false
 ---
 
-## Hook – The Hidden Risk in Your Inbox  
+## Hook – The Hidden Risk in Your Inbox
 
 A third of the faces you swipe past still carry the “unverified” flag. In practice it’s the same as a server that answers a SYN with a RST – you never know whether the other end will actually exist, or is just a bot spitting out canned payloads.
 
 ---
 
-## What You Should Actually Do  
+## What You Should Actually Do
 
 - **Run a multi‑factor handshake** before you let the connection linger.  
 - **Shape a bio that behaves like a well‑tuned routing policy** – it should attract the right traffic and drop the rest.  
@@ -30,9 +30,9 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 
 ---
 
-## 1⃣ Profile Optimisation – First‑Impression Magnetism, Syslog‑Style
+## Profile Optimisation – First‑Impression Magnetism, Syslog‑Style
 
-### The “3‑2‑1” Bio Formula  
+### The “3‑2‑1” Bio Formula
 
 | Element | Word count / length | Why the packet survives |
 |---------|--------------------|--------------------------|
@@ -43,7 +43,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 **Sample Bio**  
 > *“Adventure‑addicted photographer / Vegan foodie 🌱 / Looking for a partner in crime – what’s your favourite hidden‑gem restaurant?”*  
 
-### Ice‑breaker Payload  
+### Ice‑breaker Payload
 
 **You:** “Your sunrise‑hike pic is epic! If you could teleport to any trail right now, where would you go?”  
 
@@ -51,7 +51,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 - **Specific header** – proves you actually parsed the profile.  
 - **Future‑oriented query** – exploits the planning‑fallacy cache; people love to pre‑fetch imagined experiences.
 
-### Photo‑Audit Checklist (no more than three‑point bursts)  
+### Photo‑Audit Checklist (no more than three‑point bursts)
 
 1. Clear headshot – eyes visible, no sunglasses that would hide the TLS handshake.  
 2. Action shot – you doing something that isn’t a stock‑photo placeholder.  
@@ -59,9 +59,9 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 
 ---
 
-## 2⃣ Scam Prevention – Spotting Red Flags Before the Payload Hits
+## Scam Prevention – Spotting Red Flags Before the Payload Hits
 
-### The “Three‑Stage Scam Funnel”  
+### The “Three‑Stage Scam Funnel”
 
 | Stage | Typical Tactics | Red‑Flag Indicators |
 |-------|----------------|---------------------|
@@ -69,7 +69,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 | **Need Creation** | Claims of emergency, travel issues, or financial trouble. | Requests for money, gifts, or “urgent” help. |
 | **Extraction** | Direct asks for bank details, crypto wallets, or gift‑cards. | Pressure to act quickly, secrecy (“don’t tell anyone”). |
 
-### Sample Scam Attempt (and a safe response)  
+### Sample Scam Attempt (and a safe response)
 
 **Scammer:** “Hey, I’m stuck at the airport because my flight got cancelled. Can you send me a $50 Uber code? I’ll pay you back later.”  
 
@@ -80,7 +80,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 - Sets a firewall rule without raising the alarm level.  
 - Keeps the conversation on‑platform, preserving logs for later forensic analysis.
 
-### Verification‑Before‑Transaction Protocol  
+### Verification‑Before‑Transaction Protocol
 
 1. Request a live video call via the **FlirtCheck Forensic Archive** – think of it as a TLS‑handshake with visual certs.  
 2. Ask for a photo holding a dated newspaper – a cheap but effective nonce.  
@@ -88,9 +88,9 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 
 ---
 
-## 3⃣ Relationship Psychology – From First Message to First Date
+## Relationship Psychology – From First Message to First Date
 
-### The “4‑C” Conversation Model  
+### The “4‑C” Conversation Model
 
 | C | What it does | Prompt example |
 |---|--------------|----------------|
@@ -99,7 +99,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 | **Commitment** | Signals intent to move up the stack. | “I’m looking for someone up for weekend hikes; does that sound like you?” |
 | **Comfort** | Lowers the error‑rate of the session. | “I’m a bit nervous on first dates – how do you usually break the ice?” |
 
-### High‑Conversion Message Flow (sample packet exchange)  
+### High‑Conversion Message Flow (sample packet exchange)
 
 1. **Opening:** “Your travel photos are stunning – what’s the story behind the sunrise in Patagonia?”  
 2. **Curiosity:** “I’ve always wanted to trek there. What’s the most unexpected thing you learned on that trip?”  
@@ -108,7 +108,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 
 ---
 
-## 4⃣ Interactive Verification Checklist / Self‑Audit
+## Interactive Verification Checklist / Self‑Audit
 
 > **FlirtCheck Self‑Audit: Are You Safe?**  
 

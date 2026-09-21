@@ -133,8 +133,8 @@ export class ArticleQualityGateService {
     },
   ];
 
-  // Regex to match noisy emoji characters
-  private readonly EMOJI_REGEX = /[\u{1F300}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}]/gu;
+  // Comprehensive regex to match all emoji characters, keycaps, dingbats, and decorative icons
+  private readonly EMOJI_REGEX = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2300}-\u{23FF}\u{2B50}\u{203C}\u{2049}\u{20E3}]|[0-9]\uFE0F?\u20E3|[🚨⚡❓🔍💡🛑📸💔🔥⚠️✓✔❌]/gu;
 
   /**
    * Sanitizes markdown text and frontmatter.
@@ -213,19 +213,28 @@ export class ArticleQualityGateService {
       }
     }
 
-    // 6. Clean Noisy Emojis from Headings
-    const headerRegex = /^(#{1,4})\s*(.*?)$/gm;
+    // 6. Clean Noisy Emojis and Artifacts from Headings
+    const headerRegex = /^(#{1,6})\s*(.*?)$/gm;
     let headerCleanedCount = 0;
-    bodyMarkdown = bodyMarkdown.replace(headerRegex, (match, hashes, title) => {
-      if (this.EMOJI_REGEX.test(title)) {
+    bodyMarkdown = bodyMarkdown.replace(headerRegex, (match, hashes, headingText) => {
+      let cleaned = headingText;
+      // Strip "H3 " or "H2 " prefixes
+      cleaned = cleaned.replace(/^H[1-6]\s+/i, '');
+      // Strip keycap icons
+      cleaned = cleaned.replace(/[0-9]\uFE0F?\u20E3\s*/gu, '');
+      // Strip all emojis
+      if (this.EMOJI_REGEX.test(cleaned)) {
+        cleaned = cleaned.replace(this.EMOJI_REGEX, '');
+      }
+      cleaned = cleaned.replace(/^[–—\-]\s*/, '').replace(/\s+/g, ' ').trim();
+      if (cleaned !== headingText.trim()) {
         headerCleanedCount++;
-        const cleanedTitle = title.replace(this.EMOJI_REGEX, '').replace(/\s+/g, ' ').trim();
-        return `${hashes} ${cleanedTitle}`;
+        return `${hashes} ${cleaned}`;
       }
       return match;
     });
     if (headerCleanedCount > 0) {
-      fixesApplied.push(`Cleaned decorative emojis from ${headerCleanedCount} markdown heading(s)`);
+      fixesApplied.push(`Cleaned decorative emojis and keycaps from ${headerCleanedCount} markdown heading(s)`);
     }
 
     // 7. Normalize FAQ Header for Schema.org compatibility
@@ -241,9 +250,13 @@ export class ArticleQualityGateService {
     }
 
     // 8. Reconstruct full clean content with Frontmatter
-    const title = (parsedFrontmatter.title && parsedFrontmatter.title !== '>-')
+    let title = (parsedFrontmatter.title && parsedFrontmatter.title !== '>-')
       ? parsedFrontmatter.title
       : (defaultMeta.title || 'Dating Verification Dispatch');
+    if (this.EMOJI_REGEX.test(title)) {
+      title = title.replace(this.EMOJI_REGEX, '').replace(/\s+/g, ' ').trim();
+      fixesApplied.push('Cleaned decorative emojis from article title');
+    }
     const description = (parsedFrontmatter.description && parsedFrontmatter.description !== '>-')
       ? parsedFrontmatter.description.slice(0, 160)
       : ((defaultMeta.description || 'Investigative protocol by Arthur Vance.').slice(0, 160));
@@ -347,11 +360,11 @@ ${bodyMarkdown}
       }
     }
 
-    // 3. Emoji in Headings Check
-    const headerWithEmoji = /^(#{1,4})\s*.*[\u{1F300}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}]/gmu;
-    if (headerWithEmoji.test(sanitizedContent)) {
-      violations.push('Heading contains decorative emojis (strictly banned under Cheltenham Desk standard)');
-      score -= 20;
+    // 3. Emoji in Headings or Title Check
+    const headerOrTitleWithEmoji = /^(?:#{1,6}\s*.*|title:\s*.*)(?:[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2300}-\u{23FF}\u{2B50}\u{203C}\u{2049}\u{20E3}]|[0-9]\uFE0F?\u20E3|[🚨⚡❓🔍💡🛑📸💔🔥⚠️✓✔❌])/gmu;
+    if (headerOrTitleWithEmoji.test(sanitizedContent)) {
+      violations.push('Heading or Title contains decorative icons/emojis (strictly banned under Cheltenham Desk standard)');
+      score -= 25;
     }
 
     // 4. Author Identity Check

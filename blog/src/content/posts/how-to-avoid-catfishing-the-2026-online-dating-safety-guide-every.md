@@ -19,7 +19,7 @@ The dating‑app landscape now feels a bit like a legacy BGP table full of stale
 
 ---
 
-## 1. Mapping the Current Catfish Topology  
+## 1. Mapping the Current Catfish Topology
 
 | Threat type | Description | Typical payload |
 |-------------|-------------|-----------------|
@@ -66,7 +66,7 @@ When any of these flags raise a warning level, pause the session and run the rad
 
 ---
 
-## 4. Secure Communication & In‑Person Handshake Playbook  
+## 4. Secure Communication & In‑Person Handshake Playbook
 
 1. **Dedicated dating email** – Create a throwaway address for initial contact; keep your work mailbox out of the DMZ.  
 2. **Data minimisation** – No home address, bank details, or SSN until you have a verified, public‑face‑to‑face interaction spanning several weeks.  
@@ -92,7 +92,7 @@ Run the radar first, then fall back on the 5‑step handshake protocol.
 
 ---
 
-## Interactive Checklist: Your Personal Catfish‑Proof Routine  
+## Interactive Checklist: Your Personal Catfish‑Proof Routine
 
 | [✓] | Action Item | Completed (✔/✖) |
 |----|-------------|-----------------|

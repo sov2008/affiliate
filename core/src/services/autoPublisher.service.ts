@@ -321,7 +321,7 @@ CORE EDITORIAL REQUIREMENTS:
    - STRICTLY FORBIDDEN to hallucinate fake products or portals: NEVER mention "FlirtCheck Verified Portal", "VoiceGuard AI", "VisionScout", "Sensity AI", or "AI-Shield".
    - STRICTLY FORBIDDEN to invent fake accuracy statistics (NEVER write "98.4%", "99% detection accuracy", or "guaranteed detection").
    - STRICTLY FORBIDDEN to use corporate AI clichés: "In today's fast-paced digital world", "Let's dive into", "In conclusion", "Plays a crucial role", "Unlock your potential".
-   - NO decorative emojis in headings (NO "## ❓", NO "## 🔍", NO "## 💡"). Headings must be clean, typographic, and authoritative.
+   - STRICTLY FORBIDDEN to use any icons, symbols, keycap numbers, or emojis in titles or headings (NO "1️⃣", "2️⃣", "3️⃣", "🚨", "⚡", "❓", "🔍", "💡", "🛑", "📸", "💔"). Headings and titles must be clean, purely typographic, and authoritative.
 5. TONE: Deadpan British analytical wit, observant, deeply humane, forensic.
 6. LENGTH: 850 - 1350 words.`;
 

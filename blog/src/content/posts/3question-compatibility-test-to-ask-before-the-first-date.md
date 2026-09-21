@@ -30,13 +30,13 @@ Did you know that **over 30%** of accounts on mainstream dating platforms remain
 
 ---
 
-## 1⃣ Question #1 – "What Does Your Ideal Weekend Actually Look Like?"
+## Question #1 – "What Does Your Ideal Weekend Actually Look Like?"
 
-### Why It Works  
+### Why It Works
 - **Lifestyle Alignment:** Illuminates daily routines, energy levels, and social bandwidth.  
 - **Red Flag Detector:** Extreme imbalances (e.g., party binges vs. total reclusion) signal divergent life tempos before you meet.  
 
-### Forensic Protocol  
+### Forensic Protocol
 
 | Step | Action |
 |------|--------|
@@ -44,7 +44,7 @@ Did you know that **over 30%** of accounts on mainstream dating platforms remain
 | **B. Active Listening** | Look for specificity (passions, hobbies, circle of friends) versus evasive, hollow replies like *"Just chilling."* |
 | **C. Scoring** | 0–2 points: 0 = zero detail or evasive; 1 = vague; 2 = vivid, authentic, and compatible with your routine. |
 
-### Real-World Chat Example  
+### Real-World Chat Example
 
 > **You:** *"What does your ideal weekend look like?"*  
 > **Match:** *"Usually hit the gym Saturday morning, grab brunch with old friends, and wind down with a good film or vinyl record."*  
@@ -53,13 +53,13 @@ Did you know that **over 30%** of accounts on mainstream dating platforms remain
 
 ---
 
-## 2⃣ Question #2 – "What Are You Looking to Build: Long-Term Partnership or Casual Exploring?"
+## Question #2 – "What Are You Looking to Build: Long-Term Partnership or Casual Exploring?"
 
-### Why It Works  
+### Why It Works
 - **Intent Clarification:** Cuts through ambient conversational noise and avoids situationships.  
 - **Values Alignment:** Establishes mutual expectations regarding emotional commitment and future trajectory.  
 
-### Forensic Protocol  
+### Forensic Protocol
 
 | Step | Action |
 |------|--------|
@@ -67,7 +67,7 @@ Did you know that **over 30%** of accounts on mainstream dating platforms remain
 | **B. Active Listening** | Note keywords: *"exclusivity"*, *"long haul"*, vs. *"going with the flow"*, *"seeing what happens"*, *"not looking for drama"*. |
 | **C. Scoring** | 0–2 points: 0 = evasive or contradictive; 1 = ambiguous; 2 = crystal clear and aligned with your goal. |
 
-### Real-World Chat Example  
+### Real-World Chat Example
 
 > **You:** *"How do you see things right now: long-term chemistry or casual exploring?"*  
 > **Match:** *"I'm at a point where I want something genuine and built to last. Not into endless swipe loops."*  
@@ -76,13 +76,13 @@ Did you know that **over 30%** of accounts on mainstream dating platforms remain
 
 ---
 
-## 3⃣ Question #3 – "What Is One Non-Negotiable Boundary or Core Value for You?"
+## Question #3 – "What Is One Non-Negotiable Boundary or Core Value for You?"
 
-### Why It Works  
+### Why It Works
 - **Core Values Audit:** Highlights dealbreakers (e.g., honesty, family dynamics, financial integrity) at the earliest stage.  
 - **Safety Screen:** Flags potential manipulation, defensiveness, or entitlement before meeting in person.  
 
-### Forensic Protocol  
+### Forensic Protocol
 
 | Step | Action |
 |------|--------|
@@ -90,7 +90,7 @@ Did you know that **over 30%** of accounts on mainstream dating platforms remain
 | **B. Active Listening** | Pay attention to values-driven criteria (e.g., *"radical honesty"*, *"emotional accountability"*) versus controlling demands. |
 | **C. Scoring** | 0–2 points: 0 = hostile/evasive; 1 = surface-level; 2 = thoughtful and coherent. |
 
-### Real-World Chat Example  
+### Real-World Chat Example
 
 > **You:** *"What is one non-negotiable boundary for you?"*  
 > **Match:** *"Honesty and direct communication. If something feels off, I'd rather talk about it straight away than play mind games."*  

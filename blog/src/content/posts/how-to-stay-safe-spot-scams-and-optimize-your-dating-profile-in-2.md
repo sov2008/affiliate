@@ -17,7 +17,7 @@ draft: false
 
 *The inbox is a lot like a legacy BGP table – most entries are harmless, a few are malformed routes that will crash the whole session.*
 
-## Key Takeaways  
+## Key Takeaways
 
 - **Three‑point trust test** – filters out the majority of spoofed accounts.  
 - **Five red‑flag scripts** – recognise them before they trigger a SYN‑flood of requests.  
@@ -26,7 +26,7 @@ draft: false
 
 ---
 
-## 1⃣ Verify & Filter: The 3‑Point Trust Test
+## Verify & Filter: The 3‑Point Trust Test
 
 | Step | Action | Example in Conversation |
 |------|--------|--------------------------|
@@ -38,7 +38,7 @@ draft: false
 
 ---
 
-## 2⃣ Scam‑Proof Messaging: Red‑Flag Scripts
+## Scam‑Proof Messaging: Red‑Flag Scripts
 
 | # | Red‑Flag Pattern | Typical Line | Response Routine |
 |---|------------------|--------------|------------------|
@@ -50,7 +50,7 @@ draft: false
 
 ---
 
-## 3⃣ Profile Psychology: 4 Proven Optimisation Hacks
+## Profile Psychology: 4 Proven Optimisation Hacks
 
 | Hack | Why It Works (Behavioural Theory) | Actionable Example |
 |------|-----------------------------------|--------------------|
@@ -64,7 +64,7 @@ draft: false
 
 ---
 
-## 4⃣ First‑Date Safety Protocol (FDS‑P)
+## First‑Date Safety Protocol (FDS‑P)
 
 1. **Public Venue Only** – coffee shop, busy park, or restaurant with staff on hand.  
 2. **Share Your ETA** – ping a trusted friend with location and expected return time.  
@@ -74,7 +74,7 @@ draft: false
 
 ---
 
-## Self‑Audit Checklist  
+## Self‑Audit Checklist
 
 | [✓] | Verification Item | Done? (✓/✗) |
 |----|-------------------|------------|

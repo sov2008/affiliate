@@ -15,11 +15,11 @@ image: "/images/posts/2026-ultimate-online-dating-safety-guide-verify-optimize-d
 draft: false
 ---
 
-## The hidden risk in your inbox  
+## The hidden risk in your inbox
 
 A little over a third of the profiles you’ll meet on the usual dating apps still lack any form of verification. In practice that means you’re as likely to be chatting with a bot as you are with a human who actually remembers how to use a telephone handset. The following checklist treats each match like a new network node – you’ll probe, you’ll log, you’ll decide whether to keep the connection alive.
 
-## What you’ll get out of this  
+## What you’ll get out of this
 
 - A three‑stage “hand‑shake” to weed out impostors before they can flood your inbox.  
 - Layout tweaks that make your profile look less like a default router config and more like a well‑documented service.  
@@ -28,7 +28,7 @@ A little over a third of the profiles you’ll meet on the usual dating apps sti
 
 ---
 
-### 1⃣ Verify & Vet – the 3‑step safety protocol
+### Verify & Vet – the 3‑step safety protocol
 
 | Step | What to do | Why it matters |
 |------|------------|----------------|
@@ -47,7 +47,7 @@ If the other side stalls or returns a “Can’t right now”, treat it as a tim
 
 ---
 
-### 2⃣ Profile optimisation – make the right packets attract the right peers
+### Profile optimisation – make the right packets attract the right peers
 
 | Element | Action | Effect |
 |---------|--------|--------|
@@ -60,16 +60,16 @@ If the other side stalls or returns a “Can’t right now”, treat it as a tim
 
 ---
 
-### 3⃣ Scam prevention – spot, respond, protect
+### Scam prevention – spot, respond, protect
 
-#### Red‑flag matrix  
+#### Red‑flag matrix
 
 - Requests for money, no matter how urgent.  
 - Inconsistent personal details (age, job, location).  
 - Overly rapid escalation to “soul‑mate” status.  
 - Push to move off‑platform before any video verification.
 
-#### The **S.C.A.M.** response script  
+#### The **S.C.A.M.** response script
 
 | Situation | Script | Intended outcome |
 |-----------|--------|------------------|
@@ -81,7 +81,7 @@ If the counterpart evades the script or raises the temperature, **block, report 
 
 ---
 
-### 4⃣ Relationship psychology – five‑message TCP handshake to a real‑world date
+### Relationship psychology – five‑message TCP handshake to a real‑world date
 
 1. **Common ground (Msg 1)** – “I saw you love hiking – what’s your favourite trail around here?”  
    *Shared interests act like a SYN packet, opening the session.*  
@@ -102,7 +102,7 @@ If the counterpart evades the script or raises the temperature, **block, report 
 
 ---
 
-## Self‑audit checklist – run it before you commit any resources  
+## Self‑audit checklist – run it before you commit any resources
 
 | [✓] | Item | Yes / No | Notes |
 |----|------|----------|-------|
@@ -118,7 +118,7 @@ Any “No” here is a timeout – pause, re‑evaluate, and consider a differen
 
 ---
 
-## Moving to verified ecosystems  
+## Moving to verified ecosystems
 
 Mainstream apps are convenient, but they’re like legacy hardware – functional but prone to drift. **FlirtCheck Forensic Archive** and community‑run verification threads (e.g., the /r/dating subreddit) add a hardware‑level checksum to every profile. Linking your badge to Tinder, Bumble or Hinge advertises a commitment to integrity, attracting matches who prefer a stable, well‑documented connection.
 

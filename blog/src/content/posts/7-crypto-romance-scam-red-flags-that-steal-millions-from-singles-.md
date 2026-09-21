@@ -20,7 +20,7 @@ A swipe left on a profile that never existed feels a bit like a 404 on a love‑
 
 ---
 
-## Quick Takeaways  
+## Quick Takeaways
 
 - Treat every profile as an untrusted host until you’ve run a full handshake.  
 - Never forward crypto to a node you haven’t verified through at least two independent routes.  
@@ -29,9 +29,9 @@ A swipe left on a profile that never existed feels a bit like a 404 on a love‑
 
 ---
 
-## 1⃣ The Sweet Talk – Trust‑Building Scripts
+## The Sweet Talk – Trust‑Building Scripts
 
-### Red Flag #1 – Over‑Polished Romance Scripts  
+### Red Flag #1 – Over‑Polished Romance Scripts
 
 Scammers often replay the same pre‑written payloads across dozens of sessions. Symptoms include:
 
@@ -51,9 +51,9 @@ A vague answer is a SYN‑drop – terminate the session.
 
 ---
 
-## 2⃣ Money Moves – Crypto Requests
+## Money Moves – Crypto Requests
 
-### Red Flag #2 – “Investment” Pitch With Urgency  
+### Red Flag #2 – “Investment” Pitch With Urgency
 
 Typical payload: a high‑yield crypto fund that needs a tiny seed investment, wrapped in a 24‑hour deadline and an obscure wallet address.
 
@@ -72,9 +72,9 @@ If the counterpart aborts the handshake or raises the error flag, drop the conne
 
 ---
 
-## 3⃣ Platform Paranoia – Sudden Channel Switch
+## Platform Paranoia – Sudden Channel Switch
 
-### Red Flag #3 – Immediate Move to Private Messengers  
+### Red Flag #3 – Immediate Move to Private Messengers
 
 A legitimate peer will usually stay on the originating platform until a stable session is established. Scammers jump to WhatsApp, Telegram or Signal within hours, citing “privacy” or “better voice quality”.
 
@@ -92,9 +92,9 @@ An immediate channel migration is a classic port‑scan attempt – treat it as 
 
 ---
 
-## 4⃣ Profile Forensics – Fake Identities
+## Profile Forensics – Fake Identities
 
-### Red Flag #4 – Stock Photos & Reverse‑Image Hits  
+### Red Flag #4 – Stock Photos & Reverse‑Image Hits
 
 Scammers recycle royalty‑free or stolen images.  
 
@@ -110,9 +110,9 @@ Evasive replies merit a report to the platform’s abuse team.
 
 ---
 
-## 5⃣ Emotional Manipulation – The “Emergency” Play
+## Emotional Manipulation – The “Emergency” Play
 
-### Red Flag #5 – Crying Over a “Medical” or “Legal” Crisis  
+### Red Flag #5 – Crying Over a “Medical” or “Legal” Crisis
 
 Typical payload: a family member in the hospital, a bail bond, a legal fee – all payable in crypto.
 
@@ -128,9 +128,9 @@ No paperwork? Close the socket.
 
 ---
 
-## 6⃣ Technical Jargon Overload
+## Technical Jargon Overload
 
-### Red Flag #6 – Excessive Crypto Buzzwords  
+### Red Flag #6 – Excessive Crypto Buzzwords
 
 Scammers pepper conversations with terms like “yield farming”, “staking”, “LP tokens”, often misused.
 
@@ -146,9 +146,9 @@ If the peer can’t produce a valid reference, the connection is compromised.
 
 ---
 
-## 7⃣ “Verified” Badges That Are Fake
+## “Verified” Badges That Are Fake
 
-### Red Flag #7 – Self‑Declared Verification  
+### Red Flag #7 – Self‑Declared Verification
 
 Some fraudsters paste a fabricated green tick onto a screenshot and claim platform verification.
 
@@ -164,7 +164,7 @@ A generic URL or a static image is a clear sign of a spoofed badge.
 
 ---
 
-## Interactive Verification Checklist  
+## Interactive Verification Checklist
 
 | [✓] Checklist Item | Yes / No | Notes |
 |-------------------|----------|-------|
@@ -180,7 +180,7 @@ If any answer is **No**, pause the session and re‑evaluate before any further 
 
 ---
 
-## Trusted Verification Platforms  
+## Trusted Verification Platforms
 
 Even with the above filters, the safest route is a platform that performs its own handshake checks.  
 

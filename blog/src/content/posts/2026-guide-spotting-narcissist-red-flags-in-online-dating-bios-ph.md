@@ -15,13 +15,13 @@ image: "/images/posts/2026-guide-spotting-narcissist-red-flags-in-online-dating-
 draft: false
 ---
 
-## The Unverified Reality  
+## The Unverified Reality
 
 Over a third of profiles on the major apps still lack any form of verification. Think of it as a massive open port on a public‑facing server – the perfect vector for covert narcissists to inject their perfectly‑crafted bios and photos.
 
 ---
 
-## Quick‑Reference Box  
+## Quick‑Reference Box
 
 | What to watch | Typical symptom | Minimal defence |
 |---|---|---|
@@ -32,9 +32,9 @@ Over a third of profiles on the major apps still lack any form of verification. 
 
 ---
 
-## 1⃣ Language Loopholes – How Narcissists Script Their Bios
+## Language Loopholes – How Narcissists Script Their Bios
 
-### Red‑Flag Phrases  
+### Red‑Flag Phrases
 
 | Phrase | Why it raises a SYN‑flag | Counter‑measure |
 |---|---|---|
@@ -43,13 +43,13 @@ Over a third of profiles on the major apps still lack any form of verification. 
 | “**Alpha** energy, **beta** never” | Self‑assigned QoS class; classic narcissist label. | “What does ‘alpha’ mean to you in a relationship?” |
 | “Looking for my **queen/king**” | Sets up a future‑state BGP session that never materialises. | “What qualities actually qualify someone as a ‘queen/king’?” |
 
-### Minimal Protocol  
+### Minimal Protocol
 
 1. **Copy‑and‑paste** any grandiose claim into a notepad (think of it as logging a suspicious packet).  
 2. **Request evidence** in your first reply – a specific anecdote, not a generic banner.  
 3. **Measure latency**: if the reply stalls or returns a generic 200 OK, flag the profile.
 
-### Sample Dialogue  
+### Sample Dialogue
 
 **You:** “Your bio says you’re a ‘serial entrepreneur.’ What’s the toughest startup you’ve launched?”  
 
@@ -59,9 +59,9 @@ Over a third of profiles on the major apps still lack any form of verification. 
 
 ---
 
-## 2⃣ Photo Puzzles – Visual Cues of Covert Narcissism
+## Photo Puzzles – Visual Cues of Covert Narcissism
 
-### Common Tactics  
+### Common Tactics
 
 | Visual cue | Interpretation (as a sysadmin) | Quick test |
 |---|---|---|
@@ -70,13 +70,13 @@ Over a third of profiles on the major apps still lack any form of verification. 
 | **Group photos with no clear focus** | Hides lack of genuine peer connections; like a broadcast packet with no destination. | Identify recurring faces; ask who the friends are. |
 | **Heavily filtered images** | Masks real‑world payload; may indicate insecure firmware. | Request an unfiltered “day‑in‑the‑life” snap later. |
 
-### Minimal Protocol  
+### Minimal Protocol
 
 1. **Reverse‑image search** every solo picture – treat it as a checksum verification.  
 2. **Count the “you” vs. “them”**: if > 90 % of images are solo, raise a flag.  
 3. **Ask for a candid** (coffee shop, park) to gauge authenticity.
 
-### Sample Dialogue  
+### Sample Dialogue
 
 **You:** “Nice yacht photo – what’s the story behind that day?”  
 
@@ -86,16 +86,16 @@ Over a third of profiles on the major apps still lack any form of verification. 
 
 ---
 
-## 3⃣ Interaction Traps – Love‑Bombing & Toxic Dater Signals
+## Interaction Traps – Love‑Bombing & Toxic Dater Signals
 
-### Early‑Chat Red Flags  
+### Early‑Chat Red Flags
 
 - **Instant “I feel a connection”** after 2‑3 messages – akin to a SYN‑flood before the handshake.  
 - **Premature pet names** (“baby”, “sweetheart”) before any RTT (real‑time talk).  
 - **Future‑talk** (“Can’t wait to move in together”) within the first week – pre‑emptive route‑advertisement.  
 - **Deflection of personal questions** (“Why do you ask?”) – typical of a firewall dropping packets.
 
-### Counter‑Strategy  
+### Counter‑Strategy
 
 | Narcissist move | Your response (keep it stateless) |
 |---|---|
@@ -104,7 +104,7 @@ Over a third of profiles on the major apps still lack any form of verification. 
 | “Why are you asking about my job?” | “I’m curious because I like hearing what drives people.” |
 | “You’re so special” | “Glad you think so – what makes you feel special?” |
 
-### Sample Dialogue  
+### Sample Dialogue
 
 **Narcissist:** “I already feel like you’re the one I’ve been looking for.”  
 
@@ -114,7 +114,7 @@ Over a third of profiles on the major apps still lack any form of verification. 
 
 ---
 
-## 4⃣ Verifying Authenticity – Leverage FlirtCheck’s Trusted Tools
+## Verifying Authenticity – Leverage FlirtCheck’s Trusted Tools
 
 1. **Run the profile through the FlirtCheck Forensic Archive** – our AI cross‑checks bios, photo metadata, and public records (think of it as a deep packet inspection).  
 2. **Scan the /r/dating thread** for community‑submitted alerts on the same username.  
@@ -124,7 +124,7 @@ Over a third of profiles on the major apps still lack any form of verification. 
 
 ---
 
-## Interactive Verification Checklist / Self‑Audit Query  
+## Interactive Verification Checklist / Self‑Audit Query
 
 | [✓] Checklist item | Your answer |
 |---|---|

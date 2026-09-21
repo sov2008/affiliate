@@ -26,7 +26,7 @@ You'd think that, in this day and age, we'd be past the point of being duped by 
 - **Conversation probes** (personalized “human-only” questions) force bots to slip up.  
 - **Verified platforms** like **FlirtCheck Forensic Archive** give you a safe shortcut to genuine connections.  
 
-## 1⃣ Spot the Red Flags: Human vs. Bot Behavior
+## Spot the Red Flags: Human vs. Bot Behavior
 
 ### 1.1 Timing & Frequency
 
@@ -56,7 +56,7 @@ Dialogue Example:
 
 Action: Screenshot the profile and run a quick visual audit (see Section 2). It's a bit like debugging a server issue – you need to look at the logs, but in this case, the logs are the person's profile.
 
-## 2⃣ Technical Fingerprinting: The Digital Forensics Toolbox
+## Technical Fingerprinting: The Digital Forensics Toolbox
 
 ### 2.1 Reverse-Image Search
 
@@ -97,7 +97,7 @@ Protocol: Copy the link into VirusTotal before clicking. It's better to be safe 
 
 It's not perfect, but it's a useful tool to have in your arsenal.
 
-## 3⃣ Conversation Testing: The Human-Only Probe
+## Conversation Testing: The Human-Only Probe
 
 Bots stumble when forced to answer **subjective, time-sensitive, or multi-step** questions. Use the “**Three-Layer Probe**” technique:
 
@@ -118,7 +118,7 @@ Bot: I'm not sure, maybe you can suggest one?
 
 The bot's inability to **reference prior details** is a dead giveaway.
 
-## 4⃣ Leverage Verified Platforms & Tools
+## Leverage Verified Platforms & Tools
 
 While DIY detection is powerful, the safest route is to **meet verified humans**.
 
