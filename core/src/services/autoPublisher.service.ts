@@ -10,6 +10,7 @@ import { EditorialTopicDefinition, TaxonomyCategory } from '../config/datingTaxo
 import { topicEngine, TopicEngineService } from './topicEngine.service.js';
 import { AIGateway } from './aiGateway.js';
 import { ArticleQualityGateService, articleQualityGate } from './articleQualityGate.service.js';
+import { indexNowService } from './indexnow.service.js';
 
 const execAsync = promisify(exec);
 
@@ -260,6 +261,15 @@ export class AutoPublisherService {
           });
           buildOutput = stdout || stderr;
           console.log(`✅ [AutoPublisherService] Consolidated Astro build completed successfully!`);
+
+          // 3. Instant SEO IndexNow Submission
+          try {
+            const urlsToSubmit = publishedItems.map(p => p.url);
+            console.log(`\n🚀 [AutoPublisherService] Notifying IndexNow about ${urlsToSubmit.length} new article(s)...`);
+            await indexNowService.submitUrls(urlsToSubmit);
+          } catch (indexNowErr: any) {
+            console.warn(`⚠️ [AutoPublisherService] IndexNow notification notice:`, indexNowErr.message);
+          }
         } catch (buildErr: any) {
           console.error(`⚠️ [AutoPublisherService] Astro build warning:`, buildErr.message);
           errors.push(`Astro build error: ${buildErr.message}`);

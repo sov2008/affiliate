@@ -49,8 +49,8 @@ const fullImageUrl = rawImage
     <meta name="theme-color" content="#FAF7F2" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="alternate" type="application/rss+xml" title="FlirtCheck Forensic Dispatches" href={`${siteUrl}/rss.xml`} />
-    <meta name="google-site-verification" content="google-site-verification-flirtcheck-2026" />
-    <meta name="msvalidate.01" content="bing-verification-flirtcheck-2026" />
+    <meta name="google-site-verification" content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION || "google-site-verification-flirtcheck-2026"} />
+    <meta name="msvalidate.01" content={import.meta.env.PUBLIC_BING_SITE_VERIFICATION || "bing-verification-flirtcheck-2026"} />
 
     <!-- Critical Local Fonts Preload for Fast First Paint -->
     <link rel="preload" href="/fonts/PlayfairDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin />
