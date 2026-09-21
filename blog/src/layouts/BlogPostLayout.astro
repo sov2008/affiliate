@@ -9,6 +9,7 @@ import ExitIntentModal from '../components/ExitIntentModal.astro';
 import SocialShareBar from '../components/SocialShareBar.astro';
 import ScamRiskMatrix from '../components/ScamRiskMatrix.astro';
 import CaseNotesFeed from '../components/CaseNotesFeed.astro';
+import QuickExitButton from '../components/QuickExitButton.astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.config';
 
@@ -204,6 +205,8 @@ const faqSchema = {
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="theme-color" content="#FAF7F2" />
     <link rel="alternate" type="application/rss+xml" title="FlirtCheck Forensic Dispatches" href={`${siteUrl}/rss.xml`} />
+    <meta name="google-site-verification" content="google-site-verification-flirtcheck-2026" />
+    <meta name="msvalidate.01" content="bing-verification-flirtcheck-2026" />
 
     <!-- Critical Local Fonts Preload -->
     <link rel="preload" href="/fonts/PlayfairDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin />
@@ -348,7 +351,7 @@ const faqSchema = {
             </div>
 
             <!-- Table of Contents (auto-generated via JS) -->
-            <div class="bg-white border border-slate-300 rounded-none p-4">
+            <div id="tocContainer" class="bg-white border border-slate-300 rounded-none p-4">
               <div class="font-mono text-[9px] font-bold uppercase tracking-widest text-slate-500 mb-3 pb-2 border-b border-slate-200">
                 Contents
               </div>
@@ -386,24 +389,30 @@ const faqSchema = {
              ──────────────────────────────────────────────────────── -->
         <div class="lg:col-span-9 min-w-0">
 
-          <!-- Breadcrumbs -->
-          <nav aria-label="Breadcrumbs" class="py-2 mb-5 text-xs font-sans text-slate-500">
-            <div class="flex flex-wrap items-center gap-2">
-              <a href="/" class="hover:text-slate-900 transition-colors">Home</a>
-              <span class="text-slate-300">/</span>
-              <a href="/#feed" class="hover:text-slate-900 transition-colors">Archive</a>
-              <span class="text-slate-300">/</span>
-              <a href={`/category/${catMeta.id}`} class="text-slate-700 hover:text-slate-900 transition-colors font-medium">
-                {catMeta.shortTitle}
-              </a>
-            </div>
-          </nav>
-
           <!-- ══════════════════════════════════════════════
                ARTICLE HEADER: Tags, H1, Byline
                ══════════════════════════════════════════════ -->
           <header class="mb-7 pb-6 border-b border-slate-200">
-            <!-- Category + Tags row -->
+            <!-- Visual Breadcrumb Navigation -->
+            <nav aria-label="Breadcrumb Navigation" class="mb-3.5">
+              <ol class="flex flex-wrap items-center gap-1.5 font-mono text-[11px] text-slate-500 uppercase tracking-wider">
+                <li>
+                  <a href="/" class="text-slate-600 hover:text-slate-900 transition-colors">Archive</a>
+                </li>
+                <li class="text-slate-500 select-none" aria-hidden="true">/</li>
+                <li>
+                  <a href={`/category/${catMeta.id}`} class="text-slate-600 hover:text-slate-900 transition-colors">
+                    {catMeta.shortTitle}
+                  </a>
+                </li>
+                <li class="text-slate-500 select-none" aria-hidden="true">/</li>
+                <li class="text-rose-700 font-bold truncate max-w-[200px] sm:max-w-xs" aria-current="page">
+                  CASE FC-{caseId}
+                </li>
+              </ol>
+            </nav>
+
+            <!-- Category & Tag Meta Strip -->
             <div class="flex flex-wrap items-center gap-2 mb-4">
               <a
                 href={`/category/${catMeta.id}`}
@@ -882,6 +891,80 @@ const faqSchema = {
       }
     </style>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // 1. Dynamic Table of Contents
+        const article = document.getElementById('articleContent');
+        const tocList = document.getElementById('tocList');
+        const tocContainer = document.getElementById('tocContainer');
+
+        if (article && tocList) {
+          const headings = article.querySelectorAll('h2');
+          if (headings.length === 0) {
+            if (tocContainer) tocContainer.classList.add('hidden');
+          } else {
+            const observer = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    tocList.querySelectorAll('a').forEach((a) => {
+                      if (a.getAttribute('href') === `#${id}`) {
+                        a.classList.add('text-rose-700', 'font-bold', 'pl-1');
+                        a.classList.remove('text-slate-600');
+                      } else {
+                        a.classList.remove('text-rose-700', 'font-bold', 'pl-1');
+                        a.classList.add('text-slate-600');
+                      }
+                    });
+                  }
+                });
+              },
+              { rootMargin: '-80px 0px -70% 0px' }
+            );
+
+            headings.forEach((h2, idx) => {
+              if (!h2.id) {
+                h2.id = `section-${idx + 1}-${h2.textContent?.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30) || 'sec'}`;
+              }
+              observer.observe(h2);
+
+              const li = document.createElement('li');
+              const a = document.createElement('a');
+              a.href = `#${h2.id}`;
+              a.textContent = h2.textContent?.trim() || `Section ${idx + 1}`;
+              a.className = 'text-slate-600 hover:text-rose-700 transition-all block truncate';
+              a.addEventListener('click', (e) => {
+                e.preventDefault();
+                h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                window.history.pushState(null, '', `#${h2.id}`);
+              });
+              li.appendChild(a);
+              tocList.appendChild(li);
+            });
+          }
+        }
+
+        // 2. Font Sizing Controls
+        let fontScale = 0;
+        const updateFontScale = (delta: number) => {
+          fontScale = Math.max(-1, Math.min(1, fontScale + delta));
+          if (article) {
+            article.classList.remove('prose-sm', 'prose-base', 'prose-lg');
+            if (fontScale === -1) article.classList.add('prose-sm');
+            else if (fontScale === 1) article.classList.add('prose-lg');
+            else article.classList.add('prose-base');
+          }
+        };
+
+        document.getElementById('fontScaleDownBtn')?.addEventListener('click', () => updateFontScale(-1));
+        document.getElementById('fontScaleUpBtn')?.addEventListener('click', () => updateFontScale(1));
+        document.getElementById('fontScaleDownBtnMobile')?.addEventListener('click', () => updateFontScale(-1));
+        document.getElementById('fontScaleUpBtnMobile')?.addEventListener('click', () => updateFontScale(1));
+      });
+    </script>
+
+    <QuickExitButton />
     <Footer />
     <MobileStickyCTA />
     <ExitIntentModal />

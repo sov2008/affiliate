@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import StickyRadar from '../components/StickyRadar.astro';
+import QuickExitButton from '../components/QuickExitButton.astro';
 
 interface Props {
   title: string;
@@ -49,6 +50,8 @@ const fullImageUrl = rawImage
     <meta name="theme-color" content="#FAF7F2" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="alternate" type="application/rss+xml" title="FlirtCheck Forensic Dispatches" href={`${siteUrl}/rss.xml`} />
+    <meta name="google-site-verification" content="google-site-verification-flirtcheck-2026" />
+    <meta name="msvalidate.01" content="bing-verification-flirtcheck-2026" />
 
     <!-- Critical Local Fonts Preload for Fast First Paint -->
     <link rel="preload" href="/fonts/PlayfairDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin />
@@ -91,6 +94,8 @@ const fullImageUrl = rawImage
     </main>
 
     <StickyRadar />
+
+    <QuickExitButton />
 
     <Footer />
   </body>

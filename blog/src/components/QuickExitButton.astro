@@ -1,0 +1,58 @@
+---
+// QuickExitButton.astro - Instant privacy escape for users researching sensitive fraud/dating safety
+---
+
+<aside
+  id="quickExitContainer"
+  class="fixed bottom-5 right-5 z-40 print:hidden select-none"
+  aria-label="Safety Quick Exit"
+>
+  <button
+    type="button"
+    id="quickExitBtn"
+    title="Instant Privacy Exit: Leaves this site immediately and opens Google (Shortcut: press ESC twice)"
+    aria-label="Quick Exit to Google"
+    class="min-h-[44px] min-w-[44px] flex items-center gap-2 px-3.5 py-2 bg-slate-900/90 hover:bg-slate-900 text-white font-mono text-[10px] font-bold tracking-widest uppercase rounded shadow-lg backdrop-blur border border-slate-700 hover:border-rose-600 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 group"
+  >
+    <span class="w-2 h-2 rounded-full bg-rose-600 group-hover:bg-rose-400 transition-colors shrink-0" aria-hidden="true"></span>
+    <span class="hidden sm:inline">QUICK EXIT</span>
+    <span class="font-mono text-[9px] text-slate-300 group-hover:text-white px-1.5 py-0.5 bg-slate-800 rounded border border-slate-700">
+      ESC × 2
+    </span>
+  </button>
+</aside>
+
+<script>
+  function setupQuickExit() {
+    const exitBtn = document.getElementById('quickExitBtn');
+    let lastEscTime = 0;
+
+    function triggerQuickExit() {
+      // Replace window history so Back button does not return to dating forensics
+      window.location.replace('https://www.google.com');
+    }
+
+    exitBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      triggerQuickExit();
+    });
+
+    // Double ESC shortcut detection
+    window.addEventListener('keydown', (e) => {
+      // Don't trigger if user is typing in an input or modal is open
+      const activeTag = document.activeElement?.tagName.toLowerCase();
+      if (activeTag === 'input' || activeTag === 'textarea') return;
+
+      if (e.key === 'Escape') {
+        const currentTime = Date.now();
+        if (currentTime - lastEscTime < 500) {
+          triggerQuickExit();
+        }
+        lastEscTime = currentTime;
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', setupQuickExit);
+  setupQuickExit();
+</script>
