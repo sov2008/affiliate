@@ -2,6 +2,9 @@
 title: "How to Verify If a Tinder Match Is a Bot: 2026 Detection Blueprint"
 description: ">-"
 pubDate: "2026-07-28"
+category: "safety-dossier"
+caseId: "FC-824-DOS"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["How to Verify If a Tinder Match Is a Bot: 2026 Detection Blueprint"]

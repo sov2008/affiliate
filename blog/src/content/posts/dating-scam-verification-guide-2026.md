@@ -2,6 +2,9 @@
 title: "Dating Scam Verification Guide (2026 Edition)"
 description: "Technical forensic playbook by Arthur Vance on detecting romance fraud, synthetic avatars, and automated scam scripts."
 pubDate: "2026-07-10"
+category: "safety-dossier"
+caseId: "FC-599-DOS"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: ["dating scam verification", "romance scam red flags", "spot fake dating profiles", "online dating safety 2026"]

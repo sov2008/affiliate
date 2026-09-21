@@ -6,15 +6,20 @@ import crypto from 'node:crypto';
 import { ContentQueueRepository, BlogPostPayload } from '../db/queueRepository.js';
 import { ImageGeneratorService, imageGeneratorService } from './imageGenerator.service.js';
 import { DATING_KEYWORD_POOL, KeywordIntent, getNextKeywordBatch } from '../config/datingKeywords.js';
+import { EditorialTopicDefinition, TaxonomyCategory } from '../config/datingTaxonomy.js';
+import { topicEngine, TopicEngineService } from './topicEngine.service.js';
 import { AIGateway } from './aiGateway.js';
 import { ArticleQualityGateService, articleQualityGate } from './articleQualityGate.service.js';
 
 const execAsync = promisify(exec);
 
+export type ArticlePublishItem = KeywordIntent | EditorialTopicDefinition;
+
 export interface BatchPublishOptions {
   count?: number;
   offset?: number;
-  customKeywords?: KeywordIntent[];
+  category?: TaxonomyCategory;
+  customKeywords?: ArticlePublishItem[];
   skipAstroBuild?: boolean;
 }
 
@@ -84,7 +89,7 @@ export class AutoPublisherService {
 
   /**
    * Executes a complete batch generation cycle:
-   * 1. Iterates through keywords.
+   * 1. Iterates through keywords/topics balanced across under-represented categories.
    * 2. Generates Markdown content and AI covers.
    * 3. Writes all .md files to blog/src/content/posts/.
    * 4. Enqueues DISPATCHED items and child SOCIAL_SNIPPETs to SQLite.
@@ -97,8 +102,7 @@ export class AutoPublisherService {
 
     this.isBatchRunning = true;
     const startTime = Date.now();
-    const count = Math.min(Math.max(options.count || 10, 1), 20);
-    const offset = options.offset || 0;
+    const count = Math.min(Math.max(options.count || 5, 1), 20);
     const postsDir = this.resolvePostsDir();
     const existingSlugs = new Set<string>();
     try {
@@ -112,41 +116,52 @@ export class AutoPublisherService {
       }
     } catch {}
 
-    // Deduplicate: prioritize keywords not yet published as .md files
-    let candidatePool = DATING_KEYWORD_POOL.filter(kw => {
-      const testSlug = this.slugify(kw.topic);
-      return !existingSlugs.has(testSlug);
-    });
-
-    if (candidatePool.length === 0) {
-      // If all pool keywords are published, fall back to whole pool
-      candidatePool = DATING_KEYWORD_POOL;
+    // Select topics: use customKeywords or intelligent balanced batch from TopicEngine
+    let topicsToProcess: ArticlePublishItem[] = [];
+    if (options.customKeywords && options.customKeywords.length > 0) {
+      topicsToProcess = options.customKeywords.slice(0, count);
+    } else {
+      // Intelligent balance across categories using TopicEngineService
+      topicsToProcess = topicEngine.getBalancedNextTopicBatch(count);
     }
-
-    const safeOffset = offset % candidatePool.length;
-    const keywords: KeywordIntent[] = options.customKeywords || candidatePool.slice(safeOffset, safeOffset + count);
 
     const publishedItems: BatchPublishResult['publishedItems'] = [];
     const errors: string[] = [];
     let childSnippetCount = 0;
 
-    console.log(`\n🚀 [AutoPublisherService] Starting batch generation for ${keywords.length} articles (Existing: ${existingSlugs.size}, Pool available: ${candidatePool.length})...`);
+    console.log(`\n🚀 [AutoPublisherService] Starting balanced batch generation for ${topicsToProcess.length} articles (Existing on disk: ${existingSlugs.size})...`);
 
     try {
       // 1. Generate and save all Markdown articles
-      for (let i = 0; i < keywords.length; i++) {
-        const itemIntent = keywords[i];
-        console.log(`\n[Batch ${i + 1}/${keywords.length}] Processing: "${itemIntent.topic}"...`);
+      for (let i = 0; i < topicsToProcess.length; i++) {
+        const item = topicsToProcess[i];
+        console.log(`\n[Batch ${i + 1}/${topicsToProcess.length}] Processing topic: "${item.topic}"...`);
 
         try {
+          // Resolve category and metadata
+          const isTaxonomy = 'category' in item && 'caseIdPrefix' in item;
+          const category: TaxonomyCategory = isTaxonomy ? (item as EditorialTopicDefinition).category : 'safety-dossier';
+          const caseIdPrefix = isTaxonomy ? (item as EditorialTopicDefinition).caseIdPrefix : 'DOS';
+          const telemetryRisk = isTaxonomy ? (item as EditorialTopicDefinition).telemetryRisk : 'MEDIUM';
+          const motto = isTaxonomy ? (item as EditorialTopicDefinition).motto : undefined;
+          const slug = ('slug' in item && item.slug) ? item.slug : this.slugify(item.topic);
+          const caseId = topicEngine.generateCaseId(caseIdPrefix, slug);
+
           // Generate Article Markdown
-          const article = await this.generateSingleArticle(itemIntent);
+          const article = await this.generateSingleArticle(item, { category, motto });
 
           // Generate or fetch Cover Image
-          const coverImageRel = await this.imageService.generateArticleCover(article.slug, itemIntent.topic);
+          const coverImageRel = await this.imageService.generateArticleCover(article.slug, item.topic);
 
-          // Complete Frontmatter with coverImage & canonicalUrl
-          const rawMarkdown = this.assembleMarkdown(article, coverImageRel);
+          // Complete Frontmatter with full taxonomy
+          const rawMarkdown = this.assembleMarkdown(article, coverImageRel, {
+            category,
+            caseId,
+            telemetryRisk,
+            motto,
+            tags: item.tags,
+            seoKeywords: item.seoKeywords,
+          });
 
           // Run through ArticleQualityGate (sanitization + strict validation)
           const gateResult = this.qualityGate.processAndValidate(rawMarkdown, {
@@ -154,9 +169,14 @@ export class AutoPublisherService {
             description: article.description,
             slug: article.slug,
             author: 'Arthur Vance',
+            category,
+            caseId,
+            classification: 'UNRESTRICTED // PUBLIC INTELLIGENCE',
+            telemetryRisk,
+            motto,
             pubDate: article.pubDate,
-            tags: itemIntent.tags,
-            seoKeywords: itemIntent.seoKeywords,
+            tags: item.tags,
+            seoKeywords: item.seoKeywords,
             coverImage: coverImageRel,
           });
 
@@ -177,22 +197,22 @@ export class AutoPublisherService {
             slug: article.slug,
             title: article.title,
             description: article.description,
-            tags: itemIntent.tags,
-            seoKeywords: itemIntent.seoKeywords,
+            tags: item.tags,
+            seoKeywords: item.seoKeywords,
             markdownContent: fullMarkdown,
             targetAudience: 'singles_21_45_us_uk_ca_au',
-            intent: itemIntent.intent,
+            intent: item.intent,
             pubDate: article.pubDate,
             author: 'Arthur Vance',
           };
 
           this.queueRepo.enqueue({
             id: queueItemId,
-            campaign_id: `seo_content_hub_${itemIntent.cluster}`,
+            campaign_id: `seo_content_hub_${category}`,
             network: 'lospollos',
             target_platform: 'BLOG_POST',
             platform: 'BLOG_POST',
-            subreddit: itemIntent.cluster,
+            subreddit: category,
             target_url: publicUrl,
             published_url: publicUrl,
             payload: JSON.stringify(blogPayload),
@@ -208,7 +228,7 @@ export class AutoPublisherService {
           });
 
           // Create downstream Social Snippets
-          const snippetIds = await this.createChildSocialSnippets(queueItemId, article.slug, article.title, publicUrl, itemIntent);
+          const snippetIds = await this.createChildSocialSnippets(queueItemId, article.slug, article.title, publicUrl, item);
           childSnippetCount += snippetIds.length;
 
           publishedItems.push({
@@ -220,10 +240,10 @@ export class AutoPublisherService {
             coverImage: coverImageRel,
           });
 
-          console.log(`   ✅ Article [${i + 1}/${keywords.length}] saved: ${article.slug}.md`);
+          console.log(`   ✅ Article [${i + 1}/${topicsToProcess.length}] (${category}) saved: ${article.slug}.md`);
         } catch (postErr: any) {
-          console.error(`   ❌ Failed processing "${itemIntent.topic}":`, postErr.message);
-          errors.push(`${itemIntent.topic}: ${postErr.message}`);
+          console.error(`   ❌ Failed processing "${item.topic}":`, postErr.message);
+          errors.push(`${item.topic}: ${postErr.message}`);
         }
       }
 
@@ -251,7 +271,7 @@ export class AutoPublisherService {
 
       return {
         success: publishedItems.length > 0,
-        totalRequested: keywords.length,
+        totalRequested: topicsToProcess.length,
         generatedCount: publishedItems.length,
         publishedItems,
         childSnippetCount,
@@ -265,9 +285,12 @@ export class AutoPublisherService {
   }
 
   /**
-   * Generates single article via LLM
+   * Generates single article via LLM with category and editorial context
    */
-  private async generateSingleArticle(intent: KeywordIntent): Promise<{
+  private async generateSingleArticle(
+    intent: ArticlePublishItem,
+    context: { category: TaxonomyCategory; motto?: string }
+  ): Promise<{
     title: string;
     description: string;
     slug: string;
@@ -279,6 +302,9 @@ export class AutoPublisherService {
     const systemPrompt = `You are Arthur Vance, Lead Forensic Investigator and Editor at FlirtCheck.site (Cheltenham Bureau, Station 04).
 You spent your career analyzing network packet architectures, low-latency transmission channels, and automated fraud-detection infrastructure across the UK telecommunications sector, operating near Britain's cyber intelligence cluster in Cheltenham.
 Your mission: Authoritative, deeply engaging, literary yet forensic guides on dating verification, romance scam prevention, algorithmic manipulation, and authentic relationship psychology.
+
+EDITORIAL RUBRIC / CATEGORY: ${context.category}
+${context.motto ? `OPENING APHORISM: "${context.motto}" (Open the investigation by weaving or echoing this observation in the opening signature).` : ''}
 
 CORE EDITORIAL REQUIREMENTS:
 1. TITLE: Catchy, high-CTR, authoritative 2026 title containing the primary keyword.
@@ -299,9 +325,11 @@ CORE EDITORIAL REQUIREMENTS:
 5. TONE: Deadpan British analytical wit, observant, deeply humane, forensic.
 6. LENGTH: 850 - 1350 words.`;
 
+    const cluster = 'cluster' in intent ? intent.cluster : context.category;
     const userPrompt = `TOPIC: ${intent.topic}
 PRIMARY KEYWORD: ${intent.keyword}
-CLUSTER: ${intent.cluster}
+CATEGORY: ${context.category}
+CLUSTER: ${cluster}
 LSI KEYWORDS: ${intent.seoKeywords.join(', ')}
 
 Output ONLY the article markdown. Start with the main # Title.`;
@@ -318,7 +346,7 @@ Output ONLY the article markdown. Start with the main # Title.`;
     // Extract title
     const titleMatch = text.match(/^#\s+(.+)$/m);
     const title = titleMatch ? titleMatch[1].trim() : intent.topic;
-    const slug = this.slugify(title);
+    const slug = ('slug' in intent && intent.slug) ? intent.slug : this.slugify(title);
 
     // Extract or build description
     const description = `Investigative protocol on ${intent.keyword} by Arthur Vance (Cheltenham Bureau). Field telemetry and technical verification rules.`;
@@ -348,15 +376,27 @@ Output ONLY the article markdown. Start with the main # Title.`;
       pubDate: string;
       bodyMarkdown: string;
     },
-    coverImage: string
+    coverImage: string,
+    meta: {
+      category: TaxonomyCategory;
+      caseId: string;
+      telemetryRisk: string;
+      motto?: string;
+      tags: string[];
+      seoKeywords: string[];
+    }
   ): string {
     const frontmatter = `---
 title: ${JSON.stringify(article.title)}
 description: ${JSON.stringify(article.description)}
 pubDate: "${article.pubDate}"
+category: ${JSON.stringify(meta.category)}
+caseId: ${JSON.stringify(meta.caseId)}
+classification: "UNRESTRICTED // PUBLIC INTELLIGENCE"
 author: "Arthur Vance"
-tags: ["Safety", "Dating Advice", "Verification"]
-seoKeywords: [${JSON.stringify(article.title)}]
+telemetryRisk: ${JSON.stringify(meta.telemetryRisk)}
+${meta.motto ? `motto: ${JSON.stringify(meta.motto)}\n` : ''}tags: ${JSON.stringify(meta.tags)}
+seoKeywords: ${JSON.stringify(meta.seoKeywords)}
 canonicalUrl: "https://flirtcheck.site/blog/${article.slug}/"
 coverImage: "${coverImage}"
 draft: false
@@ -375,10 +415,11 @@ ${article.bodyMarkdown}
     slug: string,
     title: string,
     postUrl: string,
-    intent: KeywordIntent
+    intent: ArticlePublishItem
   ): Promise<string[]> {
     const snippetIds: string[] = [];
     const now = Date.now();
+    const cluster = 'cluster' in intent ? intent.cluster : ('category' in intent ? (intent as EditorialTopicDefinition).category : 'dating_advice');
 
     // 1. Reddit Case Discussion
     const redditId = `snip_rd_${now}_${crypto.randomBytes(2).toString('hex')}`;
@@ -400,7 +441,7 @@ What is your personal go-to checklist before meeting an online match in person?`
       network: 'organic',
       target_platform: 'SOCIAL_SNIPPET',
       platform: 'REDDIT',
-      subreddit: intent.cluster === 'scam_detection' ? 'DatingApps' : 'dating_advice',
+      subreddit: cluster === 'scam_detection' ? 'DatingApps' : 'dating_advice',
       target_url: postUrl,
       payload: JSON.stringify({
         parentBlogPostId,

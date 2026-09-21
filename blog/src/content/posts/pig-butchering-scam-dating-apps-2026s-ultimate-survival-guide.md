@@ -2,6 +2,9 @@
 title: "Pig Butchering Scam Dating Apps: 2026’s Ultimate Survival Guide"
 description: ">-"
 pubDate: "2026-08-08"
+category: "safety-dossier"
+caseId: "FC-771-DOS"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["Pig Butchering Scam Dating Apps: 2026’s Ultimate Survival Guide"]

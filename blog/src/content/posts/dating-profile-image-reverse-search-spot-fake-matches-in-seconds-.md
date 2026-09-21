@@ -2,6 +2,9 @@
 title: "Dating Profile Image Reverse Search: Spot Fake Matches in Seconds (2026 Guide)"
 description: ">-"
 pubDate: "2026-07-05"
+category: "algo-mechanics"
+caseId: "FC-168-ALG"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["Dating Profile Image Reverse Search: Spot Fake Matches in Seconds (2026 Guide)"]

@@ -2,6 +2,9 @@
 title: "Dead Giveaways in Bio Punctuation: How LLM Spambots Write Dating Profiles"
 description: ">-"
 pubDate: "2026-07-12"
+category: "algo-mechanics"
+caseId: "FC-284-ALG"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["Dead Giveaways in Bio Punctuation: How LLM Spambots Write Dating Profiles"]

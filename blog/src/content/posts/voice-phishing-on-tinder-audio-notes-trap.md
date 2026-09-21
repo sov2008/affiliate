@@ -2,6 +2,9 @@
 title: "Voice Phishing on Tinder: Why Sending Audio Notes Has Become a Trap"
 description: ">-"
 pubDate: "2026-09-10"
+category: "digital-dialogue"
+caseId: "FC-860-TXT"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["Voice Phishing on Tinder: Why Sending Audio Notes Has Become a Trap"]

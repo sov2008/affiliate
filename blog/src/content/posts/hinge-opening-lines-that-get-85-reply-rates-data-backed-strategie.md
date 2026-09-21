@@ -2,6 +2,9 @@
 title: "Hinge Opening Lines That Get 85% Reply Rates: Data-Backed Strategies for 2026"
 description: ">-"
 pubDate: "2026-07-17"
+category: "digital-dialogue"
+caseId: "FC-576-TXT"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["Hinge Opening Lines That Get 85% Reply Rates: Data-Backed Strategies for 2026"]

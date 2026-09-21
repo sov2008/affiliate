@@ -2,6 +2,9 @@
 title: "The Slot Machine Algorithm: How Dating Apps Engineer Artificial Loneliness"
 description: ">-"
 pubDate: "2026-08-29"
+category: "algo-mechanics"
+caseId: "FC-766-ALG"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["The Slot Machine Algorithm: How Dating Apps Engineer Artificial Loneliness"]

@@ -2,6 +2,9 @@
 title: "2026 Dating Safety Blueprint: Verify, Optimize, & Protect Your Online Romance"
 description: ">-"
 pubDate: "2026-06-03"
+category: "safety-dossier"
+caseId: "FC-451-DOS"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["2026 Dating Safety Blueprint: Verify, Optimize, & Protect Your Online Romance"]

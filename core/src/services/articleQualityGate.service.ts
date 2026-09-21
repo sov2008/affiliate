@@ -14,6 +14,11 @@ export interface ArticleMetadata {
   title?: string;
   description?: string;
   author?: string;
+  category?: string;
+  caseId?: string;
+  classification?: string;
+  telemetryRisk?: string;
+  motto?: string;
   slug?: string;
   pubDate?: string;
   tags?: string[];
@@ -155,12 +160,22 @@ export class ArticleQualityGateService {
       const descMatch = fmBlock.match(/description:\s*["']?([^"'\n\r]+)["']?/i);
       const authorMatch = fmBlock.match(/author:\s*["']?([^"'\n\r]+)["']?/i);
       const pubDateMatch = fmBlock.match(/pubDate:\s*["']?([^"'\n\r]+)["']?/i);
+      const catMatch = fmBlock.match(/category:\s*["']?([^"'\n\r]+)["']?/i);
+      const caseMatch = fmBlock.match(/caseId:\s*["']?([^"'\n\r]+)["']?/i);
+      const classMatch = fmBlock.match(/classification:\s*["']?([^"'\n\r]+)["']?/i);
+      const riskMatch = fmBlock.match(/telemetryRisk:\s*["']?([^"'\n\r]+)["']?/i);
+      const mottoMatch = fmBlock.match(/motto:\s*["']?([^"'\n\r]+)["']?/i);
       const slugMatch = fmBlock.match(/canonicalUrl:\s*["']?https?:\/\/[^/]+\/blog\/([^/]+)\/?["']?/i);
 
       if (titleMatch) parsedFrontmatter.title = titleMatch[1].trim();
       if (descMatch) parsedFrontmatter.description = descMatch[1].trim();
       if (authorMatch) parsedFrontmatter.author = authorMatch[1].trim();
       if (pubDateMatch) parsedFrontmatter.pubDate = pubDateMatch[1].trim();
+      if (catMatch) parsedFrontmatter.category = catMatch[1].trim();
+      if (caseMatch) parsedFrontmatter.caseId = caseMatch[1].trim();
+      if (classMatch) parsedFrontmatter.classification = classMatch[1].trim();
+      if (riskMatch) parsedFrontmatter.telemetryRisk = riskMatch[1].trim();
+      if (mottoMatch) parsedFrontmatter.motto = mottoMatch[1].trim();
       if (slugMatch) parsedFrontmatter.slug = slugMatch[1].trim();
     }
 
@@ -228,12 +243,22 @@ export class ArticleQualityGateService {
     const coverImage = defaultMeta.coverImage || parsedFrontmatter.coverImage || `/images/blog/${slug}-cover.webp`;
     const tags = defaultMeta.tags || parsedFrontmatter.tags || ['Safety', 'Dating Advice', 'Verification'];
     const seoKeywords = defaultMeta.seoKeywords || parsedFrontmatter.seoKeywords || [title];
+    const category = parsedFrontmatter.category || defaultMeta.category || 'safety-dossier';
+    const caseId = parsedFrontmatter.caseId || defaultMeta.caseId || `FC-${Math.floor(Math.random() * 899 + 100)}-DOS`;
+    const classification = parsedFrontmatter.classification || defaultMeta.classification || 'PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026';
+    const telemetryRisk = parsedFrontmatter.telemetryRisk || defaultMeta.telemetryRisk || 'MEDIUM';
+    const motto = parsedFrontmatter.motto || defaultMeta.motto;
 
     const cleanFrontmatter: ArticleMetadata = {
       title,
       description,
       pubDate,
       author: 'Arthur Vance',
+      category,
+      caseId,
+      classification,
+      telemetryRisk,
+      motto,
       slug,
       canonicalUrl,
       coverImage,
@@ -245,8 +270,12 @@ export class ArticleQualityGateService {
 title: ${JSON.stringify(title)}
 description: ${JSON.stringify(description)}
 pubDate: "${pubDate}"
+category: ${JSON.stringify(category)}
+caseId: ${JSON.stringify(caseId)}
+classification: ${JSON.stringify(classification)}
 author: "Arthur Vance"
-tags: ${JSON.stringify(tags)}
+telemetryRisk: ${JSON.stringify(telemetryRisk)}
+${motto ? `motto: ${JSON.stringify(motto)}\n` : ''}tags: ${JSON.stringify(tags)}
 seoKeywords: ${JSON.stringify(seoKeywords)}
 canonicalUrl: "${canonicalUrl}"
 coverImage: "${coverImage}"
@@ -320,13 +349,28 @@ ${bodyMarkdown}
       score -= 25;
     }
 
-    // 5. Schema.org FAQ Section Check
+    // 5. Category Taxonomy Check
+    const validCategories = [
+      'algo-mechanics',
+      'safety-dossier',
+      'digital-dialogue',
+      'modern-psychology',
+      'first-dates',
+      'romantic-essays'
+    ];
+    const catMatch = sanitizedContent.match(/^category:\s*["']?([a-z-]+)["']?/m);
+    if (!catMatch || !validCategories.includes(catMatch[1].trim())) {
+      violations.push(`Category is invalid or missing: "${catMatch ? catMatch[1] : 'none'}"`);
+      score -= 20;
+    }
+
+    // 6. Schema.org FAQ Section Check
     if (!/##\s*Frequently Asked Questions/i.test(sanitizedContent)) {
       warnings.push('Missing standardized "## Frequently Asked Questions" heading for Schema.org FAQPage');
       score -= 10;
     }
 
-    // 6. Signature Formula or Narrative Tone Check
+    // 7. Signature Formula or Narrative Tone Check
     const hasLoveIsFormula = /Love is\.\.\./i.test(sanitizedContent);
     const hasAuthorialAnchor = /Arthur Vance|Cheltenham|forensic|spectrogram|OSINT|telemetry/i.test(sanitizedContent);
     if (!hasLoveIsFormula && !hasAuthorialAnchor) {

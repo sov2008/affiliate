@@ -2,6 +2,9 @@
 title: "Optimal Photo Order Dating Apps: The Psychological Anchor Rule"
 description: ">-"
 pubDate: "2026-08-05"
+category: "algo-mechanics"
+caseId: "FC-263-ALG"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["Optimal Photo Order Dating Apps: The Psychological Anchor Rule"]

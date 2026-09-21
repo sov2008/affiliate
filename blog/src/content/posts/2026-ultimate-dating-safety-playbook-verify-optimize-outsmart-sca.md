@@ -2,6 +2,9 @@
 title: "2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Outsmart Scammers"
 description: ">-"
 pubDate: "2026-06-18"
+category: "safety-dossier"
+caseId: "FC-844-DOS"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Outsmart Scammers"]

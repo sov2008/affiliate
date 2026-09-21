@@ -2,6 +2,9 @@
 title: ">-"
 description: ">-"
 pubDate: "2026-08-11"
+category: "algo-mechanics"
+caseId: "FC-883-ALG"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: [">-"]

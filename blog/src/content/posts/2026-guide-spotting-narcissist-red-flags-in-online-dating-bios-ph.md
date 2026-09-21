@@ -2,6 +2,9 @@
 title: "2026 Guide: Spotting Narcissist Red Flags in Online Dating Bios & Photos"
 description: ">-"
 pubDate: "2026-06-15"
+category: "modern-psychology"
+caseId: "FC-534-PSY"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["2026 Guide: Spotting Narcissist Red Flags in Online Dating Bios & Photos"]

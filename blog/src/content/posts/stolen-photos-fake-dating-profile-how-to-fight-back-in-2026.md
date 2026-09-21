@@ -2,6 +2,9 @@
 title: "Stolen Photos, Fake Dating Profile? How to Fight Back in 2026 \\U0001F6A8"
 description: ">-"
 pubDate: "2026-08-14"
+category: "safety-dossier"
+caseId: "FC-203-DOS"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["Stolen Photos, Fake Dating Profile? How to Fight Back in 2026 \\U0001F6A8"]

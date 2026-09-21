@@ -2,6 +2,9 @@
 title: "The 2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Thrive Online"
 description: ">-"
 pubDate: "2026-08-17"
+category: "romantic-essays"
+caseId: "FC-287-ESS"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["The 2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Thrive Online"]

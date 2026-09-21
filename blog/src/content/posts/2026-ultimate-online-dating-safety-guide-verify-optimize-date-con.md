@@ -2,6 +2,9 @@
 title: "2026 Ultimate Online Dating Safety Guide: Verify, Optimize, & Date Confidently"
 description: ">-"
 pubDate: "2026-06-21"
+category: "safety-dossier"
+caseId: "FC-535-DOS"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["2026 Ultimate Online Dating Safety Guide: Verify, Optimize, & Date Confidently"]

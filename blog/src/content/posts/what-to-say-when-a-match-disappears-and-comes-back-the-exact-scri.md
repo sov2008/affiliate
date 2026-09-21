@@ -2,6 +2,9 @@
 title: "What to Say When a Match Disappears and Comes Back: The Exact Script"
 description: ">-"
 pubDate: "2026-09-16"
+category: "digital-dialogue"
+caseId: "FC-485-TXT"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["What to Say When a Match Disappears and Comes Back: The Exact Script"]

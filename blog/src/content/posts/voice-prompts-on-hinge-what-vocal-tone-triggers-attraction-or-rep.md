@@ -2,6 +2,9 @@
 title: ">-"
 description: ">-"
 pubDate: "2026-09-13"
+category: "digital-dialogue"
+caseId: "FC-679-TXT"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: [">-"]

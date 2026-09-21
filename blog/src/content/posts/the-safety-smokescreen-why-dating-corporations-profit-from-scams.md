@@ -2,6 +2,9 @@
 title: ">-"
 description: ">-"
 pubDate: "2026-08-26"
+category: "romantic-essays"
+caseId: "FC-962-ESS"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: [">-"]

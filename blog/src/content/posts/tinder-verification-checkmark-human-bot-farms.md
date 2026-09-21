@@ -2,6 +2,9 @@
 title: "Tinder Verification Checkmark: Does It Actually Stop Human-Operated Bot Farms?"
 description: ">-"
 pubDate: "2026-09-07"
+category: "safety-dossier"
+caseId: "FC-719-DOS"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["Tinder Verification Checkmark: Does It Actually Stop Human-Operated Bot Farms?"]

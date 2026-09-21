@@ -2,6 +2,9 @@
 title: ">-"
 description: ">-"
 pubDate: "2026-07-14"
+category: "safety-dossier"
+caseId: "FC-750-DOS"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: [">-"]

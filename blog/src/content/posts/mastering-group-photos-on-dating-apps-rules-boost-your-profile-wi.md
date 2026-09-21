@@ -2,6 +2,9 @@
 title: ">-"
 description: ">-"
 pubDate: "2026-07-31"
+category: "modern-psychology"
+caseId: "FC-591-PSY"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: [">-"]

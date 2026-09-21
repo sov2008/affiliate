@@ -2,6 +2,9 @@
 title: "3‑Question Compatibility Test to Ask Before the First Date"
 description: ">-"
 pubDate: "2026-06-24"
+category: "first-dates"
+caseId: "FC-464-DAT"
+classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["3‑Question Compatibility Test to Ask Before the First Date"]
