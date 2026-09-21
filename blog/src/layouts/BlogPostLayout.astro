@@ -109,24 +109,48 @@ const relatedPosts = allPosts
 
 const isSafetyDossier = catId === 'safety-dossier' || (tags && tags.some(t => /scam|crypto|catfish|bot|imposter/i.test(t)));
 
-// Schema.org
+// Schema.org - Full Google Rich Results Compliance
 const articleSchema = {
   "@context": "https://schema.org",
-  "@type": "Article",
+  "@type": "TechArticle",
+  "@id": `${canonicalAbsUrl}#article`,
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    "name": "FlirtCheck Independent Forensics",
+    "url": siteUrl
+  },
   "headline": `${title} | FlirtCheck Investigation`,
   "description": description,
+  "image": [
+    ogImageAbsUrl
+  ],
   "inLanguage": "en-US",
   "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalAbsUrl },
-  "author": { "@type": "Person", "name": "Arthur Vance", "url": `${siteUrl}/desk` },
+  "author": {
+    "@type": "Person",
+    "name": "Arthur Vance",
+    "jobTitle": "Lead Forensic Desk",
+    "url": `${siteUrl}/desk`,
+    "image": `${siteUrl}/images/author/arthur-vance-avatar.webp`,
+    "sameAs": [`${siteUrl}/desk`]
+  },
   "publisher": {
     "@type": "Organization",
     "name": "FlirtCheck Independent Forensics",
     "url": siteUrl,
-    "logo": { "@type": "ImageObject", "url": `${siteUrl}/avatar.jpg` }
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}/apple-touch-icon.png`,
+      "width": 180,
+      "height": 180
+    }
   },
   "datePublished": pubDate.toISOString(),
   "dateModified": pubDate.toISOString(),
-  "keywords": seoKeywords.join(', ')
+  "articleSection": catMeta.title,
+  "keywords": seoKeywords.join(', '),
+  "wordCount": readingTime * 200
 };
 
 const breadcrumbSchema = {

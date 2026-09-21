@@ -7,6 +7,12 @@ import IndependenceProtocol from '../components/IndependenceProtocol.astro';
 import MobileStickyCTA from '../components/MobileStickyCTA.astro';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.config';
 
+import {
+  buildOrganizationSchema,
+  buildWebSiteSchema,
+  buildCollectionPageSchema
+} from '../utils/schema';
+
 // Fetch non-draft posts sorted by pubDate descending
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -16,6 +22,7 @@ const featuredPost = sortedPosts[0];
 const regularPosts = sortedPosts.slice(1);
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const siteUrl = 'https://flirtcheck.site';
 
 const pageTitle = "FlirtCheck: Dating Forensics & Algorithmic Analysis";
 const pageDescription = "Independent technical and psychological investigations into matchmaking algorithms, synthetic bot farms, and modern digital romance security.";
@@ -33,9 +40,27 @@ const rawFeaturedCover = featuredPost?.data?.coverImage || featuredPost?.data?.i
 const featuredPostCover = rawFeaturedCover
   ? (rawFeaturedCover.startsWith('/') ? rawFeaturedCover : `/${rawFeaturedCover}`)
   : `/images/posts/${featuredPost?.id || 'dating-scam-verification-guide-2026'}.webp`;
+
+// Comprehensive Schema.org Structured Data
+const indexSchemas = [
+  buildOrganizationSchema(siteUrl),
+  buildWebSiteSchema(siteUrl),
+  buildCollectionPageSchema(
+    'FlirtCheck Investigative Archive',
+    'Comprehensive catalogue of independent investigations into dating mechanics and fraud vectors.',
+    `${siteUrl}/`,
+    sortedPosts.slice(0, 15).map(p => ({
+      title: p.data.title,
+      url: `${siteUrl}/${p.id || p.slug}/`,
+      datePublished: p.data.pubDate.toISOString(),
+      description: p.data.description
+    })),
+    siteUrl
+  )
+];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} activePath="/" preloadImage={featuredPostCover}>
+<BaseLayout title={pageTitle} description={pageDescription} activePath="/" preloadImage={featuredPostCover} schemas={indexSchemas}>
   <link rel="preload" as="image" href={featuredPostCover} fetchpriority="high" type="image/webp" slot="head" />
   
   <!-- Hero Editorial Header: Authentic Journalistic Publication -->

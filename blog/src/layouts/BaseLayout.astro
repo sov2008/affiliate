@@ -12,6 +12,7 @@ interface Props {
   imageUrl?: string;
   preloadImage?: string;
   activePath?: string;
+  schemas?: object[];
 }
 
 const {
@@ -21,7 +22,8 @@ const {
   ogImage,
   imageUrl,
   preloadImage,
-  activePath = '/'
+  activePath = '/',
+  schemas = []
 } = Astro.props;
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://flirtcheck.site';
@@ -72,6 +74,11 @@ const fullImageUrl = rawImage
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={fullImageUrl} />
+
+    <!-- Schema.org JSON-LD Structured Data -->
+    {schemas && schemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
   </head>
 
   <body class="min-h-screen flex flex-col bg-[#FAF7F2] text-slate-900">

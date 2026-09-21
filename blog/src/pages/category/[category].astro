@@ -24,16 +24,46 @@ CategoryEnum.options.forEach((key) => {
   categoryCounts[key] = allPosts.filter((p) => p.data.category === key).length;
 });
 
+import {
+  buildCollectionPageSchema,
+  buildBreadcrumbSchema,
+  buildOrganizationSchema
+} from '../../utils/schema';
+
 // Category-specific posts sorted descending
 const categoryPosts = allPosts
   .filter((p) => p.data.category === categoryKey)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
+const siteUrl = 'https://flirtcheck.site';
+const categoryUrl = `${siteUrl}/category/${categoryKey}`;
+
 const pageTitle = `${categoryMeta.title} | FlirtCheck Safety Editorial`;
 const pageDescription = `${categoryMeta.description} Articles and forensic guides filed under ${categoryMeta.title}.`;
+
+const categorySchemas = [
+  buildOrganizationSchema(siteUrl),
+  buildBreadcrumbSchema([
+    { name: 'Home', url: `${siteUrl}/` },
+    { name: 'Archive', url: `${siteUrl}/#feed` },
+    { name: categoryMeta.shortTitle, url: categoryUrl }
+  ]),
+  buildCollectionPageSchema(
+    categoryMeta.title,
+    categoryMeta.description,
+    categoryUrl,
+    categoryPosts.map((p) => ({
+      title: p.data.title,
+      url: `${siteUrl}/${p.id || p.slug}/`,
+      datePublished: p.data.pubDate.toISOString(),
+      description: p.data.description
+    })),
+    siteUrl
+  )
+];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} activePath={`/category/${categoryKey}`}>
+<BaseLayout title={pageTitle} description={pageDescription} activePath={`/category/${categoryKey}`} schemas={categorySchemas}>
   <!-- Category Header Banner -->
   <section class="text-center py-6 sm:py-8 mb-6 border-b border-slate-200">
     <div class="inline-flex items-center gap-2 mb-3">

@@ -1,7 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  buildAuthorProfileSchema,
+  buildOrganizationSchema,
+  buildBreadcrumbSchema
+} from '../utils/schema';
 
 const moneroAddress = "888tNkZrPN6JsEgekjMnABU4TBmb2AnjC429Yum3A5sCpd4B21x1oF7hH5kQ8wU7vJ9zE3sD8rN1L3W8hP2pZ4V7M3f9X6a";
+const siteUrl = 'https://flirtcheck.site';
+
+const deskSchemas = [
+  buildOrganizationSchema(siteUrl),
+  buildAuthorProfileSchema(siteUrl),
+  buildBreadcrumbSchema([
+    { name: 'Home', url: `${siteUrl}/` },
+    { name: 'Investigator Dossier & Bureau Manifesto', url: `${siteUrl}/desk` }
+  ])
+];
 ---
 
 <BaseLayout
@@ -9,6 +24,7 @@ const moneroAddress = "888tNkZrPN6JsEgekjMnABU4TBmb2AnjC429Yum3A5sCpd4B21x1oF7hH
   description="Investigative dossier, methodology, and independence manifesto of Arthur Vance, Lead Forensic Desk in Cheltenham, UK. Reverse-engineering commercial dating algorithms and automated fraud funnels."
   activePath="/desk"
   imageUrl="/images/author/arthur-vance-desk.webp"
+  schemas={deskSchemas}
 >
   <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
     
