@@ -1,6 +1,12 @@
-# Staging Mode: Indexing disabled by design
+# FlirtCheck Production Robots Configuration
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /api/
+Disallow: /go
+Disallow: /r/
+Disallow: /l/
+Disallow: /dashboard/
 
-# Pre-configured Sitemap entry for production switch
+# Search Engine Directives
 Sitemap: https://flirtcheck.site/sitemap-index.xml
+Host: https://flirtcheck.site

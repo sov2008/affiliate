@@ -201,7 +201,9 @@ const faqSchema = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#FAF7F2" />
+    <link rel="alternate" type="application/rss+xml" title="FlirtCheck Forensic Dispatches" href={`${siteUrl}/rss.xml`} />
 
     <!-- Critical Local Fonts Preload -->
     <link rel="preload" href="/fonts/PlayfairDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin />
@@ -282,7 +284,7 @@ const faqSchema = {
                   <span class="text-[10px] font-mono text-slate-500 block leading-tight mt-0.5">
                     Lead Forensic Desk
                   </span>
-                  <span class="text-[10px] font-mono text-slate-400 block mt-0.5">
+                  <span class="text-[10px] font-mono text-slate-500 block mt-0.5">
                     Cheltenham, UK
                   </span>
                 </div>
@@ -457,7 +459,7 @@ const faqSchema = {
             <ul class="space-y-2 text-xs sm:text-sm text-slate-800 font-sans">
               {findingsList.map(item => (
                 <li class="flex items-start gap-2 leading-relaxed">
-                  <span class="text-slate-400 font-mono font-bold shrink-0 mt-0.5">—</span>
+                  <span class="text-slate-500 font-mono font-bold shrink-0 mt-0.5">—</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -500,7 +502,7 @@ const faqSchema = {
               [&>p:first-of-type::first-letter]:text-slate-900
               [&_h2]:font-serif [&_h2]:font-bold [&_h2]:text-2xl sm:[&_h2]:text-3xl [&_h2]:text-slate-900 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:pt-6 [&_h2]:border-t [&_h2]:border-slate-200
               [&_h3]:font-serif [&_h3]:font-bold [&_h3]:text-xl sm:[&_h3]:text-2xl [&_h3]:text-slate-900 [&_h3]:mt-6 [&_h3]:mb-3
-              [&_p]:font-sans [&_p]:text-[17px] sm:[&_p]:text-[18px] [&_p]:text-slate-800 [&_p]:leading-[1.75] [&_p]:tracking-[-0.01em] [&_p]:mb-5
+              [&_p]:font-sans [&_p]:text-[17px] sm:[&_p]:text-[18px] [&_p]:text-slate-800 [&_p]:leading-[1.75] [&_p]:tracking-[-0.01em] [&_p]:mb-5 [&_p]:max-w-[68ch]
               [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-5 [&_ul]:space-y-2 [&_ul]:text-slate-800 [&_ul]:text-[16px] sm:[&_ul]:text-[17px]
               [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-5 [&_ol]:space-y-2 [&_ol]:text-slate-800 [&_ol]:text-[16px] sm:[&_ol]:text-[17px]
               [&_li]:text-slate-800 [&_li]:leading-relaxed
@@ -605,7 +607,7 @@ const faqSchema = {
                     <article class="bg-white border border-slate-300 hover:border-slate-500 transition-colors flex flex-col">
                       <div class="bg-[#FAF7F2] border-b border-slate-200 px-3.5 py-2 font-mono text-[10px] font-bold text-slate-600 uppercase tracking-wider flex justify-between items-center">
                         <span>[{relCategoryLabel}]</span>
-                        <span class="text-slate-400 font-medium">{relDate}</span>
+                        <span class="text-slate-500 font-medium">{relDate}</span>
                       </div>
                       <div class="p-4 flex flex-col flex-1 justify-between">
                         <h3 class="font-serif font-bold text-sm text-slate-900 line-clamp-3 hover:text-rose-700 leading-snug mb-4">
@@ -793,7 +795,7 @@ const faqSchema = {
       article.prose pre code {
         background-color: #F2ECE1 !important;
         color: #1E293B !important;
-        border: 1px solid #CBD5E1 !important;
+        border: 1px solid #E2D9CC !important;
         border-radius: 2px !important;
         font-size: 12px !important;
         line-height: 1.65 !important;
@@ -807,12 +809,12 @@ const faqSchema = {
         margin-bottom: 1.25rem !important;
       }
       article.prose code:not(pre code) {
-        background-color: #EDE8DF !important;
+        background-color: #F2ECE1 !important;
         color: #1E293B !important;
         padding: 0.1em 0.35em !important;
         border-radius: 2px !important;
         font-size: 0.875em !important;
-        border: 1px solid #D1C9BC !important;
+        border: 1px solid #E2D9CC !important;
         box-shadow: none !important;
       }
 
@@ -833,7 +835,7 @@ const faqSchema = {
 
       /* ─── Evidence Photography ───────────────────────────────── */
       article.prose img {
-        border: 1px solid #CBD5E1 !important;
+        border: 1px solid #E2D9CC !important;
         border-radius: 0 !important;
         background-color: #F4EFE6;
         display: block;
@@ -849,12 +851,12 @@ const faqSchema = {
         font-size: 12px;
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
-        border: 1px solid #CBD5E1;
+        border: 1px solid #E2D9CC;
         background-color: #FFFDF9;
       }
       article.prose table th {
         background-color: #0F172A;
-        color: #F8FAFC;
+        color: #FFFDF9;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.05em;
