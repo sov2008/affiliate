@@ -32,7 +32,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 
 ---
 
-## 📌 What You Should Actually Do  
+## What You Should Actually Do  
 
 - **Run a multi‑factor handshake** before you let the connection linger.  
 - **Shape a bio that behaves like a well‑tuned routing policy** – it should attract the right traffic and drop the rest.  
@@ -43,7 +43,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 
 ## 1️⃣ Profile Optimisation – First‑Impression Magnetism, Syslog‑Style  
 
-### 🎯 The “3‑2‑1” Bio Formula  
+### The “3‑2‑1” Bio Formula  
 
 | Element | Word count / length | Why the packet survives |
 |---------|--------------------|--------------------------|
@@ -52,9 +52,9 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 | **Call‑to‑Action** (prompt) | 1 question | Generates a response‑required flag, nudging the remote host to reply. |
 
 **Sample Bio**  
-> *“Adventure‑addicted photographer 📸 / Vegan foodie 🌱 / Looking for a partner in crime – what’s your favourite hidden‑gem restaurant?”*  
+> *“Adventure‑addicted photographer / Vegan foodie 🌱 / Looking for a partner in crime – what’s your favourite hidden‑gem restaurant?”*  
 
-### 🗣️ Ice‑breaker Payload  
+### Ice‑breaker Payload  
 
 **You:** “Your sunrise‑hike pic is epic! If you could teleport to any trail right now, where would you go?”  
 
@@ -62,7 +62,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 - **Specific header** – proves you actually parsed the profile.  
 - **Future‑oriented query** – exploits the planning‑fallacy cache; people love to pre‑fetch imagined experiences.
 
-### 📊 Photo‑Audit Checklist (no more than three‑point bursts)  
+### Photo‑Audit Checklist (no more than three‑point bursts)  
 
 1. Clear headshot – eyes visible, no sunglasses that would hide the TLS handshake.  
 2. Action shot – you doing something that isn’t a stock‑photo placeholder.  
@@ -72,7 +72,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 
 ## 2️⃣ Scam Prevention – Spotting Red Flags Before the Payload Hits  
 
-### 🚩 The “Three‑Stage Scam Funnel”  
+### The “Three‑Stage Scam Funnel”  
 
 | Stage | Typical Tactics | Red‑Flag Indicators |
 |-------|----------------|---------------------|
@@ -80,7 +80,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 | **Need Creation** | Claims of emergency, travel issues, or financial trouble. | Requests for money, gifts, or “urgent” help. |
 | **Extraction** | Direct asks for bank details, crypto wallets, or gift‑cards. | Pressure to act quickly, secrecy (“don’t tell anyone”). |
 
-### 🗨️ Sample Scam Attempt (and a safe response)  
+### Sample Scam Attempt (and a safe response)  
 
 **Scammer:** “Hey, I’m stuck at the airport because my flight got cancelled. Can you send me a $50 Uber code? I’ll pay you back later.”  
 
@@ -91,9 +91,9 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 - Sets a firewall rule without raising the alarm level.  
 - Keeps the conversation on‑platform, preserving logs for later forensic analysis.
 
-### 🔐 Verification‑Before‑Transaction Protocol  
+### Verification‑Before‑Transaction Protocol  
 
-1. Request a live video call via the **FlirtCheck Verified Portal** – think of it as a TLS‑handshake with visual certs.  
+1. Request a live video call via the **FlirtCheck Forensic Archive** – think of it as a TLS‑handshake with visual certs.  
 2. Ask for a photo holding a dated newspaper – a cheap but effective nonce.  
 3. Never expose personal IDs or banking details until you have at least **two independent verification steps**.  
 
@@ -101,7 +101,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 
 ## 3️⃣ Relationship Psychology – From First Message to First Date  
 
-### 💡 The “4‑C” Conversation Model  
+### The “4‑C” Conversation Model  
 
 | C | What it does | Prompt example |
 |---|--------------|----------------|
@@ -110,7 +110,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 | **Commitment** | Signals intent to move up the stack. | “I’m looking for someone up for weekend hikes; does that sound like you?” |
 | **Comfort** | Lowers the error‑rate of the session. | “I’m a bit nervous on first dates – how do you usually break the ice?” |
 
-### 📱 High‑Conversion Message Flow (sample packet exchange)  
+### High‑Conversion Message Flow (sample packet exchange)  
 
 1. **Opening:** “Your travel photos are stunning – what’s the story behind the sunrise in Patagonia?”  
 2. **Curiosity:** “I’ve always wanted to trek there. What’s the most unexpected thing you learned on that trip?”  
@@ -121,11 +121,11 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 
 ## 4️⃣ Interactive Verification Checklist / Self‑Audit  
 
-> **🛡️ FlirtCheck Self‑Audit: Are You Safe?**  
+> **FlirtCheck Self‑Audit: Are You Safe?**  
 
 - **Profile Photo:** At least one recent, clear headshot (no VPN‑style masks).  
 - **Bio Authenticity:** Does it follow the 3‑2‑1 formula?  
-- **Verification Status:** Linked to **FlirtCheck Verified Portal** or a reputable community (e.g., a vetted subreddit).  
+- **Verification Status:** Linked to **FlirtCheck Forensic Archive** or a reputable community (e.g., a vetted subreddit).  
 - **Conversation Red Flags:** Have you logged any of the “Three‑Stage Scam Funnel” signatures?  
 - **Safety Protocols:** Do you have a pre‑written response for money‑request scenarios?  
 
@@ -133,13 +133,14 @@ If any answer is “no”, treat the session as a half‑open connection and app
 
 ---
 
-## 🌐 Moving to Verified Platforms  
+## Independent Verification & Risk Protocol
 
-The tricks above work on any app, but adding a verification layer is like enabling BGP route‑validation – it removes a whole class of spoofed prefixes. Join the **FlirtCheck Verified Portal**, where every member completes a multi‑factor identity check, a live‑video proof, and receives a community‑rated trust score. Pair that with a peer‑review thread such as **/r/dating**’s weekly “Verified Match” for an extra sanity check.
+The defensive tactics above apply across any mainstream dating platform. Before sharing personal contact details, residential location, or financial context, run the profile markers through our client-side [Dating Risk Calculator](/calculator/) to evaluate threat vectors without exposing private data. Pair manual OSINT cross-referencing with an unscheduled 30-second video check to confirm liveness and acoustic authenticity.
+
 
 ---
 
-## ❓ Frequently Asked Questions  
+## Frequently Asked Questions  
 
 ```json
 {
@@ -159,7 +160,7 @@ The tricks above work on any app, but adding a verification layer is like enabli
       "name": "What’s the safest way to share my phone number?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Only after you’ve completed at least two verification steps (e.g., video call on FlirtCheck and a mutual‑friend reference). Use a disposable number or a messaging app that doesn’t expose your primary contact."
+        "text": "Only after you’ve completed at least two verification steps (e.g., direct video call and a mutual‑friend reference). Use a disposable number or a messaging app that doesn’t expose your primary contact."
       }
     },
     {

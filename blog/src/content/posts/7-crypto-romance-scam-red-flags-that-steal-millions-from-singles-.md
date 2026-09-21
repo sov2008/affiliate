@@ -33,7 +33,7 @@ A swipe left on a profile that never existed feels a bit like a 404 on a love‑
 
 ---
 
-## 📌 Quick Takeaways  
+## Quick Takeaways  
 
 - Treat every profile as an untrusted host until you’ve run a full handshake.  
 - Never forward crypto to a node you haven’t verified through at least two independent routes.  
@@ -177,9 +177,9 @@ A generic URL or a static image is a clear sign of a spoofed badge.
 
 ---
 
-## ✅ Interactive Verification Checklist  
+## Interactive Verification Checklist  
 
-| ✅ Checklist Item | Yes / No | Notes |
+| [✓] Checklist Item | Yes / No | Notes |
 |-------------------|----------|-------|
 | Profile photo matches reverse‑image search? |  |  |
 | Username appears on any scam‑report sites? |  |  |
@@ -193,18 +193,18 @@ If any answer is **No**, pause the session and re‑evaluate before any further 
 
 ---
 
-## 🔗 Trusted Verification Platforms  
+## Trusted Verification Platforms  
 
 Even with the above filters, the safest route is a platform that performs its own handshake checks.  
 
-- **FlirtCheck Verified Portal** runs AI‑backed photo and ID validation, flagging synthetic profiles before they reach you.  
+- **FlirtCheck Forensic Archive** runs AI‑backed photo and ID validation, flagging synthetic profiles before they reach you.  
 - Community‑run sub‑reddits such as **/r/dating** maintain weekly “Scam‑Watch” threads where members post fresh crypto‑romance alerts.  
 
 **If spending your evening debugging someone else’s unhandled emotional exceptions is not your idea of fun — run the profile through our 30‑second FlirtCheck verification filter. Saves time and bandwidth.**
 
 ---
 
-## ❓ FAQ (Machine‑Readable)  
+## FAQ (Machine‑Readable)  
 
 ```json
 {

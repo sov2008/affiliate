@@ -43,12 +43,12 @@ This is not a casual sign of romantic progression. This is a cold, calculated st
 
 ---
 
-## 📌 Funnel Architecture at a Glance
+## Funnel Architecture at a Glance
 
 - **The Sandbox Constraint:** Dating apps deploy behavioral NLP and heuristic flags that trigger bans if financial keywords or wallet addresses appear in in-app chat.
 - **The Account Longevity Clock:** Fraudulent profiles on Tinder/Hinge have a median lifespan of 72 hours before trust-and-safety heuristics ban them. Scammers must export the lead before account termination.
 - **The Shift from Chatbot to Human Closer:** The early banter is handled by high-throughput LLM agents; the WhatsApp transition routes your session to an experienced human social engineer in a Southeast Asian compound.
-- **Immediate Mitigation:** Halting external migration until a clean verification handshake via [FlirtCheck Verified Portal](https://flirtcheck.site/) collapses the funnel instantly.
+- **Immediate Mitigation:** Halting external migration until a clean verification handshake via [Dating Risk Calculator](/calculator/) collapses the funnel instantly.
 
 ---
 
@@ -123,13 +123,13 @@ Tinder Match -> 48h WhatsApp Request -> Verification Gate -> Scam Aborted
 
 When someone proposes abandoning the dating platform for an unmonitored messaging app, your default protocol must be an immutable safety gate:
 
-> *"Happy to connect outside the app, but with the volume of automated syndicates lately, I verify all off-app contacts through [FlirtCheck Verified Portal](https://flirtcheck.site/). Takes 30 seconds to confirm neither of us is a bot farm. Let me know when you've pinged it."*
+> *"Happy to connect outside the app, but with the volume of automated syndicates lately, I verify all off-app contacts through [Dating Risk Calculator](/calculator/). Takes 30 seconds to confirm neither of us is a bot farm. Let me know when you've pinged it."*
 
 A legitimate human who likes you might be mildly surprised, but will gladly complete a 30-second check or suggest an immediate FaceTime. A pig-butchering operator will immediately become defensive, accuse you of lacking "trust," or simply delete the match to conserve processing cycles.
 
 ---
 
-## ✅ The Off-App Migration Decision Matrix
+## The Off-App Migration Decision Matrix
 
 Before you hand over your personal phone number or add an unknown handle on WhatsApp or Telegram, run this checklist:
 
@@ -142,7 +142,7 @@ Before you hand over your personal phone number or add an unknown handle on What
 
 ---
 
-## ❓ Frequently Asked Questions (FAQ)
+## Frequently Asked Questions (FAQ)
 
 #### Why do they prefer WhatsApp over Telegram or Instagram?
 WhatsApp associates your identity with your real phone number. Once a scammer has your phone number, they can perform reverse carrier lookups, uncover your full name, home address, and voter records, allowing them to tailor their psychological extortion specifically to your net worth.

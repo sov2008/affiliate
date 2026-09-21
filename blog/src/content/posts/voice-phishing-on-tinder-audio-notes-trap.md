@@ -39,12 +39,12 @@ Here is how modern voice cloning exploits dating app mechanics, how to spot synt
 
 ---
 
-## 📌 Technical Summary
+## Technical Summary
 
 - **The Training Threshold Collapse:** Modern zero-shot neural audio synthesis (e.g., modern derivatives of VALL-E and XTTS) requires between 3 to 10 seconds of clean speech to synthesize arbitrary sentences in your exact cadence.
 - **The Dual Attack Surface:** Audio scams work symmetrically. Scammers deploy synthetic speech to pass verification tests, while simultaneously baiting victims into providing acoustic training samples.
 - **Secondary Fraud Monetization:** Stolen vocal profiles from dating platforms are cross-referenced with OSINT identity databases to execute urgent family extortion ("grandparent scams") and voice-authenticated phone banking overrides.
-- **Defensive Posture:** Strict prohibition on open vocal recording with unverified entities, coupled with [FlirtCheck Verified Portal](https://flirtcheck.site/) authentication protocols.
+- **Defensive Posture:** Strict prohibition on open vocal recording with unverified entities, coupled with [Dating Risk Calculator](/calculator/) authentication protocols.
 
 ---
 
@@ -132,7 +132,7 @@ If you choose to test someone's incoming voice note, do not allow them to pick t
 An automated scammer with a limited library of pre-generated voice clips will evade the question or send a generic "Haha, you're funny, anyway what are you doing later?"
 
 ### Rule 3: The Protocol Verification Shield
-Rather than engaging in amateur audio spectrum analysis, enforce an objective verification gate via [FlirtCheck Verified Portal](https://flirtcheck.site/). 
+Rather than engaging in amateur audio spectrum analysis, enforce an objective verification gate via [Dating Risk Calculator](/calculator/). 
 
 ```
 Match Proposes Audio Notes
@@ -150,7 +150,7 @@ Authentic matches who care about mutual privacy are happy to confirm their human
 
 ---
 
-## ✅ Biometric Safety Checklist for Dating Apps
+## Biometric Safety Checklist for Dating Apps
 
 | Protocol Step | Action | Status |
 | :--- | :--- | :--- |
@@ -161,7 +161,7 @@ Authentic matches who care about mutual privacy are happy to confirm their human
 
 ---
 
-## ❓ Frequently Asked Questions (FAQ)
+## Frequently Asked Questions (FAQ)
 
 #### Can scammers really clone my voice from a single short audio note?
 Yes. Current state-of-the-art models require as little as three seconds of clean speech to build a latent acoustic embedding. While it might not fool a seasoned audio engineer in a studio, it is more than sufficient to fool a panicked parent or a low-level bank support agent on a low-bandwidth telephone line.

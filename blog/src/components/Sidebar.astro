@@ -1,4 +1,6 @@
 ---
+import AuthorCard from './AuthorCard.astro';
+
 interface Props {
   activeCategory?: string;
   postCount?: number;
@@ -48,42 +50,8 @@ const topComments = [
 
 <aside class="w-full lg:w-72 shrink-0 space-y-6 lg:sticky lg:top-24 self-start">
 
-  <!-- WIDGET 1: Arthur Vance Investigator Dossier Card (Identical to Articles) -->
-  <div class="border border-slate-300 bg-white p-4 rounded-none sm:rounded-sm">
-    <span class="font-mono text-[9px] font-bold uppercase tracking-widest text-slate-500 block mb-3">
-      [ INVESTIGATOR DOSSIER ]
-    </span>
-    <div class="flex items-center gap-3 mb-3">
-      <img
-        src="/images/author/arthur-vance-avatar.webp"
-        alt="Arthur Vance - Lead Forensic Investigator"
-        class="w-14 h-14 rounded-full border border-slate-300 object-cover shrink-0"
-        loading="lazy"
-        width="56"
-        height="56"
-      />
-      <div class="min-w-0 font-sans">
-        <h4 class="font-serif font-bold text-sm text-slate-900 leading-snug">
-          <a href="/desk" class="hover:text-rose-700 transition-colors">Arthur Vance</a>
-        </h4>
-        <span class="text-[10px] font-mono text-slate-500 block leading-tight mt-0.5">
-          Lead Forensic Desk
-        </span>
-        <span class="text-[10px] font-mono text-slate-500 block mt-0.5">
-          Cheltenham, UK
-        </span>
-      </div>
-    </div>
-    <p class="text-[11px] text-slate-600 font-sans leading-relaxed mb-3">
-      Arthur Vance investigates commercial matchmaking telemetry, hidden ELO ranking systems, and synthetic fraud funnels. Independent forensic reporter operating under confidential source protocols since 2019.
-    </p>
-    <a
-      href="/desk"
-      class="min-h-[44px] w-full flex items-center justify-center text-center px-3 py-2 bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-mono font-bold text-[10px] uppercase tracking-wider transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
-    >
-      View Investigator Dossier ↗
-    </a>
-  </div>
+  <!-- WIDGET 1: Arthur Vance Investigator Dossier Card (Unified Component) -->
+  <AuthorCard />
 
   <!-- WIDGET 2: Official Bulletin (CPA Smartlink) -->
   <div class="bg-[#FAF7F2] border border-slate-300 rounded-none sm:rounded-sm p-4 relative">

@@ -90,7 +90,7 @@ Our internal analytics (a modest log‑parser, not a black‑box AI) show a clea
 ```
 [ ] Profile fields are populated and current (no stale ARP entries).
 [ ] Profile picture is clear, recent, and not a placeholder image (no 404 errors).
-[ ] Verification badge present – e.g., FlirtCheck Verified Portal (trusted CA).
+[ ] Verification badge present – e.g., FlirtCheck Forensic Archive (trusted CA).
 [ ] Language respects the recipient’s bandwidth (no abusive payloads).
 ```
 

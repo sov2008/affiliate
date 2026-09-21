@@ -62,7 +62,7 @@ Let's take a gander at the key takeaways:
 
 ## Verification Protocols: Turning "Maybe" into "Confirmed"
 
-### 2.1 The FlirtCheck Verified Portal Workflow
+### 2.1 The FlirtCheck Forensic Archive Workflow
 
 1. **Upload ID & selfie video** (face match, liveness detection). Don't worry, it's not as invasive as it sounds.
 2. **Link a social handle** (LinkedIn, Instagram) for cross-validation. Think of it as a digital "second opinion" from a trusted friend.
@@ -127,7 +127,7 @@ If the answer is “yes” to any, consider ending the interaction. It's like ha
 
 ## Interactive Verification Checklist / Self-Audit Query
 
-| ✅ | Verification Step | Completed? (Y/N) |
+| [✓] | Verification Step | Completed? (Y/N) |
 |----|-------------------|------------------|
 | 1 | Profile photo reverse-image search | |
 | 2 | Video intro uploaded to FlirtCheck | |
@@ -141,9 +141,9 @@ If the answer is “yes” to any, consider ending the interaction. It's like ha
 
 ## Transition to Verified Platforms
 
-While the tactics above work across any app, **FlirtCheck Verified Portal** streamlines safety: a single verification badge that syncs to Tinder, Bumble, Hinge, and even niche communities like `/r/dating`. By consolidating identity proof, you reduce friction and **signal to matches that you're serious about security**—a powerful attraction multiplier in 2026's hyper-connected dating ecosystem.
+While the tactics above work across any app, **FlirtCheck Forensic Archive** streamlines safety: a single verification badge that syncs to Tinder, Bumble, Hinge, and even niche communities like `/r/dating`. By consolidating identity proof, you reduce friction and **signal to matches that you're serious about security**—a powerful attraction multiplier in 2026's hyper-connected dating ecosystem.
 
-## ❓ Frequently Asked Questions (FAQ)
+## Frequently Asked Questions (FAQ)
 
 **Q1: How reliable is the FlirtCheck verification badge?**
 *A:* Our multi-factor system combines government-issued ID verification, facial liveness detection, and cross-platform social-media validation. Independent audits in 2025 showed a **99.3% false-positive reduction** compared to standard app checks.

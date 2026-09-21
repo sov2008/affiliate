@@ -43,12 +43,12 @@ Here is why your traditional reverse lookup fails, how modern diffusion-based ca
 
 ---
 
-## 📌 Key Architectural Takeaways
+## Key Architectural Takeaways
 
 - **Generative Diffusion Outpaces Scraping:** Real-time LoRA (Low-Rank Adaptation) models generate hundreds of candid, casual-looking photos of the same non-existent person in different settings, rendering hash-matching useless.
 - **Adversarial Pixel Perturbation:** Modern scam operations run automated post-processing filters that inject imperceptible pixel noise, shifting feature vectors away from Google's visual similarity clustering.
 - **Physical Context Gaps:** Synthetic faces look immaculate, but the physics engine of diffusion models consistently breaks on ear cartilage symmetry, specular reflections in pupils, and background typography.
-- **The Protocol Verification Gate:** Automated identity verification via [FlirtCheck Verified Portal](https://flirtcheck.site/) bypasses client-side visual ambiguity entirely through cryptographic liveness proofs.
+- **The Protocol Verification Gate:** Automated identity verification via [Dating Risk Calculator](/calculator/) bypasses client-side visual ambiguity entirely through cryptographic liveness proofs.
 
 ---
 
@@ -133,7 +133,7 @@ If a match appears too polished, deflects spontaneous real-time video requests, 
 
 ---
 
-## ✅ Interactive Verification Checklist
+## Interactive Verification Checklist
 
 Use this triage matrix when evaluating high-risk profiles:
 
@@ -142,11 +142,11 @@ Use this triage matrix when evaluating high-risk profiles:
 | **Layer 1: Visual** | 400% zoom on irises and earrings | Coherent lighting, solid jewelry | Floating metal, mismatched reflections |
 | **Layer 2: Search** | TinEye / Google Lens | (Indifferent - 0 hits is NOT a pass) | Multiple hits across public escorts/models |
 | **Layer 3: Behavioral** | Request a specific physical action | Delivers photo holding 3 fingers to left ear | Sends pre-recorded generic video or excuses |
-| **Layer 4: Platform** | Route to [FlirtCheck Verified Portal](https://flirtcheck.site/) | Completes instantaneous liveness check | Hostile pushback or redirects to Telegram |
+| **Layer 4: Platform** | Route to [Dating Risk Calculator](/calculator/) | Completes instantaneous liveness check | Hostile pushback or redirects to Telegram |
 
 ---
 
-## ❓ Frequently Asked Questions (FAQ)
+## Frequently Asked Questions (FAQ)
 
 #### Can Google Lens catch AI faces if they were posted on social media first?
 Only if the scammer was foolish enough to upload the exact identical synthetic output to a publicly indexed web page that Google's spider already crawled. If they generated the image locally or via an unindexed API endpoint and uploaded it directly into Tinder or Hinge, Google has zero index record of it.

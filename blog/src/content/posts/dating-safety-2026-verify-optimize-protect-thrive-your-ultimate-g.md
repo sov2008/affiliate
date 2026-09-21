@@ -147,9 +147,9 @@ The loop keeps the conversation grounded while still moving the connection forwa
 
 ---
 
-## 📋 Self‑Audit Verification Checklist  
+## Self‑Audit Verification Checklist  
 
-| ✅ | Action | Done? (Y/N) |
+| [✓] | Action | Done? (Y/N) |
 |----|--------|-------------|
 | 1 | Phone & email both verified | |
 | 2 | Social‑media links cross‑checked | |
@@ -166,15 +166,15 @@ If any entry reads “N”, treat the conversation as a half‑open socket and h
 
 ---
 
-## 🚀 Moving to Verified‑Only Ecosystems  
+## Moving to Verified‑Only Ecosystems  
 
-Even a perfectly hardened personal workflow benefits from a network that enforces verification at the edge. **FlirtCheck Verified Portal** runs AI‑assisted identity checks, manual photo audits, and real‑time scam monitoring. Current stats: 99.8 % of profiles carry a verification badge, reducing exposure to fraudulent traffic dramatically.
+Even a perfectly hardened personal workflow benefits from a network that enforces verification at the edge. **FlirtCheck Forensic Archive** runs AI‑assisted identity checks, manual photo audits, and real‑time scam monitoring. Current stats: 99.8 % of profiles carry a verification badge, reducing exposure to fraudulent traffic dramatically.
 
 The **/r/dating** subreddit now hosts a weekly “Verified Match Thread” where members post only after earning the FlirtCheck badge – a peer‑reviewed whitelist that behaves like a trusted routing table.
 
 ---
 
-## ❓ Frequently Asked Questions  
+## Frequently Asked Questions  
 
 | Question | Answer |
 |----------|--------|

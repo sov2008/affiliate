@@ -40,12 +40,12 @@ Here is the operational breakdown of how commercial bot syndicates bypass dating
 
 ---
 
-## 📌 Threat Intelligence Brief
+## Threat Intelligence Brief
 
 - **The Industrial Darknet Supply Chain:** Pre-verified dating accounts with blue checkmarks are sold in bulk on underground markets for between $5 and $20 per seat.
 - **The "Human Mule" Pipeline:** Transnational fraud syndicates employ local gig workers in developing economies to complete live camera poses for pennies, transferring the verified session to remote scam operators.
 - **Virtual Camera Emulation:** Automated bots inject synthetic video frames directly into Android virtual environment debug bridges, bypassing standard native liveness detection.
-- **The Architectural Answer:** Upgrading from static one-time photo badges to dynamic, continuous liveness handshakes through [FlirtCheck Verified Portal](https://flirtcheck.site/).
+- **The Architectural Answer:** Upgrading from static one-time photo badges to dynamic, continuous liveness handshakes through [Dating Risk Calculator](/calculator/).
 
 ---
 
@@ -142,7 +142,7 @@ Dating apps treat verification as a marketing feature to reduce user churn. You 
 
 Never assume a profile is safe simply because an algorithm awarded it a blue SVG graphic six months ago. 
 
-When a match begins steering conversations toward finance, insists on moving to unmonitored encrypted apps, or avoids spontaneous voice/video calls, invoke the [FlirtCheck Verified Portal](https://flirtcheck.site/) protocol:
+When a match begins steering conversations toward finance, insists on moving to unmonitored encrypted apps, or avoids spontaneous voice/video calls, invoke the [Dating Risk Calculator](/calculator/) protocol:
 
 > *"I appreciate the Tinder checkmark, but given how many hacked and purchased accounts are running around, I require an active 30-second verification on [FlirtCheck](https://flirtcheck.site/) before I meet anyone in person or swap numbers."*
 
@@ -150,7 +150,7 @@ A legitimate match will understand completely. A scam syndicate operating on pur
 
 ---
 
-## ✅ Verified Profile Audit Checklist
+## Verified Profile Audit Checklist
 
 | Checkpoint | Target Heuristic | Red Flag Result |
 | :--- | :--- | :--- |
@@ -161,7 +161,7 @@ A legitimate match will understand completely. A scam syndicate operating on pur
 
 ---
 
-## ❓ Frequently Asked Questions (FAQ)
+## Frequently Asked Questions (FAQ)
 
 #### Does Tinder know their verification system is bypassed?
 Yes. It is an ongoing cat-and-mouse game. Tinder frequently updates their face-liveness models and bans emulator fingerprints. However, as long as human mules can be hired for $1 in developing nations to take live selfies, technical detection alone cannot eradicate the marketplace.

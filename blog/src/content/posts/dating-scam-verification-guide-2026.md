@@ -34,7 +34,7 @@ A profile that looks like a stock‑photo‑plus‑a‑few‑typos is about as r
 
 ---
 
-## 🚩 Five Cardinal Red Flags  
+## Five Cardinal Red Flags  
 
 Scammers have stopped using the 2012‑era grainy headshots that made us nostalgic for dial‑up. Modern fraudsters ship their avatars with the same confidence you’d expect from a freshly compiled kernel – until you look at the edge cases.
 
@@ -63,7 +63,7 @@ Any mention of emergency crypto windfalls, travel funds, or exclusive investment
 
 ---
 
-## 🛡️ Three‑Step Interactive Self‑Verification Protocol  
+## Three‑Step Interactive Self‑Verification Protocol  
 
 Treat this as a quick triage before you allocate any of your precious bandwidth to a stranger.
 
@@ -78,7 +78,7 @@ Treat this as a quick triage before you allocate any of your precious bandwidth 
 
 ---
 
-## ❓ Frequently Asked Questions  
+## Frequently Asked Questions  
 
 **What’s the quickest way to verify a profile?**  
 A 15‑second live video ping or a free safety‑lookup tool before you hand over a phone number. Think of it as a TCP handshake with a timeout.
@@ -91,7 +91,7 @@ Capture the log (screenshots), file a report through the platform’s safety cen
 
 ---
 
-## 📦 Offer / Quiz  
+## Offer / Quiz  
 
 If spending your evening debugging someone else’s unhandled emotional exceptions isn’t your idea of fun — run the profile through our **30‑second FlirtCheck verification filter**. Saves time, saves bandwidth, and keeps your love‑router from crashing.
 

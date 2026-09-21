@@ -110,7 +110,7 @@ If friends or acquaintances have been messaged by the fake profile, send a brief
 
 ### Switching to Verified-Only Platforms
 
-**FlirtCheck Verified Portal** offers a **photo-verification badge** backed by AI and human review. By joining, you:
+**FlirtCheck Forensic Archive** offers a **photo-verification badge** backed by AI and human review. By joining, you:
 
 - Reduce the chance of impersonation. How delightful.
 - Gain a “Verified” label that boosts credibility. Do try to be impressed.

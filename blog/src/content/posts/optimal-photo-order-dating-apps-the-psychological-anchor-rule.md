@@ -100,20 +100,20 @@ The final image acts as a call-to-action. A relaxed, candid shot where you’re 
 
 ## Interactive Verification Checklist / Self-Audit Query
 
-| ✅ Check | Question | Yes / No |
+| [✓] Check | Question | Yes / No |
 |---------|----------|----------|
 | **Anchor** | Is the first photo a clear, eye-contact headshot with a natural smile? |  |
 | **Narrative** | Do photos 2-4 tell a logical story (hobby → social → adventure)? |  |
 | **Closing** | Does the final image feature a relaxed, candid moment with a conversation starter prop? |  |
 | **Authenticity** | Are any photos heavily filtered or obviously staged? |  |
 | **App Fit** | Have you adjusted the sequence to match the specific algorithm cues of your target app? |  |
-| **Verification** | Have you linked the profile to FlirtCheck Verified Portal for extra trust? |  |
+| **Verification** | Have you linked the profile to FlirtCheck Forensic Archive for extra trust? |  |
 
 *If you answered “No” to any row, revisit that step before publishing.*
 
 ## Move From “Unverified” to “Verified”
 
-Even the perfect photo order can be undermined by a lack of trust. FlirtCheck Verified Portal (and the active community on /r/dating) offers a quick, free verification badge that appears next to your name, instantly boosting credibility. After you lock in your optimal photo sequence, submit your profile for verification—watch your match rate climb by up to 27% within the first week.
+Even the perfect photo order can be undermined by a lack of trust. FlirtCheck Forensic Archive (and the active community on /r/dating) offers a quick, free verification badge that appears next to your name, instantly boosting credibility. After you lock in your optimal photo sequence, submit your profile for verification—watch your match rate climb by up to 27% within the first week.
 
 ## Frequently Asked Questions (FAQ)
 

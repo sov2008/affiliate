@@ -60,7 +60,7 @@ Before declining a date request, ask yourself:
 
 If spending your evening debugging someone else's unhandled emotional exceptions is not your idea of fun, run the profile through our 30-second FlirtCheck verification filter. Saves time and bandwidth, rather like using a decent intrusion detection system.
 
-## ❓ Frequently Asked Questions (FAQ)
+## Frequently Asked Questions (FAQ)
 Q: How do I say no to a second date without hurting the other person's feelings, or do I just ghost them like a dropped packet?
 A: Be honest and direct, but also be kind and respectful - a bit like responding to a support ticket with a helpful error message. You can say something like, "I appreciated getting to know you on our first date, but I didn't feel a strong connection. I wish you all the best in your search for someone special - maybe someone who doesn't mind a bit of debugging."
 Q: What's the best way to decline a date request via text message, or should I just send a simple "no thanks" like a TCP reset?
@@ -68,4 +68,4 @@ A: Keep it brief and respectful, rather like a well-crafted ICMP error message. 
 Q: How do I set boundaries in online dating without coming across as rude or uninterested, like a firewall blocking all incoming traffic?
 A: Be clear and direct about your intentions and boundaries, but also be respectful and considerate of the other person's feelings - a bit like configuring a router to allow only certain packets through. Remember that it's okay to say no, and prioritize your own comfort and safety.
 Q: What's the importance of verifying a potential match's identity and intentions before meeting in person, or am I just being paranoid like a sysadmin worried about a potential security breach?
-A: Verifying a potential match's identity and intentions is crucial in ensuring your safety and well-being, rather like running a virus scan on a suspicious file. Use verified platforms like FlirtCheck Verified Portal, and take the time to get to know the other person before meeting in person - or you might just find yourself in a world of trouble.
+A: Verifying a potential match's identity and intentions is crucial in ensuring your safety and well-being, rather like running a virus scan on a suspicious file. Use verified platforms like FlirtCheck Forensic Archive, and take the time to get to know the other person before meeting in person - or you might just find yourself in a world of trouble.

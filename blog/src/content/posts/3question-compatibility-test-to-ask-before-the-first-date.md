@@ -28,12 +28,12 @@ Did you know that **over 30%** of accounts on mainstream dating platforms remain
 
 ---
 
-## 📌 Key Takeaways
+## Key Takeaways
 
 - **Three focused inquiries** reveal baseline alignment across lifestyle habits, relationship intentions, and non-negotiable boundaries.  
 - Each question includes an **organic conversation script** you can adapt naturally within the chat flow.  
 - A **rapid scoring rubric** helps you evaluate responses instantly, keeping your dating pipeline safe and efficient.  
-- Pairing early conversational screening with the **FlirtCheck Verified Portal** provides an added layer of safety.  
+- Pairing early conversational screening with the **FlirtCheck Forensic Archive** provides an added layer of safety.  
 
 ---
 
@@ -106,7 +106,7 @@ Did you know that **over 30%** of accounts on mainstream dating platforms remain
 
 ---
 
-## 📋 Compatibility Scorecard
+## Compatibility Scorecard
 
 Copy this framework into your notes app to quickly calibrate incoming matches:  
 
@@ -124,7 +124,7 @@ Copy this framework into your notes app to quickly calibrate incoming matches:
 
 ---
 
-## 🔗 Elevate Safety via Profile Verification
+## Elevate Safety via Profile Verification
 
 Even with high conversational chemistry, **verification provides the ultimate peace of mind**. Prior to meeting, suggest a 15-second live video call or reference the **FlirtCheck Safety Portal**:  
 
@@ -132,7 +132,7 @@ Even with high conversational chemistry, **verification provides the ultimate pe
 
 ---
 
-## ❓ Frequently Asked Questions (FAQ)
+## Frequently Asked Questions (FAQ)
 
 <script type="application/ld+json">
 {

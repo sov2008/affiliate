@@ -36,7 +36,7 @@ Did you know that over 30% of dating-app profiles remain unverified in 2026? Tha
 
 - Reverse-image search isn't enough – combine metadata checks, AI-powered tools, and contextual clues.  
 - Ask the right questions in chat; genuine users will provide verifiable details instantly.  
-- Use FlirtCheck Verified Portal to cross-check profiles against a curated database of confirmed photos.  
+- Use FlirtCheck Forensic Archive to cross-check profiles against a curated database of confirmed photos.  
 - Follow a 5-step verification checklist every time you match with a new face.
 
 **Tactical Section 1 – The Visual Forensics Toolkit: A Collection of Useful Tools**
@@ -91,7 +91,7 @@ Result: You confirm the environment matches the photo, and you catch deep-fake a
 > **Scammer:** *Denies or gives a fake handle.*  
 > **Real user:** *Shares their verified IG handle.*  
 
-Tip: Paste the provided handle into **FlirtCheck Verified Portal**; it flags mismatches instantly.
+Tip: Paste the provided handle into **FlirtCheck Forensic Archive**; it flags mismatches instantly.
 
 **Tactical Section 3 – Automated Red-Flag Dashboard: A Slightly Overwhelming Amount of Data**
 
@@ -118,12 +118,12 @@ Caution: Never share personal details—only the image and the platform where yo
 
 **Interactive Verification Checklist / Self-Audit Query**
 
-| ✅ Check | How to Verify | ✅ Your Answer |
+| [✓] Check | How to Verify | [✓] Your Answer |
 |---------|---------------|---------------|
 | 1. Reverse-image search returned **no** original source? | Use TinEye + Karma Decay. |  |
 | 2. EXIF data shows **older** creation date than user’s age? | Run exif.tools. |  |
 | 3. DeepDetect similarity score **≥ 78**? | Upload to FlirtCheck DeepDetect. |  |
-| 4. User provided **verifiable Instagram handle**? | Look it up on FlirtCheck Verified Portal. |  |
+| 4. User provided **verifiable Instagram handle**? | Look it up on FlirtCheck Forensic Archive. |  |
 | 5. Live video call confirmed **matching backdrop**? | Schedule a quick call. |  |
 | 6. Community feedback on **r/dating** is **negative**? | Post for crowd-source. |  |
 
@@ -131,11 +131,11 @@ If you answered “Yes” to any red-flag, pause the conversation and report the
 
 **Transition to Verified Platforms: A Slightly More Convenient Option**
 
-Even the most thorough DIY audit can miss a sophisticated deep-fake. That's why **FlirtCheck Verified Portal** aggregates millions of cross-checked photos from Instagram, TikTok, and professional modeling agencies. By linking your dating app to FlirtCheck, you get a one-click “Verified” badge on every profile that passes our AI-plus-human review.
+Even the most thorough DIY audit can miss a sophisticated deep-fake. That's why **FlirtCheck Forensic Archive** aggregates millions of cross-checked photos from Instagram, TikTok, and professional modeling agencies. By linking your dating app to FlirtCheck, you get a one-click “Verified” badge on every profile that passes our AI-plus-human review.
 
 Pro tip: Join the **/r/dating** subreddit's weekly “Verified Friday” thread—members share fresh verified profiles and flag newly discovered stolen images.
 
-**❓ Frequently Asked Questions (FAQ)**
+**Frequently Asked Questions (FAQ)**
 
 <script type="application/ld+json">
 {

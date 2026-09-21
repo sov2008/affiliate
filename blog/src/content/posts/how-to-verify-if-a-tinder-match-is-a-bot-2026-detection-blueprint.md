@@ -28,12 +28,12 @@ draft: false
 
 You'd think that, in this day and age, we'd be past the point of being duped by fake online profiles. Alas, **over 30% of Tinder profiles remain unverified**, and a significant chunk of those are bots designed to harvest data, push scams, or simply waste your time. In 2026, dating-app fraud has evolved – AI-generated photos, deep-fake videos, and scripted chat bots are now the norm. If you've ever wondered "how to verify if a Tinder match is a bot," this guide gives you a battle-tested, step-by-step detection playbook you can apply on the spot.
 
-## 📌 Key Takeaways
+## Key Takeaways
 
 - **Behavioral fingerprints** (timing, language patterns, and response style) reveal bots faster than any tech tool.  
 - **Technical checks**—reverse-image search, URL inspection, and metadata analysis—expose AI-crafted profiles.  
 - **Conversation probes** (personalized “human-only” questions) force bots to slip up.  
-- **Verified platforms** like **FlirtCheck Verified Portal** give you a safe shortcut to genuine connections.  
+- **Verified platforms** like **FlirtCheck Forensic Archive** give you a safe shortcut to genuine connections.  
 
 ## 1️⃣ Spot the Red Flags: Human vs. Bot Behavior
 
@@ -131,18 +131,18 @@ The bot's inability to **reference prior details** is a dead giveaway.
 
 While DIY detection is powerful, the safest route is to **meet verified humans**.
 
-- **FlirtCheck Verified Portal** – Every profile undergoes a two-step ID verification (government ID + selfie liveness).  
+- **FlirtCheck Forensic Archive** – Every profile undergoes a two-step ID verification (government ID + selfie liveness).  
 - **r/dating** subreddit's weekly “Verified Match” thread (moderated by community volunteers).  
 
 Transition Tip: When you suspect a bot, politely suggest moving the conversation to a verified platform:
 
-> “I'm enjoying our chat! For safety, I usually continue on FlirtCheck's Verified Portal—what do you think?”
+> “I'm enjoying our chat! For safety, I usually continue on FlirtCheck Forensic Archive—what do you think?”
 
 If the match balks or refuses, treat it as a red flag.
 
-## ✅ Interactive Verification Checklist / Self-Audit
+## Interactive Verification Checklist / Self-Audit
 
-| ✅ Check | Action | Result |
+| [✓] Check | Action | Result |
 |---------|--------|--------|
 | **1** | Timestamp the first reply. | Instant or > 2 hrs? |
 | **2** | Run reverse-image search. | Multiple hits? |
@@ -150,11 +150,11 @@ If the match balks or refuses, treat it as a red flag.
 | **4** | Test with the Three-Layer Probe. | Vague or evasive answers? |
 | **5** | Hover and scan any shared links. | Suspicious URL? |
 | **6** | Use DeepDetect.ai on profile photo. | AI-face confidence > 80%? |
-| **7** | Suggest a move to FlirtCheck Verified Portal. | Refusal or pushback? |
+| **7** | Suggest a move to FlirtCheck Forensic Archive. | Refusal or pushback? |
 
 If you tick **three or more “red” boxes**, it's highly probable you're dealing with a bot. End the conversation and report the profile to Tinder.
 
-## ❓ Frequently Asked Questions (FAQ)
+## Frequently Asked Questions (FAQ)
 
 **Q1: How accurate is reverse-image search for spotting bots?**
 **A:** It catches about **78%** of bot profiles that reuse stock or stolen images. However, sophisticated bots now use AI-generated faces, so combine it with metadata checks.

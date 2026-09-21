@@ -37,13 +37,13 @@ If you know what syntactic artifacts to scan for, you can identify an AI-generat
 
 ---
 
-## 📌 Stylometric Clues at a Glance
+## Stylometric Clues at a Glance
 
 - **The Rule of Three (Symmetric Triads):** LLMs compulsively organize hobbies into balanced triples (*"Exploring hidden coffee spots, spontaneous weekend getaways, and meaningful conversations"*).
 - **The Em-Dash Obsession:** Spambots cannot resist inserting unspaced em-dashes (`—`) to create pseudo-profound parenthetical thoughts on mobile screens where human keyboards hide the dash three menus deep.
 - **The Emoji Sandwich Pattern:** Deterministic placement of a single emoji at the beginning and end of each sentence or bullet point.
 - **Zero Grammatical Drift:** Flawless capitalization and semicolons in an environment where 85% of real humans do not even capitalize their own names.
-- **The Deterministic Antidote:** Filtering synthetically generated profiles through [FlirtCheck Verified Portal](https://flirtcheck.site/).
+- **The Deterministic Antidote:** Filtering synthetically generated profiles through [Dating Risk Calculator](/calculator/).
 
 ---
 
@@ -59,10 +59,9 @@ travel, fitness, and design. Make it sound warm, adventurous, and authentic."
 
 ```
 RAW MODEL OUTPUT (The Spambot Signature):
-"Architect by day, wanderlust enthusiast by night ✨ 
-Passionate about discovering hidden art galleries, specialty matcha, and 
+"Architect by day, wanderlust enthusiast by night Passionate about discovering hidden art galleries, specialty matcha, and 
 long walks along the Thames 🌿 
-Life is all about the little moments—let's make a few together ☕"
+Life is all about the little moments—let's make a few together "
 ```
 
 Look closely at that generated text. To an untrained eye, it appears pleasant, cultured, and harmless. To anyone who understands natural language generation, it is screaming synthetic provenance from every punctuation mark.
@@ -103,9 +102,9 @@ Real humans do not speak in cadence-balanced triplets. A real human writes: *"mo
 
 ### Giveaway 3: The Emoji Bracket Symmetry
 Notice how the emojis are positioned in bot bios:
-- `✨ [Catchy One-Liner] ✨`
+- `[Catchy One-Liner] `
 - `📍 London | 🎨 Designer | 🍷 Pinot Noir`
-- `🌿 [Aspirational statement] ☕`
+- `🌿 [Aspirational statement] `
 
 LLMs treat emojis as semantic decorative anchors. They distribute them evenly across lines like ornaments on an artificial Christmas tree. Real humans clump emojis erratically at the end of thoughts (`😂😂😭`), or use them as replacements for words, not as symmetrical visual framing devices.
 
@@ -152,24 +151,24 @@ Detected: Em-dash + Symmetrical Triad + Generic Cafe Reference
                  └── Bot/Operator:  "Haha Waterloo is great! How is your day going? 😊"
 ```
 
-If the match fails the conversational probe or deflects toward encrypted external channels, do not waste another minute. Direct them to the [FlirtCheck Verified Portal](https://flirtcheck.site/) to confirm they have an authentic human heartbeat, or sever the connection.
+If the match fails the conversational probe or deflects toward encrypted external channels, do not waste another minute. Direct them to the [Dating Risk Calculator](/calculator/) to confirm they have an authentic human heartbeat, or sever the connection.
 
 ---
 
-## ✅ The Stylometric Bio Triage Table
+## The Stylometric Bio Triage Table
 
 Before you swipe right on that effortlessly charming profile, run through these four checks:
 
 | Check | Question | Flag |
 | :--- | :--- | :--- |
-| **1. The Dash Check** | Does the bio contain a full em-dash (`—`)? | 🚩 High Bot Probability |
-| **2. The Triad Check** | Are interests listed in a neat, balanced group of three? | 🚩 Structural LLM Artifact |
-| **3. The Specificity Check** | Are places named generically (*"hidden gems"*) vs specifically? | 🚩 Lack of Real-World Grounding |
-| **4. The Grammar Check** | Is the grammar cleaner than a BBC news bulletin? | 🚩 Zero Mobile Input Friction |
+| **1. The Dash Check** | Does the bio contain a full em-dash (`—`)? | High Bot Probability |
+| **2. The Triad Check** | Are interests listed in a neat, balanced group of three? | Structural LLM Artifact |
+| **3. The Specificity Check** | Are places named generically (*"hidden gems"*) vs specifically? | Lack of Real-World Grounding |
+| **4. The Grammar Check** | Is the grammar cleaner than a BBC news bulletin? | Zero Mobile Input Friction |
 
 ---
 
-## ❓ Frequently Asked Questions (FAQ)
+## Frequently Asked Questions (FAQ)
 
 #### Can real people occasionally use em-dashes on their phones?
 Certainly. Journalists, professional writers, and grammar pedants exist. However, when combined with generic lifestyle clichés (*"coffee, travel, dogs"*) and flawless photos, the statistical probability tilts massively toward an automated LLM generation pipeline.

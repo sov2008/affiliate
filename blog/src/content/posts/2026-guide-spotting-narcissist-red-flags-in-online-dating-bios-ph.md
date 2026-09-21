@@ -37,7 +37,7 @@ Over a third of profiles on the major apps still lack any form of verification. 
 | **Language traps** | Grandiose adjectives, “I’m the best at…”, vague achievements | Demand a concrete example |
 | **Photo patterns** | Solo mirror‑shots, staged “hero” poses, over‑edited images | Reverse‑image search, ask for a candid snap |
 | **Interaction cues** | Love‑bombing after a handful of messages, future‑talk before a face‑to‑face, dodging depth | Re‑anchor to present‑day, concrete topics |
-| **Action protocol** | 7‑step verification checklist + FlirtCheck Verified Portal | Run the profile through the filter, treat the badge as a sanity‑check, not a guarantee |
+| **Action protocol** | 7‑step verification checklist + FlirtCheck Forensic Archive | Run the profile through the filter, treat the badge as a sanity‑check, not a guarantee |
 
 ---
 
@@ -125,7 +125,7 @@ Over a third of profiles on the major apps still lack any form of verification. 
 
 ## 4️⃣ Verifying Authenticity – Leverage FlirtCheck’s Trusted Tools  
 
-1. **Run the profile through the FlirtCheck Verified Portal** – our AI cross‑checks bios, photo metadata, and public records (think of it as a deep packet inspection).  
+1. **Run the profile through the FlirtCheck Forensic Archive** – our AI cross‑checks bios, photo metadata, and public records (think of it as a deep packet inspection).  
 2. **Scan the /r/dating thread** for community‑submitted alerts on the same username.  
 3. **Enable the “Verified Badge” filter** on any app that integrates FlirtCheck’s verification API.
 
@@ -135,7 +135,7 @@ Over a third of profiles on the major apps still lack any form of verification. 
 
 ## Interactive Verification Checklist / Self‑Audit Query  
 
-| ✅ Checklist item | Your answer |
+| [✓] Checklist item | Your answer |
 |---|---|
 | 1. Does the bio contain **grandiose claims** without specifics? |  |
 | 2. Are **≥ 70 %** of photos solo, mirror, or overly staged? |  |

@@ -26,11 +26,11 @@ coverImage: >-
 draft: false
 ---
 
-## 🎯 The hidden risk in your inbox  
+## The hidden risk in your inbox  
 
 A little over a third of the profiles you’ll meet on the usual dating apps still lack any form of verification. In practice that means you’re as likely to be chatting with a bot as you are with a human who actually remembers how to use a telephone handset. The following checklist treats each match like a new network node – you’ll probe, you’ll log, you’ll decide whether to keep the connection alive.
 
-## 📌 What you’ll get out of this  
+## What you’ll get out of this  
 
 - A three‑stage “hand‑shake” to weed out impostors before they can flood your inbox.  
 - Layout tweaks that make your profile look less like a default router config and more like a well‑documented service.  
@@ -45,7 +45,7 @@ A little over a third of the profiles you’ll meet on the usual dating apps sti
 |------|------------|----------------|
 | **Visual confirmation** | Run every profile picture through a reverse‑image search (Google Images, TinEye). Peek at EXIF data where you can. | Detects recycled stock photos the way a checksum catches corrupted packets. |
 | **Cross‑platform consistency** | Compare username, photo and bio on at least two dating services. | A genuine user keeps a stable digital fingerprint; a fabricated one flips its MAC address at every hop. |
-| **Live verification** | Use the **FlirtCheck Verified Portal** for a quick video call badge, or ask for a live selfie holding a random object (a coffee mug works fine) with a timestamp. | Forces the would‑be deep‑fake to reveal its latency. |
+| **Live verification** | Use the **FlirtCheck Forensic Archive** for a quick video call badge, or ask for a live selfie holding a random object (a coffee mug works fine) with a timestamp. | Forces the would‑be deep‑fake to reveal its latency. |
 
 **Sample dialogue**  
 
@@ -113,9 +113,9 @@ If the counterpart evades the script or raises the temperature, **block, report 
 
 ---
 
-## 📋 Self‑audit checklist – run it before you commit any resources  
+## Self‑audit checklist – run it before you commit any resources  
 
-| ✅ | Item | Yes / No | Notes |
+| [✓] | Item | Yes / No | Notes |
 |----|------|----------|-------|
 | 1 | Profile photos survive reverse‑image search? |  |  |
 | 2 | Username & bio match across at least two platforms? |  |  |
@@ -129,13 +129,13 @@ Any “No” here is a timeout – pause, re‑evaluate, and consider a differen
 
 ---
 
-## 🔄 Moving to verified ecosystems  
+## Moving to verified ecosystems  
 
-Mainstream apps are convenient, but they’re like legacy hardware – functional but prone to drift. **FlirtCheck Verified Portal** and community‑run verification threads (e.g., the /r/dating subreddit) add a hardware‑level checksum to every profile. Linking your badge to Tinder, Bumble or Hinge advertises a commitment to integrity, attracting matches who prefer a stable, well‑documented connection.
+Mainstream apps are convenient, but they’re like legacy hardware – functional but prone to drift. **FlirtCheck Forensic Archive** and community‑run verification threads (e.g., the /r/dating subreddit) add a hardware‑level checksum to every profile. Linking your badge to Tinder, Bumble or Hinge advertises a commitment to integrity, attracting matches who prefer a stable, well‑documented connection.
 
 ---
 
-## ❓ Quick FAQ  
+## Quick FAQ  
 
 **How often should I re‑verify a match?**  
 Run the three‑step verification before the first video call and again if the conversation migrates off‑platform or any red‑flag appears.

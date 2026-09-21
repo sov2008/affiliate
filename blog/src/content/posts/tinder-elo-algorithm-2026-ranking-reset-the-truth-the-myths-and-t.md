@@ -139,7 +139,7 @@ A shadowban isn't a permanent ban; it's a temporary ELO downgrade that reduces y
 
 **Interactive Verification Checklist / Self-Audit**
 
-| ✅ | Question | Yes/No/Maybe |
+| [✓] | Question | Yes/No/Maybe |
 |----|----------|--------------|
 | 1 | Is your Tinder profile verified (government ID or FlirtCheck badge)? | |
 | 2 | Do you have at least 3 photos (1 verified, 1 candid, 1 activity-based)? | |
@@ -150,15 +150,15 @@ A shadowban isn't a permanent ban; it's a temporary ELO downgrade that reduces y
 | 7 | Did you use a Super Like no more than 3 times per week? | |
 | 8 | Are you not flagged for any policy violations in the last 90 days? | |
 | 9 | Do you have a diverse distance filter (changed at least once in the last month)? | |
-| 10| Have you checked the FlirtCheck Verified Portal for any pending verification steps? | |
+| 10| Have you checked the FlirtCheck Forensic Archive for any pending verification steps? | |
 
 If you answered "No" or "Maybe" to any of the above, prioritize fixing those items before you attempt to "reset" your score.
 
 **Why Move to a Verified Platform?**
 
-Even after mastering the ELO tricks, verification remains the strongest lever. The FlirtCheck Verified Portal integrates directly with Tinder's trust signals, guaranteeing that your badge is recognized instantly. Plus, our /r/dating community offers weekly algorithm insights, so you stay ahead of any future changes.
+Even after mastering the ELO tricks, verification remains the strongest lever. The FlirtCheck Forensic Archive integrates directly with Tinder's trust signals, guaranteeing that your badge is recognized instantly. Plus, our /r/dating community offers weekly algorithm insights, so you stay ahead of any future changes.
 
-**❓ Frequently Asked Questions (FAQ)**
+**Frequently Asked Questions (FAQ)**
 
 **Q1: Will deleting my Tinder account and creating a new one give me a fresh ELO?**
 **A:** No. Tinder retains your phone number and device fingerprint, so the historical interaction data follows you. The only way to start with a clean slate is a brand-new number and device, which is rarely practical and can violate Tinder's terms.
@@ -172,4 +172,4 @@ Even after mastering the ELO tricks, verification remains the strongest lever. T
 **Q4: Can I manually boost my ELO by purchasing "ELO points" or using third-party bots?**
 **A:** Absolutely not. Tinder's system flags automated activity and policy violations, which results in a hard ban. The only sustainable boost comes from genuine interaction and verification.
 
-Ready to level up your Tinder game? Head over to [FlirtCheck Verified Portal](https://flirtcheck.site/verified), claim your badge, and watch your Tinder ELO algorithm 2026 ranking reset myths dissolve into real, measurable matches.
+Ready to level up your Tinder game? Head over to [Dating Risk Calculator](/calculator/), claim your badge, and watch your Tinder ELO algorithm 2026 ranking reset myths dissolve into real, measurable matches.

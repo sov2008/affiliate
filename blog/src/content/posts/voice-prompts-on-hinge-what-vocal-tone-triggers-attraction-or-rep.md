@@ -106,13 +106,13 @@ A slight mid-range pitch (≈220-260 Hz for men, 260-300 Hz for women) activates
 - [ ] **Tone Match:** Warm (≈220-260 Hz for men, 260-300 Hz for women) and moderate pace (150-180 wpm).
 - [ ] **Filler Words:** < 2% ("uh," "like," "you know").
 - [ ] **Length:** 20-30 seconds, ending with a clear call-to-action.
-- [ ] **Verification:** Uploaded to **FlirtCheck Verified Portal** for AI-backed authenticity check.
+- [ ] **Verification:** Uploaded to **FlirtCheck Forensic Archive** for AI-backed authenticity check.
 
 If you answered "Yes" to all, you're ready to post. If not, revisit the 3-2-1 protocol.
 
 **Transition to Verified Platforms**
 
-Even the perfect voice prompt can be undermined by a fake profile. **FlirtCheck Verified Portal** (and the **r/dating** subreddit verification thread) offers a two-step AI + human audit that stamps your Hinge audio with a trust badge. A verified badge not only boosts match probability by up to 27% but also filters out scammers who can't replicate the verification layer.
+Even the perfect voice prompt can be undermined by a fake profile. **FlirtCheck Forensic Archive** (and the **r/dating** subreddit verification thread) offers a two-step AI + human audit that stamps your Hinge audio with a trust badge. A verified badge not only boosts match probability by up to 27% but also filters out scammers who can't replicate the verification layer.
 
 > "I added the FlirtCheck badge to my Hinge voice prompt and my match rate jumped from 3 to 9 per week—plus I feel safer sharing my number." – Verified user, June 2026
 
@@ -148,7 +148,7 @@ Even the perfect voice prompt can be undermined by a fake profile. **FlirtCheck 
     "name": "Is a verification badge worth the effort?",
     "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Absolutely. Verified audio signals authenticity, which increases match rates by up to 27% and reduces exposure to scams. The FlirtCheck Verified Portal provides a quick, trusted badge for your profile."
+      "text": "Absolutely. Verified audio signals authenticity, which increases match rates by up to 27% and reduces exposure to scams. The FlirtCheck Forensic Archive provides a quick, trusted badge for your profile."
     }
   }]
 }

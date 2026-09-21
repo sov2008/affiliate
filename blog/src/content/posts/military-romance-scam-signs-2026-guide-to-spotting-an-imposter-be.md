@@ -37,7 +37,7 @@ Did you know that over 30% of dating-app profiles are still unverified? It's a s
 - **Verify the Uniform & ID**: Don't just take their word for it. Demand proof of service with official military IDs or public service records. It's not exactly rocket science, is it?
 - **Spot the Story Gaps**: Scammers rely on vague, inconsistent details and urgent emotional appeals. It's like trying to debug a faulty network configuration – you need to identify the problem before you can fix it.
 - **Watch Communication Cues**: Over-use of emojis, poor grammar, and sudden requests for money are red flags. It's like trying to navigate a dodgy Wi-Fi network – you need to be cautious to avoid getting scammed.
-- **Use a Trusted Platform**: Move conversations to verified services like FlirtCheck Verified Portal or the /r/dating community for extra safety. It's like switching to a secure VPN – you're protecting yourself from potential threats.
+- **Use a Trusted Platform**: Move conversations to verified services like FlirtCheck Forensic Archive or the /r/dating community for extra safety. It's like switching to a secure VPN – you're protecting yourself from potential threats.
 
 **1️⃣ Verify the Uniform & ID (or Not)**
 
@@ -109,7 +109,7 @@ Did you know that over 30% of dating-app profiles are still unverified? It's a s
 
 **Interactive Verification Checklist / Self-Audit Query**
 
-| ✅ Check | ✅ Yes? | ✅ Notes |
+| [✓] Check | [✓] Yes? | [✓] Notes |
 |---|---|---|
 | **1. Military ID provided** (photo, clear, matches claimed branch) |  |  |
 | **2. Service details cross-checked** (rank, MOS, deployment dates) |  |  |
@@ -117,12 +117,12 @@ Did you know that over 30% of dating-app profiles are still unverified? It's a s
 | **4. Story consistency** (timeline, “deployed soldier dating scam” patterns) |  |  |
 | **5. Communication style** (excess emojis, grammar, sudden pressure) |  |  |
 | **6. No money requests** (or any financial transfer) |  |  |
-| **7. Moved to a verified platform** (FlirtCheck Verified Portal, /r/dating) |  |  |
+| **7. Moved to a verified platform** (FlirtCheck Forensic Archive, /r/dating) |  |  |
 
 **If you answered “No” to any of the above, pause the conversation and run a deeper verification before proceeding.** It's like trying to debug a faulty network configuration – you need to identify the problem before you can fix it.
 
 **Transition to Safer Dating Spaces**
 
-When you’ve cleared the checklist, move the conversation to a trusted environment. Our FlirtCheck Verified Portal runs real-time ID verification, cross-checks military records, and flags suspicious language automatically. Likewise, the /r/dating subreddit’s moderation team provides community-driven vetting and a safe space for sharing red-flag experiences.
+When you’ve cleared the checklist, move the conversation to a trusted environment. Our FlirtCheck Forensic Archive runs real-time ID verification, cross-checks military records, and flags suspicious language automatically. Likewise, the /r/dating subreddit’s moderation team provides community-driven vetting and a safe space for sharing red-flag experiences.
 
 > *“I love the idea of meeting a real hero—just make sure the hero’s ID is as solid as his service record.”*

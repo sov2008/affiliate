@@ -26,7 +26,7 @@ draft: false
 
 *The inbox is a lot like a legacy BGP table – most entries are harmless, a few are malformed routes that will crash the whole session.*
 
-## 📌 Key Takeaways  
+## Key Takeaways  
 
 - **Three‑point trust test** – filters out the majority of spoofed accounts.  
 - **Five red‑flag scripts** – recognise them before they trigger a SYN‑flood of requests.  
@@ -51,11 +51,11 @@ draft: false
 
 | # | Red‑Flag Pattern | Typical Line | Response Routine |
 |---|------------------|--------------|------------------|
-| 🚩 **1** | **Urgent Money Request** | “I’m stuck abroad, can you send me $200 for a flight?” | 1️⃣ Acknowledge – “That sounds stressful.” 2️⃣ Redirect – “I’m not comfortable sending cash, but I can point you at the nearest embassy.” 3️⃣ Log & report – screenshot and flag. |
-| 🚩 **2** | **Over‑the‑Top Compliment** | “You’re the most beautiful person I’ve ever seen, let’s meet tonight.” | 1️⃣ Pause – “Thanks, but I prefer a bit of conversation first.” 2️⃣ Probe – “What’s your favourite weekend activity?” 3️⃣ Assess – if they dodge, terminate. |
-| 🚩 **3** | **Link Bomb** | “Check out my playlist here 👉 short.ly/xyz” | 1️⃣ Expand – use a URL expander. 2️⃣ Reply – “I’m cautious with unknown links. Could you give the playlist name instead?” 3️⃣ Block if they persist. |
-| 🚩 **4** | **Too‑Fast‑Forward Romance** | “We should move to WhatsApp right now.” | 1️⃣ State policy – “I keep conversations on the app until I’m sure we’re both real.” 2️⃣ Observe – aggression = immediate block. |
-| 🚩 **5** | **Fake Credentials** | “I’m a doctor, I work nights, here’s my licence.” (image attached) | 1️⃣ Verify – reverse‑image search the licence. 2️⃣ Challenge – “Can you quote the hospital’s name and department?” 3️⃣ If they stall, drop the session. |
+| **1** | **Urgent Money Request** | “I’m stuck abroad, can you send me $200 for a flight?” | 1️⃣ Acknowledge – “That sounds stressful.” 2️⃣ Redirect – “I’m not comfortable sending cash, but I can point you at the nearest embassy.” 3️⃣ Log & report – screenshot and flag. |
+| **2** | **Over‑the‑Top Compliment** | “You’re the most beautiful person I’ve ever seen, let’s meet tonight.” | 1️⃣ Pause – “Thanks, but I prefer a bit of conversation first.” 2️⃣ Probe – “What’s your favourite weekend activity?” 3️⃣ Assess – if they dodge, terminate. |
+| **3** | **Link Bomb** | “Check out my playlist here → short.ly/xyz” | 1️⃣ Expand – use a URL expander. 2️⃣ Reply – “I’m cautious with unknown links. Could you give the playlist name instead?” 3️⃣ Block if they persist. |
+| **4** | **Too‑Fast‑Forward Romance** | “We should move to WhatsApp right now.” | 1️⃣ State policy – “I keep conversations on the app until I’m sure we’re both real.” 2️⃣ Observe – aggression = immediate block. |
+| **5** | **Fake Credentials** | “I’m a doctor, I work nights, here’s my licence.” (image attached) | 1️⃣ Verify – reverse‑image search the licence. 2️⃣ Challenge – “Can you quote the hospital’s name and department?” 3️⃣ If they stall, drop the session. |
 
 ---
 
@@ -83,9 +83,9 @@ draft: false
 
 ---
 
-## 📋 Self‑Audit Checklist  
+## Self‑Audit Checklist  
 
-| ✅ | Verification Item | Done? (✓/✗) |
+| [✓] | Verification Item | Done? (✓/✗) |
 |----|-------------------|------------|
 | 1 | Reverse‑image search of main photo | |
 | 2 | Linked social media accounts are verified | |
@@ -99,18 +99,16 @@ draft: false
 
 ---
 
-## 👉 Transition to Verified Platforms  
+## Independent Verification & Pre-Date Protocol
 
-All the steps above work on any app, but **FlirtCheck Verified Portal** automates the heavy lifting: AI‑assisted photo verification, manual ID checks, and a reputation score visible on the profile. Migrating reduces the probability of encountering a spoofed route by **over 80 %** and gives you a curated pool of serious users.
-
-*If spending your evening debugging someone else’s unhandled emotional exceptions isn’t your idea of fun – run the profile through our 30‑second **FlirtCheck** verification filter. Saves time and bandwidth.*
+All the steps above work across any mainstream dating platform. Before sharing personal contact details, residential location, or financial context, evaluate risk markers through our client-side [Dating Risk Calculator](/calculator/) to detect anomalies without compromising private information.
 
 ---
 
-## ❓ Frequently Asked Questions  
+## Frequently Asked Questions
 
 **Q: How can I spot an AI‑generated avatar?**  
-A: Look for asymmetrical eyes, inconsistent lighting, or unnaturally smooth skin. Tools such as *Sensity AI* will flag synthetic content with a confidence score; > 70 % warrants a disconnect.
+A: Inspect physical lighting consistency, ear cartilage symmetry, pupil specular reflections, and hair boundaries. If artifacts or anatomical mismatches appear, verify via a live unscripted video call before proceeding.
 
 **Q: Do verification badges guarantee safety?**  
 A: They lower risk dramatically, much like a signed certificate, but they’re not a panacea. Combine the badge with the 3‑point trust test and keep conversations on‑platform until you’re comfortable moving off‑site.

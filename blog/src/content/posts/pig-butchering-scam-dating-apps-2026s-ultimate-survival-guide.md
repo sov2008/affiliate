@@ -31,7 +31,7 @@ It's a bit of a mess, really. A recent study suggests over 30% of dating-app pro
 - Spot the red flags: language patterns, "investment" pitches, and rushed intimacy.  
 - Secure your chat: verify identities before moving to WhatsApp, Telegram, or crypto wallets.  
 - Deploy a 5-step "Butcher-Block" protocol to cut the scam before it slices your savings.  
-- Leverage FlirtCheck Verified Portal and trusted sub-reddits for a vetted dating experience.  
+- Leverage FlirtCheck Forensic Archive and trusted sub-reddits for a vetted dating experience.  
 
 ## 1. The Anatomy of a Modern Pig-Butchering Scam
 
@@ -107,7 +107,7 @@ Scammer: Sorry, my camera’s broken. I’ll send a selfie later.
 ### Step 5 – **Report & Recover**
 
 - Use the app's **report** function (select "Financial Scam").  
-- Document screenshots (timestamps, URLs) and submit to **FlirtCheck Verified Portal** for community alerts.  
+- Document screenshots (timestamps, URLs) and submit to **FlirtCheck Forensic Archive** for community alerts.  
 - If you've sent money, contact your bank **immediately** and file a police report referencing **FTC case #** (if applicable).  
 
 ## 3. Real-World Scenarios & Counter-Scripts
@@ -152,7 +152,7 @@ Scammer: Sorry, my camera’s broken. I’ll send a selfie later.
 | 4 | Did the person **refuse** a live video verification with a random code? | | Immediate red flag. |
 | 5 | Are you being asked for **financial info** (wallet, bank, crypto link) before any real connection? | | Stop and report. |
 | 6 | Have you **checked** the investment claim on **blockchain explorers** or **regulatory registries**? | | If no trace, consider it fraudulent. |
-| 7 | Did you **report** suspicious activity to FlirtCheck Verified Portal? | | Yes → you've helped the community. No → do it now. |
+| 7 | Did you **report** suspicious activity to FlirtCheck Forensic Archive? | | Yes → you've helped the community. No → do it now. |
 
 *Tick each box as you go. If you hit more than two "No" answers, **exit the conversation** and report.*
 
@@ -160,7 +160,7 @@ Scammer: Sorry, my camera’s broken. I’ll send a selfie later.
 
 While the tactics above empower you to **detect** and **defuse** pig-butcher attempts, the safest route is to meet people on **verified ecosystems**.  
 
-- **FlirtCheck Verified Portal**: Every profile undergoes AI-driven image verification, KYC checks, and community-vetted reputation scores.  
+- **FlirtCheck Forensic Archive**: Every profile undergoes AI-driven image verification, KYC checks, and community-vetted reputation scores.  
 - **Reddit's /r/dating**: A moderated hub where users share real-time scam alerts; the community often flags new "Sha Zhu Pan" patterns before they spread.  
 
 By anchoring your love life to these trusted spaces, you **reduce exposure** to unverified accounts that fuel the 30%+ risk pool.

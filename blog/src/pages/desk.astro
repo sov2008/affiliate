@@ -43,38 +43,40 @@ const deskSchemas = [
     </div>
 
     <!-- 1. HEADER DOSSIER -->
-    <div class="bg-white border-2 border-slate-900 rounded-2xl p-6 sm:p-8 shadow-[6px_6px_0px_0px_#0f172a] mb-10">
+    <div class="bg-white border border-slate-300 rounded-none sm:rounded-sm p-6 sm:p-8 mb-8">
       <div class="flex flex-col md:flex-row items-center md:items-start gap-6 sm:gap-8">
         
         <!-- Author Portrait -->
-        <div class="w-full md:w-56 shrink-0">
-          <div class="aspect-square rounded-xl overflow-hidden border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a] bg-slate-100">
+        <div class="w-full md:w-52 shrink-0">
+          <div class="aspect-square rounded-none sm:rounded-sm overflow-hidden border border-slate-300 bg-slate-100">
             <img
               src="/images/author/arthur-vance-avatar.webp"
               alt="Arthur Vance, Lead Forensic Desk in Cheltenham UK"
               class="w-full h-full object-cover object-center"
               loading="eager"
+              width="208"
+              height="208"
             />
           </div>
-          <div class="mt-3 text-center">
+          <div class="mt-2.5 text-center">
             <span class="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
-              OPERATIONAL ID: AV-40-GCHQ-CORRIDOR
+              OPERATIONAL ID: AV-40-UK
             </span>
           </div>
         </div>
 
         <!-- Bio Details -->
         <div class="flex-1 min-w-0 text-center md:text-left">
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-100 border border-slate-900 text-[11px] font-mono font-bold text-slate-900 mb-3 shadow-[2px_2px_0px_0px_#0f172a]">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-100 border border-slate-300 text-[10px] font-mono font-bold text-slate-700 mb-3">
             <span>STATION: CHELTENHAM, GLOUCESTERSHIRE, UK</span>
           </div>
 
-          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 uppercase tracking-tight font-sans mb-3">
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 uppercase tracking-tight font-serif mb-3">
             Arthur Vance
           </h1>
 
-          <p class="text-sm sm:text-base font-medium text-slate-700 leading-relaxed mb-4 font-sans">
-            Lead Forensic Investigator & Technical Director at FlirtCheck Bureau. Specializing in telemetry reverse-engineering, adversarial AI detection, and the mechanics of algorithmic dating monopolies.
+          <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4 font-sans">
+            Arthur Vance investigates commercial matchmaking telemetry, hidden ELO ranking systems, and deceptive digital persona funnels. Independent forensic reporter operating under confidential source protocols since 2019.
           </p>
 
           <!-- Status Bar -->
@@ -85,7 +87,7 @@ const deskSchemas = [
             </div>
             <div class="flex items-center gap-2 sm:justify-end">
               <span class="text-slate-500 font-bold">STATUS:</span>
-              <span class="inline-flex items-center gap-1 text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-300 text-[11px]">
+              <span class="inline-flex items-center gap-1 text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 border border-emerald-300 text-[11px]">
                 ✓ Verified Independent
               </span>
             </div>
@@ -95,15 +97,15 @@ const deskSchemas = [
     </div>
 
     <!-- 2. EDITORIAL MANIFESTO -->
-    <article class="bg-white border-2 border-slate-900 rounded-2xl p-6 sm:p-10 shadow-[6px_6px_0px_0px_#0f172a] mb-10 prose prose-slate max-w-none">
-      <div class="border-b-2 border-slate-900 pb-4 mb-6 not-prose flex justify-between items-end flex-wrap gap-2">
+    <article class="bg-white border border-slate-300 rounded-none sm:rounded-sm p-6 sm:p-10 mb-8 prose prose-slate max-w-none">
+      <div class="border-b border-slate-200 pb-4 mb-6 not-prose flex justify-between items-end flex-wrap gap-2">
         <div>
-          <span class="text-[10px] font-mono font-black uppercase text-rose-600 tracking-widest block">INVESTIGATIVE MANIFESTO</span>
-          <h2 class="text-xl sm:text-2xl font-black text-slate-900 uppercase tracking-tight font-sans mt-0.5">
+          <span class="text-[10px] font-mono font-bold uppercase text-rose-700 tracking-widest block">INVESTIGATIVE MANIFESTO</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-tight font-serif mt-0.5">
             The Economics of Manufactured Loneliness
           </h2>
         </div>
-        <span class="font-mono text-xs text-slate-500 font-bold">DISPATCH REF // MANIFESTO-2026</span>
+        <span class="font-mono text-xs text-slate-500">DISPATCH REF // MANIFESTO-2026</span>
       </div>
 
       <p class="text-base sm:text-lg leading-relaxed text-slate-800 font-sans">
@@ -129,39 +131,51 @@ const deskSchemas = [
     </article>
 
     <!-- 3. FIELD METHODOLOGY PROTOCOLS -->
-    <div class="bg-white border-2 border-slate-900 rounded-2xl p-6 sm:p-8 shadow-[6px_6px_0px_0px_#0f172a] mb-10">
-      <div class="border-b-2 border-slate-900 pb-4 mb-6 flex justify-between items-center">
-        <h2 class="text-xl sm:text-2xl font-black text-slate-900 uppercase tracking-tight font-sans">
+    <div class="bg-white border border-slate-300 rounded-none sm:rounded-sm p-6 sm:p-8 mb-8">
+      <div class="border-b border-slate-200 pb-4 mb-6 flex justify-between items-center">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-tight font-serif">
           Technical Field Methodology
         </h2>
-        <span class="text-xs font-mono bg-slate-900 text-amber-300 px-2.5 py-1 rounded font-bold">
+        <span class="text-xs font-mono bg-slate-900 text-slate-100 px-2.5 py-1 font-bold">
           3-TIER VERIFICATION
         </span>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Protocol 1 -->
-        <div class="p-4 rounded-xl border border-slate-900 bg-slate-50 shadow-[3px_3px_0px_0px_#0f172a]">
-          <div class="text-2xl mb-2">🔬</div>
-          <h3 class="font-black text-sm text-slate-900 uppercase mb-2 font-sans">01. Image & Diffusion Forensics</h3>
+        <div class="p-4 border border-slate-200 bg-slate-50/60">
+          <div class="w-8 h-8 flex items-center justify-center text-slate-700 bg-white border border-slate-300 mb-3">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-sm text-slate-900 uppercase mb-2 font-mono">01. Image & Diffusion Forensics</h3>
           <p class="text-xs text-slate-600 leading-relaxed font-sans">
             Cross-spectral frequency analysis to detect GAN/diffusion artifacts, lighting inconsistency vectors, EXIF metadata stripping, and reverse matching against syndicated stolen model repositories.
           </p>
         </div>
 
         <!-- Protocol 2 -->
-        <div class="p-4 rounded-xl border border-slate-900 bg-slate-50 shadow-[3px_3px_0px_0px_#0f172a]">
-          <div class="text-2xl mb-2">📡</div>
-          <h3 class="font-black text-sm text-slate-900 uppercase mb-2 font-sans">02. Packet & Telemetry Intercept</h3>
+        <div class="p-4 border border-slate-200 bg-slate-50/60">
+          <div class="w-8 h-8 flex items-center justify-center text-slate-700 bg-white border border-slate-300 mb-3">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-sm text-slate-900 uppercase mb-2 font-mono">02. Packet & Telemetry Intercept</h3>
           <p class="text-xs text-slate-600 leading-relaxed font-sans">
             Decoupled man-in-the-middle packet inspection of mobile dating APIs to document real-time ELO adjustments, geolocation spoofing clusters, and shadow-throttling mechanisms.
           </p>
         </div>
 
         <!-- Protocol 3 -->
-        <div class="p-4 rounded-xl border border-slate-900 bg-slate-50 shadow-[3px_3px_0px_0px_#0f172a]">
-          <div class="text-2xl mb-2">🤖</div>
-          <h3 class="font-black text-sm text-slate-900 uppercase mb-2 font-sans">03. LLM Pattern Deconstruction</h3>
+        <div class="p-4 border border-slate-200 bg-slate-50/60">
+          <div class="w-8 h-8 flex items-center justify-center text-slate-700 bg-white border border-slate-300 mb-3">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-sm text-slate-900 uppercase mb-2 font-mono">03. LLM Pattern Deconstruction</h3>
           <p class="text-xs text-slate-600 leading-relaxed font-sans">
             Token distribution and perplexity scoring to identify automated chatbot swarms, script execution triggers, and conversational escalation funnels migrating targets to encrypted messengers.
           </p>
@@ -170,14 +184,16 @@ const deskSchemas = [
     </div>
 
     <!-- 4. INDEPENDENT FORENSIC FUND -->
-    <div class="bg-amber-50 border-2 border-slate-900 rounded-2xl p-6 sm:p-8 shadow-[6px_6px_0px_0px_#0f172a]">
-      <div class="flex items-center gap-3 border-b-2 border-slate-900 pb-4 mb-6">
-        <div class="w-10 h-10 rounded-xl bg-rose-600 text-white border-2 border-slate-900 flex items-center justify-center font-black text-lg shadow-[2px_2px_0px_0px_#0f172a]">
-          🛡️
+    <div class="bg-white border border-slate-300 rounded-none sm:rounded-sm p-6 sm:p-8">
+      <div class="flex items-center gap-3 border-b border-slate-200 pb-4 mb-6">
+        <div class="w-10 h-10 bg-slate-900 text-white flex items-center justify-center font-mono font-bold text-sm">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
         </div>
         <div>
           <span class="text-[10px] font-mono font-bold uppercase text-rose-700 tracking-wider">TARGETED COMMUNITY ENDOWMENT</span>
-          <h2 class="text-xl sm:text-2xl font-black text-slate-900 uppercase tracking-tight font-sans">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-tight font-serif">
             The Independent Forensic Fund
           </h2>
         </div>
@@ -193,27 +209,27 @@ const deskSchemas = [
           href="https://ko-fi.com/flirtcheck"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex flex-col justify-between p-4 rounded-xl bg-white border-2 border-slate-900 shadow-[3px_3px_0px_0px_#0f172a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_#0f172a] transition-all group"
+          class="flex flex-col justify-between p-4 bg-white border border-slate-300 hover:border-slate-400 transition-colors group"
         >
           <div>
-            <div class="text-xs font-mono font-black text-rose-600 uppercase mb-1">[ CARD / COFFEE ]</div>
-            <h4 class="font-black text-sm text-slate-900 mb-2">Support via Ko-fi</h4>
-            <p class="text-xs text-slate-600 leading-relaxed">
+            <div class="text-xs font-mono font-bold text-rose-700 uppercase mb-1">[ CARD / COFFEE ]</div>
+            <h4 class="font-bold text-sm text-slate-900 mb-2 font-serif">Support via Ko-fi</h4>
+            <p class="text-xs text-slate-600 leading-relaxed font-sans">
               Direct micro-grants for server and research costs.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-200 text-xs font-mono font-bold text-slate-900 group-hover:text-rose-600 flex items-center justify-between">
+          <div class="mt-4 pt-3 border-t border-slate-200 text-xs font-mono font-bold text-slate-900 group-hover:text-rose-700 flex items-center justify-between">
             <span>DISPATCH GRANT</span>
             <span>→</span>
           </div>
         </a>
 
         <!-- Option 2: Monero XMR -->
-        <div class="flex flex-col justify-between p-4 rounded-xl bg-white border-2 border-slate-900 shadow-[3px_3px_0px_0px_#0f172a]">
+        <div class="flex flex-col justify-between p-4 bg-white border border-slate-300">
           <div>
-            <div class="text-xs font-mono font-black text-amber-700 uppercase mb-1">[ CRYPTOGRAPHIC LEDGER ]</div>
-            <h4 class="font-black text-sm text-slate-900 mb-2">Monero (XMR)</h4>
-            <p class="text-xs text-slate-600 leading-relaxed">
+            <div class="text-xs font-mono font-bold text-amber-700 uppercase mb-1">[ CRYPTOGRAPHIC LEDGER ]</div>
+            <h4 class="font-bold text-sm text-slate-900 mb-2 font-serif">Monero (XMR)</h4>
+            <p class="text-xs text-slate-600 leading-relaxed font-sans">
               Private, untraceable support for whistleblowers and researchers.
             </p>
           </div>
@@ -221,7 +237,7 @@ const deskSchemas = [
             <button
               id="copyXmrBtn"
               data-xmr={moneroAddress}
-              class="w-full text-center px-2 py-1.5 rounded bg-slate-900 text-amber-300 font-mono text-[11px] font-bold border border-slate-900 hover:bg-slate-800 transition-colors cursor-pointer"
+              class="w-full text-center px-2 py-1.5 bg-slate-900 text-white font-mono text-[11px] font-bold hover:bg-slate-800 transition-colors cursor-pointer"
             >
               COPY XMR ADDRESS
             </button>
@@ -233,18 +249,18 @@ const deskSchemas = [
 
         <!-- Option 3: Encrypted Tips -->
         <a
-          href="mailto:desk@dating-radar.com"
-          class="flex flex-col justify-between p-4 rounded-xl bg-white border-2 border-slate-900 shadow-[3px_3px_0px_0px_#0f172a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_#0f172a] transition-all group"
+          href="mailto:desk@flirtcheck.site"
+          class="flex flex-col justify-between p-4 bg-white border border-slate-300 hover:border-slate-400 transition-colors group"
         >
           <div>
-            <div class="text-xs font-mono font-black text-emerald-700 uppercase mb-1">[ ENCRYPTED TIP LINE ]</div>
-            <h4 class="font-black text-sm text-slate-900 mb-2">Leaks & Dossiers</h4>
-            <p class="text-xs text-slate-600 leading-relaxed">
+            <div class="text-xs font-mono font-bold text-emerald-700 uppercase mb-1">[ ENCRYPTED TIP LINE ]</div>
+            <h4 class="font-bold text-sm text-slate-900 mb-2 font-serif">Leaks & Dossiers</h4>
+            <p class="text-xs text-slate-600 leading-relaxed font-sans">
               Submit leaked corporate documentation, scam funnels, or telemetry logs.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-200 text-xs font-mono font-bold text-slate-900 group-hover:text-rose-600 flex items-center justify-between">
-            <span>desk@dating-radar.com</span>
+          <div class="mt-4 pt-3 border-t border-slate-200 text-xs font-mono font-bold text-slate-900 group-hover:text-rose-700 flex items-center justify-between">
+            <span>desk@flirtcheck.site</span>
             <span>✉</span>
           </div>
         </a>

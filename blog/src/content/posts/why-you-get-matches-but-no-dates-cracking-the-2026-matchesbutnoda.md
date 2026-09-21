@@ -45,7 +45,7 @@ Did you know that over 30% of dating-app users are still on unverified accounts?
 
 **Protocol:**
 
-1. Upload a clear, recent selfie and a government-issued ID to FlirtCheck Verified Portal (or the /r/dating verification thread).
+1. Upload a clear, recent selfie and a government-issued ID to FlirtCheck Forensic Archive (or the /r/dating verification thread).
 2. Add the verification badge to every dating app that supports it.
 
 **Why it works:** Verified profiles are 1.8× more likely to receive a reply and 2.3× more likely to secure a date.
@@ -128,7 +128,7 @@ Did you know that over 30% of dating-app users are still on unverified accounts?
 
 **Interactive Verification Checklist / Self-Audit Query**
 
-| ✅ | Item | Yes / No | Notes |
+| [✓] | Item | Yes / No | Notes |
 |----|------|----------|-------|
 | 1 | Profile picture is recent, clear, and shows face > 60% of frame |  |  |
 | 2 | Verification badge displayed on at least one platform |  |  |
@@ -143,7 +143,7 @@ Did you know that over 30% of dating-app users are still on unverified accounts?
 
 **Move to Verified Platforms**
 
-Even with perfect tactics, unverified accounts can still sabotage your conversion rate. **FlirtCheck Verified Portal** aggregates verified profiles across major apps and offers a "Verified Match" filter that instantly removes the bottleneck. Join the community on **/r/dating** for real-time verification tips, success stories, and a safe space to practice your new scripts.
+Even with perfect tactics, unverified accounts can still sabotage your conversion rate. **FlirtCheck Forensic Archive** aggregates verified profiles across major apps and offers a "Verified Match" filter that instantly removes the bottleneck. Join the community on **/r/dating** for real-time verification tips, success stories, and a safe space to practice your new scripts.
 
 **Frequently Asked Questions (FAQ)**
 

@@ -40,11 +40,11 @@ To avoid falling prey to these audio deepfakes, we've developed a simple 5-step 
 
 | Step | Action | What to Listen For |
 |------|--------|--------------------|
-| **1️⃣** | Ask for a Unique Phrase | Synthetic voices often stumble on unusual word combinations or mispronounce rare terms. |
-| **2️⃣** | Switch Languages or Accents | AI models trained on a single accent may slip, producing flat or mismatched phonetics. |
-| **3️⃣** | Insert a “Live” Prompt | Real humans incorporate ambient noise; deepfakes generate clean audio unless deliberately layered. |
-| **4️⃣** | Request a Time-Stamped Clip | Synthetic tools often lack dynamic timestamp integration, leading to generic or mismatched times. |
-| **5️⃣** | Verify with a Video Call | A live video confirms vocal timbre, facial cues, and background consistency. |
+| **[01]** | Ask for a Unique Phrase | Synthetic voices often stumble on unusual word combinations or mispronounce rare terms. |
+| **[02]** | Switch Languages or Accents | AI models trained on a single accent may slip, producing flat or mismatched phonetics. |
+| **[03]** | Insert a “Live” Prompt | Real humans incorporate ambient noise; deepfakes generate clean audio unless deliberately layered. |
+| **[04]** | Request a Time-Stamped Clip | Synthetic tools often lack dynamic timestamp integration, leading to generic or mismatched times. |
+| **[05]** | Verify with a Video Call | A live video confirms vocal timbre, facial cues, and background consistency. |
 
 ## Putting the Trick to Work
 
@@ -57,7 +57,7 @@ Here's an example of how the verification trick might play out:
 
 ## Tactical Tools & Free Resources
 
-In addition to the 5-step verification trick, there are a few other tools and resources that can help you detect audio deepfakes. Spectrogram viewers, for example, can help you visually identify synthetic audio. Reverse-audio search engines like AudD or Shazam for voice can also be useful in identifying known AI-generated samples. And, of course, there's FlirtCheck's Verified Portal, which requires users to pass a live-audio challenge to verify their identity.
+In addition to the 5-step verification trick, there are a few other tools and resources that can help you detect audio deepfakes. Spectrogram viewers, for example, can help you visually identify synthetic audio. Reverse-audio search engines like AudD or Shazam for voice can also be useful in identifying known AI-generated samples. And, of course, there's FlirtCheck Forensic Archive, which requires users to pass a live-audio challenge to verify their identity.
 
 ## Building a Safer Dating Routine
 
@@ -73,7 +73,7 @@ Before trusting a voice note, it's a good idea to run through a quick verificati
 4. **Is the timestamp in the voice note accurate?** ☐ Yes ☐ No  
 5. **Did you request a live video call?** ☐ Completed ☐ Skipped  
 6. **Did any spectrogram tool flag uniform patterns?** ☐ Clean ☐ Suspicious  
-7. **Is the profile listed on FlirtCheck Verified Portal?** ☐ Yes ☐ No  
+7. **Is the profile listed on FlirtCheck Forensic Archive?** ☐ Yes ☐ No  
 
 If you answered “No” to any of the above, it's best to pause the conversation and request further verification.
 

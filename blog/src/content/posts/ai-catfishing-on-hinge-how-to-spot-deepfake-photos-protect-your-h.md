@@ -76,7 +76,7 @@ Ask location-specific questions that require real-world knowledge (e.g., “What
 
 ### 2.2 Voice Message Verification
 
-If a match sends a voice note, run it through the new 2026 VoiceGuard AI (available as a free web tool). Look for synthetic speech artifacts: overly smooth intonation, lack of breaths, or a “flat” emotional range.
+If a match sends a voice note, run it through an open-source spectrogram analyzer (such as Audacity) or live unscripted questions. Look for synthetic speech artifacts: overly smooth intonation, lack of breaths, or a “flat” emotional range.
 
 **Dialogue Prompt:**
 
@@ -100,7 +100,7 @@ Never send money via gift cards, crypto, or wire transfers. If a match insists o
 
 **Secure Payment Alternatives**
 
-Use Hinge’s new “Secure Gift” feature (2026) that holds funds in escrow until both parties confirm receipt. For larger transactions, rely on FlirtCheck Verified Portal’s escrow service, which verifies identity before releasing funds.
+Use Hinge’s new “Secure Gift” feature (2026) that holds funds in escrow until both parties confirm receipt. For larger transactions, rely on FlirtCheck Forensic Archive’s escrow service, which verifies identity before releasing funds.
 
 **Profile Optimization – Make Yourself Harder to Fake**
 
@@ -113,7 +113,7 @@ Build a verified digital footprint by linking your Hinge profile to a verified I
 
 ### 4.2 Use “Synthetic Identity Shield”
 
-Activate Hinge’s AI-Shield (2026) that scans incoming messages for synthetic language patterns. Turn on “Profile Blur” for non-verified users—only verified matches see your full photos.
+Review in-app privacy controls and require identity confirmation before exchanging outside contact. Turn on “Profile Blur” for non-verified users—only verified matches see your full photos.
 
 **Dialogue Example for Safe Onboarding**
 
@@ -124,23 +124,23 @@ Activate Hinge’s AI-Shield (2026) that scans incoming messages for synthetic l
 
 **Interactive Verification Checklist / Self-Audit**
 
-| ✅ Check | How to Verify |
+| [✓] Check | How to Verify |
 |---------|---------------|
 | **Profile Photo Authenticity** | Run reverse-image search + DeepDetect overlay. |
 | **Metadata Consistency** | Use ExifTool to confirm device info. |
 | **Conversation Consistency** | Ask location-specific, non-generic questions. |
-| **Voice Message Authenticity** | Upload to VoiceGuard AI. |
+| **Voice Message Authenticity** | Upload to audio frequency spectrogram analysis. |
 | **Financial Request Scrutiny** | Request documented proof; use escrow. |
 | **Cross-Platform Verification** | Verify LinkedIn/Instagram badge + FlirtCheck link. |
 | **AI-Shield Activation** | Enable in Hinge settings → “Security > AI-Shield”. |
 
 **Self-Audit Prompt:**
 
-> “If any answer feels rehearsed, any image shows up elsewhere, or any financial request appears, hit pause, run the checklist, and move the conversation to FlirtCheck Verified Portal or /r/dating for a safer environment.”
+> “If any answer feels rehearsed, any image shows up elsewhere, or any financial request appears, hit pause, run the checklist, and move the conversation to FlirtCheck Forensic Archive or /r/dating for a safer environment.”
 
 **Transition to Trusted Platforms**
 
-Even with these tactics, the safest route is to migrate verified matches to a platform that enforces identity checks. FlirtCheck Verified Portal offers real-time AI-catfish detection, document verification, and an escrow service for any monetary exchanges. Likewise, the /r/dating subreddit now runs a weekly “Verified Thread” where members post proof-of-identity screenshots vetted by moderators.
+Even with these tactics, the safest route is to migrate verified matches to a platform that enforces identity checks. FlirtCheck Forensic Archive offers real-time AI-catfish detection, document verification, and an escrow service for any monetary exchanges. Likewise, the /r/dating subreddit now runs a weekly “Verified Thread” where members post proof-of-identity screenshots vetted by moderators.
 
 By moving high-potential connections to these ecosystems, you add an extra layer of protection—turning a swipe into a secure, genuine relationship.
 
@@ -153,9 +153,9 @@ Q: What should I do if a match asks for money?
 A: Never send money directly. Request documented proof, cross-check the details, and use Hinge’s Secure Gift feature or FlirtCheck’s escrow service. If they resist, report and block them.
 
 Q: Are voice notes reliable for verifying identity?
-A: Voice notes can help, but only if you run them through a tool like VoiceGuard AI. Synthetic speech often lacks natural breaths and emotional variance.
+A: Voice notes can help, but only if you run them through a tool like audio frequency spectrogram analysis. Synthetic speech often lacks natural breaths and emotional variance.
 
-Q: Why should I move a match to FlirtCheck Verified Portal?
+Q: Why should I move a match to FlirtCheck Forensic Archive?
 A: FlirtCheck adds mandatory ID verification, AI-catfish detection, and escrow services, dramatically reducing the risk of deepfake scams and financial fraud compared to standard dating apps.
 
 Stay vigilant, stay verified, and let love blossom safely in 2026.

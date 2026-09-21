@@ -108,7 +108,7 @@ Run the radar first, then fall back on the 5‑step handshake protocol.
 
 ## Interactive Checklist: Your Personal Catfish‑Proof Routine  
 
-| ✅ | Action Item | Completed (✔/✖) |
+| [✓] | Action Item | Completed (✔/✖) |
 |----|-------------|-----------------|
 | 1 | Reverse‑search primary photo | |
 | 2 | Cross‑platform username check | |

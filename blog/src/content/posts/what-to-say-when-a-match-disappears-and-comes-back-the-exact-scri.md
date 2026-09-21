@@ -61,7 +61,7 @@ Why it works: the acknowledgment shows you noticed the gap, but you're not angry
 
 | Context | Script Variation |
 |---------|-----------------|
-| **They disappeared after a flirt** | “Hey [Name], I guess the universe needed a coffee break before we could continue our banter. ☕️ What’s the most interesting thing you’ve read lately?” |
+| **They disappeared after a flirt** | “Hey [Name], I guess the universe needed a coffee break before we could continue our banter. ️ What’s the most interesting thing you’ve read lately?” |
 | **They vanished after a serious talk** | “Hey [Name], I saw your message again—maybe the universe gave us a second chance to finish that convo about travel dreams? 🌍 Where’s the next place on your bucket list?” |
 | **They’re a “ghost-to-zombie” after a week** | “Hey [Name], I was about to retire our chat to the Hall of Fame for ‘Best Disappearing Acts.’ 😜 What’s been keeping you busy?” |
 
@@ -86,7 +86,7 @@ Even when a match returns, it's smart to run a quick self-audit. The following c
 - [ ] **Social-Media Cross-Check** – Does the username appear on Instagram, TikTok, or LinkedIn with a matching bio?  
 - [ ] **Reverse-Image Search** – Paste a photo into Google Images to see if it’s a stock picture.  
 - [ ] **Conversation Tone** – Are they asking for money, personal IDs, or unusually fast intimacy?  
-- [ ] **FlirtCheck Verified Portal** – Have they completed our **FlirtCheck Verified** badge? (If not, politely ask.)  
+- [ ] **FlirtCheck Forensic Archive** – Have they completed our **FlirtCheck Verified** badge? (If not, politely ask.)  
 
 Self-Audit Query (copy-paste into the chat):
 > “Hey [Name], before we get back into the groove, I like to keep things safe. Do you have a FlirtCheck Verified badge or a social link I can check out? 😊”
@@ -97,11 +97,11 @@ If they're genuine, they'll understand and comply. If they dodge, you've likely 
 
 While the scripts above work on any dating app, verified environments dramatically increase trust.
 
-- **FlirtCheck Verified Portal** – All members undergo a multi-step ID check, photo verification, and background scan. Matches here are **90% less likely to ghost**.  
+- **FlirtCheck Forensic Archive** – All members undergo a multi-step ID check, photo verification, and background scan. Matches here are **90% less likely to ghost**.  
 - **Reddit’s /r/dating** community – Great for crowdsourced advice, but remember it's unverified. Use it for brainstorming, not for personal data exchange.  
 
 Pro tip: when a match returns, suggest moving the conversation to a verified platform:
-> “Hey, I'm glad we're reconnecting! Want to continue on FlirtCheck's Verified Portal? It's super safe and we can share pics without the mystery.”
+> “Hey, I'm glad we're reconnecting! Want to continue on FlirtCheck Forensic Archive? It's super safe and we can share pics without the mystery.”
 
 ## Frequently Asked Questions (FAQ)
 
@@ -121,4 +121,4 @@ A: Try game-style prompts (Two-Truths-and-a-Lie), travel-teleport questions, or 
 
 When a match disappears and resurfaces, don't panic—use a proven script, sprinkle in a witty icebreaker, and verify before you invest emotionally. By following the steps above, you'll turn a “zombie” back into a lively conversation and keep your dating life safe.
 
-Happy re-engaging! 🎉
+Happy re-engaging! 

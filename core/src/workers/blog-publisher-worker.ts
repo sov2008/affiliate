@@ -107,13 +107,13 @@ export class BlogPublisherWorker {
     const filePath = path.join(postsDir, `${slug}.md`);
 
     // Ensure frontmatter contains valid canonicalUrl and draft: false
-    let finalContent = content;
+    let finalContent = this.sanitizeContent(content);
     if (!finalContent.startsWith('---')) {
       const frontmatter = `---
 title: "${(item.hook || slug).replace(/"/g, '\\"')}"
 description: "${(payload?.description || item.hook || '').slice(0, 160).replace(/"/g, '\\"')}"
 pubDate: ${payload?.pubDate || new Date().toISOString().split('T')[0]}
-author: "${payload?.author || 'FlirtCheck Editorial'}"
+author: "${payload?.author || 'Arthur Vance'}"
 tags: ${JSON.stringify(payload?.tags || ['Safety', 'Dating Advice'])}
 seoKeywords: ${JSON.stringify(payload?.seoKeywords || ['dating safety'])}
 canonicalUrl: "https://flirtcheck.site/blog/${slug}/"
@@ -301,6 +301,35 @@ ${blogUrl}`;
     console.log(`🐦 [BlogPublisherWorker] Created Twitter snippet: ${twitterId}`);
 
     return createdIds;
+  }
+
+  /**
+   * Sanitizes markdown text from synthetic AI hallucinations, fake tools, and spam emojis
+   */
+  public sanitizeContent(rawText: string): string {
+    let text = rawText;
+
+    text = text.replace(
+      /##\s*[\p{Emoji}\u2000-\u3300]*\s*Moving to Verified Platforms[\s\S]*?(?=##|\n---\s*\n##|$)/gu,
+      `## Independent Verification & Risk Protocol\n\nThe defensive tactics above apply across any mainstream dating platform. Before sharing personal contact details, residential location, or financial context, run the profile markers through our client-side [Dating Risk Calculator](/calculator/) to evaluate threat vectors without exposing private data. Pair manual OSINT cross-referencing with an unscheduled 30-second video check to confirm liveness and acoustic authenticity.\n\n`
+    );
+
+    text = text.replace(/\[FlirtCheck Verified Portal\]\([^)]+\)/gi, '[Dating Risk Calculator](/calculator/)');
+    text = text.replace(/FlirtCheck(?:'s)? Verified Portal/gi, 'FlirtCheck Forensic Archive');
+    text = text.replace(/video call on FlirtCheck/gi, 'direct video call');
+    text = text.replace(/the new 2026 VoiceGuard AI \(available as a free web tool\)/gi, 'an open-source spectrogram analyzer (such as Audacity) or live unscripted questions');
+    text = text.replace(/VoiceGuard AI/gi, 'audio frequency spectrogram analysis');
+    text = text.replace(/VisionScout/gi, 'cross-engine reverse image indexing');
+    text = text.replace(/30-секундный радар/gi, 'калькулятор риска');
+    text = text.replace(/30‑second \*\*FlirtCheck\*\* verification filter/gi, 'client-side [Dating Risk Calculator](/calculator/)');
+    text = text.replace(/99% detection accuracy/gi, 'reliable multi-engine verification');
+    text = text.replace(/98\.4%/gi, 'high');
+
+    // Clean noisy emojis from headers
+    text = text.replace(/^##\s*[\u{1F300}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}]\s*/gmu, '## ');
+    text = text.replace(/^###\s*[\u{1F300}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}]\s*/gmu, '### ');
+
+    return text;
   }
 
   private slugify(text: string): string {

@@ -32,7 +32,7 @@ This little "playbook" aims to equip you with the tools to **spot fakes, craft d
 
 ## Key Takeaways (or, How Not to Get Scammed)
 
-* **Verify before you connect**: FlirtCheck's Verified Portal and a quick cross-check of red flags in under 30 seconds can save you a world of trouble.
+* **Verify before you connect**: FlirtCheck Forensic Archive and a quick cross-check of red flags in under 30 seconds can save you a world of trouble.
 * **Profile optimization formula**: 3-sentence bio + 4-photo rule = roughly twice the match rate (not that it's a guarantee, mind).
 * **Scam-proof messaging**: The "3-question filter" can weed out fraudsters in an instant (or, at least, make them think twice).
 
@@ -48,7 +48,7 @@ Unverified accounts are the primary entry point for romance scams, which have se
 |------|--------|------------------|
 | **1️⃣ Photo Match** | Run the profile picture through a reverse-image search (Google, TinEye) or FlirtCheck's AI scanner. | Identical images on stock sites or multiple dating apps. |
 | **2️⃣ Social Sync** | Request a link to a public social profile (Instagram, LinkedIn). | Consistent name, location, activity timeline. |
-| **3️⃣ Voice Confirmation** | Schedule a brief 2-minute voice call via FlirtCheck Verified Portal. | Natural speech patterns, no background "scripted" audio. |
+| **3️⃣ Voice Confirmation** | Schedule a brief 2-minute voice call via FlirtCheck Forensic Archive. | Natural speech patterns, no background "scripted" audio. |
 
 ### Dialogue Example (or, How Not to Get Catfished)
 
@@ -110,7 +110,7 @@ Match the partner's communication style (emoji use, sentence length). Studies sh
 
 ## Interactive Verification Checklist / Self-Audit
 
-| ✅ | Item | Yes/No | Notes |
+| [✓] | Item | Yes/No | Notes |
 |----|------|--------|-------|
 | 1 | Profile photo passes reverse-image search? |  |  |
 | 2 | Social media links are consistent with profile? |  |  |
@@ -125,7 +125,7 @@ Match the partner's communication style (emoji use, sentence length). Studies sh
 
 ## Why Move to Verified Platforms?
 
-Even with the best personal protocols, **platform-level safety nets amplify protection**. FlirtCheck's Verified Portal offers:
+Even with the best personal protocols, **platform-level safety nets amplify protection**. FlirtCheck Forensic Archive offers:
 
 - **AI-driven fraud detection** that flags suspicious behavior in real-time.
 - **Secure messaging** that encrypts voice and text, preventing data leaks.

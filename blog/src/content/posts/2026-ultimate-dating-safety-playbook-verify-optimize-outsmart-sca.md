@@ -52,7 +52,7 @@ Scammer: "Oh, it's a secret spot, can't share." (Red flag – evasive answer)
 
 ### Layer 3 – Voice/Video Confirmation
 - Suggest a quick 30-second video call with a fun prompt.
-- Use FlirtCheck Verified Portal to generate a one-time video link that expires after 5 minutes – no recordings, just live proof.
+- Use FlirtCheck Forensic Archive to generate a one-time video link that expires after 5 minutes – no recordings, just live proof.
 
 ### Layer 4 – Phone Number & Email Validation
 - Request a WhatsApp or Signal number; verify the carrier prefix matches the claimed location.
@@ -141,7 +141,7 @@ Self-Audit Prompt: "If I answered 'yes' to any of the above red flags, what's my
 
 While the tactics above work on any dating app, verification-first ecosystems dramatically raise safety and match quality.
 
-- FlirtCheck Verified Portal – Earn a gold badge after completing the 5-layer audit; your profile appears in a dedicated "Verified Only" feed.
+- FlirtCheck Forensic Archive – Earn a gold badge after completing the 5-layer audit; your profile appears in a dedicated "Verified Only" feed.
 - r/dating – The subreddit's weekly "Verified Match" thread pairs users who have passed FlirtCheck's checklist, fostering a community-driven safety net.
 
 Switching to these platforms reduces exposure to bots by over 70% and boosts genuine response rates to +55%.

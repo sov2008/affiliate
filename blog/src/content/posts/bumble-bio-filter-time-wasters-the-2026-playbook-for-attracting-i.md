@@ -115,7 +115,7 @@ Verification raises the trust score; community involvement shows you’re not ju
 
 ## Interactive verification checklist  
 
-| ✅ Checklist item | Yes / No | Comments |
+| [✓] Checklist item | Yes / No | Comments |
 |-------------------|----------|----------|
 | Bio states **relationship goal** clearly? |  |  |
 | Includes a **mini‑screening prompt**? |  |  |
