@@ -14,10 +14,10 @@ const xShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(xT
 const redditShareUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(url + '?utm_source=share_reddit')}&title=${encodeURIComponent(title + ' | FlirtCheck Investigation')}`;
 ---
 
-<div class:list={["social-share-bar not-prose flex flex-wrap items-center justify-between gap-3 py-3 border-y border-slate-200 text-xs font-mono", className]}>
+<div class:list={["social-share-bar not-prose flex flex-wrap items-center justify-between gap-3 py-3 border-y border-slate-200 text-xs font-mono bg-[#FAF7F2]/50 px-3", className]}>
   <div class="flex items-center gap-2 text-slate-500 font-bold uppercase tracking-wider text-[11px]">
-    <span class="w-2 h-2 rounded-full bg-slate-900"></span>
-    <span>Share Findings:</span>
+    <span class="w-2 h-2 rounded-full bg-slate-800"></span>
+    <span>DISPATCH TELEMETRY // SHARE FINDINGS:</span>
   </div>
 
   <div class="flex flex-wrap items-center gap-2">
@@ -26,7 +26,7 @@ const redditShareUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(u
       type="button"
       data-share-copy={copyUrl}
       aria-label="Copy direct link to report"
-      class="share-copy-btn inline-flex items-center gap-1.5 px-3 py-2 sm:py-1.5 min-h-[40px] sm:min-h-[36px] rounded-lg bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none transition-all font-medium cursor-pointer shadow-xs active:scale-95"
+      class="share-copy-btn inline-flex items-center gap-1.5 px-3 py-2 sm:py-1.5 min-h-[38px] sm:min-h-[34px] rounded-none sm:rounded-sm bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none transition-all font-medium cursor-pointer shadow-none active:bg-slate-50"
       title="Copy Direct Link to Report"
     >
       <span class="copy-icon">🔗</span>
@@ -39,10 +39,10 @@ const redditShareUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(u
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Share this report on X Twitter"
-      class="inline-flex items-center gap-1.5 px-3 py-2 sm:py-1.5 min-h-[40px] sm:min-h-[36px] rounded-lg bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none transition-all font-medium shadow-xs active:scale-95"
+      class="inline-flex items-center gap-1.5 px-3 py-2 sm:py-1.5 min-h-[38px] sm:min-h-[34px] rounded-none sm:rounded-sm bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none transition-all font-medium shadow-none active:bg-slate-50"
       title="Share to X (Twitter)"
     >
-      <span>𝕏</span>
+      <span class="font-bold">𝕏</span>
       <span>Post to X</span>
     </a>
 
@@ -52,10 +52,10 @@ const redditShareUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(u
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Share this investigation on Reddit"
-      class="inline-flex items-center gap-1.5 px-3 py-2 sm:py-1.5 min-h-[40px] sm:min-h-[36px] rounded-lg bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none transition-all font-medium shadow-xs active:scale-95"
+      class="inline-flex items-center gap-1.5 px-3 py-2 sm:py-1.5 min-h-[38px] sm:min-h-[34px] rounded-none sm:rounded-sm bg-white border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none transition-all font-medium shadow-none active:bg-slate-50"
       title="Share on Reddit (r/Tinder, r/Cybersecurity)"
     >
-      <span class="text-orange-600 font-bold">●</span>
+      <span class="text-rose-700 font-bold">●</span>
       <span>Reddit</span>
     </a>
   </div>

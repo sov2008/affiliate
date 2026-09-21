@@ -233,6 +233,47 @@ const faqSchema = {
         <aside class="hidden lg:block lg:col-span-3">
           <div class="sticky top-24 space-y-5">
 
+            <!-- WIDGET 0: Investigator Dossier (Author Card) - Placed at very top of sidebar -->
+            <div class="bg-white border border-slate-300 rounded-none p-4">
+              <div class="font-mono text-[9px] font-bold uppercase tracking-widest text-slate-500 mb-3 pb-2 border-b border-slate-200 flex items-center justify-between">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-800"></span>
+                  <span>[ INVESTIGATOR DOSSIER ]</span>
+                </span>
+                <span class="text-rose-700 font-bold">STATION 04</span>
+              </div>
+              <div class="flex items-start gap-3 mb-2.5">
+                <img
+                  src="/images/author/arthur-vance-avatar.webp"
+                  alt="Arthur Vance"
+                  class="w-12 h-12 rounded-none border border-slate-300 object-cover shrink-0"
+                  loading="lazy"
+                  width="48"
+                  height="48"
+                />
+                <div class="min-w-0 font-sans">
+                  <h4 class="font-serif font-bold text-sm text-slate-900 leading-snug">
+                    <a href="/desk" class="hover:text-rose-700 transition-colors">Arthur Vance</a>
+                  </h4>
+                  <span class="text-[10px] font-mono text-slate-500 block leading-tight mt-0.5">
+                    Lead Forensic Desk
+                  </span>
+                  <span class="text-[10px] font-mono text-slate-400 block mt-0.5">
+                    Cheltenham, UK
+                  </span>
+                </div>
+              </div>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed mb-3">
+                Arthur Vance investigates commercial matchmaking telemetry, hidden ELO ranking systems, and synthetic fraud funnels. Independent forensic reporter operating under confidential source protocols since 2019.
+              </p>
+              <a
+                href="/desk"
+                class="min-h-[34px] w-full flex items-center justify-center text-center px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-mono font-bold text-[10px] uppercase tracking-wider transition-colors"
+              >
+                Bureau Manifesto →
+              </a>
+            </div>
+
             <!-- Mini Case Dossier Card -->
             <div class="bg-white border border-slate-300 rounded-none p-4 font-mono">
               <div class="text-[9px] font-bold uppercase tracking-widest text-slate-500 mb-3 border-b border-slate-200 pb-2">
@@ -399,9 +440,6 @@ const faqSchema = {
             </ul>
           </div>
 
-          <!-- Social Share (top) -->
-          <SocialShareBar title={title} url={canonicalAbsUrl} className="my-5" />
-
           <!-- ══════════════════════════════════════════════
                FULL-WIDTH COVER IMAGE — 16:9 with archive caption
                ══════════════════════════════════════════════ -->
@@ -458,6 +496,11 @@ const faqSchema = {
           </article>
 
           <!-- ══════════════════════════════════════════════
+               SOCIAL SHARE BAR — strictly placed immediately after article body
+               ══════════════════════════════════════════════ -->
+          <SocialShareBar title={title} url={canonicalAbsUrl} className="my-8" />
+
+          <!-- ══════════════════════════════════════════════
                STRICT SEQUENTIAL FOOTER SECTIONS
                Order: 1.ScamRiskMatrix → 2.CaseNotes → 3.AuthorCard → 4.RelatedDossiers
                ══════════════════════════════════════════════ -->
@@ -484,8 +527,8 @@ const faqSchema = {
             <CaseNotesFeed postSlug={slug || ''} />
           </section>
 
-          <!-- 3. [ INVESTIGATOR DOSSIER ] — Author card -->
-          <section class="mt-10 not-prose">
+          <!-- 3. [ INVESTIGATOR DOSSIER ] — Author card (Mobile-only; on desktop displayed at top of sidebar) -->
+          <section class="mt-10 not-prose lg:hidden">
             <div class="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3 flex items-center gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-slate-800 shrink-0"></span>
               <span>[ INVESTIGATOR DOSSIER ]</span>
@@ -567,9 +610,6 @@ const faqSchema = {
               subtitle="Stop wasting time on catfish profiles and bot swarms. Verify safety clearance and access 100% verified singles."
             />
           </section>
-
-          <!-- Social Share (bottom) -->
-          <SocialShareBar title={title} url={canonicalAbsUrl} className="my-6" />
 
         </div>
         <!-- end main content column -->
