@@ -6,7 +6,6 @@ import {
   buildBreadcrumbSchema
 } from '../utils/schema';
 
-const moneroAddress = "888tNkZrPN6JsEgekjMnABU4TBmb2AnjC429Yum3A5sCpd4B21x1oF7hH5kQ8wU7vJ9zE3sD8rN1L3W8hP2pZ4V7M3f9X6a";
 const siteUrl = 'https://flirtcheck.site';
 
 const deskSchemas = [
@@ -21,33 +20,33 @@ const deskSchemas = [
 
 <BaseLayout
   title="Arthur Vance // Lead Forensic Desk — Cheltenham Bureau"
-  description="Investigative dossier, methodology, and independence manifesto of Arthur Vance, Lead Forensic Desk in Cheltenham, UK. Reverse-engineering commercial dating algorithms and automated fraud funnels."
+  description="Investigative dossier, research methodology, and independence manifesto of Arthur Vance, Lead Forensic Desk in Cheltenham, UK. Reverse-engineering commercial dating algorithms and automated fraud funnels."
   activePath="/desk"
   imageUrl="/images/author/arthur-vance-avatar.webp"
   schemas={deskSchemas}
 >
   <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
     
-    <!-- Top Nav Backlink & Breadcrumb -->
-    <div class="mb-6 flex items-center justify-between gap-4 text-xs font-mono">
+    <!-- Top Nav Backlink & Operational Status -->
+    <nav aria-label="Archival Navigation" class="mb-6 flex items-center justify-between gap-4 text-xs font-mono">
       <a
         href="/"
-        class="inline-flex items-center gap-1.5 font-bold text-slate-700 hover:text-rose-600 transition-colors uppercase"
+        class="inline-flex items-center gap-1.5 font-bold text-slate-700 hover:text-rose-700 transition-colors uppercase"
       >
         <span>← RETURN TO DISPATCHES</span>
       </a>
       <div class="flex items-center gap-2">
-        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span class="text-slate-500 uppercase font-bold tracking-wider text-[11px]">CHELTENHAM DESK // ACTIVE</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true"></span>
+        <span class="text-slate-500 uppercase font-bold tracking-wider text-[11px]">CHELTENHAM DESK // STATION 04 · ACTIVE</span>
       </div>
-    </div>
+    </nav>
 
-    <!-- 1. HEADER DOSSIER -->
-    <div class="bg-white border border-slate-300 rounded-none sm:rounded-sm p-6 sm:p-8 mb-8">
+    <!-- 1. PRIMARY INVESTIGATOR DOSSIER (SINGLE OFFICIAL PORTRAIT) -->
+    <header class="bg-white border border-slate-300 rounded-none sm:rounded-sm p-6 sm:p-8 mb-8">
       <div class="flex flex-col md:flex-row items-center md:items-start gap-6 sm:gap-8">
         
-        <!-- Author Portrait -->
-        <div class="w-full md:w-52 shrink-0">
+        <!-- Author Portrait (The Only Official Image) -->
+        <div class="w-48 sm:w-52 shrink-0">
           <div class="aspect-square rounded-none sm:rounded-sm overflow-hidden border border-slate-300 bg-slate-100">
             <img
               src="/images/author/arthur-vance-avatar.webp"
@@ -60,238 +59,235 @@ const deskSchemas = [
           </div>
           <div class="mt-2.5 text-center">
             <span class="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
-              OPERATIONAL ID: AV-40-UK
+              OPERATIONAL CALLSIGN: AV-40-UK
             </span>
           </div>
         </div>
 
-        <!-- Bio Details -->
+        <!-- Bio Details & Core Identity -->
         <div class="flex-1 min-w-0 text-center md:text-left">
           <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-100 border border-slate-300 text-[10px] font-mono font-bold text-slate-700 mb-3">
             <span>STATION: CHELTENHAM, GLOUCESTERSHIRE, UK</span>
           </div>
 
-          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 uppercase tracking-tight font-serif mb-3">
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight font-serif mb-2.5">
             Arthur Vance
           </h1>
 
-          <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4 font-sans">
-            Arthur Vance investigates commercial matchmaking telemetry, hidden ELO ranking systems, and deceptive digital persona funnels. Independent forensic reporter operating under confidential source protocols since 2019.
+          <p class="font-mono text-xs text-rose-700 font-bold uppercase tracking-wider mb-3">
+            Lead Forensic Investigator & Technical Director // FlirtCheck Bureau
+          </p>
+
+          <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-5 font-sans">
+            Independent researcher tracking commercial matchmaking telemetry, algorithmic throttling mechanics, and deceptive digital persona syndicates. Operating from Cheltenham under open-source forensic and whistleblower protection protocols since 2019.
           </p>
 
           <!-- Status Bar -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono pt-4 border-t border-slate-200">
             <div class="flex items-center gap-2">
-              <span class="text-slate-500 font-bold">SPECIALTY:</span>
+              <span class="text-slate-500 font-bold uppercase">SPECIALTY:</span>
               <span class="text-slate-900 font-bold">Matchmaking Telemetry & Bot Swarms</span>
             </div>
             <div class="flex items-center gap-2 sm:justify-end">
-              <span class="text-slate-500 font-bold">STATUS:</span>
+              <span class="text-slate-500 font-bold uppercase">STATUS:</span>
               <span class="inline-flex items-center gap-1 text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 border border-emerald-300 text-[11px]">
-                ✓ Verified Independent
+                [✓] Verified Independent
               </span>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </header>
 
-    <!-- 2. EDITORIAL MANIFESTO -->
+    <!-- 2. INVESTIGATOR BIOGRAPHY & JOURNEY -->
     <article class="bg-white border border-slate-300 rounded-none sm:rounded-sm p-6 sm:p-10 mb-8 prose prose-slate max-w-none">
       <div class="border-b border-slate-200 pb-4 mb-6 not-prose flex justify-between items-end flex-wrap gap-2">
         <div>
-          <span class="text-[10px] font-mono font-bold uppercase text-rose-700 tracking-widest block">INVESTIGATIVE MANIFESTO</span>
+          <span class="text-[10px] font-mono font-bold uppercase text-rose-700 tracking-widest block">BACKGROUND & DIRECTIVE</span>
           <h2 class="text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-tight font-serif mt-0.5">
-            The Economics of Manufactured Loneliness
+            The Investigator's Path: From Packet Telemetry to Dating Forensics
           </h2>
         </div>
-        <span class="font-mono text-xs text-slate-500">DISPATCH REF // MANIFESTO-2026</span>
+        <span class="font-mono text-xs text-slate-500">DOSSIER REF // BIO-AV-2026</span>
       </div>
 
       <p class="text-base sm:text-lg leading-relaxed text-slate-800 font-sans">
-        Commercial dating platforms operate under a fundamental economic conflict of interest: a matched couple that deletes the app represents a permanent loss of recurring subscription revenue. To preserve shareholder valuation, the modern matchmaking ecosystem has quietly abandoned genuine compatibility in favor of variable-ratio dopamine schedules modeled directly on Las Vegas slot machines.
+        Arthur Vance spent his early career analyzing network packet architectures, low-latency transmission channels, and automated fraud-detection infrastructure across the UK telecommunications sector. Working in close geographic proximity to Britain’s cyber intelligence cluster in Cheltenham, Gloucestershire, his analytical focus sharpened on the mathematical boundaries between authentic human behavior and automated script mimicry.
       </p>
 
       <p class="text-base sm:text-lg leading-relaxed text-slate-800 font-sans">
-        Behind polished mobile interfaces lies a calculated architecture of artificial scarcity. Hidden ELO algorithms intentionally depress profile visibility to trigger psychological panic, immediately followed by the predatory upselling of microtransactions: <em>Spotlight Boosts</em>, <em>Super Likes</em>, and tiered tiers engineered to extract capital from acute social isolation.
+        Around 2019, a fundamental paradigm shift occurred in commercial mobile technology: online dating evolved from lightweight matchmaking directories into multi-billion-dollar behavioral extraction engines. Having observed close colleagues and ordinary consumers falling prey to coordinated financial manipulation funnels, Vance began reverse-engineering dating app API traffic, ELO score oscillations, and geolocation obfuscation pipelines.
       </p>
 
       <p class="text-base sm:text-lg leading-relaxed text-slate-800 font-sans">
-        Compounding this engineered despair is the industrial proliferation of synthetic fraud. Transnational criminal syndicates exploit dating apps as primary acquisition funnels for <em>Pig Butchering (Sha Zhu Pan)</em> operations, deploying diffusion-generated hyper-realistic identities and LLM conversational engines to systematically drain victims' life savings through fraudulent liquidity contracts.
+        What began as an offline research notebook quickly expanded into the <strong>FlirtCheck Forensic Desk</strong>. The directive was unambiguous: apply the same rigorous forensic standards used in corporate breach investigations to commercial matchmaking ecosystems, empowering ordinary singles with empirical data rather than romantic mythology.
       </p>
 
-      <p class="text-base sm:text-lg leading-relaxed text-slate-800 font-sans">
-        This bureau was established with a singular directive: to strip away corporate PR obfuscation and provide ordinary users with cold, empirical forensic intelligence. We treat dating platforms not as lifestyle products, but as adversarial networks requiring rigorous reverse-engineering, perimeter security, and continuous verification.
-      </p>
-
-      <div class="not-prose mt-8 pt-4 border-t border-slate-200 flex items-center justify-between text-xs font-mono text-slate-500">
-        <span class="font-bold text-slate-900">— Arthur Vance, Cheltenham Bureau</span>
-        <span>Cheltenham, Gloucestershire, United Kingdom</span>
+      <div class="not-prose my-6 p-4 border-l-2 border-slate-900 bg-[#FAF7F2] font-mono text-xs text-slate-700 leading-relaxed">
+        <span class="text-slate-900 font-bold block mb-1">CHELTENHAM DESK CORE DIRECTIVE:</span>
+        «We do not evaluate dating platforms as romantic lifestyle products. We treat them as adversarial networks operating closed-source ranking algorithms, where corporate revenue models directly conflict with user success.»
       </div>
     </article>
 
-    <!-- 3. FIELD METHODOLOGY PROTOCOLS -->
-    <div class="bg-white border border-slate-300 rounded-none sm:rounded-sm p-6 sm:p-8 mb-8">
-      <div class="border-b border-slate-200 pb-4 mb-6 flex justify-between items-center">
-        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-tight font-serif">
-          Technical Field Methodology
+    <!-- 3. CORE INVESTIGATIVE PILLARS -->
+    <section class="bg-white border border-slate-300 rounded-none sm:rounded-sm p-6 sm:p-8 mb-8" aria-labelledby="methodology-title">
+      <div class="border-b border-slate-200 pb-4 mb-6 flex justify-between items-center flex-wrap gap-2">
+        <h2 id="methodology-title" class="text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-tight font-serif">
+          Core Investigative Pillars
         </h2>
         <span class="text-xs font-mono bg-slate-900 text-slate-100 px-2.5 py-1 font-bold">
-          3-TIER VERIFICATION
+          EMPIRICAL RESEARCH STANDARDS
         </span>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Protocol 1 -->
-        <div class="p-4 border border-slate-200 bg-slate-50/60">
-          <div class="w-8 h-8 flex items-center justify-center text-slate-700 bg-white border border-slate-300 mb-3">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+        <!-- Pillar 1 -->
+        <div class="p-5 border border-slate-200 bg-slate-50/60 flex flex-col justify-between">
+          <div>
+            <div class="w-8 h-8 flex items-center justify-center text-slate-900 bg-white border border-slate-300 mb-3 font-mono font-bold text-xs">
+              01
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 uppercase mb-2 font-mono">Algorithmic Monopolies & ELO Throttling</h3>
+            <p class="text-xs text-slate-600 leading-relaxed font-sans">
+              Reverse-engineering variable-ratio dopamine schedules. Documenting how closed-source algorithms intentionally depress organic profile exposure to trigger acute loneliness and monetize paywalled visibility boosts.
+            </p>
           </div>
-          <h3 class="font-bold text-sm text-slate-900 uppercase mb-2 font-mono">01. Image & Diffusion Forensics</h3>
+          <div class="mt-4 pt-3 border-t border-slate-200 text-[11px] font-mono text-slate-500">
+            Vector: Traffic Intercept & API Audits
+          </div>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="p-5 border border-slate-200 bg-slate-50/60 flex flex-col justify-between">
+          <div>
+            <div class="w-8 h-8 flex items-center justify-center text-slate-900 bg-white border border-slate-300 mb-3 font-mono font-bold text-xs">
+              02
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 uppercase mb-2 font-mono">Synthetic Persona Swarms & LLMs</h3>
+            <p class="text-xs text-slate-600 leading-relaxed font-sans">
+              Deconstructing automated conversational bot swarms. Identifying asynchronous speech tokens, prompt injection leakage, stolen identity clusters, and diffusion-generated facial artifact anomalies.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200 text-[11px] font-mono text-slate-500">
+            Vector: Cross-Spectral & NLP Analysis
+          </div>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="p-5 border border-slate-200 bg-slate-50/60 flex flex-col justify-between">
+          <div>
+            <div class="w-8 h-8 flex items-center justify-center text-slate-900 bg-white border border-slate-300 mb-3 font-mono font-bold text-xs">
+              03
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 uppercase mb-2 font-mono">Transnational Extraction Funnels</h3>
+            <p class="text-xs text-slate-600 leading-relaxed font-sans">
+              Tracing the 48-hour migration patterns from mainstream dating chats into unmonitored encrypted channels (WhatsApp/Telegram). Documenting the operational mechanics of Pig Butchering (Sha Zhu Pan) syndicates.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200 text-[11px] font-mono text-slate-500">
+            Vector: Financial OSINT & Scam Architecture
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. EDITORIAL INDEPENDENCE & ZERO DEMO DATA CHARTER -->
+    <section class="bg-white border border-slate-300 rounded-none sm:rounded-sm p-6 sm:p-8 mb-8" aria-labelledby="charter-title">
+      <div class="border-b border-slate-200 pb-4 mb-6">
+        <span class="text-[10px] font-mono font-bold uppercase text-rose-700 tracking-wider block">TRANSPARENCY CHARTER</span>
+        <h2 id="charter-title" class="text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-tight font-serif mt-0.5">
+          Editorial Independence & Strict Zero Synthetic Data Protocol
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+        <div class="space-y-3">
+          <h4 class="font-mono text-xs font-bold uppercase text-slate-900 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-slate-900"></span>
+            No Paid Platform Advocacy
+          </h4>
           <p class="text-xs text-slate-600 leading-relaxed font-sans">
-            Cross-spectral frequency analysis to detect GAN/diffusion artifacts, lighting inconsistency vectors, EXIF metadata stripping, and reverse matching against syndicated stolen model repositories.
+            The bureau accepts zero sponsorships, PR review hardware, or paid inclusion fees from dating conglomerates. We do not promote corporate verification checkmarks as proof of safety when empirical evidence shows they fail basic virtual camera tests.
           </p>
         </div>
 
-        <!-- Protocol 2 -->
-        <div class="p-4 border border-slate-200 bg-slate-50/60">
-          <div class="w-8 h-8 flex items-center justify-center text-slate-700 bg-white border border-slate-300 mb-3">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
-          <h3 class="font-bold text-sm text-slate-900 uppercase mb-2 font-mono">02. Packet & Telemetry Intercept</h3>
+        <div class="space-y-3">
+          <h4 class="font-mono text-xs font-bold uppercase text-slate-900 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-slate-900"></span>
+            Strict Zero Demo Data Rule
+          </h4>
           <p class="text-xs text-slate-600 leading-relaxed font-sans">
-            Decoupled man-in-the-middle packet inspection of mobile dating APIs to document real-time ELO adjustments, geolocation spoofing clusters, and shadow-throttling mechanisms.
-          </p>
-        </div>
-
-        <!-- Protocol 3 -->
-        <div class="p-4 border border-slate-200 bg-slate-50/60">
-          <div class="w-8 h-8 flex items-center justify-center text-slate-700 bg-white border border-slate-300 mb-3">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-          </div>
-          <h3 class="font-bold text-sm text-slate-900 uppercase mb-2 font-mono">03. LLM Pattern Deconstruction</h3>
-          <p class="text-xs text-slate-600 leading-relaxed font-sans">
-            Token distribution and perplexity scoring to identify automated chatbot swarms, script execution triggers, and conversational escalation funnels migrating targets to encrypted messengers.
+            We strictly forbid artificial counters, fabricated testimonials, or simulated telemetry metrics. Every statistic published in our reports is either directly verified via live testbench data or transparently stated as zero when no telemetry exists.
           </p>
         </div>
       </div>
-    </div>
 
-    <!-- 4. INDEPENDENT FORENSIC FUND -->
-    <div class="bg-white border border-slate-300 rounded-none sm:rounded-sm p-6 sm:p-8">
+      <div class="p-4 bg-slate-50 border border-slate-200 text-xs font-mono text-slate-600">
+        <span class="font-bold text-slate-900 block mb-1">REPLICABLE FORENSIC METHODS:</span>
+        All detection heuristics outlined across our articles rely entirely on open standards: spectrogram audio frequency inspection, EXIF tag validation, reverse image search engines, and client-side risk calculation.
+      </div>
+    </section>
+
+    <!-- 5. SECURE WHISTLEBLOWER & INQUIRY PROTOCOL -->
+    <section class="bg-white border border-slate-300 rounded-none sm:rounded-sm p-6 sm:p-8" aria-labelledby="contact-title">
       <div class="flex items-center gap-3 border-b border-slate-200 pb-4 mb-6">
-        <div class="w-10 h-10 bg-slate-900 text-white flex items-center justify-center font-mono font-bold text-sm">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        <div class="w-9 h-9 bg-slate-900 text-white flex items-center justify-center font-mono font-bold text-sm shrink-0">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
         </div>
         <div>
-          <span class="text-[10px] font-mono font-bold uppercase text-rose-700 tracking-wider">TARGETED COMMUNITY ENDOWMENT</span>
-          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-tight font-serif">
-            The Independent Forensic Fund
+          <span class="text-[10px] font-mono font-bold uppercase text-rose-700 tracking-wider">SECURE TRANSMISSION LINE</span>
+          <h2 id="contact-title" class="text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-tight font-serif">
+            Confidential Inquiries & Whistleblower Dossiers
           </h2>
         </div>
       </div>
 
       <p class="text-sm sm:text-base text-slate-800 leading-relaxed mb-6 font-sans">
-        We refuse commercial corporate sponsorships, algorithmic affiliate kickbacks from predatory dating apps, and programmatic tracking networks. <strong>100% of community contributions</strong> fund hardware testbenches, cellular SIM farms for penetration audits, and cloud infrastructure for tracking adversarial bot clusters.
+        If you possess internal documentation regarding algorithmic manipulation, undisclosed shadowban policies, or organized dating bot networks, you may submit evidence under confidential reporter shield protocols.
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <!-- Option 1: Card / Ko-fi -->
-        <a
-          href="https://ko-fi.com/flirtcheck"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex flex-col justify-between p-4 bg-white border border-slate-300 hover:border-slate-400 transition-colors group"
-        >
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <!-- Direct Editorial Email -->
+        <div class="p-4 bg-[#FAF7F2] border border-slate-300 flex flex-col justify-between">
           <div>
-            <div class="text-xs font-mono font-bold text-rose-700 uppercase mb-1">[ CARD / COFFEE ]</div>
-            <h4 class="font-bold text-sm text-slate-900 mb-2 font-serif">Support via Ko-fi</h4>
-            <p class="text-xs text-slate-600 leading-relaxed font-sans">
-              Direct micro-grants for server and research costs.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-slate-200 text-xs font-mono font-bold text-slate-900 group-hover:text-rose-700 flex items-center justify-between">
-            <span>DISPATCH GRANT</span>
-            <span>→</span>
-          </div>
-        </a>
-
-        <!-- Option 2: Monero XMR -->
-        <div class="flex flex-col justify-between p-4 bg-white border border-slate-300">
-          <div>
-            <div class="text-xs font-mono font-bold text-amber-700 uppercase mb-1">[ CRYPTOGRAPHIC LEDGER ]</div>
-            <h4 class="font-bold text-sm text-slate-900 mb-2 font-serif">Monero (XMR)</h4>
-            <p class="text-xs text-slate-600 leading-relaxed font-sans">
-              Private, untraceable support for whistleblowers and researchers.
+            <span class="text-[10px] font-mono font-bold uppercase text-slate-500 block mb-1">OFFICIAL EDITORIAL DESK</span>
+            <span class="font-mono font-bold text-sm text-slate-900 select-all">desk@flirtcheck.site</span>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              General inquiries, research collaboration, and media verification.
             </p>
           </div>
           <div class="mt-4 pt-3 border-t border-slate-200">
-            <button
-              id="copyXmrBtn"
-              data-xmr={moneroAddress}
-              class="w-full text-center px-2 py-1.5 bg-slate-900 text-white font-mono text-[11px] font-bold hover:bg-slate-800 transition-colors cursor-pointer"
+            <a
+              href="mailto:desk@flirtcheck.site?subject=Investigation%20Inquiry"
+              class="min-h-[44px] w-full inline-flex items-center justify-center px-4 py-2 bg-slate-900 text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-slate-800 transition-colors"
             >
-              COPY XMR ADDRESS
-            </button>
-            <span id="copyFeedback" class="hidden text-[10px] font-mono text-emerald-700 font-bold text-center block mt-1">
-              ✓ Address copied to clipboard
-            </span>
+              Compose Dispatch →
+            </a>
           </div>
         </div>
 
-        <!-- Option 3: Encrypted Tips -->
-        <a
-          href="mailto:desk@flirtcheck.site"
-          class="flex flex-col justify-between p-4 bg-white border border-slate-300 hover:border-slate-400 transition-colors group"
-        >
+        <!-- Whistleblower Protection Notes -->
+        <div class="p-4 bg-white border border-slate-300 flex flex-col justify-between">
           <div>
-            <div class="text-xs font-mono font-bold text-emerald-700 uppercase mb-1">[ ENCRYPTED TIP LINE ]</div>
-            <h4 class="font-bold text-sm text-slate-900 mb-2 font-serif">Leaks & Dossiers</h4>
-            <p class="text-xs text-slate-600 leading-relaxed font-sans">
-              Submit leaked corporate documentation, scam funnels, or telemetry logs.
+            <span class="text-[10px] font-mono font-bold uppercase text-rose-700 block mb-1">WHISTLEBLOWER PROTOCOL</span>
+            <span class="font-mono font-bold text-xs text-slate-900">ENCRYPTED ATTACHMENT ADVICE</span>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              When submitting internal documents, strip local EXIF metadata and transmit via ProtonMail or disposable VPN relays to protect source confidentiality.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-200 text-xs font-mono font-bold text-slate-900 group-hover:text-rose-700 flex items-center justify-between">
-            <span>desk@flirtcheck.site</span>
-            <span>✉</span>
+          <div class="mt-4 pt-3 border-t border-slate-200 font-mono text-[10px] text-slate-500 flex items-center justify-between">
+            <span>CHELTENHAM DIRECTIVE</span>
+            <span class="text-emerald-700 font-bold">[SHIELD ACTIVE]</span>
           </div>
-        </a>
+        </div>
       </div>
 
-      <div class="text-[11px] font-mono text-slate-500 text-center border-t border-slate-300 pt-3">
-        CHELTENHAM FORENSIC DESK // CERTIFIED INDEPENDENT REPOSITORY // NON-CORPORATE ALIGNED
+      <div class="text-[11px] font-mono text-slate-500 text-center border-t border-slate-200 pt-3">
+        CHELTENHAM FORENSIC DESK // STATION 04 · INDEPENDENT RESEARCH REPOSITORY // GLOUCESTERSHIRE, UK
       </div>
-    </div>
+    </section>
 
   </main>
 </BaseLayout>
-
-<script>
-  const copyBtn = document.getElementById('copyXmrBtn');
-  const feedback = document.getElementById('copyFeedback');
-
-  if (copyBtn && feedback) {
-    copyBtn.addEventListener('click', async () => {
-      const address = copyBtn.getAttribute('data-xmr');
-      if (address) {
-        try {
-          await navigator.clipboard.writeText(address);
-          feedback.classList.remove('hidden');
-          setTimeout(() => {
-            feedback.classList.add('hidden');
-          }, 3500);
-        } catch (err) {
-          console.error('Failed to copy Monero address:', err);
-        }
-      }
-    });
-  }
-</script>
