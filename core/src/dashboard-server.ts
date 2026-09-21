@@ -83,21 +83,29 @@ const AUTH_PASS = process.env.DASHBOARD_PASS || '';
 // HTTP Basic Authentication & Token Middleware
 // ----------------------------------------------------
 function authMiddleware(req: Request, res: Response, next: NextFunction) {
-  // Allow root UI page, static assets, postback webhooks, deep-link bridge gateway, and public avatar
-  if (req.path === '/' || req.path === '/favicon.ico' || req.path.includes('/postback') || req.path.startsWith('/join') || req.path === '/avatar.jpg') {
+  // Allow public routes: static assets, public avatar, postback webhooks, deep-link bridge, cloaking routes, and comments
+  if (
+    req.path === '/favicon.ico' ||
+    req.path === '/avatar.jpg' ||
+    req.path.includes('/postback') ||
+    req.path.startsWith('/join') ||
+    req.path.startsWith('/r/') ||
+    req.path.startsWith('/api/comments') ||
+    req.path === '/logout'
+  ) {
     return next();
   }
 
-  // Allow all GET read routes
-  if (req.method === 'GET') {
+  // If no password configured, pass through (dev mode)
+  if (!AUTH_PASS) {
     return next();
   }
 
   const authHeader = req.headers.authorization;
-  const tokenQuery = req.query.token || req.query.key || (req.headers['x-dashboard-key'] as string);
+  const tokenQuery = (req.query.token || req.query.key || req.headers['x-dashboard-key']) as string | undefined;
 
   // Check Bearer Token or Query Key
-  if (tokenQuery === AUTH_PASS || (authHeader && authHeader.includes(AUTH_PASS))) {
+  if (tokenQuery === AUTH_PASS || (authHeader && authHeader === `Bearer ${AUTH_PASS}`)) {
     return next();
   }
 
@@ -110,25 +118,13 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
     }
   }
 
-  // Allow requests originating from the dashboard itself (Referer / Host match)
-  const referer = (req.headers.referer || req.headers.origin || '') as string;
-  const host = req.headers.host || '';
-  if (referer && (
-    referer.includes(host) ||
-    referer.includes('178.128.199.28') ||
-    referer.includes('localhost') ||
-    referer.includes('127.0.0.1')
-  )) {
+  // If request originates from authenticated Nginx reverse proxy session
+  if (req.headers['x-forwarded-user'] && req.headers['x-forwarded-user'] === AUTH_USER) {
     return next();
   }
 
-  // Allow loopback
-  const ip = req.ip || req.socket.remoteAddress || '';
-  if (ip.includes('127.0.0.1') || ip.includes('::1')) {
-    return next();
-  }
-
-  return next();
+  res.setHeader('WWW-Authenticate', 'Basic realm="AffOps Terminal 2026"');
+  return res.status(401).send('Authentication required.');
 }
 
 // Apply Auth Middleware
@@ -2387,14 +2383,15 @@ app.get('/api/telemetry/stream', (req: Request, res: Response) => {
 })();
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 Executive Command Center active at http://localhost:${PORT} (Basic Auth Protected)`);
+const HOST = process.env.HOST || '127.0.0.1';
+app.listen(Number(PORT), HOST, () => {
+  console.log(`🚀 Executive Command Center active at http://${HOST}:${PORT} (Basic Auth Protected)`);
 });
 
 const TDS_PORT = process.env.TDS_PORT || 3000;
 const tdsApp = express();
 tdsApp.use(cors());
 tdsApp.use(tdsRouter);
-tdsApp.listen(TDS_PORT, () => {
-  console.log(`🧭 Affiliate TDS Routing Engine active on port ${TDS_PORT}`);
+tdsApp.listen(Number(TDS_PORT), HOST, () => {
+  console.log(`🧭 Affiliate TDS Routing Engine active on http://${HOST}:${TDS_PORT}`);
 });
