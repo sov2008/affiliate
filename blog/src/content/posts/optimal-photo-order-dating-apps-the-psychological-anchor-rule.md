@@ -1,26 +1,12 @@
 ---
-title: 'Optimal Photo Order Dating Apps: The Psychological Anchor Rule'
-description: >-
-  Discover expert tactics on optimal photo order dating apps. Comprehensive 2026
-  dating safety and profile verification guide.
-pubDate: '2026-08-05'
-category: algo-mechanics
-caseId: FC-138-ALG
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: CRITICAL
-tags:
-  - Safety
-  - Dating Advice
-  - Verification
-seoKeywords:
-  - 'Optimal Photo Order Dating Apps: The Psychological Anchor Rule'
-canonicalUrl: >-
-  https://flirtcheck.site/optimal-photo-order-dating-apps-the-psychological-anchor-rule/
-image: >-
-  /images/posts/optimal-photo-order-dating-apps-the-psychological-anchor-rule.webp
-coverImage: >-
-  /images/posts/optimal-photo-order-dating-apps-the-psychological-anchor-rule.webp
+title: "Optimal Photo Order Dating Apps: The Psychological Anchor Rule"
+description: ">-"
+pubDate: "2026-08-05"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: ["Optimal Photo Order Dating Apps: The Psychological Anchor Rule"]
+canonicalUrl: "https://flirtcheck.site/blog/optimal-photo-order-dating-apps-the-psychological-anchor-rule/"
+coverImage: "/images/blog/optimal-photo-order-dating-apps-the-psychological-anchor-rule-cover.webp"
 draft: false
 ---
 
@@ -115,7 +101,7 @@ The final image acts as a call-to-action. A relaxed, candid shot where you’re 
 
 Even the perfect photo order can be undermined by a lack of trust. FlirtCheck Forensic Archive (and the active community on /r/dating) offers a quick, free verification badge that appears next to your name, instantly boosting credibility. After you lock in your optimal photo sequence, submit your profile for verification—watch your match rate climb by up to 27% within the first week.
 
-## Frequently Asked Questions (FAQ)
+## Frequently Asked Questions
 
 *What makes a good anchor photo for dating apps?*
 

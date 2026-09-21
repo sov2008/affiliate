@@ -1,33 +1,12 @@
 ---
-title: 'The Slot Machine Algorithm: How Dating Apps Engineer Artificial Loneliness'
-description: >-
-  Former engineers reveal how modern swipe mechanics were explicitly designed as
-  dopamine traps to prolong bachelorhood and maximize monthly subscription
-  revenue.
-pubDate: '2026-08-29'
-category: algo-mechanics
-caseId: FC-257-ALG
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: CRITICAL
-tags:
-  - Algo Mechanics
-  - Tinder ELO
-  - Dopamine Traps
-  - Algorithmic Loneliness
-  - Match Group
-seoKeywords:
-  - slot machine algorithm dating apps
-  - dating app intermittent reinforcement
-  - match group engagement algorithm
-  - why tinder keeps you single
-  - dating app dopamine trap
-image: >-
-  /images/posts/the-slot-machine-algorithm-how-dating-apps-engineer-loneliness.webp
-readingTime: 6
-hook: >-
-  Love is... knowing that a casino algorithm cannot calculate the resonance of
-  your soul.
+title: "The Slot Machine Algorithm: How Dating Apps Engineer Artificial Loneliness"
+description: ">-"
+pubDate: "2026-08-29"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: ["The Slot Machine Algorithm: How Dating Apps Engineer Artificial Loneliness"]
+canonicalUrl: "https://flirtcheck.site/blog/the-slot-machine-algorithm-how-dating-apps-engineer-artificial-lo/"
+coverImage: "/images/blog/the-slot-machine-algorithm-how-dating-apps-engineer-artificial-lo-cover.webp"
 draft: false
 ---
 

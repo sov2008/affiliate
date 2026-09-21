@@ -1,30 +1,12 @@
 ---
-title: >-
-  Tinder ELO Algorithm 2026 Ranking Reset: The Truth, the Myths, and the Moves
-  That Actually Work
-description: >-
-  Discover expert tactics on tinder elo algorithm 2026 ranking reset.
-  Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-09-04'
-category: algo-mechanics
-caseId: FC-294-ALG
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: CRITICAL
-tags:
-  - Safety
-  - Dating Advice
-  - Verification
-seoKeywords:
-  - >-
-    Tinder ELO Algorithm 2026 Ranking Reset: The Truth, the Myths, and the Moves
-    That Actually Work
-canonicalUrl: >-
-  https://flirtcheck.site/tinder-elo-algorithm-2026-ranking-reset-the-truth-the-myths-and-t/
-image: >-
-  /images/posts/tinder-elo-algorithm-2026-ranking-reset-the-truth-the-myths-and-t.webp
-coverImage: >-
-  /images/posts/tinder-elo-algorithm-2026-ranking-reset-the-truth-the-myths-and-t.webp
+title: ">-"
+description: ">-"
+pubDate: "2026-09-04"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: [">-"]
+canonicalUrl: "https://flirtcheck.site/blog//"
+coverImage: "/images/blog/-cover.webp"
 draft: false
 ---
 

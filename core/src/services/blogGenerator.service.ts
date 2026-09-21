@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import { AIGateway } from './aiGateway.js';
 import { ContentQueueRepository, ContentQueueItem, BlogPostPayload } from '../db/queueRepository.js';
 import { MAX_COPYWRITER_SYSTEM_PROMPT } from '../agents/copywriter.js';
+import { ArticleQualityGateService, articleQualityGate } from './articleQualityGate.service.js';
 
 export interface GenerateBlogRequest {
   keyword?: string;
@@ -80,7 +81,7 @@ export class BlogGeneratorService {
 title: "Хлесткий кликабельный заголовок без штампов"
 description: "Емкое мета-описание 150-160 знаков без воды и банальностей."
 pubDate: "${new Date().toISOString().split('T')[0]}"
-author: "The Romantic Essayist (FlirtCheck Editorial)"
+author: "Arthur Vance"
 tags: ["Safety", "Verification", "Dating Advice"]
 seoKeywords: ["primary keyword", "secondary keyword 1", "secondary keyword 2"]
 canonicalUrl: "https://flirtcheck.site/blog/SLUG_HERE/"
@@ -113,8 +114,15 @@ Ensure the YAML frontmatter is clean and valid. Generate a clean URL-friendly sl
       throw new Error(`LLM generation produced insufficient content (length: ${text?.length || 0})`);
     }
 
-    // Sanitize generated article from any residual AI hallucinations or noisy emojis
-    const sanitizedText = this.sanitizePostContent(text);
+    // Sanitize and validate via ArticleQualityGate
+    const gateResult = articleQualityGate.processAndValidate(text, {
+      title: topic,
+      author: 'Arthur Vance',
+      tags: ['Safety', 'Verification', 'Dating Advice'],
+      seoKeywords: [keyword],
+    });
+
+    const sanitizedText = gateResult.content;
 
     // Parse Frontmatter and content
     const parsed = this.parsePostMarkdown(sanitizedText, topic, keyword);
@@ -131,7 +139,7 @@ Ensure the YAML frontmatter is clean and valid. Generate a clean URL-friendly sl
       targetAudience: audience,
       intent: 'educational_safety_inbound',
       pubDate: parsed.pubDate,
-      author: parsed.author,
+      author: 'Arthur Vance',
     };
 
     const queueItem = this.queueRepo.enqueue({
@@ -222,30 +230,7 @@ Ensure the YAML frontmatter is clean and valid. Generate a clean URL-friendly sl
    * Cleans raw generated markdown from any synthetic hallucinations, fake tools or spam emojis
    */
   public sanitizePostContent(rawText: string): string {
-    let text = rawText;
-
-    // Replace hallucinated portal and fake tool names
-    text = text.replace(
-      /##\s*[\p{Emoji}\u2000-\u3300]*\s*Moving to Verified Platforms[\s\S]*?(?=##|\n---\s*\n##|$)/gu,
-      `## Independent Verification & Risk Protocol\n\nThe defensive tactics above apply across any mainstream dating platform. Before sharing personal contact details, residential location, or financial context, run the profile markers through our client-side [Dating Risk Calculator](/calculator/) to evaluate threat vectors without exposing private data. Pair manual OSINT cross-referencing with an unscheduled 30-second video check to confirm liveness and acoustic authenticity.\n\n`
-    );
-
-    text = text.replace(/\[FlirtCheck Verified Portal\]\([^)]+\)/gi, '[Dating Risk Calculator](/calculator/)');
-    text = text.replace(/FlirtCheck(?:'s)? Verified Portal/gi, 'FlirtCheck Forensic Archive');
-    text = text.replace(/video call on FlirtCheck/gi, 'direct video call');
-    text = text.replace(/the new 2026 VoiceGuard AI \(available as a free web tool\)/gi, 'an open-source spectrogram analyzer (such as Audacity) or live unscripted questions');
-    text = text.replace(/VoiceGuard AI/gi, 'audio frequency spectrogram analysis');
-    text = text.replace(/VisionScout/gi, 'cross-engine reverse image indexing');
-    text = text.replace(/30-секундный радар/gi, 'калькулятор риска');
-    text = text.replace(/30‑second \*\*FlirtCheck\*\* verification filter/gi, 'client-side [Dating Risk Calculator](/calculator/)');
-    text = text.replace(/99% detection accuracy/gi, 'reliable multi-engine verification');
-    text = text.replace(/98\.4%/gi, 'high');
-
-    // Clean noisy emojis from headers
-    text = text.replace(/^##\s*[\u{1F300}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}]\s*/gmu, '## ');
-    text = text.replace(/^###\s*[\u{1F300}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}]\s*/gmu, '### ');
-
-    return text;
+    return articleQualityGate.sanitize(rawText).content;
   }
 
   private slugify(text: string): string {

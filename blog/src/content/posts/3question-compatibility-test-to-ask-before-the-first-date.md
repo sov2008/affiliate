@@ -1,24 +1,12 @@
 ---
-title: 3‑Question Compatibility Test to Ask Before the First Date
-description: >-
-  Discover expert tactics on compatibility questions before first date.
-  Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-06-24'
-category: first-dates
-caseId: FC-525-OPS
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: MODERATE
-tags:
-  - Safety
-  - Dating Advice
-  - Verification
-seoKeywords:
-  - 3‑Question Compatibility Test to Ask Before the First Date
-canonicalUrl: >-
-  https://flirtcheck.site/3question-compatibility-test-to-ask-before-the-first-date/
-image: /images/posts/3question-compatibility-test-to-ask-before-the-first-date.webp
-coverImage: /images/posts/3question-compatibility-test-to-ask-before-the-first-date.webp
+title: "3‑Question Compatibility Test to Ask Before the First Date"
+description: ">-"
+pubDate: "2026-06-24"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: ["3‑Question Compatibility Test to Ask Before the First Date"]
+canonicalUrl: "https://flirtcheck.site/blog/3question-compatibility-test-to-ask-before-the-first-date/"
+coverImage: "/images/blog/3question-compatibility-test-to-ask-before-the-first-date-cover.webp"
 draft: false
 ---
 
@@ -37,7 +25,7 @@ Did you know that **over 30%** of accounts on mainstream dating platforms remain
 
 ---
 
-## 1️⃣ Question #1 – "What Does Your Ideal Weekend Actually Look Like?"
+## 1⃣ Question #1 – "What Does Your Ideal Weekend Actually Look Like?"
 
 ### Why It Works  
 - **Lifestyle Alignment:** Illuminates daily routines, energy levels, and social bandwidth.  
@@ -60,7 +48,7 @@ Did you know that **over 30%** of accounts on mainstream dating platforms remain
 
 ---
 
-## 2️⃣ Question #2 – "What Are You Looking to Build: Long-Term Partnership or Casual Exploring?"
+## 2⃣ Question #2 – "What Are You Looking to Build: Long-Term Partnership or Casual Exploring?"
 
 ### Why It Works  
 - **Intent Clarification:** Cuts through ambient conversational noise and avoids situationships.  
@@ -83,7 +71,7 @@ Did you know that **over 30%** of accounts on mainstream dating platforms remain
 
 ---
 
-## 3️⃣ Question #3 – "What Is One Non-Negotiable Boundary or Core Value for You?"
+## 3⃣ Question #3 – "What Is One Non-Negotiable Boundary or Core Value for You?"
 
 ### Why It Works  
 - **Core Values Audit:** Highlights dealbreakers (e.g., honesty, family dynamics, financial integrity) at the earliest stage.  
@@ -132,7 +120,7 @@ Even with high conversational chemistry, **verification provides the ultimate pe
 
 ---
 
-## Frequently Asked Questions (FAQ)
+## Frequently Asked Questions
 
 <script type="application/ld+json">
 {

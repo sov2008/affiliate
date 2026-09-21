@@ -1,33 +1,12 @@
 ---
-title: >-
-  Reverse Image Search Won't Save You: How AI Catfishers Bypass Google Lens in
-  2026
-description: >-
-  Why Google Lens and TinEye fail against modern dating catfishers. Technical
-  analysis of diffusion pipelines, adversarial noise injection, and real
-  verification heuristics.
-pubDate: '2026-08-11'
-category: algo-mechanics
-caseId: FC-692-ALG
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: CRITICAL
-tags:
-  - Scams
-  - Bot Detection
-  - Online Dating
-  - Safety
-seoKeywords:
-  - reverse image search bypass
-  - ai catfish detection
-  - google lens dating scams
-  - deepfake dating profile
-canonicalUrl: >-
-  https://flirtcheck.site/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026/
-image: >-
-  /images/posts/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026.webp
-coverImage: >-
-  /images/posts/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026.webp
+title: ">-"
+description: ">-"
+pubDate: "2026-08-11"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: [">-"]
+canonicalUrl: "https://flirtcheck.site/blog//"
+coverImage: "/images/blog/-cover.webp"
 draft: false
 ---
 
@@ -146,7 +125,7 @@ Use this triage matrix when evaluating high-risk profiles:
 
 ---
 
-## Frequently Asked Questions (FAQ)
+## Frequently Asked Questions
 
 #### Can Google Lens catch AI faces if they were posted on social media first?
 Only if the scammer was foolish enough to upload the exact identical synthetic output to a publicly indexed web page that Google's spider already crawled. If they generated the image locally or via an unindexed API endpoint and uploaded it directly into Tinder or Hinge, Google has zero index record of it.

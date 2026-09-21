@@ -1,33 +1,14 @@
 ---
-title: >-
-  How to Avoid Catfishing: The 2026 Online Dating Safety Guide Every Single Must
-  Read
-description: >-
-  Discover proven tactics to spot catfish, verify profiles, and stay safe on
-  dating apps. A 2026 guide for singles seeking genuine connections.
-pubDate: '2026-07-19'
-category: safety-dossier
-caseId: FC-930-SEC
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: CRITICAL
-tags:
-  - Safety
-  - Profile Verification
-  - Dating Advice
-seoKeywords:
-  - how to avoid catfishing online dating safety guide
-  - catfishing detection tips
-  - online dating verification
-  - dating app safety checklist
-canonicalUrl: >-
-  https://flirtcheck.site/how-to-avoid-catfishing-2026-online-dating-safety-guide/
-image: >-
-  /images/posts/how-to-avoid-catfishing-the-2026-online-dating-safety-guide-every.webp
+title: ">-"
+description: ">-"
+pubDate: "2026-07-19"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: [">-"]
+canonicalUrl: "https://flirtcheck.site/blog//"
+coverImage: "/images/blog/-cover.webp"
 draft: false
 ---
-
-# How to Avoid Catfishing: The 2026 Online Dating Safety Guide Every Single Must Read  
 
 The dating‑app landscape now feels a bit like a legacy BGP table full of stale routes – most entries are legitimate, but a handful of bogus prefixes can bring the whole session down.
 
@@ -125,7 +106,7 @@ Leave no box unchecked before you advance to the next stage. If any remain empty
 
 ---
 
-## Frequently Asked Questions  
+## Frequently Asked Questions
 
 **Q: How effective is a reverse‑image search?**  
 A: Roughly 73 % of catfish profiles recycle images from elsewhere, so a quick hash lookup catches most of the low‑hanging fruit. AI‑generated faces, however, require the radar’s deeper analysis.  

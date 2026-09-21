@@ -7,6 +7,7 @@ import { ContentQueueRepository, BlogPostPayload } from '../db/queueRepository.j
 import { ImageGeneratorService, imageGeneratorService } from './imageGenerator.service.js';
 import { DATING_KEYWORD_POOL, KeywordIntent, getNextKeywordBatch } from '../config/datingKeywords.js';
 import { AIGateway } from './aiGateway.js';
+import { ArticleQualityGateService, articleQualityGate } from './articleQualityGate.service.js';
 
 const execAsync = promisify(exec);
 
@@ -39,11 +40,13 @@ export class AutoPublisherService {
   private static instance: AutoPublisherService | null = null;
   private queueRepo: ContentQueueRepository;
   private imageService: ImageGeneratorService;
+  private qualityGate: ArticleQualityGateService;
   private isBatchRunning: boolean = false;
 
   private constructor() {
     this.queueRepo = ContentQueueRepository.getInstance();
     this.imageService = imageGeneratorService;
+    this.qualityGate = articleQualityGate;
   }
 
   public static getInstance(): AutoPublisherService {
@@ -96,14 +99,38 @@ export class AutoPublisherService {
     const startTime = Date.now();
     const count = Math.min(Math.max(options.count || 10, 1), 20);
     const offset = options.offset || 0;
-    const keywords: KeywordIntent[] = options.customKeywords || getNextKeywordBatch(count, offset);
-
     const postsDir = this.resolvePostsDir();
+    const existingSlugs = new Set<string>();
+    try {
+      if (fs.existsSync(postsDir)) {
+        const files = fs.readdirSync(postsDir);
+        for (const file of files) {
+          if (file.endsWith('.md')) {
+            existingSlugs.add(file.replace(/\.md$/, '').toLowerCase());
+          }
+        }
+      }
+    } catch {}
+
+    // Deduplicate: prioritize keywords not yet published as .md files
+    let candidatePool = DATING_KEYWORD_POOL.filter(kw => {
+      const testSlug = this.slugify(kw.topic);
+      return !existingSlugs.has(testSlug);
+    });
+
+    if (candidatePool.length === 0) {
+      // If all pool keywords are published, fall back to whole pool
+      candidatePool = DATING_KEYWORD_POOL;
+    }
+
+    const safeOffset = offset % candidatePool.length;
+    const keywords: KeywordIntent[] = options.customKeywords || candidatePool.slice(safeOffset, safeOffset + count);
+
     const publishedItems: BatchPublishResult['publishedItems'] = [];
     const errors: string[] = [];
     let childSnippetCount = 0;
 
-    console.log(`\n🚀 [AutoPublisherService] Starting batch generation for ${keywords.length} articles...`);
+    console.log(`\n🚀 [AutoPublisherService] Starting batch generation for ${keywords.length} articles (Existing: ${existingSlugs.size}, Pool available: ${candidatePool.length})...`);
 
     try {
       // 1. Generate and save all Markdown articles
@@ -119,7 +146,24 @@ export class AutoPublisherService {
           const coverImageRel = await this.imageService.generateArticleCover(article.slug, itemIntent.topic);
 
           // Complete Frontmatter with coverImage & canonicalUrl
-          const fullMarkdown = this.assembleMarkdown(article, coverImageRel);
+          const rawMarkdown = this.assembleMarkdown(article, coverImageRel);
+
+          // Run through ArticleQualityGate (sanitization + strict validation)
+          const gateResult = this.qualityGate.processAndValidate(rawMarkdown, {
+            title: article.title,
+            description: article.description,
+            slug: article.slug,
+            author: 'Arthur Vance',
+            pubDate: article.pubDate,
+            tags: itemIntent.tags,
+            seoKeywords: itemIntent.seoKeywords,
+            coverImage: coverImageRel,
+          });
+
+          const fullMarkdown = gateResult.content;
+          if (gateResult.fixesApplied.length > 0) {
+            console.log(`   🛡️ [QualityGate] Fixes applied: ${gateResult.fixesApplied.join(', ')}`);
+          }
 
           // Write .md file to disk
           const postFilePath = path.join(postsDir, `${article.slug}.md`);
@@ -139,7 +183,7 @@ export class AutoPublisherService {
             targetAudience: 'singles_21_45_us_uk_ca_au',
             intent: itemIntent.intent,
             pubDate: article.pubDate,
-            author: article.author,
+            author: 'Arthur Vance',
           };
 
           this.queueRepo.enqueue({
@@ -232,22 +276,28 @@ export class AutoPublisherService {
     bodyMarkdown: string;
   }> {
     const today = new Date().toISOString().split('T')[0];
-    const systemPrompt = `You are a Senior Editor and Cyber-Security Dating Analyst at FlirtCheck.site (Online Dating Verification & Safety Editorial).
-Produce an authoritative, highly actionable, engaging 2026 educational guide on dating safety, profile optimization, scam prevention, and relationship psychology.
+    const systemPrompt = `You are Arthur Vance, Lead Forensic Investigator and Editor at FlirtCheck.site (Cheltenham Bureau, Station 04).
+You spent your career analyzing network packet architectures, low-latency transmission channels, and automated fraud-detection infrastructure across the UK telecommunications sector, operating near Britain's cyber intelligence cluster in Cheltenham.
+Your mission: Authoritative, deeply engaging, literary yet forensic guides on dating verification, romance scam prevention, algorithmic manipulation, and authentic relationship psychology.
 
-REQUIREMENTS:
-1. Title: Catchy, high CTR, 2026 relevant, containing the primary keyword.
-2. Description: 140-160 character meta description with clear action hook.
-3. Body Structure:
-   - # H1 Title
-   - Hook introduction referencing unverified profile statistics (~30%+ unverified accounts).
-   - ## Key Takeaways Summary Box (3-4 bullet points).
-   - ## 3-4 deep tactical sections with H3 sub-headers, actionable protocols, and dialogue/chat examples.
-   - ## Interactive Verification Checklist / Self-Audit Query.
-   - Naturally integrate an advice transition to verified platforms (mentioning FlirtCheck Verified Portal /r/dating).
-   - ## ❓ Frequently Asked Questions (FAQ) with 3-4 distinct Q&A pairs (for Schema.org FAQPage).
-4. Tone: Empathetic, expert, highly practical, engaging English.
-5. Length: 800 - 1400 words.`;
+CORE EDITORIAL REQUIREMENTS:
+1. TITLE: Catchy, high-CTR, authoritative 2026 title containing the primary keyword.
+2. DESCRIPTION: Concise 140-160 character meta description with a clear investigative hook.
+3. BODY STRUCTURE:
+   - # H1 Title (will be converted into frontmatter title)
+   - Opening signature: Begin with an evocative aphorism following the formula «Love is... [sharp poetic observation on human warmth vs digital deception]».
+   - Field Hook & Context: Deadpan British clarity, real-world telemetry (delayed responses, unnatural typing cadence, LLM token repetition, immediate WhatsApp redirects, suspicious image EXIF).
+   - Key Takeaways Dossier: 3-4 bullet points summarizing the investigation.
+   - 3-4 Deep Tactical Sections with H3 sub-headers: Detailed anatomy of deception, forensic verification protocols (spectrogram audio analysis via Audacity, cross-engine reverse image search, spontaneous unscheduled 30-second video check to test facial liveness).
+   - Legitimate Risk Scoring Callout: Naturally guide the reader to test profile markers through our client-side [Dating Risk Calculator](/calculator/) to evaluate threat vectors safely without disclosing private data.
+   - Frequently Asked Questions: Standardized H2 "## Frequently Asked Questions" with 3-4 rigorous Q&A pairs (optimized for Schema.org FAQPage).
+4. ABSOLUTE PROHIBITIONS (STRICT ZERO SYNTHETIC / ZERO AI-GARBAGE RULE):
+   - STRICTLY FORBIDDEN to hallucinate fake products or portals: NEVER mention "FlirtCheck Verified Portal", "VoiceGuard AI", "VisionScout", "Sensity AI", or "AI-Shield".
+   - STRICTLY FORBIDDEN to invent fake accuracy statistics (NEVER write "98.4%", "99% detection accuracy", or "guaranteed detection").
+   - STRICTLY FORBIDDEN to use corporate AI clichés: "In today's fast-paced digital world", "Let's dive into", "In conclusion", "Plays a crucial role", "Unlock your potential".
+   - NO decorative emojis in headings (NO "## ❓", NO "## 🔍", NO "## 💡"). Headings must be clean, typographic, and authoritative.
+5. TONE: Deadpan British analytical wit, observant, deeply humane, forensic.
+6. LENGTH: 850 - 1350 words.`;
 
     const userPrompt = `TOPIC: ${intent.topic}
 PRIMARY KEYWORD: ${intent.keyword}
@@ -271,7 +321,7 @@ Output ONLY the article markdown. Start with the main # Title.`;
     const slug = this.slugify(title);
 
     // Extract or build description
-    const description = `Discover expert tactics on ${intent.keyword}. Comprehensive 2026 dating safety and profile verification guide.`;
+    const description = `Investigative protocol on ${intent.keyword} by Arthur Vance (Cheltenham Bureau). Field telemetry and technical verification rules.`;
 
     // Strip out top H1 to avoid duplicating with Astro layout
     const bodyMarkdown = text.replace(/^#\s+.+$/m, '').trim();
@@ -280,7 +330,7 @@ Output ONLY the article markdown. Start with the main # Title.`;
       title,
       description,
       slug,
-      author: 'FlirtCheck Editorial Team',
+      author: 'Arthur Vance',
       pubDate: today,
       bodyMarkdown,
     };
@@ -304,7 +354,7 @@ Output ONLY the article markdown. Start with the main # Title.`;
 title: ${JSON.stringify(article.title)}
 description: ${JSON.stringify(article.description)}
 pubDate: "${article.pubDate}"
-author: ${JSON.stringify(article.author)}
+author: "Arthur Vance"
 tags: ["Safety", "Dating Advice", "Verification"]
 seoKeywords: [${JSON.stringify(article.title)}]
 canonicalUrl: "https://flirtcheck.site/blog/${article.slug}/"

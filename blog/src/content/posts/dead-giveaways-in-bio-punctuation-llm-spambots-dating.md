@@ -1,27 +1,12 @@
 ---
-title: 'Dead Giveaways in Bio Punctuation: How LLM Spambots Write Dating Profiles'
-description: >-
-  Why em-dashes, symmetric triads, and immaculate Oxford commas are the clearest
-  indicators that your dating app match was drafted by an LLM prompt.
-pubDate: '2026-07-12'
-category: digital-dialogue
-caseId: FC-699-NET
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: ELEVATED
-tags:
-  - Bot Detection
-  - AI Clichés
-  - Online Dating
-  - Safety
-seoKeywords:
-  - llm dating bio red flags
-  - spot ai dating profile
-  - tinder bot bio punctuation
-  - ai text detection dating apps
-canonicalUrl: 'https://flirtcheck.site/dead-giveaways-in-bio-punctuation-llm-spambots-dating/'
-image: /images/posts/dead-giveaways-in-bio-punctuation-llm-spambots-dating.webp
-coverImage: /images/posts/dead-giveaways-in-bio-punctuation-llm-spambots-dating.webp
+title: "Dead Giveaways in Bio Punctuation: How LLM Spambots Write Dating Profiles"
+description: ">-"
+pubDate: "2026-07-12"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: ["Dead Giveaways in Bio Punctuation: How LLM Spambots Write Dating Profiles"]
+canonicalUrl: "https://flirtcheck.site/blog/dead-giveaways-in-bio-punctuation-how-llm-spambots-write-dating-p/"
+coverImage: "/images/blog/dead-giveaways-in-bio-punctuation-how-llm-spambots-write-dating-p-cover.webp"
 draft: false
 ---
 
@@ -168,7 +153,7 @@ Before you swipe right on that effortlessly charming profile, run through these 
 
 ---
 
-## Frequently Asked Questions (FAQ)
+## Frequently Asked Questions
 
 #### Can real people occasionally use em-dashes on their phones?
 Certainly. Journalists, professional writers, and grammar pedants exist. However, when combined with generic lifestyle clichés (*"coffee, travel, dogs"*) and flawless photos, the statistical probability tilts massively toward an automated LLM generation pipeline.

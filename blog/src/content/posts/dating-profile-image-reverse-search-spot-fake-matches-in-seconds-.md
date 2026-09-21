@@ -1,28 +1,12 @@
 ---
-title: 'Dating Profile Image Reverse Search: Spot Fake Matches in Seconds (2026 Guide)'
-description: >-
-  Discover expert tactics on dating profile image reverse search. Comprehensive
-  2026 dating safety and profile verification guide.
-pubDate: '2026-07-05'
-category: algo-mechanics
-caseId: FC-375-ALG
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: CRITICAL
-tags:
-  - Safety
-  - Dating Advice
-  - Verification
-seoKeywords:
-  - >-
-    Dating Profile Image Reverse Search: Spot Fake Matches in Seconds (2026
-    Guide)
-canonicalUrl: >-
-  https://flirtcheck.site/dating-profile-image-reverse-search-spot-fake-matches-in-seconds-/
-image: >-
-  /images/posts/dating-profile-image-reverse-search-spot-fake-matches-in-seconds-.webp
-coverImage: >-
-  /images/posts/dating-profile-image-reverse-search-spot-fake-matches-in-seconds-.webp
+title: "Dating Profile Image Reverse Search: Spot Fake Matches in Seconds (2026 Guide)"
+description: ">-"
+pubDate: "2026-07-05"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: ["Dating Profile Image Reverse Search: Spot Fake Matches in Seconds (2026 Guide)"]
+canonicalUrl: "https://flirtcheck.site/blog/dating-profile-image-reverse-search-spot-fake-matches-in-seconds-/"
+coverImage: "/images/blog/dating-profile-image-reverse-search-spot-fake-matches-in-seconds--cover.webp"
 draft: false
 ---
 
@@ -115,7 +99,7 @@ Even after a clean reverse-image check, the safest route is to migrate the conve
 
 Moving to these spaces adds an extra layer of trust and gives you access to community-driven scam alerts. Because who needs a conversation when you can have a badge and a community of like-minded individuals who've got your back?
 
-## Frequently Asked Questions (FAQ)
+## Frequently Asked Questions
 
 Because you can't afford to get caught out.
 

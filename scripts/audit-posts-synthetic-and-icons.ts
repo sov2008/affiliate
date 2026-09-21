@@ -1,52 +1,36 @@
 import fs from 'fs';
 import path from 'path';
+import { ArticleQualityGateService } from '../core/src/services/articleQualityGate.service.js';
 
 const postsDir = path.resolve(process.cwd(), 'blog/src/content/posts');
 const files = fs.readdirSync(postsDir).filter(f => f.endsWith('.md'));
+const qualityGate = ArticleQualityGateService.getInstance();
 
-const SYNTHETIC_PATTERNS = [
-  { pattern: /FlirtCheck('s)? Verified Portal/gi, label: 'Hallucinated "Verified Portal"' },
-  { pattern: /VoiceGuard AI/gi, label: 'Hallucinated "VoiceGuard AI"' },
-  { pattern: /VisionScout/gi, label: 'Hallucinated "VisionScout"' },
-  { pattern: /Sensity AI/gi, label: 'Hallucinated commercial API recommendation' },
-  { pattern: /99% detection accuracy/gi, label: 'Synthetic 99% accuracy metric' },
-  { pattern: /98\.4%/gi, label: 'Synthetic 98.4% metric' },
-  { pattern: /AI-Shield \(2026\)/gi, label: 'Hallucinated Hinge AI-Shield feature' },
-  { pattern: /30-секундный радар/gi, label: 'Synthetic radar reference' }
-];
+console.log(`Auditing ${files.length} posts with ArticleQualityGate...\n`);
 
-const EMOJI_PATTERN = /[\u{1F300}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}]/u;
-
-console.log(`Auditing ${files.length} posts for synthetic hallucination markers & noisy emojis...\n`);
-
-let syntheticCount = 0;
-let emojiCount = 0;
+let passedCount = 0;
+let issueCount = 0;
 
 for (const file of files) {
   const filePath = path.join(postsDir, file);
   const content = fs.readFileSync(filePath, 'utf-8');
 
-  const detectedSynthetic: string[] = [];
-  for (const { pattern, label } of SYNTHETIC_PATTERNS) {
-    if (pattern.test(content)) {
-      detectedSynthetic.push(label);
-    }
-  }
+  const report = qualityGate.validate(content);
 
-  const hasEmojis = EMOJI_PATTERN.test(content);
-
-  if (detectedSynthetic.length > 0) {
-    syntheticCount++;
-    console.log(`❌ SYNTHETIC DETECTED in ${file}:`);
-    detectedSynthetic.forEach(d => console.log(`   - ${d}`));
-  }
-
-  if (hasEmojis) {
-    emojiCount++;
+  if (!report.isValid || report.violations.length > 0) {
+    issueCount++;
+    console.log(`❌ ISSUES in ${file} (Score: ${report.score}/100, Words: ${report.wordCount}):`);
+    report.violations.forEach(v => console.log(`   - 🚫 Violation: ${v}`));
+    report.warnings.forEach(w => console.log(`   - ⚠️ Warning: ${w}`));
+  } else {
+    passedCount++;
   }
 }
 
-console.log(`\nSummary:`);
-console.log(`Total Posts: ${files.length}`);
-console.log(`Posts with Synthetic Hallucinations: ${syntheticCount}`);
-console.log(`Posts with Noisy Emojis: ${emojiCount}`);
+console.log(`\n========================================`);
+console.log(`Quality Gate Audit Summary:`);
+console.log(`Total Posts Audited: ${files.length}`);
+console.log(`Compliant Posts:     ${passedCount}/${files.length}`);
+console.log(`Posts with Issues:   ${issueCount}/${files.length}`);
+console.log(`========================================`);
+

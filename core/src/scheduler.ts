@@ -12,6 +12,7 @@ export interface CoreSchedulerOptions {
   redditIntervalMs?: number;
   dripIntervalMs?: number;
   quoraIntervalMs?: number;
+  blogIntervalMs?: number;
 }
 
 export class CoreScheduler {
@@ -19,16 +20,21 @@ export class CoreScheduler {
   private redditIntervalMs: number;
   private dripIntervalMs: number;
   private quoraIntervalMs: number;
+  private blogIntervalMs: number;
   private redditTimer: NodeJS.Timeout | null = null;
   private dripTimer: NodeJS.Timeout | null = null;
   private quoraTimer: NodeJS.Timeout | null = null;
+  private blogTimer: NodeJS.Timeout | null = null;
   private isRunning: boolean = false;
+  private isBlogGenerating: boolean = false;
   private lastRedditRunAt: number = 0;
   private lastDripRunAt: number = 0;
   private lastQuoraRunAt: number = 0;
+  private lastBlogRunAt: number = 0;
   private redditRunCount: number = 0;
   private dripRunCount: number = 0;
   private quoraRunCount: number = 0;
+  private blogRunCount: number = 0;
 
   private constructor(options: CoreSchedulerOptions = {}) {
     // 15 minutes by default: 15 * 60 * 1000 ms
@@ -37,6 +43,9 @@ export class CoreScheduler {
     this.dripIntervalMs = options.dripIntervalMs || 10 * 60 * 1000;
     // 30 minutes by default: 30 * 60 * 1000 ms
     this.quoraIntervalMs = options.quoraIntervalMs || 30 * 60 * 1000;
+    // 24 hours by default: 24 * 60 * 60 * 1000 ms
+    const envBlogHours = parseFloat(process.env.AUTO_BLOG_INTERVAL_HOURS || '24');
+    this.blogIntervalMs = options.blogIntervalMs || (isNaN(envBlogHours) ? 24 : envBlogHours) * 60 * 60 * 1000;
   }
 
   public static getInstance(options?: CoreSchedulerOptions): CoreScheduler {
@@ -105,6 +114,17 @@ export class CoreScheduler {
         console.error('[CoreScheduler] Periodic Quora Run Error:', err);
       });
     }, this.quoraIntervalMs);
+
+    // Periodic blog auto-generation (enabled if AUTO_BLOG_PUBLISH_ENABLED=true)
+    const isAutoBlogEnabled = process.env.AUTO_BLOG_PUBLISH_ENABLED === 'true' || process.env.AUTO_BLOG_PUBLISH_ENABLED === '1';
+    if (isAutoBlogEnabled) {
+      console.log(`[CoreScheduler] Auto-Blog generation active: interval is ${Math.round(this.blogIntervalMs / 3600000)}h.`);
+      this.blogTimer = setInterval(() => {
+        this.triggerBlogGeneration(1).catch((err) => {
+          console.error('[CoreScheduler] Periodic Blog Generation Error:', err);
+        });
+      }, this.blogIntervalMs);
+    }
   }
 
   public async triggerRedditScout(): Promise<{ scanned: number; matched: number; alerted: number }> {
@@ -128,6 +148,30 @@ export class CoreScheduler {
     return await worker.runCycle();
   }
 
+  public async triggerBlogGeneration(count = 1): Promise<any> {
+    if (this.isBlogGenerating) {
+      console.warn('[CoreScheduler] Blog generation already in progress, skipping trigger.');
+      return { skipped: true, reason: 'Already running' };
+    }
+
+    this.isBlogGenerating = true;
+    this.lastBlogRunAt = Date.now();
+    this.blogRunCount++;
+
+    try {
+      const { autoPublisherService } = await import('./services/autoPublisher.service.js');
+      console.log(`\n📰 [CoreScheduler] Triggering autonomous blog generation (count: ${count})...`);
+      const result = await autoPublisherService.publishBatch({ count });
+      console.log(`✅ [CoreScheduler] Autonomous blog generation completed: ${result.publishedItems.length} article(s) published.`);
+      return result;
+    } catch (err: any) {
+      console.error('❌ [CoreScheduler] Autonomous blog generation error:', err.message);
+      throw err;
+    } finally {
+      this.isBlogGenerating = false;
+    }
+  }
+
   public stop(): void {
     if (this.redditTimer) {
       clearInterval(this.redditTimer);
@@ -141,27 +185,39 @@ export class CoreScheduler {
       clearInterval(this.quoraTimer);
       this.quoraTimer = null;
     }
+    if (this.blogTimer) {
+      clearInterval(this.blogTimer);
+      this.blogTimer = null;
+    }
     this.isRunning = false;
     console.log(`\x1b[33m[CoreScheduler] Core scheduler stopped.\x1b[0m`);
   }
 
   public getStatus(): {
     isRunning: boolean;
+    isBlogGenerating: boolean;
     redditIntervalMinutes: number;
     dripIntervalMinutes: number;
+    blogIntervalMinutes: number;
     lastRedditRunAt: number;
     lastDripRunAt: number;
+    lastBlogRunAt: number;
     redditRunCount: number;
     dripRunCount: number;
+    blogRunCount: number;
   } {
     return {
       isRunning: this.isRunning,
+      isBlogGenerating: this.isBlogGenerating,
       redditIntervalMinutes: Math.round(this.redditIntervalMs / 60000),
       dripIntervalMinutes: Math.round(this.dripIntervalMs / 60000),
+      blogIntervalMinutes: Math.round(this.blogIntervalMs / 60000),
       lastRedditRunAt: this.lastRedditRunAt,
       lastDripRunAt: this.lastDripRunAt,
+      lastBlogRunAt: this.lastBlogRunAt,
       redditRunCount: this.redditRunCount,
       dripRunCount: this.dripRunCount,
+      blogRunCount: this.blogRunCount,
     };
   }
 }

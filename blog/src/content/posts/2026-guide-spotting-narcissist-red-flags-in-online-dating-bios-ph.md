@@ -1,26 +1,12 @@
 ---
-title: '2026 Guide: Spotting Narcissist Red Flags in Online Dating Bios & Photos'
-description: >-
-  Discover expert tactics on narcissist red flags online dating bios.
-  Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-06-15'
-category: modern-psychology
-caseId: FC-271-PSY
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: ELEVATED
-tags:
-  - Safety
-  - Dating Advice
-  - Verification
-seoKeywords:
-  - '2026 Guide: Spotting Narcissist Red Flags in Online Dating Bios & Photos'
-canonicalUrl: >-
-  https://flirtcheck.site/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph/
-image: >-
-  /images/posts/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph.webp
-coverImage: >-
-  /images/posts/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph.webp
+title: "2026 Guide: Spotting Narcissist Red Flags in Online Dating Bios & Photos"
+description: ">-"
+pubDate: "2026-06-15"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: ["2026 Guide: Spotting Narcissist Red Flags in Online Dating Bios & Photos"]
+canonicalUrl: "https://flirtcheck.site/blog/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph/"
+coverImage: "/images/blog/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph-cover.webp"
 draft: false
 ---
 
@@ -41,7 +27,7 @@ Over a third of profiles on the major apps still lack any form of verification. 
 
 ---
 
-## 1️⃣ Language Loopholes – How Narcissists Script Their Bios  
+## 1⃣ Language Loopholes – How Narcissists Script Their Bios
 
 ### Red‑Flag Phrases  
 
@@ -68,7 +54,7 @@ Over a third of profiles on the major apps still lack any form of verification. 
 
 ---
 
-## 2️⃣ Photo Puzzles – Visual Cues of Covert Narcissism  
+## 2⃣ Photo Puzzles – Visual Cues of Covert Narcissism
 
 ### Common Tactics  
 
@@ -95,7 +81,7 @@ Over a third of profiles on the major apps still lack any form of verification. 
 
 ---
 
-## 3️⃣ Interaction Traps – Love‑Bombing & Toxic Dater Signals  
+## 3⃣ Interaction Traps – Love‑Bombing & Toxic Dater Signals
 
 ### Early‑Chat Red Flags  
 
@@ -123,7 +109,7 @@ Over a third of profiles on the major apps still lack any form of verification. 
 
 ---
 
-## 4️⃣ Verifying Authenticity – Leverage FlirtCheck’s Trusted Tools  
+## 4⃣ Verifying Authenticity – Leverage FlirtCheck’s Trusted Tools
 
 1. **Run the profile through the FlirtCheck Forensic Archive** – our AI cross‑checks bios, photo metadata, and public records (think of it as a deep packet inspection).  
 2. **Scan the /r/dating thread** for community‑submitted alerts on the same username.  
@@ -149,7 +135,7 @@ Over a third of profiles on the major apps still lack any form of verification. 
 
 ---
 
-## Frequently Asked Questions  
+## Frequently Asked Questions
 
 **Q: How can I tell a confident person from a covert narcissist in a bio?**  
 A: Confidence is backed by concrete achievements and a modest packet header (“I led a team of 10”). Covert narcissists flood the bio with vague superlatives (“I’m the best”) and drop the payload.
@@ -165,7 +151,7 @@ A: Genuine affection builds like a TCP connection – slowly, with retransmissio
 
 ---
 
-## Schema.org FAQPage (JSON‑LD)  
+## Frequently Asked Questions
 
 ```json
 {

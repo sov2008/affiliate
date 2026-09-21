@@ -1,34 +1,12 @@
 ---
-title: >-
-  The Dating App Burnout: Why Singles Are Fleeing Algorithms for Unscripted
-  Reality
-description: >-
-  An essay on algorithmic exhaustion: how gamified courtships turned dates into
-  job interviews and sparked a cultural exodus back to organic chemistry.
-pubDate: '2026-08-23'
-category: modern-psychology
-caseId: FC-113-PSY
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: ELEVATED
-tags:
-  - Modern Psychology
-  - Swipe Burnout
-  - Dating Fatigue
-  - Offline Connection
-  - Unscripted Dating
-seoKeywords:
-  - dating app burnout 2026
-  - swipe fatigue psychology
-  - leaving tinder for real life
-  - dating app exodus
-  - offline courtship resurgence
-image: >-
-  /images/posts/the-dating-app-burnout-why-singles-are-fleeing-to-unscripted-reality.webp
-readingTime: 6
-hook: >-
-  Love is... stepping outside the sterile glass screen into the messy,
-  unscripted rain.
+title: ">-"
+description: ">-"
+pubDate: "2026-08-23"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: [">-"]
+canonicalUrl: "https://flirtcheck.site/blog//"
+coverImage: "/images/blog/-cover.webp"
 draft: false
 ---
 

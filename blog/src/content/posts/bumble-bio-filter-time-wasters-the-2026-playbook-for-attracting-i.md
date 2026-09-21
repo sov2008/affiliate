@@ -1,30 +1,12 @@
 ---
-title: >-
-  Bumble Bio Filter Time Wasters: The 2026 Playbook for Attracting Intentional
-  Partners
-description: >-
-  Discover expert tactics on bumble bio filter time wasters. Comprehensive 2026
-  dating safety and profile verification guide.
-pubDate: '2026-07-02'
-category: modern-psychology
-caseId: FC-708-PSY
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: ELEVATED
-tags:
-  - Safety
-  - Dating Advice
-  - Verification
-seoKeywords:
-  - >-
-    Bumble Bio Filter Time Wasters: The 2026 Playbook for Attracting Intentional
-    Partners
-canonicalUrl: >-
-  https://flirtcheck.site/bumble-bio-filter-time-wasters-the-2026-playbook-for-attracting-i/
-image: >-
-  /images/posts/bumble-bio-filter-time-wasters-the-2026-playbook-for-attracting-i.webp
-coverImage: >-
-  /images/posts/bumble-bio-filter-time-wasters-the-2026-playbook-for-attracting-i.webp
+title: ">-"
+description: ">-"
+pubDate: "2026-07-02"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: [">-"]
+canonicalUrl: "https://flirtcheck.site/blog//"
+coverImage: "/images/blog/-cover.webp"
 draft: false
 ---
 

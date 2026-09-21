@@ -1,26 +1,12 @@
 ---
-title: 'How to Stay Safe, Spot Scams, and Optimize Your Dating Profile in 2026'
-description: >-
-  Discover expert tactics on high status hobbies dating profile photos.
-  Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-07-25'
-category: first-dates
-caseId: FC-848-OPS
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: MODERATE
-tags:
-  - Safety
-  - Dating Advice
-  - Verification
-seoKeywords:
-  - 'How to Stay Safe, Spot Scams, and Optimize Your Dating Profile in 2026'
-canonicalUrl: >-
-  https://flirtcheck.site/how-to-stay-safe-spot-scams-and-optimize-your-dating-profile-in-2/
-image: >-
-  /images/posts/how-to-stay-safe-spot-scams-and-optimize-your-dating-profile-in-2.webp
-coverImage: >-
-  /images/posts/how-to-stay-safe-spot-scams-and-optimize-your-dating-profile-in-2.webp
+title: "How to Stay Safe, Spot Scams, and Optimize Your Dating Profile in 2026"
+description: ">-"
+pubDate: "2026-07-25"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: ["How to Stay Safe, Spot Scams, and Optimize Your Dating Profile in 2026"]
+canonicalUrl: "https://flirtcheck.site/blog/how-to-stay-safe-spot-scams-and-optimize-your-dating-profile-in-2/"
+coverImage: "/images/blog/how-to-stay-safe-spot-scams-and-optimize-your-dating-profile-in-2-cover.webp"
 draft: false
 ---
 
@@ -35,7 +21,7 @@ draft: false
 
 ---
 
-## 1️⃣ Verify & Filter: The 3‑Point Trust Test  
+## 1⃣ Verify & Filter: The 3‑Point Trust Test
 
 | Step | Action | Example in Conversation |
 |------|--------|--------------------------|
@@ -47,7 +33,7 @@ draft: false
 
 ---
 
-## 2️⃣ Scam‑Proof Messaging: Red‑Flag Scripts  
+## 2⃣ Scam‑Proof Messaging: Red‑Flag Scripts
 
 | # | Red‑Flag Pattern | Typical Line | Response Routine |
 |---|------------------|--------------|------------------|
@@ -59,7 +45,7 @@ draft: false
 
 ---
 
-## 3️⃣ Profile Psychology: 4 Proven Optimisation Hacks  
+## 3⃣ Profile Psychology: 4 Proven Optimisation Hacks
 
 | Hack | Why It Works (Behavioural Theory) | Actionable Example |
 |------|-----------------------------------|--------------------|
@@ -73,7 +59,7 @@ draft: false
 
 ---
 
-## 4️⃣ First‑Date Safety Protocol (FDS‑P)  
+## 4⃣ First‑Date Safety Protocol (FDS‑P)
 
 1. **Public Venue Only** – coffee shop, busy park, or restaurant with staff on hand.  
 2. **Share Your ETA** – ping a trusted friend with location and expected return time.  

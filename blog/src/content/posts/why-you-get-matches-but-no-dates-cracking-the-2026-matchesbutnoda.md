@@ -1,30 +1,12 @@
 ---
-title: >-
-  Why You Get Matches But No Dates: Cracking the 2026 “Matches‑But‑No‑Dates”
-  Bottleneck on Dating Apps
-description: >-
-  Discover expert tactics on matches but no dates bottleneck dating apps.
-  Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-09-19'
-category: modern-psychology
-caseId: FC-410-PSY
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: ELEVATED
-tags:
-  - Safety
-  - Dating Advice
-  - Verification
-seoKeywords:
-  - >-
-    Why You Get Matches But No Dates: Cracking the 2026 “Matches‑But‑No‑Dates”
-    Bottleneck on Dating Apps
-canonicalUrl: >-
-  https://flirtcheck.site/why-you-get-matches-but-no-dates-cracking-the-2026-matchesbutnoda/
-image: >-
-  /images/posts/why-you-get-matches-but-no-dates-cracking-the-2026-matchesbutnoda.webp
-coverImage: >-
-  /images/posts/why-you-get-matches-but-no-dates-cracking-the-2026-matchesbutnoda.webp
+title: ">-"
+description: ">-"
+pubDate: "2026-09-19"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: [">-"]
+canonicalUrl: "https://flirtcheck.site/blog//"
+coverImage: "/images/blog/-cover.webp"
 draft: false
 ---
 

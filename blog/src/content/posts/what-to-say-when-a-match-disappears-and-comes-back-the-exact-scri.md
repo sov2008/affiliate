@@ -1,26 +1,12 @@
 ---
-title: 'What to Say When a Match Disappears and Comes Back: The Exact Script'
-description: >-
-  Discover expert tactics on what to say after match disappears. Comprehensive
-  2026 dating safety and profile verification guide.
-pubDate: '2026-09-16'
-category: modern-psychology
-caseId: FC-590-PSY
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: ELEVATED
-tags:
-  - Safety
-  - Dating Advice
-  - Verification
-seoKeywords:
-  - 'What to Say When a Match Disappears and Comes Back: The Exact Script'
-canonicalUrl: >-
-  https://flirtcheck.site/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri/
-image: >-
-  /images/posts/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri.webp
-coverImage: >-
-  /images/posts/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri.webp
+title: "What to Say When a Match Disappears and Comes Back: The Exact Script"
+description: ">-"
+pubDate: "2026-09-16"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: ["What to Say When a Match Disappears and Comes Back: The Exact Script"]
+canonicalUrl: "https://flirtcheck.site/blog/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri/"
+coverImage: "/images/blog/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri-cover.webp"
 draft: false
 ---
 
@@ -103,7 +89,7 @@ While the scripts above work on any dating app, verified environments dramatical
 Pro tip: when a match returns, suggest moving the conversation to a verified platform:
 > “Hey, I'm glad we're reconnecting! Want to continue on FlirtCheck Forensic Archive? It's super safe and we can share pics without the mystery.”
 
-## Frequently Asked Questions (FAQ)
+## Frequently Asked Questions
 
 Q: What should I say after a match disappears for a week and then returns?
 A: Use the three-step script: acknowledge the gap with a light comment, add humor, then pivot to a fresh, profile-based question. Example: “Hey Alex! I just saw your message pop up again—must be the app’s time warp! 😂 How’ve you been? I saw you love hiking—any trail recommendations?”
@@ -121,4 +107,4 @@ A: Try game-style prompts (Two-Truths-and-a-Lie), travel-teleport questions, or 
 
 When a match disappears and resurfaces, don't panic—use a proven script, sprinkle in a witty icebreaker, and verify before you invest emotionally. By following the steps above, you'll turn a “zombie” back into a lively conversation and keep your dating life safe.
 
-Happy re-engaging! 
+Happy re-engaging!

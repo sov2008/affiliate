@@ -1,30 +1,12 @@
 ---
-title: >-
-  7 **Crypto Romance Scam Red Flags** That Steal Millions From Singles (2026
-  Edition)
-description: >-
-  Discover expert tactics on crypto romance scam red flags. Comprehensive 2026
-  dating safety and profile verification guide.
-pubDate: '2026-06-27'
-category: safety-dossier
-caseId: FC-916-SEC
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: CRITICAL
-tags:
-  - Safety
-  - Dating Advice
-  - Verification
-seoKeywords:
-  - >-
-    7 **Crypto Romance Scam Red Flags** That Steal Millions From Singles (2026
-    Edition)
-canonicalUrl: >-
-  https://flirtcheck.site/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-/
-image: >-
-  /images/posts/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-.webp
-coverImage: >-
-  /images/posts/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-.webp
+title: ">-"
+description: ">-"
+pubDate: "2026-06-27"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: [">-"]
+canonicalUrl: "https://flirtcheck.site/blog//"
+coverImage: "/images/blog/-cover.webp"
 draft: false
 ---
 
@@ -42,7 +24,7 @@ A swipe left on a profile that never existed feels a bit like a 404 on a love‑
 
 ---
 
-## 1️⃣ The Sweet Talk – Trust‑Building Scripts  
+## 1⃣ The Sweet Talk – Trust‑Building Scripts
 
 ### Red Flag #1 – Over‑Polished Romance Scripts  
 
@@ -64,7 +46,7 @@ A vague answer is a SYN‑drop – terminate the session.
 
 ---
 
-## 2️⃣ Money Moves – Crypto Requests  
+## 2⃣ Money Moves – Crypto Requests
 
 ### Red Flag #2 – “Investment” Pitch With Urgency  
 
@@ -85,7 +67,7 @@ If the counterpart aborts the handshake or raises the error flag, drop the conne
 
 ---
 
-## 3️⃣ Platform Paranoia – Sudden Channel Switch  
+## 3⃣ Platform Paranoia – Sudden Channel Switch
 
 ### Red Flag #3 – Immediate Move to Private Messengers  
 
@@ -105,7 +87,7 @@ An immediate channel migration is a classic port‑scan attempt – treat it as 
 
 ---
 
-## 4️⃣ Profile Forensics – Fake Identities  
+## 4⃣ Profile Forensics – Fake Identities
 
 ### Red Flag #4 – Stock Photos & Reverse‑Image Hits  
 
@@ -123,7 +105,7 @@ Evasive replies merit a report to the platform’s abuse team.
 
 ---
 
-## 5️⃣ Emotional Manipulation – The “Emergency” Play  
+## 5⃣ Emotional Manipulation – The “Emergency” Play
 
 ### Red Flag #5 – Crying Over a “Medical” or “Legal” Crisis  
 
@@ -141,7 +123,7 @@ No paperwork? Close the socket.
 
 ---
 
-## 6️⃣ Technical Jargon Overload  
+## 6⃣ Technical Jargon Overload
 
 ### Red Flag #6 – Excessive Crypto Buzzwords  
 
@@ -159,7 +141,7 @@ If the peer can’t produce a valid reference, the connection is compromised.
 
 ---
 
-## 7️⃣ “Verified” Badges That Are Fake  
+## 7⃣ “Verified” Badges That Are Fake
 
 ### Red Flag #7 – Self‑Declared Verification  
 
@@ -204,7 +186,7 @@ Even with the above filters, the safest route is a platform that performs its ow
 
 ---
 
-## FAQ (Machine‑Readable)  
+## Frequently Asked Questions
 
 ```json
 {

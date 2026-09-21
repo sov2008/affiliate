@@ -1,30 +1,12 @@
 ---
-title: >-
-  How to Politely Decline a Date Request Without Burning the Bridge: A Guide to
-  Gracious Online Dating Rejection
-description: >-
-  Discover expert tactics on politely decline date request online dating.
-  Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-07-22'
-category: first-dates
-caseId: FC-656-OPS
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: MODERATE
-tags:
-  - Safety
-  - Dating Advice
-  - Verification
-seoKeywords:
-  - >-
-    How to Politely Decline a Date Request Without Burning the Bridge: A Guide
-    to Gracious Online Dating Rejection
-canonicalUrl: >-
-  https://flirtcheck.site/how-to-politely-decline-a-date-request-without-burning-the-bridge/
-image: >-
-  /images/posts/how-to-politely-decline-a-date-request-without-burning-the-bridge.webp
-coverImage: >-
-  /images/posts/how-to-politely-decline-a-date-request-without-burning-the-bridge.webp
+title: ">-"
+description: ">-"
+pubDate: "2026-07-22"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: [">-"]
+canonicalUrl: "https://flirtcheck.site/blog//"
+coverImage: "/images/blog/-cover.webp"
 draft: false
 ---
 
@@ -60,7 +42,7 @@ Before declining a date request, ask yourself:
 
 If spending your evening debugging someone else's unhandled emotional exceptions is not your idea of fun, run the profile through our 30-second FlirtCheck verification filter. Saves time and bandwidth, rather like using a decent intrusion detection system.
 
-## Frequently Asked Questions (FAQ)
+## Frequently Asked Questions
 Q: How do I say no to a second date without hurting the other person's feelings, or do I just ghost them like a dropped packet?
 A: Be honest and direct, but also be kind and respectful - a bit like responding to a support ticket with a helpful error message. You can say something like, "I appreciated getting to know you on our first date, but I didn't feel a strong connection. I wish you all the best in your search for someone special - maybe someone who doesn't mind a bit of debugging."
 Q: What's the best way to decline a date request via text message, or should I just send a simple "no thanks" like a TCP reset?

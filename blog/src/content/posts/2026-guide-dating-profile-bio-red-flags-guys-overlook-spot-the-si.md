@@ -1,30 +1,12 @@
 ---
-title: >-
-  2026 Guide: Dating Profile Bio Red Flags Guys Overlook – Spot the Silent
-  Deal‑Breakers
-description: >-
-  Discover expert tactics on dating profile bio red flags guys overlook.
-  Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-06-12'
-category: modern-psychology
-caseId: FC-129-PSY
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: ELEVATED
-tags:
-  - Safety
-  - Dating Advice
-  - Verification
-seoKeywords:
-  - >-
-    2026 Guide: Dating Profile Bio Red Flags Guys Overlook – Spot the Silent
-    Deal‑Breakers
-canonicalUrl: >-
-  https://flirtcheck.site/2026-guide-dating-profile-bio-red-flags-guys-overlook-spot-the-si/
-image: >-
-  /images/posts/2026-guide-dating-profile-bio-red-flags-guys-overlook-spot-the-si.webp
-coverImage: >-
-  /images/posts/2026-guide-dating-profile-bio-red-flags-guys-overlook-spot-the-si.webp
+title: ">-"
+description: ">-"
+pubDate: "2026-06-12"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: [">-"]
+canonicalUrl: "https://flirtcheck.site/blog//"
+coverImage: "/images/blog/-cover.webp"
 draft: false
 ---
 

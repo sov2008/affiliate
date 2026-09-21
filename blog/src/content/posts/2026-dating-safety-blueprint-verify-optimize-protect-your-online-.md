@@ -1,28 +1,12 @@
 ---
-title: '2026 Dating Safety Blueprint: Verify, Optimize, & Protect Your Online Romance'
-description: >-
-  Discover expert tactics on bumble first message psychological hooks.
-  Comprehensive 2026 dating safety and profile verification guide.
-pubDate: '2026-06-03'
-category: romantic-essays
-caseId: FC-412-ARC
-classification: PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026
-author: Cheltenham Investigation Desk
-telemetryRisk: MODERATE
-tags:
-  - Safety
-  - Dating Advice
-  - Verification
-seoKeywords:
-  - >-
-    2026 Dating Safety Blueprint: Verify, Optimize, & Protect Your Online
-    Romance
-canonicalUrl: >-
-  https://flirtcheck.site/2026-dating-safety-blueprint-verify-optimize-protect-your-online-/
-image: >-
-  /images/posts/2026-dating-safety-blueprint-verify-optimize-protect-your-online-.webp
-coverImage: >-
-  /images/posts/2026-dating-safety-blueprint-verify-optimize-protect-your-online-.webp
+title: "2026 Dating Safety Blueprint: Verify, Optimize, & Protect Your Online Romance"
+description: ">-"
+pubDate: "2026-06-03"
+author: "Arthur Vance"
+tags: ["Safety","Dating Advice","Verification"]
+seoKeywords: ["2026 Dating Safety Blueprint: Verify, Optimize, & Protect Your Online Romance"]
+canonicalUrl: "https://flirtcheck.site/blog/2026-dating-safety-blueprint-verify-optimize-protect-your-online-/"
+coverImage: "/images/blog/2026-dating-safety-blueprint-verify-optimize-protect-your-online--cover.webp"
 draft: false
 ---
 
@@ -41,7 +25,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 
 ---
 
-## 1️⃣ Profile Optimisation – First‑Impression Magnetism, Syslog‑Style  
+## 1⃣ Profile Optimisation – First‑Impression Magnetism, Syslog‑Style
 
 ### The “3‑2‑1” Bio Formula  
 
@@ -70,7 +54,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 
 ---
 
-## 2️⃣ Scam Prevention – Spotting Red Flags Before the Payload Hits  
+## 2⃣ Scam Prevention – Spotting Red Flags Before the Payload Hits
 
 ### The “Three‑Stage Scam Funnel”  
 
@@ -99,7 +83,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 
 ---
 
-## 3️⃣ Relationship Psychology – From First Message to First Date  
+## 3⃣ Relationship Psychology – From First Message to First Date
 
 ### The “4‑C” Conversation Model  
 
@@ -119,7 +103,7 @@ A third of the faces you swipe past still carry the “unverified” flag. In pr
 
 ---
 
-## 4️⃣ Interactive Verification Checklist / Self‑Audit  
+## 4⃣ Interactive Verification Checklist / Self‑Audit
 
 > **FlirtCheck Self‑Audit: Are You Safe?**  
 
@@ -140,7 +124,7 @@ The defensive tactics above apply across any mainstream dating platform. Before 
 
 ---
 
-## Frequently Asked Questions  
+## Frequently Asked Questions
 
 ```json
 {
