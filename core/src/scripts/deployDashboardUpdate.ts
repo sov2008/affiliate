@@ -23,7 +23,7 @@ async function runDeploy(): Promise<void> {
         'echo "[2/6] Сборка TypeScript и копирование dashboard.html..."',
         'npm --prefix core run build',
         'echo "[3/6] Перезапуск сервисов в PM2..."',
-        'pm2 reload ecosystem.config.js --update-env && pm2 save',
+        'pm2 reload ecosystem.config.cjs --update-env && pm2 save',
         'echo "[4/6] Закрытие публичного порта 5000 в UFW..."',
         'ufw delete allow 5000/tcp 2>/dev/null || true',
         'ufw delete allow 5000 2>/dev/null || true',
