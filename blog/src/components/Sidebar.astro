@@ -48,43 +48,41 @@ const topComments = [
 
 <aside class="w-full lg:w-72 shrink-0 space-y-6 lg:sticky lg:top-24 self-start">
 
-  <!-- WIDGET 1: Arthur Vance Full-Width Author Card -->
-  <div class="bg-white border border-slate-300 rounded-none sm:rounded-sm overflow-hidden">
-    <!-- Full-width author photo -->
-    <div class="w-full aspect-[4/3] overflow-hidden bg-[#F4EFE6]">
+  <!-- WIDGET 1: Arthur Vance Investigator Dossier Card (Identical to Articles) -->
+  <div class="border border-slate-300 bg-white p-4 rounded-none sm:rounded-sm">
+    <span class="font-mono text-[9px] font-bold uppercase tracking-widest text-slate-500 block mb-3">
+      [ INVESTIGATOR DOSSIER ]
+    </span>
+    <div class="flex items-center gap-3 mb-3">
       <img
-        src="/images/author/arthur-vance-desk.webp"
-        alt="Arthur Vance — Lead Forensic Desk, Cheltenham Bureau"
-        class="w-full h-full object-cover object-top"
+        src="/images/author/arthur-vance-avatar.webp"
+        alt="Arthur Vance - Lead Forensic Investigator"
+        class="w-14 h-14 rounded-full border border-slate-300 object-cover shrink-0"
         loading="lazy"
-        width="288"
-        height="216"
+        width="56"
+        height="56"
       />
-    </div>
-    <!-- Author details below photo -->
-    <div class="p-4">
-      <div class="flex items-start justify-between gap-2 pb-3 border-b border-slate-200 mb-3">
-        <div class="min-w-0">
-          <h3 class="font-serif font-bold text-base text-slate-900">
-            <a href="/desk" class="hover:text-rose-700 transition-colors">Arthur Vance</a>
-          </h3>
-          <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mt-0.5">
-            Lead Forensic Desk · Cheltenham Bureau
-          </span>
-        </div>
+      <div class="min-w-0 font-sans">
+        <h4 class="font-serif font-bold text-sm text-slate-900 leading-snug">
+          <a href="/desk" class="hover:text-rose-700 transition-colors">Arthur Vance</a>
+        </h4>
+        <span class="text-[10px] font-mono text-slate-500 block leading-tight mt-0.5">
+          Lead Forensic Desk
+        </span>
+        <span class="text-[10px] font-mono text-slate-500 block mt-0.5">
+          Cheltenham, UK
+        </span>
       </div>
-
-      <p class="text-xs text-slate-600 leading-relaxed font-sans mb-4">
-        Deconstructing algorithmic friction, bot syndicates, and digital deception across dating platforms since 2019.
-      </p>
-
-      <a
-        href="/desk"
-        class="min-h-[44px] w-full flex items-center justify-center text-center px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-xs uppercase rounded-none sm:rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
-      >
-        Bureau Manifesto & Arsenal →
-      </a>
     </div>
+    <p class="text-[11px] text-slate-600 font-sans leading-relaxed mb-3">
+      Arthur Vance investigates commercial matchmaking telemetry, hidden ELO ranking systems, and synthetic fraud funnels. Independent forensic reporter operating under confidential source protocols since 2019.
+    </p>
+    <a
+      href="/desk"
+      class="min-h-[44px] w-full flex items-center justify-center text-center px-3 py-2 bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-mono font-bold text-[10px] uppercase tracking-wider transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+    >
+      View Investigator Dossier ↗
+    </a>
   </div>
 
   <!-- WIDGET 2: Official Bulletin (CPA Smartlink) -->

@@ -64,6 +64,7 @@ function getAuthenticLead(body: string | undefined, desc: string | undefined): s
 const leadText = getAuthenticLead(post.body, post.data.description);
 const postUrl = `${base}/${post.id || post.slug}/`;
 const displayTags = (post.data.tags || []).slice(0, 2);
+const caseId = (postSlug.replace(/[^a-zA-Z0-9]/g, '').slice(-4).toUpperCase() || '2026');
 ---
 
 <article
@@ -79,10 +80,10 @@ const displayTags = (post.data.tags || []).slice(0, 2);
 >
   <!-- Horizontal layout: image left (fixed width) + content right -->
   <div class="flex flex-row">
-    <!-- Image: fixed 40% width on sm+, hidden on very small -->
+    <!-- Image: fixed width on sm+, hidden on mobile -->
     <a
       href={postUrl}
-      class="hidden sm:block shrink-0 w-48 md:w-56 lg:w-64 relative group bg-[#F4EFE6] overflow-hidden"
+      class="hidden sm:block shrink-0 w-48 md:w-56 lg:w-60 relative group bg-[#F4EFE6] overflow-hidden"
       tabindex="-1"
       aria-hidden="true"
     >
@@ -104,8 +105,8 @@ const displayTags = (post.data.tags || []).slice(0, 2);
           <span class="w-1.5 h-1.5 rounded-full bg-slate-800 shrink-0"></span>
           <span class="truncate">[{categoryLabel}]</span>
         </div>
-        <div class="shrink-0 text-slate-500 font-medium">
-          {ledgerDate} · {readingTime} MIN
+        <div class="shrink-0 text-slate-500 font-medium font-mono text-[9px] sm:text-[10px]">
+          CASE FC-{caseId} · {ledgerDate} · {readingTime} MIN READ
         </div>
       </div>
 

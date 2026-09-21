@@ -41,6 +41,16 @@ const featuredPostCover = rawFeaturedCover
   ? (rawFeaturedCover.startsWith('/') ? rawFeaturedCover : `/${rawFeaturedCover}`)
   : `/images/posts/${featuredPost?.id || 'dating-scam-verification-guide-2026'}.webp`;
 
+const featuredPubDate = featuredPost ? new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric'
+}).format(featuredPost.data.pubDate) : '';
+
+const featuredWordCount = featuredPost?.body ? featuredPost.body.split(/\s+/).length : 800;
+const featuredReadingTime = Math.max(3, Math.ceil(featuredWordCount / 200));
+const featuredCaseId = featuredPost ? (featuredPost.id || featuredPost.slug || '2026').replace(/[^a-zA-Z0-9]/g, '').slice(-4).toUpperCase() : '2026';
+
 // Comprehensive Schema.org Structured Data
 const indexSchemas = [
   buildOrganizationSchema(siteUrl),
@@ -64,21 +74,19 @@ const indexSchemas = [
   <link rel="preload" as="image" href={featuredPostCover} fetchpriority="high" type="image/webp" slot="head" />
   
   <!-- Hero Editorial Header: Authentic Journalistic Publication -->
-  <section class="text-center py-6 sm:py-8 mb-4 border-b border-slate-200">
-    <div class="inline-block mb-2">
-      <span class="text-xs font-mono font-bold tracking-widest uppercase text-slate-500">
-        INDEPENDENT FORENSIC DESK // DATING SECURITY & ALGORITHMS
-      </span>
+  <section class="text-center py-6 sm:py-10 mb-4 border-b border-slate-200">
+    <div class="inline-flex items-center gap-2 border border-slate-300 bg-white px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-slate-600 mb-3">
+      <span class="w-2 h-2 rounded-full bg-rose-600 animate-pulse"></span>
+      CHELTENHAM DESK // DISPATCH REGISTER &middot; 2026 EDITION
     </div>
 
     <!-- Main H1 Header -->
-    <!-- Main H1 Header -->
-    <h1 class="font-bold text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight font-sans leading-tight mt-1 mb-3">
+    <h1 class="font-serif font-black text-3xl sm:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-[1.12] mt-2 mb-4">
       Modern Dating Chronicles: From Algorithms to Human Chemistry
     </h1>
 
-    <p class="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-sans mb-6">
-      Investigating the collision of commercial matchmaking black-boxes, synthetic persona swarms, and authentic human interaction. Empirical reports, heuristic teardowns, and safety telemetry.
+    <p class="text-slate-700 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-sans mb-6">
+      Independent forensic investigations into commercial matchmaking algorithms, synthetic persona swarms, and digital romance fraud. Empirical reports, heuristic audits, and verified safety telemetry.
     </p>
 
     <!-- Category Filter Navigation Bar (Strict Underline Tabs) -->
@@ -147,7 +155,7 @@ const indexSchemas = [
           </a>
           <div class="mt-2.5 text-center sm:text-left">
             <span class="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-500">
-              EXHIBIT // PRIMARY FIELD EVIDENCE · CHELTENHAM DESK
+              FIG 1.0 // PRIMARY FIELD EVIDENCE · CHELTENHAM ARCHIVE · CASE FC-{featuredCaseId}
             </span>
           </div>
         </div>
@@ -155,42 +163,52 @@ const indexSchemas = [
         <!-- Right Column: 5 cols -->
         <div class="lg:col-span-5 flex flex-col justify-between">
           <div>
-            <div class="mb-2.5">
+            <div class="flex items-center justify-between gap-2 mb-2.5">
               <span class="text-rose-700 font-mono text-xs font-bold tracking-widest uppercase">
                 [LEAD INVESTIGATION // PRIORITY DISPATCH]
               </span>
+              <span class="text-slate-500 font-mono text-[11px] font-medium">
+                {featuredPubDate}
+              </span>
             </div>
 
-            <h2 class="font-serif font-bold text-2xl sm:text-3xl text-slate-900 leading-tight mb-4 hover:text-rose-700 transition-colors">
+            <h2 class="font-serif font-black text-2xl sm:text-3xl text-slate-900 leading-tight mb-3 hover:text-rose-700 transition-colors">
               <a href={`${base}/${featuredPost.id || featuredPost.slug}/`}>
                 {featuredPost.data.title}
               </a>
             </h2>
 
+            <p class="text-slate-600 text-xs sm:text-sm font-sans leading-relaxed mb-4 line-clamp-3">
+              {featuredPost.data.description}
+            </p>
+
             <!-- Key Findings: 3 Monospace items with dashes -->
             <div class="bg-[#FAF7F2] border border-slate-200 rounded-none sm:rounded-sm p-3.5 mb-5 font-mono text-xs text-slate-700 space-y-2">
               <div class="flex items-start gap-2">
-                <span class="text-slate-500 font-bold select-none shrink-0">-</span>
+                <span class="text-slate-500 font-bold select-none shrink-0">—</span>
                 <span>Algorithmic bias & covert telemetry mapped across active matching pools.</span>
               </div>
               <div class="flex items-start gap-2">
-                <span class="text-slate-500 font-bold select-none shrink-0">-</span>
+                <span class="text-slate-500 font-bold select-none shrink-0">—</span>
                 <span>Synthetic profile signatures and adversarial chat loops identified.</span>
               </div>
               <div class="flex items-start gap-2">
-                <span class="text-slate-500 font-bold select-none shrink-0">-</span>
+                <span class="text-slate-500 font-bold select-none shrink-0">—</span>
                 <span>Countermeasure verification protocol validated by Cheltenham Desk.</span>
               </div>
             </div>
           </div>
 
-          <div class="pt-2">
+          <div class="pt-2 flex items-center justify-between gap-4">
             <a
               href={`${base}/${featuredPost.id || featuredPost.slug}/`}
               class="inline-flex items-center justify-center min-h-[44px] bg-slate-900 text-white font-mono text-xs font-bold px-5 py-2.5 rounded hover:bg-slate-800 transition-colors shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
             >
-              READ FULL INVESTIGATION ↗
+              EXAMINE FULL DOSSIER ↗
             </a>
+            <span class="font-mono text-[11px] text-slate-500">
+              {featuredReadingTime} MIN READ
+            </span>
           </div>
         </div>
       </article>
@@ -334,18 +352,32 @@ const indexSchemas = [
       }
       paginationContainer.classList.remove('hidden');
 
-      // Page buttons: 1, 2, ...
+      // Prev Page button
+      if (page > 1) {
+        const prevBtn = document.createElement('button');
+        prevBtn.type = 'button';
+        prevBtn.innerHTML = '&larr; Prev';
+        prevBtn.className = 'px-3 py-2 min-h-[44px] border border-slate-300 font-mono font-bold text-xs bg-white text-slate-800 hover:bg-slate-50 transition-colors cursor-pointer';
+        prevBtn.addEventListener('click', () => {
+          currentPage--;
+          syncUrlState(false);
+          updateFeedDisplay(true);
+        });
+        paginationContainer.appendChild(prevBtn);
+      }
+
+      // Numbered Page buttons: 01, 02, ...
       for (let p = 1; p <= totalPages; p++) {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.textContent = `Page ${p}`;
+        btn.textContent = String(p).padStart(2, '0');
         btn.setAttribute('data-page', String(p));
         
         const isCurrent = p === page;
-        btn.className = `px-3.5 py-2 min-h-[44px] rounded border text-xs font-mono font-bold transition-all cursor-pointer ${
+        btn.className = `px-3.5 py-2 min-h-[44px] border text-xs font-mono font-bold transition-colors cursor-pointer ${
           isCurrent 
-            ? 'bg-slate-900 text-white border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]' 
-            : 'bg-[#FFFDF9] text-slate-800 border-slate-900 hover:bg-[#FAF7F2] shadow-[1px_1px_0px_0px_#0f172a]'
+            ? 'bg-slate-900 text-white border-slate-900' 
+            : 'bg-white text-slate-800 border-slate-300 hover:bg-slate-50'
         }`;
 
         btn.addEventListener('click', () => {
@@ -361,8 +393,8 @@ const indexSchemas = [
       if (page < totalPages) {
         const nextBtn = document.createElement('button');
         nextBtn.type = 'button';
-        nextBtn.innerHTML = 'Next Page &rarr;';
-        nextBtn.className = 'px-3.5 py-2 min-h-[44px] rounded border border-slate-900 font-mono font-bold text-xs bg-slate-900 text-white shadow-[2px_2px_0px_0px_#0f172a] hover:bg-slate-800 transition-all cursor-pointer';
+        nextBtn.innerHTML = 'Next &rarr;';
+        nextBtn.className = 'px-3 py-2 min-h-[44px] border border-slate-300 font-mono font-bold text-xs bg-white text-slate-800 hover:bg-slate-50 transition-colors cursor-pointer';
         nextBtn.addEventListener('click', () => {
           currentPage++;
           syncUrlState(false);

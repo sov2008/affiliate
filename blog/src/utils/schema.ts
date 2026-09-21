@@ -167,7 +167,7 @@ export function buildAuthorProfileSchema(siteUrl = 'https://flirtcheck.site') {
       worksFor: {
         '@id': `${siteUrl}/#organization`
       },
-      image: `${siteUrl}/images/author/arthur-vance-desk.webp`,
+      image: `${siteUrl}/images/author/arthur-vance-avatar.webp`,
       url: `${siteUrl}/desk`,
       address: {
         '@type': 'PostalAddress',
