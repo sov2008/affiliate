@@ -5,7 +5,7 @@ module.exports = {
     {
       name: 'scout-reddit-worker',
       cwd: path.resolve(__dirname, 'core'),
-      script: './node_modules/tsx/dist/cli.mjs',
+      script: path.resolve(__dirname, 'node_modules/tsx/dist/cli.mjs'),
       args: 'src/runners/scoutRedditDaemon.ts',
       instances: 1,
       exec_mode: 'fork',
@@ -28,7 +28,7 @@ module.exports = {
     {
       name: 'reddit-session-watchdog',
       cwd: path.resolve(__dirname, 'core'),
-      script: './node_modules/tsx/dist/cli.mjs',
+      script: path.resolve(__dirname, 'node_modules/tsx/dist/cli.mjs'),
       args: 'src/scripts/redditSessionWatchdog.ts',
       instances: 1,
       exec_mode: 'fork',
