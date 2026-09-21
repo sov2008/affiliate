@@ -1,15 +1,17 @@
 ---
 title: "2026 Dating Safety Playbook: Verify, Optimize, and Protect Your Online Romance"
-description: ">-"
+description: "Discover expert tactics on micro flirting texting attraction psychology. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-06-09"
 category: "romantic-essays"
-caseId: "FC-981-ESS"
+caseId: "FC-742-ARC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "MODERATE"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["2026 Dating Safety Playbook: Verify, Optimize, and Protect Your Online Romance"]
 canonicalUrl: "https://flirtcheck.site/blog/2026-dating-safety-playbook-verify-optimize-and-protect-your-onli/"
-coverImage: "/images/blog/2026-dating-safety-playbook-verify-optimize-and-protect-your-onli-cover.webp"
+coverImage: "/images/posts/2026-dating-safety-playbook-verify-optimize-and-protect-your-onli.webp"
+image: "/images/posts/2026-dating-safety-playbook-verify-optimize-and-protect-your-onli.webp"
 draft: false
 ---
 

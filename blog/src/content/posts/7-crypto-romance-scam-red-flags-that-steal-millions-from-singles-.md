@@ -1,15 +1,17 @@
 ---
-title: ">-"
-description: ">-"
+title: "7 **Crypto Romance Scam Red Flags** That Steal Millions From Singles (2026 Edition)"
+description: "Discover expert tactics on crypto romance scam red flags. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-06-27"
 category: "safety-dossier"
-caseId: "FC-717-DOS"
+caseId: "FC-916-SEC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "CRITICAL"
 tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: [">-"]
-canonicalUrl: "https://flirtcheck.site/blog//"
-coverImage: "/images/blog/-cover.webp"
+seoKeywords: ["7 **Crypto Romance Scam Red Flags** That Steal Millions From Singles (2026 Edition)"]
+canonicalUrl: "https://flirtcheck.site/blog/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-/"
+coverImage: "/images/posts/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-.webp"
+image: "/images/posts/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-.webp"
 draft: false
 ---
 

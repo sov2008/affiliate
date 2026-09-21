@@ -1,15 +1,17 @@
 ---
-title: ">-"
-description: ">-"
+title: "AI Catfishing on Hinge: How to Spot Deepfake Photos & Protect Your Heart (and Wallet) in 2026"
+description: "Discover expert tactics on ai catfishing hinge deepfake photos. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-06-30"
 category: "safety-dossier"
-caseId: "FC-195-DOS"
+caseId: "FC-446-SEC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "CRITICAL"
 tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: [">-"]
-canonicalUrl: "https://flirtcheck.site/blog//"
-coverImage: "/images/blog/-cover.webp"
+seoKeywords: ["AI Catfishing on Hinge: How to Spot Deepfake Photos & Protect Your Heart (and Wallet) in 2026"]
+canonicalUrl: "https://flirtcheck.site/blog/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h/"
+coverImage: "/images/posts/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h.webp"
+image: "/images/posts/ai-catfishing-on-hinge-how-to-spot-deepfake-photos-protect-your-h.webp"
 draft: false
 ---
 

@@ -1,15 +1,17 @@
 ---
 title: "Voice Phishing on Tinder: Why Sending Audio Notes Has Become a Trap"
-description: ">-"
+description: "How a harmless 10-second voice note on dating apps can be weaponized into biometric voice cloning for banking fraud and emergency scams in 2026."
 pubDate: "2026-09-10"
 category: "digital-dialogue"
-caseId: "FC-860-TXT"
+caseId: "FC-381-NET"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
-tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: ["Voice Phishing on Tinder: Why Sending Audio Notes Has Become a Trap"]
-canonicalUrl: "https://flirtcheck.site/blog/voice-phishing-on-tinder-why-sending-audio-notes-has-become-a-tra/"
-coverImage: "/images/blog/voice-phishing-on-tinder-why-sending-audio-notes-has-become-a-tra-cover.webp"
+telemetryRisk: "ELEVATED"
+tags: ["Voice Phishing","Deepfakes","Safety","Online Dating"]
+seoKeywords: ["voice cloning tinder","audio note dating scam","vishing dating apps","voice biometric spoofing"]
+canonicalUrl: "https://flirtcheck.site/blog/voice-phishing-on-tinder-audio-notes-trap/"
+coverImage: "/images/posts/voice-phishing-on-tinder-audio-notes-trap.webp"
+image: "/images/posts/voice-phishing-on-tinder-audio-notes-trap.webp"
 draft: false
 ---
 

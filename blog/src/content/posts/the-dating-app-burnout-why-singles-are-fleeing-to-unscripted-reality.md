@@ -1,15 +1,17 @@
 ---
-title: ">-"
-description: ">-"
+title: "The Dating App Burnout: Why Singles Are Fleeing Algorithms for Unscripted Reality"
+description: "An essay on algorithmic exhaustion: how gamified courtships turned dates into job interviews and sparked a cultural exodus back to organic chemistry."
 pubDate: "2026-08-23"
 category: "modern-psychology"
-caseId: "FC-138-PSY"
+caseId: "FC-113-PSY"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
-tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: [">-"]
-canonicalUrl: "https://flirtcheck.site/blog//"
-coverImage: "/images/blog/-cover.webp"
+telemetryRisk: "ELEVATED"
+tags: ["Modern Psychology","Swipe Burnout","Dating Fatigue","Offline Connection","Unscripted Dating"]
+seoKeywords: ["dating app burnout 2026","swipe fatigue psychology","leaving tinder for real life","dating app exodus","offline courtship resurgence"]
+canonicalUrl: "https://flirtcheck.site/blog/the-dating-app-burnout-why-singles-are-fleeing-to-unscripted-reality/"
+coverImage: "/images/posts/the-dating-app-burnout-why-singles-are-fleeing-to-unscripted-reality.webp"
+image: "/images/posts/the-dating-app-burnout-why-singles-are-fleeing-to-unscripted-reality.webp"
 draft: false
 ---
 

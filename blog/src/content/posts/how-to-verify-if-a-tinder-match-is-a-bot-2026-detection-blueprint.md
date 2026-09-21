@@ -1,15 +1,17 @@
 ---
 title: "How to Verify If a Tinder Match Is a Bot: 2026 Detection Blueprint"
-description: ">-"
+description: "Discover expert tactics on how to verify if tinder match is bot. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-07-28"
 category: "safety-dossier"
-caseId: "FC-824-DOS"
+caseId: "FC-829-SEC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "CRITICAL"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["How to Verify If a Tinder Match Is a Bot: 2026 Detection Blueprint"]
 canonicalUrl: "https://flirtcheck.site/blog/how-to-verify-if-a-tinder-match-is-a-bot-2026-detection-blueprint/"
-coverImage: "/images/blog/how-to-verify-if-a-tinder-match-is-a-bot-2026-detection-blueprint-cover.webp"
+coverImage: "/images/posts/how-to-verify-if-a-tinder-match-is-a-bot-2026-detection-blueprint.webp"
+image: "/images/posts/how-to-verify-if-a-tinder-match-is-a-bot-2026-detection-blueprint.webp"
 draft: false
 ---
 

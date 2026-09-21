@@ -1,15 +1,17 @@
 ---
 title: "2026 Guide: Spotting Narcissist Red Flags in Online Dating Bios & Photos"
-description: ">-"
+description: "Discover expert tactics on narcissist red flags online dating bios. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-06-15"
 category: "modern-psychology"
-caseId: "FC-534-PSY"
+caseId: "FC-271-PSY"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "ELEVATED"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["2026 Guide: Spotting Narcissist Red Flags in Online Dating Bios & Photos"]
 canonicalUrl: "https://flirtcheck.site/blog/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph/"
-coverImage: "/images/blog/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph-cover.webp"
+coverImage: "/images/posts/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph.webp"
+image: "/images/posts/2026-guide-spotting-narcissist-red-flags-in-online-dating-bios-ph.webp"
 draft: false
 ---
 

@@ -1,15 +1,17 @@
 ---
 title: "Pig Butchering Scam Dating Apps: 2026’s Ultimate Survival Guide"
-description: ">-"
+description: "Discover expert tactics on pig butchering scam dating apps. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-08-08"
 category: "safety-dossier"
-caseId: "FC-771-DOS"
+caseId: "FC-230-SEC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "CRITICAL"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["Pig Butchering Scam Dating Apps: 2026’s Ultimate Survival Guide"]
 canonicalUrl: "https://flirtcheck.site/blog/pig-butchering-scam-dating-apps-2026s-ultimate-survival-guide/"
-coverImage: "/images/blog/pig-butchering-scam-dating-apps-2026s-ultimate-survival-guide-cover.webp"
+coverImage: "/images/posts/pig-butchering-scam-dating-apps-2026s-ultimate-survival-guide.webp"
+image: "/images/posts/pig-butchering-scam-dating-apps-2026s-ultimate-survival-guide.webp"
 draft: false
 ---
 

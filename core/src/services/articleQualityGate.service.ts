@@ -10,6 +10,9 @@
  * - Valid Schema.org FAQ structure and minimum word count (>= 700 words).
  */
 
+// @ts-ignore
+import yaml from 'js-yaml';
+
 export interface ArticleMetadata {
   title?: string;
   description?: string;
@@ -76,27 +79,22 @@ export class ArticleQualityGateService {
     },
     {
       pattern: /VoiceGuard AI/gi,
-      replacement: 'audio frequency spectrogram analysis',
-      reason: 'Replaced hallucinated VoiceGuard AI with open spectrogram analysis',
+      replacement: 'live acoustic spectrogram check',
+      reason: 'Replaced hallucinated VoiceGuard AI with acoustic spectrogram',
     },
     {
       pattern: /VisionScout/gi,
       replacement: 'cross-engine reverse image indexing',
-      reason: 'Replaced hallucinated VisionScout with cross-engine reverse image indexing',
+      reason: 'Replaced hallucinated VisionScout with reverse image indexing',
     },
     {
-      pattern: /Sensity AI/gi,
-      replacement: 'forensic visual inspection',
-      reason: 'Replaced commercial API hallucination Sensity AI',
+      pattern: /Sensity AI|AI-Shield/gi,
+      replacement: 'open forensic heuristics',
+      reason: 'Replaced hallucinated third-party AI suites',
     },
     {
-      pattern: /AI-Shield \(2026\)/gi,
-      replacement: 'direct behavioral verification',
-      reason: 'Removed hallucinated AI-Shield dating feature',
-    },
-    {
-      pattern: /30-секундный радар/gi,
-      replacement: 'калькулятор риска',
+      pattern: /StickyRadar/gi,
+      replacement: 'Dating Risk Calculator',
       reason: 'Replaced synthetic radar reference with risk calculator',
     },
     {
@@ -155,28 +153,36 @@ export class ArticleQualityGateService {
       const fmBlock = fmMatch[1];
       bodyMarkdown = fmMatch[2].trim();
 
-      // Extract existing frontmatter fields
-      const titleMatch = fmBlock.match(/title:\s*["']?([^"'\n\r]+)["']?/i);
-      const descMatch = fmBlock.match(/description:\s*["']?([^"'\n\r]+)["']?/i);
-      const authorMatch = fmBlock.match(/author:\s*["']?([^"'\n\r]+)["']?/i);
-      const pubDateMatch = fmBlock.match(/pubDate:\s*["']?([^"'\n\r]+)["']?/i);
-      const catMatch = fmBlock.match(/category:\s*["']?([^"'\n\r]+)["']?/i);
-      const caseMatch = fmBlock.match(/caseId:\s*["']?([^"'\n\r]+)["']?/i);
-      const classMatch = fmBlock.match(/classification:\s*["']?([^"'\n\r]+)["']?/i);
-      const riskMatch = fmBlock.match(/telemetryRisk:\s*["']?([^"'\n\r]+)["']?/i);
-      const mottoMatch = fmBlock.match(/motto:\s*["']?([^"'\n\r]+)["']?/i);
-      const slugMatch = fmBlock.match(/canonicalUrl:\s*["']?https?:\/\/[^/]+\/blog\/([^/]+)\/?["']?/i);
-
-      if (titleMatch) parsedFrontmatter.title = titleMatch[1].trim();
-      if (descMatch) parsedFrontmatter.description = descMatch[1].trim();
-      if (authorMatch) parsedFrontmatter.author = authorMatch[1].trim();
-      if (pubDateMatch) parsedFrontmatter.pubDate = pubDateMatch[1].trim();
-      if (catMatch) parsedFrontmatter.category = catMatch[1].trim();
-      if (caseMatch) parsedFrontmatter.caseId = caseMatch[1].trim();
-      if (classMatch) parsedFrontmatter.classification = classMatch[1].trim();
-      if (riskMatch) parsedFrontmatter.telemetryRisk = riskMatch[1].trim();
-      if (mottoMatch) parsedFrontmatter.motto = mottoMatch[1].trim();
-      if (slugMatch) parsedFrontmatter.slug = slugMatch[1].trim();
+      try {
+        const loaded: any = yaml.load(fmBlock);
+        if (loaded && typeof loaded === 'object') {
+          if (loaded.title && loaded.title !== '>-') parsedFrontmatter.title = String(loaded.title).trim();
+          if (loaded.description && loaded.description !== '>-') parsedFrontmatter.description = String(loaded.description).trim();
+          if (loaded.author) parsedFrontmatter.author = String(loaded.author).trim();
+          if (loaded.pubDate) parsedFrontmatter.pubDate = String(loaded.pubDate).trim();
+          if (loaded.category) parsedFrontmatter.category = String(loaded.category).trim();
+          if (loaded.caseId) parsedFrontmatter.caseId = String(loaded.caseId).trim();
+          if (loaded.classification) parsedFrontmatter.classification = String(loaded.classification).trim();
+          if (loaded.telemetryRisk) parsedFrontmatter.telemetryRisk = String(loaded.telemetryRisk).trim();
+          if (loaded.motto) parsedFrontmatter.motto = String(loaded.motto).trim();
+          if (loaded.canonicalUrl) {
+            const m = String(loaded.canonicalUrl).match(/https?:\/\/[^/]+\/(?:blog\/)?([^/]+)\/?/);
+            if (m && m[1]) parsedFrontmatter.slug = m[1];
+          }
+          if (loaded.coverImage || loaded.image) {
+            const imgVal = String(loaded.coverImage || loaded.image).trim();
+            if (!imgVal.includes('/-cover.webp')) {
+              parsedFrontmatter.coverImage = imgVal;
+            }
+          }
+          if (Array.isArray(loaded.tags)) parsedFrontmatter.tags = loaded.tags;
+          if (Array.isArray(loaded.seoKeywords)) parsedFrontmatter.seoKeywords = loaded.seoKeywords;
+        }
+      } catch {
+        // Fallback simple line regexes
+        const titleMatch = fmBlock.match(/title:\s*["']?([^"'\n\r]+)["']?/i);
+        if (titleMatch && titleMatch[1].trim() !== '>-') parsedFrontmatter.title = titleMatch[1].trim();
+      }
     }
 
     // 2. Enforce Arthur Vance as strictly required author
@@ -235,12 +241,16 @@ export class ArticleQualityGateService {
     }
 
     // 8. Reconstruct full clean content with Frontmatter
-    const title = parsedFrontmatter.title || defaultMeta.title || 'Dating Verification Dispatch';
-    const description = (parsedFrontmatter.description || defaultMeta.description || `Investigative protocol by Arthur Vance.`).slice(0, 160);
+    const title = (parsedFrontmatter.title && parsedFrontmatter.title !== '>-')
+      ? parsedFrontmatter.title
+      : (defaultMeta.title || 'Dating Verification Dispatch');
+    const description = (parsedFrontmatter.description && parsedFrontmatter.description !== '>-')
+      ? parsedFrontmatter.description.slice(0, 160)
+      : ((defaultMeta.description || 'Investigative protocol by Arthur Vance.').slice(0, 160));
     const pubDate = parsedFrontmatter.pubDate || defaultMeta.pubDate || new Date().toISOString().split('T')[0];
-    const slug = parsedFrontmatter.slug || defaultMeta.slug || this.slugify(title);
+    const slug = parsedFrontmatter.slug || defaultMeta.slug || (title !== '>-' ? this.slugify(title) : 'dispatch');
     const canonicalUrl = `https://flirtcheck.site/blog/${slug}/`;
-    const coverImage = defaultMeta.coverImage || parsedFrontmatter.coverImage || `/images/blog/${slug}-cover.webp`;
+    const coverImage = parsedFrontmatter.coverImage || defaultMeta.coverImage || `/images/posts/${slug}.webp`;
     const tags = defaultMeta.tags || parsedFrontmatter.tags || ['Safety', 'Dating Advice', 'Verification'];
     const seoKeywords = defaultMeta.seoKeywords || parsedFrontmatter.seoKeywords || [title];
     const category = parsedFrontmatter.category || defaultMeta.category || 'safety-dossier';
@@ -279,6 +289,7 @@ ${motto ? `motto: ${JSON.stringify(motto)}\n` : ''}tags: ${JSON.stringify(tags)}
 seoKeywords: ${JSON.stringify(seoKeywords)}
 canonicalUrl: "${canonicalUrl}"
 coverImage: "${coverImage}"
+image: "${coverImage}"
 draft: false
 ---
 

@@ -1,15 +1,17 @@
 ---
-title: ">-"
-description: ">-"
+title: "Military Romance Scam Signs — 2026 Guide to Spotting an Imposter Before It’s Too Late"
+description: "Discover expert tactics on military romance scam signs. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-08-02"
 category: "safety-dossier"
-caseId: "FC-981-DOS"
+caseId: "FC-512-SEC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "CRITICAL"
 tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: [">-"]
-canonicalUrl: "https://flirtcheck.site/blog//"
-coverImage: "/images/blog/-cover.webp"
+seoKeywords: ["Military Romance Scam Signs — 2026 Guide to Spotting an Imposter Before It’s Too Late"]
+canonicalUrl: "https://flirtcheck.site/blog/military-romance-scam-signs-2026-guide-to-spotting-an-imposter-be/"
+coverImage: "/images/posts/military-romance-scam-signs-2026-guide-to-spotting-an-imposter-be.webp"
+image: "/images/posts/military-romance-scam-signs-2026-guide-to-spotting-an-imposter-be.webp"
 draft: false
 ---
 

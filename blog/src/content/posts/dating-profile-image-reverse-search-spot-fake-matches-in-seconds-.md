@@ -1,15 +1,17 @@
 ---
 title: "Dating Profile Image Reverse Search: Spot Fake Matches in Seconds (2026 Guide)"
-description: ">-"
+description: "Discover expert tactics on dating profile image reverse search. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-07-05"
 category: "algo-mechanics"
-caseId: "FC-168-ALG"
+caseId: "FC-375-ALG"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "CRITICAL"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["Dating Profile Image Reverse Search: Spot Fake Matches in Seconds (2026 Guide)"]
 canonicalUrl: "https://flirtcheck.site/blog/dating-profile-image-reverse-search-spot-fake-matches-in-seconds-/"
-coverImage: "/images/blog/dating-profile-image-reverse-search-spot-fake-matches-in-seconds--cover.webp"
+coverImage: "/images/posts/dating-profile-image-reverse-search-spot-fake-matches-in-seconds-.webp"
+image: "/images/posts/dating-profile-image-reverse-search-spot-fake-matches-in-seconds-.webp"
 draft: false
 ---
 

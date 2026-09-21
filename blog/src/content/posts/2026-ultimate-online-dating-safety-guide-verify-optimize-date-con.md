@@ -1,15 +1,17 @@
 ---
 title: "2026 Ultimate Online Dating Safety Guide: Verify, Optimize, & Date Confidently"
-description: ">-"
+description: "Discover expert tactics on tinder chat to real date script. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-06-21"
-category: "safety-dossier"
-caseId: "FC-535-DOS"
+category: "romantic-essays"
+caseId: "FC-762-ARC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "MODERATE"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["2026 Ultimate Online Dating Safety Guide: Verify, Optimize, & Date Confidently"]
 canonicalUrl: "https://flirtcheck.site/blog/2026-ultimate-online-dating-safety-guide-verify-optimize-date-con/"
-coverImage: "/images/blog/2026-ultimate-online-dating-safety-guide-verify-optimize-date-con-cover.webp"
+coverImage: "/images/posts/2026-ultimate-online-dating-safety-guide-verify-optimize-date-con.webp"
+image: "/images/posts/2026-ultimate-online-dating-safety-guide-verify-optimize-date-con.webp"
 draft: false
 ---
 

@@ -1,15 +1,17 @@
 ---
 title: "2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Outsmart Scammers"
-description: ">-"
+description: "Discover expert tactics on ai openers vs human humor tinder. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-06-18"
-category: "safety-dossier"
-caseId: "FC-844-DOS"
+category: "romantic-essays"
+caseId: "FC-127-ARC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "MODERATE"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Outsmart Scammers"]
 canonicalUrl: "https://flirtcheck.site/blog/2026-ultimate-dating-safety-playbook-verify-optimize-outsmart-sca/"
-coverImage: "/images/blog/2026-ultimate-dating-safety-playbook-verify-optimize-outsmart-sca-cover.webp"
+coverImage: "/images/posts/2026-ultimate-dating-safety-playbook-verify-optimize-outsmart-sca.webp"
+image: "/images/posts/2026-ultimate-dating-safety-playbook-verify-optimize-outsmart-sca.webp"
 draft: false
 ---
 

@@ -1,15 +1,17 @@
 ---
 title: "The 2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Thrive Online"
-description: ">-"
+description: "Discover expert tactics on bumble compliments spotlight worth it review. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-08-17"
 category: "romantic-essays"
-caseId: "FC-287-ESS"
+caseId: "FC-390-ARC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "MODERATE"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["The 2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Thrive Online"]
 canonicalUrl: "https://flirtcheck.site/blog/the-2026-ultimate-dating-safety-playbook-verify-optimize-thrive-o/"
-coverImage: "/images/blog/the-2026-ultimate-dating-safety-playbook-verify-optimize-thrive-o-cover.webp"
+coverImage: "/images/posts/the-2026-ultimate-dating-safety-playbook-verify-optimize-thrive-o.webp"
+image: "/images/posts/the-2026-ultimate-dating-safety-playbook-verify-optimize-thrive-o.webp"
 draft: false
 ---
 

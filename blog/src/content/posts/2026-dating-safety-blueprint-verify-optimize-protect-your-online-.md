@@ -1,15 +1,17 @@
 ---
 title: "2026 Dating Safety Blueprint: Verify, Optimize, & Protect Your Online Romance"
-description: ">-"
+description: "Discover expert tactics on bumble first message psychological hooks. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-06-03"
-category: "safety-dossier"
-caseId: "FC-451-DOS"
+category: "romantic-essays"
+caseId: "FC-412-ARC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "MODERATE"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["2026 Dating Safety Blueprint: Verify, Optimize, & Protect Your Online Romance"]
 canonicalUrl: "https://flirtcheck.site/blog/2026-dating-safety-blueprint-verify-optimize-protect-your-online-/"
-coverImage: "/images/blog/2026-dating-safety-blueprint-verify-optimize-protect-your-online--cover.webp"
+coverImage: "/images/posts/2026-dating-safety-blueprint-verify-optimize-protect-your-online-.webp"
+image: "/images/posts/2026-dating-safety-blueprint-verify-optimize-protect-your-online-.webp"
 draft: false
 ---
 

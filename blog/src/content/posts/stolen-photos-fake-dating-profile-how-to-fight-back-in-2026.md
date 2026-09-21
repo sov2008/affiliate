@@ -1,15 +1,17 @@
 ---
-title: "Stolen Photos, Fake Dating Profile? How to Fight Back in 2026 \\U0001F6A8"
-description: ">-"
+title: "Stolen Photos, Fake Dating Profile? How to Fight Back in 2026 🚨"
+description: "Discover expert tactics on stolen photos fake dating profile. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-08-14"
 category: "safety-dossier"
-caseId: "FC-203-DOS"
+caseId: "FC-526-SEC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "CRITICAL"
 tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: ["Stolen Photos, Fake Dating Profile? How to Fight Back in 2026 \\U0001F6A8"]
-canonicalUrl: "https://flirtcheck.site/blog/stolen-photos-fake-dating-profile-how-to-fight-back-in-2026-u0001/"
-coverImage: "/images/blog/stolen-photos-fake-dating-profile-how-to-fight-back-in-2026-u0001-cover.webp"
+seoKeywords: ["Stolen Photos, Fake Dating Profile? How to Fight Back in 2026 🚨"]
+canonicalUrl: "https://flirtcheck.site/blog/stolen-photos-fake-dating-profile-how-to-fight-back-in-2026/"
+coverImage: "/images/posts/stolen-photos-fake-dating-profile-how-to-fight-back-in-2026.webp"
+image: "/images/posts/stolen-photos-fake-dating-profile-how-to-fight-back-in-2026.webp"
 draft: false
 ---
 

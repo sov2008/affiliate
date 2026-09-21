@@ -1,15 +1,17 @@
 ---
-title: ">-"
-description: ">-"
+title: "2026 Dating Safety Guide: Optimize Your Profile, Spot Scams & Build Real Connections"
+description: "Discover expert tactics on revive dead tinder conversations pattern interrupts. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-06-06"
-category: "safety-dossier"
-caseId: "FC-960-DOS"
+category: "first-dates"
+caseId: "FC-839-OPS"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "MODERATE"
 tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: [">-"]
-canonicalUrl: "https://flirtcheck.site/blog//"
-coverImage: "/images/blog/-cover.webp"
+seoKeywords: ["2026 Dating Safety Guide: Optimize Your Profile, Spot Scams & Build Real Connections"]
+canonicalUrl: "https://flirtcheck.site/blog/2026-dating-safety-guide-optimize-your-profile-spot-scams-build-r/"
+coverImage: "/images/posts/2026-dating-safety-guide-optimize-your-profile-spot-scams-build-r.webp"
+image: "/images/posts/2026-dating-safety-guide-optimize-your-profile-spot-scams-build-r.webp"
 draft: false
 ---
 

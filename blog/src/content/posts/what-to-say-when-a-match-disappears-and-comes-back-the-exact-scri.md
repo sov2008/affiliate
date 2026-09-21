@@ -1,15 +1,17 @@
 ---
 title: "What to Say When a Match Disappears and Comes Back: The Exact Script"
-description: ">-"
+description: "Discover expert tactics on what to say after match disappears. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-09-16"
-category: "digital-dialogue"
-caseId: "FC-485-TXT"
+category: "modern-psychology"
+caseId: "FC-590-PSY"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "ELEVATED"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["What to Say When a Match Disappears and Comes Back: The Exact Script"]
 canonicalUrl: "https://flirtcheck.site/blog/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri/"
-coverImage: "/images/blog/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri-cover.webp"
+coverImage: "/images/posts/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri.webp"
+image: "/images/posts/what-to-say-when-a-match-disappears-and-comes-back-the-exact-scri.webp"
 draft: false
 ---
 

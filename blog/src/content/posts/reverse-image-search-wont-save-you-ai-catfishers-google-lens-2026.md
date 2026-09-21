@@ -1,15 +1,17 @@
 ---
-title: ">-"
-description: ">-"
+title: "Reverse Image Search Won't Save You: How AI Catfishers Bypass Google Lens in 2026"
+description: "Why Google Lens and TinEye fail against modern dating catfishers. Technical analysis of diffusion pipelines, adversarial noise injection, and real verification heuristics."
 pubDate: "2026-08-11"
 category: "algo-mechanics"
-caseId: "FC-883-ALG"
+caseId: "FC-692-ALG"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
-tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: [">-"]
-canonicalUrl: "https://flirtcheck.site/blog//"
-coverImage: "/images/blog/-cover.webp"
+telemetryRisk: "CRITICAL"
+tags: ["Scams","Bot Detection","Online Dating","Safety"]
+seoKeywords: ["reverse image search bypass","ai catfish detection","google lens dating scams","deepfake dating profile"]
+canonicalUrl: "https://flirtcheck.site/blog/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026/"
+coverImage: "/images/posts/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026.webp"
+image: "/images/posts/reverse-image-search-wont-save-you-ai-catfishers-google-lens-2026.webp"
 draft: false
 ---
 

@@ -1,15 +1,17 @@
 ---
-title: ">-"
-description: ">-"
+title: "How to Avoid Catfishing: The 2026 Online Dating Safety Guide Every Single Must Read"
+description: "Discover proven tactics to spot catfish, verify profiles, and stay safe on dating apps. A 2026 guide for singles seeking genuine connections."
 pubDate: "2026-07-19"
 category: "safety-dossier"
-caseId: "FC-687-DOS"
+caseId: "FC-930-SEC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
-tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: [">-"]
-canonicalUrl: "https://flirtcheck.site/blog//"
-coverImage: "/images/blog/-cover.webp"
+telemetryRisk: "CRITICAL"
+tags: ["Safety","Profile Verification","Dating Advice"]
+seoKeywords: ["how to avoid catfishing online dating safety guide","catfishing detection tips","online dating verification","dating app safety checklist"]
+canonicalUrl: "https://flirtcheck.site/blog/how-to-avoid-catfishing-the-2026-online-dating-safety-guide-every/"
+coverImage: "/images/posts/how-to-avoid-catfishing-the-2026-online-dating-safety-guide-every.webp"
+image: "/images/posts/how-to-avoid-catfishing-the-2026-online-dating-safety-guide-every.webp"
 draft: false
 ---
 

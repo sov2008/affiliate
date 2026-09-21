@@ -1,15 +1,17 @@
 ---
-title: ">-"
-description: ">-"
+title: "How to Politely Decline a Date Request Without Burning the Bridge: A Guide to Gracious Online Dating Rejection"
+description: "Discover expert tactics on politely decline date request online dating. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-07-22"
 category: "first-dates"
-caseId: "FC-111-DAT"
+caseId: "FC-656-OPS"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "MODERATE"
 tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: [">-"]
-canonicalUrl: "https://flirtcheck.site/blog//"
-coverImage: "/images/blog/-cover.webp"
+seoKeywords: ["How to Politely Decline a Date Request Without Burning the Bridge: A Guide to Gracious Online Dating Rejection"]
+canonicalUrl: "https://flirtcheck.site/blog/how-to-politely-decline-a-date-request-without-burning-the-bridge/"
+coverImage: "/images/posts/how-to-politely-decline-a-date-request-without-burning-the-bridge.webp"
+image: "/images/posts/how-to-politely-decline-a-date-request-without-burning-the-bridge.webp"
 draft: false
 ---
 

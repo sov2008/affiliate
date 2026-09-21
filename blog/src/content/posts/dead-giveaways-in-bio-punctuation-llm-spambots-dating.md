@@ -1,15 +1,17 @@
 ---
 title: "Dead Giveaways in Bio Punctuation: How LLM Spambots Write Dating Profiles"
-description: ">-"
+description: "Why em-dashes, symmetric triads, and immaculate Oxford commas are the clearest indicators that your dating app match was drafted by an LLM prompt."
 pubDate: "2026-07-12"
-category: "algo-mechanics"
-caseId: "FC-284-ALG"
+category: "digital-dialogue"
+caseId: "FC-699-NET"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
-tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: ["Dead Giveaways in Bio Punctuation: How LLM Spambots Write Dating Profiles"]
-canonicalUrl: "https://flirtcheck.site/blog/dead-giveaways-in-bio-punctuation-how-llm-spambots-write-dating-p/"
-coverImage: "/images/blog/dead-giveaways-in-bio-punctuation-how-llm-spambots-write-dating-p-cover.webp"
+telemetryRisk: "ELEVATED"
+tags: ["Bot Detection","AI Clichés","Online Dating","Safety"]
+seoKeywords: ["llm dating bio red flags","spot ai dating profile","tinder bot bio punctuation","ai text detection dating apps"]
+canonicalUrl: "https://flirtcheck.site/blog/dead-giveaways-in-bio-punctuation-llm-spambots-dating/"
+coverImage: "/images/posts/dead-giveaways-in-bio-punctuation-llm-spambots-dating.webp"
+image: "/images/posts/dead-giveaways-in-bio-punctuation-llm-spambots-dating.webp"
 draft: false
 ---
 

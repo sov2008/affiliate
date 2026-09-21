@@ -1,15 +1,17 @@
 ---
 title: "How to Stay Safe, Spot Scams, and Optimize Your Dating Profile in 2026"
-description: ">-"
+description: "Discover expert tactics on high status hobbies dating profile photos. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-07-25"
 category: "first-dates"
-caseId: "FC-321-DAT"
+caseId: "FC-848-OPS"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "MODERATE"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["How to Stay Safe, Spot Scams, and Optimize Your Dating Profile in 2026"]
 canonicalUrl: "https://flirtcheck.site/blog/how-to-stay-safe-spot-scams-and-optimize-your-dating-profile-in-2/"
-coverImage: "/images/blog/how-to-stay-safe-spot-scams-and-optimize-your-dating-profile-in-2-cover.webp"
+coverImage: "/images/posts/how-to-stay-safe-spot-scams-and-optimize-your-dating-profile-in-2.webp"
+image: "/images/posts/how-to-stay-safe-spot-scams-and-optimize-your-dating-profile-in-2.webp"
 draft: false
 ---
 

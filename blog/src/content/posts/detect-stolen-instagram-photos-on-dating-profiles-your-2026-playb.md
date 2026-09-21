@@ -1,15 +1,17 @@
 ---
-title: ">-"
-description: ">-"
+title: "Detect Stolen Instagram Photos on Dating Profiles — Your 2026 Playbook to Spot Fakes Fast"
+description: "Discover expert tactics on detect stolen instagram photos dating profile. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-07-14"
-category: "safety-dossier"
-caseId: "FC-750-DOS"
+category: "algo-mechanics"
+caseId: "FC-425-ALG"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "CRITICAL"
 tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: [">-"]
-canonicalUrl: "https://flirtcheck.site/blog//"
-coverImage: "/images/blog/-cover.webp"
+seoKeywords: ["Detect Stolen Instagram Photos on Dating Profiles — Your 2026 Playbook to Spot Fakes Fast"]
+canonicalUrl: "https://flirtcheck.site/blog/detect-stolen-instagram-photos-on-dating-profiles-your-2026-playb/"
+coverImage: "/images/posts/detect-stolen-instagram-photos-on-dating-profiles-your-2026-playb.webp"
+image: "/images/posts/detect-stolen-instagram-photos-on-dating-profiles-your-2026-playb.webp"
 draft: false
 ---
 

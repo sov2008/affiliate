@@ -1,15 +1,17 @@
 ---
-title: ">-"
-description: ">-"
+title: "Dating Safety 2026: Verify, Optimize, Protect & Thrive — Your Ultimate Guide to Secure Online Romance"
+description: "Discover expert tactics on hinge most compatible algorithm explained. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-07-07"
-category: "safety-dossier"
-caseId: "FC-889-DOS"
+category: "romantic-essays"
+caseId: "FC-122-ARC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "MODERATE"
 tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: [">-"]
-canonicalUrl: "https://flirtcheck.site/blog//"
-coverImage: "/images/blog/-cover.webp"
+seoKeywords: ["Dating Safety 2026: Verify, Optimize, Protect & Thrive — Your Ultimate Guide to Secure Online Romance"]
+canonicalUrl: "https://flirtcheck.site/blog/dating-safety-2026-verify-optimize-protect-thrive-your-ultimate-g/"
+coverImage: "/images/posts/dating-safety-2026-verify-optimize-protect-thrive-your-ultimate-g.webp"
+image: "/images/posts/dating-safety-2026-verify-optimize-protect-thrive-your-ultimate-g.webp"
 draft: false
 ---
 

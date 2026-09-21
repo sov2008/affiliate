@@ -1,15 +1,17 @@
 ---
-title: "Dating Scam Verification Guide (2026 Edition)"
-description: "Technical forensic playbook by Arthur Vance on detecting romance fraud, synthetic avatars, and automated scam scripts."
+title: "Dating Profile Verification Guide 2026: How to Spot Romance Scams, Bots & Catfishes"
+description: "Comprehensive 2026 playbook on verifying dating profiles, detecting AI-generated photos, avoiding romance scam traps, and protecting your privacy before meeting in person."
 pubDate: "2026-07-10"
 category: "safety-dossier"
-caseId: "FC-599-DOS"
+caseId: "FC-778-SEC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
-tags: ["Safety", "Dating Advice", "Verification"]
-seoKeywords: ["dating scam verification", "romance scam red flags", "spot fake dating profiles", "online dating safety 2026"]
+telemetryRisk: "CRITICAL"
+tags: ["Safety","Profile Verification","Dating Advice","Romance Scams"]
+seoKeywords: ["dating profile verification","spot dating scammer","romance scam red flags","ai dating profile checker","online dating safety quiz"]
 canonicalUrl: "https://flirtcheck.site/blog/dating-scam-verification-guide-2026/"
-coverImage: "/images/blog/dating-scam-verification-guide-2026-cover.webp"
+coverImage: "/images/posts/dating-scam-verification-guide-2026.webp"
+image: "/images/posts/dating-scam-verification-guide-2026.webp"
 draft: false
 ---
 

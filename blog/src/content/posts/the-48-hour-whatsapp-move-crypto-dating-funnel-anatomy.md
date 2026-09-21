@@ -1,15 +1,17 @@
 ---
 title: "The 48-Hour WhatsApp Move: Anatomy of a Crypto Dating Funnel"
-description: ">-"
+description: "Deconstructing the pig-butchering funnel: why scammers insist on moving off-app within 48 hours, the psychological engineering involved, and how to spot it."
 pubDate: "2026-08-20"
 category: "safety-dossier"
-caseId: "FC-750-DOS"
+caseId: "FC-893-SEC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
-tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: ["The 48-Hour WhatsApp Move: Anatomy of a Crypto Dating Funnel"]
-canonicalUrl: "https://flirtcheck.site/blog/the-48-hour-whatsapp-move-anatomy-of-a-crypto-dating-funnel/"
-coverImage: "/images/blog/the-48-hour-whatsapp-move-anatomy-of-a-crypto-dating-funnel-cover.webp"
+telemetryRisk: "CRITICAL"
+tags: ["Crypto Scams","Safety","Online Dating","Bot Detection"]
+seoKeywords: ["crypto dating scam funnel","pig butchering tinder","whatsapp dating scam","sha zhu pan mechanics"]
+canonicalUrl: "https://flirtcheck.site/blog/the-48-hour-whatsapp-move-crypto-dating-funnel-anatomy/"
+coverImage: "/images/posts/the-48-hour-whatsapp-move-crypto-dating-funnel-anatomy.webp"
+image: "/images/posts/the-48-hour-whatsapp-move-crypto-dating-funnel-anatomy.webp"
 draft: false
 ---
 

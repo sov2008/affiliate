@@ -1,15 +1,17 @@
 ---
 title: "3‑Question Compatibility Test to Ask Before the First Date"
-description: ">-"
+description: "Discover expert tactics on compatibility questions before first date. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-06-24"
 category: "first-dates"
-caseId: "FC-464-DAT"
+caseId: "FC-525-OPS"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "MODERATE"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["3‑Question Compatibility Test to Ask Before the First Date"]
 canonicalUrl: "https://flirtcheck.site/blog/3question-compatibility-test-to-ask-before-the-first-date/"
-coverImage: "/images/blog/3question-compatibility-test-to-ask-before-the-first-date-cover.webp"
+coverImage: "/images/posts/3question-compatibility-test-to-ask-before-the-first-date.webp"
+image: "/images/posts/3question-compatibility-test-to-ask-before-the-first-date.webp"
 draft: false
 ---
 

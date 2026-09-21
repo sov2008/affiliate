@@ -58,19 +58,21 @@ const caseId = explicitCaseId || ((slug || '2026').replace(/[^a-zA-Z0-9]/g, '').
 const siteBaseUrl = 'https://flirtcheck.site';
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || siteBaseUrl;
 const rawImg = coverImage || image;
-const normalizedImg = rawImg ? rawImg.replace(/^\/blog/, '') : undefined;
-const effectiveCoverImage = normalizedImg
-  ? (normalizedImg.startsWith('/') ? normalizedImg : `/${normalizedImg}`)
-  : undefined;
-const coverSrc = effectiveCoverImage || `/images/posts/${slug || 'dating-scam-verification-guide-2026'}.webp`;
+const defaultPostCover = `/images/posts/${slug || 'dating-scam-verification-guide-2026'}.webp`;
+let effectiveCoverImage = defaultPostCover;
+if (rawImg && !rawImg.includes('/-cover.webp') && !rawImg.endsWith('/-cover.webp') && !rawImg.includes('images/blog/-cover')) {
+  const norm = rawImg.replace(/^\/blog/, '');
+  effectiveCoverImage = norm.startsWith('/') ? norm : `/${norm}`;
+}
+const coverSrc = effectiveCoverImage;
 
 const normalizedCanonical = canonicalUrl ? canonicalUrl.replace(/https?:\/\/flirtcheck\.site\/blog\//, `${siteBaseUrl}/`) : '';
 const canonicalAbsUrl = normalizedCanonical.startsWith('http')
   ? normalizedCanonical
   : `${siteBaseUrl}${normalizedCanonical.startsWith('/') ? '' : '/'}${normalizedCanonical}`;
-const ogImageAbsUrl = effectiveCoverImage
-  ? (effectiveCoverImage.startsWith('http') ? effectiveCoverImage : `${siteBaseUrl}${effectiveCoverImage.startsWith('/') ? '' : '/'}${effectiveCoverImage}`)
-  : `${siteBaseUrl}/images/posts/${slug || 'dating-scam-verification-guide-2026'}.webp`;
+const ogImageAbsUrl = effectiveCoverImage.startsWith('http') 
+  ? effectiveCoverImage 
+  : `${siteBaseUrl}${effectiveCoverImage.startsWith('/') ? '' : '/'}${effectiveCoverImage}`;
 
 const pubDateFormatted = new Intl.DateTimeFormat('en-GB', {
   day: 'numeric',

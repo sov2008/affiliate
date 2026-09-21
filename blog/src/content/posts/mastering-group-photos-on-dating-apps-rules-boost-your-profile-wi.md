@@ -1,15 +1,17 @@
 ---
-title: ">-"
-description: ">-"
+title: "Mastering Group Photos on Dating Apps Rules: Boost Your Profile Without Looking Deceitful"
+description: "Discover expert tactics on group photos on dating apps rules. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-07-31"
-category: "modern-psychology"
-caseId: "FC-591-PSY"
+category: "algo-mechanics"
+caseId: "FC-102-ALG"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "CRITICAL"
 tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: [">-"]
-canonicalUrl: "https://flirtcheck.site/blog//"
-coverImage: "/images/blog/-cover.webp"
+seoKeywords: ["Mastering Group Photos on Dating Apps Rules: Boost Your Profile Without Looking Deceitful"]
+canonicalUrl: "https://flirtcheck.site/blog/mastering-group-photos-on-dating-apps-rules-boost-your-profile-wi/"
+coverImage: "/images/posts/mastering-group-photos-on-dating-apps-rules-boost-your-profile-wi.webp"
+image: "/images/posts/mastering-group-photos-on-dating-apps-rules-boost-your-profile-wi.webp"
 draft: false
 ---
 

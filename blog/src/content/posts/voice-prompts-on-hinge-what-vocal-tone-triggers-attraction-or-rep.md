@@ -1,15 +1,17 @@
 ---
-title: ">-"
-description: ">-"
+title: "Voice Prompts on Hinge: What Vocal Tone Triggers Attraction or Repulsion (2026)"
+description: "Discover expert tactics on voice prompts hinge vocal tone attraction. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-09-13"
 category: "digital-dialogue"
-caseId: "FC-679-TXT"
+caseId: "FC-908-NET"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "ELEVATED"
 tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: [">-"]
-canonicalUrl: "https://flirtcheck.site/blog//"
-coverImage: "/images/blog/-cover.webp"
+seoKeywords: ["Voice Prompts on Hinge: What Vocal Tone Triggers Attraction or Repulsion (2026)"]
+canonicalUrl: "https://flirtcheck.site/blog/voice-prompts-on-hinge-what-vocal-tone-triggers-attraction-or-rep/"
+coverImage: "/images/posts/voice-prompts-on-hinge-what-vocal-tone-triggers-attraction-or-rep.webp"
+image: "/images/posts/voice-prompts-on-hinge-what-vocal-tone-triggers-attraction-or-rep.webp"
 draft: false
 ---
 

@@ -1,15 +1,17 @@
 ---
 title: "Optimal Photo Order Dating Apps: The Psychological Anchor Rule"
-description: ">-"
+description: "Discover expert tactics on optimal photo order dating apps. Comprehensive 2026 dating safety and profile verification guide."
 pubDate: "2026-08-05"
 category: "algo-mechanics"
-caseId: "FC-263-ALG"
+caseId: "FC-138-ALG"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
+telemetryRisk: "CRITICAL"
 tags: ["Safety","Dating Advice","Verification"]
 seoKeywords: ["Optimal Photo Order Dating Apps: The Psychological Anchor Rule"]
 canonicalUrl: "https://flirtcheck.site/blog/optimal-photo-order-dating-apps-the-psychological-anchor-rule/"
-coverImage: "/images/blog/optimal-photo-order-dating-apps-the-psychological-anchor-rule-cover.webp"
+coverImage: "/images/posts/optimal-photo-order-dating-apps-the-psychological-anchor-rule.webp"
+image: "/images/posts/optimal-photo-order-dating-apps-the-psychological-anchor-rule.webp"
 draft: false
 ---
 

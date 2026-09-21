@@ -1,15 +1,17 @@
 ---
-title: ">-"
-description: ">-"
+title: "The Safety Smokescreen: Why Tech Conglomerates Quietly Profit from Dating Scams"
+description: "Insiders from trust and safety departments explain why fraud detection is starved of resources while paying bot-farms generate steady corporate margin."
 pubDate: "2026-08-26"
-category: "romantic-essays"
-caseId: "FC-962-ESS"
+category: "safety-dossier"
+caseId: "FC-689-SEC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
-tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: [">-"]
-canonicalUrl: "https://flirtcheck.site/blog//"
-coverImage: "/images/blog/-cover.webp"
+telemetryRisk: "CRITICAL"
+tags: ["Safety Dossier","Bot Farms","Trust and Safety","Dating Fraud","Corporate Profit"]
+seoKeywords: ["dating app scam economics","why dating apps allow bots","trust and safety underfunding tinder","match group fraud revenue","pig butchering corporate complicity"]
+canonicalUrl: "https://flirtcheck.site/blog/the-safety-smokescreen-why-dating-corporations-profit-from-scams/"
+coverImage: "/images/posts/the-safety-smokescreen-why-dating-corporations-profit-from-scams.webp"
+image: "/images/posts/the-safety-smokescreen-why-dating-corporations-profit-from-scams.webp"
 draft: false
 ---
 
