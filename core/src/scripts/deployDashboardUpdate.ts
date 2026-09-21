@@ -18,16 +18,20 @@ async function runDeploy(): Promise<void> {
 
       const commands = [
         'cd /var/www/affiliate',
-        'echo "[1/5] Синхронизация кода из GitHub..."',
-        'git pull origin main',
-        'echo "[2/5] Сборка TypeScript и копирование dashboard.html..."',
+        'echo "[1/6] Синхронизация кода из GitHub..."',
+        'git fetch origin && git reset --hard origin/main',
+        'echo "[2/6] Сборка TypeScript и копирование dashboard.html..."',
         'npm --prefix core run build',
-        'echo "[3/5] Перезапуск affiliate-dashboard в PM2..."',
-        'pm2 restart affiliate-dashboard --update-env',
-        'echo "[4/5] Проверка статусов PM2 процессов..."',
+        'echo "[3/6] Перезапуск сервисов в PM2..."',
+        'pm2 reload ecosystem.config.js --update-env && pm2 save',
+        'echo "[4/6] Закрытие публичного порта 5000 в UFW..."',
+        'ufw delete allow 5000/tcp 2>/dev/null || true',
+        'ufw delete allow 5000 2>/dev/null || true',
+        'ufw reload',
+        'echo "[5/6] Проверка прослушиваемого сокета (должен быть 127.0.0.1:5000)..."',
+        'ss -tlpn | grep 5000 || true',
+        'echo "[6/6] Проверка статусов PM2 процессов..."',
         'pm2 list',
-        'echo "[5/5] Тест API: GET /api/workers/status..."',
-        'curl -s http://localhost:3000/api/workers/status | jq . || curl -s http://localhost:3000/api/workers/status',
       ].join(' && ');
 
       conn.exec(commands, (err, stream) => {
