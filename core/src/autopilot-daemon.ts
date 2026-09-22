@@ -45,7 +45,7 @@ async function runDaemonLoop() {
       if (Math.random() < 0.2) {
         await logMsg('Triggering Autonomous Offer Scout...');
         try {
-          await execAsync(`npx tsx src/smart-offer-scout.ts`, { cwd: coreDir });
+          await execAsync(`npx tsx src/smart-offer-scout.ts`, { cwd: coreDir, timeout: 180000 });
         } catch (e: any) {
           await logMsg(`Scout Failed: ${e.message}`);
         }
@@ -162,7 +162,7 @@ async function runDaemonLoop() {
     }
 
     await logMsg('Cycle complete. Sleeping for 30 minutes...');
-    await new Promise((r) => setTimeout(r, 15000));
+    await new Promise((r) => setTimeout(r, 30 * 60 * 1000));
   }
 }
 

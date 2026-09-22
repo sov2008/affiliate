@@ -73,7 +73,6 @@ export async function applyToOffer(
     const isAlreadyActive = await page.$('.badge-success, .campaign-joined, text="Aktywny", text="Active"');
     if (isAlreadyActive) {
       console.log(`   ✅ Campaign ${campaignId} is already ACTIVE.`);
-      if (browserInstance) await browserInstance.close();
       return {
         success: true,
         campaignId,
@@ -120,7 +119,6 @@ export async function applyToOffer(
         await fetch(`${WORKER_URL}/postback?campaign_id=${campaignId}&variant=v1&status=pending&payout=0&ml_sub1=auto_apply_submitted`);
       } catch (e) {}
 
-      if (browserInstance) await browserInstance.close();
       return {
         success: true,
         campaignId,
@@ -130,7 +128,6 @@ export async function applyToOffer(
       };
     }
 
-    if (browserInstance) await browserInstance.close();
     return {
       success: true,
       campaignId,
@@ -140,7 +137,6 @@ export async function applyToOffer(
     };
 
   } catch (err: any) {
-    if (browserInstance) await browserInstance.close();
     console.error(`   ❌ Application error for ${campaignId}:`, err.message);
     return {
       success: false,
@@ -149,6 +145,10 @@ export async function applyToOffer(
       details: err.message,
       timestamp
     };
+  } finally {
+    if (browserInstance) {
+      await browserInstance.close().catch(() => {});
+    }
   }
 }
 
