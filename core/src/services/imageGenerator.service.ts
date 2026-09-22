@@ -12,7 +12,7 @@ export interface ImageGeneratorOptions {
 export class ImageGeneratorService {
   private static instance: ImageGeneratorService | null = null;
   private postsImagesDir: string;
-  private defaultCoverRelPath = '/blog/images/posts/default-cover.webp';
+  private defaultCoverRelPath = '/images/posts/default-cover.webp';
   private defaultCoverAbsPath: string;
 
   private constructor() {
@@ -121,7 +121,7 @@ export class ImageGeneratorService {
 
     const targetFileName = `${slug}.webp`;
     const targetAbsPath = path.join(this.postsImagesDir, targetFileName);
-    const targetRelPath = `/blog/images/posts/${targetFileName}`;
+    const targetRelPath = `/images/posts/${targetFileName}`;
 
     // If already generated and cached, reuse immediately
     if (fs.existsSync(targetAbsPath) && fs.statSync(targetAbsPath).size > 1000) {
