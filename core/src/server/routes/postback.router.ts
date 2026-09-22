@@ -115,6 +115,27 @@ export async function handlePostback(req: Request, res: Response): Promise<void>
   // 1. Log incoming postback payload
   console.log(`[Postback Incoming] Route: ${req.path} | Method: ${req.method} | Query: ${JSON.stringify(req.query)} | Body: ${JSON.stringify(req.body)}`);
 
+  // 1.1 Secret Token Validation / Anti-Poisoning Filter (if configured)
+  const configuredSecret = process.env.POSTBACK_SECRET_TOKEN;
+  if (configuredSecret) {
+    const incomingToken =
+      (req.headers['x-postback-token'] as string) ||
+      (req.query.token as string) ||
+      (req.query.secret as string) ||
+      (req.body?.token as string) ||
+      (req.body?.secret as string);
+
+    if (incomingToken !== configuredSecret) {
+      console.warn(`[PostbackRouter] ⛔ Unauthorized postback rejected (IP: ${req.ip}, Route: ${req.path})`);
+      res.status(401).json({
+        success: false,
+        status: 'UNAUTHORIZED_POSTBACK',
+        error: 'Invalid or missing postback security token'
+      });
+      return;
+    }
+  }
+
   const matcher = FinancialTelemetryMatcher.getInstance();
   const rawEvent = extractPostbackEvent(req);
 
@@ -142,7 +163,7 @@ export async function handlePostback(req: Request, res: Response): Promise<void>
       resolvedChatId = sub1.replace(/^tg_/, '');
     }
 
-    if (resolvedChatId) {
+    if (resolvedChatId && !result.duplicate) {
       try {
         const lead = leadRepo.getLead(resolvedChatId);
         if (!targetOfferId) {
@@ -164,8 +185,8 @@ export async function handlePostback(req: Request, res: Response): Promise<void>
       targetOfferId = 'lospollos';
     }
 
-    // 4. Update MAB Offer Router statistics
-    if (rawEvent.status !== 'rejected') {
+    // 4. Update MAB Offer Router statistics (only for non-duplicate conversions)
+    if (rawEvent.status !== 'rejected' && !result.duplicate) {
       try {
         OfferRoutingService.getInstance().recordConversion(targetOfferId, rawEvent.payout || 0);
       } catch (err) {
@@ -173,8 +194,8 @@ export async function handlePostback(req: Request, res: Response): Promise<void>
       }
     }
 
-    // 5. Trigger instant Telegram notification to ADMIN_CHAT_ID: "💰 Conversion Confirmed! Payout: $X | Sub1: Y"
-    if (rawEvent.status !== 'rejected') {
+    // 5. Trigger instant Telegram notification to ADMIN_CHAT_ID: "💰 Conversion Confirmed! Payout: $X | Sub1: Y" (only for non-duplicates)
+    if (rawEvent.status !== 'rejected' && !result.duplicate) {
       sendConversionNotification(rawEvent.payout || 0, sub1).catch((err) => {
         console.warn(`[PostbackRouter] Conversion alert dispatch error:`, err);
       });

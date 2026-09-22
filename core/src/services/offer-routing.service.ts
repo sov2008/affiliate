@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import path from 'path';
 import { TelegramLeadRepository, MabArmRecord } from '../db/tg-leads.repository.js';
+import { TelegramControlBot } from './telegram-control-bot.service.js';
 
 export interface OfferConfig {
   id: string;
@@ -279,13 +280,60 @@ export class OfferRoutingService {
   /**
    * Circuit breaker: marks an offer degraded for a given cooldown duration
    */
-  public markOfferDegraded(offerId: string, durationMs: number = 3600000, reason?: string): void {
+  public markOfferDegraded(offerId: string, durationMs: number = 7200000, reason?: string): void {
     const offer = this.offers.get(offerId);
     if (offer) {
       offer.degradedUntil = Date.now() + durationMs;
       offer.degradedReason = reason || 'Health check failure';
-      console.warn(`[OfferRoutingService] ⚠️ Circuit Breaker TRIP: Offer "${offerId}" degraded for ${Math.round(durationMs / 60000)}m. Reason: ${offer.degradedReason}`);
+      const alertMsg = `⚠️ [Revenue Circuit Breaker] Offer "${offerId}" degraded for ${Math.round(durationMs / 60000)}m. Reason: ${offer.degradedReason}`;
+      console.warn(`[OfferRoutingService] ${alertMsg}`);
+
+      try {
+        const bot = TelegramControlBot.getInstance();
+        const adminChatId = process.env.ADMIN_CHAT_ID || process.env.TELEGRAM_CHAT_ID || bot.getAdminChatId();
+        if (adminChatId && bot.isConfigured()) {
+          bot.sendMessage(adminChatId, alertMsg).catch(() => {});
+        }
+      } catch {}
     }
+  }
+
+  /**
+   * Evaluates financial efficiency and trips circuit breaker if an offer is burning traffic
+   */
+  public evaluateRevenueHealth(offerId: string): boolean {
+    const offer = this.offers.get(offerId);
+    if (!offer || !this.isOfferEligible(offer)) return false;
+
+    // Never degrade primary fallback offers completely unless explicitly configured
+    const isFallback = offer.id === 'lospollos_casual' || offer.id === 'lospollos_dating';
+
+    const stats = this.getStats()[offerId];
+    if (!stats) return true;
+
+    const minImpressionsThreshold = parseInt(process.env.CIRCUIT_BREAKER_MIN_IMPRESSIONS || '50', 10);
+
+    // Rule 1: Zero conversions after N impressions (traffic drain protection)
+    if (stats.impressions >= minImpressionsThreshold && stats.conversions === 0 && !isFallback) {
+      this.markOfferDegraded(
+        offerId,
+        2 * 3600 * 1000,
+        `Zero conversions after ${stats.impressions} impressions (CR 0.0%). Traffic safely redirected to fallback.`
+      );
+      return false;
+    }
+
+    // Rule 2: Catastrophic EPC drop on significant volume (>= 100 impressions with EPC < $0.005)
+    if (stats.impressions >= minImpressionsThreshold * 2 && stats.epc < 0.005 && stats.conversions > 0 && !isFallback) {
+      this.markOfferDegraded(
+        offerId,
+        1 * 3600 * 1000,
+        `Severely depressed EPC ($${stats.epc.toFixed(4)}) on ${stats.impressions} impressions.`
+      );
+      return false;
+    }
+
+    return true;
   }
 
   /**
@@ -525,12 +573,13 @@ export class OfferRoutingService {
   }
 
   /**
-   * Records an impression for a given offer in SQLite
+   * Records an impression for a given offer in SQLite and triggers revenue health check
    */
   public recordImpression(offerId: string): void {
     const offer = this.offers.get(offerId);
     const network = offer ? offer.network : 'unknown';
     this.leadRepo.recordMabImpression(offerId, network);
+    this.evaluateRevenueHealth(offerId);
   }
 
   /**
@@ -542,6 +591,12 @@ export class OfferRoutingService {
     }
 
     this.leadRepo.recordMabConversion(offerId, payout);
+
+    // If offer was previously degraded due to 0 conversions and now converted, reset degradation
+    const offer = this.offers.get(offerId);
+    if (offer && offer.degradedUntil && offer.degradedReason?.includes('Zero conversions')) {
+      this.clearOfferDegraded(offerId);
+    }
 
     const s = this.getStats()[offerId];
     if (s) {

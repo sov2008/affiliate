@@ -5,6 +5,7 @@
 core/.env
 *.pem
 *.key
+pinterest_cookies.json
 
 # Authentication Sessions & Storage
 .auth/

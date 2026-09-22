@@ -417,6 +417,14 @@ async function processMessage(msg) {
   if (!msg || typeof msg !== 'object') return;
   const { id, method, params } = msg;
 
+  // Handle Notifications (no response expected per JSON-RPC 2.0 specification)
+  if (id === undefined || id === null) {
+    if (method === 'notifications/initialized') {
+      process.stderr.write(`[MCP-Browser] Client initialized notification received.\n`);
+    }
+    return;
+  }
+
   switch (method) {
     case 'initialize': {
       sendResponse(id, {
@@ -489,7 +497,6 @@ function sendError(id, code, message) {
 // Setup Standard Input Processing
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout,
   terminal: false
 });
 
