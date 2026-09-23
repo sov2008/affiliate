@@ -61,7 +61,9 @@
     "mcp:sqlite": "node scripts/mcp-sqlite-server.cjs",
     "mcp:ssh": "node scripts/mcp-ssh-server.cjs",
     "mcp:browser": "node scripts/mcp-browser-server.cjs",
-    "fcc:server": "fcc-server"
+    "fcc:server": "fcc-server",
+    "pinterest:publish": "node scripts/pinterest-worker.cjs --once",
+    "pinterest:worker": "node scripts/pinterest-worker.cjs"
   },
   "workspaces": [
     "core",

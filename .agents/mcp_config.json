@@ -57,6 +57,15 @@
       "env": {
         "NODE_ENV": "production"
       }
+    },
+    "fcc-ai-gateway": {
+      "command": "node",
+      "args": [
+        "D:\\WEB\\antigravity\\affiliate\\scripts\\mcp-fcc-server.cjs"
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      }
     }
   }
 }

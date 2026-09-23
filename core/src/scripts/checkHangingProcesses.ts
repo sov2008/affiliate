@@ -36,28 +36,15 @@ async function main() {
   const freeRes = await runSsh(conn, 'free -m; uptime');
   console.log(freeRes);
 
-  console.log('\n=== 2. Поиск зависших процессов tsc, tsx, npm, playwright, chrome, zombie/defunct ===');
-  const psRes = await runSsh(conn, 'ps aux --sort=-%cpu | head -n 25');
+  console.log('\n=== 2. Поиск процессов Chromium / Playwright / Defunct ===');
+  const chromeRes = await runSsh(conn, 'ps aux | grep -iE "chrome|scout|defunct" | grep -v grep || echo "Ни одного процесса Chromium или Defunct не обнаружено"');
+  console.log(chromeRes);
+
+  console.log('\n=== 3. Топ-15 процессов по потреблению CPU / RAM ===');
+  const psRes = await runSsh(conn, 'ps aux --sort=-%cpu | head -n 16');
   console.log(psRes);
 
-  console.log('=== Завершение зависших процессов Chromium/Playwright и старых esbuild/scout ===');
-  const killRes = await runSsh(conn, `
-    pkill -9 -f "chrome-headless-shell" 2>/dev/null || true
-    pkill -9 -f "smart-offer-scout" 2>/dev/null || true
-    pkill -9 -f "esbuild" 2>/dev/null || true
-    echo "Зависшие процессы успешно завершены."
-  `);
-  console.log(killRes);
-
-  console.log('\n=== Повторная проверка активных процессов ===');
-  const checkAfter = await runSsh(conn, 'pgrep -f "chrome-headless-shell|smart-offer-scout|esbuild" || echo "Чисто: зависших процессов нет"');
-  console.log(checkAfter);
-
-  console.log('\n=== Итоговая системная память и нагрузка на сервере ===');
-  const finalSys = await runSsh(conn, 'free -m; uptime');
-  console.log(finalSys);
-
-  console.log('\n=== 5. Состояние всех PM2 процессов ===');
+  console.log('\n=== 4. Состояние PM2 сервисов ===');
   const pm2Res = await runSsh(conn, 'pm2 status');
   console.log(pm2Res);
 

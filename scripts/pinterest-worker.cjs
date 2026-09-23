@@ -28,7 +28,7 @@ const CONFIG = {
   boardName: 'MoneyCash.pw',
   domain: 'https://flirtcheck.site',
   bridgeUrl: process.env.PINTEREST_BRIDGE_URL || 'https://t.me/flirtcheck', // Fallback unblocked channel/bridge
-  useDirectLinks: process.env.PINTEREST_DIRECT_LINKS === 'true',
+  useDirectLinks: process.env.PINTEREST_DIRECT_LINKS !== 'false',
   minIntervalMs: 60 * 60 * 1000, // 1 hour between pins in daemon mode
   maxDailyPins: 4,
 };
@@ -457,7 +457,7 @@ class CopyGenerator {
     return {
       title,
       description,
-      destinationLink: CONFIG.useDirectLinks ? utmArticleUrl : CONFIG.bridgeUrl,
+      destinationLink: CONFIG.useDirectLinks ? articleUrl : CONFIG.bridgeUrl,
       directArticleUrl: utmArticleUrl
     };
   }
@@ -517,7 +517,7 @@ class PinterestPublisher {
 
       // 2. Title
       log('Filling Title...');
-      const titleArea = await page.$('textarea[placeholder*="название"], textarea[placeholder*="Title"], textarea[id*="title"], input[placeholder*="заголовок"], textarea[placeholder*="заголовок"]');
+      const titleArea = await page.$('input[id*="storyboard-selector-title"], textarea[placeholder*="название"], textarea[placeholder*="Title"], textarea[id*="title"], input[placeholder*="заголовок"], textarea[placeholder*="заголовок"]');
       if (titleArea) {
         await titleArea.click();
         await page.keyboard.press('Control+A');
@@ -527,7 +527,7 @@ class PinterestPublisher {
 
       // 3. Description
       log('Filling Description...');
-      const descArea = await page.$('[aria-label="Добавьте описание пина"], [role="combobox"], textarea[id*="description"], [placeholder*="описание"]');
+      const descArea = await page.$('[aria-label="Добавьте описание пина"], div[contenteditable="true"], [role="combobox"], textarea[id*="description"], [placeholder*="описание"]');
       if (descArea) {
         await descArea.click();
         await page.keyboard.press('Control+A');
@@ -537,7 +537,7 @@ class PinterestPublisher {
 
       // 4. Destination Link
       log(`Filling Destination Link: ${pinData.destinationLink}`);
-      const linkArea = await page.$('textarea[placeholder*="ссылк"], input[placeholder*="ссылк"], textarea[placeholder*="link"], input[placeholder*="link"]');
+      const linkArea = await page.$('textarea[placeholder*="ссылк"], input[placeholder*="ссылк"], textarea[placeholder*="link"], input[placeholder*="link"], input[id*="link"], textarea[id*="link"]');
       if (linkArea) {
         await linkArea.click();
         await page.keyboard.press('Control+A');
@@ -621,7 +621,7 @@ class PinterestPublisher {
 }
 
 // --- Main Orchestrator ---
-async function runSingleCycle() {
+async function runSingleCycle(targetSlugOverride) {
   log('Starting Pinterest Publisher cycle...');
 
   const stateMgr = new StateManager(CONFIG.stateFile);
@@ -634,17 +634,27 @@ async function runSingleCycle() {
   const allPosts = scanner.scanPosts();
   log(`Found ${allPosts.length} total posts in blog.`);
 
-  // Filter unpublished posts
-  const pendingPosts = allPosts.filter(p => !stateMgr.isPublished(p.slug));
-  log(`Pending unpublished posts: ${pendingPosts.length}`);
+  let targetPost = null;
+  if (targetSlugOverride) {
+    targetPost = allPosts.find(p => p.slug === targetSlugOverride);
+    if (!targetPost) {
+      log(`Target post with slug "${targetSlugOverride}" not found in blog!`);
+      return;
+    }
+  } else {
+    // Filter unpublished posts
+    const pendingPosts = allPosts.filter(p => !stateMgr.isPublished(p.slug));
+    log(`Pending unpublished posts: ${pendingPosts.length}`);
 
-  if (pendingPosts.length === 0) {
-    log('All posts have already been published to Pinterest! Resetting oldest or exiting.');
-    return;
+    if (pendingPosts.length === 0) {
+      log('All posts have already been published to Pinterest! Resetting oldest or exiting.');
+      return;
+    }
+
+    // Select next post (round-robin / FIFO)
+    targetPost = pendingPosts[0];
   }
 
-  // Select next post (round-robin / FIFO)
-  const targetPost = pendingPosts[0];
   log(`Selected target post for publishing: "${targetPost.title}" (${targetPost.slug})`);
 
   // Generate 1000x1500 visual asset
@@ -679,10 +689,12 @@ async function runSingleCycle() {
 
 async function main() {
   const isOnce = process.argv.includes('--once');
+  const slugIdx = process.argv.indexOf('--slug');
+  const targetSlug = slugIdx !== -1 && process.argv[slugIdx + 1] ? process.argv[slugIdx + 1] : null;
 
   if (isOnce) {
     log('Running in single-execution mode (--once)...');
-    await runSingleCycle();
+    await runSingleCycle(targetSlug);
     log('Single execution completed. Exiting.');
     process.exit(0);
   }
