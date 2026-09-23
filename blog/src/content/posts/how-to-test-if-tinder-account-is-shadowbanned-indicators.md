@@ -11,8 +11,8 @@ motto: "Love is... realizing a broken network packet has nothing to do with your
 tags: ["Tinder","Shadowban","Technical Forensics","Account Health"]
 seoKeywords: ["am i shadowbanned on tinder","tinder shadowban fix","tinder zero matches bug","device ban tinder"]
 canonicalUrl: "https://flirtcheck.site/blog/how-to-test-if-tinder-account-is-shadowbanned-indicators/"
-coverImage: "/blog/images/posts/how-to-test-if-tinder-account-is-shadowbanned-indicators.webp"
-image: "/blog/images/posts/how-to-test-if-tinder-account-is-shadowbanned-indicators.webp"
+coverImage: "/images/posts/how-to-test-if-tinder-account-is-shadowbanned-indicators.webp"
+image: "/images/posts/how-to-test-if-tinder-account-is-shadowbanned-indicators.webp"
 draft: false
 ---
 

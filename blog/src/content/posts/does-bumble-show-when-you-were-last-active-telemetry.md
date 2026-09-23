@@ -11,8 +11,8 @@ motto: "Love is... trusting someone without checking their background timestamp.
 tags: ["Bumble","Activity Tracking","Privacy","Telemetry"]
 seoKeywords: ["bumble activity status","can you see if someone is online on bumble","bumble snooze mode tracking","bumble distance change while inactive"]
 canonicalUrl: "https://flirtcheck.site/blog/does-bumble-show-when-you-were-last-active-telemetry/"
-coverImage: "/blog/images/posts/default-cover.webp"
-image: "/blog/images/posts/default-cover.webp"
+coverImage: "/images/posts/does-bumble-show-when-you-were-last-active-telemetry.webp"
+image: "/images/posts/does-bumble-show-when-you-were-last-active-telemetry.webp"
 draft: false
 ---
 
