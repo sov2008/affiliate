@@ -2,9 +2,6 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /go
-Disallow: /r/
-Disallow: /l/
 Disallow: /dashboard/
 
 # Search Engine Directives

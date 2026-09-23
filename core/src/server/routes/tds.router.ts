@@ -55,7 +55,8 @@ export function handleTdsRedirect(req: Request, res: Response): void {
     const sep = cleanBase.includes('?') ? '&' : '?';
     const destinationUrl = `${cleanBase}${sep}sub1=${encodeURIComponent(String(sub1))}&sub2=${encodeURIComponent(String(sub2))}&cid=${encodeURIComponent(String(clickId))}`;
 
-    // 6. Execute clean HTTP 302 redirect
+    // 6. Execute clean HTTP 302 redirect with strict noindex
+    res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.setHeader('Pragma', 'no-cache');
     res.setHeader('Expires', '0');
@@ -74,6 +75,7 @@ export function handleTdsRedirect(req: Request, res: Response): void {
 export function handleRootRedirect(req: Request, res: Response): void {
   const query = req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : '';
   const sep = query ? '&' : '?';
+  res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
   return res.redirect(302, `/go${query}${sep}sub1=root_direct&sub2=organic`);
 }
 
