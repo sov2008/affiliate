@@ -97,6 +97,8 @@ Most dating advice warns against obvious threats like aggressive unsolicited pho
 
 ---
 
+<div id="deeptrace-scanner-slot"></div>
+
 ## Run a Comprehensive Safety Audit on FlirtCheck.site
 
 Don't let gut anxiety leave you paralyzed or vulnerable.

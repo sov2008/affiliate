@@ -101,6 +101,8 @@ Scammer: Sorry, my camera’s broken. I’ll send a selfie later.
 - Document screenshots (timestamps, URLs) and submit to **FlirtCheck Forensic Archive** for community alerts.  
 - If you've sent money, contact your bank **immediately** and file a police report referencing **FTC case #** (if applicable).  
 
+<div id="deeptrace-scanner-slot"></div>
+
 ## 3. Real-World Scenarios & Counter-Scripts
 
 ### 3.1 The "Sha Zhu Pan" Crypto Romance

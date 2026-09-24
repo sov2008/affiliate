@@ -12,6 +12,7 @@ import CaseNotesFeed from '../components/CaseNotesFeed.astro';
 import QuickExitButton from '../components/QuickExitButton.astro';
 import AuthorCard from '../components/AuthorCard.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import DeepTraceScannerWidget from '../components/DeepTraceScannerWidget.astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.config';
 
@@ -113,6 +114,9 @@ const relatedPosts = allPosts
   .map(item => item.post);
 
 const isSafetyDossier = catId === 'safety-dossier' || (tags && tags.some(t => /scam|crypto|catfish|bot|imposter/i.test(t)));
+const isForensicTarget = isSafetyDossier ||
+  (tags && tags.some(t => /screenshot|chat|text|red-flag|analyzer|osint|rizz|flirt/i.test(t))) ||
+  /screenshot|chat|catfish|scam|butchering|fake|red flag/i.test(title);
 
 // Schema.org - Full Google Rich Results Compliance
 const articleSchema = {
@@ -496,6 +500,15 @@ const faqSchema = {
               />
             </div>
             <slot />
+
+            {/* Contextual DeepTrace forensic widget for high-intent readers */}
+            {isForensicTarget && (
+              <DeepTraceScannerWidget
+                headline="FLIRTCHECK DEEPTRACE™ // CHAT FORENSIC AUDIT"
+                subheadline="Have a suspicious conversation screenshot? Run an automated forensic audit against known romance scam lexicons, active call-center timezones, and synthetic avatars."
+                caseRef={`FC-${caseId}`}
+              />
+            )}
           </article>
 
           <!-- ══════════════════════════════════════════════
@@ -719,9 +732,19 @@ const faqSchema = {
         cta.href = url.toString();
       }
 
+      // ─── DeepTrace Scanner In-Content Relocation ─────────────────
+      function relocateDeepTraceWidget() {
+        const slot = document.getElementById('deeptrace-scanner-slot');
+        const widget = document.getElementById('deeptrace-scanner-widget');
+        if (slot && widget) {
+          slot.replaceWith(widget);
+        }
+      }
+
       document.addEventListener('DOMContentLoaded', () => {
         buildToc();
         injectMidArticleQuiz();
+        relocateDeepTraceWidget();
         setupArticleEvidence();
         initFontScale();
         initTocCta();
@@ -896,6 +919,13 @@ const faqSchema = {
         document.getElementById('fontScaleUpBtn')?.addEventListener('click', () => updateFontScale(1));
         document.getElementById('fontScaleDownBtnMobile')?.addEventListener('click', () => updateFontScale(-1));
         document.getElementById('fontScaleUpBtnMobile')?.addEventListener('click', () => updateFontScale(1));
+
+        // 3. Relocate DeepTrace Widget into In-Article Anchor if present
+        const deeptraceWidget = document.querySelector('.deeptrace-widget');
+        const customSlot = document.querySelector('#deeptrace-scanner-slot, .deeptrace-scanner-slot');
+        if (deeptraceWidget && customSlot) {
+          customSlot.replaceWith(deeptraceWidget);
+        }
       });
     </script>
 

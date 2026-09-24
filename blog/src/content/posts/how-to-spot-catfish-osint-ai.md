@@ -151,6 +151,8 @@ At **[FlirtCheck.site](https://flirtcheck.site)**, you can upload chat screensho
 [ FlirtCheck.site: 5 sec, Client-Side Privacy, Behavioral Certainty ]
 ```
 
+<div id="deeptrace-scanner-slot"></div>
+
 ---
 
 ## Safety Checklist: 5 Non-Negotiable Rules of Engagement

@@ -198,12 +198,22 @@ export class DeepTraceAnalyzerService {
 
   public async analyze(inputRaw: DeepTraceAnalysisInput): Promise<DeepTraceReportDTO> {
     const input = DeepTraceAnalysisInputSchema.parse(inputRaw);
-    const reportId = crypto.randomUUID();
-    const caseReference = `DT-${new Date().getFullYear()}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`;
-    const analyzedAt = new Date().toISOString();
-
     // 1. Vision & Chat Parsing Pipeline
     const extractedData = await this.extractChatAndForensicsFromVision(input);
+    return this.generateFullReport(extractedData, input);
+  }
+
+  /**
+   * Generates a complete forensic report from pre-extracted vision/chat data
+   */
+  public generateFullReport(
+    extractedData: VisionChatExtraction,
+    input: DeepTraceAnalysisInput,
+    overrides?: { reportId?: string; caseReference?: string; analyzedAt?: string }
+  ): DeepTraceReportDTO {
+    const reportId = overrides?.reportId || crypto.randomUUID();
+    const caseReference = overrides?.caseReference || `DT-${new Date().getFullYear()}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`;
+    const analyzedAt = overrides?.analyzedAt || new Date().toISOString();
 
     // 2. Deterministic Heuristic Analysis
     const timezoneAnomalies = this.calculateTimezoneMismatch(
@@ -237,16 +247,37 @@ export class DeepTraceAnalyzerService {
     });
 
     // 7. Assemble ExtractionDTO
+    const parsedMessages: ParsedChatMessage[] = extractedData.messages.map((m, idx) => {
+      const anyMsg = m as any;
+      let timestamp = anyMsg.timestamp || anyMsg.isoTimestamp;
+      if (!timestamp || isNaN(new Date(timestamp).getTime())) {
+        const offsetMinutes = (extractedData.messages.length - idx) * 2;
+        timestamp = new Date(Date.now() - offsetMinutes * 60000).toISOString();
+      }
+
+      return {
+        id: anyMsg.id && typeof anyMsg.id === 'string' && anyMsg.id.length >= 10 ? anyMsg.id : crypto.randomUUID(),
+        sequenceIndex: m.sequenceIndex ?? idx,
+        timestamp,
+        rawTimestampText: m.rawTimestampText || undefined,
+        author: m.author === 'SYSTEM' ? 'SUSPECT' : m.author,
+        text: m.text,
+        detectedLanguage: (m.detectedLanguage || 'en').slice(0, 2).toLowerCase(),
+        confidence: typeof anyMsg.confidence === 'number' ? anyMsg.confidence : 0.95,
+        anomalies: Array.isArray(anyMsg.anomalies) ? anyMsg.anomalies : []
+      };
+    });
+
     const extractionSummary: ExtractionDTO = {
       conversationId: extractedData.conversationId || crypto.randomUUID(),
       detectedPlatform: extractedData.detectedPlatform,
-      totalMessagesExtracted: extractedData.messages.length,
-      suspectMessageCount: extractedData.messages.filter(m => m.author === 'SUSPECT').length,
-      userMessageCount: extractedData.messages.filter(m => m.author === 'USER').length,
-      parsedMessages: extractedData.messages,
-      conversationTimespanMinutes: this.calculateTimespanMinutes(extractedData.messages),
-      averageSuspectLatencySeconds: this.calculateAverageLatencySeconds(extractedData.messages),
-      detectedLanguages: Array.from(new Set(extractedData.messages.map(m => m.detectedLanguage))),
+      totalMessagesExtracted: parsedMessages.length,
+      suspectMessageCount: parsedMessages.filter(m => m.author === 'SUSPECT').length,
+      userMessageCount: parsedMessages.filter(m => m.author === 'USER').length,
+      parsedMessages,
+      conversationTimespanMinutes: this.calculateTimespanMinutes(parsedMessages),
+      averageSuspectLatencySeconds: this.calculateAverageLatencySeconds(parsedMessages),
+      detectedLanguages: Array.from(new Set(parsedMessages.map(m => m.detectedLanguage))),
       extractedUrls: extractedData.extractedMetadata?.urls || [],
       extractedPhoneNumbers: extractedData.extractedMetadata?.phoneNumbers || [],
       extractedCryptoAddresses: extractedData.extractedMetadata?.cryptoAddresses || []
@@ -861,3 +892,5 @@ Output JSON Format:
     return count > 0 ? Math.round((totalLatency / count) * 10) / 10 : 25.0;
   }
 }
+
+export const deepTraceAnalyzer = new DeepTraceAnalyzerService();

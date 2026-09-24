@@ -1,0 +1,73 @@
+name: Production Deployment & CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run DeepTrace Automated Forensics & UI Test Suite
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Validate TypeScript Schemas
+        run: npx tsx src/tests/deeptrace-schema.spec.ts
+
+      - name: Execute Forensic Heuristics & Stylometrics Engine Tests
+        run: npx tsx src/tests/deeptrace-analyzer.spec.ts
+
+      - name: Verify Radar UI React Components SSR
+        run: npx tsx src/tests/deeptrace-components.spec.tsx
+
+      - name: Run End-to-End Image Processing & Analysis Pipeline
+        run: npx tsx src/tests/deeptrace-pipeline.spec.ts
+
+  build-and-deploy:
+    name: Build Container & Deploy to DigitalOcean
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Deploy to DigitalOcean Droplet via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DO_HOST || '178.128.199.28' }}
+          username: ${{ secrets.DO_USER || 'root' }}
+          key: ${{ secrets.DO_SSH_KEY }}
+          script: |
+            set -e
+            echo "🚀 Initiating production synchronization on target host..."
+            cd /var/www/affiliate || cd ~/affiliate
+            git fetch origin main
+            git reset --hard origin/main
+            npm ci --omit=dev
+            
+            # Restart PM2 process or reload Docker Compose
+            if command -v docker compose &> /dev/null && [ -f "docker-compose.prod.yml" ]; then
+              docker compose -f docker-compose.prod.yml up -d --build
+            else
+              pm2 restart ecosystem.config.cjs --env production || pm2 reload all
+            fi
+            
+            echo "✅ Deployment finished successfully!"
