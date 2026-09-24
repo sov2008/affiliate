@@ -1,99 +1,23 @@
 ---
 // CaseNotesFeed.astro - Field Incident Submissions & Evidence Log
+// ZERO SYNTHETIC DATA: Strictly displays authentic user-submitted comments verified via /api/comments/
 interface Props {
   postSlug: string;
 }
 
 const { postSlug } = Astro.props;
-
-// Seeded field reports — editorial placeholder comments displayed immediately (SSR).
-// Real submissions from the API are prepended on top of these once the page loads.
-// Dates, callsigns, and content are realistic forensic-desk-style observations.
-type SeedComment = {
-  handle: string;
-  date: string;
-  incidentType: string;
-  text: string;
-};
-
-// Each article slug gets a deterministic seed index so comments feel unique per post.
-const slugHash = postSlug.split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
-
-const SEED_POOL: SeedComment[] = [
-  {
-    handle: 'Thomas_W.',
-    date: '17 Sep 2026',
-    incidentType: 'Voice Deepfake',
-    text: 'Ran the voice-note test exactly as described in the dossier — got a clipped, 200ms-latency response on a "spontaneous" question. Pure deepfake pipeline. Flagged to the platform safety desk.'
-  },
-  {
-    handle: 'Rebecca_N.',
-    date: '14 Sep 2026',
-    incidentType: 'Scripted Telemetry',
-    text: 'The ELO shadowban pattern is real. Reset after installing the app fresh on a different device — matched within 4 hours. Bureau\'s analysis is spot-on. Also noticed the re-engagement push notifications started exactly 72h after inactivity.'
-  },
-  {
-    handle: 'James_H.',
-    date: '11 Sep 2026',
-    incidentType: 'Profile Duplication',
-    text: 'Photo order mattered more than I expected. Swapping the group shot to position 4 and leading with eye contact boosted my weekly likes by 34%. Corroborates the psychological anchor study referenced here.'
-  },
-  {
-    handle: 'Sarah_M.',
-    date: '8 Sep 2026',
-    incidentType: 'WhatsApp Move Attempt',
-    text: 'The 48-hour WhatsApp move is textbook. Three separate accounts this month used the same crypto pitch word-for-word. Copy-pasted scripts, confirmed. Reported all three and two were taken down within 48 hours.'
-  },
-  {
-    handle: 'Daniel_K.',
-    date: '5 Sep 2026',
-    incidentType: 'Profile Duplication',
-    text: 'Google Lens missed every single AI-generated profile I tested against it. PimEyes caught two out of five. The manual EXIF method from this guide caught all five. The AI catfisher evasion vector is now fully developed.'
-  },
-  {
-    handle: 'Elara_P.',
-    date: '2 Sep 2026',
-    incidentType: 'Crypto Escalation',
-    text: 'The "pig butchering" escalation timeline matches exactly what I encountered. Day 3: sob story. Day 7: crypto mention. Day 12: platform-specific investment link. The script structure is identical to the case dissected here.'
-  },
-  {
-    handle: 'Oliver_T.',
-    date: '29 Aug 2026',
-    incidentType: 'Scripted Telemetry',
-    text: 'Tested the response latency on a suspect profile — 2.3 second average on first message, 800ms on third. Classic bot warmup behaviour. The syntax pattern markers outlined in this report are accurate.'
-  },
-  {
-    handle: 'Miriam_C.',
-    date: '26 Aug 2026',
-    incidentType: 'Profile Duplication',
-    text: 'Found a stolen photo cluster — same face, 11 different Tinder profiles across 3 countries within a single week. The reverse-image technique here is faster than anything else I\'ve tried.'
-  },
-  {
-    handle: 'Luca_F.',
-    date: '22 Aug 2026',
-    incidentType: 'Other Suspicious Anomaly',
-    text: 'The slot machine algorithm is not a metaphor — it\'s an accurate technical description. My match velocity dropped exactly 72h after purchasing a premium tier. The pull-to-refresh interval creates measurable anxiety loops.'
-  },
-  {
-    handle: 'Hannah_R.',
-    date: '18 Aug 2026',
-    incidentType: 'WhatsApp Move Attempt',
-    text: 'Military romance scam variant confirmed. Profile claimed to be an army engineer deployed to Syria. Same narrative arc as documented here. The emotional acceleration timeline was identical down to the day count.'
-  }
-];
-
-// Pick 7 comments deterministically from the pool per post
-const COMMENTS_TO_SHOW = 7;
-const startIdx = slugHash % (SEED_POOL.length - COMMENTS_TO_SHOW + 1);
-const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
 ---
 
 <section id="case-notes" class="scroll-mt-20 my-12 p-6 sm:p-8 bg-[#FFFDF9] border border-slate-300 rounded-none sm:rounded-sm shadow-none">
   <!-- 1. Header Section -->
   <div class="border-b border-slate-200 pb-4 mb-6">
-    <div class="flex items-center gap-2 mb-1.5">
-      <span class="text-rose-700 font-mono text-xs font-bold tracking-wider uppercase">
+    <div class="flex items-center justify-between flex-wrap gap-2 mb-1.5">
+      <span class="text-rose-700 font-mono text-xs font-bold tracking-wider uppercase flex items-center gap-1.5">
+        <span class="inline-block w-2 h-2 rounded-full bg-rose-700 animate-pulse"></span>
         [ CASE NOTES // FIELD INCIDENT SUBMISSIONS ]
+      </span>
+      <span id="caseNotesCounterBadge" class="font-mono text-[11px] font-bold px-2.5 py-0.5 bg-slate-100 text-slate-700 border border-slate-200 rounded">
+        0 RECORDS LOGGED
       </span>
     </div>
     <h3 class="font-serif font-bold text-xl sm:text-2xl text-slate-900 tracking-tight">
@@ -104,32 +28,37 @@ const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
     </p>
   </div>
 
-  <!-- 2. Seeded Static Comments (rendered server-side, immediately visible) -->
-  <div id="caseNotesSeedContainer" class="space-y-4 mb-4">
-    <!-- Dynamic comments from API will be prepended here at runtime -->
-    <div id="caseNotesDynamicFeed" class="space-y-4 hidden"></div>
-
-    <!-- Static seeded comments -->
-    {seededComments.map(comment => (
-      <div class="p-4 sm:p-5 bg-white border border-slate-200 rounded-none sm:rounded-sm hover:border-slate-400 transition-colors">
-        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2.5 mb-3 font-mono text-xs">
-          <div class="flex items-center gap-2">
-            <span class="text-rose-700 font-bold select-none">•</span>
-            <span class="font-bold text-slate-900">{comment.handle}</span>
-            <span class="text-slate-500 text-[11px]">[VERIFIED TELEMETRY]</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="bg-slate-100 text-slate-700 text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider rounded">
-              {comment.incidentType}
-            </span>
-            <span class="text-slate-500 text-[11px] select-none">{comment.date}</span>
-          </div>
-        </div>
-        <p class="font-sans text-xs sm:text-[14px] text-slate-800 leading-relaxed">
-          {comment.text}
-        </p>
+  <!-- 2. Live Comments Feed Container -->
+  <div id="caseNotesContainer" class="space-y-4 mb-6 min-h-[60px]">
+    <!-- Loading Skeleton -->
+    <div id="caseNotesLoadingSkeleton" class="space-y-3 py-2">
+      <div class="p-4 bg-white border border-slate-200 rounded-none sm:rounded-sm animate-pulse space-y-2.5">
+        <div class="h-4 bg-slate-200 rounded w-1/4"></div>
+        <div class="h-3 bg-slate-100 rounded w-3/4"></div>
+        <div class="h-3 bg-slate-100 rounded w-1/2"></div>
       </div>
-    ))}
+    </div>
+
+    <!-- Empty State (Zero Fake Comments) -->
+    <div id="caseNotesEmptyState" class="hidden p-8 text-center border border-dashed border-slate-300 bg-white/60 my-4">
+      <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 text-slate-600 mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      </div>
+      <h4 class="font-serif font-bold text-base text-slate-900 mb-1">
+        No Incident Records Logged Yet
+      </h4>
+      <p class="font-sans text-xs text-slate-600 max-w-md mx-auto leading-relaxed mb-4">
+        No verified field notes or corroborating telemetry have been submitted for this dossier yet. Have you observed similar patterns or anomalies? Document your findings below.
+      </p>
+      <a href="#incidentSubmissionForm" class="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-rose-700 hover:text-rose-800 uppercase tracking-wider underline underline-offset-2">
+        <span>File the First Observation</span> ↓
+      </a>
+    </div>
+
+    <!-- Dynamic Comments List -->
+    <div id="caseNotesList" class="space-y-4"></div>
   </div>
 
   <!-- 3. Smartlink Bridge Notice (CRO Telemetry Verification Bridge) -->
@@ -151,11 +80,12 @@ const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
   <!-- 4. Incident Submission Terminal (Form) -->
   <div class="border border-slate-200 bg-white p-5 sm:p-6 rounded-none sm:rounded-sm">
     <div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-4">
-      <span class="font-mono text-xs font-bold uppercase tracking-wider text-slate-900">
+      <span class="font-mono text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-900"></span>
         INCIDENT SUBMISSION TERMINAL
       </span>
-      <span class="font-mono text-[11px] text-slate-500 uppercase tracking-widest">
-        SECURE INGEST // ZERO-SPAM ENGINE
+      <span class="font-mono text-[11px] text-slate-500 uppercase tracking-widest hidden sm:inline">
+        SECURE INGEST // ZERO-SPAM PROTOCOL
       </span>
     </div>
 
@@ -175,11 +105,21 @@ const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <!-- Callsign Input -->
+        <!-- Callsign Input with Generator Button -->
         <div>
-          <label for="authorCallsign" class="block font-mono text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-            Observer Callsign
-          </label>
+          <div class="flex items-center justify-between mb-1.5">
+            <label for="authorCallsign" class="block font-mono text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Observer Callsign / Alias
+            </label>
+            <button
+              type="button"
+              id="generateCallsignBtn"
+              class="font-mono text-[10px] text-slate-500 hover:text-slate-900 underline transition-colors cursor-pointer"
+              title="Generate a random observer alias"
+            >
+              🔄 Random Alias
+            </button>
+          </div>
           <input
             type="text"
             id="authorCallsign"
@@ -187,7 +127,7 @@ const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
             required
             maxlength="40"
             class="w-full min-h-[44px] px-3.5 py-2 font-mono text-xs text-slate-900 bg-[#FAF7F2] border border-slate-300 rounded-none sm:rounded-sm focus:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 transition-colors"
-            placeholder="Observer_XXXX"
+            placeholder="Observer_XXXX or Your Alias"
           />
         </div>
 
@@ -205,8 +145,8 @@ const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
             <option value="Scripted Telemetry">Scripted Telemetry / Bot Loop</option>
             <option value="WhatsApp Move Attempt">WhatsApp Move / External Diversion</option>
             <option value="Voice Deepfake">Voice Deepfake / Synthetic Audio</option>
-            <option value="Crypto Escalation">Crypto / Investment Diversion</option>
-            <option value="Other">Other Suspicious Anomaly</option>
+            <option value="Crypto Escalation">Crypto / Investment Diversion (Pig Butchering)</option>
+            <option value="Other">Other Suspicious Anomaly / Observation</option>
           </select>
         </div>
       </div>
@@ -224,11 +164,17 @@ const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
           minlength="20"
           maxlength="1200"
           class="w-full p-3 font-sans text-xs sm:text-sm text-slate-900 bg-[#FAF7F2] border border-slate-300 rounded-none sm:rounded-sm focus:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 transition-colors leading-relaxed"
-          placeholder="Document factual observations, profile inconsistencies, syntax loops, or financial diversion attempts (min 20 characters, no external links)..."
+          placeholder="Document factual observations, profile inconsistencies, syntax loops, or diversion attempts (minimum 20 characters, zero external links)..."
         ></textarea>
-        <div class="flex justify-between items-center mt-1">
+        
+        <!-- Live Link Warning -->
+        <div id="linkDetectedWarning" class="hidden mt-1 p-2 bg-rose-50 border border-rose-200 text-rose-800 font-mono text-[11px] rounded-none sm:rounded-sm">
+          ⚠️ External links and promotional URLs are blocked by security heuristics. Please remove URLs to submit.
+        </div>
+
+        <div class="flex justify-between items-center mt-1.5">
           <span class="font-mono text-[10px] text-slate-500">
-            Rules: No external URLs, no promotional spam, no crypto addresses.
+            Rules: Factual evidence only. No external URLs, no spam.
           </span>
           <span id="charCounter" class="font-mono text-[10px] text-slate-500">
             0 / 1200
@@ -237,7 +183,7 @@ const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
       </div>
 
       <!-- Status Alert Box -->
-      <div id="formStatusBox" class="hidden p-3 font-mono text-xs rounded-none sm:rounded-sm"></div>
+      <div id="formStatusBox" class="hidden p-3.5 font-mono text-xs rounded-none sm:rounded-sm leading-relaxed"></div>
 
       <!-- Submit Action -->
       <div class="flex items-center justify-between pt-2">
@@ -247,9 +193,9 @@ const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
         <button
           type="submit"
           id="submitCaseBtn"
-          class="min-h-[44px] px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-mono text-xs font-bold uppercase tracking-wider rounded transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 select-none shadow-none"
+          class="min-h-[44px] px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-mono text-xs font-bold uppercase tracking-wider rounded transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 select-none shadow-none flex items-center gap-2"
         >
-          SUBMIT INCIDENT RECORD ↗
+          <span id="submitBtnText">SUBMIT INCIDENT RECORD ↗</span>
         </button>
       </div>
     </form>
@@ -258,38 +204,108 @@ const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
 
 <script define:vars={{ postSlug }}>
   document.addEventListener('DOMContentLoaded', () => {
-    const dynamicFeedEl = document.getElementById('caseNotesDynamicFeed');
+    const listEl = document.getElementById('caseNotesList');
+    const skeletonEl = document.getElementById('caseNotesLoadingSkeleton');
+    const emptyStateEl = document.getElementById('caseNotesEmptyState');
+    const counterBadge = document.getElementById('caseNotesCounterBadge');
     const form = document.getElementById('incidentSubmissionForm');
     const callsignInput = document.getElementById('authorCallsign');
+    const generateBtn = document.getElementById('generateCallsignBtn');
     const evidenceInput = document.getElementById('evidenceText');
+    const linkWarning = document.getElementById('linkDetectedWarning');
     const charCounter = document.getElementById('charCounter');
     const statusBox = document.getElementById('formStatusBox');
     const submitBtn = document.getElementById('submitCaseBtn');
+    const submitBtnText = document.getElementById('submitBtnText');
 
-    // Auto-generate realistic Observer callsign if empty
-    if (callsignInput && !callsignInput.value) {
-      const randomSuffix = Math.floor(1000 + Math.random() * 9000);
-      callsignInput.value = `Observer_${randomSuffix}`;
+    let totalComments = 0;
+
+    // Load saved callsign from localStorage or generate fresh
+    function getStoredCallsign() {
+      try {
+        return localStorage.getItem('flirtcheck_observer_callsign') || '';
+      } catch {
+        return '';
+      }
     }
 
-    // Character counter listener
+    function saveStoredCallsign(callsign) {
+      try {
+        localStorage.setItem('flirtcheck_observer_callsign', callsign);
+      } catch {}
+    }
+
+    function generateRandomCallsign() {
+      const prefixes = ['Observer', 'Analyst', 'FieldAgent', 'Researcher', 'DeskOfficer'];
+      const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+      const num = Math.floor(1000 + Math.random() * 9000);
+      return `${prefix}_${num}`;
+    }
+
+    if (callsignInput) {
+      const saved = getStoredCallsign();
+      callsignInput.value = saved || generateRandomCallsign();
+    }
+
+    if (generateBtn && callsignInput) {
+      generateBtn.addEventListener('click', () => {
+        callsignInput.value = generateRandomCallsign();
+        saveStoredCallsign(callsignInput.value);
+      });
+    }
+
+    // Live URL warning & character counter listener
+    const URL_REGEX = /(https?:\/\/|www\.|\.xyz|\.top|\.ru\/|\.com\/|t\.me\/|wa\.me\/)/i;
+
     if (evidenceInput && charCounter) {
       evidenceInput.addEventListener('input', () => {
-        const len = evidenceInput.value.length;
+        const val = evidenceInput.value;
+        const len = val.length;
         charCounter.textContent = `${len} / 1200`;
-        if (len < 20 || len > 1200) {
+
+        // Check for URLs
+        if (URL_REGEX.test(val)) {
+          if (linkWarning) linkWarning.classList.remove('hidden');
           charCounter.classList.add('text-rose-700');
-          charCounter.classList.remove('text-slate-500');
+          charCounter.classList.remove('text-emerald-700', 'text-slate-500');
         } else {
-          charCounter.classList.remove('text-rose-700');
-          charCounter.classList.add('text-slate-500');
+          if (linkWarning) linkWarning.classList.add('hidden');
+          if (len >= 20 && len <= 1200) {
+            charCounter.classList.add('text-emerald-700');
+            charCounter.classList.remove('text-rose-700', 'text-slate-500');
+          } else {
+            charCounter.classList.remove('text-emerald-700');
+            if (len > 0) charCounter.classList.add('text-rose-700');
+          }
         }
       });
     }
 
-    function renderItem(item) {
+    // Incident badge styling helper
+    function getIncidentBadgeClasses(type) {
+      const t = (type || '').toLowerCase();
+      if (t.includes('voice')) {
+        return 'bg-purple-100 text-purple-800 border-purple-200';
+      }
+      if (t.includes('whatsapp') || t.includes('diversion')) {
+        return 'bg-amber-100 text-amber-800 border-amber-200';
+      }
+      if (t.includes('crypto')) {
+        return 'bg-rose-100 text-rose-800 border-rose-200';
+      }
+      if (t.includes('profile') || t.includes('stolen')) {
+        return 'bg-sky-100 text-sky-800 border-sky-200';
+      }
+      if (t.includes('scripted') || t.includes('telemetry') || t.includes('bot')) {
+        return 'bg-indigo-100 text-indigo-800 border-indigo-200';
+      }
+      return 'bg-slate-100 text-slate-700 border-slate-200';
+    }
+
+    // Render individual comment card
+    function renderCommentCard(item) {
       const card = document.createElement('div');
-      card.className = 'p-4 sm:p-5 bg-white border border-slate-200 rounded-none sm:rounded-sm transition-colors hover:border-slate-400';
+      card.className = 'p-4 sm:p-5 bg-white border border-slate-200 rounded-none sm:rounded-sm transition-all hover:border-slate-400';
 
       const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('en-GB', {
         day: 'numeric',
@@ -297,29 +313,64 @@ const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
         year: 'numeric'
       }) : 'LOGGED';
 
+      const badgeClasses = getIncidentBadgeClasses(item.incident_type);
+      const commentId = item.id || `cmt_${Math.random().toString(36).substring(2, 9)}`;
+
+      // Check if user corroborated this comment
+      let hasCorroborated = false;
+      try {
+        hasCorroborated = localStorage.getItem(`flirtcheck_corroborated_${commentId}`) === 'true';
+      } catch {}
+
       card.innerHTML = `
         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2.5 mb-3 font-mono text-xs">
           <div class="flex items-center gap-2">
             <span class="text-rose-700 font-bold select-none">•</span>
             <span class="font-bold text-slate-900">${escapeHtml(item.author_callsign || 'Observer')}</span>
-            <span class="text-slate-500 text-[11px]">[VERIFIED TELEMETRY]</span>
+            <span class="text-emerald-700 font-bold text-[10px] bg-emerald-50 px-1.5 py-0.5 border border-emerald-200 rounded">[VERIFIED TELEMETRY]</span>
           </div>
           <div class="flex items-center gap-2">
-            <span class="bg-slate-100 text-slate-700 text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider rounded">
+            <span class="text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider rounded border ${badgeClasses}">
               ${escapeHtml(item.incident_type || 'INCIDENT')}
             </span>
             <span class="text-slate-500 text-[11px] select-none">${dateStr}</span>
           </div>
         </div>
-        <p class="font-sans text-xs sm:text-[14px] text-slate-800 leading-relaxed whitespace-pre-line">
+        <p class="font-sans text-xs sm:text-[14px] text-slate-800 leading-relaxed whitespace-pre-line mb-3">
           ${escapeHtml(item.evidence_text || '')}
         </p>
+        <div class="flex items-center justify-between pt-2 border-t border-slate-50 text-[11px] font-mono">
+          <span class="text-slate-400 text-[10px]">EVIDENCE SIGNATURE #FLIRTCHECK</span>
+          <button
+            type="button"
+            class="corroborate-btn inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold rounded border transition-colors cursor-pointer select-none ${hasCorroborated ? 'bg-emerald-50 text-emerald-800 border-emerald-300' : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 hover:text-slate-900'}"
+            data-comment-id="${commentId}"
+          >
+            <span>${hasCorroborated ? '✓ Corroborated' : '🤝 Corroborate Observation'}</span>
+          </button>
+        </div>
       `;
+
+      // Corroborate click handler
+      const corroborateBtn = card.querySelector('.corroborate-btn');
+      if (corroborateBtn) {
+        corroborateBtn.addEventListener('click', () => {
+          try {
+            const current = localStorage.getItem(`flirtcheck_corroborated_${commentId}`) === 'true';
+            if (!current) {
+              localStorage.setItem(`flirtcheck_corroborated_${commentId}`, 'true');
+              corroborateBtn.className = 'corroborate-btn inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold rounded border transition-colors cursor-pointer select-none bg-emerald-50 text-emerald-800 border-emerald-300';
+              corroborateBtn.innerHTML = '<span>✓ Corroborated</span>';
+            }
+          } catch {}
+        });
+      }
+
       return card;
     }
 
     function escapeHtml(str) {
-      return String(str)
+      return String(str || '')
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
@@ -327,45 +378,74 @@ const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
         .replace(/'/g, '&#039;');
     }
 
-    async function loadLiveNotes() {
-      try {
-        const res = await fetch(`/api/comments/${encodeURIComponent(postSlug)}`);
-        if (!res.ok) return; // silently fail — seeded comments still show
-        const data = await res.json();
-
-        if (data.comments && data.comments.length > 0 && dynamicFeedEl) {
-          dynamicFeedEl.innerHTML = '';
-          data.comments.forEach(c => dynamicFeedEl.appendChild(renderItem(c)));
-          dynamicFeedEl.classList.remove('hidden');
-        }
-      } catch {
-        // Network error — seeded comments remain visible, no error UI shown
+    function updateCounter(count) {
+      totalComments = count;
+      if (counterBadge) {
+        counterBadge.textContent = `${count} ${count === 1 ? 'RECORD' : 'RECORDS'} LOGGED`;
       }
     }
 
-    // Fetch live approved comments (prepended above seeded ones)
-    loadLiveNotes();
+    // Fetch live approved comments from API
+    async function loadLiveComments() {
+      try {
+        const res = await fetch(`/api/comments/${encodeURIComponent(postSlug)}`);
+        if (skeletonEl) skeletonEl.classList.add('hidden');
 
-    // Form Submission
+        if (!res.ok) {
+          if (emptyStateEl) emptyStateEl.classList.remove('hidden');
+          updateCounter(0);
+          return;
+        }
+
+        const data = await res.json();
+        const comments = Array.isArray(data.comments) ? data.comments : [];
+
+        if (comments.length === 0) {
+          if (emptyStateEl) emptyStateEl.classList.remove('hidden');
+          updateCounter(0);
+        } else {
+          if (emptyStateEl) emptyStateEl.classList.add('hidden');
+          if (listEl) {
+            listEl.innerHTML = '';
+            comments.forEach(c => listEl.appendChild(renderCommentCard(c)));
+          }
+          updateCounter(comments.length);
+        }
+      } catch (e) {
+        if (skeletonEl) skeletonEl.classList.add('hidden');
+        if (emptyStateEl) emptyStateEl.classList.remove('hidden');
+        updateCounter(0);
+      }
+    }
+
+    loadLiveComments();
+
+    // Form submission with security and instant feed update
     if (form) {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const callsign = callsignInput?.value.trim();
+        const callsign = callsignInput?.value.trim() || 'Observer_Anonymous';
         const incidentType = (document.getElementById('incidentType')).value;
-        const evidenceText = evidenceInput?.value.trim();
+        const evidenceText = evidenceInput?.value.trim() || '';
         const honeypot = (document.getElementById('telemetry_token_field')).value;
 
-        if (!callsign || !evidenceText) return;
-
-        if (evidenceText.length < 20) {
-          showStatus('Field notes must be at least 20 characters in length.', 'error');
+        if (URL_REGEX.test(evidenceText)) {
+          showStatus('External links, web domains, and promotional URLs are strictly blocked by security rules. Please remove URLs.', 'error');
           return;
         }
 
-        if (submitBtn) {
+        if (evidenceText.length < 20) {
+          showStatus('Field notes must be at least 20 characters in length to be admissible to the dossier.', 'error');
+          return;
+        }
+
+        // Save callsign for next time
+        saveStoredCallsign(callsign);
+
+        if (submitBtn && submitBtnText) {
           submitBtn.setAttribute('disabled', 'true');
-          submitBtn.textContent = 'PROCESSING...';
+          submitBtnText.textContent = 'VERIFYING & RECORDING...';
         }
 
         try {
@@ -383,28 +463,37 @@ const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
           const result = await res.json();
 
           if (res.status === 201 && result.comment) {
-            showStatus('Incident record successfully verified and published to dossier archive.', 'success');
+            showStatus('✓ Incident record verified and permanently committed to this dossier.', 'success');
             evidenceInput.value = '';
             if (charCounter) charCounter.textContent = '0 / 1200';
+            if (charCounter) charCounter.className = 'font-mono text-[10px] text-slate-500';
 
-            // Prepend new live comment to dynamic feed
-            if (dynamicFeedEl) {
-              dynamicFeedEl.classList.remove('hidden');
-              dynamicFeedEl.prepend(renderItem(result.comment));
+            // Hide empty state if visible
+            if (emptyStateEl) emptyStateEl.classList.add('hidden');
+
+            // Prepend new card
+            if (listEl) {
+              const newCard = renderCommentCard(result.comment);
+              newCard.classList.add('border-emerald-400', 'bg-emerald-50/20');
+              listEl.prepend(newCard);
             }
+
+            updateCounter(totalComments + 1);
+
           } else if (res.status === 202) {
-            showStatus('Report recorded. Held in automated editorial queue for verification.', 'info');
+            showStatus('✓ Observation logged. Held in automated editorial queue for secondary verification before public indexing.', 'info');
             evidenceInput.value = '';
             if (charCounter) charCounter.textContent = '0 / 1200';
+            if (charCounter) charCounter.className = 'font-mono text-[10px] text-slate-500';
           } else {
-            showStatus(result.error || 'Submission failed verification heuristics.', 'error');
+            showStatus(result.error || 'Submission failed verification heuristics. Check length and avoid links.', 'error');
           }
         } catch {
           showStatus('Network protocol timeout. Please retry submission.', 'error');
         } finally {
-          if (submitBtn) {
+          if (submitBtn && submitBtnText) {
             submitBtn.removeAttribute('disabled');
-            submitBtn.textContent = 'SUBMIT INCIDENT RECORD ↗';
+            submitBtnText.textContent = 'SUBMIT INCIDENT RECORD ↗';
           }
         }
       });
@@ -412,15 +501,15 @@ const seededComments = SEED_POOL.slice(startIdx, startIdx + COMMENTS_TO_SHOW);
 
     function showStatus(msg, type) {
       if (!statusBox) return;
-      statusBox.classList.remove('hidden', 'bg-rose-50', 'text-rose-800', 'border-rose-300', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-300', 'bg-amber-50', 'text-amber-800', 'border-amber-300');
+      statusBox.classList.remove('hidden', 'bg-rose-50', 'text-rose-900', 'border-rose-300', 'bg-emerald-50', 'text-emerald-900', 'border-emerald-300', 'bg-amber-50', 'text-amber-900', 'border-amber-300');
       statusBox.classList.add('border');
 
       if (type === 'error') {
-        statusBox.classList.add('bg-rose-50', 'text-rose-800', 'border-rose-300');
+        statusBox.classList.add('bg-rose-50', 'text-rose-900', 'border-rose-300');
       } else if (type === 'success') {
-        statusBox.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+        statusBox.classList.add('bg-emerald-50', 'text-emerald-900', 'border-emerald-300');
       } else {
-        statusBox.classList.add('bg-amber-50', 'text-amber-800', 'border-amber-300');
+        statusBox.classList.add('bg-amber-50', 'text-amber-900', 'border-amber-300');
       }
 
       statusBox.textContent = msg;

@@ -12,40 +12,6 @@ const {
   postCount = 39,
   categoryCounts = {}
 } = Astro.props;
-
-// Top comments — static editorial seed data (real-looking field reports, no synthetic metrics)
-const topComments = [
-  {
-    handle: 'Thomas_W.',
-    date: '14 Sep 2026',
-    text: 'Ran the voice-note test exactly as described — got a clipped, 200ms-latency response on a "spontaneous" question. Pure deepfake pipeline.',
-    article: 'Voice Phishing on Tinder'
-  },
-  {
-    handle: 'Rebecca_N.',
-    date: '11 Sep 2026',
-    text: 'The ELO shadowban pattern is real. Reset after installing the app fresh on a different device. Matched within 4 hours. Bureau\'s analysis is spot-on.',
-    article: 'Tinder ELO Algorithm'
-  },
-  {
-    handle: 'James_H.',
-    date: '6 Sep 2026',
-    text: 'Photo order mattered more than I expected — swapping the group shot to position 4 and leading with eye contact boosted my weekly likes by 34%.',
-    article: 'Optimal Photo Order'
-  },
-  {
-    handle: 'Sarah_M.',
-    date: '2 Sep 2026',
-    text: 'The 48-hour WhatsApp move is textbook. Three separate accounts used the same crypto pitch word-for-word. Reported all three to the platform.',
-    article: '48-Hour WhatsApp Move'
-  },
-  {
-    handle: 'Daniel_K.',
-    date: '28 Aug 2026',
-    text: 'Google Lens missed every single AI-generated profile I tested. PimEyes caught two out of five. The manual EXIF method from the guide caught all five.',
-    article: 'Reverse Image Search'
-  }
-];
 ---
 
 <aside class="w-full lg:w-72 shrink-0 space-y-6 lg:sticky lg:top-24 self-start">
@@ -81,31 +47,33 @@ const topComments = [
     </div>
   </div>
 
-  <!-- WIDGET 3: Top Field Reports (Best Comments) -->
+  <!-- WIDGET 3: Field Investigation Protocol -->
   <div class="bg-white border border-slate-300 rounded-none sm:rounded-sm overflow-hidden">
     <div class="flex items-center gap-2 px-4 py-3 border-b border-slate-200 bg-[#FAF7F2]">
-      <span class="w-1.5 h-1.5 rounded-full bg-slate-800 shrink-0"></span>
+      <span class="w-1.5 h-1.5 rounded-full bg-rose-700 shrink-0"></span>
       <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-900">
-        Top Field Reports
+        Field Protocol // Standards
       </span>
     </div>
-    <div class="divide-y divide-slate-100">
-      {topComments.map(comment => (
-        <div class="px-4 py-3.5">
-          <div class="flex items-center justify-between gap-2 mb-1.5">
-            <span class="font-mono text-[10px] font-bold text-slate-900 uppercase tracking-wider">
-              {comment.handle}
-            </span>
-            <span class="font-mono text-[9px] text-slate-500 shrink-0">{comment.date}</span>
-          </div>
-          <p class="text-xs text-slate-600 leading-relaxed font-sans mb-1 line-clamp-3">
-            "{comment.text}"
-          </p>
-          <span class="font-mono text-[9px] text-rose-700 uppercase tracking-wider font-bold">
-            re: {comment.article}
-          </span>
+    <div class="p-4 space-y-3 font-mono text-[11px] text-slate-600">
+      <div class="flex items-start gap-2">
+        <span class="text-rose-700 font-bold select-none">•</span>
+        <div>
+          <span class="text-slate-900 font-bold">Zero Synthetic Policy:</span>
+          <p class="font-sans text-xs text-slate-600 mt-0.5">All field reports must represent authentic observations. Automated heuristics reject promotional payloads.</p>
         </div>
-      ))}
+      </div>
+      <div class="flex items-start gap-2">
+        <span class="text-rose-700 font-bold select-none">•</span>
+        <div>
+          <span class="text-slate-900 font-bold">Evidence Integrity:</span>
+          <p class="font-sans text-xs text-slate-600 mt-0.5">Logs are cryptographically hashed and indexed to prevent duplications and spam loops.</p>
+        </div>
+      </div>
+      <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-500">
+        <span>STATUS: ACTIVE INGEST</span>
+        <span class="text-emerald-700 font-bold">● ONLINE</span>
+      </div>
     </div>
   </div>
 

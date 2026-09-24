@@ -596,7 +596,7 @@ class PinterestPublisher {
 
       // Verify pin link on profile
       log('Checking latest pin URL from profile...');
-      await page.goto('https://www.pinterest.com/MoneyCashpw/_created/', { waitUntil: 'domcontentloaded', timeout: 35000 });
+      await page.goto('https://www.pinterest.com/FlirtCheck/_created/', { waitUntil: 'domcontentloaded', timeout: 35000 });
       await sleep(4000);
 
       const pinUrl = await page.evaluate(() => {
