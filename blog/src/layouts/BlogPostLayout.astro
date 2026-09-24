@@ -11,6 +11,7 @@ import ScamRiskMatrix from '../components/ScamRiskMatrix.astro';
 import CaseNotesFeed from '../components/CaseNotesFeed.astro';
 import QuickExitButton from '../components/QuickExitButton.astro';
 import AuthorCard from '../components/AuthorCard.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.config';
 
@@ -244,6 +245,8 @@ const faqSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <!-- Google Analytics 4 -->
+    <GoogleAnalytics />
   </head>
 
   <body class="min-h-screen flex flex-col bg-[#FAF7F2] text-slate-900">

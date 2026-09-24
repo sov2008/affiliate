@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import QuickExitButton from '../components/QuickExitButton.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 
 interface Props {
   title: string;
@@ -84,6 +85,8 @@ const fullImageUrl = rawImage
     {schemas && schemas.map((schema) => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}
+    <!-- Google Analytics 4 -->
+    <GoogleAnalytics />
   </head>
 
   <body class="min-h-screen flex flex-col bg-[#FAF7F2] text-slate-900">
