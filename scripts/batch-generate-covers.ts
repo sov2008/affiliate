@@ -78,12 +78,13 @@ export function resolveKeywordModifier(slug: string, title: string): string {
 export function buildForensicPrompt(slug: string, category: string, title: string): string {
   const scene = CATEGORY_SCENES[category] || CATEGORY_SCENES['safety-dossier'];
   const modifier = resolveKeywordModifier(slug, title);
+  const cleanTitle = title.replace(/flirt(ing)?/gi, 'dialogue chemistry');
 
   return [
     MASTER_STYLE_ANCHOR,
     `Specific investigation scene: ${scene}`,
     `Focal objects: ${modifier}`,
-    `Subject context: investigation of ${title}`,
+    `Subject context: investigation of ${cleanTitle}`,
     NEGATIVE_CONSTRAINTS,
   ].join('. ');
 }
