@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DeepTraceScannerWidget from '../components/DeepTraceScannerWidget.astro';
+
+export const prerender = true;
+
+const siteUrl = 'https://flirtcheck.site';
+
+const deeptraceSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "FlirtCheck DeepTrace™ // Chat Forensic Audit Terminal",
+  "url": `${siteUrl}/deeptrace`,
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "description": "Multimodal conversational OSINT & stylometric forensics tool analyzing chat screenshots for catfishing, synthetic GAN avatars, romance fraud scripts, and timezone anomalies.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "FlirtCheck Forensic Desk",
+    "url": `${siteUrl}/desk`
+  }
+};
+---
+
+<BaseLayout
+  title="FlirtCheck DeepTrace™ // Chat Screenshot Forensic Radar"
+  description="Automated forensic audit for chat screenshots. Detect Pig Butchering syndicates, synthetic GAN/diffusion avatars, machine translation markers, and timezone bio-rhythm anomalies."
+  canonicalUrl={`${siteUrl}/deeptrace`}
+  activePath="/deeptrace"
+  schemas={[deeptraceSchema]}
+>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 font-sans">
+    {/* Page Header */}
+    <div class="text-center max-w-3xl mx-auto mb-10">
+      <div class="inline-flex items-center gap-2 border border-slate-300 bg-white px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-slate-700 mb-3 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-cyan-600 animate-pulse"></span>
+        <span>CHELTENHAM FORENSIC TOOLKIT // MULTIMODAL RADAR</span>
+      </div>
+      
+      <h1 class="font-serif font-black text-3xl sm:text-5xl text-slate-900 tracking-tight leading-tight mb-4">
+        FlirtCheck DeepTrace™ Radar
+      </h1>
+      
+      <p class="text-base sm:text-lg text-slate-700 font-sans leading-relaxed">
+        Automated cyber threat intelligence and conversational forensics for dating screenshots. Cross-reference suspicious text threads against industrial romance scam lexicons, active call-center timezones, and synthetic avatar artifacts.
+      </p>
+    </div>
+
+    {/* Standalone Tactical Scanner Widget */}
+    <div class="my-6">
+      <DeepTraceScannerWidget
+        headline="FLIRTCHECK DEEPTRACE™ // INTERACTIVE CHAT AUDIT TERMINAL"
+        subheadline="Drop conversation screenshot below or select target messaging platform. All files are inspected in browser memory before neural evaluation."
+        caseRef="DT-STANDALONE-2026"
+      />
+    </div>
+
+    {/* Section: 4 Core Forensic Pillars */}
+    <section class="mt-16 pt-12 border-t border-slate-300">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="font-mono text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+          [ FORENSIC ARCHITECTURE ]
+        </div>
+        <h2 class="font-serif font-black text-2xl sm:text-3xl text-slate-900">
+          How DeepTrace™ Audits Conversational Evidence
+        </h2>
+        <p class="text-sm text-slate-600 mt-2">
+          Industrial fraud syndicates can steal attractive photos, but they cannot disguise their operational and behavioral telemetry.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Pillar 1 */}
+        <div class="bg-white border border-slate-300 p-6 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <span class="font-mono text-xs font-bold text-cyan-700 tracking-wider">01 // CHRONO-TELEMETRY</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-slate-100 text-slate-600">Bio-Rhythms</span>
+          </div>
+          <h3 class="font-serif font-bold text-lg text-slate-900">
+            Timezone & Sleep Cycle Mismatch
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            Scammers claiming to reside in Western cities (New York, London, Berlin) while operating out of Southeast Asian scam parks exhibit characteristic response spikes between 02:00 and 06:00 local time. DeepTrace correlates message timestamps with claimed geography to uncover geographic spoofing.
+          </p>
+        </div>
+
+        {/* Pillar 2 */}
+        <div class="bg-white border border-slate-300 p-6 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <span class="font-mono text-xs font-bold text-rose-700 tracking-wider">02 // STYLOMETRICS</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-slate-100 text-slate-600">NLP Heuristics</span>
+          </div>
+          <h3 class="font-serif font-bold text-lg text-slate-900">
+            Sha Zhu Pan Script Fingerprinting
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            Detects subtle romance scam markers: machine translation syntax artifacts, premature long-term romantic projections ("love bombing"), and systematic nudges toward private encrypted channels (WhatsApp / Telegram) to evade dating app moderation algorithms.
+          </p>
+        </div>
+
+        {/* Pillar 3 */}
+        <div class="bg-white border border-slate-300 p-6 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <span class="font-mono text-xs font-bold text-purple-700 tracking-wider">03 // SYNTHETIC BIOMETRICS</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-slate-100 text-slate-600">Visual Vision</span>
+          </div>
+          <h3 class="font-serif font-bold text-lg text-slate-900">
+            AI Avatar & Deepfake Verification
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            Scans small profile avatar thumbnails embedded in chat headers for generative model signatures: iris-pupil asymmetry, background diffusion noise, inconsistent accessory boundaries, and duplicate stock photo fingerprints.
+          </p>
+        </div>
+
+        {/* Pillar 4 */}
+        <div class="bg-white border border-slate-300 p-6 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <span class="font-mono text-xs font-bold text-emerald-700 tracking-wider">04 // ACTIVE DEFENSE</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-slate-100 text-slate-600">Action Plan</span>
+          </div>
+          <h3 class="font-serif font-bold text-lg text-slate-900">
+            Calibrated Verification Questions
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            Generates 3 tactical, low-friction questions tailored to the suspect's claimed city, lifestyle, or trade. Genuine matches answer effortlessly, while scripted operators panic, stall, or respond with evasive hostility.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Section: Best Practices for Clean Screenshot Capture */}
+    <section class="mt-14 bg-white border border-slate-300 p-6 sm:p-8 space-y-6">
+      <div class="border-b border-slate-200 pb-4">
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-slate-500 block mb-1">
+          [ EVIDENCE COLLECTION GUIDELINES ]
+        </span>
+        <h2 class="font-serif font-black text-xl sm:text-2xl text-slate-900">
+          How to Capture Screenshots for Maximum Diagnostic Accuracy
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs sm:text-sm text-slate-700">
+        <div class="space-y-2">
+          <strong class="font-mono font-bold text-slate-900 block uppercase">1. Include Visible Timestamps</strong>
+          <p class="leading-relaxed">
+            Ensure chat bubble timestamps or date dividers are visible. This allows our biorhythm engine to accurately compute response latency and calculate timezone shifts.
+          </p>
+        </div>
+        <div class="space-y-2">
+          <strong class="font-mono font-bold text-slate-900 block uppercase">2. Keep Header Avatar Intact</strong>
+          <p class="leading-relaxed">
+            Do not crop out the top chat bar containing the person's thumbnail photo. Our visual inspector evaluates facial symmetry and diffusion artifacts directly from the avatar.
+          </p>
+        </div>
+        <div class="space-y-2">
+          <strong class="font-mono font-bold text-slate-900 block uppercase">3. Capture Dialogue Escalation</strong>
+          <p class="leading-relaxed">
+            Include messages where financial topics, off-platform invitations, or personal background claims are made for precise Sha Zhu Pan script matching.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Section: Privacy and Cryptographic Sanitization */}
+    <section class="mt-10 p-6 rounded-xl bg-[#FAF7F2] border border-slate-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs text-slate-600">
+      <div class="space-y-1">
+        <span class="font-bold text-slate-900 uppercase tracking-wider block">
+          🔒 Strict Privacy & Zero Data Retention Protocol
+        </span>
+        <p class="text-[11px] leading-relaxed max-w-2xl">
+          DeepTrace processes image buffers in volatile server memory. No personal screenshots are retained or sold. Client-side EXIF stripping removes geolocation metadata before neural parsing.
+        </p>
+      </div>
+      <div class="shrink-0 flex items-center gap-2 text-[10px] text-slate-500 font-bold uppercase">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>E-E-A-T CERTIFIED</span>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

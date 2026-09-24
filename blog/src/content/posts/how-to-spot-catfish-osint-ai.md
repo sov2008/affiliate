@@ -151,7 +151,7 @@ At **[FlirtCheck.site](https://flirtcheck.site)**, you can upload chat screensho
 [ FlirtCheck.site: 5 sec, Client-Side Privacy, Behavioral Certainty ]
 ```
 
-<div id="deeptrace-scanner-slot"></div>
+> ⚡ **Dedicated Forensic Tool:** Have a suspicious conversation screenshot? Run an automated deep audit against synthetic avatars, Sha Zhu Pan scripts, and timezone mismatches on the dedicated **[FlirtCheck DeepTrace™ Radar](/deeptrace)**.
 
 ---
 

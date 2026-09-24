@@ -159,7 +159,7 @@ With **[FlirtCheck.site](https://flirtcheck.site)**, you can upload any raw chat
 [ Upload Screenshot ] ──► [ Neural Subtext Scanner ] ──► [ Diagnostic Dossier + Calibrated Comebacks ]
 ```
 
-<div id="deeptrace-scanner-slot"></div>
+> ⚡ **Live Forensic Scanner:** Test your screenshots directly on our dedicated **[FlirtCheck DeepTrace™ Terminal](/deeptrace)** with multimodal bubble parsing, bio-rhythm mapping, and scam pattern audits.
 
 ---
 

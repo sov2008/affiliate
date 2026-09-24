@@ -12,7 +12,6 @@ import CaseNotesFeed from '../components/CaseNotesFeed.astro';
 import QuickExitButton from '../components/QuickExitButton.astro';
 import AuthorCard from '../components/AuthorCard.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
-import DeepTraceScannerWidget from '../components/DeepTraceScannerWidget.astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.config';
 
@@ -500,15 +499,6 @@ const faqSchema = {
               />
             </div>
             <slot />
-
-            {/* Contextual DeepTrace forensic widget for high-intent readers */}
-            {isForensicTarget && (
-              <DeepTraceScannerWidget
-                headline="FLIRTCHECK DEEPTRACE™ // CHAT FORENSIC AUDIT"
-                subheadline="Have a suspicious conversation screenshot? Run an automated forensic audit against known romance scam lexicons, active call-center timezones, and synthetic avatars."
-                caseRef={`FC-${caseId}`}
-              />
-            )}
           </article>
 
           <!-- ══════════════════════════════════════════════
@@ -732,19 +722,9 @@ const faqSchema = {
         cta.href = url.toString();
       }
 
-      // ─── DeepTrace Scanner In-Content Relocation ─────────────────
-      function relocateDeepTraceWidget() {
-        const slot = document.getElementById('deeptrace-scanner-slot');
-        const widget = document.getElementById('deeptrace-scanner-widget');
-        if (slot && widget) {
-          slot.replaceWith(widget);
-        }
-      }
-
       document.addEventListener('DOMContentLoaded', () => {
         buildToc();
         injectMidArticleQuiz();
-        relocateDeepTraceWidget();
         setupArticleEvidence();
         initFontScale();
         initTocCta();

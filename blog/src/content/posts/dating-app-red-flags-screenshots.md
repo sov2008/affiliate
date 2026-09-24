@@ -97,7 +97,7 @@ Most dating advice warns against obvious threats like aggressive unsolicited pho
 
 ---
 
-<div id="deeptrace-scanner-slot"></div>
+> ⚡ **Live Screenshot Audit:** Unsure about a match's texts? Upload the conversation to our dedicated **[FlirtCheck DeepTrace™ Radar](/deeptrace)** for immediate neural red-flag detection.
 
 ## Run a Comprehensive Safety Audit on FlirtCheck.site
 
