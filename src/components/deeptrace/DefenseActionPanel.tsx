@@ -78,8 +78,8 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
     }
 
     const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://flirtcheck.site/deeptrace';
-    navigator.clipboard.writeText(`Форензик-аудит FlirtCheck DeepTrace [${caseReference}]: Индекс доверия ${overallTrustIndex.score}/100. Ссылка: ${shareUrl}`);
-    setShareFeedback('Ссылка на защищенный аудит скопирована в буфер обмена!');
+    navigator.clipboard.writeText(`FlirtCheck DeepTrace Forensic Audit [${caseReference}]: Trust Index ${overallTrustIndex.score}/100. Reference URL: ${shareUrl}`);
+    setShareFeedback('Secure forensic audit link copied to clipboard!');
     setTimeout(() => {
       setShareFeedback(null);
     }, 3500);
@@ -121,15 +121,15 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
   const getCategoryLabel = (category: DefenseChallengeCategory): string => {
     switch (category) {
       case 'LIVENESS_CHALLENGE':
-        return 'Тест живого присутствия (Liveness)';
+        return 'Live Presence & Liveness Test';
       case 'GEO_LOCAL_ANCHOR':
-        return 'Локальная гео-привязка (Geo-Anchor)';
+        return 'Localized Geo-Anchor Verification';
       case 'PROFESSIONAL_KNOWLEDGE':
-        return 'Проверка экспертности / Детали работы';
+        return 'Domain Knowledge & Trade Depth';
       case 'TEMPORAL_CHECK':
-        return 'Сверка погоды и реального времени';
+        return 'Real-time Weather & Ambient Reality';
       case 'DIGITAL_BOUNDARIES_TEST':
-        return 'Отказ от инвестиций / Проверка реакции';
+        return 'Financial Boundary & Reaction Challenge';
       default:
         return category;
     }
@@ -144,11 +144,11 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
             <ShieldAlert className="w-4 h-4" />
           </div>
           <h2 className="text-lg font-bold text-slate-100 tracking-wide uppercase">
-            Матрица активной защиты (Tactical Defense Matrix)
+            Tactical Defense Matrix // Active Countermeasures
           </h2>
         </div>
         <span className="text-xs text-slate-400">
-          Сгенерировано {actionableDefenseMatrix.length} контекстных контр-вопросов
+          {actionableDefenseMatrix.length} calibrated counter-challenge vectors generated
         </span>
       </div>
 
@@ -179,7 +179,7 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
                       item.priority
                     )}`}
                   >
-                    {item.priority === 'URGENT' ? 'КРИТИЧЕСКИЙ ТЕСТ' : 'РЕКОМЕНДОВАН'}
+                    {item.priority === 'URGENT' ? 'CRITICAL CHALLENGE' : 'RECOMMENDED'}
                   </span>
                 </div>
 
@@ -197,17 +197,17 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
                         ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20'
                         : 'bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-slate-200 border border-slate-700'
                     }`}
-                    title="Скопировать вопрос для отправки собеседнику"
+                    title="Copy counter-challenge to clipboard"
                   >
                     {isCopied ? (
                       <>
                         <Check className="w-3.5 h-3.5" />
-                        <span>СКОПИРОВАНО!</span>
+                        <span>COPIED!</span>
                       </>
                     ) : (
                       <>
                         <Copy className="w-3.5 h-3.5" />
-                        <span>СКОПИРОВАТЬ</span>
+                        <span>COPY</span>
                       </>
                     )}
                   </button>
@@ -215,7 +215,7 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
 
                 {/* Tactical Rationale */}
                 <div className="text-xs text-slate-400 leading-relaxed">
-                  <span className="font-semibold text-slate-300">Тактическая цель: </span>
+                  <span className="font-semibold text-slate-300">Tactical Intent: </span>
                   {item.tacticalRationale}
                 </div>
 
@@ -225,7 +225,7 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
                   <div className="p-3 rounded-xl bg-emerald-950/20 border border-emerald-900/40 space-y-1">
                     <div className="flex items-center gap-1.5 text-emerald-400 font-semibold text-[11px] uppercase tracking-wide">
                       <CheckCircle2 className="w-3.5 h-3.5" />
-                      <span>Нормальная реакция человека</span>
+                      <span>Expected Genuine Response</span>
                     </div>
                     <p className="text-slate-300 leading-relaxed">
                       {item.expectedTruthfulBehavior}
@@ -236,7 +236,7 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
                   <div className="p-3 rounded-xl bg-rose-950/20 border border-rose-900/40 space-y-1">
                     <div className="flex items-center gap-1.5 text-rose-400 font-semibold text-[11px] uppercase tracking-wide">
                       <AlertTriangle className="w-3.5 h-3.5" />
-                      <span>Красный флаг скамера (Скрипт)</span>
+                      <span>Syndicate / Bot Red Flag Trigger</span>
                     </div>
                     <p className="text-slate-300 leading-relaxed">
                       {item.redFlagResponsePattern}
@@ -262,11 +262,11 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
               </div>
 
               <h3 className="text-xl font-black text-slate-100 uppercase tracking-tight">
-                Поделиться отчетом безопасности
+                Share Forensic Audit Dossier
               </h3>
 
               <p className="text-xs text-slate-400 leading-relaxed">
-                Сгенерируйте защищенную карточку аудита с криптографическим водяным знаком и сводкой для предостережения друзей или подтверждения факта кэтфишинга.
+                Generate an archival audit card with cryptographic watermarking and case reference to alert contacts or document identity spoofing.
               </p>
 
               {/* Watermark Mini-Preview Badge */}
@@ -279,7 +279,7 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
                   <span className="text-cyan-400 font-bold">{caseReference}</span>
                 </div>
                 <div className="flex items-center justify-between text-[11px] pt-1">
-                  <span className="text-slate-400">Индекс доверия:</span>
+                  <span className="text-slate-400">Trust Index:</span>
                   <span
                     className={`font-black ${
                       overallTrustIndex.score < 40 ? 'text-rose-400' : 'text-emerald-400'
@@ -301,7 +301,7 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
                 className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 active:scale-[0.98]"
               >
                 <Share2 className="w-4 h-4" />
-                <span>Поделиться аудитом (Social Proof)</span>
+                <span>Share Forensic Dossier</span>
               </button>
 
               <button
@@ -309,7 +309,7 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
                 className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 border border-slate-700 text-xs font-semibold tracking-wide transition-all active:scale-[0.98]"
               >
                 <Download className="w-4 h-4 text-slate-400" />
-                <span>Экспорт PDF / Forensic DTO</span>
+                <span>Export Audit (PDF / JSON)</span>
               </button>
 
               {shareFeedback && (
@@ -332,11 +332,11 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
             </div>
             <h4 className="text-sm font-bold text-slate-100 uppercase tracking-tight">
               {overallTrustIndex.score < 50
-                ? 'Собеседник в зоне высокого риска? Запустите полный OSINT-скрининг'
-                : 'Верифицировать профиль через защищенный шлюз проверки'}
+                ? 'High-Risk Profile Detected? Launch Comprehensive OSINT Identity Scan'
+                : 'Verify Profile Credentials via Secure Screening Gateway'}
             </h4>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Сверка цифрового следа, биометрии и телефонных привязок в партнерской базе безопасности без передачи личных контактов.
+              Cross-reference digital footprint, biometrics, and phone bindings against security partner directories without exposing personal contacts.
             </p>
             <a
               href={monetizationUrl}
@@ -345,7 +345,7 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
               onClick={handleMonetizationClick}
               className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/20 active:scale-[0.98]"
             >
-              <span>Запустить полный Identity Deep-Scan →</span>
+              <span>Execute Comprehensive Identity Deep-Scan →</span>
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
@@ -353,10 +353,10 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
           {/* Critical Disclaimer / E-E-A-T Safety Box */}
           <div className="p-4 rounded-xl bg-slate-900/50 border border-slate-800/80 text-[11px] text-slate-400 space-y-1.5">
             <span className="font-semibold text-slate-300 block uppercase tracking-wider text-[10px]">
-              Протокол кибергигиены:
+              Cybersecurity & Anti-Fraud Protocol:
             </span>
             <p className="leading-relaxed">
-              Никогда не переводите денежные средства, не переходите по внешним крипто-ссылкам и не сообщайте коды двухфакторной аутентификации. Любая эмоциональная спешка является индикатором социальной инженерии.
+              Never transfer funds, navigate to external cryptocurrency platforms, or disclose two-factor authentication codes. Emotional urgency or unsolicited financial guidance is a primary indicator of active social engineering.
             </p>
           </div>
         </div>

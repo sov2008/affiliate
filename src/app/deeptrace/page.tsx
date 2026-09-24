@@ -43,17 +43,17 @@ const SCAN_STAGES: Array<{ key: ScanStage; label: string; description: string }>
   {
     key: 'PARSING_BUBBLES',
     label: '1. Multimodal OCR & Chat Bubble Extraction',
-    description: 'Сегментация диалоговых пузырей, транскрипция текста и извлечение таймштампов...'
+    description: 'Dialogue bubble segmentation, OCR transcription, and precise timestamp extraction...'
   },
   {
     key: 'CORRELATING_BIORHYTHMS',
     label: '2. Chrono-Telemetry & Geo-Sync Correlation',
-    description: 'Сверка суточного ритма откликов с заявленной локацией и часовым поясом...'
+    description: 'Correlating circadian dispatch rhythms with claimed geography and timezone offsets...'
   },
   {
     key: 'STYLOMETRIC_FORENSICS',
     label: '3. Stylometric & Deep Learning Synthetics Sweep',
-    description: 'Поиск триггеров Sha Zhu Pan, LLR машинного перевода и дефектов биометрии...'
+    description: 'Auditing Sha Zhu Pan deception scripts, machine translation LLR, and biometric artifacts...'
   }
 ];
 
@@ -124,11 +124,11 @@ export default function DeepTracePage() {
 
   const handleFileSelection = (selectedFile: File) => {
     if (!selectedFile.type.startsWith('image/')) {
-      setErrorMessage('Пожалуйста, загрузите изображение (PNG, JPEG, WEBP).');
+      setErrorMessage('Please upload a valid image file (PNG, JPEG, WEBP).');
       return;
     }
     if (selectedFile.size > 10 * 1024 * 1024) {
-      setErrorMessage('Размер файла превышает 10 МБ.');
+      setErrorMessage('File size exceeds the 10 MB limit.');
       return;
     }
 
@@ -234,7 +234,7 @@ export default function DeepTracePage() {
           });
           return;
         }
-        throw new Error(errorJson.error?.message || errorJson.message || `Ошибка анализа: HTTP ${res.status}`);
+        throw new Error(errorJson.error?.message || errorJson.message || `Audit analysis error: HTTP ${res.status}`);
       }
 
       const reportData: DeepTraceReportDTO = await res.json();
@@ -253,7 +253,7 @@ export default function DeepTracePage() {
       clearTimeout(timer1);
       clearTimeout(timer2);
       console.error('[DeepTrace] Audit execution failed:', err);
-      setErrorMessage(err.message || 'Сбой выполнения аудита. Попробуйте снова.');
+      setErrorMessage(err.message || 'Audit execution failed. Please try again with another screenshot.');
       setScanStage('ERROR');
 
       trackScanFailed({
@@ -287,7 +287,7 @@ export default function DeepTracePage() {
               FlirtCheck DeepTrace™ Radar
             </h1>
             <p className="text-sm text-slate-400 mt-1 max-w-2xl">
-              Автоматизированный судебно-технический аудит скриншотов переписок: выявление кэтфишинга, сценариев Sha Zhu Pan (Pig Butchering), асинхронных часовых поясов и синтетических аватаров.
+              Automated conversational cyber threat intelligence: detecting catfishing syndicates, Sha Zhu Pan romance scripts, circadian timezone mismatches, and synthetic GAN/diffusion avatars.
             </p>
           </div>
 
@@ -297,7 +297,7 @@ export default function DeepTracePage() {
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-mono font-bold tracking-wide transition-all shadow-md self-start sm:self-center"
             >
               <RefreshCw className="w-3.5 h-3.5 text-cyan-400" />
-              <span>НОВЫЙ АНАЛИЗ</span>
+              <span>NEW AUDIT</span>
             </button>
           )}
         </header>
@@ -341,7 +341,7 @@ export default function DeepTracePage() {
                           resetUpload();
                         }}
                         className="absolute top-3 right-3 p-1.5 rounded-full bg-slate-950/80 hover:bg-rose-900 text-slate-300 hover:text-white transition-colors border border-slate-700 shadow-md"
-                        title="Удалить скриншот"
+                        title="Remove screenshot"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -357,10 +357,10 @@ export default function DeepTracePage() {
                     </div>
                     <div>
                       <p className="text-base font-bold text-slate-200">
-                        Перетащите скриншот чата сюда или нажмите для выбора
+                        Drag & drop conversation screenshot here or click to browse
                       </p>
                       <p className="text-xs text-slate-500 mt-1">
-                        Поддерживаются форматы PNG, JPG, WEBP (до 10 МБ). Все изображения анализируются без сохранения на диск (Zero Data Retention).
+                        Supports PNG, JPG, WEBP formats (up to 10 MB). Evaluated in volatile memory under strict Zero Data Retention.
                       </p>
                     </div>
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-[11px] font-mono text-slate-300">
@@ -384,14 +384,14 @@ export default function DeepTracePage() {
               <div className="flex items-center gap-2 pb-3 border-b border-slate-800">
                 <Layers className="w-4 h-4 text-cyan-400" />
                 <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200">
-                  Контекстные параметры дела
+                  Investigation Context Parameters
                 </h3>
               </div>
 
               {/* Platform Selector */}
               <div className="space-y-2">
                 <label className="text-xs font-semibold text-slate-300 block">
-                  Платформа переписки:
+                  Origin Messaging Platform:
                 </label>
                 <div className="grid grid-cols-3 gap-2 text-xs font-mono">
                   {(['WHATSAPP', 'TELEGRAM', 'TINDER', 'INSTAGRAM', 'BUMBLE', 'OTHER'] as PlatformType[]).map((p) => (
@@ -415,30 +415,30 @@ export default function DeepTracePage() {
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-cyan-400" />
-                  Заявленный город собеседника (Geo-Anchor):
+                  Claimed Residence (Geo-Anchor):
                 </label>
                 <input
                   type="text"
                   value={claimedLocation}
                   onChange={(e) => setClaimedLocation(e.target.value)}
-                  placeholder="Например: Chicago, Kharkiv, London, Kyiv"
+                  placeholder="e.g. London, New York, Zurich, Chicago"
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 text-xs focus:outline-none focus:border-cyan-500 transition-colors"
                 />
                 <p className="text-[10px] text-slate-500 leading-tight">
-                  Позволит системе провести сверку часовых поясов и составить проверочный вопрос по локальной топографии.
+                  Enables circadian response latency comparison and localized geographic verification.
                 </p>
               </div>
 
               {/* Suspect Name / Handle */}
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-slate-300 block">
-                  Имя или никнейм собеседника:
+                  Target Name / Social Handle:
                 </label>
                 <input
                   type="text"
                   value={suspectDisplayName}
                   onChange={(e) => setSuspectDisplayName(e.target.value)}
-                  placeholder="Например: Elena Vance / @elena_trade"
+                  placeholder="e.g. Elena Vance / @elena_trade"
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 text-xs focus:outline-none focus:border-cyan-500 transition-colors"
                 />
               </div>
@@ -446,7 +446,7 @@ export default function DeepTracePage() {
               {/* Claimed Age */}
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-slate-300 block">
-                  Заявленный возраст:
+                  Claimed Age:
                 </label>
                 <input
                   type="number"
@@ -470,7 +470,7 @@ export default function DeepTracePage() {
                 }`}
               >
                 <Scan className="w-4 h-4" />
-                <span>Запустить криминалистический аудит</span>
+                <span>Execute Forensic Audit</span>
               </button>
             </div>
           </div>
@@ -489,7 +489,7 @@ export default function DeepTracePage() {
 
             <div className="space-y-2">
               <h2 className="text-xl font-black uppercase tracking-wider text-slate-100">
-                Выполняется анализ переписки...
+                Executing Forensic Analysis...
               </h2>
               <p className="text-xs font-mono text-cyan-400">
                 FORENSIC ENGINE // EVALUATING TELEMETRY & STYLOMETRIC SIGNATURES
@@ -532,13 +532,13 @@ export default function DeepTracePage() {
               <div className="p-4 rounded-xl bg-rose-950/80 border border-rose-800 text-rose-300 text-xs text-left flex items-start gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-400" />
                 <div>
-                  <strong className="block font-bold">Ошибка сканирования:</strong>
+                  <strong className="block font-bold">Scanning Error:</strong>
                   {errorMessage}
                   <button
                     onClick={resetUpload}
                     className="mt-2 block px-3 py-1 rounded bg-rose-900 hover:bg-rose-800 text-white font-mono text-[10px]"
                   >
-                    Попробовать другой скриншот
+                    Try another screenshot
                   </button>
                 </div>
               </div>
@@ -568,7 +568,7 @@ export default function DeepTracePage() {
                 setScanStage('IDLE');
               }}
               className="absolute top-4 right-4 p-2 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors"
-              title="Закрыть"
+              title="Close"
             >
               <X className="w-4 h-4" />
             </button>
@@ -593,10 +593,10 @@ export default function DeepTracePage() {
             <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs font-mono">
               <div className="flex items-center gap-2 text-slate-400">
                 <Clock className="w-4 h-4 text-cyan-400" />
-                <span>Сброс лимита через:</span>
+                <span>Quota Reset In:</span>
               </div>
               <span className="font-bold text-cyan-400">
-                {Math.floor(paywallData.resetInSeconds / 3600)}ч {Math.floor((paywallData.resetInSeconds % 3600) / 60)}м
+                {Math.floor(paywallData.resetInSeconds / 3600)}h {Math.floor((paywallData.resetInSeconds % 3600) / 60)}m
               </span>
             </div>
 
@@ -620,7 +620,7 @@ export default function DeepTracePage() {
                 }}
                 className="w-full py-2.5 text-xs font-mono text-slate-400 hover:text-slate-200 transition-colors"
               >
-                Вернуться в терминал
+                Return to Terminal
               </button>
             </div>
           </div>

@@ -53,7 +53,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
             <Layers className="w-4 h-4" />
           </div>
           <h2 className="text-lg font-bold text-slate-100 tracking-wide uppercase">
-            Судебно-техническая экспертиза (Forensic Evidence Matrix)
+            Forensic Evidence Matrix // Cyber Threat Breakdown
           </h2>
         </div>
         <span className="text-xs font-mono text-slate-400">
@@ -76,7 +76,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
                   <h3 className="text-sm font-bold text-slate-200 uppercase tracking-wider">
                     Bio-Rhythms & Geo-Sync
                   </h3>
-                  <p className="text-xs text-slate-400">Временная телеметрия и биоритмы</p>
+                  <p className="text-xs text-slate-400">Circadian response telemetry & timezone shift</p>
                 </div>
               </div>
               {timezoneBioRhythmAnomalies.nightShiftFlag ? (
@@ -93,19 +93,19 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
             {/* Timezone Comparison Stats */}
             <div className="grid grid-cols-2 gap-3 p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 text-xs font-mono">
               <div>
-                <span className="text-slate-500 block text-[10px] uppercase">Заявлено (Claimed)</span>
+                <span className="text-slate-500 block text-[10px] uppercase">Claimed Location</span>
                 <span className="text-slate-200 font-semibold truncate block">
                   {timezoneBioRhythmAnomalies.claimedTimezone}
                 </span>
               </div>
               <div>
-                <span className="text-slate-500 block text-[10px] uppercase">Расчетно (Inferred)</span>
+                <span className="text-slate-500 block text-[10px] uppercase">Inferred Origin</span>
                 <span className="text-amber-400 font-semibold truncate block">
                   {timezoneBioRhythmAnomalies.inferredTimezone}
                 </span>
               </div>
               <div className="col-span-2 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px]">
-                <span className="text-slate-400">Смещение часового пояса:</span>
+                <span className="text-slate-400">Timezone Variance:</span>
                 <span
                   className={`font-bold ${
                     Math.abs(timezoneBioRhythmAnomalies.timezoneOffsetDeltaHours) >= 3
@@ -114,7 +114,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
                   }`}
                 >
                   {timezoneBioRhythmAnomalies.timezoneOffsetDeltaHours > 0 ? '+' : ''}
-                  {timezoneBioRhythmAnomalies.timezoneOffsetDeltaHours} ч.
+                  {timezoneBioRhythmAnomalies.timezoneOffsetDeltaHours} hrs
                 </span>
               </div>
             </div>
@@ -122,7 +122,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
             {/* 24-Hour Activity Heatmap / Bar Distribution */}
             <div>
               <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
-                <span>Суточный ритм отправки (00:00 - 23:00)</span>
+                <span>24-Hour Dispatch Heatmap (00:00 - 23:00)</span>
                 <span className="font-mono text-[10px] text-slate-500">24H_BURST</span>
               </div>
               <div className="h-16 flex items-end gap-1 p-2 rounded-xl bg-slate-950/80 border border-slate-800/70">
@@ -149,7 +149,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
                       <div className="absolute bottom-full mb-1 hidden group-hover:flex flex-col items-center pointer-events-none z-20">
                         <div className="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-[9px] font-mono text-slate-200 whitespace-nowrap shadow-lg">
                           {hour}:00 - {intensity}%
-                          {isNightHour && ' (Ночь)'}
+                          {isNightHour && ' (Night)'}
                         </div>
                       </div>
                     </div>
@@ -158,7 +158,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
               </div>
               <div className="flex justify-between text-[9px] font-mono text-slate-500 mt-1 px-1">
                 <span>00:00</span>
-                <span className="text-rose-400/80 font-bold">03:00 (Аномалия)</span>
+                <span className="text-rose-400/80 font-bold">03:00 (Anomaly)</span>
                 <span>12:00</span>
                 <span>18:00</span>
                 <span>23:00</span>
@@ -168,7 +168,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
             {/* Diagnostic Observations List */}
             <div className="space-y-1.5 pt-1">
               <span className="text-[11px] font-semibold text-slate-300 uppercase tracking-wide">
-                Выявленные аномалии графика:
+                Detected Circadian Discrepancies:
               </span>
               <ul className="space-y-1">
                 {timezoneBioRhythmAnomalies.diagnosticObservations.map((obs, idx) => (
@@ -206,11 +206,11 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
                   <h3 className="text-sm font-bold text-slate-200 uppercase tracking-wider">
                     Linguistic Fingerprint
                   </h3>
-                  <p className="text-xs text-slate-400">Стилометрия и триггеры скама</p>
+                  <p className="text-xs text-slate-400">Stylometrics & deception lexicon signatures</p>
                 </div>
               </div>
               <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-rose-950/80 text-rose-300 border border-rose-700/60">
-                {stylometricBreakdown.detectedRomanceScamPatterns.length} МАРКЕРОВ
+                {stylometricBreakdown.detectedRomanceScamPatterns.length} PATTERNS
               </span>
             </div>
 
@@ -219,7 +219,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
               {/* Formality */}
               <div>
                 <div className="flex justify-between text-xs mb-1">
-                  <span className="text-slate-400">Коэффициент официоза (Formality):</span>
+                  <span className="text-slate-400">Formality Score:</span>
                   <span className="font-mono font-bold text-slate-200">
                     {stylometricBreakdown.formalityScore}%
                   </span>
@@ -235,7 +235,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
               {/* Machine Translation */}
               <div>
                 <div className="flex justify-between text-xs mb-1">
-                  <span className="text-slate-400">Машинный перевод / LLR:</span>
+                  <span className="text-slate-400">Machine Translation / LLR Score:</span>
                   <span
                     className={`font-mono font-bold ${
                       stylometricBreakdown.machineTranslationScore > 60
@@ -261,7 +261,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
               {/* Script Similarity */}
               <div>
                 <div className="flex justify-between text-xs mb-1">
-                  <span className="text-slate-400">Сходство со скриптом синдиката:</span>
+                  <span className="text-slate-400">Syndicate Script Similarity:</span>
                   <span
                     className={`font-mono font-bold ${
                       stylometricBreakdown.scriptTokenSimilarityIndex > 50
@@ -284,7 +284,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
             {/* Matched Romance Scam Patterns */}
             <div className="space-y-2">
               <span className="text-[11px] font-semibold text-slate-300 uppercase tracking-wide block">
-                Совпадения со словарем скама:
+                Matched Deception Lexicon Signatures:
               </span>
               <div className="space-y-2 max-h-44 overflow-y-auto pr-1 select-text">
                 {stylometricBreakdown.detectedRomanceScamPatterns.map((pat) => (
@@ -315,7 +315,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
             {stylometricBreakdown.translationArtifacts.length > 0 && (
               <div className="pt-2">
                 <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">
-                  Следы машинного калькирования:
+                  Machine Translation Artifact Traces:
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {stylometricBreakdown.translationArtifacts.map((art, idx) => (
@@ -353,7 +353,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
                   <h3 className="text-sm font-bold text-slate-200 uppercase tracking-wider">
                     Visual Integrity
                   </h3>
-                  <p className="text-xs text-slate-400">OSINT и биометрия аватара</p>
+                  <p className="text-xs text-slate-400">OSINT & avatar biometric inspection</p>
                 </div>
               </div>
               <span
@@ -373,7 +373,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
                 <div className="flex items-center gap-1.5">
                   <Bot className="w-4 h-4 text-rose-400" />
                   <span className="text-xs font-semibold text-slate-200">
-                    Вероятность AI-генерации (GAN/Diffusion):
+                    Synthetic Face Probability (GAN/Diffusion):
                   </span>
                 </div>
                 <span className="text-sm font-mono font-black text-rose-400">
@@ -388,7 +388,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
               </div>
               {visualAvatarForensics.generativeModelFamily && (
                 <div className="flex items-center justify-between text-[11px] pt-1">
-                  <span className="text-slate-400">Предположительная модель:</span>
+                  <span className="text-slate-400">Inferred Model Architecture:</span>
                   <span className="font-mono text-cyan-400 font-bold">
                     {visualAvatarForensics.generativeModelFamily}
                   </span>
@@ -399,11 +399,11 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
             {/* Biometric Consistency Parameters */}
             <div className="space-y-2">
               <span className="text-[11px] font-semibold text-slate-300 uppercase tracking-wide block">
-                Биометрические дефекты синтеза:
+                Generative Biometric Synthesis Flaws:
               </span>
               <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                 <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800 flex flex-col justify-between">
-                  <span className="text-[10px] text-slate-500 uppercase">Симметрия зрачков:</span>
+                  <span className="text-[10px] text-slate-500 uppercase">Pupil / Iris Symmetry:</span>
                   <div className="flex items-center justify-between mt-1">
                     <span
                       className={`font-bold ${
@@ -423,7 +423,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
                 </div>
 
                 <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800 flex flex-col justify-between">
-                  <span className="text-[10px] text-slate-500 uppercase">Геометрия ушей:</span>
+                  <span className="text-[10px] text-slate-500 uppercase">Ear Geometry:</span>
                   <div className="flex items-center justify-between mt-1">
                     <span
                       className={`font-bold ${
@@ -443,7 +443,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
                 </div>
 
                 <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800 flex flex-col justify-between">
-                  <span className="text-[10px] text-slate-500 uppercase">Согласованность света:</span>
+                  <span className="text-[10px] text-slate-500 uppercase">Lighting Coherence:</span>
                   <div className="flex items-center justify-between mt-1">
                     <span className="font-bold text-amber-400">
                       {visualAvatarForensics.biologicalConsistency.lightingDirectionConsistencyScore}%
@@ -452,7 +452,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
                 </div>
 
                 <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800 flex flex-col justify-between">
-                  <span className="text-[10px] text-slate-500 uppercase">Диффузия фона:</span>
+                  <span className="text-[10px] text-slate-500 uppercase">Diffusion Noise:</span>
                   <div className="flex items-center justify-between mt-1">
                     <span
                       className={`font-bold ${
@@ -462,8 +462,8 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
                       }`}
                     >
                       {visualAvatarForensics.biologicalConsistency.backgroundDiffusionArtifactsDetected
-                        ? 'АРТЕФАКТЫ'
-                        : 'ЧИСТО'}
+                        ? 'ARTIFACTS'
+                        : 'CLEAN'}
                     </span>
                   </div>
                 </div>
@@ -475,7 +475,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
               <div className="flex items-center justify-between text-xs">
                 <span className="font-semibold text-slate-300 flex items-center gap-1.5">
                   <Database className="w-3.5 h-3.5 text-cyan-400" />
-                  Поиск по базам OSINT:
+                  OSINT & Facial Registry Cross-Reference:
                 </span>
                 <span
                   className={`font-mono text-[10px] px-1.5 py-0.5 rounded ${
@@ -490,14 +490,14 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
               {visualAvatarForensics.stockPhotoFlags.isFlagged ? (
                 <div className="text-[11px] space-y-1 text-slate-400 pt-1">
                   <p>
-                    Обнаружены совпадения в базах:{' '}
+                    Database matches identified:{' '}
                     <span className="text-slate-200 font-mono">
                       {visualAvatarForensics.stockPhotoFlags.matchDatabases.join(', ')}
                     </span>
                   </p>
                   {visualAvatarForensics.stockPhotoFlags.originalModelIdentity && (
                     <p className="text-amber-300">
-                      Личность оригинала:{' '}
+                      Original identity:{' '}
                       <span className="font-semibold">
                         {visualAvatarForensics.stockPhotoFlags.originalModelIdentity}
                       </span>
@@ -506,7 +506,7 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
                 </div>
               ) : (
                 <p className="text-[11px] text-slate-500">
-                  Прямых совпадений со стоками не найдено (свидетельствует об уникальной генерации).
+                  No direct stock/social matches found (consistent with novel synthetic generation).
                 </p>
               )}
             </div>
