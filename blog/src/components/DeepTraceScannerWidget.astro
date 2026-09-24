@@ -1,7 +1,6 @@
 ---
 // DeepTraceScannerWidget.astro - Cheltenham Bureau Archival Forensic Ingestion Widget
 interface Props {
-  defaultPlatform?: string;
   defaultLocation?: string;
   headline?: string;
   subheadline?: string;
@@ -10,7 +9,6 @@ interface Props {
 }
 
 const {
-  defaultPlatform = 'WHATSAPP',
   defaultLocation = '',
   headline = 'FLIRTCHECK DEEPTRACE™ // CONVERSATIONAL FORENSIC AUDIT TERMINAL',
   subheadline = 'Ingest conversation screenshots for automated neural inspection. Cross-referenced against Sha Zhu Pan deception scripts, synthetic GAN/diffusion avatars, and anomalous timezone response latency.',
@@ -98,29 +96,21 @@ const {
       </div>
     </div>
 
-    {/* Right 5 Cols: Platform Badges & Claimed Location */}
+    {/* Right 5 Cols: AI Platform Classification & Geo Anchor */}
     <div class="lg:col-span-5 flex flex-col justify-between space-y-4 bg-[#FAF7F2] border border-slate-300 p-5">
       
-      {/* Platform Selector */}
-      <div class="space-y-1.5">
-        <label class="text-[10px] font-mono uppercase tracking-wider text-slate-700 font-bold block">
-          Target Messaging Origin:
-        </label>
-        <div class="grid grid-cols-2 gap-2 text-xs font-mono">
-          {['WHATSAPP', 'TELEGRAM', 'TINDER', 'INSTAGRAM'].map((p) => (
-            <button
-              type="button"
-              class={`platform-pill min-h-[40px] py-2 px-3 border text-center font-bold uppercase tracking-wider transition-colors cursor-pointer ${
-                p === defaultPlatform
-                  ? 'active-platform bg-slate-900 text-white border-slate-900 shadow-none'
-                  : 'bg-white text-slate-700 border-slate-300 hover:border-slate-900 hover:bg-slate-50'
-              }`}
-              data-platform={p}
-            >
-              {p}
-            </button>
-          ))}
+      {/* AI Auto-Detection Telemetry Box */}
+      <div class="p-3.5 bg-white border border-slate-300 space-y-1.5">
+        <div class="flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-wider text-slate-700">
+          <span class="flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+            <span>PLATFORM IDENTIFICATION</span>
+          </span>
+          <span class="text-slate-500 font-bold">[ AI AUTO ]</span>
         </div>
+        <p class="text-[11px] font-sans text-slate-600 leading-relaxed">
+          NVIDIA Vision model automatically classifies WhatsApp, Telegram, Tinder, Bumble, or Instagram UI directly from screenshot visual indicators.
+        </p>
       </div>
 
       {/* Claimed Location Anchor */}
@@ -172,24 +162,9 @@ const {
       const removeBtn = widget.querySelector<HTMLElement>('.remove-file');
       const locationInput = widget.querySelector<HTMLInputElement>('.claimed-location-input');
       const submitBtn = widget.querySelector<HTMLButtonElement>('.deeptrace-submit-btn');
-      const platformPills = widget.querySelectorAll<HTMLButtonElement>('.platform-pill');
 
-      let currentPlatform = 'WHATSAPP';
       let selectedFileDataUrl: string | null = null;
       let selectedFileName: string | null = null;
-
-      // Platform selection
-      platformPills.forEach((pill) => {
-        pill.addEventListener('click', () => {
-          platformPills.forEach((p) => {
-            p.classList.remove('active-platform', 'bg-slate-900', 'text-white', 'border-slate-900');
-            p.classList.add('bg-white', 'text-slate-700', 'border-slate-300', 'hover:border-slate-900', 'hover:bg-slate-50');
-          });
-          pill.classList.remove('bg-white', 'text-slate-700', 'border-slate-300', 'hover:border-slate-900', 'hover:bg-slate-50');
-          pill.classList.add('active-platform', 'bg-slate-900', 'text-white', 'border-slate-900');
-          currentPlatform = pill.dataset.platform || 'WHATSAPP';
-        });
-      });
 
       // Handle file selection
       const handleFile = (file: File) => {
@@ -273,7 +248,6 @@ const {
             try {
               sessionStorage.setItem('deeptrace_preloaded_image', selectedFileDataUrl);
               sessionStorage.setItem('deeptrace_preloaded_name', selectedFileName || 'screenshot.png');
-              sessionStorage.setItem('deeptrace_preloaded_platform', currentPlatform);
               sessionStorage.setItem('deeptrace_preloaded_location', loc);
             } catch (err) {
               console.warn('[DeepTraceWidget] SessionStorage quota exceeded, passing via query.');
@@ -282,7 +256,6 @@ const {
 
           const targetUrl = new URL('/deeptrace', window.location.origin);
           targetUrl.searchParams.set('source', 'blog_widget');
-          targetUrl.searchParams.set('platform', currentPlatform);
           if (loc) targetUrl.searchParams.set('location', loc);
           if (selectedFileDataUrl) targetUrl.searchParams.set('autoScan', '1');
 

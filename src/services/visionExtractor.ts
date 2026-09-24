@@ -252,7 +252,8 @@ CRITICAL FORENSIC RULES:
 2. "SUSPECT" is the counter-party being audited (typically left-aligned neutral bubble).
 3. Transcribe every message bubble in chronological sequence.
 4. Flag any mentions of crypto, commodities, forex trading, Singapore/Hong Kong relatives giving insider tips, or urgent requests to switch to WhatsApp/Telegram.
-5. Return PURE JSON ONLY. No markdown wrapper, no conversational preamble.`;
+5. Inspect interface visual styling (bubble shapes/colors, header fonts, icons, status bar) to accurately identify "detectedPlatform" as TINDER, BUMBLE, HINGE, TELEGRAM, WHATSAPP, INSTAGRAM, or OTHER.
+6. Return PURE JSON ONLY. No markdown wrapper, no conversational preamble.`;
 
     const contextSummary = metadata
       ? `Declared Location: ${metadata.declaredLocation || 'Unspecified'}, Timezone: ${metadata.declaredTimezone || 'Unspecified'}, Suspect: ${metadata.suspectDisplayName || 'Unspecified'}, Platform: ${metadata.platformType || 'AUTO'}`

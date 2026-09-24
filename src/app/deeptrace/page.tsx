@@ -388,27 +388,18 @@ export default function DeepTracePage() {
                 </h3>
               </div>
 
-              {/* Platform Selector */}
-              <div className="space-y-2">
-                <label className="text-xs font-semibold text-slate-300 block">
-                  Origin Messaging Platform:
-                </label>
-                <div className="grid grid-cols-3 gap-2 text-xs font-mono">
-                  {(['WHATSAPP', 'TELEGRAM', 'TINDER', 'INSTAGRAM', 'BUMBLE', 'OTHER'] as PlatformType[]).map((p) => (
-                    <button
-                      key={p}
-                      type="button"
-                      onClick={() => setPlatform(p)}
-                      className={`py-2 px-2.5 rounded-xl border text-center font-bold transition-all ${
-                        platform === p
-                          ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-md shadow-cyan-500/20'
-                          : 'bg-slate-800 hover:bg-slate-700/80 text-slate-300 border-slate-700'
-                      }`}
-                    >
-                      {p}
-                    </button>
-                  ))}
+              {/* AI Platform Auto-Classification Banner */}
+              <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1">
+                <div className="flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-400">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    <span>Platform Identification</span>
+                  </span>
+                  <span className="text-slate-500 font-bold">[ AI AUTO ]</span>
                 </div>
+                <p className="text-[11px] text-slate-400 leading-relaxed">
+                  NVIDIA Vision model automatically classifies WhatsApp, Telegram, Tinder, Bumble, or Instagram UI directly from visual markers and bubble styling.
+                </p>
               </div>
 
               {/* Declared Location Input */}

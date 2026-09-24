@@ -251,6 +251,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     }
 
     // 8. Run DeepTrace Forensics & Generate Master Report DTO
+    // Prioritize platform detected autonomously by NVIDIA NIM Vision model
+    const aiDetectedPlatform = visionResult.extraction.detectedPlatform;
+    if (aiDetectedPlatform && aiDetectedPlatform !== 'OTHER') {
+      inputMetadata.platformType = aiDetectedPlatform;
+    }
+
     const analysisInput: DeepTraceAnalysisInput = {
       imageBuffer: optimizedBuffer.toString('base64'),
       imageMimeType: 'image/jpeg',
@@ -267,7 +273,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     try {
       caseRepository.saveCase(
         report,
-        inputMetadata.platformType,
+        report.inputMetadata.platformType || inputMetadata.platformType,
         inputMetadata.declaredLocation
       );
     } catch (dbErr) {
