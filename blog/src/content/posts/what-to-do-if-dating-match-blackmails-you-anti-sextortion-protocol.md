@@ -11,8 +11,8 @@ motto: "Love is... maintaining your dignity when predators weaponize your vulner
 tags: ["Sextortion","Blackmail","Emergency Protocol","Privacy Shield"]
 seoKeywords: ["tinder blackmailed with photos","instagram follower extortion dating","do sextortionists actually send photos","anti sextortion checklist"]
 canonicalUrl: "https://flirtcheck.site/blog/what-to-do-if-dating-match-blackmails-you-anti-sextortion-protocol/"
-coverImage: "/images/posts/what-to-do-if-dating-match-blackmails-you-anti-sextortion-protocol-v2.webp"
-image: "/images/posts/what-to-do-if-dating-match-blackmails-you-anti-sextortion-protocol-v2.webp"
+coverImage: "/images/posts/what-to-do-if-dating-match-blackmails-you-anti-sextortion-protocol-v3.webp"
+image: "/images/posts/what-to-do-if-dating-match-blackmails-you-anti-sextortion-protocol-v3.webp"
 draft: false
 ---
 
