@@ -350,10 +350,14 @@ class PinterestQueueManager {
     log(`🚀 Publishing pin for "${item.title}" to board "${CONFIG.boardName}"...`);
     const cookies = JSON.parse(fs.readFileSync(CONFIG.cookiesFile, 'utf8'));
 
-    const browser = await chromium.launch({ headless: true });
+    const browser = await chromium.launch({
+      headless: true,
+      args: ['--disable-blink-features=AutomationControlled', '--no-sandbox']
+    });
     const context = await browser.newContext({
       viewport: { width: 1440, height: 950 },
-      locale: 'ru-RU'
+      locale: 'ru-RU',
+      userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
     });
     await context.addCookies(cookies);
     const page = await context.newPage();
@@ -433,6 +437,34 @@ class PinterestQueueManager {
       item.publishedAt = new Date().toISOString();
       item.attempts += 1;
       this.saveQueue();
+
+      // Sync stateFile (.antigravity/pinterest_state.json)
+      try {
+        const state = fs.existsSync(CONFIG.stateFile)
+          ? JSON.parse(fs.readFileSync(CONFIG.stateFile, 'utf8'))
+          : { published: {}, lastRunAt: null, dailyCount: 0, lastDailyReset: new Date().toDateString() };
+        state.published = state.published || {};
+        state.published[item.slug] = {
+          publishedAt: item.publishedAt,
+          title: item.title,
+          pinUrl: 'published',
+          board: CONFIG.boardName,
+          directArticleUrl: item.targetUrl,
+          destinationLink: item.targetUrl
+        };
+        state.lastRunAt = item.publishedAt;
+        state.dailyCount = (state.dailyCount || 0) + 1;
+        fs.writeFileSync(CONFIG.stateFile, JSON.stringify(state, null, 2), 'utf8');
+      } catch (e) {
+        log(`Warning: Failed to update stateFile: ${e.message}`);
+      }
+
+      // Refresh cookies file
+      try {
+        const newCookies = await context.cookies();
+        fs.writeFileSync(CONFIG.cookiesFile, JSON.stringify(newCookies, null, 2), 'utf8');
+      } catch (e) {}
+
       log(`✅ Successfully published pin for: ${item.slug}`);
 
     } catch (err) {
