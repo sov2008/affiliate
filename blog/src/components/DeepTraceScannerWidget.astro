@@ -51,7 +51,7 @@ const {
     {/* Left 7 Cols: Archival Evidence Dropzone */}
     <div class="lg:col-span-7 flex flex-col justify-between">
       <div
-        class="deeptrace-dropzone group relative border-2 border-dashed border-slate-300 hover:border-slate-900 bg-[#FAF7F2] hover:bg-white p-6 sm:p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-colors min-h-[190px]"
+        class="deeptrace-dropzone group relative border-2 border-dashed border-slate-300 hover:border-slate-900 bg-[#FAF7F2] hover:bg-white p-6 sm:p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 min-h-[190px] hover:shadow-[0_0_25px_rgba(15,23,42,0.08)] rounded-none"
         tabindex="0"
         role="button"
         aria-label="Upload conversation screenshot for forensic audit"
@@ -62,9 +62,9 @@ const {
           accept="image/png,image/jpeg,image/webp"
         />
 
-        <div class="dropzone-default space-y-2.5">
-          <div class="w-12 h-12 mx-auto bg-white border border-slate-300 flex items-center justify-center text-slate-800 group-hover:border-slate-900 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <div class="dropzone-default space-y-2.5 transition-transform duration-200 group-hover:scale-[1.01]">
+          <div class="w-12 h-12 mx-auto bg-white border border-slate-300 flex items-center justify-center text-slate-800 group-hover:border-slate-900 group-hover:shadow-sm transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-800 transition-transform group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
             </svg>
           </div>
@@ -80,11 +80,11 @@ const {
 
         {/* Selected file state */}
         <div class="dropzone-selected hidden flex-col items-center gap-2">
-          <div class="px-3.5 py-1.5 bg-white border-2 border-slate-900 text-slate-900 text-xs font-mono font-bold flex items-center gap-2.5 shadow-sm">
+          <div class="evidence-pill px-3.5 py-1.5 bg-white border-2 border-slate-900 text-slate-900 text-xs font-mono font-bold flex items-center gap-2.5 shadow-sm">
             <span class="file-name truncate max-w-[240px]">file.png</span>
             <button type="button" class="remove-file text-slate-500 hover:text-rose-700 transition-colors font-mono font-bold text-sm" aria-label="Remove uploaded file">✕</button>
           </div>
-          <span class="font-mono text-[10px] text-emerald-800 font-bold uppercase tracking-wider bg-emerald-50 px-2 py-0.5 border border-emerald-300">
+          <span class="status-badge font-mono text-[10px] text-emerald-800 font-bold uppercase tracking-wider bg-emerald-50 px-2 py-0.5 border border-emerald-300">
             ✓ EVIDENCE LOADED // READY FOR DIAGNOSTIC
           </span>
         </div>
@@ -100,10 +100,10 @@ const {
     <div class="lg:col-span-5 flex flex-col justify-between space-y-4 bg-[#FAF7F2] border border-slate-300 p-5">
       
       {/* AI Auto-Detection Telemetry Box */}
-      <div class="p-3.5 bg-white border border-slate-300 space-y-1.5">
+      <div class="p-3.5 bg-white border border-slate-300 space-y-1.5 transition-colors hover:border-slate-400">
         <div class="flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-wider text-slate-700">
           <span class="flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
             <span>PLATFORM IDENTIFICATION</span>
           </span>
           <span class="text-slate-500 font-bold">[ AI AUTO ]</span>
@@ -134,10 +134,10 @@ const {
       <div class="space-y-2 pt-1">
         <button
           type="button"
-          class="deeptrace-submit-btn min-h-[46px] w-full py-3 px-4 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+          class="deeptrace-submit-btn min-h-[46px] w-full py-3 px-4 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-none active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
         >
-          <span>EXECUTE FORENSIC AUDIT</span>
-          <span class="text-rose-400 font-bold">→</span>
+          <span class="btn-label">EXECUTE FORENSIC AUDIT</span>
+          <span class="btn-arrow text-rose-400 font-bold">→</span>
         </button>
         <div class="text-center">
           <span class="font-mono text-[9px] uppercase tracking-wider text-slate-500">
@@ -150,6 +150,8 @@ const {
 </div>
 
 <script>
+  import anime from 'animejs';
+
   function setupDeepTraceWidgets() {
     const widgets = document.querySelectorAll<HTMLElement>('.deeptrace-widget');
 
@@ -158,15 +160,19 @@ const {
       const fileInput = widget.querySelector<HTMLInputElement>('.deeptrace-file-input');
       const defaultState = widget.querySelector<HTMLElement>('.dropzone-default');
       const selectedState = widget.querySelector<HTMLElement>('.dropzone-selected');
+      const evidencePill = widget.querySelector<HTMLElement>('.evidence-pill');
+      const statusBadge = widget.querySelector<HTMLElement>('.status-badge');
       const fileNameSpan = widget.querySelector<HTMLElement>('.file-name');
       const removeBtn = widget.querySelector<HTMLElement>('.remove-file');
       const locationInput = widget.querySelector<HTMLInputElement>('.claimed-location-input');
       const submitBtn = widget.querySelector<HTMLButtonElement>('.deeptrace-submit-btn');
+      const btnLabel = widget.querySelector<HTMLElement>('.btn-label');
+      const btnArrow = widget.querySelector<HTMLElement>('.btn-arrow');
 
       let selectedFileDataUrl: string | null = null;
       let selectedFileName: string | null = null;
 
-      // Handle file selection
+      // Animate file selection with Anime.js
       const handleFile = (file: File) => {
         if (!file.type.startsWith('image/')) {
           alert('Please select a valid image file (PNG, JPG, or WEBP).');
@@ -183,6 +189,18 @@ const {
           if (selectedState) {
             selectedState.classList.remove('hidden');
             selectedState.classList.add('flex');
+
+            if (evidencePill && statusBadge) {
+              anime({
+                targets: [evidencePill, statusBadge],
+                opacity: [0, 1],
+                translateY: [6, 0],
+                scale: [0.96, 1],
+                delay: anime.stagger(80),
+                duration: 350,
+                easing: 'easeOutQuad',
+              });
+            }
           }
         };
         reader.readAsDataURL(file);
@@ -202,16 +220,16 @@ const {
 
         dropzone.addEventListener('dragover', (e) => {
           e.preventDefault();
-          dropzone.classList.add('border-slate-900', 'bg-white');
+          dropzone.classList.add('border-slate-900', 'bg-white', 'shadow-md');
         });
 
         dropzone.addEventListener('dragleave', () => {
-          dropzone.classList.remove('border-slate-900', 'bg-white');
+          dropzone.classList.remove('border-slate-900', 'bg-white', 'shadow-md');
         });
 
         dropzone.addEventListener('drop', (e) => {
           e.preventDefault();
-          dropzone.classList.remove('border-slate-900', 'bg-white');
+          dropzone.classList.remove('border-slate-900', 'bg-white', 'shadow-md');
           if (e.dataTransfer?.files && e.dataTransfer.files[0]) {
             handleFile(e.dataTransfer.files[0]);
           }
@@ -231,7 +249,16 @@ const {
           selectedFileDataUrl = null;
           selectedFileName = null;
           if (fileInput) fileInput.value = '';
-          if (defaultState) defaultState.classList.remove('hidden');
+          if (defaultState) {
+            defaultState.classList.remove('hidden');
+            anime({
+              targets: defaultState,
+              opacity: [0, 1],
+              scale: [0.95, 1],
+              duration: 250,
+              easing: 'easeOutQuad',
+            });
+          }
           if (selectedState) {
             selectedState.classList.add('hidden');
             selectedState.classList.remove('flex');
@@ -239,10 +266,21 @@ const {
         });
       }
 
-      // Handle submission
+      // Handle submission with animated state
       if (submitBtn) {
         submitBtn.addEventListener('click', () => {
           const loc = locationInput?.value?.trim() || '';
+
+          if (btnLabel && btnArrow) {
+            btnLabel.textContent = 'INITIATING FORENSIC RADAR...';
+            anime({
+              targets: btnArrow,
+              translateX: [0, 6, 0],
+              loop: true,
+              duration: 600,
+              easing: 'easeInOutSine',
+            });
+          }
 
           if (selectedFileDataUrl) {
             try {
@@ -259,7 +297,9 @@ const {
           if (loc) targetUrl.searchParams.set('location', loc);
           if (selectedFileDataUrl) targetUrl.searchParams.set('autoScan', '1');
 
-          window.location.href = targetUrl.toString();
+          setTimeout(() => {
+            window.location.href = targetUrl.toString();
+          }, 200);
         });
       }
     });

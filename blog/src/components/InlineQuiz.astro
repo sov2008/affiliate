@@ -231,22 +231,21 @@ const {
 </div>
 
 <script>
+  import anime from 'animejs';
+
   function initInlineQuizzes() {
-    const widgets = document.querySelectorAll<HTMLElement>('.inline-dating-quiz');
+    const quizzes = document.querySelectorAll<HTMLElement>('.inline-dating-quiz');
 
-    widgets.forEach((widget) => {
-      if (widget.dataset.initialized === 'true') return;
-      widget.dataset.initialized = 'true';
-
+    quizzes.forEach((widget) => {
       const slug = widget.dataset.slug || 'dating-safety-guide';
 
       let platform = 'Tinder';
       let askedWhatsApp = 'Yes';
       let videoCall = 'Never';
 
-      const step1       = widget.querySelector<HTMLElement>('.quiz-step-1');
-      const step2       = widget.querySelector<HTMLElement>('.quiz-step-2');
-      const step3       = widget.querySelector<HTMLElement>('.quiz-step-3');
+      const step1        = widget.querySelector<HTMLElement>('.quiz-step-1');
+      const step2        = widget.querySelector<HTMLElement>('.quiz-step-2');
+      const step3        = widget.querySelector<HTMLElement>('.quiz-step-3');
       const stepScanning = widget.querySelector<HTMLElement>('.quiz-scanning');
       const stepVerdict  = widget.querySelector<HTMLElement>('.quiz-verdict');
 
@@ -290,28 +289,49 @@ const {
         try { navigator.sendBeacon?.(`/go?source=inline_quiz&trigger_source=inline_quiz&intent=quiz_verified&ref=${encodeURIComponent(slug)}&cid=${encodeURIComponent(cid)}&beacon=1`); } catch {}
       });
 
+      function transitionSteps(hideStep: HTMLElement | null, showStep: HTMLElement | null) {
+        if (!hideStep || !showStep) return;
+        anime({
+          targets: hideStep,
+          opacity: [1, 0],
+          translateY: [0, -6],
+          duration: 150,
+          easing: 'easeInQuad',
+          complete: () => {
+            hideStep.classList.add('hidden');
+            showStep.classList.remove('hidden');
+            anime({
+              targets: showStep,
+              opacity: [0, 1],
+              translateY: [8, 0],
+              duration: 250,
+              easing: 'easeOutQuad',
+            });
+          }
+        });
+      }
+
       // Step transitions — highlight selected button
       platformBtns.forEach(btn => btn.addEventListener('click', () => {
         platformBtns.forEach(b => b.classList.remove('border-slate-900', 'bg-white'));
         btn.classList.add('border-slate-900', 'bg-white');
         platform = btn.dataset.val || 'Tinder';
-        setTimeout(() => { step1?.classList.add('hidden'); step2?.classList.remove('hidden'); }, 150);
+        transitionSteps(step1, step2);
       }));
 
       whatsappBtns.forEach(btn => btn.addEventListener('click', () => {
         askedWhatsApp = btn.dataset.val || 'Yes';
-        step2?.classList.add('hidden');
-        step3?.classList.remove('hidden');
+        transitionSteps(step2, step3);
       }));
 
       videocallBtns.forEach(btn => btn.addEventListener('click', () => {
         videoCall = btn.dataset.val || 'Never';
-        step3?.classList.add('hidden');
+        if (step3) step3.classList.add('hidden');
         startScanSimulation();
       }));
 
-      backStep1?.addEventListener('click', () => { step2?.classList.add('hidden'); step1?.classList.remove('hidden'); });
-      backStep2?.addEventListener('click', () => { step3?.classList.add('hidden'); step2?.classList.remove('hidden'); });
+      backStep1?.addEventListener('click', () => { transitionSteps(step2, step1); });
+      backStep2?.addEventListener('click', () => { transitionSteps(step3, step2); });
 
       resetBtn?.addEventListener('click', () => {
         stepVerdict?.classList.add('hidden');
@@ -327,19 +347,31 @@ const {
 
       function startScanSimulation() {
         stepScanning?.classList.remove('hidden');
-        let progress = 0;
-        const intervalMs = 40;
-        const stepInc = 100 / (2000 / intervalMs);
+        if (barFill) barFill.style.width = '0%';
 
-        const timer = setInterval(() => {
-          progress += stepInc;
-          const current = Math.min(100, Math.round(progress));
-          if (barFill) barFill.style.width = `${current}%`;
-          if (counterPct) counterPct.textContent = `${current}%`;
-          if (current >= 35 && badge2) { badge2.classList.remove('opacity-30'); badge2.classList.add('text-rose-700', 'font-bold'); }
-          if (current >= 75 && badge3) { badge3.classList.remove('opacity-30'); badge3.classList.add('text-rose-700', 'font-bold'); }
-          if (progress >= 100) { clearInterval(timer); setTimeout(renderVerdict, 150); }
-        }, intervalMs);
+        const progressObj = { value: 0 };
+        anime({
+          targets: progressObj,
+          value: 100,
+          duration: 1800,
+          easing: 'easeInOutQuad',
+          update: () => {
+            const current = Math.round(progressObj.value);
+            if (barFill) barFill.style.width = `${current}%`;
+            if (counterPct) counterPct.textContent = `${current}%`;
+            if (current >= 35 && badge2) {
+              badge2.classList.remove('opacity-30');
+              badge2.classList.add('text-rose-700', 'font-bold');
+            }
+            if (current >= 75 && badge3) {
+              badge3.classList.remove('opacity-30');
+              badge3.classList.add('text-rose-700', 'font-bold');
+            }
+          },
+          complete: () => {
+            setTimeout(renderVerdict, 120);
+          }
+        });
       }
 
       function renderVerdict() {
@@ -347,21 +379,43 @@ const {
         stepVerdict?.classList.remove('hidden');
 
         const isHighRisk = (askedWhatsApp === 'Yes' || videoCall === 'Never');
+        const targetRisk = isHighRisk ? 92 : 48;
 
         if (isHighRisk) {
           if (verdictBox) verdictBox.className = 'verdict-box border border-rose-700 bg-[#FAF7F2] p-4 sm:p-5';
           if (verdictBadge) verdictBadge.className = 'verdict-score-badge w-14 h-14 border border-rose-700 bg-rose-700 flex flex-col items-center justify-center shrink-0';
-          if (verdictPct) verdictPct.textContent = '92%';
           if (verdictTag) { verdictTag.className = 'verdict-tag font-mono text-[9px] font-bold px-2 py-0.5 uppercase tracking-widest border border-rose-700 text-rose-700 bg-white'; verdictTag.textContent = 'HIGH RISK DETECTED'; }
           if (verdictTitle) verdictTitle.textContent = `Critical ${platform} Fraud Signature Alert`;
           if (verdictDesc) verdictDesc.textContent = 'External messaging migration combined with video call avoidance matches 94% of confirmed dating bot farms and scam networks.';
         } else {
           if (verdictBox) verdictBox.className = 'verdict-box border border-slate-300 bg-[#FAF7F2] p-4 sm:p-5';
           if (verdictBadge) verdictBadge.className = 'verdict-score-badge w-14 h-14 border border-slate-500 bg-slate-500 flex flex-col items-center justify-center shrink-0';
-          if (verdictPct) verdictPct.textContent = '48%';
           if (verdictTag) { verdictTag.className = 'verdict-tag font-mono text-[9px] font-bold px-2 py-0.5 uppercase tracking-widest border border-slate-500 text-slate-700 bg-white'; verdictTag.textContent = 'MODERATE RISK INDEX'; }
           if (verdictTitle) verdictTitle.textContent = `Caution Advised on ${platform} Connection`;
           if (verdictDesc) verdictDesc.textContent = 'While video call was reported, profile flags require extra verification. Always confirm identity on verified human platforms.';
+        }
+
+        // Animate counter up with Anime.js
+        const scoreObj = { val: 0 };
+        anime({
+          targets: scoreObj,
+          val: targetRisk,
+          round: 1,
+          duration: 900,
+          easing: 'easeOutExpo',
+          update: () => {
+            if (verdictPct) verdictPct.textContent = `${scoreObj.val}%`;
+          }
+        });
+
+        if (verdictBadge) {
+          anime({
+            targets: verdictBadge,
+            scale: [0.85, 1],
+            opacity: [0, 1],
+            duration: 400,
+            easing: 'easeOutBack',
+          });
         }
 
         updateCtaHref();
@@ -370,5 +424,6 @@ const {
   }
 
   document.addEventListener('DOMContentLoaded', initInlineQuizzes);
+  document.addEventListener('astro:page-load', initInlineQuizzes);
   initInlineQuizzes();
 </script>

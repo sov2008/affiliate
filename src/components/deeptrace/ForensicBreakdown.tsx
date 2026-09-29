@@ -14,6 +14,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { DeepTraceReportDTO, RomanceScamCategory } from '../../types/deeptrace';
+import { ForensicRadarChart } from './ForensicRadarChart';
 
 export interface ForensicBreakdownProps {
   report: DeepTraceReportDTO;
@@ -60,6 +61,9 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
           CASE: {report.caseReference} // DEEP_TRACE_ENGINE v2.4
         </span>
       </div>
+
+      {/* Bklit-Inspired Forensic Radar Topology Chart */}
+      <ForensicRadarChart report={report} />
 
       {/* 3 Inspection Cards Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

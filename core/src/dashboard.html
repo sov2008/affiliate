@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" class="dark">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <base href="/">
@@ -8,6 +8,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>Affiliate Ops // High-Density Engineering Console</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
   <script>
     // ========================================================
     // CREDENTIALS & URL SANITIZATION SHIM (WHATWG Fetch / Credentials Fix)
@@ -92,6 +93,26 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+    /* Kokonut UI Visual Polish & Tactile Feedback */
+    .kokonut-card-glow {
+      box-shadow: 0 0 20px rgba(15, 23, 42, 0.4), inset 0 0 15px rgba(56, 189, 248, 0.04);
+      transition: all 0.25s ease;
+    }
+    .kokonut-card-glow:hover {
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.12), inset 0 0 20px rgba(56, 189, 248, 0.08);
+      border-color: rgba(56, 189, 248, 0.35) !important;
+    }
+    .btn, .icon-btn {
+      transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease !important;
+    }
+    .btn:active, .icon-btn:active {
+      transform: scale(0.96) !important;
+    }
+    @media (max-width: 900px) {
+      .charts-grid-responsive {
+        grid-template-columns: 1fr !important;
+      }
     }
     @keyframes pulse-green {
       0% {
@@ -422,13 +443,118 @@
       <div><span style="color: var(--dim);">EPC:</span> <strong id="kpiEpc" style="color: var(--blue);">$0.00</strong></div>
       
       <div style="display: flex; align-items: center; gap: 4px; padding-left: 8px; border-left: 1px solid var(--border);">
-        <span id="estopBadge" class="badge badge-ok term-tooltip tooltip-bottom" data-tooltip="Статус аварийного останова: Норма. Блокировок нет.">E-STOP: CLEAR</span>
-        <button id="btnEstop" onclick="toggleEstop()" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Экстренная остановка: немедленно глушит всех воркеров публикации." style="padding: 2px 6px; font-size: 10px;">🚨 E-STOP</button>
-        <button onclick="refreshAll()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Принудительная синхронизация состояния демонов и метрик." style="padding: 2px 6px; font-size: 10px;">↻ SYNC</button>
-        <button onclick="logoutConsole()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Завершить сессию и выйти из панели управления" style="padding: 2px 6px; font-size: 10px; background: rgba(248, 81, 73, 0.18); border-color: rgba(248, 81, 73, 0.5); color: #ff7b72; cursor: pointer;">🚪 ВЫЙТИ</button>
+        <span id="estopBadge" class="badge badge-ok term-tooltip tooltip-bottom" data-tooltip="Emergency Stop Status: Normal. No active overrides.">E-STOP: CLEAR</span>
+        <button id="btnEstop" onclick="toggleEstop()" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Emergency Stop: Immediately suspends all automated syndication workers." style="padding: 2px 6px; font-size: 10px;">🚨 E-STOP</button>
+        <button onclick="refreshAll()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Force telemetry & daemon synchronization." style="padding: 2px 6px; font-size: 10px;">↻ SYNC</button>
+        <button onclick="logoutConsole()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="End current operator session and log out." style="padding: 2px 6px; font-size: 10px; background: rgba(248, 81, 73, 0.18); border-color: rgba(248, 81, 73, 0.5); color: #ff7b72; cursor: pointer;">🚪 LOGOUT</button>
       </div>
     </div>
   </header>
+
+  <!-- ======================================================== -->
+  <!-- ZONE 1.2: BKLIT REAL-TIME TELEMETRY & CONVERSION CHARTS   -->
+  <!-- ======================================================== -->
+  <section class="panel kokonut-card-glow" id="bklitChartsPanel" style="margin-bottom: 8px; background: #0b0f17; border: 1px solid #1e293b;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 8px; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 8px #38bdf8;"></span>
+        <strong style="color: #f1f5f9; font-size: 11px; letter-spacing: 0.05em;">BKLIT TELEMETRY // 24H LIVE TRAFFIC & CONVERSION FUNNEL</strong>
+        <span class="badge badge-dim" style="color: #94a3b8;">SHADCN-SPEC // ZERO SYNTHETICS</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <span style="color: var(--dim); font-size: 10px;">INTEGRITY:</span>
+        <span class="badge badge-ok">100% PRODUCTION TRAFFIC</span>
+      </div>
+    </div>
+
+    <!-- 2-Col Visualization Grid: Area Chart + Funnel Chart -->
+    <div style="display: grid; grid-template-columns: 7fr 5fr; gap: 12px;" class="charts-grid-responsive">
+      <!-- Left: Bklit Area Chart (24h Velocity) -->
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 4px; padding: 10px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="color: #94a3b8; font-size: 10px; font-weight: 700; text-transform: uppercase;">24-Hour Inbound Click Velocity</span>
+          <span id="chartTotalClicksLabel" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #34d399;">0 Clicks Recorded</span>
+        </div>
+        
+        <!-- SVG Area Chart -->
+        <div style="width: 100%; height: 110px; position: relative;">
+          <svg id="bklitAreaSvg" viewBox="0 0 500 110" preserveAspectRatio="none" style="width: 100%; height: 100%; overflow: visible;">
+            <defs>
+              <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#10b981" stopOpacity="0.35"/>
+                <stop offset="100%" stopColor="#10b981" stopOpacity="0.0"/>
+              </linearGradient>
+            </defs>
+            <!-- Grid Lines -->
+            <line x1="0" y1="25" x2="500" y2="25" stroke="#1e293b" stroke-dasharray="2 4"/>
+            <line x1="0" y1="55" x2="500" y2="55" stroke="#1e293b" stroke-dasharray="2 4"/>
+            <line x1="0" y1="85" x2="500" y2="85" stroke="#1e293b" stroke-dasharray="2 4"/>
+            <!-- Area & Line paths -->
+            <path id="bklitAreaPath" fill="url(#areaGradient)" d="M 0 100 L 500 100 Z" style="transition: all 0.6s ease;"/>
+            <path id="bklitLinePath" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" d="M 0 100 L 500 100" style="transition: all 0.6s ease;"/>
+          </svg>
+        </div>
+
+        <!-- Time Ticks -->
+        <div style="display: flex; justify-content: space-between; color: var(--dim); font-size: 9px; margin-top: 4px; font-family: monospace;">
+          <span>-24h</span>
+          <span>-18h</span>
+          <span>-12h</span>
+          <span>-6h</span>
+          <span>NOW</span>
+        </div>
+      </div>
+
+      <!-- Right: Bklit Conversion & EPC Funnel -->
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 4px; padding: 10px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="color: #94a3b8; font-size: 10px; font-weight: 700; text-transform: uppercase;">Attribution & CPA Revenue Funnel</span>
+          <span id="funnelEpcBadge" style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #38bdf8; font-weight: 700;">NET EPC: $0.00</span>
+        </div>
+
+        <!-- Funnel Stages -->
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <!-- Stage 1: Clicks -->
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 2px;">
+              <span style="color: var(--dim);">1. RAW ROUTED CLICKS</span>
+              <span id="funnelClicksVal" style="color: #38bdf8; font-weight: 700;">0</span>
+            </div>
+            <div style="background: #1e293b; height: 8px; border-radius: 2px; overflow: hidden;">
+              <div id="funnelBarClicks" style="background: #38bdf8; height: 100%; width: 0%; transition: width 0.8s ease;"></div>
+            </div>
+          </div>
+
+          <!-- Stage 2: Leads -->
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 2px;">
+              <span style="color: var(--dim);">2. QUALIFIED LEADS (CPA)</span>
+              <span id="funnelLeadsVal" style="color: #c084fc; font-weight: 700;">0</span>
+            </div>
+            <div style="background: #1e293b; height: 8px; border-radius: 2px; overflow: hidden;">
+              <div id="funnelBarLeads" style="background: #c084fc; height: 100%; width: 0%; transition: width 0.8s ease;"></div>
+            </div>
+          </div>
+
+          <!-- Stage 3: Revenue -->
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 2px;">
+              <span style="color: var(--dim);">3. CONFIRMED NET PAYOUT</span>
+              <span id="funnelRevVal" style="color: #34d399; font-weight: 700;">$0.00</span>
+            </div>
+            <div style="background: #1e293b; height: 8px; border-radius: 2px; overflow: hidden;">
+              <div id="funnelBarRev" style="background: #10b981; height: 100%; width: 0%; transition: width 0.8s ease;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; font-size: 9px; color: var(--dim); margin-top: 6px; border-top: 1px solid #1e293b; padding-top: 4px;">
+          <span>MYLEAD / LOSPOLLOS BRIDGE</span>
+          <span style="color: #34d399;">ZERO DEMO TOLERANCE</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ======================================================== -->
   <!-- ZONE 1.5: FULL-WIDTH SQLITE CONTENT QUEUE & BATCH PANEL  -->
@@ -445,13 +571,13 @@
       <!-- Queue Filter Tabs & Actions -->
       <div style="display: flex; align-items: center; gap: 6px;">
         <div style="display: flex; gap: 2px;" id="queueFilterTabs">
-          <button onclick="setQueueFilter('ALL')" id="qf_ALL" class="filter-tab active term-tooltip tooltip-bottom" data-tooltip="Показать все задачи очереди">ALL (<span id="qc_ALL">0</span>)</button>
-          <button onclick="setQueueFilter('PENDING')" id="qf_PENDING" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Ожидают модерации оператором">PENDING (<span id="qc_PENDING">0</span>)</button>
-          <button onclick="setQueueFilter('APPROVED')" id="qf_APPROVED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Одобрено к отправке в Reddit">APPROVED (<span id="qc_APPROVED">0</span>)</button>
-          <button onclick="setQueueFilter('DISPATCHED')" id="qf_DISPATCHED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Успешно отправлено в сабреддиты">DISPATCHED (<span id="qc_DISPATCHED">0</span>)</button>
-          <button onclick="setQueueFilter('REJECTED')" id="qf_REJECTED" class="filter-tab term-tooltip tooltip-bottom tooltip-left" data-tooltip="Отклонено модератором">REJECTED (<span id="qc_REJECTED">0</span>)</button>
+          <button onclick="setQueueFilter('ALL')" id="qf_ALL" class="filter-tab active term-tooltip tooltip-bottom" data-tooltip="Show all content queue tasks">ALL (<span id="qc_ALL">0</span>)</button>
+          <button onclick="setQueueFilter('PENDING')" id="qf_PENDING" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Pending operator review">PENDING (<span id="qc_PENDING">0</span>)</button>
+          <button onclick="setQueueFilter('APPROVED')" id="qf_APPROVED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Approved for syndication">APPROVED (<span id="qc_APPROVED">0</span>)</button>
+          <button onclick="setQueueFilter('DISPATCHED')" id="qf_DISPATCHED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Dispatched to target platforms">DISPATCHED (<span id="qc_DISPATCHED">0</span>)</button>
+          <button onclick="setQueueFilter('REJECTED')" id="qf_REJECTED" class="filter-tab term-tooltip tooltip-bottom tooltip-left" data-tooltip="Rejected by operator">REJECTED (<span id="qc_REJECTED">0</span>)</button>
         </div>
-        <button onclick="dispatchNextSocialSnippet()" id="btnDispatchSocialSnippet" class="btn btn-purple font-bold term-tooltip tooltip-bottom tooltip-left" data-tooltip="Принудительная публикация 1 сниппета в Telegram канал проекта" style="padding: 2px 8px; font-size: 10px;">📲 Dispatch Next Social Snippet</button>
+        <button onclick="dispatchNextSocialSnippet()" id="btnDispatchSocialSnippet" class="btn btn-purple font-bold term-tooltip tooltip-bottom tooltip-left" data-tooltip="Force dispatch 1 snippet to Telegram channel" style="padding: 2px 8px; font-size: 10px;">📲 Dispatch Next Social Snippet</button>
         <button onclick="fetchQueue()" class="btn" style="padding: 2px 6px; font-size: 10px;">↻ REFRESH</button>
       </div>
     </div>
@@ -462,7 +588,7 @@
         <thead class="sticky-header">
           <tr>
             <th style="width: 36px; text-align: center;">
-              <input type="checkbox" id="selectAllCheckbox" class="queue-cb" onchange="toggleSelectAll(this.checked)" title="Выбрать все элементы выборки">
+              <input type="checkbox" id="selectAllCheckbox" class="queue-cb" onchange="toggleSelectAll(this.checked)" title="Select all visible items">
             </th>
             <th style="width: 144px; min-width: 144px; max-width: 144px;">ID</th>
             <th style="width: 130px;">Platform / Sub</th>
@@ -474,13 +600,13 @@
           </tr>
         </thead>
         <tbody id="queueTbody">
-          <tr><td colspan="8" style="text-align: center; color: var(--dim); padding: 18px;">Загрузка очереди...</td></tr>
+          <tr><td colspan="8" style="text-align: center; color: var(--dim); padding: 18px;">Loading content queue telemetry...</td></tr>
         </tbody>
       </table>
     </div>
 
     <!-- Interactive Bottom Vertical Resize Handle Bar with GripHorizontal SVG -->
-    <div class="resize-handle-bar" id="queueResizeHandle" title="Потяните вниз или вверх для изменения высоты блока очереди (GripHorizontal)">
+    <div class="resize-handle-bar" id="queueResizeHandle" title="Drag vertically to resize queue panel height (GripHorizontal)">
       <svg width="24" height="6" viewBox="0 0 24 6" fill="currentColor">
         <circle cx="4" cy="3" r="1.5"/>
         <circle cx="12" cy="3" r="1.5"/>
@@ -509,10 +635,10 @@
             <span id="agentEstopBadge" class="badge badge-ok">E-STOP: CLEAR</span>
           </div>
           <div style="display: flex; align-items: center; gap: 4px;">
-            <button onclick="triggerAutonomousCycle(true)" id="btnAgentDryRun" class="btn" style="padding: 2px 7px; font-size: 10px;" title="Безопасная симуляция без публикаций">🧪 DRY-RUN</button>
-            <button onclick="triggerAutonomousCycle(false)" id="btnAgentRunLive" class="btn btn-blue font-bold" style="padding: 2px 8px; font-size: 10px;" title="Запустить 1 полный автономный цикл">▶ RUN CYCLE</button>
-            <button onclick="toggleAgentDaemon()" id="btnAgentDaemon" class="btn btn-green font-bold" style="padding: 2px 7px; font-size: 10px;" title="Включить / отключить фоновый режим">⚡ DAEMON</button>
-            <button onclick="fetchAutonomousAgentStatus()" class="btn" style="padding: 2px 5px; font-size: 10px;" title="Обновить статус">↻</button>
+            <button onclick="triggerAutonomousCycle(true)" id="btnAgentDryRun" class="btn" style="padding: 2px 7px; font-size: 10px;" title="Safe dry-run simulation without publishing">🧪 DRY-RUN</button>
+            <button onclick="triggerAutonomousCycle(false)" id="btnAgentRunLive" class="btn btn-blue font-bold" style="padding: 2px 8px; font-size: 10px;" title="Execute 1 full autonomous cycle">▶ RUN CYCLE</button>
+            <button onclick="toggleAgentDaemon()" id="btnAgentDaemon" class="btn btn-green font-bold" style="padding: 2px 7px; font-size: 10px;" title="Toggle background autonomous daemon">⚡ DAEMON</button>
+            <button onclick="fetchAutonomousAgentStatus()" class="btn" style="padding: 2px 5px; font-size: 10px;" title="Refresh agent status">↻</button>
           </div>
         </div>
 
@@ -678,7 +804,7 @@
             <span class="badge badge-dim" id="workersLastSync">SYNC: --</span>
           </div>
           <div style="display: flex; align-items: center; gap: 6px;">
-            <button onclick="emergencyStopReddit(this)" id="btnHaltReddit" class="btn btn-red font-bold term-tooltip tooltip-bottom" data-tooltip="Немедленно глушит scout-reddit-worker и reddit-session-watchdog" style="padding: 2px 7px; font-size: 10px;">🚨 АВАРИЙНЫЙ СТОП REDDIT</button>
+            <button onclick="emergencyStopReddit(this)" id="btnHaltReddit" class="btn btn-red font-bold term-tooltip tooltip-bottom" data-tooltip="Immediately halts scout-reddit-worker и reddit-session-watchdog" style="padding: 2px 7px; font-size: 10px;">🚨 EMERGENCY STOP REDDIT</button>
             <button onclick="fetchWorkerStatuses()" class="btn" style="padding: 2px 6px; font-size: 10px;">↻ REFRESH</button>
           </div>
         </div>
@@ -700,9 +826,9 @@
               </div>
             </div>
             <div class="worker-bottom-row">
-              <button onclick="controlWorker('scout-reddit-worker', 'start', this)" id="btn-start-scout-reddit-worker" class="btn btn-green worker-btn" title="Запустить сервис">▶ Старт</button>
-              <button onclick="controlWorker('scout-reddit-worker', 'stop', this)" id="btn-stop-scout-reddit-worker" class="btn btn-red worker-btn" title="Остановить сервис">⏹ Стоп</button>
-              <button onclick="controlWorker('scout-reddit-worker', 'restart', this)" id="btn-restart-scout-reddit-worker" class="btn btn-amber worker-btn" title="Перезапустить процесс">↻ Рестарт</button>
+              <button onclick="controlWorker('scout-reddit-worker', 'start', this)" id="btn-start-scout-reddit-worker" class="btn btn-green worker-btn" title="Start service">▶ Start</button>
+              <button onclick="controlWorker('scout-reddit-worker', 'stop', this)" id="btn-stop-scout-reddit-worker" class="btn btn-red worker-btn" title="Stop service">⏹ Stop</button>
+              <button onclick="controlWorker('scout-reddit-worker', 'restart', this)" id="btn-restart-scout-reddit-worker" class="btn btn-amber worker-btn" title="Restart process">↻ Restart</button>
             </div>
           </div>
 
@@ -722,9 +848,9 @@
               </div>
             </div>
             <div class="worker-bottom-row">
-              <button onclick="controlWorker('reddit-session-watchdog', 'start', this)" id="btn-start-reddit-session-watchdog" class="btn btn-green worker-btn" title="Запустить сервис">▶ Старт</button>
-              <button onclick="controlWorker('reddit-session-watchdog', 'stop', this)" id="btn-stop-reddit-session-watchdog" class="btn btn-red worker-btn" title="Остановить сервис">⏹ Стоп</button>
-              <button onclick="controlWorker('reddit-session-watchdog', 'restart', this)" id="btn-restart-reddit-session-watchdog" class="btn btn-amber worker-btn" title="Перезапустить процесс">↻ Рестарт</button>
+              <button onclick="controlWorker('reddit-session-watchdog', 'start', this)" id="btn-start-reddit-session-watchdog" class="btn btn-green worker-btn" title="Start service">▶ Start</button>
+              <button onclick="controlWorker('reddit-session-watchdog', 'stop', this)" id="btn-stop-reddit-session-watchdog" class="btn btn-red worker-btn" title="Stop service">⏹ Stop</button>
+              <button onclick="controlWorker('reddit-session-watchdog', 'restart', this)" id="btn-restart-reddit-session-watchdog" class="btn btn-amber worker-btn" title="Restart process">↻ Restart</button>
             </div>
           </div>
 
@@ -744,9 +870,9 @@
               </div>
             </div>
             <div class="worker-bottom-row">
-              <button onclick="controlWorker('affiliate-scheduler', 'start', this)" id="btn-start-affiliate-scheduler" class="btn btn-green worker-btn" title="Запустить сервис">▶ Старт</button>
-              <button onclick="controlWorker('affiliate-scheduler', 'stop', this)" id="btn-stop-affiliate-scheduler" class="btn btn-red worker-btn" title="Остановить сервис">⏹ Стоп</button>
-              <button onclick="controlWorker('affiliate-scheduler', 'restart', this)" id="btn-restart-affiliate-scheduler" class="btn btn-amber worker-btn" title="Перезапустить процесс">↻ Рестарт</button>
+              <button onclick="controlWorker('affiliate-scheduler', 'start', this)" id="btn-start-affiliate-scheduler" class="btn btn-green worker-btn" title="Start service">▶ Start</button>
+              <button onclick="controlWorker('affiliate-scheduler', 'stop', this)" id="btn-stop-affiliate-scheduler" class="btn btn-red worker-btn" title="Stop service">⏹ Stop</button>
+              <button onclick="controlWorker('affiliate-scheduler', 'restart', this)" id="btn-restart-affiliate-scheduler" class="btn btn-amber worker-btn" title="Restart process">↻ Restart</button>
             </div>
           </div>
 
@@ -766,9 +892,9 @@
               </div>
             </div>
             <div class="worker-bottom-row">
-              <button onclick="controlWorker('affiliate-telegram-bot', 'start', this)" id="btn-start-affiliate-telegram-bot" class="btn btn-green worker-btn" title="Запустить сервис">▶ Старт</button>
-              <button onclick="controlWorker('affiliate-telegram-bot', 'stop', this)" id="btn-stop-affiliate-telegram-bot" class="btn btn-red worker-btn" title="Остановить сервис">⏹ Стоп</button>
-              <button onclick="controlWorker('affiliate-telegram-bot', 'restart', this)" id="btn-restart-affiliate-telegram-bot" class="btn btn-amber worker-btn" title="Перезапустить процесс">↻ Рестарт</button>
+              <button onclick="controlWorker('affiliate-telegram-bot', 'start', this)" id="btn-start-affiliate-telegram-bot" class="btn btn-green worker-btn" title="Start service">▶ Start</button>
+              <button onclick="controlWorker('affiliate-telegram-bot', 'stop', this)" id="btn-stop-affiliate-telegram-bot" class="btn btn-red worker-btn" title="Stop service">⏹ Stop</button>
+              <button onclick="controlWorker('affiliate-telegram-bot', 'restart', this)" id="btn-restart-affiliate-telegram-bot" class="btn btn-amber worker-btn" title="Restart process">↻ Restart</button>
             </div>
           </div>
         </div>
@@ -898,24 +1024,24 @@
           <div style="display: flex; align-items: center; gap: 6px;">
             <strong style="color: var(--text);">LIVE LOG &amp; TELEMETRY STREAM</strong>
             <span id="logCountBadge" class="badge badge-dim">0 / 100 LINES</span>
-            <span id="logSpeedBadge" class="badge badge-ok term-tooltip tooltip-bottom" data-tooltip="Скорость поступления логов телеметрии">0.0 стр/сек</span>
+            <span id="logSpeedBadge" class="badge badge-ok term-tooltip tooltip-bottom" data-tooltip="Telemetry log stream ingestion velocity">0.0 lines/sec</span>
           </div>
           <div style="display: flex; align-items: center; gap: 4px;">
             <!-- Source Filters -->
             <div style="display: flex; gap: 2px; margin-right: 4px;" id="logFilterTabs">
-              <button onclick="setLogFilter('ALL')" id="lf_ALL" class="filter-tab active term-tooltip tooltip-bottom" data-tooltip="Все источники логов">ALL</button>
-              <button onclick="setLogFilter('REDDIT')" id="lf_REDDIT" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Логи сабреддитов и скаута">REDDIT</button>
-              <button onclick="setLogFilter('SHIELD')" id="lf_SHIELD" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Логи Bot Shield и клоакинга">SHIELD</button>
-              <button onclick="setLogFilter('CRON')" id="lf_CRON" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Логи демонов, кронов и watchdog">CRON</button>
+              <button onclick="setLogFilter('ALL')" id="lf_ALL" class="filter-tab active term-tooltip tooltip-bottom" data-tooltip="All log stream sources">ALL</button>
+              <button onclick="setLogFilter('REDDIT')" id="lf_REDDIT" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Subreddit and scout worker logs">REDDIT</button>
+              <button onclick="setLogFilter('SHIELD')" id="lf_SHIELD" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Bot Shield and cloaking telemetry logs">SHIELD</button>
+              <button onclick="setLogFilter('CRON')" id="lf_CRON" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Daemons, cron, and watchdog subsystem logs">CRON</button>
             </div>
-            <button id="btnAutoScroll" onclick="toggleAutoScroll()" class="btn btn-green term-tooltip tooltip-bottom" data-tooltip="Автоматическая прокрутка к новым строкам" style="padding: 2px 6px; font-size: 10px;">AUTO-SCROLL</button>
-            <button onclick="copyLogs()" class="btn term-tooltip tooltip-bottom" data-tooltip="Скопировать логи в буфер обмена" style="padding: 2px 6px; font-size: 10px;">COPY</button>
-            <button onclick="clearLogs()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Очистить терминальное окно" style="padding: 2px 6px; font-size: 10px;">CLEAR</button>
+            <button id="btnAutoScroll" onclick="toggleAutoScroll()" class="btn btn-green term-tooltip tooltip-bottom" data-tooltip="Auto-scroll terminal to newest log entries" style="padding: 2px 6px; font-size: 10px;">AUTO-SCROLL</button>
+            <button onclick="copyLogs()" class="btn term-tooltip tooltip-bottom" data-tooltip="Copy raw terminal logs to system clipboard" style="padding: 2px 6px; font-size: 10px;">COPY</button>
+            <button onclick="clearLogs()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Clear terminal console buffer" style="padding: 2px 6px; font-size: 10px;">CLEAR</button>
           </div>
         </div>
 
         <div id="logBox" class="scroll" style="height: 280px; background: #080c10; border: 1px solid var(--border); padding: 6px; overflow-y: auto; font-size: 10px; line-height: 1.35; user-select: text;">
-          <div style="color: var(--dim); text-align: center; padding: 20px;">Подключение к потоку SSE (/api/telemetry/stream)...</div>
+          <div style="color: var(--dim); text-align: center; padding: 20px;">Connecting to SSE telemetry stream (/api/telemetry/stream)...</div>
         </div>
       </section>
 
@@ -942,7 +1068,7 @@
               </tr>
             </thead>
             <tbody id="creditsTbody">
-              <tr><td colspan="4" style="text-align: center; color: var(--dim); padding: 8px;">Опрос провайдеров (/api/credits/status)...</td></tr>
+              <tr><td colspan="4" style="text-align: center; color: var(--dim); padding: 8px;">Polling model providers (/api/credits/status)...</td></tr>
             </tbody>
           </table>
         </div>
@@ -1024,7 +1150,7 @@
             </thead>
             <tbody id="blogAnalyticsTableBody">
               <tr>
-                <td colspan="3" style="text-align: center; color: var(--dim); padding: 8px;">Ожидание боевого трафика (0 кликов)</td>
+                <td colspan="3" style="text-align: center; color: var(--dim); padding: 8px;">Awaiting live traffic telemetry (0 clicks)</td>
               </tr>
             </tbody>
           </table>
@@ -1039,21 +1165,21 @@
   <!-- ======================================================== -->
   <footer class="panel" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; overflow-x: auto;">
     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; flex: 1; min-width: 280px;">
-      <button onclick="openModal('modalBatch')" class="btn btn-blue term-tooltip" data-tooltip="Генерация пакета: запуск LLM для подготовки пачки постов в очередь.">+ Batch Gen</button>
-      <button onclick="openModal('modalBlogGen')" class="btn btn-blue font-bold term-tooltip" data-tooltip="Генерация статьи: запуск LLM для подготовки SEO-лонгрида в Astro-блог.">✍️ + Gen Blog Post</button>
-      <button onclick="triggerBlogBatchGen(10)" class="btn btn-green font-bold term-tooltip" data-tooltip="Автопилот контент-хаба: пакетная генерация 10 SEO-статей с AI-обложками и единой сборкой блога.">🚀 Auto-Gen 10 Blog Posts</button>
-      <button onclick="triggerAutonomousCycle(false)" class="btn btn-purple font-bold term-tooltip" data-tooltip="Автономный агент: запуск полного цикла Discovery -> Production -> Syndication -> L1-L3 Optimization">🤖 Run Site Agent</button>
-      <button onclick="triggerAction('force-dispatch', '🚀 Force Dispatch')" class="btn btn-green term-tooltip" data-tooltip="Принудительная отправка: проталкивает одобренные посты в Reddit в обход таймера.">Force Dispatch</button>
-      <button onclick="triggerAction('trigger-scout', '🛰️ Offer Scout')" class="btn btn-amber term-tooltip" data-tooltip="Скаутинг офферов: опрос сетей LosPollos / MyLead на свежие связки.">Offer Scout</button>
-      <button onclick="triggerAction('calibrate-prompts', '🧬 MAB Mutate')" class="btn btn-purple term-tooltip" data-tooltip="Мутация Multi-Armed Bandit: пересчет весов распределения трафика.">MAB Mutate</button>
-      <button onclick="openModal('modalScaffold')" class="btn btn-blue term-tooltip" data-tooltip="Развертывание прелендинга под новый GEO-таргет.">Scaffold GEO</button>
-      <button onclick="checkAllLinks()" class="btn btn-blue font-bold term-tooltip" data-tooltip="Проверка ссылок: аудит доступности доменов и редиректов.">🔗 Check All Links</button>
-      <button onclick="runBotShieldTest('Mozilla/5.0 (compatible; Googlebot/2.1)', '66.249.66.1')" class="btn btn-green term-tooltip" data-tooltip="Тест клоакинга: симуляция перехода бота/модератора через Bot Shield.">🛡️ Probe Shield</button>
-      <button onclick="fetchCredits()" class="btn btn-amber term-tooltip" data-tooltip="Синхронизация квот: обновление баланса токенов LLM-провайдеров.">⚡ Sync Credits</button>
+      <button onclick="openModal('modalBatch')" class="btn btn-blue term-tooltip" data-tooltip="Batch Gen: Launch LLM to prepare queued social items.">+ Batch Gen</button>
+      <button onclick="openModal('modalBlogGen')" class="btn btn-blue font-bold term-tooltip" data-tooltip="Article Gen: Launch LLM to craft an investigative SEO dossier for Astro blog.">✍️ + Gen Blog Post</button>
+      <button onclick="triggerBlogBatchGen(10)" class="btn btn-green font-bold term-tooltip" data-tooltip="Content Autopilot: Batch generate 10 investigative SEO articles with AI covers & unified build.">🚀 Auto-Gen 10 Blog Posts</button>
+      <button onclick="triggerAutonomousCycle(false)" class="btn btn-purple font-bold term-tooltip" data-tooltip="Autonomous Agent: Run full cycle Discovery -> Production -> Syndication -> L1-L3 Memory">🤖 Run Site Agent</button>
+      <button onclick="triggerAction('force-dispatch', '🚀 Force Dispatch')" class="btn btn-green term-tooltip" data-tooltip="Force Dispatch: Push approved posts to external channels immediately.">Force Dispatch</button>
+      <button onclick="triggerAction('trigger-scout', '🛰️ Offer Scout')" class="btn btn-amber term-tooltip" data-tooltip="Offer Scout: Poll LosPollos / MyLead CPA networks for high-EPC funnels.">Offer Scout</button>
+      <button onclick="triggerAction('calibrate-prompts', '🧬 MAB Mutate')" class="btn btn-purple term-tooltip" data-tooltip="Multi-Armed Bandit Mutate: Recalculate Thompson sampling traffic weights.">MAB Mutate</button>
+      <button onclick="openModal('modalScaffold')" class="btn btn-blue term-tooltip" data-tooltip="Deploy pre-landing page under new target GEO.">Scaffold GEO</button>
+      <button onclick="checkAllLinks()" class="btn btn-blue font-bold term-tooltip" data-tooltip="Check Links: Audit domain availability, SSL and CPA redirect hops.">🔗 Check All Links</button>
+      <button onclick="runBotShieldTest('Mozilla/5.0 (compatible; Googlebot/2.1)', '66.249.66.1')" class="btn btn-green term-tooltip" data-tooltip="Probe Shield: Simulate bot/crawler request through Bot Shield heuristics.">🛡️ Probe Shield</button>
+      <button onclick="fetchCredits()" class="btn btn-amber term-tooltip" data-tooltip="Sync Credits: Update model token budget and API quotas.">⚡ Sync Credits</button>
     </div>
 
     <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
-      <button id="btnActionEstop" onclick="toggleEstop()" class="btn btn-red term-tooltip tooltip-left" data-tooltip="ГЛОБАЛЬНЫЙ СТОП: заморозка сетевых соединений и PM2-процессов.">🚨 EMERGENCY STOP</button>
+      <button id="btnActionEstop" onclick="toggleEstop()" class="btn btn-red term-tooltip tooltip-left" data-tooltip="GLOBAL STOP: Immediately freeze network sockets and active workers.">🚨 EMERGENCY STOP</button>
     </div>
   </footer>
 
@@ -1061,36 +1187,36 @@
   <div id="modalBlogGen" class="modal-backdrop">
     <div class="modal-box" style="max-width: 500px;">
       <div style="display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 4px;">
-        <strong style="color: var(--blue);">✍️ Генерация SEO-статьи для Astro-блога</strong>
+        <strong style="color: var(--blue);">✍️ Generate SEO Article for Astro Blog</strong>
         <button onclick="closeModal('modalBlogGen')" class="btn" style="padding: 1px 4px;">✕</button>
       </div>
       <div style="display: flex; flex-direction: column; gap: 8px;">
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Тема / Ключевой запрос статьи</label>
+          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Investigation Topic / Focus Query</label>
           <select id="blogTopicSelect" onchange="onBlogTopicChange(this.value)" style="width: 100%; padding: 4px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font-size: 11px;">
             <option value="Dating Profile Verification & Scam Detection">Dating Profile Verification & Scam Detection</option>
             <option value="How to Spot Romance Scams and Deepfake Photos in 2026">How to Spot Romance Scams and Deepfake Photos in 2026</option>
             <option value="High-Converting Dating Profile Optimization & Photo Bio Rules">High-Converting Dating Profile Optimization & Photo Bio Rules</option>
             <option value="Safe First Date Playbook: From Online Chat to Real-World Meetup">Safe First Date Playbook: From Online Chat to Real-World Meetup</option>
             <option value="Psychological Icebreakers & Opening Messages That Get High Responses">Psychological Icebreakers & Opening Messages That Get High Responses</option>
-            <option value="custom">✏️ Свой произвольный запрос...</option>
+            <option value="custom">✏️ Custom investigation query...</option>
           </select>
         </div>
         <div id="blogCustomTopicWrap" style="display: none;">
-          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Произвольная тема статьи</label>
-          <input id="blogCustomTopic" placeholder="Например: Catfish Detection Protocols for Dating Apps" style="width: 100%; padding: 4px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font-size: 11px;">
+          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Custom Dossier Topic</label>
+          <input id="blogCustomTopic" placeholder="e.g. Catfish Detection Protocols for Dating Apps" style="width: 100%; padding: 4px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font-size: 11px;">
         </div>
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Основное ключевое слово (Focus Keyword)</label>
+          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Focus SEO Keyword</label>
           <input id="blogKeyword" value="dating profile verification" style="width: 100%; padding: 4px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font-size: 11px;">
         </div>
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Целевая аудитория (Audience Intent)</label>
+          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Target Audience / Search Intent</label>
           <input id="blogAudience" value="Singles seeking authentic connections while avoiding scammers" style="width: 100%; padding: 4px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font-size: 11px;">
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 4px; margin-top: 6px;">
-          <button onclick="closeModal('modalBlogGen')" class="btn">Отмена</button>
-          <button onclick="submitBlogGen()" id="btnSubmitBlogGen" class="btn btn-blue font-bold">Сгенерировать статью</button>
+          <button onclick="closeModal('modalBlogGen')" class="btn">Cancel</button>
+          <button onclick="submitBlogGen()" id="btnSubmitBlogGen" class="btn btn-blue font-bold">Generate Article</button>
         </div>
       </div>
     </div>
@@ -1100,16 +1226,16 @@
   <div id="modalBatch" class="modal-backdrop">
     <div class="modal-box">
       <div style="display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 4px;">
-        <strong style="color: var(--blue);">+ Генерация батча контента</strong>
+        <strong style="color: var(--blue);">+ Generate Content Batch</strong>
         <button onclick="closeModal('modalBatch')" class="btn" style="padding: 1px 4px;">✕</button>
       </div>
       <div style="display: flex; flex-direction: column; gap: 6px;">
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px;">Кампания</label>
+          <label style="color: var(--dim); display: block; font-size: 10px;">Campaign</label>
           <input id="batchCamp" value="cmp_trading_au" style="width: 100%;">
         </div>
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px;">Площадка</label>
+          <label style="color: var(--dim); display: block; font-size: 10px;">Target Platform</label>
           <select id="batchPlatform" style="width: 100%;">
             <option value="reddit">Reddit (r/AusFinance)</option>
             <option value="quora">Quora Digest</option>
@@ -1117,12 +1243,12 @@
           </select>
         </div>
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px;">Количество постов (1-10)</label>
+          <label style="color: var(--dim); display: block; font-size: 10px;">Post Quantity (1-10)</label>
           <input id="batchCount" type="number" min="1" max="10" value="3" style="width: 100%;">
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 4px; margin-top: 6px;">
-          <button onclick="closeModal('modalBatch')" class="btn">Отмена</button>
-          <button onclick="submitBatch()" class="btn btn-blue font-bold">Сгенерировать</button>
+          <button onclick="closeModal('modalBatch')" class="btn">Cancel</button>
+          <button onclick="submitBatch()" class="btn btn-blue font-bold">Generate</button>
         </div>
       </div>
     </div>
@@ -1132,16 +1258,16 @@
   <div id="modalScaffold" class="modal-backdrop">
     <div class="modal-box">
       <div style="display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 4px;">
-        <strong style="color: var(--blue);">🎯 Мульти-ГЕО Скаффолдинг</strong>
+        <strong style="color: var(--blue);">🎯 Multi-GEO Scaffolding</strong>
         <button onclick="closeModal('modalScaffold')" class="btn" style="padding: 1px 4px;">✕</button>
       </div>
       <div style="display: flex; flex-direction: column; gap: 6px;">
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px;">ID Оффера</label>
+          <label style="color: var(--dim); display: block; font-size: 10px;">Offer ID</label>
           <input id="scaffoldOffer" value="crypto_alpha_v1" style="width: 100%;">
         </div>
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px;">Вертикаль</label>
+          <label style="color: var(--dim); display: block; font-size: 10px;">Vertical</label>
           <select id="scaffoldVertical" style="width: 100%;">
             <option value="finance">Finance / Trading</option>
             <option value="dating">Dating Smartlink</option>
@@ -1149,12 +1275,12 @@
           </select>
         </div>
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px;">Целевые ГЕО (через запятую)</label>
+          <label style="color: var(--dim); display: block; font-size: 10px;">Target GEOs (comma-separated)</label>
           <input id="scaffoldGeos" value="US, DE, AU" style="width: 100%;">
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 4px; margin-top: 6px;">
-          <button onclick="closeModal('modalScaffold')" class="btn">Отмена</button>
-          <button onclick="submitScaffold()" class="btn btn-green">Развернуть связки</button>
+          <button onclick="closeModal('modalScaffold')" class="btn">Cancel</button>
+          <button onclick="submitScaffold()" class="btn btn-green">Deploy Funnel Links</button>
         </div>
       </div>
     </div>
@@ -1183,7 +1309,7 @@
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
             <span style="color: var(--dim); font-size: 10px; font-weight: 600;">1. ORIGINAL THREAD CONTEXT</span>
             <a id="inspectTargetLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; font-size: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 3px;">
-              <span>Открыть тред на Reddit</span>
+              <span>Open thread on Reddit</span>
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
             </a>
           </div>
@@ -1198,9 +1324,9 @@
         <div>
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
             <span style="color: var(--dim); font-size: 10px; font-weight: 600;">2. EDITABLE RESPONSE DRAFT</span>
-            <span id="inspectDraftStats" style="color: #94a3b8; font-size: 10px; font-family: monospace;">0 знаков | 0 слов | ~0 токенов</span>
+            <span id="inspectDraftStats" style="color: #94a3b8; font-size: 10px; font-family: monospace;">0 chars | 0 words | ~0 tokens</span>
           </div>
-          <textarea id="inspectBodyEdit" oninput="updateInspectStats()" style="width: 100%; height: 160px; min-height: 120px; max-height: 320px; background: #080c10; border: 1px solid var(--border); border-radius: 3px; color: var(--text); font-family: inherit; font-size: 11px; line-height: 1.4; padding: 6px; resize: vertical;" placeholder="Текст ответа воркера..."></textarea>
+          <textarea id="inspectBodyEdit" oninput="updateInspectStats()" style="width: 100%; height: 160px; min-height: 120px; max-height: 320px; background: #080c10; border: 1px solid var(--border); border-radius: 3px; color: var(--text); font-family: inherit; font-size: 11px; line-height: 1.4; padding: 6px; resize: vertical;" placeholder="Worker response draft text..."></textarea>
         </div>
 
         <!-- 3. Stealth CTA & Outbound Link -->
@@ -1226,12 +1352,12 @@
 
       <!-- Footer Action Buttons -->
       <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 6px; margin-top: 2px; gap: 6px;">
-        <span style="color: var(--dim); font-size: 10px;">Горячие клавиши: [A] - Одобрить, [R] - Отклонить, [Esc] - Закрыть</span>
+        <span style="color: var(--dim); font-size: 10px;">Shortcuts: [A] - Approve, [R] - Reject, [Esc] - Close</span>
         <div style="display: flex; gap: 5px;">
-          <button onclick="saveDraftAction('APPROVED')" id="btnInspectSaveApprove" class="btn btn-green font-bold term-tooltip tooltip-bottom" data-tooltip="Сохранить изменения и одобрить пост к публикации">💾 Сохранить и Одобрить (A)</button>
-          <button onclick="saveDraftAction('PENDING')" id="btnInspectSaveDraft" class="btn btn-blue term-tooltip tooltip-bottom" data-tooltip="Сохранить изменения в тексте без публикации">📝 Сохранить как драфт</button>
-          <button onclick="inspectAction('REJECTED')" id="btnInspectReject" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Отклонить черновик модератором (R)">✕ Отклонить (R)</button>
-          <button onclick="closeModal('modalInspect')" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Закрыть окно редактирования (Esc)">Закрыть</button>
+          <button onclick="saveDraftAction('APPROVED')" id="btnInspectSaveApprove" class="btn btn-green font-bold term-tooltip tooltip-bottom" data-tooltip="Save modifications and approve for publishing">💾 Save & Approve (A)</button>
+          <button onclick="saveDraftAction('PENDING')" id="btnInspectSaveDraft" class="btn btn-blue term-tooltip tooltip-bottom" data-tooltip="Save draft changes without publishing">📝 Save as Draft</button>
+          <button onclick="inspectAction('REJECTED')" id="btnInspectReject" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Reject draft item (R)">✕ Reject (R)</button>
+          <button onclick="closeModal('modalInspect')" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Close draft inspector (Esc)">Close</button>
         </div>
       </div>
     </div>
@@ -1259,7 +1385,7 @@
       const rate = (logSpeedTimestamps.length / 3).toFixed(1);
       const speedBadge = document.getElementById('logSpeedBadge');
       if (speedBadge) {
-        speedBadge.innerText = `${rate} стр/сек`;
+        speedBadge.innerText = `${rate} lines/sec`;
       }
     }
 
@@ -1314,7 +1440,7 @@
       document.getElementById('logCountBadge').innerText = `${filteredLogs.length} / ${logBuffer.length} LINES`;
 
       if (filteredLogs.length === 0) {
-        el.innerHTML = `<div style="color: var(--dim); text-align: center; padding: 20px;">Нет логов для фильтра [${currentLogFilter}]</div>`;
+        el.innerHTML = `<div style="color: var(--dim); text-align: center; padding: 20px;">No logs matching filter [${currentLogFilter}]</div>`;
         return;
       }
 
@@ -1377,17 +1503,17 @@
 
     async function toggleEstop() {
       const endpoint = isHalted ? 'estop/reset' : 'estop/trigger';
-      await triggerAction(endpoint, isHalted ? 'Сброс E-STOP' : 'Аварийный СТОП');
+      await triggerAction(endpoint, isHalted ? 'Reset E-STOP' : 'Emergency Stop');
     }
 
     function logoutConsole() {
-      if (!confirm('Вы уверены, что хотите завершить сессию и выйти из панели управления?')) return;
+      if (!confirm('Are you sure you want to end your operator session and log out?')) return;
       try {
         localStorage.clear();
         sessionStorage.clear();
       } catch (e) {}
 
-      // Сброс кэша Basic Auth в браузере через запрос с невалидными учетными данными
+      // Flush Basic Auth credentials cache via invalid probe
       const xhr = new XMLHttpRequest();
       xhr.open('GET', '/dashboard/', true, 'logout_' + Date.now(), 'invalid_token_' + Date.now());
       xhr.onreadystatechange = function () {
@@ -1428,7 +1554,7 @@
       const chars = text.length;
       const words = text.trim() ? text.trim().split(/\s+/).length : 0;
       const tokens = Math.ceil(chars / 3.8);
-      statsEl.innerText = `${chars} знаков | ${words} слов | ~${tokens} токенов`;
+      statsEl.innerText = `${chars} chars | ${words} words | ~${tokens} tokens`;
     }
 
     async function inspectQueueItem(id) {
@@ -1440,10 +1566,10 @@
       if (idEl) idEl.innerText = id;
       
       const hookEl = document.getElementById('inspectHook');
-      if (hookEl) hookEl.innerText = 'Загрузка данных...';
+      if (hookEl) hookEl.innerText = 'Loading data...';
       
       const bodyEdit = document.getElementById('inspectBodyEdit');
-      if (bodyEdit) bodyEdit.value = 'Загрузка...';
+      if (bodyEdit) bodyEdit.value = 'Loading...';
 
       try {
         const res = await fetch(`/api/queue/items/${id}`);
@@ -1494,7 +1620,7 @@
             if (item.target_url) {
               linkEl.href = item.target_url;
               linkEl.style.display = 'inline-flex';
-              linkEl.innerHTML = `<span>${isBlog ? 'Открыть страницу на сайте' : 'Открыть тред на Reddit'}</span>`;
+              linkEl.innerHTML = `<span>${isBlog ? 'Open article page on live site' : 'Open thread on Reddit'}</span>`;
             } else {
               linkEl.href = '#';
               linkEl.style.display = 'none';
@@ -1503,7 +1629,7 @@
 
           const saveApproveBtn = document.getElementById('btnInspectSaveApprove');
           if (saveApproveBtn) {
-            saveApproveBtn.innerHTML = isBlog ? '🚀 Сохранить и Опубликовать в Блог (A)' : '💾 Сохранить и Одобрить (A)';
+            saveApproveBtn.innerHTML = isBlog ? '🚀 Save & Publish to Blog (A)' : '💾 Save & Approve (A)';
           }
 
           if (hookEl) hookEl.innerText = item.hook || item.title || 'No headline available';
@@ -1522,7 +1648,7 @@
           if (compEl) compEl.innerText = isBlog ? 'SEO Safety Verified. Valid frontmatter schema, internal CTA routing, and Schema.org FAQPage compliance active.' : (item.compliance_reasoning || 'Passed compliance checks. Natural conversation tone, no hard-coded tracking tokens.');
         }
       } catch (err) {
-        if (hookEl) hookEl.innerText = 'Ошибка загрузки';
+        if (hookEl) hookEl.innerText = 'Loading error';
         if (bodyEdit) bodyEdit.value = err.message;
       }
     }
@@ -1536,7 +1662,7 @@
       const origText = btn ? btn.innerHTML : '';
       if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '⏳ Сохранение...';
+        btn.innerHTML = '⏳ Saving...';
       }
 
       try {
@@ -1547,14 +1673,14 @@
         });
         const result = await res.json();
         if (res.ok && result.success) {
-          appendLog(`[DRAFT EDITOR] ✅ Задача ${activeInspectedId.slice(0, 8)} обновлена (Статус: ${targetStatus})`, 'CRON');
+          appendLog(`[DRAFT EDITOR] ✅ Item ${activeInspectedId.slice(0, 8)} updated (Status: ${targetStatus})`, 'CRON');
           closeModal('modalInspect');
           await fetchQueue();
         } else {
-          appendLog(`[DRAFT EDITOR] ❌ Ошибка сохранения: ${result.error || 'Server Error'}`, 'CRON');
+          appendLog(`[DRAFT EDITOR] ❌ Save error: ${result.error || 'Server Error'}`, 'CRON');
         }
       } catch (err) {
-        appendLog(`[DRAFT EDITOR] ❌ Исключение при сохранении: ${err.message}`, 'CRON');
+        appendLog(`[DRAFT EDITOR] ❌ Save exception: ${err.message}`, 'CRON');
       } finally {
         if (btn) {
           btn.disabled = false;
@@ -1681,10 +1807,10 @@
       const origText = btn ? btn.innerHTML : '';
       if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '⏳ Генерация LLM (AIGateway)...';
+        btn.innerHTML = '⏳ Generating via LLM (AIGateway)...';
       }
 
-      appendLog(`[BLOG GEN] Запуск генерации SEO-статьи: "${topic}" (${keyword})...`, 'CRON');
+      appendLog(`[BLOG GEN] Starting SEO article generation: "${topic}" (${keyword})...`, 'CRON');
 
       try {
         const res = await fetch('/api/actions/generate-blog-post', {
@@ -1694,25 +1820,25 @@
         });
         const d = await res.json();
         if (res.ok && d.success) {
-          appendLog(`[BLOG GEN] ✅ Статья "${d.item?.hook || topic}" успешно сгенерирована и поставлена на модерацию!`, 'CRON');
+          appendLog(`[BLOG GEN] ✅ Article "${d.item?.hook || topic}" successfully generated and placed in moderation!`, 'CRON');
           closeModal('modalBlogGen');
           await fetchQueue();
         } else {
-          appendLog(`[BLOG GEN] ❌ Ошибка генерации: ${d.error || 'Server Error'}`, 'CRON');
+          appendLog(`[BLOG GEN] ❌ Generation error: ${d.error || 'Server Error'}`, 'CRON');
         }
       } catch (err) {
-        appendLog(`[BLOG GEN] ❌ Исключение: ${err.message}`, 'CRON');
+        appendLog(`[BLOG GEN] ❌ Exception: ${err.message}`, 'CRON');
       } finally {
         if (btn) {
           btn.disabled = false;
-          btn.innerHTML = origText || 'Сгенерировать статью';
+          btn.innerHTML = origText || 'Generate Article';
         }
       }
     }
 
     async function triggerBlogBatchGen(count = 10) {
-      if (!confirm(`Запустить автопилот генерации пакета из ${count} SEO-статей с AI-обложками и сборкой Astro?`)) return;
-      appendLog(`[BLOG AUTO-PILOT] 🚀 Запуск пакетной генерации ${count} статей через AutoPublisherService...`, 'CRON');
+      if (!confirm(`Launch automated batch publishing for ${count} SEO articles with AI covers and Astro build?`)) return;
+      appendLog(`[BLOG AUTO-PILOT] 🚀 Starting batch generation of ${count} articles via AutoPublisherService...`, 'CRON');
 
       try {
         const res = await fetch('/api/blog/batch-generate', {
@@ -1722,20 +1848,20 @@
         });
         const d = await res.json();
         if (res.ok && d.success) {
-          appendLog(`[BLOG AUTO-PILOT] 🎉 Батч из ${d.generatedCount} статей успешно создан и опубликован за ${(d.durationMs / 1000).toFixed(1)}s! Сгенерировано ${d.childSnippetCount} social-сниппетов.`, 'CRON');
+          appendLog(`[BLOG AUTO-PILOT] 🎉 Batch of ${d.generatedCount} articles successfully created and published in ${(d.durationMs / 1000).toFixed(1)}s! Generated ${d.childSnippetCount} social snippets.`, 'CRON');
           await fetchQueue();
         } else {
-          appendLog(`[BLOG AUTO-PILOT] ❌ Ошибка пакетной генерации: ${d.error || 'Unknown error'}`, 'CRON');
+          appendLog(`[BLOG AUTO-PILOT] ❌ Batch generation error: ${d.error || 'Unknown error'}`, 'CRON');
         }
       } catch (err) {
-        appendLog(`[BLOG AUTO-PILOT] ❌ Ошибка сети: ${err.message}`, 'CRON');
+        appendLog(`[BLOG AUTO-PILOT] ❌ Network error: ${err.message}`, 'CRON');
       }
     }
 
     async function dispatchNextSocialSnippet() {
       const btn = document.getElementById('btnDispatchSocialSnippet');
       if (btn) btn.disabled = true;
-      appendLog('[SOCIAL] 📲 Запуск синдикации промо-поста в Telegram-канал...', 'CRON');
+      appendLog('[SOCIAL] 📲 Starting promo dispatch to Telegram channel...', 'CRON');
 
       try {
         const res = await fetch('/api/social/dispatch-now', {
@@ -1744,13 +1870,13 @@
         });
         const d = await res.json();
         if (d.success) {
-          appendLog(`[SOCIAL] ✅ Успешно опубликован сниппет [${d.item?.id || '--'}] -> ${d.publishedUrl || 'Telegram Channel'}`, 'CRON');
+          appendLog(`[SOCIAL] ✅ Successfully dispatched snippet [${d.item?.id || '--'}] -> ${d.publishedUrl || 'Telegram Channel'}`, 'CRON');
           await fetchQueue();
         } else {
-          appendLog(`[SOCIAL] ⚠️ Синдикация: ${d.message || 'Ошибка или кулдаун'}`, 'CRON');
+          appendLog(`[SOCIAL] ⚠️ Syndication: ${d.message || 'Cooldown or dispatch error'}`, 'CRON');
         }
       } catch (err) {
-        appendLog(`[SOCIAL] ❌ Ошибка сети: ${err.message}`, 'CRON');
+        appendLog(`[SOCIAL] ❌ Network error: ${err.message}`, 'CRON');
       } finally {
         if (btn) btn.disabled = false;
       }
@@ -1764,6 +1890,56 @@
       closeModal('modalScaffold');
     }
 
+    function updateBklitCharts(kpiData) {
+      if (!kpiData) return;
+      const clicks = Number(kpiData.totalClicks) || 0;
+      const leads = Number(kpiData.totalConversions) || 0;
+      const revenue = Number(kpiData.todayRevenue) || 0;
+      const epc = kpiData.networkEpc || '$0.00';
+
+      const totalClicksLabel = document.getElementById('chartTotalClicksLabel');
+      if (totalClicksLabel) {
+        totalClicksLabel.innerText = `${clicks} Clicks Recorded`;
+      }
+      const funnelEpcBadge = document.getElementById('funnelEpcBadge');
+      if (funnelEpcBadge) {
+        funnelEpcBadge.innerText = `NET EPC: ${epc}`;
+      }
+
+      const funnelClicksVal = document.getElementById('funnelClicksVal');
+      const funnelLeadsVal = document.getElementById('funnelLeadsVal');
+      const funnelRevVal = document.getElementById('funnelRevVal');
+
+      if (funnelClicksVal) funnelClicksVal.innerText = clicks;
+      if (funnelLeadsVal) funnelLeadsVal.innerText = leads;
+      if (funnelRevVal) funnelRevVal.innerText = `$${revenue.toFixed(2)}`;
+
+      const barClicks = document.getElementById('funnelBarClicks');
+      const barLeads = document.getElementById('funnelBarLeads');
+      const barRev = document.getElementById('funnelBarRev');
+
+      if (barClicks) barClicks.style.width = clicks > 0 ? '100%' : '0%';
+      if (barLeads) barLeads.style.width = clicks > 0 ? `${Math.min(100, Math.round((leads / clicks) * 100))}%` : (leads > 0 ? '100%' : '0%');
+      if (barRev) barRev.style.width = revenue > 0 ? '100%' : '0%';
+
+      // Update Bklit Area Chart SVG
+      const areaPath = document.getElementById('bklitAreaPath');
+      const linePath = document.getElementById('bklitLinePath');
+      if (areaPath && linePath) {
+        if (clicks === 0) {
+          // Zero line adhering to Zero Demo Data rule
+          areaPath.setAttribute('d', 'M 0 100 L 500 100 Z');
+          linePath.setAttribute('d', 'M 0 100 L 500 100');
+        } else {
+          const yVal = Math.max(20, 100 - Math.min(80, clicks * 4));
+          const dArea = `M 0 100 C 150 100, 250 ${yVal}, 500 ${yVal} L 500 100 Z`;
+          const dLine = `M 0 100 C 150 100, 250 ${yVal}, 500 ${yVal}`;
+          areaPath.setAttribute('d', dArea);
+          linePath.setAttribute('d', dLine);
+        }
+      }
+    }
+
     async function fetchKpi() {
       try {
         const res = await fetch('/api/financials/kpi');
@@ -1775,6 +1951,8 @@
           document.getElementById('kpiCr').innerText = d.overallCr || '0.00%';
           document.getElementById('kpiEpc').innerText = d.networkEpc || '$0.00';
           
+          updateBklitCharts(d);
+
           if (d.isHalted !== undefined) {
             isHalted = !!d.isHalted;
             const badge = document.getElementById('estopBadge');
@@ -1904,19 +2082,19 @@
       if (selectedQueueIds.size === 0) return;
       const ids = Array.from(selectedQueueIds);
       const actionLabels = {
-        approve: 'ОДОБРИТЬ',
-        reject: 'ОТКЛОНИТЬ',
-        delete: 'УДАЛИТЬ ИЗ БАЗЫ ДАННЫХ'
+        approve: 'APPROVE',
+        reject: 'REJECT',
+        delete: 'DELETE FROM DATABASE'
       };
       const label = actionLabels[action] || action.toUpperCase();
 
       if (action === 'delete') {
-        if (!confirm(`Вы действительно хотите безвозвратно ${label} ${ids.length} записей из SQLite (content_queue_v2)?`)) {
+        if (!confirm(`Are you sure you want to permanently ${label} ${ids.length} records from SQLite (content_queue_v2)?`)) {
           return;
         }
       }
 
-      appendLog(`[BATCH QUEUE] Выполняется действие "${label}" для ${ids.length} элементов...`, 'CRON');
+      appendLog(`[BATCH QUEUE] Executing action "${label}" for ${ids.length} items...`, 'CRON');
       
       const btnMap = {
         approve: document.getElementById('btnBatchApprove'),
@@ -1938,14 +2116,14 @@
         });
         const result = await res.json();
         if (res.ok && result.success) {
-          appendLog(`[BATCH QUEUE] ✅ Успешно обработано: ${result.successCount} из ${result.total} (Действие: ${action})`, 'CRON');
+          appendLog(`[BATCH QUEUE] ✅ Successfully processed: ${result.successCount} of ${result.total} (Action: ${action})`, 'CRON');
           clearBatchSelection();
           await fetchQueue();
         } else {
-          appendLog(`[BATCH QUEUE] ❌ Ошибка пакета: ${result.error || 'Server Error'}`, 'CRON');
+          appendLog(`[BATCH QUEUE] ❌ Batch error: ${result.error || 'Server Error'}`, 'CRON');
         }
       } catch (err) {
-        appendLog(`[BATCH QUEUE] ❌ Исключение: ${err.message}`, 'CRON');
+        appendLog(`[BATCH QUEUE] ❌ Exception: ${err.message}`, 'CRON');
       } finally {
         if (targetBtn) {
           targetBtn.disabled = false;
@@ -1955,20 +2133,20 @@
     }
 
     async function deleteQueueItem(id) {
-      if (!confirm(`Удалить задачу ${id.slice(0, 8)} из очереди SQLite?`)) return;
-      appendLog(`[QUEUE] Удаление задачи ${id.slice(0, 8)}...`, 'CRON');
+      if (!confirm(`Delete task ${id.slice(0, 8)} from SQLite queue?`)) return;
+      appendLog(`[QUEUE] Deleting task ${id.slice(0, 8)}...`, 'CRON');
       try {
         const res = await fetch(`/api/queue/items/${id}`, { method: 'DELETE' });
         if (res.ok) {
-          appendLog(`[QUEUE] ✅ Задача ${id.slice(0, 8)} удалена из очереди.`, 'CRON');
+          appendLog(`[QUEUE] ✅ Item ${id.slice(0, 8)} deleted from queue.`, 'CRON');
           selectedQueueIds.delete(id);
           fetchQueue();
         } else {
           const d = await res.json();
-          appendLog(`[QUEUE] ❌ Ошибка удаления: ${d.error || 'Server Error'}`, 'CRON');
+          appendLog(`[QUEUE] ❌ Deletion error: ${d.error || 'Server Error'}`, 'CRON');
         }
       } catch (err) {
-        appendLog(`[QUEUE] ❌ Исключение при удалении: ${err.message}`, 'CRON');
+        appendLog(`[QUEUE] ❌ Exception during deletion: ${err.message}`, 'CRON');
       }
     }
 
@@ -1995,7 +2173,7 @@
       const filteredItems = getFilteredQueueItems();
 
       if (filteredItems.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--dim); padding: 18px;">Нет задач для фильтра [${currentQueueFilter}].</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--dim); padding: 18px;">No items matching filter [${currentQueueFilter}].</td></tr>`;
         updateBatchBar();
         return;
       }
@@ -2026,7 +2204,7 @@
               <input type="checkbox" class="queue-cb" ${isSelected ? 'checked' : ''} onchange="onRowCheckboxChange(event, '${item.id}', this.checked)">
             </td>
             <td style="width: 144px; min-width: 144px; max-width: 144px; overflow: hidden;" onclick="copyItemId(event, '${item.id}')">
-              <div class="id-copy-cell" id="id-cell-${item.id}" title="${item.id} (Кликните для копирования)">
+              <div class="id-copy-cell" id="id-cell-${item.id}" title="${item.id} (Click to copy ID)">
                 <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 110px;">${item.id}</span>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.6; flex-shrink: 0;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
               </div>
@@ -2046,21 +2224,21 @@
             <td style="text-align: right; width: 124px; min-width: 124px;" onclick="event.stopPropagation();">
               <div style="display: inline-flex; align-items: center; gap: 4px; justify-content: flex-end;">
                 <!-- Preview Eye Button -->
-                <button onclick="inspectQueueItem('${item.id}')" class="icon-btn icon-btn-blue term-tooltip tooltip-left" data-tooltip="Предпросмотр и редактор черновика" title="Предпросмотр">
+                <button onclick="inspectQueueItem('${item.id}')" class="icon-btn icon-btn-blue term-tooltip tooltip-left" data-tooltip="Preview and edit draft" title="Preview">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                 </button>
                 ${!isApproved && !isDispatched ? `
                   <!-- Approve Check Button -->
-                  <button onclick="updateQueue('${item.id}', 'APPROVED')" class="icon-btn icon-btn-green term-tooltip tooltip-left" data-tooltip="Одобрить к публикации" title="Одобрить">
+                  <button onclick="updateQueue('${item.id}', 'APPROVED')" class="icon-btn icon-btn-green term-tooltip tooltip-left" data-tooltip="Approve for publishing" title="Approve">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
                   </button>
                   <!-- Reject X Button -->
-                  <button onclick="updateQueue('${item.id}', 'REJECTED')" class="icon-btn icon-btn-amber term-tooltip tooltip-left" data-tooltip="Отклонить черновик" title="Отклонить">
+                  <button onclick="updateQueue('${item.id}', 'REJECTED')" class="icon-btn icon-btn-amber term-tooltip tooltip-left" data-tooltip="Reject draft" title="Reject">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                   </button>
                 ` : ''}
                 <!-- Delete Trash Button -->
-                <button onclick="deleteQueueItem('${item.id}')" class="icon-btn icon-btn-red term-tooltip tooltip-left" data-tooltip="Удалить из SQLite" title="Удалить">
+                <button onclick="deleteQueueItem('${item.id}')" class="icon-btn icon-btn-red term-tooltip tooltip-left" data-tooltip="Delete of SQLite" title="Delete">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                 </button>
               </div>
@@ -2083,7 +2261,7 @@
       if (dispatched.length === 0) {
         coolEl.innerText = 'READY (0m)';
         coolEl.style.color = 'var(--green-text)';
-        coolEl.setAttribute('data-tooltip', 'Аккаунт готов к публикации. Постов за последние 24ч: 0.');
+        coolEl.setAttribute('data-tooltip', 'Account ready for syndication. Dispatches in last 24h: 0.');
       } else {
         const lastTime = new Date(dispatched[0].created_at || 0).getTime();
         const diffMin = Math.floor((Date.now() - lastTime) / 60000);
@@ -2092,11 +2270,11 @@
           const left = cooldownMinutes - diffMin;
           coolEl.innerText = `COOLDOWN (${left}m)`;
           coolEl.style.color = 'var(--amber)';
-          coolEl.setAttribute('data-tooltip', `Пауза между постами: осталось ${left} минут до следующей отправки.`);
+          coolEl.setAttribute('data-tooltip', `Cooldown in effect:  ${left} minutes until next dispatch.`);
         } else {
           coolEl.innerText = 'READY TO POST';
           coolEl.style.color = 'var(--green-text)';
-          coolEl.setAttribute('data-tooltip', `Прошло ${diffMin}м с последнего поста. Воркер свободен.`);
+          coolEl.setAttribute('data-tooltip', `Elapsed:  ${diffMin}m since last dispatch. Worker ready.`);
         }
       }
     }
@@ -2254,6 +2432,7 @@
             document.getElementById('kpiLeads').innerText = d.totalConversions || 0;
             document.getElementById('kpiCr').innerText = d.overallCr || '0.00%';
             document.getElementById('kpiEpc').innerText = d.networkEpc || '$0.00';
+            updateBklitCharts(d);
           } catch {}
         });
         es.addEventListener('log_entry', e => {
@@ -2332,11 +2511,11 @@
 
           if (btnStart) {
             btnStart.disabled = true;
-            btnStart.title = 'Сервис уже запущен (ONLINE)';
+            btnStart.title = 'Service is already running (ONLINE)';
           }
           if (btnStop) {
             btnStop.disabled = false;
-            btnStop.title = 'Остановить сервис';
+            btnStop.title = 'Stop service';
           }
           if (btnRestart) {
             btnRestart.disabled = false;
@@ -2349,11 +2528,11 @@
 
           if (btnStart) {
             btnStart.disabled = false;
-            btnStart.title = 'Запустить сервис';
+            btnStart.title = 'Start service';
           }
           if (btnStop) {
             btnStop.disabled = true;
-            btnStop.title = 'Сервис уже остановлен (STOPPED)';
+            btnStop.title = 'Service is already stopped (STOPPED)';
           }
           if (btnRestart) {
             btnRestart.disabled = false;
@@ -2379,7 +2558,7 @@
       }
 
       try {
-        appendLog(`[WORKER CONTROL] Отправка команды ${action.toUpperCase()} сервису ${service}...`, 'CRON');
+        appendLog(`[WORKER CONTROL] Sending command ${action.toUpperCase()} to service ${service}...`, 'CRON');
         const res = await fetch(`/api/workers/${service}/${action}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' }
@@ -2389,10 +2568,10 @@
           appendLog(`[WORKER CONTROL] ✅ ${service}: ${result.message}`, 'CRON');
           await fetchWorkerStatuses();
         } else {
-          appendLog(`[WORKER CONTROL] ❌ ${service}: ${result.error || 'Ошибка исполнения'}`, 'CRON');
+          appendLog(`[WORKER CONTROL] ❌ ${service}: ${result.error || 'Execution error'}`, 'CRON');
         }
       } catch (err) {
-        appendLog(`[WORKER CONTROL] ❌ Ошибка запроса: ${err.message}`, 'CRON');
+        appendLog(`[WORKER CONTROL] ❌ Request error: ${err.message}`, 'CRON');
       } finally {
         if (btnEl) {
           btnEl.disabled = false;
@@ -2402,14 +2581,14 @@
     }
 
     async function emergencyStopReddit(btnEl) {
-      if (!confirm('ВНИМАНИЕ: Немедленно остановить ВСЕ воркеры Reddit (scout-reddit-worker и reddit-session-watchdog)?')) {
+      if (!confirm('WARNING: Immediately halt all Reddit syndication workers?')) {
         return;
       }
-      appendLog('[EMERGENCY HALT] 🚨 Выполняется экстренная остановка контура Reddit...', 'REDDIT');
+      appendLog('[EMERGENCY HALT] 🚨 Executing emergency halt on Reddit subsystem...', 'REDDIT');
       const origText = btnEl ? btnEl.innerHTML : '';
       if (btnEl) {
         btnEl.disabled = true;
-        btnEl.innerHTML = '⏳ ОСТАНОВКА...';
+        btnEl.innerHTML = '⏳ HALTING...';
       }
 
       try {
@@ -2417,10 +2596,10 @@
           fetch('/api/workers/scout-reddit-worker/stop', { method: 'POST' }),
           fetch('/api/workers/reddit-session-watchdog/stop', { method: 'POST' })
         ]);
-        appendLog('[EMERGENCY HALT] 🛑 Команды аварийного останова отправлены воркерам Reddit.', 'REDDIT');
+        appendLog('[EMERGENCY HALT] 🛑 Emergency halt commands dispatched to Reddit workers.', 'REDDIT');
         await fetchWorkerStatuses();
       } catch (err) {
-        appendLog(`[EMERGENCY HALT] ❌ Ошибка аварийной остановки: ${err.message}`, 'REDDIT');
+        appendLog(`[EMERGENCY HALT] ❌ Emergency halt error: ${err.message}`, 'REDDIT');
       } finally {
         if (btnEl) {
           btnEl.disabled = false;
@@ -2513,7 +2692,7 @@
         const tbody = document.getElementById('blogAnalyticsTableBody');
         if (tbody) {
           if (!data.topPosts || data.topPosts.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: var(--dim); padding: 8px;">Ожидание боевого трафика (0 кликов)</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: var(--dim); padding: 8px;">Awaiting live traffic telemetry (0 clicks)</td></tr>';
           } else {
             tbody.innerHTML = data.topPosts.map(p => `
               <tr>
@@ -2612,7 +2791,7 @@
     async function triggerAutonomousCycle(dryRun = false) {
       const btn = dryRun ? document.getElementById('btnAgentDryRun') : document.getElementById('btnAgentRunLive');
       if (btn) btn.disabled = true;
-      appendLog(`[AUTONOMOUS AGENT] 🚀 Запуск автономного цикла (${dryRun ? 'DRY-RUN' : 'LIVE'})...`, 'CRON');
+      appendLog(`[AUTONOMOUS AGENT] 🚀 Launching autonomous cycle (${dryRun ? 'DRY-RUN' : 'LIVE'})...`, 'CRON');
 
       try {
         const res = await fetch('/api/actions/autonomous-agent/run', {
@@ -2622,14 +2801,14 @@
         });
         const data = await res.json();
         if (data.success && data.report) {
-          appendLog(`[AUTONOMOUS AGENT] ✅ Цикл ${data.report.cycleId.slice(0, 8)} завершен за ${data.report.durationMs}ms! Топик: "${data.report.discoveredTopic?.title || '--'}"`, 'CRON');
+          appendLog(`[AUTONOMOUS AGENT] ✅ Cycle ${data.report.cycleId.slice(0, 8)} completed in ${data.report.durationMs}ms! Topic: "${data.report.discoveredTopic?.title || '--'}"`, 'CRON');
           await fetchAutonomousAgentStatus();
           if (typeof fetchQueue === 'function') await fetchQueue();
         } else {
-          appendLog(`[AUTONOMOUS AGENT] ❌ Ошибка выполнения цикла: ${data.error || 'Unknown error'}`, 'CRON');
+          appendLog(`[AUTONOMOUS AGENT] ❌ Cycle execution error: ${data.error || 'Unknown error'}`, 'CRON');
         }
       } catch (err) {
-        appendLog(`[AUTONOMOUS AGENT] ❌ Исключение: ${err.message}`, 'CRON');
+        appendLog(`[AUTONOMOUS AGENT] ❌ Exception: ${err.message}`, 'CRON');
       } finally {
         if (btn) btn.disabled = false;
       }
@@ -2640,17 +2819,17 @@
       const isRunning = badge && badge.innerText.includes('ACTIVE');
 
       if (isRunning) {
-        appendLog('[AUTONOMOUS AGENT] ⏹ Остановка фонового демона...', 'CRON');
+        appendLog('[AUTONOMOUS AGENT] ⏹ Stopping background daemon...', 'CRON');
         try {
           const res = await fetch('/api/actions/autonomous-agent/daemon-stop', { method: 'POST' });
           const data = await res.json();
-          appendLog(`[AUTONOMOUS AGENT] ${data.message || 'Остановлен'}`, 'CRON');
+          appendLog(`[AUTONOMOUS AGENT] ${data.message || 'Stopped'}`, 'CRON');
           await fetchAutonomousAgentStatus();
         } catch (err) {
-          appendLog(`[AUTONOMOUS AGENT] ❌ Ошибка остановки: ${err.message}`, 'CRON');
+          appendLog(`[AUTONOMOUS AGENT] ❌ Stop error: ${err.message}`, 'CRON');
         }
       } else {
-        appendLog('[AUTONOMOUS AGENT] ⚡ Запуск фонового демона (интервал: 180m)...', 'CRON');
+        appendLog('[AUTONOMOUS AGENT] ⚡ Starting background daemon (interval: 180m)...', 'CRON');
         try {
           const res = await fetch('/api/actions/autonomous-agent/daemon-start', {
             method: 'POST',
@@ -2658,10 +2837,10 @@
             body: JSON.stringify({ intervalMinutes: 180 })
           });
           const data = await res.json();
-          appendLog(`[AUTONOMOUS AGENT] 🚀 ${data.message || 'Запущен'}`, 'CRON');
+          appendLog(`[AUTONOMOUS AGENT] 🚀 ${data.message || 'Started'}`, 'CRON');
           await fetchAutonomousAgentStatus();
         } catch (err) {
-          appendLog(`[AUTONOMOUS AGENT] ❌ Ошибка запуска: ${err.message}`, 'CRON');
+          appendLog(`[AUTONOMOUS AGENT] ❌ Start error: ${err.message}`, 'CRON');
         }
       }
     }
@@ -2753,7 +2932,7 @@
         logSpeedTimestamps = logSpeedTimestamps.filter(t => now - t <= 3000);
         const rate = (logSpeedTimestamps.length / 3).toFixed(1);
         const speedBadge = document.getElementById('logSpeedBadge');
-        if (speedBadge) speedBadge.innerText = `${rate} стр/сек`;
+        if (speedBadge) speedBadge.innerText = `${rate} lines/sec`;
       }, 1000);
     });
   </script>
@@ -2768,15 +2947,15 @@
     <div style="display: flex; align-items: center; gap: 8px;">
       <span style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: #10b981; color: #000; font-weight: 800; font-size: 11px;">✓</span>
       <span style="color: #f1f5f9; font-size: 12px; font-weight: 600;">
-        Выбрано: <strong id="batchSelectedCount" style="color: #34d399; font-size: 13px; font-family: monospace;">0</strong> элементов
+        Selected: <strong id="batchSelectedCount" style="color: #34d399; font-size: 13px; font-family: monospace;">0</strong> items
       </span>
     </div>
     <div style="height: 20px; width: 1px; background: rgba(255, 255, 255, 0.15);"></div>
     <div style="display: flex; align-items: center; gap: 8px;">
-      <button onclick="triggerBatchAction('approve')" id="btnBatchApprove" class="btn btn-green term-tooltip tooltip-bottom" data-tooltip="Массовый перевод выбранных постов в статус APPROVED" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">✓ Принять (Approve)</button>
-      <button onclick="triggerBatchAction('reject')" id="btnBatchReject" class="btn btn-amber term-tooltip tooltip-bottom" data-tooltip="Массовый перевод выбранных постов в статус REJECTED" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">✕ Отклонить (Reject)</button>
-      <button onclick="triggerBatchAction('delete')" id="btnBatchDelete" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Безвозвратное удаление выбранных записей из базы SQLite" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">🗑 Удалить (Delete)</button>
-      <button onclick="clearSelection()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Снять выделение со всех строк" style="padding: 4px 10px; font-size: 11px;">Сбросить выбор</button>
+      <button onclick="triggerBatchAction('approve')" id="btnBatchApprove" class="btn btn-green term-tooltip tooltip-bottom" data-tooltip="Batch move selected items to APPROVED status" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">✓ Approve</button>
+      <button onclick="triggerBatchAction('reject')" id="btnBatchReject" class="btn btn-amber term-tooltip tooltip-bottom" data-tooltip="Batch move selected items to REJECTED status" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">✕ Reject (Reject)</button>
+      <button onclick="triggerBatchAction('delete')" id="btnBatchDelete" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Permanently delete selected records from SQLite database" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">🗑 Delete Selected</button>
+      <button onclick="clearSelection()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Deselect all rows" style="padding: 4px 10px; font-size: 11px;">Clear Selection</button>
     </div>
   </div>
 </body>

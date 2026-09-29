@@ -14,10 +14,14 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/vite": "^4.3.3",
+    "animejs": "^3.2.2",
     "astro": "^7.3.1",
     "tailwindcss": "^4.3.3"
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "devDependencies": {
+    "@types/animejs": "^3.1.13"
   }
 }
