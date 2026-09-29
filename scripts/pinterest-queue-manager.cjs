@@ -23,6 +23,7 @@ const { chromium } = require('playwright');
 const CONFIG = {
   postsDir: path.resolve(__dirname, '../blog/src/content/posts'),
   queueFile: path.resolve(__dirname, '../.antigravity/pinterest_queue.json'),
+  stateFile: path.resolve(__dirname, '../.antigravity/pinterest_state.json'),
   cookiesFile: path.resolve(__dirname, '../pinterest_cookies.json'),
   pinsOutputDir: path.resolve(__dirname, '../scratch/pins'),
   boardName: 'MoneyCash.pw',
@@ -139,6 +140,13 @@ class PinterestQueueManager {
     const files = fs.readdirSync(CONFIG.postsDir).filter(f => f.endsWith('.md'));
     log(`Scanning ${files.length} markdown posts in ${CONFIG.postsDir}...`);
 
+    let state = { published: {} };
+    if (fs.existsSync(CONFIG.stateFile)) {
+      try {
+        state = JSON.parse(fs.readFileSync(CONFIG.stateFile, 'utf8'));
+      } catch (e) {}
+    }
+
     let addedCount = 0;
     for (const f of files) {
       const slug = f.replace(/\.md$/, '');
@@ -154,6 +162,10 @@ class PinterestQueueManager {
       const cover = (fm.match(/coverImage:\s*"([^"]+)"/) || [])[1] || '';
       const category = (fm.match(/category:\s*"([^"]+)"/) || [])[1] || 'safety-dossier';
 
+      const creativePath = path.join(CONFIG.pinsOutputDir, `pin_${slug}.png`);
+      const isAlreadyPublished = !!(state.published && state.published[slug]);
+      const creativeExists = fs.existsSync(creativePath);
+
       let existing = this.queue.find(item => item.slug === slug);
       if (!existing) {
         existing = {
@@ -163,10 +175,10 @@ class PinterestQueueManager {
           category,
           coverImage: cover,
           targetUrl: `${CONFIG.domain}/${slug}/`,
-          status: 'pending', // pending, ready, published, failed
-          creativePath: path.join(CONFIG.pinsOutputDir, `pin_${slug}.png`),
+          status: isAlreadyPublished ? 'published' : (creativeExists ? 'ready' : 'pending'),
+          creativePath,
           createdAt: new Date().toISOString(),
-          publishedAt: null,
+          publishedAt: isAlreadyPublished ? (state.published[slug].publishedAt || new Date().toISOString()) : null,
           attempts: 0
         };
         this.queue.push(existing);
@@ -177,6 +189,15 @@ class PinterestQueueManager {
         existing.description = desc;
         existing.coverImage = cover;
         existing.targetUrl = `${CONFIG.domain}/${slug}/`;
+        existing.creativePath = creativePath;
+        if (isAlreadyPublished) {
+          existing.status = 'published';
+          if (!existing.publishedAt) {
+            existing.publishedAt = state.published[slug].publishedAt || new Date().toISOString();
+          }
+        } else if (existing.status !== 'published') {
+          existing.status = creativeExists ? 'ready' : 'pending';
+        }
       }
     }
 
