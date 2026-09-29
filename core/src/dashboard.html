@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>Affiliate Ops // High-Density Engineering Console</title>
+  <title>Панель управления операциями // Инженерная консоль арбитража</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
   <script>
     // ========================================================
@@ -424,29 +424,29 @@
   <header class="panel" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px;">
     <div style="display: flex; align-items: center; gap: 8px;">
       <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--green);"></span>
-      <strong style="color: var(--text);">AFFILIATE OPS // ENGINEERING CONSOLE</strong>
+      <strong style="color: var(--text);">ЦЕНТР УПРАВЛЕНИЯ АРБИТРАЖЕМ // ИНЖЕНЕРНАЯ КОНСОЛЬ</strong>
       <span style="color: var(--dim);">|</span>
-      <span style="color: var(--dim);">NODE: <strong style="color: var(--blue);">178.128.199.28:5000</strong></span>
+      <span style="color: var(--dim);">УЗЕЛ: <strong style="color: var(--blue);">178.128.199.28:5000</strong></span>
       <span style="color: var(--dim);">|</span>
-      <span class="badge badge-ok">DAEMONS: 5/5 ONLINE</span>
-      <span id="sseStatusBadge" class="badge badge-dim">SSE: CONNECTING...</span>
-      <span id="botShieldBadge" class="badge badge-ok">SHIELD: ACTIVE</span>
-      <span id="creditsBadge" class="badge badge-ok">LLM: HEALTHY</span>
+      <span class="badge badge-ok" title="Статус фоновых сервисов">ДЕМОНЫ: 5/5 ОНЛАЙН</span>
+      <span id="sseStatusBadge" class="badge badge-dim" title="Поток событий телеметрии в реальном времени">SSE: ПОДКЛЮЧЕНИЕ...</span>
+      <span id="botShieldBadge" class="badge badge-ok" title="Эвристическая защита от ботов и фильтрация трафика">КЛОАКИНГ: АКТИВЕН</span>
+      <span id="creditsBadge" class="badge badge-ok" title="Шлюз нейросетей генерации контента">НЕЙРОСЕТИ: В НОРМЕ</span>
     </div>
 
     <!-- Metrics Strip -->
     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;">
-      <div><span style="color: var(--dim);">REV_24H:</span> <strong id="kpiRev" style="color: var(--green-text);">$0.00</strong></div>
-      <div><span style="color: var(--dim);">CLICKS:</span> <strong id="kpiClicks" style="color: var(--blue);">0</strong></div>
-      <div><span style="color: var(--dim);">LEADS:</span> <strong id="kpiLeads" style="color: var(--purple);">0</strong></div>
-      <div><span style="color: var(--dim);">CR:</span> <strong id="kpiCr" style="color: var(--amber);">0.00%</strong></div>
-      <div><span style="color: var(--dim);">EPC:</span> <strong id="kpiEpc" style="color: var(--blue);">$0.00</strong></div>
+      <div><span style="color: var(--dim);">ДОХОД 24Ч:</span> <strong id="kpiRev" style="color: var(--green-text);">$0.00</strong></div>
+      <div><span style="color: var(--dim);">КЛИКИ:</span> <strong id="kpiClicks" style="color: var(--blue);">0</strong></div>
+      <div><span style="color: var(--dim);">ЛИДЫ:</span> <strong id="kpiLeads" style="color: var(--purple);">0</strong></div>
+      <div><span style="color: var(--dim);">КОНВЕРСИЯ:</span> <strong id="kpiCr" style="color: var(--amber);">0.00%</strong></div>
+      <div><span style="color: var(--dim);">EPC (ДОХОД/КЛИК):</span> <strong id="kpiEpc" style="color: var(--blue);">$0.00</strong></div>
       
       <div style="display: flex; align-items: center; gap: 4px; padding-left: 8px; border-left: 1px solid var(--border);">
-        <span id="estopBadge" class="badge badge-ok term-tooltip tooltip-bottom" data-tooltip="Emergency Stop Status: Normal. No active overrides.">E-STOP: CLEAR</span>
-        <button id="btnEstop" onclick="toggleEstop()" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Emergency Stop: Immediately suspends all automated syndication workers." style="padding: 2px 6px; font-size: 10px;">🚨 E-STOP</button>
-        <button onclick="refreshAll()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Force telemetry & daemon synchronization." style="padding: 2px 6px; font-size: 10px;">↻ SYNC</button>
-        <button onclick="logoutConsole()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="End current operator session and log out." style="padding: 2px 6px; font-size: 10px; background: rgba(248, 81, 73, 0.18); border-color: rgba(248, 81, 73, 0.5); color: #ff7b72; cursor: pointer;">🚪 LOGOUT</button>
+        <span id="estopBadge" class="badge badge-ok term-tooltip tooltip-bottom" data-tooltip="Аварийная остановка отключена. Все фоновые процессы работают в штатном режиме.">СТОП: ГОТОВ</span>
+        <button id="btnEstop" onclick="toggleEstop()" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Аварийная остановка: немедленно блокирует всех фоновых воркеров и внешнюю синдикацию." style="padding: 2px 6px; font-size: 10px;">🚨 АВАРИЙНЫЙ СТОП</button>
+        <button onclick="refreshAll()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Принудительная синхронизация телеметрии, очередей и статуса процессов." style="padding: 2px 6px; font-size: 10px;">↻ ОБНОВИТЬ</button>
+        <button onclick="logoutConsole()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Завершить текущую сессию оператора и выйти из консоли." style="padding: 2px 6px; font-size: 10px; background: rgba(248, 81, 73, 0.18); border-color: rgba(248, 81, 73, 0.5); color: #ff7b72; cursor: pointer;">🚪 ВЫХОД</button>
       </div>
     </div>
   </header>
@@ -458,12 +458,12 @@
     <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 8px; gap: 8px;">
       <div style="display: flex; align-items: center; gap: 8px;">
         <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 8px #38bdf8;"></span>
-        <strong style="color: #f1f5f9; font-size: 11px; letter-spacing: 0.05em;">BKLIT TELEMETRY // 24H LIVE TRAFFIC & CONVERSION FUNNEL</strong>
-        <span class="badge badge-dim" style="color: #94a3b8;">SHADCN-SPEC // ZERO SYNTHETICS</span>
+        <strong style="color: #f1f5f9; font-size: 11px; letter-spacing: 0.05em;">BKLIT ТЕЛЕМЕТРИЯ // 24-ЧАСОВОЙ ГРАФИК ТРАФИКА И ВОРОНКА КОНВЕРСИЙ</strong>
+        <span class="badge badge-dim" style="color: #94a3b8;" title="Графики отображают только реальные события трафика">СТАНДАРТ BKLIT // 100% БОЕВЫЕ ДАННЫЕ</span>
       </div>
       <div style="display: flex; align-items: center; gap: 6px;">
-        <span style="color: var(--dim); font-size: 10px;">INTEGRITY:</span>
-        <span class="badge badge-ok">100% PRODUCTION TRAFFIC</span>
+        <span style="color: var(--dim); font-size: 10px;">КОНТРОЛЬ ПОДЛИННОСТИ:</span>
+        <span class="badge badge-ok">РЕАЛЬНЫЙ ТРАФИК БЕЗ СИНТЕТИКИ</span>
       </div>
     </div>
 
@@ -472,8 +472,8 @@
       <!-- Left: Bklit Area Chart (24h Velocity) -->
       <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 4px; padding: 10px; display: flex; flex-direction: column; justify-content: space-between;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-          <span style="color: #94a3b8; font-size: 10px; font-weight: 700; text-transform: uppercase;">24-Hour Inbound Click Velocity</span>
-          <span id="chartTotalClicksLabel" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #34d399;">0 Clicks Recorded</span>
+          <span style="color: #94a3b8; font-size: 10px; font-weight: 700; text-transform: uppercase;">Скорость входящего трафика за 24 часа</span>
+          <span id="chartTotalClicksLabel" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #34d399;">0 боевых кликов зафиксировано</span>
         </div>
         
         <!-- SVG Area Chart -->
@@ -501,14 +501,14 @@
           <span>-18h</span>
           <span>-12h</span>
           <span>-6h</span>
-          <span>NOW</span>
+          <span>СЕЙЧАС</span>
         </div>
       </div>
 
       <!-- Right: Bklit Conversion & EPC Funnel -->
       <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 4px; padding: 10px; display: flex; flex-direction: column; justify-content: space-between;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <span style="color: #94a3b8; font-size: 10px; font-weight: 700; text-transform: uppercase;">Attribution & CPA Revenue Funnel</span>
+          <span style="color: #94a3b8; font-size: 10px; font-weight: 700; text-transform: uppercase;">Воронка атрибуции и доход CPA</span>
           <span id="funnelEpcBadge" style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #38bdf8; font-weight: 700;">NET EPC: $0.00</span>
         </div>
 
@@ -517,7 +517,7 @@
           <!-- Stage 1: Clicks -->
           <div>
             <div style="display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 2px;">
-              <span style="color: var(--dim);">1. RAW ROUTED CLICKS</span>
+              <span style="color: var(--dim);">1. ВХОДЯЩИЕ КЛИКИ ТРАФИКА (/go)</span>
               <span id="funnelClicksVal" style="color: #38bdf8; font-weight: 700;">0</span>
             </div>
             <div style="background: #1e293b; height: 8px; border-radius: 2px; overflow: hidden;">
@@ -528,7 +528,7 @@
           <!-- Stage 2: Leads -->
           <div>
             <div style="display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 2px;">
-              <span style="color: var(--dim);">2. QUALIFIED LEADS (CPA)</span>
+              <span style="color: var(--dim);">2. ПОДТВЕРЖДЕННЫЕ ЛИДЫ (CPA)</span>
               <span id="funnelLeadsVal" style="color: #c084fc; font-weight: 700;">0</span>
             </div>
             <div style="background: #1e293b; height: 8px; border-radius: 2px; overflow: hidden;">
@@ -539,7 +539,7 @@
           <!-- Stage 3: Revenue -->
           <div>
             <div style="display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 2px;">
-              <span style="color: var(--dim);">3. CONFIRMED NET PAYOUT</span>
+              <span style="color: var(--dim);">3. ЧИСТЫЙ ДОХОД В ПАРТНЕРКАХ</span>
               <span id="funnelRevVal" style="color: #34d399; font-weight: 700;">$0.00</span>
             </div>
             <div style="background: #1e293b; height: 8px; border-radius: 2px; overflow: hidden;">
@@ -549,8 +549,8 @@
         </div>
 
         <div style="display: flex; justify-content: space-between; font-size: 9px; color: var(--dim); margin-top: 6px; border-top: 1px solid #1e293b; padding-top: 4px;">
-          <span>MYLEAD / LOSPOLLOS BRIDGE</span>
-          <span style="color: #34d399;">ZERO DEMO TOLERANCE</span>
+          <span title="Прямой шлюз postback-событий">ШЛЮЗ MYLEAD / LOSPOLLOS</span>
+          <span style="color: #34d399;" title="Строгий запрет демо-данных: отображаются только подтвержденные события">НУЛЕВОЙ ДОПУСК К СИНТЕТИКЕ</span>
         </div>
       </div>
     </div>
@@ -564,21 +564,21 @@
     <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 6px; gap: 6px; flex-shrink: 0;">
       <div style="display: flex; align-items: center; gap: 8px;">
         <span style="font-size: 13px;">📋</span>
-        <strong style="color: var(--text); font-size: 12px;">SQLITE CONTENT QUEUE (content_queue_v2)</strong>
-        <span id="queueCount" class="badge badge-dim">0 items</span>
+        <strong style="color: var(--text); font-size: 12px;">ОЧЕРЕДЬ КОНТЕНТА SQLITE (content_queue_v2)</strong>
+        <span id="queueCount" class="badge badge-dim" title="Всего записей в базе данных очереди">0 записей</span>
       </div>
 
       <!-- Queue Filter Tabs & Actions -->
       <div style="display: flex; align-items: center; gap: 6px;">
         <div style="display: flex; gap: 2px;" id="queueFilterTabs">
-          <button onclick="setQueueFilter('ALL')" id="qf_ALL" class="filter-tab active term-tooltip tooltip-bottom" data-tooltip="Show all content queue tasks">ALL (<span id="qc_ALL">0</span>)</button>
-          <button onclick="setQueueFilter('PENDING')" id="qf_PENDING" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Pending operator review">PENDING (<span id="qc_PENDING">0</span>)</button>
-          <button onclick="setQueueFilter('APPROVED')" id="qf_APPROVED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Approved for syndication">APPROVED (<span id="qc_APPROVED">0</span>)</button>
-          <button onclick="setQueueFilter('DISPATCHED')" id="qf_DISPATCHED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Dispatched to target platforms">DISPATCHED (<span id="qc_DISPATCHED">0</span>)</button>
-          <button onclick="setQueueFilter('REJECTED')" id="qf_REJECTED" class="filter-tab term-tooltip tooltip-bottom tooltip-left" data-tooltip="Rejected by operator">REJECTED (<span id="qc_REJECTED">0</span>)</button>
+          <button onclick="setQueueFilter('ALL')" id="qf_ALL" class="filter-tab active term-tooltip tooltip-bottom" data-tooltip="Показать все задачи в очереди контента">ВСЕ (<span id="qc_ALL">0</span>)</button>
+          <button onclick="setQueueFilter('PENDING')" id="qf_PENDING" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Ожидают проверки оператором перед публикацией">НА МОДЕРАЦИИ (<span id="qc_PENDING">0</span>)</button>
+          <button onclick="setQueueFilter('APPROVED')" id="qf_APPROVED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Одобрено для публикации в целевые каналы">ОДОБРЕНО (<span id="qc_APPROVED">0</span>)</button>
+          <button onclick="setQueueFilter('DISPATCHED')" id="qf_DISPATCHED" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Успешно опубликовано на целевых площадках">ОТПРАВЛЕНО (<span id="qc_DISPATCHED">0</span>)</button>
+          <button onclick="setQueueFilter('REJECTED')" id="qf_REJECTED" class="filter-tab term-tooltip tooltip-bottom tooltip-left" data-tooltip="Отклонено оператором или фильтрами безопасности">ОТКЛОНЕНО (<span id="qc_REJECTED">0</span>)</button>
         </div>
-        <button onclick="dispatchNextSocialSnippet()" id="btnDispatchSocialSnippet" class="btn btn-purple font-bold term-tooltip tooltip-bottom tooltip-left" data-tooltip="Force dispatch 1 snippet to Telegram channel" style="padding: 2px 8px; font-size: 10px;">📲 Dispatch Next Social Snippet</button>
-        <button onclick="fetchQueue()" class="btn" style="padding: 2px 6px; font-size: 10px;">↻ REFRESH</button>
+        <button onclick="dispatchNextSocialSnippet()" id="btnDispatchSocialSnippet" class="btn btn-purple font-bold term-tooltip tooltip-bottom tooltip-left" data-tooltip="Принудительно отправить 1 готовый сниппет в Telegram-канал" style="padding: 2px 8px; font-size: 10px;">📲 Отправить сниппет в Telegram</button>
+        <button onclick="fetchQueue()" class="btn" style="padding: 2px 6px; font-size: 10px;" title="Обновить список задач из SQLite">↻ ОБНОВИТЬ</button>
       </div>
     </div>
 
@@ -591,22 +591,22 @@
               <input type="checkbox" id="selectAllCheckbox" class="queue-cb" onchange="toggleSelectAll(this.checked)" title="Select all visible items">
             </th>
             <th style="width: 144px; min-width: 144px; max-width: 144px;">ID</th>
-            <th style="width: 130px;">Platform / Sub</th>
-            <th>Draft Hook / Content Preview</th>
-            <th style="width: 100px;">Risk</th>
-            <th style="width: 95px;">Status</th>
-            <th style="width: 120px;">Created</th>
-            <th style="width: 124px; text-align: right;">Actions</th>
+            <th style="width: 130px;">Платформа / Саб</th>
+            <th>Заголовок / Превью контента</th>
+            <th style="width: 100px;">Риск</th>
+            <th style="width: 95px;">Статус</th>
+            <th style="width: 120px;">Создано</th>
+            <th style="width: 124px; text-align: right;">Действия</th>
           </tr>
         </thead>
         <tbody id="queueTbody">
-          <tr><td colspan="8" style="text-align: center; color: var(--dim); padding: 18px;">Loading content queue telemetry...</td></tr>
+          <tr><td colspan="8" style="text-align: center; color: var(--dim); padding: 18px;">Загрузка очереди контента из SQLite...</td></tr>
         </tbody>
       </table>
     </div>
 
     <!-- Interactive Bottom Vertical Resize Handle Bar with GripHorizontal SVG -->
-    <div class="resize-handle-bar" id="queueResizeHandle" title="Drag vertically to resize queue panel height (GripHorizontal)">
+    <div class="resize-handle-bar" id="queueResizeHandle" title="Потяните по вертикали, чтобы изменить высоту панели очереди">
       <svg width="24" height="6" viewBox="0 0 24 6" fill="currentColor">
         <circle cx="4" cy="3" r="1.5"/>
         <circle cx="12" cy="3" r="1.5"/>
@@ -630,14 +630,14 @@
         <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 6px; gap: 6px;">
           <div style="display: flex; align-items: center; gap: 6px;">
             <span style="font-size: 13px;">🤖</span>
-            <strong style="color: #60a5fa; font-size: 11px;">SITE AUTONOMOUS AGENT // ORCHESTRATOR</strong>
-            <span id="agentStatusBadge" class="badge badge-dim">STATUS: STANDBY</span>
-            <span id="agentEstopBadge" class="badge badge-ok">E-STOP: CLEAR</span>
+            <strong style="color: #60a5fa; font-size: 11px;">АВТОНОМНЫЙ АГЕНТ САЙТА // ОРКЕСТРАТОР</strong>
+            <span id="agentStatusBadge" class="badge badge-dim">СТАТУС: ОЖИДАНИЕ</span>
+            <span id="agentEstopBadge" class="badge badge-ok">СТОП: ГОТОВ</span>
           </div>
           <div style="display: flex; align-items: center; gap: 4px;">
-            <button onclick="triggerAutonomousCycle(true)" id="btnAgentDryRun" class="btn" style="padding: 2px 7px; font-size: 10px;" title="Safe dry-run simulation without publishing">🧪 DRY-RUN</button>
-            <button onclick="triggerAutonomousCycle(false)" id="btnAgentRunLive" class="btn btn-blue font-bold" style="padding: 2px 8px; font-size: 10px;" title="Execute 1 full autonomous cycle">▶ RUN CYCLE</button>
-            <button onclick="toggleAgentDaemon()" id="btnAgentDaemon" class="btn btn-green font-bold" style="padding: 2px 7px; font-size: 10px;" title="Toggle background autonomous daemon">⚡ DAEMON</button>
+            <button onclick="triggerAutonomousCycle(true)" id="btnAgentDryRun" class="btn" style="padding: 2px 7px; font-size: 10px;" title="Безопасная симуляция цикла без публикации">🧪 ТЕСТОВЫЙ ПРОГОН</button>
+            <button onclick="triggerAutonomousCycle(false)" id="btnAgentRunLive" class="btn btn-blue font-bold" style="padding: 2px 8px; font-size: 10px;" title="Запустить 1 полный боевой цикл публикации">▶ ЗАПУСТИТЬ ЦИКЛ</button>
+            <button onclick="toggleAgentDaemon()" id="btnAgentDaemon" class="btn btn-green font-bold" style="padding: 2px 7px; font-size: 10px;" title="Включить/выключить фоновый планировщик">⚡ ДЕМОН АГЕНТА</button>
             <button onclick="fetchAutonomousAgentStatus()" class="btn" style="padding: 2px 5px; font-size: 10px;" title="Refresh agent status">↻</button>
           </div>
         </div>
@@ -645,19 +645,19 @@
         <!-- Metric Grid -->
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 6px;">
           <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 8px; border-radius: 2px;">
-            <div style="color: var(--dim); font-size: 9px; text-transform: uppercase;">Latest Discovered Topic</div>
+            <div style="color: var(--dim); font-size: 9px; text-transform: uppercase;">1. Найденный инфоповод</div>
             <div id="agentLastTopic" style="color: var(--text); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="No topic yet">--</div>
           </div>
           <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 8px; border-radius: 2px;">
-            <div style="color: var(--dim); font-size: 9px; text-transform: uppercase;">Production &amp; IndexNow</div>
+            <div style="color: var(--dim); font-size: 9px; text-transform: uppercase;">2. Публикация и IndexNow</div>
             <div id="agentLastPublish" style="color: var(--green-text); font-weight: 700;">--</div>
           </div>
           <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 8px; border-radius: 2px;">
-            <div style="color: var(--dim); font-size: 9px; text-transform: uppercase;">Social Syndication</div>
+            <div style="color: var(--dim); font-size: 9px; text-transform: uppercase;">3. Дистрибуция в соцсети</div>
             <div id="agentSyndicationStats" style="color: var(--blue); font-weight: 700;">TG: -- | Pin: --</div>
           </div>
           <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 8px; border-radius: 2px;">
-            <div style="color: var(--dim); font-size: 9px; text-transform: uppercase;">Layered Memory (L1/L2/L3)</div>
+            <div style="color: var(--dim); font-size: 9px; text-transform: uppercase;">4. Многоуровневая память (L1-L3)</div>
             <div id="agentMemoryStats" style="color: var(--purple); font-weight: 700;">-- / -- / --</div>
           </div>
         </div>
@@ -665,11 +665,11 @@
         <!-- Latest Cycle Summary Box -->
         <div id="agentCycleSummaryBox" style="background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 6px; font-size: 10px; display: flex; flex-direction: column; gap: 4px;">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>CYCLE: <strong id="agentLastCycleId" style="color: var(--blue);">--</strong> (<span id="agentLastCycleTime" style="color: var(--dim);">Never</span>)</div>
-            <div>DURATION: <strong id="agentLastCycleDuration" style="color: var(--amber);">-- ms</strong></div>
+            <div>ЦИКЛ: <strong id="agentLastCycleId" style="color: var(--blue);">--</strong> (<span id="agentLastCycleTime" style="color: var(--dim);">Никогда</span>)</div>
+            <div>ДЛИТЕЛЬНОСТЬ: <strong id="agentLastCycleDuration" style="color: var(--amber);">-- ms</strong></div>
           </div>
           <div id="agentLastCycleLog" style="color: var(--dim); font-family: 'JetBrains Mono', monospace; font-size: 10px; max-height: 48px; overflow-y: auto;">
-            Agent Standby. Click "RUN CYCLE" for on-demand execution or "DAEMON" for autonomous operation.
+            Агент в режиме ожидания. Нажмите "ЗАПУСТИТЬ ЦИКЛ" для разового прогона или "ДЕМОН АГЕНТА" для автономной работы по расписанию.
           </div>
         </div>
       </section>
@@ -677,18 +677,18 @@
       <!-- Active Campaigns & MAB Matrix -->
       <section class="panel">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px;">
-          <strong style="color: var(--text);">CAMPAIGNS &amp; MAB SPLIT MATRIX</strong>
-          <span style="color: var(--dim);">Dynamic MAB Router</span>
+          <strong style="color: var(--text);">КАМПАНИИ И МАТРИЦА СПЛИТА (MAB)</strong>
+          <span style="color: var(--dim);" title="Самообучающийся роутер на алгоритме Multi-Armed Bandit">Динамический MAB-роутер</span>
         </div>
         <div class="table-wrap scroll" style="max-height: 140px;">
           <table>
             <thead>
               <tr>
-                <th>Campaign ID</th>
-                <th>Network</th>
-                <th>Clicks/Leads</th>
-                <th>CR / EPC</th>
-                <th style="text-align: right;">Rev</th>
+                <th>ID Кампании</th>
+                <th>Партнерка</th>
+                <th>Клики / Лиды</th>
+                <th>Конверсия / EPC</th>
+                <th style="text-align: right;">Доход</th>
               </tr>
             </thead>
             <tbody id="campsTbody">
@@ -721,18 +721,18 @@
       <!-- Offer Scouts Intelligence -->
       <section class="panel">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px;">
-          <strong style="color: var(--text);">OFFER SCOUTS INTELLIGENCE</strong>
-          <span style="color: var(--dim);">LosPollos &amp; MyLead</span>
+          <strong style="color: var(--text);">РАЗВЕДКА И АНАЛИТИКА ОФФЕРОВ (SCOUTS)</strong>
+          <span style="color: var(--dim);" title="Автоматический поиск доходных связок в сетях">Сети LosPollos и MyLead</span>
         </div>
         <div class="table-wrap scroll" style="max-height: 120px;">
           <table>
             <thead>
               <tr>
-                <th>Offer / Target</th>
+                <th>Оффер / Направление</th>
                 <th>Network</th>
                 <th>GEO</th>
-                <th>Payout</th>
-                <th style="text-align: right;">Score</th>
+                <th>Выплата (Payout)</th>
+                <th style="text-align: right;">Рейтинг</th>
               </tr>
             </thead>
             <tbody id="scoutsTbody">
@@ -759,38 +759,38 @@
       <section class="panel">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px;">
           <div style="display: flex; align-items: center; gap: 6px;">
-            <strong style="color: var(--text);">BOT SHIELD &amp; CLOAKING ENGINE (/api/test/bot-shield)</strong>
-            <span class="badge badge-ok">CPA.RIP HEURISTICS</span>
+            <strong style="color: var(--text);">BOT SHIELD И КЛОАКИНГ (/api/test/bot-shield)</strong>
+            <span class="badge badge-ok" title="Эвристическая фильтрация поисковых ботов и шпионских сервисов">ЭВРИСТИКИ CPA.RIP</span>
           </div>
           <div style="display: flex; align-items: center; gap: 4px;">
-            <span id="shieldRoutingState" class="badge badge-ok">ROUTE: READY</span>
+            <span id="shieldRoutingState" class="badge badge-ok">МАРШРУТ: ГОТОВ</span>
           </div>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;">
           <!-- Presets -->
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px;">
-            <span style="color: var(--dim); font-size: 10px;">PRESETS:</span>
+            <span style="color: var(--dim); font-size: 10px;">ПРЕСЕТЫ:</span>
             <button onclick="runBotShieldTest('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)', '66.249.66.1')" class="btn" style="padding: 1px 5px; font-size: 10px;">Googlebot</button>
             <button onclick="runBotShieldTest('facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)', '31.13.115.1')" class="btn" style="padding: 1px 5px; font-size: 10px;">Facebook Crawler</button>
-            <button onclick="runBotShieldTest('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', '185.190.140.25')" class="btn btn-green" style="padding: 1px 5px; font-size: 10px;">Real Human (Chrome)</button>
-            <button onclick="runBotShieldTest('python-requests/2.31.0', '54.239.28.85', 'AMAZON')" class="btn btn-red" style="padding: 1px 5px; font-size: 10px;">AWS Datacenter Bot</button>
+            <button onclick="runBotShieldTest('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', '185.190.140.25')" class="btn btn-green" style="padding: 1px 5px; font-size: 10px;">Реальный пользователь (Chrome)</button>
+            <button onclick="runBotShieldTest('python-requests/2.31.0', '54.239.28.85', 'AMAZON')" class="btn btn-red" style="padding: 1px 5px; font-size: 10px;">Датацентр бот AWS</button>
           </div>
 
           <!-- Custom Test Inputs -->
           <div style="display: grid; grid-template-columns: 2fr 1fr auto; gap: 4px;">
-            <input id="shieldInputUa" placeholder="User-Agent string..." value="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" style="font-size: 10px;">
-            <input id="shieldInputIp" placeholder="IP / ASN..." value="66.249.66.1" style="font-size: 10px;">
-            <button onclick="submitCustomBotShieldTest()" class="btn btn-blue" style="padding: 2px 8px; font-size: 10px; font-weight: 700;">PROBE</button>
+            <input id="shieldInputUa" placeholder="Строка User-Agent для проверки..." value="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" style="font-size: 10px;">
+            <input id="shieldInputIp" placeholder="IP адрес / ASN..." value="66.249.66.1" style="font-size: 10px;">
+            <button onclick="submitCustomBotShieldTest()" class="btn btn-blue" style="padding: 2px 8px; font-size: 10px; font-weight: 700;" title="Проверить эвристики защиты для указанных параметров">ТЕСТ</button>
           </div>
 
           <!-- Results Card -->
           <div id="shieldResultBox" style="background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 6px; font-size: 10px; display: flex; flex-direction: column; gap: 3px;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <div>TARGET ROUTE: <strong id="shieldResultRoute" style="color: var(--amber);">[CLICK PROBE TO EVALUATE]</strong></div>
-              <div>CONFIDENCE: <strong id="shieldResultConfidence" style="color: var(--dim);">--%</strong></div>
+              <div>ЦЕЛЕВОЙ МАРШРУТ: <strong id="shieldResultRoute" style="color: var(--amber);">[НАЖМИТЕ ТЕСТ ДЛЯ ПРОВЕРКИ]</strong></div>
+              <div>УВЕРЕННОСТЬ: <strong id="shieldResultConfidence" style="color: var(--dim);">--%</strong></div>
             </div>
-            <div style="color: var(--dim);" id="shieldResultReason">Heuristic match: None. Waiting for test execution...</div>
+            <div style="color: var(--dim);" id="shieldResultReason">Совпадений нет. Ожидание запуска проверки...</div>
           </div>
         </div>
       </section>
@@ -800,12 +800,12 @@
         <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 6px; gap: 6px;">
           <div style="display: flex; align-items: center; gap: 6px;">
             <span style="font-size: 13px;">⚙️</span>
-            <strong style="color: var(--text);">PM2 WORKER SERVICES &amp; REDDIT CONTROLS</strong>
+            <strong style="color: var(--text);">СЕРВИСЫ PM2 И УПРАВЛЕНИЕ ВОРКЕРАМИ</strong>
             <span class="badge badge-dim" id="workersLastSync">SYNC: --</span>
           </div>
           <div style="display: flex; align-items: center; gap: 6px;">
-            <button onclick="emergencyStopReddit(this)" id="btnHaltReddit" class="btn btn-red font-bold term-tooltip tooltip-bottom" data-tooltip="Immediately halts scout-reddit-worker и reddit-session-watchdog" style="padding: 2px 7px; font-size: 10px;">🚨 EMERGENCY STOP REDDIT</button>
-            <button onclick="fetchWorkerStatuses()" class="btn" style="padding: 2px 6px; font-size: 10px;">↻ REFRESH</button>
+            <button onclick="emergencyStopReddit(this)" id="btnHaltReddit" class="btn btn-red font-bold term-tooltip tooltip-bottom" data-tooltip="Немедленно остановить сбор постов и сессионный вочдог Reddit" style="padding: 2px 7px; font-size: 10px;">🚨 СТОП REDDIT</button>
+            <button onclick="fetchWorkerStatuses()" class="btn" style="padding: 2px 6px; font-size: 10px;" title="Опросить статус всех процессов PM2">↻ ОБНОВИТЬ</button>
           </div>
         </div>
 
@@ -826,9 +826,9 @@
               </div>
             </div>
             <div class="worker-bottom-row">
-              <button onclick="controlWorker('scout-reddit-worker', 'start', this)" id="btn-start-scout-reddit-worker" class="btn btn-green worker-btn" title="Start service">▶ Start</button>
-              <button onclick="controlWorker('scout-reddit-worker', 'stop', this)" id="btn-stop-scout-reddit-worker" class="btn btn-red worker-btn" title="Stop service">⏹ Stop</button>
-              <button onclick="controlWorker('scout-reddit-worker', 'restart', this)" id="btn-restart-scout-reddit-worker" class="btn btn-amber worker-btn" title="Restart process">↻ Restart</button>
+              <button onclick="controlWorker('scout-reddit-worker', 'start', this)" id="btn-start-scout-reddit-worker" class="btn btn-green worker-btn" title="Запустить сервис">▶ Запуск</button>
+              <button onclick="controlWorker('scout-reddit-worker', 'stop', this)" id="btn-stop-scout-reddit-worker" class="btn btn-red worker-btn" title="Остановить сервис">⏹ Стоп</button>
+              <button onclick="controlWorker('scout-reddit-worker', 'restart', this)" id="btn-restart-scout-reddit-worker" class="btn btn-amber worker-btn" title="Перезапустить процесс">↻ Рестарт</button>
             </div>
           </div>
 
@@ -848,9 +848,9 @@
               </div>
             </div>
             <div class="worker-bottom-row">
-              <button onclick="controlWorker('reddit-session-watchdog', 'start', this)" id="btn-start-reddit-session-watchdog" class="btn btn-green worker-btn" title="Start service">▶ Start</button>
-              <button onclick="controlWorker('reddit-session-watchdog', 'stop', this)" id="btn-stop-reddit-session-watchdog" class="btn btn-red worker-btn" title="Stop service">⏹ Stop</button>
-              <button onclick="controlWorker('reddit-session-watchdog', 'restart', this)" id="btn-restart-reddit-session-watchdog" class="btn btn-amber worker-btn" title="Restart process">↻ Restart</button>
+              <button onclick="controlWorker('reddit-session-watchdog', 'start', this)" id="btn-start-reddit-session-watchdog" class="btn btn-green worker-btn" title="Запустить сервис">▶ Запуск</button>
+              <button onclick="controlWorker('reddit-session-watchdog', 'stop', this)" id="btn-stop-reddit-session-watchdog" class="btn btn-red worker-btn" title="Остановить сервис">⏹ Стоп</button>
+              <button onclick="controlWorker('reddit-session-watchdog', 'restart', this)" id="btn-restart-reddit-session-watchdog" class="btn btn-amber worker-btn" title="Перезапустить процесс">↻ Рестарт</button>
             </div>
           </div>
 
@@ -870,9 +870,9 @@
               </div>
             </div>
             <div class="worker-bottom-row">
-              <button onclick="controlWorker('affiliate-scheduler', 'start', this)" id="btn-start-affiliate-scheduler" class="btn btn-green worker-btn" title="Start service">▶ Start</button>
-              <button onclick="controlWorker('affiliate-scheduler', 'stop', this)" id="btn-stop-affiliate-scheduler" class="btn btn-red worker-btn" title="Stop service">⏹ Stop</button>
-              <button onclick="controlWorker('affiliate-scheduler', 'restart', this)" id="btn-restart-affiliate-scheduler" class="btn btn-amber worker-btn" title="Restart process">↻ Restart</button>
+              <button onclick="controlWorker('affiliate-scheduler', 'start', this)" id="btn-start-affiliate-scheduler" class="btn btn-green worker-btn" title="Запустить сервис">▶ Запуск</button>
+              <button onclick="controlWorker('affiliate-scheduler', 'stop', this)" id="btn-stop-affiliate-scheduler" class="btn btn-red worker-btn" title="Остановить сервис">⏹ Стоп</button>
+              <button onclick="controlWorker('affiliate-scheduler', 'restart', this)" id="btn-restart-affiliate-scheduler" class="btn btn-amber worker-btn" title="Перезапустить процесс">↻ Рестарт</button>
             </div>
           </div>
 
@@ -892,9 +892,9 @@
               </div>
             </div>
             <div class="worker-bottom-row">
-              <button onclick="controlWorker('affiliate-telegram-bot', 'start', this)" id="btn-start-affiliate-telegram-bot" class="btn btn-green worker-btn" title="Start service">▶ Start</button>
-              <button onclick="controlWorker('affiliate-telegram-bot', 'stop', this)" id="btn-stop-affiliate-telegram-bot" class="btn btn-red worker-btn" title="Stop service">⏹ Stop</button>
-              <button onclick="controlWorker('affiliate-telegram-bot', 'restart', this)" id="btn-restart-affiliate-telegram-bot" class="btn btn-amber worker-btn" title="Restart process">↻ Restart</button>
+              <button onclick="controlWorker('affiliate-telegram-bot', 'start', this)" id="btn-start-affiliate-telegram-bot" class="btn btn-green worker-btn" title="Запустить сервис">▶ Запуск</button>
+              <button onclick="controlWorker('affiliate-telegram-bot', 'stop', this)" id="btn-stop-affiliate-telegram-bot" class="btn btn-red worker-btn" title="Остановить сервис">⏹ Стоп</button>
+              <button onclick="controlWorker('affiliate-telegram-bot', 'restart', this)" id="btn-restart-affiliate-telegram-bot" class="btn btn-amber worker-btn" title="Перезапустить процесс">↻ Рестарт</button>
             </div>
           </div>
         </div>
@@ -903,21 +903,21 @@
       <!-- Account Trust & Anti-Fraud Hygiene Matrix -->
       <section class="panel">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px;">
-          <strong style="color: var(--text);">ACCOUNT TRUST &amp; OPERATIONAL LIMITS</strong>
-          <span style="color: var(--dim);">Fingerprint Hygiene &amp; Isolation</span>
+          <strong style="color: var(--text);">ТРАСТ АККАУНТА И ОПЕРАЦИОННЫЕ ЛИМИТЫ</strong>
+          <span style="color: var(--dim);" title="Изоляция цифрового отпечатка, cookies и прокси">Гигиена отпечатков и изоляция</span>
         </div>
 
         <!-- Live Reddit Session Watchdog Card -->
         <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 5px 8px; margin-bottom: 6px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 6px;">
             <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--green); display: inline-block;"></span>
-            <span>ACCOUNT: <strong style="color: var(--blue);">u/sov2008</strong></span>
-            <span id="sessionStatusBadge" class="badge badge-ok term-tooltip tooltip-bottom" data-tooltip="Сессия Reddit проверена watchdog сервисом">SESSION: ACTIVE</span>
+            <span>АККАУНТ: <strong style="color: var(--blue);">u/sov2008</strong></span>
+            <span id="sessionStatusBadge" class="badge badge-ok term-tooltip tooltip-bottom" data-tooltip="Сессия Reddit проверена watchdog сервисом">СЕССИЯ: АКТИВНА</span>
           </div>
           <div style="display: flex; align-items: center; gap: 10px; font-size: 10px;">
-            <div><span style="color: var(--dim);">KARMA:</span> <strong id="redditKarmaVal" style="color: var(--green-text);" class="term-tooltip tooltip-bottom" data-tooltip="Текущая карма Reddit аккаунта">1 (Cold Seed)</strong></div>
-            <div><span style="color: var(--dim);">WARMUP:</span> <strong style="color: var(--purple);">PHASE 1 (HitL)</strong></div>
-            <div><span style="color: var(--dim);">COOLDOWN:</span> <strong id="redditCooldownVal" style="color: var(--amber);" class="term-tooltip tooltip-bottom tooltip-left" data-tooltip="Пауза между публикациями. Воркер готов к отправке.">READY (0m)</strong></div>
+            <div><span style="color: var(--dim);">КАРМА:</span> <strong id="redditKarmaVal" style="color: var(--green-text);" class="term-tooltip tooltip-bottom" data-tooltip="Текущая карма Reddit аккаунта">1 (Cold Seed)</strong></div>
+            <div><span style="color: var(--dim);">ПРОГРЕВ:</span> <strong style="color: var(--purple);">PHASE 1 (HitL)</strong></div>
+            <div><span style="color: var(--dim);">ПАУЗА:</span> <strong id="redditCooldownVal" style="color: var(--amber);" class="term-tooltip tooltip-bottom tooltip-left" data-tooltip="Пауза между публикациями. Воркер готов к отправке.">ГОТОВ (0м)</strong></div>
           </div>
         </div>
 
@@ -925,37 +925,37 @@
           <table>
             <thead>
               <tr>
-                <th>Phase</th>
-                <th>Warmup Rule</th>
-                <th>Daily Limit</th>
-                <th>Fingerprint Policy</th>
-                <th style="text-align: right;">Status</th>
+                <th>Фаза</th>
+                <th>Правило прогрева</th>
+                <th>Дневной лимит</th>
+                <th>Политика отпечатка</th>
+                <th style="text-align: right;">Статус</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td style="color: var(--blue); font-weight: 700;">1. COLD_SEED</td>
+                <td style="color: var(--blue); font-weight: 700;">1. ХОЛОДНЫЙ ПОСЕВ</td>
                 <td>Age &lt; 7d / Karma &lt; 15</td>
                 <td>0 links / 24h</td>
                 <td>Dedicated StorageState</td>
                 <td style="text-align: right;"><span class="badge badge-dim">SEEDING</span></td>
               </tr>
               <tr>
-                <td style="color: var(--purple); font-weight: 700;">2. WARMUP_ORGANIC</td>
+                <td style="color: var(--purple); font-weight: 700;">2. ОРГАНИЧЕСКИЙ ПРОГРЕВ</td>
                 <td>Upvotes &ge; 15 / Zero links</td>
                 <td>0 links / 24h</td>
                 <td>WebRTC Spoofed + Canvas</td>
                 <td style="text-align: right;"><span class="badge badge-ok">ACTIVE</span></td>
               </tr>
               <tr>
-                <td style="color: var(--green-text); font-weight: 700;">3. ESTABLISHED_POSTER</td>
+                <td style="color: var(--green-text); font-weight: 700;">3. ОПЫТНЫЙ ПОСТЕР</td>
                 <td>Age &gt; 7d / Passed Warmup</td>
                 <td>Max 2 links / 24h</td>
                 <td>Strict Proxy Match</td>
                 <td style="text-align: right;"><span class="badge badge-ok">QUALIFIED</span></td>
               </tr>
               <tr>
-                <td style="color: var(--red); font-weight: 700;">4. COOLDOWN_QUARANTINE</td>
+                <td style="color: var(--red); font-weight: 700;">4. КАРАНТИН ОХЛАЖДЕНИЯ</td>
                 <td>Shadowban / Spike detected</td>
                 <td>HALTED (E-STOP)</td>
                 <td>Profile Refresh Required</td>
@@ -971,7 +971,7 @@
         <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 6px; gap: 6px;">
           <div style="display: flex; align-items: center; gap: 6px;">
             <span style="font-size: 13px;">🤖</span>
-            <strong style="color: var(--blue); letter-spacing: 0.5px;">SITE AUTONOMOUS AGENT // ORCHESTRATOR</strong>
+            <strong style="color: var(--blue); letter-spacing: 0.5px;">АВТОНОМНЫЙ АГЕНТ САЙТА // ОРКЕСТРАТОР</strong>
             <span id="agentStatusBadge" class="badge badge-dim">STATUS: STANDBY</span>
             <span id="agentEstopBadge" class="badge badge-ok">E-STOP: CLEAR</span>
           </div>
@@ -986,30 +986,30 @@
         <!-- 4-Phase Telemetry Grid -->
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 6px;">
           <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 7px; border-radius: 2px;">
-            <div style="color: var(--dim); font-size: 9px; font-weight: 600;">1. TOPIC DEFICIT</div>
+            <div style="color: var(--dim); font-size: 9px; font-weight: 600;">1. НАЙДЕННЫЙ ИНФОПОВОД</div>
             <div id="agentLastTopic" style="font-size: 11px; font-weight: 700; color: var(--blue); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 2px;" title="No topic yet">--</div>
           </div>
           <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 7px; border-radius: 2px;">
-            <div style="color: var(--dim); font-size: 9px; font-weight: 600;">2. PRODUCTION &amp; SEO</div>
+            <div style="color: var(--dim); font-size: 9px; font-weight: 600;">2. ПУБЛИКАЦИЯ И SEO</div>
             <div id="agentLastPublish" style="font-size: 11px; font-weight: 700; color: var(--green-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 2px;">--</div>
           </div>
           <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 7px; border-radius: 2px;">
-            <div style="color: var(--dim); font-size: 9px; font-weight: 600;">3. SOCIAL SYNDICATION</div>
+            <div style="color: var(--dim); font-size: 9px; font-weight: 600;">3. ДИСТРИБУЦИЯ В СОЦСЕТИ</div>
             <div id="agentSyndicationStats" style="font-size: 11px; font-weight: 700; color: var(--purple); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 2px;">TG: -- | Pin: 0</div>
           </div>
           <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 7px; border-radius: 2px;">
-            <div style="color: var(--dim); font-size: 9px; font-weight: 600;">4. LAYERED MEMORY (L1-L3)</div>
+            <div style="color: var(--dim); font-size: 9px; font-weight: 600;">4. МНОГОУРОВНЕВАЯ ПАМЯТЬ</div>
             <div id="agentMemoryStats" style="font-size: 11px; font-weight: 700; color: var(--amber); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 2px;">L1:0 L2:0 L3:0</div>
           </div>
         </div>
 
         <!-- Cycle Execution Footer & Action Log -->
         <div style="display: flex; justify-content: space-between; align-items: center; font-size: 9px; color: var(--dim); margin-bottom: 4px;">
-          <div>CYCLE: <strong id="agentLastCycleId" style="font-family: monospace; color: var(--text);">--</strong> | FINISHED: <span id="agentLastCycleTime">--</span> | DURATION: <span id="agentLastCycleDuration">--</span></div>
+          <div>CYCLE: <strong id="agentLastCycleId" style="font-family: monospace; color: var(--text);">--</strong> | ЗАВЕРШЕН: <span id="agentLastCycleTime">--</span> | DURATION: <span id="agentLastCycleDuration">--</span></div>
           <div style="color: var(--dim);">AUTONOMY ENGINE: <span style="color: var(--green-text);">ACTIVE</span></div>
         </div>
         <div id="agentLastCycleLog" style="font-family: monospace; font-size: 10px; color: #94a3b8; padding: 5px 8px; background: #080c10; border: 1px solid var(--border); border-radius: 2px; max-height: 50px; overflow-y: auto;">
-          Ready. Press &quot;RUN CYCLE&quot; or &quot;DRY-RUN&quot; to execute autonomous pipeline.
+          Готов к работе. Нажмите "ЗАПУСТИТЬ ЦИКЛ" или "ТЕСТОВЫЙ ПРОГОН" для выполнения автономного пайплайна.
         </div>
       </section>
 
@@ -1022,26 +1022,26 @@
       <section class="panel" style="display: flex; flex-direction: column; gap: 4px;">
         <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; gap: 4px;">
           <div style="display: flex; align-items: center; gap: 6px;">
-            <strong style="color: var(--text);">LIVE LOG &amp; TELEMETRY STREAM</strong>
-            <span id="logCountBadge" class="badge badge-dim">0 / 100 LINES</span>
+            <strong style="color: var(--text);">ТЕРМИНАЛ ЖИВЫХ ЛОГОВ И ТЕЛЕМЕТРИИ (SSE)</strong>
+            <span id="logCountBadge" class="badge badge-dim">0 / 100 СТРОК</span>
             <span id="logSpeedBadge" class="badge badge-ok term-tooltip tooltip-bottom" data-tooltip="Telemetry log stream ingestion velocity">0.0 lines/sec</span>
           </div>
           <div style="display: flex; align-items: center; gap: 4px;">
             <!-- Source Filters -->
             <div style="display: flex; gap: 2px; margin-right: 4px;" id="logFilterTabs">
-              <button onclick="setLogFilter('ALL')" id="lf_ALL" class="filter-tab active term-tooltip tooltip-bottom" data-tooltip="All log stream sources">ALL</button>
-              <button onclick="setLogFilter('REDDIT')" id="lf_REDDIT" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Subreddit and scout worker logs">REDDIT</button>
-              <button onclick="setLogFilter('SHIELD')" id="lf_SHIELD" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Bot Shield and cloaking telemetry logs">SHIELD</button>
-              <button onclick="setLogFilter('CRON')" id="lf_CRON" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Daemons, cron, and watchdog subsystem logs">CRON</button>
+              <button onclick="setLogFilter('ALL')" id="lf_ALL" class="filter-tab active term-tooltip tooltip-bottom" data-tooltip="Все источники событий">ВСЕ</button>
+              <button onclick="setLogFilter('REDDIT')" id="lf_REDDIT" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Логи скаута и воркеров Reddit">REDDIT</button>
+              <button onclick="setLogFilter('SHIELD')" id="lf_SHIELD" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Логи клоакинга и фильтрации ботов">КЛОАКИНГ</button>
+              <button onclick="setLogFilter('CRON')" id="lf_CRON" class="filter-tab term-tooltip tooltip-bottom" data-tooltip="Логи демонов, вочдога и фоновых задач">ФОНОВЫЕ (CRON)</button>
             </div>
-            <button id="btnAutoScroll" onclick="toggleAutoScroll()" class="btn btn-green term-tooltip tooltip-bottom" data-tooltip="Auto-scroll terminal to newest log entries" style="padding: 2px 6px; font-size: 10px;">AUTO-SCROLL</button>
-            <button onclick="copyLogs()" class="btn term-tooltip tooltip-bottom" data-tooltip="Copy raw terminal logs to system clipboard" style="padding: 2px 6px; font-size: 10px;">COPY</button>
-            <button onclick="clearLogs()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Clear terminal console buffer" style="padding: 2px 6px; font-size: 10px;">CLEAR</button>
+            <button id="btnAutoScroll" onclick="toggleAutoScroll()" class="btn btn-green term-tooltip tooltip-bottom" data-tooltip="Автопрокрутка терминала к новым записям" style="padding: 2px 6px; font-size: 10px;">АВТОПРОКРУТКА</button>
+            <button onclick="copyLogs()" class="btn term-tooltip tooltip-bottom" data-tooltip="Скопировать логи терминала в буфер обмена" style="padding: 2px 6px; font-size: 10px;">СКОПИРОВАТЬ</button>
+            <button onclick="clearLogs()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Очистить буфер консоли логов" style="padding: 2px 6px; font-size: 10px;">ОЧИСТИТЬ</button>
           </div>
         </div>
 
         <div id="logBox" class="scroll" style="height: 280px; background: #080c10; border: 1px solid var(--border); padding: 6px; overflow-y: auto; font-size: 10px; line-height: 1.35; user-select: text;">
-          <div style="color: var(--dim); text-align: center; padding: 20px;">Connecting to SSE telemetry stream (/api/telemetry/stream)...</div>
+          <div style="color: var(--dim); text-align: center; padding: 20px;">Подключение к потоку телеметрии SSE (/api/telemetry/stream)...</div>
         </div>
       </section>
 
@@ -1049,8 +1049,8 @@
       <section class="panel">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px;">
           <div style="display: flex; align-items: center; gap: 6px;">
-            <strong style="color: var(--text);">AI CREDITS &amp; MODEL GATEWAY (/api/credits/status)</strong>
-            <span id="creditsHealthTag" class="badge badge-ok">HEALTHY</span>
+            <strong style="color: var(--text);">ШЛЮЗ НЕЙРОСЕТЕЙ И БАЛАНС ТОКЕНОВ (/api/credits/status)</strong>
+            <span id="creditsHealthTag" class="badge badge-ok">В НОРМЕ</span>
           </div>
           <div style="display: flex; align-items: center; gap: 4px;">
             <span id="creditsActiveCount" style="color: var(--dim);">2/5 ACTIVE</span>
@@ -1061,44 +1061,44 @@
           <table>
             <thead>
               <tr>
-                <th>Provider</th>
-                <th>Primary Model</th>
-                <th>Daily Budget</th>
+                <th>Провайдер</th>
+                <th>Основная модель</th>
+                <th>Дневной лимит</th>
                 <th style="text-align: right;">Status</th>
               </tr>
             </thead>
             <tbody id="creditsTbody">
-              <tr><td colspan="4" style="text-align: center; color: var(--dim); padding: 8px;">Polling model providers (/api/credits/status)...</td></tr>
+              <tr><td colspan="4" style="text-align: center; color: var(--dim); padding: 8px;">Опрос статуса шлюзов нейросетей (/api/credits/status)...</td></tr>
             </tbody>
           </table>
         </div>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--border); font-size: 9px; color: var(--dim);">
           <div>CLOUDFLARE: <span id="cfAccountStatus" style="color: var(--blue);">KV &amp; Edge Sync Ready</span></div>
-          <div>LAST SYNC: <span id="creditsLastSync">--:--:--</span></div>
+          <div>ПОСЛЕДНЯЯ СИНХРОНИЗАЦИЯ: <span id="creditsLastSync">--:--:--</span></div>
         </div>
       </section>
 
       <!-- Umami Real-Time Funnel Telemetry -->
       <section class="panel">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px;">
-          <strong style="color: var(--text);">UMAMI PRE-LANDER FUNNEL STEPS</strong>
-          <span style="color: var(--dim);">Self-Hosted Edge Telemetry</span>
+          <strong style="color: var(--text);">ЭТАПЫ ВОРОНКИ ПРЕЛЕНДИНГА (UMAMI)</strong>
+          <span style="color: var(--dim);" title="Собственная автономная аналитика микроконверсий">Автономная Edge-аналитика</span>
         </div>
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 4px;">
           <div style="background: var(--bg); border: 1px solid var(--border); padding: 4px; border-radius: 2px; text-align: center;">
-            <div style="color: var(--dim); font-size: 9px;">1. VISIT</div>
+            <div style="color: var(--dim); font-size: 9px;">1. ВИЗИТ</div>
             <div id="funnelVisit" style="font-weight: 700; color: var(--blue);">0</div>
           </div>
           <div style="background: var(--bg); border: 1px solid var(--border); padding: 4px; border-radius: 2px; text-align: center;">
-            <div style="color: var(--dim); font-size: 9px;">2. QUIZ_START</div>
+            <div style="color: var(--dim); font-size: 9px;">2. СТАРТ КВИЗА</div>
             <div id="funnelQuiz" style="font-weight: 700; color: var(--purple);">0</div>
           </div>
           <div style="background: var(--bg); border: 1px solid var(--border); padding: 4px; border-radius: 2px; text-align: center;">
-            <div style="color: var(--dim); font-size: 9px;">3. CTA_CLICK</div>
+            <div style="color: var(--dim); font-size: 9px;">3. КЛИК НА ССЫЛКУ</div>
             <div id="funnelCta" style="font-weight: 700; color: var(--amber);">0</div>
           </div>
           <div style="background: var(--bg); border: 1px solid var(--border); padding: 4px; border-radius: 2px; text-align: center;">
-            <div style="color: var(--dim); font-size: 9px;">4. LEAD_CONV</div>
+            <div style="color: var(--dim); font-size: 9px;">4. ЛИД / КОНВЕРСИЯ</div>
             <div id="funnelConv" style="font-weight: 700; color: var(--green-text);">0</div>
           </div>
         </div>
@@ -1109,16 +1109,16 @@
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 6px;">
           <div style="display: flex; align-items: center; gap: 6px;">
             <span style="width: 7px; height: 7px; border-radius: 50%; background: #f43f5e; display: inline-block;"></span>
-            <strong style="color: var(--text);">BLOG FUNNEL &amp; TDS CTR</strong>
+            <strong style="color: var(--text);">АНАЛИТИКА БЛОГА И CTR SMARTLINK</strong>
           </div>
-          <span style="color: var(--dim); font-size: 10px;">Total Clicks: <strong id="blogTotalClicks" style="color: var(--green-text); font-family: monospace;">0</strong></span>
+          <span style="color: var(--dim); font-size: 10px;">Всего кликов: <strong id="blogTotalClicks" style="color: var(--green-text); font-family: monospace;">0</strong></span>
         </div>
 
         <!-- A/B Split & Triggers Granular Telemetry -->
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; margin-bottom: 6px;">
           <div style="background: var(--bg); border: 1px solid var(--border); padding: 4px 6px; border-radius: 2px;">
             <div style="color: var(--dim); font-size: 9px; display: flex; justify-content: space-between;">
-              <span>A/B SPLIT (OFFER A vs B)</span>
+              <span>A/B СПЛИТ (ОФФЕР A vs B)</span>
               <span style="color: var(--dim);">TDS Weight</span>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px; margin-top: 2px;">
@@ -1128,7 +1128,7 @@
           </div>
           <div style="background: var(--bg); border: 1px solid var(--border); padding: 4px 6px; border-radius: 2px;">
             <div style="color: var(--dim); font-size: 9px; display: flex; justify-content: space-between;">
-              <span>TRIGGER FUNNEL</span>
+              <span>ВОРОНКА ТРИГГЕРОВ</span>
               <span style="color: var(--dim);">Retention</span>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 10px; margin-top: 2px;">
@@ -1143,14 +1143,14 @@
           <table>
             <thead>
               <tr>
-                <th>Top Converting Article</th>
-                <th style="text-align: right;">Clicks</th>
-                <th style="text-align: right;">CTR Share</th>
+                <th>Статья-лидер по конверсиям</th>
+                <th style="text-align: right;">Клики</th>
+                <th style="text-align: right;">Доля CTR</th>
               </tr>
             </thead>
             <tbody id="blogAnalyticsTableBody">
               <tr>
-                <td colspan="3" style="text-align: center; color: var(--dim); padding: 8px;">Awaiting live traffic telemetry (0 clicks)</td>
+                <td colspan="3" style="text-align: center; color: var(--dim); padding: 8px;">Ожидание боевого трафика (0 кликов)</td>
               </tr>
             </tbody>
           </table>
@@ -1165,21 +1165,21 @@
   <!-- ======================================================== -->
   <footer class="panel" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; overflow-x: auto;">
     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; flex: 1; min-width: 280px;">
-      <button onclick="openModal('modalBatch')" class="btn btn-blue term-tooltip" data-tooltip="Batch Gen: Launch LLM to prepare queued social items.">+ Batch Gen</button>
-      <button onclick="openModal('modalBlogGen')" class="btn btn-blue font-bold term-tooltip" data-tooltip="Article Gen: Launch LLM to craft an investigative SEO dossier for Astro blog.">✍️ + Gen Blog Post</button>
-      <button onclick="triggerBlogBatchGen(10)" class="btn btn-green font-bold term-tooltip" data-tooltip="Content Autopilot: Batch generate 10 investigative SEO articles with AI covers & unified build.">🚀 Auto-Gen 10 Blog Posts</button>
-      <button onclick="triggerAutonomousCycle(false)" class="btn btn-purple font-bold term-tooltip" data-tooltip="Autonomous Agent: Run full cycle Discovery -> Production -> Syndication -> L1-L3 Memory">🤖 Run Site Agent</button>
-      <button onclick="triggerAction('force-dispatch', '🚀 Force Dispatch')" class="btn btn-green term-tooltip" data-tooltip="Force Dispatch: Push approved posts to external channels immediately.">Force Dispatch</button>
-      <button onclick="triggerAction('trigger-scout', '🛰️ Offer Scout')" class="btn btn-amber term-tooltip" data-tooltip="Offer Scout: Poll LosPollos / MyLead CPA networks for high-EPC funnels.">Offer Scout</button>
-      <button onclick="triggerAction('calibrate-prompts', '🧬 MAB Mutate')" class="btn btn-purple term-tooltip" data-tooltip="Multi-Armed Bandit Mutate: Recalculate Thompson sampling traffic weights.">MAB Mutate</button>
-      <button onclick="openModal('modalScaffold')" class="btn btn-blue term-tooltip" data-tooltip="Deploy pre-landing page under new target GEO.">Scaffold GEO</button>
-      <button onclick="checkAllLinks()" class="btn btn-blue font-bold term-tooltip" data-tooltip="Check Links: Audit domain availability, SSL and CPA redirect hops.">🔗 Check All Links</button>
-      <button onclick="runBotShieldTest('Mozilla/5.0 (compatible; Googlebot/2.1)', '66.249.66.1')" class="btn btn-green term-tooltip" data-tooltip="Probe Shield: Simulate bot/crawler request through Bot Shield heuristics.">🛡️ Probe Shield</button>
-      <button onclick="fetchCredits()" class="btn btn-amber term-tooltip" data-tooltip="Sync Credits: Update model token budget and API quotas.">⚡ Sync Credits</button>
+      <button onclick="openModal('modalBatch')" class="btn btn-blue term-tooltip" data-tooltip="Пакетная генерация: запустить LLM для создания пачки промо-постов в очередь">+ Пакет постов</button>
+      <button onclick="openModal('modalBlogGen')" class="btn btn-blue font-bold term-tooltip" data-tooltip="Генератор статей: запустить LLM для создания экспертного SEO-досье в блог">✍️ + Статья в блог</button>
+      <button onclick="triggerBlogBatchGen(10)" class="btn btn-green font-bold term-tooltip" data-tooltip="Автопилот контента: пакетная генерация 10 SEO-статей с WebP обложками и сборкой Astro">🚀 Автопилот 10 статей</button>
+      <button onclick="triggerAutonomousCycle(false)" class="btn btn-purple font-bold term-tooltip" data-tooltip="Автономный агент: запустить полный цикл Поиск -> Генерация -> Деплой -> Соцсети -> Память">🤖 Запуск агента сайта</button>
+      <button onclick="triggerAction('force-dispatch', '🚀 Force Dispatch')" class="btn btn-green term-tooltip" data-tooltip="Принудительная отправка: опубликовать все одобренные посты в каналы немедленно">Отправить посты</button>
+      <button onclick="triggerAction('trigger-scout', '🛰️ Offer Scout')" class="btn btn-amber term-tooltip" data-tooltip="Разведка офферов: опросить сети LosPollos и MyLead на предмет лучших выплат">Разведка офферов</button>
+      <button onclick="triggerAction('calibrate-prompts', '🧬 MAB Mutate')" class="btn btn-purple term-tooltip" data-tooltip="Мутация бандита (MAB): пересчитать веса распределения трафика Thompson Sampling">Мутация MAB</button>
+      <button onclick="openModal('modalScaffold')" class="btn btn-blue term-tooltip" data-tooltip="ГЕО Шаблонизатор: развернуть связку прелендингов под новую целевую страну">ГЕО Шаблонизатор</button>
+      <button onclick="checkAllLinks()" class="btn btn-blue font-bold term-tooltip" data-tooltip="Проверка ссылок: аудит доступности доменов, SSL и цепочек редиректов партнерки">🔗 Проверить все ссылки</button>
+      <button onclick="runBotShieldTest('Mozilla/5.0 (compatible; Googlebot/2.1)', '66.249.66.1')" class="btn btn-green term-tooltip" data-tooltip="Тест клоакинга: симуляция перехода робота через фильтры Bot Shield">🛡️ Тест клоакинга</button>
+      <button onclick="fetchCredits()" class="btn btn-amber term-tooltip" data-tooltip="Баланс нейросетей: обновить лимиты токенов и квоты провайдеров LLM">⚡ Баланс LLM</button>
     </div>
 
     <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
-      <button id="btnActionEstop" onclick="toggleEstop()" class="btn btn-red term-tooltip tooltip-left" data-tooltip="GLOBAL STOP: Immediately freeze network sockets and active workers.">🚨 EMERGENCY STOP</button>
+      <button id="btnActionEstop" onclick="toggleEstop()" class="btn btn-red term-tooltip tooltip-left" data-tooltip="ГЛОБАЛЬНАЯ ОСТАНОВКА: немедленно заморозить сетевые сокеты и активных воркеров">🚨 АВАРИЙНЫЙ СТОП</button>
     </div>
   </footer>
 
@@ -1187,36 +1187,36 @@
   <div id="modalBlogGen" class="modal-backdrop">
     <div class="modal-box" style="max-width: 500px;">
       <div style="display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 4px;">
-        <strong style="color: var(--blue);">✍️ Generate SEO Article for Astro Blog</strong>
+        <strong style="color: var(--blue);">✍️ Генерация расследовательской SEO-статьи для Astro-блога</strong>
         <button onclick="closeModal('modalBlogGen')" class="btn" style="padding: 1px 4px;">✕</button>
       </div>
       <div style="display: flex; flex-direction: column; gap: 8px;">
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Investigation Topic / Focus Query</label>
+          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Тема расследования / Поисковый запрос</label>
           <select id="blogTopicSelect" onchange="onBlogTopicChange(this.value)" style="width: 100%; padding: 4px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font-size: 11px;">
-            <option value="Dating Profile Verification & Scam Detection">Dating Profile Verification & Scam Detection</option>
-            <option value="How to Spot Romance Scams and Deepfake Photos in 2026">How to Spot Romance Scams and Deepfake Photos in 2026</option>
-            <option value="High-Converting Dating Profile Optimization & Photo Bio Rules">High-Converting Dating Profile Optimization & Photo Bio Rules</option>
-            <option value="Safe First Date Playbook: From Online Chat to Real-World Meetup">Safe First Date Playbook: From Online Chat to Real-World Meetup</option>
-            <option value="Psychological Icebreakers & Opening Messages That Get High Responses">Psychological Icebreakers & Opening Messages That Get High Responses</option>
-            <option value="custom">✏️ Custom investigation query...</option>
+            <option value="Dating Profile Verification & Scam Detection">Верификация анкет знакомств и выявление мошенников</option>
+            <option value="How to Spot Romance Scams and Deepfake Photos in 2026">Как распознать скам в дейтинге и дипфейк-фото в 2026</option>
+            <option value="High-Converting Dating Profile Optimization & Photo Bio Rules">Оптимизация профиля знакомств и правила привлекательного био</option>
+            <option value="Safe First Date Playbook: From Online Chat to Real-World Meetup">Правила безопасного первого свидания: от чата до встречи</option>
+            <option value="Psychological Icebreakers & Opening Messages That Get High Responses">Психологические айсбрейкеры и фразы с 85%+ откликом</option>
+            <option value="custom">✏️ Собственная тема расследования...</option>
           </select>
         </div>
         <div id="blogCustomTopicWrap" style="display: none;">
-          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Custom Dossier Topic</label>
+          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Пользовательская тема досье</label>
           <input id="blogCustomTopic" placeholder="e.g. Catfish Detection Protocols for Dating Apps" style="width: 100%; padding: 4px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font-size: 11px;">
         </div>
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Focus SEO Keyword</label>
+          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Фокусное ключевое слово (SEO Keyword)</label>
           <input id="blogKeyword" value="dating profile verification" style="width: 100%; padding: 4px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font-size: 11px;">
         </div>
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Target Audience / Search Intent</label>
+          <label style="color: var(--dim); display: block; font-size: 10px; margin-bottom: 2px;">Целевая аудитория и поисковый интент</label>
           <input id="blogAudience" value="Singles seeking authentic connections while avoiding scammers" style="width: 100%; padding: 4px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font-size: 11px;">
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 4px; margin-top: 6px;">
-          <button onclick="closeModal('modalBlogGen')" class="btn">Cancel</button>
-          <button onclick="submitBlogGen()" id="btnSubmitBlogGen" class="btn btn-blue font-bold">Generate Article</button>
+          <button onclick="closeModal('modalBlogGen')" class="btn">Отмена</button>
+          <button onclick="submitBlogGen()" id="btnSubmitBlogGen" class="btn btn-blue font-bold">Сгенерировать статью</button>
         </div>
       </div>
     </div>
@@ -1226,16 +1226,16 @@
   <div id="modalBatch" class="modal-backdrop">
     <div class="modal-box">
       <div style="display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 4px;">
-        <strong style="color: var(--blue);">+ Generate Content Batch</strong>
+        <strong style="color: var(--blue);">+ Генерация пакета контента для соцсетей</strong>
         <button onclick="closeModal('modalBatch')" class="btn" style="padding: 1px 4px;">✕</button>
       </div>
       <div style="display: flex; flex-direction: column; gap: 6px;">
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px;">Campaign</label>
+          <label style="color: var(--dim); display: block; font-size: 10px;">Кампания</label>
           <input id="batchCamp" value="cmp_trading_au" style="width: 100%;">
         </div>
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px;">Target Platform</label>
+          <label style="color: var(--dim); display: block; font-size: 10px;">Целевая площадка</label>
           <select id="batchPlatform" style="width: 100%;">
             <option value="reddit">Reddit (r/AusFinance)</option>
             <option value="quora">Quora Digest</option>
@@ -1243,11 +1243,11 @@
           </select>
         </div>
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px;">Post Quantity (1-10)</label>
+          <label style="color: var(--dim); display: block; font-size: 10px;">Количество постов (1-10)</label>
           <input id="batchCount" type="number" min="1" max="10" value="3" style="width: 100%;">
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 4px; margin-top: 6px;">
-          <button onclick="closeModal('modalBatch')" class="btn">Cancel</button>
+          <button onclick="closeModal('modalBatch')" class="btn">Отмена</button>
           <button onclick="submitBatch()" class="btn btn-blue font-bold">Generate</button>
         </div>
       </div>
@@ -1258,16 +1258,16 @@
   <div id="modalScaffold" class="modal-backdrop">
     <div class="modal-box">
       <div style="display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 4px;">
-        <strong style="color: var(--blue);">🎯 Multi-GEO Scaffolding</strong>
+        <strong style="color: var(--blue);">🎯 Масштабирование связок под новые ГЕО</strong>
         <button onclick="closeModal('modalScaffold')" class="btn" style="padding: 1px 4px;">✕</button>
       </div>
       <div style="display: flex; flex-direction: column; gap: 6px;">
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px;">Offer ID</label>
+          <label style="color: var(--dim); display: block; font-size: 10px;">ID Оффера</label>
           <input id="scaffoldOffer" value="crypto_alpha_v1" style="width: 100%;">
         </div>
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px;">Vertical</label>
+          <label style="color: var(--dim); display: block; font-size: 10px;">Вертикаль</label>
           <select id="scaffoldVertical" style="width: 100%;">
             <option value="finance">Finance / Trading</option>
             <option value="dating">Dating Smartlink</option>
@@ -1275,12 +1275,12 @@
           </select>
         </div>
         <div>
-          <label style="color: var(--dim); display: block; font-size: 10px;">Target GEOs (comma-separated)</label>
+          <label style="color: var(--dim); display: block; font-size: 10px;">Целевые страны (через запятую)</label>
           <input id="scaffoldGeos" value="US, DE, AU" style="width: 100%;">
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 4px; margin-top: 6px;">
-          <button onclick="closeModal('modalScaffold')" class="btn">Cancel</button>
-          <button onclick="submitScaffold()" class="btn btn-green">Deploy Funnel Links</button>
+          <button onclick="closeModal('modalScaffold')" class="btn">Отмена</button>
+          <button onclick="submitScaffold()" class="btn btn-green">Развернуть ссылки воронки</button>
         </div>
       </div>
     </div>
@@ -1292,7 +1292,7 @@
       <!-- Modal Header -->
       <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 6px;">
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px;">
-          <strong style="color: var(--blue); font-size: 12px;">[PREVIEW &amp; DRAFT EDITOR: <span id="inspectId" style="font-family: monospace;">--</span>]</strong>
+          <strong style="color: var(--blue); font-size: 12px;">[ПРЕДПРОСМОТР И РЕДАКТОР ЧЕРНОВИКА: <span id="inspectId" style="font-family: monospace;">--</span>]</strong>
           <span id="inspectPlatformBadge" class="badge badge-dim">PLATFORM</span>
           <span id="inspectStatusBadge" class="badge badge-ok">STATUS</span>
           <span id="inspectRiskBadge" class="badge badge-dim">RISK: 0%</span>
@@ -1307,9 +1307,9 @@
         <!-- 1. Original Reddit Thread Context -->
         <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border); border-radius: 3px; padding: 6px 8px;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-            <span style="color: var(--dim); font-size: 10px; font-weight: 600;">1. ORIGINAL THREAD CONTEXT</span>
+            <span style="color: var(--dim); font-size: 10px; font-weight: 600;">1. ИСХОДНЫЙ КОНТЕКСТ ВЕТКИ</span>
             <a id="inspectTargetLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; font-size: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 3px;">
-              <span>Open thread on Reddit</span>
+              <span>Открыть ветку на Reddit</span>
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
             </a>
           </div>
@@ -1323,7 +1323,7 @@
         <!-- 2. Editable Response Textarea -->
         <div>
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
-            <span style="color: var(--dim); font-size: 10px; font-weight: 600;">2. EDITABLE RESPONSE DRAFT</span>
+            <span style="color: var(--dim); font-size: 10px; font-weight: 600;">2. ТЕКСТ ОТВЕТА / ПОСТА (РЕДАКТИРУЕМЫЙ)</span>
             <span id="inspectDraftStats" style="color: #94a3b8; font-size: 10px; font-family: monospace;">0 chars | 0 words | ~0 tokens</span>
           </div>
           <textarea id="inspectBodyEdit" oninput="updateInspectStats()" style="width: 100%; height: 160px; min-height: 120px; max-height: 320px; background: #080c10; border: 1px solid var(--border); border-radius: 3px; color: var(--text); font-family: inherit; font-size: 11px; line-height: 1.4; padding: 6px; resize: vertical;" placeholder="Worker response draft text..."></textarea>
@@ -1331,7 +1331,7 @@
 
         <!-- 3. Stealth CTA & Outbound Link -->
         <div style="background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border); border-radius: 3px; padding: 6px 8px;">
-          <span style="color: var(--dim); font-size: 10px; display: block; margin-bottom: 3px; font-weight: 600;">3. STEALTH CTA &amp; TRACKING ROUTE</span>
+          <span style="color: var(--dim); font-size: 10px; display: block; margin-bottom: 3px; font-weight: 600;">3. НАТИВНЫЙ ПРИЗЫВ (CTA) И СМАРТЛИНК</span>
           <div id="inspectCta" style="color: var(--green-text); font-weight: 600; padding: 3px 6px; background: var(--green-bg); border: 1px solid var(--green); border-radius: 2px; margin-bottom: 4px; font-size: 10px;"></div>
           <div style="display: flex; justify-content: space-between; align-items: center; gap: 6px;">
             <div id="inspectTracking" style="color: var(--blue); font-size: 10px; word-break: break-all; background: var(--bg); padding: 3px 6px; border: 1px solid var(--border); border-radius: 2px; flex: 1; font-family: monospace;"></div>
@@ -1342,7 +1342,7 @@
         <!-- 4. Risk & Compliance Reasoning -->
         <div style="background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border); border-radius: 3px; padding: 6px 8px;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
-            <span style="color: var(--dim); font-size: 10px; font-weight: 600;">4. RISK SCORE &amp; COMPLIANCE AUDIT</span>
+            <span style="color: var(--dim); font-size: 10px; font-weight: 600;">4. ОЦЕНКА РИСКА И ПРОВЕРКА СООТВЕТСТВИЯ</span>
             <span id="inspectRiskScoreLabel" style="font-size: 10px; font-weight: 700; color: var(--green-text);">Score: 0 / 100 (Safe)</span>
           </div>
           <div id="inspectCompliance" style="font-size: 10px; color: var(--dim); padding: 4px 6px; background: var(--bg); border: 1px solid var(--border); border-radius: 2px; line-height: 1.35;">--</div>
@@ -1352,12 +1352,12 @@
 
       <!-- Footer Action Buttons -->
       <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 6px; margin-top: 2px; gap: 6px;">
-        <span style="color: var(--dim); font-size: 10px;">Shortcuts: [A] - Approve, [R] - Reject, [Esc] - Close</span>
+        <span style="color: var(--dim); font-size: 10px;">Горячие клавиши: [A] - Одобрить, [R] - Отклонить, [Esc] - Закрыть</span>
         <div style="display: flex; gap: 5px;">
-          <button onclick="saveDraftAction('APPROVED')" id="btnInspectSaveApprove" class="btn btn-green font-bold term-tooltip tooltip-bottom" data-tooltip="Save modifications and approve for publishing">💾 Save & Approve (A)</button>
-          <button onclick="saveDraftAction('PENDING')" id="btnInspectSaveDraft" class="btn btn-blue term-tooltip tooltip-bottom" data-tooltip="Save draft changes without publishing">📝 Save as Draft</button>
-          <button onclick="inspectAction('REJECTED')" id="btnInspectReject" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Reject draft item (R)">✕ Reject (R)</button>
-          <button onclick="closeModal('modalInspect')" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Close draft inspector (Esc)">Close</button>
+          <button onclick="saveDraftAction('APPROVED')" id="btnInspectSaveApprove" class="btn btn-green font-bold term-tooltip tooltip-bottom" data-tooltip="Сохранить изменения текста и одобрить для публикации">💾 Сохранить и одобрить (A)</button>
+          <button onclick="saveDraftAction('PENDING')" id="btnInspectSaveDraft" class="btn btn-blue term-tooltip tooltip-bottom" data-tooltip="Сохранить изменения текста как черновик">📝 Сохранить черновик</button>
+          <button onclick="inspectAction('REJECTED')" id="btnInspectReject" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Отклонить публикацию данного черновика (R)">✕ Отклонить (R)</button>
+          <button onclick="closeModal('modalInspect')" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Закрыть окно редактора (Esc)">Закрыть</button>
         </div>
       </div>
     </div>
@@ -1620,7 +1620,7 @@
             if (item.target_url) {
               linkEl.href = item.target_url;
               linkEl.style.display = 'inline-flex';
-              linkEl.innerHTML = `<span>${isBlog ? 'Open article page on live site' : 'Open thread on Reddit'}</span>`;
+              linkEl.innerHTML = `<span>${isBlog ? 'Открыть страницу статьи на сайте' : 'Open thread on Reddit'}</span>`;
             } else {
               linkEl.href = '#';
               linkEl.style.display = 'none';
@@ -2819,7 +2819,7 @@
       const isRunning = badge && badge.innerText.includes('ACTIVE');
 
       if (isRunning) {
-        appendLog('[AUTONOMOUS AGENT] ⏹ Stopping background daemon...', 'CRON');
+        appendLog('[AUTONOMOUS AGENT] ⏹ Стопping background daemon...', 'CRON');
         try {
           const res = await fetch('/api/actions/autonomous-agent/daemon-stop', { method: 'POST' });
           const data = await res.json();
@@ -2947,15 +2947,15 @@
     <div style="display: flex; align-items: center; gap: 8px;">
       <span style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: #10b981; color: #000; font-weight: 800; font-size: 11px;">✓</span>
       <span style="color: #f1f5f9; font-size: 12px; font-weight: 600;">
-        Selected: <strong id="batchSelectedCount" style="color: #34d399; font-size: 13px; font-family: monospace;">0</strong> items
+        Выбрано: <strong id="batchSelectedCount" style="color: #34d399; font-size: 13px; font-family: monospace;">0</strong> записей
       </span>
     </div>
     <div style="height: 20px; width: 1px; background: rgba(255, 255, 255, 0.15);"></div>
     <div style="display: flex; align-items: center; gap: 8px;">
-      <button onclick="triggerBatchAction('approve')" id="btnBatchApprove" class="btn btn-green term-tooltip tooltip-bottom" data-tooltip="Batch move selected items to APPROVED status" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">✓ Approve</button>
-      <button onclick="triggerBatchAction('reject')" id="btnBatchReject" class="btn btn-amber term-tooltip tooltip-bottom" data-tooltip="Batch move selected items to REJECTED status" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">✕ Reject (Reject)</button>
-      <button onclick="triggerBatchAction('delete')" id="btnBatchDelete" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Permanently delete selected records from SQLite database" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">🗑 Delete Selected</button>
-      <button onclick="clearSelection()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Deselect all rows" style="padding: 4px 10px; font-size: 11px;">Clear Selection</button>
+      <button onclick="triggerBatchAction('approve')" id="btnBatchApprove" class="btn btn-green term-tooltip tooltip-bottom" data-tooltip="Пакетно перевести выбранные записи в статус ОДОБРЕНО" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">✓ Одобрить все</button>
+      <button onclick="triggerBatchAction('reject')" id="btnBatchReject" class="btn btn-amber term-tooltip tooltip-bottom" data-tooltip="Пакетно перевести выбранные записи в статус ОТКЛОНЕНО" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">✕ Отклонить все</button>
+      <button onclick="triggerBatchAction('delete')" id="btnBatchDelete" class="btn btn-red term-tooltip tooltip-bottom" data-tooltip="Безвозвратно удалить выбранные записи из базы данных SQLite" style="padding: 4px 10px; font-size: 11px; font-weight: 700;">🗑 Удалить выбранные</button>
+      <button onclick="clearSelection()" class="btn term-tooltip tooltip-bottom tooltip-left" data-tooltip="Снять выделение со всех строк" style="padding: 4px 10px; font-size: 11px;">Снять выделение</button>
     </div>
   </div>
 </body>
