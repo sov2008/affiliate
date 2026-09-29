@@ -25,68 +25,53 @@ const OUTPUT_DIR = path.resolve(process.cwd(), 'blog/public/images/posts');
 // ---------------------------------------------------------------------------
 
 export const MASTER_STYLE_ANCHOR =
-  'Editorial documentary photograph, 35mm film grain, analog surveillance aesthetic, forensic evidence shot, desk of a cyber intelligence investigator in Cheltenham UK, natural moody lighting, shallow depth of field, tactile paper and hardware textures, desaturated color grade with cold shadows, no anime, no cartoons, no CGI rendering, photorealistic 8k, aspect ratio 16:9';
+  'High-end editorial lifestyle photography, 35mm film aesthetic, authentic natural lighting, shallow depth of field, elegant cinematic composition, contemporary Vogue and Kinfolk magazine aesthetic, rich color grading, photorealistic 8k, aspect ratio 16:9';
 
 export const NEGATIVE_CONSTRAINTS =
-  'avoid: anime, manga, cartoon, illustration, drawing, painting, 3d render, cgi, smooth plastic skin, attractive smiling model, romantic couple, watermark, text typography overlay, neon glow cyberpunk, oversaturated colors, low quality';
-
-// ---------------------------------------------------------------------------
-// 2. Category Subject Matrix (5 Forensic Themes)
-// ---------------------------------------------------------------------------
-
-export const CATEGORY_SCENES: Record<string, string> = {
-  'safety-dossier':
-    'Printed blockchain ledger transactions on cluttered wooden desk, highlighted wallet addresses with yellow highlighter, redacted fake passport photocopies censored with black tape, stainless steel forensic tweezers, dim warm light from retro gooseneck desk lamp',
-  'algo-mechanics':
-    'Macro close-up shot of disassembled test smartphone on RF shielded testing workbench, open terminal debugger with scrolling code on matte ThinkPad laptop screen, vintage digital oscilloscope displaying telemetry waveforms, physical spiral notebook with handwritten probabilistic distribution curves',
-  'digital-dialogue':
-    'Vintage reel-to-reel magnetic tape deck and cassette recorder connected to a real-time audio spectrum analyzer, printed vocal spectrogram readout with red pen annotations marking synthetic speech anomalies, classic studio monitor headphones resting on dark oak desk',
-  'modern-psychology':
-    'Lone smartphone face-up on dark walnut nightstand in a quiet hotel room, soft diffused overcast window light on a rainy English afternoon, phone screen illuminating with a match alert, steaming ceramic mug of black tea, textured leather notebook with hand-drawn behavioral funnel diagrams',
-  'first-dates':
-    'Archival 35mm film contact sheet spread out on light table showing surveillance frames of London underground stations and quiet street cafes, selected negative frames marked with red grease pencil circles, Manila archive dossier envelope labeled Field Observation Notes',
-  'romantic-essays':
-    'Archival 35mm film contact sheet spread out on light table showing surveillance frames of London underground stations and quiet street cafes, selected negative frames marked with red grease pencil circles, Manila archive dossier envelope labeled Field Observation Notes',
-};
-
-// ---------------------------------------------------------------------------
-// 3. Keyword Physical Object Modifiers
-// ---------------------------------------------------------------------------
-
-export function resolveKeywordModifier(slug: string, title: string): string {
-  const combined = `${slug} ${title}`.toLowerCase();
-
-  if (/crypto|pig butchering|whatsapp|steal|millions|scam/.test(combined)) {
-    return 'Physical cold storage hardware wallet, printed cryptographic hash transaction logs, and international wire transfer slips on the desk.';
-  }
-  if (/deepfake|photo|reverse search|catfish|instagram|lens|stolen|image/.test(combined)) {
-    return 'Forensic optical loupe and illuminated stereo microscope inspecting fine diffusion artifacts and edge inconsistencies on a glossy printed portrait photograph.';
-  }
-  if (/bot|algorithm|elo|tinder|hinge|bumble|slot machine|spambot|radar/.test(combined)) {
-    return 'Hardware automated test rig with multi-device USB interface array, server metric log printouts, and calibrated signal measurement instruments.';
-  }
-  if (/voice|audio|phishing|call|phone|notes/.test(combined)) {
-    return 'Precision audio measurement microphone, sound level meter, and waveform analyzer display highlighting acoustic frequency tampering.';
-  }
-  if (/narcissist|red flag|burnout|ghost|compatibility|decline|matchesbutnoda/.test(combined)) {
-    return 'Annotated psychological research papers, underlined behavioral trait tables, and printed timeline charts mapping interaction frequency decay.';
-  }
-
-  return 'Forensic evidence tags, archival document sleeves, and calibrated photographic reference scale.';
-}
+  'avoid: vintage reel to reel tape recorder, audio cassettes, tape deck, yellow paper tax documents, handwritten paper clutter, messy office clutter, anime, cartoon, illustration, 3d render, cgi, plastic smooth skin, watermark, text typography overlay, distorted hands, oversaturated garish colors, low quality';
 
 export function buildForensicPrompt(slug: string, category: string, title: string): string {
-  const scene = CATEGORY_SCENES[category] || CATEGORY_SCENES['safety-dossier'];
-  const modifier = resolveKeywordModifier(slug, title);
-  const cleanTitle = title.replace(/flirt(ing)?/gi, 'dialogue chemistry');
+  const combined = `${slug} ${title}`.toLowerCase();
 
-  return [
-    MASTER_STYLE_ANCHOR,
-    `Specific investigation scene: ${scene}`,
-    `Focal objects: ${modifier}`,
-    `Subject context: investigation of ${cleanTitle}`,
-    NEGATIVE_CONSTRAINTS,
-  ].join('. ');
+  let specificScene = '';
+
+  if (/flirt|polite|chemistry|micro-flirting|rizz|interest|signal|attraction|secretly/.test(combined)) {
+    specificScene = 'A charming young woman in a chic, softly lit modern evening cafe or cocktail bar, smiling subtly while looking down at a text message on her smartphone, warm amber and violet bokeh in the background, elegant candid portrait';
+  } else if (/first date|icebreaker|opener|banter|message examples|conversation|revive|reply|script|decline/.test(combined)) {
+    specificScene = 'Two stylish young people having an engaging conversation across a sunlit cafe table in a trendy European city bistro, laughing authentically over cups of coffee, genuine romantic chemistry, cinematic daylight';
+  } else if (/screenshot|analyzer|chat|texting|whatsapp|dm|messages|chatgpt|loyalty/.test(combined)) {
+    specificScene = 'Close-up of hands holding a sleek modern smartphone with glowing screen showing messaging previews, resting on a white marble coffee table next to a minimalist ceramic latte cup, morning sunlight with soft organic shadows';
+  } else if (/algorithm|most compatible|elo|hinge|tinder|bumble|mechanics|shadowban|active|reset|telemetry/.test(combined)) {
+    specificScene = 'Modern tech lifestyle: hands interacting with a contemporary smartphone interface displaying dating profile cards, situated in a stylish architectural loft with warm ambient city daylight, sleek minimalist aesthetic';
+  } else if (/scam|catfish|fake|deepfake|pig butchering|photo|reverse search|blackmail|sextortion|osint|verification/.test(combined)) {
+    specificScene = 'Cinematic investigative journalism: a modern ultra-thin laptop open in a stylish dimly-lit urban apartment at dusk, screen displaying digital facial comparison and profile verification nodes, warm modern desk lamp, moody blue and amber tones';
+  } else if (/burnout|disappear|ghost|matchesbutnoda|why you get matches|red flags|narcissist|infidelity|loyalty/.test(combined)) {
+    specificScene = 'An introspective, cinematic portrait of a thoughtful young person in a warm modern interior looking out of a large rain-streaked window, smartphone resting on a wooden table, soft atmospheric mood, cinematic depth';
+  } else if (/voice|audio|tone/.test(combined)) {
+    specificScene = 'A stylish young person wearing sleek wireless earbuds walking through a vibrant autumn city park at golden hour, holding a smartphone and listening with a subtle intrigued smile, warm sunlight bokeh';
+  } else {
+    switch (category) {
+      case 'first-dates':
+      case 'romantic-essays':
+        specificScene = 'An authentic, cinematic moment of a modern couple sharing a coffee on an outdoor terrace in a sun-drenched city, warm golden hour tones';
+        break;
+      case 'digital-dialogue':
+        specificScene = 'A modern smartphone resting on a designer cafe table in natural morning light, showing text message previews, beside a cup of coffee and notebook';
+        break;
+      case 'algo-mechanics':
+        specificScene = 'Hands holding a modern smartphone navigating dating app matches in a minimalist coffee shop, soft urban bokeh';
+        break;
+      case 'modern-psychology':
+        specificScene = 'A candid, atmospheric portrait of a young person thoughtfully checking their phone in a cozy modern apartment lounge';
+        break;
+      case 'safety-dossier':
+      default:
+        specificScene = 'A modern minimalist desk with a sleek laptop displaying digital verification interface, warm focused desk lamp, contemporary editorial style';
+        break;
+    }
+  }
+
+  return `${MASTER_STYLE_ANCHOR}, ${specificScene}, natural depth of field, photorealistic, no text, no watermark, aspect ratio 16:9. ${NEGATIVE_CONSTRAINTS}`;
 }
 
 // ---------------------------------------------------------------------------
