@@ -172,9 +172,27 @@ export class PipelineOrchestrator {
     const filePath = path.join(bundleDir, 'bundle.json');
     const tempPath = path.join(bundleDir, `bundle.json.tmp.${Date.now()}_${Math.random().toString(36).slice(2, 6)}`);
 
+    const tracePath = path.join(bundleDir, 'trace.json');
+    const tempTracePath = path.join(bundleDir, `trace.json.tmp.${Date.now()}_${Math.random().toString(36).slice(2, 6)}`);
+
     try {
       fs.writeFileSync(tempPath, JSON.stringify(artifact, null, 2), 'utf8');
       fs.renameSync(tempPath, filePath);
+
+      const tracePayload = {
+        bundleId: artifact.id,
+        createdAt: new Date(artifact.createdAt).toISOString(),
+        status: artifact.status,
+        tracePath: artifact.tracePath,
+        compliancePassed: artifact.compliance?.passed ?? false,
+        complianceScore: artifact.compliance?.score ?? 0,
+        prelanderSlug: artifact.creative?.prelanderSlug,
+        platform: artifact.context.platform,
+        topic: artifact.context.topicTitle,
+      };
+      fs.writeFileSync(tempTracePath, JSON.stringify(tracePayload, null, 2), 'utf8');
+      fs.renameSync(tempTracePath, tracePath);
+
       console.log(`  💾 Evidence Bundle persisted (Atomic) -> \x1b[2m${filePath}\x1b[0m`);
     } catch (err: unknown) {
       const errorMsg = err instanceof Error ? err.message : String(err);
@@ -182,6 +200,7 @@ export class PipelineOrchestrator {
       // Clean up temp file if rename failed
       try {
         if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
+        if (fs.existsSync(tempTracePath)) fs.unlinkSync(tempTracePath);
       } catch {}
     }
   }

@@ -497,6 +497,57 @@
     <!-- LEFT COLUMN: CAMPAIGNS, SCOUTS, BOT SHIELD, WORKERS -->
     <div style="display: flex; flex-direction: column; gap: 8px;">
 
+      <!-- ======================================================== -->
+      <!-- AUTONOMOUS AGENT ORCHESTRATOR PANEL                       -->
+      <!-- ======================================================== -->
+      <section class="panel" id="autonomousAgentPanel" style="border: 1px solid #2563eb; background: #0f172a;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 6px; gap: 6px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 13px;">🤖</span>
+            <strong style="color: #60a5fa; font-size: 11px;">SITE AUTONOMOUS AGENT // ORCHESTRATOR</strong>
+            <span id="agentStatusBadge" class="badge badge-dim">STATUS: STANDBY</span>
+            <span id="agentEstopBadge" class="badge badge-ok">E-STOP: CLEAR</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 4px;">
+            <button onclick="triggerAutonomousCycle(true)" id="btnAgentDryRun" class="btn" style="padding: 2px 7px; font-size: 10px;" title="Безопасная симуляция без публикаций">🧪 DRY-RUN</button>
+            <button onclick="triggerAutonomousCycle(false)" id="btnAgentRunLive" class="btn btn-blue font-bold" style="padding: 2px 8px; font-size: 10px;" title="Запустить 1 полный автономный цикл">▶ RUN CYCLE</button>
+            <button onclick="toggleAgentDaemon()" id="btnAgentDaemon" class="btn btn-green font-bold" style="padding: 2px 7px; font-size: 10px;" title="Включить / отключить фоновый режим">⚡ DAEMON</button>
+            <button onclick="fetchAutonomousAgentStatus()" class="btn" style="padding: 2px 5px; font-size: 10px;" title="Обновить статус">↻</button>
+          </div>
+        </div>
+
+        <!-- Metric Grid -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 6px;">
+          <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 8px; border-radius: 2px;">
+            <div style="color: var(--dim); font-size: 9px; text-transform: uppercase;">Latest Discovered Topic</div>
+            <div id="agentLastTopic" style="color: var(--text); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="No topic yet">--</div>
+          </div>
+          <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 8px; border-radius: 2px;">
+            <div style="color: var(--dim); font-size: 9px; text-transform: uppercase;">Production &amp; IndexNow</div>
+            <div id="agentLastPublish" style="color: var(--green-text); font-weight: 700;">--</div>
+          </div>
+          <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 8px; border-radius: 2px;">
+            <div style="color: var(--dim); font-size: 9px; text-transform: uppercase;">Social Syndication</div>
+            <div id="agentSyndicationStats" style="color: var(--blue); font-weight: 700;">TG: -- | Pin: --</div>
+          </div>
+          <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 8px; border-radius: 2px;">
+            <div style="color: var(--dim); font-size: 9px; text-transform: uppercase;">Layered Memory (L1/L2/L3)</div>
+            <div id="agentMemoryStats" style="color: var(--purple); font-weight: 700;">-- / -- / --</div>
+          </div>
+        </div>
+
+        <!-- Latest Cycle Summary Box -->
+        <div id="agentCycleSummaryBox" style="background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 6px; font-size: 10px; display: flex; flex-direction: column; gap: 4px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>CYCLE: <strong id="agentLastCycleId" style="color: var(--blue);">--</strong> (<span id="agentLastCycleTime" style="color: var(--dim);">Never</span>)</div>
+            <div>DURATION: <strong id="agentLastCycleDuration" style="color: var(--amber);">-- ms</strong></div>
+          </div>
+          <div id="agentLastCycleLog" style="color: var(--dim); font-family: 'JetBrains Mono', monospace; font-size: 10px; max-height: 48px; overflow-y: auto;">
+            Agent Standby. Click "RUN CYCLE" for on-demand execution or "DAEMON" for autonomous operation.
+          </div>
+        </div>
+      </section>
+
       <!-- Active Campaigns & MAB Matrix -->
       <section class="panel">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 4px;">
@@ -789,6 +840,53 @@
         </div>
       </section>
 
+      <!-- Autonomous Site Agent // Orchestrator Control Panel -->
+      <section class="panel" id="autonomousAgentPanel" style="border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(10, 15, 25, 0.95) 100%);">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 6px; gap: 6px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 13px;">🤖</span>
+            <strong style="color: var(--blue); letter-spacing: 0.5px;">SITE AUTONOMOUS AGENT // ORCHESTRATOR</strong>
+            <span id="agentStatusBadge" class="badge badge-dim">STATUS: STANDBY</span>
+            <span id="agentEstopBadge" class="badge badge-ok">E-STOP: CLEAR</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <button id="btnAgentDryRun" onclick="triggerAutonomousCycle(true)" class="btn term-tooltip tooltip-bottom" data-tooltip="Тестовый прогон: Discovery -> LLM Draft -> Gate (без публикации в Git/Astro)" style="padding: 2px 7px; font-size: 10px;">🧪 DRY-RUN</button>
+            <button id="btnAgentRunLive" onclick="triggerAutonomousCycle(false)" class="btn btn-blue font-bold term-tooltip tooltip-bottom" data-tooltip="Боевой запуск полного цикла: генерация, сборка блога, WebP обложка, IndexNow, TG/Pinterest" style="padding: 2px 7px; font-size: 10px;">🚀 RUN CYCLE</button>
+            <button id="btnAgentDaemon" onclick="toggleAgentDaemon()" class="btn btn-green font-bold term-tooltip tooltip-bottom" data-tooltip="Управление циклическим демоном (каждые 3 часа)" style="padding: 2px 8px; font-size: 10px;">⚡ START DAEMON</button>
+            <button onclick="fetchAutonomousAgentStatus()" class="btn" style="padding: 2px 6px; font-size: 10px;">↻</button>
+          </div>
+        </div>
+
+        <!-- 4-Phase Telemetry Grid -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 6px;">
+          <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 7px; border-radius: 2px;">
+            <div style="color: var(--dim); font-size: 9px; font-weight: 600;">1. TOPIC DEFICIT</div>
+            <div id="agentLastTopic" style="font-size: 11px; font-weight: 700; color: var(--blue); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 2px;" title="No topic yet">--</div>
+          </div>
+          <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 7px; border-radius: 2px;">
+            <div style="color: var(--dim); font-size: 9px; font-weight: 600;">2. PRODUCTION &amp; SEO</div>
+            <div id="agentLastPublish" style="font-size: 11px; font-weight: 700; color: var(--green-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 2px;">--</div>
+          </div>
+          <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 7px; border-radius: 2px;">
+            <div style="color: var(--dim); font-size: 9px; font-weight: 600;">3. SOCIAL SYNDICATION</div>
+            <div id="agentSyndicationStats" style="font-size: 11px; font-weight: 700; color: var(--purple); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 2px;">TG: -- | Pin: 0</div>
+          </div>
+          <div style="background: var(--bg); border: 1px solid var(--border); padding: 5px 7px; border-radius: 2px;">
+            <div style="color: var(--dim); font-size: 9px; font-weight: 600;">4. LAYERED MEMORY (L1-L3)</div>
+            <div id="agentMemoryStats" style="font-size: 11px; font-weight: 700; color: var(--amber); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 2px;">L1:0 L2:0 L3:0</div>
+          </div>
+        </div>
+
+        <!-- Cycle Execution Footer & Action Log -->
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 9px; color: var(--dim); margin-bottom: 4px;">
+          <div>CYCLE: <strong id="agentLastCycleId" style="font-family: monospace; color: var(--text);">--</strong> | FINISHED: <span id="agentLastCycleTime">--</span> | DURATION: <span id="agentLastCycleDuration">--</span></div>
+          <div style="color: var(--dim);">AUTONOMY ENGINE: <span style="color: var(--green-text);">ACTIVE</span></div>
+        </div>
+        <div id="agentLastCycleLog" style="font-family: monospace; font-size: 10px; color: #94a3b8; padding: 5px 8px; background: #080c10; border: 1px solid var(--border); border-radius: 2px; max-height: 50px; overflow-y: auto;">
+          Ready. Press &quot;RUN CYCLE&quot; or &quot;DRY-RUN&quot; to execute autonomous pipeline.
+        </div>
+      </section>
+
     </div>
 
     <!-- RIGHT COLUMN: UNIFIED LOG TERMINAL, AI CREDITS, FUNNEL -->
@@ -944,6 +1042,7 @@
       <button onclick="openModal('modalBatch')" class="btn btn-blue term-tooltip" data-tooltip="Генерация пакета: запуск LLM для подготовки пачки постов в очередь.">+ Batch Gen</button>
       <button onclick="openModal('modalBlogGen')" class="btn btn-blue font-bold term-tooltip" data-tooltip="Генерация статьи: запуск LLM для подготовки SEO-лонгрида в Astro-блог.">✍️ + Gen Blog Post</button>
       <button onclick="triggerBlogBatchGen(10)" class="btn btn-green font-bold term-tooltip" data-tooltip="Автопилот контент-хаба: пакетная генерация 10 SEO-статей с AI-обложками и единой сборкой блога.">🚀 Auto-Gen 10 Blog Posts</button>
+      <button onclick="triggerAutonomousCycle(false)" class="btn btn-purple font-bold term-tooltip" data-tooltip="Автономный агент: запуск полного цикла Discovery -> Production -> Syndication -> L1-L3 Optimization">🤖 Run Site Agent</button>
       <button onclick="triggerAction('force-dispatch', '🚀 Force Dispatch')" class="btn btn-green term-tooltip" data-tooltip="Принудительная отправка: проталкивает одобренные посты в Reddit в обход таймера.">Force Dispatch</button>
       <button onclick="triggerAction('trigger-scout', '🛰️ Offer Scout')" class="btn btn-amber term-tooltip" data-tooltip="Скаутинг офферов: опрос сетей LosPollos / MyLead на свежие связки.">Offer Scout</button>
       <button onclick="triggerAction('calibrate-prompts', '🧬 MAB Mutate')" class="btn btn-purple term-tooltip" data-tooltip="Мутация Multi-Armed Bandit: пересчет весов распределения трафика.">MAB Mutate</button>
@@ -2432,12 +2531,148 @@
       }
     }
 
+    async function fetchAutonomousAgentStatus() {
+      try {
+        const res = await fetch('/api/actions/autonomous-agent/status');
+        const data = await res.json();
+        if (!data.success) return;
+
+        const badge = document.getElementById('agentStatusBadge');
+        const eStopBadge = document.getElementById('agentEstopBadge');
+        const daemonBtn = document.getElementById('btnAgentDaemon');
+
+        if (badge) {
+          if (data.isRunning) {
+            badge.className = 'badge badge-ok pulse-online';
+            badge.innerText = 'DAEMON: ACTIVE';
+          } else {
+            badge.className = 'badge badge-dim';
+            badge.innerText = 'STATUS: STANDBY';
+          }
+        }
+
+        if (eStopBadge) {
+          if (data.emergencyStop) {
+            eStopBadge.className = 'badge badge-red';
+            eStopBadge.innerText = 'E-STOP: HALTED';
+          } else {
+            eStopBadge.className = 'badge badge-ok';
+            eStopBadge.innerText = 'E-STOP: CLEAR';
+          }
+        }
+
+        if (daemonBtn) {
+          if (data.isRunning) {
+            daemonBtn.className = 'btn btn-red font-bold';
+            daemonBtn.innerText = '⏹ STOP DAEMON';
+          } else {
+            daemonBtn.className = 'btn btn-green font-bold';
+            daemonBtn.innerText = '⚡ START DAEMON';
+          }
+        }
+
+        if (data.lastState) {
+          const s = data.lastState;
+          const topicEl = document.getElementById('agentLastTopic');
+          const pubEl = document.getElementById('agentLastPublish');
+          const syndEl = document.getElementById('agentSyndicationStats');
+          const memEl = document.getElementById('agentMemoryStats');
+          const cycleIdEl = document.getElementById('agentLastCycleId');
+          const cycleTimeEl = document.getElementById('agentLastCycleTime');
+          const durEl = document.getElementById('agentLastCycleDuration');
+          const logEl = document.getElementById('agentLastCycleLog');
+
+          if (topicEl) {
+            topicEl.innerText = s.discoveredTopic?.title || 'None';
+            topicEl.title = s.discoveredTopic?.title || '';
+          }
+          if (pubEl) {
+            pubEl.innerText = s.contentPublishResult?.published
+              ? `✓ Published (${s.contentPublishResult.slug || '--'})`
+              : 'Pending / Simulated';
+          }
+          if (syndEl) {
+            syndEl.innerText = `TG: ${s.socialSyndication?.telegramDispatched ? 'Sent' : 'Queue'} | Pin: ${s.socialSyndication?.pinterestQueueLength || 0}`;
+          }
+          if (memEl) {
+            memEl.innerText = `L1:${s.optimization?.l1PatternsActive || 0} L2:${s.optimization?.l2ScenariosActive || 0} L3:${s.optimization?.l3PoliciesActive || 0}`;
+          }
+          if (cycleIdEl) cycleIdEl.innerText = s.cycleId?.slice(0, 8) || '--';
+          if (cycleTimeEl) cycleTimeEl.innerText = new Date(s.completedAt).toLocaleTimeString();
+          if (durEl) durEl.innerText = `${s.durationMs}ms`;
+          if (logEl) {
+            logEl.innerHTML = `<strong>Topic:</strong> ${s.discoveredTopic?.title || '--'}<br><strong>Production:</strong> ${s.contentPublishResult?.published ? 'Published to ' + s.contentPublishResult.url : 'Simulated'}<br><strong>Social:</strong> Telegram: ${s.socialSyndication?.telegramMessage || '--'}`;
+          }
+        }
+      } catch (err) {
+        console.warn('[AutonomousAgent] Status fetch error:', err);
+      }
+    }
+
+    async function triggerAutonomousCycle(dryRun = false) {
+      const btn = dryRun ? document.getElementById('btnAgentDryRun') : document.getElementById('btnAgentRunLive');
+      if (btn) btn.disabled = true;
+      appendLog(`[AUTONOMOUS AGENT] 🚀 Запуск автономного цикла (${dryRun ? 'DRY-RUN' : 'LIVE'})...`, 'CRON');
+
+      try {
+        const res = await fetch('/api/actions/autonomous-agent/run', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ dryRun, skipAstroBuild: true })
+        });
+        const data = await res.json();
+        if (data.success && data.report) {
+          appendLog(`[AUTONOMOUS AGENT] ✅ Цикл ${data.report.cycleId.slice(0, 8)} завершен за ${data.report.durationMs}ms! Топик: "${data.report.discoveredTopic?.title || '--'}"`, 'CRON');
+          await fetchAutonomousAgentStatus();
+          if (typeof fetchQueue === 'function') await fetchQueue();
+        } else {
+          appendLog(`[AUTONOMOUS AGENT] ❌ Ошибка выполнения цикла: ${data.error || 'Unknown error'}`, 'CRON');
+        }
+      } catch (err) {
+        appendLog(`[AUTONOMOUS AGENT] ❌ Исключение: ${err.message}`, 'CRON');
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    async function toggleAgentDaemon() {
+      const badge = document.getElementById('agentStatusBadge');
+      const isRunning = badge && badge.innerText.includes('ACTIVE');
+
+      if (isRunning) {
+        appendLog('[AUTONOMOUS AGENT] ⏹ Остановка фонового демона...', 'CRON');
+        try {
+          const res = await fetch('/api/actions/autonomous-agent/daemon-stop', { method: 'POST' });
+          const data = await res.json();
+          appendLog(`[AUTONOMOUS AGENT] ${data.message || 'Остановлен'}`, 'CRON');
+          await fetchAutonomousAgentStatus();
+        } catch (err) {
+          appendLog(`[AUTONOMOUS AGENT] ❌ Ошибка остановки: ${err.message}`, 'CRON');
+        }
+      } else {
+        appendLog('[AUTONOMOUS AGENT] ⚡ Запуск фонового демона (интервал: 180m)...', 'CRON');
+        try {
+          const res = await fetch('/api/actions/autonomous-agent/daemon-start', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ intervalMinutes: 180 })
+          });
+          const data = await res.json();
+          appendLog(`[AUTONOMOUS AGENT] 🚀 ${data.message || 'Запущен'}`, 'CRON');
+          await fetchAutonomousAgentStatus();
+        } catch (err) {
+          appendLog(`[AUTONOMOUS AGENT] ❌ Ошибка запуска: ${err.message}`, 'CRON');
+        }
+      }
+    }
+
     function refreshAll() {
       fetchKpi();
       fetchQueue();
       fetchCredits();
       fetchWorkerStatuses();
       fetchBlogAnalytics();
+      fetchAutonomousAgentStatus();
     }
 
     // Keyboard Shortcuts

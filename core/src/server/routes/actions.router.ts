@@ -422,3 +422,91 @@ actionsRouter.post('/batch-generate-blog', async (req: Request, res: Response) =
   }
 });
 
+/**
+ * 13. GET /api/actions/autonomous-agent/status
+ * Retrieves real-time runtime status, emergency stop state, and last cycle execution summary
+ */
+actionsRouter.get('/autonomous-agent/status', async (req: Request, res: Response) => {
+  try {
+    const { SiteAutonomousAgent } = await import('../../automation/site-autonomous.agent.js');
+    const agent = SiteAutonomousAgent.getInstance();
+    const status = agent.getStatus();
+    return res.status(200).json({
+      success: true,
+      ...status,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+/**
+ * 14. POST /api/actions/autonomous-agent/run
+ * Triggers an on-demand autonomous cycle (live or dry-run)
+ */
+actionsRouter.post('/autonomous-agent/run', async (req: Request, res: Response) => {
+  try {
+    const dryRun = req.body.dryRun === true;
+    const skipAstroBuild = req.body.skipAstroBuild !== false;
+    const { SiteAutonomousAgent } = await import('../../automation/site-autonomous.agent.js');
+    const agent = SiteAutonomousAgent.getInstance();
+
+    const report = await agent.runAutonomousCycle({
+      dryRun,
+      skipAstroBuild,
+    });
+
+    return res.status(200).json({
+      success: report.success,
+      report,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+/**
+ * 15. POST /api/actions/autonomous-agent/daemon-start
+ * Starts continuous background autonomous daemon
+ */
+actionsRouter.post('/autonomous-agent/daemon-start', async (req: Request, res: Response) => {
+  try {
+    const intervalMinutes = Math.max(30, parseInt(req.body.intervalMinutes, 10) || 180);
+    const { SiteAutonomousAgent } = await import('../../automation/site-autonomous.agent.js');
+    const agent = SiteAutonomousAgent.getInstance();
+    agent.startDaemon(intervalMinutes);
+
+    return res.status(200).json({
+      success: true,
+      message: `Autonomous Agent daemon started (Interval: ${intervalMinutes}m)`,
+      intervalMinutes,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+/**
+ * 16. POST /api/actions/autonomous-agent/daemon-stop
+ * Stops continuous background autonomous daemon
+ */
+actionsRouter.post('/autonomous-agent/daemon-stop', async (req: Request, res: Response) => {
+  try {
+    const { SiteAutonomousAgent } = await import('../../automation/site-autonomous.agent.js');
+    const agent = SiteAutonomousAgent.getInstance();
+    agent.stopDaemon();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Autonomous Agent daemon stopped',
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+

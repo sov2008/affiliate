@@ -121,6 +121,26 @@ module.exports = {
       }
     },
     {
+      name: "affiliate-autonomous-agent",
+      script: "./dist/run-autonomous-agent.js",
+      args: "--daemon",
+      cwd: coreDir,
+      instances: 1,
+      autorestart: true,
+      max_restarts: 15,
+      min_uptime: "30s",
+      max_memory_restart: "450M",
+      restart_delay: 10000,
+      exp_backoff_restart_delay: 500,
+      out_file: path.join(logsDir, "pm2-affiliate-autonomous-agent-out.log"),
+      error_file: path.join(logsDir, "pm2-affiliate-autonomous-agent-error.log"),
+      merge_logs: true,
+      time: true,
+      env: {
+        NODE_ENV: "production"
+      }
+    },
+    {
       name: "affiliate-telegram-userbot",
       script: "./dist/services/telegram-userbot.service.js",
       cwd: coreDir,

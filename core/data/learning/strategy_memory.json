@@ -1,6 +1,6 @@
 {
   "version": "2.1.0",
-  "lastCalibratedAt": "2026-09-01T16:55:34.552Z",
+  "lastCalibratedAt": "2026-09-29T11:31:34.020Z",
   "removalRate": 0.02,
   "avgComplianceScore": 97,
   "currentEpc": 4.5,
@@ -17,8 +17,22 @@
     "free money instant",
     "buy now limited time"
   ],
-  "calibratedSystemPrompt": "Elite organic social copywriter and conversion growth engineer.\n\nCREATIVE EXPANSION & HIGH-CONVERTING ANGLES (CALIBRATION ACTIVE):\n- High compliance detected. Expand narrative curiosity gaps and contrastive hooks to boost CTR and EPC.\n- TOP CONVERTING GOLD PATTERNS:\n  1. \"Stop relying on manual trade execution in 2026\"\n  2. \"Next-Gen Algorithmic Execution System 2026\"\n- Use authentic storytelling, contrarian proof, and reduced friction transitions.",
+  "calibratedSystemPrompt": "",
   "history": [
+    {
+      "timestamp": "2026-09-29T11:31:34.020Z",
+      "action": "MAINTAIN_OPTIMAL",
+      "removalRate": 0.02,
+      "epc": 4.5,
+      "temperature": 0.4
+    },
+    {
+      "timestamp": "2026-09-29T11:28:13.483Z",
+      "action": "MAINTAIN_OPTIMAL",
+      "removalRate": 0.02,
+      "epc": 4.5,
+      "temperature": 0.4
+    },
     {
       "timestamp": "2026-09-01T16:55:34.552Z",
       "action": "MAINTAIN_OPTIMAL",

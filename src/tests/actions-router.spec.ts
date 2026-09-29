@@ -157,6 +157,41 @@ async function runActionsRouterTestSuite() {
     assert(resScaffold.status === 200, 'POST /scaffold-campaign returns HTTP 200');
     assert(jsonScaffold.success === true, 'Campaign scaffolding reports success: true');
     assert(jsonScaffold.scaffold.scaffoldedCampaigns.length === 2, 'Scaffolded 2 target GEO campaigns');
+
+    // --- [TEST 7] Autonomous Agent Dashboard Controls ---
+    console.log('\n--- [TEST 7] Autonomous Agent Dashboard Controls ---');
+    // 7.1 Status
+    const resAgentStatus = await fetch(`${baseUrl}/autonomous-agent/status`);
+    const jsonAgentStatus = await resAgentStatus.json();
+    assert(resAgentStatus.status === 200, 'GET /autonomous-agent/status returns HTTP 200');
+    assert(jsonAgentStatus.success === true, 'Agent status contains success: true');
+    assert(typeof jsonAgentStatus.emergencyStop === 'boolean', 'Agent status reports emergencyStop');
+
+    // 7.2 Run Dry-Run Cycle
+    const resAgentRun = await fetch(`${baseUrl}/autonomous-agent/run`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ dryRun: true, skipAstroBuild: true }),
+    });
+    const jsonAgentRun = await resAgentRun.json();
+    assert(resAgentRun.status === 200, 'POST /autonomous-agent/run returns HTTP 200');
+    assert(jsonAgentRun.success === true, 'Agent run returns success: true');
+    assert(Boolean(jsonAgentRun.report?.cycleId), 'Agent run contains cycleId');
+
+    // 7.3 Daemon Start & Stop
+    const resDaemonStart = await fetch(`${baseUrl}/autonomous-agent/daemon-start`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ intervalMinutes: 180 }),
+    });
+    const jsonDaemonStart = await resDaemonStart.json();
+    assert(resDaemonStart.status === 200, 'POST /autonomous-agent/daemon-start returns HTTP 200');
+    assert(jsonDaemonStart.success === true, 'Daemon start reports success: true');
+
+    const resDaemonStop = await fetch(`${baseUrl}/autonomous-agent/daemon-stop`, { method: 'POST' });
+    const jsonDaemonStop = await resDaemonStop.json();
+    assert(resDaemonStop.status === 200, 'POST /autonomous-agent/daemon-stop returns HTTP 200');
+    assert(jsonDaemonStop.success === true, 'Daemon stop reports success: true');
   } finally {
     server.close();
   }

@@ -6,6 +6,7 @@ import { GoldCatalogService } from '../services/gold-catalog.service.js';
 import { NetworkMemoryService } from '../services/network-memory.service.js';
 import { CpaKnowledgeService, CpaNetwork } from '../services/cpa-knowledge.service.js';
 import { KnowledgeService } from '../services/knowledge.service.js';
+import { ContextOffloaderService } from '../services/context-offloader.service.js';
 
 interface OrganicTrafficPlaybook {
   strategies?: Record<string, any>;
@@ -156,9 +157,16 @@ You must respond ONLY with a JSON object in this exact schema:
   "generatedPrompt": "A photorealistic, highly cinematic prompt for FLUX/SDXL image generator depicting the practical lifestyle setup (NO text, NO UI overlays, 8k)"
 }${fewShotSection}${networkFewShots}${negativeExamples}${networkMemoryPrompt}`;
 
+    const offloader = ContextOffloaderService.getInstance();
+    const offloadSummary = offloader.offloadContext(context);
+    const sourceContextContent = offloadSummary.isOffloaded
+      ? offloadSummary.condensedPromptText
+      : (context.sourceText || '').slice(0, 500);
+
     const userPrompt = `Target Platform: ${platform.toUpperCase()}
 Source Context / Topic: "${context.topicTitle || 'Automated Systems 2026'}"
-Source Reference Text: "${(context.sourceText || '').slice(0, 500)}"
+Source Reference Text:
+${sourceContextContent}
 Target Audience Pain: "${context.targetAudiencePain || 'Operational efficiency'}"
 Pre-lander Slug: "${prelanderSlug}"
 Metadata: ${JSON.stringify(context.metadata || {})}`;
@@ -190,7 +198,11 @@ Metadata: ${JSON.stringify(context.metadata || {})}`;
         ? ((/risk|disclaimer|not financial advice|capital at risk|educational|research/i.test(generatedBody) || /risk|disclaimer|not financial advice|capital at risk|educational|research/i.test(generatedCta))
           ? generatedBody
           : `${generatedBody} This is an independent review and not financial advice. Capital at risk; fees and conditions vary. Do your own research and treat this as educational context.`)
-        : generatedBody;
+        : network === 'lospollos'
+          ? (/quiz|compatibility|vibe check/i.test(generatedBody)
+            ? generatedBody
+            : `${generatedBody} Honestly, taking a quick structured compatibility quiz instead of blind swiping made a huge difference.`)
+          : generatedBody;
 
     const finalCta = normalizedMode === 'SHORTS_UGC_SCRIPT'
       ? 'Happy to share the rough breakdown in the comments if it helps. This is not financial advice, and capital at risk; do your own research.'
@@ -198,7 +210,11 @@ Metadata: ${JSON.stringify(context.metadata || {})}`;
         ? ((/risk|disclaimer|not financial advice|capital at risk|educational|research/i.test(generatedCta))
           ? generatedCta
           : `${generatedCta} This is not financial advice, and any capital at risk should be assessed with independent research.`)
-        : generatedCta;
+        : network === 'lospollos'
+          ? (/quiz|questions|filter/i.test(generatedCta)
+            ? generatedCta
+            : `Happy to share the compatibility quiz questions in the comments if anyone is curious.`)
+          : generatedCta;
 
     const verifiedBody = this.knowledgeService.validateCopyAgainstGuard(finalBody, platform);
     const resolvedBody = verifiedBody.isValid ? finalBody : (verifiedBody.sanitizedCopy || finalBody);
