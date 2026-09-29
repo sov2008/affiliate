@@ -48,6 +48,11 @@ function log(msg, ...args) {
 function escapeXml(str) {
   if (!str) return '';
   return String(str)
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -481,7 +486,7 @@ class PinterestQueueManager {
             <text x="85" y="${yBase - 2}" font-family="sans-serif" font-size="13" font-weight="bold" fill="${theme.accentPrimary}" text-anchor="middle">✓</text>
             
             <text x="115" y="${yBase - 12}" font-family="'Courier New', Courier, monospace, 'SF Mono', Consolas" font-size="14" font-weight="bold" fill="${theme.accentSecondary}" letter-spacing="0.5">
-              [${escapeXml(b.prefix).toUpperCase()}]
+              [${escapeXml(b.prefix.replace(/["'&<>]/g, '').toUpperCase())}]
             </text>
 
             <text x="115" y="${yBase + 10}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="18" font-weight="500" fill="#E2E8F0">
