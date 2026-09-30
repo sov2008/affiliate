@@ -419,11 +419,11 @@ export class DistributionScheduler {
           `\x1b[41m\x1b[37m[CIRCUIT BREAKER ACTIVATED]\x1b[0m Distribution Worker paused due to ${cbTrigger}: ${postingResult.error}`
         );
 
-        // Alert Telegram
+        // Уведомление в Telegram оператору
         try {
           const { sendTelegramMessage } = await import('../skills/telegram-commander-skill.js');
           await sendTelegramMessage(
-            `🚨 <b>[CIRCUIT BREAKER ALERT]</b>\n━━━━━━━━━━━━━━━━━━\nPlatform: <code>${candidateItem.target_platform.toUpperCase()}</code>\nCampaign: <code>${candidateItem.campaign_id}</code>\nTrigger: <code>${cbTrigger}</code>\nError: ${postingResult.error || 'Challenge detected'}\nAction: <b>Distribution Worker Auto-Paused</b>\n━━━━━━━━━━━━━━━━━━`
+            `🚨 <b>[СРАБАТЫВАНИЕ ЗАЩИТЫ // CIRCUIT BREAKER]</b>\n━━━━━━━━━━━━━━━━━━\n🌐 Платформа: <code>${candidateItem.target_platform.toUpperCase()}</code>\n🎯 Кампания: <code>${candidateItem.campaign_id}</code>\n⚠️ Причина: <code>${cbTrigger}</code>\n❌ Ошибка: ${postingResult.error || 'Обнаружен защитный барьер'}\n🛡️ Действие: <b>Воркер дистрибуции автоматически приостановлен</b>\n━━━━━━━━━━━━━━━━━━`
           );
         } catch {}
       }

@@ -55,15 +55,15 @@ export async function sendConversionAlert(lead: LeadAlert): Promise<boolean> {
   const payoutStr = lead.payout.toFixed(2);
   
   const message = `
-🎉 <b>[CONVERSION ALERT]</b>
+🎉 <b>[ПОДТВЕРЖДЕНА НОВАЯ КОНВЕРСИЯ]</b>
 ━━━━━━━━━━━━━━━━━━
-💰 <b>Payout:</b> +$${payoutStr} ${currency}
-🏷️ <b>Status:</b> <code>${status.toUpperCase()}</code>
-🎯 <b>Campaign:</b> <code>${lead.campaignId}</code> (${lead.variant || 'v1'})
-🔗 <b>Sub1 (Click ID):</b> <code>${lead.sub1 || 'N/A'}</code>
-⏰ <b>Time:</b> ${new Date().toLocaleTimeString()}
+💰 <b>Начислена выплата:</b> <b>+$${payoutStr} ${currency}</b>
+🏷️ <b>Статус транзакции:</b> <code>${status.toUpperCase()}</code>
+🎯 <b>Целевая кампания:</b> <code>${lead.campaignId}</code> (${lead.variant || 'v1'})
+🔗 <b>Идентификатор клика (Click ID):</b> <code>${lead.sub1 || 'N/A'}</code>
+⏰ <b>Время фиксации:</b> ${new Date().toLocaleTimeString('ru-RU')}
 ━━━━━━━━━━━━━━━━━━
-⚡ <i>Autonomous Affiliate Engine</i>
+⚡ <i>Автономный CPA-движок Antigravity</i>
   `.trim();
 
   return sendTelegramMessage(message);
@@ -74,18 +74,18 @@ export async function processTelegramCommand(commandText: string): Promise<strin
   const cmd = parts[0].toLowerCase();
   const arg = parts[1];
 
-  console.log(`🤖 [Telegram Commander] Executing Command: ${cmd} (Arg: ${arg || 'none'})`);
+  console.log(`🤖 [Telegram Commander] Выполнение команды: ${cmd} (Параметр: ${arg || 'нет'})`);
 
   if (cmd === '/status' || cmd === 'status') {
     const memory = await recall('deployed_campaigns');
     const activeCount = Object.keys(memory || {}).length;
     return `
-🟢 <b>SYSTEM STATUS: ONLINE</b>
+🟢 <b>СТАТУС СИСТЕМЫ: ОНЛАЙН (ШТАТНЫЙ РЕЖИМ)</b>
 ━━━━━━━━━━━━━━━━━━
-📊 <b>Active Campaigns:</b> ${activeCount}
-🖥️ <b>Droplet Node:</b> <code>178.128.199.28</code>
-⚡ <b>PM2 Services:</b> <code>affiliate-dashboard</code>, <code>affiliate-autopilot</code>
-🛡️ <b>Worker Edge:</b> <code>postback-engine.sov7.workers.dev</code>
+📊 <b>Активных кампаний в памяти:</b> ${activeCount}
+🖥️ <b>Узел сервера:</b> <code>178.128.199.28</code>
+⚡ <b>Службы PM2:</b> <code>affiliate-dashboard</code>, <code>affiliate-autopilot</code>
+🛡️ <b>Шлюз постбеков:</b> <code>postback-engine.sov7.workers.dev</code>
 ━━━━━━━━━━━━━━━━━━
     `.trim();
   }
@@ -105,15 +105,15 @@ export async function processTelegramCommand(commandText: string): Promise<strin
       }
 
       return `
-📈 <b>PERFORMANCE STATS</b>
+📈 <b>ФИНАНСОВАЯ СТАТИСТИКА (EDGE ТЕЛЕМЕТРИЯ)</b>
 ━━━━━━━━━━━━━━━━━━
-💵 <b>Total Revenue:</b> $${totalRev.toFixed(2)} USD
-👆 <b>Total Clicks:</b> ${totalClicks}
-🎯 <b>Logged Campaigns in KV:</b> ${Object.keys(data.stats || {}).length}
+💵 <b>Общая подтвержденная выручка:</b> <b>$${totalRev.toFixed(2)} USD</b>
+👆 <b>Всего зафиксировано кликов:</b> ${totalClicks}
+🎯 <b>Зарегистрировано кампаний в Edge KV:</b> ${Object.keys(data.stats || {}).length}
 ━━━━━━━━━━━━━━━━━━
       `.trim();
     } catch {
-      return '⚠️ Failed to fetch live stats from Cloudflare Edge.';
+      return '⚠️ Не удалось получить живую статистику с Cloudflare Edge.';
     } finally {
       clearTimeout(timeoutId);
     }
@@ -121,18 +121,18 @@ export async function processTelegramCommand(commandText: string): Promise<strin
 
   if (cmd === '/pause' && arg) {
     await remember('paused_campaigns', arg, { pausedAt: new Date().toISOString() });
-    return `⏸️ Campaign <code>${arg}</code> has been PAUSED. Traffic will route to safe white-page.`;
+    return `⏸️ Кампания <code>${arg}</code> <b>ПРИОСТАНОВЛЕНА</b>. Трафик направлен на безопасную заглушку.`;
   }
 
   if (cmd === '/resume' && arg) {
-    return `▶️ Campaign <code>${arg}</code> has been RESUMED to active rotation.`;
+    return `▶️ Кампания <code>${arg}</code> <b>ВОЗОБНОВЛЕНА</b> в активную ротацию.`;
   }
 
   return `
-ℹ️ <b>Available Commands:</b>
-• <code>/status</code> - View system node & PM2 health
-• <code>/stats</code> - View total revenue & clicks
-• <code>/pause &lt;campaign_id&gt;</code> - Pause traffic to campaign
-• <code>/resume &lt;campaign_id&gt;</code> - Resume campaign traffic
+ℹ️ <b>Доступные команды:</b>
+• <code>/status</code> — Состояние узла сервера и PM2
+• <code>/stats</code> — Сводка выручки и кликов
+• <code>/pause &lt;campaign_id&gt;</code> — Приостановить трафик на кампанию
+• <code>/resume &lt;campaign_id&gt;</code> — Возобновить трафик на кампанию
   `.trim();
 }

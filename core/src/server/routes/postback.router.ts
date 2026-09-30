@@ -163,7 +163,7 @@ export async function handlePostback(req: Request, res: Response): Promise<void>
       resolvedChatId = sub1.replace(/^tg_/, '');
     }
 
-    if (resolvedChatId && !result.duplicate) {
+    if (resolvedChatId) {
       try {
         const lead = leadRepo.getLead(resolvedChatId);
         if (!targetOfferId) {

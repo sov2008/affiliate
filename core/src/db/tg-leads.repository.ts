@@ -71,8 +71,9 @@ export class TelegramLeadRepository {
       const sqliteModule = require('node:sqlite');
       if (sqliteModule && sqliteModule.DatabaseSync) {
         this.db = new sqliteModule.DatabaseSync(this.dbPath);
+        const busyTimeout = process.env.SQLITE_BUSY_TIMEOUT || '15000';
         this.db.exec("PRAGMA journal_mode = WAL;");
-        this.db.exec("PRAGMA busy_timeout = 5000;");
+        this.db.exec(`PRAGMA busy_timeout = ${busyTimeout};`);
         this.db.exec("PRAGMA synchronous = NORMAL;");
         this.isSqlite = true;
         this.initSchema();
