@@ -439,3 +439,4 @@ class CreditsMonitorService {
 }
 
 export { CreditsMonitorService, CreditMetrics, CreditsConfig };
+export default CreditsMonitorService;

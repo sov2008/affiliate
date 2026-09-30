@@ -70,6 +70,13 @@ export interface EmergencyStopState {
   haltedBy?: string;
 }
 
+export class EmergencyStopError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'EmergencyStopError';
+  }
+}
+
 /**
  * EmergencyStopController provides thread-safe, cross-process atomic halt checks
  * to immediately kill or prevent agent executions when anomalies, compliance violations,
@@ -115,6 +122,22 @@ export class EmergencyStopController {
   }
 
   private syncFromDisk(): void {
+    const haltFlagCandidates = [
+      path.resolve(process.cwd(), '.antigravity/halt.flag'),
+      path.resolve(process.cwd(), 'core/.antigravity/halt.flag'),
+      path.resolve(process.cwd(), 'halt.flag'),
+      path.join(path.dirname(this.lockFilePath), 'halt.flag'),
+    ];
+    const foundFlag = haltFlagCandidates.find((f) => fs.existsSync(f));
+
+    if (foundFlag) {
+      this.isHaltedInMemory = true;
+      this.haltReason = `Circuit Breaker trigger detected: ${path.basename(foundFlag)}`;
+      this.haltTimestamp = Date.now();
+      this.haltOperator = 'SRE_CIRCUIT_BREAKER';
+      return;
+    }
+
     if (fs.existsSync(this.lockFilePath)) {
       try {
         const raw = fs.readFileSync(this.lockFilePath, 'utf8');
@@ -137,13 +160,13 @@ export class EmergencyStopController {
 
   /**
    * Atomic check to be executed before every agent action or pipeline stage.
-   * Throws an Error if the system is halted.
+   * Throws an EmergencyStopError if the system is halted.
    */
   public check(): void {
     this.syncFromDisk();
     if (this.isHaltedInMemory) {
       const msg = `[EMERGENCY_STOP] Pipeline execution blocked! Reason: ${this.haltReason || 'Manual kill switch activated'}`;
-      throw new Error(msg);
+      throw new EmergencyStopError(msg);
     }
   }
 
@@ -173,6 +196,8 @@ export class EmergencyStopController {
 
     try {
       fs.writeFileSync(this.lockFilePath, JSON.stringify(payload, null, 2), 'utf8');
+      const flagPath = path.join(path.dirname(this.lockFilePath), 'halt.flag');
+      fs.writeFileSync(flagPath, `HALTED: ${reason} by ${operator} at ${new Date().toISOString()}`, 'utf8');
     } catch (err: unknown) {
       const errorMsg = err instanceof Error ? err.message : String(err);
       console.error(`[EmergencyStopController] Failed to persist lock file: ${errorMsg}`);
@@ -182,13 +207,28 @@ export class EmergencyStopController {
   }
 
   /**
-   * Resets the emergency stop and clears the lockfile.
+   * Resets the emergency stop and clears the lockfile and halt.flag.
    */
   public reset(operator: string = 'OPERATOR'): void {
     this.isHaltedInMemory = false;
     this.haltReason = undefined;
     this.haltTimestamp = undefined;
     this.haltOperator = undefined;
+
+    const haltFlagCandidates = [
+      path.resolve(process.cwd(), '.antigravity/halt.flag'),
+      path.resolve(process.cwd(), 'core/.antigravity/halt.flag'),
+      path.resolve(process.cwd(), 'halt.flag'),
+      path.join(path.dirname(this.lockFilePath), 'halt.flag'),
+    ];
+
+    for (const f of haltFlagCandidates) {
+      if (fs.existsSync(f)) {
+        try {
+          fs.unlinkSync(f);
+        } catch {}
+      }
+    }
 
     if (fs.existsSync(this.lockFilePath)) {
       try {

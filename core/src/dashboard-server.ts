@@ -31,6 +31,17 @@ app.use(commentsRouter);
 app.use('/api/actions', actionsRouter);
 app.use('/api/workers', workersRouter);
 
+// Healthcheck probe endpoint for Docker and SRE monitors
+app.get(['/api/health', '/health'], (req: Request, res: Response) => {
+  res.status(200).json({
+    status: 'ok',
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+    node_env: process.env.NODE_ENV || 'development',
+    service: 'affiliate-core-dashboard',
+  });
+});
+
 // Public Reddit Profile Avatar
 app.get('/avatar.jpg', (req: Request, res: Response) => {
   const candidatePaths = [

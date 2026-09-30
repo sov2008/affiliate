@@ -4,6 +4,7 @@ import { ContentQueueRepository, ContentQueueItem } from '../db/queueRepository.
 import { EmergencyStopController } from '../types/pipeline.js';
 import { LlmGatewayService } from '../services/llm-gateway.service.js';
 import { PostingWorker, PostingResult, PostingOptions } from './postingWorker.js';
+import { BlogPublisherWorker } from '../workers/blog-publisher-worker.js';
 import { proxyRotator, ProxyConfig } from '../skills/proxy-rotator-skill.js';
 
 export interface PlatformCooldownConfig {
@@ -383,6 +384,19 @@ export class DistributionScheduler {
           postId: `mock_${Date.now()}`,
           profileId: `profile_${candidateItem.target_platform}_${candidateItem.network}`,
           durationMs: 120,
+        };
+      } else if (candidateItem.target_platform === 'BLOG_POST') {
+        const blogWorker = BlogPublisherWorker.getInstance();
+        const blogRes = await blogWorker.publishPost(candidateItem.id);
+        postingResult = {
+          success: blogRes.success,
+          itemId: candidateItem.id,
+          platform: 'BLOG_POST',
+          publishedUrl: blogRes.publishedUrl || '',
+          postId: candidateItem.id,
+          profileId: 'blog_publisher',
+          durationMs: 250,
+          error: blogRes.error,
         };
       } else {
         postingResult = await PostingWorker.dispatchItem(candidateItem, {

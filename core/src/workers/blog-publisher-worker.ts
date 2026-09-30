@@ -106,48 +106,53 @@ export class BlogPublisherWorker {
     // 1. Ensure file is written into blog/src/content/posts/${slug}.md
     const postsDir = this.resolvePostsDir();
     const filePath = path.join(postsDir, `${slug}.md`);
+    const fileAlreadyExists = fs.existsSync(filePath) && fs.statSync(filePath).size > 1000;
 
-    // Ensure frontmatter contains valid canonicalUrl and draft: false
-    const gateResult = articleQualityGate.processAndValidate(content, {
-      title: item.hook || slug,
-      description: payload?.description || item.hook,
-      pubDate: payload?.pubDate || new Date().toISOString().split('T')[0],
-      author: 'Arthur Vance',
-      slug,
-      tags: payload?.tags || ['Safety', 'Dating Advice'],
-      seoKeywords: payload?.seoKeywords || ['dating safety'],
-    });
-
-    const finalContent = gateResult.content;
-    if (gateResult.fixesApplied.length > 0) {
-      console.log(`🛡️ [BlogPublisherWorker] Quality gate fixes: ${gateResult.fixesApplied.join(', ')}`);
-    }
-
-    fs.writeFileSync(filePath, finalContent, 'utf8');
-    console.log(`📄 [BlogPublisherWorker] Written: ${filePath} (${finalContent.length} bytes)`);
-
-    // 2. Trigger Astro static build
-    const appRoot = this.resolveAppRoot();
-    console.log(`🔨 [BlogPublisherWorker] Building static Astro blog in ${appRoot}...`);
-
-    try {
-      const buildCmd = fs.existsSync(path.join(appRoot, 'blog'))
-        ? `npm --prefix blog run build`
-        : `npm run build:blog`;
-
-      const { stdout, stderr } = await execAsync(buildCmd, {
-        cwd: appRoot,
-        timeout: 60000,
+    if (!fileAlreadyExists) {
+      // Ensure frontmatter contains valid canonicalUrl and draft: false
+      const gateResult = articleQualityGate.processAndValidate(content, {
+        title: item.hook || slug,
+        description: payload?.description || item.hook,
+        pubDate: payload?.pubDate || new Date().toISOString().split('T')[0],
+        author: 'Arthur Vance',
+        slug,
+        tags: payload?.tags || ['Safety', 'Dating Advice'],
+        seoKeywords: payload?.seoKeywords || ['dating safety'],
       });
 
-      console.log(`✅ [BlogPublisherWorker] Astro build completed successfully:\n${stdout.slice(-250)}`);
-    } catch (buildErr: any) {
-      console.error(`❌ [BlogPublisherWorker] Astro build error:`, buildErr.message);
-      return {
-        success: false,
-        filePath,
-        error: `Astro build failed: ${buildErr.message}`,
-      };
+      const finalContent = gateResult.content;
+      if (gateResult.fixesApplied.length > 0) {
+        console.log(`🛡️ [BlogPublisherWorker] Quality gate fixes: ${gateResult.fixesApplied.join(', ')}`);
+      }
+
+      fs.writeFileSync(filePath, finalContent, 'utf8');
+      console.log(`📄 [BlogPublisherWorker] Written: ${filePath} (${finalContent.length} bytes)`);
+
+      // 2. Trigger Astro static build
+      const appRoot = this.resolveAppRoot();
+      console.log(`🔨 [BlogPublisherWorker] Building static Astro blog in ${appRoot}...`);
+
+      try {
+        const buildCmd = fs.existsSync(path.join(appRoot, 'blog'))
+          ? `npm --prefix blog run build`
+          : `npm run build:blog`;
+
+        const { stdout, stderr } = await execAsync(buildCmd, {
+          cwd: appRoot,
+          timeout: 60000,
+        });
+
+        console.log(`✅ [BlogPublisherWorker] Astro build completed successfully:\n${stdout.slice(-250)}`);
+      } catch (buildErr: any) {
+        console.error(`❌ [BlogPublisherWorker] Astro build error:`, buildErr.message);
+        return {
+          success: false,
+          filePath,
+          error: `Astro build failed: ${buildErr.message}`,
+        };
+      }
+    } else {
+      console.log(`📄 [BlogPublisherWorker] Post already exists on disk: ${filePath}, skipping redundant Astro build.`);
     }
 
     // 3. Mark queue item as DISPATCHED
