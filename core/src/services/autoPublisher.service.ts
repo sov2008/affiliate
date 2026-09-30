@@ -153,8 +153,11 @@ export class AutoPublisherService {
           // Generate Article Markdown
           const article = await this.generateSingleArticle(item, { category, motto });
 
-          // Generate or fetch Cover Image
-          const coverImageRel = await this.imageService.generateArticleCover(article.slug, item.topic);
+          // Generate or fetch Cover Image (Forensic Evidence Taxonomy via NVIDIA NIM)
+          const coverImageRel = await this.imageService.generateArticleCover(article.slug, item.topic, {
+            category,
+            motto,
+          });
 
           // Complete Frontmatter with full taxonomy
           const rawMarkdown = this.assembleMarkdown(article, coverImageRel, {
