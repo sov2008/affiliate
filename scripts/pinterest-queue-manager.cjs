@@ -375,10 +375,18 @@ class PinterestQueueManager {
     log(`Sync complete. Total in queue: ${this.queue.length} (New added: ${addedCount})`);
   }
 
+  /**
+   * High-contrast, mobile-first Pinterest Pin Generator
+   * Implements 4 distinct bright/light design archetypes:
+   * 1. Chat Teardown (iMessage/Tinder dialogue with red flag stickers)
+   * 2. Checklist Infographic (Actionable bullet cards with icons)
+   * 3. Algorithm Unmasked (Behavioral & ELO telemetry analysis)
+   * 4. Photo Verification (Fake vs Real profile inspection)
+   */
   async renderPinCreative(item) {
     const width = 1000;
     const height = 1500;
-    const theme = resolveEditorialTheme(item.title, item.slug, item.category);
+    const cleanTitle = item.title.replace(/[*_#`"]/g, '').trim();
 
     const postPath = path.join(CONFIG.postsDir, `${item.slug}.md`);
     let rawPost = '';
@@ -386,180 +394,404 @@ class PinterestQueueManager {
       rawPost = fs.readFileSync(postPath, 'utf8');
     }
 
-    const bullets = extractKeyTakeaways(rawPost, item.title);
-    const caseId = item.caseId || 'FC-2026-INTEL';
+    const bullets = extractKeyTakeaways(rawPost, cleanTitle);
+    const textComb = (cleanTitle + ' ' + item.slug + ' ' + (item.category || '')).toLowerCase();
 
-    // Load cover image
-    let coverBuffer = null;
-    if (item.coverImage) {
-      const cleanPath = item.coverImage.replace(/^\/+/, '');
-      const fullCoverPath = path.resolve(__dirname, '../blog/public', cleanPath);
-      if (fs.existsSync(fullCoverPath)) {
-        try {
-          coverBuffer = await sharp(fullCoverPath)
-            .resize(920, 580, { fit: 'cover', position: 'attention' })
-            .png()
-            .toBuffer();
-        } catch (e) {}
-      }
+    // Determine Design Archetype
+    let archetype = 'checklist-infographic';
+    if (textComb.includes('text') || textComb.includes('chat') || textComb.includes('message') || textComb.includes('bio') || textComb.includes('reply') || textComb.includes('ghosting') || textComb.includes('llm') || textComb.includes('spambot')) {
+      archetype = 'chat-teardown';
+    } else if (textComb.includes('algorithm') || textComb.includes('elo') || textComb.includes('shadowban') || textComb.includes('bumble') || textComb.includes('tinder') || textComb.includes('hinge') || textComb.includes('swiping') || textComb.includes('psycholog') || textComb.includes('attachment') || textComb.includes('narcissist')) {
+      archetype = 'algorithm-unmasked';
+    } else if (textComb.includes('catfish') || textComb.includes('reverse') || textComb.includes('photo') || textComb.includes('deepfake') || textComb.includes('scam') || textComb.includes('fake') || textComb.includes('blackmail')) {
+      archetype = 'photo-verification';
     }
 
-    // High impact headline (max 3 lines, large Georgia serif)
-    const titleLines = wrapHeadline(item.title, 23);
-    const fontSize = titleLines.length >= 3 ? 42 : 46;
-    const lineHeight = titleLines.length >= 3 ? 54 : 58;
+    // Headline wrap for top area (max 3 lines, high impact)
+    const titleLines = wrapHeadline(cleanTitle, 22);
+    const headlineFontSize = titleLines.length >= 3 ? 50 : 56;
+    const headlineLineHeight = titleLines.length >= 3 ? 62 : 68;
 
-    const svg = `
-    <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <!-- Glass Panel Gradient -->
-        <linearGradient id="glassPanel" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#131924" stop-opacity="0.95" />
-          <stop offset="100%" stop-color="#0B0F17" stop-opacity="0.98" />
-        </linearGradient>
+    let svg = '';
 
-        <!-- Vignette Shadow for Cover Image -->
-        <linearGradient id="coverVignette" x1="0%" y1="65%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#0C1017" stop-opacity="0" />
-          <stop offset="100%" stop-color="#080B11" stop-opacity="1" />
-        </linearGradient>
-      </defs>
+    if (archetype === 'chat-teardown') {
+      // ARCHETYPE 1: Chat Teardown / Red Flags (Viral format on white/cream)
+      svg = `
+      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgLight" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF" />
+            <stop offset="100%" stop-color="#F8FAFC" />
+          </linearGradient>
+          <linearGradient id="redFlagBtn" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#DC2626" />
+            <stop offset="100%" stop-color="#EF4444" />
+          </linearGradient>
+          <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.08" />
+          </filter>
+        </defs>
 
-      <!-- Top Accent Line -->
-      <rect x="0" y="0" width="${width}" height="8" fill="${theme.accentPrimary}" />
+        <!-- Bright Clean Background -->
+        <rect width="${width}" height="${height}" fill="url(#bgLight)" />
+        <rect x="0" y="0" width="${width}" height="10" fill="#EF4444" />
 
-      <!-- Top Dossier Registry Bar -->
-      <rect x="40" y="30" width="920" height="46" rx="8" fill="#111622" stroke="#1E2738" stroke-width="1.5" />
-      <circle cx="65" cy="53" r="6" fill="${theme.accentPrimary}" />
-      
-      <text x="85" y="58" font-family="'Courier New', Courier, monospace, 'SF Mono', Consolas" font-size="13" font-weight="bold" fill="${theme.accentSecondary}" letter-spacing="1.5">
-        ${escapeXml(theme.headerTag)} // ${escapeXml(caseId)}
-      </text>
-
-      <text x="935" y="58" font-family="'Courier New', Courier, monospace, 'SF Mono', Consolas" font-size="13" font-weight="bold" fill="#64748B" text-anchor="end" letter-spacing="1.5">
-        CHELTENHAM DESK // UK
-      </text>
-
-      <!-- Outer Frame for Cover Image -->
-      <rect x="38" y="94" width="924" height="584" rx="14" fill="none" stroke="#1E2738" stroke-width="2" />
-
-      <!-- Corner Reticles for Technical Precision -->
-      <path d="M 32 88 L 52 88 M 32 88 L 32 108" stroke="${theme.accentPrimary}" stroke-width="2.5" fill="none" />
-      <path d="M 968 88 L 948 88 M 968 88 L 968 108" stroke="${theme.accentPrimary}" stroke-width="2.5" fill="none" />
-      <path d="M 32 684 L 52 684 M 32 684 L 32 664" stroke="${theme.accentPrimary}" stroke-width="2.5" fill="none" />
-      <path d="M 968 684 L 948 684 M 968 684 L 968 664" stroke="${theme.accentPrimary}" stroke-width="2.5" fill="none" />
-
-      <!-- Image Vignette Overlay -->
-      <rect x="40" y="510" width="920" height="170" fill="url(#coverVignette)" />
-
-      <!-- Photo Stamp Badge -->
-      <rect x="58" y="622" width="310" height="38" rx="6" fill="rgba(8, 11, 17, 0.88)" stroke="#1E2738" stroke-width="1.2" />
-      <text x="75" y="646" font-family="'Courier New', Courier, monospace" font-size="12" font-weight="bold" fill="#94A3B8" letter-spacing="1">
-        FORENSIC EVIDENCE REGISTRY
-      </text>
-
-      <!-- Main Editorial Headline (Georgia Serif, High Contrast) -->
-      ${titleLines.map((line, i) => `
-        <text x="500" y="${738 + i * lineHeight}" font-family="Georgia, 'Times New Roman', serif" font-size="${fontSize}" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="-0.3">
-          ${escapeXml(line)}
+        <!-- Top Category Badge -->
+        <rect x="60" y="55" width="460" height="46" rx="8" fill="#FEE2E2" stroke="#FCA5A5" stroke-width="1.5" />
+        <circle cx="85" cy="78" r="6" fill="#EF4444" />
+        <text x="105" y="84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#B91C1C" letter-spacing="1.5">
+          🚩 TEXTING ANALYSIS // RED FLAGS
         </text>
-      `).join('')}
 
-      <!-- Thin Divider -->
-      <line x1="80" y1="${738 + titleLines.length * lineHeight + 8}" x2="920" y2="${738 + titleLines.length * lineHeight + 8}" stroke="#1E2738" stroke-width="1.5" />
+        <!-- Brand Identifier -->
+        <text x="940" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
+          FLIRTCHECK.SITE
+        </text>
 
-      <!-- Key Takeaways & Evidence Panel -->
-      <rect x="40" y="${738 + titleLines.length * lineHeight + 22}" width="920" height="310" rx="14" fill="url(#glassPanel)" stroke="#1E2738" stroke-width="1.8" />
+        <!-- High-Impact Top Headline (Read in 0.5s) -->
+        ${titleLines.map((line, i) => `
+          <text x="60" y="${175 + i * headlineLineHeight}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="${headlineFontSize}" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
+            ${escapeXml(line)}
+          </text>
+        `).join('')}
 
-      <!-- Evidence Header Badge -->
-      <rect x="68" y="${738 + titleLines.length * lineHeight + 40}" width="260" height="28" rx="4" fill="${theme.badgeBg}" stroke="${theme.badgeBorder}" stroke-width="1" />
-      <text x="82" y="${738 + titleLines.length * lineHeight + 59}" font-family="'Courier New', Courier, monospace" font-size="11" font-weight="bold" fill="${theme.badgeText}" letter-spacing="1">
-        DECLASSIFIED CASE FINDINGS
-      </text>
+        <!-- Interactive Chat Container Card -->
+        <rect x="50" y="${175 + titleLines.length * headlineLineHeight + 20}" width="900" height="740" rx="24" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" filter="url(#cardShadow)" />
 
-      <!-- Bullets with Prefix + Body -->
-      ${bullets.map((b, idx) => {
-        const yBase = 738 + titleLines.length * lineHeight + 104 + idx * 68;
-        return `
-          <g>
-            <circle cx="85" cy="${yBase - 8}" r="15" fill="#0A0E17" stroke="${theme.accentPrimary}" stroke-width="1.8" />
-            <text x="85" y="${yBase - 2}" font-family="sans-serif" font-size="13" font-weight="bold" fill="${theme.accentPrimary}" text-anchor="middle">✓</text>
-            
-            <text x="115" y="${yBase - 12}" font-family="'Courier New', Courier, monospace, 'SF Mono', Consolas" font-size="14" font-weight="bold" fill="${theme.accentSecondary}" letter-spacing="0.5">
-              [${escapeXml(b.prefix.replace(/["'&<>]/g, '').toUpperCase())}]
-            </text>
+        <!-- Chat Header -->
+        <rect x="50" y="${175 + titleLines.length * headlineLineHeight + 20}" width="900" height="80" rx="24" fill="#F8FAFC" />
+        <circle cx="100" cy="${175 + titleLines.length * headlineLineHeight + 60}" r="22" fill="#E2E8F0" />
+        <text x="100" y="${175 + titleLines.length * headlineLineHeight + 67}" font-family="sans-serif" font-size="18" text-anchor="middle">👤</text>
+        <text x="135" y="${175 + titleLines.length * headlineLineHeight + 58}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#0F172A">
+          Dating App Match
+        </text>
+        <text x="135" y="${175 + titleLines.length * headlineLineHeight + 78}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="#10B981">
+          • Active 5m ago
+        </text>
 
-            <text x="115" y="${yBase + 10}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="18" font-weight="500" fill="#E2E8F0">
-              ${escapeXml(b.body)}
+        <!-- Message Bubble 1 (Incoming Suspect Text) -->
+        <rect x="85" y="${175 + titleLines.length * headlineLineHeight + 130}" width="680" height="110" rx="20" fill="#F1F5F9" />
+        <text x="115" y="${175 + titleLines.length * headlineLineHeight + 175}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="500" fill="#1E293B">
+          "Sorry I vanished for 4 days! My phone broke &amp; work
+        </text>
+        <text x="115" y="${175 + titleLines.length * headlineLineHeight + 210}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="500" fill="#1E293B">
+          was insane. Are you free tonight at 11pm?"
+        </text>
+
+        <!-- Red Flag Annotation Overlay Sticker -->
+        <rect x="180" y="${175 + titleLines.length * headlineLineHeight + 265}" width="660" height="54" rx="12" fill="#FEF2F2" stroke="#EF4444" stroke-width="2" />
+        <text x="205" y="${175 + titleLines.length * headlineLineHeight + 300}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="900" fill="#DC2626">
+          🚩 RED FLAG: BREADCRUMBING &amp; DISAPPEARING ACT
+        </text>
+
+        <!-- Message Bubble 2 (Outgoing High-Value Boundary) -->
+        <rect x="360" y="${175 + titleLines.length * headlineLineHeight + 345}" width="550" height="85" rx="20" fill="#2563EB" />
+        <text x="390" y="${175 + titleLines.length * headlineLineHeight + 395}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="600" fill="#FFFFFF">
+          "I prefer consistent communication. Best of luck!"
+        </text>
+
+        <!-- 3 Actionable Bullet Takeaways -->
+        <rect x="85" y="${175 + titleLines.length * headlineLineHeight + 460}" width="830" height="260" rx="16" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" />
+        <text x="115" y="${175 + titleLines.length * headlineLineHeight + 495}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="800" fill="#64748B" letter-spacing="1">
+          WHAT THE TELEMETRY SAYS:
+        </text>
+        ${bullets.slice(0, 3).map((b, idx) => `
+          <g transform="translate(115, ${175 + titleLines.length * headlineLineHeight + 535 + idx * 56})">
+            <circle cx="10" cy="-6" r="10" fill="#EF4444" />
+            <text x="10" y="-2" font-family="sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF" text-anchor="middle">!</text>
+            <text x="32" y="0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="700" fill="#0F172A">
+              ${escapeXml(b.prefix)}: <tspan font-weight="400" fill="#475569">${escapeXml(b.body)}</tspan>
             </text>
           </g>
-        `;
-      }).join('')}
+        `).join('')}
 
-      <!-- Bottom CRO Action Bar -->
-      <rect x="40" y="1334" width="920" height="122" rx="16" fill="#0F141F" stroke="#1E2738" stroke-width="2" />
+        <!-- Bottom Viral Action Button -->
+        <rect x="60" y="1320" width="880" height="84" rx="42" fill="url(#redFlagBtn)" filter="url(#cardShadow)" />
+        <text x="500" y="1373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
+          READ FULL TEXT TEARDOWN &amp; GUIDE ➔
+        </text>
 
-      <!-- FlirtCheck Badge -->
-      <circle cx="95" cy="1395" r="26" fill="#141C2B" stroke="#253247" stroke-width="1.5" />
-      <text x="95" y="1403" font-family="sans-serif" font-size="22" text-anchor="middle">🛡️</text>
+        <!-- Subtext Footer -->
+        <text x="500" y="1450" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
+          FlirtCheck.site • Free Match Risk &amp; Conversation Analyzer
+        </text>
+      </svg>`;
 
-      <text x="138" y="1385" font-family="'Courier New', Courier, monospace, 'SF Mono', Consolas" font-size="17" font-weight="bold" fill="#F8FAFC" letter-spacing="1">
-        FLIRTCHECK.SITE // FORENSIC LAB
-      </text>
-      <text x="138" y="1412" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500" fill="#94A3B8">
-        Independent Dating Safety &amp; Telemetry Audits • Cheltenham, UK
-      </text>
+    } else if (archetype === 'algorithm-unmasked') {
+      // ARCHETYPE 2: Algorithm & Psychology (Modern Lavender / Deep Indigo on Crisp White)
+      svg = `
+      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgAlgo" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#F5F3FF" />
+            <stop offset="100%" stop-color="#FFFFFF" />
+          </linearGradient>
+          <linearGradient id="indigoBtn" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#4F46E5" />
+            <stop offset="100%" stop-color="#6366F1" />
+          </linearGradient>
+          <filter id="shadowLight" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#4F46E5" flood-opacity="0.08" />
+          </filter>
+        </defs>
 
-      <!-- High-Impact Interactive CTA Button -->
-      <rect x="630" y="1360" width="310" height="70" rx="35" fill="${theme.ctaBg}" />
-      <text x="785" y="1403" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="${theme.ctaTextColor}" text-anchor="middle" letter-spacing="0.8">
-        ${escapeXml(theme.ctaText)} ➔
-      </text>
-    </svg>`;
+        <rect width="${width}" height="${height}" fill="url(#bgAlgo)" />
+        <rect x="0" y="0" width="${width}" height="10" fill="#4F46E5" />
 
-    const composites = [];
-    if (coverBuffer) {
-      composites.push({
-        input: coverBuffer,
-        top: 96,
-        left: 40
-      });
+        <!-- Category Badge -->
+        <rect x="60" y="55" width="460" height="46" rx="8" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1.5" />
+        <circle cx="85" cy="78" r="6" fill="#4F46E5" />
+        <text x="105" y="84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#4338CA" letter-spacing="1.5">
+          🔬 ALGORITHM AUDIT // REVERSE ENGINEERED
+        </text>
+
+        <text x="940" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
+          FLIRTCHECK.SITE
+        </text>
+
+        <!-- Huge Headline on Top -->
+        ${titleLines.map((line, i) => `
+          <text x="60" y="${175 + i * headlineLineHeight}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="${headlineFontSize}" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
+            ${escapeXml(line)}
+          </text>
+        `).join('')}
+
+        <!-- Central Telemetry Cards Container -->
+        <rect x="50" y="${175 + titleLines.length * headlineLineHeight + 20}" width="900" height="740" rx="24" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" filter="url(#shadowLight)" />
+
+        <!-- Telemetry Metric Pill 1 -->
+        <rect x="90" y="${175 + titleLines.length * headlineLineHeight + 60}" width="820" height="180" rx="16" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" />
+        <text x="125" y="${175 + titleLines.length * headlineLineHeight + 105}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="800" fill="#4F46E5" letter-spacing="1">
+          METRIC 01: ELO SCORE ADJUSTMENT
+        </text>
+        <text x="125" y="${175 + titleLines.length * headlineLineHeight + 145}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#0F172A">
+          Outgoing Swipe-to-Match Ratio
+        </text>
+        <text x="125" y="${175 + titleLines.length * headlineLineHeight + 185}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="500" fill="#475569">
+          Swiping right on &gt;60% of profiles triggers automatic bot demotion flags.
+        </text>
+
+        <!-- Telemetry Metric Pill 2 -->
+        <rect x="90" y="${175 + titleLines.length * headlineLineHeight + 270}" width="820" height="180" rx="16" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" />
+        <text x="125" y="${175 + titleLines.length * headlineLineHeight + 315}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="800" fill="#D97706" letter-spacing="1">
+          METRIC 02: ACTIVITY SUPPRESSION
+        </text>
+        <text x="125" y="${175 + titleLines.length * headlineLineHeight + 355}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#0F172A">
+          Engineered Swipe Fatigue &amp; Scarcity
+        </text>
+        <text x="125" y="${175 + titleLines.length * headlineLineHeight + 395}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="500" fill="#475569">
+          Top-tier matches are withheld behind paid boost paywalls after day 3.
+        </text>
+
+        <!-- Telemetry Metric Pill 3 -->
+        <rect x="90" y="${175 + titleLines.length * headlineLineHeight + 480}" width="820" height="180" rx="16" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" />
+        <text x="125" y="${175 + titleLines.length * headlineLineHeight + 525}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="800" fill="#10B981" letter-spacing="1">
+          ACTION PROTOCOL: THE FIX
+        </text>
+        <text x="125" y="${175 + titleLines.length * headlineLineHeight + 565}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#0F172A">
+          Optimal Reset &amp; Calibration Rules
+        </text>
+        <text x="125" y="${175 + titleLines.length * headlineLineHeight + 605}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="500" fill="#475569">
+          Step-by-step account pacing without triggering shadow placement.
+        </text>
+
+        <!-- CTA Button -->
+        <rect x="60" y="1320" width="880" height="84" rx="42" fill="url(#indigoBtn)" filter="url(#shadowLight)" />
+        <text x="500" y="1373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
+          UNMASK ALGORITHM MECHANICS ➔
+        </text>
+
+        <text x="500" y="1450" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
+          FlirtCheck.site • Independent Dating Algorithm Research &amp; ELO Audits
+        </text>
+      </svg>`;
+
+    } else if (archetype === 'photo-verification') {
+      // ARCHETYPE 3: Photo Verification & Catfish Warning (Warning Amber/Red on Crisp Ivory)
+      svg = `
+      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgIvory" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFFDF9" />
+            <stop offset="100%" stop-color="#F9F6F0" />
+          </linearGradient>
+          <linearGradient id="amberBtn" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#DC2626" />
+            <stop offset="100%" stop-color="#B91C1C" />
+          </linearGradient>
+          <filter id="shadowAmber" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#DC2626" flood-opacity="0.10" />
+          </filter>
+        </defs>
+
+        <rect width="${width}" height="${height}" fill="url(#bgIvory)" />
+        <rect x="0" y="0" width="${width}" height="10" fill="#DC2626" />
+
+        <!-- Category Badge -->
+        <rect x="60" y="55" width="460" height="46" rx="8" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1.5" />
+        <circle cx="85" cy="78" r="6" fill="#D97706" />
+        <text x="105" y="84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#B45309" letter-spacing="1.5">
+          ⚠️ CATFISH ALERT // 60-SEC VERIFY
+        </text>
+
+        <text x="940" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
+          FLIRTCHECK.SITE
+        </text>
+
+        <!-- Huge Headline on Top -->
+        ${titleLines.map((line, i) => `
+          <text x="60" y="${175 + i * headlineLineHeight}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="${headlineFontSize}" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
+            ${escapeXml(line)}
+          </text>
+        `).join('')}
+
+        <!-- Central Inspection Board -->
+        <rect x="50" y="${175 + titleLines.length * headlineLineHeight + 20}" width="900" height="740" rx="24" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" filter="url(#shadowAmber)" />
+
+        <!-- Split Cards: REAL VS FAKE CHECK -->
+        <rect x="85" y="${175 + titleLines.length * headlineLineHeight + 60}" width="830" height="140" rx="16" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5" />
+        <text x="120" y="${175 + titleLines.length * headlineLineHeight + 110}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="900" fill="#DC2626">
+          🚩 WARNING SIGN #1: Inconsistent Lighting &amp; Earlobes
+        </text>
+        <text x="120" y="${175 + titleLines.length * headlineLineHeight + 150}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="500" fill="#4B5563">
+          AI generator GAN artifacts blur teeth symmetry and jewelry reflections.
+        </text>
+
+        <rect x="85" y="${175 + titleLines.length * headlineLineHeight + 225}" width="830" height="140" rx="16" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5" />
+        <text x="120" y="${175 + titleLines.length * headlineLineHeight + 275}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="900" fill="#DC2626">
+          🚩 WARNING SIGN #2: Stolen Instagram Photos via Google Lens
+        </text>
+        <text x="120" y="${175 + titleLines.length * headlineLineHeight + 315}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="500" fill="#4B5563">
+          Low-resolution cropped screenshots stolen from European lifestyle models.
+        </text>
+
+        <rect x="85" y="${175 + titleLines.length * headlineLineHeight + 390}" width="830" height="140" rx="16" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5" />
+        <text x="120" y="${175 + titleLines.length * headlineLineHeight + 440}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="900" fill="#DC2626">
+          🚩 WARNING SIGN #3: Rapid Off-App Move (Within 24 Hours)
+        </text>
+        <text x="120" y="${175 + titleLines.length * headlineLineHeight + 480}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="500" fill="#4B5563">
+          Forcing you onto unmonitored WhatsApp / Telegram channels to avoid bans.
+        </text>
+
+        <rect x="85" y="${175 + titleLines.length * headlineLineHeight + 555}" width="830" height="160" rx="16" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.5" />
+        <text x="120" y="${175 + titleLines.length * headlineLineHeight + 605}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="900" fill="#15803D">
+          ✅ THE 30-SECOND DEFENSE PROTOCOL
+        </text>
+        <text x="120" y="${175 + titleLines.length * headlineLineHeight + 645}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="500" fill="#166534">
+          Request a casual 15-second in-app video note or run automated reverse lookup.
+        </text>
+
+        <!-- CTA Button -->
+        <rect x="60" y="1320" width="880" height="84" rx="42" fill="url(#amberBtn)" filter="url(#shadowAmber)" />
+        <text x="500" y="1373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
+          VERIFY ANY PROFILE IN 60 SECONDS ➔
+        </text>
+
+        <text x="500" y="1450" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
+          FlirtCheck.site • Free AI &amp; Reverse Image Dating Security Audits
+        </text>
+      </svg>`;
+
+    } else {
+      // ARCHETYPE 4: Actionable Checklist (Modern Clean Minimalist on Cream/Beige)
+      svg = `
+      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgChecklist" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FAF8F5" />
+            <stop offset="100%" stop-color="#F1ECE4" />
+          </linearGradient>
+          <linearGradient id="primaryBtn" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#0F172A" />
+            <stop offset="100%" stop-color="#1E293B" />
+          </linearGradient>
+          <filter id="shadowCard" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.08" />
+          </filter>
+        </defs>
+
+        <rect width="${width}" height="${height}" fill="url(#bgChecklist)" />
+        <rect x="0" y="0" width="${width}" height="10" fill="#0F172A" />
+
+        <!-- Category Badge -->
+        <rect x="60" y="55" width="460" height="46" rx="8" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5" />
+        <circle cx="85" cy="78" r="6" fill="#0F172A" />
+        <text x="105" y="84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#0F172A" letter-spacing="1.5">
+          📋 DATING PROTOCOL // ACTIONABLE CHECKLIST
+        </text>
+
+        <text x="940" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
+          FLIRTCHECK.SITE
+        </text>
+
+        <!-- Huge Headline on Top -->
+        ${titleLines.map((line, i) => `
+          <text x="60" y="${175 + i * headlineLineHeight}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="${headlineFontSize}" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
+            ${escapeXml(line)}
+          </text>
+        `).join('')}
+
+        <!-- Checklist Cards Container -->
+        <rect x="50" y="${175 + titleLines.length * headlineLineHeight + 20}" width="900" height="740" rx="24" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" filter="url(#shadowCard)" />
+
+        <!-- 4 Bullet Cards -->
+        ${bullets.slice(0, 4).map((b, idx) => {
+          const y = 175 + titleLines.length * headlineLineHeight + 60 + idx * 165;
+          const icons = ['❌', '🔍', '📍', '🛡️'];
+          const iconColors = ['#FEE2E2', '#EFF6FF', '#FEF3C7', '#EDE9FE'];
+          const strokeColors = ['#F87171', '#60A5FA', '#FBBF24', '#A78BFA'];
+
+          return `
+            <g transform="translate(85, ${y})">
+              <rect width="830" height="135" rx="16" fill="#FAF8F5" stroke="#E2E8F0" stroke-width="1.5" />
+              <rect x="25" y="28" width="60" height="60" rx="14" fill="${iconColors[idx % iconColors.length]}" stroke="${strokeColors[idx % strokeColors.length]}" stroke-width="1.5" />
+              <text x="55" y="66" font-family="sans-serif" font-size="26" text-anchor="middle">${icons[idx % icons.length]}</text>
+              <text x="110" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="900" fill="#0F172A">
+                RULE 0${idx + 1}: ${escapeXml(b.prefix)}
+              </text>
+              <text x="110" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="500" fill="#475569">
+                ${escapeXml(b.body)}
+              </text>
+            </g>
+          `;
+        }).join('')}
+
+        <!-- CTA Button -->
+        <rect x="60" y="1320" width="880" height="84" rx="42" fill="url(#primaryBtn)" filter="url(#shadowCard)" />
+        <text x="500" y="1373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
+          SAVE CHECKLIST &amp; READ FULL DOSSIER ➔
+        </text>
+
+        <text x="500" y="1450" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
+          FlirtCheck.site • Modern Dating Safety Playbooks &amp; Real Relationship Advice
+        </text>
+      </svg>`;
     }
-    composites.push({
-      input: Buffer.from(svg),
-      top: 0,
-      left: 0
-    });
 
-    await sharp({
-      create: {
-        width,
-        height,
-        channels: 4,
-        background: '#080B11'
-      }
-    })
-    .composite(composites)
-    .png({ quality: 95 })
-    .toFile(item.creativePath);
+    // Render Sharp PNG with maximum sharpness
+    await sharp(Buffer.from(svg))
+      .png({ quality: 95 })
+      .toFile(item.creativePath);
 
     item.status = 'ready';
     this.saveQueue();
-    log(`Rendered high-converting editorial pin: ${path.basename(item.creativePath)}`);
+    log(`🎨 Rendered VIRAL LIGHT PIN (${archetype}): ${path.basename(item.creativePath)}`);
   }
 
-  async buildAllCreatives() {
-    log('Building 1000x1500 px editorial creatives for all items in queue...');
+  async buildAllCreatives(force = false) {
+    log('Rebuilding high-contrast bright editorial creatives for items in queue...');
     let count = 0;
     for (const item of this.queue) {
-      try {
-        await this.renderPinCreative(item);
-        count++;
-      } catch (err) {
-        log(`Error rendering ${item.slug}: ${err.message}`);
+      if (force || item.status === 'ready' || item.status === 'pending') {
+        try {
+          await this.renderPinCreative(item);
+          count++;
+        } catch (err) {
+          log(`Error rendering ${item.slug}: ${err.message}`);
+        }
       }
     }
-    log(`✅ All ${count} creatives built successfully in ${CONFIG.pinsOutputDir}`);
+    log(`✅ All ${count} light-mode creatives rebuilt successfully in ${CONFIG.pinsOutputDir}`);
   }
 
   generatePinDescription(item) {
@@ -570,16 +802,26 @@ class PinterestQueueManager {
     }
     const bullets = extractKeyTakeaways(rawPost, item.title);
 
-    let desc = `🚨 [DECLASSIFIED DOSSIER] ${item.title}\n\n`;
+    // High-Intent Pinterest Search SEO Keywords
+    const seoHeaders = [
+      'How to stay safe online dating • dating red flags for women',
+      'Bumble texting tips • relationship advice for modern dating',
+      'Catfish verification guide • how to spot fake profiles',
+      'Tinder algorithm rules • how to avoid ghosting & breadcrumbing'
+    ];
+    const seoHook = seoHeaders[Math.floor(Math.random() * seoHeaders.length)];
+
+    let desc = `⚡ ${seoHook}\n\n`;
+    desc += `📌 ${item.title}\n\n`;
     desc += `${item.description}\n\n`;
-    desc += `🔍 Key Evidence Findings:\n`;
-    bullets.forEach(b => {
-      desc += `• ${b.prefix}: ${b.body}\n`;
+    desc += `🚨 Actionable Checklist & Red Flags:\n`;
+    bullets.slice(0, 3).forEach((b, i) => {
+      desc += `${i + 1}. ${b.prefix}: ${b.body}\n`;
     });
-    desc += `\nRead the full verified forensic investigation and test your matches at FlirtCheck.site:\n${item.targetUrl}\n\n`;
-    desc += `#DatingSafety #ProfileVerification #CatfishDetection #OnlineDatingTips #TinderAdvice #BumbleTips #HingeVerification #ForensicEvidence #FlirtCheck`;
-    
-    return desc.substring(0, 495);
+    desc += `\n👉 Read the complete breakdown & test your matches at FlirtCheck:\n${item.targetUrl}\n\n`;
+    desc += `#DatingSafety #DatingRedFlags #OnlineDatingTips #TextingTips #TinderAdvice #BumbleTips #HingeTips #RelationshipAdvice #FlirtCheck #CatfishWarning #DatingAppBurnout`;
+
+    return desc.substring(0, 498);
   }
 
   async publishItem(item) {
