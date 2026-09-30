@@ -200,7 +200,7 @@ export class SiteAutonomousAgent {
       try {
         const publishOutput: BatchPublishResult = await this.autoPublisher.publishBatch({
           customKeywords: [chosenTopic],
-          skipAstroBuild: options.skipAstroBuild ?? true,
+          skipAstroBuild: options.skipAstroBuild ?? false,
         });
 
         const publishedItem = publishOutput.publishedItems[0];

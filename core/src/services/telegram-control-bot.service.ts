@@ -15,6 +15,8 @@ import { MabEngineService } from './mab-engine.service.js';
 import { OfferRoutingService } from './offer-routing.service.js';
 import { RedditPosterService } from './reddit-poster.service.js';
 import { LinkIntegrityService } from './link-integrity.service.js';
+import { AutopilotStateService } from './autopilot-state.service.js';
+import { PostPublicationComplianceService } from './post-compliance.service.js';
 
 dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
@@ -309,14 +311,53 @@ export class TelegramControlBot {
   public getAdminReplyKeyboard(): Record<string, unknown> {
     return {
       keyboard: [
-        [{ text: '📊 Полный отчет' }, { text: '📥 Очередь (HITL)' }],
+        [{ text: '📊 Полный отчет' }, { text: '🚀 Автопилот' }],
+        [{ text: '📥 Очередь (HITL)' }, { text: '🛡️ Проверка ссылок' }],
         [{ text: '🖥️ Система и PM2' }, { text: '👥 Лиды и воронка' }],
-        [{ text: '🛡️ Проверка ссылок' }, { text: '🎲 MAB сплит' }],
-        [{ text: '🚨 Предохранитель' }, { text: '❓ Помощь' }],
+        [{ text: '🎲 MAB сплит' }, { text: '🚨 Предохранитель' }],
+        [{ text: '❓ Помощь' }],
       ],
       resize_keyboard: true,
       persistent: true,
     };
+  }
+
+  /**
+   * 0. Управление и статус автономного автопилота публикации контента
+   */
+  public getAutopilotReport(): string {
+    const autopilot = AutopilotStateService.getInstance();
+    const cfg = autopilot.getConfig();
+    const repo = ContentQueueRepository.getInstance();
+    const stats = repo.getStats();
+
+    const isEnabled = cfg.autoPublishEnabled;
+    const icon = isEnabled ? '🟢' : '⚪';
+    const statusText = isEnabled
+      ? '<b>АКТИВЕН // ПОЛНЫЙ АВТОПИЛОТ</b>\n• Статьи компилируются и публикуются в блог автоматически\n• Сниппеты для соцсетей утверждаются автоматически (риск <= ' + cfg.maxAutoApproveRiskScore + ')\n• Каждая публикация проходит обязательную пост-проверку соответствия'
+      : '<b>ОТКЛЮЧЕН // РУЧНОЙ РЕЖИМ (HITL)</b>\n• Требуется ручное одобрение черновиков в Telegram или веб-панели';
+
+    return `
+🚀 <b>УПРАВЛЕНИЕ АВТОНОМНЫМ АВТОПИЛОТОМ</b>
+━━━━━━━━━━━━━━━━━━
+⚙️ <b>Текущий статус:</b> ${icon} ${statusText}
+
+📊 <b>ПАРАМЕТРЫ КОНТУРА:</b>
+• Авто-одобрение сниппетов: <b>${cfg.autoApproveSnippets ? 'ВКЛ' : 'ВЫКЛ'}</b>
+• Порог допустимого риска: <b>${cfg.maxAutoApproveRiskScore} / 100</b>
+• Аудит соответствия (Post-Compliance): <b>${cfg.postComplianceAuditEnabled ? 'ВКЛ' : 'ВЫКЛ'}</b>
+• Strict English (0 кириллицы): <b>${cfg.strictEnglishEnforced ? '100% СТРОГИЙ' : 'ВЫКЛ'}</b>
+
+📦 <b>СОСТОЯНИЕ ОЧЕРЕДИ:</b>
+• Ожидают ручного HITL: <b>${stats.pendingApproval}</b>
+• Готовы к дистрибуции: <b>${stats.approved}</b>
+• Успешно опубликовано: <b>${stats.dispatched}</b>
+━━━━━━━━━━━━━━━━━━
+⚡ <i>Для быстрого переключения:</i>
+• <code>/autopilot on</code> — включить автопилот
+• <code>/autopilot off</code> — выключить (ручной HITL)
+• <code>/verify_post &lt;slug&gt;</code> — экспресс-проверка опубликованной статьи
+    `.trim();
   }
 
   /**
@@ -660,8 +701,10 @@ ${blogStatus}
 • <code>/leads</code> (или кнопка <b>👥 Лиды и воронка</b>) — конверсии и статистика пользователей Telegram-воронки
 • <code>/mab</code> (или кнопка <b>🎲 MAB сплит</b>) — веса вариантов алгоритма Multi-Armed Bandit
 
-📥 <b>УПРАВЛЕНИЕ КОНТЕНТОМ:</b>
+📥 <b>УПРАВЛЕНИЕ КОНТЕНТОМ И АВТОПИЛОТ:</b>
+• <code>/autopilot</code> (или кнопка <b>🚀 Автопилот</b>) — переключение режима авто-публикации (ВКЛ / ВЫКЛ)
 • <code>/queue</code> (или кнопка <b>📥 Очередь (HITL)</b>) — список записей с кнопками быстрого одобрения/отклонения
+• <code>/verify_post &lt;slug&gt;</code> — глубокий аудит опубликованного материала на соответствие правилам
 
 🖥️ <b>ИНФРАСТРУКТУРА И МОНИТОРИНГ:</b>
 • <code>/system</code> (или кнопка <b>🖥️ Система и PM2</b>) — состояние хоста, нагрузка RAM/CPU, все 9 демонов PM2
@@ -710,6 +753,59 @@ ${blogStatus}
     }
 
     console.log(`🤖 [TelegramControlBot] Команда оператора: "${text}" от ${fromId}`);
+
+    // --- 0. Автопилот и авто-публикация (/autopilot или кнопка "🚀 Автопилот") ---
+    if (cmd === '/autopilot' || text === '🚀 Автопилот' || cmd === 'autopilot') {
+      const autopilot = AutopilotStateService.getInstance();
+      if (arg === 'on' || arg === 'start' || arg === 'enable') {
+        autopilot.setAutoPublish(true);
+        return `🟢 <b>[АВТОПИЛОТ ВКЛЮЧЕН]</b>\n━━━━━━━━━━━━━━━━━━\nАвтоматическая компиляция и публикация контента <b>АКТИВИРОВАНА</b>.\nСниппеты с допустимым риском утверждаются автоматически и проходят пост-проверку на соответствие.\n━━━━━━━━━━━━━━━━━━\nДля перевода в ручной режим: <code>/autopilot off</code>`;
+      }
+      if (arg === 'off' || arg === 'stop' || arg === 'disable') {
+        autopilot.setAutoPublish(false);
+        return `⚪ <b>[АВТОПИЛОТ ОТКЛЮЧЕН]</b>\n━━━━━━━━━━━━━━━━━━\nСистема переведена в <b>РУЧНОЙ РЕЖИМ (HITL)</b>.\nВсе сгенерированные материалы требуют подтверждения оператора в Telegram или дашборде.\n━━━━━━━━━━━━━━━━━━\nДля включения автопилота: <code>/autopilot on</code>`;
+      }
+      return this.getAutopilotReport();
+    }
+
+    // --- 0.1. Экспресс-проверка опубликованной статьи (/verify_post <slug>) ---
+    if (cmd === '/verify_post' && arg) {
+      const compliance = PostPublicationComplianceService.getInstance();
+      const publicUrl = `https://flirtcheck.site/blog/${arg}/`;
+      const res = await compliance.verifyBlogPost(publicUrl, arg);
+
+      if (res.isValid) {
+        return `
+✅ <b>[ПРОВЕРКА СООТВЕТСТВИЯ: ПРОЙДЕНА 100%]</b>
+━━━━━━━━━━━━━━━━━━
+📄 <b>Статья:</b> <code>${arg}</code>
+🌐 <b>URL:</b> <a href="${publicUrl}">${publicUrl}</a>
+⏱️ <b>Время проверки:</b> <code>${res.durationMs}мс</code>
+
+🛡️ <b>СТАТУС ПРОВЕРКИ:</b>
+• Strict English (0 кириллицы): 🟢 <b>100% OK</b>
+• Ссылки монетизации (${res.compliantLinks}/${res.linksChecked}): 🟢 <code>rel="nofollow sponsored"</code> &amp; <code>target="_blank"</code> активны
+• Обложка WebP: 🟢 ${res.coverImageDetails}
+• SEO-теги и структура: 🟢 ${res.metaDetails}
+━━━━━━━━━━━━━━━━━━
+⚡ <i>Материал полностью соответствует правилам проекта.</i>
+        `.trim();
+      } else {
+        const errorList = res.errors.map((e) => `• ❌ <b>${e}</b>`).join('\n');
+        return `
+🚨 <b>[ОБНАРУЖЕНЫ НАРУШЕНИЯ СООТВЕТСТВИЯ]</b>
+━━━━━━━━━━━━━━━━━━
+📄 <b>Статья:</b> <code>${arg}</code>
+🌐 <b>URL:</b> ${publicUrl}
+
+<b>НАРУШЕНИЯ:</b>
+${errorList}
+${res.cyrillicSnippet ? `\n📝 <b>Фрагмент текста:</b> <i>"${res.cyrillicSnippet}"</i>` : ''}
+━━━━━━━━━━━━━━━━━━
+⚡ <i>Рекомендуется внести исправления в файл статьи.</i>
+        `.trim();
+      }
+    }
 
     // --- 1. Полный отчет (/report или кнопка "📊 Полный отчет") ---
     if (cmd === '/report' || text === '📊 Полный отчет') {

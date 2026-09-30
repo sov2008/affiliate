@@ -11,6 +11,8 @@ import { topicEngine, TopicEngineService } from './topicEngine.service.js';
 import { AIGateway } from './aiGateway.js';
 import { ArticleQualityGateService, articleQualityGate } from './articleQualityGate.service.js';
 import { indexNowService } from './indexnow.service.js';
+import { PostPublicationComplianceService } from './post-compliance.service.js';
+import { AutopilotStateService } from './autopilot-state.service.js';
 
 const execAsync = promisify(exec);
 
@@ -270,6 +272,22 @@ export class AutoPublisherService {
           } catch (indexNowErr: any) {
             console.warn(`⚠️ [AutoPublisherService] IndexNow notification notice:`, indexNowErr.message);
           }
+
+          // 4. Post-Publication Compliance & Integrity Gate
+          try {
+            const complianceService = PostPublicationComplianceService.getInstance();
+            console.log(`\n🛡️ [AutoPublisherService] Running Post-Publication Compliance Verification on ${publishedItems.length} article(s)...`);
+            for (const item of publishedItems) {
+              const auditRes = await complianceService.verifyBlogPost(item.url, item.slug);
+              if (auditRes.isValid) {
+                console.log(`   ✅ [PostCompliance] PASSED: ${item.slug} (Links: ${auditRes.compliantLinks}/${auditRes.linksChecked})`);
+              } else {
+                console.warn(`   ⚠️ [PostCompliance] VIOLATION in ${item.slug}: ${auditRes.errors.join('; ')}`);
+              }
+            }
+          } catch (auditErr: any) {
+            console.warn(`⚠️ [AutoPublisherService] Compliance audit notice:`, auditErr.message);
+          }
         } catch (buildErr: any) {
           console.error(`⚠️ [AutoPublisherService] Astro build warning:`, buildErr.message);
           errors.push(`Astro build error: ${buildErr.message}`);
@@ -445,6 +463,10 @@ Full breakdown and safety checklists: ${postUrl}
 
 What is your personal go-to checklist before meeting an online match in person?`;
 
+    const autopilot = AutopilotStateService.getInstance();
+    const redditRisk = 1;
+    const redditStatus = autopilot.shouldAutoApproveSnippet(redditRisk) ? 'APPROVED' : 'PENDING_APPROVAL';
+
     this.queueRepo.enqueue({
       id: redditId,
       campaign_id: `social_syndication_${slug}`,
@@ -465,8 +487,8 @@ What is your personal go-to checklist before meeting an online match in person?`
       stealth_cta: 'View Guide Discussion',
       tracking_url: postUrl,
       image_path: '',
-      risk_score: 1,
-      status: 'PENDING_APPROVAL',
+      risk_score: redditRisk,
+      status: redditStatus,
       created_at: now,
       updated_at: now,
     });
@@ -484,6 +506,9 @@ Here is a 4-step verification protocol for 2026:
 4. Always meet in high-traffic public venues.
 
 Read the complete editorial playbook: ${postUrl} #DatingSafety #OnlineDating #RomanceTips`;
+
+    const twitterRisk = 1;
+    const twitterStatus = autopilot.shouldAutoApproveSnippet(twitterRisk) ? 'APPROVED' : 'PENDING_APPROVAL';
 
     this.queueRepo.enqueue({
       id: twitterId,
@@ -505,8 +530,8 @@ Read the complete editorial playbook: ${postUrl} #DatingSafety #OnlineDating #Ro
       stealth_cta: 'Read Thread',
       tracking_url: postUrl,
       image_path: '',
-      risk_score: 1,
-      status: 'PENDING_APPROVAL',
+      risk_score: twitterRisk,
+      status: twitterStatus,
       created_at: now,
       updated_at: now,
     });
