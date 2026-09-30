@@ -112,35 +112,146 @@ export class ImageGeneratorService {
   }
 
   /**
-   * Builds high-precision prompt based on Forensic Evidence Photography taxonomy (.agents/skills/ai_gateway_invoker)
+   * Hashes string into a positive 32-bit integer for deterministic variation selection
+   */
+  private hashString(str: string): number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+      hash |= 0;
+    }
+    return Math.abs(hash);
+  }
+
+  /**
+   * Builds high-precision prompt with extensive camera angles, perspectives,
+   * lighting conditions, and category-specific documentary scenes.
    */
   public buildForensicPrompt(
     topic: string,
     category?: string,
-    motto?: string
+    motto?: string,
+    seedKey?: string
   ): { prompt: string; negativePrompt: string } {
     const cleanTopic = topic.replace(/["\n\r]/g, ' ').trim();
     const cat = (category || '').toLowerCase();
+    const seed = this.hashString((seedKey || '') + cleanTopic + cat);
 
-    let subjectScene = '';
+    // 1. Diverse Camera Angles & Framing Perspectives
+    const CAMERA_PERSPECTIVES = [
+      '90-degree overhead flatlay perspective, strict geometric layout, bird-eye documentary framing',
+      'Tactile close-up shot with 85mm f/1.8 lens, shallow depth of field, razor-sharp foreground focus with soft bokeh',
+      'Low-angle cinematic perspective, eye-level desktop alignment emphasizing depth and realistic textures',
+      'Over-the-shoulder POV perspective of an intelligence analyst examining physical evidence',
+      'Wide environmental documentary angle with architectural framing and subtle Dutch tilt',
+      'Extreme macro close-up (100mm f/2.8 lens) capturing minute paper fibers, ink stamps, micro-textures, and tactile hardware edges',
+      'Isometric three-quarters perspective table arrangement with intentional negative space',
+      'Ambient candid 50mm documentary street photography view through rainy frosted window glass'
+    ];
 
+    // 2. Varied Atmospheric Lighting Scenarios
+    const LIGHTING_SCENARIOS = [
+      'warm directional tungsten desk lamp casting soft long diagonal shadows across dark walnut wood',
+      'diffused cold overcast morning London daylight spilling through venetian blinds',
+      'golden hour warm amber sidelight with dramatic contrast and rich deep shadow gradients',
+      'moody late-night investigative ambiance, single focused pool of warm light surrounded by deep vignette',
+      'sterile cool fluorescent laboratory lighting with balanced neutral color grading',
+      'cinematic atmospheric morning haze with subtle volumetric light rays and desaturated shadows',
+      'natural soft twilight illumination through antique frosted glass window panes'
+    ];
+
+    // 3. Analog Film Emulation Profiles
+    const FILM_PROFILES = [
+      'Kodak Portra 400 35mm film grain, authentic color response, subtle highlight halation',
+      'Fujifilm Pro 400H aesthetic, desaturated greens, muted cool shadow tones, organic analog grain',
+      'Ilford Delta 100 fine grain clarity, crisp tactile tonal gradation, desaturated muted documentary palette',
+      'Vintage 1990s 35mm surveillance negative, authentic analog film micro-grain and realistic texture',
+      'Leica Summicron documentary glass rendering, rich micro-contrast and natural non-digital look'
+    ];
+
+    // 4. Category-Specific Physical Evidence Subject Scenes (7+ per category)
+    const SAFETY_DOSSIER_SCENES = [
+      'Top-down desk flatlay of a cyber intelligence investigator in Cheltenham UK. Printed blockchain transaction ledgers, highlighted crypto wallet addresses with yellow marker, redacted dossier folders with black tape, forensic tweezers, vintage ThinkPad laptop on a dark oak wooden desk',
+      'Heavy steel fireproof safe door open, revealing classified case folders marked CONFIDENTIAL 2026, encrypted hardware security key with digital keypad, brass vintage key ring, forensic magnifying glass resting on ledger',
+      'Archive storage shelf with organized cardboard dossier boxes labeled DECLASSIFIED, red stamp ink pad, rubber document stamp, stack of printed Telegram chat transcript logs with highlighted user IDs',
+      'Macro table shot of an illuminated counterfeit identification card under an ultraviolet blacklight lamp, showing hidden security fibers, micro-print flaws, digital calliper tool lying nearby',
+      'Late-night financial forensics workstation. Dual dark matte monitors showing cryptocurrency mixer transaction flowcharts, cooling porcelain coffee mug, fountain pen resting on an open Moleskine notebook filled with wallet hashes',
+      'Investigator desk with an open leather portfolio containing passport verification photocopies, black censor tape across sensitive credentials, forensic evidence tag with handwritten barcode FC-892',
+      'Macro shot of a high-security encrypted IronKey USB flash drive plugged into a ruggedized military-grade field laptop, green activity LED glow, blurred background of legal court evidence binders'
+    ];
+
+    const ALGO_MECHANICS_SCENES = [
+      'Macro laboratory photograph in a radio-frequency hardware lab. An engineering prototype smartphone disassembled on a blue anti-static mat, matte display showing terminal telemetry and spectrum analysis graphs, digital oscilloscope probes, open notebook with probability distribution formulas',
+      'Reverse-engineering workstation: matte 4K display showing Ghidra decompiler disassembly hex code and IDA Pro control flow graphs, Hakko temperature-controlled soldering iron station, precision tweezers holding a surface-mount chip',
+      'Radio frequency test bench: Rohde & Schwarz digital spectrum analyzer screen displaying pulsed signal waveforms, high-frequency coaxial BNC cables, copper RF shielding box',
+      'Electronics inspection bench: stereo optical inspection microscope focused on an illuminated bare smartphone logic board, silicon die and NAND flash storage chips visible under ring light',
+      'Automated device testing farm: aluminum multi-device rack holding multiple benchmark smartphones connected via braided USB-C cables, real-time API latency monitor console in the background',
+      'Desk of an algorithm research scientist: stack of printed academic preprints on Gale-Shapley stable matching algorithms, handwritten Bayesian probability formulas on engineering grid paper, mechanical pencil',
+      'Server rack room corridor in an enterprise datacenter: blinking amber and green server LEDs, neatly dressed fiber optic patch cables, portable diagnostic crash-cart terminal displaying network traffic throughput graphs'
+    ];
+
+    const DIGITAL_DIALOGUE_SCENES = [
+      'Audio forensics investigation desk. Vintage magnetic reel-to-reel tape recorder connected to a digital spectrum analyzer, printed acoustic voice spectrogram sheets with red pen markings on anomaly peaks, studio monitor headphones resting on walnut wood',
+      'Macro shot of voice biometric acoustic print analysis: printed 3D frequency waterfall spectrogram on millimeter grid paper with handwritten red margin notes pointing out vocoder synthesis artifacts',
+      'Radio signal interception table: professional audio interface with illuminated VU meters, heavy cast-iron vintage microphone on a broadcast boom arm, sound spectrum oscilloscope monitor',
+      'Sound laboratory workstation: open acoustic spectral editor on a high-resolution dark mode screen displaying vocal formant harmonics, vintage studio headphones folded beside an analog stopwatch',
+      'Close-up shot of an interrogation transcript desk: typed verbatim interview transcript sheets, yellow highlighter marks over automated chatbot response patterns, cassette tape labeled EVIDENCE #4',
+      'Acoustic test chamber: soundproof wedge foam walls, high-precision measurement microphone positioned on a carbon fiber tripod, digital decibel analyzer display glowing in low light',
+      'Investigative smartphone desk: mobile phone lying on dark slate stone surface with chat message bubbles illuminated, forensic notebook alongside noting exact millisecond timestamp intervals of synthetic replies'
+    ];
+
+    const MODERN_PSYCHOLOGY_SCENES = [
+      'Forensic cork evidence board. Archived index cards with handwritten behavioral psychology notes and user conversion diagrams linked with taut red threads, date-stamped evidence labels, side lighting with subtle realistic shadows',
+      'Academic behavioral laboratory desk: open leatherbound textbook on cognitive psychology and dopamine reinforcement schedules, Rorschach inkblot test card, brass fountain pen with dark sepia ink',
+      'Visual thinking artist sketchbook: hand-drawn flowcharts of variable reward mechanisms and emotional attachment loops, colorful Post-it notes with handwritten behavioral archetypes, colored pencils',
+      'Conceptual narrative still life: dark carved wooden chessboard with a tense endgame layout, antique brass hourglass with dark flowing sand, warm directional spotlight emphasizing tactile textures',
+      'Archival library catalog cabinet: dark mahogany filing cabinet with polished brass drawer pulls, one drawer pulled open displaying typed index cards of psychological profile taxonomies',
+      'Investigator reading desk: porcelain cup of Earl Grey tea, vintage brass magnifying loupe resting over an open case report analyzing manipulative conversational framing techniques',
+      'Behavioral research pinboard: wall-mounted visual board with annotated psychological interaction charts, monochrome street portraits pinned with pushpins, yarn connecting behavioral triggers to outcomes'
+    ];
+
+    const ROMANTIC_ESSAYS_SCENES = [
+      '35mm contact sheet candid observation. Ambient scene in a classic quiet European cafe or London underground concourse, authentic human interaction, natural directional cafe lighting, shallow depth of field, archival field observation notes folder',
+      'Intimate corner table set for two in a quiet vintage European bistro at dusk: two crystal glasses of sparkling water with lemon slices, worn leatherbound dinner menu, flickering small beeswax candle creating warm bokeh',
+      'Atmospheric documentary street photograph: rainy evening reflection on the wet pavement outside an old London Underground station entrance, blurry silhouettes of people walking with umbrellas under streetlamps',
+      'Cafe observation table: vintage Leica 35mm rangefinder camera resting on a white Carrara marble tabletop, small ceramic espresso cup with rich crema, spiral notebook containing handwritten body language field sketches',
+      'Outdoor cafe terrace table top-down view: tiny ceramic vase with a single dried wildflower, handwritten vintage postcard with elegant fountain pen script, antique pocket watch ticking on rustic wood',
+      'Cozy independent bookstore corner in Bloomsbury: wooden bookshelf lined with classic literature, small leather armchair, soft warm lamplight illuminating a notebook resting on an antique side table',
+      'Quiet evening subway train car interior through glass window: reflections of warm interior lights, wet window glass with rain droplets, quiet moody urban documentary atmosphere, no posed models'
+    ];
+
+    const GENERAL_BUREAU_SCENES = [
+      'Classic British intelligence research desk: heavy green banker desk lamp, stack of typed analytical dossiers with red classification ribbons, brass paperweight, tactile paper textures',
+      'Investigative library archive table: large open atlas of London, vintage brass desk compass, microfiche reader glass screen glowing softly in an otherwise dim archive room',
+      'Analyst workstation at daybreak: clean oak desktop, stack of newly declassified research papers, mechanical pencil, fresh morning daylight casting long diagonal window shadows',
+      'Tactile paperwork and technical dossier binders on a dark desktop, natural moody morning light, shallow depth of field, authentic British investigative journalism aesthetic',
+      'Old map table in a government archive: unfolded cartographic survey map with brass magnifying glass, pencil compass, field observation ledger'
+    ];
+
+    // Select category scene list
+    let scenes = GENERAL_BUREAU_SCENES;
     if (cat.includes('safety') || cat.includes('scam') || cat.includes('dossier')) {
-      subjectScene = `Top-down desk flatlay of a cyber intelligence investigator in Cheltenham UK. Printed blockchain transaction ledgers, highlighted crypto wallet addresses with yellow marker, redacted dossier folders, forensic tweezers, vintage ThinkPad laptop on a dark oak wooden desk, warm directional desk lamp lighting`;
+      scenes = SAFETY_DOSSIER_SCENES;
     } else if (cat.includes('algo') || cat.includes('mechanic') || cat.includes('code') || cat.includes('telemetry')) {
-      subjectScene = `Macro laboratory photograph in a radio-frequency hardware lab. An engineering prototype smartphone disassembled on a blue anti-static mat, matte display showing terminal telemetry and spectrum analysis graphs, digital oscilloscope probes, open notebook with probability distribution formulas`;
+      scenes = ALGO_MECHANICS_SCENES;
     } else if (cat.includes('dialogue') || cat.includes('voice') || cat.includes('audio') || cat.includes('deepfake')) {
-      subjectScene = `Audio forensics investigation desk. Vintage magnetic reel-to-reel tape recorder connected to a digital spectrum analyzer, printed acoustic voice spectrogram sheets with red pen markings on anomaly peaks, studio monitor headphones resting on walnut wood`;
+      scenes = DIGITAL_DIALOGUE_SCENES;
     } else if (cat.includes('psychology') || cat.includes('behavior') || cat.includes('manipulation')) {
-      subjectScene = `Forensic cork evidence board. Archived index cards with handwritten behavioral psychology notes and user conversion diagrams linked with taut red threads, date-stamped evidence labels, side lighting with subtle realistic shadows`;
+      scenes = MODERN_PSYCHOLOGY_SCENES;
     } else if (cat.includes('date') || cat.includes('romantic') || cat.includes('first-date') || cat.includes('offline')) {
-      subjectScene = `35mm contact sheet candid observation. Ambient scene in a classic quiet European cafe or London underground concourse, authentic human interaction, natural directional cafe lighting, shallow depth of field, archival field observation notes folder`;
-    } else {
-      subjectScene = `Investigative technical bureau desk scene. Tactile paperwork, technical dossier binders, dark desktop, natural moody morning light, shallow depth of field, authentic British investigative journalism aesthetic`;
+      scenes = ROMANTIC_ESSAYS_SCENES;
     }
 
-    const masterPrompt = `Editorial documentary photograph, 35mm film grain, analog surveillance aesthetic, forensic evidence shot, ${subjectScene}, tactile paper and hardware textures, desaturated muted color palette with cold shadows, no anime, no cartoons, photorealistic 8k, aspect ratio 16:9. Context: ${cleanTopic}. ${motto ? `Detail: ${motto}.` : ''}`.trim();
+    // Deterministically pick components based on hash seeds
+    const chosenScene = scenes[seed % scenes.length];
+    const chosenPerspective = CAMERA_PERSPECTIVES[(seed >> 2) % CAMERA_PERSPECTIVES.length];
+    const chosenLighting = LIGHTING_SCENARIOS[(seed >> 4) % LIGHTING_SCENARIOS.length];
+    const chosenFilm = FILM_PROFILES[(seed >> 6) % FILM_PROFILES.length];
 
-    const negativePrompt = `anime, manga, cartoon, illustration, drawing, painting, 3d render, cgi, smooth plastic skin, smiling glamorous model, romantic couple stock photo, neon glow cyberpunk, oversaturated vibrant colors, watermark, text logo overlay, low resolution, blurry, artifact`;
+    const masterPrompt = `Editorial documentary photograph, ${chosenFilm}, ${chosenPerspective}, ${chosenLighting}. ${chosenScene}. High textural fidelity, tactile paper and hardware surfaces, desaturated muted color palette with rich realistic shadows, analog surveillance aesthetic, no anime, no cartoons, photorealistic 8k, aspect ratio 16:9. Subject context: ${cleanTopic}. ${motto ? `Investigation focus: ${motto}.` : ''}`.trim();
+
+    const negativePrompt = `anime, manga, cartoon, illustration, drawing, painting, 3d render, cgi, smooth plastic skin, smiling glamorous model, romantic couple stock photo, neon glow cyberpunk, oversaturated vibrant colors, watermark, text logo overlay, typography, low resolution, blurry, distorted, artificial`;
 
     return { prompt: masterPrompt, negativePrompt };
   }
@@ -357,7 +468,7 @@ export class ImageGeneratorService {
       return targetRelPath;
     }
 
-    const { prompt, negativePrompt } = this.buildForensicPrompt(promptTheme, options.category, options.motto);
+    const { prompt, negativePrompt } = this.buildForensicPrompt(promptTheme, options.category, options.motto, slug);
     const nvidiaKey =
       process.env.NVIDIA_FLUX_DEV_API_KEY ||
       process.env.NVIDIA_API_KEY ||
