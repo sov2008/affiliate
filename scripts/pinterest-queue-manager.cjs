@@ -810,7 +810,14 @@ async function main() {
   manager.printStatus();
 }
 
-main().catch(err => {
-  log(`Fatal Error: ${err.message}`);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch(err => {
+    log(`Fatal Error: ${err.message}`);
+    process.exit(1);
+  });
+}
+
+module.exports = {
+  PinterestQueueManager,
+  CONFIG,
+};
