@@ -34,7 +34,18 @@ export interface LandingPageIntegrityReport {
   latencyMs: number;
   hops: string[];
   hasUmamiTracking: boolean;
+  hasNofollowSponsored: boolean;
+  hasTargetBlank: boolean;
+  hasCyrillicChars: boolean;
   details: string[];
+}
+
+export interface BlogAuditReport {
+  isValid: boolean;
+  scannedFiles: number;
+  brokenLinks: string[];
+  cyrillicViolations: string[];
+  missingComplianceLinks: string[];
 }
 
 export class LinkIntegrityService {
@@ -239,11 +250,20 @@ export class LinkIntegrityService {
         latencyMs: 0,
         hops: [],
         hasUmamiTracking: false,
+        hasNofollowSponsored: false,
+        hasTargetBlank: false,
+        hasCyrillicChars: false,
         details: [`Search paths: ${candidatePaths.join(', ')}`],
       };
     }
 
-    // 1. Check Umami / Analytics event tracking binding
+    // 1. Strict English Policy: check for illegal Cyrillic characters in public landing page
+    const hasCyrillicChars = /[\u0400-\u04FF]/.test(htmlContent);
+    if (hasCyrillicChars) {
+      brokenLinks.push(`Strict English violation: Cyrillic characters detected in landing page ${campaignId}/${variant}`);
+    }
+
+    // 2. Check Umami / Analytics event tracking binding
     const hasUmamiTracking =
       htmlContent.includes('umami.track') ||
       htmlContent.includes('trackQuizEvent') ||
@@ -254,13 +274,18 @@ export class LinkIntegrityService {
       details.push('Warning: No Umami custom event tracker binding found in HTML.');
     }
 
-    // 2. Parse <a> href links
-    const anchorRegex = /<a\s+[^>]*href=["']([^"']*)["'][^>]*>/gi;
+    // 3. Parse <a ...> tags: href, target, rel, macros
+    const anchorTagRegex = /<a\s+([^>]*?)>/gi;
     let match: RegExpExecArray | null;
     let checkedCount = 0;
+    let hasNofollowSponsored = true;
+    let hasTargetBlank = true;
 
-    while ((match = anchorRegex.exec(htmlContent)) !== null) {
-      const rawHref = match[1];
+    while ((match = anchorTagRegex.exec(htmlContent)) !== null) {
+      const fullAttrs = match[1];
+      const hrefMatch = /href=["']([^"']*)["']/i.exec(fullAttrs);
+      const rawHref = hrefMatch ? hrefMatch[1] : '';
+
       if (!rawHref || rawHref.startsWith('#') || rawHref.startsWith('javascript:')) continue;
 
       checkedCount++;
@@ -268,9 +293,26 @@ export class LinkIntegrityService {
         rawHref.includes('http://') ||
         rawHref.includes('https://') ||
         rawHref.includes('/click') ||
-        rawHref.includes('cpa');
+        rawHref.includes('cpa') ||
+        fullAttrs.includes('ctaLink');
 
       if (isExternalCta) {
+        // Validate target="_blank"
+        const isTargetBlank = /target=["']_blank["']/i.test(fullAttrs);
+        if (!isTargetBlank) {
+          hasTargetBlank = false;
+          brokenLinks.push(`External link missing target="_blank": ${rawHref.slice(0, 60)}`);
+        }
+
+        // Validate rel="nofollow sponsored"
+        const relMatch = /rel=["']([^"']*)["']/i.exec(fullAttrs);
+        const relValue = relMatch ? relMatch[1].toLowerCase() : '';
+        const isNofollowSponsored = relValue.includes('nofollow') && relValue.includes('sponsored');
+        if (!isNofollowSponsored) {
+          hasNofollowSponsored = false;
+          brokenLinks.push(`External link missing rel="nofollow sponsored": ${rawHref.slice(0, 60)}`);
+        }
+
         // Validate macro preservation
         const hasSub1 = rawHref.includes('ml_sub1=') || rawHref.includes('sub1=') || rawHref.includes('s1=') || rawHref.includes('click_id=');
         const hasSub2 = rawHref.includes('ml_sub2=') || rawHref.includes('sub2=') || rawHref.includes('s2=');
@@ -288,7 +330,7 @@ export class LinkIntegrityService {
       }
     }
 
-    // 3. Parse <button onclick="..."> or action triggers
+    // 4. Parse <button onclick="..."> or action triggers
     const buttonRegex = /<button\s+[^>]*onclick=["']([^"']*)["'][^>]*>/gi;
     while ((match = buttonRegex.exec(htmlContent)) !== null) {
       const clickHandler = match[1];
@@ -301,7 +343,7 @@ export class LinkIntegrityService {
       brokenLinks.push(`No outbound CTA links found in template (${foundPath})`);
     }
 
-    const isValid = brokenLinks.length === 0 && missingMacros.length === 0;
+    const isValid = brokenLinks.length === 0 && missingMacros.length === 0 && !hasCyrillicChars;
 
     return {
       isValid,
@@ -313,7 +355,109 @@ export class LinkIntegrityService {
       latencyMs: 1,
       hops: [foundPath],
       hasUmamiTracking,
+      hasNofollowSponsored,
+      hasTargetBlank,
+      hasCyrillicChars,
       details,
+    };
+  }
+
+  /**
+   * 4. Validates Blog Distribution & Content Compliance:
+   * - Scans all compiled HTML files in blog/dist (or specified directory)
+   * - Ensures strict English (zero Cyrillic characters)
+   * - Ensures all outbound links have rel="nofollow sponsored" and target="_blank"
+   */
+  public validateBlogPages(distOrSrcDir?: string): BlogAuditReport {
+    const candidateDirs = [
+      distOrSrcDir,
+      path.resolve(process.cwd(), 'blog/dist'),
+      path.resolve(process.cwd(), '../blog/dist'),
+      path.resolve(__dirname, '../../../blog/dist'),
+    ].filter(Boolean) as string[];
+
+    let targetDir = '';
+    for (const d of candidateDirs) {
+      if (fs.existsSync(d) && fs.statSync(d).isDirectory()) {
+        targetDir = d;
+        break;
+      }
+    }
+
+    if (!targetDir) {
+      return {
+        isValid: false,
+        scannedFiles: 0,
+        brokenLinks: ['blog/dist directory not found; run blog build first'],
+        cyrillicViolations: [],
+        missingComplianceLinks: [],
+      };
+    }
+
+    const htmlFiles: string[] = [];
+    const findHtml = (dir: string) => {
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          findHtml(full);
+        } else if (entry.name.endsWith('.html')) {
+          htmlFiles.push(full);
+        }
+      }
+    };
+    findHtml(targetDir);
+
+    const cyrillicViolations: string[] = [];
+    const missingComplianceLinks: string[] = [];
+    const brokenLinks: string[] = [];
+
+    for (const filePath of htmlFiles) {
+      const content = fs.readFileSync(filePath, 'utf8');
+
+      // Check Cyrillic violations
+      if (/[\u0400-\u04FF]/.test(content)) {
+        cyrillicViolations.push(filePath);
+      }
+
+      // Check external affiliate links in blog post HTML
+      const aRegex = /<a\s+([^>]*?)>/gi;
+      let m: RegExpExecArray | null;
+      while ((m = aRegex.exec(content)) !== null) {
+        const attrs = m[1];
+        const hrefMatch = /href=["']([^"']*)["']/i.exec(attrs);
+        const href = hrefMatch ? hrefMatch[1] : '';
+
+        // Check if external or monetization smartlink (/go, /click, cpa networks)
+        const isMonetizationOrCpaLink =
+          href.startsWith('/go') ||
+          href.includes('postback-engine') ||
+          href.includes('/click') ||
+          href.includes('lospollos') ||
+          href.includes('mylead') ||
+          href.includes('cpa');
+
+        if (isMonetizationOrCpaLink) {
+          const hasTarget = /target=["']_blank["']/i.test(attrs);
+          const hasRel =
+            /rel=["'][^"']*nofollow[^"']*sponsored[^"']*["']/i.test(attrs) ||
+            /rel=["'][^"']*sponsored[^"']*nofollow[^"']*["']/i.test(attrs);
+
+          if (!hasTarget || !hasRel) {
+            missingComplianceLinks.push(`${path.basename(filePath)} -> ${href.slice(0, 40)}`);
+          }
+        }
+      }
+    }
+
+    const isValid = cyrillicViolations.length === 0 && missingComplianceLinks.length === 0 && brokenLinks.length === 0;
+
+    return {
+      isValid,
+      scannedFiles: htmlFiles.length,
+      brokenLinks,
+      cyrillicViolations,
+      missingComplianceLinks,
     };
   }
 
