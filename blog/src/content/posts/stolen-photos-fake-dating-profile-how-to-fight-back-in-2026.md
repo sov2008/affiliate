@@ -65,7 +65,7 @@ You: This is a violation of my privacy, I'm afraid. I'm reporting you now. Do pa
 
 **Sample DMCA excerpt:**
 
-> “I, [Your Name], am the rightful owner of the photographs displayed at `tinder.com/@fake_user`. I did not authorize their use. I request immediate removal under 17 U.S.C. § 512(c).”
+> “I, the undersigned copyright owner, declare under penalty of perjury that I am the exclusive owner of the intellectual property displayed at `tinder.com/@target_profile`. I did not authorize this use and demand immediate removal pursuant to 17 U.S.C. § 512(c).”
 
 ### Escalating to Law Enforcement (if needed)
 

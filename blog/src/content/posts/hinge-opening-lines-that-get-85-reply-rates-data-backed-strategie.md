@@ -60,9 +60,9 @@ The trick is to keep the payload small and the checksum valid; a joke that’s t
 
 Think of each reply as a keep‑alive packet. If you send a single‑byte ACK, the connection dies. Use these multi‑byte prompts to maintain the session:
 
-- “That’s fascinating. What sparked your interest in [insert hobby]?”  
-- “I’ve never set foot in [insert location]. What’s the one thing a newcomer should not miss?”  
-- “That story made me laugh. What’s the most embarrassing glitch you’ve ever experienced?”  
+- “That’s fascinating. What sparked your interest in that particular hobby or route?”  
+- “I’ve never set foot in that neighbourhood. What’s the one hidden spot a newcomer shouldn't miss?”  
+- “That story made me laugh. What’s the most unexpected glitch you’ve ever run into while traveling?”  
 
 Each question is a “ping‑pong” that forces the other side to send data, keeping the socket open.
 

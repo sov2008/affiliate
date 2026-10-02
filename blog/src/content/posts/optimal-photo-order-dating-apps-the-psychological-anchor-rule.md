@@ -104,7 +104,7 @@ The final image acts as a call-to-action. A relaxed, candid shot where you’re 
 
 ## Move From “Unverified” to “Verified”
 
-Even the perfect photo order can be undermined by a lack of trust. FlirtCheck Forensic Archive (and the active community on /r/dating) offers a quick, free verification badge that appears next to your name, instantly boosting credibility. After you lock in your optimal photo sequence, submit your profile for verification—watch your match rate climb by up to 27% within the first week.
+Even the best photo sequence can be undermined by lingering verification doubts. Before taking conversations off-platform, run suspicious match signals through our free [Dating Risk Calculator](/calculator/) to evaluate profile authenticity. Verifying your own identity with the app's native selfie verification and insisting on a brief, live video exchange establishes mutual trust and protects your safety.
 
 ## Frequently Asked Questions
 

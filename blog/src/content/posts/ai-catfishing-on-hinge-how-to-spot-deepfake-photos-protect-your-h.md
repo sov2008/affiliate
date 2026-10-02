@@ -81,68 +81,46 @@ The “Emergency Help” test is a common scam tactic. Use the Three-Step Verifi
 2. Cross-check: Search the document’s details (phone numbers, addresses) on Google.
 3. Delay & Report: If anything feels off, pause the conversation and report to Hinge and FlirtCheck.
 
-**Payment Method Red Flags**
+**Financial Demands: The Zero-Tolerance Rule**
 
-Never send money via gift cards, crypto, or wire transfers. If a match insists on a “quick transfer” to a friend’s account, terminate the chat immediately.
+Never send money, gift cards, wire transfers, or cryptocurrency to anyone met online, regardless of the emotional narrative (medical emergency, stranded traveler, customs fees, or crypto investments). Legitimate dating matches never solicit funds. If financial topics or payment requests emerge, immediately terminate contact and report the account to app moderators and the FTC / FBI IC3.
 
-**Secure Payment Alternatives**
+**Profile Verification: Establishing Bilateral Trust**
 
-Use Hinge’s new “Secure Gift” feature (2026) that holds funds in escrow until both parties confirm receipt. For larger transactions, rely on FlirtCheck Forensic Archive’s escrow service, which verifies identity before releasing funds.
-
-**Profile Optimization – Make Yourself Harder to Fake**
-
-Build a verified digital footprint by linking your Hinge profile to a verified Instagram or LinkedIn (both now support “Verified Badge” via FlirtCheck).
-
-### 4.1 Build a Verified Digital Footprint
-
-- Link your Hinge profile to a verified Instagram or LinkedIn (both now support “Verified Badge” via FlirtCheck).
-- Add a short video intro (30 seconds) where you state your name, city, and a unique phrase (e.g., “I love pineapple pizza”).
-
-### 4.2 Use “Synthetic Identity Shield”
-
-Review in-app privacy controls and require identity confirmation before exchanging outside contact. Turn on “Profile Blur” for non-verified users—only verified matches see your full photos.
-
-**Dialogue Example for Safe Onboarding**
-
-| You | Match |
-|-----|-------|
-| “I’m excited to chat! I keep my profile verified on FlirtCheck—feel free to check it out.” | “Sure, I’ll look it up. Here’s my FlirtCheck link.” |
-| *If they refuse or give a vague answer, consider them high-risk.* | — |
+1. **Native App Verification**: Complete Hinge's built-in Selfie Verification check to display the verified checkmark on your own profile.
+2. **Pre-Meeting Liveness Protocol**: Before scheduling an in-person meeting or exchanging personal numbers, conduct an unscripted 30-second video check to confirm physical authenticity and eliminate deepfake risks.
+3. **Controlled Information Disclosure**: Keep residential addresses, employer names, and personal phone numbers private until mutual trust is verified in a public setting.
 
 **Interactive Verification Checklist / Self-Audit**
 
 | [✓] Check | How to Verify |
 |---------|---------------|
-| **Profile Photo Authenticity** | Run reverse-image search + DeepDetect overlay. |
-| **Metadata Consistency** | Use ExifTool to confirm device info. |
-| **Conversation Consistency** | Ask location-specific, non-generic questions. |
-| **Voice Message Authenticity** | Upload to audio frequency spectrogram analysis. |
-| **Financial Request Scrutiny** | Request documented proof; use escrow. |
-| **Cross-Platform Verification** | Verify LinkedIn/Instagram badge + FlirtCheck link. |
-| **AI-Shield Activation** | Enable in Hinge settings → “Security > AI-Shield”. |
+| **Profile Photo Authenticity** | Run reverse-image search via Google Lens & TinEye. |
+| **Metadata Consistency** | Check image quality, lighting, and synthetic diffusion artifacts. |
+| **Conversation Consistency** | Ask unscripted, real-time localized questions. |
+| **Voice Note Authenticity** | Listen for acoustic inconsistencies and robotic inflection patterns. |
+| **Financial Request Scrutiny** | Zero tolerance: Never send money, gift cards, or crypto under any pretext. |
+| **Cross-Platform Verification** | Cross-verify independent professional footprints (LinkedIn, etc.). |
+| **Native App Verification** | Require Hinge's official Selfie Verification checkmark. |
 
-**Self-Audit Prompt:**
+**Self-Audit Protocol:**
 
-> “If any answer feels rehearsed, any image shows up elsewhere, or any financial request appears, hit pause, run the checklist, and move the conversation to FlirtCheck Forensic Archive or /r/dating for a safer environment.”
+> “If an interlocutor refuses video verification, produces inconsistent timeline details, or introduces financial topics, immediately disconnect and report the profile within the app.”
 
-**Transition to Trusted Platforms**
+**Independent Risk Evaluation**
 
-Even with these tactics, the safest route is to migrate verified matches to a platform that enforces identity checks. FlirtCheck Forensic Archive offers real-time AI-catfish detection, document verification, and an escrow service for any monetary exchanges. Likewise, the /r/dating subreddit now runs a weekly “Verified Thread” where members post proof-of-identity screenshots vetted by moderators.
-
-By moving high-potential connections to these ecosystems, you add an extra layer of protection—turning a swipe into a secure, genuine relationship.
+Before moving conversations off-platform, run suspicious match signals through our free [Dating Risk Calculator](/calculator/) to evaluate exposure vectors. Requiring an unscripted, 30-second live video exchange remains the single most reliable safeguard against synthetic catfishing and deepfake impersonation.
 
 **Frequently Asked Questions (FAQ)**
 
-Q: How can I tell if a Hinge photo is a deepfake?
-A: Run a reverse-image search, check EXIF metadata, and use a deepfake detection overlay like DeepDetect. A confidence score above 70% or missing metadata are strong red flags.
+**Q: How can I tell if a dating profile photo is an AI deepfake?**  
+A: Look for asymmetric earrings, warped background geometry, blurred teeth or ears, and mismatched eye pupil specular highlights. Cross-referencing through reverse image engines often yields zero matching history or reveals stock photo repositories.
 
-Q: What should I do if a match asks for money?
-A: Never send money directly. Request documented proof, cross-check the details, and use Hinge’s Secure Gift feature or FlirtCheck’s escrow service. If they resist, report and block them.
+**Q: What should I do if a match asks for money or crypto advice?**  
+A: Cease all communication immediately. Any financial solicitation in a dating context is a guaranteed sign of a syndicate scam. Report the profile directly inside the dating app.
 
-Q: Are voice notes reliable for verifying identity?
-A: Voice notes can help, but only if you run them through a tool like audio frequency spectrogram analysis. Synthetic speech often lacks natural breaths and emotional variance.
+**Q: Are voice notes reliable for verifying identity?**  
+A: Not entirely. Modern generative voice cloning can reproduce vocal timbre with 3 seconds of reference audio. Only unscripted, interactive live video calls establish definitive proof of liveness.
 
-Q: Why should I move a match to FlirtCheck Forensic Archive?
-A: FlirtCheck adds mandatory ID verification, AI-catfish detection, and escrow services, dramatically reducing the risk of deepfake scams and financial fraud compared to standard dating apps.
-
-Stay vigilant, stay verified, and let love blossom safely in 2026.
+**Q: How does FlirtCheck help singles date safely?**  
+A: FlirtCheck provides independent forensic investigations, open-source intelligence playbooks, and client-side risk calculation tools to help singles navigate modern online dating without falling prey to financial or emotional deception.
