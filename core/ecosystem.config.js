@@ -144,7 +144,7 @@ module.exports = {
     },
     {
       name: "affiliate-pinterest-publisher",
-      script: "../scripts/pinterest-worker.cjs",
+      script: path.join(rootDir, "scripts/pinterest-worker.cjs"),
       cwd: rootDir,
       instances: 1,
       exec_mode: "fork",
