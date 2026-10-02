@@ -15,6 +15,12 @@ const path = require('path');
 const dotenv = require('dotenv');
 
 // Load environment credentials
+console.log('[DEBUG_PM2]', {
+  argv: process.argv,
+  main: require.main ? require.main.filename : null,
+  filename: __filename,
+  isMain: require.main === module
+});
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../core/.env') });
 
