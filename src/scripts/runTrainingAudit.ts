@@ -110,7 +110,7 @@ async function runLosPollosAudit(copywriter: CopywriterAgent, knowledge: CpaKnow
     const bannedMeetup = /fake meetup|guaranteed meetup|meetup conversion/i.test(bodyText);
     const guardResult = await guard.evaluate(creative, 'reddit', { network: 'lospollos' });
     const validMacro = macro.click_id === 's1' && macro.campaign_id === 's2' && macro.variant === 's3' && macro.geo === 's4' && macro.traffic_source === 's5';
-    const pass = quizCheck && !bannedMeetup && validMacro && guardResult.passed && rules.funnel_blueprint?.type === 'quiz_gate';
+    const pass = quizCheck && !bannedMeetup && validMacro && guardResult.passed && (rules.funnel_blueprint as any)?.type === 'quiz_gate';
 
     return {
       name: 'Module 2: LosPollos generation',
@@ -243,7 +243,7 @@ async function runMemoryConvergenceAudit(knowledge: CpaKnowledgeService, memory:
     memory.recordPositiveConversion('lospollos', bundle, 45);
     const prompt = memory.getFewShotPrompt('lospollos', 3);
     const directives = knowledge.getComplianceDirectives('lospollos');
-    const converged = prompt.includes('NETWORK MEMORY') && prompt.includes('WINNING HISTORICAL EXAMPLES') && directives.length > 0 && prompt.includes(bundle.creative.headline);
+    const converged = prompt.includes('NETWORK MEMORY') && prompt.includes('WINNING HISTORICAL EXAMPLES') && directives.length > 0 && prompt.includes(bundle.creative!.headline);
 
     return {
       name: 'Module 5: Memory Convergence',

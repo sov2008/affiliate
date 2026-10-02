@@ -54,6 +54,8 @@ async function runScoutRedditTestSuite() {
     permalink: '/r/dating/comments/post_hit_1/why_is_the_tinder_algorithm_so_brutal/',
     url: 'https://www.reddit.com/r/dating/comments/post_hit_1/why_is_the_tinder_algorithm_so_brutal/',
     created_utc: nowSec - 1800, // 30 mins ago (< 4h)
+    score: 15,
+    num_comments: 8,
   };
 
   const oldPost: RedditPost = {
@@ -71,6 +73,8 @@ async function runScoutRedditTestSuite() {
     permalink: '/r/dating/comments/post_irrelevant_3/walk_in_the_park/',
     url: 'https://www.reddit.com/r/dating/comments/post_irrelevant_3/walk_in_the_park/',
     created_utc: nowSec - 1200,
+    score: 3,
+    num_comments: 1,
   };
 
   assert(worker.filterPost(matchingPost) === true, 'Matching recent post with keywords passes filter');
@@ -109,7 +113,7 @@ async function runScoutRedditTestSuite() {
   CoreScheduler.resetInstance();
   const scheduler = CoreScheduler.getInstance({ redditIntervalMs: 15 * 60 * 1000 });
   const status = scheduler.getStatus();
-  assert(status.intervalMinutes === 15, 'Scheduler configured with 15-minute interval');
+  assert(status.redditIntervalMinutes === 15, 'Scheduler configured with 15-minute interval');
   assert(status.isRunning === false, 'Scheduler initially idle');
 
   // Cleanup sandbox

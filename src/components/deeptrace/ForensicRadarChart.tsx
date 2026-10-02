@@ -21,8 +21,8 @@ export const ForensicRadarChart: React.FC<ForensicRadarChartProps> = ({ report, 
   // Calculate normalized 0-100 values for the 5 forensic axes (Bklit-style telemetry)
   const chronoRisk = timezoneBioRhythmAnomalies.nightShiftFlag
     ? 90
-    : timezoneBioRhythmAnomalies.claimedVsActualShiftHours > 3
-    ? Math.min(85, timezoneBioRhythmAnomalies.claimedVsActualShiftHours * 12)
+    : timezoneBioRhythmAnomalies.timezoneOffsetDeltaHours > 3
+    ? Math.min(85, timezoneBioRhythmAnomalies.timezoneOffsetDeltaHours * 12)
     : 15;
 
   const nlpRisk = Math.min(
@@ -37,13 +37,13 @@ export const ForensicRadarChart: React.FC<ForensicRadarChartProps> = ({ report, 
 
   const visualRisk = Math.min(
     100,
-    (visualAvatarForensics.diffusionArtifactDensity || 0) * 10 +
-      (visualAvatarForensics.pupilAsymmetryDetected ? 40 : 0) +
-      (visualAvatarForensics.reverseImageMatchesCount > 0 ? 35 : 0)
+    (visualAvatarForensics.syntheticFaceLikelihood || 0) * 0.5 +
+      (visualAvatarForensics.biologicalConsistency?.backgroundDiffusionArtifactsDetected ? 30 : 0) +
+      (visualAvatarForensics.stockPhotoFlags?.isFlagged ? 35 : 0)
   );
 
   const offPlatformRisk = stylometricBreakdown.detectedRomanceScamPatterns.some(
-    (p) => p.category === 'OFF_PLATFORM_ESCALATION' || p.matchedPhrase.toLowerCase().includes('whatsapp')
+    (p) => p.matchedPhrase.toLowerCase().includes('whatsapp') || p.contextExplanation.toLowerCase().includes('off-platform')
   )
     ? 92
     : 20;

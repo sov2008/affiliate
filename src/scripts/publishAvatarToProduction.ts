@@ -61,7 +61,7 @@ async function main() {
 
   try {
     const sftp = await new Promise<any>((resolve, reject) => {
-      conn.sftp((err, s) => {
+      conn.sftp((err: Error | undefined, s: any) => {
         if (err) return reject(err);
         resolve(s);
       });

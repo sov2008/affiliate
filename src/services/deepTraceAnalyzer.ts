@@ -3,6 +3,7 @@ import OpenAI from 'openai';
 import {
   DeepTraceAnalysisInput,
   DeepTraceAnalysisInputSchema,
+  DeepTraceInputMetadata,
   DeepTraceReportDTO,
   DeepTraceReportDTOSchema,
   ParsedChatMessage,
@@ -215,38 +216,7 @@ export class DeepTraceAnalyzerService {
     const caseReference = overrides?.caseReference || `DT-${new Date().getFullYear()}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`;
     const analyzedAt = overrides?.analyzedAt || new Date().toISOString();
 
-    // 2. Deterministic Heuristic Analysis
-    const timezoneAnomalies = this.calculateTimezoneMismatch(
-      extractedData.messages,
-      input.metadata?.declaredLocation || input.metadata?.declaredTimezone
-    );
-
-    const stylometry = this.detectStylometricAnomalies(extractedData.messages);
-
-    // 3. Platform Migration Pressure Flagging
-    const platformMigrationRisk = this.calculatePlatformMigrationRisk(extractedData.messages);
-
-    // 4. Avatar Synthetic Risk
-    const avatarRisk = extractedData.avatarInspection?.syntheticFaceLikelihood ?? 10.0;
-
-    // 5. Overall Trust Score Calculation (Weighted)
-    const overallTrust = this.calculateOverallTrust({
-      stylometricRisk: Math.min(100, stylometry.scriptTokenSimilarityIndex * 0.7 + stylometry.machineTranslationScore * 0.3),
-      timezoneRisk: timezoneAnomalies.latencyPatternMismatchScore,
-      avatarRisk,
-      platformMigrationRisk
-    });
-
-    // 6. Actionable Defense Matrix Generation
-    const defenseMatrix = this.generateDefenseMatrix({
-      declaredLocation: input.metadata?.declaredLocation,
-      primaryRiskDrivers: overallTrust.primaryRiskDrivers,
-      avatarInspection: extractedData.avatarInspection,
-      stylometry,
-      timezoneAnomalies
-    });
-
-    // 7. Assemble ExtractionDTO
+    // 1. Assemble ExtractionDTO & Parsed Messages
     const parsedMessages: ParsedChatMessage[] = extractedData.messages.map((m, idx) => {
       const anyMsg = m as any;
       let timestamp = anyMsg.timestamp || anyMsg.isoTimestamp;
@@ -266,6 +236,37 @@ export class DeepTraceAnalyzerService {
         confidence: typeof anyMsg.confidence === 'number' ? anyMsg.confidence : 0.95,
         anomalies: Array.isArray(anyMsg.anomalies) ? anyMsg.anomalies : []
       };
+    });
+
+    // 2. Deterministic Heuristic Analysis
+    const timezoneAnomalies = this.calculateTimezoneMismatch(
+      parsedMessages,
+      input.metadata?.declaredLocation || input.metadata?.declaredTimezone
+    );
+
+    const stylometry = this.detectStylometricAnomalies(parsedMessages);
+
+    // 3. Platform Migration Pressure Flagging
+    const platformMigrationRisk = this.calculatePlatformMigrationRisk(parsedMessages);
+
+    // 4. Avatar Synthetic Risk
+    const avatarRisk = extractedData.avatarInspection?.syntheticFaceLikelihood ?? 10.0;
+
+    // 5. Overall Trust Score Calculation (Weighted)
+    const overallTrust = this.calculateOverallTrust({
+      stylometricRisk: Math.min(100, stylometry.scriptTokenSimilarityIndex * 0.7 + stylometry.machineTranslationScore * 0.3),
+      timezoneRisk: timezoneAnomalies.latencyPatternMismatchScore,
+      avatarRisk,
+      platformMigrationRisk
+    });
+
+    // 6. Actionable Defense Matrix Generation
+    const defenseMatrix = this.generateDefenseMatrix({
+      declaredLocation: input.metadata?.declaredLocation,
+      primaryRiskDrivers: overallTrust.primaryRiskDrivers,
+      avatarInspection: extractedData.avatarInspection,
+      stylometry,
+      timezoneAnomalies
     });
 
     const extractionSummary: ExtractionDTO = {
@@ -335,7 +336,7 @@ export class DeepTraceAnalyzerService {
   // --------------------------------------------------------------------------
 
   public buildVisionPrompt(input: DeepTraceAnalysisInput): { systemPrompt: string; userPrompt: string } {
-    const meta = input.metadata || {};
+    const meta: DeepTraceInputMetadata = input.metadata || { platformType: 'OTHER' };
     const systemPrompt = `You are FlirtCheck DeepTrace™, an expert multimodal digital forensics engine specialized in chat screenshot analysis, OSINT verification, and romance fraud detection (Pig Butchering / Catfishing).
 Analyze the provided screenshot with mathematical precision and return a STRICT, VALID JSON document matching the requested schema. Do NOT include markdown fences, comments, or preamble.`;
 
@@ -533,7 +534,7 @@ Output JSON Format:
   }
 
   private generateFallbackExtractionJson(input: DeepTraceAnalysisInput): string {
-    const meta = input.metadata || {};
+    const meta: DeepTraceInputMetadata = input.metadata || { platformType: 'OTHER' };
     return JSON.stringify({
       detectedPlatform: meta.platformType || 'TINDER',
       messages: [

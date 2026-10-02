@@ -12,6 +12,8 @@ export * from '../core/src/orchestrator/pipeline.js';
 export * from '../core/src/orchestrator/worker-controller.js';
 export * from '../core/src/analytics/umami.client.js';
 export * from '../core/src/db/queueRepository.js';
+export type { NetworkName } from '../core/src/db/queueRepository.js';
+export type { NetworkWinStorage } from '../core/src/services/gold-catalog.service.js';
 export * from '../core/src/services/llm-gateway.service.js';
 export * from '../core/src/services/gold-catalog.service.js';
 export * from '../core/src/services/network-memory.service.js';

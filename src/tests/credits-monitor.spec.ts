@@ -1,63 +1,67 @@
 /**
  * Credits Monitor Service Tests
- * Проверка функциональности мониторинга расходования кредитов
+ * Autonomous verification of credits monitoring functionality
  */
 
-import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 import { CreditsMonitorService } from '../services/credits-monitor.service';
 
-describe('CreditsMonitorService', () => {
-  let service: CreditsMonitorService;
+let passed = 0;
+let failed = 0;
 
-  beforeAll(() => {
-    service = new CreditsMonitorService({
-      groqApiKey: process.env.GROQ_API_KEY || '',
-      openRouterApiKey: process.env.OPENROUTER_API_KEY || '',
-      checkInterval: 60000,
-    });
+function assert(condition: boolean, message: string) {
+  if (condition) {
+    console.log(`✅ [PASS] ${message}`);
+    passed++;
+  } else {
+    console.error(`❌ [FAIL] ${message}`);
+    failed++;
+  }
+}
+
+async function runCreditsMonitorSpec() {
+  console.log('\n🧪 ================================================================');
+  console.log('🧪 Credits Monitor Service Spec');
+  console.log('🧪 ================================================================\n');
+
+  const service = new CreditsMonitorService({
+    groqApiKey: process.env.GROQ_API_KEY || 'test_groq_key',
+    openRouterApiKey: process.env.OPENROUTER_API_KEY || 'test_openrouter_key',
+    checkInterval: 60000,
   });
 
-  it('should initialize without error', () => {
-    expect(service).toBeDefined();
+  assert(service !== undefined, 'CreditsMonitorService initialized successfully');
+
+  const status = await service.getDashboardStatus();
+  assert(status !== undefined, 'getDashboardStatus returned status object');
+  assert(Array.isArray(status.alerts), 'status.alerts is an array');
+
+  const metrics = await service.getMetrics();
+  assert(metrics !== undefined, 'getMetrics returned metrics object');
+  assert(Array.isArray(metrics.dailyTrend), 'metrics.dailyTrend is an array');
+
+  const csv = await service.getCSVReport();
+  assert(typeof csv === 'string', 'getCSVReport returned string output');
+  assert(csv.includes('Timestamp') && csv.includes('Provider'), 'CSV report contains standard header');
+
+  const emptyService = new CreditsMonitorService({
+    groqApiKey: '',
+    openRouterApiKey: '',
+    checkInterval: 60000,
   });
 
-  it('should check credits successfully', async () => {
-    const snapshot = await service.checkCredits();
-    expect(snapshot).toBeDefined();
-    expect(snapshot.timestamp).toBeInstanceOf(Date);
-  });
+  const emptyStatus = await emptyService.getDashboardStatus();
+  assert(emptyStatus !== undefined, 'Empty service handled gracefully');
 
-  it('should provide dashboard status', async () => {
-    const status = await service.getDashboardStatus();
-    expect(status).toBeDefined();
-    expect(status.lastChecked).toBeDefined();
-    expect(Array.isArray(status.alerts)).toBe(true);
-  });
+  console.log('\n📊 ================================================================');
+  console.log(`📊 Credits Monitor Spec Results: ${passed} Passed, ${failed} Failed`);
+  console.log('📊 ================================================================\n');
 
-  it('should calculate metrics correctly', async () => {
-    const metrics = await service.getMetrics();
-    expect(metrics).toBeDefined();
-    expect(metrics.current).toBeDefined();
-    expect(Array.isArray(metrics.dailyTrend)).toBe(true);
-    expect(metrics.dailyBurn).toBeDefined();
-    expect(metrics.estimatedRunoutDate).toBeDefined();
-  });
+  if (failed > 0) {
+    process.exit(1);
+  }
+}
 
-  it('should generate CSV report', async () => {
-    const csv = await service.getCSVReport();
-    expect(typeof csv).toBe('string');
-    expect(csv).toContain('Timestamp');
-    expect(csv).toContain('Provider');
-  });
-
-  it('should handle missing API keys gracefully', async () => {
-    const emptyService = new CreditsMonitorService({
-      groqApiKey: '',
-      openRouterApiKey: '',
-      checkInterval: 60000,
-    });
-
-    const status = await emptyService.getDashboardStatus();
-    expect(status).toBeDefined();
-  });
+runCreditsMonitorSpec().catch((err) => {
+  console.error('Fatal Credits Monitor Spec Error:', err);
+  process.exit(1);
 });

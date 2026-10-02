@@ -1,8 +1,8 @@
 import sharp from 'sharp';
 import axios from 'axios';
-import { env } from '../config/env';
-import { visionExtractor } from '../services/visionExtractor';
-import { ExtractionDTOSchema } from '../types/deeptrace';
+import { env } from '../config/env.js';
+import { visionExtractor } from '../services/visionExtractor.js';
+import { ExtractionDTOSchema } from '../types/deeptrace.js';
 
 async function runNvidiaNimProbe() {
   console.log('╔══════════════════════════════════════════════════════════════════════╗');

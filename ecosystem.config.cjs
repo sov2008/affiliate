@@ -16,6 +16,14 @@ if (!fs.existsSync(logsDir)) {
 
 const coreDir = path.resolve(__dirname, 'core');
 
+// Shared concurrency and database protection defaults
+const sharedEnv = {
+  NODE_ENV: "production",
+  PLAYWRIGHT_HEADLESS: "true",
+  SQLITE_BUSY_TIMEOUT: "15000",
+  SQLITE_WAL_MODE: "true"
+};
+
 module.exports = {
   apps: [
     {
@@ -34,10 +42,9 @@ module.exports = {
       merge_logs: true,
       time: true,
       env: {
-        NODE_ENV: "production",
+        ...sharedEnv,
         PORT: 5000,
-        HOST: "127.0.0.1",
-        PLAYWRIGHT_HEADLESS: "true"
+        HOST: "127.0.0.1"
       }
     },
     {
@@ -56,8 +63,7 @@ module.exports = {
       merge_logs: true,
       time: true,
       env: {
-        NODE_ENV: "production",
-        PLAYWRIGHT_HEADLESS: "true"
+        ...sharedEnv
       }
     },
     {
@@ -76,8 +82,7 @@ module.exports = {
       merge_logs: true,
       time: true,
       env: {
-        NODE_ENV: "production",
-        PLAYWRIGHT_HEADLESS: "true"
+        ...sharedEnv
       }
     },
     {
@@ -96,8 +101,7 @@ module.exports = {
       merge_logs: true,
       time: true,
       env: {
-        NODE_ENV: "production",
-        PLAYWRIGHT_HEADLESS: "true"
+        ...sharedEnv
       }
     },
     {
@@ -116,8 +120,7 @@ module.exports = {
       merge_logs: true,
       time: true,
       env: {
-        NODE_ENV: "production",
-        PLAYWRIGHT_HEADLESS: "true"
+        ...sharedEnv
       }
     },
     {
@@ -137,7 +140,7 @@ module.exports = {
       merge_logs: true,
       time: true,
       env: {
-        NODE_ENV: "production"
+        ...sharedEnv
       }
     },
     {
@@ -156,7 +159,7 @@ module.exports = {
       merge_logs: true,
       time: true,
       env: {
-        NODE_ENV: "production"
+        ...sharedEnv
       }
     },
     {
@@ -175,7 +178,7 @@ module.exports = {
       merge_logs: true,
       time: true,
       env: {
-        NODE_ENV: "production"
+        ...sharedEnv
       }
     },
     {
@@ -194,7 +197,7 @@ module.exports = {
       merge_logs: true,
       time: true,
       env: {
-        NODE_ENV: "production",
+        ...sharedEnv,
         HEADLESS: "true"
       }
     }

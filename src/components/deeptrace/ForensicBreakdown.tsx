@@ -26,20 +26,20 @@ export const ForensicBreakdown: React.FC<ForensicBreakdownProps> = ({ report }) 
   // Formatting helpers
   const formatScamCategoryLabel = (category: RomanceScamCategory): string => {
     switch (category) {
-      case 'SHA_ZHU_PAN_CORE':
-        return 'Sha Zhu Pan (Pig Butchering)';
-      case 'CRYPTO_INVESTMENT_LURE':
+      case 'PIG_BUTCHERING':
+        return 'Pig Butchering (Sha Zhu Pan)';
+      case 'CRYPTO_INVESTMENT':
         return 'Crypto Investment Hook';
-      case 'OFF_PLATFORM_ESCALATION':
-        return 'Off-Platform Urgent Push';
-      case 'FALSE_FINANCIAL_SUCCESS':
-        return 'Fabricated Luxury Lifestyle';
-      case 'EMOTIONAL_DEPENDENCY_ACCELERATION':
-        return 'Love Bombing & Fast Bonding';
-      case 'MEDICAL_EMERGENCY_FABRICATION':
-        return 'Fabricated Crisis / Wire Lure';
-      case 'FAMILY_BUSINESS_NEPOTISM':
-        return 'Elite Uncle / Insider Secret';
+      case 'EMERGENCY_WIRE':
+        return 'Emergency Wire / Fabricated Crisis';
+      case 'GIFT_CARD_FRAUD':
+        return 'Gift Card Fraud Lure';
+      case 'MILITARY_ROMANCE':
+        return 'Military Romance Impersonation';
+      case 'MODEL_CATFISH':
+        return 'Model Catfish & Stolen Identity';
+      case 'INHERITANCE_COURIER':
+        return 'Inheritance / Courier Fee Scam';
       default:
         return category;
     }

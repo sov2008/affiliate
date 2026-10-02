@@ -20,7 +20,8 @@ async function runTestSuite() {
       claimedGender: 'FEMALE' as const,
       platformType: 'TINDER' as const,
       suspectDisplayName: 'Elena Wealth'
-    }
+    },
+    requestedForensicDepth: 'STANDARD' as const
   };
 
   const highRiskReport = await analyzer.analyze(highRiskInput);
@@ -53,7 +54,8 @@ async function runTestSuite() {
     metadata: {
       declaredLocation: 'Kharkiv, Ukraine',
       platformType: 'TELEGRAM' as const
-    }
+    },
+    requestedForensicDepth: 'STANDARD' as const
   };
 
   const kharkivReport = await analyzer.analyze(kharkivInput);
@@ -93,7 +95,8 @@ async function runTestSuite() {
   const customReport = await customAnalyzer.analyze({
     imageBuffer: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
     imageMimeType: 'image/jpeg' as const,
-    metadata: { declaredLocation: 'Kyiv, Ukraine', platformType: 'WHATSAPP' as const }
+    metadata: { declaredLocation: 'Kyiv, Ukraine', platformType: 'WHATSAPP' as const },
+    requestedForensicDepth: 'STANDARD' as const
   });
 
   DeepTraceReportDTOSchema.parse(customReport);

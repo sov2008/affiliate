@@ -402,7 +402,7 @@ const indexSchemas = [
     function updateFeedDisplay(scrollUp = false) {
       const allCards = Array.from(document.querySelectorAll('#postsFeed [data-feed-item]'));
 
-      // 1. Featured Post check (только на 1 странице и если подходит по категории)
+      // 1. Featured Post check (only on page 1 and matching category)
       let featuredVisible = false;
       if (featuredItem) {
         const featCat = featuredItem.getAttribute('data-category');
@@ -415,20 +415,20 @@ const indexSchemas = [
         }
       }
 
-      // 2. Фильтрация по активной категории
+      // 2. Active category filtering
       const visibleCards = allCards.filter(card => {
         if (currentCategory === 'all') return true;
         return card.getAttribute('data-category') === currentCategory;
       });
 
-      // 3. Скрытие постов, не подходящих по категории
+      // 3. Hide non-matching posts
       allCards.forEach(card => {
         if (!visibleCards.includes(card)) {
           card.classList.add('hidden');
         }
       });
 
-      // 4. Пагинация только для подходящих постов (строго 8 на страницу)
+      // 4. Pagination for matched posts (strictly 8 per page)
       const totalPages = Math.ceil(visibleCards.length / POSTS_PER_PAGE) || 1;
       if (currentPage > totalPages) {
         currentPage = totalPages;
@@ -446,13 +446,13 @@ const indexSchemas = [
         }
       });
 
-      // 5. Подсчет общего числа записей
+      // 5. Total matching records count
       const totalMatching = visibleCards.length + (featuredVisible ? 1 : 0);
       if (displayedCountBadge) {
         displayedCountBadge.textContent = `ARCHIVE RECORDS: ${totalMatching} ${totalMatching === 1 ? 'DISPATCH FILED' : 'DISPATCHES FILED'}`;
       }
 
-      // 6. Состояние отсутствия записей
+      // 6. Empty state handling
       if (noPostsFound) {
         if (totalMatching === 0) {
           noPostsFound.classList.remove('hidden');
@@ -461,10 +461,10 @@ const indexSchemas = [
         }
       }
 
-      // 7. Обновление кнопок пагинатора в DOM
+      // 7. Update DOM pagination controls
       renderPaginationControls(totalPages, currentPage);
 
-      // 8. Скролл к началу фида при переключении страницы
+      // 8. Scroll to top of feed on page transition
       if (scrollUp) {
         const feedAnchor = document.getElementById('feed');
         if (feedAnchor && window.scrollY > 250) {

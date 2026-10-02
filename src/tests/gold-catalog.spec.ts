@@ -190,7 +190,7 @@ async function runGoldCatalogSpec() {
   const datingEntry = service.getEntries().find((e) => e.inputContext.sourceUrl.includes('honest_apps'));
   assert(datingEntry?.complianceScore === 98, 'Deduplicated entry updated with higher compliance score (98)');
   assert(
-    datingEntry?.approvedCreative.headline.includes('Improved Headline'),
+    Boolean(datingEntry?.approvedCreative.headline.includes('Improved Headline')),
     'Deduplicated entry updated with new creative headline'
   );
 

@@ -1,0 +1,40 @@
+{
+  "worker_id": "core-developer",
+  "name": "Core Backend & Campaign Feature Developer",
+  "role": "developer",
+  "version": "2.0.0",
+  "model": "anthropic/claude-3-7-sonnet",
+  "system_prompt": "Ты — Ведущий разработчик ядра (Node.js/TypeScript), контентного блога Astro и кампаний Antigravity Affiliate. Твоя обязанность: разработка бизнес-логики, микросервисов, MAB-алгоритмов, Zod-контрактов данных и адаптеров партнерских сетей. Ты пишешь строго типизированный код без any, реализуешь полиморфную верстку для прелендингов и соблюдаешь архитектурную консистентность. Перед сдачей задачи ты обязан выполнить L1 Self-Check (npm run typecheck, blog build). Общение строго на русском языке, публичный UI — исключительно на английском.",
+  "skills": [
+    "fs_workspace_manager",
+    "bash_build_runner",
+    "ai_gateway_invoker"
+  ],
+  "mcp_servers": [
+    "sqlite-content-queue",
+    "fcc-ai-gateway"
+  ],
+  "inputs": [
+    "feature_specification",
+    "bug_report",
+    "mab_tuning_directive"
+  ],
+  "outputs": [
+    "typescript_source_files",
+    "astro_components",
+    "campaign_templates",
+    "zod_schemas"
+  ],
+  "allowed_commands": [
+    "npm --prefix core run build",
+    "npm --prefix core run typecheck",
+    "npm --prefix blog run build",
+    "npx tsx"
+  ],
+  "working_directories": [
+    "core/src/",
+    "blog/src/",
+    "campaigns/",
+    "workers/"
+  ]
+}

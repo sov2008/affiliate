@@ -4,7 +4,7 @@
  */
 
 import { Router, Request, Response } from 'express';
-import { CreditsMonitorService, CreditsConfig } from '../services/credits-monitor.service';
+import { CreditsMonitorService, CreditsConfig } from '../../services/credits-monitor.service';
 
 const router = Router();
 

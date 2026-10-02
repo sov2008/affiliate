@@ -1,61 +1,72 @@
 # ==============================================================================
-# Multi-Stage Dockerfile for FlirtCheck DeepTrace™ (Next.js Standalone + Sharp)
+# Multi-Stage Dockerfile for Antigravity Affiliate Core & Blog Engine
+# Base: Node.js 22 Alpine (Security Hardened Minimal Distribution)
 # ==============================================================================
 
-# STAGE 1: Dependencies Cache
-FROM node:20-alpine AS deps
-RUN apk add --no-cache libc6-compat dumb-init
+# STAGE 1: Source Builder
+FROM node:22-alpine AS builder
+RUN apk add --no-cache libc6-compat python3 make g++
 WORKDIR /app
 
-# Cache package manifests
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev --ignore-scripts
-# Ensure sharp native binaries for alpine linux are correctly resolved
-RUN npm install --arch=x64 --platform=linux --libc=musl sharp
+# Copy root manifests and workspace configs
+COPY package.json package-lock.json tsconfig.json ./
+COPY core/package.json core/package.json
+COPY blog/package.json blog/package.json
 
-# STAGE 2: Source Code Builder
-FROM node:20-alpine AS builder
+# Install dependencies across monorepo
+RUN npm ci
+RUN cd core && npm install
+RUN cd blog && npm install
+
+# Copy source trees
+COPY core ./core
+COPY blog ./blog
+COPY campaigns ./campaigns
+COPY public ./public
+
+# Build Core (TypeScript compilation + dashboard HTML bundle)
+RUN npm --prefix core run build
+
+# Build Blog (Astro static production artifact generation)
+RUN npm --prefix blog run build
+
+# Prune devDependencies for runner stage
+RUN npm prune --omit=dev
+RUN cd core && npm prune --omit=dev
+
+# STAGE 2: Production Minimal Runner
+FROM node:22-alpine AS runner
+RUN apk add --no-cache dumb-init curl bash sqlite
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
 
-# Enable Next.js telemetry disable
-ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
+ENV PORT=5000
+ENV HOST=0.0.0.0
 
-# Compile standalone production artifacts (if next build is configured, or prepare distribution)
-RUN if [ -f "next.config.js" ] || [ -f "next.config.mjs" ]; then npx next build; else echo "Custom deployment build"; fi
+# Prepare directories for SQLite databases, logs and static distributions
+RUN mkdir -p /app/data /app/.antigravity /app/core/dist /app/blog/dist /app/logs && \
+    chown -R node:node /app
 
-# STAGE 3: Production Minimal Runner
-FROM node:20-alpine AS runner
-WORKDIR /app
+# Copy compiled production artifacts and runtime dependencies
+COPY --from=builder --chown=node:node /app/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/core/node_modules ./core/node_modules
+COPY --from=builder --chown=node:node /app/core/dist ./core/dist
+COPY --from=builder --chown=node:node /app/core/package.json ./core/package.json
+COPY --from=builder --chown=node:node /app/blog/dist ./blog/dist
+COPY --from=builder --chown=node:node /app/package.json ./package.json
 
-ENV NODE_ENV=production
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
-ENV NEXT_TELEMETRY_DISABLED=1
+# Expose Dashboard & API port
+EXPOSE 5000
 
-RUN apk add --no-cache dumb-init curl
+# Declare persistent volumes for stateful databases and runtime logs
+VOLUME ["/app/data", "/app/.antigravity"]
 
-# Create unprivileged system user for cybersecurity compliance
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs
+# Switch to unprivileged system user
+USER node
 
-# Copy runtime assets and dependencies
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/src ./src
-COPY --from=builder /app/public ./public 2>/dev/null || true
-
-# Set ownership
-RUN chown -R nextjs:nodejs /app
-
-USER nextjs
-EXPOSE 3000
-
-# Healthcheck probe against our live endpoint
+# Healthcheck probe against active API endpoint
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-  CMD curl -f http://localhost:3000/api/health || exit 1
+  CMD curl -f http://127.0.0.1:5000/api/health || exit 1
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["node", "-r", "dotenv/config", "src/server/index.js"]
+CMD ["node", "core/dist/dashboard-server.js"]

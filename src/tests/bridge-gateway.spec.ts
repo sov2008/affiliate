@@ -103,7 +103,7 @@ async function runBridgeGatewayTestSuite() {
 
   const latestLoggedClicks = leadRepo.getBridgeClicks('reddit');
   assert(latestLoggedClicks[0].ip === '203.0.113.195', 'Client IP stripped from multi-hop x-forwarded-for header');
-  assert(latestLoggedClicks[0].user_agent?.includes('Windows NT'), 'User agent captured accurately');
+  assert(Boolean(latestLoggedClicks[0].user_agent?.includes('Windows NT')), 'User agent captured accurately');
 
   // Cleanup test environment
   try {

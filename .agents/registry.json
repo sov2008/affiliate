@@ -1,0 +1,165 @@
+{
+  "version": "2.0.0",
+  "system": "Antigravity Multi-Agent Orchestration Engine",
+  "updated_at": "2026-09-30T04:00:00.000Z",
+  "policy": {
+    "zero_demo_data": true,
+    "strict_mode_typescript": true,
+    "language": {
+      "internal_reports": "ru",
+      "public_content": "en"
+    }
+  },
+  "agents": [
+    {
+      "id": "agent-meta-orchestrator",
+      "role": "Meta-Orchestrator & Architecture Coordinator",
+      "specialization": "Task Decomposition, Priority Arbitration, Merge Gate Control",
+      "default_model": "anthropic/claude-3-7-sonnet",
+      "worker_config": ".agents/workers/meta-orchestrator.json",
+      "read_access": [
+        "core/",
+        "blog/",
+        "campaigns/",
+        ".agents/",
+        ".antigravity/"
+      ],
+      "write_access": [
+        "TASK_SPEC.md",
+        "PROJECT_ARCHITECTURE_MANIFEST.md",
+        ".agents/registry.json",
+        ".antigravity/backlog/"
+      ],
+      "mcp_servers": [
+        "sqlite-content-queue",
+        "ssh-production"
+      ],
+      "allowed_commands": [
+        "git status",
+        "git log -n 5",
+        "git branch",
+        "npm run typecheck",
+        "npm run audit"
+      ]
+    },
+    {
+      "id": "agent-core-developer",
+      "role": "Core Backend & Campaign Feature Engineer",
+      "specialization": "TypeScript Core Architecture, Astro Engine, Cloudflare Edge Handlers, Zod Contracts",
+      "default_model": "anthropic/claude-3-7-sonnet",
+      "worker_config": ".agents/workers/core-developer.json",
+      "read_access": [
+        "core/src/",
+        "blog/src/",
+        "campaigns/",
+        "workers/",
+        "src/"
+      ],
+      "write_access": [
+        "core/src/",
+        "blog/src/",
+        "campaigns/",
+        "workers/",
+        "src/"
+      ],
+      "mcp_servers": [
+        "sqlite-content-queue",
+        "fcc-ai-gateway"
+      ],
+      "allowed_commands": [
+        "npm --prefix core run build",
+        "npm --prefix core run typecheck",
+        "npm --prefix blog run build",
+        "npx tsx"
+      ]
+    },
+    {
+      "id": "agent-qa-gatekeeper",
+      "role": "Strict Quality Gatekeeper & Compliance Auditor",
+      "specialization": "Type Integrity, Link Integrity, Macro Validation, Zero Demo Data Enforcement",
+      "default_model": "anthropic/claude-3-7-sonnet",
+      "worker_config": ".agents/workers/qa-gatekeeper.json",
+      "read_access": [
+        "core/src/",
+        "blog/src/",
+        "campaigns/",
+        "workers/",
+        "src/"
+      ],
+      "write_access": [
+        "artifacts/audit_reports/",
+        ".antigravity/logs/audit.log"
+      ],
+      "mcp_servers": [
+        "browser-validator",
+        "sqlite-content-queue"
+      ],
+      "allowed_commands": [
+        "npm run typecheck",
+        "npm run audit",
+        "npm --prefix core run audit",
+        "npx tsx src/tests/link-integrity.spec.ts",
+        "npx tsx src/tests/antifraud-trust.spec.ts"
+      ]
+    },
+    {
+      "id": "agent-devops-engineer",
+      "role": "Autonomous DevOps & Infrastructure Release Engineer",
+      "specialization": "Multi-Stage Docker Packaging, Cloudflare Pages/Workers Wrangler Deploy, PM2 Remote Node Reload",
+      "default_model": "anthropic/claude-3-7-sonnet",
+      "worker_config": ".agents/workers/devops-engineer.json",
+      "read_access": [
+        "Dockerfile",
+        "docker-compose.prod.yml",
+        "ecosystem.config.cjs",
+        ".github/workflows/",
+        "core/dist/"
+      ],
+      "write_access": [
+        "Dockerfile",
+        "docker-compose.prod.yml",
+        "ecosystem.config.cjs",
+        ".github/workflows/",
+        "deploy/"
+      ],
+      "mcp_servers": [
+        "ssh-production"
+      ],
+      "allowed_commands": [
+        "docker compose -f docker-compose.prod.yml config",
+        "npm --prefix core run build",
+        "npm --prefix blog run build",
+        "npx wrangler pages deploy",
+        "ssh"
+      ]
+    },
+    {
+      "id": "agent-sre-guardian",
+      "role": "SRE Telemetry Watch & Risk Safety Officer",
+      "specialization": "Real-time Telemetry Verification, SQLite WAL Lock Protection, Circuit Breaker (E-STOP)",
+      "default_model": "groq/llama-3.3-70b-versatile",
+      "worker_config": ".agents/workers/sre-guardian.json",
+      "read_access": [
+        ".antigravity/",
+        "core/data/",
+        "logs/",
+        "core/dist/"
+      ],
+      "write_access": [
+        ".antigravity/halt.flag",
+        ".antigravity/EMERGENCY_STOP.lock",
+        ".antigravity/logs/"
+      ],
+      "mcp_servers": [
+        "sqlite-content-queue",
+        "sqlite-tg-leads",
+        "ssh-production"
+      ],
+      "allowed_commands": [
+        "curl -f http://127.0.0.1:5000/api/health",
+        "pm2 status",
+        "pm2 logs --lines 20"
+      ]
+    }
+  ]
+}

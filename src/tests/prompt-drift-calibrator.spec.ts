@@ -73,7 +73,7 @@ async function runPromptDriftCalibratorTestSuite() {
 
   // Check agent registry update
   const updatedAgent1 = gateway.getAgent('agent-context-copywriter-02');
-  assert(updatedAgent1?.systemPrompt.includes('STRICT ANTI-DETECT'), 'Updated agent-context-copywriter-02 prompt in registry');
+  assert(Boolean(updatedAgent1?.systemPrompt.includes('STRICT ANTI-DETECT')), 'Updated agent-context-copywriter-02 prompt in registry');
 
   // Check strategy memory file
   const memoryAfterCalib1 = JSON.parse(fs.readFileSync(strategyMemoryPath, 'utf8'));

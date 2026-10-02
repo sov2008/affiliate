@@ -107,10 +107,10 @@ async function runTelegramUserbotTestSuite() {
   console.log('\n--- [TEST 4] Routing Link Generation & SubID Mapping ---');
   const generated = otherPeerRes;
   assert(generated.trackingUrl !== undefined, 'Tracking URL generated');
-  assert(generated.trackingUrl?.includes('sub1=tg_userbot'), 'sub1 parameter set to tg_userbot');
-  assert(generated.trackingUrl?.includes(`sub2=${peer2}`), 'sub2 parameter contains peerId');
-  assert(generated.trackingUrl?.includes(`cid=${generated.clickId}`), 'cid parameter contains clickId');
-  assert(!generated.trackingUrl?.includes('//rp1pd38/'), 'URL has no double slashes');
+  assert(Boolean(generated.trackingUrl?.includes('sub1=tg_userbot')), 'sub1 parameter set to tg_userbot');
+  assert(Boolean(generated.trackingUrl?.includes(`sub2=${peer2}`)), 'sub2 parameter contains peerId');
+  assert(Boolean(generated.trackingUrl?.includes(`cid=${generated.clickId}`)), 'cid parameter contains clickId');
+  assert(Boolean(!generated.trackingUrl?.includes('//rp1pd38/')), 'URL has no double slashes');
 
   // Verify SQLite attribution record
   const attribution = leadRepo.resolveClickAttribution(generated.clickId!);

@@ -2,8 +2,14 @@ import fs from 'fs';
 import path from 'path';
 import { CopywriterAgent } from '../../core/src/agents/copy.agent.js';
 import { NetworkMemoryService } from '../../core/src/services/network-memory.service.js';
-import { RawContext } from '../../core/src/types/pipeline.js';
+import { RawContext, BundleStatus } from '../../core/src/types/pipeline.js';
 import { CpaKnowledgeService } from '../services/cpa-knowledge.service.js';
+
+interface NetworkRuleConfig {
+  funnel: { name: string };
+  trafficPolicy: { banned: string[] };
+  compliance: Array<{ rule: string }>;
+}
 
 let passed = 0;
 let failed = 0;
@@ -47,7 +53,7 @@ async function runNetworkLearningSpec() {
   console.log('\n--- [TEST A] LosPollos copy generation includes dating context and quiz CTA ---');
   const generated = await copywriter.execute(lospollosContext, 'dating-quiz-v1');
   const bodyText = `${generated.headline} ${generated.body} ${generated.callToAction}`.toLowerCase();
-  const lospollosRules = knowledge.getNetworkRules('lospollos');
+  const lospollosRules = knowledge.getNetworkRules('lospollos') as unknown as NetworkRuleConfig;
   assert(
     bodyText.includes('dating') || bodyText.includes('swipe') || bodyText.includes('quiz') || bodyText.includes('compatibility'),
     'Generated LosPollos creative includes dating/swipe/quiz-specific language'
@@ -57,7 +63,7 @@ async function runNetworkLearningSpec() {
     'Generated CTA remains native and conversational for the target audience'
   );
   assert(
-    lospollosRules.funnel.name.toLowerCase().includes('quiz') && lospollosRules.trafficPolicy.banned.some((value) => value.toLowerCase().includes('bot')),
+    lospollosRules.funnel.name.toLowerCase().includes('quiz') && lospollosRules.trafficPolicy.banned.some((value: string) => value.toLowerCase().includes('bot')),
     'LosPollos generated rules honor the stored quiz funnel and banned traffic policy from documentation'
   );
   assert(
@@ -72,7 +78,7 @@ async function runNetworkLearningSpec() {
     createdAt: Date.now(),
     context: lospollosContext,
     creative: generated,
-    status: 'APPROVED',
+    status: 'APPROVED' as BundleStatus,
     tracePath: ['DISCOVERED', 'GENERATED', 'APPROVED'],
     financials: { conversions: 0, totalPayout: 0, lastConversionAt: new Date().toISOString() },
   };
@@ -128,7 +134,7 @@ async function runNetworkLearningSpec() {
   };
 
   const myleadCreative = await copywriter.execute(myleadContext, 'finance-review-v1');
-  const myleadRules = knowledge.getNetworkRules('mylead');
+  const myleadRules = knowledge.getNetworkRules('mylead') as unknown as NetworkRuleConfig;
   const myleadText = `${myleadCreative.headline} ${myleadCreative.body} ${myleadCreative.callToAction}`.toLowerCase();
   assert(
     myleadText.includes('fee') || myleadText.includes('risk') || myleadText.includes('compare') || myleadText.includes('review'),
@@ -139,7 +145,7 @@ async function runNetworkLearningSpec() {
     'MyLead creative keeps disclaimers and risk framing in the production copy'
   );
   assert(
-    (myleadRules.funnel.name.toLowerCase().includes('editorial') || myleadRules.funnel.name.toLowerCase().includes('case-study') || myleadRules.funnel.name.toLowerCase().includes('review')) && (myleadRules.compliance.some((directive) => directive.rule.toLowerCase().includes('risk')) || myleadRules.compliance.some((directive) => directive.rule.toLowerCase().includes('disclosure'))),
+    (myleadRules.funnel.name.toLowerCase().includes('editorial') || myleadRules.funnel.name.toLowerCase().includes('case-study') || myleadRules.funnel.name.toLowerCase().includes('review')) && (myleadRules.compliance.some((directive: { rule: string }) => directive.rule.toLowerCase().includes('risk')) || myleadRules.compliance.some((directive: { rule: string }) => directive.rule.toLowerCase().includes('disclosure'))),
     'MyLead generated rules respect the stored finance review funnel and mandatory disclosure/risk conditions'
   );
 
@@ -150,7 +156,7 @@ async function runNetworkLearningSpec() {
     createdAt: Date.now(),
     context: myleadContext,
     creative: myleadCreative,
-    status: 'APPROVED',
+    status: 'APPROVED' as BundleStatus,
     tracePath: ['DISCOVERED', 'GENERATED', 'APPROVED'],
     financials: { conversions: 0, totalPayout: 0, lastConversionAt: new Date().toISOString() },
   };

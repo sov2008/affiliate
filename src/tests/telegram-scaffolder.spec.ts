@@ -65,8 +65,6 @@ async function runTelegramScaffolderTestSuite() {
   DistributionScheduler.resetInstance();
   const scheduler = DistributionScheduler.getInstance({
     pollIntervalMs: 1000,
-    redditCooldownMs: 1000,
-    quoraCooldownMs: 1000,
     runsDir,
   });
 
@@ -112,6 +110,7 @@ async function runTelegramScaffolderTestSuite() {
       prelanderSlug: 'cmp_web3_de',
       generatedPrompt: 'prompt_qa',
     },
+    tracePath: ['DISCOVERED', 'GENERATED'],
     compliance: {
       passed: true,
       score: 95,
@@ -128,9 +127,9 @@ async function runTelegramScaffolderTestSuite() {
     id: bundleId,
     campaign_id: 'cmp_web3_de',
     network: 'mylead',
-    hook: initialBundle.creative.headline,
-    body: initialBundle.creative.body,
-    stealth_cta: initialBundle.creative.callToAction,
+    hook: initialBundle.creative!.headline,
+    body: initialBundle.creative!.body,
+    stealth_cta: initialBundle.creative!.callToAction,
     tracking_url: 'https://trk.mylead.com/click/888',
     image_path: '',
     target_platform: 'reddit',

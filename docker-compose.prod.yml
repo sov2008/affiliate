@@ -1,26 +1,32 @@
 version: '3.8'
 
 services:
-  web:
+  affiliate-core:
     build:
       context: .
       dockerfile: Dockerfile
-    image: flirtcheck/deeptrace:latest
-    container_name: flirtcheck-deeptrace-web
+    image: antigravity/affiliate-core:latest
+    container_name: antigravity-affiliate-core
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "5000:5000"
     environment:
       - NODE_ENV=production
-      - PORT=3000
-      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-https://flirtcheck.site}
-      - NVIDIA_NIM_BASE_URL=${NVIDIA_NIM_BASE_URL:-https://integrate.api.nvidia.com/v1}
-      - NVIDIA_NIM_API_KEY=${NVIDIA_NIM_API_KEY}
-      - NVIDIA_VISION_MODEL=${NVIDIA_VISION_MODEL:-meta/llama-3.2-11b-vision-instruct}
-      - MAX_UPLOAD_SIZE_BYTES=${MAX_UPLOAD_SIZE_BYTES:-10485760}
-      - ANALYSIS_TIMEOUT_MS=${ANALYSIS_TIMEOUT_MS:-25000}
+      - PORT=5000
+      - HOST=0.0.0.0
+      - SQLITE_BUSY_TIMEOUT=15000
+      - SQLITE_WAL_MODE=true
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - POSTBACK_WORKER_URL=${POSTBACK_WORKER_URL:-https://postback-engine.sov7.workers.dev}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_ADMIN_CHAT_ID=${TELEGRAM_ADMIN_CHAT_ID}
+    volumes:
+      - ./core/data:/app/data
+      - ./.antigravity:/app/.antigravity
+      - ./blog/dist:/app/blog/dist
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:5000/api/health"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -31,8 +37,8 @@ services:
         max-size: "20m"
         max-file: "5"
     networks:
-      - deeptrace-net
+      - affiliate-net
 
 networks:
-  deeptrace-net:
+  affiliate-net:
     driver: bridge

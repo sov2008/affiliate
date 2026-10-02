@@ -178,8 +178,9 @@ async function runOfferRoutingTestSuite() {
   // User starts bot with TikTok tag: /start tt_campaign_alpha
   await bot.handleCommand({
     message_id: 1,
+    date: Date.now(),
     chat: { id: 888777, type: 'private' },
-    from: { id: 888777, first_name: 'TikTokLead' },
+    from: { id: 888777, is_bot: false, first_name: 'TikTokLead' },
     text: '/start tt_campaign_alpha',
   });
 
@@ -187,7 +188,7 @@ async function runOfferRoutingTestSuite() {
   await bot.handleCallbackQuery({
     id: 'cb_q1',
     from: { id: 888777, first_name: 'TikTokLead' },
-    message: { chat: { id: 888777 }, message_id: 10 },
+    message: { chat: { id: 888777, type: 'private' }, message_id: 10, date: Date.now() },
     data: 'quiz_age:18-25',
   });
 
@@ -195,7 +196,7 @@ async function runOfferRoutingTestSuite() {
   await bot.handleCallbackQuery({
     id: 'cb_q2',
     from: { id: 888777, first_name: 'TikTokLead' },
-    message: { chat: { id: 888777 }, message_id: 11 },
+    message: { chat: { id: 888777, type: 'private' }, message_id: 11, date: Date.now() },
     data: 'quiz_type:Interactive Fun:18-25',
   });
 
@@ -204,8 +205,8 @@ async function runOfferRoutingTestSuite() {
   assert(savedLead?.status === 'QUIZ_COMPLETED', 'Lead status is QUIZ_COMPLETED');
   assert(savedLead?.source === 'tt_campaign_alpha', 'Traffic source tt_campaign_alpha preserved on lead');
   assert(savedLead?.selected_offer === 'lospollos_tiktok', 'tt_ source routed lead to lospollos_tiktok');
-  assert(savedLead?.tracking_url?.includes('sub1=tt_campaign_alpha'), 'Tracking URL sub1 contains preserved source tag');
-  assert(savedLead?.tracking_url?.includes('sub2=888777'), 'Tracking URL sub2 contains chatId');
+  assert(Boolean(savedLead?.tracking_url?.includes('sub1=tt_campaign_alpha')), 'Tracking URL sub1 contains preserved source tag');
+  assert(Boolean(savedLead?.tracking_url?.includes('sub2=888777')), 'Tracking URL sub2 contains chatId');
 
   // Cleanup sandbox
   try {

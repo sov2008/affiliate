@@ -34,12 +34,12 @@ async function runKnowledgeCoreTestSuite() {
 
   const hook = service.getBehaviorHook('dating', 'elo_trap');
   assert(hook !== null, 'Behavior hook for elo_trap loaded from behavior_matrix.json');
-  assert(hook?.hook.includes('throttle'), 'ELO-trap hook contains core throttling premise');
-  assert(hook?.barnum_effect_formula.includes('ELO decay'), 'Barnum effect formula present');
+  assert(Boolean(hook?.hook.includes('throttle')), 'ELO-trap hook contains core throttling premise');
+  assert(Boolean(hook?.barnum_effect_formula.includes('ELO decay')), 'Barnum effect formula present');
 
   const blueprint = service.getFunnelBlueprint();
-  assert(blueprint.quiz_schema?.step_1?.question.includes('age range'), 'Funnel blueprint quiz step 1 loaded');
-  assert(blueprint.quiz_schema?.final_step?.macro_mapping.includes('s1=tg_'), 'Macro mapping contains s1=tg_${chatId}');
+  assert(Boolean(blueprint.quiz_schema?.step_1?.question.includes('age range')), 'Funnel blueprint quiz step 1 loaded');
+  assert(Boolean(blueprint.quiz_schema?.final_step?.macro_mapping.includes('s1=tg_')), 'Macro mapping contains s1=tg_${chatId}');
 
   const datingGreeting = service.getMessageMatchGreeting('Tinder');
   assert(datingGreeting.includes('zombie profiles'), 'Message-match tailored greeting for r/Tinder retrieved');
@@ -69,7 +69,7 @@ async function runKnowledgeCoreTestSuite() {
   const bridgeCheck = service.validateCopyAgainstGuard(noBridgeCopy, 'reddit');
   assert(bridgeCheck.isValid === false, 'Copy without bio bridge is flagged as invalid');
   assert(bridgeCheck.hasBridge === false, 'hasBridge flag is false');
-  assert(bridgeCheck.sanitizedCopy?.toLowerCase().includes('bio'), 'Auto-sanitizer appends bridge phrase');
+  assert(Boolean(bridgeCheck.sanitizedCopy?.toLowerCase().includes('bio')), 'Auto-sanitizer appends bridge phrase');
 
   // --- [TEST 3] CopywriterAgent Integration ---
   console.log('\n--- [TEST 3] CopywriterAgent Integration ---');
