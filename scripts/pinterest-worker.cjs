@@ -42,6 +42,14 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function withTimeout(promise, timeoutMs, errorMsg = 'Operation timed out') {
+  let timer;
+  const timeoutPromise = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(errorMsg)), timeoutMs);
+  });
+  return Promise.race([promise, timeoutPromise]).finally(() => clearTimeout(timer));
+}
+
 function rand(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -180,8 +188,12 @@ async function executePublicationCycle(options = {}) {
 
   log(`Target pin selected: "${targetItem.title}" (${targetItem.slug})`);
 
-  // 3. Publish via Playwright
-  await manager.publishItem(targetItem);
+  // 3. Publish via Playwright with 120s watchdog protection
+  await withTimeout(
+    manager.publishItem(targetItem),
+    120000,
+    `Playwright publish timeout (120s) for ${targetItem.slug}`
+  );
 
   // 4. Update persistent state
   stateMgr.recordPublication(targetItem.slug, {

@@ -141,6 +141,26 @@ module.exports = {
       env: {
         NODE_ENV: "production"
       }
+    },
+    {
+      name: "affiliate-pinterest-publisher",
+      script: "../scripts/pinterest-worker.cjs",
+      cwd: rootDir,
+      instances: 1,
+      exec_mode: "fork",
+      autorestart: true,
+      max_memory_restart: "450M",
+      restart_delay: 10000,
+      exp_backoff_restart_delay: 500,
+      out_file: path.join(logsDir, "pm2-affiliate-pinterest-out.log"),
+      error_file: path.join(logsDir, "pm2-affiliate-pinterest-error.log"),
+      merge_logs: true,
+      time: true,
+      env: {
+        NODE_ENV: "production",
+        PLAYWRIGHT_HEADLESS: "true",
+        PINTEREST_INTERVAL_MS: "1500000"
+      }
     }
   ]
 };
