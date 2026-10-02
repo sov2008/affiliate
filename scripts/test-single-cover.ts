@@ -1,7 +1,7 @@
 /**
  * Isolated Single Cover Calibration Script
  * Calibrates single cover: the-slot-machine-algorithm-how-dating-apps-engineer-loneliness.webp
- * Providers: NVIDIA NIM FLUX.1-dev / Pollinations FLUX with auth fallback
+ * Providers: NVIDIA NIM FLUX.1-dev
  */
 
 import fs from 'node:fs';
@@ -99,31 +99,6 @@ async function tryNvidiaGeneration(apiKey: string): Promise<Buffer> {
   return Buffer.from(b64, 'base64');
 }
 
-async function tryPollinationsGeneration(): Promise<Buffer> {
-  console.log('🌸 Attempting Pollinations FLUX generation...');
-  const seed = Math.floor(Math.random() * 900000) + 100000;
-  const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(
-    PROMPT
-  )}?width=1200&height=675&nologo=true&model=flux&seed=${seed}`;
-
-  const apiKey = process.env.POLLINATIONS_API_KEY;
-  const headers: Record<string, string> = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) FlirtCheck/2.0',
-    Accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
-  };
-  if (apiKey) {
-    headers['Authorization'] = `Bearer ${apiKey}`;
-  }
-
-  const res = await axios.get(url, {
-    responseType: 'arraybuffer',
-    timeout: 60000,
-    headers,
-    validateStatus: (status) => status >= 200 && status < 400,
-  });
-
-  return Buffer.from(res.data);
-}
 
 async function main() {
   console.log('=================================================================');
@@ -148,18 +123,11 @@ async function main() {
       rawBuffer = await tryNvidiaGeneration(nvidiaKey);
       usedProvider = 'NVIDIA NIM (FLUX.1-dev)';
     } catch (err: any) {
-      console.warn(`   ⚠️ NVIDIA failed: ${err.message}. Falling back to Pollinations...`);
-    }
-  }
-
-  if (!rawBuffer) {
-    try {
-      rawBuffer = await tryPollinationsGeneration();
-      usedProvider = 'Pollinations (FLUX model)';
-    } catch (err: any) {
-      console.error(`   ❌ Pollinations failed: ${err.message}`);
+      console.error(`   ❌ NVIDIA failed: ${err.message}`);
       throw err;
     }
+  } else {
+    throw new Error('Valid NVIDIA API Key (nvapi-*) required');
   }
 
   const apiDurationMs = Date.now() - startTime;

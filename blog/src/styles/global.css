@@ -99,6 +99,33 @@
     background-size: 20px 20px;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
+
+  /* Universal Editorial Typographic Hierarchy (Prevents line-height collapse) */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    color: var(--ink-primary);
+    text-wrap: balance;
+  }
+
+  h1 {
+    line-height: 1.2 !important;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    line-height: 1.28 !important;
+    letter-spacing: -0.015em;
+  }
+
+  h3 {
+    line-height: 1.35 !important;
+    letter-spacing: -0.01em;
+  }
+
+  h4 {
+    line-height: 1.4 !important;
+    letter-spacing: -0.005em;
+  }
 }
 
 /* Forensic Evidence Ledger Box Utilities */

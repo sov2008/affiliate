@@ -30,39 +30,46 @@ export const MASTER_STYLE_ANCHOR =
 export const NEGATIVE_CONSTRAINTS =
   'avoid: vintage reel to reel tape recorder, audio cassettes, tape deck, yellow paper tax documents, handwritten paper clutter, messy office clutter, anime, cartoon, illustration, 3d render, cgi, plastic smooth skin, watermark, text typography overlay, distorted hands, oversaturated garish colors, low quality';
 
-export function buildForensicPrompt(slug: string, category: string, title: string): string {
+export const SAFE_EDITORIAL_SCENE =
+  'A high-end editorial still life: a sleek modern smartphone resting on a designer travertine desk next to a white ceramic coffee cup and a minimalist notebook, soft natural Scandinavian morning daylight, elegant shadows, refined architectural aesthetic';
+
+export function buildForensicPrompt(slug: string, category: string, title: string, isFallback: boolean = false): string {
+  if (isFallback) {
+    return `${MASTER_STYLE_ANCHOR}, ${SAFE_EDITORIAL_SCENE}, natural depth of field, photorealistic, no text, no watermark, aspect ratio 16:9. ${NEGATIVE_CONSTRAINTS}`;
+  }
+
   const combined = `${slug} ${title}`.toLowerCase();
 
   let specificScene = '';
 
   if (/flirt|polite|chemistry|micro-flirting|rizz|interest|signal|attraction|secretly/.test(combined)) {
-    specificScene = 'A charming young woman in a chic, softly lit modern evening cafe or cocktail bar, smiling subtly while looking down at a text message on her smartphone, warm amber and violet bokeh in the background, elegant candid portrait';
+    specificScene = 'An elegant person sitting in a sunlit modern European cafe, calmly reading a message on a sleek smartphone, warm ambient daylight, thoughtful expression, candid documentary editorial photography';
   } else if (/first date|icebreaker|opener|banter|message examples|conversation|revive|reply|script|decline/.test(combined)) {
-    specificScene = 'Two stylish young people having an engaging conversation across a sunlit cafe table in a trendy European city bistro, laughing authentically over cups of coffee, genuine romantic chemistry, cinematic daylight';
+    specificScene = 'Two well-dressed friends sharing an engaging conversation at a bright cafe table, drinking coffee by a large sunlit window, candid documentary aesthetic';
   } else if (/screenshot|analyzer|chat|texting|whatsapp|dm|messages|chatgpt|loyalty/.test(combined)) {
-    specificScene = 'Close-up of hands holding a sleek modern smartphone with glowing screen showing messaging previews, resting on a white marble coffee table next to a minimalist ceramic latte cup, morning sunlight with soft organic shadows';
+    specificScene = 'Close-up of hands holding a modern smartphone with an elegant messaging application interface, sitting at a clean marble desk with soft morning daylight';
   } else if (/algorithm|most compatible|elo|hinge|tinder|bumble|mechanics|shadowban|active|reset|telemetry/.test(combined)) {
-    specificScene = 'Modern tech lifestyle: hands interacting with a contemporary smartphone interface displaying dating profile cards, situated in a stylish architectural loft with warm ambient city daylight, sleek minimalist aesthetic';
+    specificScene = 'Modern tech lifestyle: hands holding a contemporary smartphone displaying mobile app cards, situated in a minimalist bright architectural workspace, clean Scandinavian interior';
   } else if (/scam|catfish|fake|deepfake|pig butchering|photo|reverse search|blackmail|sextortion|osint|verification/.test(combined)) {
-    specificScene = 'Cinematic investigative journalism: a modern ultra-thin laptop open in a stylish dimly-lit urban apartment at dusk, screen displaying digital facial comparison and profile verification nodes, warm modern desk lamp, moody blue and amber tones';
+    specificScene = 'Cinematic investigative journalism: a modern ultra-thin laptop open in a stylish dimly-lit urban apartment at dusk, screen displaying digital verification telemetry, warm desk lamp, moody tones';
   } else if (/burnout|disappear|ghost|matchesbutnoda|why you get matches|red flags|narcissist|infidelity|loyalty/.test(combined)) {
-    specificScene = 'An introspective, cinematic portrait of a thoughtful young person in a warm modern interior looking out of a large rain-streaked window, smartphone resting on a wooden table, soft atmospheric mood, cinematic depth';
+    specificScene = 'An introspective, cinematic portrait of a thoughtful person in a modern interior looking out of a large rain-streaked window, smartphone resting on a wooden table, soft atmospheric mood';
   } else if (/voice|audio|tone/.test(combined)) {
-    specificScene = 'A stylish young person wearing sleek wireless earbuds walking through a vibrant autumn city park at golden hour, holding a smartphone and listening with a subtle intrigued smile, warm sunlight bokeh';
+    specificScene = 'A stylish person wearing wireless earbuds walking through an airy city park in morning sunlight, holding a modern smartphone, candid editorial portrait';
   } else {
     switch (category) {
       case 'first-dates':
       case 'romantic-essays':
-        specificScene = 'An authentic, cinematic moment of a modern couple sharing a coffee on an outdoor terrace in a sun-drenched city, warm golden hour tones';
+        specificScene = 'An authentic, cinematic moment of people enjoying coffee on an outdoor cafe terrace in a sun-drenched city, warm daylight';
         break;
       case 'digital-dialogue':
-        specificScene = 'A modern smartphone resting on a designer cafe table in natural morning light, showing text message previews, beside a cup of coffee and notebook';
+        specificScene = 'A modern smartphone resting on a designer cafe table in natural morning light, showing messaging app preview, beside a cup of coffee and notebook';
         break;
       case 'algo-mechanics':
-        specificScene = 'Hands holding a modern smartphone navigating dating app matches in a minimalist coffee shop, soft urban bokeh';
+        specificScene = 'Hands holding a modern smartphone navigating mobile dating application in a minimalist cafe, clean urban bokeh';
         break;
       case 'modern-psychology':
-        specificScene = 'A candid, atmospheric portrait of a young person thoughtfully checking their phone in a cozy modern apartment lounge';
+        specificScene = 'A candid, atmospheric portrait of a person thoughtfully checking their phone in a cozy modern apartment lounge';
         break;
       case 'safety-dossier':
       default:
@@ -178,11 +185,12 @@ export async function generateCoverForPost(
     rawBuffer = await generateViaNvidiaFlux(prompt, fluxKey);
     usedProvider = 'NVIDIA NIM (FLUX.1-dev Forensic Evidence)';
   } catch (err: any) {
-    console.warn(`   ⚠️ FLUX attempt 1 failed for ${slug} (${err.message}). Retrying in 4s...`);
-    await sleep(4000);
+    console.warn(`   ⚠️ FLUX attempt 1 failed for ${slug} (${err.message}). Trying safe editorial fallback in 3s...`);
+    await sleep(3000);
+    const fallbackPrompt = buildForensicPrompt(slug, category, title, true);
     try {
-      rawBuffer = await generateViaNvidiaFlux(prompt, fluxKey);
-      usedProvider = 'NVIDIA NIM (FLUX.1-dev Retry)';
+      rawBuffer = await generateViaNvidiaFlux(fallbackPrompt, fluxKey);
+      usedProvider = 'NVIDIA NIM (FLUX.1-dev Safe Editorial Fallback)';
     } catch (retryErr: any) {
       throw new Error(`NVIDIA Pipeline Error: ${retryErr.message}`);
     }

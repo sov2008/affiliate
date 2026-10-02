@@ -264,47 +264,57 @@ async function testOpenRouter(): Promise<VerificationResult> {
 }
 
 /**
- * 4. Pollinations API Verification
+ * 4. NVIDIA NIM Verification (FLUX.1-dev image inference endpoint)
  */
-async function testPollinations(): Promise<VerificationResult> {
-  const apiKey = process.env.POLLINATIONS_API_KEY;
-  const service = 'image.pollinations.ai (1x1 test)';
+async function testNvidiaNim(): Promise<VerificationResult> {
+  const apiKey = process.env.NVIDIA_FLUX_DEV_API_KEY || process.env.NVIDIA_API_KEY;
+  const service = 'black-forest-labs/flux.1-dev';
   const start = Date.now();
 
+  if (!apiKey || !apiKey.startsWith('nvapi-')) {
+    return {
+      provider: 'NVIDIA NIM',
+      serviceOrModel: service,
+      status: 'SKIPPED',
+      latencyMs: 0,
+      details: 'NVIDIA API Key (nvapi-*) missing',
+    };
+  }
+
   try {
-    const url = 'https://image.pollinations.ai/prompt/ping_test_1x1?width=16&height=16&nologo=true&seed=1';
-    const response = await axios.get(url, {
-      headers: apiKey ? { Authorization: `Bearer ${apiKey}` } : {},
-      timeout: 20000,
-      responseType: 'arraybuffer',
-      validateStatus: (status) => status >= 200 && status < 400,
-    });
+    const url = 'https://ai.api.nvidia.com/v1/genai/black-forest-labs/flux.1-dev';
+    const response = await axios.post(
+      url,
+      { prompt: 'ping 1x1 test photorealistic evidence', mode: 'base' },
+      {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        timeout: 30000,
+        validateStatus: (status) => status === 200 || status === 202,
+      }
+    );
 
     const latency = Date.now() - start;
-    const byteLength = response.data ? (response.data as Buffer).byteLength : 0;
-    const contentType = String(response.headers['content-type'] || 'image/jpeg');
-
     return {
-      provider: 'Pollinations.ai',
+      provider: 'NVIDIA NIM',
       serviceOrModel: service,
       status: 'OK',
       latencyMs: latency,
       httpStatus: response.status,
-      details: `Image GET OK: ${byteLength} bytes (${contentType})`,
-      rawPayload: { contentType, byteLength, status: response.status },
+      details: `FLUX inference response HTTP ${response.status}`,
     };
   } catch (err: any) {
-    const httpStatus = err?.response?.status || 'ERR';
-    const rawPayload = err?.response?.data ? err.response.data.toString() : { message: err?.message };
     return {
-      provider: 'Pollinations.ai',
+      provider: 'NVIDIA NIM',
       serviceOrModel: service,
       status: 'FAIL',
       latencyMs: Date.now() - start,
-      httpStatus,
-      details: 'Pollinations image endpoint unreachable',
+      httpStatus: err?.response?.status || 'ERR',
+      details: 'NVIDIA NIM endpoint unreachable',
       error: err?.message || String(err),
-      rawPayload,
     };
   }
 }
@@ -491,7 +501,7 @@ export async function runVerificationSuite() {
     { name: 'Groq', fn: testGroq },
     { name: 'Cerebras', fn: testCerebras },
     { name: 'OpenRouter', fn: testOpenRouter },
-    { name: 'Pollinations.ai', fn: testPollinations },
+    { name: 'NVIDIA NIM (FLUX)', fn: testNvidiaNim },
     { name: 'Cloudflare Workers AI', fn: testCloudflareWorkersAI },
     { name: 'Cloudflare R2 Storage', fn: testCloudflareR2 },
   ];

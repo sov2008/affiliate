@@ -1,8 +1,8 @@
-# TASK_SPEC: Autonomous SEO Content Hub & Auto-Publishing Pipeline (Astro + Pollinations + LosPollos)
+# TASK_SPEC: Autonomous SEO Content Hub & Auto-Publishing Pipeline (Astro + NVIDIA NIM FLUX.1-dev + LosPollos)
 
 ## 1. Executive Summary & Architecture
 
-Transform the project into a fully autonomous, self-publishing Dating SEO Content Hub built with Astro 5 SSG, served via Nginx at `https://flirtcheck.site/blog/`. The system operates in an Auto-Pilot mode: AI generates batches of longread articles (10–20 items) with AI-generated covers via Pollinations, compiles Markdown into Astro content collections, triggers static builds, updates SQLite telemetry, and deploys to DigitalOcean (`178.128.199.28`). All internal monetization CTAs route exclusively through LosPollos Dating Smartlink via cloaked/internal redirects (`/r/...`).
+Transform the project into a fully autonomous, self-publishing Dating SEO Content Hub built with Astro 5 SSG, served via Nginx at `https://flirtcheck.site/blog/`. The system operates in an Auto-Pilot mode: AI generates batches of longread articles (10–20 items) with AI-generated covers via NVIDIA NIM FLUX.1-dev, compiles Markdown into Astro content collections, triggers static builds, updates SQLite telemetry, and deploys to DigitalOcean (`178.128.199.28`). All internal monetization CTAs route exclusively through LosPollos Dating Smartlink via cloaked/internal redirects (`/r/...`).
 
 ---
 
@@ -12,7 +12,7 @@ Transform the project into a fully autonomous, self-publishing Dating SEO Conten
 - **Offer / Monetization**: LosPollos Dating Smartlink via internal cloaked route `GET /r/dating?ref=[slug]`. All links enforce `rel="nofollow sponsored" target="_blank"`.
 - **Workflow Mode**: **AUTO-PILOT**. Generated posts automatically write to `blog/src/content/posts/*.md`, followed by a single batch trigger of `npm run build:blog`. Direct sync to SQLite status `DISPATCHED`.
 - **Batch Processing**: Batch generation cycle generates **10 to 20 low-competition long-tail keywords** per trigger.
-- **Visuals**: Cover images generated on-the-fly via **Pollinations Image-Gen API** with a 10s network timeout, compressed using `sharp` to `blog/public/images/posts/[slug].webp`. Fallback to `/blog/images/posts/default-cover.webp` on API error.
+- **Visuals**: Cover images generated on-the-fly via **NVIDIA NIM FLUX.1-dev API** with 35mm documentary forensic aesthetic, compressed using `sharp` to `blog/public/images/posts/[slug].webp`. Fallback to editorial vector graphics on API error.
 
 ---
 
@@ -29,14 +29,14 @@ Transform the project into a fully autonomous, self-publishing Dating SEO Conten
 - Deduplication: Cross-reference existing SQLite `content_queue_v2` and files in `blog/src/content/posts/` to avoid duplicate slugs/topics.
 - Service exposes `getNextKeywordBatch(count: number = 10): Promise<KeywordIntent[]>`.
 
-### Module B: Resilient Cover Generator (Pollinations + Sharp)
+### Module B: Resilient Cover Generator (NVIDIA NIM FLUX.1-dev + Sharp)
 
 - File: `core/src/services/imageGenerator.service.ts`
 - Method: `generateArticleCover(slug: string, promptTheme: string): Promise<string>`
-  - Request Pollinations AI with prompt: `minimalist modern dating lifestyle, neon bokeh, editorial, high quality, photorealistic, 16:9, no text, no watermark`.
-  - Enforce a 10-second `AbortController` timeout.
-  - If successful: download stream, convert/compress to WebP (80% quality, max width 1200px) using `sharp`, save to `blog/public/images/posts/${slug}.webp`.
-  - Fallback logic: If request fails or times out, ensure a generated SVG/WebP placeholder is copied to `blog/public/images/posts/${slug}.webp`.
+  - Request NVIDIA NIM FLUX.1-dev API with forensic editorial prompt: `award-winning 35mm photojournalism documentary, muted tones, 16:9, hyperrealistic, no text, no watermark`.
+  - Enforce timeout and retry handling.
+  - If successful: download stream, convert/compress to WebP (85% quality, 1200x675) using `sharp`, save to `blog/public/images/posts/${slug}.webp`.
+  - Fallback logic: If request fails or times out, fallback to NVIDIA SD 3.5 Large or SVG fallback.
   - Returns web path `/blog/images/posts/${slug}.webp`.
 
 ### Module C: Autonomous SEO Longread Generator

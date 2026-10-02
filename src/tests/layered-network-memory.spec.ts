@@ -21,7 +21,16 @@ async function runLayeredNetworkMemorySpec() {
   console.log('🧪 Three-Tier Layered Network Memory Spec (L1, L2, L3)');
   console.log('🧪 ================================================================\n');
 
-  const memory = NetworkMemoryService.getInstance();
+  const testRunsDir = path.resolve(process.cwd(), 'runs/test_layered_memory');
+  if (fs.existsSync(testRunsDir)) {
+    try {
+      fs.rmSync(testRunsDir, { recursive: true, force: true });
+    } catch {}
+  }
+  fs.mkdirSync(testRunsDir, { recursive: true });
+
+  NetworkMemoryService.resetInstance();
+  const memory = NetworkMemoryService.getInstance(testRunsDir);
 
   // 1. Test L3 Policy Governance
   console.log('\n--- [TEST 1] L3 Network Policy Layer is active and strictly governed ---');
@@ -118,6 +127,13 @@ async function runLayeredNetworkMemorySpec() {
   console.log(`\n================================================================`);
   console.log(`Summary: ${passed} Passed, ${failed} Failed`);
   console.log(`================================================================\n`);
+
+  NetworkMemoryService.resetInstance();
+  if (fs.existsSync(testRunsDir)) {
+    try {
+      fs.rmSync(testRunsDir, { recursive: true, force: true });
+    } catch {}
+  }
 
   if (failed > 0) {
     process.exit(1);

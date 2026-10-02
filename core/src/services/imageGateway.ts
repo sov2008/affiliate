@@ -70,53 +70,61 @@ async function pollNvcfQueue(reqId: string, apiKey: string, maxAttempts: number 
 
 export class ImageGateway {
   /**
-   * Generates high-quality promotional image creative via Pollinations.ai FLUX/Turbo engine.
+   * Generates high-quality promotional image creative via NVIDIA NIM FLUX.1-dev engine.
    * Returns binary Buffer.
    */
   public static async generate(
     prompt: string,
     options: ImageGenerationOptions = {}
   ): Promise<{ buffer: Buffer; contentType: string; latencyMs: number }> {
-    const width = options.width ?? 1024;
-    const height = options.height ?? 1024;
-    const seed = options.seed ?? Math.floor(Math.random() * 1000000);
-    const nologo = options.nologo ?? true;
-    const model = options.model ?? 'flux';
-    const apiKey = process.env.POLLINATIONS_API_KEY;
-
-    const encodedPrompt = encodeURIComponent(prompt.trim());
-    const url = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=${nologo}&model=${model}`;
-
     const start = Date.now();
-    const headers: Record<string, string> = {
-      'User-Agent': 'AffiliateOps-CreativeEngine/2.0',
-    };
-    if (apiKey) {
-      headers['Authorization'] = `Bearer ${apiKey}`;
+    const apiKey =
+      process.env.NVIDIA_FLUX_DEV_API_KEY ||
+      process.env.NVIDIA_API_KEY ||
+      process.env.NVIDIA_SD35_API_KEY ||
+      '';
+
+    if (!apiKey || !apiKey.startsWith('nvapi-')) {
+      throw new Error('[ImageGateway] NVIDIA API key (nvapi-*) required for image generation');
     }
 
-    try {
-      const response = await axios.get(url, {
-        headers,
-        responseType: 'arraybuffer',
-        timeout: 45000,
-        validateStatus: (status) => status >= 200 && status < 400,
-      });
+    const fluxUrl = 'https://ai.api.nvidia.com/v1/genai/black-forest-labs/flux.1-dev';
+    const timeoutMs = 60000;
 
-      const latencyMs = Date.now() - start;
-      const buffer = Buffer.from(response.data);
-      const contentType = String(response.headers['content-type'] || 'image/jpeg');
-
-      console.log(`\x1b[2m[ImageGateway]\x1b[0m Generated ${buffer.byteLength} bytes image in \x1b[36m${latencyMs}ms\x1b[0m (seed: ${seed})`);
-      return { buffer, contentType, latencyMs };
-    } catch (err: any) {
-      // Fallback to smaller dimension if high resolution timed out
-      if (width > 512 || height > 512) {
-        console.warn(`[ImageGateway] High-res generation failed (${err.message}). Retrying with optimized dimensions (512x512)...`);
-        return this.generate(prompt, { ...options, width: 512, height: 512 });
+    const res = await axios.post(
+      fluxUrl,
+      { prompt: prompt.trim(), mode: 'base' },
+      {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        timeout: timeoutMs,
+        validateStatus: () => true,
       }
-      throw new Error(`[ImageGateway] Failed to generate creative image: ${err.message}`);
+    );
+
+    let responseData: any = null;
+    if (res.status === 200) {
+      responseData = res.data;
+    } else if (res.status === 202) {
+      const reqId = res.headers['nvcf-reqid'] as string;
+      if (!reqId) throw new Error('HTTP 202 without nvcf-reqid');
+      responseData = await pollNvcfQueue(reqId, apiKey, 30);
+    } else {
+      throw new Error(`[ImageGateway] NVIDIA NIM HTTP ${res.status}: ${JSON.stringify(res.data)}`);
     }
+
+    const b64 = extractBase64(responseData);
+    if (!b64) throw new Error('[ImageGateway] Failed to extract base64 from NVIDIA NIM response');
+
+    const buffer = Buffer.from(b64, 'base64');
+    const latencyMs = Date.now() - start;
+    const contentType = 'image/png';
+
+    console.log(`\x1b[2m[ImageGateway]\x1b[0m Generated ${buffer.byteLength} bytes image via NVIDIA NIM in \x1b[36m${latencyMs}ms\x1b[0m`);
+    return { buffer, contentType, latencyMs };
   }
 
   /**
@@ -228,8 +236,8 @@ export class ImageGateway {
       }
     }
 
-    // Резервный путь: генерация через FLUX/Pollinations
-    const combinedPrompt = negativePrompt ? `${prompt}. (negative: ${negativePrompt})` : prompt;
+    // Резервный путь: генерация через прямой NVIDIA NIM FLUX
+    const combinedPrompt = negativePrompt ? `${prompt}. (Avoid: ${negativePrompt})` : prompt;
     const fallbackGen = await this.generate(combinedPrompt, {
       model: 'flux',
       width: 1024,

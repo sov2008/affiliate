@@ -2238,11 +2238,11 @@ app.get('/api/credits/status', (req: Request, res: Response) => {
         status: process.env.GEMINI_API_KEY ? 'active' : 'not_configured',
       },
       {
-        name: 'Pollinations',
-        model: 'image-gen',
-        configured: Boolean(process.env.POLLINATIONS_API_KEY),
-        dailyTokenBudget: 100,
-        status: process.env.POLLINATIONS_API_KEY ? 'active' : 'not_configured',
+        name: 'NVIDIA NIM FLUX',
+        model: 'flux.1-dev',
+        configured: Boolean(process.env.NVIDIA_FLUX_DEV_API_KEY || process.env.NVIDIA_API_KEY),
+        dailyTokenBudget: 500,
+        status: (process.env.NVIDIA_FLUX_DEV_API_KEY || process.env.NVIDIA_API_KEY) ? 'active' : 'not_configured',
       },
     ];
 

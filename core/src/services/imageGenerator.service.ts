@@ -405,49 +405,9 @@ export class ImageGeneratorService {
   }
 
   /**
-   * Tertiary fallback via Pollinations AI FLUX engine
-   */
-  private async generateViaPollinations(
-    prompt: string,
-    width: number,
-    height: number,
-    timeoutMs: number = 20000
-  ): Promise<Buffer | null> {
-    console.log(`🌐 [ImageGenerator] Invoking Pollinations FLUX fallback...`);
-    const encodedPrompt = encodeURIComponent(prompt);
-    const seed = Math.floor(Math.random() * 1000000);
-    const pollinationsUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&model=flux&nologo=true&seed=${seed}`;
-
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeoutMs);
-
-    const response = await fetch(pollinationsUrl, {
-      signal: controller.signal,
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) FlirtCheck/2.0',
-        Accept: 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
-      },
-    });
-
-    clearTimeout(timer);
-
-    if (!response.ok) {
-      throw new Error(`Pollinations HTTP error: ${response.status} ${response.statusText}`);
-    }
-
-    const arrayBuffer = await response.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    if (buffer.length < 2000) {
-      throw new Error('Pollinations returned undersized image payload');
-    }
-
-    return buffer;
-  }
-
-  /**
-   * Generates a photorealistic editorial cover image using NVIDIA NIM (FLUX.1-dev),
+   * Generates a photorealistic editorial cover image using NVIDIA NIM (FLUX.1-dev / SD 3.5 Large),
    * post-processes it to WebP 1200x675 via Sharp, and saves locally to blog/public/images/posts/${slug}.webp.
-   * Multi-tier fallback: NVIDIA FLUX.1-dev -> NVIDIA SD 3.5 Large -> Pollinations FLUX -> Editorial SVG Badge.
+   * Multi-tier fallback: NVIDIA FLUX.1-dev -> NVIDIA SD 3.5 Large -> Editorial SVG Badge.
    */
   public async generateArticleCover(
     slug: string,
@@ -493,18 +453,8 @@ export class ImageGeneratorService {
           rawImageBuffer = await this.generateViaNvidiaSD35(prompt, negativePrompt, nvidiaKey, timeoutMs);
           console.log(`✅ [ImageGenerator] NVIDIA NIM SD 3.5 generated cover in ${Date.now() - startTime}ms`);
         } catch (sdErr: any) {
-          console.warn(`⚠️ [ImageGenerator] NVIDIA SD 3.5 failed: ${sdErr.message}. Falling back to Tier 3...`);
+          console.warn(`⚠️ [ImageGenerator] NVIDIA SD 3.5 failed: ${sdErr.message}.`);
         }
-      }
-    }
-
-    // 3. Tier 3: Pollinations AI FLUX
-    if (!rawImageBuffer) {
-      try {
-        rawImageBuffer = await this.generateViaPollinations(prompt, width, height, 25000);
-        console.log(`✅ [ImageGenerator] Pollinations FLUX generated cover in ${Date.now() - startTime}ms`);
-      } catch (pollErr: any) {
-        console.warn(`⚠️ [ImageGenerator] Pollinations FLUX failed: ${pollErr.message}`);
       }
     }
 
