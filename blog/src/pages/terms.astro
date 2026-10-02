@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Terms of Service & Editorial Disclosures | FlirtCheck Gazette";
+const description = "Terms of service, affiliate disclosure, acceptable use policy, and intellectual property terms for the FlirtCheck forensic dating intelligence platform.";
+---
+
+<BaseLayout title={title} description={description} activePath="/terms">
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header Tag -->
+    <div class="mb-8 border-b-2 border-slate-900 pb-4">
+      <div class="font-mono text-xs text-rose-700 uppercase tracking-widest font-bold mb-2">
+        STATUTORY TERMS • DOCUMENT ID: FCK-TOS-2026-V1
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-serif font-black text-slate-950 tracking-tight">
+        Terms of Service & Publisher Disclosure
+      </h1>
+      <p class="text-sm font-mono text-slate-600 mt-2">
+        Last Updated: October 2, 2026 • Governing Law: England & Wales
+      </p>
+    </div>
+
+    <!-- Content Sections -->
+    <article class="prose prose-slate max-w-none space-y-8 text-slate-800 leading-relaxed">
+      <section class="space-y-4">
+        <h2 class="text-xl font-serif font-bold text-slate-900 border-b border-slate-300 pb-2">
+          1. Acceptance of Terms & Editorial Scope
+        </h2>
+        <p>
+          By accessing and utilizing <strong>FlirtCheck.site</strong> ("the Site"), including our educational dispatches, behavioral calculators, and security guidelines, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you must discontinue your use of our publications and tools.
+        </p>
+        <p class="text-sm">
+          FlirtCheck is an independent educational and forensic analysis publication. The information presented across our site is compiled for consumer safety awareness, digital hygiene education, and defense against online dating deception and romance fraud.
+        </p>
+      </section>
+
+      <section class="bg-amber-50/60 border border-amber-900/20 p-6 rounded-none space-y-3">
+        <h2 class="text-lg font-mono font-bold uppercase tracking-wider text-slate-900 mt-0">
+          2. Commercial Affiliate Disclosure (FTC & ASA Compliance)
+        </h2>
+        <p class="text-sm text-slate-700 m-0 leading-relaxed">
+          In full compliance with the <strong>United States Federal Trade Commission (FTC) Guides Concerning the Use of Endorsements and Testimonials in Advertising</strong> (16 CFR Part 255) and the <strong>UK Advertising Standards Authority (ASA) CAP Code</strong>:
+        </p>
+        <p class="text-sm text-slate-700 m-0 leading-relaxed">
+          FlirtCheck maintains affiliate relationships with third-party verification platforms, cybersecurity solutions, and commercial dating services. When visitors click certain external links (such as buttons routing through our <code>/go</code> gateway labeled with <code>rel="nofollow sponsored"</code>) and subsequently register or purchase a membership, FlirtCheck may receive a referral commission. This compensation incurs zero additional cost to the reader and supports the ongoing operation of our independent investigative research desk.
+        </p>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-xl font-serif font-bold text-slate-900 border-b border-slate-300 pb-2">
+          3. Disclaimer of Professional Legal and Security Advice
+        </h2>
+        <p>
+          All analyses, algorithmic risk ratings, and security playbooks are published for educational evaluation purposes only:
+        </p>
+        <ul class="list-disc pl-6 space-y-2 text-sm">
+          <li><strong>No Legal Guarantee:</strong> While our investigative methods reference established open-source intelligence (OSINT) and cybersecurity protocols, no automated tool can guarantee 100% prevention of interpersonal deception or fraud.</li>
+          <li><strong>Personal Discretion:</strong> Users must exercise independent judgment and situational caution when interacting with unknown parties online or planning real-world meetings.</li>
+          <li><strong>Law Enforcement Referral:</strong> In incidents involving active extortion, blackmail, or physical threats, users must immediately contact their local jurisdiction police authority (or the National Cyber Security Centre in the UK / FBI IC3 in the United States).</li>
+        </ul>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-xl font-serif font-bold text-slate-900 border-b border-slate-300 pb-2">
+          4. Intellectual Property & Syndication Rights
+        </h2>
+        <p class="text-sm">
+          All original forensic monographs, investigative graphics, SVG visual assets, and diagnostic source code hosted on FlirtCheck.site are protected under international copyright legislation. Reproduction, syndication, or scraping of content without prior express written permission is prohibited, except for brief quotation under fair dealing provisions with direct attribution back to the original dispatch.
+        </p>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-xl font-serif font-bold text-slate-900 border-b border-slate-300 pb-2">
+          5. Contact & Formal Inquiries
+        </h2>
+        <div class="border-l-4 border-slate-900 pl-4 py-2 font-mono text-xs text-slate-800 space-y-1">
+          <p><strong>Legal & Compliance Desk:</strong> FlirtCheck Technical Bureau</p>
+          <p><strong>Official Contact:</strong> <a href="mailto:legal@flirtcheck.site" class="text-rose-700 hover:underline">legal@flirtcheck.site</a></p>
+          <p><strong>Corporate Inquiries:</strong> Cheltenham Desk, GL50, Gloucestershire, UK</p>
+        </div>
+      </section>
+    </article>
+  </main>
+</BaseLayout>

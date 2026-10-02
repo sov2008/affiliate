@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Privacy & Data Sanitization Protocol | FlirtCheck Gazette";
+const description = "Official privacy policy and client-side data protection protocol of FlirtCheck Investigative Desk. GDPR & UK Data Protection Act 2018 compliance.";
+---
+
+<BaseLayout title={title} description={description} activePath="/privacy">
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Breadcrumbs / Header Tag -->
+    <div class="mb-8 border-b-2 border-slate-900 pb-4">
+      <div class="font-mono text-xs text-rose-700 uppercase tracking-widest font-bold mb-2">
+        LEGAL REPOSITORY • DOCUMENT ID: FCK-PRV-2026-V2
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-serif font-black text-slate-950 tracking-tight">
+        Privacy & Data Governance Policy
+      </h1>
+      <p class="text-sm font-mono text-slate-600 mt-2">
+        Effective Date: January 15, 2026 • Last Reviewed: October 2, 2026 • Version 2.4.1
+      </p>
+    </div>
+
+    <!-- Content Sections -->
+    <article class="prose prose-slate max-w-none space-y-8 text-slate-800 leading-relaxed">
+      <section class="bg-amber-50/60 border border-amber-900/20 p-6 rounded-none">
+        <h2 class="text-lg font-mono font-bold uppercase tracking-wider text-slate-900 mt-0 mb-3">
+          1. Core Philosophy: Zero-Persistence Client-Side Architecture
+        </h2>
+        <p class="text-sm text-slate-700 m-0">
+          FlirtCheck operates as an independent technical intelligence bureau based in Cheltenham, United Kingdom. Unlike conventional platforms, our interactive tools (including the Dating Risk Calculator) execute entirely within your local browser environment. We do not transmit, harvest, log, or persist user chat transcripts, biometric metadata, or personal identifiers to external cloud databases.
+        </p>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-xl font-serif font-bold text-slate-900 border-b border-slate-300 pb-2">
+          2. Information We Collect and Process
+        </h2>
+        <p>
+          In accordance with the <strong>UK Data Protection Act 2018</strong> and the <strong>General Data Protection Regulation (EU GDPR)</strong>, we adhere strictly to the principle of data minimization:
+        </p>
+        <ul class="list-disc pl-6 space-y-2 text-sm">
+          <li><strong>Technical Web Telemetry:</strong> Standard non-identifying server logs (IP address, user agent, browser language, timestamp) collected by our reverse proxy (Nginx) solely for denial-of-service mitigation, rate limiting, and infrastructure uptime monitoring. These logs automatically cycle and purge within 7 calendar days.</li>
+          <li><strong>Browser Session State:</strong> Non-tracking cookies or localStorage variables required strictly for interface preferences (such as dark/light contrast or dismissal of safety warning banners).</li>
+          <li><strong>Interactive Diagnostic Tools:</strong> Any text strings, timestamp deltas, or behavioral variables inputted into our client-side assessment calculators are processed locally in RAM memory and instantly destroyed when the tab is closed.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-xl font-serif font-bold text-slate-900 border-b border-slate-300 pb-2">
+          3. Affiliate Links & Third-Party Referral Disclosure
+        </h2>
+        <p>
+          FlirtCheck may contain designated referral links (designated via <code>/go</code> redirects with explicit <code>rel="nofollow sponsored"</code> attributes). When you follow an outbound link to an external verification service or partner matchmaking network, third-party affiliate networks (including MyLead, LosPollos, and Admitad/Mitgo) may set tracking cookies to attribute referral actions.
+        </p>
+        <p class="text-sm">
+          These external networks operate under their respective privacy disclosures. FlirtCheck does not control or store any personally identifiable transaction information processed by third-party billing processors.
+        </p>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-xl font-serif font-bold text-slate-900 border-b border-slate-300 pb-2">
+          4. Your Data Protection Rights Under GDPR
+        </h2>
+        <p>
+          Under UK and EU data protection frameworks, you have specific rights concerning any potential personal data held:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs">
+          <div class="border border-slate-900 p-4 bg-white">
+            <span class="font-bold text-rose-700 block mb-1">RIGHT OF ACCESS (ART. 15)</span>
+            Request confirmation as to whether any telemetry associated with your IP exists on our servers.
+          </div>
+          <div class="border border-slate-900 p-4 bg-white">
+            <span class="font-bold text-rose-700 block mb-1">RIGHT TO ERASURE (ART. 17)</span>
+            Request immediate deletion of any temporary log entries prior to automated scheduled purging.
+          </div>
+          <div class="border border-slate-900 p-4 bg-white">
+            <span class="font-bold text-rose-700 block mb-1">RIGHT TO RESTRICTION (ART. 18)</span>
+            Object to automated statistical processing of network traffic indicators.
+          </div>
+          <div class="border border-slate-900 p-4 bg-white">
+            <span class="font-bold text-rose-700 block mb-1">DATA PORTABILITY (ART. 20)</span>
+            Obtain exported diagnostic outputs from browser sessions where technically feasible.
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-xl font-serif font-bold text-slate-900 border-b border-slate-300 pb-2">
+          5. Data Controller Contact & Supervisory Authority
+        </h2>
+        <p class="text-sm">
+          If you have inquiries regarding our technical privacy safeguards or wish to exercise your statutory privacy rights, contact our Data Protection Officer directly:
+        </p>
+        <div class="border-l-4 border-slate-900 pl-4 py-2 font-mono text-xs text-slate-800 space-y-1">
+          <p><strong>Entity:</strong> FlirtCheck Technical Editorial Bureau</p>
+          <p><strong>Jurisdiction:</strong> Cheltenham, Gloucestershire, GL50, United Kingdom</p>
+          <p><strong>Privacy Inquiries Email:</strong> <a href="mailto:privacy@flirtcheck.site" class="text-rose-700 hover:underline">privacy@flirtcheck.site</a> / <a href="mailto:support@flirtcheck.site" class="text-rose-700 hover:underline">support@flirtcheck.site</a></p>
+          <p><strong>Supervisory Body:</strong> UK Information Commissioner's Office (ICO) — <a href="https://ico.org.uk" target="_blank" rel="noopener" class="underline">ico.org.uk</a></p>
+        </div>
+      </section>
+    </article>
+  </main>
+</BaseLayout>

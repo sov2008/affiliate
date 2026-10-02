@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "About FlirtCheck Investigative Bureau | Cheltenham Desk";
+const description = "Learn about FlirtCheck, an independent forensic research bureau in Cheltenham, UK, analyzing matchmaking telemetry, dating fraud vectors, and AI-generated deception.";
+---
+
+<BaseLayout title={title} description={description} activePath="/about">
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <div class="mb-8 border-b-2 border-slate-900 pb-4">
+      <div class="font-mono text-xs text-rose-700 uppercase tracking-widest font-bold mb-2">
+        INSTITUTIONAL PROFILE • CHELTENHAM FORENSICS
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-serif font-black text-slate-950 tracking-tight">
+        About the FlirtCheck Investigative Desk
+      </h1>
+      <p class="text-sm font-mono text-slate-600 mt-2">
+        Independent technical journalism, romance fraud counter-intelligence, and algorithmic safety since 2026.
+      </p>
+    </div>
+
+    <!-- Article Body -->
+    <article class="prose prose-slate max-w-none space-y-8 text-slate-800 leading-relaxed">
+      <section class="space-y-4">
+        <h2 class="text-xl font-serif font-bold text-slate-900 border-b border-slate-300 pb-2">
+          Our Mission: Demystifying Algorithmic Courtship
+        </h2>
+        <p>
+          Founded by open-source intelligence (OSINT) researchers and digital security analysts in Cheltenham, UK, <strong>FlirtCheck</strong> is an independent editorial desk dedicated to exposing the mechanics of modern digital romance. As commercial matchmaking platforms integrate generative AI, behavioral throttling algorithms, and paywalled monetization funnels, users face unprecedented risks of deception, identity exploitation, and automated fraud.
+        </p>
+        <p>
+          Our work sits at the intersection of cybersecurity, investigative journalism, and interpersonal safety. We provide evidence-grounded guides, reverse-engineering analyses of scam operations (including pig-butchering syndicates and romance sextortion funnels), and open-source diagnostic utilities designed to give everyday users actionable clarity.
+        </p>
+      </section>
+
+      <section class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs my-8">
+        <div class="border-2 border-slate-900 p-5 bg-[#F4EFE6]">
+          <span class="text-2xl font-serif font-black text-rose-700 block mb-2">100+</span>
+          <p class="font-bold text-slate-900 mb-1 uppercase">Forensic Monographs</p>
+          <p class="text-slate-600 leading-snug">In-depth case studies deconstructing real-world romance scam playbooks and synthetic AI profiles.</p>
+        </div>
+        <div class="border-2 border-slate-900 p-5 bg-[#F4EFE6]">
+          <span class="text-2xl font-serif font-black text-rose-700 block mb-2">0%</span>
+          <p class="font-bold text-slate-900 mb-1 uppercase">Cloud Data Retention</p>
+          <p class="text-slate-600 leading-snug">Client-side client execution ensures personal screenshot data never touches external storage.</p>
+        </div>
+        <div class="border-2 border-slate-900 p-5 bg-[#F4EFE6]">
+          <span class="text-2xl font-serif font-black text-rose-700 block mb-2">24/7</span>
+          <p class="font-bold text-slate-900 mb-1 uppercase">Automated Syndication</p>
+          <p class="text-slate-600 leading-snug">Continuous safety telemetry dispatched across global social channels and partner networks.</p>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-xl font-serif font-bold text-slate-900 border-b border-slate-300 pb-2">
+          Editorial Standards & Code of Conduct
+        </h2>
+        <ul class="list-disc pl-6 space-y-2 text-sm">
+          <li><strong>Empirical Verification:</strong> We only publish technical claims that have been validated against live platform APIs, network traffic captures, or documented case transcripts.</li>
+          <li><strong>No Sensationalism:</strong> Romance fraud investigations prioritize defensive tactics, victim recovery steps, and measurable indicators over sensational fear-mongering.</li>
+          <li><strong>Commercial Independence:</strong> While we maintain affiliate partnerships to sustain our technical research, our editorial conclusions and forensic assessments are never altered to favor commercial sponsors.</li>
+        </ul>
+      </section>
+
+      <section class="border-t border-slate-300 pt-6 font-mono text-xs text-slate-600">
+        <p>Published by FlirtCheck Technical Bureau • Cheltenham Desk, GL50, Gloucestershire, United Kingdom.</p>
+      </section>
+    </article>
+  </main>
+</BaseLayout>
