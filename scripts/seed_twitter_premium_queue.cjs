@@ -25,7 +25,7 @@ console.log(`Upgrading ${deleted.changes} pending items to Premium Long-Form sta
 
 function craftPremiumTweet(file, post) {
   const slug = file.replace(/\.md$/, '');
-  const url = `https://flirtcheck.site/blog/${slug}/`;
+  const url = `https://flirtcheck.site/${slug}/`;
   const title = (post.data.title || '').replace(/\s*\(2026.*?\)/gi, '').trim();
   const desc = (post.data.description || '').trim();
   const caseId = post.data.caseId || `FC-${Math.floor(100 + Math.random() * 899)}-UK`;

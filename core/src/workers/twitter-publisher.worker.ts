@@ -174,7 +174,7 @@ async function runPublishCycle(): Promise<void> {
     // Resolve and attach Cover Image if available
     let coverPath = pendingItem.image_path || '';
     if (!coverPath || !fs.existsSync(coverPath)) {
-      const match = (pendingItem.target_url || '').match(/\/blog\/([^/]+)/);
+      const match = (pendingItem.target_url || '').replace(/https?:\/\/[^/]+/, '').match(/(?:\/blog)?\/([^/]+)\/?$/);
       if (match) {
         const slug = match[1];
         const candidates = [
