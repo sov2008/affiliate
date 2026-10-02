@@ -200,6 +200,26 @@ module.exports = {
         ...sharedEnv,
         HEADLESS: "true"
       }
+    },
+    {
+      name: "affiliate-twitter-publisher",
+      script: "./dist/workers/twitter-publisher.worker.js",
+      cwd: coreDir,
+      instances: 1,
+      autorestart: true,
+      max_restarts: 15,
+      min_uptime: "30s",
+      max_memory_restart: "450M",
+      restart_delay: 10000,
+      exp_backoff_restart_delay: 1000,
+      out_file: path.join(logsDir, "pm2-affiliate-twitter-publisher-out.log"),
+      error_file: path.join(logsDir, "pm2-affiliate-twitter-publisher-error.log"),
+      merge_logs: true,
+      time: true,
+      env: {
+        ...sharedEnv,
+        TWITTER_PUBLISH_INTERVAL_MINUTES: "30"
+      }
     }
   ]
 };
