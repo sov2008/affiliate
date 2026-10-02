@@ -104,3 +104,9 @@ A: It’s akin to replaying the same packet payload to every destination – mos
 ---
 
 ### If debugging someone else’s emotional exceptions isn’t your idea of fun, run the profile through our 30‑second **FlirtCheck verification filter**. Saves bandwidth, reduces latency, and keeps the logs clean.
+
+
+---
+
+### Related Forensic Investigation
+* Test verified starter prompts: [Hinge Icebreakers That Actually Work: Data-Backed Openers With 80%+ Reply Rate](/hinge-icebreakers-that-actually-work/).

@@ -1,14 +1,14 @@
 ---
-title: "The 2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Thrive Online"
-description: "Discover expert tactics on bumble compliments spotlight worth it review. Comprehensive 2026 dating safety and profile verification guide."
+title: "The 4-Photo & 3-Sentence Rule: Profile Optimization & The Triple-Check Dating Protocol"
+description: "Actionable playbook detailing the 4-photo high-trust profile layout, 3-sentence magnetic bio formula, and the triple-check verification framework."
 pubDate: "2026-08-17"
 category: "romantic-essays"
 caseId: "FC-390-ARC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 telemetryRisk: "MODERATE"
-tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: ["The 2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Thrive Online"]
+tags: ["Safety","Dating Advice","Verification","Profile Optimization"]
+seoKeywords: ["The 4-Photo & 3-Sentence Rule: Profile Optimization & The Triple-Check Dating Protocol"]
 canonicalUrl: "https://flirtcheck.site/blog/the-2026-ultimate-dating-safety-playbook-verify-optimize-thrive-o/"
 coverImage: "/images/posts/the-2026-ultimate-dating-safety-playbook-verify-optimize-thrive-o.webp"
 image: "/images/posts/the-2026-ultimate-dating-safety-playbook-verify-optimize-thrive-o.webp"

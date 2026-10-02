@@ -1,14 +1,14 @@
 ---
-title: "2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Outsmart Scammers"
-description: "Discover expert tactics on ai openers vs human humor tinder. Comprehensive 2026 dating safety and profile verification guide."
+title: "The 5-Layer Identity Audit: How to Outsmart Catfish & Fake Profiles on Dating Apps"
+description: "Master the 5-layer identity verification audit: cross-referencing photos, text telemetry, social breadcrumbs, and probe scripts."
 pubDate: "2026-06-18"
 category: "romantic-essays"
 caseId: "FC-127-ARC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 telemetryRisk: "MODERATE"
-tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: ["2026 Ultimate Dating Safety Playbook: Verify, Optimize, & Outsmart Scammers"]
+tags: ["Safety","Dating Advice","Verification","Identity Audit"]
+seoKeywords: ["The 5-Layer Identity Audit: How to Outsmart Catfish & Fake Profiles on Dating Apps"]
 canonicalUrl: "https://flirtcheck.site/blog/2026-ultimate-dating-safety-playbook-verify-optimize-outsmart-sca/"
 coverImage: "/images/posts/2026-ultimate-dating-safety-playbook-verify-optimize-outsmart-sca.webp"
 image: "/images/posts/2026-ultimate-dating-safety-playbook-verify-optimize-outsmart-sca.webp"

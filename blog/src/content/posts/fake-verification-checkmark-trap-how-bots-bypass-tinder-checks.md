@@ -120,3 +120,9 @@ By treating the verification checkmark as a piece of evidence rather than a guar
 
 *Arthur Vance*  
 Lead Forensic Investigator, FlirtCheck.site – Cheltenham Bureau, Station 04
+
+
+---
+
+### Related Forensic Investigation
+* Examine how organized syndicates operate: [Tinder Verification Checkmark: Does It Actually Stop Human-Operated Bot Farms?](/tinder-verification-checkmark-human-bot-farms/).

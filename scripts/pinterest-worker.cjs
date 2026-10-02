@@ -200,7 +200,7 @@ async function executePublicationCycle(options = {}) {
   // 4. Update persistent state
   stateMgr.recordPublication(targetItem.slug, {
     title: targetItem.title,
-    pinUrl: 'published',
+    pinUrl: targetItem.pinUrl || 'published',
     board: CONFIG.boardName,
     directArticleUrl: targetItem.targetUrl,
   });
@@ -215,10 +215,10 @@ async function executePublicationCycle(options = {}) {
     ``,
     `🏷 <b>Заголовок:</b> <i>${targetItem.title}</i>`,
     `📂 <b>Рубрика:</b> <code>${targetItem.category || 'General'}</code>`,
-    `🔗 <b>Ссылка:</b> <a href="${targetItem.targetUrl}">${targetItem.targetUrl}</a>`,
+    targetItem.pinUrl && targetItem.pinUrl.startsWith('http') ? `📌 <b>Пин на Pinterest:</b> <a href="${targetItem.pinUrl}">${targetItem.pinUrl}</a>` : '',
     `📊 <b>Осталось в очереди:</b> ${readyRemaining} готовых пинов`,
     `📈 <b>Опубликовано за сегодня:</b> ${stateMgr.state.dailyCount} / ${WORKER_CONFIG.maxDailyPins}`,
-  ].join('\n');
+  ].filter(Boolean).join('\n');
 
   await sendTelegramAlert(alertText);
 

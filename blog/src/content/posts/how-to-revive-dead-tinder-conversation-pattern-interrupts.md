@@ -96,3 +96,9 @@ No. The calculator aggregates observable telemetry into a risk score; it does no
 
 *Arthur Vance, Lead Forensic Investigator, Cheltenham Bureau, Station 04*  
 *“Love is the moment a pixelated smile pierces the static of small‑talk, daring the heart to answer a question it never thought it could ask.”*
+
+
+---
+
+### Related Forensic Investigation
+* Explore low-pressure alternatives: [Reviving Stalled Dating-App Conversations in 2026: Low-Pressure Openers That Elicit a Response](/reviving-stalled-conversations-low-pressure-openers/).

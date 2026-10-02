@@ -160,3 +160,9 @@ Paradoxically, unverified profiles are often less dangerous because users natura
 
 #### Can a verified bot account steal my identity?
 The bot itself won't steal your identity inside the app, but operators use verified accounts to build rapport, extract your real phone number, Instagram handle, and work location, which are then used for targeted social engineering or identity theft.
+
+
+---
+
+### Related Forensic Investigation
+* Compare this case with our deep dive into biometric exploits: [The Fake Verification Checkmark Trap: How Tinder Bot Networks Slip Past Facial Biometrics](/fake-verification-checkmark-trap-how-bots-bypass-tinder-checks/).

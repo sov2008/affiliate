@@ -143,3 +143,9 @@ In 99.9% of cases, no. Blockchain transactions are immutable, and syndicates imm
 
 #### What should I do if I realize I'm deep in a pig-butchering funnel right now?
 Stop all communication immediately. Do not attempt to confront the operator; do not deposit another penny to "unlock" previous funds. Take full uncropped screenshots of all wallet addresses, chat logs, and URLs, then file a report with your national cybercrime portal (such as IC3 in the US or Action Fraud in the UK).
+
+
+---
+
+### Related Forensic Investigation
+* Understand the messaging threshold: [Why Scammers Demand WhatsApp Within Three Messages – The 2026 Forensic Breakdown](/why-dating-scammers-demand-whatsapp-within-three-messages/).

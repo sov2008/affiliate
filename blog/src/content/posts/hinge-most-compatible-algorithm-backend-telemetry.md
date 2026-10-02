@@ -114,3 +114,9 @@ Scams that involve financial loss fall under the UK’s Fraud Act 2006. Reportin
 *Prepared by Arthur Vance, Lead Forensic Investigator, Cheltenham Bureau, Station 04*  
 
 ---
+
+
+---
+
+### Related Forensic Investigation
+* Inspect scoring metrics and standout feeds: [Hinge Algorithm Most Compatible Calculation 2026: Inside the Matching Engine](/hinge-algorithm-unmasked-standouts-most-compatible-scoring/).

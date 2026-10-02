@@ -1,14 +1,14 @@
 ---
-title: "2026 Ultimate Online Dating Safety Guide: Verify, Optimize, & Date Confidently"
-description: "Discover expert tactics on tinder chat to real date script. Comprehensive 2026 dating safety and profile verification guide."
+title: "Pre-Swipe Threat Modeling: The Comprehensive Dating Safety Self-Audit Checklist"
+description: "Run a pre-swipe security audit: structured self-assessment checklist to eliminate financial risks and romance fraud vulnerabilities."
 pubDate: "2026-06-21"
 category: "romantic-essays"
 caseId: "FC-762-ARC"
 classification: "PUBLIC INVESTIGATION DOSSIER // DECLASSIFIED 2026"
 author: "Arthur Vance"
 telemetryRisk: "MODERATE"
-tags: ["Safety","Dating Advice","Verification"]
-seoKeywords: ["2026 Ultimate Online Dating Safety Guide: Verify, Optimize, & Date Confidently"]
+tags: ["Safety","Dating Advice","Verification","Threat Modeling"]
+seoKeywords: ["Pre-Swipe Threat Modeling: The Comprehensive Dating Safety Self-Audit Checklist"]
 canonicalUrl: "https://flirtcheck.site/blog/2026-ultimate-online-dating-safety-guide-verify-optimize-date-con/"
 coverImage: "/images/posts/2026-ultimate-online-dating-safety-guide-verify-optimize-date-con.webp"
 image: "/images/posts/2026-ultimate-online-dating-safety-guide-verify-optimize-date-con.webp"

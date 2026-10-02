@@ -33,6 +33,7 @@ const CONFIG = {
   boardName: 'MoneyCash.pw',
   domain: 'https://flirtcheck.site',
   minIntervalMs: 60 * 1000,
+  omitDestinationLink: process.env.PINTEREST_INCLUDE_LINK === 'true' ? false : true,
 };
 
 // Ensure directories
@@ -1236,7 +1237,11 @@ class PinterestQueueManager {
     bullets.slice(0, 2).forEach((b) => {
       desc += `• ${b.prefix}: ${b.body}\n`;
     });
-    desc += `\n👉 Full forensic audit & guide at:\n${item.targetUrl}\n\n`;
+    if (!CONFIG.omitDestinationLink && item.targetUrl) {
+      desc += `\n👉 Full forensic audit & guide at:\n${item.targetUrl}\n\n`;
+    } else {
+      desc += `\n👉 Full forensic audit & verification protocol by FlirtCheck.\n\n`;
+    }
     desc += `#DatingSafety #DatingRedFlags #OnlineDatingTips #TextingTips #TinderAdvice #BumbleTips #HingeTips #RelationshipAdvice #FlirtCheck #CatfishWarning`;
 
     if (desc.length > 490) {
@@ -1324,22 +1329,26 @@ class PinterestQueueManager {
         log('Description filled ✅');
       }
 
-      // 4. Destination Link (Mandatory for Traffic & Rich Pins)
-      log(`Filling Destination Link: ${item.targetUrl}...`);
-      const linkInput = page.locator('textarea[id*="pin-draft-link"], textarea[placeholder*="целевую ссылку" i], textarea[placeholder*="ссылк" i], textarea[placeholder*="destination" i], input[placeholder*="link" i]').first();
-      await linkInput.waitFor({ state: 'visible', timeout: 8000 });
-      await linkInput.fill(item.targetUrl);
-      let curLink = await linkInput.inputValue().catch(() => '');
-      if (!curLink) {
-        await linkInput.click();
-        await page.keyboard.press('Control+A');
-        await page.keyboard.insertText(item.targetUrl);
+      // 4. Destination Link (Optional / Omitted when pending domain whitelist)
+      if (!CONFIG.omitDestinationLink && item.targetUrl) {
+        log(`Filling Destination Link: ${item.targetUrl}...`);
+        const linkInput = page.locator('textarea[id*="pin-draft-link"], textarea[placeholder*="целевую ссылку" i], textarea[placeholder*="ссылк" i], textarea[placeholder*="destination" i], input[placeholder*="link" i]').first();
+        await linkInput.waitFor({ state: 'visible', timeout: 8000 });
+        await linkInput.fill(item.targetUrl);
+        let curLink = await linkInput.inputValue().catch(() => '');
+        if (!curLink) {
+          await linkInput.click();
+          await page.keyboard.press('Control+A');
+          await page.keyboard.insertText(item.targetUrl);
+        }
+        curLink = await linkInput.inputValue().catch(() => '');
+        if (!curLink || !curLink.startsWith('http')) {
+          throw new Error(`CRITICAL: Destination link was NOT set for ${item.slug}. Aborting publish to prevent untitled/broken pins.`);
+        }
+        log(`Destination link status: ${curLink} ✅`);
+      } else {
+        log('Destination link omitted as requested (publishing direct organic pins without link to bypass spam filter) ✅');
       }
-      curLink = await linkInput.inputValue().catch(() => '');
-      if (!curLink || !curLink.startsWith('http')) {
-        throw new Error(`CRITICAL: Destination link was NOT set for ${item.slug}. Aborting publish to prevent untitled/broken pins.`);
-      }
-      log(`Destination link status: ${curLink} ✅`);
 
       // 5. Alt Text (Accessibility & Pinterest Visual Search OCR Boost)
       try {
@@ -1412,7 +1421,9 @@ class PinterestQueueManager {
       }
 
       if (!confirmed) {
-        log('⚠️ Warning: Confirmation modal/API not captured within 20s, proceeding with state update...');
+        const failPath = path.join(CONFIG.pinsOutputDir, `failed_publish_${item.slug}.png`);
+        await page.screenshot({ path: failPath, fullPage: true }).catch(() => {});
+        throw new Error(`CRITICAL: Pinterest did NOT confirm pin creation for "${item.slug}". Screenshot saved to ${failPath}. Aborting to prevent ghost published status.`);
       }
 
       const pinDirectUrl = createdPinId ? `https://www.pinterest.com/pin/${createdPinId}/` : 'published';

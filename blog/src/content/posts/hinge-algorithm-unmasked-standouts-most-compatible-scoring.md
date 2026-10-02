@@ -116,3 +116,9 @@ No. The badge reflects statistical favourability based on algorithmic heuristics
 
 ### What practical steps can I take to verify a match’s authenticity?  
 Begin with a reverse image search of profile photos, capture a short voice note for spectrogram analysis, request a brief unscripted video call, and observe response latency. Complement these with a run through the Dating Risk Calculator for a quick risk overview.
+
+
+---
+
+### Related Forensic Investigation
+* Review backend queue timing and exposure: [How Hinge’s “Most Compatible” Algorithm Works: A 2026 Forensic Breakdown](/hinge-most-compatible-algorithm-backend-telemetry/).

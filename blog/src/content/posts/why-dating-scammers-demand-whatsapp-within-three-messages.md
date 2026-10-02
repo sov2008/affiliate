@@ -114,3 +114,9 @@ A: Reverse‑image search is a strong early indicator, but it should be corrobor
 A: The calculator runs entirely in your browser, parsing only the publicly visible elements of a profile. No personal identifiers or message contents are transmitted to external servers.
 
 ---
+
+
+---
+
+### Related Forensic Investigation
+* Trace the complete financial execution: [The 48-Hour WhatsApp Move: Anatomy of a Crypto Dating Funnel](/the-48-hour-whatsapp-move-crypto-dating-funnel-anatomy/).
