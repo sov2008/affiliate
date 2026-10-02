@@ -1295,65 +1295,51 @@ class PinterestQueueManager {
       }
 
       // 1. Upload File
+      // 1. Upload File
       log('Uploading pin image...');
       await page.setInputFiles('input[type="file"]', item.creativePath);
-      await page.waitForTimeout(3000);
+      await page.waitForTimeout(3500);
 
-      // 2. Title
+      // 2. Title (Ensure React controlled component is filled and verified)
       log('Filling Title...');
-      const titleInput = page.locator('input[id*="storyboard-selector-title"], textarea[placeholder*="Title"], input[placeholder*="заголовок"], textarea[placeholder*="заголовок"], textarea[placeholder*="название"]').first();
-      await titleInput.click();
-      await page.keyboard.press('Control+A');
-      await page.keyboard.type(item.title.substring(0, 99));
-      await page.waitForTimeout(800);
+      const titleInput = page.locator('textarea[id*="pin-draft-title"], textarea[placeholder*="название" i], textarea[placeholder*="title" i], [data-test-id="editor-title"] textarea').first();
+      await titleInput.waitFor({ state: 'visible', timeout: 8000 });
+      const pinTitle = item.title.substring(0, 99);
+      await titleInput.fill(pinTitle);
+      let curTitle = await titleInput.inputValue().catch(() => '');
+      if (!curTitle) {
+        await titleInput.click();
+        await page.keyboard.press('Control+A');
+        await page.keyboard.insertText(pinTitle);
+      }
+      log(`Title status: "${await titleInput.inputValue()}" ✅`);
 
       // 3. High-Converting SEO Description
       log('Filling High-Converting Pinterest SEO Description...');
-      const descArea = page.locator('div[contenteditable="true"], [aria-label="Добавьте описание пина"], textarea[id*="description"], [placeholder*="описание"]').first();
-      if (await descArea.isVisible({ timeout: 2000 }).catch(() => false)) {
+      const descArea = page.locator('div[aria-label*="описание пина" i], div[contenteditable="true"], [data-test-id="editor-description"] div[contenteditable="true"]').first();
+      if (await descArea.isVisible({ timeout: 5000 }).catch(() => false)) {
         await descArea.click();
-        await page.keyboard.press('Control+A');
         const descText = this.generatePinDescription(item);
-        await page.keyboard.type(descText);
-        await page.waitForTimeout(800);
+        await descArea.fill(descText);
+        log('Description filled ✅');
       }
 
       // 4. Destination Link (Mandatory for Traffic & Rich Pins)
       log(`Filling Destination Link: ${item.targetUrl}...`);
-      let linkFilled = false;
-      const linkSelectors = [
-        'input[placeholder*="ссылк"]',
-        'input[placeholder*="link" i]',
-        'textarea[placeholder*="ссылк"]',
-        '[data-test-id="editor-link-field"] input',
-        'input[id*="storyboard-selector-link"]',
-        'input[id*="link"]'
-      ];
-      for (const sel of linkSelectors) {
-        const linkInput = page.locator(sel).first();
-        if (await linkInput.isVisible({ timeout: 1000 }).catch(() => false)) {
-          await linkInput.click();
-          await page.keyboard.press('Control+A');
-          await page.keyboard.type(item.targetUrl);
-          linkFilled = true;
-          break;
-        }
+      const linkInput = page.locator('textarea[id*="pin-draft-link"], textarea[placeholder*="целевую ссылку" i], textarea[placeholder*="ссылк" i], textarea[placeholder*="destination" i], input[placeholder*="link" i]').first();
+      await linkInput.waitFor({ state: 'visible', timeout: 8000 });
+      await linkInput.fill(item.targetUrl);
+      let curLink = await linkInput.inputValue().catch(() => '');
+      if (!curLink) {
+        await linkInput.click();
+        await page.keyboard.press('Control+A');
+        await page.keyboard.insertText(item.targetUrl);
       }
-
-      if (!linkFilled) {
-        const addLinkBtn = await page.$('button:has-text("Добавить ссылку"), button:has-text("Add a link"), button:has-text("Добавьте ссылку")');
-        if (addLinkBtn) {
-          await addLinkBtn.click();
-          await page.waitForTimeout(600);
-          const linkInput2 = page.locator('input[placeholder*="ссылк"], input[placeholder*="link" i], input[id*="link"]').first();
-          if (await linkInput2.isVisible({ timeout: 1500 }).catch(() => false)) {
-            await linkInput2.click();
-            await page.keyboard.type(item.targetUrl);
-            linkFilled = true;
-          }
-        }
+      curLink = await linkInput.inputValue().catch(() => '');
+      if (!curLink || !curLink.startsWith('http')) {
+        throw new Error(`CRITICAL: Destination link was NOT set for ${item.slug}. Aborting publish to prevent untitled/broken pins.`);
       }
-      log(`Destination link status: ${linkFilled ? 'FILLED ✅' : '⚠️ NOT FOUND / SKIPPED'}`);
+      log(`Destination link status: ${curLink} ✅`);
 
       // 5. Alt Text (Accessibility & Pinterest Visual Search OCR Boost)
       try {
@@ -1364,8 +1350,7 @@ class PinterestQueueManager {
         }
         const altInput = page.locator('textarea[placeholder*="альтернативн"], textarea[placeholder*="alt text" i], [aria-label*="альтернативн"]').first();
         if (await altInput.isVisible({ timeout: 1500 }).catch(() => false)) {
-          await altInput.click();
-          await page.keyboard.type(`Infographic guide: ${item.title}. Dating app safety checklist, chat analysis, and profile verification breakdown.`);
+          await altInput.fill(`Infographic guide: ${item.title}. Dating app safety checklist, chat analysis, and profile verification breakdown.`);
           log('Alt text successfully filled for Pinterest Visual Search.');
         }
       } catch (altErr) {
@@ -1389,29 +1374,50 @@ class PinterestQueueManager {
         }
       }
 
+      let createdPinId = null;
+      page.on('response', async res => {
+        if (res.url().includes('PinResource/create')) {
+          try {
+            const json = await res.json();
+            const nodeId = json.resource_response?.data?.node_id;
+            if (nodeId) {
+              const raw = Buffer.from(nodeId, 'base64').toString('utf8');
+              createdPinId = raw.replace('Pin:', '');
+            }
+          } catch (e) {}
+        }
+      });
+
       log('🚀 Clicking Publish button...');
       const publishBtn = await page.$('[data-test-id="board-dropdown-save-button"], button:has-text("Опубликовать"), button:has-text("Сохранить")');
       if (!publishBtn) throw new Error('Publish button not found');
       await publishBtn.click({ force: true });
 
-      // 5. Wait for success modal confirmation (up to 25 seconds)
+      // 7. Wait for success confirmation or network API response
       log('⏳ Waiting for Pinterest to process and confirm pin creation...');
       let confirmed = false;
-      for (let i = 1; i <= 8; i++) {
-        await page.waitForTimeout(3000);
-        const modal = await page.$('text="Вы создали пин", [aria-label="Вы создали пин"], button:has-text("Открыть пин")');
+      for (let i = 1; i <= 10; i++) {
+        await page.waitForTimeout(2000);
+        if (createdPinId) {
+          confirmed = true;
+          log(`🎉 Pinterest confirmed pin creation via PinResource API! Pin ID: ${createdPinId}`);
+          break;
+        }
+        const modal = await page.$('text="Вы создали пин", [aria-label="Вы создали пин"], button:has-text("Открыть пин"), text="Сохранено на доске"');
         if (modal) {
-          log(`🎉 Pinterest confirmed pin creation at ${i * 3}s!`);
+          log(`🎉 Pinterest confirmed pin creation via toast/modal at ${i * 2}s!`);
           confirmed = true;
           break;
         }
       }
 
       if (!confirmed) {
-        log('⚠️ Warning: Confirmation modal not seen within 24s, checking background update...');
+        log('⚠️ Warning: Confirmation modal/API not captured within 20s, proceeding with state update...');
       }
 
+      const pinDirectUrl = createdPinId ? `https://www.pinterest.com/pin/${createdPinId}/` : 'published';
       item.status = 'published';
+      item.pinUrl = pinDirectUrl;
       item.publishedAt = new Date().toISOString();
       item.attempts += 1;
       this.saveQueue();
@@ -1425,7 +1431,7 @@ class PinterestQueueManager {
         state.published[item.slug] = {
           publishedAt: item.publishedAt,
           title: item.title,
-          pinUrl: 'published',
+          pinUrl: pinDirectUrl,
           board: CONFIG.boardName,
           directArticleUrl: item.targetUrl,
           destinationLink: item.targetUrl
