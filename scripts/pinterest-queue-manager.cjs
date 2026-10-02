@@ -1187,7 +1187,9 @@ class PinterestQueueManager {
       .png({ quality: 95 })
       .toFile(item.creativePath);
 
-    item.status = 'ready';
+    if (item.status !== 'published') {
+      item.status = 'ready';
+    }
     this.saveQueue();
     log(`🎨 Rendered VIRAL LIGHT PIN WITH COVER (${archetype}): ${path.basename(item.creativePath)}`);
   }

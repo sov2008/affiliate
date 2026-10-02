@@ -148,6 +148,7 @@ class StateManager {
  */
 async function executePublicationCycle(options = {}) {
   const manager = new PinterestQueueManager();
+  manager.scanAndSync();
   const stateMgr = new StateManager(CONFIG.stateFile);
 
   log('--- Starting Pinterest Publication Cycle ---');
@@ -170,7 +171,8 @@ async function executePublicationCycle(options = {}) {
     }
   }
 
-  // 2. Select target item
+  // 2. Select target item strictly in queue order, ensuring it was not published already
+  const publishedSlugs = new Set(Object.keys(stateMgr.state.published || {}));
   let targetItem = null;
   if (options.targetSlug) {
     targetItem = manager.queue.find((i) => i.slug === options.targetSlug);
@@ -178,7 +180,7 @@ async function executePublicationCycle(options = {}) {
       throw new Error(`Target post "${options.targetSlug}" not found in queue!`);
     }
   } else {
-    targetItem = manager.queue.find((i) => i.status === 'ready' || i.status === 'pending');
+    targetItem = manager.queue.find((i) => (i.status === 'ready' || i.status === 'pending') && !publishedSlugs.has(i.slug));
   }
 
   if (!targetItem) {
