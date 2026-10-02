@@ -9,7 +9,7 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 dotenv.config({ path: path.resolve(process.cwd(), 'core/.env') });
 
 export interface AITelemetry {
-  provider: 'groq' | 'openrouter' | 'cloudflare' | 'heuristic';
+  provider: 'gemini' | 'openrouter' | 'groq' | 'cloudflare' | 'heuristic';
   model: string;
   latencyMs: number;
   tokensUsed?: number;
@@ -54,7 +54,7 @@ export class AIGateway {
 
   /**
    * Universal text generation with multi-provider waterfall fallback.
-   * Priority: Groq -> OpenRouter -> Cloudflare Workers AI
+   * Priority: Google Gemini Direct -> OpenRouter -> Groq -> Cloudflare Workers AI
    */
   public static async generateText(
     systemPrompt: string,
@@ -62,14 +62,103 @@ export class AIGateway {
     options: AIGenerationOptions = {}
   ): Promise<{ text: string; telemetry: AITelemetry }> {
     const temperature = options.temperature ?? 0.7;
-    const maxTokens = options.maxTokens ?? 2048;
+    const maxTokens = options.maxTokens ?? 2500;
     const errors: string[] = [];
 
-    // --- Provider 1: Groq ---
+    // --- Provider 1: Google Gemini Direct (Primary) ---
+    const geminiKey = process.env.GEMINI_API_KEY;
+    if (geminiKey) {
+      const start = Date.now();
+      const geminiModels = ['gemini-3.5-flash-lite', 'gemini-3.5-flash', 'gemini-3.8-flash'];
+      for (const model of geminiModels) {
+        try {
+          const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiKey}`;
+          const res = await axios.post(
+            endpoint,
+            {
+              system_instruction: {
+                parts: [{ text: systemPrompt }],
+              },
+              contents: [
+                {
+                  parts: [{ text: userPrompt }],
+                },
+              ],
+              generationConfig: {
+                temperature,
+                maxOutputTokens: maxTokens,
+              },
+            },
+            { timeout: 35000 }
+          );
+
+          const text = res.data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
+          if (text) {
+            const latencyMs = Date.now() - start;
+            const telemetry: AITelemetry = {
+              provider: 'gemini',
+              model,
+              latencyMs,
+              tokensUsed: res.data?.usageMetadata?.totalTokenCount,
+              timestamp: new Date().toISOString(),
+            };
+            this.logTelemetry(telemetry);
+            return { text, telemetry };
+          }
+        } catch (err: any) {
+          const errDetail = err?.response?.data?.error?.message || err?.message || String(err);
+          errors.push(`Gemini Direct [${model}]: ${errDetail}`);
+        }
+      }
+    }
+
+    // --- Provider 2: OpenRouter (Gemini / High-Fidelity models) ---
+    const openrouter = this.getOpenRouter();
+    if (openrouter) {
+      const start = Date.now();
+      const candidateModels = [
+        'google/gemini-3.8-flash',
+        'google/gemini-3.7-flash',
+        'google/gemini-3.6-flash',
+        'qwen/qwen3.8-27b:free',
+        'meta-llama/llama-3.3-70b-instruct',
+      ];
+      for (const model of candidateModels) {
+        try {
+          const response = await openrouter.chat.completions.create({
+            model,
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: userPrompt },
+            ],
+            temperature,
+            max_tokens: Math.min(maxTokens, 3000),
+          });
+
+          const text = response.choices[0]?.message?.content?.trim() || '';
+          if (text) {
+            const latencyMs = Date.now() - start;
+            const telemetry: AITelemetry = {
+              provider: 'openrouter',
+              model,
+              latencyMs,
+              tokensUsed: response.usage?.total_tokens,
+              timestamp: new Date().toISOString(),
+            };
+            this.logTelemetry(telemetry);
+            return { text, telemetry };
+          }
+        } catch (err: any) {
+          errors.push(`OpenRouter [${model}]: ${err?.message || String(err)}`);
+        }
+      }
+    }
+
+    // --- Provider 3: Groq (Safety Fallback) ---
     const groq = this.getGroq();
     if (groq) {
       const start = Date.now();
-      const candidateModels = ['llama-3.3-70b-versatile', 'groq/compound-mini', 'openai/gpt-oss-120b', 'openai/gpt-oss-20b'];
+      const candidateModels = ['llama-3.3-70b-versatile', 'groq/compound-mini'];
       for (const model of candidateModels) {
         try {
           const response = await groq.chat.completions.create({
@@ -98,49 +187,8 @@ export class AIGateway {
         } catch (err: any) {
           errors.push(`Groq [${model}]: ${err?.message || String(err)}`);
           if (err?.status !== 404 && err?.status !== 400) {
-            break; // Stop model iteration on rate-limit / server error to fall back to next provider
+            break;
           }
-        }
-      }
-    }
-
-    // --- Provider 2: OpenRouter (Waterfall Fallback) ---
-    const openrouter = this.getOpenRouter();
-    if (openrouter) {
-      const start = Date.now();
-      const candidateModels = [
-        'meta-llama/llama-3.3-70b-instruct:free',
-        'meta-llama/llama-3.3-70b-instruct',
-        'google/gemini-2.0-flash-lite-preview-02-05:free',
-        'mistralai/mistral-7b-instruct:free',
-      ];
-      for (const model of candidateModels) {
-        try {
-          const response = await openrouter.chat.completions.create({
-            model,
-            messages: [
-              { role: 'system', content: systemPrompt },
-              { role: 'user', content: userPrompt },
-            ],
-            temperature,
-            max_tokens: maxTokens,
-          });
-
-          const text = response.choices[0]?.message?.content?.trim() || '';
-          if (text) {
-            const latencyMs = Date.now() - start;
-            const telemetry: AITelemetry = {
-              provider: 'openrouter',
-              model,
-              latencyMs,
-              tokensUsed: response.usage?.total_tokens,
-              timestamp: new Date().toISOString(),
-            };
-            this.logTelemetry(telemetry);
-            return { text, telemetry };
-          }
-        } catch (err: any) {
-          errors.push(`OpenRouter [${model}]: ${err?.message || String(err)}`);
         }
       }
     }
