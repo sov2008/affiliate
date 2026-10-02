@@ -15,12 +15,6 @@ const path = require('path');
 const dotenv = require('dotenv');
 
 // Load environment credentials
-console.log('[DEBUG_PM2]', {
-  argv: process.argv,
-  main: require.main ? require.main.filename : null,
-  filename: __filename,
-  isMain: require.main === module
-});
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../core/.env') });
 
@@ -283,11 +277,12 @@ async function main() {
   }
 }
 
-const isDirectExecution =
+const isPM2 = process.env.pm_id !== undefined || Boolean(process.env.PM2_HOME);
+const isDirectCli =
   require.main === module ||
   (Boolean(process.argv[1]) && process.argv[1].includes('pinterest-worker'));
 
-if (isDirectExecution) {
+if (isPM2 || isDirectCli) {
   main().catch((err) => {
     console.error('Fatal Daemon Error:', err);
     process.exit(1);
