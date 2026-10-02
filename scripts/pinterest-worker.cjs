@@ -277,7 +277,11 @@ async function main() {
   }
 }
 
-if (require.main === module) {
+const isDirectExecution =
+  require.main === module ||
+  (Boolean(process.argv[1]) && process.argv[1].includes('pinterest-worker'));
+
+if (isDirectExecution) {
   main().catch((err) => {
     console.error('Fatal Daemon Error:', err);
     process.exit(1);
