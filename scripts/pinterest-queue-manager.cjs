@@ -602,8 +602,45 @@ class PinterestQueueManager {
   }
 
   /**
-   * High-contrast, mobile-first Pinterest Pin Generator
-   * Implements 4 distinct bright/light design archetypes:
+   * Resolves the local absolute path for the article cover image
+   */
+  resolveCoverImagePath(item, rawPost = '') {
+    const baseDir = path.resolve(__dirname, '../blog/public');
+
+    // 1. Check item.coverImage from queue
+    if (item.coverImage) {
+      const cleanRel = String(item.coverImage).replace(/^\//, '');
+      const p1 = path.join(baseDir, cleanRel);
+      if (fs.existsSync(p1)) return p1;
+    }
+
+    // 2. Parse coverImage from rawPost frontmatter
+    if (rawPost) {
+      const m = rawPost.match(/(?:coverImage|image):\s*["']?([^"'\r\n]+)["']?/);
+      if (m && m[1]) {
+        const cleanRel = m[1].trim().replace(/^\//, '');
+        const pPost = path.join(baseDir, cleanRel);
+        if (fs.existsSync(pPost)) return pPost;
+      }
+    }
+
+    // 3. Fallback to slug.webp / slug.png
+    const pSlugWebp = path.join(baseDir, 'images/posts', `${item.slug}.webp`);
+    if (fs.existsSync(pSlugWebp)) return pSlugWebp;
+
+    const pSlugPng = path.join(baseDir, 'images/posts', `${item.slug}.png`);
+    if (fs.existsSync(pSlugPng)) return pSlugPng;
+
+    // 4. Default generic cover
+    const pDefault = path.join(baseDir, 'images/posts/default-cover.webp');
+    if (fs.existsSync(pDefault)) return pDefault;
+
+    return null;
+  }
+
+  /**
+   * High-contrast, mobile-first Pinterest Pin Generator with REAL ARTICLE COVER
+   * Implements 4 distinct bright/light design archetypes with embedded cover visual:
    * 1. Chat Teardown (iMessage/Tinder dialogue with red flag stickers)
    * 2. Checklist Infographic (Actionable bullet cards with icons)
    * 3. Algorithm Unmasked (Behavioral & ELO analysis)
@@ -633,20 +670,48 @@ class PinterestQueueManager {
       archetype = 'photo-verification';
     }
 
-    // Headline wrap for top area (max 3 lines, high impact, NEVER truncated with ...)
-    const titleLines = wrapHeadline(cleanTitle, 25);
-    const headlineFontSize = titleLines.length === 1 ? 50 : (titleLines.length === 2 ? 45 : 39);
-    const headlineLineHeight = titleLines.length === 1 ? 62 : (titleLines.length === 2 ? 54 : 48);
+    // 1. Process and format real article cover
+    const coverWidth = 900;
+    const coverHeight = 490;
+    const coverTop = 105;
+    const coverLeft = 50;
+    const cornerRadius = 20;
 
-    const cardTopY = 175 + titleLines.length * headlineLineHeight + 15;
+    let coverBuffer = null;
+    const coverPath = this.resolveCoverImagePath(item, rawPost);
+    if (coverPath && fs.existsSync(coverPath)) {
+      try {
+        const maskSvg = Buffer.from(`
+          <svg width="${coverWidth}" height="${coverHeight}">
+            <rect x="0" y="0" width="${coverWidth}" height="${coverHeight}" rx="${cornerRadius}" ry="${cornerRadius}" fill="#fff"/>
+          </svg>
+        `);
+        coverBuffer = await sharp(coverPath)
+          .resize(coverWidth, coverHeight, { fit: 'cover', position: 'center' })
+          .composite([{ input: maskSvg, blend: 'dest-in' }])
+          .png()
+          .toBuffer();
+      } catch (err) {
+        log(`Warning preparing cover image for ${item.slug}: ${err.message}`);
+      }
+    }
+
+    // Headline wrap (2 lines under cover image, max 28 chars/line)
+    const titleLines = wrapHeadline(cleanTitle, 28).slice(0, 2);
+    const cardTopY = 745;
+    const cardHeight = 545;
 
     let svg = '';
 
     if (archetype === 'chat-teardown') {
-      // ARCHETYPE 1: Chat Teardown / Red Flags (Viral format on white/cream)
+      // ARCHETYPE 1: Chat Teardown / Red Flags
       const scenario = selectDatingScenario(item);
-      const incomingLines = scenario.incoming;
-      const outgoingLines = scenario.outgoing;
+      const incoming = (scenario.incoming[0] || 'Are you free tonight? Come over late.')
+        .replace(/^["'«\s]+|["'»\s]+$/g, '')
+        .trim();
+      const outgoing = (scenario.outgoing[0] || 'I prefer meeting in daylight for coffee first.')
+        .replace(/^["'«\s]+|["'»\s]+$/g, '')
+        .trim();
 
       svg = `
       <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
@@ -655,103 +720,98 @@ class PinterestQueueManager {
             <stop offset="0%" stop-color="#FFFFFF" />
             <stop offset="100%" stop-color="#FBF9F5" />
           </linearGradient>
-          <linearGradient id="redFlagBtn" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id="redBtn" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stop-color="#DC2626" />
             <stop offset="100%" stop-color="#EF4444" />
           </linearGradient>
           <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.08" />
+            <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.07" />
           </filter>
         </defs>
 
-        <!-- Bright Clean Background -->
         <rect width="${width}" height="${height}" fill="url(#bgLight)" />
         <rect x="0" y="0" width="${width}" height="10" fill="#EF4444" />
 
         <!-- Top Category Badge -->
-        <rect x="60" y="55" width="460" height="46" rx="8" fill="#FEE2E2" stroke="#FCA5A5" stroke-width="1.5" />
-        <circle cx="85" cy="78" r="6" fill="#EF4444" />
-        <text x="105" y="84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#B91C1C" letter-spacing="1.5">
-          🚩 TEXTING ANALYSIS // RED FLAGS
+        <rect x="50" y="40" width="450" height="42" rx="8" fill="#FEE2E2" stroke="#FCA5A5" stroke-width="1.5" />
+        <circle cx="75" cy="61" r="5" fill="#EF4444" />
+        <text x="95" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="900" fill="#B91C1C" letter-spacing="1.2">
+          🚩 TEXTING RED FLAGS // TEARDOWN
         </text>
 
         <!-- Brand Identifier -->
-        <text x="940" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
+        <text x="950" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
           FLIRTCHECK.SITE
         </text>
 
-        <!-- High-Impact Top Headline (Read in 0.5s, Complete sentence, no ...) -->
+        <!-- Cover Image Slot Frame -->
+        <rect x="${coverLeft - 2}" y="${coverTop - 2}" width="${coverWidth + 4}" height="${coverHeight + 4}" rx="${cornerRadius + 2}" fill="none" stroke="#E2E8F0" stroke-width="2" />
+
+        <!-- Headline under cover -->
         ${titleLines.map((line, i) => `
-          <text x="60" y="${175 + i * headlineLineHeight}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="${headlineFontSize}" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
+          <text x="50" y="${640 + i * 46}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="38" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
             ${escapeXml(line)}
           </text>
         `).join('')}
 
-        <!-- Interactive Chat Container Card -->
-        <rect x="50" y="${cardTopY}" width="900" height="730" rx="24" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" filter="url(#cardShadow)" />
+        <!-- Interactive Chat Card Container -->
+        <rect x="50" y="${cardTopY}" width="${coverWidth}" height="${cardHeight}" rx="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" filter="url(#cardShadow)" />
 
-        <!-- Chat Header -->
-        <rect x="50" y="${cardTopY}" width="900" height="74" rx="24" fill="#F8FAFC" />
-        <circle cx="95" cy="${cardTopY + 37}" r="20" fill="#E2E8F0" />
-        <text x="95" y="${cardTopY + 44}" font-family="sans-serif" font-size="16" text-anchor="middle">👤</text>
-        <text x="130" y="${cardTopY + 36}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="19" font-weight="700" fill="#0F172A">
-          Dating App Match
-        </text>
-        <text x="130" y="${cardTopY + 56}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#10B981">
-          • Active 5m ago
+        <!-- Chat Card Header -->
+        <rect x="50" y="${cardTopY}" width="${coverWidth}" height="55" rx="20" fill="#F8FAFC" />
+        <circle cx="85" cy="${cardTopY + 27}" r="14" fill="#E2E8F0" />
+        <text x="85" y="${cardTopY + 32}" font-family="sans-serif" font-size="12" text-anchor="middle">👤</text>
+        <text x="110" y="${cardTopY + 34}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#0F172A">
+          Dating App Match Conversation Teardown
         </text>
 
-        <!-- Message Bubble 1 (Incoming Suspect Text) -->
-        <rect x="85" y="${cardTopY + 105}" width="730" height="110" rx="20" fill="#F1F5F9" />
-        ${incomingLines.map((line, li) => `
-          <text x="115" y="${cardTopY + 148 + li * 34}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="500" fill="#1E293B">
-            ${escapeXml(line)}
-          </text>
-        `).join('')}
+        <!-- Incoming Message -->
+        <rect x="80" y="${cardTopY + 75}" width="720" height="75" rx="14" fill="#F1F5F9" />
+        <text x="105" y="${cardTopY + 120}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="19" font-weight="500" fill="#1E293B">
+          "${escapeXml(incoming)}"
+        </text>
 
-        <!-- Red Flag Annotation Overlay Sticker (Centered) -->
-        <rect x="90" y="${cardTopY + 235}" width="820" height="54" rx="14" fill="#FEF2F2" stroke="#EF4444" stroke-width="2" />
-        <text x="500" y="${cardTopY + 269}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="900" fill="#DC2626" text-anchor="middle" letter-spacing="0.5">
+        <!-- Red Flag Annotation Overlay Sticker -->
+        <rect x="80" y="${cardTopY + 165}" width="840" height="48" rx="12" fill="#FEF2F2" stroke="#EF4444" stroke-width="1.5" />
+        <text x="500" y="${cardTopY + 196}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#DC2626" text-anchor="middle" letter-spacing="0.5">
           ${escapeXml(scenario.badge)}
         </text>
 
-        <!-- Message Bubble 2 (Outgoing High-Value Boundary - Right aligned, NO clipping) -->
-        <rect x="250" y="${cardTopY + 310}" width="650" height="96" rx="20" fill="#2563EB" />
-        ${outgoingLines.map((line, li) => `
-          <text x="280" y="${cardTopY + 350 + li * 32}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="19" font-weight="600" fill="#FFFFFF">
-            ${escapeXml(line)}
-          </text>
-        `).join('')}
-
-        <!-- 3 Actionable Bullet Takeaways (Clean psychological dating terms) -->
-        <rect x="85" y="${cardTopY + 430}" width="830" height="260" rx="16" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" />
-        <text x="115" y="${cardTopY + 465}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800" fill="#64748B" letter-spacing="1.2">
-          WHAT THE ANALYSIS SHOWS:
+        <!-- Outgoing High-Value Boundary Response -->
+        <rect x="220" y="${cardTopY + 230}" width="700" height="75" rx="14" fill="#2563EB" />
+        <text x="250" y="${cardTopY + 275}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="600" fill="#FFFFFF">
+          "${escapeXml(outgoing)}"
         </text>
-        ${scenario.analysis.map((b, idx) => `
-          <g transform="translate(115, ${cardTopY + 508 + idx * 56})">
-            <circle cx="10" cy="-4" r="10" fill="#FEE2E2" stroke="#EF4444" stroke-width="1.5" />
-            <text x="10" y="0" font-family="sans-serif" font-size="11" font-weight="bold" fill="#DC2626" text-anchor="middle">!</text>
-            <text x="32" y="0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="700" fill="#0F172A">
+
+        <!-- Analysis Bullet Box -->
+        <rect x="80" y="${cardTopY + 325}" width="840" height="190" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" />
+        <text x="105" y="${cardTopY + 358}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#64748B" letter-spacing="1">
+          PSYCHOLOGICAL PATTERN ANALYSIS:
+        </text>
+        ${scenario.analysis.slice(0, 2).map((b, idx) => `
+          <g transform="translate(105, ${cardTopY + 395 + idx * 58})">
+            <circle cx="8" cy="-4" r="8" fill="#FEE2E2" stroke="#EF4444" stroke-width="1.5" />
+            <text x="8" y="0" font-family="sans-serif" font-size="10" font-weight="bold" fill="#DC2626" text-anchor="middle">!</text>
+            <text x="28" y="0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#0F172A">
               ${escapeXml(b.prefix)}: <tspan font-weight="400" fill="#475569">${escapeXml(b.body)}</tspan>
             </text>
           </g>
         `).join('')}
 
         <!-- Bottom Viral Action Button -->
-        <rect x="60" y="1320" width="880" height="84" rx="42" fill="url(#redFlagBtn)" filter="url(#cardShadow)" />
+        <rect x="50" y="1320" width="${coverWidth}" height="84" rx="42" fill="url(#redBtn)" filter="url(#cardShadow)" />
         <text x="500" y="1373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
-          READ FULL TEXT TEARDOWN &amp; GUIDE ➔
+          READ FULL CHAT TEARDOWN &amp; GUIDE ➔
         </text>
 
         <!-- Subtext Footer -->
-        <text x="500" y="1450" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
-          FlirtCheck.site • Free Match Risk &amp; Conversation Analyzer
+        <text x="500" y="1455" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
+          FlirtCheck.site • Independent Dating Safety Audits &amp; Profile Verification
         </text>
       </svg>`;
 
     } else if (archetype === 'algorithm-unmasked') {
-      // ARCHETYPE 2: Algorithm & Psychology (Modern Lavender / Deep Indigo on Crisp White)
+      // ARCHETYPE 2: Algorithm & Psychology
       svg = `
       <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -764,83 +824,91 @@ class PinterestQueueManager {
             <stop offset="100%" stop-color="#6366F1" />
           </linearGradient>
           <filter id="shadowLight" x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#4F46E5" flood-opacity="0.08" />
+            <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#4F46E5" flood-opacity="0.08" />
           </filter>
         </defs>
 
         <rect width="${width}" height="${height}" fill="url(#bgAlgo)" />
         <rect x="0" y="0" width="${width}" height="10" fill="#4F46E5" />
 
-        <!-- Category Badge -->
-        <rect x="60" y="55" width="460" height="46" rx="8" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1.5" />
-        <circle cx="85" cy="78" r="6" fill="#4F46E5" />
-        <text x="105" y="84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#4338CA" letter-spacing="1.5">
+        <!-- Top Header -->
+        <rect x="50" y="40" width="450" height="42" rx="8" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1.5" />
+        <circle cx="75" cy="61" r="5" fill="#4F46E5" />
+        <text x="95" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="900" fill="#4338CA" letter-spacing="1.2">
           🔬 ALGORITHM AUDIT // REVERSE ENGINEERED
         </text>
 
-        <text x="940" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
+        <text x="950" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
           FLIRTCHECK.SITE
         </text>
 
-        <!-- Headline on Top (Complete, no ...) -->
+        <rect x="${coverLeft - 2}" y="${coverTop - 2}" width="${coverWidth + 4}" height="${coverHeight + 4}" rx="${cornerRadius + 2}" fill="none" stroke="#E2E8F0" stroke-width="2" />
+
+        <!-- Headline under cover -->
         ${titleLines.map((line, i) => `
-          <text x="60" y="${175 + i * headlineLineHeight}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="${headlineFontSize}" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
+          <text x="50" y="${640 + i * 46}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="38" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
             ${escapeXml(line)}
           </text>
         `).join('')}
 
-        <!-- Central Telemetry Cards Container -->
-        <rect x="50" y="${cardTopY}" width="900" height="730" rx="24" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" filter="url(#shadowLight)" />
+        <!-- Telemetry Container Card -->
+        <rect x="50" y="${cardTopY}" width="${coverWidth}" height="${cardHeight}" rx="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" filter="url(#shadowLight)" />
 
-        <!-- Telemetry Metric Pill 1 -->
-        <rect x="90" y="${cardTopY + 50}" width="820" height="180" rx="16" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" />
-        <text x="125" y="${cardTopY + 95}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="800" fill="#4F46E5" letter-spacing="1">
-          METRIC 01: SWIPE RATIO &amp; VISIBILITY
-        </text>
-        <text x="125" y="${cardTopY + 135}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#0F172A">
-          Outgoing Swipe Balance
-        </text>
-        <text x="125" y="${cardTopY + 175}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="500" fill="#475569">
-          Swiping right on too many profiles triggers algorithmic suppression.
-        </text>
+        <!-- Metric 1 -->
+        <g transform="translate(80, ${cardTopY + 25})">
+          <rect width="840" height="150" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
+          <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#4F46E5" letter-spacing="1">
+            METRIC 01: SWIPE RATIO &amp; QUEUE VISIBILITY
+          </text>
+          <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#0F172A">
+            Outgoing Swipe Balance Calibration
+          </text>
+          <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#475569">
+            Swiping right on too many profiles triggers algorithmic suppression and lower ELO tier.
+          </text>
+        </g>
 
-        <!-- Telemetry Metric Pill 2 -->
-        <rect x="90" y="${cardTopY + 260}" width="820" height="180" rx="16" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" />
-        <text x="125" y="${cardTopY + 305}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="800" fill="#D97706" letter-spacing="1">
-          METRIC 02: ACTIVITY SUPPRESSION
-        </text>
-        <text x="125" y="${cardTopY + 345}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#0F172A">
-          Engineered Dating App Fatigue
-        </text>
-        <text x="125" y="${cardTopY + 385}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="500" fill="#475569">
-          Top-tier matches are withheld behind paid boost paywalls after day 3.
-        </text>
+        <!-- Metric 2 -->
+        <g transform="translate(80, ${cardTopY + 195})">
+          <rect width="840" height="150" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
+          <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#D97706" letter-spacing="1">
+            METRIC 02: DYNAMIC PROFILE DEPRECIATION
+          </text>
+          <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#0F172A">
+            Engineered Dating App Inactivity Wall
+          </text>
+          <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#475569">
+            Top-tier matches are withheld behind paid boost paywalls after 72 hours of constant usage.
+          </text>
+        </g>
 
-        <!-- Telemetry Metric Pill 3 -->
-        <rect x="90" y="${cardTopY + 470}" width="820" height="180" rx="16" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" />
-        <text x="125" y="${cardTopY + 515}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="800" fill="#10B981" letter-spacing="1">
-          ACTION PROTOCOL: THE RESET
-        </text>
-        <text x="125" y="${cardTopY + 555}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#0F172A">
-          Optimal Pacing &amp; Calibration Rules
-        </text>
-        <text x="125" y="${cardTopY + 595}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="500" fill="#475569">
-          Reset your swipe rhythm to restore your profile to the top tier.
-        </text>
+        <!-- Protocol -->
+        <g transform="translate(80, ${cardTopY + 365})">
+          <rect width="840" height="150" rx="14" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.2" />
+          <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#15803D" letter-spacing="1">
+            ACTION PROTOCOL: THE ALGORITHM RESET
+          </text>
+          <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#166534">
+            Optimal Pacing &amp; Calibration Rules
+          </text>
+          <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#166534">
+            Reset swipe rhythms and calibrate metadata to restore your profile to active candidate tiers.
+          </text>
+        </g>
 
-        <!-- CTA Button -->
-        <rect x="60" y="1320" width="880" height="84" rx="42" fill="url(#indigoBtn)" filter="url(#shadowLight)" />
+        <!-- Bottom Viral Action Button -->
+        <rect x="50" y="1320" width="${coverWidth}" height="84" rx="42" fill="url(#indigoBtn)" filter="url(#shadowLight)" />
         <text x="500" y="1373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
           UNMASK ALGORITHM MECHANICS ➔
         </text>
 
-        <text x="500" y="1450" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
-          FlirtCheck.site • Independent Dating Algorithm Research &amp; Match Audits
+        <text x="500" y="1455" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
+          FlirtCheck.site • Independent Dating Algorithm Research &amp; Audits
         </text>
       </svg>`;
 
     } else if (archetype === 'photo-verification') {
-      // ARCHETYPE 3: Photo Verification & Catfish Warning (Warning Amber/Red on Crisp Ivory)
+      // ARCHETYPE 3: Photo Verification & Catfish Warning
       svg = `
       <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -853,80 +921,91 @@ class PinterestQueueManager {
             <stop offset="100%" stop-color="#B91C1C" />
           </linearGradient>
           <filter id="shadowAmber" x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#DC2626" flood-opacity="0.10" />
+            <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#DC2626" flood-opacity="0.08" />
           </filter>
         </defs>
 
         <rect width="${width}" height="${height}" fill="url(#bgIvory)" />
         <rect x="0" y="0" width="${width}" height="10" fill="#DC2626" />
 
-        <!-- Category Badge -->
-        <rect x="60" y="55" width="460" height="46" rx="8" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1.5" />
-        <circle cx="85" cy="78" r="6" fill="#D97706" />
-        <text x="105" y="84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#B45309" letter-spacing="1.5">
+        <!-- Top Header -->
+        <rect x="50" y="40" width="450" height="42" rx="8" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1.5" />
+        <circle cx="75" cy="61" r="5" fill="#D97706" />
+        <text x="95" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="900" fill="#B45309" letter-spacing="1.2">
           ⚠️ CATFISH ALERT // 60-SEC VERIFY
         </text>
 
-        <text x="940" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
+        <text x="950" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
           FLIRTCHECK.SITE
         </text>
 
-        <!-- Headline on Top (Complete, no ...) -->
+        <rect x="${coverLeft - 2}" y="${coverTop - 2}" width="${coverWidth + 4}" height="${coverHeight + 4}" rx="${cornerRadius + 2}" fill="none" stroke="#E2E8F0" stroke-width="2" />
+
+        <!-- Headline under cover -->
         ${titleLines.map((line, i) => `
-          <text x="60" y="${175 + i * headlineLineHeight}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="${headlineFontSize}" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
+          <text x="50" y="${640 + i * 46}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="38" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
             ${escapeXml(line)}
           </text>
         `).join('')}
 
-        <!-- Central Inspection Board -->
-        <rect x="50" y="${cardTopY}" width="900" height="730" rx="24" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" filter="url(#shadowAmber)" />
+        <!-- Verification Container Card -->
+        <rect x="50" y="${cardTopY}" width="${coverWidth}" height="${cardHeight}" rx="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" filter="url(#shadowAmber)" />
 
-        <!-- Split Cards: REAL VS FAKE CHECK -->
-        <rect x="85" y="${cardTopY + 50}" width="830" height="135" rx="16" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5" />
-        <text x="120" y="${cardTopY + 95}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#DC2626">
-          🚩 WARNING SIGN #1: Uncanny AI Artifacts
-        </text>
-        <text x="120" y="${cardTopY + 135}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="500" fill="#4B5563">
-          Blurred ear asymmetry, teeth distortion and impossible background reflections.
-        </text>
+        <!-- Warning Sign 1 -->
+        <g transform="translate(80, ${cardTopY + 25})">
+          <rect width="840" height="150" rx="14" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.2" />
+          <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#DC2626" letter-spacing="1">
+            RED FLAG 01: UNCANNY AI ARTIFACTS
+          </text>
+          <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#991B1B">
+            Ear Asymmetry, Teeth &amp; Glitch Tells
+          </text>
+          <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#4B5563">
+            Deepfake models leave subtle artifacts in blurred earlobes, background lines and glossy hair strands.
+          </text>
+        </g>
 
-        <rect x="85" y="${cardTopY + 205}" width="830" height="135" rx="16" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5" />
-        <text x="120" y="${cardTopY + 250}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#DC2626">
-          🚩 WARNING SIGN #2: Stolen Model Photos
-        </text>
-        <text x="120" y="${cardTopY + 290}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="500" fill="#4B5563">
-          Cropped low-resolution pictures lifted from social media lifestyle accounts.
-        </text>
+        <!-- Warning Sign 2 -->
+        <g transform="translate(80, ${cardTopY + 195})">
+          <rect width="840" height="150" rx="14" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.2" />
+          <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#DC2626" letter-spacing="1">
+            RED FLAG 02: THE WHATSAPP SPRINT
+          </text>
+          <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#991B1B">
+            Urgent Push to Evacuate Dating Apps
+          </text>
+          <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#4B5563">
+            Scam rings insist on leaving the app within 48 hours to evade automated machine learning fraud bans.
+          </text>
+        </g>
 
-        <rect x="85" y="${cardTopY + 360}" width="830" height="135" rx="16" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5" />
-        <text x="120" y="${cardTopY + 405}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#DC2626">
-          🚩 WARNING SIGN #3: Urgent Move to WhatsApp
-        </text>
-        <text x="120" y="${cardTopY + 445}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="500" fill="#4B5563">
-          Pressure to leave the dating app within 24 hours before profile is flagged.
-        </text>
+        <!-- Defense Protocol -->
+        <g transform="translate(80, ${cardTopY + 365})">
+          <rect width="840" height="150" rx="14" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.2" />
+          <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#15803D" letter-spacing="1">
+            DEFENSE PROTOCOL: THE 30-SEC VERIFY
+          </text>
+          <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#166534">
+            Instant In-App Video Wave or Reverse Audit
+          </text>
+          <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#166534">
+            Request a 10-second casual video verification wave or execute full reverse forensic profile telemetry.
+          </text>
+        </g>
 
-        <rect x="85" y="${cardTopY + 515}" width="830" height="155" rx="16" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.5" />
-        <text x="120" y="${cardTopY + 565}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#15803D">
-          ✅ THE 30-SECOND DEFENSE PROTOCOL
-        </text>
-        <text x="120" y="${cardTopY + 605}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="500" fill="#166534">
-          Request a casual in-app video wave or run instant reverse photo inspection.
-        </text>
-
-        <!-- CTA Button -->
-        <rect x="60" y="1320" width="880" height="84" rx="42" fill="url(#amberBtn)" filter="url(#shadowAmber)" />
+        <!-- Bottom Viral Action Button -->
+        <rect x="50" y="1320" width="${coverWidth}" height="84" rx="42" fill="url(#amberBtn)" filter="url(#shadowAmber)" />
         <text x="500" y="1373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
           VERIFY ANY PROFILE IN 60 SECONDS ➔
         </text>
 
-        <text x="500" y="1450" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
+        <text x="500" y="1455" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
           FlirtCheck.site • Free AI &amp; Reverse Image Dating Security Audits
         </text>
       </svg>`;
 
     } else {
-      // ARCHETYPE 4: Actionable Checklist (Modern Clean Minimalist on Cream/Beige)
+      // ARCHETYPE 4: Actionable Checklist (Default)
       svg = `
       <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -939,76 +1018,89 @@ class PinterestQueueManager {
             <stop offset="100%" stop-color="#1E293B" />
           </linearGradient>
           <filter id="shadowCard" x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.08" />
+            <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.08" />
           </filter>
         </defs>
 
         <rect width="${width}" height="${height}" fill="url(#bgChecklist)" />
         <rect x="0" y="0" width="${width}" height="10" fill="#0F172A" />
 
-        <!-- Category Badge -->
-        <rect x="60" y="55" width="460" height="46" rx="8" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5" />
-        <circle cx="85" cy="78" r="6" fill="#0F172A" />
-        <text x="105" y="84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#0F172A" letter-spacing="1.5">
+        <!-- Top Header -->
+        <rect x="50" y="40" width="450" height="42" rx="8" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5" />
+        <circle cx="75" cy="61" r="5" fill="#0F172A" />
+        <text x="95" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="900" fill="#0F172A" letter-spacing="1.2">
           📋 DATING PROTOCOL // ACTIONABLE CHECKLIST
         </text>
 
-        <text x="940" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
+        <text x="950" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
           FLIRTCHECK.SITE
         </text>
 
-        <!-- Huge Headline on Top (Complete, no ...) -->
+        <rect x="${coverLeft - 2}" y="${coverTop - 2}" width="${coverWidth + 4}" height="${coverHeight + 4}" rx="${cornerRadius + 2}" fill="none" stroke="#E2E8F0" stroke-width="2" />
+
+        <!-- Headline under cover -->
         ${titleLines.map((line, i) => `
-          <text x="60" y="${175 + i * headlineLineHeight}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="${headlineFontSize}" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
+          <text x="50" y="${640 + i * 46}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="38" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
             ${escapeXml(line)}
           </text>
         `).join('')}
 
-        <!-- Checklist Cards Container -->
-        <rect x="50" y="${cardTopY}" width="900" height="730" rx="24" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" filter="url(#shadowCard)" />
+        <!-- Checklist Container Card -->
+        <rect x="50" y="${cardTopY}" width="${coverWidth}" height="${cardHeight}" rx="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" filter="url(#shadowCard)" />
 
-        <!-- 4 Bullet Cards (Clean language, no overflow) -->
-        ${bullets.slice(0, 4).map((b, idx) => {
-          const y = cardTopY + 40 + idx * 160;
-          const icons = ['❌', '🔍', '📍', '🛡️'];
-          const iconColors = ['#FEE2E2', '#EFF6FF', '#FEF3C7', '#EDE9FE'];
-          const strokeColors = ['#F87171', '#60A5FA', '#FBBF24', '#A78BFA'];
+        ${bullets.slice(0, 3).map((b, idx) => {
+          const y = cardTopY + 25 + idx * 170;
+          const icons = ['❌', '🔍', '✓'];
+          const iconBgs = ['#FEE2E2', '#EFF6FF', '#F0FDF4'];
+          const iconStrokes = ['#F87171', '#60A5FA', '#86EFAC'];
+          const titleColors = ['#991B1B', '#1E40AF', '#166534'];
 
           return `
-            <g transform="translate(85, ${y})">
-              <rect width="830" height="130" rx="16" fill="#FAF8F5" stroke="#E2E8F0" stroke-width="1.5" />
-              <rect x="25" y="25" width="56" height="56" rx="14" fill="${iconColors[idx % iconColors.length]}" stroke="${strokeColors[idx % strokeColors.length]}" stroke-width="1.5" />
-              <text x="53" y="61" font-family="sans-serif" font-size="24" text-anchor="middle">${icons[idx % icons.length]}</text>
-              <text x="105" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#0F172A">
+            <g transform="translate(80, ${y})">
+              <rect width="840" height="145" rx="14" fill="#FAF8F5" stroke="#E2E8F0" stroke-width="1.2" />
+              <rect x="25" y="25" width="48" height="48" rx="12" fill="${iconBgs[idx % iconBgs.length]}" stroke="${iconStrokes[idx % iconStrokes.length]}" stroke-width="1.5" />
+              <text x="49" y="56" font-family="sans-serif" font-size="20" text-anchor="middle">${icons[idx % icons.length]}</text>
+              <text x="90" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="19" font-weight="900" fill="${titleColors[idx % titleColors.length]}">
                 RULE 0${idx + 1}: ${escapeXml(b.prefix)}
               </text>
-              <text x="105" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="500" fill="#475569">
+              <text x="90" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#475569">
                 ${escapeXml(b.body)}
               </text>
             </g>
           `;
         }).join('')}
 
-        <!-- CTA Button -->
-        <rect x="60" y="1320" width="880" height="84" rx="42" fill="url(#primaryBtn)" filter="url(#shadowCard)" />
+        <!-- Bottom Viral Action Button -->
+        <rect x="50" y="1320" width="${coverWidth}" height="84" rx="42" fill="url(#primaryBtn)" filter="url(#shadowCard)" />
         <text x="500" y="1373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
           SAVE CHECKLIST &amp; READ FULL DOSSIER ➔
         </text>
 
-        <text x="500" y="1450" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
-          FlirtCheck.site • Modern Dating Safety Playbooks &amp; Real Relationship Advice
+        <text x="500" y="1455" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
+          FlirtCheck.site • Modern Dating Safety Playbooks &amp; Relationship Advice
         </text>
       </svg>`;
     }
 
-    // Render Sharp PNG with maximum sharpness
-    await sharp(Buffer.from(svg))
+    // Render base SVG and composite cover image
+    const baseSvg = Buffer.from(svg);
+    const composites = [];
+    if (coverBuffer) {
+      composites.push({
+        input: coverBuffer,
+        top: coverTop,
+        left: coverLeft,
+      });
+    }
+
+    await sharp(baseSvg)
+      .composite(composites)
       .png({ quality: 95 })
       .toFile(item.creativePath);
 
     item.status = 'ready';
     this.saveQueue();
-    log(`🎨 Rendered VIRAL LIGHT PIN (${archetype}): ${path.basename(item.creativePath)}`);
+    log(`🎨 Rendered VIRAL LIGHT PIN WITH COVER (${archetype}): ${path.basename(item.creativePath)}`);
   }
 
   async buildAllCreatives(force = false) {
@@ -1257,7 +1349,8 @@ async function main() {
   }
 
   if (args.includes('--build-all')) {
-    await manager.buildAllCreatives();
+    const force = args.includes('--force');
+    await manager.buildAllCreatives(force);
     manager.printStatus();
     return;
   }
