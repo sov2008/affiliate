@@ -48,16 +48,26 @@ function log(msg, ...args) {
 function escapeXml(str) {
   if (!str) return '';
   return String(str)
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/&apos;/g, "'")
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
+    .replace(/'/g, '&apos;')
+    .replace(/&QUOT;/gi, '&quot;')
+    .replace(/&APOS;/gi, '&apos;')
+    .replace(/&AMP;/gi, '&amp;')
+    .replace(/&LT;/gi, '&lt;')
+    .replace(/&GT;/gi, '&gt;');
+}
+
+function escapeXmlUpper(str) {
+  if (!str) return '';
+  return escapeXml(String(str).toUpperCase())
+    .replace(/&QUOT;/gi, '&quot;')
+    .replace(/&APOS;/gi, '&apos;')
+    .replace(/&AMP;/gi, '&amp;')
+    .replace(/&LT;/gi, '&lt;')
+    .replace(/&GT;/gi, '&gt;');
 }
 
 function cleanHeadlineForPin(rawTitle) {
@@ -74,9 +84,82 @@ function cleanHeadlineForPin(rawTitle) {
     .replace(/\s*—\s*Your\s+2026\s+Playbook.*$/i, '')
     .replace(/\s*:\s*The\s+2026\s+Playbook.*$/i, '')
     .replace(/\s*:\s*Comprehensive\s+2026.*$/i, '')
+    .replace(/\(2026\s+Guide\)/i, '')
+    .replace(/\(2026\)/i, '')
     .trim();
 
   const lower = title.toLowerCase();
+
+  // Targeted high-intent Pinterest search queries & viral headlines
+  if (lower.includes('tinder elo') || lower.includes('ranking reset')) {
+    return 'Tinder ELO Algorithm: 2026 Ranking Reset';
+  }
+  if (lower.includes('pig butchering')) {
+    return 'Pig Butchering Scam on Dating Apps: Survival Guide';
+  }
+  if (lower.includes('optimal photo order')) {
+    return 'Optimal Photo Order on Dating Apps: The Anchor Rule';
+  }
+  if (lower.includes('stolen instagram photos') || lower.includes('stolen photos')) {
+    return 'How to Detect Stolen Photos on Dating Profiles';
+  }
+  if (lower.includes('bumble show when you were last active') || lower.includes('last active')) {
+    return 'Does Bumble Show When You Were Last Active?';
+  }
+  if (lower.includes('what to say when a match disappears') || lower.includes('match disappears')) {
+    return 'What to Say When a Match Disappears & Comes Back';
+  }
+  if (lower.includes('why dating scammers demand whatsapp') || lower.includes('demand whatsapp')) {
+    return 'Why Dating Scammers Demand WhatsApp Instantly';
+  }
+  if (lower.includes('deleting and remaking dating profiles')) {
+    return 'Why Deleting & Remaking Dating Profiles Fails';
+  }
+  if (lower.includes('matches but no dates') || lower.includes('matches‑but‑no‑dates')) {
+    return 'Why You Get Matches But No Dates & How to Fix It';
+  }
+  if (lower.includes('move from match to real date') || lower.includes('match to real date')) {
+    return 'Move From Tinder Match to Real Date in 3 Steps';
+  }
+  if (lower.includes('how fast response times reveal') || lower.includes('ten-second text rule')) {
+    return 'The 10-Second Text Rule: Response Times & True Intent';
+  }
+  if (lower.includes('reviving stalled') || lower.includes('revive a dead tinder')) {
+    return 'How to Revive Dead Dating Conversations in 2026';
+  }
+  if (lower.includes('facial symmetry') || lower.includes('rank facial symmetry')) {
+    return 'How Dating Algorithms Rank Facial Symmetry & Photos';
+  }
+  if (lower.includes('subtle signs of infidelity') || lower.includes('infidelity in text')) {
+    return 'Subtle Signs of Infidelity in Text Messages';
+  }
+  if (lower.includes('is he flirting with you over text') || lower.includes('is-he-flirting')) {
+    return 'Is He Flirting With You Over Text? 9 Hidden Clues';
+  }
+  if (lower.includes('is she flirting or just polite') || lower.includes('is-she-flirting')) {
+    return 'Is She Flirting or Just Polite? The Behavioral Test';
+  }
+  if (lower.includes('mastering group photos')) {
+    return 'Mastering Group Photos on Dating Apps: The Rules';
+  }
+  if (lower.includes('fake verification checkmark')) {
+    return 'Fake Verification Checkmarks: How Bots Bypass Checks';
+  }
+  if (lower.includes('ai spambot') || lower.includes('using chatgpt')) {
+    return 'Signs Your Dating App Match Is Using ChatGPT';
+  }
+  if (lower.includes('voice note verification') || lower.includes('audio deepfakes')) {
+    return 'The Voice Note Verification Trick to Spot Deepfakes';
+  }
+  if (lower.includes('voice phishing on tinder') || lower.includes('voice-phishing')) {
+    return 'Voice Phishing on Tinder: The Audio Note Trap';
+  }
+  if (lower.includes('voice prompts on hinge') || lower.includes('vocal tone triggers')) {
+    return 'Voice Prompts on Hinge: Vocal Tones & Attraction';
+  }
+  if (lower.includes('slot machine algorithm')) {
+    return 'The Slot Machine Algorithm: Dating App Psychology';
+  }
   if (lower.includes('narcissist red flags') || lower.includes('narcissist')) {
     return 'How to Spot Narcissist Red Flags in Dating Apps';
   }
@@ -89,8 +172,8 @@ function cleanHeadlineForPin(rawTitle) {
   if (lower.includes('push your boundaries') || lower.includes('boundaries via text')) {
     return 'When They Push Your Boundaries via Text';
   }
-  if (lower.includes('crypto romance scam') || lower.includes('crypto scam')) {
-    return '7 Crypto Romance Scams Stealing Millions From Singles';
+  if (lower.includes('crypto romance scam') || lower.includes('crypto dating funnel') || lower.includes('48-hour whatsapp move')) {
+    return 'The 48-Hour WhatsApp Move: Crypto Romance Scams';
   }
   if (lower.includes('time wasters') || (lower.includes('bumble') && lower.includes('bio'))) {
     return 'How to Filter Time-Wasters on Bumble in 3 Steps';
@@ -98,14 +181,8 @@ function cleanHeadlineForPin(rawTitle) {
   if (lower.includes('ai catfishing') || lower.includes('deepfake')) {
     return 'How to Spot Deepfake Catfish Photos on Hinge';
   }
-  if (lower.includes('spambot') || lower.includes('llm spambot') || lower.includes('dead giveaways')) {
-    return 'How AI Spambots Write Dating Profiles in 2026';
-  }
-  if (lower.includes('stolen instagram') || lower.includes('stolen photos')) {
-    return 'How to Spot Stolen Photos on Dating Profiles';
-  }
   if (lower.includes('first date safety checklist') || lower.includes('non-negotiable rules')) {
-    return 'First Date Safety: 5 Non-Negotiable Rules to Follow';
+    return 'First Date Safety: 5 Non-Negotiable Rules';
   }
   if (lower.includes('most compatible') && lower.includes('hinge')) {
     return 'How Hinge Most Compatible Algorithm Actually Works';
@@ -113,8 +190,8 @@ function cleanHeadlineForPin(rawTitle) {
   if (lower.includes('anxious-avoidant trap')) {
     return 'The Anxious-Avoidant Trap on Dating Apps';
   }
-  if (lower.includes('blackmails you') || lower.includes('anti-sextortion')) {
-    return 'Anti-Extortion Protocol: What to Do If a Match Blackmails You';
+  if (lower.includes('blackmails you') || lower.includes('anti-sextortion') || lower.includes('counter dating app sextortion')) {
+    return 'Anti-Extortion Protocol: What to Do If Blackmailed';
   }
   if (lower.includes('breadcrumbing vs benching')) {
     return 'Breadcrumbing vs Benching: Spot Unavailable Matches';
@@ -122,25 +199,28 @@ function cleanHeadlineForPin(rawTitle) {
   if (lower.includes('first-date body language') || lower.includes('micro-expressions')) {
     return 'First-Date Body Language: Reading Hidden Signals';
   }
-  if (lower.includes('low-pressure first date') || lower.includes('dinners are flawed')) {
+  if (lower.includes('low-pressure first date') || lower.includes('dinners are flawed') || lower.includes('formal dinners fail')) {
     return 'Low-Pressure First Dates: Why Dinner Dates Fail';
   }
-  if (lower.includes('reverse search wont save you')) {
+  if (lower.includes('reverse search wont save you') || lower.includes('reverse image search won\'t save you')) {
     return 'Why Reverse Image Search Fails Against AI Catfish';
   }
+  if (lower.includes('reverse face search & identity verification') || lower.includes('osint and ai')) {
+    return 'Reverse Face Search: How to Detect Catfishing Fast';
+  }
 
-  // If title has a colon, choose the punchiest part
+  // If title has a colon, inspect both sides:
   if (title.includes(':')) {
     const parts = title.split(':').map(p => p.trim());
-    if (parts[1] && parts[1].length >= 18 && parts[1].length <= 55) {
-      return parts[1];
-    }
-    if (parts[0] && parts[0].length >= 18 && parts[0].length <= 55) {
+    if (parts[0].length >= 15 && parts[0].length <= 48) {
       return parts[0];
+    }
+    if (parts[1] && parts[1].length >= 15 && parts[1].length <= 48) {
+      return parts[1];
     }
   }
 
-  return title;
+  return title.length > 55 ? title.substring(0, 52) + '...' : title;
 }
 
 function wrapHeadline(text, maxCharsPerLine = 24) {
@@ -318,7 +398,8 @@ function selectDatingScenario(item) {
 
 function formatBulletText(rawText) {
   let cleaned = rawText
-    .replace(/[*_#`]/g, '')
+    .replace(/^["'“”«\s]+|["'“”»\s]+$/g, '')
+    .replace(/[*_#`"]/g, '')
     .replace(/^\[.*?\]\s*/, '')
     // Replace network engineering jargon with human dating psychology
     .replace(/syn-flood/gi, 'excessive emotional intensity')
@@ -334,34 +415,82 @@ function formatBulletText(rawText) {
 
   if (cleaned.includes(':')) {
     const parts = cleaned.split(':');
-    const prefix = parts[0].trim().replace(/\.\.\.$/, '');
-    const rest = parts.slice(1).join(':').trim().replace(/\.\.\.$/, '');
+    const prefix = parts[0].trim().replace(/^["'\s]+|["'\s]+$/g, '').replace(/\.\.\.$/, '');
+    const rest = parts.slice(1).join(':').trim().replace(/^["'\s]+|["'\s]+$/g, '').replace(/\.\.\.$/, '');
+    if (prefix.length >= 3 && rest.length >= 8) {
+      return {
+        prefix: prefix.length > 24 ? prefix.substring(0, 22) : prefix,
+        body: rest.length > 60 ? rest.substring(0, 57) + '...' : rest
+      };
+    }
+  }
+
+  const words = cleaned.split(/\s+/).filter(w => w.length > 0);
+  if (words.length >= 5) {
+    const prefix = words.slice(0, 2).join(' ');
+    const body = words.slice(2, 10).join(' ');
     return {
       prefix: prefix.length > 22 ? prefix.substring(0, 20) : prefix,
-      body: rest.length > 55 ? rest.substring(0, 52) : rest
+      body: body.length > 60 ? body.substring(0, 57) + '...' : body
     };
   }
 
-  const words = cleaned.split(/\s+/);
-  const prefix = words.slice(0, 2).join(' ');
-  const body = words.slice(2, 9).join(' ');
   return {
-    prefix: prefix || 'Core Finding',
-    body: body || 'Essential safety check before meeting in person'
+    prefix: 'Verified Signal',
+    body: cleaned.length > 55 ? cleaned.substring(0, 52) + '...' : cleaned
   };
+}
+
+function resolveCardBullets(archetype, bullets) {
+  const defaults = {
+    'photo-verification': [
+      { prefix: 'Reverse Face Search', body: 'Cross-reference photos across search engines and social handles' },
+      { prefix: 'Social Graph Audit', body: 'Verify consistent locations, friend networks and timeline history' },
+      { prefix: 'Live Video Wave', body: 'Request a spontaneous 15-second video wave before meeting in person' }
+    ],
+    'algorithm-unmasked': [
+      { prefix: 'Swipe Activity Balance', body: 'Selective right-swiping maintains high queue tier and distribution' },
+      { prefix: 'Queue Priority Scoring', body: 'Responsive conversation depth elevates your profile ranking' },
+      { prefix: 'Account Reset Protocol', body: 'Paced mindful swiping restores top-tier candidate visibility' }
+    ],
+    'checklist-infographic': [
+      { prefix: 'Public Venue Protocol', body: 'Always hold first dates in populated, well-lit public venues' },
+      { prefix: 'Independent Travel', body: 'Arrange your own transportation to and from the initial meeting' },
+      { prefix: 'Firm Boundary Rules', body: 'State personal boundaries clearly without apologizing or justifying' }
+    ]
+  };
+
+  const list = defaults[archetype] || defaults['checklist-infographic'];
+  const res = [];
+
+  for (let i = 0; i < 3; i++) {
+    const raw = bullets[i];
+    if (raw && raw.body && raw.body.length >= 10 && raw.prefix !== 'Verified Signal' && raw.prefix !== 'Core Finding') {
+      res.push(raw);
+    } else if (raw && raw.body && raw.body.length >= 10) {
+      res.push({
+        prefix: list[i].prefix,
+        body: raw.body
+      });
+    } else {
+      res.push(list[i]);
+    }
+  }
+  return res;
 }
 
 function extractKeyTakeaways(rawMarkdown, title) {
   const bullets = [];
+  const bodyMarkdown = rawMarkdown.replace(/^---\r?\n[\s\S]*?\r?\n---/, '');
 
-  const takeawayMatch = rawMarkdown.match(/##+\s*(?:Key Takeaways Dossier|Key Takeaways|Executive Summary|Core Findings)[\s\S]*?(?=\n##|$)/i);
+  const takeawayMatch = bodyMarkdown.match(/##+\s*(?:Key Takeaways Dossier|Key Takeaways|Executive Summary|Core Findings|Action Protocol|Detection Blueprint)[\s\S]*?(?=\n##|$)/i);
   if (takeawayMatch) {
     const lines = takeawayMatch[0].split('\n');
     for (const line of lines) {
       const bMatch = line.match(/^\s*[-*•]\s+(.*)/);
       if (bMatch) {
         const text = bMatch[1].trim();
-        if (text.length > 10) {
+        if (text.length > 15) {
           bullets.push(formatBulletText(text));
           if (bullets.length >= 4) break;
         }
@@ -370,11 +499,11 @@ function extractKeyTakeaways(rawMarkdown, title) {
   }
 
   if (bullets.length < 3) {
-    const generalBullets = rawMarkdown.match(/^\s*[-*•]\s+([^\n]+)/gm);
+    const generalBullets = bodyMarkdown.match(/^\s*[-*•]\s+([^\n]+)/gm);
     if (generalBullets) {
       for (const gb of generalBullets) {
         const text = gb.replace(/^\s*[-*•]\s+/, '').trim();
-        if (text.length > 20) {
+        if (text.length > 25 && !text.startsWith('http') && !text.startsWith('"') && !text.startsWith('“')) {
           bullets.push(formatBulletText(text));
           if (bullets.length >= 4) break;
         }
@@ -640,11 +769,14 @@ class PinterestQueueManager {
 
   /**
    * High-contrast, mobile-first Pinterest Pin Generator with REAL ARTICLE COVER
-   * Implements 4 distinct bright/light design archetypes with embedded cover visual:
-   * 1. Chat Teardown (iMessage/Tinder dialogue with red flag stickers)
-   * 2. Checklist Infographic (Actionable bullet cards with icons)
-   * 3. Algorithm Unmasked (Behavioral & ELO analysis)
-   * 4. Photo Verification (Fake vs Real profile inspection)
+   * Masterpiece Layered Design:
+   * 1. Crisp Editorial Background & Top Accent Bar
+   * 2. High-Resolution Article Cover (900x490, rx=20)
+   * 3. Floating Glassmorphism Status Badge directly on cover
+   * 4. Editorial Headline (high-contrast, max 2 lines)
+   * 5. Interactive Archetype Value Card (Chat Teardown / Algorithm / Catfish / Checklist)
+   * 6. High-Converting Viral Action Button ("📌 SAVE THIS PIN & READ GUIDE ➔")
+   * 7. FlirtCheck.site Watermark
    */
   async renderPinCreative(item) {
     const width = 1000;
@@ -662,12 +794,49 @@ class PinterestQueueManager {
 
     // Determine Design Archetype
     let archetype = 'checklist-infographic';
-    if (textComb.includes('text') || textComb.includes('chat') || textComb.includes('message') || textComb.includes('bio') || textComb.includes('reply') || textComb.includes('ghosting') || textComb.includes('narcissist') || textComb.includes('love bombing')) {
-      archetype = 'chat-teardown';
-    } else if (textComb.includes('algorithm') || textComb.includes('elo') || textComb.includes('shadowban') || textComb.includes('swiping') || textComb.includes('psycholog') || textComb.includes('attachment')) {
-      archetype = 'algorithm-unmasked';
-    } else if (textComb.includes('catfish') || textComb.includes('reverse') || textComb.includes('photo') || textComb.includes('deepfake') || textComb.includes('scam') || textComb.includes('fake') || textComb.includes('blackmail')) {
+    if (
+      textComb.includes('catfish') ||
+      textComb.includes('deepfake') ||
+      textComb.includes('photo') ||
+      textComb.includes('picture') ||
+      textComb.includes('stolen') ||
+      textComb.includes('facial symmetry') ||
+      textComb.includes('reverse search') ||
+      textComb.includes('verification checkmark') ||
+      textComb.includes('bot')
+    ) {
       archetype = 'photo-verification';
+    } else if (
+      textComb.includes('algorithm') ||
+      textComb.includes('elo') ||
+      textComb.includes('shadowban') ||
+      textComb.includes('scoring') ||
+      textComb.includes('compatible') ||
+      textComb.includes('telemetry') ||
+      textComb.includes('slot machine') ||
+      textComb.includes('burnout') ||
+      textComb.includes('reset')
+    ) {
+      archetype = 'algorithm-unmasked';
+    } else if (
+      textComb.includes('text') ||
+      textComb.includes('chat') ||
+      textComb.includes('message') ||
+      textComb.includes('reply') ||
+      textComb.includes('ghosting') ||
+      textComb.includes('icebreaker') ||
+      textComb.includes('opening line') ||
+      textComb.includes('flirt') ||
+      textComb.includes('boundary') ||
+      textComb.includes('time-waster') ||
+      textComb.includes('narcissist') ||
+      textComb.includes('love bombing') ||
+      textComb.includes('scam') ||
+      textComb.includes('sextortion') ||
+      textComb.includes('blackmail') ||
+      textComb.includes('whatsapp')
+    ) {
+      archetype = 'chat-teardown';
     }
 
     // 1. Process and format real article cover
@@ -696,67 +865,80 @@ class PinterestQueueManager {
       }
     }
 
+    // Archetype specific palette & Pinterest Save triggers
+    let accentColor = '#E11D48';
+    let badgeBg = '#FFE4E6';
+    let badgeBorder = '#FDA4AF';
+    let badgeText = '#BE123C';
+    let badgeTitle = '🚩 TEXTING RED FLAGS // TEARDOWN';
+    let floatingBadge = 'CASE DOSSIER // VERIFIED';
+    let btnGradientStart = '#E11D48';
+    let btnGradientEnd = '#F43F5E';
+    let btnText = '📌 SAVE THIS PIN &amp; READ GUIDE ➔';
+
+    if (archetype === 'algorithm-unmasked') {
+      accentColor = '#4F46E5';
+      badgeBg = '#EDE9FE';
+      badgeBorder = '#C4B5FD';
+      badgeText = '#4338CA';
+      badgeTitle = '🔬 ALGORITHM AUDIT // REVERSE ENGINEERED';
+      floatingBadge = 'TELEMETRY LOG // VERIFIED';
+      btnGradientStart = '#4F46E5';
+      btnGradientEnd = '#6366F1';
+      btnText = '📌 SAVE THIS PIN &amp; UNMASK ALGORITHM ➔';
+    } else if (archetype === 'photo-verification') {
+      accentColor = '#DC2626';
+      badgeBg = '#FEF3C7';
+      badgeBorder = '#FDE68A';
+      badgeText = '#B45309';
+      badgeTitle = '⚠️ CATFISH ALERT // 60-SEC VERIFY';
+      floatingBadge = 'FORENSIC AUDIT // VERIFIED';
+      btnGradientStart = '#DC2626';
+      btnGradientEnd = '#EF4444';
+      btnText = '📌 SAVE THIS PIN &amp; VERIFY PROFILE ➔';
+    } else if (archetype === 'checklist-infographic') {
+      accentColor = '#0F172A';
+      badgeBg = '#E2E8F0';
+      badgeBorder = '#CBD5E1';
+      badgeText = '#0F172A';
+      badgeTitle = '📋 DATING PROTOCOL // ACTIONABLE CHECKLIST';
+      floatingBadge = 'ACTION PROTOCOL // VERIFIED';
+      btnGradientStart = '#0F172A';
+      btnGradientEnd = '#1E293B';
+      btnText = '📌 SAVE THIS PIN &amp; READ DOSSIER ➔';
+    }
+
+    // Base background canvas
+    const bgSvg = Buffer.from(`
+      <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgLight" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF" />
+            <stop offset="100%" stop-color="#FAF9F6" />
+          </linearGradient>
+        </defs>
+        <rect width="${width}" height="${height}" fill="url(#bgLight)" />
+        <rect x="0" y="0" width="${width}" height="10" fill="${accentColor}" />
+      </svg>
+    `);
+
     // Headline wrap (2 lines under cover image, max 28 chars/line)
     const titleLines = wrapHeadline(cleanTitle, 28).slice(0, 2);
     const cardTopY = 745;
     const cardHeight = 545;
 
-    let svg = '';
+    let cardContentSvg = '';
 
     if (archetype === 'chat-teardown') {
-      // ARCHETYPE 1: Chat Teardown / Red Flags
       const scenario = selectDatingScenario(item);
       const incoming = (scenario.incoming[0] || 'Are you free tonight? Come over late.')
-        .replace(/^["'«\s]+|["'»\s]+$/g, '')
+        .replace(/^["'“”«\s]+|["'“”»\s]+$/g, '')
         .trim();
       const outgoing = (scenario.outgoing[0] || 'I prefer meeting in daylight for coffee first.')
-        .replace(/^["'«\s]+|["'»\s]+$/g, '')
+        .replace(/^["'“”«\s]+|["'“”»\s]+$/g, '')
         .trim();
 
-      svg = `
-      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="bgLight" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#FFFFFF" />
-            <stop offset="100%" stop-color="#FBF9F5" />
-          </linearGradient>
-          <linearGradient id="redBtn" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#DC2626" />
-            <stop offset="100%" stop-color="#EF4444" />
-          </linearGradient>
-          <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.07" />
-          </filter>
-        </defs>
-
-        <rect width="${width}" height="${height}" fill="url(#bgLight)" />
-        <rect x="0" y="0" width="${width}" height="10" fill="#EF4444" />
-
-        <!-- Top Category Badge -->
-        <rect x="50" y="40" width="450" height="42" rx="8" fill="#FEE2E2" stroke="#FCA5A5" stroke-width="1.5" />
-        <circle cx="75" cy="61" r="5" fill="#EF4444" />
-        <text x="95" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="900" fill="#B91C1C" letter-spacing="1.2">
-          🚩 TEXTING RED FLAGS // TEARDOWN
-        </text>
-
-        <!-- Brand Identifier -->
-        <text x="950" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
-          FLIRTCHECK.SITE
-        </text>
-
-        <!-- Cover Image Slot Frame -->
-        <rect x="${coverLeft - 2}" y="${coverTop - 2}" width="${coverWidth + 4}" height="${coverHeight + 4}" rx="${cornerRadius + 2}" fill="none" stroke="#E2E8F0" stroke-width="2" />
-
-        <!-- Headline under cover -->
-        ${titleLines.map((line, i) => `
-          <text x="50" y="${640 + i * 46}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="38" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
-            ${escapeXml(line)}
-          </text>
-        `).join('')}
-
-        <!-- Interactive Chat Card Container -->
-        <rect x="50" y="${cardTopY}" width="${coverWidth}" height="${cardHeight}" rx="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" filter="url(#cardShadow)" />
-
+      cardContentSvg = `
         <!-- Chat Card Header -->
         <rect x="50" y="${cardTopY}" width="${coverWidth}" height="55" rx="20" fill="#F8FAFC" />
         <circle cx="85" cy="${cardTopY + 27}" r="14" fill="#E2E8F0" />
@@ -768,19 +950,19 @@ class PinterestQueueManager {
         <!-- Incoming Message -->
         <rect x="80" y="${cardTopY + 75}" width="720" height="75" rx="14" fill="#F1F5F9" />
         <text x="105" y="${cardTopY + 120}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="19" font-weight="500" fill="#1E293B">
-          "${escapeXml(incoming)}"
+          “${escapeXml(incoming)}”
         </text>
 
         <!-- Red Flag Annotation Overlay Sticker -->
         <rect x="80" y="${cardTopY + 165}" width="840" height="48" rx="12" fill="#FEF2F2" stroke="#EF4444" stroke-width="1.5" />
         <text x="500" y="${cardTopY + 196}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#DC2626" text-anchor="middle" letter-spacing="0.5">
-          ${escapeXml(scenario.badge)}
+          🚩 ${escapeXml(scenario.badge.replace(/^🚩\s*/, ''))}
         </text>
 
         <!-- Outgoing High-Value Boundary Response -->
         <rect x="220" y="${cardTopY + 230}" width="700" height="75" rx="14" fill="#2563EB" />
         <text x="250" y="${cardTopY + 275}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="600" fill="#FFFFFF">
-          "${escapeXml(outgoing)}"
+          “${escapeXml(outgoing)}”
         </text>
 
         <!-- Analysis Bullet Box -->
@@ -797,74 +979,25 @@ class PinterestQueueManager {
             </text>
           </g>
         `).join('')}
-
-        <!-- Bottom Viral Action Button -->
-        <rect x="50" y="1320" width="${coverWidth}" height="84" rx="42" fill="url(#redBtn)" filter="url(#cardShadow)" />
-        <text x="500" y="1373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
-          READ FULL CHAT TEARDOWN &amp; GUIDE ➔
-        </text>
-
-        <!-- Subtext Footer -->
-        <text x="500" y="1455" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
-          FlirtCheck.site • Independent Dating Safety Audits &amp; Profile Verification
-        </text>
-      </svg>`;
-
+      `;
     } else if (archetype === 'algorithm-unmasked') {
-      // ARCHETYPE 2: Algorithm & Psychology
-      svg = `
-      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="bgAlgo" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#F5F3FF" />
-            <stop offset="100%" stop-color="#FFFFFF" />
-          </linearGradient>
-          <linearGradient id="indigoBtn" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#4F46E5" />
-            <stop offset="100%" stop-color="#6366F1" />
-          </linearGradient>
-          <filter id="shadowLight" x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#4F46E5" flood-opacity="0.08" />
-          </filter>
-        </defs>
+      const cardBullets = resolveCardBullets('algorithm-unmasked', bullets);
+      const b1 = cardBullets[0];
+      const b2 = cardBullets[1];
+      const b3 = cardBullets[2];
 
-        <rect width="${width}" height="${height}" fill="url(#bgAlgo)" />
-        <rect x="0" y="0" width="${width}" height="10" fill="#4F46E5" />
-
-        <!-- Top Header -->
-        <rect x="50" y="40" width="450" height="42" rx="8" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1.5" />
-        <circle cx="75" cy="61" r="5" fill="#4F46E5" />
-        <text x="95" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="900" fill="#4338CA" letter-spacing="1.2">
-          🔬 ALGORITHM AUDIT // REVERSE ENGINEERED
-        </text>
-
-        <text x="950" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
-          FLIRTCHECK.SITE
-        </text>
-
-        <rect x="${coverLeft - 2}" y="${coverTop - 2}" width="${coverWidth + 4}" height="${coverHeight + 4}" rx="${cornerRadius + 2}" fill="none" stroke="#E2E8F0" stroke-width="2" />
-
-        <!-- Headline under cover -->
-        ${titleLines.map((line, i) => `
-          <text x="50" y="${640 + i * 46}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="38" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
-            ${escapeXml(line)}
-          </text>
-        `).join('')}
-
-        <!-- Telemetry Container Card -->
-        <rect x="50" y="${cardTopY}" width="${coverWidth}" height="${cardHeight}" rx="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" filter="url(#shadowLight)" />
-
+      cardContentSvg = `
         <!-- Metric 1 -->
         <g transform="translate(80, ${cardTopY + 25})">
           <rect width="840" height="150" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
           <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#4F46E5" letter-spacing="1">
-            METRIC 01: SWIPE RATIO &amp; QUEUE VISIBILITY
+            METRIC 01: ${escapeXmlUpper(b1.prefix)}
           </text>
           <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#0F172A">
-            Outgoing Swipe Balance Calibration
+            ${escapeXml(b1.prefix)} Analysis
           </text>
           <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#475569">
-            Swiping right on too many profiles triggers algorithmic suppression and lower ELO tier.
+            ${escapeXml(b1.body)}
           </text>
         </g>
 
@@ -872,13 +1005,13 @@ class PinterestQueueManager {
         <g transform="translate(80, ${cardTopY + 195})">
           <rect width="840" height="150" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
           <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#D97706" letter-spacing="1">
-            METRIC 02: DYNAMIC PROFILE DEPRECIATION
+            METRIC 02: ${escapeXmlUpper(b2.prefix)}
           </text>
           <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#0F172A">
-            Engineered Dating App Inactivity Wall
+            ${escapeXml(b2.prefix)} Mechanics
           </text>
           <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#475569">
-            Top-tier matches are withheld behind paid boost paywalls after 72 hours of constant usage.
+            ${escapeXml(b2.body)}
           </text>
         </g>
 
@@ -886,82 +1019,34 @@ class PinterestQueueManager {
         <g transform="translate(80, ${cardTopY + 365})">
           <rect width="840" height="150" rx="14" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.2" />
           <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#15803D" letter-spacing="1">
-            ACTION PROTOCOL: THE ALGORITHM RESET
+            ACTION PROTOCOL: ${escapeXmlUpper(b3.prefix)}
           </text>
           <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#166534">
-            Optimal Pacing &amp; Calibration Rules
+            ${escapeXml(b3.prefix)} Calibration
           </text>
           <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#166534">
-            Reset swipe rhythms and calibrate metadata to restore your profile to active candidate tiers.
+            ${escapeXml(b3.body)}
           </text>
         </g>
-
-        <!-- Bottom Viral Action Button -->
-        <rect x="50" y="1320" width="${coverWidth}" height="84" rx="42" fill="url(#indigoBtn)" filter="url(#shadowLight)" />
-        <text x="500" y="1373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
-          UNMASK ALGORITHM MECHANICS ➔
-        </text>
-
-        <text x="500" y="1455" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
-          FlirtCheck.site • Independent Dating Algorithm Research &amp; Audits
-        </text>
-      </svg>`;
-
+      `;
     } else if (archetype === 'photo-verification') {
-      // ARCHETYPE 3: Photo Verification & Catfish Warning
-      svg = `
-      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="bgIvory" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#FFFDF9" />
-            <stop offset="100%" stop-color="#F9F6F0" />
-          </linearGradient>
-          <linearGradient id="amberBtn" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#DC2626" />
-            <stop offset="100%" stop-color="#B91C1C" />
-          </linearGradient>
-          <filter id="shadowAmber" x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#DC2626" flood-opacity="0.08" />
-          </filter>
-        </defs>
+      const cardBullets = resolveCardBullets('photo-verification', bullets);
+      const b1 = cardBullets[0];
+      const b2 = cardBullets[1];
+      const b3 = cardBullets[2];
 
-        <rect width="${width}" height="${height}" fill="url(#bgIvory)" />
-        <rect x="0" y="0" width="${width}" height="10" fill="#DC2626" />
-
-        <!-- Top Header -->
-        <rect x="50" y="40" width="450" height="42" rx="8" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1.5" />
-        <circle cx="75" cy="61" r="5" fill="#D97706" />
-        <text x="95" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="900" fill="#B45309" letter-spacing="1.2">
-          ⚠️ CATFISH ALERT // 60-SEC VERIFY
-        </text>
-
-        <text x="950" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
-          FLIRTCHECK.SITE
-        </text>
-
-        <rect x="${coverLeft - 2}" y="${coverTop - 2}" width="${coverWidth + 4}" height="${coverHeight + 4}" rx="${cornerRadius + 2}" fill="none" stroke="#E2E8F0" stroke-width="2" />
-
-        <!-- Headline under cover -->
-        ${titleLines.map((line, i) => `
-          <text x="50" y="${640 + i * 46}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="38" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
-            ${escapeXml(line)}
-          </text>
-        `).join('')}
-
-        <!-- Verification Container Card -->
-        <rect x="50" y="${cardTopY}" width="${coverWidth}" height="${cardHeight}" rx="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" filter="url(#shadowAmber)" />
-
+      cardContentSvg = `
         <!-- Warning Sign 1 -->
         <g transform="translate(80, ${cardTopY + 25})">
           <rect width="840" height="150" rx="14" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.2" />
           <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#DC2626" letter-spacing="1">
-            RED FLAG 01: UNCANNY AI ARTIFACTS
+            RED FLAG 01: ${escapeXmlUpper(b1.prefix)}
           </text>
           <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#991B1B">
-            Ear Asymmetry, Teeth &amp; Glitch Tells
+            ${escapeXml(b1.prefix)}
           </text>
           <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#4B5563">
-            Deepfake models leave subtle artifacts in blurred earlobes, background lines and glossy hair strands.
+            ${escapeXml(b1.body)}
           </text>
         </g>
 
@@ -969,13 +1054,13 @@ class PinterestQueueManager {
         <g transform="translate(80, ${cardTopY + 195})">
           <rect width="840" height="150" rx="14" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.2" />
           <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#DC2626" letter-spacing="1">
-            RED FLAG 02: THE WHATSAPP SPRINT
+            RED FLAG 02: ${escapeXmlUpper(b2.prefix)}
           </text>
           <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#991B1B">
-            Urgent Push to Evacuate Dating Apps
+            ${escapeXml(b2.prefix)}
           </text>
           <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#4B5563">
-            Scam rings insist on leaving the app within 48 hours to evade automated machine learning fraud bans.
+            ${escapeXml(b2.body)}
           </text>
         </g>
 
@@ -983,72 +1068,20 @@ class PinterestQueueManager {
         <g transform="translate(80, ${cardTopY + 365})">
           <rect width="840" height="150" rx="14" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.2" />
           <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#15803D" letter-spacing="1">
-            DEFENSE PROTOCOL: THE 30-SEC VERIFY
+            DEFENSE PROTOCOL: ${escapeXmlUpper(b3.prefix)}
           </text>
           <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#166534">
-            Instant In-App Video Wave or Reverse Audit
+            ${escapeXml(b3.prefix)}
           </text>
           <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#166534">
-            Request a 10-second casual video verification wave or execute full reverse forensic profile telemetry.
+            ${escapeXml(b3.body)}
           </text>
         </g>
-
-        <!-- Bottom Viral Action Button -->
-        <rect x="50" y="1320" width="${coverWidth}" height="84" rx="42" fill="url(#amberBtn)" filter="url(#shadowAmber)" />
-        <text x="500" y="1373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
-          VERIFY ANY PROFILE IN 60 SECONDS ➔
-        </text>
-
-        <text x="500" y="1455" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
-          FlirtCheck.site • Free AI &amp; Reverse Image Dating Security Audits
-        </text>
-      </svg>`;
-
+      `;
     } else {
-      // ARCHETYPE 4: Actionable Checklist (Default)
-      svg = `
-      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="bgChecklist" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#FAF8F5" />
-            <stop offset="100%" stop-color="#F1ECE4" />
-          </linearGradient>
-          <linearGradient id="primaryBtn" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#0F172A" />
-            <stop offset="100%" stop-color="#1E293B" />
-          </linearGradient>
-          <filter id="shadowCard" x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.08" />
-          </filter>
-        </defs>
-
-        <rect width="${width}" height="${height}" fill="url(#bgChecklist)" />
-        <rect x="0" y="0" width="${width}" height="10" fill="#0F172A" />
-
-        <!-- Top Header -->
-        <rect x="50" y="40" width="450" height="42" rx="8" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5" />
-        <circle cx="75" cy="61" r="5" fill="#0F172A" />
-        <text x="95" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="900" fill="#0F172A" letter-spacing="1.2">
-          📋 DATING PROTOCOL // ACTIONABLE CHECKLIST
-        </text>
-
-        <text x="950" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1">
-          FLIRTCHECK.SITE
-        </text>
-
-        <rect x="${coverLeft - 2}" y="${coverTop - 2}" width="${coverWidth + 4}" height="${coverHeight + 4}" rx="${cornerRadius + 2}" fill="none" stroke="#E2E8F0" stroke-width="2" />
-
-        <!-- Headline under cover -->
-        ${titleLines.map((line, i) => `
-          <text x="50" y="${640 + i * 46}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="38" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
-            ${escapeXml(line)}
-          </text>
-        `).join('')}
-
-        <!-- Checklist Container Card -->
-        <rect x="50" y="${cardTopY}" width="${coverWidth}" height="${cardHeight}" rx="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" filter="url(#shadowCard)" />
-
-        ${bullets.slice(0, 3).map((b, idx) => {
+      const cardBullets = resolveCardBullets('checklist-infographic', bullets);
+      cardContentSvg = `
+        ${cardBullets.map((b, idx) => {
           const y = cardTopY + 25 + idx * 170;
           const icons = ['❌', '🔍', '✓'];
           const iconBgs = ['#FEE2E2', '#EFF6FF', '#F0FDF4'];
@@ -1069,21 +1102,72 @@ class PinterestQueueManager {
             </g>
           `;
         }).join('')}
-
-        <!-- Bottom Viral Action Button -->
-        <rect x="50" y="1320" width="${coverWidth}" height="84" rx="42" fill="url(#primaryBtn)" filter="url(#shadowCard)" />
-        <text x="500" y="1373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
-          SAVE CHECKLIST &amp; READ FULL DOSSIER ➔
-        </text>
-
-        <text x="500" y="1455" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
-          FlirtCheck.site • Modern Dating Safety Playbooks &amp; Relationship Advice
-        </text>
-      </svg>`;
+      `;
     }
 
-    // Render base SVG and composite cover image
-    const baseSvg = Buffer.from(svg);
+    // Foreground overlay SVG (sits on top of background & cover)
+    const overlaySvg = Buffer.from(`
+      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="btnGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="${btnGradientStart}" />
+            <stop offset="100%" stop-color="${btnGradientEnd}" />
+          </linearGradient>
+          <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.08" />
+          </filter>
+        </defs>
+
+        <!-- Top Header -->
+        <rect x="50" y="40" width="460" height="44" rx="10" fill="${badgeBg}" stroke="${badgeBorder}" stroke-width="1.5" />
+        <circle cx="75" cy="62" r="5" fill="${accentColor}" />
+        <text x="95" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="900" fill="${badgeText}" letter-spacing="1.2">
+          ${escapeXml(badgeTitle)}
+        </text>
+
+        <!-- Brand Watermark -->
+        <text x="950" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1.5">
+          FLIRTCHECK.SITE
+        </text>
+
+        <!-- Frame around Cover -->
+        <rect x="${coverLeft}" y="${coverTop}" width="${coverWidth}" height="${coverHeight}" rx="${cornerRadius}" fill="none" stroke="#E2E8F0" stroke-width="2" />
+
+        <!-- Floating Glassmorphic Pill on Cover -->
+        <g transform="translate(75, ${coverTop + coverHeight - 48})">
+          <rect width="260" height="34" rx="8" fill="#0F172A" fill-opacity="0.85" />
+          <circle cx="20" cy="17" r="4" fill="#10B981" />
+          <text x="34" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" fill="#FFFFFF" letter-spacing="1">
+            ${escapeXml(floatingBadge)}
+          </text>
+        </g>
+
+        <!-- Headline under cover -->
+        ${titleLines.map((line, i) => `
+          <text x="50" y="${640 + i * 46}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="38" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
+            ${escapeXml(line)}
+          </text>
+        `).join('')}
+
+        <!-- Interactive Card Container -->
+        <rect x="50" y="${cardTopY}" width="${coverWidth}" height="${cardHeight}" rx="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" filter="url(#cardShadow)" />
+
+        ${cardContentSvg}
+
+        <!-- Bottom Viral Action Button (Save & Read trigger for Pinterest algorithm) -->
+        <rect x="50" y="1320" width="${coverWidth}" height="84" rx="42" fill="url(#btnGradient)" filter="url(#cardShadow)" />
+        <text x="500" y="1373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
+          ${btnText}
+        </text>
+
+        <!-- Subtext Footer -->
+        <text x="500" y="1455" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
+          FlirtCheck.site • Independent Dating Safety Audits &amp; Profile Verification
+        </text>
+      </svg>
+    `);
+
+    // Composite layered design
     const composites = [];
     if (coverBuffer) {
       composites.push({
@@ -1092,8 +1176,13 @@ class PinterestQueueManager {
         left: coverLeft,
       });
     }
+    composites.push({
+      input: overlaySvg,
+      top: 0,
+      left: 0,
+    });
 
-    await sharp(baseSvg)
+    await sharp(bgSvg)
       .composite(composites)
       .png({ quality: 95 })
       .toFile(item.creativePath);
@@ -1127,26 +1216,36 @@ class PinterestQueueManager {
     }
     const bullets = extractKeyTakeaways(rawPost, item.title);
 
-    // High-Intent Pinterest Search SEO Keywords
-    const seoHeaders = [
-      'How to stay safe online dating • dating red flags for women',
-      'Bumble texting tips • relationship advice for modern dating',
-      'Catfish verification guide • how to spot fake profiles',
-      'Tinder algorithm rules • how to avoid ghosting & breadcrumbing'
+    // High-Intent Pinterest Search SEO Keywords Hook
+    const hooks = [
+      'Online dating safety guide & red flags checklist',
+      'Texting rules for dating apps & relationship advice',
+      'Profile verification guide & how to spot catfish',
+      'Dating app algorithm secrets & conversation tips'
     ];
-    const seoHook = seoHeaders[Math.floor(Math.random() * seoHeaders.length)];
+    const hook = hooks[Math.abs(item.slug.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)) % hooks.length];
 
-    let desc = `⚡ ${seoHook}\n\n`;
+    let desc = `⚡ ${hook}\n\n`;
     desc += `📌 ${item.title}\n\n`;
-    desc += `${item.description}\n\n`;
-    desc += `🚨 Actionable Checklist & Red Flags:\n`;
-    bullets.slice(0, 3).forEach((b, i) => {
-      desc += `${i + 1}. ${b.prefix}: ${b.body}\n`;
+    if (item.description) {
+      desc += `${item.description.trim()}\n\n`;
+    }
+    desc += `🚨 Key Takeaways & Action Rules:\n`;
+    bullets.slice(0, 2).forEach((b) => {
+      desc += `• ${b.prefix}: ${b.body}\n`;
     });
-    desc += `\n👉 Read the complete breakdown & test your matches at FlirtCheck:\n${item.targetUrl}\n\n`;
-    desc += `#DatingSafety #DatingRedFlags #OnlineDatingTips #TextingTips #TinderAdvice #BumbleTips #HingeTips #RelationshipAdvice #FlirtCheck #CatfishWarning #DatingAppBurnout`;
+    desc += `\n👉 Full forensic audit & guide at:\n${item.targetUrl}\n\n`;
+    desc += `#DatingSafety #DatingRedFlags #OnlineDatingTips #TextingTips #TinderAdvice #BumbleTips #HingeTips #RelationshipAdvice #FlirtCheck #CatfishWarning`;
 
-    return desc.substring(0, 498);
+    if (desc.length > 490) {
+      const lastHash = desc.lastIndexOf('#', 490);
+      if (lastHash > 200) {
+        desc = desc.substring(0, lastHash).trim();
+      } else {
+        desc = desc.substring(0, 480).trim();
+      }
+    }
+    return desc;
   }
 
   async publishItem(item) {
@@ -1204,20 +1303,74 @@ class PinterestQueueManager {
       await titleInput.click();
       await page.keyboard.press('Control+A');
       await page.keyboard.type(item.title.substring(0, 99));
-      await page.waitForTimeout(1000);
+      await page.waitForTimeout(800);
 
-      // 3. High-Converting Description
+      // 3. High-Converting SEO Description
       log('Filling High-Converting Pinterest SEO Description...');
       const descArea = page.locator('div[contenteditable="true"], [aria-label="Добавьте описание пина"], textarea[id*="description"], [placeholder*="описание"]').first();
-      if (await descArea.isVisible()) {
+      if (await descArea.isVisible({ timeout: 2000 }).catch(() => false)) {
         await descArea.click();
         await page.keyboard.press('Control+A');
         const descText = this.generatePinDescription(item);
         await page.keyboard.type(descText);
-        await page.waitForTimeout(1000);
+        await page.waitForTimeout(800);
       }
 
-      // 4. Board Selection & Publish
+      // 4. Destination Link (Mandatory for Traffic & Rich Pins)
+      log(`Filling Destination Link: ${item.targetUrl}...`);
+      let linkFilled = false;
+      const linkSelectors = [
+        'input[placeholder*="ссылк"]',
+        'input[placeholder*="link" i]',
+        'textarea[placeholder*="ссылк"]',
+        '[data-test-id="editor-link-field"] input',
+        'input[id*="storyboard-selector-link"]',
+        'input[id*="link"]'
+      ];
+      for (const sel of linkSelectors) {
+        const linkInput = page.locator(sel).first();
+        if (await linkInput.isVisible({ timeout: 1000 }).catch(() => false)) {
+          await linkInput.click();
+          await page.keyboard.press('Control+A');
+          await page.keyboard.type(item.targetUrl);
+          linkFilled = true;
+          break;
+        }
+      }
+
+      if (!linkFilled) {
+        const addLinkBtn = await page.$('button:has-text("Добавить ссылку"), button:has-text("Add a link"), button:has-text("Добавьте ссылку")');
+        if (addLinkBtn) {
+          await addLinkBtn.click();
+          await page.waitForTimeout(600);
+          const linkInput2 = page.locator('input[placeholder*="ссылк"], input[placeholder*="link" i], input[id*="link"]').first();
+          if (await linkInput2.isVisible({ timeout: 1500 }).catch(() => false)) {
+            await linkInput2.click();
+            await page.keyboard.type(item.targetUrl);
+            linkFilled = true;
+          }
+        }
+      }
+      log(`Destination link status: ${linkFilled ? 'FILLED ✅' : '⚠️ NOT FOUND / SKIPPED'}`);
+
+      // 5. Alt Text (Accessibility & Pinterest Visual Search OCR Boost)
+      try {
+        const altBtn = await page.$('button:has-text("Добавить альтернативный текст"), button:has-text("Add alt text"), [aria-label*="альтернативн"]');
+        if (altBtn && await altBtn.isVisible()) {
+          await altBtn.click();
+          await page.waitForTimeout(500);
+        }
+        const altInput = page.locator('textarea[placeholder*="альтернативн"], textarea[placeholder*="alt text" i], [aria-label*="альтернативн"]').first();
+        if (await altInput.isVisible({ timeout: 1500 }).catch(() => false)) {
+          await altInput.click();
+          await page.keyboard.type(`Infographic guide: ${item.title}. Dating app safety checklist, chat analysis, and profile verification breakdown.`);
+          log('Alt text successfully filled for Pinterest Visual Search.');
+        }
+      } catch (altErr) {
+        log(`Alt text step passed: ${altErr.message}`);
+      }
+
+      // 6. Board Selection & Publish
       log(`Ensuring board "${CONFIG.boardName}" is selected...`);
       const boardButton = await page.$('[data-test-id="board-dropdown-select-button"]');
       const boardText = boardButton ? await boardButton.innerText() : '';
@@ -1355,6 +1508,19 @@ async function main() {
     return;
   }
 
+  const renderIdx = args.indexOf('--render');
+  if (renderIdx !== -1 && args[renderIdx + 1]) {
+    const targetSlug = args[renderIdx + 1];
+    const item = manager.queue.find(i => i.slug === targetSlug);
+    if (!item) {
+      log(`Slug "${targetSlug}" not found in queue!`);
+      return;
+    }
+    await manager.renderPinCreative(item);
+    log(`Rendered creative for ${targetSlug}: ${item.creativePath}`);
+    return;
+  }
+
   if (args.includes('--publish-next')) {
     await manager.publishNext();
     manager.printStatus();
@@ -1388,4 +1554,9 @@ if (require.main === module) {
 module.exports = {
   PinterestQueueManager,
   CONFIG,
+  cleanHeadlineForPin,
+  wrapHeadline,
+  selectDatingScenario,
+  extractKeyTakeaways,
+  escapeXml,
 };
