@@ -146,7 +146,7 @@ export async function handlePostback(req: Request, res: Response): Promise<void>
 
     // 3. Lead Attribution: Check NanoID click_id in SQLite or fallback to legacy tg_${chatId}
     const sub1 = rawEvent.sub1 || rawEvent.clickId || '';
-    let targetOfferId = (req.query.offer || req.query.offer_id || req.body.offer || req.body.offer_id) as string;
+    let targetOfferId = (req.query?.offer || req.query?.offer_id || req.body?.offer || req.body?.offer_id) as string;
     let resolvedChatId: string | null = null;
 
     const leadRepo = TelegramLeadRepository.getInstance();
