@@ -3,11 +3,13 @@
 interface Props {
   source?: string;
   trigger?: string;
+  offer?: string;
 }
 
 const {
   source = 'article_editorial_note',
-  trigger = 'in_text_note'
+  trigger = 'in_text_note',
+  offer = 'admitad_spokeo'
 } = Astro.props;
 ---
 
@@ -19,7 +21,7 @@ const {
   <div class="space-y-2">
     <p class="leading-relaxed font-sans text-slate-700">
       <strong class="text-slate-900 font-semibold font-serif italic">Note:</strong> If you are investigating a profile operating under these behavioral patterns, cross-check their registered domain, phone exchange, or photo signatures against our <a
-        href={`/go?source=${source}&trigger=${trigger}&intent=verify_match`}
+        href={`/go?offer=${offer}&source=${source}&trigger=${trigger}&intent=verify_match`}
         rel="nofollow sponsored"
         target="_blank"
         class="dossier-box-cta font-medium text-slate-900 underline decoration-slate-400 hover:decoration-rose-600 hover:text-rose-600 transition-colors"
