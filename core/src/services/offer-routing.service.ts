@@ -224,6 +224,57 @@ export class OfferRoutingService {
       isPrimary: false,
       enabled: !isMyLeadPlaceholder,
     });
+
+    // --- Admitad Tier-1 Verified Catalog (CPS / People Search / Cybersecurity / Dating) ---
+    this.offers.set('admitad_spokeo', {
+      id: 'admitad_spokeo',
+      name: 'Spokeo Reverse Lookup (Admitad)',
+      network: 'admitad',
+      baseUrl: process.env.ADMITAD_SPOKEO_URL || 'https://ad.admitad.com/g/spokeo_direct/',
+      subParam: 'subid',
+      isPrimary: false,
+      enabled: true,
+    });
+
+    this.offers.set('admitad_beenverified', {
+      id: 'admitad_beenverified',
+      name: 'BeenVerified Background Check (Admitad)',
+      network: 'admitad',
+      baseUrl: process.env.ADMITAD_BEENVERIFIED_URL || 'https://ad.admitad.com/g/beenverified_direct/',
+      subParam: 'subid',
+      isPrimary: false,
+      enabled: true,
+    });
+
+    this.offers.set('admitad_nordvpn', {
+      id: 'admitad_nordvpn',
+      name: 'NordVPN Privacy Suite (Admitad)',
+      network: 'admitad',
+      baseUrl: process.env.ADMITAD_NORDVPN_URL || 'https://ad.admitad.com/g/nordvpn_direct/',
+      subParam: 'subid',
+      isPrimary: false,
+      enabled: true,
+    });
+
+    this.offers.set('admitad_incogni', {
+      id: 'admitad_incogni',
+      name: 'Incogni Personal Data Removal (Admitad)',
+      network: 'admitad',
+      baseUrl: process.env.ADMITAD_INCOGNI_URL || 'https://ad.admitad.com/g/incogni_direct/',
+      subParam: 'subid',
+      isPrimary: false,
+      enabled: true,
+    });
+
+    this.offers.set('admitad_eharmony', {
+      id: 'admitad_eharmony',
+      name: 'eHarmony Verified Match (Admitad)',
+      network: 'admitad',
+      baseUrl: process.env.ADMITAD_EHARMONY_URL || 'https://ad.admitad.com/g/eharmony_direct/',
+      subParam: 'subid',
+      isPrimary: false,
+      enabled: true,
+    });
   }
 
   /**
@@ -437,7 +488,11 @@ export class OfferRoutingService {
     } else {
       const cleanBase = chosenOffer.baseUrl.trim().replace(/\/+$/, '');
       const sep = cleanBase.includes('?') ? '&' : '?';
-      trackingUrl = `${cleanBase}${sep}sub1=${encodeURIComponent(trafficSource)}&sub2=${encodeURIComponent(String(context.chatId))}&cid=${encodeURIComponent(clickId)}`;
+      if (chosenOffer.network === 'admitad') {
+        trackingUrl = `${cleanBase}${sep}subid=${encodeURIComponent(clickId)}&subid1=${encodeURIComponent(trafficSource)}&subid2=${encodeURIComponent(String(context.chatId))}`;
+      } else {
+        trackingUrl = `${cleanBase}${sep}sub1=${encodeURIComponent(trafficSource)}&sub2=${encodeURIComponent(String(context.chatId))}&cid=${encodeURIComponent(clickId)}`;
+      }
     }
 
     const currentStats = this.getStats()[chosenOffer.id] || { impressions: 0, conversions: 0, revenue: 0, epc: 0 };
@@ -552,7 +607,11 @@ export class OfferRoutingService {
     } else {
       const cleanBase = chosenOffer.baseUrl.trim().replace(/\/+$/, '');
       const sep = cleanBase.includes('?') ? '&' : '?';
-      trackingUrl = `${cleanBase}${sep}sub1=${encodeURIComponent(trafficSource)}&sub2=${encodeURIComponent(String(chatId))}&cid=${encodeURIComponent(clickId)}`;
+      if (chosenOffer.network === 'admitad') {
+        trackingUrl = `${cleanBase}${sep}subid=${encodeURIComponent(clickId)}&subid1=${encodeURIComponent(trafficSource)}&subid2=${encodeURIComponent(String(chatId))}`;
+      } else {
+        trackingUrl = `${cleanBase}${sep}sub1=${encodeURIComponent(trafficSource)}&sub2=${encodeURIComponent(String(chatId))}&cid=${encodeURIComponent(clickId)}`;
+      }
     }
 
     const chosenStats = this.getStats()[chosenOffer.id] || { impressions: 0, conversions: 0, revenue: 0, epc: 0 };

@@ -53,7 +53,13 @@ export function handleTdsRedirect(req: Request, res: Response): void {
     // 5. Construct destination partner smartlink URL
     const cleanBase = (targetOffer?.baseUrl || 'https://yex2brk.chemistrydrivensmile.org/rp1pd38').trim().replace(/\/+$/, '');
     const sep = cleanBase.includes('?') ? '&' : '?';
-    const destinationUrl = `${cleanBase}${sep}sub1=${encodeURIComponent(String(sub1))}&sub2=${encodeURIComponent(String(sub2))}&cid=${encodeURIComponent(String(clickId))}`;
+    let destinationUrl: string;
+    if (targetOffer?.network === 'admitad') {
+      const sub3 = (query.sub3 || query.s3 || query.trigger || 'cta') as string;
+      destinationUrl = `${cleanBase}${sep}subid=${encodeURIComponent(String(clickId))}&subid1=${encodeURIComponent(String(sub1))}&subid2=${encodeURIComponent(String(sub2))}&subid3=${encodeURIComponent(String(sub3))}`;
+    } else {
+      destinationUrl = `${cleanBase}${sep}sub1=${encodeURIComponent(String(sub1))}&sub2=${encodeURIComponent(String(sub2))}&cid=${encodeURIComponent(String(clickId))}`;
+    }
 
     // 6. Execute clean HTTP 302 redirect with strict noindex
     res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');

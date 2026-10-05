@@ -28,19 +28,19 @@ export function extractPostbackEvent(req: Request): ExtractedPostbackEvent {
     return '';
   };
 
-  const rawSub1 = get('sub1', 's1', 'sub_id_1', 'sub_id1', 'ml_sub1', 'bundle_id', 'bundleId', 'bundle');
-  const clickId = get('click_id', 'clickid', 'cid', 'ml_sub1', 'aff_sub1', 'txid') || rawSub1;
-  const transactionId = get('transaction_id', 'txid', 'tid', 'conversion_id', 'lead_id') || clickId;
+  const rawSub1 = get('sub1', 's1', 'sub_id_1', 'sub_id1', 'ml_sub1', 'bundle_id', 'bundleId', 'bundle', 'subid');
+  const clickId = get('click_id', 'clickid', 'cid', 'subid', 'sub_id', 'ml_sub1', 'aff_sub1', 'txid') || rawSub1;
+  const transactionId = get('transaction_id', 'order_id', 'orderId', 'payment_id', 'txid', 'tid', 'conversion_id', 'lead_id', 'id') || clickId;
   const bundleId = get('sub1', 'bundle_id', 'bundleId', 'ml_sub2', 'bundle') || (rawSub1 && !rawSub1.startsWith('tg_') ? rawSub1 : undefined);
-  const campaignId = get('sub2', 'campaign_id', 'campaignId', 'ml_sub3') || 'cmp_organic_v1';
-  const rawPlatform = get('sub3', 'platform', 'source', 'ml_sub4') || 'reddit';
+  const campaignId = get('sub2', 'campaign_id', 'campaignId', 'ml_sub3', 'advcampaign_id') || 'cmp_organic_v1';
+  const rawPlatform = get('sub3', 'subid1', 'platform', 'source', 'ml_sub4') || 'reddit';
 
   const validPlatforms: Platform[] = ['reddit', 'quora', 'forum', 'x'];
   const platform: Platform = validPlatforms.includes(rawPlatform.toLowerCase() as Platform)
     ? (rawPlatform.toLowerCase() as Platform)
     : 'reddit';
 
-  const rawPayout = get('payout', 'amount', 'sum', 'revenue', 'commission', 'payout_usd');
+  const rawPayout = get('payout', 'payment', 'amount', 'sum', 'revenue', 'commission', 'payout_usd');
   const payout = Math.max(0, parseFloat(rawPayout) || 0);
   const currency = (get('currency', 'curr') || 'USD').toUpperCase();
 
@@ -48,7 +48,7 @@ export function extractPostbackEvent(req: Request): ExtractedPostbackEvent {
   const status: 'lead' | 'sale' | 'rejected' =
     rawStatus === 'rejected' || rawStatus === 'trash' || rawStatus === 'declined'
       ? 'rejected'
-      : rawStatus === 'sale'
+      : rawStatus === 'sale' || rawStatus === 'approved'
       ? 'sale'
       : 'lead';
 
@@ -182,7 +182,17 @@ export async function handlePostback(req: Request, res: Response): Promise<void>
     }
 
     if (!targetOfferId) {
-      targetOfferId = 'lospollos';
+      if (req.path.includes('admitad') || req.query.advcampaign_id || req.body?.advcampaign_id) {
+        const advCampaign = String(req.query.advcampaign_id || req.body?.advcampaign_id || '').toLowerCase();
+        if (advCampaign.includes('spokeo')) targetOfferId = 'admitad_spokeo';
+        else if (advCampaign.includes('beenverified')) targetOfferId = 'admitad_beenverified';
+        else if (advCampaign.includes('nordvpn')) targetOfferId = 'admitad_nordvpn';
+        else if (advCampaign.includes('incogni')) targetOfferId = 'admitad_incogni';
+        else if (advCampaign.includes('eharmony')) targetOfferId = 'admitad_eharmony';
+        else targetOfferId = 'admitad_spokeo';
+      } else {
+        targetOfferId = 'lospollos';
+      }
     }
 
     // 4. Update MAB Offer Router statistics (only for non-duplicate conversions)
@@ -232,13 +242,17 @@ export async function handlePostback(req: Request, res: Response): Promise<void>
   }
 }
 
-// Register /api/postback, /api/v1/postback and /postback endpoints for maximum compatibility
+// Register /api/postback, /api/v1/postback, /postback and /api/postback/admitad endpoints for maximum compatibility
 postbackRouter.get('/api/postback', handlePostback);
 postbackRouter.post('/api/postback', handlePostback);
 postbackRouter.get('/api/v1/postback', handlePostback);
 postbackRouter.post('/api/v1/postback', handlePostback);
 postbackRouter.get('/postback', handlePostback);
 postbackRouter.post('/postback', handlePostback);
+postbackRouter.get('/api/postback/admitad', handlePostback);
+postbackRouter.post('/api/postback/admitad', handlePostback);
+postbackRouter.get('/postback/admitad', handlePostback);
+postbackRouter.post('/postback/admitad', handlePostback);
 
 // Telemetry summary endpoint
 postbackRouter.get('/api/v1/telemetry/summary', (req: Request, res: Response) => {
