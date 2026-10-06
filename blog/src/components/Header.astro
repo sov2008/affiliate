@@ -17,33 +17,37 @@ const navItems = [
 ];
 ---
 
-<header class="bg-[#FAF7F2] border-b border-slate-300 sticky top-0 z-40 backdrop-blur-md bg-opacity-95 transition-all">
+<header id="siteHeader" class="bg-[#FAF7F2]/95 border-b border-slate-300 sticky top-0 z-40 backdrop-blur-md transition-all duration-200">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
-    <!-- Left: Editorial Branding -->
-    <div class="flex items-center gap-3 shrink-0">
+    <!-- Left: Editorial Branding & Bureau Telemetry -->
+    <div class="flex items-center gap-3 sm:gap-4 shrink-0">
       <a href={`${base}/`} class="flex items-center gap-2.5 group" aria-label="FlirtCheck Forensic Desk Homepage">
         <img
           src="/images/logo.svg"
           alt="FlirtCheck Investigative Desk"
-          class="h-9 sm:h-10 w-auto select-none group-hover:opacity-90 transition-opacity"
+          class="h-8 sm:h-9 md:h-10 w-auto select-none group-hover:opacity-90 transition-opacity"
           width="280"
           height="40"
         />
       </a>
+      <div class="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border border-slate-200 rounded font-mono text-[10px] text-slate-600 tracking-wider">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+        <span>STATION 04 // LIVE</span>
+      </div>
     </div>
 
-    <!-- Center: Refined Gazette Navigation (3 Key Anchors) -->
-    <nav class="hidden md:flex items-center gap-2 lg:gap-4 font-mono text-xs uppercase tracking-wider text-slate-600" aria-label="Main Navigation">
+    <!-- Center: Refined Gazette Navigation (Desktop) -->
+    <nav class="hidden md:flex items-center gap-1.5 lg:gap-3 font-mono text-xs uppercase tracking-wider text-slate-600" aria-label="Main Navigation">
       {navItems.map(item => {
         const isActive = activePath === item.href || (item.href !== '/#investigations' && activePath.startsWith(item.href));
         return (
           <a
             href={item.href}
             class:list={[
-              "min-h-[44px] inline-flex items-center px-3 py-2 transition-colors",
+              "min-h-[44px] inline-flex items-center px-2.5 py-2 transition-colors rounded-xs",
               isActive
                 ? "text-slate-900 font-bold border-b-2 border-slate-900"
-                : "hover:text-slate-900 border-b-2 border-transparent"
+                : "hover:text-slate-900 border-b-2 border-transparent hover:border-slate-400"
             ]}
           >
             {item.title}
@@ -52,14 +56,14 @@ const navItems = [
       })}
     </nav>
 
-    <!-- Right: Search & Gazette Audit Action Button -->
-    <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+    <!-- Right: Search, Mobile Menu Toggle & Action Button -->
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0">
       <!-- Quick Search Trigger -->
       <button
         type="button"
         id="openSearchBtn"
         aria-label="Open Search Index"
-        class="min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 text-slate-500 hover:text-slate-900 font-mono text-xs border border-slate-300 rounded bg-white hover:bg-slate-50 px-2.5 py-1.5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+        class="min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] flex items-center justify-center gap-2 text-slate-600 hover:text-slate-900 font-mono text-xs border border-slate-300 rounded bg-white hover:bg-slate-50 px-2.5 py-1.5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 shadow-xs"
       >
         <svg class="w-3.5 h-3.5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -67,18 +71,131 @@ const navItems = [
         <span class="hidden sm:inline font-bold text-[10px] text-slate-500">Ctrl K</span>
       </button>
 
-      <!-- Restrained Newspaper Action Button -->
+      <!-- Restrained Newspaper Action Button (Desktop & Tablet) -->
       <a
         href="/go?source=header&trigger=audit_cta&intent=profile_audit"
         target="_blank"
         rel="nofollow sponsored"
-        class="min-h-[44px] inline-flex items-center justify-center bg-slate-900 text-white font-mono text-xs font-bold px-4 py-2 rounded hover:bg-slate-800 transition-colors uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 shadow-none"
+        class="hidden sm:inline-flex min-h-[40px] sm:min-h-[44px] items-center justify-center bg-slate-900 text-white font-mono text-xs font-bold px-3.5 sm:px-4 py-2 rounded hover:bg-slate-800 transition-colors uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 shadow-xs"
       >
         Audit Profile ↗
       </a>
+
+      <!-- Mobile Navigation Hamburger Toggle -->
+      <button
+        type="button"
+        id="mobileMenuToggle"
+        aria-label="Toggle Navigation Menu"
+        aria-expanded="false"
+        class="md:hidden min-h-[40px] min-w-[40px] flex items-center justify-center text-slate-700 hover:text-slate-900 border border-slate-300 rounded bg-white hover:bg-slate-50 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+      >
+        <svg id="hamburgerIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="closeMenuIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Drawer -->
+  <div
+    id="mobileMenuDrawer"
+    class="md:hidden hidden bg-[#FFFDF9] border-b border-slate-300 shadow-lg transition-all duration-200 overflow-hidden"
+  >
+    <div class="px-4 py-3 space-y-1 font-mono text-xs uppercase tracking-wider border-t border-slate-200">
+      {navItems.map(item => {
+        const isActive = activePath === item.href || (item.href !== '/#investigations' && activePath.startsWith(item.href));
+        return (
+          <a
+            href={item.href}
+            class:list={[
+              "mobile-nav-link block px-3 py-2.5 rounded transition-colors",
+              isActive ? "bg-slate-100 font-bold text-slate-900" : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+            ]}
+          >
+            {item.title}
+          </a>
+        );
+      })}
+      <div class="pt-3 pb-1 border-t border-slate-200">
+        <a
+          href="/go?source=header_mobile&trigger=audit_cta&intent=profile_audit"
+          target="_blank"
+          rel="nofollow sponsored"
+          class="w-full min-h-[44px] flex items-center justify-center bg-slate-900 text-white font-mono text-xs font-bold px-4 py-2.5 rounded uppercase tracking-wider hover:bg-slate-800 transition-colors shadow-xs"
+        >
+          Audit Profile ↗
+        </a>
+      </div>
     </div>
   </div>
 
   <!-- Global Forensic Search Modal -->
   <ForensicSearchModal />
 </header>
+
+<script>
+  function initHeader() {
+    const header = document.getElementById('siteHeader');
+    const toggleBtn = document.getElementById('mobileMenuToggle');
+    const drawer = document.getElementById('mobileMenuDrawer');
+    const hamburgerIcon = document.getElementById('hamburgerIcon');
+    const closeIcon = document.getElementById('closeMenuIcon');
+
+    // Scroll Elevation Shadow
+    const onScroll = () => {
+      if (window.scrollY > 20) {
+        header?.classList.add('shadow-[0_4px_16px_rgba(15,23,42,0.06)]', 'bg-[#FAF7F2]');
+      } else {
+        header?.classList.remove('shadow-[0_4px_16px_rgba(15,23,42,0.06)]');
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Mobile Menu Toggle
+    if (toggleBtn && drawer) {
+      const toggleMenu = () => {
+        const isOpen = !drawer.classList.contains('hidden');
+        if (isOpen) {
+          drawer.classList.add('hidden');
+          hamburgerIcon?.classList.remove('hidden');
+          closeIcon?.classList.add('hidden');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+        } else {
+          drawer.classList.remove('hidden');
+          hamburgerIcon?.classList.add('hidden');
+          closeIcon?.classList.remove('hidden');
+          toggleBtn.setAttribute('aria-expanded', 'true');
+        }
+      };
+
+      toggleBtn.addEventListener('click', toggleMenu);
+
+      // Close on clicking mobile nav link
+      drawer.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          drawer.classList.add('hidden');
+          hamburgerIcon?.classList.remove('hidden');
+          closeIcon?.classList.add('hidden');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // Close on ESC
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !drawer.classList.contains('hidden')) {
+          drawer.classList.add('hidden');
+          hamburgerIcon?.classList.remove('hidden');
+          closeIcon?.classList.add('hidden');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', initHeader);
+  initHeader();
+</script>

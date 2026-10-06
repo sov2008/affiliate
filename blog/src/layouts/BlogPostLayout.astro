@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ReadingProgressBar from '../components/ReadingProgressBar.astro';
 import MobileStickyCTA from '../components/MobileStickyCTA.astro';
+import BackToTop from '../components/BackToTop.astro';
 import InlineQuiz from '../components/InlineQuiz.astro';
 import ExitIntentModal from '../components/ExitIntentModal.astro';
 import SocialShareBar from '../components/SocialShareBar.astro';
@@ -488,15 +489,25 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
             </h1>
 
             <!-- Byline -->
-            <div class="flex flex-wrap items-center gap-x-3 gap-y-1 pt-4 border-t border-slate-200 text-xs font-sans text-slate-600">
-              <span class="font-medium text-slate-900">By <a href="/desk" class="underline font-bold hover:text-rose-700">Arthur Vance</a></span>
-              <span class="text-slate-300">·</span>
-              <span>Cheltenham Bureau</span>
-              <span class="text-slate-300">·</span>
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-2 pt-4 border-t border-slate-200 text-xs font-sans text-slate-600">
+              <div class="flex items-center gap-2">
+                <img
+                  src="/images/author/arthur-vance-avatar.webp"
+                  alt="Arthur Vance"
+                  class="w-6 h-6 rounded-full border border-slate-300 object-cover select-none"
+                  loading="lazy"
+                  width="24"
+                  height="24"
+                />
+                <span class="font-medium text-slate-900">By <a href="/desk" class="underline font-bold hover:text-rose-700 transition-colors">Arthur Vance</a></span>
+              </div>
+              <span class="text-slate-300 select-none">·</span>
+              <span class="font-mono text-[11px]">Cheltenham Bureau</span>
+              <span class="text-slate-300 select-none">·</span>
               <time datetime={pubDate.toISOString()}>{pubDateFormatted}</time>
-              <span class="text-slate-300">·</span>
+              <span class="text-slate-300 select-none">·</span>
               <span class="font-mono">{readingTime} min read</span>
-              <span class="text-slate-300">·</span>
+              <span class="text-slate-300 select-none">·</span>
               <span class="inline-flex items-center gap-1 text-emerald-700 font-medium bg-emerald-50 px-1.5 py-0.5 border border-emerald-200 text-[11px] font-mono">
                 ✓ Verified Independent
               </span>
@@ -1118,6 +1129,7 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
     </script>
 
     <Footer />
+    <BackToTop />
     <MobileStickyCTA offerType={endorsementType} />
     <ExitIntentModal />
   </body>
