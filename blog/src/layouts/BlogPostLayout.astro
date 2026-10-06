@@ -2,11 +2,8 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import ReadingProgressBar from '../components/ReadingProgressBar.astro';
 import MobileStickyCTA from '../components/MobileStickyCTA.astro';
-import BackToTop from '../components/BackToTop.astro';
 import InlineQuiz from '../components/InlineQuiz.astro';
-import ExitIntentModal from '../components/ExitIntentModal.astro';
 import SocialShareBar from '../components/SocialShareBar.astro';
 import ScamRiskMatrix from '../components/ScamRiskMatrix.astro';
 import CaseNotesFeed from '../components/CaseNotesFeed.astro';
@@ -303,7 +300,6 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
   </head>
 
   <body class="min-h-screen flex flex-col bg-[#FAF7F2] text-slate-900">
-    <ReadingProgressBar />
     <Header activePath="/" />
 
     <main class="flex-1 w-full">
@@ -365,25 +361,6 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
                 <div class="flex justify-between gap-2">
                   <span class="text-slate-500 uppercase">Class.</span>
                   <span class="font-bold text-slate-900 text-right truncate max-w-[7rem]">{classification || 'PUBLIC'}</span>
-                </div>
-              </div>
-
-              <!-- Type Scale Controls -->
-              <div class="mt-2.5 pt-2 border-t border-slate-200 flex items-center justify-between">
-                <span class="text-[9px] text-slate-500 uppercase tracking-wider">Type Scale</span>
-                <div class="inline-flex items-center border border-slate-300 rounded overflow-hidden">
-                  <button
-                    type="button"
-                    id="fontScaleDownBtn"
-                    aria-label="Decrease font size"
-                    class="min-h-[32px] min-w-[32px] flex items-center justify-center font-mono font-bold text-[10px] text-slate-700 hover:bg-slate-100 cursor-pointer transition-colors border-r border-slate-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-900"
-                  >A-</button>
-                  <button
-                    type="button"
-                    id="fontScaleUpBtn"
-                    aria-label="Increase font size"
-                    class="min-h-[32px] min-w-[32px] flex items-center justify-center font-mono font-bold text-[10px] text-slate-700 hover:bg-slate-100 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-900"
-                  >A+</button>
                 </div>
               </div>
             </div>
@@ -474,13 +451,6 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
                   #{tag}
                 </span>
               ))}
-              <!-- Mobile font controls (only on < lg) -->
-              <div class="lg:hidden inline-flex items-center border border-slate-300 rounded overflow-hidden ml-auto">
-                <button type="button" id="fontScaleDownBtnMobile" aria-label="Decrease font size"
-                  class="min-h-[44px] min-w-[44px] flex items-center justify-center font-mono font-bold text-xs text-slate-700 hover:bg-slate-100 cursor-pointer transition-colors border-r border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900">A-</button>
-                <button type="button" id="fontScaleUpBtnMobile" aria-label="Increase font size"
-                  class="min-h-[44px] min-w-[44px] flex items-center justify-center font-mono font-bold text-xs text-slate-700 hover:bg-slate-100 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900">A+</button>
-              </div>
             </div>
 
             <!-- H1 Headline with robust line-height and proportional tracking -->
@@ -835,43 +805,9 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
         });
       }
 
-      // ─── Font Scale Controller (shared by sidebar + mobile btns) ─
-      function initFontScale() {
-        const article = document.getElementById('articleContent');
-        const downBtns = [
-          document.getElementById('fontScaleDownBtn'),
-          document.getElementById('fontScaleDownBtnMobile')
-        ].filter(Boolean);
-        const upBtns = [
-          document.getElementById('fontScaleUpBtn'),
-          document.getElementById('fontScaleUpBtnMobile')
-        ].filter(Boolean);
-        if (!article) return;
-
-        const scales = ['scale-sm', 'scale-md', 'scale-lg'];
-        let currentScale = 'scale-md';
-        try { currentScale = localStorage.getItem('flirtcheck_font_scale') || 'scale-md'; } catch {}
-
-        function applyScale(scale) {
-          scales.forEach(s => article.classList.remove(s));
-          article.classList.add(scale);
-          try { localStorage.setItem('flirtcheck_font_scale', scale); } catch {}
-        }
-        applyScale(currentScale);
-
-        downBtns.forEach(btn => btn?.addEventListener('click', () => {
-          const idx = scales.indexOf(currentScale);
-          if (idx > 0) { currentScale = scales[idx - 1]; applyScale(currentScale); }
-        }));
-        upBtns.forEach(btn => btn?.addEventListener('click', () => {
-          const idx = scales.indexOf(currentScale);
-          if (idx < scales.length - 1) { currentScale = scales[idx + 1]; applyScale(currentScale); }
-        }));
-      }
-
       // ─── TOC Smartlink CID attribution ──────────────────────────
       function initTocCta() {
-        const cta = document.getElementById('tocCtaLink');
+        const cta = document.getElementById('tocCtaLink') as HTMLAnchorElement | null;
         if (!cta) return;
         let cid = '';
         try {
@@ -890,16 +826,11 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
         buildToc();
         injectMidArticleQuiz();
         setupArticleEvidence();
-        initFontScale();
         initTocCta();
       });
     </script>
 
     <style is:global>
-      /* Reading Scale Adjustments */
-      #articleContent.scale-sm p { font-size: 16px !important; line-height: 1.65 !important; }
-      #articleContent.scale-md p { font-size: 18px !important; line-height: 1.75 !important; }
-      #articleContent.scale-lg p { font-size: 20px !important; line-height: 1.85 !important; }
 
       /* ─── Parchment Code Blocks (no more acid black) ─────────── */
       article.prose pre,
@@ -1091,23 +1022,6 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
           }
         }
 
-        // 2. Font Sizing Controls
-        let fontScale = 0;
-        const updateFontScale = (delta: number) => {
-          fontScale = Math.max(-1, Math.min(1, fontScale + delta));
-          if (article) {
-            article.classList.remove('prose-sm', 'prose-base', 'prose-lg');
-            if (fontScale === -1) article.classList.add('prose-sm');
-            else if (fontScale === 1) article.classList.add('prose-lg');
-            else article.classList.add('prose-base');
-          }
-        };
-
-        document.getElementById('fontScaleDownBtn')?.addEventListener('click', () => updateFontScale(-1));
-        document.getElementById('fontScaleUpBtn')?.addEventListener('click', () => updateFontScale(1));
-        document.getElementById('fontScaleDownBtnMobile')?.addEventListener('click', () => updateFontScale(-1));
-        document.getElementById('fontScaleUpBtnMobile')?.addEventListener('click', () => updateFontScale(1));
-
         // 3. Relocate DeepTrace Widget into In-Article Anchor if present
         const deeptraceWidget = document.querySelector('.deeptrace-widget');
         const customSlot = document.querySelector('#deeptrace-scanner-slot, .deeptrace-scanner-slot');
@@ -1129,8 +1043,6 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
     </script>
 
     <Footer />
-    <BackToTop />
     <MobileStickyCTA offerType={endorsementType} />
-    <ExitIntentModal />
   </body>
 </html>
