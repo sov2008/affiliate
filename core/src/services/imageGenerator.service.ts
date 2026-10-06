@@ -306,7 +306,53 @@ export class ImageGeneratorService {
   }
 
   /**
-   * Primary inference via NVIDIA NIM FLUX.1-dev
+   * Primary inference via NVIDIA NIM FLUX.2-klein-4b (Ultra-fast & photorealistic)
+   */
+  private async generateViaNvidiaFlux2(
+    prompt: string,
+    apiKey: string,
+    timeoutMs: number = 30000
+  ): Promise<Buffer | null> {
+    const fluxUrl = 'https://ai.api.nvidia.com/v1/genai/black-forest-labs/flux.2-klein-4b';
+    console.log(`⚡ [ImageGenerator] Invoking NVIDIA NIM FLUX.2-klein-4b...`);
+
+    const response = await axios.post(
+      fluxUrl,
+      { prompt },
+      {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        timeout: timeoutMs,
+        validateStatus: () => true,
+      }
+    );
+
+    let responseData: any = null;
+    if (response.status === 200) {
+      responseData = response.data;
+    } else if (response.status === 202) {
+      const reqId = response.headers['nvcf-reqid'] as string;
+      if (!reqId) {
+        throw new Error('NVIDIA returned 202 without nvcf-reqid header');
+      }
+      responseData = await this.pollNvcfQueue(reqId, apiKey, 20);
+    } else {
+      throw new Error(`NVIDIA FLUX.2 HTTP ${response.status}: ${JSON.stringify(response.data)}`);
+    }
+
+    const b64 = this.extractBase64(responseData);
+    if (!b64) {
+      throw new Error('Failed to extract base64 from NVIDIA FLUX.2 response');
+    }
+
+    return Buffer.from(b64, 'base64');
+  }
+
+  /**
+   * Secondary inference via NVIDIA NIM FLUX.1-dev
    */
   private async generateViaNvidiaFlux(
     prompt: string,
@@ -438,16 +484,26 @@ export class ImageGeneratorService {
     let rawImageBuffer: Buffer | null = null;
     const startTime = Date.now();
 
-    // 1. Tier 1: NVIDIA NIM FLUX.1-dev
+    // 1. Tier 1: NVIDIA NIM FLUX.2-klein-4b (Primary, ultra-fast & stable)
     if (nvidiaKey && nvidiaKey.startsWith('nvapi-')) {
       try {
-        rawImageBuffer = await this.generateViaNvidiaFlux(prompt, nvidiaKey, timeoutMs);
-        console.log(`✅ [ImageGenerator] NVIDIA NIM FLUX.1-dev generated cover in ${Date.now() - startTime}ms`);
+        rawImageBuffer = await this.generateViaNvidiaFlux2(prompt, nvidiaKey, timeoutMs);
+        console.log(`✅ [ImageGenerator] NVIDIA NIM FLUX.2-klein-4b generated cover in ${Date.now() - startTime}ms`);
       } catch (err: any) {
-        console.warn(`⚠️ [ImageGenerator] NVIDIA FLUX.1-dev failed: ${err.message}. Trying Tier 2 (SD 3.5 Large)...`);
+        console.warn(`⚠️ [ImageGenerator] NVIDIA FLUX.2-klein-4b failed: ${err.message}. Trying Tier 2 (FLUX.1-dev)...`);
       }
 
-      // 2. Tier 2: NVIDIA NIM SD 3.5 Large
+      // 2. Tier 2: NVIDIA NIM FLUX.1-dev
+      if (!rawImageBuffer) {
+        try {
+          rawImageBuffer = await this.generateViaNvidiaFlux(prompt, nvidiaKey, timeoutMs);
+          console.log(`✅ [ImageGenerator] NVIDIA NIM FLUX.1-dev generated cover in ${Date.now() - startTime}ms`);
+        } catch (f1Err: any) {
+          console.warn(`⚠️ [ImageGenerator] NVIDIA FLUX.1-dev failed: ${f1Err.message}. Trying Tier 3 (SD 3.5)...`);
+        }
+      }
+
+      // 3. Tier 3: NVIDIA NIM SD 3.5 Large
       if (!rawImageBuffer) {
         try {
           rawImageBuffer = await this.generateViaNvidiaSD35(prompt, negativePrompt, nvidiaKey, timeoutMs);

@@ -88,32 +88,61 @@ export class ImageGateway {
       throw new Error('[ImageGateway] NVIDIA API key (nvapi-*) required for image generation');
     }
 
-    const fluxUrl = 'https://ai.api.nvidia.com/v1/genai/black-forest-labs/flux.1-dev';
+    const flux2Url = 'https://ai.api.nvidia.com/v1/genai/black-forest-labs/flux.2-klein-4b';
+    const flux1Url = 'https://ai.api.nvidia.com/v1/genai/black-forest-labs/flux.1-dev';
     const timeoutMs = 60000;
 
-    const res = await axios.post(
-      fluxUrl,
-      { prompt: prompt.trim(), mode: 'base' },
-      {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        timeout: timeoutMs,
-        validateStatus: () => true,
-      }
-    );
-
     let responseData: any = null;
-    if (res.status === 200) {
-      responseData = res.data;
-    } else if (res.status === 202) {
-      const reqId = res.headers['nvcf-reqid'] as string;
-      if (!reqId) throw new Error('HTTP 202 without nvcf-reqid');
-      responseData = await pollNvcfQueue(reqId, apiKey, 30);
-    } else {
-      throw new Error(`[ImageGateway] NVIDIA NIM HTTP ${res.status}: ${JSON.stringify(res.data)}`);
+
+    try {
+      const res = await axios.post(
+        flux2Url,
+        { prompt: prompt.trim() },
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          timeout: timeoutMs,
+          validateStatus: () => true,
+        }
+      );
+
+      if (res.status === 200) {
+        responseData = res.data;
+      } else if (res.status === 202) {
+        const reqId = res.headers['nvcf-reqid'] as string;
+        if (reqId) responseData = await pollNvcfQueue(reqId, apiKey, 30);
+      }
+    } catch (e: any) {
+      console.warn(`[ImageGateway] FLUX.2 failed: ${e.message}, falling back to FLUX.1`);
+    }
+
+    if (!responseData) {
+      const res = await axios.post(
+        flux1Url,
+        { prompt: prompt.trim(), mode: 'base' },
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          timeout: timeoutMs,
+          validateStatus: () => true,
+        }
+      );
+
+      if (res.status === 200) {
+        responseData = res.data;
+      } else if (res.status === 202) {
+        const reqId = res.headers['nvcf-reqid'] as string;
+        if (!reqId) throw new Error('HTTP 202 without nvcf-reqid');
+        responseData = await pollNvcfQueue(reqId, apiKey, 30);
+      } else {
+        throw new Error(`[ImageGateway] NVIDIA NIM HTTP ${res.status}: ${JSON.stringify(res.data)}`);
+      }
     }
 
     const b64 = extractBase64(responseData);
