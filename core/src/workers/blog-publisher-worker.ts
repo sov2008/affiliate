@@ -165,6 +165,16 @@ export class BlogPublisherWorker {
 
     console.log(`🌐 [BlogPublisherWorker] Post is LIVE at: ${publishedUrl}`);
 
+    // 3.1 Instant SEO: Ping IndexNow (Bing, Yandex, etc.) for newly dispatched post
+    try {
+      const { IndexNowService } = await import('../services/indexnow.service.js');
+      IndexNowService.getInstance().submitUrls([publishedUrl]).catch((pingErr: any) => {
+        console.warn(`⚠️ [BlogPublisherWorker] Non-critical IndexNow ping warning:`, pingErr.message);
+      });
+    } catch (indexErr: any) {
+      console.warn(`⚠️ [BlogPublisherWorker] IndexNow import error:`, indexErr.message);
+    }
+
     // 4. Generate 2 child distribution snippets (Reddit discussion + Twitter thread)
     const childSnippetIds = await this.generateDistributionSnippets(item, slug, publishedUrl, payload);
 

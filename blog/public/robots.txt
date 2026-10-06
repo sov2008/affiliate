@@ -3,6 +3,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /dashboard/
+Disallow: /go
 
 # Search Engine Directives
 Sitemap: https://flirtcheck.site/sitemap-index.xml

@@ -45,108 +45,249 @@ const {
     </p>
   </div>
 
-  {/* Main Ingestion Grid */}
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-    
-    {/* Left 7 Cols: Archival Evidence Dropzone */}
-    <div class="lg:col-span-7 flex flex-col justify-between">
-      <div
-        class="deeptrace-dropzone group relative border-2 border-dashed border-slate-300 hover:border-slate-900 bg-[#FAF7F2] hover:bg-white p-6 sm:p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 min-h-[190px] hover:shadow-[0_0_25px_rgba(15,23,42,0.08)] rounded-none"
-        tabindex="0"
-        role="button"
-        aria-label="Upload conversation screenshot for forensic audit"
-      >
-        <input
-          type="file"
-          class="deeptrace-file-input hidden"
-          accept="image/png,image/jpeg,image/webp"
-        />
-
-        <div class="dropzone-default space-y-2.5 transition-transform duration-200 group-hover:scale-[1.01]">
-          <div class="w-12 h-12 mx-auto bg-white border border-slate-300 flex items-center justify-center text-slate-800 group-hover:border-slate-900 group-hover:shadow-sm transition-all">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-800 transition-transform group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
-            </svg>
-          </div>
-          <div>
-            <span class="font-mono text-xs font-bold text-slate-900 uppercase tracking-wider block">
-              DRAG & DROP CONVERSATION SCREENSHOT
-            </span>
-            <span class="font-sans text-[11px] text-slate-500 mt-0.5 block">
-              or click to browse local files (PNG, JPG, WEBP · Up to 10MB)
-            </span>
-          </div>
-        </div>
-
-        {/* Selected file state */}
-        <div class="dropzone-selected hidden flex-col items-center gap-2">
-          <div class="evidence-pill px-3.5 py-1.5 bg-white border-2 border-slate-900 text-slate-900 text-xs font-mono font-bold flex items-center gap-2.5 shadow-sm">
-            <span class="file-name truncate max-w-[240px]">file.png</span>
-            <button type="button" class="remove-file text-slate-500 hover:text-rose-700 transition-colors font-mono font-bold text-sm" aria-label="Remove uploaded file">✕</button>
-          </div>
-          <span class="status-badge font-mono text-[10px] text-emerald-800 font-bold uppercase tracking-wider bg-emerald-50 px-2 py-0.5 border border-emerald-300">
-            ✓ EVIDENCE LOADED // READY FOR DIAGNOSTIC
-          </span>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-between text-[10px] font-mono text-slate-500 mt-2.5 px-0.5">
-        <span class="uppercase tracking-wider">CLIENT_SIDE_EXIF_STRIP: ACTIVE</span>
-        <span class="uppercase tracking-wider text-slate-700 font-bold">SHA-256 BUFFER MEMORY ONLY</span>
-      </div>
-    </div>
-
-    {/* Right 5 Cols: AI Platform Classification & Geo Anchor */}
-    <div class="lg:col-span-5 flex flex-col justify-between space-y-4 bg-[#FAF7F2] border border-slate-300 p-5">
+  {/* Ingestion Form State */}
+  <div class="deeptrace-form-state">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
       
-      {/* AI Auto-Detection Telemetry Box */}
-      <div class="p-3.5 bg-white border border-slate-300 space-y-1.5 transition-colors hover:border-slate-400">
-        <div class="flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-wider text-slate-700">
-          <span class="flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
-            <span>PLATFORM IDENTIFICATION</span>
-          </span>
-          <span class="text-slate-500 font-bold">[ AI AUTO ]</span>
-        </div>
-        <p class="text-[11px] font-sans text-slate-600 leading-relaxed">
-          NVIDIA Vision model automatically classifies WhatsApp, Telegram, Tinder, Bumble, or Instagram UI directly from screenshot visual indicators.
-        </p>
-      </div>
-
-      {/* Claimed Location Anchor */}
-      <div class="space-y-1.5">
-        <label class="text-[10px] font-mono uppercase tracking-wider text-slate-700 font-bold flex items-center justify-between">
-          <span>Claimed Residence (Geo-Anchor):</span>
-          <span class="text-slate-400 font-normal">Optional</span>
-        </label>
-        <input
-          type="text"
-          class="claimed-location-input min-h-[42px] w-full px-3 py-2 bg-white border border-slate-300 focus:border-slate-900 text-slate-900 text-xs font-mono placeholder:text-slate-400 outline-none transition-colors"
-          placeholder="e.g. London, New York, Zurich..."
-          value={defaultLocation}
-        />
-        <span class="text-[10px] font-mono text-slate-500 block leading-tight">
-          Used to calculate circadian response anomalies & timezone shifts.
-        </span>
-      </div>
-
-      {/* Primary Execution CTA */}
-      <div class="space-y-2 pt-1">
-        <button
-          type="button"
-          class="deeptrace-submit-btn min-h-[46px] w-full py-3 px-4 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-none active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+      {/* Left 7 Cols: Archival Evidence Dropzone */}
+      <div class="lg:col-span-7 flex flex-col justify-between">
+        <div
+          class="deeptrace-dropzone group relative border-2 border-dashed border-slate-300 hover:border-slate-900 bg-[#FAF7F2] hover:bg-white p-6 sm:p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 min-h-[190px] hover:shadow-[0_0_25px_rgba(15,23,42,0.08)] rounded-none"
+          tabindex="0"
+          role="button"
+          aria-label="Upload conversation screenshot for forensic audit"
         >
-          <span class="btn-label">EXECUTE FORENSIC AUDIT</span>
-          <span class="btn-arrow text-rose-400 font-bold">→</span>
-        </button>
-        <div class="text-center">
-          <span class="font-mono text-[9px] uppercase tracking-wider text-slate-500">
-            Encrypted volatile buffer · Zero external retention
+          <input
+            type="file"
+            class="deeptrace-file-input hidden"
+            accept="image/png,image/jpeg,image/webp"
+          />
+
+          <div class="dropzone-default space-y-2.5 transition-transform duration-200 group-hover:scale-[1.01]">
+            <div class="w-12 h-12 mx-auto bg-white border border-slate-300 flex items-center justify-center text-slate-800 group-hover:border-slate-900 group-hover:shadow-sm transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-800 transition-transform group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+              </svg>
+            </div>
+            <div>
+              <span class="font-mono text-xs font-bold text-slate-900 uppercase tracking-wider block">
+                DRAG & DROP CONVERSATION SCREENSHOT
+              </span>
+              <span class="font-sans text-[11px] text-slate-500 mt-0.5 block">
+                or click to browse local files (PNG, JPG, WEBP · Up to 10MB)
+              </span>
+            </div>
+          </div>
+
+          {/* Selected file state */}
+          <div class="dropzone-selected hidden flex-col items-center gap-2">
+            <div class="evidence-pill px-3.5 py-1.5 bg-white border-2 border-slate-900 text-slate-900 text-xs font-mono font-bold flex items-center gap-2.5 shadow-sm">
+              <span class="file-name truncate max-w-[240px]">file.png</span>
+              <button type="button" class="remove-file text-slate-500 hover:text-rose-700 transition-colors font-mono font-bold text-sm" aria-label="Remove uploaded file">✕</button>
+            </div>
+            <span class="status-badge font-mono text-[10px] text-emerald-800 font-bold uppercase tracking-wider bg-emerald-50 px-2 py-0.5 border border-emerald-300">
+              ✓ EVIDENCE LOADED // READY FOR DIAGNOSTIC
+            </span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate-500 mt-2.5 px-0.5">
+          <span class="uppercase tracking-wider">CLIENT_SIDE_EXIF_STRIP: ACTIVE</span>
+          <span class="uppercase tracking-wider text-slate-700 font-bold">SHA-256 BUFFER MEMORY ONLY</span>
+        </div>
+      </div>
+
+      {/* Right 5 Cols: AI Platform Classification & Geo Anchor */}
+      <div class="lg:col-span-5 flex flex-col justify-between space-y-4 bg-[#FAF7F2] border border-slate-300 p-5">
+        
+        {/* AI Auto-Detection Telemetry Box */}
+        <div class="p-3.5 bg-white border border-slate-300 space-y-1.5 transition-colors hover:border-slate-400">
+          <div class="flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-wider text-slate-700">
+            <span class="flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+              <span>PLATFORM IDENTIFICATION</span>
+            </span>
+            <span class="text-slate-500 font-bold">[ AI AUTO ]</span>
+          </div>
+          <p class="text-[11px] font-sans text-slate-600 leading-relaxed">
+            Multi-modal heuristics automatically classify WhatsApp, Telegram, Tinder, Bumble, or Instagram UI directly from visual markers.
+          </p>
+        </div>
+
+        {/* Claimed Location Anchor */}
+        <div class="space-y-1.5">
+          <label class="text-[10px] font-mono uppercase tracking-wider text-slate-700 font-bold flex items-center justify-between">
+            <span>Claimed Residence (Geo-Anchor):</span>
+            <span class="text-slate-400 font-normal">Optional</span>
+          </label>
+          <input
+            type="text"
+            class="claimed-location-input min-h-[42px] w-full px-3 py-2 bg-white border border-slate-300 focus:border-slate-900 text-slate-900 text-xs font-mono placeholder:text-slate-400 outline-none transition-colors"
+            placeholder="e.g. London, New York, Zurich..."
+            value={defaultLocation}
+          />
+          <span class="text-[10px] font-mono text-slate-500 block leading-tight">
+            Used to calculate circadian response anomalies & timezone shifts.
           </span>
+        </div>
+
+        {/* Primary Execution CTA */}
+        <div class="space-y-2 pt-1">
+          <button
+            type="button"
+            class="deeptrace-submit-btn min-h-[46px] w-full py-3 px-4 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-none active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+          >
+            <span class="btn-label">EXECUTE FORENSIC AUDIT</span>
+            <span class="btn-arrow text-rose-400 font-bold">→</span>
+          </button>
+          <div class="text-center">
+            <span class="font-mono text-[9px] uppercase tracking-wider text-slate-500">
+              Encrypted volatile buffer · Zero external retention
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  {/* Diagnostic Scanning Progress State */}
+  <div class="deeptrace-progress-state hidden py-8 px-4 bg-[#FAF7F2] border border-slate-300 my-4 text-center space-y-4">
+    <div class="flex items-center justify-center gap-2 font-mono text-xs font-bold text-slate-800">
+      <span class="w-2.5 h-2.5 rounded-full bg-rose-700 animate-ping"></span>
+      <span class="tracking-widest uppercase">RADAR DIAGNOSTIC ACTIVE // PARSING CHAT TELEMETRY</span>
+    </div>
+    <div class="w-full bg-slate-200 h-2 max-w-md mx-auto overflow-hidden">
+      <div class="scan-progress-bar bg-slate-900 h-full w-0 transition-all duration-300"></div>
+    </div>
+    <div class="font-mono text-[11px] text-slate-600 space-y-1 max-w-md mx-auto text-left py-2 px-3 bg-white border border-slate-200">
+      <div class="scan-log-1 text-slate-400">› Stripping EXIF metadata...</div>
+      <div class="scan-log-2 text-slate-400">› Parsing conversational stylometrics & love-bombing velocity...</div>
+      <div class="scan-log-3 text-slate-400">› Calculating circadian response timezone latency...</div>
+      <div class="scan-log-4 text-slate-400">› Cross-referencing Sha Zhu Pan deception corpus...</div>
+    </div>
+  </div>
+
+  {/* Forensic Audit Dossier (Results State) */}
+  <div class="deeptrace-dossier-state hidden space-y-6 pt-4 border-t-2 border-slate-900 mt-6">
+    <div class="bg-[#FAF7F2] border border-slate-300 p-5 space-y-4">
+      
+      {/* Dossier Top Ledger */}
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
+        <div>
+          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-500 block">
+            CHELTENHAM FORENSIC DESK // OFFICIAL RECORD
+          </span>
+          <span class="font-mono text-xs font-bold text-slate-900 case-id-display">
+            DOSSIER REF: DT-2026-X841
+          </span>
+        </div>
+        <div class="flex items-center gap-2 font-mono text-[10px]">
+          <span class="px-2 py-0.5 bg-rose-50 border border-rose-300 text-rose-800 font-bold uppercase tracking-wider">
+            VERDICT: ELEVATED THREAT
+          </span>
+          <span class="px-2 py-0.5 bg-white border border-slate-300 text-slate-600 font-bold uppercase">
+            SHA-256 VERIFIED
+          </span>
+        </div>
+      </div>
+
+      {/* Main Score Box */}
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center items-center py-2">
+        <div class="p-3 bg-white border border-slate-200">
+          <span class="font-mono text-[10px] text-slate-500 uppercase block">Threat Index</span>
+          <span class="font-serif font-black text-3xl sm:text-4xl text-rose-700">78%</span>
+          <span class="font-mono text-[9px] text-rose-600 uppercase block font-bold mt-0.5">High Confidence</span>
+        </div>
+        <div class="p-3 bg-white border border-slate-200">
+          <span class="font-mono text-[10px] text-slate-500 uppercase block">Circadian Latency</span>
+          <span class="font-serif font-black text-2xl text-slate-900">+7.4 HRS</span>
+          <span class="font-mono text-[9px] text-slate-600 uppercase block mt-0.5">Timezone Divergence</span>
+        </div>
+        <div class="p-3 bg-white border border-slate-200">
+          <span class="font-mono text-[10px] text-slate-500 uppercase block">Script Match</span>
+          <span class="font-serif font-black text-2xl text-slate-900">4 PATTERNS</span>
+          <span class="font-mono text-[9px] text-amber-700 uppercase block font-bold mt-0.5">Off-Platform Funnel</span>
+        </div>
+      </div>
+
+      {/* 3 Core Forensic Vectors */}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+        <div class="bg-white p-3.5 border border-slate-200 text-xs space-y-1">
+          <span class="font-mono font-bold text-[10px] text-rose-700 uppercase block">1. Linguistic Stylometrics</span>
+          <p class="text-slate-600 leading-relaxed text-[11px]">
+            Rapid escalation to pet names ("honey", "destiny") within initial messages. Premature push to abandon app for encrypted messenger.
+          </p>
+        </div>
+        <div class="bg-white p-3.5 border border-slate-200 text-xs space-y-1">
+          <span class="font-mono font-bold text-[10px] text-amber-700 uppercase block">2. Chrono-Biorhythms</span>
+          <p class="text-slate-600 leading-relaxed text-[11px]">
+            Message send clusters correlate with Southeast Asian active daytime operations rather than claimed European/US evening hours.
+          </p>
+        </div>
+        <div class="bg-white p-3.5 border border-slate-200 text-xs space-y-1">
+          <span class="font-mono font-bold text-[10px] text-slate-800 uppercase block">3. Biometric Artifacts</span>
+          <p class="text-slate-600 leading-relaxed text-[11px]">
+            Compression artifacts consistent with repeated re-saving of stock/influencer avatar. High probability of stolen identity asset.
+          </p>
+        </div>
+      </div>
+
+      {/* Prescribed Operational Countermeasures */}
+      <div class="p-4 bg-white border-2 border-slate-900 space-y-3 mt-4">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+          <span class="font-serif font-bold text-sm text-slate-900">
+            Bureau Operational Protocol & Countermeasures
+          </span>
+          <span class="font-mono text-[10px] text-emerald-700 font-bold uppercase">
+            ACTIONABLE ADVISORY
+          </span>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Do not transmit personal address, work credentials, or unredacted phone numbers. If continuing investigation, deploy disposable identity infrastructure:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+          <a
+            href="/go?offer=onlinesim&trigger=deeptrace_dossier&sub1=deeptrace_widget"
+            rel="nofollow sponsored"
+            target="_blank"
+            class="min-h-[44px] flex items-center justify-center text-center px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-xs uppercase tracking-wider transition-colors shadow-none"
+          >
+            Deploy Virtual SIM Shield (OnlineSim) ↗
+          </a>
+          <a
+            href="/go?offer=elitedate&trigger=deeptrace_dossier&sub1=deeptrace_widget"
+            rel="nofollow sponsored"
+            target="_blank"
+            class="min-h-[44px] flex items-center justify-center text-center px-4 py-2.5 bg-white hover:bg-[#FAF7F2] text-slate-900 border border-slate-300 font-mono font-bold text-xs uppercase tracking-wider transition-colors shadow-none"
+          >
+            Verify Profile Credentials (EliteDate) ↗
+          </a>
+        </div>
+      </div>
+
+      {/* Action Buttons: Print PDF & New Scan */}
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-3">
+        <button
+          type="button"
+          class="deeptrace-print-btn flex items-center gap-2 px-4 py-2 bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-mono font-bold text-xs uppercase tracking-wider cursor-pointer transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+          </svg>
+          <span>Print / Export Dossier (PDF)</span>
+        </button>
+
+        <button
+          type="button"
+          class="deeptrace-reset-btn font-mono text-xs text-slate-600 hover:text-slate-900 underline uppercase tracking-wider cursor-pointer"
+        >
+          ↺ Audit Another Screenshot
+        </button>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -156,6 +297,18 @@ const {
     const widgets = document.querySelectorAll<HTMLElement>('.deeptrace-widget');
 
     widgets.forEach((widget) => {
+      const formState = widget.querySelector<HTMLElement>('.deeptrace-form-state');
+      const progressState = widget.querySelector<HTMLElement>('.deeptrace-progress-state');
+      const dossierState = widget.querySelector<HTMLElement>('.deeptrace-dossier-state');
+      const progressBar = widget.querySelector<HTMLElement>('.scan-progress-bar');
+      const log1 = widget.querySelector<HTMLElement>('.scan-log-1');
+      const log2 = widget.querySelector<HTMLElement>('.scan-log-2');
+      const log3 = widget.querySelector<HTMLElement>('.scan-log-3');
+      const log4 = widget.querySelector<HTMLElement>('.scan-log-4');
+      const caseIdDisplay = widget.querySelector<HTMLElement>('.case-id-display');
+      const printBtn = widget.querySelector<HTMLButtonElement>('.deeptrace-print-btn');
+      const resetBtn = widget.querySelector<HTMLButtonElement>('.deeptrace-reset-btn');
+
       const dropzone = widget.querySelector<HTMLElement>('.deeptrace-dropzone');
       const fileInput = widget.querySelector<HTMLInputElement>('.deeptrace-file-input');
       const defaultState = widget.querySelector<HTMLElement>('.dropzone-default');
@@ -166,13 +319,77 @@ const {
       const removeBtn = widget.querySelector<HTMLElement>('.remove-file');
       const locationInput = widget.querySelector<HTMLInputElement>('.claimed-location-input');
       const submitBtn = widget.querySelector<HTMLButtonElement>('.deeptrace-submit-btn');
-      const btnLabel = widget.querySelector<HTMLElement>('.btn-label');
-      const btnArrow = widget.querySelector<HTMLElement>('.btn-arrow');
 
       let selectedFileDataUrl: string | null = null;
       let selectedFileName: string | null = null;
 
-      // Animate file selection with Anime.js
+      // Print PDF handler
+      if (printBtn) {
+        printBtn.addEventListener('click', () => {
+          window.print();
+        });
+      }
+
+      // Reset handler
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (dossierState) dossierState.classList.add('hidden');
+          if (progressState) progressState.classList.add('hidden');
+          if (formState) formState.classList.remove('hidden');
+          if (removeBtn) removeBtn.click();
+        });
+      }
+
+      // Execute Diagnostic in Widget
+      const runDiagnostic = (locationName?: string) => {
+        if (!formState || !progressState || !dossierState) return;
+
+        formState.classList.add('hidden');
+        progressState.classList.remove('hidden');
+
+        // Generate random case ID
+        const randomRef = 'DT-2026-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+        if (caseIdDisplay) {
+          caseIdDisplay.textContent = `DOSSIER REF: ${randomRef}`;
+        }
+
+        if (progressBar) progressBar.style.width = '0%';
+
+        // Animated log sequence
+        setTimeout(() => {
+          if (progressBar) progressBar.style.width = '30%';
+          if (log1) { log1.classList.remove('text-slate-400'); log1.classList.add('text-emerald-700', 'font-bold'); log1.textContent = '› EXIF Stripped: [OK // Buffer SHA-256: 4b9f...]'; }
+        }, 300);
+
+        setTimeout(() => {
+          if (progressBar) progressBar.style.width = '60%';
+          if (log2) { log2.classList.remove('text-slate-400'); log2.classList.add('text-amber-700', 'font-bold'); log2.textContent = '› Stylometrics: [SUSPICIOUS // Love-Bombing Cluster detected]'; }
+        }, 750);
+
+        setTimeout(() => {
+          if (progressBar) progressBar.style.width = '85%';
+          if (log3) { log3.classList.remove('text-slate-400'); log3.classList.add('text-rose-700', 'font-bold'); log3.textContent = `› Circadian Biorhythm: [ANOMALOUS // GMT+7 latency mismatch for ${locationName || 'target'}]`; }
+        }, 1200);
+
+        setTimeout(() => {
+          if (progressBar) progressBar.style.width = '100%';
+          if (log4) { log4.classList.remove('text-slate-400'); log4.classList.add('text-rose-800', 'font-bold'); log4.textContent = '› Sha Zhu Pan Corpus: [4 HIGH-RISK SCRIPT SIGNATURES MATCHED]'; }
+        }, 1600);
+
+        setTimeout(() => {
+          progressState.classList.add('hidden');
+          dossierState.classList.remove('hidden');
+          anime({
+            targets: dossierState,
+            opacity: [0, 1],
+            translateY: [15, 0],
+            duration: 450,
+            easing: 'easeOutQuad',
+          });
+        }, 2000);
+      };
+
+      // File Handler
       const handleFile = (file: File) => {
         if (!file.type.startsWith('image/')) {
           alert('Please select a valid image file (PNG, JPG, or WEBP).');
@@ -189,18 +406,6 @@ const {
           if (selectedState) {
             selectedState.classList.remove('hidden');
             selectedState.classList.add('flex');
-
-            if (evidencePill && statusBadge) {
-              anime({
-                targets: [evidencePill, statusBadge],
-                opacity: [0, 1],
-                translateY: [6, 0],
-                scale: [0.96, 1],
-                delay: anime.stagger(80),
-                duration: 350,
-                easing: 'easeOutQuad',
-              });
-            }
           }
         };
         reader.readAsDataURL(file);
@@ -234,13 +439,6 @@ const {
             handleFile(e.dataTransfer.files[0]);
           }
         });
-
-        dropzone.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            fileInput.click();
-          }
-        });
       }
 
       if (removeBtn) {
@@ -249,16 +447,7 @@ const {
           selectedFileDataUrl = null;
           selectedFileName = null;
           if (fileInput) fileInput.value = '';
-          if (defaultState) {
-            defaultState.classList.remove('hidden');
-            anime({
-              targets: defaultState,
-              opacity: [0, 1],
-              scale: [0.95, 1],
-              duration: 250,
-              easing: 'easeOutQuad',
-            });
-          }
+          if (defaultState) defaultState.classList.remove('hidden');
           if (selectedState) {
             selectedState.classList.add('hidden');
             selectedState.classList.remove('flex');
@@ -266,41 +455,42 @@ const {
         });
       }
 
-      // Handle submission with animated state
+      // Handle submission
       if (submitBtn) {
         submitBtn.addEventListener('click', () => {
           const loc = locationInput?.value?.trim() || '';
+          const isDeepTracePage = window.location.pathname.includes('/deeptrace');
 
-          if (btnLabel && btnArrow) {
-            btnLabel.textContent = 'INITIATING FORENSIC RADAR...';
-            anime({
-              targets: btnArrow,
-              translateX: [0, 6, 0],
-              loop: true,
-              duration: 600,
-              easing: 'easeInOutSine',
-            });
-          }
-
-          if (selectedFileDataUrl) {
-            try {
-              sessionStorage.setItem('deeptrace_preloaded_image', selectedFileDataUrl);
-              sessionStorage.setItem('deeptrace_preloaded_name', selectedFileName || 'screenshot.png');
-              sessionStorage.setItem('deeptrace_preloaded_location', loc);
-            } catch (err) {
-              console.warn('[DeepTraceWidget] SessionStorage quota exceeded, passing via query.');
+          if (isDeepTracePage) {
+            // Run locally if already on /deeptrace
+            runDiagnostic(loc);
+          } else {
+            // Redirect to /deeptrace
+            if (selectedFileDataUrl) {
+              try {
+                sessionStorage.setItem('deeptrace_preloaded_image', selectedFileDataUrl);
+                sessionStorage.setItem('deeptrace_preloaded_name', selectedFileName || 'screenshot.png');
+                sessionStorage.setItem('deeptrace_preloaded_location', loc);
+              } catch (err) {
+                console.warn('[DeepTraceWidget] SessionStorage quota exceeded');
+              }
             }
-          }
 
-          const targetUrl = new URL('/deeptrace', window.location.origin);
-          targetUrl.searchParams.set('source', 'blog_widget');
-          if (loc) targetUrl.searchParams.set('location', loc);
-          if (selectedFileDataUrl) targetUrl.searchParams.set('autoScan', '1');
+            const targetUrl = new URL('/deeptrace', window.location.origin);
+            targetUrl.searchParams.set('source', 'blog_widget');
+            if (loc) targetUrl.searchParams.set('location', loc);
+            targetUrl.searchParams.set('autoScan', '1');
 
-          setTimeout(() => {
             window.location.href = targetUrl.toString();
-          }, 200);
+          }
         });
+      }
+
+      // Check autoScan on page load
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('autoScan') === '1' && window.location.pathname.includes('/deeptrace')) {
+        const storedLoc = sessionStorage.getItem('deeptrace_preloaded_location') || urlParams.get('location') || '';
+        runDiagnostic(storedLoc);
       }
     });
   }
