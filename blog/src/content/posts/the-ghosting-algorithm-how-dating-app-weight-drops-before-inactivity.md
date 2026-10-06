@@ -79,7 +79,7 @@ If your match inflow has suddenly halted, run this diagnostic checklist before a
 
 1. **Count Active Stagnant Matches:** Review your active match roster. If you have more than 5 conversations where the last message was sent over 72 hours ago with no reply, your profile's Interaction Weight Score is being actively penalized.
 2. **Examine the Impression Velocity:** Create an intentional, non-invasive profile prompt change. If your modified prompt fails to generate passive impression telemetry within 12 hours, your distribution is throttled.
-3. **Verify Profile Integrity:** Ensure your account has not been flagged by automated behavioral heuristic filters. You can run our verified checklist or use the [FlirtCheck Forensic Verification Portal](/go) to analyze whether your profile markers conform to clean algorithmic standards.
+3. **Verify Profile Integrity:** Ensure your account has not been flagged by automated behavioral heuristic filters. You can run our verified checklist or use the [FlirtCheck Forensic Verification Portal](/calculator/) to analyze whether your profile markers conform to clean algorithmic standards.
 
 ---
 

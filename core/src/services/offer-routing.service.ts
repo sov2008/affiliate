@@ -1,3 +1,4 @@
+import fs from 'fs';
 import crypto from 'crypto';
 import path from 'path';
 import { TelegramLeadRepository, MabArmRecord } from '../db/tg-leads.repository.js';
@@ -275,6 +276,44 @@ export class OfferRoutingService {
       isPrimary: false,
       enabled: true,
     });
+
+    // Dynamic sync: Import active verified campaigns from artifacts_admitad/active_links.json
+    try {
+      const p1 = path.resolve(process.cwd(), 'artifacts_admitad/active_links.json');
+      const p2 = path.resolve(process.cwd(), '../artifacts_admitad/active_links.json');
+      const targetPath = fs.existsSync(p1) ? p1 : (fs.existsSync(p2) ? p2 : null);
+      if (targetPath) {
+        const raw = JSON.parse(fs.readFileSync(targetPath, 'utf8') || '{}');
+        for (const [key, val] of Object.entries(raw)) {
+          if (typeof val === 'string' && val.startsWith('http')) {
+            const cleanId = 'admitad_' + key.toLowerCase().replace(/[^a-z0-9]+/g, '_').slice(0, 30);
+            this.offers.set(cleanId, {
+              id: cleanId,
+              name: key,
+              network: 'admitad',
+              baseUrl: val,
+              subParam: 'subid',
+              isPrimary: false,
+              enabled: true,
+            });
+          } else if (typeof val === 'object' && val && (val as any).gotolink) {
+            const obj = val as any;
+            const cleanId = `admitad_${obj.id}`;
+            this.offers.set(cleanId, {
+              id: cleanId,
+              name: obj.name,
+              network: 'admitad',
+              baseUrl: obj.gotolink,
+              subParam: 'subid',
+              isPrimary: false,
+              enabled: true,
+            });
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('[OfferRoutingService] Note: active_links.json not loaded:', (e as any)?.message);
+    }
   }
 
   /**

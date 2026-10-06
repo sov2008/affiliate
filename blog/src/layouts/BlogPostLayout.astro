@@ -9,9 +9,9 @@ import ExitIntentModal from '../components/ExitIntentModal.astro';
 import SocialShareBar from '../components/SocialShareBar.astro';
 import ScamRiskMatrix from '../components/ScamRiskMatrix.astro';
 import CaseNotesFeed from '../components/CaseNotesFeed.astro';
-import QuickExitButton from '../components/QuickExitButton.astro';
 import AuthorCard from '../components/AuthorCard.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import OfferEndorsementBox from '../components/OfferEndorsementBox.astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.config';
 
@@ -89,9 +89,18 @@ const pubMonthYear = new Intl.DateTimeFormat('en-US', {
 // Abstract key findings
 const topicClean = title.replace(/^(the|how to|why|what to say when|what to)\s+/i, '');
 const findingsList = [
-  `Empirical analysis of ${topicClean.toLowerCase()}: identifying systematic algorithmic bias, behavioral funnels, and data telemetry.`,
-  `Audit protocols: recognizing unverified profile signatures, bot farm syntax loops, and high-risk extraction patterns.`,
-  `Technical defense checklist: operational guidelines for identity protection and mitigating digital manipulation.`
+  {
+    tag: 'THREAT VECTOR',
+    text: `Empirical telemetry on ${topicClean.toLowerCase()}: identifying systematic algorithmic bias, behavioral funnels, and data telemetry.`
+  },
+  {
+    tag: 'BEHAVIORAL TELL',
+    text: `Audit protocols: recognizing unverified profile signatures, bot farm syntax loops, and high-risk extraction patterns.`
+  },
+  {
+    tag: 'DEFENSE PROTOCOL',
+    text: `Technical defense checklist: operational guidelines for identity protection and mitigating digital manipulation.`
+  }
 ];
 
 // Related dossiers
@@ -193,6 +202,45 @@ const faqSchema = {
     }
   ]
 };
+
+const contentSignals = `${title} ${description} ${(tags || []).join(' ')} ${slug || ''} ${catMeta.id}`.toLowerCase();
+let endorsementType: 'virtual_sim' | 'verified_dating' | 'travel_dating' = 'virtual_sim';
+
+if (contentSignals.includes('travel') || contentSignals.includes('venue') || contentSignals.includes('public') || contentSignals.includes('coffee') || contentSignals.includes('dinner') || contentSignals.includes('meetup')) {
+  endorsementType = 'travel_dating';
+} else if (contentSignals.includes('burnout') || contentSignals.includes('dating app') || contentSignals.includes('match') || contentSignals.includes('relationship') || contentSignals.includes('ghosting') || contentSignals.includes('anxious') || contentSignals.includes('psychology') || contentSignals.includes('rizz')) {
+  endorsementType = 'verified_dating';
+} else {
+  endorsementType = 'virtual_sim';
+}
+
+const SIDEBAR_OFFER_CONFIG = {
+  virtual_sim: {
+    badge: 'DISPOSABLE SIM DESK',
+    partner: 'OnlineSim WW',
+    headline: 'Shield Your Real Phone Number',
+    desc: 'Never give your personal phone to unvetted matches. Intercept WhatsApp SMS codes securely.',
+    btnText: 'GET VIRTUAL SIM ↗',
+    url: `/go?offer=admitad_191148&source=sidebar_toc&trigger=article_read&intent=virtual_sim&ref=${slug || 'article'}&sub1=sidebar_toc&sub2=virtual_sim&sub3=sticky_card`
+  },
+  verified_dating: {
+    badge: 'BOT-FREE MATCHMAKING',
+    partner: 'Elitedate Network',
+    headline: 'Bypass The Swiping Casino',
+    desc: 'Connect with human-verified singles (30+) on a curated relationship platform.',
+    btnText: 'VERIFY SINGLES ↗',
+    url: `/go?offer=admitad_49070&source=sidebar_toc&trigger=article_read&intent=verified_dating&ref=${slug || 'article'}&sub1=sidebar_toc&sub2=verified_dating&sub3=sticky_card`
+  },
+  travel_dating: {
+    badge: 'SAFE VENUE PROTOCOL',
+    partner: 'RaynaTours Global',
+    headline: 'Certified Public Date Venues',
+    desc: 'Eliminate isolated meeting risks abroad. Book vetted public activities and city venues.',
+    btnText: 'BROWSE VENUES ↗',
+    url: `/go?offer=admitad_18183&source=sidebar_toc&trigger=article_read&intent=travel_dating&ref=${slug || 'article'}&sub1=sidebar_toc&sub2=travel_dating&sub3=sticky_card`
+  }
+};
+const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.virtual_sim;
 ---
 
 <!DOCTYPE html>
@@ -272,15 +320,35 @@ const faqSchema = {
         <aside class="hidden lg:block lg:col-span-4">
           <div class="sticky top-24 space-y-5">
 
-            <!-- WIDGET 0: Investigator Dossier (Author Card) - Placed at very top of sidebar -->
-            <AuthorCard />
-
-            <!-- Mini Case Dossier Card -->
-            <div class="bg-white border border-slate-300 rounded-none p-4 font-mono">
-              <div class="text-[9px] font-bold uppercase tracking-widest text-slate-500 mb-3 border-b border-slate-200 pb-2">
-                CHELTENHAM DESK // CASE FILE
+            <!-- Unified Case Ledger & Lead Investigator Card (Optimized Compact Height ~210px) -->
+            <div class="bg-white border border-slate-300 rounded-none p-3.5 font-mono">
+              <div class="text-[9px] font-bold uppercase tracking-widest text-slate-500 mb-2.5 border-b border-slate-200 pb-2 flex items-center justify-between">
+                <span>CHELTENHAM DESK // CASE LEDGER</span>
+                <span class="text-rose-700 font-bold">STATION 04</span>
               </div>
-              <div class="space-y-2 text-[10px]">
+
+              <!-- Compact Author / Desk Officer Byline -->
+              <div class="flex items-center gap-2.5 mb-2.5 pb-2.5 border-b border-slate-200">
+                <img
+                  src="/images/author/arthur-vance-avatar.webp"
+                  alt="Arthur Vance - Lead Forensic Investigator"
+                  class="w-9 h-9 rounded-full border border-slate-300 object-cover shrink-0"
+                  loading="lazy"
+                  width="36"
+                  height="36"
+                />
+                <div class="min-w-0 font-sans leading-tight">
+                  <h4 class="font-serif font-bold text-xs text-slate-900 truncate">
+                    <a href="/desk" class="hover:text-rose-700 transition-colors">Arthur Vance</a>
+                  </h4>
+                  <span class="text-[9px] font-mono text-slate-500 block truncate">
+                    Lead Forensic Desk · Independent
+                  </span>
+                </div>
+              </div>
+
+              <!-- Case Metadata Matrix -->
+              <div class="space-y-1.5 text-[10px]">
                 <div class="flex justify-between gap-2">
                   <span class="text-slate-500 uppercase">Case</span>
                   <span class="font-bold text-slate-900 text-right">FC-{caseId}</span>
@@ -297,26 +365,23 @@ const faqSchema = {
                   <span class="text-slate-500 uppercase">Class.</span>
                   <span class="font-bold text-slate-900 text-right truncate max-w-[7rem]">{classification || 'PUBLIC'}</span>
                 </div>
-                <div class="flex justify-between gap-2">
-                  <span class="text-slate-500 uppercase">Desk</span>
-                  <span class="font-bold text-slate-900">A. Vance</span>
-                </div>
               </div>
-              <!-- A- / A+ font scale controls in sidebar -->
-              <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between">
+
+              <!-- Type Scale Controls -->
+              <div class="mt-2.5 pt-2 border-t border-slate-200 flex items-center justify-between">
                 <span class="text-[9px] text-slate-500 uppercase tracking-wider">Type Scale</span>
                 <div class="inline-flex items-center border border-slate-300 rounded overflow-hidden">
                   <button
                     type="button"
                     id="fontScaleDownBtn"
                     aria-label="Decrease font size"
-                    class="min-h-[36px] min-w-[36px] flex items-center justify-center font-mono font-bold text-[10px] text-slate-700 hover:bg-slate-100 cursor-pointer transition-colors border-r border-slate-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-900"
+                    class="min-h-[32px] min-w-[32px] flex items-center justify-center font-mono font-bold text-[10px] text-slate-700 hover:bg-slate-100 cursor-pointer transition-colors border-r border-slate-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-900"
                   >A-</button>
                   <button
                     type="button"
                     id="fontScaleUpBtn"
                     aria-label="Increase font size"
-                    class="min-h-[36px] min-w-[36px] flex items-center justify-center font-mono font-bold text-[10px] text-slate-700 hover:bg-slate-100 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-900"
+                    class="min-h-[32px] min-w-[32px] flex items-center justify-center font-mono font-bold text-[10px] text-slate-700 hover:bg-slate-100 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-900"
                   >A+</button>
                 </div>
               </div>
@@ -334,23 +399,34 @@ const faqSchema = {
               </nav>
             </div>
 
-            <!-- Sticky Smartlink CTA -->
+            <!-- Sticky Contextual Partner Notice (Dynamic by Dossier Context) -->
             <div class="bg-[#FAF7F2] border border-slate-300 p-4">
-              <span class="block font-mono text-[9px] font-bold uppercase tracking-widest text-slate-500 mb-2">
-                VERIFICATION PORTAL
-              </span>
-              <p class="text-[11px] text-slate-600 font-sans leading-snug mb-3">
-                Cross-check your match against verified ID-confirmed singles.
+              <div class="flex items-center justify-between gap-1 mb-2">
+                <span class="font-mono text-[9px] font-bold uppercase tracking-widest text-slate-700 bg-amber-100 border border-slate-900 px-1.5 py-0.5">
+                  {sideOffer.badge}
+                </span>
+                <span class="font-mono text-[9px] text-slate-500 font-semibold truncate">
+                  {sideOffer.partner}
+                </span>
+              </div>
+              <h5 class="font-serif font-bold text-xs text-slate-900 leading-snug mb-1.5">
+                {sideOffer.headline}
+              </h5>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed mb-3">
+                {sideOffer.desc}
               </p>
               <a
-                href={`/go?source=sidebar_toc&trigger=article_read&intent=verify&ref=${slug || 'article'}`}
+                href={sideOffer.url}
                 id="tocCtaLink"
                 rel="nofollow sponsored"
                 target="_blank"
-                class="min-h-[40px] w-full flex items-center justify-center text-center px-3 py-2 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-[10px] uppercase tracking-wider transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+                class="min-h-[40px] w-full flex items-center justify-center text-center px-3 py-2 bg-slate-900 hover:bg-slate-800 active:translate-x-0.5 active:translate-y-0.5 text-white font-mono font-bold text-[10px] uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-none"
               >
-                VERIFY MATCH ↗
+                {sideOffer.btnText}
               </a>
+              <span class="block text-center text-[9px] font-mono text-slate-500 mt-2">
+                Verified Gateway Clearance · Direct Handshake
+              </span>
             </div>
 
           </div>
@@ -431,20 +507,27 @@ const faqSchema = {
                ABSTRACT & KEY FINDINGS
                ══════════════════════════════════════════════ -->
           <div class="border border-slate-300 bg-white p-5 sm:p-6 my-6 rounded-none">
-            <span class="font-mono text-[9px] font-bold uppercase tracking-widest text-slate-500 block mb-3">
-              [ INVESTIGATION ABSTRACT & KEY FINDINGS ]
-            </span>
+            <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-200">
+              <span class="font-mono text-[9px] font-bold uppercase tracking-widest text-slate-700">
+                [ INVESTIGATION ABSTRACT & KEY FINDINGS ]
+              </span>
+              <span class="font-mono text-[9px] text-emerald-700 bg-emerald-50 px-2 py-0.5 border border-emerald-200 uppercase font-semibold">
+                DEPT CLEARANCE: FC-{caseId}
+              </span>
+            </div>
             <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-sans mb-4">
               {description}
             </p>
-            <ul class="space-y-2 text-xs sm:text-sm text-slate-800 font-sans">
+            <div class="space-y-2.5">
               {findingsList.map(item => (
-                <li class="flex items-start gap-2 leading-relaxed">
-                  <span class="text-slate-500 font-mono font-bold shrink-0 mt-0.5">—</span>
-                  <span>{item}</span>
-                </li>
+                <div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2.5 text-xs sm:text-sm text-slate-800 font-sans border-l-2 border-slate-900 pl-3 py-0.5">
+                  <span class="font-mono text-[10px] font-bold text-slate-900 uppercase tracking-wider shrink-0 bg-slate-100 px-1.5 py-0.5 w-fit">
+                    {item.tag}
+                  </span>
+                  <span class="text-slate-700 leading-relaxed">{item.text}</span>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
 
           <!-- ══════════════════════════════════════════════
@@ -504,6 +587,11 @@ const faqSchema = {
           </article>
 
           <!-- ══════════════════════════════════════════════
+               OFFICIAL PARTNER ENDORSEMENT — Contextual offer materials
+               ══════════════════════════════════════════════ -->
+          <OfferEndorsementBox type={endorsementType} />
+
+          <!-- ══════════════════════════════════════════════
                SOCIAL SHARE BAR — strictly placed immediately after article body
                ══════════════════════════════════════════════ -->
           <SocialShareBar title={title} url={canonicalAbsUrl} className="my-8" />
@@ -535,8 +623,8 @@ const faqSchema = {
             <CaseNotesFeed postSlug={slug || ''} />
           </section>
 
-          <!-- 3. [ INVESTIGATOR DOSSIER ] — Author card (Mobile-only; on desktop displayed at top of sidebar) -->
-          <section class="mt-10 not-prose lg:hidden">
+          <!-- 3. [ INVESTIGATOR DOSSIER ] — Lead investigator credentials -->
+          <section class="mt-10 not-prose">
             <AuthorCard />
           </section>
 
@@ -576,14 +664,67 @@ const faqSchema = {
             </section>
           )}
 
-          <!-- Bottom conversion quiz -->
-          <section class="mt-10 mb-4 not-prose">
-            <InlineQuiz
-              slug={slug}
-              quizId="bottom-radar-quiz"
-              title="AI Match & Integrity Radar: Complete Profile Verification"
-              subtitle="Stop wasting time on catfish profiles and bot swarms. Verify safety clearance and access 100% verified singles."
-            />
+          <!-- Forensic Interactive Tool Clearance Hub (High-Utility Self-Service Clearance) -->
+          <section class="mt-10 mb-4 not-prose border border-slate-300 bg-white p-5 sm:p-6" aria-label="Forensic Tool Clearance Hub">
+            <div class="flex items-center justify-between pb-3 mb-5 border-b border-slate-200">
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-rose-700"></span>
+                <h3 class="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-900">
+                  [ CHELTENHAM FORENSIC TOOL CLEARANCE HUB ]
+                </h3>
+              </div>
+              <span class="font-mono text-[9px] text-slate-500 uppercase">Self-Service Clearance</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Tool 1: Dating Risk & Scam Exposure Calculator -->
+              <div class="border border-slate-200 bg-[#FAF7F2] p-4 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="font-mono text-[9px] font-bold uppercase tracking-wider text-rose-700 bg-rose-50 border border-rose-200 px-1.5 py-0.5">
+                      TOOL PROTOCOL 01
+                    </span>
+                    <span class="font-mono text-[9px] text-slate-500">Heuristic Engine</span>
+                  </div>
+                  <h4 class="font-serif font-bold text-sm sm:text-base text-slate-900 mb-1.5 leading-snug">
+                    Dating Risk & Scam Exposure Index
+                  </h4>
+                  <p class="text-[11px] sm:text-xs text-slate-600 font-sans leading-relaxed mb-4">
+                    Audit behavioral red flags, financial grooming signals, and identity verification percentiles across 12 empirical variables.
+                  </p>
+                </div>
+                <a
+                  href="/calculator/"
+                  class="min-h-[40px] w-full flex items-center justify-center text-center px-3 py-2 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-[10px] uppercase tracking-wider transition-colors shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-none"
+                >
+                  Launch Risk Calculator ↗
+                </a>
+              </div>
+
+              <!-- Tool 2: DeepTrace Image & Persona Scanner -->
+              <div class="border border-slate-200 bg-[#FAF7F2] p-4 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="font-mono text-[9px] font-bold uppercase tracking-wider text-slate-900 bg-amber-100 border border-slate-900 px-1.5 py-0.5">
+                      TOOL PROTOCOL 02
+                    </span>
+                    <span class="font-mono text-[9px] text-slate-500">Visual OSINT</span>
+                  </div>
+                  <h4 class="font-serif font-bold text-sm sm:text-base text-slate-900 mb-1.5 leading-snug">
+                    DeepTrace Photo & Persona Scanner
+                  </h4>
+                  <p class="text-[11px] sm:text-xs text-slate-600 font-sans leading-relaxed mb-4">
+                    Scan profile imagery for synthetic AI generation, stolen catalog matches, EXIF metadata manipulation, and clone networks.
+                  </p>
+                </div>
+                <a
+                  href="/deeptrace/"
+                  class="min-h-[40px] w-full flex items-center justify-center text-center px-3 py-2 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-[10px] uppercase tracking-wider transition-colors shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-none"
+                >
+                  Access DeepTrace Terminal ↗
+                </a>
+              </div>
+            </div>
           </section>
 
         </div>
@@ -962,12 +1103,22 @@ const faqSchema = {
         if (deeptraceWidget && customSlot) {
           customSlot.replaceWith(deeptraceWidget);
         }
+
+        // 4. Responsive Table Handling
+        const articleTables = article?.querySelectorAll('table');
+        articleTables?.forEach((table) => {
+          if (!table.parentElement?.classList.contains('table-scroll-wrapper')) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'table-scroll-wrapper overflow-x-auto my-6 border border-slate-300 bg-white';
+            table.parentNode?.insertBefore(wrapper, table);
+            wrapper.appendChild(table);
+          }
+        });
       });
     </script>
 
-    <QuickExitButton />
     <Footer />
-    <MobileStickyCTA />
+    <MobileStickyCTA offerType={endorsementType} />
     <ExitIntentModal />
   </body>
 </html>

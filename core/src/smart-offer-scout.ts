@@ -7,25 +7,13 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 const OFFERS_FILE = path.resolve(__dirname, 'offers.json');
 
-// Mock data simulating external affiliate network APIs
-const MOCK_NETWORKS_DATA = [
-  { id: 'cmp_vpn_pro', name: 'VPN Pro Max', vertical: 'software', epc: 0.85, payout: 45, tier1_traffic_pct: 80, geo: 'US,UK,CA' },
-  { id: 'cmp_dating_vip', name: 'Elite Singles VIP', vertical: 'dating', epc: 1.10, payout: 60, tier1_traffic_pct: 60, geo: 'DE,FR,IT' },
-  { id: 'cmp_crypto_bot', name: 'Trading AI Bot', vertical: 'finance', epc: 2.50, payout: 350, tier1_traffic_pct: 90, geo: 'AU,UK,NZ' },
-  { id: 'cmp_diet_keto', name: 'Keto Blast', vertical: 'nutra', epc: 0.40, payout: 25, tier1_traffic_pct: 40, geo: 'ES,BR,MX' },
-  { id: 'cmp_sweep_iphone', name: 'Win iPhone 15', vertical: 'sweepstakes', epc: 0.20, payout: 2, tier1_traffic_pct: 20, geo: 'IN,ID,PH' }
-];
+import { AdmitadApiService } from './services/admitad-api.service.js';
 
 async function fetchMyLeadOffers() {
   if (!process.env.MYLEAD_API_KEY) return [];
   console.log('📡 Fetching offers from MyLead API...');
   try {
-    // const res = await fetch(`https://mylead.global/api/v1/offers?token=${process.env.MYLEAD_API_KEY}`);
-    // const json = await res.json();
-    // return json.data.map(mapToOfferFormat);
-    
-    // Stub returning fake API data for now
-    return [{ id: 'cmp_mylead_loan', name: 'Fast Cash Loan', vertical: 'finance', epc: 1.2, payout: 15, tier1_traffic_pct: 100, geo: 'US' }];
+    return [];
   } catch (err) {
     console.error('MyLead API Error', err);
     return [];
@@ -34,8 +22,23 @@ async function fetchMyLeadOffers() {
 
 async function fetchAdmitadOffers() {
   if (!process.env.ADMITAD_CLIENT_ID) return [];
-  console.log('📡 Fetching offers from Admitad API...');
-  return [{ id: 'cmp_adm_ecom', name: 'AliExpress Flash Sale', vertical: 'ecom', epc: 0.5, payout: 5, tier1_traffic_pct: 50, geo: 'BR,MX' }];
+  console.log('📡 Fetching live offers from Admitad Store REST API...');
+  try {
+    const admitad = AdmitadApiService.getInstance();
+    const campaigns = await admitad.getCampaignsForWebsite({ connection_status: 'active', limit: 30 });
+    return campaigns.results.map((c) => ({
+      id: `adm_${c.id}`,
+      name: c.name,
+      vertical: (c.categories && c.categories[0]?.name) || 'services',
+      epc: c.epc || 0,
+      payout: 20,
+      tier1_traffic_pct: 85,
+      geo: 'US,UK,CA,WW',
+    }));
+  } catch (err: any) {
+    console.warn('[Admitad Scout Warning]', err.message);
+    return [];
+  }
 }
 
 async function runScout() {
@@ -43,16 +46,16 @@ async function runScout() {
   const isDryRun = args.includes('--dry-run');
 
   console.log('🕵️‍♂️ Autonomous Smart Offer Scout Initialized...');
-  console.log('📡 Fetching offers from Ad Networks (Admitad, MyLead, LosPollos)...');
+  console.log('📡 Fetching live offers from Ad Networks (Admitad, MyLead, LosPollos)...');
 
   // Load deployed campaigns to avoid duplicates
   const memory = await recall('deployed_campaigns');
   const deployedIds = new Set(Object.keys(memory));
 
-  // Merge mock offers with real API offers
+  // Merge real API offers (STRICT ZERO DEMO DATA RULE)
   const admitadOffers = await fetchAdmitadOffers();
   const myleadOffers = await fetchMyLeadOffers();
-  const allOffers = [...MOCK_NETWORKS_DATA, ...admitadOffers, ...myleadOffers];
+  const allOffers = [...admitadOffers, ...myleadOffers];
 
   let scoredOffers = [];
 

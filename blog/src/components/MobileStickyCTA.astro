@@ -1,11 +1,57 @@
 ---
-// MobileStickyCTA.astro - 90s Newsprint Mobile Sticky Conversion Bar
+// MobileStickyCTA.astro - Context-aware mobile sticky conversion bar
+interface Props {
+  offerType?: 'virtual_sim' | 'verified_dating' | 'travel_dating' | 'default';
+  customHeadline?: string;
+  customCtaText?: string;
+  customUrl?: string;
+}
+
+const {
+  offerType = 'default',
+  customHeadline,
+  customCtaText,
+  customUrl
+} = Astro.props;
+
+const MOBILE_PRESETS = {
+  virtual_sim: {
+    badge: 'DISPOSABLE SIM PROTOCOL',
+    headline: 'Shield your WhatsApp & phone identity',
+    ctaText: 'Get Virtual SIM ↗',
+    url: '/go?offer=admitad_191148&source=mobile_sticky&trigger=unmasked_bar&intent=virtual_sim'
+  },
+  verified_dating: {
+    badge: 'CURATED SINGLES ROSTER',
+    headline: 'Bypass bots: connect with verified adults',
+    ctaText: 'Verify Singles ↗',
+    url: '/go?offer=admitad_49070&source=mobile_sticky&trigger=unmasked_bar&intent=verified_dating'
+  },
+  travel_dating: {
+    badge: 'PUBLIC VENUE PROTOCOL',
+    headline: 'Book verified public date venues abroad',
+    ctaText: 'Browse Venues ↗',
+    url: '/go?offer=admitad_18183&source=mobile_sticky&trigger=unmasked_bar&intent=travel_dating'
+  },
+  default: {
+    badge: 'CHELTENHAM VERIFICATION',
+    headline: 'Cross-reference match identity before moving off-app',
+    ctaText: 'Verify Match ↗',
+    url: '/go?source=mobile_sticky&trigger=unmasked_bar&intent=verified_singles'
+  }
+};
+
+const activePreset = MOBILE_PRESETS[offerType] || MOBILE_PRESETS.default;
+const badgeText = activePreset.badge;
+const headlineText = customHeadline || activePreset.headline;
+const ctaLabel = customCtaText || activePreset.ctaText;
+const targetUrl = customUrl || activePreset.url;
 ---
 
 <aside
   id="mobile-sticky-cta"
-  class="fixed bottom-0 left-0 right-0 z-50 p-3 sm:py-3.5 bg-[#FFFDF7] border-t-2 border-slate-900 shadow-[0px_-4px_16px_rgba(15,23,42,0.18)] translate-y-full transition-transform duration-300"
-  style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom));"
+  class="fixed bottom-0 left-0 right-0 z-50 p-2.5 sm:py-3.5 bg-[#FFFDF7] border-t-2 border-slate-900 shadow-[0px_-4px_16px_rgba(15,23,42,0.18)] translate-y-full transition-transform duration-300"
+  style="padding-bottom: max(0.65rem, env(safe-area-inset-bottom));"
   role="complementary"
   aria-label="Verification Quick Action"
 >
@@ -20,13 +66,16 @@
     ×
   </button>
 
-  <div class="max-w-3xl mx-auto flex items-center justify-between gap-3 sm:gap-6 px-1 sm:px-4">
+  <div class="max-w-3xl mx-auto flex items-center justify-between gap-2.5 sm:gap-6 px-1 sm:px-4">
     <!-- Left: Compelling Forensic Notice -->
-    <div class="flex items-center gap-2.5 min-w-0 flex-1">
-      <span class="w-2 h-2 rounded-full bg-rose-600 shrink-0 hidden sm:inline-block animate-pulse"></span>
+    <div class="flex items-center gap-2 min-w-0 flex-1">
+      <span class="w-2 h-2 rounded-full bg-emerald-600 shrink-0 inline-block animate-pulse"></span>
       <div class="min-w-0">
-        <span class="text-xs sm:text-sm font-semibold text-slate-900 truncate block leading-snug">
-          Unverified Match Telemetry: Cross-reference photos & identity against known dating fraud registries
+        <span class="text-[9px] font-mono text-slate-600 uppercase tracking-widest block font-bold leading-tight">
+          {badgeText}
+        </span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 truncate block leading-snug font-sans">
+          {headlineText}
         </span>
       </div>
     </div>
@@ -35,12 +84,12 @@
     <div class="shrink-0">
       <a
         id="mobileStickyCtaLink"
-        href="/go?source=sticky_bar&trigger=floating_prompt&intent=verified_singles"
+        href={targetUrl}
         rel="nofollow sponsored"
         target="_blank"
-        class="px-3.5 py-2 bg-rose-700 hover:bg-rose-800 text-white font-mono font-bold text-xs uppercase tracking-wider rounded-none border border-slate-900 whitespace-nowrap shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-none hover:translate-x-[1px] hover:translate-y-[1px] transition-all inline-block"
+        class="px-3.5 py-2.5 bg-rose-700 hover:bg-rose-800 active:translate-x-0.5 active:translate-y-0.5 text-white font-mono font-bold text-xs uppercase tracking-wider rounded-none border border-slate-900 whitespace-nowrap shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-none transition-all inline-block"
       >
-        Verify Match ↗
+        {ctaLabel}
       </a>
     </div>
   </div>
@@ -72,8 +121,15 @@
       cid = 'fc_' + Date.now().toString(36);
     }
 
-    if (ctaLink) {
-      ctaLink.href = `/go?source=mobile_sticky&trigger=unmasked_bar&intent=verified_singles&cid=${encodeURIComponent(cid)}`;
+    if (ctaLink && !ctaLink.dataset.cidBound) {
+      ctaLink.dataset.cidBound = 'true';
+      try {
+        const url = new URL(ctaLink.href, window.location.origin);
+        url.searchParams.set('cid', cid);
+        ctaLink.href = url.toString();
+      } catch {
+        ctaLink.href += `&cid=${encodeURIComponent(cid)}`;
+      }
     }
 
     let isVisible = false;

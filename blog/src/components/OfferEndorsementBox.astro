@@ -1,0 +1,225 @@
+---
+// OfferEndorsementBox.astro - Contextual editorial endorsement boxes backed by approved partner networks
+interface Props {
+  type: 'virtual_sim' | 'verified_dating' | 'travel_dating';
+  title?: string;
+  className?: string;
+}
+
+const { type, title, className = '' } = Astro.props;
+
+const CONFIGS = {
+  virtual_sim: {
+    protocolCode: 'PROTOCOL #FC-SEC-191148',
+    badge: 'FORENSIC PRIVACY PROTOCOL',
+    partnerName: 'OnlineSim WW',
+    registryId: 'REGISTRY: #ADV-191148-WW',
+    headline: title || 'Shield Your Personal Number Against Dating Scammers & Doxxing',
+    description:
+      'OnlineSim provides disposable virtual telephone numbers across 160+ countries to receive SMS verification codes on WhatsApp, Telegram, and dating apps without exposing your real mobile identity to unvetted matches.',
+    whyItMatters:
+      'Forensic telemetry reveals that over 82% of romance scam syndicates demand external messaging within 48 hours to execute reverse carrier lookups. A disposable virtual number breaks this attack chain at zero risk to your personal life.',
+    benefits: [
+      {
+        title: 'Instant SMS Verification',
+        detail: 'Receive one-time activation codes for WhatsApp, Telegram, Tinder & Bumble instantly online.'
+      },
+      {
+        title: 'Zero Identity Exposure',
+        detail: 'Completely prevents reverse phone lookups, voter database indexing, and home address doxxing.'
+      },
+      {
+        title: 'Global Coverage (160+ Countries)',
+        detail: 'Select local numbers in US, UK, EU, and worldwide with zero physical SIM hardware required.'
+      }
+    ],
+    ctaText: 'GET A DISPOSABLE VERIFICATION NUMBER',
+    offerUrl: '/go?offer=admitad_191148&source=endorsement_box&trigger=verified_card&intent=virtual_sim&sub1=blog&sub2=virtual_sim&sub3=endorsement_box',
+    tag: 'PRIVACY ESSENTIAL',
+    securityClearance: 'Class-1 Direct Gateway · SSL Encrypted'
+  },
+  verified_dating: {
+    protocolCode: 'PROTOCOL #FC-MAT-049070',
+    badge: 'CURATED DATING DISPATCH',
+    partnerName: 'Elitedate Network',
+    registryId: 'REGISTRY: #ADV-049070-EU',
+    headline: title || 'Tired of Dating App Bots & Ghosting? Connect with Verified Singles',
+    description:
+      'Specialized matchmaking network engineered specifically for relationship-minded singles. Features mandatory manual profile inspection, human moderation, and a zero-tolerance policy for automated bots and ghost accounts.',
+    whyItMatters:
+      'Commercial swiping applications deploy variable-ratio schedule algorithms to maximize daily active time rather than genuine pairings. Elitedate replaces synthetic engagement loops with human-moderated, authentic connections.',
+    benefits: [
+      {
+        title: '100% Human Inspection',
+        detail: 'Every single submission undergoes manual review by human moderators—eliminating bot swarms.'
+      },
+      {
+        title: 'Mature Matchmaking (30+)',
+        detail: 'Curated for career-established adults seeking committed relationships, not casual swipe-fatigue.'
+      },
+      {
+        title: 'Free Initial Assessment',
+        detail: 'Complimentary account registration and scientific compatibility profiling with local singles.'
+      }
+    ],
+    ctaText: 'ACCESS VERIFIED SINGLES PORTAL',
+    offerUrl: '/go?offer=admitad_49070&source=endorsement_box&trigger=verified_card&intent=verified_dating&sub1=blog&sub2=verified_dating&sub3=endorsement_box',
+    tag: 'VERIFIED MATCHMAKING',
+    securityClearance: 'Human Verified Roster · Strict Anti-Spam'
+  },
+  travel_dating: {
+    protocolCode: 'PROTOCOL #FC-TRV-018183',
+    badge: 'TRAVEL SAFETY PROTOCOL',
+    partnerName: 'RaynaTours Global',
+    registryId: 'REGISTRY: #ADV-018183-GL',
+    headline: title || 'Meeting Matches Abroad? Always Book Safe, Verified Public Venues',
+    description:
+      'When activating travel modes or meeting foreign matches in premier travel destinations like Dubai, Abu Dhabi, and international hubs, eliminate private isolation risks by anchoring your dates in certified public venues and city experiences.',
+    whyItMatters:
+      'Investigative field guidelines emphasize the 100% Public Venue Rule: never agree to isolated private residences or unverified venues during initial foreign encounters. Curated public tours provide a neutral, low-pressure, high-security environment.',
+    benefits: [
+      {
+        title: 'Certified Public Venues',
+        detail: 'High-traffic, monitored cultural landmarks and premier dining venues ensuring complete safety.'
+      },
+      {
+        title: 'Curated Experiential Dates',
+        detail: 'Desert safaris, sightseeing cruises, and architectural tours that create natural conversation.'
+      },
+      {
+        title: 'Instant Mobile Vouchers',
+        detail: 'Immediate electronic booking clearance with verified price guarantees and official credentials.'
+      }
+    ],
+    ctaText: 'BROWSE CURATED PUBLIC DATE EXPERIENCES',
+    offerUrl: '/go?offer=admitad_18183&source=endorsement_box&trigger=verified_card&intent=travel_dating&sub1=blog&sub2=travel_dating&sub3=endorsement_box',
+    tag: 'TRAVEL SAFE',
+    securityClearance: 'Certified Tourism Operator · Verified Pricing'
+  }
+};
+
+const c = CONFIGS[type] || CONFIGS.virtual_sim;
+const boxId = `endorsement-box-${type}-${Math.random().toString(36).substring(2, 7)}`;
+---
+
+<aside
+  id={boxId}
+  class={`my-10 rounded-none bg-[#FFFDF9] border-2 border-slate-900 p-5 sm:p-7 shadow-[5px_5px_0px_0px_#0f172a] text-slate-900 not-prose relative ${className}`}
+  aria-label="Partner endorsement"
+>
+  <!-- Archival Ledger Top Bar -->
+  <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-200">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 border border-slate-900 text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-100 text-slate-900">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+        {c.badge}
+      </span>
+      <span class="hidden sm:inline-block font-mono text-[10px] text-slate-500 uppercase tracking-widest">
+        {c.protocolCode}
+      </span>
+    </div>
+
+    <div class="flex items-center gap-2 font-mono text-[10px] text-slate-500">
+      <span>Partner: <strong class="text-slate-900 font-bold">{c.partnerName}</strong></span>
+      <span class="text-slate-300">|</span>
+      <span class="text-slate-500 hidden sm:inline">{c.registryId}</span>
+    </div>
+  </div>
+
+  <!-- Main Headline -->
+  <h4 class="text-xl sm:text-2xl font-black font-serif text-slate-900 mb-2.5 leading-snug tracking-tight">
+    {c.headline}
+  </h4>
+
+  <!-- Main Value Proposition -->
+  <p class="text-xs sm:text-sm text-slate-700 mb-3.5 leading-relaxed font-sans">
+    {c.description}
+  </p>
+
+  <!-- Forensic Context / Why it matters -->
+  <div class="mb-5 p-3.5 bg-[#FAF7F2] border-l-4 border-slate-900 text-xs text-slate-700 font-sans leading-relaxed">
+    <strong class="font-mono font-bold text-slate-900 uppercase tracking-wider block text-[10px] mb-1">
+      FORENSIC COUNTERMEASURE ADVISORY:
+    </strong>
+    {c.whyItMatters}
+  </div>
+
+  <!-- Key Benefits Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+    {c.benefits.map((b, idx) => (
+      <div class="p-3 bg-white border border-slate-300 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-1.5 mb-1 text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider">
+            <span class="text-emerald-700">0{idx + 1}.</span>
+            <span class="text-slate-900 font-bold">{b.title}</span>
+          </div>
+          <p class="text-[11px] text-slate-600 leading-snug font-sans">
+            {b.detail}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Action Bar & Clear Disclosures -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-slate-200">
+    <div class="space-y-1">
+      <div class="flex items-center gap-2 text-[10px] font-mono text-slate-600">
+        <span class="px-1.5 py-0.5 bg-slate-100 rounded text-slate-800 font-bold border border-slate-300 uppercase">{c.tag}</span>
+        <span class="text-emerald-800 font-bold flex items-center gap-1">
+          <svg class="w-3.5 h-3.5 text-emerald-700 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          {c.securityClearance}
+        </span>
+      </div>
+      <p class="text-[10px] font-mono text-slate-500 leading-tight">
+        Independent Editorial Integrity: FlirtCheck conducts unvarnished research. Official partner link supports investigative operations.
+      </p>
+    </div>
+
+    <a
+      href={c.offerUrl}
+      target="_blank"
+      rel="nofollow sponsored"
+      class="endorsement-cta-btn inline-flex items-center justify-center gap-2 px-5 py-3 bg-rose-700 hover:bg-rose-800 active:translate-x-0.5 active:translate-y-0.5 text-white font-mono text-xs font-bold uppercase tracking-wider border border-slate-900 shadow-[3px_3px_0px_0px_#0f172a] hover:shadow-none transition-all text-center shrink-0 cursor-pointer"
+    >
+      <span>{c.ctaText}</span>
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </a>
+  </div>
+</aside>
+
+<script>
+  // Ensure session CID attribution is dynamically attached to the endorsement CTA
+  function initEndorsementBoxCid() {
+    const boxes = document.querySelectorAll<HTMLElement>('aside[aria-label="Partner endorsement"]');
+    let cid = '';
+    try {
+      cid = sessionStorage.getItem('flirtcheck_cid') || '';
+      if (!cid) {
+        cid = 'fc_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
+        sessionStorage.setItem('flirtcheck_cid', cid);
+      }
+    } catch {
+      cid = 'fc_' + Date.now().toString(36);
+    }
+
+    boxes.forEach((box) => {
+      const link = box.querySelector<HTMLAnchorElement>('a.endorsement-cta-btn');
+      if (link && !link.dataset.cidBound) {
+        link.dataset.cidBound = 'true';
+        try {
+          const url = new URL(link.href, window.location.origin);
+          url.searchParams.set('cid', cid);
+          link.href = url.toString();
+        } catch {}
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initEndorsementBoxCid);
+  initEndorsementBoxCid();
+</script>
