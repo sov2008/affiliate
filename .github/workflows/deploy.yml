@@ -40,14 +40,11 @@ jobs:
     name: Build Container & Deploy to DigitalOcean
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && secrets.DO_SSH_KEY != ''
 
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
 
       - name: Deploy to DigitalOcean Droplet via SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -61,13 +58,7 @@ jobs:
             cd /var/www/affiliate || cd ~/affiliate
             git fetch origin main
             git reset --hard origin/main
-            npm ci --omit=dev
-            
-            # Restart PM2 process or reload Docker Compose
-            if command -v docker compose &> /dev/null && [ -f "docker-compose.prod.yml" ]; then
-              docker compose -f docker-compose.prod.yml up -d --build
-            else
-              pm2 restart ecosystem.config.cjs --env production || pm2 reload all
-            fi
-            
+            npm --prefix blog run build
+            cd core && npm run build
+            pm2 restart ecosystem.config.cjs --env production || pm2 reload all
             echo "✅ Deployment finished successfully!"
