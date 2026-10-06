@@ -84,18 +84,31 @@ export function getOrCreateClickId(): string {
 }
 
 /**
- * Builds standard Cloudflare postback click URL for monetization CTAs
+ * Builds standard Cloudflare postback or TDS /go click URL for monetization CTAs
  */
 export function buildMonetizationClickUrl(options?: {
   riskLevel?: string;
   platform?: string;
   clickId?: string;
   source?: string;
+  target?: 'cloudflare' | 'tds';
 }): string {
   const clickId = options?.clickId || getOrCreateClickId();
   const sub1 = options?.source || 'deeptrace';
   const sub2 = options?.riskLevel || 'unknown';
   const sub3 = options?.platform || 'web';
+
+  if (options?.target === 'tds') {
+    const isBrowser = typeof window !== 'undefined';
+    const baseUrl = isBrowser ? window.location.origin : 'https://flirtcheck.site';
+    const url = new URL('/go', baseUrl);
+    url.searchParams.set('cid', clickId);
+    url.searchParams.set('click_id', clickId);
+    url.searchParams.set('sub1', sub1);
+    url.searchParams.set('sub2', sub2);
+    url.searchParams.set('sub3', sub3);
+    return url.toString();
+  }
 
   const url = new URL(CLOUDFLARE_CLICK_ENDPOINT);
   url.searchParams.set('click_id', clickId);

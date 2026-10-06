@@ -87,10 +87,11 @@ To estimate your current digital charisma rating, consider how you respond to th
 
 Why settle for self-guessing when you can measure your real-time conversational impact?
 
-Visit **[FlirtCheck.site](https://flirtcheck.site)** to experience:
-* **The Full Flirting EQ Diagnostic:** An interactive 10-question evaluation measuring banter ability, tension management, and emotional awareness.
+👉 **[Launch the Interactive Flirting EQ & Charisma Quiz (/quiz/)](/quiz/)**
+
+* **The Full Flirting EQ Diagnostic:** An interactive situational evaluation measuring banter ability, tension management, and emotional awareness.
 * **Instant Personalized Scorecard:** Discover your exact archetype, key strengths, and hidden texting mistakes.
-* **Real-Time Screenshot Testing:** Test real conversations from your dating apps against our neural analysis engine.
+* **Real-Time Screenshot Testing:** Test real conversations from your dating apps against our neural analysis engine via [DeepTrace™ Radar](/deeptrace).
 
 ---
 

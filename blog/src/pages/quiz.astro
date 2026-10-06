@@ -1,0 +1,619 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+const siteUrl = 'https://flirtcheck.site';
+
+const quizSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "FlirtCheck Flirting EQ & Charisma Diagnostic Quiz",
+  "url": `${siteUrl}/quiz/`,
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "description": "Scientific behavioral quiz measuring flirting emotional intelligence (EQ), tension tolerance, and digital texting archetypes in modern dating.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Arthur Vance",
+    "jobTitle": "Lead Forensic Desk",
+    "url": `${siteUrl}/desk`
+  }
+};
+---
+
+<BaseLayout
+  title="Flirt Test Quiz Online // Calculate Your Flirting EQ & Dating Archetype | FlirtCheck"
+  description="Take the free interactive flirting EQ quiz. Discover your digital texting archetype, measure tension management, identify blind spots, and optimize dating success."
+  canonicalUrl={`${siteUrl}/quiz/`}
+  activePath="/quiz"
+  schemas={[quizSchema]}
+>
+  <div class="max-w-4xl mx-auto">
+    <!-- Top Header Badge -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center gap-2 border border-slate-300 bg-white px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-slate-600 mb-3">
+        <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+        INTERACTIVE BEHAVIORAL DIAGNOSTIC // FLIRTING EQ TEST
+      </div>
+      <h1 class="font-serif font-black text-3xl sm:text-5xl text-slate-900 tracking-tight leading-tight mb-3">
+        Flirting EQ & Charisma Quiz
+      </h1>
+      <p class="text-sm sm:text-base text-slate-700 font-sans max-w-2xl mx-auto leading-relaxed">
+        Evaluate your conversational instincts, banter timing, and tension tolerance across 6 situational texting scenarios. Calculate your verified Flirting EQ and unlock actionable behavioral calibration.
+      </p>
+    </div>
+
+    <!-- Quiz Interactive Card Container -->
+    <div class="bg-white border-2 border-slate-900 shadow-[4px_4px_0_0_#0f172a] p-6 sm:p-10 mb-12">
+      <!-- Stepper / Progress Bar -->
+      <div class="mb-8">
+        <div class="flex items-center justify-between text-xs font-mono text-slate-600 mb-2">
+          <span id="stepCounter" class="font-bold uppercase tracking-wider">Question 1 of 6</span>
+          <span id="progressPct" class="font-bold text-slate-900">16%</span>
+        </div>
+        <div class="w-full bg-slate-100 h-2 border border-slate-300 overflow-hidden">
+          <div id="progressBar" class="bg-rose-700 h-full transition-all duration-300 ease-out" style="width: 16%;"></div>
+        </div>
+      </div>
+
+      <!-- Question Presentation Area -->
+      <div id="questionContainer" class="space-y-6">
+        <div class="space-y-2">
+          <span id="scenarioCategory" class="inline-block px-2 py-0.5 text-[10px] font-mono uppercase bg-slate-100 border border-slate-300 text-slate-700 font-bold tracking-wider">
+            SCENARIO 1 // CONVERSATION INITIATION
+          </span>
+          <h2 id="scenarioQuestion" class="font-serif font-black text-xl sm:text-2xl text-slate-900 leading-snug">
+            You just matched with someone with an intriguing bio. How do you construct your opening message?
+          </h2>
+          <p id="scenarioContext" class="text-xs text-slate-500 font-mono">
+            Evaluating: Cold-start engagement velocity and curiosity hooks.
+          </p>
+        </div>
+
+        <!-- Options List -->
+        <div id="optionsContainer" class="space-y-3 pt-2">
+          <!-- Dynamically injected via script -->
+        </div>
+      </div>
+
+      <!-- Results Area (Hidden by Default) -->
+      <div id="resultsContainer" class="hidden space-y-8 animate-fadeIn">
+        <div class="text-center space-y-3 border-b border-slate-200 pb-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-mono font-bold uppercase tracking-wider">
+            ✓ EVALUATION COMPLETE // DOSSIER GENERATED
+          </div>
+          <h2 class="font-serif font-black text-2xl sm:text-4xl text-slate-900">
+            Your Flirting Archetype: <span id="resArchetypeTitle" class="text-rose-700">The Playful Tease</span>
+          </h2>
+          <p id="resArchetypeSummary" class="text-sm text-slate-700 max-w-xl mx-auto leading-relaxed">
+            You excel at generating immediate curiosity and organic tension. Your conversational cadence creates intrigue, keeping potential matches intellectually engaged.
+          </p>
+        </div>
+
+        <!-- Key Metrics Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-center">
+          <div class="p-4 bg-slate-50 border border-slate-300">
+            <span class="block text-[11px] text-slate-500 uppercase tracking-wider">Flirting EQ Rating</span>
+            <span id="resScoreVal" class="block font-black text-3xl sm:text-4xl text-slate-900 mt-1">84%</span>
+            <span id="resTierBadge" class="inline-block mt-1 px-2 py-0.5 text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800">HIGH CALIBRATION</span>
+          </div>
+
+          <div class="p-4 bg-slate-50 border border-slate-300">
+            <span class="block text-[11px] text-slate-500 uppercase tracking-wider">Dominant Trait</span>
+            <span id="resTraitVal" class="block font-black text-lg text-slate-900 mt-2 truncate">Banter & Wit</span>
+            <span class="block text-[10px] text-slate-500 mt-1">Push-Pull Tension</span>
+          </div>
+
+          <div class="p-4 bg-slate-50 border border-slate-300">
+            <span class="block text-[11px] text-slate-500 uppercase tracking-wider">Primary Blind Spot</span>
+            <span id="resBlindSpotVal" class="block font-bold text-sm text-rose-700 mt-2 truncate">Vulnerability Delay</span>
+            <span class="block text-[10px] text-slate-500 mt-1">Deflection Risk</span>
+          </div>
+        </div>
+
+        <!-- Strategic Breakdown & Tactical Action -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+          <div class="p-5 bg-white border border-slate-300 space-y-2">
+            <h3 class="font-serif font-bold text-base text-slate-900 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+              Core Conversational Superpower
+            </h3>
+            <p id="resSuperpowerDesc" class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Your messages avoid generic small talk and create memorable pattern interrupts. You naturally command attention and elicit high-effort responses.
+            </p>
+          </div>
+
+          <div class="p-5 bg-white border border-slate-300 space-y-2">
+            <h3 class="font-serif font-bold text-base text-slate-900 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-amber-600"></span>
+              Recommended Calibration
+            </h3>
+            <p id="resCalibrationDesc" class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Ensure you balance witty teasing with grounded warmth before the 20-message mark to signal emotional security and facilitate in-person scheduling.
+            </p>
+          </div>
+        </div>
+
+        <!-- Action / Monetization Bridge Section -->
+        <div class="p-6 sm:p-8 bg-slate-900 text-white space-y-4 text-center border-t-4 border-rose-700 shadow-lg">
+          <span class="inline-block px-2.5 py-0.5 rounded text-[10px] font-mono uppercase bg-rose-950 text-rose-300 border border-rose-800 tracking-widest">
+            NEXT-STAGE VALIDATION // ACTIVE MATCHING
+          </span>
+          <h3 id="ctaHeading" class="font-serif font-black text-xl sm:text-2xl text-white">
+            Put Your Charisma to Work With 100% ID-Verified Singles
+          </h3>
+          <p id="ctaDescription" class="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto leading-relaxed">
+            Stop wasting witty banter on unmonitored bot swarms and ghost profiles. Connect directly inside shielded local dating pools where every member is confirmed genuine.
+          </p>
+          <div class="pt-2">
+            <a
+              id="quizCtaButton"
+              href="/go"
+              target="_blank"
+              rel="nofollow sponsored"
+              class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-sm uppercase tracking-wider transition-all shadow-xl shadow-slate-950/60 active:scale-95"
+            >
+              <span id="ctaButtonLabel">Enter Verified Singles Network ↗</span>
+            </a>
+          </div>
+          <p class="text-[11px] font-mono text-slate-400">
+            Compliant direct gateway • Volatile session security • Zero third-party tracker leakage
+          </p>
+        </div>
+
+        <!-- Retake & Share Controls -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-200">
+          <button
+            id="retakeQuizBtn"
+            class="px-4 py-2 border border-slate-300 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-mono font-bold uppercase tracking-wider transition-colors"
+          >
+            ← Retake Assessment
+          </button>
+
+          <button
+            id="shareScoreBtn"
+            class="px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-mono font-bold uppercase tracking-wider transition-colors flex items-center gap-2"
+          >
+            <span id="shareBtnText">Copy Result Card</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Educational Pillars Section -->
+    <div class="border-t border-slate-300 pt-10 mb-12">
+      <div class="text-center max-w-xl mx-auto mb-8">
+        <h2 class="font-serif font-black text-2xl text-slate-900 mb-2">
+          The 4 Digital Flirting Archetypes Explained
+        </h2>
+        <p class="text-xs text-slate-600 font-sans">
+          Interpersonal psychologists classify online romantic communication into four distinct behavioral quadrants:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-5 bg-white border border-slate-300 space-y-2">
+          <div class="flex items-center justify-between text-xs font-mono pb-2 border-b border-slate-200">
+            <span class="font-bold text-slate-900">01 // THE PLAYFUL TEASE</span>
+            <span class="text-rose-700 font-bold">High Banter / High Tension</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Uses clever callbacks, dry humor, and unexpected twists. Keeps interactions exciting and sparks dopamine spikes, preventing early conversation fatigue.
+          </p>
+        </div>
+
+        <div class="p-5 bg-white border border-slate-300 space-y-2">
+          <div class="flex items-center justify-between text-xs font-mono pb-2 border-b border-slate-200">
+            <span class="font-bold text-slate-900">02 // THE DIRECT ESCALATOR</span>
+            <span class="text-emerald-700 font-bold">High Action / Swift Progress</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Values forward momentum. Translates digital rapport into phone calls or real-world coffee dates efficiently, minimizing the endless texting trap.
+          </p>
+        </div>
+
+        <div class="p-5 bg-white border border-slate-300 space-y-2">
+          <div class="flex items-center justify-between text-xs font-mono pb-2 border-b border-slate-200">
+            <span class="font-bold text-slate-900">03 // THE EMPATHETIC CONNECTOR</span>
+            <span class="text-cyan-700 font-bold">Deep Rapport / High Warmth</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Focuses on authentic vulnerability, active listening, and meaningful life questions. Builds lasting trust quickly when reciprocated properly.
+          </p>
+        </div>
+
+        <div class="p-5 bg-white border border-slate-300 space-y-2">
+          <div class="flex items-center justify-between text-xs font-mono pb-2 border-b border-slate-200">
+            <span class="font-bold text-slate-900">04 // THE GUARDED OBSERVER</span>
+            <span class="text-slate-700 font-bold">Analytical / High Defense</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Takes time to assess authenticity before investing emotional energy. Highly vigilant against romance fraud and catfishing scripts.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    // 1. Session Click ID continuity
+    function getClickId() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var urlCid = params.get('cid') || params.get('click_id');
+        if (urlCid) {
+          sessionStorage.setItem('flirtcheck_cid', urlCid);
+          return urlCid;
+        }
+        var stored = sessionStorage.getItem('flirtcheck_cid');
+        if (stored) return stored;
+        var newCid = 'fc_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
+        sessionStorage.setItem('flirtcheck_cid', newCid);
+        return newCid;
+      } catch (e) {
+        return 'fc_quiz_' + Date.now().toString(36);
+      }
+    }
+
+    var cid = getClickId();
+
+    // 2. Question Database
+    var questions = [
+      {
+        category: 'SCENARIO 1 // INITIATION DYNAMICS',
+        question: 'You match with someone with an intriguing photo or bio. What is your go-to opening move?',
+        context: 'Evaluating: Banter threshold and cold-start conversation velocity.',
+        options: [
+          {
+            text: 'A playful challenge or witty observation based on a subtle detail in their profile.',
+            archetype: 'TEASE',
+            score: 90
+          },
+          {
+            text: 'A direct compliment paired with a straightforward invitation to talk about a shared interest.',
+            archetype: 'ESCALATOR',
+            score: 85
+          },
+          {
+            text: 'A thoughtful open-ended question asking about their passions or life experiences.',
+            archetype: 'CONNECTOR',
+            score: 75
+          },
+          {
+            text: 'A neutral "Hey, how is your week going?" while waiting to see if they reply with enthusiasm.',
+            archetype: 'OBSERVER',
+            score: 55
+          }
+        ]
+      },
+      {
+        category: 'SCENARIO 2 // SUBTEXT & PACING',
+        question: 'Your match sends a flat, low-effort response: "Pretty tired today haha". How do you reply?',
+        context: 'Evaluating: Tension calibration and resistance to over-texting.',
+        options: [
+          {
+            text: '"Sounds like you need an emergency hot chocolate delivery with zero questions asked."',
+            archetype: 'TEASE',
+            score: 95
+          },
+          {
+            text: '"Go get some rest! Let’s pick this back up tomorrow when your energy is recharged."',
+            archetype: 'ESCALATOR',
+            score: 80
+          },
+          {
+            text: '"Oh no, what happened at work? Hope everything is okay."',
+            archetype: 'CONNECTOR',
+            score: 65
+          },
+          {
+            text: '"Same here." (Match their low energy and wait).',
+            archetype: 'OBSERVER',
+            score: 60
+          }
+        ]
+      },
+      {
+        category: 'SCENARIO 3 // PLAYFUL DISAGREEMENT',
+        question: 'Your match strongly dislikes your favorite film director or music genre. How do you respond?',
+        context: 'Evaluating: Secure boundary holding versus needy people-pleasing.',
+        options: [
+          {
+            text: '"And here I was thinking we could actually be seen in public together 😏 What\'s your top pick then?"',
+            archetype: 'TEASE',
+            score: 95
+          },
+          {
+            text: '"Let\'s test this on our first date—whoever picks the worse soundtrack pays for dessert."',
+            archetype: 'ESCALATOR',
+            score: 90
+          },
+          {
+            text: '"I see your point! What aspects of it didn’t resonate with you?"',
+            archetype: 'CONNECTOR',
+            score: 70
+          },
+          {
+            text: 'Downplay your own preference and apologize for having controversial taste.',
+            archetype: 'OBSERVER',
+            score: 40
+          }
+        ]
+      },
+      {
+        category: 'SCENARIO 4 // LATE-NIGHT AMBIGUITY',
+        question: 'A match you haven’t met in person texts "hey wyd" at 11:30 PM on a Friday. What is your reaction?',
+        context: 'Evaluating: High-value frame preservation and self-respect.',
+        options: [
+          {
+            text: 'Ignore until Saturday afternoon, then reply: "Recovering from whatever adventures you clearly missed out on."',
+            archetype: 'TEASE',
+            score: 90
+          },
+          {
+            text: 'Reply the next morning proposing an actual daytime coffee plan if they are genuinely serious.',
+            archetype: 'ESCALATOR',
+            score: 85
+          },
+          {
+            text: 'Reply immediately asking if they had a good night out with friends.',
+            archetype: 'CONNECTOR',
+            score: 55
+          },
+          {
+            text: 'Leave unread indefinitely because late-night texts are an automatic red flag.',
+            archetype: 'OBSERVER',
+            score: 70
+          }
+        ]
+      },
+      {
+        category: 'SCENARIO 5 // MOVING TO REAL LIFE',
+        question: 'You’ve been texting for 4 days with consistent, mutual chemistry. What is your next move?',
+        context: 'Evaluating: Execution velocity vs. getting trapped in texting loops.',
+        options: [
+          {
+            text: '"I have a strict 5-day texting limit before we become pen pals. Let’s grab a cocktail or coffee this Thursday."',
+            archetype: 'ESCALATOR',
+            score: 95
+          },
+          {
+            text: '"You seem relatively normal in text form. Let’s see if that holds up over a 20-minute coffee tomorrow."',
+            archetype: 'TEASE',
+            score: 90
+          },
+          {
+            text: 'Suggest a voice call or FaceTime first to see if conversational pacing matches before meeting.',
+            archetype: 'CONNECTOR',
+            score: 80
+          },
+          {
+            text: 'Continue texting for another week or two to make sure they are completely safe and verified.',
+            archetype: 'OBSERVER',
+            score: 60
+          }
+        ]
+      },
+      {
+        category: 'SCENARIO 6 // BOUNDARY ASSERTION',
+        question: 'A match cancels first date plans two hours prior with a vague excuse. How do you handle it?',
+        context: 'Evaluating: Emotional resilience and dignified closure.',
+        options: [
+          {
+            text: '"No worries, thanks for letting me know. Let me know when your schedule clears up." (Zero follow-up chasing).',
+            archetype: 'ESCALATOR',
+            score: 95
+          },
+          {
+            text: '"Bummer! You owe me a scoop of gelato next time. Have a good evening."',
+            archetype: 'TEASE',
+            score: 85
+          },
+          {
+            text: '"Oh no, is everything alright? We can reschedule for tomorrow or Sunday if that works better!"',
+            archetype: 'CONNECTOR',
+            score: 50
+          },
+          {
+            text: 'Immediately unmatch and block to protect yourself from any further disappointment.',
+            archetype: 'OBSERVER',
+            score: 65
+          }
+        ]
+      }
+    ];
+
+    var currentQuestionIdx = 0;
+    var userResponses = [];
+
+    var questionContainer = document.getElementById('questionContainer');
+    var resultsContainer = document.getElementById('resultsContainer');
+    var stepCounter = document.getElementById('stepCounter');
+    var progressPct = document.getElementById('progressPct');
+    var progressBar = document.getElementById('progressBar');
+    var scenarioCategory = document.getElementById('scenarioCategory');
+    var scenarioQuestion = document.getElementById('scenarioQuestion');
+    var scenarioContext = document.getElementById('scenarioContext');
+    var optionsContainer = document.getElementById('optionsContainer');
+
+    function renderQuestion(idx) {
+      var q = questions[idx];
+      var pct = Math.round(((idx + 1) / questions.length) * 100);
+
+      stepCounter.textContent = 'Question ' + (idx + 1) + ' of ' + questions.length;
+      progressPct.textContent = pct + '%';
+      progressBar.style.width = pct + '%';
+
+      scenarioCategory.textContent = q.category;
+      scenarioQuestion.textContent = q.question;
+      scenarioContext.textContent = q.context;
+
+      optionsContainer.innerHTML = '';
+
+      q.options.forEach(function (opt, optIdx) {
+        var btn = document.createElement('button');
+        btn.className = 'w-full text-left p-4 sm:p-5 rounded-lg border-2 border-slate-200 hover:border-slate-900 bg-slate-50 hover:bg-white text-slate-800 transition-all font-sans text-sm sm:text-base leading-snug group flex items-start gap-3 active:scale-[0.99]';
+        
+        var letter = String.fromCharCode(65 + optIdx);
+        btn.innerHTML = '<span class="inline-flex items-center justify-center w-6 h-6 rounded bg-slate-200 group-hover:bg-slate-900 group-hover:text-white font-mono text-xs font-bold text-slate-700 shrink-0 transition-colors">' + letter + '</span>' +
+                        '<span class="pt-0.5">' + opt.text + '</span>';
+
+        btn.addEventListener('click', function () {
+          userResponses.push(opt);
+          if (currentQuestionIdx < questions.length - 1) {
+            currentQuestionIdx++;
+            renderQuestion(currentQuestionIdx);
+          } else {
+            calculateAndDisplayResults();
+          }
+        });
+
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function calculateAndDisplayResults() {
+      questionContainer.classList.add('hidden');
+      document.querySelector('.mb-8').classList.add('hidden'); // Hide progress bar
+      resultsContainer.classList.remove('hidden');
+
+      // 1. Calculate Average EQ Score
+      var totalScore = userResponses.reduce(function (sum, item) {
+        return sum + item.score;
+      }, 0);
+      var averageScore = Math.round(totalScore / userResponses.length);
+
+      // 2. Count Archetypes
+      var counts = { TEASE: 0, ESCALATOR: 0, CONNECTOR: 0, OBSERVER: 0 };
+      userResponses.forEach(function (item) {
+        counts[item.archetype] = (counts[item.archetype] || 0) + 1;
+      });
+
+      // Find dominant archetype
+      var dominantArchetype = 'TEASE';
+      var maxCount = -1;
+      for (var k in counts) {
+        if (counts[k] > maxCount) {
+          maxCount = counts[k];
+          dominantArchetype = k;
+        }
+      }
+
+      var archetypeMeta = {
+        TEASE: {
+          title: 'The Playful Tease',
+          summary: 'You master organic tension, dry callbacks, and push-pull dynamics. Your conversations spark dopamine, keeping matches intrigued and intellectually engaged.',
+          trait: 'Banter & Wit',
+          blindSpot: 'Delayed Vulnerability',
+          superpower: 'You effortlessly avoid boring, predictable small talk. Matches put in significantly higher effort to impress you.',
+          calibration: 'Remember to inject grounded warmth and sincerity after the initial banter to facilitate real-world dates.',
+          ctaHeading: 'Put Your Playful Banter to Work With Genuine Singles',
+          ctaDesc: 'Don’t waste witty banter on bots or dead profiles. Connect directly with confirmed real singles in your area.'
+        },
+        ESCALATOR: {
+          title: 'The Direct Escalator',
+          summary: 'You prioritize decisive action, high-value boundaries, and forward momentum. You avoid endless digital pen-pal loops and convert matches into genuine dates.',
+          trait: 'Decisive Action',
+          blindSpot: 'Pacing Impatience',
+          superpower: 'High date conversion velocity. You respect your own time and filter out time-wasters effortlessly.',
+          calibration: 'Ensure basic emotional rapport is established so your directness is perceived as confident rather than transactional.',
+          ctaHeading: 'Connect Directly With High-Intent Singles Ready to Meet',
+          ctaDesc: 'Cut through endless small talk. Discover verified local singles looking for authentic in-person chemistry.'
+        },
+        CONNECTOR: {
+          title: 'The Empathetic Connector',
+          summary: 'You build deep emotional security, thoughtful rapport, and authentic mutual understanding. Matches feel heard and validated around you.',
+          trait: 'Emotional Depth',
+          blindSpot: 'Friend-Zone Slippage',
+          superpower: 'Uncanny ability to make matches feel safe and understood within minutes of texting.',
+          calibration: 'Incorporate playful teasing and romantic polarity early to ensure romantic attraction develops alongside comfort.',
+          ctaHeading: 'Meet Singles Who Value Genuine Emotional Resonance',
+          ctaDesc: 'Tired of shallow swipe culture? Enter an ID-verified community built for meaningful, reciprocal connections.'
+        },
+        OBSERVER: {
+          title: 'The Guarded Observer',
+          summary: 'You are highly analytical, security-conscious, and cautious. You protect your time and emotional energy by thoroughly vetting prospects.',
+          trait: 'Threat Detection',
+          blindSpot: 'Momentum Inertia',
+          superpower: 'Near-complete immunity to romance scammers, fake profiles, and manipulative catfishing scripts.',
+          calibration: 'Once a match proves authentic, step forward and initiate playful vulnerability so the connection does not stall.',
+          ctaHeading: 'Date With 100% Peace of Mind in Shielded Match Pools',
+          ctaDesc: 'Every profile is confirmed ID-genuine. Eliminate catfish anxiety and enjoy safe, relaxed interactions.'
+        }
+      };
+
+      var activeMeta = archetypeMeta[dominantArchetype] || archetypeMeta.TEASE;
+
+      // Update DOM
+      document.getElementById('resArchetypeTitle').textContent = activeMeta.title;
+      document.getElementById('resArchetypeSummary').textContent = activeMeta.summary;
+      document.getElementById('resScoreVal').textContent = averageScore + '%';
+      document.getElementById('resTraitVal').textContent = activeMeta.trait;
+      document.getElementById('resBlindSpotVal').textContent = activeMeta.blindSpot;
+      document.getElementById('resSuperpowerDesc').textContent = activeMeta.superpower;
+      document.getElementById('resCalibrationDesc').textContent = activeMeta.calibration;
+
+      var tierBadge = document.getElementById('resTierBadge');
+      if (averageScore >= 85) {
+        tierBadge.textContent = 'HIGH CHARISMA CALIBRATION';
+        tierBadge.className = 'inline-block mt-1 px-2 py-0.5 text-[9px] font-bold uppercase bg-emerald-100 text-emerald-800';
+      } else if (averageScore >= 70) {
+        tierBadge.textContent = 'SOLID EMOTIONAL ALIGNMENT';
+        tierBadge.className = 'inline-block mt-1 px-2 py-0.5 text-[9px] font-bold uppercase bg-cyan-100 text-cyan-800';
+      } else {
+        tierBadge.textContent = 'NEEDS BEHAVIORAL CALIBRATION';
+        tierBadge.className = 'inline-block mt-1 px-2 py-0.5 text-[9px] font-bold uppercase bg-amber-100 text-amber-800';
+      }
+
+      document.getElementById('ctaHeading').textContent = activeMeta.ctaHeading;
+      document.getElementById('ctaDescription').textContent = activeMeta.ctaDesc;
+
+      // Build CTA URL with CID and archetype
+      var ctaBtn = document.getElementById('quizCtaButton');
+      var smartlinkUrl = '/go?cid=' + encodeURIComponent(cid) + '&sub1=quiz&sub2=' + encodeURIComponent(dominantArchetype.toLowerCase());
+      ctaBtn.setAttribute('href', smartlinkUrl);
+
+      // Scroll smoothly to results
+      resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Share / Copy Result Button
+    var shareBtn = document.getElementById('shareScoreBtn');
+    shareBtn.addEventListener('click', function () {
+      var score = document.getElementById('resScoreVal').textContent;
+      var archetype = document.getElementById('resArchetypeTitle').textContent;
+      var textToCopy = 'FlirtCheck Diagnostic Result: ' + archetype + ' (Flirting EQ: ' + score + '). Take the free assessment: https://flirtcheck.site/quiz/';
+      
+      navigator.clipboard.writeText(textToCopy).then(function () {
+        var btnText = document.getElementById('shareBtnText');
+        btnText.textContent = '✓ Copied to Clipboard!';
+        setTimeout(function () {
+          btnText.textContent = 'Copy Result Card';
+        }, 3000);
+      });
+    });
+
+    // Retake Quiz Button
+    var retakeBtn = document.getElementById('retakeQuizBtn');
+    retakeBtn.addEventListener('click', function () {
+      userResponses = [];
+      currentQuestionIdx = 0;
+      resultsContainer.classList.add('hidden');
+      questionContainer.classList.remove('hidden');
+      document.querySelector('.mb-8').classList.remove('hidden');
+      renderQuestion(0);
+    });
+
+    // Initialize first question
+    renderQuestion(0);
+  });
+</script>

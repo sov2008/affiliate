@@ -87,7 +87,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
               title: 'Daily Forensic Quota Reached',
               description: 'To protect our neural compute nodes, free analyses are limited to 3 per 24 hours.',
               ctaText: 'Unlock Instant Unlimited Access →',
-              monetizationUrl: `https://postback-engine.sov7.workers.dev/click?click_id=${clickId}&sub1=deeptrace&sub2=PAYWALL_LIMIT`
+              monetizationUrl: `https://flirtcheck.site/go?cid=${clickId}&sub1=deeptrace&sub2=PAYWALL_LIMIT`
             }
           }
         },

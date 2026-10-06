@@ -44,7 +44,8 @@ export const DefenseActionPanel: React.FC<DefenseActionPanelProps> = ({
   const monetizationUrl = buildMonetizationClickUrl({
     riskLevel: overallTrustIndex.riskLevel,
     platform,
-    source: 'deeptrace_action_panel'
+    source: 'deeptrace_action_panel',
+    target: 'tds'
   });
 
   const handleCopyQuestion = (id: string, text: string) => {
