@@ -138,23 +138,30 @@ async function runReport() {
       console.log('   Данных по источникам пока нет.');
     }
 
-    // 5. Конверсионные клики по смартлинкам (affiliate_click)
-    console.log('\n🎯 Конверсии по монетизации (Событие affiliate_click):');
-    const [eventsResponse] = await analyticsDataClient.runReport({
+    // 5. Конверсионные и поведенческие события (Custom Events & CRO Telemetry)
+    console.log('\n🎯 Конверсии и поведенческие события (All Events & Telemetry):');
+    const [allEventsResponse] = await analyticsDataClient.runReport({
       property: `properties/${propertyId}`,
       dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
       dimensions: [{ name: 'eventName' }],
-      metrics: [{ name: 'eventCount' }],
-      dimensionFilter: {
-        filter: {
-          fieldName: 'eventName',
-          stringFilter: { value: 'affiliate_click', matchType: 'EXACT' },
-        },
-      },
+      metrics: [{ name: 'eventCount' }, { name: 'totalUsers' }],
+      orderBys: [{ metric: { metricName: 'eventCount' }, desc: true }],
+      limit: 15,
     });
 
-    const affiliateClicks = eventsResponse.rows?.[0]?.metricValues?.[0]?.value || '0';
-    console.log(`   💰 Зафиксировано кликов по смартлинкам (/go): ${affiliateClicks}`);
+    if (allEventsResponse.rows && allEventsResponse.rows.length > 0) {
+      console.log('   ' + 'Событие (Event Name)'.padEnd(35) + 'Количество'.padEnd(14) + 'Пользователи');
+      console.log('   ' + '-'.repeat(65));
+      for (const row of allEventsResponse.rows) {
+        const evName = row.dimensionValues[0].value;
+        const count = row.metricValues[0].value;
+        const users = row.metricValues[1].value;
+        const icon = evName === 'affiliate_click' ? '💰' : evName.includes('dossier') ? '📄' : evName.includes('deeptrace') ? '🔍' : evName.includes('scroll') ? '📜' : '🔹';
+        console.log(`   ${icon} ${evName.padEnd(32)} ${count.padEnd(14)} ${users}`);
+      }
+    } else {
+      console.log('   Событий пока не зафиксировано.');
+    }
 
     console.log('\n====================================================');
     console.log('✅ Отчет успешно сформирован!');
