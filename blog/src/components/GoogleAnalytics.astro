@@ -1,34 +1,139 @@
 ---
-// Google Analytics 4 (GA4) Tag for FlirtCheck
+// Google Analytics 4 (GA4) Tag & Comprehensive Telemetry Engine for FlirtCheck
 const GA_MEASUREMENT_ID = 'G-9F1SLFNHS0';
 ---
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9F1SLFNHS0"></script>
-<script is:inline>
+<script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
+<script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-9F1SLFNHS0', {
-    send_page_view: true
+  gtag('config', GA_MEASUREMENT_ID, {
+    send_page_view: true,
+    cookie_flags: 'SameSite=None;Secure'
   });
 
-  // Track outbound verification & smartlink clicks
-  document.addEventListener('DOMContentLoaded', function() {
+  function setupFlirtcheckTelemetry() {
+    if (window._flirtcheck_telemetry_attached) return;
+    window._flirtcheck_telemetry_attached = true;
+
+    // 1. Comprehensive Affiliate & Smartlink Click Tracking
     document.addEventListener('click', function(e) {
-      var link = e.target && e.target.closest ? e.target.closest('a') : null;
-      if (link && link.href) {
-        var isAffiliate = link.href.indexOf('/go') !== -1 || (link.rel && link.rel.indexOf('sponsored') !== -1);
-        if (isAffiliate && typeof window.gtag === 'function') {
+      var target = e.target;
+      if (!target) return;
+      var link = target.closest ? target.closest('a') : null;
+      if (!link || !link.href) return;
+
+      var href = link.href;
+      var isAffiliate = href.indexOf('/go') !== -1 || (link.rel && link.rel.indexOf('sponsored') !== -1);
+      if (isAffiliate && typeof window.gtag === 'function') {
+        try {
+          var urlObj = new URL(href, window.location.origin);
+          var offer = urlObj.searchParams.get('offer') || urlObj.searchParams.get('to') || urlObj.searchParams.get('o') || 'default_smartlink';
+          var trigger = urlObj.searchParams.get('trigger') || urlObj.searchParams.get('s3') || 'direct';
+          var source = urlObj.searchParams.get('source') || urlObj.searchParams.get('sub1') || 'blog';
+          var linkText = (link.innerText || '').trim().replace(/\s+/g, ' ').slice(0, 50);
+
           window.gtag('event', 'affiliate_click', {
             event_category: 'Monetization',
-            event_label: link.href,
-            page_location: window.location.href,
+            event_label: offer,
+            offer_id: offer,
+            trigger_context: trigger,
+            traffic_source: source,
+            button_text: linkText,
+            target_url: href,
+            page_path: window.location.pathname,
+            transport_type: 'beacon'
+          });
+        } catch (err) {
+          window.gtag('event', 'affiliate_click', {
+            event_category: 'Monetization',
+            event_label: href,
+            target_url: href,
+            page_path: window.location.pathname,
             transport_type: 'beacon'
           });
         }
       }
+
+      // 2. Social Share Button Tracking
+      var shareBtn = target.closest ? target.closest('[data-share-copy], a[href*="twitter.com/intent"], a[href*="reddit.com/submit"]') : null;
+      if (shareBtn && typeof window.gtag === 'function') {
+        var network = 'copy_link';
+        if (shareBtn.href && shareBtn.href.indexOf('twitter.com') !== -1) network = 'twitter';
+        else if (shareBtn.href && shareBtn.href.indexOf('reddit.com') !== -1) network = 'reddit';
+
+        window.gtag('event', 'share', {
+          method: network,
+          content_type: 'investigation_dispatch',
+          item_id: window.location.pathname
+        });
+      }
+
+      // 3. Dossier Print / Export Tracking
+      var printBtn = target.closest ? target.closest('.deeptrace-print-btn, #printDossierBtn') : null;
+      if (printBtn && typeof window.gtag === 'function') {
+        window.gtag('event', 'dossier_exported', {
+          event_category: 'Engagement',
+          export_type: 'print_pdf',
+          source_page: window.location.pathname
+        });
+      }
+
+      // 4. DeepTrace Audit Initiation Tracking
+      var auditBtn = target.closest ? target.closest('.deeptrace-submit-btn') : null;
+      if (auditBtn && typeof window.gtag === 'function') {
+        window.gtag('event', 'deeptrace_audit_initiated', {
+          event_category: 'ForensicTool',
+          tool: 'deeptrace_radar',
+          source_page: window.location.pathname
+        });
+      }
     }, { passive: true });
+
+    // 5. Scroll Depth Milestones (25%, 50%, 75%, 90%)
+    var scrollMilestones = { 25: false, 50: false, 75: false, 90: false };
+    function handleScrollDepth() {
+      var docEl = document.documentElement;
+      var body = document.body;
+      var scrollTop = window.scrollY || docEl.scrollTop || body.scrollTop || 0;
+      var scrollHeight = (docEl.scrollHeight || body.scrollHeight || 0) - docEl.clientHeight;
+      if (scrollHeight <= 0) return;
+
+      var currentPct = Math.round((scrollTop / scrollHeight) * 100);
+      [25, 50, 75, 90].forEach(function(m) {
+        if (currentPct >= m && !scrollMilestones[m]) {
+          scrollMilestones[m] = true;
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'scroll_depth', {
+              event_category: 'Engagement',
+              depth_percentage: m,
+              page_path: window.location.pathname
+            });
+          }
+        }
+      });
+    }
+
+    var scrollDebounceTimer = null;
+    window.addEventListener('scroll', function() {
+      if (scrollDebounceTimer) return;
+      scrollDebounceTimer = setTimeout(function() {
+        scrollDebounceTimer = null;
+        handleScrollDepth();
+      }, 250);
+    }, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupFlirtcheckTelemetry);
+  } else {
+    setupFlirtcheckTelemetry();
+  }
+  document.addEventListener('astro:page-load', function() {
+    window._flirtcheck_telemetry_attached = false;
+    setupFlirtcheckTelemetry();
   });
 </script>
