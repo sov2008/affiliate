@@ -1,0 +1,545 @@
+{
+  "cookies": [
+    {
+      "name": "AUTH_SESSION_ID",
+      "value": "34474de0-379e-4c09-8dcc-2f40428970dc.keycloak-0-16964",
+      "domain": "login.mitgo.com",
+      "path": "/auth/realms/users/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "AUTH_SESSION_ID_LEGACY",
+      "value": "34474de0-379e-4c09-8dcc-2f40428970dc.keycloak-0-16964",
+      "domain": "login.mitgo.com",
+      "path": "/auth/realms/users/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "KEYCLOAK_LOCALE",
+      "value": "ru",
+      "domain": "login.mitgo.com",
+      "path": "/auth/realms/users/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "KEYCLOAK_IDENTITY",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJmNzFkM2ViZS05YjFmLTRiMzAtYjhlMC1kMWEzZDZhYzcwZDYifQ.eyJleHAiOjE3OTUzMzg3NjAsImlhdCI6MTc5MTE5MTU2MCwianRpIjoiNDBjNmY1ZDEtOTY4Ni00MmRlLWIwZjEtNjdkNjlmMDMwZWFlIiwiaXNzIjoiaHR0cHM6Ly9sb2dpbi5taXRnby5jb20vYXV0aC9yZWFsbXMvdXNlcnMiLCJzdWIiOiJhZDhmYWRiMC0wMjk3LTQxY2ItYWExMS04NDY3MjhhNDBjODkiLCJ0eXAiOiJTZXJpYWxpemVkLUlEIiwic2Vzc2lvbl9zdGF0ZSI6IjM0NDc0ZGUwLTM3OWUtNGMwOS04ZGNjLTJmNDA0Mjg5NzBkYyIsInNpZCI6IjM0NDc0ZGUwLTM3OWUtNGMwOS04ZGNjLTJmNDA0Mjg5NzBkYyIsInN0YXRlX2NoZWNrZXIiOiIzU3dWSGUzdXNSQ2VycjRNWFRjLUVabU1pOW00MExURHZ5am02NDl2akZvIn0.BEUYMTjpOoZf5zmXGj94zaHMXAPRyRPHWym_h2zkTcw",
+      "domain": "login.mitgo.com",
+      "path": "/auth/realms/users/",
+      "expires": 1795338761.002585,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "KEYCLOAK_IDENTITY_LEGACY",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJmNzFkM2ViZS05YjFmLTRiMzAtYjhlMC1kMWEzZDZhYzcwZDYifQ.eyJleHAiOjE3OTUzMzg3NjAsImlhdCI6MTc5MTE5MTU2MCwianRpIjoiNDBjNmY1ZDEtOTY4Ni00MmRlLWIwZjEtNjdkNjlmMDMwZWFlIiwiaXNzIjoiaHR0cHM6Ly9sb2dpbi5taXRnby5jb20vYXV0aC9yZWFsbXMvdXNlcnMiLCJzdWIiOiJhZDhmYWRiMC0wMjk3LTQxY2ItYWExMS04NDY3MjhhNDBjODkiLCJ0eXAiOiJTZXJpYWxpemVkLUlEIiwic2Vzc2lvbl9zdGF0ZSI6IjM0NDc0ZGUwLTM3OWUtNGMwOS04ZGNjLTJmNDA0Mjg5NzBkYyIsInNpZCI6IjM0NDc0ZGUwLTM3OWUtNGMwOS04ZGNjLTJmNDA0Mjg5NzBkYyIsInN0YXRlX2NoZWNrZXIiOiIzU3dWSGUzdXNSQ2VycjRNWFRjLUVabU1pOW00MExURHZ5am02NDl2akZvIn0.BEUYMTjpOoZf5zmXGj94zaHMXAPRyRPHWym_h2zkTcw",
+      "domain": "login.mitgo.com",
+      "path": "/auth/realms/users/",
+      "expires": 1795338761.002776,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "KEYCLOAK_SESSION",
+      "value": "users/ad8fadb0-0297-41cb-aa11-846728a40c89/34474de0-379e-4c09-8dcc-2f40428970dc",
+      "domain": "login.mitgo.com",
+      "path": "/auth/realms/users/",
+      "expires": 1795338761.002897,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "KEYCLOAK_SESSION_LEGACY",
+      "value": "users/ad8fadb0-0297-41cb-aa11-846728a40c89/34474de0-379e-4c09-8dcc-2f40428970dc",
+      "domain": "login.mitgo.com",
+      "path": "/auth/realms/users/",
+      "expires": 1795338761.002983,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "KEYCLOAK_REMEMBER_ME",
+      "value": "username:sov7%40i.ua",
+      "domain": "login.mitgo.com",
+      "path": "/auth/realms/users/",
+      "expires": 1822727561.003055,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "gdpr_country",
+      "value": "0",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": 1822738367.032385,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "path_language",
+      "value": "ru",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": 1822738355.286574,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "user_default_language",
+      "value": "ru",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": 1822738355.286699,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__cmpcc",
+      "value": "1",
+      "domain": "login.mitgo.com",
+      "path": "/",
+      "expires": 1825319556,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__cmpcc",
+      "value": "2",
+      "domain": "b.delivery.consentmanager.net",
+      "path": "/",
+      "expires": 1791191916.661139,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "__cmpconsents98",
+      "value": "CQrm28gQrm28gAfFZBENCzFgAAAAAAAAAAigF5wAQF5gXnABAXmAAA",
+      "domain": ".mitgo.com",
+      "path": "/",
+      "expires": 1822727559,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "__cmpccpausps",
+      "value": "1YNN",
+      "domain": ".mitgo.com",
+      "path": "/",
+      "expires": 1822727559,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "__cmpconsentx56345",
+      "value": "CQrm28gQrm28gAfFZBENCzFgAAAAAAAAAAigF5wAQF5gXnABAXmAAA",
+      "domain": ".consentmanager.net",
+      "path": "/",
+      "expires": 1822727559.518398,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "CLID",
+      "value": "b59f5db8e4344ed3a478fa043b1b2384.20261005.20271005",
+      "domain": "www.clarity.ms",
+      "path": "/",
+      "expires": 1822727557.42265,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_clck",
+      "value": "1en9rz8%5E2%5Ega1%5E0%5E2469",
+      "domain": ".mitgo.com",
+      "path": "/",
+      "expires": 1822727557,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "MUID",
+      "value": "1B7FC80FBAD46A253635DFE6BBC06B3E",
+      "domain": ".bing.com",
+      "path": "/",
+      "expires": 1824887558.786999,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1791796358.787191,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SRM_B",
+      "value": "1B7FC80FBAD46A253635DFE6BBC06B3E",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1824887558.787297,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SM",
+      "value": "C",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MUID",
+      "value": "1B7FC80FBAD46A253635DFE6BBC06B3E",
+      "domain": ".clarity.ms",
+      "path": "/",
+      "expires": 1824887557.855225,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": 1791796357.855397,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "ANONCHK",
+      "value": "0",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": 1791192157.855484,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_clsk",
+      "value": "bls0xn%5E1791191558292%5E1%5E1%5Ei.clarity.ms%2Fcollect",
+      "domain": ".mitgo.com",
+      "path": "/",
+      "expires": 1791277958,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__cmpcccs98",
+      "value": "aCQroiRKgB_EueAt2tY8eaGmlkTUBNGNSYAjEaMKIYTEtLQAYBBAqg0kJpI0NExJQDFVBaVKRg",
+      "domain": ".mitgo.com",
+      "path": "/",
+      "expires": 1822727559,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "__cmpcccx56345",
+      "value": "aCQroiRKgB_EueAt2tY8eaGmlkTUBNGNSYAjEaMKIYTEtLQAYBBAqg0kJpI0NExJQDFVBaVKRg",
+      "domain": ".consentmanager.net",
+      "path": "/",
+      "expires": 1822727559.518693,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "sso_logged_in_with_client",
+      "value": "com",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": 1822738361.323182,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "session_state",
+      "value": "34474de0-379e-4c09-8dcc-2f40428970dc",
+      "domain": "store.admitad.com",
+      "path": "/",
+      "expires": 1792498361.031565,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "public_username",
+      "value": "sov2018",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": 1822738361.323958,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "gaUID",
+      "value": "879030",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": 1822738367.032872,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "csrf_tkn",
+      "value": "1O7ZsWfyEo8JwDMsOeMvv7NwBl9lP5Uau5dzULBaTg8jIcS6G8cxBGUjxJ1i0SDQ",
+      "domain": ".store.admitad.com",
+      "path": "/",
+      "expires": 1822641161.324162,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "sessionid",
+      "value": "z2z79w6aorxhhar4azx4z7m5q8kc5cyt",
+      "domain": ".store.admitad.com",
+      "path": "/",
+      "expires": 1791796361.803617,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "public_trust_level",
+      "value": "0",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": 1822738361.802961,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "public_role",
+      "value": "webmaster",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": 1822738361.803184,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.1.61404442.1791191563",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": 1825751563.594228,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga_32HHLCD33P",
+      "value": "GS2.1.s1791191563$o1$g1$t1791191563$j60$l0$h0",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": 1825751563.3308,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga_9F6V38W2M6",
+      "value": "GS2.1.s1791191563$o1$g1$t1791191563$j60$l0$h0",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": 1825751563.622271,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "deviceUUID",
+      "value": "76260dc5-2247-4b85-bd6f-6fc845fdef0f",
+      "domain": "api.maestra.io",
+      "path": "/",
+      "expires": 1825751563.966571,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "maestraDeviceUUID",
+      "value": "76260dc5-2247-4b85-bd6f-6fc845fdef0f",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": 1825751563.976827,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "directCrm-session",
+      "value": "%7B%22deviceGuid%22%3A%2276260dc5-2247-4b85-bd6f-6fc845fdef0f%22%7D",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": 1825751563.978057,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "png",
+      "value": "oixxxwiv8z",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "etg",
+      "value": "oixxxwiv8z",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "cachec",
+      "value": "oixxxwiv8z",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "admitadec",
+      "value": "oixxxwiv8z",
+      "domain": ".admitad.com",
+      "path": "/",
+      "expires": 1825751567.054501,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://store.admitad.com",
+      "localStorage": [
+        {
+          "name": "maestraDeviceUUID",
+          "value": "76260dc5-2247-4b85-bd6f-6fc845fdef0f"
+        },
+        {
+          "name": "admitadec",
+          "value": "oixxxwiv8z"
+        }
+      ]
+    },
+    {
+      "origin": "https://login.mitgo.com",
+      "localStorage": [
+        {
+          "name": "__cmpconsents98_expire_.mitgo.com",
+          "value": "1822727559456"
+        },
+        {
+          "name": "kc-fy_locale",
+          "value": "ru"
+        },
+        {
+          "name": "__cmpcccs98_.mitgo.com",
+          "value": "aCQroiRKgB_EueAt2tY8eaGmlkTUBNGNSYAjEaMKIYTEtLQAYBBAqg0kJpI0NExJQDFVBaVKRg"
+        },
+        {
+          "name": "__cmpcccs98_expire_.mitgo.com",
+          "value": "1822727559457"
+        },
+        {
+          "name": "__cmpccpausps_expire_.mitgo.com",
+          "value": "1822727559457"
+        },
+        {
+          "name": "__cmpccpausps_.mitgo.com",
+          "value": "1YNN"
+        },
+        {
+          "name": "__cmpconsents98_.mitgo.com",
+          "value": "CQrm28gQrm28gAfFZBENCzFgAAAAAAAAAAigF5wAQF5gXnABAXmAAA"
+        },
+        {
+          "name": "cmp_gpcConsentModeEligible.862d69aff97e",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "origin": "https://cdn.consentmanager.net",
+      "localStorage": [
+        {
+          "name": "__cmpccpausps_expire",
+          "value": "1822727559457"
+        },
+        {
+          "name": "__cmpcccs98",
+          "value": "aCQroiRKgB_EueAt2tY8eaGmlkTUBNGNSYAjEaMKIYTEtLQAYBBAqg0kJpI0NExJQDFVBaVKRg"
+        },
+        {
+          "name": "__cmpccpausps",
+          "value": "1YNN"
+        },
+        {
+          "name": "__cmpconsents98",
+          "value": "CQrm28gQrm28gAfFZBENCzFgAAAAAAAAAAigF5wAQF5gXnABAXmAAA"
+        },
+        {
+          "name": "__cmpconsents98_expire",
+          "value": "1822727559456"
+        },
+        {
+          "name": "__cmpcccs98_expire",
+          "value": "1822727559457"
+        }
+      ]
+    }
+  ]
+}

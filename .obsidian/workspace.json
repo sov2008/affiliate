@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CPA_TRAINING_AUDIT_REPORT.md",
+                "file": "PRODUCTION_DEPLOYMENT_GUIDE.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CPA_TRAINING_AUDIT_REPORT"
+              "title": "PRODUCTION_DEPLOYMENT_GUIDE"
             }
           }
         ]
@@ -190,6 +190,23 @@
   },
   "active": "f06c27fb21cd3f95",
   "lastOpenFiles": [
+    "blog/dist/calculator/index.html",
+    "blog/dist/calculator",
+    "blog/dist/api/search-index.json",
+    "blog/dist/api",
+    "blog/dist/about/index.html",
+    "blog/dist/about",
+    "blog/dist/404.html",
+    "blog/dist/apple-touch-icon.png",
+    "blog/dist/category/safety-dossier/index.html",
+    "blog/dist/category/safety-dossier",
+    "blog/dist/category/romantic-essays/index.html",
+    "blog/dist/category/romantic-essays",
+    "blog/src/content/posts/coffee-vs-dinner-date-one-why-low-investment-venues-win.md",
+    "docs/MITGO_SUPPORT_TICKET_13903.md",
+    "CREDITS_MONITOR_README.md",
+    "CPA_TRAINING_AUDIT_REPORT.md",
+    "blog/node_modules/@babel/types/README.md",
     "node_modules/axios/README.md",
     "node_modules/ms/license.md"
   ]

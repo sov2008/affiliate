@@ -5,6 +5,8 @@
 core/.env
 *.pem
 *.key
+ga-credentials.json
+google-analytics-key.json
 pinterest_cookies.json
 
 # Authentication Sessions & Storage
