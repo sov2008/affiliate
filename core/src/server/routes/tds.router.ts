@@ -4,6 +4,26 @@ import { TelegramLeadRepository } from '../../db/tg-leads.repository.js';
 
 export const tdsRouter = Router();
 
+// In-memory rate limiting and click fraud protection
+interface TdsRateLimitRecord {
+  count: number;
+  resetAt: number;
+}
+const tdsRateLimitMap = new Map<string, TdsRateLimitRecord>();
+const TDS_WINDOW_MS = 60 * 1000; // 1 minute window
+const TDS_MAX_CLICKS = 15; // Max 15 clicks/minute from same IP
+
+function cleanupRateLimitMap(): void {
+  if (tdsRateLimitMap.size > 2000) {
+    const now = Date.now();
+    for (const [ip, entry] of tdsRateLimitMap.entries()) {
+      if (now > entry.resetAt) {
+        tdsRateLimitMap.delete(ip);
+      }
+    }
+  }
+}
+
 /**
  * TDS Routing Endpoint (/go)
  * Resolves smartlink target from query or click attribution,
@@ -11,6 +31,37 @@ export const tdsRouter = Router();
  */
 export function handleTdsRedirect(req: Request, res: Response): void {
   try {
+    const userAgent = String(req.headers['user-agent'] || '').toLowerCase();
+    const rawIp = (
+      (req.headers['x-forwarded-for'] as string)?.split(',')[0].trim() ||
+      (req.headers['x-real-ip'] as string) ||
+      req.socket.remoteAddress ||
+      'unknown'
+    );
+
+    // 0. Bot & Scraper Filter (protect affiliate accounts from non-human crawler click fraud)
+    const isMaliciousBot = !userAgent || /curl|wget|python-requests|scrapy|aiohttp|headlesschrome|phantomjs|mechanize|postmanruntime/i.test(userAgent);
+    if (isMaliciousBot) {
+      console.warn(`[TdsRouter Shield] 🛡️ Blocked automated scraper/bot (IP: ${rawIp}, UA: ${userAgent.slice(0, 40)})`);
+      res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return res.redirect(302, '/');
+    }
+
+    // 0.1 Sliding Window Click Fraud Rate Limiter
+    cleanupRateLimitMap();
+    const now = Date.now();
+    const rateEntry = tdsRateLimitMap.get(rawIp);
+    if (rateEntry && now < rateEntry.resetAt) {
+      rateEntry.count++;
+      if (rateEntry.count > TDS_MAX_CLICKS) {
+        console.warn(`[TdsRouter Shield] ⚠️ Rate limit exceeded for IP: ${rawIp} (${rateEntry.count} req/min). Dropping redirect to protect partner accounts.`);
+        res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
+        return res.redirect(302, '/');
+      }
+    } else {
+      tdsRateLimitMap.set(rawIp, { count: 1, resetAt: now + TDS_WINDOW_MS });
+    }
+
     const query = req.query || {};
     const rawCid = (query.cid || query.click_id || query.clickid || query.txid || '') as string;
     const rawOffer = (query.offer || query.offer_id || query.o || '') as string;
