@@ -11,8 +11,8 @@ motto: "Love is... finding a relaxed public corner where silences don’t feel a
 tags: ["First Date Ideas","Low Pressure","Date Venues","Modern Dating"]
 seoKeywords: ["best casual first dates","why coffee date is best","walk and talk first date","interactive first date ideas"]
 canonicalUrl: "https://flirtcheck.site/blog/low-pressure-first-date-ideas-why-dinners-are-flawed/"
-coverImage: "/images/posts/default-cover.webp"
-image: "/images/posts/default-cover.webp"
+coverImage: "/images/posts/low-pressure-first-date-ideas-why-dinners-are-flawed.webp"
+image: "/images/posts/low-pressure-first-date-ideas-why-dinners-are-flawed.webp"
 draft: false
 ---
 

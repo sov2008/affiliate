@@ -109,7 +109,7 @@ const categorySchemas = [
         </div>
 
         {categoryPosts.length > 0 ? (
-          <div class="w-full space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
             {categoryPosts.map((post, idx) => (
               <FeedItem post={post} index={idx} />
             ))}

@@ -11,8 +11,8 @@ motto: "Love is... giving a slow ember time to breathe into an enduring flame."
 tags: ["Slow Dating","Romantic Essays","Cultural Observation","Patience"]
 seoKeywords: ["loss of romance in modern dating","slow dating movement","anticipation in love psychology","analog dating revival"]
 canonicalUrl: "https://flirtcheck.site/blog/the-lost-art-of-anticipation-how-instant-swiping-killed-mystery/"
-coverImage: "/images/posts/default-cover.webp"
-image: "/images/posts/default-cover.webp"
+coverImage: "/images/posts/the-lost-art-of-anticipation-how-instant-swiping-killed-mystery.webp"
+image: "/images/posts/the-lost-art-of-anticipation-how-instant-swiping-killed-mystery.webp"
 draft: false
 ---
 

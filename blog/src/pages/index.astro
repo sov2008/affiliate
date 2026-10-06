@@ -251,6 +251,99 @@ const indexSchemas = [
       </article>
     )}
 
+    <!-- Verified Partner Countermeasures Showcase Banner Strip -->
+    <section class="mb-10 not-prose bg-white border border-slate-300 p-5 sm:p-6" aria-label="Verified Partner Directives">
+      <div class="flex flex-wrap items-center justify-between pb-3 mb-4 border-b border-slate-200 gap-2">
+        <div class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-rose-700"></span>
+          <h3 class="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-900">
+            [ VERIFIED OPERATIONAL DIRECTIVES // AUTHORIZED PARTNER PROTOCOLS ]
+          </h3>
+        </div>
+        <span class="font-mono text-[9px] text-slate-500 uppercase">Independent Clearance</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Card 1: OnlineSim -->
+        <div class="border border-slate-200 bg-[#FAF7F2] p-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-[9px] font-bold uppercase tracking-wider text-rose-700 bg-rose-50 border border-rose-200 px-1.5 py-0.5">
+                SEC-191148
+              </span>
+              <span class="font-mono text-[9px] text-slate-500 font-semibold">OnlineSim WW</span>
+            </div>
+            <h4 class="font-serif font-bold text-sm text-slate-900 mb-1.5 leading-snug">
+              Shield Personal WhatsApp Numbers
+            </h4>
+            <p class="text-[11px] text-slate-600 font-sans leading-relaxed mb-4">
+              Receive SMS verification codes across 160+ countries. Prevent reverse carrier lookups, doxxing, and scam extraction.
+            </p>
+          </div>
+          <a
+            href="/go?offer=admitad_191148&source=homepage_showcase&trigger=top_card&intent=virtual_sim"
+            rel="nofollow sponsored"
+            target="_blank"
+            class="min-h-[38px] w-full flex items-center justify-center text-center px-3 py-2 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-[10px] uppercase tracking-wider transition-colors shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-none"
+          >
+            Get Disposable SIM ↗
+          </a>
+        </div>
+
+        <!-- Card 2: Elitedate -->
+        <div class="border border-slate-200 bg-[#FAF7F2] p-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-[9px] font-bold uppercase tracking-wider text-slate-900 bg-amber-100 border border-slate-900 px-1.5 py-0.5">
+                ROSTER-049070
+              </span>
+              <span class="font-mono text-[9px] text-slate-500 font-semibold">Elitedate</span>
+            </div>
+            <h4 class="font-serif font-bold text-sm text-slate-900 mb-1.5 leading-snug">
+              Bypass Commercial Swiping Bots
+            </h4>
+            <p class="text-[11px] text-slate-600 font-sans leading-relaxed mb-4">
+              Human-moderated singles roster for 30+ adults. 100% manual profile review with zero synthetic accounts or ghost profiles.
+            </p>
+          </div>
+          <a
+            href="/go?offer=admitad_49070&source=homepage_showcase&trigger=top_card&intent=verified_dating"
+            rel="nofollow sponsored"
+            target="_blank"
+            class="min-h-[38px] w-full flex items-center justify-center text-center px-3 py-2 bg-rose-700 hover:bg-rose-800 text-white font-mono font-bold text-[10px] uppercase tracking-wider transition-colors shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-none"
+          >
+            Access Singles Roster ↗
+          </a>
+        </div>
+
+        <!-- Card 3: RaynaTours -->
+        <div class="border border-slate-200 bg-[#FAF7F2] p-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-[9px] font-bold uppercase tracking-wider text-slate-700 bg-slate-100 border border-slate-300 px-1.5 py-0.5">
+                TRV-018183
+              </span>
+              <span class="font-mono text-[9px] text-slate-500 font-semibold">RaynaTours</span>
+            </div>
+            <h4 class="font-serif font-bold text-sm text-slate-900 mb-1.5 leading-snug">
+              The 100% Public Venue Protocol
+            </h4>
+            <p class="text-[11px] text-slate-600 font-sans leading-relaxed mb-4">
+              Book verified high-traffic public date venues and cultural sightseeing tours in Dubai and premier travel destinations.
+            </p>
+          </div>
+          <a
+            href="/go?offer=admitad_18183&source=homepage_showcase&trigger=top_card&intent=travel_dating"
+            rel="nofollow sponsored"
+            target="_blank"
+            class="min-h-[38px] w-full flex items-center justify-center text-center px-3 py-2 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-[10px] uppercase tracking-wider transition-colors shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-none"
+          >
+            Browse Public Venues ↗
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- 2-COLUMN LAYOUT: Sidebar (w-72 shrink-0) + Feed (flex-1) -->
     <div class="flex flex-col lg:flex-row gap-8 items-start">
       <!-- Left Column: Sticky Classifieds & Info Sidebar -->
@@ -273,7 +366,7 @@ const indexSchemas = [
 
         <!-- 2. Paginated Regular Dispatches Feed in 2-Column Grid -->
         {regularPosts.length > 0 ? (
-          <div id="postsFeed" class="grid grid-cols-1 gap-6 w-full">
+          <div id="postsFeed" class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
             {regularPosts.map((post, idx) => (
               <FeedItem post={post} index={idx} />
             ))}
