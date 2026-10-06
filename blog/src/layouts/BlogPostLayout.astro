@@ -239,6 +239,37 @@ const SIDEBAR_OFFER_CONFIG = {
   }
 };
 const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.virtual_sim;
+
+const SECONDARY_OFFER_CONFIG = {
+  virtual_sim: {
+    badge: 'CLASSIFIED BULLETIN',
+    station: 'ROSTER-049070',
+    partner: 'Elitedate Network',
+    headline: 'Bypass The Swiping Casino',
+    desc: 'Bypass fake bots and late-night scam scripts. Connect with ID-inspected singles (30+) verified by human moderators.',
+    btnText: 'VERIFY SINGLES ↗',
+    url: `/go?offer=admitad_49070&source=article_sidebar&trigger=sidebar_secondary&intent=verified_dating&ref=${slug || 'article'}&sub1=article_sidebar&sub2=verified_dating&sub3=secondary_card`
+  },
+  verified_dating: {
+    badge: 'DISPOSABLE SIM DESK',
+    station: 'SEC-191148',
+    partner: 'OnlineSim WW',
+    headline: 'Shield Your Real Phone Number',
+    desc: 'Never give your personal phone to unvetted matches. Intercept WhatsApp SMS codes securely.',
+    btnText: 'GET VIRTUAL SIM ↗',
+    url: `/go?offer=admitad_191148&source=article_sidebar&trigger=sidebar_secondary&intent=virtual_sim&ref=${slug || 'article'}&sub1=article_sidebar&sub2=virtual_sim&sub3=secondary_card`
+  },
+  travel_dating: {
+    badge: 'DISPOSABLE SIM DESK',
+    station: 'SEC-191148',
+    partner: 'OnlineSim WW',
+    headline: 'Roaming Identity Shield',
+    desc: 'Shield your primary mobile number while coordinating dates abroad with temporary virtual numbers.',
+    btnText: 'GET VIRTUAL SIM ↗',
+    url: `/go?offer=admitad_191148&source=article_sidebar&trigger=sidebar_secondary&intent=virtual_sim&ref=${slug || 'article'}&sub1=article_sidebar&sub2=virtual_sim&sub3=secondary_card`
+  }
+};
+const secondaryOffer = SECONDARY_OFFER_CONFIG[endorsementType] || SECONDARY_OFFER_CONFIG.virtual_sim;
 ---
 
 <!DOCTYPE html>
@@ -315,9 +346,9 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
              Only visible on lg+ (desktop), sticky
              ──────────────────────────────────────────────────────── -->
         <aside class="hidden lg:block lg:col-span-4">
-          <div class="sticky top-24 space-y-5">
+          <div class="space-y-5">
 
-            <!-- Unified Case Ledger & Lead Investigator Card (Optimized Compact Height ~210px) -->
+            <!-- WIDGET 1: Case Ledger & Desk Officer Byline -->
             <div class="bg-white border border-slate-300 rounded-none p-3.5 font-mono">
               <div class="text-[9px] font-bold uppercase tracking-widest text-slate-500 mb-2.5 border-b border-slate-200 pb-2 flex items-center justify-between">
                 <span>CHELTENHAM DESK // CASE LEDGER</span>
@@ -365,19 +396,20 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
               </div>
             </div>
 
-            <!-- Table of Contents (auto-generated via JS) -->
+            <!-- WIDGET 2: Table of Contents (Dynamic via JS) -->
             <div id="tocContainer" class="bg-white border border-slate-300 rounded-none p-4">
-              <div class="font-mono text-[9px] font-bold uppercase tracking-widest text-slate-500 mb-3 pb-2 border-b border-slate-200">
-                Contents
+              <div class="font-mono text-[9px] font-bold uppercase tracking-widest text-slate-500 mb-3 pb-2 border-b border-slate-200 flex items-center justify-between">
+                <span>INVESTIGATION INDEX</span>
+                <span class="text-[8px] text-slate-400">SECTIONS</span>
               </div>
               <nav id="tocNav" aria-label="Table of contents">
-                <ul id="tocList" class="space-y-1.5 text-[11px] font-mono">
+                <ul id="tocList" class="space-y-1 text-[11px] font-mono max-h-[300px] overflow-y-auto pr-1">
                   <!-- injected by JS -->
                 </ul>
               </nav>
             </div>
 
-            <!-- Sticky Contextual Partner Notice (Dynamic by Dossier Context) -->
+            <!-- WIDGET 3: Primary Contextual Partner Directive -->
             <div class="bg-[#FAF7F2] border border-slate-300 p-4">
               <div class="flex items-center justify-between gap-1 mb-2">
                 <span class="font-mono text-[9px] font-bold uppercase tracking-widest text-slate-700 bg-amber-100 border border-slate-900 px-1.5 py-0.5">
@@ -398,13 +430,99 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
                 id="tocCtaLink"
                 rel="nofollow sponsored"
                 target="_blank"
-                class="min-h-[40px] w-full flex items-center justify-center text-center px-3 py-2 bg-slate-900 hover:bg-slate-800 active:translate-x-0.5 active:translate-y-0.5 text-white font-mono font-bold text-[10px] uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-none"
+                class="sidebar-partner-link min-h-[40px] w-full flex items-center justify-center text-center px-3 py-2 bg-slate-900 hover:bg-slate-800 active:translate-x-0.5 active:translate-y-0.5 text-white font-mono font-bold text-[10px] uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-none"
               >
                 {sideOffer.btnText}
               </a>
               <span class="block text-center text-[9px] font-mono text-slate-500 mt-2">
                 Verified Gateway Clearance · Direct Handshake
               </span>
+            </div>
+
+            <!-- WIDGET 4: Interactive OSINT Forensic Tools Console -->
+            <div class="bg-white border border-slate-300 p-4">
+              <div class="flex items-center justify-between mb-2 pb-2 border-b border-slate-200">
+                <span class="text-[9px] font-mono font-bold uppercase tracking-widest text-slate-700">
+                  [ SELF-SERVICE OSINT TOOLS ]
+                </span>
+                <span class="text-[9px] font-mono text-emerald-700 font-bold">CLIENT-SIDE</span>
+              </div>
+              <div class="space-y-2 mt-2.5">
+                <a
+                  href="/deeptrace"
+                  class="block p-2 bg-[#FAF7F2] border border-slate-200 hover:border-slate-900 transition-colors group"
+                >
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="font-mono text-[10px] font-bold text-slate-900 group-hover:text-rose-700 uppercase">
+                      DeepTrace™ Photo Radar
+                    </span>
+                    <span class="font-mono text-xs text-slate-400 group-hover:text-slate-900">↗</span>
+                  </div>
+                  <p class="font-sans text-[10px] text-slate-600 leading-snug">
+                    Inspect dating screenshots for AI-generated faces and photo anomalies.
+                  </p>
+                </a>
+                <a
+                  href="/calculator"
+                  class="block p-2 bg-[#FAF7F2] border border-slate-200 hover:border-slate-900 transition-colors group"
+                >
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="font-mono text-[10px] font-bold text-slate-900 group-hover:text-rose-700 uppercase">
+                      Romance Risk Index
+                    </span>
+                    <span class="font-mono text-xs text-slate-400 group-hover:text-slate-900">↗</span>
+                  </div>
+                  <p class="font-sans text-[10px] text-slate-600 leading-snug">
+                    12-variable heuristic audit: check scam exposure percentile in 60s.
+                  </p>
+                </a>
+              </div>
+            </div>
+
+            <!-- WIDGET 5: Secondary Complementary Partner Directive -->
+            <div class="bg-white border border-slate-300 p-4">
+              <div class="flex items-center justify-between gap-1 mb-2">
+                <span class="text-[9px] font-mono text-slate-700 bg-slate-100 border border-slate-300 px-1.5 py-0.5 uppercase tracking-widest font-bold">
+                  {secondaryOffer.badge}
+                </span>
+                <span class="text-[9px] font-mono text-slate-500 font-semibold truncate">
+                  {secondaryOffer.partner}
+                </span>
+              </div>
+              <h5 class="font-serif font-bold text-xs text-slate-900 leading-snug mb-1.5">
+                {secondaryOffer.headline}
+              </h5>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed mb-3">
+                {secondaryOffer.desc}
+              </p>
+              <a
+                href={secondaryOffer.url}
+                rel="nofollow sponsored"
+                target="_blank"
+                class="sidebar-partner-link min-h-[40px] w-full flex items-center justify-center text-center px-3 py-2 bg-slate-900 hover:bg-slate-800 active:translate-x-0.5 active:translate-y-0.5 text-white font-mono font-bold text-[10px] uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-none"
+              >
+                {secondaryOffer.btnText}
+              </a>
+              <span class="block text-center text-[9px] font-mono text-slate-500 mt-2">
+                Protocol Directive // {secondaryOffer.station}
+              </span>
+            </div>
+
+            <!-- WIDGET 6: Field Protocol Standards -->
+            <div class="bg-[#FAF7F2] border border-slate-300 p-3.5 font-mono text-[10px] text-slate-600">
+              <div class="flex items-center gap-1.5 mb-2 pb-1.5 border-b border-slate-200">
+                <span class="w-1.5 h-1.5 rounded-full bg-rose-700 shrink-0"></span>
+                <span class="font-bold text-slate-900 uppercase tracking-widest text-[9px]">
+                  CHELTENHAM STANDARDS
+                </span>
+              </div>
+              <p class="font-sans text-[11px] text-slate-600 leading-relaxed mb-2">
+                All investigative briefs follow zero-synthetic verification. Profiles and chat samples are independently cataloged.
+              </p>
+              <div class="flex items-center justify-between text-[9px] text-slate-500 border-t border-slate-200 pt-1.5">
+                <span>SECURITY ARCHIVE</span>
+                <span class="text-emerald-700 font-bold">● VERIFIED</span>
+              </div>
             </div>
 
           </div>
@@ -555,8 +673,9 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
               [&_blockquote]:border-l-2 [&_blockquote]:border-slate-900 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-slate-700 [&_blockquote]:font-serif [&_blockquote]:my-6 [&_blockquote]:py-1
               [&_hr]:border-slate-200 [&_hr]:my-8"
           >
-            <!-- Mid-article quiz injected here by JS -->
-            <div id="mid-quiz-container" class="my-8 not-prose">
+            <slot />
+            <!-- Mid-article quiz repositioned dynamically by JS into mid-article flow -->
+            <div id="mid-quiz-container" class="hidden my-8 not-prose">
               <InlineQuiz
                 slug={slug}
                 quizId="mid-radar-quiz"
@@ -564,7 +683,6 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
                 subtitle="Instant cross-reference against verified anti-bot database and spoofing patterns."
               />
             </div>
-            <slot />
           </article>
 
           <!-- ══════════════════════════════════════════════
@@ -716,72 +834,95 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
 
     <!-- Global scripts -->
     <script>
-      // ─── Table of Contents Generator ───────────────────────────
+      // ─── Table of Contents Generator (Supports H2 and H3) ───────
       function buildToc() {
         const article = document.getElementById('articleContent');
         const tocList = document.getElementById('tocList');
+        const tocContainer = document.getElementById('tocContainer');
         if (!article || !tocList) return;
 
-        const headings = Array.from(article.querySelectorAll('h2'));
+        const headings = Array.from(article.querySelectorAll('h2, h3'));
         if (headings.length === 0) {
-          const tocNav = document.getElementById('tocNav');
-          if (tocNav) tocNav.closest('.bg-white')?.classList.add('hidden');
+          if (tocContainer) tocContainer.classList.add('hidden');
           return;
         }
 
-        headings.forEach((h, i) => {
-          if (!h.id) h.id = `section-${i}`;
+        tocList.innerHTML = '';
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const id = entry.target.id;
+                tocList.querySelectorAll('.toc-link').forEach((link) => {
+                  if (link.getAttribute('href') === `#${id}`) {
+                    link.classList.remove('border-transparent', 'text-slate-500', 'text-slate-700');
+                    link.classList.add('text-rose-700', 'border-rose-700', 'font-bold');
+                  } else {
+                    link.classList.remove('text-rose-700', 'border-rose-700', 'font-bold');
+                    link.classList.add('border-transparent');
+                  }
+                });
+              }
+            });
+          },
+          { rootMargin: '-70px 0px -70% 0px', threshold: 0 }
+        );
+
+        headings.forEach((h, idx) => {
+          if (!h.id) {
+            const rawSlug = h.textContent?.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 36) || `sec-${idx + 1}`;
+            h.id = `sec-${idx + 1}-${rawSlug}`;
+          }
+          observer.observe(h);
+
+          const isH3 = h.tagName.toLowerCase() === 'h3';
           const li = document.createElement('li');
           const a = document.createElement('a');
           a.href = `#${h.id}`;
-          a.textContent = h.textContent || '';
-          a.className = 'toc-link block text-slate-500 hover:text-slate-900 transition-colors py-0.5 border-l-2 border-transparent pl-2 leading-snug';
-          a.addEventListener('click', e => {
+          a.textContent = h.textContent?.trim() || `Section ${idx + 1}`;
+          a.className = isH3
+            ? 'toc-link block text-slate-500 hover:text-rose-700 transition-all py-0.5 border-l-2 border-transparent pl-3 text-[10.5px] leading-snug truncate'
+            : 'toc-link block text-slate-700 hover:text-rose-700 transition-all py-0.5 border-l-2 border-transparent pl-1.5 font-bold text-[11px] leading-snug truncate';
+          a.addEventListener('click', (e) => {
             e.preventDefault();
             h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            window.history.pushState(null, '', `#${h.id}`);
           });
           li.appendChild(a);
           tocList.appendChild(li);
         });
-
-        // Active section highlight on scroll
-        const observer = new IntersectionObserver(entries => {
-          entries.forEach(entry => {
-            const id = entry.target.id;
-            const link = tocList.querySelector(`[href="#${id}"]`);
-            if (!link) return;
-            if (entry.isIntersecting) {
-              tocList.querySelectorAll('.toc-link').forEach(l => {
-                l.classList.remove('text-slate-900', 'border-slate-900', 'font-bold');
-                l.classList.add('text-slate-500', 'border-transparent');
-              });
-              link.classList.remove('text-slate-500', 'border-transparent');
-              link.classList.add('text-slate-900', 'border-slate-900', 'font-bold');
-            }
-          });
-        }, { rootMargin: '-10% 0px -70% 0px', threshold: 0 });
-
-        headings.forEach(h => observer.observe(h));
       }
 
-      // ─── Mid-article Quiz Injection ─────────────────────────────
+      // ─── Mid-article Quiz Injection (Centered in Reading Flow) ───
       function injectMidArticleQuiz() {
         const article = document.getElementById('articleContent');
         const midQuiz = document.getElementById('mid-quiz-container');
         if (!article || !midQuiz) return;
-        const h2Elements = article.querySelectorAll('h2');
-        if (h2Elements.length >= 2) {
-          const targetIndex = Math.floor(h2Elements.length / 2);
-          h2Elements[targetIndex].before(midQuiz);
+
+        const headings = Array.from(article.querySelectorAll('h2, h3'));
+        if (headings.length >= 3) {
+          const targetIndex = Math.floor(headings.length / 2);
+          headings[targetIndex].before(midQuiz);
+          midQuiz.classList.remove('hidden');
         } else {
-          const paragraphs = article.querySelectorAll('p');
-          if (paragraphs.length >= 3) paragraphs[2].after(midQuiz);
+          const paragraphs = Array.from(article.querySelectorAll('p'));
+          if (paragraphs.length >= 6) {
+            const targetIndex = Math.floor(paragraphs.length / 2);
+            paragraphs[targetIndex].after(midQuiz);
+            midQuiz.classList.remove('hidden');
+          } else if (paragraphs.length >= 3) {
+            paragraphs[2].after(midQuiz);
+            midQuiz.classList.remove('hidden');
+          } else {
+            midQuiz.classList.remove('hidden');
+          }
         }
       }
 
-      // ─── Evidence image captions ────────────────────────────────
+      // ─── Evidence image captions & Responsive Tables ────────────
       function setupArticleEvidence() {
-        document.querySelectorAll('article.prose img').forEach(img => {
+        document.querySelectorAll('article.prose img').forEach((img) => {
           img.setAttribute('loading', 'lazy');
           const parent = img.parentElement;
           if (parent && parent.tagName === 'P' && parent.children.length === 1) {
@@ -795,7 +936,9 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
         });
 
         // Wrap markdown tables in responsive container
-        document.querySelectorAll('article.prose table').forEach(table => {
+        const article = document.getElementById('articleContent');
+        const tables = article ? article.querySelectorAll('table') : document.querySelectorAll('article.prose table');
+        tables.forEach((table) => {
           if (!table.parentElement?.classList.contains('table-wrapper')) {
             const wrapper = document.createElement('div');
             wrapper.className = 'table-wrapper not-prose';
@@ -803,12 +946,17 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
             wrapper.appendChild(table);
           }
         });
+
+        // Relocate DeepTrace Widget into In-Article Anchor if present
+        const deeptraceWidget = document.querySelector('.deeptrace-widget');
+        const customSlot = document.querySelector('#deeptrace-scanner-slot, .deeptrace-scanner-slot');
+        if (deeptraceWidget && customSlot) {
+          customSlot.replaceWith(deeptraceWidget);
+        }
       }
 
-      // ─── TOC Smartlink CID attribution ──────────────────────────
-      function initTocCta() {
-        const cta = document.getElementById('tocCtaLink') as HTMLAnchorElement | null;
-        if (!cta) return;
+      // ─── Smartlink Session CID Attribution ───────────────────────
+      function initSidebarAndTocCtas() {
         let cid = '';
         try {
           cid = sessionStorage.getItem('flirtcheck_cid') || '';
@@ -816,17 +964,29 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
             cid = 'fc_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
             sessionStorage.setItem('flirtcheck_cid', cid);
           }
-        } catch { cid = 'fc_' + Date.now().toString(36); }
-        const url = new URL(cta.href, window.location.origin);
-        url.searchParams.set('cid', cid);
-        cta.href = url.toString();
+        } catch {
+          cid = 'fc_' + Date.now().toString(36);
+        }
+
+        const ctas = document.querySelectorAll<HTMLAnchorElement>('.sidebar-partner-link, #tocCtaLink');
+        ctas.forEach((cta) => {
+          try {
+            const url = new URL(cta.href, window.location.origin);
+            url.searchParams.set('cid', cid);
+            cta.href = url.toString();
+          } catch {
+            if (!cta.href.includes('cid=')) {
+              cta.href += (cta.href.includes('?') ? '&' : '?') + `cid=${encodeURIComponent(cid)}`;
+            }
+          }
+        });
       }
 
       document.addEventListener('DOMContentLoaded', () => {
         buildToc();
         injectMidArticleQuiz();
         setupArticleEvidence();
-        initTocCta();
+        initSidebarAndTocCtas();
       });
     </script>
 
@@ -967,80 +1127,6 @@ const sideOffer = SIDEBAR_OFFER_CONFIG[endorsementType] || SIDEBAR_OFFER_CONFIG.
         margin: 0 !important;
       }
     </style>
-
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        // 1. Dynamic Table of Contents
-        const article = document.getElementById('articleContent');
-        const tocList = document.getElementById('tocList');
-        const tocContainer = document.getElementById('tocContainer');
-
-        if (article && tocList) {
-          const headings = article.querySelectorAll('h2');
-          if (headings.length === 0) {
-            if (tocContainer) tocContainer.classList.add('hidden');
-          } else {
-            const observer = new IntersectionObserver(
-              (entries) => {
-                entries.forEach((entry) => {
-                  if (entry.isIntersecting) {
-                    const id = entry.target.id;
-                    tocList.querySelectorAll('a').forEach((a) => {
-                      if (a.getAttribute('href') === `#${id}`) {
-                        a.classList.add('text-rose-700', 'font-bold', 'pl-1');
-                        a.classList.remove('text-slate-600');
-                      } else {
-                        a.classList.remove('text-rose-700', 'font-bold', 'pl-1');
-                        a.classList.add('text-slate-600');
-                      }
-                    });
-                  }
-                });
-              },
-              { rootMargin: '-80px 0px -70% 0px' }
-            );
-
-            headings.forEach((h2, idx) => {
-              if (!h2.id) {
-                h2.id = `section-${idx + 1}-${h2.textContent?.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30) || 'sec'}`;
-              }
-              observer.observe(h2);
-
-              const li = document.createElement('li');
-              const a = document.createElement('a');
-              a.href = `#${h2.id}`;
-              a.textContent = h2.textContent?.trim() || `Section ${idx + 1}`;
-              a.className = 'text-slate-600 hover:text-rose-700 transition-all block truncate';
-              a.addEventListener('click', (e) => {
-                e.preventDefault();
-                h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                window.history.pushState(null, '', `#${h2.id}`);
-              });
-              li.appendChild(a);
-              tocList.appendChild(li);
-            });
-          }
-        }
-
-        // 3. Relocate DeepTrace Widget into In-Article Anchor if present
-        const deeptraceWidget = document.querySelector('.deeptrace-widget');
-        const customSlot = document.querySelector('#deeptrace-scanner-slot, .deeptrace-scanner-slot');
-        if (deeptraceWidget && customSlot) {
-          customSlot.replaceWith(deeptraceWidget);
-        }
-
-        // 4. Responsive Table Handling
-        const articleTables = article?.querySelectorAll('table');
-        articleTables?.forEach((table) => {
-          if (!table.parentElement?.classList.contains('table-scroll-wrapper')) {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'table-scroll-wrapper overflow-x-auto my-6 border border-slate-300 bg-white';
-            table.parentNode?.insertBefore(wrapper, table);
-            wrapper.appendChild(table);
-          }
-        });
-      });
-    </script>
 
     <Footer />
     <MobileStickyCTA offerType={endorsementType} />
