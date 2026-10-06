@@ -1,0 +1,36 @@
+# FlirtCheck — Forensic Dating Intelligence & Safety Desk
+
+> Independent forensic intelligence, romance scam investigations, profile authenticity telemetry, and digital dating safety protocols.
+
+## Overview & Methodology
+- [About the Forensic Desk](https://flirtcheck.site/about): Research methodology, evidentiary standards, and investigative framework.
+- [Arthur Vance — Lead Forensic Desk](https://flirtcheck.site/desk): Editorial standards, OSINT background, and investigative profile.
+- [Independence & Disclosure Protocol](https://flirtcheck.site/terms): Independence charter, affiliate disclosure, and data privacy commitments.
+
+## Interactive Verification Tools & City Radars
+- [DeepTrace Profile & Match Scanner](https://flirtcheck.site/deeptrace): Real-time profile authenticity and bot detection diagnostics.
+- [Romance Scam Risk Calculator](https://flirtcheck.site/calculator): Algorithmic threat assessment scoring financial and extortion risks.
+- [Metropolitan Dating Safety Directory](https://flirtcheck.site/safety): Regional bot densities and meeting protocols across New York, London, Los Angeles, Toronto, Sydney, Miami, Chicago, and Austin.
+
+## Core Investigations & Research Dossiers
+
+### 1. Scam Detection & Forensic Telemetry
+- [How to Spot Catfish Using OSINT & AI Verification](https://flirtcheck.site/how-to-spot-catfish-osint-ai): Step-by-step metadata, reverse image lookups, and visual forensic steps.
+- [7 Crypto Romance Scam Red Flags](https://flirtcheck.site/7-crypto-romance-scam-red-flags-that-steal-millions-from-singles-): Telemetry on pig butchering syndicates and WhatsApp pivot techniques.
+- [Pig Butchering Scam: The 2026 Survival Guide](https://flirtcheck.site/pig-butchering-scam-dating-apps-2026s-ultimate-survival-guide): Manipulation timelines, psychological grooming phases, and recovery steps.
+- [Tinder Verification Checkmark: How Bot Farms Bypass Checks](https://flirtcheck.site/fake-verification-checkmark-trap-how-bots-bypass-tinder-checks): Analysis of biometric spoofing and automated account farms.
+- [Deepfake Voice Notes on Dating Apps](https://flirtcheck.site/deepfake-voice-notes-dating-apps-cloned-audio-false-trust): Cloned vocal analysis and conversational latency detection.
+- [The 48-Hour WhatsApp Pivot Funnel Anatomy](https://flirtcheck.site/the-48-hour-whatsapp-move-crypto-dating-funnel-anatomy): Why fraudsters migrate conversation off-platform within 72 hours.
+- [Anti-Extortion Playbook: Media Privacy & Blackmail Protection](https://flirtcheck.site/anti-extortion-playbook-protecting-privacy-compromising-media): Operational security protocols for digital blackmail attempts.
+
+### 2. Dating App Algorithms & Profile Telemetry
+- [Tinder ELO Algorithm & Ranking Mechanics (2026 Truth)](https://flirtcheck.site/tinder-elo-algorithm-2026-ranking-reset-the-truth-the-myths-and-t): Empirical score decay, queue distribution, and reset dynamics.
+- [Hinge Most Compatible Algorithm Backend Analysis](https://flirtcheck.site/hinge-most-compatible-algorithm-backend-telemetry): Gale-Shapley matching variations and standout visibility tiers.
+- [Optimal Photo Order: The Psychological Anchor Rule](https://flirtcheck.site/optimal-photo-order-dating-apps-the-psychological-anchor-rule): Eye-tracking patterns and micro-expression bounce rates.
+- [How Dating Algorithms Rank Matches by Facial Symmetry](https://flirtcheck.site/how-dating-algorithms-rank-matches-by-facial-symmetry): Machine vision heuristics in modern swiping ecosystems.
+
+### 3. Communication Analysis & Interaction Testing
+- [Hinge Opening Lines with 85% Reply Rates](https://flirtcheck.site/hinge-opening-lines-that-get-85-reply-rates-data-backed-strategie): Pattern interrupts versus generic polite greetings.
+- [Signs Your Match is Using ChatGPT to Text You](https://flirtcheck.site/signs-your-match-is-using-chatgpt-to-text-you): Stylistic consistency indicators, LLM punctuation habits, and cadence gaps.
+- [The Ten-Second Text Rule: Response Latency as Intent Signal](https://flirtcheck.site/the-ten-second-text-rule-how-responses-reveal-intent): Quantitative response timing vs. emotional investment.
+- [Reviving Stalled Conversations with Low-Pressure Openers](https://flirtcheck.site/reviving-stalled-conversations-low-pressure-openers): Conversational defibrillators without needy framing.

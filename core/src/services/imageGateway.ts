@@ -95,9 +95,11 @@ export class ImageGateway {
     let responseData: any = null;
 
     try {
+      const trimmedPrompt = prompt.trim();
+      const safePrompt = trimmedPrompt.length > 780 ? trimmedPrompt.substring(0, 777) + '...' : trimmedPrompt;
       const res = await axios.post(
         flux2Url,
-        { prompt: prompt.trim() },
+        { prompt: safePrompt },
         {
           headers: {
             Authorization: `Bearer ${apiKey}`,

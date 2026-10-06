@@ -5,6 +5,9 @@ Disallow: /api/
 Disallow: /dashboard/
 Disallow: /go
 
-# Search Engine Directives
+# Search Engine & AI Agent Directives
 Sitemap: https://flirtcheck.site/sitemap-index.xml
 Host: https://flirtcheck.site
+
+# LLM & Agent Knowledge Manifest
+# See https://flirtcheck.site/llms.txt for machine-readable context

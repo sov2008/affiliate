@@ -316,9 +316,13 @@ export class ImageGeneratorService {
     const fluxUrl = 'https://ai.api.nvidia.com/v1/genai/black-forest-labs/flux.2-klein-4b';
     console.log(`⚡ [ImageGenerator] Invoking NVIDIA NIM FLUX.2-klein-4b...`);
 
+    // NVIDIA NIM FLUX.2 strict constraint: prompt must not exceed 800 characters
+    const trimmedPrompt = prompt.trim();
+    const safePrompt = trimmedPrompt.length > 780 ? trimmedPrompt.substring(0, 777) + '...' : trimmedPrompt;
+
     const response = await axios.post(
       fluxUrl,
-      { prompt },
+      { prompt: safePrompt },
       {
         headers: {
           Authorization: `Bearer ${apiKey}`,

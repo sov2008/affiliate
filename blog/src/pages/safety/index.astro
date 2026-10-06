@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CITIES_DATA } from '../../data/citiesData';
+
+export const prerender = true;
+
+const siteUrl = 'https://flirtcheck.site';
+const canonicalUrl = `${siteUrl}/safety/`;
+
+const hubSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "headline": "Tier-1 Metropolitan Dating Safety & Romance Fraud Radars (2026)",
+  "description": "Metropolitan-level forensic intelligence dossiers examining dating app bot rates, catfish rings, and public date safety protocols across top US, UK, Canadian, and Australian cities.",
+  "url": canonicalUrl,
+  "inLanguage": "en-US",
+  "publisher": {
+    "@type": "Organization",
+    "name": "FlirtCheck Independent Forensics",
+    "url": siteUrl
+  }
+};
+---
+
+<BaseLayout
+  title="Metropolitan Dating Safety & Bot Risk Radars // FlirtCheck Bureau"
+  description="Explore forensic dating safety dossiers across New York, London, Los Angeles, Toronto, Sydney, Miami, Chicago, and Austin. Local bot rates and verified meeting protocols."
+  canonicalUrl={canonicalUrl}
+  schemas={[hubSchema]}
+>
+  <div class="max-w-4xl mx-auto space-y-10">
+    
+    {/* Nav Header */}
+    <nav aria-label="Breadcrumbs" class="font-mono text-xs text-slate-500 flex items-center gap-2">
+      <a href="/" class="hover:text-slate-900 transition-colors uppercase">Home</a>
+      <span>/</span>
+      <span class="text-slate-900 font-bold uppercase">Safety Hub</span>
+    </nav>
+
+    {/* Section Header */}
+    <header class="border-b-2 border-slate-900 pb-6">
+      <div class="inline-flex items-center gap-2 border border-slate-900 bg-amber-100 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-slate-900 mb-3 shadow-[2px_2px_0px_0px_#0f172a]">
+        <span class="w-2 h-2 rounded-full bg-rose-600 animate-pulse"></span>
+        METROPOLITAN SURVEILLANCE DIRECTORY // 2026 AUDIT
+      </div>
+      <h1 class="font-serif font-black text-3xl sm:text-5xl text-slate-900 tracking-tight leading-tight">
+        Tier-1 City Dating Safety & Bot Radars
+      </h1>
+      <p class="font-sans text-base sm:text-lg text-slate-700 mt-3 max-w-2xl leading-relaxed">
+        Localized telemetry analyzing romance fraud syndicates, synthetic profiles, and certified public meeting protocols across major metropolitan hubs.
+      </p>
+    </header>
+
+    {/* Cities Grid */}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {CITIES_DATA.map((city) => (
+        <article class="bg-white border-2 border-slate-900 p-6 shadow-[5px_5px_0px_0px_#0f172a] flex flex-col justify-between hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[7px_7px_0px_0px_#0f172a] transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-bold px-2 py-0.5 bg-slate-100 border border-slate-900 text-slate-800">
+                {city.countryCode} // {city.stateOrRegion}
+              </span>
+              <span class={`font-mono text-[11px] font-bold px-2 py-0.5 border ${
+                city.estimatedCatfishRisk === 'CRITICAL'
+                  ? 'bg-rose-100 text-rose-800 border-rose-300'
+                  : city.estimatedCatfishRisk === 'HIGH'
+                  ? 'bg-amber-100 text-amber-800 border-amber-300'
+                  : 'bg-emerald-100 text-emerald-800 border-emerald-300'
+              }`}>
+                {city.estimatedCatfishRisk} RISK
+              </span>
+            </div>
+
+            <h2 class="font-serif font-black text-2xl text-slate-900 leading-snug">
+              <a href={`/safety/${city.slug}/`} class="hover:text-rose-700 transition-colors">
+                {city.cityName}
+              </a>
+            </h2>
+
+            <div class="mt-3 space-y-1.5 font-mono text-xs text-slate-600">
+              <div class="flex justify-between border-b border-slate-100 pb-1">
+                <span>Bot Density:</span>
+                <strong class="text-rose-600">{city.botDensityRate}</strong>
+              </div>
+              <div class="flex justify-between border-b border-slate-100 pb-1">
+                <span>Top Threat:</span>
+                <strong class="text-slate-800 truncate max-w-[200px]" title={city.primaryScamVector}>
+                  {city.primaryScamVector}
+                </strong>
+              </div>
+            </div>
+
+            <p class="font-sans text-xs text-slate-600 mt-3 line-clamp-3 leading-relaxed">
+              {city.forensicOverview}
+            </p>
+          </div>
+
+          <div class="pt-5 mt-4 border-t border-slate-200">
+            <a
+              href={`/safety/${city.slug}/`}
+              class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-rose-700 text-white font-mono font-bold text-xs uppercase tracking-wider transition-colors"
+            >
+              <span>Examine {city.cityName} Radar</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    {/* Footer Interlinking Banner */}
+    <div class="bg-[#FAF7F2] border-2 border-slate-900 p-6 text-center space-y-3">
+      <span class="font-mono text-xs uppercase font-bold text-slate-500">
+        [ CLIENT-SIDE FORENSIC TOOLKIT ]
+      </span>
+      <h3 class="font-serif font-bold text-xl text-slate-900">
+        Analyze Suspicious Messages From Any Region
+      </h3>
+      <p class="font-sans text-xs text-slate-600 max-w-xl mx-auto">
+        Running dates in a city not listed above? Use our standalone tools to audit chat screenshots or evaluate communication pacing in zero-retention memory.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+        <a
+          href="/deeptrace"
+          class="px-5 py-2.5 bg-white border-2 border-slate-900 font-mono text-xs font-bold uppercase text-slate-900 hover:bg-slate-100"
+        >
+          Open DeepTrace™ Scanner ↗
+        </a>
+        <a
+          href="/calculator"
+          class="px-5 py-2.5 bg-slate-900 text-white font-mono text-xs font-bold uppercase hover:bg-slate-800"
+        >
+          Romance Fraud Calculator ↗
+        </a>
+      </div>
+    </div>
+
+  </div>
+</BaseLayout>

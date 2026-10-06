@@ -250,7 +250,7 @@ const {
             href="/go?offer=onlinesim&trigger=deeptrace_dossier&sub1=deeptrace_widget"
             rel="nofollow sponsored"
             target="_blank"
-            class="min-h-[44px] flex items-center justify-center text-center px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-xs uppercase tracking-wider transition-colors shadow-none"
+            class="deeptrace-action-link min-h-[44px] flex items-center justify-center text-center px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-xs uppercase tracking-wider transition-colors shadow-none"
           >
             Deploy Virtual SIM Shield (OnlineSim) ↗
           </a>
@@ -258,7 +258,7 @@ const {
             href="/go?offer=elitedate&trigger=deeptrace_dossier&sub1=deeptrace_widget"
             rel="nofollow sponsored"
             target="_blank"
-            class="min-h-[44px] flex items-center justify-center text-center px-4 py-2.5 bg-white hover:bg-[#FAF7F2] text-slate-900 border border-slate-300 font-mono font-bold text-xs uppercase tracking-wider transition-colors shadow-none"
+            class="deeptrace-action-link min-h-[44px] flex items-center justify-center text-center px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white border-2 border-slate-900 font-mono font-bold text-xs uppercase tracking-wider transition-colors shadow-none"
           >
             Verify Profile Credentials (EliteDate) ↗
           </a>
@@ -322,6 +322,32 @@ const {
 
       let selectedFileDataUrl: string | null = null;
       let selectedFileName: string | null = null;
+
+      // Manage CID attribution
+      let cid = '';
+      try {
+        cid = sessionStorage.getItem('flirtcheck_cid') || '';
+        if (!cid) {
+          cid = 'fc_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
+          sessionStorage.setItem('flirtcheck_cid', cid);
+        }
+      } catch {
+        cid = 'fc_' + Date.now().toString(36);
+      }
+
+      const actionLinks = widget.querySelectorAll<HTMLAnchorElement>('.deeptrace-action-link, a[href*="/go"]');
+      actionLinks.forEach((link) => {
+        if (!link.dataset.cidBound) {
+          link.dataset.cidBound = 'true';
+          try {
+            const url = new URL(link.href, window.location.origin);
+            url.searchParams.set('cid', cid);
+            link.href = url.toString();
+          } catch {
+            link.href += `&cid=${encodeURIComponent(cid)}`;
+          }
+        }
+      });
 
       // Print PDF handler
       if (printBtn) {

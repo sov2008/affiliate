@@ -221,10 +221,11 @@ const calculatorSchema = {
 
           <!-- Official Verification CTA Button -->
           <a
+            id="calculatorVerdictCta"
             href="/go?source=calculator&trigger=verdict_cta&intent=verified_portal"
             rel="nofollow sponsored"
             target="_blank"
-            class="min-h-[44px] w-full flex items-center justify-center text-center px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-xs uppercase tracking-wider transition-colors shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+            class="min-h-[44px] w-full flex items-center justify-center text-center px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-mono font-bold text-xs uppercase tracking-wider transition-colors shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
           >
             Run Deep Profile Verification ↗
           </a>
@@ -274,11 +275,22 @@ const calculatorSchema = {
     const riskBadge = document.getElementById('riskBadge');
     const statusDot = document.getElementById('statusDot');
     const recList = document.getElementById('recommendationList');
+    const verdictCta = document.getElementById('calculatorVerdictCta') as HTMLAnchorElement | null;
+
+    // Manage CID attribution
+    let cid = '';
+    try {
+      cid = sessionStorage.getItem('flirtcheck_cid') || '';
+      if (!cid) {
+        cid = 'fc_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
+        sessionStorage.setItem('flirtcheck_cid', cid);
+      }
+    } catch {
+      cid = 'fc_' + Date.now().toString(36);
+    }
 
     function calculateRisk() {
       let sum = 0;
-      const maxPossible = 195; // 35 + 35 + 35 + 50 + 25 + bonus
-
       radios.forEach((r) => {
         if (r.checked) {
           sum += parseInt(r.value, 10) || 0;
@@ -306,6 +318,10 @@ const calculatorSchema = {
             <li>Keep communication on the dating platform until you have met in person.</li>
           `;
         }
+        if (verdictCta) {
+          verdictCta.textContent = 'Connect With 100% ID-Verified Singles ↗';
+          verdictCta.className = 'min-h-[44px] w-full flex items-center justify-center text-center px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-mono font-bold text-xs uppercase tracking-wider transition-colors shadow-none';
+        }
       } else if (pct <= 60) {
         if (riskBadge) {
           riskBadge.textContent = 'MODERATE RISK // ANOMALIES FLAGGED';
@@ -321,6 +337,10 @@ const calculatorSchema = {
             <li>Execute a reverse image search on Google Lens and PimEyes to verify photo ownership.</li>
           `;
         }
+        if (verdictCta) {
+          verdictCta.textContent = 'Verify Match via Shielded Singles Portal ↗';
+          verdictCta.className = 'min-h-[44px] w-full flex items-center justify-center text-center px-4 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-mono font-bold text-xs uppercase tracking-wider transition-colors shadow-none';
+        }
       } else {
         if (riskBadge) {
           riskBadge.textContent = 'CRITICAL FRAUD SIGNATURE // HIGH RISK';
@@ -335,6 +355,21 @@ const calculatorSchema = {
             <li><strong>IMMEDIATE ACTION:</strong> Cease communication, capture unedited screenshots of chat logs, and block account.</li>
             <li><strong>NEVER SEND FUNDS:</strong> Do not download third-party trading apps, send cryptocurrency, or wire funds under any pretext.</li>
           `;
+        }
+        if (verdictCta) {
+          verdictCta.textContent = 'Exit Unverified App // Enter Shielded Network ↗';
+          verdictCta.className = 'min-h-[44px] w-full flex items-center justify-center text-center px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-mono font-bold text-xs uppercase tracking-wider transition-colors shadow-none';
+        }
+      }
+
+      // Bind CID to verdict link
+      if (verdictCta && cid) {
+        try {
+          const url = new URL(verdictCta.href, window.location.origin);
+          url.searchParams.set('cid', cid);
+          verdictCta.href = url.toString();
+        } catch {
+          verdictCta.href += `&cid=${encodeURIComponent(cid)}`;
         }
       }
     }

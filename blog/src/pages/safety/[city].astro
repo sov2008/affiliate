@@ -1,0 +1,259 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DeepTraceScannerWidget from '../../components/DeepTraceScannerWidget.astro';
+import DatingSmartlinkCTA from '../../components/DatingSmartlinkCTA.astro';
+import { CITIES_DATA, type CityDatingSafetyProfile } from '../../data/citiesData';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return CITIES_DATA.map((city) => ({
+    params: { city: city.slug },
+    props: { city },
+  }));
+}
+
+interface Props {
+  city: CityDatingSafetyProfile;
+}
+
+const { city } = Astro.props;
+
+const siteUrl = 'https://flirtcheck.site';
+const canonicalUrl = `${siteUrl}/safety/${city.slug}/`;
+
+const citySchema = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": `${city.cityName} Dating Safety, Bot Rates & Catfish Risk Radar (2026 Telemetry)`,
+  "description": `Comprehensive forensic audit of online dating risks in ${city.cityName}, ${city.stateOrRegion}. Bot density: ${city.botDensityRate}. Verified safe public date venues and scam detection protocols.`,
+  "url": canonicalUrl,
+  "inLanguage": "en-US",
+  "author": {
+    "@type": "Person",
+    "name": "Arthur Vance",
+    "jobTitle": "Lead Forensic Desk",
+    "url": `${siteUrl}/desk`
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "FlirtCheck Independent Forensics",
+    "url": siteUrl
+  },
+  "contentLocation": {
+    "@type": "City",
+    "name": city.cityName,
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": city.stateOrRegion,
+      "addressCountry": city.country
+    }
+  }
+};
+
+const breadcrumbsSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": siteUrl
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Safety Hub",
+      "item": `${siteUrl}/safety/`
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": city.cityName,
+      "item": canonicalUrl
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title={`${city.cityName} Dating Safety & Bot Risk Radar 2026 // FlirtCheck Bureau`}
+  description={`Forensic analysis of online dating hazards in ${city.cityName}: ${city.botDensityRate} bot rate, ${city.primaryScamVector}, and certified public date locations.`}
+  canonicalUrl={canonicalUrl}
+  schemas={[citySchema, breadcrumbsSchema]}
+>
+  <div class="max-w-4xl mx-auto space-y-10">
+    
+    {/* Breadcrumbs Navigation */}
+    <nav aria-label="Breadcrumbs" class="font-mono text-xs text-slate-500 flex items-center gap-2">
+      <a href="/" class="hover:text-slate-900 transition-colors uppercase">Home</a>
+      <span>/</span>
+      <a href="/safety/" class="hover:text-slate-900 transition-colors uppercase">Safety Hub</a>
+      <span>/</span>
+      <span class="text-slate-900 font-bold uppercase">{city.cityName}</span>
+    </nav>
+
+    {/* Dossier Header Strip */}
+    <header class="border-b-2 border-slate-900 pb-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100 border border-slate-900 font-mono text-[11px] font-bold uppercase text-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
+          <span class="w-2 h-2 rounded-full bg-rose-600 animate-pulse"></span>
+          GEO-TELEMETRY DOSSIER // {city.countryCode}
+        </span>
+        <span class="font-mono text-xs text-slate-600">
+          SURVEILLANCE CYCLE: 2026.Q4 · REVISED AUDIT
+        </span>
+      </div>
+
+      <h1 class="font-serif font-black text-3xl sm:text-5xl text-slate-900 tracking-tight leading-tight">
+        {city.cityName} Dating Safety & Romance Fraud Radar
+      </h1>
+      <p class="font-sans text-base sm:text-lg text-slate-700 mt-3 leading-relaxed">
+        Forensic intelligence report evaluating dating app syndicates, synthetic profiles, and physical date protocols across {city.cityName}, {city.stateOrRegion}.
+      </p>
+    </header>
+
+    {/* Metric Telemetry Grid */}
+    <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="bg-white p-5 border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
+        <span class="font-mono text-[10px] uppercase font-bold text-slate-500 block">
+          ESTIMATED BOT DENSITY
+        </span>
+        <span class="font-serif font-black text-3xl text-rose-600 mt-1 block">
+          {city.botDensityRate}
+        </span>
+        <p class="text-xs text-slate-600 font-sans mt-2">
+          Anomalous accounts exhibiting automated API swiping and conversational scripts.
+        </p>
+      </div>
+
+      <div class="bg-white p-5 border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
+        <span class="font-mono text-[10px] uppercase font-bold text-slate-500 block">
+          THREAT ASSESSMENT LEVEL
+        </span>
+        <span class="font-serif font-black text-3xl text-slate-900 mt-1 block">
+          {city.estimatedCatfishRisk}
+        </span>
+        <p class="text-xs text-slate-600 font-sans mt-2">
+          Synthesis of synthetic avatar usage, cross-border funneling, and financial fraud frequency.
+        </p>
+      </div>
+
+      <div class="bg-white p-5 border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a]">
+        <span class="font-mono text-[10px] uppercase font-bold text-slate-500 block">
+          APP ECOSYSTEM DISTRIBUTION
+        </span>
+        <div class="mt-2 space-y-1 font-mono text-xs text-slate-800 font-bold">
+          <div class="flex justify-between"><span>Hinge:</span><span>{city.regionalAppSplit.hingeShare}</span></div>
+          <div class="flex justify-between"><span>Tinder:</span><span>{city.regionalAppSplit.tinderShare}</span></div>
+          <div class="flex justify-between"><span>Bumble:</span><span>{city.regionalAppSplit.bumbleShare}</span></div>
+        </div>
+      </div>
+    </section>
+
+    {/* Primary Threat Analysis */}
+    <section class="bg-[#FFFDF9] border-2 border-slate-900 p-6 sm:p-8 shadow-[6px_6px_0px_0px_#0f172a] space-y-4">
+      <div class="flex items-center gap-2 border-b border-slate-300 pb-3">
+        <span class="font-mono text-xs font-bold text-rose-700 uppercase tracking-wider">
+          [ PRIMARY REGIONAL THREAT VECTOR ]
+        </span>
+      </div>
+      <h2 class="font-serif font-black text-2xl text-slate-900">
+        {city.primaryScamVector}
+      </h2>
+      <p class="font-sans text-sm sm:text-base text-slate-700 leading-relaxed">
+        {city.forensicOverview}
+      </p>
+
+      <div class="pt-4 border-t border-slate-200">
+        <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-900 mb-2">
+          Observed Behavioral Anomalies in {city.cityName}:
+        </h3>
+        <ul class="space-y-2 text-xs sm:text-sm text-slate-700 font-sans list-disc list-inside">
+          {city.behavioralSignals.map((signal) => (
+            <li class="leading-relaxed">{signal}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    {/* Recommended Safe Public Meeting Venues */}
+    <section class="space-y-4">
+      <div class="border-b-2 border-slate-900 pb-2">
+        <h2 class="font-serif font-black text-2xl text-slate-900">
+          Certified Public Meeting Protocols in {city.cityName}
+        </h2>
+        <p class="text-xs text-slate-600 font-sans mt-1">
+          Always schedule preliminary in-person meetings at high-density daylight locations with multiple egress routes.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {city.recommendedPublicVenues.map((venue, idx) => (
+          <div class="bg-white border-2 border-slate-900 p-5 shadow-[4px_4px_0px_0px_#0f172a] flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[10px] font-bold px-2 py-0.5 bg-slate-100 text-slate-800 border border-slate-900">
+                  PROTOCOL 0{idx + 1}
+                </span>
+                <span class="font-mono text-[10px] text-slate-500 font-medium">
+                  {venue.neighborhood}
+                </span>
+              </div>
+              <h3 class="font-serif font-bold text-base text-slate-900 leading-snug">
+                {venue.name}
+              </h3>
+            </div>
+            <p class="text-xs text-slate-600 font-sans mt-3 border-t border-slate-100 pt-2 leading-relaxed">
+              {venue.whySafe}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Embedded Interactive Match Screen Widget */}
+    <section class="pt-6">
+      <DeepTraceScannerWidget
+        headline={`Audit Your ${city.cityName} Match Screenshots`}
+        subheadline={`Before sharing phone numbers or booking dates in ${city.cityName}, drop your chat screenshots below to run our automated neural integrity scan.`}
+        caseRef={`GEO-${city.countryCode}-${city.slug.toUpperCase()}`}
+      />
+    </section>
+
+    {/* Verified Singles CTA */}
+    <section>
+      <DatingSmartlinkCTA
+        title={`Connect With ID-Verified Singles in ${city.cityName}`}
+        subtitle={`Bypass automated bot farms and commercial catfishers. Join the regional network enforcing 100% photo authenticity and identity shielding.`}
+        offerUrl={`/go?source=geo_page&ref=${city.slug}&city=${city.slug}&intent=verified_singles`}
+      />
+    </section>
+
+    {/* Regulatory Assistance Card */}
+    <footer class="bg-slate-100 border border-slate-300 p-5 text-xs font-mono text-slate-700 space-y-2">
+      <div class="flex items-center justify-between">
+        <span class="font-bold uppercase text-slate-900">[ REGIONAL FRAUD REPORTING ]</span>
+        <span class="text-[10px] text-slate-500 uppercase">{city.country} JURISDICTION</span>
+      </div>
+      <p class="font-sans leading-relaxed">
+        If you suspect you have transferred funds to a romance scammer or are facing extortion in {city.cityName}, contact: <strong>{city.lawEnforcementContact.agency}</strong>.
+      </p>
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200">
+        <a
+          href={city.lawEnforcementContact.reportingUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-rose-700 hover:underline font-bold"
+        >
+          Official Complaint Filing Portal ↗
+        </a>
+        <span class="text-[11px] text-slate-600">
+          Tip: {city.lawEnforcementContact.emergencyAdvice}
+        </span>
+      </div>
+    </footer>
+
+  </div>
+</BaseLayout>
