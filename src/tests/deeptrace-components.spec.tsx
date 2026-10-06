@@ -38,7 +38,7 @@ function runComponentRenderTests() {
 
   // 4. DefenseActionPanel
   const defenseHtml = renderToStaticMarkup(<DefenseActionPanel report={mockHighRiskRomanceScamReport} />);
-  if (!defenseHtml.includes('Матрица активной защиты') || !defenseHtml.includes('Поделиться отчетом')) {
+  if (!defenseHtml.includes('Defense Matrix') || !defenseHtml.includes('Share Forensic Dossier')) {
     throw new Error('DefenseActionPanel failed to render defense matrix');
   }
   console.log('✅ DefenseActionPanel rendered successfully');
