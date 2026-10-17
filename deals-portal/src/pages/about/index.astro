@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout
+  title="How PromoRadar Verifies Coupons & Partner Transparency"
+  description="Learn how PromoRadar aggregates direct partner network feeds, tests checkout vouchers daily, and maintains 100% free access for shoppers."
+  activePath="/about"
+>
+  <Header activePath="/about" />
+
+  <main class="flex-1">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
+      
+      <!-- Page Header -->
+      <div class="text-center max-w-2xl mx-auto space-y-3.5">
+        <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
+          Verification &amp; Affiliate Transparency
+        </span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          How PromoRadar Verifies Every Coupon
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+          PromoRadar aggregates direct merchant feeds from accredited global affiliate networks and manually tests checkout vouchers daily so you never waste time on expired or fake promo codes.
+        </p>
+      </div>
+
+      <!-- 3-Step Process Bento Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-sm flex flex-col justify-between card-hover">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 font-extrabold flex items-center justify-center mb-4 text-sm">
+              01
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Direct Partner Feed Sync</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Vouchers, promo codes, and exclusive landing pages are synchronized directly from verified merchant advertisers with real-time expiration tracking.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-semibold text-indigo-600">
+            ✓ Automated daily API poll
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-sm flex flex-col justify-between card-hover">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 font-extrabold flex items-center justify-center mb-4 text-sm">
+              02
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Manual Checkout QA</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Every coupon card displays its live verification timestamp and shopper redemption counter. Non-working codes are flagged and archived automatically.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-semibold text-emerald-600">
+            ✓ 99%+ code success rate
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-sm flex flex-col justify-between card-hover">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 font-extrabold flex items-center justify-center mb-4 text-sm">
+              03
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">100% Free — Zero Signup</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              We earn a small referral commission from partner merchants when you complete an order. Your checkout price is never marked up—only discounted.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-semibold text-rose-600">
+            ✓ Zero user data collected
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-sm space-y-4">
+        <div class="mb-4">
+          <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Answers to Common Questions</span>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">Frequently Asked Questions</h2>
+        </div>
+
+        <!-- FAQ Item 1 -->
+        <div class="faq-item border border-slate-200 rounded-2xl overflow-hidden">
+          <button type="button" class="faq-trigger w-full px-5 py-4 text-left flex items-center justify-between font-bold text-sm text-slate-900 hover:bg-slate-50 transition">
+            <span>How does the click-to-reveal coupon modal work?</span>
+            <span class="faq-icon text-indigo-600 font-extrabold text-lg">−</span>
+          </button>
+          <div class="faq-content px-5 pb-4 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+            Clicking "Get Code" opens a modern modal containing the full voucher code with a 1-click clipboard copy button. At the same time, it provides the official verified partner link so your discount parameters are applied accurately at merchant checkout.
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="faq-item border border-slate-200 rounded-2xl overflow-hidden">
+          <button type="button" class="faq-trigger w-full px-5 py-4 text-left flex items-center justify-between font-bold text-sm text-slate-900 hover:bg-slate-50 transition">
+            <span>Are these promo codes completely free to use?</span>
+            <span class="faq-icon text-indigo-600 font-extrabold text-lg">+</span>
+          </button>
+          <div class="faq-content hidden px-5 pb-4 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+            Yes! Every coupon, promo code, and trial voucher on PromoRadar is 100% free. You never need to create an account, provide an email address, or pay any subscription fee.
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="faq-item border border-slate-200 rounded-2xl overflow-hidden">
+          <button type="button" class="faq-trigger w-full px-5 py-4 text-left flex items-center justify-between font-bold text-sm text-slate-900 hover:bg-slate-50 transition">
+            <span>What is the difference between a "Promo Code" and a "Direct Deal"?</span>
+            <span class="faq-icon text-indigo-600 font-extrabold text-lg">+</span>
+          </button>
+          <div class="faq-content hidden px-5 pb-4 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+            Merchant partner offers come in two forms: manual <strong>Promo Codes</strong> (which you copy and paste into a promo box in the cart) and <strong>Direct Deals</strong> where the discount (like 81% off 2-year VPN plans or a 100% free trial) is embedded directly inside the partner link without needing a code.
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="faq-item border border-slate-200 rounded-2xl overflow-hidden">
+          <button type="button" class="faq-trigger w-full px-5 py-4 text-left flex items-center justify-between font-bold text-sm text-slate-900 hover:bg-slate-50 transition">
+            <span>How do you handle expired promo codes?</span>
+            <span class="faq-icon text-indigo-600 font-extrabold text-lg">+</span>
+          </button>
+          <div class="faq-content hidden px-5 pb-4 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+            When an advertiser ends a campaign or coupon deadline passes, our system automatically moves the offer to the "Recently Expired" section on the brand page for long-tail transparency while keeping only 100% working codes in the main catalog.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+
+  <script is:inline>
+    document.querySelectorAll('.faq-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const content = item.querySelector('.faq-content');
+        const icon = item.querySelector('.faq-icon');
+        const isHidden = content.classList.contains('hidden');
+        content.classList.toggle('hidden');
+        icon.textContent = isHidden ? '−' : '+';
+      });
+    });
+  </script>
+</BaseLayout>

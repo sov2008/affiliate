@@ -1,0 +1,63 @@
+---
+import '../styles/global.css';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  activePath?: string;
+  schemas?: any[];
+}
+
+const {
+  title,
+  description,
+  canonicalUrl,
+  activePath = '/',
+  schemas = []
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://promoradar.store';
+const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-slate-50 text-slate-900 antialiased selection:bg-indigo-600 selection:text-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={fullCanonical} />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <meta name="theme-color" content="#4f46e5" />
+    <meta name="mitgo-verification" content="dcaf1a95-f2a7-42c8-b67f-4a463294ee43" />
+    <meta name="admitad-verification" content="fa9e3fd878" />
+    <meta name="mitgo-verification" content="fa9e3fd878" />
+
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- OpenGraph Metadata -->
+    <meta property="og:site_name" content="PromoRadar — Verified Promo Codes & Deals" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={fullCanonical} />
+
+    <!-- Google Analytics 4 (GA4) -->
+    <GoogleAnalytics measurementId="G-ZKTJYVZEPT" />
+
+    <!-- Structured Data -->
+    {schemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+  </head>
+  <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 overflow-x-hidden w-full font-sans">
+    <slot />
+  </body>
+</html>

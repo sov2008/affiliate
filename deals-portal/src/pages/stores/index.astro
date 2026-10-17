@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { STORES_DATA } from '../../data/couponsData';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout
+  title="Partner Stores Directory A–Z — PromoRadar (October 2026)"
+  description={`Browse all ${STORES_DATA.length} verified merchant stores and brands on PromoRadar. Find active coupons, redemption tips, and tested vouchers.`}
+  activePath="/stores"
+>
+  <Header activePath="/stores" />
+
+  <main class="flex-1">
+    <!-- Stores Directory Hero -->
+    <div class="bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-5">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Verified Partner Directory</span>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Browse Verified Stores &amp; Brands</h1>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1.5 max-w-2xl leading-relaxed">
+              Select any partner store below to open its dedicated brand profile with tested promo codes, store-specific checkout rules, and verified merchant affiliate links.
+            </p>
+          </div>
+          <div class="w-full md:w-72">
+            <input
+              id="storeDirectorySearch"
+              type="text"
+              placeholder="Filter stores by name..."
+              class="w-full px-4 py-2.5 text-sm bg-slate-100 focus:bg-white rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition"
+            />
+          </div>
+        </div>
+
+        <!-- Alphabet Bar -->
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-6" id="alphaFilterBar">
+          <button type="button" data-range="ALL" class="alpha-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow-sm transition">
+            All Stores ({STORES_DATA.length})
+          </button>
+          <button type="button" data-range="A-E" class="alpha-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            A – E
+          </button>
+          <button type="button" data-range="F-M" class="alpha-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            F – M
+          </button>
+          <button type="button" data-range="N-S" class="alpha-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            N – S
+          </button>
+          <button type="button" data-range="T-Z" class="alpha-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            T – Z
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stores Directory Grid -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <div id="storesCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {STORES_DATA.map((store) => {
+          const initials = store.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+          return (
+            <div
+              class="store-dir-card bg-white rounded-2xl p-5 border border-slate-200/90 flex flex-col justify-between card-hover shadow-sm"
+              data-store-name={store.name.toLowerCase()}
+              data-initial={store.name.charAt(0).toUpperCase()}
+            >
+              <div>
+                <div class="flex items-start justify-between gap-3 mb-3.5">
+                  <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-600 to-rose-600 text-white font-extrabold text-base flex items-center justify-center shadow-sm">
+                      {initials}
+                    </div>
+                    <div>
+                      <h3 class="text-base font-extrabold text-slate-900 leading-snug">{store.name}</h3>
+                      <span class="text-[11px] text-slate-400 font-medium">{store.category}</span>
+                    </div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded-lg text-[10px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    Verified
+                  </span>
+                </div>
+                <p class="text-xs text-slate-600 leading-relaxed mb-5">
+                  {store.shortDesc}
+                </p>
+              </div>
+
+              <div class="pt-3.5 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-xs text-slate-500">
+                  Partner: <strong class="text-slate-800 font-semibold">Direct Feed</strong>
+                </span>
+                <a
+                  href={`${base}/stores/${store.slug}/`}
+                  class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-indigo-600 hover:text-white text-slate-800 text-xs font-bold transition-all shadow-sm"
+                >
+                  View All Deals →
+                </a>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+
+  <script is:inline>
+    const searchInput = document.getElementById('storeDirectorySearch');
+    const cards = Array.from(document.querySelectorAll('.store-dir-card'));
+    let activeRange = 'ALL';
+
+    function filterStores() {
+      const q = (searchInput?.value || '').toLowerCase().trim();
+      cards.forEach(card => {
+        const name = card.getAttribute('data-store-name') || '';
+        const initial = card.getAttribute('data-initial') || '';
+        let matchesRange = true;
+
+        if (activeRange === 'A-E') matchesRange = initial >= 'A' && initial <= 'E';
+        if (activeRange === 'F-M') matchesRange = initial >= 'F' && initial <= 'M';
+        if (activeRange === 'N-S') matchesRange = initial >= 'N' && initial <= 'S';
+        if (activeRange === 'T-Z') matchesRange = initial >= 'T' && initial <= 'Z';
+
+        const matchesQuery = !q || name.includes(q);
+        if (matchesRange && matchesQuery) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    searchInput?.addEventListener('input', filterStores);
+
+    document.querySelectorAll('.alpha-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeRange = btn.getAttribute('data-range') || 'ALL';
+        document.querySelectorAll('.alpha-btn').forEach(b => {
+          if (b.getAttribute('data-range') === activeRange) {
+            b.className = 'alpha-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow-sm transition';
+          } else {
+            b.className = 'alpha-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition';
+          }
+        });
+        filterStores();
+      });
+    });
+  </script>
+</BaseLayout>

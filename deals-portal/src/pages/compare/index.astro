@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { STORES_DATA, COUPONS_DATA } from '../../data/couponsData';
+
+export const prerender = true;
+
+const comparisons = [
+  {
+    slug: 'expressvpn-vs-purevpn',
+    storeA: STORES_DATA.find(s => s.slug === 'expressvpn'),
+    storeB: STORES_DATA.find(s => s.slug === 'purevpn'),
+    tagline: 'Speed, Streaming Unblocks & Multi-Year Plan Pricing',
+    category: 'Privacy & Security'
+  },
+  {
+    slug: 'airalo-vs-allpowers',
+    storeA: STORES_DATA.find(s => s.slug === 'airalo'),
+    storeB: STORES_DATA.find(s => s.slug === 'allpowers'),
+    tagline: 'Digital Nomad Tech: Global eSIM vs Heavy Solar Generators',
+    category: 'Travel & Tours'
+  },
+  {
+    slug: 'keepersecurity-vs-qustodio',
+    storeA: STORES_DATA.find(s => s.slug === 'keepersecurity'),
+    storeB: STORES_DATA.find(s => s.slug === 'qustodio'),
+    tagline: 'Zero-Knowledge Vaults vs Comprehensive Parental Control',
+    category: 'Privacy & Security'
+  },
+  {
+    slug: 'chicme-vs-vogacloset',
+    storeA: STORES_DATA.find(s => s.slug === 'chicme'),
+    storeB: STORES_DATA.find(s => s.slug === 'vogacloset'),
+    tagline: 'Global Fast Fashion Trends vs European Designer Collections',
+    category: 'Fashion & Apparel'
+  },
+  {
+    slug: 'alibaba-vs-thedealoutlet',
+    storeA: STORES_DATA.find(s => s.slug === 'alibaba'),
+    storeB: STORES_DATA.find(s => s.slug === 'thedealoutlet'),
+    tagline: 'B2B Wholesale Bulk Savings vs Premium Department Markdowns',
+    category: 'E-Commerce & Wholesale'
+  },
+  {
+    slug: 'vperfumes-vs-jashanmal',
+    storeA: STORES_DATA.find(s => s.slug === 'vperfumes'),
+    storeB: STORES_DATA.find(s => s.slug === 'jashanmal'),
+    tagline: 'Authentic GCC Oud & Fragrances vs Luxury Department Goods',
+    category: 'Beauty & Fragrances'
+  }
+];
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout
+  title="Brand Comparisons & Head-to-Head Discount Vouchers — PromoRadar"
+  description="Compare top verified partner brands side by side. Discover which service offers the best discount, feature set, and promo codes for October 2026."
+  activePath="/compare/"
+>
+  <Header />
+
+  <main class="flex-1">
+    <!-- Header -->
+    <div class="bg-gradient-to-b from-indigo-950 via-slate-900 to-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
+      <div class="max-w-4xl mx-auto text-center space-y-3.5">
+        <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
+          Smart Buyer Guides
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
+          Brand Comparisons &amp; Deal Showdowns
+        </h1>
+        <p class="text-slate-300 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed">
+          Deciding between top services? Compare checkout pricing, exclusive vouchers, and real customer ratings to find the right deal.
+        </p>
+      </div>
+    </div>
+
+    <!-- Comparisons Grid -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {comparisons.map(item => (
+          <div class="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm flex flex-col justify-between card-hover space-y-6">
+            <div class="space-y-4">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-100 text-slate-700">
+                {item.category}
+              </span>
+              <h2 class="text-xl font-extrabold text-slate-900 leading-snug">
+                {item.storeA?.name} <span class="text-indigo-600">vs</span> {item.storeB?.name}
+              </h2>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                {item.tagline}
+              </p>
+            </div>
+
+            <a
+              href={`${base}/compare/${item.slug}/`}
+              class="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs text-center block transition shadow-sm"
+            >
+              Compare Deals &amp; Vouchers →
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

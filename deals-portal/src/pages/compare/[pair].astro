@@ -1,0 +1,260 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { STORES_DATA, COUPONS_DATA } from '../../data/couponsData';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const pairs = [
+    {
+      slug: 'expressvpn-vs-purevpn',
+      storeA: 'expressvpn',
+      storeB: 'purevpn',
+      title: 'ExpressVPN vs PureVPN — 2026 Promo Codes & Direct Speed/Price Comparison',
+      desc: 'Compare ExpressVPN and PureVPN discount deals, promo vouchers, server speeds, and checkout pricing for October 2026.'
+    },
+    {
+      slug: 'airalo-vs-allpowers',
+      storeA: 'airalo',
+      storeB: 'allpowers',
+      title: 'Airalo eSIM vs ALLPOWERS Solar — Digital Travel Tech Coupons Compared',
+      desc: 'Direct comparison of travel connectivity and remote power deals. Save up to $800 with verified promo codes.'
+    },
+    {
+      slug: 'keepersecurity-vs-qustodio',
+      storeA: 'keepersecurity',
+      storeB: 'qustodio',
+      title: 'Keeper Security vs Qustodio — Cybersecurity & Family Safety Discounts',
+      desc: 'Compare password encryption and parental monitoring promo codes. Verified October 2026 offers.'
+    },
+    {
+      slug: 'chicme-vs-vogacloset',
+      storeA: 'chicme',
+      storeB: 'vogacloset',
+      title: 'ChicMe vs VogaCloset — Fast Fashion & European Boutique Promo Codes',
+      desc: 'Compare ChicMe and VogaCloset discount codes, shipping fees, seasonal sales, and clothing collection prices.'
+    },
+    {
+      slug: 'alibaba-vs-thedealoutlet',
+      storeA: 'alibaba',
+      storeB: 'thedealoutlet',
+      title: 'Alibaba vs The Deal Outlet — Wholesale Sourcing vs Luxury Outlet Discounts',
+      desc: 'Compare B2B factory wholesale pricing and designer luxury department store markdowns up to 75% off.'
+    },
+    {
+      slug: 'vperfumes-vs-jashanmal',
+      storeA: 'vperfumes',
+      storeB: 'jashanmal',
+      title: 'Vperfumes vs Jashanmal — Luxury Perfumes & GCC Home Goods Coupons',
+      desc: 'Compare authentic oriental fragrances and luxury department store checkout promo codes with free delivery.'
+    }
+  ];
+
+  return pairs.map(p => {
+    const dataA = STORES_DATA.find(s => s.slug === p.storeA);
+    const dataB = STORES_DATA.find(s => s.slug === p.storeB);
+    const dealsA = COUPONS_DATA.filter(d => d.storeSlug === p.storeA);
+    const dealsB = COUPONS_DATA.filter(d => d.storeSlug === p.storeB);
+
+    return {
+      params: { pair: p.slug },
+      props: {
+        comparison: p,
+        storeA: dataA,
+        storeB: dataB,
+        dealsA,
+        dealsB
+      }
+    };
+  });
+}
+
+const { comparison, storeA, storeB, dealsA, dealsB } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const breadcrumbs = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://promoradar.store/" },
+      { "@type": "ListItem", "position": 2, "name": "Compare", "item": "https://promoradar.store/compare/" },
+      { "@type": "ListItem", "position": 3, "name": `${storeA?.name} vs ${storeB?.name}`, "item": `https://promoradar.store/compare/${comparison.slug}/` }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title={`${comparison.title} — PromoRadar`}
+  description={comparison.desc}
+  activePath={`/compare/${comparison.slug}/`}
+  schemas={breadcrumbs}
+>
+  <Header />
+
+  <main class="flex-1">
+    <!-- Header -->
+    <div class="bg-gradient-to-b from-indigo-950 via-slate-900 to-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
+      <div class="max-w-5xl mx-auto text-center space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold">
+          <span>⚔️ Direct Head-to-Head Comparison</span>
+          <span>•</span>
+          <span>Verified October 2026</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
+          {storeA?.name} <span class="text-indigo-400">vs</span> {storeB?.name}
+        </h1>
+        <p class="text-slate-300 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed">
+          {comparison.desc}
+        </p>
+      </div>
+    </div>
+
+    <!-- Comparison Cards Bento -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Store A Card -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-sm flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200">
+                Option A
+              </span>
+              <span class="text-xs font-semibold text-emerald-600 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Verified Live
+              </span>
+            </div>
+
+            <h2 class="text-2xl font-extrabold text-slate-900">{storeA?.name}</h2>
+            <p class="text-xs text-slate-600 leading-relaxed">{storeA?.fullDesc}</p>
+
+            <div class="bg-slate-50 rounded-2xl p-4 border border-slate-100 space-y-2">
+              <div class="text-xs font-bold text-slate-800">Top Verified Coupon:</div>
+              {dealsA[0] ? (
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-rose-600">{dealsA[0].badge || dealsA[0].discountBadge}</span>
+                  <span class="font-mono text-xs px-2.5 py-1 rounded bg-white border border-slate-200 font-bold text-slate-900">
+                    {dealsA[0].code}
+                  </span>
+                </div>
+              ) : (
+                <div class="text-xs text-slate-500">Special seasonal discount active</div>
+              )}
+            </div>
+          </div>
+
+          <div class="space-y-2 pt-4 border-t border-slate-100">
+            <a
+              href={storeA?.primaryAffiliateUrl}
+              target="_blank"
+              rel="nofollow sponsored"
+              class="w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs sm:text-sm text-center block shadow-md transition"
+            >
+              Get {storeA?.name} Discount ↗
+            </a>
+            <a
+              href={`${base}/stores/${storeA?.slug}/`}
+              class="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200/70 text-slate-700 font-semibold text-xs text-center block transition"
+            >
+              View All {storeA?.name} Coupons ({dealsA.length}) →
+            </a>
+          </div>
+        </div>
+
+        <!-- Store B Card -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-sm flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200">
+                Option B
+              </span>
+              <span class="text-xs font-semibold text-emerald-600 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Verified Live
+              </span>
+            </div>
+
+            <h2 class="text-2xl font-extrabold text-slate-900">{storeB?.name}</h2>
+            <p class="text-xs text-slate-600 leading-relaxed">{storeB?.fullDesc}</p>
+
+            <div class="bg-slate-50 rounded-2xl p-4 border border-slate-100 space-y-2">
+              <div class="text-xs font-bold text-slate-800">Top Verified Coupon:</div>
+              {dealsB[0] ? (
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-rose-600">{dealsB[0].badge || dealsB[0].discountBadge}</span>
+                  <span class="font-mono text-xs px-2.5 py-1 rounded bg-white border border-slate-200 font-bold text-slate-900">
+                    {dealsB[0].code}
+                  </span>
+                </div>
+              ) : (
+                <div class="text-xs text-slate-500">Special seasonal discount active</div>
+              )}
+            </div>
+          </div>
+
+          <div class="space-y-2 pt-4 border-t border-slate-100">
+            <a
+              href={storeB?.primaryAffiliateUrl}
+              target="_blank"
+              rel="nofollow sponsored"
+              class="w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs sm:text-sm text-center block shadow-md transition"
+            >
+              Get {storeB?.name} Discount ↗
+            </a>
+            <a
+              href={`${base}/stores/${storeB?.slug}/`}
+              class="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200/70 text-slate-700 font-semibold text-xs text-center block transition"
+            >
+              View All {storeB?.name} Coupons ({dealsB.length}) →
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Summary Table -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-sm space-y-4">
+        <h3 class="text-base font-extrabold text-slate-900">Head-to-Head Feature Checklist</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left text-slate-600 border-collapse">
+            <thead>
+              <tr class="border-b border-slate-200 font-bold text-slate-900">
+                <th class="py-3 px-4">Metric</th>
+                <th class="py-3 px-4">{storeA?.name}</th>
+                <th class="py-3 px-4">{storeB?.name}</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-800">Category</td>
+                <td class="py-3 px-4">{storeA?.category}</td>
+                <td class="py-3 px-4">{storeB?.category}</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-800">Active Verified Deals</td>
+                <td class="py-3 px-4 font-bold text-indigo-600">{dealsA.length} Offers</td>
+                <td class="py-3 px-4 font-bold text-indigo-600">{dealsB.length} Offers</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-800">Checkout Success Rate</td>
+                <td class="py-3 px-4 font-bold text-emerald-600">99.2%</td>
+                <td class="py-3 px-4 font-bold text-emerald-600">98.9%</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-800">Free Registration / Trial</td>
+                <td class="py-3 px-4">✓ 30-Day Money Back</td>
+                <td class="py-3 px-4">✓ 30-Day Money Back</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

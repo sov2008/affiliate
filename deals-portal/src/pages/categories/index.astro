@@ -1,0 +1,191 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { COUPONS_DATA, STORES_DATA } from '../../data/couponsData';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const CATEGORIES = [
+  {
+    slug: 'privacy-security',
+    name: 'Privacy, VPN & Cybersecurity',
+    categoryName: 'Privacy & Security',
+    icon: '🛡',
+    desc: 'Military-grade VPNs, encrypted zero-knowledge password vaults, family screen time parental controls, and virtual phone numbers for instant SMS activation.',
+    maxDiscount: 'Up to 81% OFF',
+    stores: STORES_DATA.filter(s => s.category === 'Privacy & Security')
+  },
+  {
+    slug: 'dating-lifestyle',
+    name: 'Dating & Lifestyle Services',
+    categoryName: 'Dating & Lifestyle',
+    icon: '💬',
+    desc: 'Camera-verified dating platforms with priority compatibility scoring, anonymous stealth matching passes, and zero bot guarantees.',
+    maxDiscount: '100% Free VIP',
+    stores: STORES_DATA.filter(s => s.category === 'Dating & Lifestyle')
+  },
+  {
+    slug: 'fashion-apparel',
+    name: 'Fashion & Apparel',
+    categoryName: 'Fashion & Apparel',
+    icon: '👗',
+    desc: 'Worldwide on-trend women\'s fashion, seasonal dresses, swimwear, and footwear with stackable voucher discounts.',
+    maxDiscount: '12% OFF Code',
+    stores: STORES_DATA.filter(s => s.category === 'Fashion & Apparel')
+  },
+  {
+    slug: 'eyewear-health',
+    name: 'Eyewear & Optical Health',
+    categoryName: 'Eyewear & Health',
+    icon: '👓',
+    desc: 'Factory-direct prescription optical frames, anti-blue-light lenses, bifocals, and polarized sunglasses without retail markup.',
+    maxDiscount: '$8 OFF Voucher',
+    stores: STORES_DATA.filter(s => s.category === 'Eyewear & Health')
+  },
+  {
+    slug: 'travel-tours',
+    name: 'Travel, Desert Safaris & Tours',
+    categoryName: 'Travel & Tours',
+    icon: '✈️',
+    desc: 'UAE desert safaris, Dubai Marina luxury dhow dinner cruises, Burj Khalifa observation deck admissions, and global sightseeing excursions.',
+    maxDiscount: '20% OFF Booking',
+    stores: STORES_DATA.filter(s => s.category === 'Travel & Tours')
+  },
+  {
+    slug: 'ecommerce-wholesale',
+    name: 'E-Commerce & Department Stores',
+    categoryName: 'E-Commerce & Wholesale',
+    icon: '📦',
+    desc: 'Global B2B wholesale platforms, luxury department stores, and Trade Assurance factory-direct sourcing with voucher discounts.',
+    maxDiscount: 'Up to $20 OFF',
+    stores: STORES_DATA.filter(s => s.category === 'E-Commerce & Wholesale')
+  },
+  {
+    slug: 'electronics-gadgets',
+    name: 'Electronics & Portable Power',
+    categoryName: 'Electronics & Gadgets',
+    icon: '⚡',
+    desc: 'Emergency backup power stations, solar generators, smart wireless audio devices, and computer peripherals.',
+    maxDiscount: 'Up to 40% OFF',
+    stores: STORES_DATA.filter(s => s.category === 'Electronics & Gadgets')
+  },
+  {
+    slug: 'education-learning',
+    name: 'Education & Live Coding',
+    categoryName: 'Education & Learning',
+    icon: '🎓',
+    desc: 'Live interactive coding academy, Roblox game development, and digital arts for kids and teens with expert tutors.',
+    maxDiscount: '30% OFF Course',
+    stores: STORES_DATA.filter(s => s.category === 'Education & Learning')
+  },
+  {
+    slug: 'kids-toys',
+    name: 'Kids & Toys',
+    categoryName: 'Kids & Toys',
+    icon: '🧸',
+    desc: 'Top-rated educational toys, family board games, celebration gifts, and expedited gift wrapping delivery.',
+    maxDiscount: 'Up to 25% OFF',
+    stores: STORES_DATA.filter(s => s.category === 'Kids & Toys')
+  },
+  {
+    slug: 'beauty-fragrances',
+    name: 'Beauty & Luxury Fragrances',
+    categoryName: 'Beauty & Fragrances',
+    icon: '✨',
+    desc: '100% authentic French designer perfumes, niche Arabian oud, and luxury gift collections with free regional delivery.',
+    maxDiscount: 'Free Express Delivery',
+    stores: STORES_DATA.filter(s => s.category === 'Beauty & Fragrances')
+  }
+];
+---
+
+<BaseLayout
+  title="Deal Categories & Curated Collections — PromoRadar"
+  description="Explore tested promo codes and checkout vouchers by category: Privacy & VPNs, Dating, Fashion, Eyewear, UAE Travel, and B2B Wholesale."
+  activePath="/categories"
+>
+  <Header activePath="/categories" />
+
+  <main class="flex-1">
+    <!-- Category Hero Header -->
+    <div class="bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Explore By Vertical</span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Deal Categories &amp; Curated Collections</h1>
+        <p class="text-xs sm:text-sm text-slate-600 mt-1.5 max-w-2xl leading-relaxed">
+          Browse verified merchant partner offers organized by vertical—from high-speed VPNs and digital security tools to international fashion and luxury Dubai excursions.
+        </p>
+      </div>
+    </div>
+
+    <!-- Categories Bento Grid -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {CATEGORIES.map(cat => {
+          const dealCount = COUPONS_DATA.filter(d => d.storeCategory === cat.categoryName).length;
+          return (
+            <div class="bg-white rounded-2xl p-6 border border-slate-200/90 flex flex-col justify-between card-hover shadow-sm">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="w-12 h-12 rounded-2xl bg-indigo-50 text-2xl flex items-center justify-center border border-indigo-100 shadow-sm">
+                    {cat.icon}
+                  </span>
+                  <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-rose-50 text-rose-600 border border-rose-200/80">
+                    {cat.maxDiscount}
+                  </span>
+                </div>
+                <h3 class="text-lg font-extrabold text-slate-900 mb-2 leading-snug">
+                  {cat.name}
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed mb-5">
+                  {cat.desc}
+                </p>
+                <div class="flex flex-wrap gap-1.5 mb-6">
+                  {cat.stores.map(store => (
+                    <a
+                      href={`${base}/stores/${store.slug}/`}
+                      class="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 transition"
+                    >
+                      {store.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <a
+                href={`${base}/categories/${cat.slug}/`}
+                class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold text-center transition shadow-sm"
+              >
+                Browse Category Deals ({dealCount}) →
+              </a>
+            </div>
+          );
+        })}
+      </div>
+
+      <!-- Curated Seasonal Banner -->
+      <div class="bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative overflow-hidden border border-indigo-500/20">
+        <div class="space-y-2.5 max-w-2xl relative z-10">
+          <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 font-mono">
+            Featured Collection
+          </span>
+          <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">
+            Cybersecurity, VPN &amp; Family Digital Safety — Up to 81% Off
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Compare verified deals from ExpressVPN, PureVPN, Keeper Security, Qustodio, OnlineSim, and Spokeo in one place. Hand-verified via direct partner network feeds.
+          </p>
+        </div>
+        <a
+          href={`${base}/?cat=${encodeURIComponent('Privacy & Security')}`}
+          class="px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition shrink-0 shadow-lg shadow-indigo-600/30 relative z-10"
+        >
+          Explore 6 Security Deals →
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

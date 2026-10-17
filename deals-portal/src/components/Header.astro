@@ -1,0 +1,162 @@
+---
+interface Props {
+  activePath?: string;
+}
+
+const { activePath = '/' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<!-- Top Status Bar (Partner Network Feed & i18n switcher) -->
+<div class="bg-slate-900 text-slate-200 text-xs border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-2">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span id="topBarFeedBadge">Partner Network Feed Active</span>
+      </span>
+      <span id="topBarFeedText" class="text-slate-300 hidden sm:inline">Hand-tested promo codes & direct affiliate deals • Updated: October 2026</span>
+    </div>
+    <div class="flex items-center gap-3 ml-auto">
+      <span id="topBarNetworkText" class="text-slate-400 hidden md:inline">Global Partner Network</span>
+      <div class="h-3.5 w-px bg-slate-700 hidden md:block"></div>
+      <div class="inline-flex rounded-lg bg-slate-800 p-0.5 border border-slate-700">
+        <button id="langEnBtn" type="button" class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-600 text-white transition">EN</button>
+        <button id="langRuBtn" type="button" class="px-2 py-0.5 rounded-md text-[11px] font-semibold text-slate-400 hover:text-white transition">RU</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sticky Glass Header -->
+<header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 gap-3">
+      <!-- PromoRadar Brand Logo -->
+      <a href={`${base}/`} class="flex items-center gap-2.5 text-left group shrink-0">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-rose-600 flex items-center justify-center text-white font-extrabold text-lg shadow-md shadow-indigo-500/20 group-hover:scale-105 transition">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" stroke-width="2" class="opacity-40"></circle>
+            <circle cx="12" cy="12" r="5" stroke-width="2" class="opacity-75"></circle>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 12l6-6"></path>
+            <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="font-extrabold text-lg tracking-tight text-slate-900">PromoRadar</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200">GLOBAL</span>
+          </div>
+          <p id="headerSubtitle" class="text-[11px] text-slate-500 leading-none">Verified Promo Codes & Deals</p>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Tabs -->
+      <nav class="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1 rounded-xl border border-slate-200/70" aria-label="Main Navigation">
+        <a
+          href={`${base}/`}
+          class={`nav-tab-link flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-semibold transition ${
+            activePath === '/' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <svg class="w-4 h-4 text-rose-500 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2c-1.5 2.5-3 5-3 8 0 3.3 2.7 6 6 6s6-2.7 6-6c0-3-1.5-5.5-3-8-.3.8-.7 1.5-1.2 2.1C15.8 7 15 5.5 15 4c-1 1.5-1.8 3.2-1.8 5 0 .6.2 1.2.5 1.7-.8-.4-1.7-.7-2.7-.7z"/>
+          </svg>
+          <span id="navDealsText">All Deals</span>
+        </a>
+        <a
+          href={`${base}/stores/`}
+          class={`nav-tab-link flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-semibold transition ${
+            activePath.startsWith('/stores') && !activePath.includes('/stores/') ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+          </svg>
+          <span id="navStoresText">Stores (23)</span>
+        </a>
+        <a
+          href={`${base}/categories/`}
+          class={`nav-tab-link flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-semibold transition ${
+            activePath.startsWith('/categories') ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+          </svg>
+          <span id="navCategoriesText">Categories</span>
+        </a>
+        <a
+          href={`${base}/stores/expressvpn/`}
+          class={`nav-tab-link flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-semibold transition ${
+            activePath.includes('/stores/') ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <svg class="w-4 h-4 text-amber-500 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+          <span id="navBrandPageText">Brand Spotlight</span>
+        </a>
+        <a
+          href={`${base}/compare/`}
+          class={`nav-tab-link flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-semibold transition ${
+            activePath.startsWith('/compare') ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+          <span id="navCompareText">Compare</span>
+        </a>
+        <a
+          href={`${base}/about/`}
+          class={`nav-tab-link flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-semibold transition ${
+            activePath.startsWith('/about') ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span id="navAboutText">FAQ &amp; QA</span>
+        </a>
+      </nav>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-2">
+        <div class="relative hidden sm:block w-48 xl:w-60">
+          <input
+            id="headerQuickSearch"
+            type="text"
+            placeholder="Search store or promo..."
+            class="w-full pl-9 pr-3 py-2 text-sm bg-slate-100 hover:bg-slate-200/60 focus:bg-white rounded-xl border border-transparent focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition"
+          />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </div>
+
+        <!-- Saved Deals Button -->
+        <button id="headerSavedBtn" type="button" class="relative inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold bg-slate-100 hover:bg-slate-200/70 text-slate-700 transition" title="Saved Vouchers">
+          <svg class="w-4 h-4 text-rose-500 fill-current" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          <span id="savedCountBadge" class="text-xs font-bold px-1.5 py-0.2 rounded-full bg-rose-100 text-rose-700">0</span>
+        </button>
+
+        <!-- Submit Code Button -->
+        <button id="headerSubmitBtn" type="button" class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white shadow-sm transition">
+          <span id="submitCodeBtnLabel">+ Submit Code</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Scrollable Sub-nav -->
+    <div class="flex lg:hidden items-center gap-1.5 overflow-x-auto no-scrollbar py-2 border-t border-slate-100">
+      <a href={`${base}/`} class={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath === '/' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>🔥 All Deals</a>
+      <a href={`${base}/stores/`} class={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/stores') && !activePath.includes('/stores/') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>🏪 Stores</a>
+      <a href={`${base}/categories/`} class={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/categories') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>🗂 Categories</a>
+      <a href={`${base}/stores/expressvpn/`} class={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.includes('/stores/') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>⭐ Brand Page</a>
+      <a href={`${base}/about/`} class={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/about') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>❓ FAQ</a>
+    </div>
+  </div>
+</header>
