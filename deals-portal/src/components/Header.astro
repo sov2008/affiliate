@@ -164,14 +164,7 @@ const storesCount = STORES_DATA.length;
           </svg>
         </button>
 
-        <!-- + Submit Code Button (Desktop Header) -->
-        <button
-          id="headerSubmitBtn"
-          type="button"
-          class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 hover:bg-indigo-600 text-white shadow-sm dark:bg-indigo-600/20 dark:hover:bg-indigo-600 dark:text-indigo-200 dark:hover:text-white dark:border dark:border-indigo-500/30 transition whitespace-nowrap shrink-0 cursor-pointer"
-        >
-          <span id="submitCodeBtnLabel">+ Submit Code</span>
-        </button>
+
       </div>
     </div>
 
@@ -216,83 +209,7 @@ const storesCount = STORES_DATA.length;
   </div>
 </div>
 
-<!-- Submit Coupon Modal -->
-<div id="submitCouponModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md">
-  <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800 relative animate-fadeIn">
-    <button id="closeSubmitModalBtn" type="button" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center font-bold text-sm cursor-pointer transition">✕</button>
 
-    <div class="flex items-center gap-3 mb-4">
-      <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-300 font-extrabold flex items-center justify-center text-lg">+</div>
-      <div>
-        <h3 id="submitModalTitleText" class="font-extrabold text-slate-900 dark:text-white text-lg">Submit a Promo Code</h3>
-        <p id="submitModalDescText" class="text-xs text-slate-500 dark:text-slate-400">Share a working discount voucher with the community.</p>
-      </div>
-    </div>
-
-    <form id="submitCouponForm" class="space-y-4">
-      <div>
-        <label id="submitStoreLabel" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Store Name</label>
-        <input
-          id="submitStoreName"
-          type="text"
-          required
-          placeholder="e.g. ExpressVPN, Airalo, ChicMe..."
-          class="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-        />
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div>
-          <label id="submitCodeLabel" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Promo Code</label>
-          <input
-            id="submitCodeInput"
-            type="text"
-            required
-            placeholder="e.g. SAVE20, DEAL75"
-            class="w-full font-mono uppercase px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-          />
-        </div>
-        <div>
-          <label id="submitRegionLabel" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Region</label>
-          <select
-            id="submitRegionSelect"
-            class="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-          >
-            <option value="GLOBAL">Worldwide (Global)</option>
-            <option value="US">United States (US)</option>
-            <option value="EU">European Union (EU)</option>
-            <option value="GCC">UAE &amp; MENA (GCC)</option>
-            <option value="UA">Ukraine (UA)</option>
-          </select>
-        </div>
-      </div>
-
-      <div>
-        <label id="submitDescLabel" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Discount Description</label>
-        <textarea
-          id="submitDescInput"
-          required
-          rows="2"
-          placeholder="e.g. 20% off all orders over $50, valid on checkout..."
-          class="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-        ></textarea>
-      </div>
-
-      <button
-        type="submit"
-        class="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white font-bold text-sm shadow-md transition cursor-pointer"
-      >
-        Submit Voucher for QA Verification ↗
-      </button>
-    </form>
-
-    <div id="submitSuccessBox" class="hidden text-center py-6 space-y-2">
-      <div class="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 flex items-center justify-center mx-auto text-xl font-bold">✓</div>
-      <h4 id="submitSuccessTitleText" class="font-extrabold text-slate-900 dark:text-white text-base">Thank you!</h4>
-      <p id="submitSuccessMsgText" class="text-xs text-slate-600 dark:text-slate-300 max-w-xs mx-auto leading-relaxed">Code submitted for manual QA verification by our team.</p>
-    </div>
-  </div>
-</div>
 
 <!-- Floating Sticky Copied Voucher Bar -->
 <div id="stickyCopiedBar" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 hidden max-w-xl w-[92%] sm:w-auto bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 items-center justify-between gap-3 animate-fadeIn">
@@ -427,41 +344,7 @@ const storesCount = STORES_DATA.length;
     window.dispatchEvent(new CustomEvent('promoradar_saved_updated', { detail: { cleared: true } }));
   });
 
-  // 3. Submit Coupon Modal Logic
-  const submitModal = document.getElementById('submitCouponModal');
-  const headerSubmitBtn = document.getElementById('headerSubmitBtn');
-  const closeSubmitModalBtn = document.getElementById('closeSubmitModalBtn');
-  const submitForm = document.getElementById('submitCouponForm');
-  const submitSuccessBox = document.getElementById('submitSuccessBox');
 
-  headerSubmitBtn?.addEventListener('click', () => {
-    submitForm?.classList.remove('hidden');
-    submitSuccessBox?.classList.add('hidden');
-    submitModal?.classList.remove('hidden');
-    submitModal?.classList.add('flex');
-  });
-
-  closeSubmitModalBtn?.addEventListener('click', () => {
-    submitModal?.classList.add('hidden');
-    submitModal?.classList.remove('flex');
-  });
-
-  submitModal?.addEventListener('click', (e) => {
-    if (e.target === submitModal) {
-      submitModal.classList.add('hidden');
-      submitModal.classList.remove('flex');
-    }
-  });
-
-  submitForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    submitForm.classList.add('hidden');
-    submitSuccessBox?.classList.remove('hidden');
-    setTimeout(() => {
-      submitModal?.classList.add('hidden');
-      submitModal?.classList.remove('flex');
-    }, 2500);
-  });
 
   // 4. Spotlight Search Dropdown Engine
   const headerQuickSearch = document.getElementById('headerQuickSearch') as HTMLInputElement;
@@ -547,7 +430,6 @@ const storesCount = STORES_DATA.length;
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       headerSearchSpotlight?.classList.add('hidden');
-      submitModal?.classList.add('hidden');
       savedDrawerOverlay?.classList.add('hidden');
     }
   });
