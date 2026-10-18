@@ -35,18 +35,102 @@ const STORE_REGIONS: Record<string, string[]> = {
   'purevpn': ['GLOBAL', 'EU', 'US', 'GCC'],
   'expressvpn': ['GLOBAL', 'EU', 'US', 'GCC', 'UA'],
   'alibaba': ['GLOBAL', 'EU', 'GCC', 'US'],
+  'thedealoutlet': ['GCC'],
   'vogacloset': ['GCC', 'GLOBAL'],
+  'kodland': ['GLOBAL', 'EU', 'UA'],
   'airalo': ['GLOBAL', 'EU', 'GCC', 'US', 'UA'],
   'keepersecurity': ['GLOBAL', 'EU', 'US'],
   'qustodio': ['GLOBAL', 'EU', 'US'],
-  'allpowers': ['GLOBAL', 'EU', 'US', 'UA'],
-  'huawei': ['GLOBAL', 'EU', 'GCC', 'UA'],
+  'allpowers': ['UA', 'GLOBAL', 'EU'],
+  'huawei': ['GCC', 'GLOBAL', 'EU'],
   'nazih': ['GCC'],
-  'touch': ['UA']
+  'touch': ['UA'],
+  'onlinesim': ['GLOBAL', 'EU', 'UA'],
+  'jashanmal': ['GCC'],
+  'dabdoob': ['GCC'],
+  'vperfumes': ['GCC'],
+  'aovica': ['GLOBAL', 'EU', 'US'],
+  'markformelle': ['GLOBAL', 'EU'],
+  'elitedate': ['EU'],
+  'verified-match': ['US', 'GLOBAL'],
+  'discreet-local': ['US', 'GLOBAL'],
+  'spokeo': ['US']
 };
 
-// Urgent / Expiring Soon Flash Deals (Top verified high-discount deals)
-const endingSoonDeals = COUPONS_DATA.filter(d => d.code && d.code.length > 0).slice(0, 4);
+// Region badge display config
+const REGION_BADGES: Record<string, { label: string; class: string }> = {
+  'UA': { label: '🇺🇦 UA', class: 'bg-blue-50 text-blue-700 border-blue-200' },
+  'GCC': { label: '🇦🇪 UAE & MENA', class: 'bg-emerald-50 text-emerald-800 border-emerald-200' },
+  'US': { label: '🇺🇸 US', class: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
+  'EU': { label: '🇪🇺 EU', class: 'bg-amber-50 text-amber-800 border-amber-200' },
+  'GLOBAL': { label: '🌍 Worldwide', class: 'bg-slate-100 text-slate-700 border-slate-200' }
+};
+
+// Map store domain from websiteUrl for favicon resolution
+const STORE_DOMAINS: Record<string, string> = {};
+for (const s of STORES_DATA) {
+  try {
+    const u = new URL(s.websiteUrl);
+    STORE_DOMAINS[s.slug] = u.hostname.replace(/^www\./, '');
+  } catch (e) {
+    STORE_DOMAINS[s.slug] = '';
+  }
+}
+
+// Distinct high-urgency offers for "Deals Expiring Soon" (Fix #3: no duplication with top grid cards)
+const TARGET_EXPIRING_SLUGS = ['vogacloset', 'keepersecurity', 'allpowers', 'alibaba'];
+const endingSoonDeals: typeof COUPONS_DATA = [];
+const pickedStoreSlugs = new Set<string>();
+
+// First pick distinct priority high-urgency offers
+for (const slug of TARGET_EXPIRING_SLUGS) {
+  const match = COUPONS_DATA.find(d => d.storeSlug === slug && d.code && d.code.length > 0 && !pickedStoreSlugs.has(d.storeSlug));
+  if (match) {
+    endingSoonDeals.push(match);
+    pickedStoreSlugs.add(match.storeSlug);
+  }
+}
+
+// Fallback fill to 4 if needed with other unique stores
+if (endingSoonDeals.length < 4) {
+  for (const d of COUPONS_DATA) {
+    if (d.code && d.code.length > 0 && !pickedStoreSlugs.has(d.storeSlug)) {
+      pickedStoreSlugs.add(d.storeSlug);
+      endingSoonDeals.push(d);
+      if (endingSoonDeals.length === 4) break;
+    }
+  }
+}
+
+// Count total coupons per store for "+X more [Store Name] deals →"
+const storeCouponCounts: Record<string, number> = {};
+for (const d of COUPONS_DATA) {
+  storeCouponCounts[d.storeName] = (storeCouponCounts[d.storeName] || 0) + 1;
+}
+
+// Round-robin brand interleaving for main deals grid to prevent same-brand walls
+const storeBuckets: Record<string, typeof COUPONS_DATA> = {};
+for (const d of COUPONS_DATA) {
+  if (!storeBuckets[d.storeSlug]) storeBuckets[d.storeSlug] = [];
+  storeBuckets[d.storeSlug].push(d);
+}
+
+const interleavedDeals: typeof COUPONS_DATA = [];
+const storeKeys = Object.keys(storeBuckets);
+let hasMore = true;
+let round = 0;
+while (hasMore) {
+  hasMore = false;
+  for (const slug of storeKeys) {
+    if (storeBuckets[slug][round]) {
+      interleavedDeals.push(storeBuckets[slug][round]);
+      if (storeBuckets[slug][round + 1]) {
+        hasMore = true;
+      }
+    }
+  }
+  round++;
+}
 
 const homeSchemas = [
   {
@@ -128,25 +212,25 @@ const homeSchemas = [
               <!-- Quick Search Chips -->
               <div class="flex flex-wrap items-center gap-1.5 pt-2.5 px-2 text-xs">
                 <span id="trendingPrefix" class="text-slate-400 font-medium">Trending:</span>
-                <button type="button" data-chip="ExpressVPN" class="trending-chip px-2 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition">ExpressVPN (-81%)</button>
-                <button type="button" data-chip="Alibaba" class="trending-chip px-2 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition">Alibaba ($200)</button>
-                <button type="button" data-chip="ChicMe" class="trending-chip px-2 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition">ChicMe (-12%)</button>
-                <button type="button" data-chip="RaynaTours" class="trending-chip px-2 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition">RaynaTours Dubai</button>
-                <button type="button" data-chip="Keeper Security" class="trending-chip px-2 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition">Keeper (-50%)</button>
+                <button type="button" data-chip="ALLPOWERS" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">ALLPOWERS (-15%)</button>
+                <button type="button" data-chip="Airalo" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">Airalo eSIM (-10%)</button>
+                <button type="button" data-chip="VogaCloset" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">VogaCloset (-80%)</button>
+                <button type="button" data-chip="The Deal Outlet" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">The Deal Outlet (-70%)</button>
+                <button type="button" data-chip="ExpressVPN" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">ExpressVPN (-81%)</button>
               </div>
             </div>
 
-            <!-- Trust Metrics Strip -->
-            <div class="grid grid-cols-3 gap-3 pt-2 max-w-xl">
+            <!-- Trust Metrics Strip (Fix #4: max-w-2xl aligned with search bar, whitespace-nowrap badge titles) -->
+            <div class="grid grid-cols-3 gap-3 pt-2 max-w-2xl">
               <div class="flex items-center gap-2.5 bg-white/5 rounded-xl px-3 py-2 border border-white/10">
                 <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm shrink-0">
                   <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                   </svg>
                 </span>
-                <div>
-                  <div class="text-xs font-bold text-white">100% Tested Codes</div>
-                  <div class="text-[11px] text-slate-400">Manual QA on checkout</div>
+                <div class="min-w-0">
+                  <div class="text-xs font-bold text-white whitespace-nowrap">100% Tested Codes</div>
+                  <div class="text-[11px] text-slate-400 truncate">Manual QA on checkout</div>
                 </div>
               </div>
               <div class="flex items-center gap-2.5 bg-white/5 rounded-xl px-3 py-2 border border-white/10">
@@ -155,9 +239,9 @@ const homeSchemas = [
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                   </svg>
                 </span>
-                <div>
-                  <div class="text-xs font-bold text-white">No Signup Needed</div>
-                  <div class="text-[11px] text-slate-400">1-click instant access</div>
+                <div class="min-w-0">
+                  <div class="text-xs font-bold text-white whitespace-nowrap">No Signup Needed</div>
+                  <div class="text-[11px] text-slate-400 truncate">1-click instant access</div>
                 </div>
               </div>
               <div class="flex items-center gap-2.5 bg-white/5 rounded-xl px-3 py-2 border border-white/10">
@@ -166,9 +250,9 @@ const homeSchemas = [
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                   </svg>
                 </span>
-                <div>
-                  <div class="text-xs font-bold text-white">Official Partner</div>
-                  <div class="text-[11px] text-slate-400">Direct Partner links</div>
+                <div class="min-w-0">
+                  <div class="text-xs font-bold text-white whitespace-nowrap">Official Partner</div>
+                  <div class="text-[11px] text-slate-400 truncate">Direct Partner links</div>
                 </div>
               </div>
             </div>
@@ -274,15 +358,28 @@ const homeSchemas = [
         <div class="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-1" id="storeFilterBar">
           {STORES_DATA.map(store => {
             const initials = store.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+            const domain = STORE_DOMAINS[store.slug];
+            const faviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '';
             return (
               <button
                 type="button"
                 data-filter-store={store.name}
                 class="store-strip-pill shrink-0 flex items-center gap-2.5 px-3 py-2 rounded-xl border border-slate-200 hover:border-slate-300 bg-slate-50 hover:bg-white transition cursor-pointer"
               >
-                <span class="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-600 to-rose-600 text-white font-extrabold text-xs flex items-center justify-center shadow-sm">
-                  {initials}
-                </span>
+                <div class="w-7 h-7 rounded-lg bg-white border border-slate-200 p-1 flex items-center justify-center shrink-0 overflow-hidden shadow-sm">
+                  {faviconUrl ? (
+                    <img
+                      src={faviconUrl}
+                      alt={`${store.name} logo`}
+                      class="w-full h-full object-contain"
+                      loading="lazy"
+                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    />
+                  ) : null}
+                  <span class={`w-full h-full rounded bg-indigo-600 text-white font-extrabold text-[10px] items-center justify-center ${faviconUrl ? 'hidden' : 'flex'}`}>
+                    {initials}
+                  </span>
+                </div>
                 <div class="text-left">
                   <div class="text-xs font-bold text-slate-900 leading-none">{store.name}</div>
                   <div class="text-[10px] font-semibold text-rose-600 mt-0.5">Verified</div>
@@ -295,20 +392,20 @@ const homeSchemas = [
     </div>
 
     <!-- Deals Ending Soon Urgency Section (FOMO Conversion Booster) -->
-    <div class="bg-slate-900 border-b border-slate-800 py-4 sm:py-5 text-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3.5">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-4">
+      <div class="bg-slate-900 rounded-3xl p-6 border border-slate-800 shadow-xl text-white">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div class="flex items-center gap-3">
             <div class="flex items-center gap-2">
               <span class="flex h-3 w-3 relative">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
               </span>
-              <span class="font-extrabold text-sm sm:text-base tracking-tight text-white flex items-center gap-1.5">
+              <span class="font-extrabold text-base tracking-tight text-white flex items-center gap-1.5">
                 ⚡ Deals Expiring Soon
               </span>
             </div>
-            <span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-rose-500/20 text-rose-300 border border-rose-500/30">
+            <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">
               Limited Redemptions
             </span>
           </div>
@@ -319,16 +416,31 @@ const homeSchemas = [
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
           {endingSoonDeals.map((deal) => {
             const initials = deal.storeName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+            const domain = STORE_DOMAINS[deal.storeSlug];
+            const faviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '';
+            const codeSuffix = deal.code ? deal.code.slice(-3) : 'OFF';
+
             return (
-              <div class="bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 hover:border-indigo-500/50 rounded-2xl p-3.5 flex flex-col justify-between transition group">
+              <div class="bg-slate-800/90 hover:bg-slate-800 border border-slate-700/90 hover:border-indigo-500/50 rounded-2xl p-4 flex flex-col justify-between transition group shadow-md">
                 <div>
-                  <div class="flex items-center justify-between gap-2 mb-2">
-                    <div class="flex items-center gap-2 min-w-0">
-                      <div class="w-7 h-7 rounded-lg bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0">
-                        {initials}
+                  <div class="flex items-center justify-between gap-2 mb-2.5">
+                    <div class="flex items-center gap-2.5 min-w-0">
+                      <div class="w-8 h-8 rounded-xl bg-white border border-slate-700 p-1 object-contain flex items-center justify-center shrink-0 overflow-hidden shadow-sm">
+                        {faviconUrl ? (
+                          <img
+                            src={faviconUrl}
+                            alt={`${deal.storeName} logo`}
+                            class="w-full h-full object-contain"
+                            loading="lazy"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                          />
+                        ) : null}
+                        <span class={`w-full h-full rounded-lg bg-indigo-600 text-white font-extrabold text-[10px] items-center justify-center ${faviconUrl ? 'hidden' : 'flex'}`}>
+                          {initials}
+                        </span>
                       </div>
                       <span class="text-xs font-bold text-white truncate">{deal.storeName}</span>
                     </div>
@@ -344,13 +456,10 @@ const homeSchemas = [
                   </p>
                 </div>
 
-                <div class="mt-3 pt-2.5 border-t border-slate-700/60 flex items-center justify-between gap-2">
-                  <span class="font-mono text-xs text-slate-300 bg-black/40 px-2 py-1 rounded border border-white/10">
-                    •••{deal.code.slice(-3)}
-                  </span>
+                <div class="mt-3.5 pt-3 border-t border-slate-700/60">
                   <button
                     type="button"
-                    class="code-peel text-white rounded-lg px-3 py-1.5 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    class="code-peel w-full text-white rounded-xl py-2 px-3 text-xs font-bold flex items-center justify-between transition cursor-pointer shadow-sm"
                     data-reveal-deal={JSON.stringify({
                       id: deal.id,
                       title: deal.title,
@@ -361,8 +470,11 @@ const homeSchemas = [
                       affiliateUrl: deal.affiliateUrl
                     })}
                   >
-                    <span>Claim</span>
-                    <span>→</span>
+                    <span class="flex items-center gap-1.5 font-extrabold">
+                      <span>Claim</span>
+                      <span class="font-mono text-[11px] font-bold text-amber-300">•••{codeSuffix}</span>
+                    </span>
+                    <span class="text-xs text-white/90 font-bold">↗</span>
                   </button>
                 </div>
               </div>
@@ -370,7 +482,7 @@ const homeSchemas = [
           })}
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- Main Deals Filter & Grid Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
@@ -471,11 +583,16 @@ const homeSchemas = [
 
       <!-- Modern 2-Column Responsive Coupon Cards Grid -->
       <div id="mainDealsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {COUPONS_DATA.map((deal, idx) => {
+        {interleavedDeals.map((deal, idx) => {
           const isCode = deal.code && deal.code.trim().length > 0;
           const initials = deal.storeName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
           const theme = BRAND_THEMES[deal.storeSlug] || { bg: 'from-indigo-600 to-rose-600', text: 'text-white', border: 'border-slate-200', badgeBg: 'bg-rose-50 text-rose-700 border-rose-200' };
           const regions = (STORE_REGIONS[deal.storeSlug] || ['GLOBAL']).join(',');
+          const primaryRegionKey = (STORE_REGIONS[deal.storeSlug] || ['GLOBAL'])[0];
+          const regionBadge = REGION_BADGES[primaryRegionKey] || REGION_BADGES['GLOBAL'];
+          const domain = STORE_DOMAINS[deal.storeSlug];
+          const faviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '';
+          const totalStoreDeals = storeCouponCounts[deal.storeName] || 1;
           
           return (
             <article
@@ -492,9 +609,21 @@ const homeSchemas = [
                   <div class="flex items-center gap-3">
                     <a
                       href={`${base}/stores/${deal.storeSlug}/`}
-                      class={`w-12 h-12 rounded-2xl bg-gradient-to-br ${theme.bg} ${theme.text} font-black text-base flex items-center justify-center shadow-md shadow-indigo-950/10 shrink-0 hover:scale-105 transition`}
+                      class="w-11 h-11 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shrink-0 hover:scale-105 transition shadow-sm overflow-hidden"
+                      title={deal.storeName}
                     >
-                      {initials}
+                      {faviconUrl ? (
+                        <img
+                          src={faviconUrl}
+                          alt={`${deal.storeName} logo`}
+                          class="w-full h-full object-contain"
+                          loading="lazy"
+                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        />
+                      ) : null}
+                      <span class={`w-full h-full rounded-lg bg-gradient-to-br ${theme.bg} ${theme.text} font-black text-xs items-center justify-center shadow-inner ${faviconUrl ? 'hidden' : 'flex'}`}>
+                        {initials}
+                      </span>
                     </a>
                     <div>
                       <div class="flex items-center gap-2 flex-wrap">
@@ -507,7 +636,13 @@ const homeSchemas = [
                           {isCode ? 'PROMO CODE' : 'DIRECT DEAL'}
                         </span>
                       </div>
-                      <div class="text-[11px] text-slate-400 font-medium">{deal.storeCategory}</div>
+                      <div class="flex items-center gap-2 mt-0.5">
+                        <span class="text-[11px] text-slate-400 font-medium">{deal.storeCategory}</span>
+                        <span class="text-[10px] text-slate-300">•</span>
+                        <span class={`text-[10px] font-bold px-1.5 py-0.2 rounded border ${regionBadge.class}`}>
+                          {regionBadge.label}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
@@ -583,6 +718,28 @@ const homeSchemas = [
                   )}
                 </div>
 
+                <!-- Card Footer with Filter by Store Link or Store Profile (Fix #1: 100% horizontal baseline alignment) -->
+                <div class="pt-1 h-5 flex items-center justify-between text-[11px]">
+                  {totalStoreDeals > 1 ? (
+                    <button
+                      type="button"
+                      data-filter-store={deal.storeName}
+                      class="deal-more-store-link text-indigo-600 hover:text-indigo-800 font-semibold transition flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>+{totalStoreDeals - 1} more {deal.storeName} deals</span>
+                      <span>→</span>
+                    </button>
+                  ) : (
+                    <a
+                      href={`${base}/stores/${deal.storeSlug}/`}
+                      class="text-slate-400 hover:text-indigo-600 font-medium transition flex items-center gap-1"
+                    >
+                      <span>View {deal.storeName} profile</span>
+                      <span>→</span>
+                    </a>
+                  )}
+                </div>
+
                 <!-- Terms Accordion Drawer -->
                 <div class="deal-terms-drawer hidden text-[11px] text-slate-500 bg-slate-50 rounded-xl p-2.5 border border-slate-200/60">
                   <strong>Merchant Terms:</strong> Valid for online orders through official PromoRadar partner link. Verified October 2026.
@@ -636,62 +793,219 @@ const homeSchemas = [
           </a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-gradient-to-br from-indigo-900 to-slate-900 text-white rounded-3xl p-5 border border-indigo-500/20 shadow-md flex flex-col justify-between">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Card 1: ExpressVPN vs PureVPN -->
+          <div class="bg-white border-2 border-indigo-500/30 rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between relative shadow-sm">
             <div>
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-indigo-500/30 text-indigo-200 border border-indigo-400/20">Privacy Duel</span>
-                <span class="text-xs font-black text-amber-400">Save 81%</span>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700 border border-indigo-200">Popular Matchup</span>
+                <span class="text-xs font-black text-rose-600">Save 81%</span>
               </div>
-              <h3 class="text-base font-black text-white mb-2">ExpressVPN vs PureVPN</h3>
-              <p class="text-xs text-slate-300 leading-relaxed mb-4">Side-by-side audit of server speeds, AES-256 encryption, and checkout discounts.</p>
+
+              <!-- Brand Logos with VS Badge -->
+              <div class="flex items-center justify-center gap-3 py-2 mb-4">
+                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm">
+                  <img
+                    src="https://www.google.com/s2/favicons?domain=expressvpn.com&sz=128"
+                    alt="ExpressVPN logo"
+                    class="w-full h-full object-contain"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <span class="hidden w-full h-full rounded-lg bg-rose-600 text-white font-black text-xs items-center justify-center">EX</span>
+                </div>
+
+                <span class="w-7 h-7 rounded-full bg-slate-900 text-white text-[10px] font-black flex items-center justify-center shadow-sm shrink-0">
+                  VS
+                </span>
+
+                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm">
+                  <img
+                    src="https://www.google.com/s2/favicons?domain=purevpn.com&sz=128"
+                    alt="PureVPN logo"
+                    class="w-full h-full object-contain"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <span class="hidden w-full h-full rounded-lg bg-emerald-600 text-white font-black text-xs items-center justify-center">PV</span>
+                </div>
+              </div>
+
+              <h3 class="text-base font-extrabold text-slate-900 mb-2 text-center">ExpressVPN vs PureVPN</h3>
+              <p class="text-xs text-slate-600 leading-relaxed mb-4 text-center">Side-by-side audit of Lightway speeds, RAM-only privacy shields, and active voucher discounts.</p>
             </div>
-            <a href={`${base}/compare/expressvpn-vs-purevpn/`} class="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs text-center border border-white/20 transition">
+            <a href={`${base}/compare/expressvpn-vs-purevpn/`} class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center transition shadow-sm">
               Compare Offers →
             </a>
           </div>
 
-          <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <!-- Card 2: ChicMe vs VogaCloset -->
+          <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between shadow-sm">
             <div>
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-rose-50 text-rose-700 border border-rose-200">Fashion Faceoff</span>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200">Fashion Faceoff</span>
                 <span class="text-xs font-black text-rose-600">Save 80%</span>
               </div>
-              <h3 class="text-base font-black text-slate-900 mb-2">ChicMe vs VogaCloset</h3>
-              <p class="text-xs text-slate-600 leading-relaxed mb-4">Compare delivery speed, international returns, and stackable basket vouchers.</p>
+
+              <!-- Brand Logos with VS Badge -->
+              <div class="flex items-center justify-center gap-3 py-2 mb-4">
+                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm">
+                  <img
+                    src="https://www.google.com/s2/favicons?domain=chicme.com&sz=128"
+                    alt="ChicMe logo"
+                    class="w-full h-full object-contain"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <span class="hidden w-full h-full rounded-lg bg-pink-600 text-white font-black text-xs items-center justify-center">CM</span>
+                </div>
+
+                <span class="w-7 h-7 rounded-full bg-slate-900 text-white text-[10px] font-black flex items-center justify-center shadow-sm shrink-0">
+                  VS
+                </span>
+
+                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm">
+                  <img
+                    src="https://www.google.com/s2/favicons?domain=vogacloset.com&sz=128"
+                    alt="VogaCloset logo"
+                    class="w-full h-full object-contain"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <span class="hidden w-full h-full rounded-lg bg-purple-600 text-white font-black text-xs items-center justify-center">VC</span>
+                </div>
+              </div>
+
+              <h3 class="text-base font-extrabold text-slate-900 mb-2 text-center">ChicMe vs VogaCloset</h3>
+              <p class="text-xs text-slate-600 leading-relaxed mb-4 text-center">Compare international delivery times, returns policy, and stackable checkout coupons.</p>
             </div>
             <a href={`${base}/compare/chicme-vs-vogacloset/`} class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center transition shadow-sm">
               Compare Offers →
             </a>
           </div>
 
-          <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <!-- Card 3: RaynaTours vs Airalo eSIM (Fix #5: category-consistent Travel Essentials) -->
+          <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between shadow-sm">
             <div>
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-200">Tech &amp; Power</span>
-                <span class="text-xs font-black text-emerald-600">eSIM vs Solar</span>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-200">TRAVEL ESSENTIALS</span>
+                <span class="text-xs font-black text-indigo-600">Roaming vs Tours</span>
               </div>
-              <h3 class="text-base font-black text-slate-900 mb-2">Airalo vs ALLPOWERS</h3>
-              <p class="text-xs text-slate-600 leading-relaxed mb-4">Travel data vs off-grid portable power stations: verified promo comparison.</p>
+
+              <!-- Brand Logos with VS Badge -->
+              <div class="flex items-center justify-center gap-3 py-2 mb-4">
+                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm">
+                  <img
+                    src="https://www.google.com/s2/favicons?domain=raynatours.com&sz=128"
+                    alt="RaynaTours logo"
+                    class="w-full h-full object-contain"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <span class="hidden w-full h-full rounded-lg bg-blue-600 text-white font-black text-xs items-center justify-center">RT</span>
+                </div>
+
+                <span class="w-7 h-7 rounded-full bg-slate-900 text-white text-[10px] font-black flex items-center justify-center shadow-sm shrink-0">
+                  VS
+                </span>
+
+                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm">
+                  <img
+                    src="https://www.google.com/s2/favicons?domain=airalo.com&sz=128"
+                    alt="Airalo eSIM logo"
+                    class="w-full h-full object-contain"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <span class="hidden w-full h-full rounded-lg bg-amber-600 text-white font-black text-xs items-center justify-center">AI</span>
+                </div>
+              </div>
+
+              <h3 class="text-base font-extrabold text-slate-900 mb-2 text-center">Ultimate Travel &amp; Roaming Bundle</h3>
+              <p class="text-xs text-slate-600 leading-relaxed mb-4 text-center">Compare Dubai desert tours &amp; attractions with 200+ country instant eSIM data packages.</p>
             </div>
-            <a href={`${base}/compare/airalo-vs-allpowers/`} class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center transition shadow-sm">
+            <a href={`${base}/compare/`} class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center transition shadow-sm">
               Compare Offers →
             </a>
           </div>
         </div>
       </section>
 
-      <!-- Trust & Verification FAQ Accordion -->
-      <section class="mt-14 pt-10 border-t border-slate-200">
-        <h2 class="text-lg font-extrabold text-slate-900 mb-4">Frequently Asked Questions About PromoRadar Codes</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="bg-slate-50/80 rounded-2xl p-4 border border-slate-200/80">
-            <h3 class="text-xs font-bold text-slate-900 mb-1">How does PromoRadar test promo codes?</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Our automated scrapers and manual QA agents test voucher combinations directly in the merchant checkout cart to ensure zero invalid codes are published.</p>
+      <!-- Trust & Verification Interactive FAQ Accordion -->
+      <section class="mt-14 pt-10 border-t border-slate-200" id="homepageFaqSection">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-8">
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/60">Help &amp; Transparency</span>
+            <h2 class="text-2xl font-black text-slate-900 tracking-tight mt-2">Frequently Asked Questions</h2>
+            <p class="text-xs text-slate-500 mt-1">Everything you need to know about Admitad partner links, promo code verification, and regional voucher rules.</p>
           </div>
-          <div class="bg-slate-50/80 rounded-2xl p-4 border border-slate-200/80">
-            <h3 class="text-xs font-bold text-slate-900 mb-1">Why do some deals not require a code?</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Direct Deals and flash sales are automatically unlocked when you visit through our verified partner link without needing manual text entry.</p>
+
+          <div class="space-y-3" id="faqAccordionContainer">
+            <!-- FAQ 1 -->
+            <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden transition shadow-sm">
+              <button type="button" class="faq-toggle-btn w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-indigo-600 transition">
+                <span>How does PromoRadar test and verify promo codes?</span>
+                <span class="faq-chevron text-slate-400 text-xs font-black transition-transform duration-200">▼</span>
+              </button>
+              <div class="faq-content hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                Our verification engine and QA team test coupon combinations directly in the merchant shopping cart before publishing. We verify code validity, minimum basket thresholds, expiration dates, and merchant restrictions to ensure you never waste time on broken codes.
+              </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden transition shadow-sm">
+              <button type="button" class="faq-toggle-btn w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-indigo-600 transition">
+                <span>Why do some merchant deals not require a code?</span>
+                <span class="faq-chevron text-slate-400 text-xs font-black transition-transform duration-200">▼</span>
+              </button>
+              <div class="faq-content hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                Direct Deals, seasonal clearance markdowns, and free trial promotions are activated automatically when you click our verified partner link. The discount applies immediately at checkout without requiring manual voucher code entry.
+              </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden transition shadow-sm">
+              <button type="button" class="faq-toggle-btn w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-indigo-600 transition">
+                <span>How do Admitad official partner links work?</span>
+                <span class="faq-chevron text-slate-400 text-xs font-black transition-transform duration-200">▼</span>
+              </button>
+              <div class="faq-content hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                PromoRadar is connected directly to official affiliate feeds via Admitad and licensed merchant affiliate programs. When you click our links, you are safely routed to the authentic merchant store, and we may earn a small referral commission at no additional cost to you.
+              </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden transition shadow-sm">
+              <button type="button" class="faq-toggle-btn w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-indigo-600 transition">
+                <span>Are promo codes valid in all countries and currencies?</span>
+                <span class="faq-chevron text-slate-400 text-xs font-black transition-transform duration-200">▼</span>
+              </button>
+              <div class="faq-content hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                Each coupon card displays a geographic region badge (such as 🌍 Worldwide, 🇦🇪 UAE &amp; MENA, 🇺🇦 UA, 🇺🇸 US, or 🇪🇺 EU). Some vouchers feature currency-specific savings (e.g. 3,000 UAH or 350 AED) that apply only when checking out in those regional storefronts.
+              </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden transition shadow-sm">
+              <button type="button" class="faq-toggle-btn w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-indigo-600 transition">
+                <span>Can promo codes be combined with seasonal sales or clearance items?</span>
+                <span class="faq-chevron text-slate-400 text-xs font-black transition-transform duration-200">▼</span>
+              </button>
+              <div class="faq-content hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                In most cases, merchant promo codes stack on top of catalog price cuts, flash sales, and free shipping allowances. Click the "Terms ▾" toggle on any card to inspect individual store stackability rules.
+              </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden transition shadow-sm">
+              <button type="button" class="faq-toggle-btn w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-indigo-600 transition">
+                <span>What should I do if a promo code fails at checkout?</span>
+                <span class="faq-chevron text-slate-400 text-xs font-black transition-transform duration-200">▼</span>
+              </button>
+              <div class="faq-content hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                First verify that your cart meets the minimum purchase amount and does not contain excluded brands. You can also vote "👎 No" inside our reveal modal to flag the voucher for automated re-verification by our team.
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1111,6 +1425,51 @@ const homeSchemas = [
     document.querySelectorAll('.modal-vote-btn').forEach(b => {
       b.addEventListener('click', () => {
         voteFeedback?.classList.remove('hidden');
+      });
+    });
+
+    // Store Filter Links on Cards ("+X more deals →")
+    document.querySelectorAll('.deal-more-store-link').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sName = btn.getAttribute('data-filter-store');
+        if (!sName) return;
+        currentStore = sName;
+        document.querySelectorAll('.store-strip-pill').forEach(b => {
+          if (b.getAttribute('data-filter-store') === currentStore) {
+            b.classList.add('bg-indigo-50', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
+          } else {
+            b.classList.remove('bg-indigo-50', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
+          }
+        });
+        filterDeals();
+        document.getElementById('mainDealsGrid')?.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // FAQ Accordion Collapsible Logic
+    document.querySelectorAll('.faq-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const content = item?.querySelector('.faq-content');
+        const chevron = btn.querySelector('.faq-chevron');
+        const isClosed = content?.classList.contains('hidden');
+
+        // Optional: close other open items for accordion behavior
+        document.querySelectorAll('.faq-item').forEach(other => {
+          if (other !== item) {
+            other.querySelector('.faq-content')?.classList.add('hidden');
+            const otherChev = other.querySelector('.faq-chevron');
+            if (otherChev) otherChev.style.transform = 'rotate(0deg)';
+          }
+        });
+
+        if (isClosed) {
+          content?.classList.remove('hidden');
+          if (chevron) chevron.style.transform = 'rotate(180deg)';
+        } else {
+          content?.classList.add('hidden');
+          if (chevron) chevron.style.transform = 'rotate(0deg)';
+        }
       });
     });
 

@@ -52,10 +52,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       </a>
 
       <!-- Desktop Nav Tabs -->
-      <nav class="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1 rounded-xl border border-slate-200/70" aria-label="Main Navigation">
+      <nav class="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1 rounded-xl border border-slate-200/70 shrink-0" aria-label="Main Navigation">
         <a
           href={`${base}/`}
-          class={`nav-tab-link flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-semibold transition ${
+          class={`nav-tab-link whitespace-nowrap shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition ${
             activePath === '/' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
@@ -66,18 +66,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </a>
         <a
           href={`${base}/stores/`}
-          class={`nav-tab-link flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-semibold transition ${
+          class={`nav-tab-link whitespace-nowrap shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition ${
             activePath.startsWith('/stores') && !activePath.includes('/stores/') ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
           <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
           </svg>
-          <span id="navStoresText">Stores (23)</span>
+          <span id="navStoresText">Stores (26)</span>
         </a>
         <a
           href={`${base}/categories/`}
-          class={`nav-tab-link flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-semibold transition ${
+          class={`nav-tab-link whitespace-nowrap shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition ${
             activePath.startsWith('/categories') ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
@@ -87,19 +87,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <span id="navCategoriesText">Categories</span>
         </a>
         <a
-          href={`${base}/stores/expressvpn/`}
-          class={`nav-tab-link flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-semibold transition ${
-            activePath.includes('/stores/') ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
-          }`}
-        >
-          <svg class="w-4 h-4 text-amber-500 shrink-0" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-          </svg>
-          <span id="navBrandPageText">Brand Spotlight</span>
-        </a>
-        <a
           href={`${base}/compare/`}
-          class={`nav-tab-link flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-semibold transition ${
+          class={`nav-tab-link whitespace-nowrap shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition ${
             activePath.startsWith('/compare') ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
@@ -110,20 +99,20 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </a>
         <a
           href={`${base}/about/`}
-          class={`nav-tab-link flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-semibold transition ${
+          class={`nav-tab-link whitespace-nowrap shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition ${
             activePath.startsWith('/about') ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
           <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
-          <span id="navAboutText">FAQ &amp; QA</span>
+          <span id="navAboutText">FAQ</span>
         </a>
       </nav>
 
       <!-- Right Header Actions -->
-      <div class="flex items-center gap-2">
-        <div class="relative hidden sm:block w-48 xl:w-60">
+      <div class="flex items-center gap-2 shrink-0">
+        <div class="relative hidden sm:block w-40 xl:w-52 shrink-0">
           <input
             id="headerQuickSearch"
             type="text"
@@ -136,15 +125,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </div>
 
         <!-- Saved Deals Button -->
-        <button id="headerSavedBtn" type="button" class="relative inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold bg-slate-100 hover:bg-slate-200/70 text-slate-700 transition" title="Saved Vouchers">
+        <button id="headerSavedBtn" type="button" class="relative inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold bg-slate-100 hover:bg-slate-200/70 text-slate-700 transition shrink-0" title="Saved Vouchers">
           <svg class="w-4 h-4 text-rose-500 fill-current" viewBox="0 0 24 24">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
           </svg>
-          <span id="savedCountBadge" class="text-xs font-bold px-1.5 py-0.2 rounded-full bg-rose-100 text-rose-700">0</span>
+          <span id="savedCountBadge" class="text-xs font-bold px-1.5 py-0.2 rounded-full bg-rose-100 text-rose-700 shrink-0">0</span>
         </button>
 
         <!-- Submit Code Button -->
-        <button id="headerSubmitBtn" type="button" class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white shadow-sm transition">
+        <button id="headerSubmitBtn" type="button" class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white shadow-sm transition whitespace-nowrap shrink-0">
           <span id="submitCodeBtnLabel">+ Submit Code</span>
         </button>
       </div>
@@ -152,11 +141,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
     <!-- Mobile Scrollable Sub-nav -->
     <div class="flex lg:hidden items-center gap-1.5 overflow-x-auto no-scrollbar py-2 border-t border-slate-100">
-      <a href={`${base}/`} class={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath === '/' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>🔥 All Deals</a>
-      <a href={`${base}/stores/`} class={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/stores') && !activePath.includes('/stores/') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>🏪 Stores</a>
-      <a href={`${base}/categories/`} class={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/categories') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>🗂 Categories</a>
-      <a href={`${base}/stores/expressvpn/`} class={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.includes('/stores/') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>⭐ Brand Page</a>
-      <a href={`${base}/about/`} class={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/about') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>❓ FAQ</a>
+      <a href={`${base}/`} class={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath === '/' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>🔥 All Deals</a>
+      <a href={`${base}/stores/`} class={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/stores') && !activePath.includes('/stores/') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>🏪 Stores (26)</a>
+      <a href={`${base}/categories/`} class={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/categories') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>🗂 Categories</a>
+      <a href={`${base}/compare/`} class={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/compare') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>⚖️ Compare</a>
+      <a href={`${base}/about/`} class={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/about') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>❓ FAQ</a>
     </div>
   </div>
 </header>
