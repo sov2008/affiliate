@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <!-- Background Modern Gradient -->
+    <linearGradient id="prGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="60%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+
+    <!-- Radar Sweep Glow -->
+    <linearGradient id="sweepGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.45" />
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Squircle App Icon Base -->
+  <rect width="512" height="512" rx="128" fill="url(#prGrad)" />
+
+  <!-- Subtle Inner Border Highlight -->
+  <rect x="8" y="8" width="496" height="496" rx="120" stroke="#ffffff" stroke-opacity="0.18" stroke-width="8" />
+
+  <!-- Radar Grid Circles -->
+  <circle cx="256" cy="256" r="176" stroke="#ffffff" stroke-width="14" stroke-opacity="0.22" />
+  <circle cx="256" cy="256" r="116" stroke="#ffffff" stroke-width="14" stroke-opacity="0.38" />
+  <circle cx="256" cy="256" r="56" stroke="#ffffff" stroke-width="14" stroke-opacity="0.6" />
+
+  <!-- Radar Scan Sector -->
+  <path d="M 256 256 L 380 132 A 176 176 0 0 0 256 80 Z" fill="url(#sweepGrad)" />
+
+  <!-- Radar Active Beam Line -->
+  <line x1="256" y1="256" x2="380" y2="132" stroke="#ffffff" stroke-width="20" stroke-linecap="round" filter="url(#softGlow)" />
+
+  <!-- Detected Hot Deal Ping Indicator (Blip) -->
+  <circle cx="360" cy="152" r="22" fill="#38bdf8" filter="url(#softGlow)" />
+  <circle cx="360" cy="152" r="12" fill="#ffffff" />
+
+  <!-- Center Core Beacon -->
+  <circle cx="256" cy="256" r="32" fill="#ffffff" filter="url(#softGlow)" />
+  <circle cx="256" cy="256" r="18" fill="#e11d48" />
+</svg>
