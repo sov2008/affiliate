@@ -12,21 +12,33 @@ const categoriesList = Array.from(new Set(COUPONS_DATA.map(d => d.storeCategory)
 
 // Brand Visual Styling Helper (Honey / Slickdeals style branded identity)
 const BRAND_THEMES: Record<string, { bg: string; text: string; border: string; badgeBg: string }> = {
-  'expressvpn': { bg: 'from-rose-600 to-red-700', text: 'text-white', border: 'border-red-200', badgeBg: 'bg-rose-50 text-rose-700 border-rose-200' },
-  'purevpn': { bg: 'from-emerald-600 to-teal-700', text: 'text-white', border: 'border-emerald-200', badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-  'huawei': { bg: 'from-red-600 via-rose-600 to-red-800', text: 'text-white', border: 'border-red-200', badgeBg: 'bg-red-50 text-red-700 border-red-200' },
-  'alibaba': { bg: 'from-amber-500 to-orange-600', text: 'text-white', border: 'border-amber-200', badgeBg: 'bg-amber-50 text-amber-700 border-amber-200' },
-  'allpowers': { bg: 'from-slate-900 to-emerald-900', text: 'text-emerald-400', border: 'border-emerald-300', badgeBg: 'bg-emerald-50 text-emerald-800 border-emerald-200' },
-  'chicme': { bg: 'from-pink-500 to-rose-600', text: 'text-white', border: 'border-pink-200', badgeBg: 'bg-pink-50 text-pink-700 border-pink-200' },
-  'vogacloset': { bg: 'from-purple-600 to-indigo-700', text: 'text-white', border: 'border-purple-200', badgeBg: 'bg-purple-50 text-purple-700 border-purple-200' },
-  'airalo': { bg: 'from-orange-500 to-amber-600', text: 'text-white', border: 'border-orange-200', badgeBg: 'bg-orange-50 text-orange-700 border-orange-200' },
-  'keepersecurity': { bg: 'from-slate-900 to-indigo-950', text: 'text-amber-400', border: 'border-amber-300', badgeBg: 'bg-amber-50 text-amber-800 border-amber-200' },
-  'qustodio': { bg: 'from-cyan-600 to-blue-700', text: 'text-white', border: 'border-cyan-200', badgeBg: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
-  'touch': { bg: 'from-violet-600 to-indigo-700', text: 'text-white', border: 'border-violet-200', badgeBg: 'bg-violet-50 text-violet-700 border-violet-200' },
-  'nazih': { bg: 'from-rose-500 to-purple-600', text: 'text-white', border: 'border-rose-200', badgeBg: 'bg-rose-50 text-rose-700 border-rose-200' },
-  'vperfumes': { bg: 'from-amber-600 to-stone-800', text: 'text-amber-200', border: 'border-amber-300', badgeBg: 'bg-amber-50 text-amber-800 border-amber-200' },
-  'raynatours': { bg: 'from-blue-600 to-indigo-700', text: 'text-white', border: 'border-blue-200', badgeBg: 'bg-blue-50 text-blue-700 border-blue-200' }
+  'expressvpn': { bg: 'from-rose-600 to-red-700', text: 'text-white', border: 'border-red-200', badgeBg: 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30' },
+  'purevpn': { bg: 'from-emerald-600 to-teal-700', text: 'text-white', border: 'border-emerald-200', badgeBg: 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30' },
+  'huawei': { bg: 'from-red-600 via-rose-600 to-red-800', text: 'text-white', border: 'border-red-200', badgeBg: 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30' },
+  'alibaba': { bg: 'from-amber-500 to-orange-600', text: 'text-white', border: 'border-amber-200', badgeBg: 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30' },
+  'allpowers': { bg: 'from-slate-900 to-emerald-900', text: 'text-emerald-400', border: 'border-emerald-300', badgeBg: 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30' },
+  'chicme': { bg: 'from-pink-500 to-rose-600', text: 'text-white', border: 'border-pink-200', badgeBg: 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30' },
+  'vogacloset': { bg: 'from-purple-600 to-indigo-700', text: 'text-white', border: 'border-purple-200', badgeBg: 'bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30' },
+  'airalo': { bg: 'from-orange-500 to-amber-600', text: 'text-white', border: 'border-orange-200', badgeBg: 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30' },
+  'keepersecurity': { bg: 'from-slate-900 to-indigo-950', text: 'text-amber-400', border: 'border-amber-300', badgeBg: 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30' },
+  'qustodio': { bg: 'from-cyan-600 to-blue-700', text: 'text-white', border: 'border-cyan-200', badgeBg: 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30' },
+  'touch': { bg: 'from-violet-600 to-indigo-700', text: 'text-white', border: 'border-violet-200', badgeBg: 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30' },
+  'nazih': { bg: 'from-rose-500 to-purple-600', text: 'text-white', border: 'border-rose-200', badgeBg: 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30' },
+  'vperfumes': { bg: 'from-amber-600 to-stone-800', text: 'text-amber-200', border: 'border-amber-300', badgeBg: 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30' },
+  'raynatours': { bg: 'from-blue-600 to-indigo-700', text: 'text-white', border: 'border-blue-200', badgeBg: 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30' }
 };
+
+// Helper for top-right discount pills
+function getDiscountBadgeClasses(badge: string): string {
+  const b = (badge || '').toUpperCase();
+  if (b.includes('$') || b.includes('AED') || b.includes('UAH') || (b.includes('SAVE') && !b.includes('%'))) {
+    return 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30';
+  }
+  if (b.includes('FREE') || b.includes('EXTRA') || b.includes('CASHBACK') || b.includes('VIP') || b.includes('GIFTS')) {
+    return 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30';
+  }
+  return 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30';
+}
 
 // Store Target Regions mapping for geo filtering
 const STORE_REGIONS: Record<string, string[]> = {
@@ -62,11 +74,11 @@ const STORE_REGIONS: Record<string, string[]> = {
 
 // Region badge display config
 const REGION_BADGES: Record<string, { label: string; class: string }> = {
-  'UA': { label: '🇺🇦 UA', class: 'bg-blue-50 text-blue-700 border-blue-200' },
-  'GCC': { label: '🇦🇪 UAE & MENA', class: 'bg-emerald-50 text-emerald-800 border-emerald-200' },
-  'US': { label: '🇺🇸 US', class: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
-  'EU': { label: '🇪🇺 EU', class: 'bg-amber-50 text-amber-800 border-amber-200' },
-  'GLOBAL': { label: '🌍 Worldwide', class: 'bg-slate-100 text-slate-700 border-slate-200' }
+  'UA': { label: '🇺🇦 UA', class: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-500/30' },
+  'GCC': { label: '🇦🇪 UAE & MENA', class: 'bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30' },
+  'US': { label: '🇺🇸 US', class: 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30' },
+  'EU': { label: '🇪🇺 EU', class: 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30' },
+  'GLOBAL': { label: '🌍 Worldwide', class: 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700' }
 };
 
 // Map store domain and store lookup map
@@ -411,7 +423,7 @@ const homeSchemas = [
         <div class="flex items-center justify-between mb-3">
           <div class="flex items-center gap-2">
             <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Popular Partner Stores</span>
-            <span class="text-[11px] text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded-full">Click any brand to filter deals</span>
+            <span class="text-[11px] text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded-full dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">Click any brand to filter deals</span>
           </div>
           <a href={`${base}/stores/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-700">
             View All {STORES_DATA.length} Stores →
@@ -445,7 +457,7 @@ const homeSchemas = [
 
     <!-- Deals Ending Soon Urgency Section (FOMO Conversion Booster) -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-4">
-      <div class="bg-slate-900 rounded-3xl p-6 border border-slate-800 shadow-xl text-white">
+      <div class="bg-slate-900 rounded-3xl p-6 border border-slate-800 shadow-xl text-white dark:bg-gradient-to-r dark:from-slate-900/95 dark:via-rose-950/25 dark:to-indigo-950/40 dark:border-rose-500/30">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div class="flex items-center gap-3">
             <div class="flex items-center gap-2">
@@ -539,14 +551,14 @@ const homeSchemas = [
         
         <!-- Category Filter Row -->
         <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1" id="catFilterRow">
-          <button type="button" data-cat="ALL" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-sm transition">
+          <button type="button" data-cat="ALL" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition">
             All Deals ({COUPONS_DATA.length})
           </button>
           {categoriesList.map(cat => (
             <button
               type="button"
               data-cat={cat}
-              class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition"
+              class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition"
             >
               {cat} ({COUPONS_DATA.filter(d => d.storeCategory === cat).length})
             </button>
@@ -556,19 +568,19 @@ const homeSchemas = [
         <!-- Region & Geo Filter Row (Targeted Localised Savings) -->
         <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-2 border-t border-slate-100" id="regionFilterRow">
           <span class="text-xs font-semibold text-slate-400 shrink-0">Region:</span>
-          <button type="button" data-region="ALL" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-sm transition">
+          <button type="button" data-region="ALL" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition">
             🌍 All Regions
           </button>
-          <button type="button" data-region="GLOBAL" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+          <button type="button" data-region="GLOBAL" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition">
             🌐 Worldwide
           </button>
-          <button type="button" data-region="GCC" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+          <button type="button" data-region="GCC" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition">
             🇦🇪 UAE &amp; GCC
           </button>
-          <button type="button" data-region="EU" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+          <button type="button" data-region="EU" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition">
             🇪🇺 Europe
           </button>
-          <button type="button" data-region="UA" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+          <button type="button" data-region="UA" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition">
             🇺🇦 Ukraine
           </button>
         </div>
@@ -577,16 +589,16 @@ const homeSchemas = [
         <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100">
           <div class="flex flex-wrap items-center gap-2">
             <span class="text-xs font-semibold text-slate-500">Offer Type:</span>
-            <button type="button" data-type="ALL" class="type-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 transition">
+            <button type="button" data-type="ALL" class="type-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition">
               All ({COUPONS_DATA.length})
             </button>
-            <button type="button" data-type="code" class="type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition">
+            <button type="button" data-type="code" class="type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition">
               <svg class="w-3.5 h-3.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879a3 3 0 11-4.242-4.242 3 3 0 014.242 0zM12 12L9.121 9.121a3 3 0 10-4.242 4.242 3 3 0 004.242 0z"/>
               </svg>
               <span>Promo Codes ({COUPONS_DATA.filter(d => d.code && d.code.length > 0).length})</span>
             </button>
-            <button type="button" data-type="deal" class="type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition">
+            <button type="button" data-type="deal" class="type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition">
               <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
               </svg>
@@ -594,7 +606,7 @@ const homeSchemas = [
             </button>
 
             <!-- Active Store Chip -->
-            <div id="activeStoreFilterBadge" class="hidden items-center gap-1.5 px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 text-xs font-bold">
+            <div id="activeStoreFilterBadge" class="hidden items-center gap-1.5 px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30 text-xs font-bold">
               <span>Store: <strong id="activeStoreFilterText"></strong></span>
               <button id="clearStoreFilterBtn" type="button" class="hover:text-rose-900 ml-1">✕</button>
             </div>
@@ -619,7 +631,7 @@ const homeSchemas = [
       <div class="flex items-center justify-between mb-4 px-1">
         <div class="flex items-center gap-2">
           <h2 class="text-lg font-extrabold text-slate-900">Verified Promo Codes &amp; Active Vouchers</h2>
-          <span id="dealsGridCount" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700">
+          <span id="dealsGridCount" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">
             {COUPONS_DATA.length} verified offers
           </span>
         </div>
@@ -643,7 +655,7 @@ const homeSchemas = [
           
           return (
             <article
-              class={`deal-grid-card bg-white rounded-2xl border border-slate-200/90 p-5 flex flex-col justify-between card-hover relative overflow-hidden shadow-sm ${idx >= 16 ? 'deal-item-collapsed hidden' : ''}`}
+              class={`deal-grid-card bg-white rounded-2xl border border-slate-200/90 p-5 flex flex-col justify-between card-hover relative overflow-hidden shadow-sm dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] ${idx >= 16 ? 'deal-item-collapsed hidden' : ''}`}
               data-store={deal.storeName}
               data-category={deal.storeCategory}
               data-type={isCode ? 'code' : 'deal'}
@@ -662,8 +674,8 @@ const homeSchemas = [
                       {STORES_MAP[deal.storeSlug] ? (
                         <BrandLogo store={STORES_MAP[deal.storeSlug]} size="md" />
                       ) : (
-                        <div class="w-11 h-11 rounded-xl bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center">
-                          {initials}
+                        <div class="brand-logo-container w-11 h-11 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm shrink-0">
+                          <span class="w-full h-full rounded-lg bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center">{initials}</span>
                         </div>
                       )}
                     </a>
@@ -673,7 +685,7 @@ const homeSchemas = [
                           {deal.storeName}
                         </a>
                         <span class={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${
-                          isCode ? 'bg-indigo-50 text-indigo-700 border border-indigo-200/60' : 'bg-emerald-50 text-emerald-700 border border-emerald-200/60'
+                          isCode ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30'
                         }`}>
                           {isCode ? 'PROMO CODE' : 'DIRECT DEAL'}
                         </span>
@@ -689,7 +701,7 @@ const homeSchemas = [
                   </div>
 
                   <div class="flex items-center gap-2 shrink-0">
-                    <span class={`px-3 py-1.5 rounded-xl text-xs font-black tracking-tight border ${theme.badgeBg} shadow-sm`}>
+                    <span class={`px-3 py-1.5 rounded-xl text-xs font-black tracking-tight border ${getDiscountBadgeClasses(deal.discountBadge)} shadow-sm`}>
                       {deal.discountBadge}
                     </span>
                     <button
@@ -766,7 +778,7 @@ const homeSchemas = [
                     <button
                       type="button"
                       data-filter-store={deal.storeName}
-                      class="deal-more-store-link text-indigo-600 hover:text-indigo-800 font-semibold transition flex items-center gap-1 cursor-pointer"
+                      class="deal-more-store-link text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 font-semibold transition flex items-center gap-1 cursor-pointer"
                     >
                       <span>+{totalStoreDeals - 1} more {deal.storeName} deals</span>
                       <span>→</span>
@@ -774,7 +786,7 @@ const homeSchemas = [
                   ) : (
                     <a
                       href={`${base}/stores/${deal.storeSlug}/`}
-                      class="text-slate-400 hover:text-indigo-600 font-medium transition flex items-center gap-1"
+                      class="text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition flex items-center gap-1"
                     >
                       <span>View {deal.storeName} profile</span>
                       <span>→</span>
@@ -800,7 +812,7 @@ const homeSchemas = [
           class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white hover:bg-slate-50 text-slate-900 font-extrabold text-xs sm:text-sm border border-slate-200 shadow-sm hover:border-indigo-300 hover:shadow-md transition cursor-pointer"
         >
           <span>Load More Verified Coupons &amp; Deals</span>
-          <span class="px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold">
+          <span class="px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">
             +{COUPONS_DATA.length - 16} more
           </span>
           <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -837,16 +849,16 @@ const homeSchemas = [
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
           <!-- Card 1: ExpressVPN vs PureVPN -->
-          <div class="bg-white border-2 border-indigo-500/30 rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between relative shadow-sm">
+          <div class="bg-white dark:bg-slate-900 border-2 border-indigo-500/30 rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between relative shadow-sm">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700 border border-indigo-200">Popular Matchup</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">PRIVACY &amp; SECURITY</span>
                 <span class="text-xs font-black text-rose-600">Save 81%</span>
               </div>
 
               <!-- Brand Logos with VS Badge -->
               <div class="flex items-center justify-center gap-3 py-2 mb-4">
-                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm">
+                <div class="brand-logo-container w-11 h-11 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm shrink-0">
                   <img
                     src="https://www.google.com/s2/favicons?domain=expressvpn.com&sz=128"
                     alt="ExpressVPN logo"
@@ -857,11 +869,11 @@ const homeSchemas = [
                   <span class="hidden w-full h-full rounded-lg bg-rose-600 text-white font-black text-xs items-center justify-center">EX</span>
                 </div>
 
-                <span class="w-7 h-7 rounded-full bg-slate-900 text-white text-[10px] font-black flex items-center justify-center shadow-sm shrink-0">
+                <span class="w-7 h-7 rounded-full bg-slate-900 text-white text-[10px] font-black flex items-center justify-center shadow-sm shrink-0 dark:bg-slate-800 dark:border dark:border-slate-700">
                   VS
                 </span>
 
-                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm">
+                <div class="brand-logo-container w-11 h-11 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm shrink-0">
                   <img
                     src="https://www.google.com/s2/favicons?domain=purevpn.com&sz=128"
                     alt="PureVPN logo"
@@ -876,22 +888,22 @@ const homeSchemas = [
               <h3 class="text-base font-extrabold text-slate-900 mb-2 text-center">ExpressVPN vs PureVPN</h3>
               <p class="text-xs text-slate-600 leading-relaxed mb-4 text-center">Side-by-side audit of Lightway speeds, RAM-only privacy shields, and active voucher discounts.</p>
             </div>
-            <a href={`${base}/compare/expressvpn-vs-purevpn/`} class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center transition shadow-sm">
+            <a href={`${base}/compare/expressvpn-vs-purevpn/`} class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center transition shadow-sm dark:bg-slate-800/90 dark:hover:bg-indigo-600 dark:text-slate-100 dark:border dark:border-slate-700/80 cursor-pointer">
               Compare Offers →
             </a>
           </div>
 
           <!-- Card 2: ChicMe vs VogaCloset -->
-          <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between shadow-sm">
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between shadow-sm">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200">Fashion Faceoff</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">FASHION &amp; APPAREL</span>
                 <span class="text-xs font-black text-rose-600">Save 80%</span>
               </div>
 
               <!-- Brand Logos with VS Badge -->
               <div class="flex items-center justify-center gap-3 py-2 mb-4">
-                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm">
+                <div class="brand-logo-container w-11 h-11 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm shrink-0">
                   <img
                     src="https://www.google.com/s2/favicons?domain=chicme.com&sz=128"
                     alt="ChicMe logo"
@@ -902,11 +914,11 @@ const homeSchemas = [
                   <span class="hidden w-full h-full rounded-lg bg-pink-600 text-white font-black text-xs items-center justify-center">CM</span>
                 </div>
 
-                <span class="w-7 h-7 rounded-full bg-slate-900 text-white text-[10px] font-black flex items-center justify-center shadow-sm shrink-0">
+                <span class="w-7 h-7 rounded-full bg-slate-900 text-white text-[10px] font-black flex items-center justify-center shadow-sm shrink-0 dark:bg-slate-800 dark:border dark:border-slate-700">
                   VS
                 </span>
 
-                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm">
+                <div class="brand-logo-container w-11 h-11 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm shrink-0">
                   <img
                     src="https://www.google.com/s2/favicons?domain=vogacloset.com&sz=128"
                     alt="VogaCloset logo"
@@ -921,22 +933,22 @@ const homeSchemas = [
               <h3 class="text-base font-extrabold text-slate-900 mb-2 text-center">ChicMe vs VogaCloset</h3>
               <p class="text-xs text-slate-600 leading-relaxed mb-4 text-center">Compare international delivery times, returns policy, and stackable checkout coupons.</p>
             </div>
-            <a href={`${base}/compare/chicme-vs-vogacloset/`} class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center transition shadow-sm">
+            <a href={`${base}/compare/chicme-vs-vogacloset/`} class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center transition shadow-sm dark:bg-slate-800/90 dark:hover:bg-indigo-600 dark:text-slate-100 dark:border dark:border-slate-700/80 cursor-pointer">
               Compare Offers →
             </a>
           </div>
 
           <!-- Card 3: RaynaTours vs Airalo eSIM (Fix #5: category-consistent Travel Essentials) -->
-          <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between shadow-sm">
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between shadow-sm">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-200">TRAVEL ESSENTIALS</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">TRAVEL &amp; ROAMING</span>
                 <span class="text-xs font-black text-indigo-600">Roaming vs Tours</span>
               </div>
 
               <!-- Brand Logos with VS Badge -->
               <div class="flex items-center justify-center gap-3 py-2 mb-4">
-                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm">
+                <div class="brand-logo-container w-11 h-11 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm shrink-0">
                   <img
                     src="https://www.google.com/s2/favicons?domain=raynatours.com&sz=128"
                     alt="RaynaTours logo"
@@ -947,11 +959,11 @@ const homeSchemas = [
                   <span class="hidden w-full h-full rounded-lg bg-blue-600 text-white font-black text-xs items-center justify-center">RT</span>
                 </div>
 
-                <span class="w-7 h-7 rounded-full bg-slate-900 text-white text-[10px] font-black flex items-center justify-center shadow-sm shrink-0">
+                <span class="w-7 h-7 rounded-full bg-slate-900 text-white text-[10px] font-black flex items-center justify-center shadow-sm shrink-0 dark:bg-slate-800 dark:border dark:border-slate-700">
                   VS
                 </span>
 
-                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm">
+                <div class="brand-logo-container w-11 h-11 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm shrink-0">
                   <img
                     src="https://www.google.com/s2/favicons?domain=airalo.com&sz=128"
                     alt="Airalo eSIM logo"
@@ -966,7 +978,7 @@ const homeSchemas = [
               <h3 class="text-base font-extrabold text-slate-900 mb-2 text-center">Ultimate Travel &amp; Roaming Bundle</h3>
               <p class="text-xs text-slate-600 leading-relaxed mb-4 text-center">Compare Dubai desert tours &amp; attractions with 200+ country instant eSIM data packages.</p>
             </div>
-            <a href={`${base}/compare/`} class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center transition shadow-sm">
+            <a href={`${base}/compare/`} class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center transition shadow-sm dark:bg-slate-800/90 dark:hover:bg-indigo-600 dark:text-slate-100 dark:border dark:border-slate-700/80 cursor-pointer">
               Compare Offers →
             </a>
           </div>
@@ -977,7 +989,7 @@ const homeSchemas = [
       <section class="mt-14 pt-10 border-t border-slate-200" id="homepageFaqSection">
         <div class="max-w-4xl mx-auto">
           <div class="text-center mb-8">
-            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/60">Help &amp; Transparency</span>
+            <span class="text-xs font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full border border-indigo-200/60 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">HOW PROMORADAR WORKS</span>
             <h2 class="text-2xl font-black text-slate-900 tracking-tight mt-2">Frequently Asked Questions</h2>
             <p class="text-xs text-slate-500 mt-1">Everything you need to know about Admitad partner links, promo code verification, and regional voucher rules.</p>
           </div>
@@ -1263,9 +1275,9 @@ const homeSchemas = [
         currentCategory = btn.getAttribute('data-cat') || 'ALL';
         document.querySelectorAll('.main-cat-btn').forEach(b => {
           if (b.getAttribute('data-cat') === currentCategory) {
-            b.className = 'main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-sm transition';
+            b.className = 'main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer';
           } else {
-            b.className = 'main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition';
+            b.className = 'main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition cursor-pointer';
           }
         });
         filterDeals();
@@ -1278,9 +1290,9 @@ const homeSchemas = [
         currentRegion = btn.getAttribute('data-region') || 'ALL';
         document.querySelectorAll('.region-filter-btn').forEach(b => {
           if (b.getAttribute('data-region') === currentRegion) {
-            b.className = 'region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-sm transition';
+            b.className = 'region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer';
           } else {
-            b.className = 'region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition';
+            b.className = 'region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition cursor-pointer';
           }
         });
         filterDeals();
@@ -1293,9 +1305,9 @@ const homeSchemas = [
         currentType = btn.getAttribute('data-type') || 'ALL';
         document.querySelectorAll('.type-filter-btn').forEach(b => {
           if (b.getAttribute('data-type') === currentType) {
-            b.className = 'type-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 transition';
+            b.className = 'type-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer';
           } else {
-            b.className = 'type-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition';
+            b.className = 'type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition cursor-pointer';
           }
         });
         filterDeals();

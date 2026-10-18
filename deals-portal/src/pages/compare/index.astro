@@ -97,42 +97,42 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           const dealsA = COUPONS_DATA.filter(d => d.storeSlug === item.storeA?.slug);
           const dealsB = COUPONS_DATA.filter(d => d.storeSlug === item.storeB?.slug);
           return (
-            <div class="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm flex flex-col justify-between hover:shadow-lg transition space-y-6 group">
+            <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm flex flex-col justify-between hover:shadow-lg transition space-y-6 group">
               <div class="space-y-4">
                 <div class="flex items-center justify-between">
-                  <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-100 text-slate-700">
+                  <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">
                     {item.category}
                   </span>
-                  <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
+                  <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full dark:bg-emerald-500/15 dark:text-emerald-300 dark:border dark:border-emerald-500/30">
                     Verified Oct 2026
                   </span>
                 </div>
 
                 <!-- Side by side Logos -->
-                <div class="flex items-center justify-center gap-3 py-2 bg-slate-50 rounded-2xl border border-slate-100">
+                <div class="flex items-center justify-center gap-3 py-2 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-100 dark:border-slate-700/60">
                   {item.storeA && <BrandLogo store={item.storeA} size="md" />}
                   <span class="font-extrabold text-sm text-slate-400">VS</span>
                   {item.storeB && <BrandLogo store={item.storeB} size="md" />}
                 </div>
 
-                <h2 class="text-lg font-extrabold text-slate-900 leading-snug group-hover:text-indigo-600 transition">
-                  {item.storeA?.name} <span class="text-indigo-600">vs</span> {item.storeB?.name}
+                <h2 class="text-lg font-extrabold text-slate-900 dark:text-white leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+                  {item.storeA?.name} <span class="text-indigo-600 dark:text-indigo-400">vs</span> {item.storeB?.name}
                 </h2>
 
-                <p class="text-xs text-slate-600 leading-relaxed">
+                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {item.tagline}
                 </p>
 
                 <!-- Editorial Verdict Snippet -->
-                <div class="p-3 rounded-xl bg-indigo-50/70 border border-indigo-100 text-[11px] text-slate-700">
-                  <span class="font-bold text-indigo-900">Verdict:</span> {item.winnerVerdict}
+                <div class="p-3 rounded-xl bg-indigo-50/70 border border-indigo-100 dark:bg-indigo-950/30 dark:border-indigo-500/30 text-[11px] text-slate-700 dark:text-slate-300">
+                  <span class="font-bold text-indigo-900 dark:text-indigo-300">Verdict:</span> {item.winnerVerdict}
                 </div>
               </div>
 
-              <div class="pt-2 border-t border-slate-100">
+              <div class="pt-2 border-t border-slate-100 dark:border-slate-800">
                 <a
                   href={`${base}/compare/${item.slug}/`}
-                  class="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center block transition shadow-sm"
+                  class="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center block transition shadow-sm dark:bg-slate-800/90 dark:hover:bg-indigo-600 dark:text-slate-100 dark:border dark:border-slate-700/80 cursor-pointer"
                 >
                   Read Full Comparison &amp; Codes →
                 </a>

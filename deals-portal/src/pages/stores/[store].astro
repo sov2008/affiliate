@@ -176,7 +176,7 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                   <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
                     {store.name} Promo Codes &amp; Coupons
                   </h1>
-                  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                     Verified Merchant Partner
                   </span>
@@ -369,7 +369,7 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
               <h2 class="text-lg font-extrabold text-slate-900">
                 Active Promo Codes &amp; Deals for {store.name}
               </h2>
-              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700">
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30">
                 {storeDeals.length} offers active
               </span>
             </div>
@@ -379,15 +379,15 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
               {storeDeals.map((deal) => {
                 const isCode = deal.code && deal.code.trim().length > 0;
                 return (
-                  <article class="bg-white rounded-2xl border border-slate-200/90 p-5 card-hover shadow-sm flex flex-col justify-between">
+                  <article class="bg-white rounded-2xl border border-slate-200/90 p-5 card-hover shadow-sm flex flex-col justify-between dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
                     <div>
                       <div class="flex items-start justify-between gap-3 mb-3">
                         <div class="flex items-center gap-2">
-                          <span class="text-xs font-extrabold px-2.5 py-1 rounded-xl bg-rose-50 text-rose-600 border border-rose-200/80">
+                          <span class="text-xs font-extrabold px-2.5 py-1 rounded-xl bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30">
                             {deal.discountBadge}
                           </span>
                           <span class={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${
-                            isCode ? 'bg-indigo-50 text-indigo-700 border border-indigo-200' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            isCode ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30'
                           }`}>
                             {isCode ? 'PROMO CODE' : 'DIRECT DEAL'}
                           </span>
