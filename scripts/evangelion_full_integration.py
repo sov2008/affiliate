@@ -282,7 +282,42 @@ def integrate():
     cur.execute("DELETE FROM task_positions WHERE project_view_id NOT IN (SELECT id FROM project_views WHERE project_id = 1)")
     cur.execute("DELETE FROM project_ancestors WHERE project_id > 1")
     cur.execute("DELETE FROM project_task_counters WHERE project_id > 1")
+    cur.execute("DELETE FROM labels")
+    cur.execute("DELETE FROM label_tasks")
+    cur.execute("DELETE FROM task_assignees")
     conn.commit()
+
+    # Define Rich Categorical Labels with Hex Colors
+    label_palette = {
+        "Web Hosting & Domains": "0ea5e9",
+        "Privacy & Security": "6366f1",
+        "Software & Utilities": "10b981",
+        "Fashion & Apparel": "ec4899",
+        "Travel & Tours": "8b5cf6",
+        "Electronics & Gadgets": "f59e0b",
+        "E-Commerce & Wholesale": "f97316",
+        "Automotive & Tools": "64748b",
+        "Health & Wellness": "06b6d4",
+        "Education & Languages": "eab308",
+        "Jewelry & Watches": "d946ef",
+        "Audio & Tech Accessories": "3b82f6",
+        "Gaming & Entertainment": "ef4444",
+        "Home & Furniture": "84cc16",
+        "Outdoor & Sports": "14b8a6",
+        "Beauty & Skincare": "f43f5e",
+        "Pets & Supplies": "a855f7",
+        "CJ Affiliate": "22c55e",
+        "Admitad": "e11d48",
+        "Traffic Engine": "3b82f6",
+        "Security & Inbound": "ef4444",
+        "PM2 Daemon": "8b5cf6"
+    }
+    lbl_map = {}
+    init_ts = now_str()
+    for lname, lcolor in label_palette.items():
+        cur.execute("INSERT INTO labels (title, hex_color, created_by_id, created, updated) VALUES (?, ?, ?, ?, ?)",
+                    (lname, lcolor, owner_id, init_ts, init_ts))
+        lbl_map[lname] = cur.lastrowid
 
     # --------------------------------------------------------------------------
     # PROJECT 1: ⚡ EVANGELION // 01. PromoRadar Merchant Fleet
@@ -335,6 +370,9 @@ def integrate():
         cur.execute("UPDATE project_task_counters SET last_index = ? WHERE project_id = ?", (task_index, p1_id))
         cur.execute("INSERT INTO task_buckets (bucket_id, task_id, project_view_id) VALUES (?, ?, ?)", (p1_bids[0], tid, p1_kanban_id))
         cur.execute("INSERT INTO task_positions (task_id, project_view_id, position) VALUES (?, ?, ?)", (tid, p1_kanban_id, (s_idx + 1) * 100.0))
+        cur.execute("INSERT INTO task_assignees (task_id, user_id, created) VALUES (?, ?, ?)", (tid, owner_id, task_time))
+        if store['cat'] in lbl_map:
+            cur.execute("INSERT INTO label_tasks (task_id, label_id, created) VALUES (?, ?, ?)", (tid, lbl_map[store['cat']], task_time))
 
     print(f"✅ Integrated 29 real merchant stores into Project #1")
 
@@ -372,14 +410,19 @@ def integrate():
         ("Hostinger International Affiliate Agreement", "Active hosting tier with 75% OFF + free custom domain bundle.", 2)
     ]
     for tidx, (t_title, t_desc, b_idx) in enumerate(p2_tasks):
+        cur_t = now_str()
         cur.execute("""
             INSERT INTO tasks (title, description, project_id, done, done_at, `index`, priority, created, updated, created_by_id)
             VALUES (?, ?, ?, ?, ?, ?, 3, ?, ?, ?)
-        """, (t_title, t_desc, p2_id, 1 if b_idx == 2 else 0, now_str() if b_idx == 2 else None, tidx + 1, now_str(), now_str(), owner_id))
+        """, (t_title, t_desc, p2_id, 1 if b_idx == 2 else 0, cur_t if b_idx == 2 else None, tidx + 1, cur_t, cur_t, owner_id))
         tid = cur.lastrowid
         cur.execute("UPDATE project_task_counters SET last_index = ? WHERE project_id = ?", (tidx + 1, p2_id))
         cur.execute("INSERT INTO task_buckets (bucket_id, task_id, project_view_id) VALUES (?, ?, ?)", (p2_bids[b_idx], tid, p2_kanban_id))
         cur.execute("INSERT INTO task_positions (task_id, project_view_id, position) VALUES (?, ?, ?)", (tid, p2_kanban_id, (tidx + 1) * 100.0))
+        cur.execute("INSERT INTO task_assignees (task_id, user_id, created) VALUES (?, ?, ?)", (tid, owner_id, cur_t))
+        lbl_name = "CJ Affiliate" if "CJ" in t_title or "Abelssoft" in t_title else "Admitad" if "Admitad" in t_title else "CJ Affiliate"
+        if lbl_name in lbl_map:
+            cur.execute("INSERT INTO label_tasks (task_id, label_id, created) VALUES (?, ?, ?)", (tid, lbl_map[lbl_name], cur_t))
 
     print(f"✅ Integrated Affiliate Network Core into Project #2")
 
@@ -415,14 +458,18 @@ def integrate():
         ("Flirtcheck SEO Longread Hub (90+ Forensic Articles)", "Astro 5 SSG content collection with NVIDIA NIM FLUX.1-dev covers and organic Google rankings.", 2)
     ]
     for tidx, (t_title, t_desc, b_idx) in enumerate(p3_tasks):
+        cur_t = now_str()
         cur.execute("""
             INSERT INTO tasks (title, description, project_id, done, done_at, `index`, priority, created, updated, created_by_id)
             VALUES (?, ?, ?, ?, ?, ?, 3, ?, ?, ?)
-        """, (t_title, t_desc, p3_id, 1 if b_idx == 2 else 0, now_str() if b_idx == 2 else None, tidx + 1, now_str(), now_str(), owner_id))
+        """, (t_title, t_desc, p3_id, 1 if b_idx == 2 else 0, cur_t if b_idx == 2 else None, tidx + 1, cur_t, cur_t, owner_id))
         tid = cur.lastrowid
         cur.execute("UPDATE project_task_counters SET last_index = ? WHERE project_id = ?", (tidx + 1, p3_id))
         cur.execute("INSERT INTO task_buckets (bucket_id, task_id, project_view_id) VALUES (?, ?, ?)", (p3_bids[b_idx], tid, p3_kanban_id))
         cur.execute("INSERT INTO task_positions (task_id, project_view_id, position) VALUES (?, ?, ?)", (tid, p3_kanban_id, (tidx + 1) * 100.0))
+        cur.execute("INSERT INTO task_assignees (task_id, user_id, created) VALUES (?, ?, ?)", (tid, owner_id, cur_t))
+        if "Traffic Engine" in lbl_map:
+            cur.execute("INSERT INTO label_tasks (task_id, label_id, created) VALUES (?, ?, ?)", (tid, lbl_map["Traffic Engine"], cur_t))
 
     print(f"✅ Integrated Traffic & Social Syndication into Project #3")
 
@@ -458,14 +505,18 @@ def integrate():
         ("Telegram Bot Instant Dispatcher (@local_match_filter_bot)", "Real-time alerts with HTML escaping and plain-text fallback delivered directly to admin chat 808343978.", 2)
     ]
     for tidx, (t_title, t_desc, b_idx) in enumerate(p4_tasks):
+        cur_t = now_str()
         cur.execute("""
             INSERT INTO tasks (title, description, project_id, done, done_at, `index`, priority, created, updated, created_by_id)
             VALUES (?, ?, ?, ?, ?, ?, 3, ?, ?, ?)
-        """, (t_title, t_desc, p4_id, 1, now_str(), tidx + 1, now_str(), now_str(), owner_id))
+        """, (t_title, t_desc, p4_id, 1, cur_t, tidx + 1, cur_t, cur_t, owner_id))
         tid = cur.lastrowid
         cur.execute("UPDATE project_task_counters SET last_index = ? WHERE project_id = ?", (tidx + 1, p4_id))
         cur.execute("INSERT INTO task_buckets (bucket_id, task_id, project_view_id) VALUES (?, ?, ?)", (p4_bids[b_idx], tid, p4_kanban_id))
         cur.execute("INSERT INTO task_positions (task_id, project_view_id, position) VALUES (?, ?, ?)", (tid, p4_kanban_id, (tidx + 1) * 100.0))
+        cur.execute("INSERT INTO task_assignees (task_id, user_id, created) VALUES (?, ?, ?)", (tid, owner_id, cur_t))
+        if "Security & Inbound" in lbl_map:
+            cur.execute("INSERT INTO label_tasks (task_id, label_id, created) VALUES (?, ?, ?)", (tid, lbl_map["Security & Inbound"], cur_t))
 
     print(f"✅ Integrated Inbound Communications into Project #4")
 
@@ -509,6 +560,9 @@ def integrate():
         cur.execute("UPDATE project_task_counters SET last_index = ? WHERE project_id = ?", (tidx + 1, p5_id))
         cur.execute("INSERT INTO task_buckets (bucket_id, task_id, project_view_id) VALUES (?, ?, ?)", (p5_bids[b_idx], tid, p5_kanban_id))
         cur.execute("INSERT INTO task_positions (task_id, project_view_id, position) VALUES (?, ?, ?)", (tid, p5_kanban_id, (tidx + 1) * 100.0))
+        cur.execute("INSERT INTO task_assignees (task_id, user_id, created) VALUES (?, ?, ?)", (tid, owner_id, cur_t))
+        if "PM2 Daemon" in lbl_map:
+            cur.execute("INSERT INTO label_tasks (task_id, label_id, created) VALUES (?, ?, ?)", (tid, lbl_map["PM2 Daemon"], cur_t))
 
     conn.commit()
     conn.close()
