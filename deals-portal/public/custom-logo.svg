@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 44" width="220" height="44">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="50%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </linearGradient>
+    <filter id="blipGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Left Radar Emblem -->
+  <g transform="translate(6, 3)">
+    <!-- Hexagonal Shield Contour -->
+    <path d="M 19 2 L 35 10 L 35 28 L 19 36 L 3 28 L 3 10 Z" fill="url(#shieldGrad)" fill-opacity="0.12" stroke="url(#shieldGrad)" stroke-width="1.8" stroke-linejoin="round" />
+    
+    <!-- Concentric Radar Sweeps -->
+    <circle cx="19" cy="19" r="12" fill="none" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.35" stroke-dasharray="2 2" />
+    <circle cx="19" cy="19" r="7.5" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.75" />
+    
+    <!-- Radar Sweep Sector -->
+    <path d="M 19 19 L 19 7 A 12 12 0 0 1 30 14 Z" fill="url(#shieldGrad)" fill-opacity="0.45" />
+    
+    <!-- Crosshairs -->
+    <line x1="19" y1="8" x2="19" y2="30" stroke="#38bdf8" stroke-width="0.9" stroke-opacity="0.6" />
+    <line x1="8" y1="19" x2="30" y2="19" stroke="#38bdf8" stroke-width="0.9" stroke-opacity="0.6" />
+    
+    <!-- Center Core Node -->
+    <circle cx="19" cy="19" r="2.5" fill="#00f2fe" filter="url(#blipGlow)" />
+    
+    <!-- Active Target Ping -->
+    <circle cx="26" cy="13" r="1.6" fill="#10b981" filter="url(#blipGlow)" />
+  </g>
+
+  <!-- Right Typography Mark -->
+  <g transform="translate(52, 16)">
+    <text x="0" y="7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif" font-size="15" font-weight="900" letter-spacing="1.2" fill="url(#textGrad)">PROMORADAR</text>
+    <text x="0.5" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif" font-size="8" font-weight="700" letter-spacing="2.6" fill="#38bdf8">CONTROL HUB</text>
+  </g>
+</svg>
