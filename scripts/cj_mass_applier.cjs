@@ -18,26 +18,22 @@ function log(msg) {
 }
 
 const SEARCH_KEYWORDS = [
-  'vpn',
-  'hosting',
-  'security',
-  'travel',
-  'hotel',
-  'flight',
-  'finance',
-  'insurance',
-  'software',
-  'antivirus',
-  'ai',
-  'gadget',
-  'clothing',
-  'beauty',
-  'shoes',
-  'electronics',
-  'education',
-  'backup',
-  'cloud',
-  'vpn security'
+  // Privacy & Cybersecurity
+  'vpn', 'security', 'antivirus', 'password manager', 'proxy', 'cybersecurity', 'cloud storage', 'backup', 'vpn security',
+  // Hosting & Web Infrastructure
+  'hosting', 'web hosting', 'domain', 'vps', 'server', 'wordpress', 'website builder', 'ecommerce', 'shopify',
+  // Software, AI & Productivity
+  'software', 'ai', 'crm', 'marketing', 'email marketing', 'seo', 'accounting', 'invoicing', 'productivity', 'project management',
+  // Travel & Accommodation
+  'travel', 'hotel', 'flight', 'booking', 'resort', 'car rental', 'vacation', 'cruise', 'tour', 'luggage',
+  // Fashion & Apparel
+  'clothing', 'apparel', 'shoes', 'fashion', 'beauty', 'skincare', 'jewelry', 'watches', 'luxury', 'streetwear',
+  // Electronics & Tech Hardware
+  'electronics', 'gadget', 'computer', 'laptop', 'gaming', 'smartphone', 'audio', 'headphones', 'smart home',
+  // Health & Wellness
+  'fitness', 'supplements', 'gym', 'nutrition', 'vitamins', 'wellness', 'eyewear', 'home',
+  // Finance & Online Learning
+  'finance', 'insurance', 'trading', 'banking', 'credit', 'cashback', 'education', 'courses'
 ];
 
 async function run() {
@@ -115,7 +111,7 @@ async function run() {
       log(`Found ${applyButtons.length} unapplied advertisers for "${kw}"`);
 
       let kwApplied = 0;
-      for (let i = 0; i < Math.min(applyButtons.length, 20); i++) {
+      for (let i = 0; i < Math.min(applyButtons.length, 30); i++) {
         try {
           const btn = applyButtons[i];
           if (await btn.isVisible()) {
