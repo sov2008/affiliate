@@ -31,7 +31,10 @@ const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={fullCanonical} />
+    <link rel="icon" href={`${base}/favicon.ico`} sizes="any" />
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <link rel="icon" type="image/png" sizes="32x32" href={`${base}/favicon-32x32.png`} />
+    <link rel="apple-touch-icon" sizes="180x180" href={`${base}/apple-touch-icon.png`} />
     <meta name="theme-color" content="#4f46e5" />
     <meta name="mitgo-verification" content="dcaf1a95-f2a7-42c8-b67f-4a463294ee43" />
     <meta name="admitad-verification" content="fa9e3fd878" />
