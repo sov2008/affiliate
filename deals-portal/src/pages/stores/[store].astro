@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import BrandLogo from '../../components/BrandLogo.astro';
 import { STORES_DATA, COUPONS_DATA, type StoreProfile } from '../../data/couponsData';
 
 export const prerender = true;
@@ -146,9 +147,7 @@ const pageSchemas = [storeSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] 
         <div class="bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-sm">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div class="flex items-start sm:items-center gap-5">
-              <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-rose-600 text-white font-extrabold text-2xl sm:text-3xl flex items-center justify-center shadow-md shrink-0">
-                {initials}
-              </div>
+              <BrandLogo store={store} size="xl" />
               <div>
                 <div class="flex flex-wrap items-center gap-2 mb-1.5">
                   <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
@@ -186,6 +185,64 @@ const pageSchemas = [storeSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] 
         
         <!-- Left Sidebar (4 cols) -->
         <aside class="lg:col-span-4 space-y-6 order-2 lg:order-1">
+          <!-- Interactive Cart Savings Estimator Widget -->
+          <div class="bg-gradient-to-br from-indigo-900 via-slate-900 to-indigo-950 text-white rounded-3xl p-6 border border-indigo-500/30 shadow-xl relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="flex items-center gap-2 mb-3">
+              <span class="p-2 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-400/20">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                </svg>
+              </span>
+              <div>
+                <h3 class="text-sm font-extrabold text-white">Quick Savings Estimator</h3>
+                <p class="text-[11px] text-indigo-200/80">Calculate your final price with best active code</p>
+              </div>
+            </div>
+
+            <div class="space-y-3.5 pt-2">
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Cart Order Subtotal ($)</label>
+                <div class="relative">
+                  <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                  <input
+                    type="number"
+                    id="savingsCalcInput"
+                    min="1"
+                    step="1"
+                    value="100"
+                    placeholder="100"
+                    class="w-full bg-slate-800/80 border border-slate-700 rounded-xl pl-8 pr-4 py-2.5 text-sm font-bold text-white placeholder-slate-500 focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 transition"
+                  />
+                </div>
+              </div>
+
+              <!-- Calculation Result Display -->
+              <div id="savingsCalcResults" class="bg-slate-800/60 rounded-2xl p-4 border border-slate-700/60 space-y-2.5">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-slate-400">Best Applied Code:</span>
+                  <span id="savingsCalcBestCode" class="font-mono font-bold text-indigo-300 bg-indigo-950/80 px-2 py-0.5 rounded border border-indigo-700/50">...</span>
+                </div>
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-slate-400">Estimated Savings:</span>
+                  <span id="savingsCalcDiscountAmount" class="font-bold text-emerald-400">-$0.00</span>
+                </div>
+                <div class="pt-2 border-t border-slate-700/60 flex justify-between items-center">
+                  <span class="text-xs font-semibold text-white">Estimated Total:</span>
+                  <span id="savingsCalcFinalTotal" class="text-lg font-black text-white">$0.00</span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                id="savingsCalcApplyBtn"
+                class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-400 hover:to-indigo-500 text-white font-bold text-xs shadow-md transition flex items-center justify-center gap-1.5"
+              >
+                <span>Copy Best Code & Redeem ↗</span>
+              </button>
+            </div>
+          </div>
+
           <!-- Verification Metrics -->
           <div class="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm space-y-5">
             <h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2">
@@ -519,7 +576,7 @@ const pageSchemas = [storeSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] 
     </div>
   </div>
 
-  <script is:inline>
+  <script is:inline define:vars={{ rawDeals: storeDeals, storeName: store.name, storeAffiliateUrl: store.affiliateUrl }}>
     const switcher = document.getElementById('brandSwitcherSelect');
     switcher?.addEventListener('change', (e) => {
       window.location.href = e.target.value;
@@ -541,6 +598,15 @@ const pageSchemas = [storeSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] 
         feedback?.classList.add('hidden');
         modal?.classList.remove('hidden');
         modal?.classList.add('flex');
+
+        // Dispatch reveal event for floating sticky bar
+        window.dispatchEvent(new CustomEvent('promoradar_deal_revealed', {
+          detail: {
+            code: data.code || 'DEAL_ACTIVATED',
+            store: data.store || storeName,
+            affiliateUrl: data.affiliateUrl || storeAffiliateUrl
+          }
+        }));
 
         // Auto-copy promo code (Honey / RetailMeNot UX)
         if (data.code && data.code.trim().length > 0) {
@@ -564,10 +630,93 @@ const pageSchemas = [storeSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] 
       if (code) {
         navigator.clipboard.writeText(code).then(() => {
           copyBtn.textContent = '✓ Copied!';
+          window.dispatchEvent(new CustomEvent('promoradar_deal_revealed', {
+            detail: {
+              code: code,
+              store: storeName,
+              affiliateUrl: document.getElementById('modalStoreAffiliateLink')?.href || storeAffiliateUrl
+            }
+          }));
           setTimeout(() => { copyBtn.textContent = '📋 Copy Code'; }, 2000);
         });
       }
     });
+
+    // Quick Savings Estimator Calculator Logic
+    const calcInput = document.getElementById('savingsCalcInput');
+    const calcCode = document.getElementById('savingsCalcBestCode');
+    const calcDiscount = document.getElementById('savingsCalcDiscountAmount');
+    const calcTotal = document.getElementById('savingsCalcFinalTotal');
+    const calcApplyBtn = document.getElementById('savingsCalcApplyBtn');
+
+    function calculateSavings() {
+      const subtotal = parseFloat(calcInput?.value) || 0;
+      if (subtotal <= 0) {
+        if (calcDiscount) calcDiscount.textContent = '-$0.00';
+        if (calcTotal) calcTotal.textContent = '$0.00';
+        return;
+      }
+
+      let bestDiscountVal = 0;
+      let bestDeal = null;
+
+      (rawDeals || []).forEach(deal => {
+        let discountDollars = 0;
+        const discountStr = (deal.discount || deal.title || '').toUpperCase();
+        const percentMatch = discountStr.match(/(\d+)%/);
+        const dollarMatch = discountStr.match(/\$(\d+)/);
+
+        if (percentMatch) {
+          const pct = parseFloat(percentMatch[1]);
+          discountDollars = (subtotal * pct) / 100;
+        } else if (dollarMatch) {
+          discountDollars = parseFloat(dollarMatch[1]);
+        } else {
+          // Default minimal baseline savings if active
+          discountDollars = subtotal * 0.15;
+        }
+
+        if (discountDollars > bestDiscountVal) {
+          bestDiscountVal = discountDollars;
+          bestDeal = deal;
+        }
+      });
+
+      if (!bestDeal && rawDeals && rawDeals.length > 0) {
+        bestDeal = rawDeals[0];
+        bestDiscountVal = subtotal * 0.15;
+      }
+
+      const cappedDiscount = Math.min(bestDiscountVal, subtotal);
+      const finalPrice = Math.max(0, subtotal - cappedDiscount);
+
+      if (calcCode) calcCode.textContent = (bestDeal && bestDeal.code) ? bestDeal.code : 'DIRECT_DEAL';
+      if (calcDiscount) calcDiscount.textContent = `-$${cappedDiscount.toFixed(2)}`;
+      if (calcTotal) calcTotal.textContent = `$${finalPrice.toFixed(2)}`;
+
+      if (calcApplyBtn) {
+        calcApplyBtn.onclick = () => {
+          const promoCode = (bestDeal && bestDeal.code) ? bestDeal.code : '';
+          const url = (bestDeal && bestDeal.affiliateUrl) ? bestDeal.affiliateUrl : storeAffiliateUrl;
+          if (promoCode) {
+            navigator.clipboard?.writeText(promoCode).catch(() => {});
+          }
+          window.dispatchEvent(new CustomEvent('promoradar_deal_revealed', {
+            detail: {
+              code: promoCode || 'ACTIVE_DEAL',
+              store: storeName,
+              affiliateUrl: url
+            }
+          }));
+          if (url) {
+            window.open(url, '_blank', 'noopener,noreferrer');
+          }
+        };
+      }
+    }
+
+    calcInput?.addEventListener('input', calculateSavings);
+    calculateSavings();
 
     document.querySelectorAll('.vote-feedback').forEach(b => {
       b.addEventListener('click', () => {

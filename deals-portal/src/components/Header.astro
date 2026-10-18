@@ -1,10 +1,13 @@
 ---
+import { STORES_DATA } from '../data/couponsData';
+
 interface Props {
   activePath?: string;
 }
 
 const { activePath = '/' } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const storesCount = STORES_DATA.length;
 ---
 
 <!-- Top Status Bar (Partner Network Feed & i18n switcher) -->
@@ -73,7 +76,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
           </svg>
-          <span id="navStoresText">Stores (26)</span>
+          <span id="navStoresText">Stores ({storesCount})</span>
         </a>
         <a
           href={`${base}/categories/`}
@@ -110,30 +113,41 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </a>
       </nav>
 
-      <!-- Right Header Actions -->
-      <div class="flex items-center gap-2 shrink-0">
-        <div class="relative hidden sm:block w-40 xl:w-52 shrink-0">
+      <!-- Right Header Actions with Spotlight Search Container -->
+      <div class="flex items-center gap-2 shrink-0 relative">
+        <div class="relative hidden sm:block w-44 xl:w-60 shrink-0" id="headerSearchWrapper">
           <input
             id="headerQuickSearch"
             type="text"
             placeholder="Search store or promo..."
+            autocomplete="off"
             class="w-full pl-9 pr-3 py-2 text-sm bg-slate-100 hover:bg-slate-200/60 focus:bg-white rounded-xl border border-transparent focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition"
           />
           <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
+
+          <!-- Search Spotlight Floating Dropdown -->
+          <div id="headerSearchSpotlight" class="hidden absolute top-full right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200/90 z-50 overflow-hidden animate-fadeIn">
+            <div class="p-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-xs text-slate-500">
+              <span class="font-bold uppercase tracking-wider text-[10px] text-slate-400">Search Results</span>
+              <span class="text-[10px] bg-slate-200/80 px-1.5 py-0.5 rounded font-mono">ESC to close</span>
+            </div>
+            <div id="spotlightStoresList" class="p-2 space-y-1 max-h-48 overflow-y-auto border-b border-slate-100"></div>
+            <div id="spotlightDealsList" class="p-2 space-y-1 max-h-60 overflow-y-auto"></div>
+          </div>
         </div>
 
-        <!-- Saved Deals Button -->
-        <button id="headerSavedBtn" type="button" class="relative inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold bg-slate-100 hover:bg-slate-200/70 text-slate-700 transition shrink-0" title="Saved Vouchers">
+        <!-- Saved Deals Button (Triggers Drawer) -->
+        <button id="headerSavedBtn" type="button" class="relative inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold bg-slate-100 hover:bg-slate-200/70 text-slate-700 transition shrink-0 cursor-pointer" title="Saved Vouchers">
           <svg class="w-4 h-4 text-rose-500 fill-current" viewBox="0 0 24 24">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
           </svg>
           <span id="savedCountBadge" class="text-xs font-bold px-1.5 py-0.2 rounded-full bg-rose-100 text-rose-700 shrink-0">0</span>
         </button>
 
-        <!-- Submit Code Button -->
-        <button id="headerSubmitBtn" type="button" class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white shadow-sm transition whitespace-nowrap shrink-0">
+        <!-- Submit Code Button (Triggers Modal) -->
+        <button id="headerSubmitBtn" type="button" class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white shadow-sm transition whitespace-nowrap shrink-0 cursor-pointer">
           <span id="submitCodeBtnLabel">+ Submit Code</span>
         </button>
       </div>
@@ -142,10 +156,484 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <!-- Mobile Scrollable Sub-nav -->
     <div class="flex lg:hidden items-center gap-1.5 overflow-x-auto no-scrollbar py-2 border-t border-slate-100">
       <a href={`${base}/`} class={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath === '/' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>🔥 All Deals</a>
-      <a href={`${base}/stores/`} class={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/stores') && !activePath.includes('/stores/') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>🏪 Stores (26)</a>
+      <a href={`${base}/stores/`} class={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/stores') && !activePath.includes('/stores/') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>🏪 Stores ({storesCount})</a>
       <a href={`${base}/categories/`} class={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/categories') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>🗂 Categories</a>
       <a href={`${base}/compare/`} class={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/compare') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>⚖️ Compare</a>
       <a href={`${base}/about/`} class={`whitespace-nowrap shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold ${activePath.startsWith('/about') ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'}`}>❓ FAQ</a>
     </div>
   </div>
 </header>
+
+<!-- Saved Vouchers Slide-over Drawer -->
+<div id="savedVouchersDrawerOverlay" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm transition-opacity">
+  <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+    <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col border-l border-slate-200 animate-slideInRight">
+      <!-- Drawer Header -->
+      <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-8 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center font-bold">♥</span>
+          <div>
+            <h3 id="drawerSavedTitle" class="font-extrabold text-slate-900 text-base">Saved Vouchers</h3>
+            <p id="drawerSavedSubtitle" class="text-xs text-slate-500">Saved in browser • No signup required</p>
+          </div>
+        </div>
+        <button id="closeSavedDrawerBtn" type="button" class="w-8 h-8 rounded-full bg-slate-200/80 hover:bg-slate-300 text-slate-600 flex items-center justify-center text-sm font-bold cursor-pointer transition">✕</button>
+      </div>
+
+      <!-- Drawer Content -->
+      <div id="savedDrawerDealsContainer" class="flex-1 overflow-y-auto p-5 space-y-3">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Drawer Footer -->
+      <div class="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between text-xs text-slate-500">
+        <span id="savedDrawerCountLabel">0 vouchers saved</span>
+        <button id="clearAllSavedBtn" type="button" class="text-rose-600 hover:text-rose-700 font-semibold cursor-pointer">Clear all</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Submit Coupon Modal -->
+<div id="submitCouponModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md">
+  <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative animate-fadeIn">
+    <button id="closeSubmitModalBtn" type="button" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center font-bold text-sm cursor-pointer transition">✕</button>
+
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-600 font-extrabold flex items-center justify-center text-lg">+</div>
+      <div>
+        <h3 id="submitModalTitleText" class="font-extrabold text-slate-900 text-lg">Submit a Promo Code</h3>
+        <p id="submitModalDescText" class="text-xs text-slate-500">Share a working discount voucher with the community.</p>
+      </div>
+    </div>
+
+    <form id="submitCouponForm" class="space-y-4">
+      <div>
+        <label id="submitStoreLabel" class="block text-xs font-bold text-slate-700 mb-1">Store Name</label>
+        <input
+          id="submitStoreName"
+          type="text"
+          required
+          placeholder="e.g. ExpressVPN, Airalo, ChicMe..."
+          class="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+        />
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label id="submitCodeLabel" class="block text-xs font-bold text-slate-700 mb-1">Promo Code</label>
+          <input
+            id="submitCodeInput"
+            type="text"
+            required
+            placeholder="e.g. SAVE20, DEAL75"
+            class="w-full font-mono uppercase px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          />
+        </div>
+        <div>
+          <label id="submitRegionLabel" class="block text-xs font-bold text-slate-700 mb-1">Region</label>
+          <select
+            id="submitRegionSelect"
+            class="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          >
+            <option value="GLOBAL">Worldwide (Global)</option>
+            <option value="US">United States (US)</option>
+            <option value="EU">European Union (EU)</option>
+            <option value="GCC">UAE & MENA (GCC)</option>
+            <option value="UA">Ukraine (UA)</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label id="submitDescLabel" class="block text-xs font-bold text-slate-700 mb-1">Discount Description</label>
+        <textarea
+          id="submitDescInput"
+          required
+          rows="2"
+          placeholder="e.g. 20% off all orders over $50, valid on checkout..."
+          class="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-sm shadow-md transition cursor-pointer"
+      >
+        Submit Voucher for QA Verification ↗
+      </button>
+    </form>
+
+    <div id="submitSuccessBox" class="hidden text-center py-6 space-y-2">
+      <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-xl font-bold">✓</div>
+      <h4 id="submitSuccessTitleText" class="font-extrabold text-slate-900 text-base">Thank you!</h4>
+      <p id="submitSuccessMsgText" class="text-xs text-slate-600 max-w-xs mx-auto leading-relaxed">Code submitted for manual QA verification by our team.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Sticky Copied Voucher Bar -->
+<div id="stickyCopiedBar" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 hidden max-w-xl w-[92%] sm:w-auto bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 items-center justify-between gap-3 animate-fadeIn">
+  <div class="flex items-center gap-2.5 min-w-0">
+    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+    <span class="text-xs text-slate-300 truncate">
+      <span id="stickyCopiedPrefix">Code copied:</span>
+      <strong id="stickyCopiedCode" class="text-amber-300 font-mono font-bold">CODE</strong>
+      <span id="stickyCopiedStore">for Store</span>
+      <span id="stickyCopiedSuffix" class="hidden sm:inline text-slate-400">— Paste at checkout</span>
+    </span>
+  </div>
+  <div class="flex items-center gap-2 shrink-0">
+    <a id="stickyOutboundBtn" href="#" target="_blank" rel="nofollow sponsored" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition">Open Store ↗</a>
+    <button id="closeStickyBarBtn" type="button" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center text-xs font-bold transition cursor-pointer">✕</button>
+  </div>
+</div>
+
+<script>
+  import { translations, type Locale } from '../data/i18n';
+  import { STORES_DATA, COUPONS_DATA } from '../data/couponsData';
+
+  // 1. i18n Global Language Handling
+  let currentLang: Locale = (localStorage.getItem('promoradar_lang') as Locale) || 'en';
+
+  function applyLanguage(lang: Locale) {
+    currentLang = lang;
+    localStorage.setItem('promoradar_lang', lang);
+
+    const t = translations[lang] || translations.en;
+
+    // Toggle active state on buttons
+    const enBtn = document.getElementById('langEnBtn');
+    const ruBtn = document.getElementById('langRuBtn');
+    if (lang === 'ru') {
+      enBtn?.classList.remove('bg-indigo-600', 'text-white');
+      enBtn?.classList.add('text-slate-400');
+      ruBtn?.classList.add('bg-indigo-600', 'text-white');
+      ruBtn?.classList.remove('text-slate-400');
+    } else {
+      ruBtn?.classList.remove('bg-indigo-600', 'text-white');
+      ruBtn?.classList.add('text-slate-400');
+      enBtn?.classList.add('bg-indigo-600', 'text-white');
+      enBtn?.classList.remove('text-slate-400');
+    }
+
+    // Top Bar & Header Text
+    const setTxt = (id: string, val: string) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
+    };
+
+    setTxt('topBarFeedBadge', t.feedActive);
+    setTxt('topBarFeedText', t.feedSub);
+    setTxt('topBarNetworkText', t.partnerNetwork);
+    setTxt('headerSubtitle', t.tagline);
+    setTxt('navDealsText', t.navAllDeals);
+    setTxt('navStoresText', `${t.navStores} (${STORES_DATA.length})`);
+    setTxt('navCategoriesText', t.navCategories);
+    setTxt('navCompareText', t.navCompare);
+    setTxt('navAboutText', t.navFAQ);
+    setTxt('submitCodeBtnLabel', t.submitCode);
+
+    // Hero Section Text
+    setTxt('heroBadgeLabel', t.heroBadge);
+    setTxt('heroSubtitleText', t.heroSubtitle);
+    setTxt('findDealsBtnText', t.findDeals);
+    setTxt('trendingPrefix', t.trending);
+
+    const heroInput = document.getElementById('mainHeroSearchInput') as HTMLInputElement;
+    if (heroInput) heroInput.placeholder = t.heroSearchPlaceholder;
+    const headerInput = document.getElementById('headerQuickSearch') as HTMLInputElement;
+    if (headerInput) headerInput.placeholder = t.searchPlaceholder;
+
+    // Modals Text
+    setTxt('drawerSavedTitle', t.savedVouchers);
+    setTxt('drawerSavedSubtitle', t.savedLocally);
+    setTxt('submitModalTitleText', t.submitModalTitle);
+    setTxt('submitModalDescText', t.submitModalDesc);
+    setTxt('submitStoreLabel', t.storeNameLabel);
+    setTxt('submitCodeLabel', t.codeLabel);
+    setTxt('submitDescLabel', t.discountDescLabel);
+    setTxt('submitRegionLabel', t.regionLabel);
+    setTxt('submitSuccessTitleText', t.submitSuccessTitle);
+    setTxt('submitSuccessMsgText', t.submitSuccessMsg);
+    setTxt('stickyCopiedPrefix', t.copiedBarPrefix);
+    setTxt('stickyCopiedSuffix', `— ${t.copiedBarSuffix}`);
+
+    // Re-render saved vouchers drawer with current locale
+    renderSavedDrawer();
+  }
+
+  document.getElementById('langEnBtn')?.addEventListener('click', () => applyLanguage('en'));
+  document.getElementById('langRuBtn')?.addEventListener('click', () => applyLanguage('ru'));
+
+  // 2. Saved Vouchers Drawer & Real-Time Sync
+  const savedDrawerOverlay = document.getElementById('savedVouchersDrawerOverlay');
+  const closeSavedDrawerBtn = document.getElementById('closeSavedDrawerBtn');
+  const headerSavedBtn = document.getElementById('headerSavedBtn');
+  const clearAllSavedBtn = document.getElementById('clearAllSavedBtn');
+
+  function getSavedDealIds(): string[] {
+    try {
+      return JSON.parse(localStorage.getItem('promoradar_saved_deals') || '[]');
+    } catch {
+      return [];
+    }
+  }
+
+  function updateSavedBadge() {
+    const ids = getSavedDealIds();
+    const badge = document.getElementById('savedCountBadge');
+    if (badge) badge.textContent = String(ids.length);
+    const countLabel = document.getElementById('savedDrawerCountLabel');
+    if (countLabel) countLabel.textContent = `${ids.length} vouchers saved`;
+  }
+
+  function renderSavedDrawer() {
+    const ids = getSavedDealIds();
+    const container = document.getElementById('savedDrawerDealsContainer');
+    if (!container) return;
+
+    if (ids.length === 0) {
+      const t = translations[currentLang] || translations.en;
+      container.innerHTML = `
+        <div class="text-center py-12 px-4 space-y-3">
+          <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto text-xl">♥</div>
+          <p class="text-xs text-slate-500 leading-relaxed">${t.noSaved}</p>
+        </div>
+      `;
+      return;
+    }
+
+    const savedDeals = COUPONS_DATA.filter(d => ids.includes(d.id));
+    container.innerHTML = savedDeals.map(deal => `
+      <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200/90 relative group hover:bg-white transition shadow-sm">
+        <button type="button" data-remove-saved="${deal.id}" class="absolute right-3 top-3 text-slate-400 hover:text-rose-600 text-xs transition" title="Remove">✕</button>
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="text-xs font-bold text-slate-900">${deal.storeName}</span>
+          <span class="text-[10px] font-bold px-2 py-0.2 rounded bg-rose-50 text-rose-700 border border-rose-200">${deal.discountBadge}</span>
+        </div>
+        <p class="text-xs text-slate-700 font-semibold mb-2 line-clamp-1">${deal.title}</p>
+        <div class="flex items-center justify-between gap-2 pt-2 border-t border-slate-200/60">
+          <span class="font-mono text-xs font-black text-indigo-950 bg-white px-2 py-1 rounded border border-slate-200">${deal.code || 'NO CODE'}</span>
+          <a href="${deal.affiliateUrl || '#'}" target="_blank" rel="nofollow sponsored" class="px-3 py-1 rounded-lg bg-slate-900 text-white text-[11px] font-bold hover:bg-indigo-600 transition">Claim ↗</a>
+        </div>
+      </div>
+    `).join('');
+
+    container.querySelectorAll('[data-remove-saved]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-remove-saved');
+        if (!id) return;
+        const current = getSavedDealIds().filter(x => x !== id);
+        localStorage.setItem('promoradar_saved_deals', JSON.stringify(current));
+        updateSavedBadge();
+        renderSavedDrawer();
+        window.dispatchEvent(new CustomEvent('promoradar_saved_updated', { detail: { id, saved: false } }));
+      });
+    });
+  }
+
+  headerSavedBtn?.addEventListener('click', () => {
+    renderSavedDrawer();
+    savedDrawerOverlay?.classList.remove('hidden');
+  });
+
+  closeSavedDrawerBtn?.addEventListener('click', () => {
+    savedDrawerOverlay?.classList.add('hidden');
+  });
+
+  savedDrawerOverlay?.addEventListener('click', (e) => {
+    if (e.target === savedDrawerOverlay) {
+      savedDrawerOverlay.classList.add('hidden');
+    }
+  });
+
+  clearAllSavedBtn?.addEventListener('click', () => {
+    localStorage.setItem('promoradar_saved_deals', JSON.stringify([]));
+    updateSavedBadge();
+    renderSavedDrawer();
+    window.dispatchEvent(new CustomEvent('promoradar_saved_updated', { detail: { cleared: true } }));
+  });
+
+  // 3. Submit Coupon Modal Logic
+  const submitModal = document.getElementById('submitCouponModal');
+  const headerSubmitBtn = document.getElementById('headerSubmitBtn');
+  const closeSubmitModalBtn = document.getElementById('closeSubmitModalBtn');
+  const submitForm = document.getElementById('submitCouponForm');
+  const submitSuccessBox = document.getElementById('submitSuccessBox');
+
+  headerSubmitBtn?.addEventListener('click', () => {
+    submitForm?.classList.remove('hidden');
+    submitSuccessBox?.classList.add('hidden');
+    submitModal?.classList.remove('hidden');
+    submitModal?.classList.add('flex');
+  });
+
+  closeSubmitModalBtn?.addEventListener('click', () => {
+    submitModal?.classList.add('hidden');
+    submitModal?.classList.remove('flex');
+  });
+
+  submitModal?.addEventListener('click', (e) => {
+    if (e.target === submitModal) {
+      submitModal.classList.add('hidden');
+      submitModal.classList.remove('flex');
+    }
+  });
+
+  submitForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitForm.classList.add('hidden');
+    submitSuccessBox?.classList.remove('hidden');
+    setTimeout(() => {
+      submitModal?.classList.add('hidden');
+      submitModal?.classList.remove('flex');
+    }, 2500);
+  });
+
+  // 4. Spotlight Search Dropdown Engine
+  const headerQuickSearch = document.getElementById('headerQuickSearch') as HTMLInputElement;
+  const headerSearchSpotlight = document.getElementById('headerSearchSpotlight');
+  const spotlightStoresList = document.getElementById('spotlightStoresList');
+  const spotlightDealsList = document.getElementById('spotlightDealsList');
+
+  function renderSpotlightResults(query: string) {
+    if (!query || query.trim().length < 2) {
+      headerSearchSpotlight?.classList.add('hidden');
+      return;
+    }
+
+    const q = query.trim().toLowerCase();
+    const matchedStores = STORES_DATA.filter(s =>
+      s.name.toLowerCase().includes(q) || s.category.toLowerCase().includes(q) || s.slug.includes(q)
+    ).slice(0, 4);
+
+    const matchedDeals = COUPONS_DATA.filter(d =>
+      d.title.toLowerCase().includes(q) || d.storeName.toLowerCase().includes(q) || d.code.toLowerCase().includes(q)
+    ).slice(0, 4);
+
+    if (matchedStores.length === 0 && matchedDeals.length === 0) {
+      if (spotlightStoresList) spotlightStoresList.innerHTML = `<div class="p-3 text-xs text-slate-500 text-center">No stores or coupons match "${query}"</div>`;
+      if (spotlightDealsList) spotlightDealsList.innerHTML = '';
+      headerSearchSpotlight?.classList.remove('hidden');
+      return;
+    }
+
+    if (spotlightStoresList) {
+      spotlightStoresList.innerHTML = matchedStores.map(s => {
+        const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+        return `
+          <a href="${base}/stores/${s.slug}/" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 transition group">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md bg-indigo-50 border border-indigo-200 text-indigo-700 font-extrabold text-[10px] flex items-center justify-center">${s.name.slice(0, 2).toUpperCase()}</span>
+              <div>
+                <div class="text-xs font-bold text-slate-900 group-hover:text-indigo-600 transition">${s.name}</div>
+                <div class="text-[10px] text-slate-400">${s.category}</div>
+              </div>
+            </div>
+            <span class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">Store Profile →</span>
+          </a>
+        `;
+      }).join('');
+    }
+
+    if (spotlightDealsList) {
+      spotlightDealsList.innerHTML = matchedDeals.map(d => `
+        <div class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 transition">
+          <div class="min-w-0 pr-2">
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs font-bold text-slate-900 truncate">${d.storeName}</span>
+              <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-rose-50 text-rose-700">${d.discountBadge}</span>
+            </div>
+            <p class="text-[11px] text-slate-600 truncate">${d.title}</p>
+          </div>
+          <span class="font-mono text-xs font-bold text-indigo-900 bg-white px-2 py-1 rounded border border-slate-200 shrink-0">${d.code || 'DEAL'}</span>
+        </div>
+      `).join('');
+    }
+
+    headerSearchSpotlight?.classList.remove('hidden');
+  }
+
+  headerQuickSearch?.addEventListener('input', (e) => {
+    renderSpotlightResults((e.target as HTMLInputElement).value);
+  });
+
+  headerQuickSearch?.addEventListener('focus', () => {
+    if (headerQuickSearch.value.trim().length >= 2) {
+      renderSpotlightResults(headerQuickSearch.value);
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    const wrapper = document.getElementById('headerSearchWrapper');
+    if (wrapper && !wrapper.contains(e.target as Node)) {
+      headerSearchSpotlight?.classList.add('hidden');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      headerSearchSpotlight?.classList.add('hidden');
+      submitModal?.classList.add('hidden');
+      savedDrawerOverlay?.classList.add('hidden');
+    }
+  });
+
+  // 5. Sticky Floating Copied Voucher Bar Logic
+  function showStickyCopiedBar(deal: { code?: string; storeName?: string; affiliateUrl?: string }) {
+    if (!deal || !deal.code) return;
+    sessionStorage.setItem('promoradar_last_copied', JSON.stringify(deal));
+
+    const bar = document.getElementById('stickyCopiedBar');
+    const codeEl = document.getElementById('stickyCopiedCode');
+    const storeEl = document.getElementById('stickyCopiedStore');
+    const outboundBtn = document.getElementById('stickyOutboundBtn') as HTMLAnchorElement;
+
+    if (codeEl) codeEl.textContent = deal.code;
+    if (storeEl) storeEl.textContent = `for ${deal.storeName || 'Store'}`;
+    if (outboundBtn) outboundBtn.href = deal.affiliateUrl || '#';
+
+    bar?.classList.remove('hidden');
+    bar?.classList.add('flex');
+  }
+
+  document.getElementById('closeStickyBarBtn')?.addEventListener('click', () => {
+    const bar = document.getElementById('stickyCopiedBar');
+    bar?.classList.add('hidden');
+    bar?.classList.remove('flex');
+    sessionStorage.removeItem('promoradar_last_copied');
+  });
+
+  // Restore on page load if recently copied
+  const lastCopied = sessionStorage.getItem('promoradar_last_copied');
+  if (lastCopied) {
+    try {
+      showStickyCopiedBar(JSON.parse(lastCopied));
+    } catch {}
+  }
+
+  // Listen to custom deal reveal event across portal
+  window.addEventListener('promoradar_deal_revealed', (e: any) => {
+    showStickyCopiedBar(e.detail);
+  });
+
+  // Init badge
+  updateSavedBadge();
+  applyLanguage(currentLang);
+</script>
+
+<style>
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .animate-slideInRight {
+    animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+</style>

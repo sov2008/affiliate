@@ -1,0 +1,79 @@
+---
+interface Props {
+  store: {
+    slug: string;
+    name: string;
+    cleanDomain?: string;
+    websiteUrl?: string;
+    logoText?: string;
+  };
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  class?: string;
+}
+
+const { store, size = 'md', class: className = '' } = Astro.props;
+
+// Domain resolution for logos
+let domain = store.cleanDomain || '';
+if (!domain && store.websiteUrl) {
+  try {
+    domain = new URL(store.websiteUrl).hostname.replace(/^www\./, '');
+  } catch (e) {
+    domain = '';
+  }
+}
+
+// Fallback letter monogram
+const initials = store.name ? store.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() : 'PR';
+
+// Sizing classes
+const sizeClasses = {
+  sm: 'w-7 h-7 rounded-lg text-[10px]',
+  md: 'w-10 h-10 rounded-xl text-xs',
+  lg: 'w-14 h-14 rounded-2xl text-base',
+  xl: 'w-16 h-16 sm:w-20 sm:h-20 rounded-2xl text-xl sm:text-2xl'
+};
+
+const paddingClasses = {
+  sm: 'p-1',
+  md: 'p-1.5',
+  lg: 'p-2',
+  xl: 'p-2.5'
+};
+
+const containerSize = sizeClasses[size] || sizeClasses.md;
+const pad = paddingClasses[size] || paddingClasses.md;
+
+// Multi-Tier Logo sources:
+// Tier 1: Clearbit Logo API
+const clearbitUrl = domain ? `https://logo.clearbit.com/${domain}` : '';
+// Tier 2: Google HD Favicon
+const googleFaviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '';
+---
+
+<div class={`brand-logo-container relative ${containerSize} ${pad} bg-white border border-slate-200/90 shadow-sm flex items-center justify-center shrink-0 overflow-hidden ${className}`}>
+  {domain ? (
+    <img
+      src={clearbitUrl}
+      alt={`${store.name} logo`}
+      class="w-full h-full object-contain"
+      loading="lazy"
+      data-fallback-google={googleFaviconUrl}
+      onerror={`
+        if (this.src !== this.getAttribute('data-fallback-google')) {
+          this.src = this.getAttribute('data-fallback-google');
+        } else {
+          this.style.display = 'none';
+          if (this.nextElementSibling) this.nextElementSibling.style.display = 'flex';
+        }
+      `}
+    />
+  ) : null}
+
+  <!-- Tier 3: Styled gradient monogram badge fallback -->
+  <div
+    class={`brand-logo-monogram w-full h-full rounded-lg bg-gradient-to-br from-indigo-600 via-indigo-700 to-rose-600 text-white font-black items-center justify-center shadow-inner ${domain ? 'hidden' : 'flex'}`}
+  >
+    {initials}
+  </div>
+</div>

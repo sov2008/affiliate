@@ -24,6 +24,7 @@ export interface StoreProfile {
   shortDesc: string;
   fullDesc: string;
   websiteUrl: string;
+  cleanDomain?: string;
   howToApply: string[];
   faqs: Array<{ question: string; answer: string }>;
   primaryAffiliateUrl: string;
@@ -38,6 +39,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Worldwide trendy women’s clothing, dresses, swimwear, and footwear with seasonal promotions.',
     fullDesc: 'ChicMe is a globally recognized online fast-fashion retailer offering accessible, on-trend women’s clothing, accessories, and shoes. With international shipping and regular markdown sales, shoppers frequently apply verified promo codes to secure double-digit basket discounts.',
     websiteUrl: 'https://www.chicme.com',
+    cleanDomain: 'chicme.com',
     primaryAffiliateUrl: 'https://rzekl.com/g/zcfe0k62wg367099d2cc312b8f391a/?i=3',
     howToApply: [
       'Select your desired clothing items and add them to your ChicMe shopping bag.',
@@ -64,6 +66,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Prescription eyeglasses, blue-light blockers, designer frames, and polarized sunglasses worldwide.',
     fullDesc: 'Glasseslit delivers affordable prescription optical frames, bifocals, progressive lenses, and stylish sunglasses directly to consumers worldwide. Bypassing middleman retail markups, shoppers benefit from factory-direct pricing with additional promo voucher savings.',
     websiteUrl: 'https://www.glasseslit.com',
+    cleanDomain: 'glasseslit.com',
     primaryAffiliateUrl: 'https://codeaven.com/g/v00buptjhf367099d2ccde0721ef8d/?i=3',
     howToApply: [
       'Select your preferred eyeglasses frame and input your prescription parameters.',
@@ -86,6 +89,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Premium UAE desert safaris, Dubai city excursions, Burj Khalifa tickets, and international activities.',
     fullDesc: 'RaynaTours is an accredited destination management powerhouse offering vetted tours, VIP desert experiences, theme park passes, and dhow cruises across the United Arab Emirates and international metropolitan hubs.',
     websiteUrl: 'https://www.raynatours.com',
+    cleanDomain: 'raynatours.com',
     primaryAffiliateUrl: 'https://xpuvo.com/g/2dla0dqw7i367099d2cce94db72a90/?i=3',
     howToApply: [
       'Choose your preferred tour, activity, or sightseeing tickets on RaynaTours.',
@@ -108,6 +112,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Global eSIM cards for international travelers in 200+ countries with instant data activation.',
     fullDesc: 'Airalo is the world first and leading eSIM marketplace that eliminates roaming fees by providing digital SIM profiles for smartphones, tablets, and connected devices in over 200 countries and regions worldwide.',
     websiteUrl: 'https://www.airalo.com',
+    cleanDomain: 'airalo.com',
     primaryAffiliateUrl: 'https://dhwnh.com/g/7rvld26bcl367099d2cc0471e42028/?i=3',
     howToApply: [
       'Download the Airalo app or browse the website for your travel destination country.',
@@ -134,6 +139,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Portable power stations, solar panels, and solar generators for outdoor camping and home backup.',
     fullDesc: 'ALLPOWERS specializes in clean portable energy solutions, high-capacity LiFePO4 battery power stations, and foldable solar generators. Designed for emergency home backup, outdoor exploration, and off-grid living.',
     websiteUrl: 'https://allpowersukraine.com/',
+    cleanDomain: 'allpowers.com',
     primaryAffiliateUrl: 'https://zmgig.com/g/kq5qyagmb7367099d2ccc628098d9a/?i=3',
     howToApply: [
       'Select your desired portable power station or solar panel kit and add it to your cart.',
@@ -156,6 +162,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Luxury fashion outlet featuring designer apparel, shoes, bags, and luxury accessories at up to 75% off.',
     fullDesc: 'The Deal Outlet is a premier Middle Eastern luxury outlet platform curating authentic designer clothing, luxury shoes, leather bags, and prestige accessories from world-renowned fashion houses with deep reductions.',
     websiteUrl: 'https://thedealoutlet.com',
+    cleanDomain: 'thedealoutlet.com',
     primaryAffiliateUrl: 'https://bywiola.com/g/2snsgzg8z7367099d2ccb6c5579bcf/?i=3',
     howToApply: [
       'Browse designer collections and add luxury fashion items to your shopping cart.',
@@ -178,6 +185,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'London-based fast fashion destination delivering European runway styles to international shoppers.',
     fullDesc: 'VogaCloset is a leading online fashion boutique delivering women, men, and kids European high-street fashion, dresses, footwear, and accessories with dedicated localized customer support and cash-on-delivery options.',
     websiteUrl: 'https://vogacloset.com',
+    cleanDomain: 'vogacloset.com',
     primaryAffiliateUrl: 'https://bywiola.com/g/6silcjvoa9367099d2ccb52609ec28/?i=3',
     howToApply: [
       'Select your fashion items and navigate to the checkout bag.',
@@ -199,6 +207,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Interactive live online coding, digital art, and game development courses for kids and teens aged 7–17.',
     fullDesc: 'Kodland is an international ed-tech academy empowering young creators with project-based computer science, game creation in Roblox and Unity, Python programming, and digital design taught by certified live tutors.',
     websiteUrl: 'https://kodland.com',
+    cleanDomain: 'kodland.com',
     primaryAffiliateUrl: 'https://ewwhk.com/g/11du4h2rtq367099d2cca5fc6f34cb/?i=31',
     howToApply: [
       'Book a complimentary trial lesson or select a full course module on Kodland.',
@@ -221,6 +230,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'High-speed encrypted VPN with 6,500+ servers, zero-logging policy, and Wi-Fi security shields.',
     fullDesc: 'PureVPN safeguards your digital footprint, hides your IP address, and encrypts public Wi-Fi transmissions across iOS, Android, macOS, and Windows with multi-gigabit servers worldwide.',
     websiteUrl: 'https://www.purevpn.com',
+    cleanDomain: 'purevpn.com',
     primaryAffiliateUrl: 'https://plrvq.com/g/g14urj1gid367099d2ccdd63dd688c/?i=3',
     howToApply: [
       'Select a 2-year or 1-year privacy subscription package on PureVPN.',
@@ -242,6 +252,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Ultra-fast global VPN service across 105 countries with TrustedServer RAM-only privacy technology.',
     fullDesc: 'ExpressVPN is the premier global standard in personal cybersecurity. Featuring proprietary Lightway protocol, military-grade AES-256 encryption, and verified independent privacy audits, it shields personal communications and digital browsing.',
     websiteUrl: 'https://www.expressvpn.com',
+    cleanDomain: 'expressvpn.com',
     primaryAffiliateUrl: 'https://flirtcheck.site/go?offer=admitad_103765&source=deals_expressvpn&trigger=store_header&intent=deals',
     howToApply: [
       'Select the 12-month plan through our verified discount link.',
@@ -263,6 +274,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Zero-knowledge password manager, private media vault, and dark web monitoring suite.',
     fullDesc: 'Keeper Security protects passwords, personal credentials, private photos, and confidential documents with zero-trust, zero-knowledge encryption. It prevents account takeovers, SIM-swap extortion, and credential stuffing attacks.',
     websiteUrl: 'https://www.keepersecurity.com',
+    cleanDomain: 'keepersecurity.com',
     primaryAffiliateUrl: 'https://ziejy.com/g/d08cg0w8zk367099d2cceb9db1a7c5/?i=3',
     howToApply: [
       'Choose between Keeper Unlimited or Family Plan.',
@@ -284,6 +296,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Comprehensive digital safety, location tracking, and screen time balance for families and children.',
     fullDesc: 'Qustodio is the world leading digital wellbeing and parental defense platform. It equips families with real-time screen supervision, cyberbullying alerts, location tracking, and content filtering across smartphones, tablets, and computers.',
     websiteUrl: 'https://www.qustodio.com',
+    cleanDomain: 'qustodio.com',
     primaryAffiliateUrl: 'https://flirtcheck.site/go?offer=admitad_144643&source=deals_qustodio&trigger=store_header&intent=deals',
     howToApply: [
       'Select your family plan based on the number of supervised devices.',
@@ -305,6 +318,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Virtual phone numbers for instant SMS activation and privacy protection across 30+ countries.',
     fullDesc: 'OnlineSim offers temporary and rent-based virtual mobile numbers for anonymous SMS verification across social apps, digital platforms, and online services without exposing real personal SIM data.',
     websiteUrl: 'https://onlinesim.one',
+    cleanDomain: 'onlinesim.io',
     primaryAffiliateUrl: 'https://flirtcheck.site/go?offer=admitad_191148&source=deals_onlinesim&trigger=store_header&intent=deals',
     howToApply: [
       'Register a free account on OnlineSim.',
@@ -327,6 +341,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Global B2B wholesale platform for consumer electronics, apparel, and direct manufacturer sourcing.',
     fullDesc: 'Alibaba connects millions of international buyers with verified suppliers, providing Trade Assurance buyer protection and seasonal coupon drops for wholesale and sample orders.',
     websiteUrl: 'https://www.alibaba.com',
+    cleanDomain: 'alibaba.com',
     primaryAffiliateUrl: 'https://rzekl.com/g/384usiqcl3367099d2cc219aa26f6f/?i=3',
     howToApply: [
       'Source your products on Alibaba and negotiate or add to checkout.',
@@ -347,6 +362,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Prestigious department store offering luxury home goods, cookware, luggage, and lifestyle brands.',
     fullDesc: 'Jashanmal has been a cornerstone of retail excellence across the GCC since 1919, featuring high-end home appliances, premium kitchenware, travel luggage from Delsey and Rimowa, and fashion accessories.',
     websiteUrl: 'https://www.jashanmal.com',
+    cleanDomain: 'jashanmal.com',
     primaryAffiliateUrl: 'https://codeaven.com/g/bsyhi8m623367099d2cc62651c44e1/?i=31',
     howToApply: [
       'Browse luxury home and kitchenware collections on Jashanmal.',
@@ -368,6 +384,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Top-rated kids toy app and store offering gift wrapping, popular games, and rapid doorstep delivery.',
     fullDesc: 'Dabdoob is the leading toy-shopping destination across UAE, Saudi Arabia, Kuwait, and Bahrain, curating the best educational toys, action figures, board games, and children celebration gifts.',
     websiteUrl: 'https://dabdoob.com',
+    cleanDomain: 'dabdoob.com',
     primaryAffiliateUrl: 'https://rzekl.com/g/du3xi8b8ry367099d2cca2c57142dd/?i=31',
     howToApply: [
       'Select toys or games on Dabdoob and add complimentary gift wrapping.',
@@ -389,6 +406,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Authentic luxury oriental and French perfumes, oud oils, and designer scents with fast GCC shipping.',
     fullDesc: 'Vperfumes is one of the largest perfume retail chains in the GCC, offering 100% authentic designer fragrances, niche oud scents, French perfumes, and luxury gift sets with free delivery perks.',
     websiteUrl: 'https://vperfumes.com',
+    cleanDomain: 'vperfumes.com',
     primaryAffiliateUrl: 'https://wbbsv.com/g/uaami8ff60367099d2ccbe59cac899/?i=3',
     howToApply: [
       'Select your favorite eau de parfum, niche fragrance, or oud oil on Vperfumes.',
@@ -410,6 +428,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Innovative smart electronics, audio accessories, and digital gadgets with official AliExpress warranty.',
     fullDesc: 'Aovica Official Store on AliExpress provides high-performance electronic accessories, smart wireless devices, and computer peripherals backed by buyer protection and international shipping.',
     websiteUrl: 'https://aliexpress.com',
+    cleanDomain: 'aovica.com',
     primaryAffiliateUrl: 'https://rcpsj.com/g/uymluxmlet367099d2cccaca192191/?i=31',
     howToApply: [
       'Add Aovica electronics products to your shopping cart.',
@@ -431,6 +450,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Comfortable family homewear, stylish casual basics, knitwear, and organic everyday essentials.',
     fullDesc: 'Mark Formelle creates cozy, modern casualwear, breathable loungewear, and premium cotton essentials for men, women, and children with sustainable production standards.',
     websiteUrl: 'https://markformelle.com',
+    cleanDomain: 'markformelle.com',
     primaryAffiliateUrl: 'https://xqjeo.com/g/xu8ibhasrf367099d2cc5a98e4de8b/?i=31',
     howToApply: [
       'Select your homewear and everyday casual items.',
@@ -452,6 +472,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Curated relationship platform featuring manual profile inspection and intentional matching.',
     fullDesc: 'EliteDate is an acclaimed relationship matching platform operating across Central Europe with verified single profiles, zero automated bots, and high conversation reciprocity.',
     websiteUrl: 'https://www.elitedate.cz',
+    cleanDomain: 'elitedate.cz',
     primaryAffiliateUrl: 'https://flirtcheck.site/go?offer=admitad_49070&source=deals_elitedate&trigger=store_header&intent=deals',
     howToApply: [
       'Complete free registration through our verified invitation link.',
@@ -473,6 +494,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Pre-vetted singles network enforcing mandatory camera-liveness checks and zero bot tolerance.',
     fullDesc: 'Verified Match is an elite alternative to legacy swipe apps, requiring mandatory facial biometric verification. Users bypass fake bots, unblur incoming match queues, and connect exclusively with authentic local singles.',
     websiteUrl: 'https://flirtcheck.site/go/verified-match',
+    cleanDomain: 'verified-match.com',
     primaryAffiliateUrl: 'https://flirtcheck.site/go/verified-match?src=deals_portal&ctx=store_header&intent=deals',
     howToApply: [
       'Click REVEAL CODE & ACTIVATE to unlock the introductory voucher.',
@@ -494,6 +516,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'High-privacy casual encounter network with stealth profile browsing and zero social media sync.',
     fullDesc: 'Discreet Local provides hardened privacy for singles seeking casual dating without digital footprint leaks. Features burner number compatibility, screenshot protection, and incognito search modes.',
     websiteUrl: 'https://flirtcheck.site/go/discreet-local',
+    cleanDomain: 'discreet-local.com',
     primaryAffiliateUrl: 'https://flirtcheck.site/go/discreet-local?src=deals_portal&ctx=store_header&intent=deals',
     howToApply: [
       'Activate your stealth voucher link.',
@@ -515,6 +538,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Forensic digital footprint, image hash, and phone number verification search engine.',
     fullDesc: 'Spokeo aggregates billions of public records, phone directories, and social profiles to verify the true identity behind any online match in seconds.',
     websiteUrl: 'https://flirtcheck.site/go/deep-lookup',
+    cleanDomain: 'spokeo.com',
     primaryAffiliateUrl: 'https://flirtcheck.site/go/deep-lookup?src=deals_portal&ctx=store_header&intent=deals',
     howToApply: [
       'Click to activate the forensic promo search rate.',
@@ -536,6 +560,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Official Huawei store for smart wearables, laptops, tablets, audio gear, and cutting-edge mobile innovations.',
     fullDesc: 'Huawei is an internationally acclaimed technology powerhouse offering premium smart devices, ultra-thin MateBook laptops, MatePad tablets, and health-tracking smartwatches backed by manufacturer warranty and official bundle promotions.',
     websiteUrl: 'https://consumer.huawei.com',
+    cleanDomain: 'consumer.huawei.com',
     primaryAffiliateUrl: 'https://ogsib.com/g/mdqug3zf25367099d2cc25829bc3a0/?ulp=https%3A%2F%2Fconsumer.huawei.com%2Fsa-en%2Foffer%2F&subid=promoradar_huawei',
     howToApply: [
       'Browse through the official Huawei store offers section.',
@@ -561,6 +586,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Middle East premier salon-grade haircare, skincare, makeup, and professional beauty accessories.',
     fullDesc: 'Nazih Group is one of the Middle East most trusted beauty and cosmetic retailers, distributing world-class professional haircare, spa products, skincare, and electrical styling tools to both salons and consumers.',
     websiteUrl: 'https://nazih.sa',
+    cleanDomain: 'nazih.sa',
     primaryAffiliateUrl: 'https://wpmsx.com/g/ymc795qmu0367099d2cc6cde95af8d/?ulp=https%3A%2F%2Fnazih.sa%2Fen%2F&subid=promoradar_nazih',
     howToApply: [
       'Choose your professional haircare, salon styling tools, or skincare items on the Nazih official store.',
@@ -586,6 +612,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Certified smartphones, Apple tech, smart gadgets, audio gear, and gaming hardware with official warranty.',
     fullDesc: 'Touch is a premier electronics and digital retail brand specializing in authentic smartphones, tablets, laptops, gaming peripherals, and audio accessories with warranty coverage and prompt delivery.',
     websiteUrl: 'https://touch.com.ua',
+    cleanDomain: 'touch.com.ua',
     primaryAffiliateUrl: 'https://wbbsv.com/g/ynys1f2mjp367099d2cc0e81904d8b/?ulp=https%3A%2F%2Ftouch.com.ua%2F&subid=promoradar_touch',
     howToApply: [
       'Browse verified smartphones, audio gear, or gadgets on the official Touch digital catalog.',

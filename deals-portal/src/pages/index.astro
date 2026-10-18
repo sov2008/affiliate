@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import BrandLogo from '../components/BrandLogo.astro';
 import { COUPONS_DATA, STORES_DATA } from '../data/couponsData';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -66,9 +67,11 @@ const REGION_BADGES: Record<string, { label: string; class: string }> = {
   'GLOBAL': { label: '🌍 Worldwide', class: 'bg-slate-100 text-slate-700 border-slate-200' }
 };
 
-// Map store domain from websiteUrl for favicon resolution
+// Map store domain and store lookup map
+const STORES_MAP: Record<string, typeof STORES_DATA[0]> = {};
 const STORE_DOMAINS: Record<string, string> = {};
 for (const s of STORES_DATA) {
+  STORES_MAP[s.slug] = s;
   try {
     const u = new URL(s.websiteUrl);
     STORE_DOMAINS[s.slug] = u.hostname.replace(/^www\./, '');
@@ -275,8 +278,10 @@ const homeSchemas = [
               </div>
 
               <div class="flex items-center gap-3.5 mb-4 relative z-10">
-                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-rose-500 via-rose-600 to-amber-500 flex items-center justify-center text-white font-extrabold text-xl shadow-lg shadow-rose-950/50 shrink-0">
-                  EX
+                <div class="shrink-0 shadow-lg shadow-rose-950/30 rounded-2xl overflow-hidden">
+                  {STORES_MAP['expressvpn'] && (
+                    <BrandLogo store={STORES_MAP['expressvpn']} size="lg" />
+                  )}
                 </div>
                 <div>
                   <div class="flex items-center gap-2">
@@ -366,19 +371,8 @@ const homeSchemas = [
                 data-filter-store={store.name}
                 class="store-strip-pill shrink-0 flex items-center gap-2.5 px-3 py-2 rounded-xl border border-slate-200 hover:border-slate-300 bg-slate-50 hover:bg-white transition cursor-pointer"
               >
-                <div class="w-7 h-7 rounded-lg bg-white border border-slate-200 p-1 flex items-center justify-center shrink-0 overflow-hidden shadow-sm">
-                  {faviconUrl ? (
-                    <img
-                      src={faviconUrl}
-                      alt={`${store.name} logo`}
-                      class="w-full h-full object-contain"
-                      loading="lazy"
-                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                    />
-                  ) : null}
-                  <span class={`w-full h-full rounded bg-indigo-600 text-white font-extrabold text-[10px] items-center justify-center ${faviconUrl ? 'hidden' : 'flex'}`}>
-                    {initials}
-                  </span>
+                <div class="shrink-0">
+                  <BrandLogo store={store} size="sm" />
                 </div>
                 <div class="text-left">
                   <div class="text-xs font-bold text-slate-900 leading-none">{store.name}</div>
@@ -428,19 +422,14 @@ const homeSchemas = [
                 <div>
                   <div class="flex items-center justify-between gap-2 mb-2.5">
                     <div class="flex items-center gap-2.5 min-w-0">
-                      <div class="w-8 h-8 rounded-xl bg-white border border-slate-700 p-1 object-contain flex items-center justify-center shrink-0 overflow-hidden shadow-sm">
-                        {faviconUrl ? (
-                          <img
-                            src={faviconUrl}
-                            alt={`${deal.storeName} logo`}
-                            class="w-full h-full object-contain"
-                            loading="lazy"
-                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                          />
-                        ) : null}
-                        <span class={`w-full h-full rounded-lg bg-indigo-600 text-white font-extrabold text-[10px] items-center justify-center ${faviconUrl ? 'hidden' : 'flex'}`}>
-                          {initials}
-                        </span>
+                      <div class="shrink-0">
+                        {STORES_MAP[deal.storeSlug] ? (
+                          <BrandLogo store={STORES_MAP[deal.storeSlug]} size="sm" />
+                        ) : (
+                          <div class="w-8 h-8 rounded-xl bg-indigo-600 text-white font-extrabold text-[10px] flex items-center justify-center">
+                            {initials}
+                          </div>
+                        )}
                       </div>
                       <span class="text-xs font-bold text-white truncate">{deal.storeName}</span>
                     </div>
@@ -609,21 +598,16 @@ const homeSchemas = [
                   <div class="flex items-center gap-3">
                     <a
                       href={`${base}/stores/${deal.storeSlug}/`}
-                      class="w-11 h-11 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shrink-0 hover:scale-105 transition shadow-sm overflow-hidden"
+                      class="shrink-0 hover:scale-105 transition"
                       title={deal.storeName}
                     >
-                      {faviconUrl ? (
-                        <img
-                          src={faviconUrl}
-                          alt={`${deal.storeName} logo`}
-                          class="w-full h-full object-contain"
-                          loading="lazy"
-                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                        />
-                      ) : null}
-                      <span class={`w-full h-full rounded-lg bg-gradient-to-br ${theme.bg} ${theme.text} font-black text-xs items-center justify-center shadow-inner ${faviconUrl ? 'hidden' : 'flex'}`}>
-                        {initials}
-                      </span>
+                      {STORES_MAP[deal.storeSlug] ? (
+                        <BrandLogo store={STORES_MAP[deal.storeSlug]} size="md" />
+                      ) : (
+                        <div class="w-11 h-11 rounded-xl bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center">
+                          {initials}
+                        </div>
+                      )}
                     </a>
                     <div>
                       <div class="flex items-center gap-2 flex-wrap">
@@ -1343,7 +1327,14 @@ const homeSchemas = [
         }
         localStorage.setItem('promoradar_saved_deals', JSON.stringify(savedDeals));
         updateSavedBadge();
+        window.dispatchEvent(new CustomEvent('promoradar_saved_updated', { detail: savedDeals }));
       });
+    });
+
+    // Listen for saved deals updates from Header drawer
+    window.addEventListener('promoradar_saved_updated', (e) => {
+      savedDeals = JSON.parse(localStorage.getItem('promoradar_saved_deals') || '[]');
+      updateSavedBadge();
     });
 
     updateSavedBadge();
@@ -1367,6 +1358,15 @@ const homeSchemas = [
         voteFeedback?.classList.add('hidden');
         modal?.classList.remove('hidden');
         modal?.classList.add('flex');
+
+        // Dispatch deal revealed event for sticky bottom bar
+        window.dispatchEvent(new CustomEvent('promoradar_deal_revealed', {
+          detail: {
+            code: data.code || 'VERIFIED_DEAL',
+            store: data.storeName || 'Partner Store',
+            affiliateUrl: data.affiliateUrl || '#'
+          }
+        }));
 
         // Innovation (Honey / RetailMeNot style Auto-Copy & Outbound Tab)
         if (data.code && data.code.trim().length > 0) {
@@ -1413,9 +1413,18 @@ const homeSchemas = [
 
     copyBtn?.addEventListener('click', () => {
       const code = document.getElementById('modalCodeText')?.textContent || '';
+      const store = document.getElementById('modalStoreName')?.textContent || '';
+      const affLink = document.getElementById('modalOutboundLink')?.href || '#';
       if (code) {
         navigator.clipboard.writeText(code).then(() => {
           showToast(`Copied ${code} to clipboard!`);
+          window.dispatchEvent(new CustomEvent('promoradar_deal_revealed', {
+            detail: {
+              code: code,
+              store: store,
+              affiliateUrl: affLink
+            }
+          }));
           copyBtn.textContent = '✓ Copied!';
           setTimeout(() => { copyBtn.textContent = '📋 Copy Code'; }, 2000);
         });
