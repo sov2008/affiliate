@@ -56,6 +56,21 @@ const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
     <!-- Google Analytics 4 (GA4) -->
     <GoogleAnalytics measurementId="G-ZKTJYVZEPT" />
 
+    <!-- Theme Initialization Script (Instant, Zero-FOUC, Defaults to OS preference) -->
+    <script is:inline>
+      (function() {
+        try {
+          const stored = localStorage.getItem('promoradar_theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (stored === 'dark' || (!stored && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <!-- Structured Data -->
     {schemas.map((schema) => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
