@@ -57,6 +57,8 @@ export const STORE_DOMAINS_MAP: Record<string, string> = {
   "spokeo": "spokeo.com",
 
   // Additional merchant store fallbacks
+  "polis": "polis.ua",
+  "Polis UA": "polis.ua",
   "huawei": "consumer.huawei.com",
   "Huawei": "consumer.huawei.com",
   "nazih": "nazih.sa",

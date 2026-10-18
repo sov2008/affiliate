@@ -2,7 +2,7 @@ export interface CouponDeal {
   id: string;
   storeSlug: string;
   storeName: string;
-  storeCategory: 'Fashion & Apparel' | 'Travel & Tours' | 'Privacy & Security' | 'Eyewear & Health' | 'E-Commerce & Wholesale' | 'Dating & Lifestyle' | 'Electronics & Gadgets' | 'Education & Learning' | 'Kids & Toys' | 'Beauty & Fragrances';
+  storeCategory: 'Fashion & Apparel' | 'Travel & Tours' | 'Privacy & Security' | 'Eyewear & Health' | 'E-Commerce & Wholesale' | 'Dating & Lifestyle' | 'Electronics & Gadgets' | 'Education & Learning' | 'Kids & Toys' | 'Beauty & Fragrances' | 'Insurance & Finance' | 'Web Hosting & Domains' | 'Gaming & Entertainment' | 'Home & Lifestyle';
   discountBadge: string; // e.g. "12% OFF", "$8 OFF", "70% OFF"
   title: string;
   description: string;
@@ -629,10 +629,65 @@ export const STORES_DATA: StoreProfile[] = [
         answer: 'Touch regularly runs markdown campaigns on flagship smartphones, wireless earbuds, and computer accessories.'
       }
     ]
+  },
+  {
+    slug: 'polis',
+    name: 'Polis UA',
+    category: 'Insurance & Finance',
+    logoText: 'POLIS',
+    shortDesc: 'Online vehicle insurance, Green Card travel cover, medical policies, and financial micro-loans comparison.',
+    fullDesc: 'Polis.ua is the leading online insurance superstore in Ukraine. Comparing licensed insurance providers across auto MTPL, international Green Card, health, and tourist policies with immediate PDF delivery to email.',
+    websiteUrl: 'https://polis.ua/uk',
+    cleanDomain: 'polis.ua',
+    primaryAffiliateUrl: 'https://naiawork.com/g/yej7zhxr7q367099d2cc063ddfdb47/?subid=promoradar_polis',
+    howToApply: [
+      'Enter your vehicle license plate or choose travel insurance destination.',
+      'Compare quotes from 25+ verified insurance companies.',
+      'Promotional discounts and cashback vouchers are applied automatically before payment.',
+      'Receive official electronic insurance policy instantly in your inbox and Diia app.'
+    ],
+    faqs: [
+      {
+        question: 'Are electronic policies issued by Polis.ua officially valid?',
+        answer: 'Yes, all electronic insurance contracts comply with state motor bureau regulations and are registered immediately in the official national database.'
+      },
+      {
+        question: 'Can I get a discount on Green Card international travel insurance?',
+        answer: 'Yes, our verified partner link activates promotional discounts of up to 15% on international Green Card policies.'
+      }
+    ]
+  },
+  {
+    slug: 'hostinger',
+    name: 'Hostinger',
+    category: 'Web Hosting & Domains',
+    logoText: 'HOSTINGER',
+    shortDesc: 'High-speed cloud SSD web hosting, free SSL certificates, automated backups, and 1-click WordPress deployments.',
+    fullDesc: 'Hostinger powers millions of web creators worldwide with high-performance LiteSpeed cloud hosting, free domain registrations, unlimited SSL certificates, and 24/7 technical customer support.',
+    websiteUrl: 'https://www.hostinger.com',
+    cleanDomain: 'hostinger.com',
+    primaryAffiliateUrl: 'https://flirtcheck.site/go?offer=hostinger&source=deals_hostinger&trigger=store_header&intent=deals',
+    howToApply: [
+      'Choose a Premium or Business Cloud web hosting plan on Hostinger.',
+      'Select a 48-month or 12-month billing period to secure maximum introductory pricing.',
+      'Look for the "Have a coupon code?" prompt at the bottom of the order summary.',
+      'Enter verified coupon code HOSTING75 to deduct an additional 10% to 75% instantly.'
+    ],
+    faqs: [
+      {
+        question: 'Does Hostinger include a free domain name?',
+        answer: 'Yes, annual and multi-year hosting packages include a complimentary 1-year custom domain registration.'
+      },
+      {
+        question: 'Is there a money-back guarantee on Hostinger?',
+        answer: 'Yes, Hostinger offers an unconditional 30-day money-back satisfaction guarantee on all hosting plans.'
+      }
+    ]
   }
 ];
 
 export const COUPONS_DATA: CouponDeal[] = [
+
   // ALLPOWERS
   {
     id: 'admitad_allpowers_bulk',
@@ -1345,5 +1400,73 @@ export const COUPONS_DATA: CouponDeal[] = [
     storeLogoText: 'TOUCH',
     terms: 'Official warranty included. Fast secure order fulfillment.',
     successRate: '99.3%'
+  },
+  {
+    id: 'deal_polis_greencard_sale',
+    storeSlug: 'polis',
+    storeName: 'Polis UA',
+    storeCategory: 'Insurance & Finance',
+    discountBadge: 'UP TO 15% OFF',
+    title: 'Up To 15% Off International Green Card & Vehicle MTPL Insurance',
+    description: 'Compare 25+ licensed insurance companies online with immediate policy delivery to your email and Diia state app.',
+    code: 'POLISGREEN',
+    isExclusive: true,
+    isVerified: true,
+    expiryDate: 'December 31, 2026',
+    affiliateUrl: 'https://naiawork.com/g/yej7zhxr7q367099d2cc063ddfdb47/?subid=promoradar_polis_deals',
+    storeLogoText: 'POLIS',
+    terms: 'Valid on online electronic vehicle and travel insurance policies.',
+    successRate: '99.7%'
+  },
+  {
+    id: 'deal_polis_medical_travel',
+    storeSlug: 'polis',
+    storeName: 'Polis UA',
+    storeCategory: 'Insurance & Finance',
+    discountBadge: 'CASHBACK',
+    title: 'Online Travel & Health Insurance Vouchers with Instant Verification',
+    description: 'Save on international Schengen, Worldwide, and domestic tourist health insurance coverage with 24/7 assistance.',
+    code: 'TRAVELSAFE',
+    isExclusive: false,
+    isVerified: true,
+    expiryDate: 'December 31, 2026',
+    affiliateUrl: 'https://naiawork.com/g/yej7zhxr7q367099d2cc063ddfdb47/?subid=promoradar_polis_travel',
+    storeLogoText: 'POLIS',
+    terms: 'Immediate official PDF certificate sent to policyholder.',
+    successRate: '99.4%'
+  },
+  {
+    id: 'deal_hostinger_cloud_75',
+    storeSlug: 'hostinger',
+    storeName: 'Hostinger',
+    storeCategory: 'Web Hosting & Domains',
+    discountBadge: '75% OFF + FREE DOMAIN',
+    title: '75% Off Premium Web Hosting + Free Custom Domain & Unlimited SSL',
+    description: 'Ultra-fast LiteSpeed WordPress hosting with 100 website allocations, daily backups, and 24/7 live support.',
+    code: 'HOSTING75',
+    isExclusive: true,
+    isVerified: true,
+    expiryDate: 'December 31, 2026',
+    affiliateUrl: 'https://flirtcheck.site/go?offer=hostinger&source=deals_hostinger&trigger=coupon_card&intent=deals&sub3=hosting75',
+    storeLogoText: 'HOSTINGER',
+    terms: 'Applies to multi-year plans. 30-day money-back guarantee.',
+    successRate: '99.9%'
+  },
+  {
+    id: 'deal_hostinger_cloud_starter',
+    storeSlug: 'hostinger',
+    storeName: 'Hostinger',
+    storeCategory: 'Web Hosting & Domains',
+    discountBadge: '10% EXTRA',
+    title: 'Extra 10% Off All Business Cloud Hosting & VPS Servers',
+    description: 'Maximize speed with dedicated IP addresses, NVMe storage, automated Git integration, and malware scanning.',
+    code: 'EXTRA10',
+    isExclusive: false,
+    isVerified: true,
+    expiryDate: 'December 31, 2026',
+    affiliateUrl: 'https://flirtcheck.site/go?offer=hostinger&source=deals_hostinger&trigger=coupon_card&intent=deals&sub3=extra10',
+    storeLogoText: 'HOSTINGER',
+    terms: 'Stacks on top of standard introductory discounts.',
+    successRate: '99.5%'
   }
 ];
