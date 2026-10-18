@@ -70,7 +70,7 @@ async function main() {
     // =========================================================================
     log('📋 STEP 1: Scanning instant programs (has_moderation=2)...');
     
-    for (let pageNum = 1; pageNum <= 3; pageNum++) {
+    for (let pageNum = 1; pageNum <= 6; pageNum++) {
       const targetUrl = `https://store.admitad.com/ru/webmaster/websites/${WEBSITE_ID}/catalog/?has_moderation=2&page=${pageNum}`;
       log(`📄 Navigating to instant catalog page ${pageNum}: ${targetUrl}`);
       
@@ -134,7 +134,7 @@ async function main() {
     // =========================================================================
     log('🎟️ STEP 2: Connecting tracking promocode programs (tracking_promocode_programs)...');
     
-    for (let pageNum = 1; pageNum <= 4; pageNum++) {
+    for (let pageNum = 1; pageNum <= 8; pageNum++) {
       const promoUrl = `https://store.admitad.com/ru/webmaster/websites/${WEBSITE_ID}/catalog/tracking_promocode_programs/?page=${pageNum}`;
       log(`📄 Ingesting promocodes from page ${pageNum}: ${promoUrl}`);
 
@@ -237,7 +237,7 @@ async function main() {
       const linkButtons = page.locator('button').filter({ hasText: 'Получить ссылку' });
       const btnsCount = await linkButtons.count();
 
-      for (let bIdx = 0; bIdx < btnsCount && bIdx < 10; bIdx++) {
+      for (let bIdx = 0; bIdx < btnsCount && bIdx < 30; bIdx++) {
         try {
           const currentBtn = linkButtons.nth(bIdx);
           await currentBtn.scrollIntoViewIfNeeded();
@@ -281,6 +281,66 @@ async function main() {
 
     } catch (partnerErr) {
       log(`⚠️ Partner network scan notice: ${partnerErr.message}`);
+    }
+
+    // =========================================================================
+    // STEP 4: Mass Apply to High-Conversion Catalog Programs
+    // =========================================================================
+    log('🛍️ STEP 4: Scanning general catalog for high-demand merchants to apply...');
+    for (let pageNum = 1; pageNum <= 5; pageNum++) {
+      const catUrl = `https://store.admitad.com/ru/webmaster/websites/${WEBSITE_ID}/catalog/?page=${pageNum}`;
+      log(`📄 Catalog page ${pageNum}: ${catUrl}`);
+      try {
+        await page.goto(catUrl, { waitUntil: 'networkidle', timeout: 45000 });
+        await page.waitForTimeout(2500);
+        await dismissOverlays(page);
+
+        const connectButtons = page.locator('button.offer-card__cta').filter({ hasText: /подключиться/i });
+        const count = await connectButtons.count();
+        log(`Found ${count} unapplied programs on catalog page ${pageNum}`);
+
+        for (let i = 0; i < count && i < 15; i++) {
+          try {
+            const btn = page.locator('button.offer-card__cta').filter({ hasText: /подключиться/i }).first();
+            if (!(await btn.isVisible())) break;
+
+            const cardTitle = await btn.evaluate(el => {
+              const card = el.closest('.offer-card, mat-card, .catalog-card') || el.parentElement;
+              return card ? card.innerText.split('\n')[0] : 'Merchant';
+            });
+
+            log(`  📝 Submitting application to: "${cardTitle}"...`);
+            await btn.click({ force: true });
+            await page.waitForTimeout(1500);
+
+            const dialog = page.locator('[role="dialog"], mat-dialog-container, .modal').first();
+            if (await dialog.isVisible()) {
+              const cb = dialog.locator('input[type="checkbox"]').first();
+              if (await cb.isVisible() && !(await cb.isChecked())) {
+                await cb.check({ force: true });
+                await page.waitForTimeout(500);
+              }
+
+              const submitBtn = dialog.locator('button:has-text("Подать заявку"), button:has-text("Принять"), button:has-text("Согласен"), button:has-text("Подключиться")').first();
+              if (await submitBtn.isVisible()) {
+                await submitBtn.click({ force: true });
+                log(`  ✅ Application submitted for: "${cardTitle}"`);
+                totalConnected++;
+                await page.waitForTimeout(2000);
+              } else {
+                const cancelBtn = dialog.locator('button:has-text("Отменить"), button[mat-dialog-close]').first();
+                if (await cancelBtn.isVisible()) await cancelBtn.click({ force: true });
+              }
+            }
+            await page.waitForTimeout(1000);
+          } catch (innerErr) {
+            await page.keyboard.press('Escape');
+            await page.waitForTimeout(1000);
+          }
+        }
+      } catch (catErr) {
+        log(`Catalog page ${pageNum} warning: ${catErr.message}`);
+      }
     }
 
     log('================================================================');
