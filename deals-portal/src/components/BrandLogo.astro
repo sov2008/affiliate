@@ -1,4 +1,6 @@
 ---
+import { getStoreDomain } from '../data/storeDomains';
+
 interface Props {
   store: {
     slug: string;
@@ -13,8 +15,8 @@ interface Props {
 
 const { store, size = 'md', class: className = '' } = Astro.props;
 
-// Domain resolution for logos
-let domain = store.cleanDomain || '';
+// Domain resolution for logos using registry first, then cleanDomain, then websiteUrl
+let domain = getStoreDomain(store.name) || getStoreDomain(store.slug) || store.cleanDomain || '';
 if (!domain && store.websiteUrl) {
   try {
     domain = new URL(store.websiteUrl).hostname.replace(/^www\./, '');

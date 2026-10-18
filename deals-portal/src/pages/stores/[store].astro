@@ -5,6 +5,8 @@ import Footer from '../../components/Footer.astro';
 import BrandLogo from '../../components/BrandLogo.astro';
 import { STORES_DATA, COUPONS_DATA, type StoreProfile } from '../../data/couponsData';
 
+import { getStoreDomain } from '../../data/storeDomains';
+
 export const prerender = true;
 
 export async function getStaticPaths() {
@@ -28,8 +30,18 @@ const categoryAlternatives = STORES_DATA.filter(s => s.slug !== store.slug && s.
 const similarStores = categoryAlternatives.length > 0 ? categoryAlternatives : otherStores;
 
 const initials = store.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+const storeDomain = getStoreDomain(store.name) || getStoreDomain(store.slug) || store.cleanDomain || 'promoradar.store';
 
-// Schema.org Structured Data
+// Schema.org Structured Data: Organization + Store
+const storeOrgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": store.name,
+  "url": `https://${storeDomain}`,
+  "logo": `https://logo.clearbit.com/${storeDomain}`,
+  "description": store.shortDesc || store.fullDesc
+};
+
 const storeSchema = {
   "@context": "https://schema.org",
   "@type": "Store",
@@ -70,6 +82,7 @@ const breadcrumbSchema = {
   ]
 };
 
+// FAQPage Schema with accordion items
 const faqSchema = (store.faqs && store.faqs.length > 0) ? {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -83,24 +96,34 @@ const faqSchema = (store.faqs && store.faqs.length > 0) ? {
   }))
 } : null;
 
-const offersSchemas = storeDeals.map((deal, idx) => ({
+// Organization + Offer List Schema on /stores/[slug]
+const offersListSchema = {
   "@context": "https://schema.org",
-  "@type": "SaleEvent",
-  "name": deal.title,
-  "description": deal.description,
-  "url": `https://promoradar.store/stores/${store.slug}/`,
-  "startDate": "2026-10-01",
-  "endDate": "2026-12-31",
-  "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
-  "eventStatus": "https://schema.org/EventScheduled",
-  "organizer": {
-    "@type": "Organization",
-    "name": store.name,
-    "url": `https://promoradar.store/stores/${store.slug}/`
-  }
-}));
+  "@type": "ItemList",
+  "itemListElement": storeDeals.map((deal, idx) => ({
+    "@type": "ListItem",
+    "position": idx + 1,
+    "item": {
+      "@type": "Offer",
+      "name": deal.title,
+      "description": deal.description,
+      "category": deal.storeCategory,
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2026-10-01",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "description": deal.discountBadge || "Special Promotion"
+      },
+      "seller": {
+        "@type": "Organization",
+        "name": store.name,
+        "url": `https://${storeDomain}`
+      }
+    }
+  }))
+};
 
-const pageSchemas = [storeSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : []), ...offersSchemas];
+const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : []), offersListSchema];
 ---
 
 <BaseLayout

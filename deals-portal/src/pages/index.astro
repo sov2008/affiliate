@@ -135,6 +135,61 @@ while (hasMore) {
   round++;
 }
 
+const homeFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How does PromoRadar test and verify promo codes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our verification engine and QA team test coupon combinations directly in the merchant shopping cart before publishing. We verify code validity, minimum basket thresholds, expiration dates, and merchant restrictions to ensure you never waste time on broken codes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do some merchant deals not require a code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Direct Deals, seasonal clearance markdowns, and free trial promotions are activated automatically when you click our verified partner link. The discount applies immediately at checkout without requiring manual voucher code entry."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do Admitad official partner links work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PromoRadar is connected directly to official affiliate feeds via Admitad and licensed merchant affiliate programs. When you click our links, you are safely routed to the authentic merchant store, and we may earn a small referral commission at no additional cost to you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are promo codes valid in all countries and currencies?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each coupon card displays a geographic region badge (such as Worldwide, UAE & MENA, UA, US, or EU). Some vouchers feature currency-specific savings that apply only when checking out in those regional storefronts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can promo codes be combined with seasonal sales or clearance items?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In most cases, merchant promo codes stack on top of catalog price cuts, flash sales, and free shipping allowances. Click the Terms toggle on any card to inspect individual store stackability rules."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I do if a promo code fails at checkout?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "First verify that your cart meets the minimum purchase amount and does not contain excluded brands. You can also vote 'No' inside our reveal modal to flag the voucher for automated re-verification by our team."
+      }
+    }
+  ]
+};
+
 const homeSchemas = [
   {
     "@context": "https://schema.org",
@@ -154,7 +209,8 @@ const homeSchemas = [
     "name": "PromoRadar",
     "url": "https://promoradar.store/",
     "logo": "https://promoradar.store/favicon.svg"
-  }
+  },
+  homeFaqSchema
 ];
 ---
 

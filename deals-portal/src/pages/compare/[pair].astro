@@ -168,6 +168,49 @@ const breadcrumbs = [
       { "@type": "ListItem", "position": 2, "name": "Compare", "item": "https://promoradar.store/compare/" },
       { "@type": "ListItem", "position": 3, "name": `${storeA?.name} vs ${storeB?.name}`, "item": `https://promoradar.store/compare/${comparison.slug}/` }
     ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": comparison.title,
+    "description": comparison.desc,
+    "url": `https://promoradar.store/compare/${comparison.slug}/`
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": `${storeA?.name} Promo Offers`,
+    "description": comparison.bestForA,
+    "brand": { "@type": "Brand", "name": storeA?.name },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "USD",
+      "lowPrice": "2.00",
+      "highPrice": "199.00",
+      "offerCount": dealsA.length || 1,
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "description": comparison.maxDiscountA
+      }
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": `${storeB?.name} Promo Offers`,
+    "description": comparison.bestForB,
+    "brand": { "@type": "Brand", "name": storeB?.name },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "USD",
+      "lowPrice": "2.00",
+      "highPrice": "199.00",
+      "offerCount": dealsB.length || 1,
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "description": comparison.maxDiscountB
+      }
+    }
   }
 ];
 ---

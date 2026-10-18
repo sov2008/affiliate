@@ -139,7 +139,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Portable power stations, solar panels, and solar generators for outdoor camping and home backup.',
     fullDesc: 'ALLPOWERS specializes in clean portable energy solutions, high-capacity LiFePO4 battery power stations, and foldable solar generators. Designed for emergency home backup, outdoor exploration, and off-grid living.',
     websiteUrl: 'https://allpowersukraine.com/',
-    cleanDomain: 'allpowers.com',
+    cleanDomain: 'iallpowers.com',
     primaryAffiliateUrl: 'https://zmgig.com/g/kq5qyagmb7367099d2ccc628098d9a/?i=3',
     howToApply: [
       'Select your desired portable power station or solar panel kit and add it to your cart.',
@@ -207,7 +207,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Interactive live online coding, digital art, and game development courses for kids and teens aged 7–17.',
     fullDesc: 'Kodland is an international ed-tech academy empowering young creators with project-based computer science, game creation in Roblox and Unity, Python programming, and digital design taught by certified live tutors.',
     websiteUrl: 'https://kodland.com',
-    cleanDomain: 'kodland.com',
+    cleanDomain: 'kodland.org',
     primaryAffiliateUrl: 'https://ewwhk.com/g/11du4h2rtq367099d2cca5fc6f34cb/?i=31',
     howToApply: [
       'Book a complimentary trial lesson or select a full course module on Kodland.',
@@ -472,7 +472,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Curated relationship platform featuring manual profile inspection and intentional matching.',
     fullDesc: 'EliteDate is an acclaimed relationship matching platform operating across Central Europe with verified single profiles, zero automated bots, and high conversation reciprocity.',
     websiteUrl: 'https://www.elitedate.cz',
-    cleanDomain: 'elitedate.cz',
+    cleanDomain: 'elitedate.com',
     primaryAffiliateUrl: 'https://flirtcheck.site/go?offer=admitad_49070&source=deals_elitedate&trigger=store_header&intent=deals',
     howToApply: [
       'Complete free registration through our verified invitation link.',
@@ -494,7 +494,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Pre-vetted singles network enforcing mandatory camera-liveness checks and zero bot tolerance.',
     fullDesc: 'Verified Match is an elite alternative to legacy swipe apps, requiring mandatory facial biometric verification. Users bypass fake bots, unblur incoming match queues, and connect exclusively with authentic local singles.',
     websiteUrl: 'https://flirtcheck.site/go/verified-match',
-    cleanDomain: 'verified-match.com',
+    cleanDomain: 'match.com',
     primaryAffiliateUrl: 'https://flirtcheck.site/go/verified-match?src=deals_portal&ctx=store_header&intent=deals',
     howToApply: [
       'Click REVEAL CODE & ACTIVATE to unlock the introductory voucher.',
@@ -516,7 +516,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'High-privacy casual encounter network with stealth profile browsing and zero social media sync.',
     fullDesc: 'Discreet Local provides hardened privacy for singles seeking casual dating without digital footprint leaks. Features burner number compatibility, screenshot protection, and incognito search modes.',
     websiteUrl: 'https://flirtcheck.site/go/discreet-local',
-    cleanDomain: 'discreet-local.com',
+    cleanDomain: 'ashleymadison.com',
     primaryAffiliateUrl: 'https://flirtcheck.site/go/discreet-local?src=deals_portal&ctx=store_header&intent=deals',
     howToApply: [
       'Activate your stealth voucher link.',
