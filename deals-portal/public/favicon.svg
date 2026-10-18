@@ -3,11 +3,11 @@
     <!-- Background Modern Gradient -->
     <linearGradient id="prGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#4f46e5" />
-      <stop offset="60%" stop-color="#6366f1" />
+      <stop offset="55%" stop-color="#6366f1" />
       <stop offset="100%" stop-color="#e11d48" />
     </linearGradient>
 
-    <!-- Radar Sweep Glow -->
+    <!-- Radar Sweep Glow Gradient -->
     <linearGradient id="sweepGrad" x1="0%" y1="100%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0.45" />
@@ -18,6 +18,66 @@
       <feGaussianBlur stdDeviation="12" result="blur" />
       <feComposite in="SourceGraphic" in2="blur" operator="over" />
     </filter>
+
+    <style>
+      /* Radar Continuous 360-degree rotation */
+      @keyframes radarSpin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Deal Ping Pulse effect */
+      @keyframes pingPulse {
+        0%, 100% {
+          transform: scale(0.85);
+          opacity: 0.35;
+        }
+        50% {
+          transform: scale(1.15);
+          opacity: 1;
+        }
+      }
+
+      /* Central Beacon Heartbeat */
+      @keyframes beaconBeat {
+        0%, 100% {
+          transform: scale(0.92);
+          opacity: 0.85;
+        }
+        50% {
+          transform: scale(1.08);
+          opacity: 1;
+        }
+      }
+
+      .radar-rotating-group {
+        transform-origin: 256px 256px;
+        animation: radarSpin 4s linear infinite;
+      }
+
+      .radar-blip-pulse {
+        transform-origin: 360px 152px;
+        animation: pingPulse 2s ease-in-out infinite;
+      }
+
+      .radar-beacon-beat {
+        transform-origin: 256px 256px;
+        animation: beaconBeat 1.5s ease-in-out infinite;
+      }
+
+      /* Accessibility: honor prefers-reduced-motion */
+      @media (prefers-reduced-motion: reduce) {
+        .radar-rotating-group,
+        .radar-blip-pulse,
+        .radar-beacon-beat {
+          animation: none;
+        }
+      }
+    </style>
   </defs>
 
   <!-- Squircle App Icon Base -->
@@ -31,17 +91,24 @@
   <circle cx="256" cy="256" r="116" stroke="#ffffff" stroke-width="14" stroke-opacity="0.38" />
   <circle cx="256" cy="256" r="56" stroke="#ffffff" stroke-width="14" stroke-opacity="0.6" />
 
-  <!-- Radar Scan Sector -->
-  <path d="M 256 256 L 380 132 A 176 176 0 0 0 256 80 Z" fill="url(#sweepGrad)" />
+  <!-- Rotating Radar Scanner Group (Smooth CSS Spin) -->
+  <g class="radar-rotating-group">
+    <!-- Radar Scan Sector -->
+    <path d="M 256 256 L 380 132 A 176 176 0 0 0 256 80 Z" fill="url(#sweepGrad)" />
 
-  <!-- Radar Active Beam Line -->
-  <line x1="256" y1="256" x2="380" y2="132" stroke="#ffffff" stroke-width="20" stroke-linecap="round" filter="url(#softGlow)" />
+    <!-- Radar Active Beam Line with Glow -->
+    <line x1="256" y1="256" x2="380" y2="132" stroke="#ffffff" stroke-width="20" stroke-linecap="round" filter="url(#softGlow)" />
+  </g>
 
-  <!-- Detected Hot Deal Ping Indicator (Blip) -->
-  <circle cx="360" cy="152" r="22" fill="#38bdf8" filter="url(#softGlow)" />
-  <circle cx="360" cy="152" r="12" fill="#ffffff" />
+  <!-- Detected Hot Deal Ping Indicator (Blip Pulse) -->
+  <g class="radar-blip-pulse">
+    <circle cx="360" cy="152" r="24" fill="#38bdf8" filter="url(#softGlow)" />
+    <circle cx="360" cy="152" r="13" fill="#ffffff" />
+  </g>
 
   <!-- Center Core Beacon -->
-  <circle cx="256" cy="256" r="32" fill="#ffffff" filter="url(#softGlow)" />
-  <circle cx="256" cy="256" r="18" fill="#e11d48" />
+  <g class="radar-beacon-beat">
+    <circle cx="256" cy="256" r="32" fill="#ffffff" filter="url(#softGlow)" />
+    <circle cx="256" cy="256" r="18" fill="#e11d48" />
+  </g>
 </svg>
