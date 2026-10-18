@@ -500,10 +500,11 @@ def integrate():
         ("EVANGELION Operational Dashboard (:3456)", "Nginx reverse proxy with sub_filter branding, systemd service auto-restart, and zero public registration.", 2)
     ]
     for tidx, (t_title, t_desc, b_idx) in enumerate(p5_tasks):
+        cur_t = now_str()
         cur.execute("""
             INSERT INTO tasks (title, description, project_id, done, done_at, `index`, priority, created, updated, created_by_id)
-            VALUES (?, ?, ?, 1, now_str(), tidx + 1, 3, now_str(), now_str(), owner_id))
-        """, (t_title, t_desc, p5_id, tidx + 1))
+            VALUES (?, ?, ?, 1, ?, ?, 3, ?, ?, ?)
+        """, (t_title, t_desc, p5_id, cur_t, tidx + 1, cur_t, cur_t, owner_id))
         tid = cur.lastrowid
         cur.execute("UPDATE project_task_counters SET last_index = ? WHERE project_id = ?", (tidx + 1, p5_id))
         cur.execute("INSERT INTO task_buckets (bucket_id, task_id, project_view_id) VALUES (?, ?, ?)", (p5_bids[b_idx], tid, p5_kanban_id))
