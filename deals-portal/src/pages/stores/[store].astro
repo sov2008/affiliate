@@ -546,54 +546,65 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
   <Footer />
 
   <!-- Reveal Modal Container -->
-  <div id="storeCodeModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-200 relative">
-      <button id="closeStoreCodeModalBtn" type="button" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center font-bold text-sm">✕</button>
+  <div id="storeCodeModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/75 backdrop-blur-md">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-200/90 dark:border-slate-800 relative animate-fadeIn">
+      <button id="closeStoreCodeModalBtn" type="button" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center font-bold text-sm cursor-pointer transition">✕</button>
       
       <div class="flex items-center gap-3.5 mb-4">
-        <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white font-extrabold text-lg flex items-center justify-center shadow-md shrink-0">
-          {initials}
+        <div class="brand-logo-container w-12 h-12 rounded-2xl bg-white p-1.5 border border-slate-200 flex items-center justify-center shrink-0 shadow-md">
+          <BrandLogo store={store} size="md" />
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="font-extrabold text-slate-900 text-base">{store.name}</span>
-            <span id="modalDiscountTag" class="text-xs font-extrabold px-2 py-0.5 rounded-md bg-rose-100 text-rose-700">Verified</span>
+            <span class="font-extrabold text-slate-900 dark:text-white text-base">{store.name}</span>
+            <span id="modalDiscountTag" class="text-xs font-extrabold px-2.5 py-0.5 rounded-lg bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30">Verified</span>
           </div>
-          <p class="text-xs text-slate-500">Official Merchant Partner Offer</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Official Merchant Partner Offer • Tested on Checkout</p>
         </div>
       </div>
 
-      <h3 id="modalStoreDealTitle" class="text-lg font-extrabold text-slate-900 mb-2 leading-snug"></h3>
-      <p id="modalStoreDealDesc" class="text-xs text-slate-600 mb-5 leading-relaxed"></p>
+      <h3 id="modalStoreDealTitle" class="text-lg font-extrabold text-slate-900 dark:text-white mb-2 leading-snug"></h3>
+      <p id="modalStoreDealDesc" class="text-xs text-slate-600 dark:text-slate-300 mb-5 leading-relaxed"></p>
 
-      <div class="bg-indigo-50/80 border-2 border-dashed border-indigo-300 rounded-2xl p-4 mb-4">
-        <div class="text-[11px] font-bold uppercase tracking-wider text-indigo-600 mb-1.5 text-center">Your Verified Promo Code</div>
-        <div class="flex items-center justify-between gap-2 bg-white rounded-xl p-2 pl-4 border border-indigo-200 shadow-sm">
-          <span id="modalStoreCodeValue" class="font-mono font-extrabold text-lg tracking-wider text-slate-900 select-all"></span>
-          <button id="copyStoreCodeBtn" type="button" class="px-4 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shrink-0">
-            📋 Copy Code
+      <!-- Code Container -->
+      <div id="modalStoreCodeBox" class="bg-indigo-50/80 dark:bg-indigo-950/45 border-2 border-dashed border-indigo-300 dark:border-indigo-500/40 rounded-2xl p-4 mb-4">
+        <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-300 mb-2 px-1">
+          <span>VERIFIED MERCHANT CODE</span>
+          <span class="text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400"></span> • ACTIVE NOW
+          </span>
+        </div>
+        <div class="flex items-center justify-between gap-2 bg-white dark:bg-slate-950/90 rounded-xl p-2 pl-4 border border-indigo-200 dark:border-indigo-500/30 shadow-inner">
+          <span id="modalStoreCodeValue" class="font-mono font-extrabold text-lg sm:text-xl tracking-widest text-slate-900 dark:text-white select-all"></span>
+          <button id="copyStoreCodeBtn" type="button" class="code-peel px-4 py-2.5 rounded-xl text-white font-bold text-xs transition shrink-0 cursor-pointer shadow-sm flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+            <span>Copy Code</span>
           </button>
         </div>
       </div>
 
+      <!-- Outbound Affiliate Link -->
       <a
         id="modalStoreAffiliateLink"
         href="#"
         target="_blank"
         rel="nofollow sponsored"
-        class="w-full py-3.5 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition mb-4"
+        class="w-full py-3.5 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-gradient-to-r dark:from-emerald-600 dark:to-teal-600 dark:hover:from-emerald-500 dark:hover:to-teal-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg dark:shadow-emerald-950/50 border border-transparent dark:border-emerald-400/30 transition mb-4"
       >
         <span>Go to {store.name} Official Store ↗</span>
       </a>
 
-      <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+      <!-- Verification Vote Footer -->
+      <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
         <span>Did this code work today?</span>
         <div class="flex items-center gap-2">
-          <button type="button" class="vote-feedback px-3 py-1 rounded-lg bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 font-semibold transition">👍 Yes, worked</button>
-          <button type="button" class="vote-feedback px-3 py-1 rounded-lg bg-slate-100 hover:bg-rose-50 hover:text-rose-700 font-semibold transition">👎 No</button>
+          <button type="button" class="vote-feedback px-3 py-1 rounded-lg bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 dark:bg-slate-800 dark:hover:bg-emerald-950/40 dark:text-slate-300 dark:hover:text-emerald-300 font-semibold transition cursor-pointer">👍 Yes, worked</button>
+          <button type="button" class="vote-feedback px-3 py-1 rounded-lg bg-slate-100 hover:bg-rose-50 hover:text-rose-700 dark:bg-slate-800 dark:hover:bg-rose-950/40 dark:text-slate-300 dark:hover:text-rose-300 font-semibold transition cursor-pointer">👎 No</button>
         </div>
       </div>
-      <div id="storeModalFeedback" class="hidden mt-2 text-center text-xs font-semibold text-emerald-600">
+      <div id="storeModalFeedback" class="hidden mt-2 text-center text-xs font-semibold text-emerald-600 dark:text-emerald-400">
         Thank you! Your feedback has been recorded in our live verification radar.
       </div>
     </div>

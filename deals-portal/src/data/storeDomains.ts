@@ -74,7 +74,16 @@ export const STORE_DOMAINS_MAP: Record<string, string> = {
   "aovica": "aovica.com",
   "Aovica Store": "aovica.com",
   "markformelle": "markformelle.com",
-  "Mark Formelle": "markformelle.com"
+  "Mark Formelle": "markformelle.com",
+  "abelssoft": "abelssoft.de",
+  "Abelssoft": "abelssoft.de",
+  "luxfurni": "luxfurni.com",
+  "Luxfurni": "luxfurni.com",
+  "ankermake": "ankermake.com",
+  "AnkerMake": "ankermake.com",
+  "mottandbow": "mottandbow.com",
+  "mott & bow": "mottandbow.com",
+  "Mott & Bow": "mottandbow.com"
 };
 
 /**

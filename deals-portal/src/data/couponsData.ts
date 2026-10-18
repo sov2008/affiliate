@@ -692,7 +692,7 @@ export const STORES_DATA: StoreProfile[] = [
     shortDesc: 'Award-winning Windows utility software, privacy tools, system optimization, and media security utilities.',
     fullDesc: 'Abelssoft is a premium German software developer established in 1994, renowned for high-performance Windows optimization tools, privacy shields, disk cleaners, and media recording suites trusted by over 12 million users worldwide.',
     websiteUrl: 'https://www.abelssoft.com',
-    cleanDomain: 'abelssoft.com',
+    cleanDomain: 'abelssoft.de',
     primaryAffiliateUrl: 'https://flirtcheck.site/go?offer=abelssoft&source=promoradar_cj&trigger=store_header&intent=deals',
     howToApply: [
       'Select any Abelssoft utility (WashAndWrite, EverDoc, AntiBrowserSpy, or SSD Fresh) on the official website.',
@@ -730,7 +730,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     expiresAt: '2026-12-31',
     verifiedDaysAgo: 0,
     category: 'Electronics & Gadgets',
-    cleanDomain: 'abelssoft.com'
+    cleanDomain: 'abelssoft.de'
   },
 
   // ALLPOWERS
