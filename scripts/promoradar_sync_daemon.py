@@ -26,7 +26,7 @@ TELEGRAM_CHAT_ID = os.getenv('ADMIN_CHAT_ID', '808343978')
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VIKUNJA_DB = '/opt/vikunja/vikunja.db' if os.path.exists('/opt/vikunja/vikunja.db') else os.path.join(BASE_DIR, 'vikunja.db')
-CONTENT_DB = '/var/www/affiliate/content_queue.sqlite' if os.path.exists('/var/www/affiliate/content_queue.sqlite') else os.path.join(BASE_DIR, 'content_queue.sqlite')
+CONTENT_DB = '/var/www/affiliate/core/data/content_queue.sqlite' if os.path.exists('/var/www/affiliate/core/data/content_queue.sqlite') else os.path.join(BASE_DIR, 'core', 'data', 'content_queue.sqlite')
 EMAIL_STATE_FILE = os.path.join(BASE_DIR, 'artifacts_admitad', 'email_monitor_state.json')
 
 def log(msg):
@@ -83,7 +83,7 @@ def check_storefront_health():
     return healthy, total
 
 def get_queue_stats():
-    """Считывает актуальное состояние очереди трафика из content_queue.sqlite"""
+    """Считывает актуальное состояние очереди трафика из content_queue_v2"""
     if not os.path.exists(CONTENT_DB):
         return {"approved": 0, "dispatched_24h": 0}
     try:
@@ -95,7 +95,7 @@ def get_queue_stats():
         c.execute("""
             SELECT count(*) FROM content_queue_v2 
             WHERE status='DISPATCHED' 
-            AND datetime(dispatched_at) >= datetime('now', '-24 hours')
+            AND updated_at >= ((strftime('%s', 'now') - 86400) * 1000)
         """)
         dispatched_24h = c.fetchone()[0]
         conn.close()
