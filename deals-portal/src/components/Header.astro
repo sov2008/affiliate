@@ -22,11 +22,6 @@ const storesCount = STORES_DATA.length;
     </div>
     <div class="flex items-center gap-3 ml-auto">
       <span id="topBarNetworkText" class="text-slate-400 hidden md:inline">Global Partner Network</span>
-      <div class="h-3.5 w-px bg-slate-700 hidden md:block"></div>
-      <div class="inline-flex rounded-lg bg-slate-800 p-0.5 border border-slate-700">
-        <button id="langEnBtn" type="button" class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-600 text-white transition">EN</button>
-        <button id="langRuBtn" type="button" class="px-2 py-0.5 rounded-md text-[11px] font-semibold text-slate-400 hover:text-white transition">RU</button>
-      </div>
     </div>
   </div>
 </div>
@@ -290,81 +285,10 @@ const storesCount = STORES_DATA.length;
 </div>
 
 <script>
-  import { translations, type Locale } from '../data/i18n';
   import { STORES_DATA, COUPONS_DATA } from '../data/couponsData';
 
-  // 1. i18n Global Language Handling
-  let currentLang: Locale = (localStorage.getItem('promoradar_lang') as Locale) || 'en';
-
-  function applyLanguage(lang: Locale) {
-    currentLang = lang;
-    localStorage.setItem('promoradar_lang', lang);
-
-    const t = translations[lang] || translations.en;
-
-    // Toggle active state on buttons
-    const enBtn = document.getElementById('langEnBtn');
-    const ruBtn = document.getElementById('langRuBtn');
-    if (lang === 'ru') {
-      enBtn?.classList.remove('bg-indigo-600', 'text-white');
-      enBtn?.classList.add('text-slate-400');
-      ruBtn?.classList.add('bg-indigo-600', 'text-white');
-      ruBtn?.classList.remove('text-slate-400');
-    } else {
-      ruBtn?.classList.remove('bg-indigo-600', 'text-white');
-      ruBtn?.classList.add('text-slate-400');
-      enBtn?.classList.add('bg-indigo-600', 'text-white');
-      enBtn?.classList.remove('text-slate-400');
-    }
-
-    // Top Bar & Header Text
-    const setTxt = (id: string, val: string) => {
-      const el = document.getElementById(id);
-      if (el) el.textContent = val;
-    };
-
-    setTxt('topBarFeedBadge', t.feedActive);
-    setTxt('topBarFeedText', t.feedSub);
-    setTxt('topBarNetworkText', t.partnerNetwork);
-    setTxt('headerSubtitle', t.tagline);
-    setTxt('navDealsText', t.navAllDeals);
-    setTxt('navStoresText', `${t.navStores} (${STORES_DATA.length})`);
-    setTxt('navCategoriesText', t.navCategories);
-    setTxt('navCompareText', t.navCompare);
-    setTxt('navAboutText', t.navFAQ);
-    setTxt('submitCodeBtnLabel', t.submitCode);
-
-    // Hero Section Text
-    setTxt('heroBadgeLabel', t.heroBadge);
-    setTxt('heroSubtitleText', t.heroSubtitle);
-    setTxt('findDealsBtnText', t.findDeals);
-    setTxt('trendingPrefix', t.trending);
-
-    const heroInput = document.getElementById('mainHeroSearchInput') as HTMLInputElement;
-    if (heroInput) heroInput.placeholder = t.heroSearchPlaceholder;
-    const headerInput = document.getElementById('headerQuickSearch') as HTMLInputElement;
-    if (headerInput) headerInput.placeholder = t.searchPlaceholder;
-
-    // Modals Text
-    setTxt('drawerSavedTitle', t.savedVouchers);
-    setTxt('drawerSavedSubtitle', t.savedLocally);
-    setTxt('submitModalTitleText', t.submitModalTitle);
-    setTxt('submitModalDescText', t.submitModalDesc);
-    setTxt('submitStoreLabel', t.storeNameLabel);
-    setTxt('submitCodeLabel', t.codeLabel);
-    setTxt('submitDescLabel', t.discountDescLabel);
-    setTxt('submitRegionLabel', t.regionLabel);
-    setTxt('submitSuccessTitleText', t.submitSuccessTitle);
-    setTxt('submitSuccessMsgText', t.submitSuccessMsg);
-    setTxt('stickyCopiedPrefix', t.copiedBarPrefix);
-    setTxt('stickyCopiedSuffix', `— ${t.copiedBarSuffix}`);
-
-    // Re-render saved vouchers drawer with current locale
-    renderSavedDrawer();
-  }
-
-  document.getElementById('langEnBtn')?.addEventListener('click', () => applyLanguage('en'));
-  document.getElementById('langRuBtn')?.addEventListener('click', () => applyLanguage('ru'));
+  // 1. English-Only Language Handling
+  localStorage.setItem('promoradar_lang', 'en');
 
   // 2. Saved Vouchers Drawer & Real-Time Sync
   const savedDrawerOverlay = document.getElementById('savedVouchersDrawerOverlay');
@@ -394,11 +318,10 @@ const storesCount = STORES_DATA.length;
     if (!container) return;
 
     if (ids.length === 0) {
-      const t = translations[currentLang] || translations.en;
       container.innerHTML = `
         <div class="text-center py-12 px-4 space-y-3">
           <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto text-xl">♥</div>
-          <p class="text-xs text-slate-500 leading-relaxed">${t.noSaved}</p>
+          <p class="text-xs text-slate-500 leading-relaxed">No saved vouchers yet. Tap the heart icon on any deal card to save it for quick access.</p>
         </div>
       `;
       return;
