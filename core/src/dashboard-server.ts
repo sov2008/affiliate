@@ -157,19 +157,10 @@ async function saveMemory(data: any): Promise<void> {
 }
 
 // ----------------------------------------------------
-// 1. Dashboard Static HTML View & Analytics Script
+// 1. Project Management Center Redirect (Decommissioned Old Dashboard)
 // ----------------------------------------------------
-app.get(['/', '/dashboard', '/dashboard/'], async (req, res) => {
-  try {
-    const html = await getDashboardHtml();
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', '0');
-    res.send(html);
-  } catch (err: any) {
-    res.status(500).send('Dashboard UI template not found: ' + err.message);
-  }
+app.get(['/', '/dashboard', '/dashboard/'], (req: Request, res: Response) => {
+  res.redirect('http://178.128.199.28:3456/');
 });
 
 app.get('/logout', (req: Request, res: Response) => {
