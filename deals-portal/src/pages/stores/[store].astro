@@ -313,7 +313,14 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
 
             <div class="space-y-3.5 pt-2">
               <div>
-                <label class="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Cart Order Subtotal ($)</label>
+                <div class="flex items-center justify-between mb-1.5">
+                  <label class="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider">Cart Subtotal ($)</label>
+                  <div class="flex items-center gap-1">
+                    <button type="button" class="store-calc-preset px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 transition cursor-pointer" data-val="50">$50</button>
+                    <button type="button" class="store-calc-preset px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-600 text-white border border-indigo-500 transition cursor-pointer" data-val="100">$100</button>
+                    <button type="button" class="store-calc-preset px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 transition cursor-pointer" data-val="250">$250</button>
+                  </div>
+                </div>
                 <div class="relative">
                   <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
                   <input
@@ -333,6 +340,10 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                 <div class="flex justify-between items-center text-xs">
                   <span class="text-slate-400">Best Applied Code:</span>
                   <span id="savingsCalcBestCode" class="font-mono font-bold text-indigo-300 bg-indigo-950/80 px-2 py-0.5 rounded border border-indigo-700/50">...</span>
+                </div>
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-slate-400">Effective Rate:</span>
+                  <span id="savingsCalcEffectiveRate" class="font-bold text-amber-300 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">0% OFF</span>
                 </div>
                 <div class="flex justify-between items-center text-xs">
                   <span class="text-slate-400">Estimated Savings:</span>
@@ -1064,7 +1075,10 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
 
       const cappedDiscount = Math.min(bestDiscountVal, subtotal);
       const finalPrice = Math.max(0, subtotal - cappedDiscount);
+      const effectiveRate = subtotal > 0 ? Math.round((cappedDiscount / subtotal) * 100) : 0;
 
+      const calcEffective = document.getElementById('savingsCalcEffectiveRate');
+      if (calcEffective) calcEffective.textContent = `${effectiveRate}% OFF`;
       if (calcCode) calcCode.textContent = (bestDeal && bestDeal.code) ? bestDeal.code : 'DIRECT_DEAL';
       if (calcDiscount) calcDiscount.textContent = `-$${cappedDiscount.toFixed(2)}`;
       if (calcTotal) calcTotal.textContent = `$${finalPrice.toFixed(2)}`;
@@ -1075,11 +1089,16 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
           const url = (bestDeal && bestDeal.affiliateUrl) ? bestDeal.affiliateUrl : storeAffiliateUrl;
           if (promoCode) {
             navigator.clipboard?.writeText(promoCode).catch(() => {});
+            if (window.showPromoToast) {
+              window.showPromoToast(`Code ${promoCode} copied! Opening ${storeName} checkout...`);
+            }
           }
           window.dispatchEvent(new CustomEvent('promoradar_deal_revealed', {
             detail: {
               code: promoCode || 'ACTIVE_DEAL',
               store: storeName,
+              storeName: storeName,
+              badge: bestDeal?.discountBadge || 'Verified Deal',
               affiliateUrl: url
             }
           }));
@@ -1089,6 +1108,23 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
         };
       }
     }
+
+    // Preset Buttons Listener
+    document.querySelectorAll('.store-calc-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = btn.getAttribute('data-val');
+        if (calcInput && val) {
+          calcInput.value = val;
+          document.querySelectorAll('.store-calc-preset').forEach(b => {
+            const isTarget = b === btn;
+            b.className = isTarget
+              ? 'store-calc-preset px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-600 text-white border border-indigo-500 transition cursor-pointer'
+              : 'store-calc-preset px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 transition cursor-pointer';
+          });
+          calculateSavings();
+        }
+      });
+    });
 
     calcInput?.addEventListener('input', calculateSavings);
     calculateSavings();
