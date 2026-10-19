@@ -37,12 +37,12 @@ const BRAND_THEMES: Record<string, { bg: string; text: string; border: string; b
 function getDiscountBadgeClasses(badge: string): string {
   const b = (badge || '').toUpperCase();
   if (b.includes('$') || b.includes('AED') || b.includes('UAH') || (b.includes('SAVE') && !b.includes('%'))) {
-    return 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30';
+    return 'badge-cash-rebate';
   }
-  if (b.includes('FREE') || b.includes('EXTRA') || b.includes('CASHBACK') || b.includes('VIP') || b.includes('GIFTS')) {
-    return 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30';
+  if (b.includes('FREE') || b.includes('EXTRA') || b.includes('CASHBACK') || b.includes('VIP') || b.includes('GIFTS') || b.includes('+')) {
+    return 'badge-bonus-deal';
   }
-  return 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30';
+  return 'badge-standard-discount';
 }
 
 // Store Target Regions mapping for geo filtering
@@ -79,11 +79,11 @@ const STORE_REGIONS: Record<string, string[]> = {
 
 // Region badge display config
 const REGION_BADGES: Record<string, { label: string; class: string }> = {
-  'UA': { label: '🇺🇦 UA', class: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-500/30' },
-  'GCC': { label: '🇦🇪 UAE & MENA', class: 'bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30' },
-  'US': { label: '🇺🇸 US', class: 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30' },
-  'EU': { label: '🇪🇺 EU', class: 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30' },
-  'GLOBAL': { label: '🌐 Worldwide', class: 'bg-slate-100 text-slate-600 border border-slate-200 font-medium dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700' }
+  'UA': { label: '🇺🇦 UA', class: 'deal-region-badge' },
+  'GCC': { label: '🇦🇪 UAE & GCC', class: 'deal-region-badge' },
+  'US': { label: '🇺🇸 US', class: 'deal-region-badge' },
+  'EU': { label: '🇪🇺 EU', class: 'deal-region-badge' },
+  'GLOBAL': { label: '🌐 Worldwide', class: 'deal-region-badge' }
 };
 
 // Map store domain and store lookup map
@@ -464,7 +464,7 @@ const homeSchemas = [
 
     <!-- Deals Ending Soon Urgency Section (FOMO Conversion Booster) -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-4">
-      <div class="bg-slate-900 rounded-3xl p-6 border border-slate-800 shadow-xl text-white dark:bg-gradient-to-r dark:from-slate-900/95 dark:via-rose-950/25 dark:to-indigo-950/40 dark:border-rose-500/30">
+      <div id="dealsExpiringBanner" class="p-6 transition">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div class="flex items-center gap-3">
             <div class="flex items-center gap-2">
@@ -472,18 +472,18 @@ const homeSchemas = [
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
               </span>
-              <span class="font-extrabold text-base tracking-tight text-white flex items-center gap-1.5">
+              <span class="expiring-banner-heading font-extrabold text-base tracking-tight flex items-center gap-1.5">
                 ⚡ Deals Expiring Soon
               </span>
             </div>
-            <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">
+            <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-500 dark:text-rose-300 border border-rose-500/30">
               Limited Redemptions
             </span>
           </div>
 
-          <div class="flex items-center gap-2 text-xs text-slate-300 bg-slate-800/90 px-3 py-1.5 rounded-xl border border-slate-700/80">
-            <span class="text-slate-400">Checkout cycle resets in:</span>
-            <span id="countdownTimer" class="font-mono font-black text-amber-400 tracking-wider">04:47:19</span>
+          <div class="countdown-timer-box flex items-center gap-2 text-xs px-3 py-1.5 rounded-xl font-medium">
+            <span class="opacity-80">Checkout cycle resets in:</span>
+            <span id="countdownTimer" class="font-mono font-black tracking-wider">04:47:19</span>
           </div>
         </div>
 
@@ -495,7 +495,7 @@ const homeSchemas = [
             const codeSuffix = deal.code ? deal.code.slice(-3) : 'OFF';
 
             return (
-              <div class="bg-slate-800/90 hover:bg-slate-800 border border-slate-700/90 hover:border-indigo-500/50 rounded-2xl p-4 flex flex-col justify-between transition group shadow-md">
+              <div class="flash-deal-card p-4 flex flex-col justify-between transition group shadow-sm">
                 <div>
                   <div class="flex items-center justify-between gap-2 mb-2.5">
                     <div class="flex items-center gap-2.5 min-w-0">
@@ -508,21 +508,21 @@ const homeSchemas = [
                           </div>
                         )}
                       </div>
-                      <span class="text-xs font-bold text-white truncate">{deal.storeName}</span>
+                      <span class="flash-deal-store-name text-xs font-bold truncate">{deal.storeName}</span>
                     </div>
-                    <span class="text-[11px] font-black text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20 shrink-0">
+                    <span class="text-[11px] font-black text-rose-600 dark:text-amber-400 bg-rose-50 dark:bg-amber-400/10 px-2 py-0.5 rounded border border-rose-200 dark:border-amber-400/20 shrink-0">
                       {deal.discountBadge}
                     </span>
                   </div>
-                  <h4 class="text-xs font-bold text-slate-200 line-clamp-1 group-hover:text-white transition">
+                  <h4 class="flash-deal-title text-xs font-bold line-clamp-1 transition">
                     {deal.title}
                   </h4>
-                  <p class="text-[11px] text-slate-400 line-clamp-1 mt-0.5">
+                  <p class="flash-deal-desc text-[11px] line-clamp-1 mt-0.5">
                     {deal.description}
                   </p>
                 </div>
 
-                <div class="mt-3.5 pt-3 border-t border-slate-700/60">
+                <div class="flash-deal-divider mt-3.5 pt-3">
                   <button
                     type="button"
                     class="code-peel w-full text-white rounded-xl py-2 px-3 text-xs font-bold flex items-center justify-between transition cursor-pointer shadow-sm"
@@ -555,19 +555,19 @@ const homeSchemas = [
     <!-- Main Deals Filter & Grid Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
       
-      <!-- Filter Toolbar -->
-      <div class="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-sm mb-6 space-y-4 dark:bg-slate-900 dark:border-slate-800">
+      <!-- Filter Toolbar Bento Console -->
+      <div id="filterConsoleWrapper" class="p-4 mb-6 space-y-4 transition">
         
         <!-- Category Filter Row -->
         <div class="flex items-center lg:flex-wrap gap-1.5 overflow-x-auto no-scrollbar pb-1" id="catFilterRow">
-          <button type="button" data-cat="ALL" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer">
+          <button type="button" data-cat="ALL" class="main-cat-btn is-active shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer">
             All Deals ({COUPONS_DATA.length})
           </button>
           {categoriesList.filter(c => Boolean(c && c.trim())).map(cat => (
             <button
               type="button"
               data-cat={cat}
-              class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer"
+              class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer"
             >
               {cat} ({COUPONS_DATA.filter(d => (d.storeCategory?.trim() || 'Software & Utilities') === cat).length})
             </button>
@@ -576,20 +576,20 @@ const homeSchemas = [
 
         <!-- Region & Geo Filter Row (Targeted Localised Savings) -->
         <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-2 border-t border-slate-100 dark:border-slate-800" id="regionFilterRow">
-          <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 shrink-0">Region:</span>
-          <button type="button" data-region="ALL" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer">
+          <span class="filter-section-label text-xs font-semibold shrink-0">Region:</span>
+          <button type="button" data-region="ALL" class="region-filter-btn is-active shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer">
             🌍 All Regions
           </button>
-          <button type="button" data-region="GLOBAL" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer">
+          <button type="button" data-region="GLOBAL" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">
             🌐 Worldwide
           </button>
-          <button type="button" data-region="GCC" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer">
+          <button type="button" data-region="GCC" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">
             🇦🇪 UAE &amp; GCC
           </button>
-          <button type="button" data-region="EU" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer">
+          <button type="button" data-region="EU" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">
             🇪🇺 Europe
           </button>
-          <button type="button" data-region="UA" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer">
+          <button type="button" data-region="UA" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">
             🇺🇦 Ukraine
           </button>
         </div>
@@ -597,17 +597,17 @@ const homeSchemas = [
         <!-- Offer Type & Sort Row -->
         <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Offer Type:</span>
-            <button type="button" data-type="ALL" class="type-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer">
+            <span class="filter-section-label text-xs font-semibold shrink-0">Offer Type:</span>
+            <button type="button" data-type="ALL" class="type-filter-btn is-active px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer">
               All ({COUPONS_DATA.length})
             </button>
-            <button type="button" data-type="code" class="type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer">
+            <button type="button" data-type="code" class="type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">
               <svg class="w-3.5 h-3.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879a3 3 0 11-4.242-4.242 3 3 0 014.242 0zM12 12L9.121 9.121a3 3 0 10-4.242 4.242 3 3 0 004.242 0z"/>
               </svg>
               <span>Promo Codes ({COUPONS_DATA.filter(d => d.code && d.code.length > 0).length})</span>
             </button>
-            <button type="button" data-type="deal" class="type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer">
+            <button type="button" data-type="deal" class="type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">
               <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
               </svg>
@@ -622,10 +622,10 @@ const homeSchemas = [
           </div>
 
           <div class="flex items-center gap-2.5 ml-auto">
-            <label for="dealsSortSelect" class="text-xs font-medium text-slate-500">Sort by:</label>
+            <label for="dealsSortSelect" class="filter-section-label text-xs font-medium">Sort by:</label>
             <select
               id="dealsSortSelect"
-              class="text-xs font-semibold bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              class="text-xs font-semibold rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
             >
               <option value="popular">Most Popular</option>
               <option value="discount">Highest Discount</option>
@@ -664,7 +664,7 @@ const homeSchemas = [
           
           return (
             <article
-              class={`deal-grid-card bg-white rounded-2xl border border-slate-200/90 p-5 flex flex-col justify-between card-hover relative overflow-hidden shadow-sm dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] ${idx >= 16 ? 'deal-item-collapsed hidden' : ''}`}
+              class={`deal-grid-card p-5 flex flex-col justify-between card-hover relative overflow-hidden ${idx >= 16 ? 'deal-item-collapsed hidden' : ''}`}
               data-store={deal.storeName}
               data-category={deal.storeCategory}
               data-type={isCode ? 'code' : 'deal'}
@@ -735,8 +735,11 @@ const homeSchemas = [
                 </p>
               </div>
 
+              <!-- Perforated Ticket Divider with Notches -->
+              <div class="ticket-perforated-divider my-3.5"></div>
+
               <!-- Bottom Action Bar -->
-              <div class="pt-3.5 border-t border-slate-100 space-y-2.5">
+              <div class="space-y-2.5">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-500">
                     <span class="inline-flex items-center gap-1 text-emerald-600 font-semibold">
@@ -848,9 +851,9 @@ const homeSchemas = [
           <div>
             <div class="flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
-              <h2 class="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">Head-to-Head Brand Comparisons</h2>
+              <h2 id="comparisonsSectionHeading" class="text-xl font-extrabold tracking-tight">Head-to-Head Brand Comparisons</h2>
             </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Can’t decide between top merchants? Compare checkout savings side-by-side.</p>
+            <p id="comparisonsSectionSubtitle" class="text-xs mt-1">Can’t decide between top merchants? Compare checkout savings side-by-side.</p>
           </div>
           <a href={`${base}/compare/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 flex items-center gap-1">
             <span>Explore All 6 Comparisons</span>
@@ -860,10 +863,10 @@ const homeSchemas = [
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
           <!-- Card 1: ExpressVPN vs PureVPN -->
-          <div class="bg-slate-50 hover:bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm transition flex flex-col justify-between relative dark:bg-slate-900/95 dark:border-slate-800 dark:text-slate-100">
+          <div class="comparison-spotlight-card p-6 transition flex flex-col justify-between relative">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/60 dark:bg-indigo-900/40 dark:text-indigo-300 dark:border-indigo-700/50">PRIVACY &amp; SECURITY</span>
+                <span class="comparison-category-pill text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">PRIVACY &amp; SECURITY</span>
                 <span class="text-xs font-black text-rose-600 dark:text-rose-400">Save 81%</span>
               </div>
 
@@ -880,7 +883,7 @@ const homeSchemas = [
                   <span class="hidden w-full h-full rounded-lg bg-rose-600 text-white font-black text-xs items-center justify-center">EX</span>
                 </div>
 
-                <span class="w-7 h-7 rounded-full bg-slate-900 text-white text-[10px] font-black flex items-center justify-center shadow-sm shrink-0 dark:bg-slate-800 dark:border dark:border-slate-700">
+                <span class="comparison-vs-badge w-7 h-7 rounded-full text-[10px] font-black flex items-center justify-center shadow-sm shrink-0">
                   VS
                 </span>
 
@@ -896,19 +899,19 @@ const homeSchemas = [
                 </div>
               </div>
 
-              <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2 text-center">ExpressVPN vs PureVPN</h3>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-center">Side-by-side audit of Lightway speeds, RAM-only privacy shields, and active voucher discounts.</p>
+              <h3 class="comparison-card-title text-base mb-2 text-center">ExpressVPN vs PureVPN</h3>
+              <p class="comparison-card-desc text-xs leading-relaxed mb-4 text-center">Side-by-side audit of Lightway speeds, RAM-only privacy shields, and active voucher discounts.</p>
             </div>
-            <a href={`${base}/compare/expressvpn-vs-purevpn/`} class="bg-slate-900 hover:bg-indigo-600 text-white font-bold rounded-xl py-2.5 px-4 w-full text-xs text-center transition shadow-sm dark:bg-slate-800 dark:hover:bg-indigo-600 dark:text-white dark:border dark:border-slate-700 cursor-pointer">
+            <a href={`${base}/compare/expressvpn-vs-purevpn/`} class="comparison-cta-btn font-bold rounded-xl py-2.5 px-4 w-full text-xs text-center transition shadow-sm cursor-pointer">
               Compare Offers →
             </a>
           </div>
 
           <!-- Card 2: ChicMe vs VogaCloset -->
-          <div class="bg-slate-50 hover:bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm transition flex flex-col justify-between relative dark:bg-slate-900/95 dark:border-slate-800 dark:text-slate-100">
+          <div class="comparison-spotlight-card p-6 transition flex flex-col justify-between relative">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/60 dark:bg-indigo-900/40 dark:text-indigo-300 dark:border-indigo-700/50">FASHION &amp; APPAREL</span>
+                <span class="comparison-category-pill text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">FASHION &amp; APPAREL</span>
                 <span class="text-xs font-black text-rose-600 dark:text-rose-400">Save 80%</span>
               </div>
 
@@ -925,7 +928,7 @@ const homeSchemas = [
                   <span class="hidden w-full h-full rounded-lg bg-pink-600 text-white font-black text-xs items-center justify-center">CM</span>
                 </div>
 
-                <span class="w-7 h-7 rounded-full bg-slate-900 text-white text-[10px] font-black flex items-center justify-center shadow-sm shrink-0 dark:bg-slate-800 dark:border dark:border-slate-700">
+                <span class="comparison-vs-badge w-7 h-7 rounded-full text-[10px] font-black flex items-center justify-center shadow-sm shrink-0">
                   VS
                 </span>
 
@@ -941,19 +944,19 @@ const homeSchemas = [
                 </div>
               </div>
 
-              <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2 text-center">ChicMe vs VogaCloset</h3>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-center">Compare international delivery times, returns policy, and stackable checkout coupons.</p>
+              <h3 class="comparison-card-title text-base mb-2 text-center">ChicMe vs VogaCloset</h3>
+              <p class="comparison-card-desc text-xs leading-relaxed mb-4 text-center">Compare international delivery times, returns policy, and stackable checkout coupons.</p>
             </div>
-            <a href={`${base}/compare/chicme-vs-vogacloset/`} class="bg-slate-900 hover:bg-indigo-600 text-white font-bold rounded-xl py-2.5 px-4 w-full text-xs text-center transition shadow-sm dark:bg-slate-800 dark:hover:bg-indigo-600 dark:text-white dark:border dark:border-slate-700 cursor-pointer">
+            <a href={`${base}/compare/chicme-vs-vogacloset/`} class="comparison-cta-btn font-bold rounded-xl py-2.5 px-4 w-full text-xs text-center transition shadow-sm cursor-pointer">
               Compare Offers →
             </a>
           </div>
 
           <!-- Card 3: RaynaTours vs Airalo eSIM -->
-          <div class="bg-slate-50 hover:bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm transition flex flex-col justify-between relative dark:bg-slate-900/95 dark:border-slate-800 dark:text-slate-100">
+          <div class="comparison-spotlight-card p-6 transition flex flex-col justify-between relative">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/60 dark:bg-indigo-900/40 dark:text-indigo-300 dark:border-indigo-700/50">TRAVEL &amp; ROAMING</span>
+                <span class="comparison-category-pill text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">TRAVEL &amp; ROAMING</span>
                 <span class="text-xs font-black text-indigo-600 dark:text-indigo-400">Roaming vs Tours</span>
               </div>
 
@@ -970,7 +973,7 @@ const homeSchemas = [
                   <span class="hidden w-full h-full rounded-lg bg-blue-600 text-white font-black text-xs items-center justify-center">RT</span>
                 </div>
 
-                <span class="w-7 h-7 rounded-full bg-slate-900 text-white text-[10px] font-black flex items-center justify-center shadow-sm shrink-0 dark:bg-slate-800 dark:border dark:border-slate-700">
+                <span class="comparison-vs-badge w-7 h-7 rounded-full text-[10px] font-black flex items-center justify-center shadow-sm shrink-0">
                   VS
                 </span>
 
@@ -986,10 +989,10 @@ const homeSchemas = [
                 </div>
               </div>
 
-              <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2 text-center">RaynaTours vs Airalo eSIM</h3>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-center">Compare Dubai desert tours &amp; attractions with 200+ country instant eSIM data packages.</p>
+              <h3 class="comparison-card-title text-base mb-2 text-center">RaynaTours vs Airalo eSIM</h3>
+              <p class="comparison-card-desc text-xs leading-relaxed mb-4 text-center">Compare Dubai desert tours &amp; attractions with 200+ country instant eSIM data packages.</p>
             </div>
-            <a href={`${base}/compare/`} class="bg-slate-900 hover:bg-indigo-600 text-white font-bold rounded-xl py-2.5 px-4 w-full text-xs text-center transition shadow-sm dark:bg-slate-800 dark:hover:bg-indigo-600 dark:text-white dark:border dark:border-slate-700 cursor-pointer">
+            <a href={`${base}/compare/`} class="comparison-cta-btn font-bold rounded-xl py-2.5 px-4 w-full text-xs text-center transition shadow-sm cursor-pointer">
               Compare Offers →
             </a>
           </div>
@@ -1294,11 +1297,10 @@ const homeSchemas = [
       btn.addEventListener('click', () => {
         currentCategory = btn.getAttribute('data-cat') || 'ALL';
         document.querySelectorAll('.main-cat-btn').forEach(b => {
-          if (b.getAttribute('data-cat') === currentCategory) {
-            b.className = 'main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer';
-          } else {
-            b.className = 'main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer';
-          }
+          const isActive = b.getAttribute('data-cat') === currentCategory;
+          b.classList.toggle('is-active', isActive);
+          b.classList.toggle('font-bold', isActive);
+          b.classList.toggle('font-semibold', !isActive);
         });
         filterDeals();
       });
@@ -1309,11 +1311,10 @@ const homeSchemas = [
       btn.addEventListener('click', () => {
         currentRegion = btn.getAttribute('data-region') || 'ALL';
         document.querySelectorAll('.region-filter-btn').forEach(b => {
-          if (b.getAttribute('data-region') === currentRegion) {
-            b.className = 'region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer';
-          } else {
-            b.className = 'region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer';
-          }
+          const isActive = b.getAttribute('data-region') === currentRegion;
+          b.classList.toggle('is-active', isActive);
+          b.classList.toggle('font-bold', isActive);
+          b.classList.toggle('font-semibold', !isActive);
         });
         filterDeals();
       });
@@ -1324,11 +1325,10 @@ const homeSchemas = [
       btn.addEventListener('click', () => {
         currentType = btn.getAttribute('data-type') || 'ALL';
         document.querySelectorAll('.type-filter-btn').forEach(b => {
-          if (b.getAttribute('data-type') === currentType) {
-            b.className = 'type-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer';
-          } else {
-            b.className = 'type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer';
-          }
+          const isActive = b.getAttribute('data-type') === currentType;
+          b.classList.toggle('is-active', isActive);
+          b.classList.toggle('font-bold', isActive);
+          b.classList.toggle('font-semibold', !isActive);
         });
         filterDeals();
       });

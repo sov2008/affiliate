@@ -159,42 +159,100 @@ html.dark .store-strip-pill .text-slate-900 {
   color: #f1f5f9 !important;
 }
 
-/* Category & Filter Buttons */
-html.dark .main-cat-btn[data-cat="ALL"],
-html.dark .main-cat-btn.bg-slate-900,
-html.dark .region-filter-btn.bg-slate-900,
-html.dark .type-filter-btn.bg-indigo-50 {
+/* Category & Filter Console Bento Box Styles */
+html:not(.dark) #filterConsoleWrapper {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.05) !important;
+  border-radius: 1rem !important;
+}
+
+html:not(.dark) .filter-section-label {
+  color: #64748b !important;
+}
+
+/* Active Filter Pill in Light Mode */
+html:not(.dark) .main-cat-btn.is-active,
+html:not(.dark) .region-filter-btn.is-active,
+html:not(.dark) .type-filter-btn.is-active {
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25) !important;
+}
+
+/* Inactive Filter Pills in Light Mode */
+html:not(.dark) .main-cat-btn:not(.is-active),
+html:not(.dark) .region-filter-btn:not(.is-active),
+html:not(.dark) .type-filter-btn:not(.is-active) {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+html:not(.dark) .main-cat-btn:not(.is-active):hover,
+html:not(.dark) .region-filter-btn:not(.is-active):hover,
+html:not(.dark) .type-filter-btn:not(.is-active):hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Sort dropdown in Light Mode */
+html:not(.dark) select#dealsSortSelect {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+/* Filter Console in Dark Mode */
+html.dark #filterConsoleWrapper {
+  background-color: #0f172a !important;
+  border-color: rgba(255, 255, 255, 0.09) !important;
+}
+
+html.dark .filter-section-label {
+  color: #94a3b8 !important;
+}
+
+html.dark .main-cat-btn.is-active,
+html.dark .region-filter-btn.is-active,
+html.dark .type-filter-btn.is-active {
   background-color: #4f46e5 !important;
   color: #ffffff !important;
   border-color: #6366f1 !important;
   box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.4) !important;
 }
 
-html.dark .main-cat-btn:not([data-cat="ALL"]) {
+html.dark .main-cat-btn:not(.is-active),
+html.dark .region-filter-btn:not(.is-active),
+html.dark .type-filter-btn:not(.is-active) {
   background-color: #172138 !important;
   color: #cbd5e1 !important;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
 }
 
-html.dark .main-cat-btn:not([data-cat="ALL"]):hover {
+html.dark .main-cat-btn:not(.is-active):hover,
+html.dark .region-filter-btn:not(.is-active):hover,
+html.dark .type-filter-btn:not(.is-active):hover {
   background-color: #223050 !important;
   color: #ffffff !important;
-  border-color: rgba(99, 102, 241, 0.4);
+  border-color: rgba(99, 102, 241, 0.4) !important;
 }
 
-/* Region Buttons */
-html.dark .region-filter-btn {
-  background-color: #151f35 !important;
-  color: #cbd5e1 !important;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+/* Coupon Cards - Light & Dark Craftsmanship */
+html:not(.dark) .deal-grid-card {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 16px -4px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.03) !important;
+  border-radius: 1rem !important;
 }
 
-html.dark .region-filter-btn:hover {
-  background-color: #202c4b !important;
-  color: #ffffff !important;
+html:not(.dark) .deal-grid-card:hover {
+  border-color: rgba(99, 102, 241, 0.35) !important;
+  box-shadow: 0 20px 35px -12px rgba(15, 23, 42, 0.09), 0 1px 3px rgba(0, 0, 0, 0.02) !important;
+  transform: translateY(-3.5px);
 }
 
-/* Coupon Cards */
 html.dark .deal-grid-card {
   background-color: #111a2e !important;
   border-color: rgba(255, 255, 255, 0.09) !important;
@@ -207,8 +265,123 @@ html.dark .deal-grid-card:hover {
   transform: translateY(-3px);
 }
 
-html.dark .card-hover {
-  border-color: rgba(255, 255, 255, 0.09);
+/* Perforated Ticket Divider with Circular Cutouts */
+.ticket-perforated-divider {
+  position: relative;
+  border-top: 1.5px dashed #e2e8f0;
+  margin-left: -1.25rem;
+  margin-right: -1.25rem;
+}
+
+html.dark .ticket-perforated-divider {
+  border-top: 1.5px dashed rgba(255, 255, 255, 0.12);
+}
+
+.ticket-perforated-divider::before,
+.ticket-perforated-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  z-index: 5;
+}
+
+html:not(.dark) .ticket-perforated-divider::before,
+html:not(.dark) .ticket-perforated-divider::after {
+  background-color: #f8fafc;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+html.dark .ticket-perforated-divider::before,
+html.dark .ticket-perforated-divider::after {
+  background-color: #0b0f19;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.ticket-perforated-divider::before {
+  left: -7px;
+}
+
+.ticket-perforated-divider::after {
+  right: -7px;
+}
+
+/* Discount Badge Variants */
+html:not(.dark) .badge-standard-discount {
+  background-color: #fff1f2 !important;
+  color: #e11d48 !important;
+  border: 1px solid #fecdd3 !important;
+}
+
+html:not(.dark) .badge-bonus-deal {
+  background-color: #ecfdf5 !important;
+  color: #059669 !important;
+  border: 1px solid #a7f3d0 !important;
+}
+
+html:not(.dark) .badge-cash-rebate {
+  background-color: #fffbeb !important;
+  color: #d97706 !important;
+  border: 1px solid #fde68a !important;
+}
+
+html.dark .badge-standard-discount {
+  background-color: rgba(244, 63, 94, 0.15) !important;
+  color: #fda4af !important;
+  border: 1px solid rgba(244, 63, 94, 0.3) !important;
+}
+
+html.dark .badge-bonus-deal {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  color: #6ee7b7 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+
+html.dark .badge-cash-rebate {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  color: #fcd34d !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+}
+
+/* Region Badges */
+html:not(.dark) .deal-region-badge {
+  background-color: #f1f5f9 !important;
+  color: #475569 !important;
+  border: 1px solid #e2e8f0 !important;
+  font-weight: 600 !important;
+}
+
+html.dark .deal-region-badge {
+  background-color: rgba(30, 41, 59, 0.7) !important;
+  color: #cbd5e1 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  font-weight: 600 !important;
+}
+
+/* Header Action Buttons */
+html:not(.dark) .header-action-btn {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+html:not(.dark) .header-action-btn:hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+html.dark .header-action-btn {
+  background-color: #1e293b !important;
+  color: #cbd5e1 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html.dark .header-action-btn:hover {
+  background-color: #2d3b55 !important;
+  color: #ffffff !important;
 }
 
 /* Deal Card Bottom More Deals Link */
@@ -338,15 +511,202 @@ html.dark .faq-content {
   border-color: rgba(255, 255, 255, 0.06) !important;
 }
 
-/* Comparison Cards in Dark Mode */
-html.dark section .grid .bg-white.rounded-2xl {
-  background-color: #111a2e !important;
-  border-color: rgba(255, 255, 255, 0.09) !important;
+/* Deals Expiring Soon Banner - Light & Dark Overhaul */
+html:not(.dark) #dealsExpiringBanner {
+  background: linear-gradient(135deg, #fff1f2 0%, #eef2ff 52%, #fffbeb 100%) !important;
+  border: 1px solid rgba(244, 63, 94, 0.25) !important;
+  box-shadow: 0 12px 32px -10px rgba(244, 63, 94, 0.10) !important;
+  border-radius: 1.5rem !important;
 }
 
-html.dark section .grid .bg-white.rounded-2xl:hover {
-  border-color: rgba(99, 102, 241, 0.5) !important;
+html:not(.dark) .expiring-banner-heading {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .countdown-timer-box {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid #fecdd3 !important;
+  color: #475569 !important;
+  border-radius: 0.75rem !important;
+}
+
+html:not(.dark) #countdownTimer {
+  color: #e11d48 !important;
+  font-weight: 800 !important;
+}
+
+html:not(.dark) .flash-deal-card {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid rgba(226, 232, 240, 0.95) !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04) !important;
+  border-radius: 1rem !important;
+}
+
+html:not(.dark) .flash-deal-store-name,
+html:not(.dark) .flash-deal-title {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .flash-deal-desc {
+  color: #475569 !important;
+}
+
+html:not(.dark) .flash-deal-divider {
+  border-top: 1px solid #e2e8f0 !important;
+}
+
+/* Deals Expiring Soon Banner - Dark Mode */
+html.dark #dealsExpiringBanner {
+  background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(76, 5, 25, 0.25), rgba(49, 46, 129, 0.4)) !important;
+  border: 1px solid rgba(244, 63, 94, 0.3) !important;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 1.5rem !important;
+}
+
+html.dark .expiring-banner-heading {
+  color: #ffffff !important;
+}
+
+html.dark .countdown-timer-box {
+  background-color: rgba(30, 41, 59, 0.9) !important;
+  border: 1px solid rgba(51, 65, 85, 0.8) !important;
+  color: #cbd5e1 !important;
+  border-radius: 0.75rem !important;
+}
+
+html.dark #countdownTimer {
+  color: #fbbf24 !important;
+  font-weight: 800 !important;
+}
+
+html.dark .flash-deal-card {
+  background-color: rgba(30, 41, 59, 0.9) !important;
+  border: 1px solid rgba(51, 65, 85, 0.9) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 1rem !important;
+}
+
+html.dark .flash-deal-store-name {
+  color: #ffffff !important;
+}
+
+html.dark .flash-deal-title {
+  color: #e2e8f0 !important;
+}
+
+html.dark .flash-deal-desc {
+  color: #94a3b8 !important;
+}
+
+html.dark .flash-deal-divider {
+  border-top: 1px solid rgba(51, 65, 85, 0.6) !important;
+}
+
+/* Head-to-Head Comparison Spotlight - Light Mode */
+html:not(.dark) #comparisonsSectionHeading {
+  color: #0f172a !important;
+}
+
+html:not(.dark) #comparisonsSectionSubtitle {
+  color: #475569 !important;
+}
+
+html:not(.dark) .comparison-spotlight-card {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 8px 24px -8px rgba(15, 23, 42, 0.06) !important;
+  border-radius: 1.25rem !important;
+}
+
+html:not(.dark) .comparison-spotlight-card:hover {
+  border-color: rgba(99, 102, 241, 0.4) !important;
+  box-shadow: 0 16px 32px -8px rgba(15, 23, 42, 0.1) !important;
+  transform: translateY(-2px);
+}
+
+html:not(.dark) .comparison-card-title {
+  color: #0f172a !important;
+  font-weight: 800 !important;
+}
+
+html:not(.dark) .comparison-card-desc {
+  color: #475569 !important;
+}
+
+html:not(.dark) .comparison-category-pill {
+  background-color: #eef2ff !important;
+  color: #4338ca !important;
+  border: 1px solid #c7d2fe !important;
+}
+
+html:not(.dark) .comparison-vs-badge {
+  background-color: #f1f5f9 !important;
+  color: #475569 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+html:not(.dark) .comparison-cta-btn {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+html:not(.dark) .comparison-cta-btn:hover {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+
+/* Head-to-Head Comparison Spotlight - Dark Mode */
+html.dark #comparisonsSectionHeading {
+  color: #ffffff !important;
+}
+
+html.dark #comparisonsSectionSubtitle {
+  color: #94a3b8 !important;
+}
+
+html.dark .comparison-spotlight-card {
+  background-color: #111a2e !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
   box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.6) !important;
+  border-radius: 1.25rem !important;
+}
+
+html.dark .comparison-spotlight-card:hover {
+  border-color: rgba(99, 102, 241, 0.5) !important;
+  box-shadow: 0 20px 40px -8px rgba(79, 70, 229, 0.3) !important;
+  transform: translateY(-2px);
+}
+
+html.dark .comparison-card-title {
+  color: #ffffff !important;
+  font-weight: 800 !important;
+}
+
+html.dark .comparison-card-desc {
+  color: #94a3b8 !important;
+}
+
+html.dark .comparison-category-pill {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  color: #a5b4fc !important;
+  border: 1px solid rgba(99, 102, 241, 0.3) !important;
+}
+
+html.dark .comparison-vs-badge {
+  background-color: #1e293b !important;
+  color: #cbd5e1 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html.dark .comparison-cta-btn {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html.dark .comparison-cta-btn:hover {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
 }
 
 /* Saved Drawer */
