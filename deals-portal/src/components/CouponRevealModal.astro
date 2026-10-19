@@ -436,17 +436,6 @@ COUPONS_DATA.forEach(deal => {
           title: data.title || ''
         }
       }));
-
-      // Record in gamified Savings Wallet
-      if (typeof (window as any).recordSavingsRedemption === 'function') {
-        (window as any).recordSavingsRedemption({
-          storeName: data.storeName || 'Partner Store',
-          storeSlug: data.storeSlug || '',
-          title: data.title || 'Verified Voucher',
-          code: data.code || '',
-          badge: data.badge || 'Verified Deal'
-        });
-      }
     };
 
     // Close Modal Handler
