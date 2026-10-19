@@ -257,7 +257,7 @@ async function batchGenerateCopy(deals = [], storeMap = new Map(), concurrency =
         category: deal.storeCategory,
         discountBadge: deal.discountBadge,
         code: deal.code,
-        rawTitle: deal.title,
+        rawTitle: deal.rawTitle || deal.title,
         rawDesc: deal.rawDescription || deal.description,
         brandContext: brandContext
       });
