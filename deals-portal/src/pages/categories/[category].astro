@@ -161,11 +161,23 @@ const breadcrumbs = [
     <!-- Header -->
     <div class="bg-gradient-to-b from-indigo-950 via-slate-900 to-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
       <div class="max-w-5xl mx-auto text-center space-y-4">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold">
-          <span class="text-base">{cat.icon}</span>
-          <span>Verified Category Collection</span>
-          <span>•</span>
-          <span class="text-emerald-400">{deals.length} Active Deals</span>
+        <div class="flex flex-wrap items-center justify-center gap-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold">
+            <span class="text-base">{cat.icon}</span>
+            <span>Verified Category Collection</span>
+            <span>•</span>
+            <span class="text-emerald-400">{deals.length} Active Deals</span>
+          </div>
+          <button
+            type="button"
+            data-open-verification-guarantee
+            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/15 hover:bg-amber-400/25 border border-amber-400/30 text-amber-300 text-xs font-bold transition cursor-pointer group"
+            title="Inspect 3-Tier Code Accuracy Guarantee"
+          >
+            <span class="text-amber-400 group-hover:scale-110 transition-transform">🛡️</span>
+            <span>Editorial QA Guarantee</span>
+            <span class="text-[10px] bg-amber-400/20 px-1 rounded font-bold">ℹ️</span>
+          </button>
         </div>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
           {cat.name} Promo Codes
@@ -439,6 +451,21 @@ const breadcrumbs = [
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
                         </svg>
                       </button>
+                      <button
+                        type="button"
+                        data-open-verification-guarantee
+                        data-store-name={deal.storeName}
+                        data-store-slug={deal.storeSlug}
+                        data-deal-title={deal.title}
+                        data-deal-code={deal.code}
+                        class="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950/40 dark:hover:text-amber-400 transition cursor-pointer"
+                        title="Report invalid code or inspect QA proof"
+                        aria-label="Report invalid code"
+                      >
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                      </button>
                     </div>
                   </div>
 
@@ -453,10 +480,19 @@ const breadcrumbs = [
                 <div class="space-y-2.5 pt-3.5 border-t border-slate-100 dark:border-slate-800/80">
                   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
-                      <span class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">
+                      <button
+                        type="button"
+                        data-open-verification-guarantee
+                        data-store-name={deal.storeName}
+                        data-store-slug={deal.storeSlug}
+                        data-deal-title={deal.title}
+                        data-deal-code={deal.code}
+                        class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold hover:underline cursor-pointer"
+                        title="Click to inspect PromoRadar QA verification proof"
+                      >
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        Verified Live
-                      </span>
+                        <span>Verified Live</span>
+                      </button>
                       <span>•</span>
                       <span>Success: <strong class="text-slate-800 dark:text-slate-200">{deal.successRate || '99%'}</strong></span>
                       {deal.terms && (

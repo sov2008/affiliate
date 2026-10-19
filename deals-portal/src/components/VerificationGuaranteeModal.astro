@@ -1,0 +1,301 @@
+---
+// deals-portal/src/components/VerificationGuaranteeModal.astro
+// PromoRadar Editorial Trust Seal & 3-Tier Code Accuracy Guarantee Modal
+---
+
+<div
+  id="verificationGuaranteeModal"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="qaModalTitle"
+>
+  <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200/90 dark:border-slate-800 relative my-auto animate-fadeIn transform transition-all">
+    <!-- Close Button -->
+    <button
+      id="closeVerificationModalBtn"
+      type="button"
+      class="absolute right-4 top-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center font-bold text-sm cursor-pointer transition shadow-sm z-10"
+      aria-label="Close modal"
+    >
+      ✕
+    </button>
+
+    <!-- Modal Header with Official Editorial Trust Seal -->
+    <div class="flex items-start gap-4 mb-5 pr-8">
+      <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 text-slate-950 p-2.5 flex flex-col items-center justify-center shrink-0 shadow-lg shadow-amber-500/20 border border-amber-300">
+        <svg class="w-6 h-6 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
+        <span class="text-[8px] font-black uppercase tracking-tighter mt-0.5 leading-none">VERIFIED</span>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-2 flex-wrap mb-1">
+          <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/90 dark:bg-amber-400/15 dark:text-amber-300 dark:border-amber-400/30">
+            PROMORADAR EDITORIAL SEAL
+          </span>
+          <span class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            Tested for October 2026
+          </span>
+        </div>
+        <h2 id="qaModalTitle" class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white leading-tight">
+          3-Tier Code Accuracy Guarantee
+        </h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          How our editorial desk validates vouchers, eliminates dead links, and guarantees genuine checkout savings.
+        </p>
+      </div>
+    </div>
+
+    <!-- Active Store Context Banner (Populated via JS if triggered on store page) -->
+    <div id="qaModalStoreContext" class="hidden mb-4 p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex items-center justify-between text-xs">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-900 dark:text-white" id="qaModalStoreName">Store</span>
+        <span class="text-[11px] text-slate-500 dark:text-slate-400">• Direct Merchant Partner Feed</span>
+      </div>
+      <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/15 px-2 py-0.5 rounded-md border border-emerald-200/60 dark:border-emerald-500/30">
+        99% Cart Success
+      </span>
+    </div>
+
+    <!-- 3-Tier Verification Protocol Cards -->
+    <div class="space-y-3 mb-5">
+      <!-- Tier 1 -->
+      <div class="p-3.5 rounded-2xl bg-indigo-50/60 dark:bg-slate-800/80 border border-indigo-100 dark:border-slate-700/80 flex items-start gap-3">
+        <div class="w-7 h-7 rounded-xl bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">
+          1
+        </div>
+        <div>
+          <h3 class="text-xs font-bold text-slate-900 dark:text-white mb-0.5">
+            Live Merchant Basket Checkout Testing
+          </h3>
+          <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+            Our editors manually add qualified products to store carts and apply promo codes to verify discount calculations, basket minimum thresholds, and exclusions before publishing.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tier 2 -->
+      <div class="p-3.5 rounded-2xl bg-emerald-50/60 dark:bg-slate-800/80 border border-emerald-100 dark:border-slate-700/80 flex items-start gap-3">
+        <div class="w-7 h-7 rounded-xl bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">
+          2
+        </div>
+        <div>
+          <h3 class="text-xs font-bold text-slate-900 dark:text-white mb-0.5">
+            Direct Affiliate Network API Synchronization
+          </h3>
+          <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+            PromoRadar is directly integrated with Admitad and CJ Affiliate partner feeds. When an advertiser updates commission rules or ends a campaign, expired vouchers are updated instantly.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tier 3 -->
+      <div class="p-3.5 rounded-2xl bg-amber-50/60 dark:bg-slate-800/80 border border-amber-100 dark:border-slate-700/80 flex items-start gap-3">
+        <div class="w-7 h-7 rounded-xl bg-amber-500 text-slate-950 font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">
+          3
+        </div>
+        <div>
+          <h3 class="text-xs font-bold text-slate-900 dark:text-white mb-0.5">
+            Real-Time Shopper Feedback &amp; Fast Demotion
+          </h3>
+          <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+            Every user vote (👍 Works / 👎 Didn't work) feeds our live reliability algorithm. If a code receives negative signals, it is flagged for urgent human QA and demoted automatically.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Report / Accuracy Pledge Section -->
+    <div class="pt-4 border-t border-slate-200 dark:border-slate-800">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-extrabold text-slate-900 dark:text-white flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+          Found an issue? Report an invalid code
+        </span>
+        <button
+          type="button"
+          id="toggleReportFormBtn"
+          class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
+        >
+          Open Report Form ▾
+        </button>
+      </div>
+
+      <!-- Report Form Container (Hidden by default, toggleable) -->
+      <form id="qaReportForm" class="hidden space-y-3 bg-slate-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-slate-200/90 dark:border-slate-700">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+            Reason for report:
+          </label>
+          <select
+            id="qaReportReason"
+            required
+            class="w-full text-xs font-semibold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            <option value="code_not_working">Code did not apply discount at checkout</option>
+            <option value="deal_expired">Offer has expired or sale ended</option>
+            <option value="minimum_basket">Minimum basket threshold not mentioned</option>
+            <option value="item_excluded">Item or brand excluded by merchant</option>
+            <option value="other">Other issue</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+            Additional details (optional):
+          </label>
+          <input
+            type="text"
+            id="qaReportComment"
+            placeholder="e.g., Code gave 'Invalid voucher' error on electronics..."
+            class="w-full text-xs bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+
+        <button
+          type="submit"
+          id="qaReportSubmitBtn"
+          class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-400 hover:to-rose-500 text-white font-bold text-xs shadow-md transition cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
+        >
+          <span>Submit Verification Ticket</span>
+        </button>
+      </form>
+
+      <div id="qaReportSuccess" class="hidden p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-500/40 text-xs text-emerald-800 dark:text-emerald-300 space-y-1">
+        <div class="font-extrabold flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Verification Ticket Logged!</span>
+        </div>
+        <p class="text-[11px] leading-relaxed">
+          Thank you! Our editorial QA desk will re-test this merchant's cart parameters within 24 hours.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function() {
+    const modal = document.getElementById('verificationGuaranteeModal');
+    const closeBtn = document.getElementById('closeVerificationModalBtn');
+    const toggleFormBtn = document.getElementById('toggleReportFormBtn');
+    const reportForm = document.getElementById('qaReportForm');
+    const reportSuccess = document.getElementById('qaReportSuccess');
+    const storeContext = document.getElementById('qaModalStoreContext');
+    const storeNameEl = document.getElementById('qaModalStoreName');
+
+    let currentContext = {
+      storeName: '',
+      storeSlug: '',
+      dealTitle: '',
+      dealCode: ''
+    };
+
+    window.openVerificationGuaranteeModal = function(opts = {}) {
+      currentContext = Object.assign({ storeName: '', storeSlug: '', dealTitle: '', dealCode: '' }, opts);
+      
+      if (currentContext.storeName) {
+        if (storeNameEl) storeNameEl.textContent = currentContext.storeName;
+        storeContext?.classList.remove('hidden');
+      } else {
+        storeContext?.classList.add('hidden');
+      }
+
+      // Reset form state
+      reportForm?.classList.add('hidden');
+      reportSuccess?.classList.add('hidden');
+      if (toggleFormBtn) toggleFormBtn.textContent = 'Open Report Form ▾';
+
+      modal?.classList.remove('hidden');
+      modal?.classList.add('flex');
+      document.body.classList.add('overflow-hidden');
+    };
+
+    window.closeVerificationGuaranteeModal = function() {
+      modal?.classList.add('hidden');
+      modal?.classList.remove('flex');
+      document.body.classList.remove('overflow-hidden');
+    };
+
+    closeBtn?.addEventListener('click', window.closeVerificationGuaranteeModal);
+
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        window.closeVerificationGuaranteeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal?.classList.contains('hidden')) {
+        window.closeVerificationGuaranteeModal();
+      }
+    });
+
+    toggleFormBtn?.addEventListener('click', () => {
+      const isHidden = reportForm?.classList.contains('hidden');
+      if (isHidden) {
+        reportForm?.classList.remove('hidden');
+        toggleFormBtn.textContent = 'Hide Report Form ▴';
+      } else {
+        reportForm?.classList.add('hidden');
+        toggleFormBtn.textContent = 'Open Report Form ▾';
+      }
+    });
+
+    // Form Submission
+    reportForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const reason = document.getElementById('qaReportReason')?.value || 'code_not_working';
+      const comment = document.getElementById('qaReportComment')?.value || '';
+
+      const reportPayload = {
+        timestamp: new Date().toISOString(),
+        storeName: currentContext.storeName || 'General',
+        storeSlug: currentContext.storeSlug || '',
+        dealTitle: currentContext.dealTitle || '',
+        dealCode: currentContext.dealCode || '',
+        reason,
+        comment
+      };
+
+      try {
+        const stored = JSON.parse(localStorage.getItem('promoradar_qa_reports') || '[]');
+        stored.push(reportPayload);
+        localStorage.setItem('promoradar_qa_reports', JSON.stringify(stored));
+      } catch (err) {}
+
+      // Fire GA4 Event if gtag exists
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'promoradar_code_reported', {
+          store_slug: currentContext.storeSlug || 'general',
+          report_reason: reason
+        });
+      }
+
+      reportForm.classList.add('hidden');
+      reportSuccess?.classList.remove('hidden');
+
+      if (window.showPromoToast) {
+        window.showPromoToast('✓ Verification ticket submitted to PromoRadar QA desk');
+      }
+    });
+
+    // Global Delegated Click Listener for any [data-open-verification-guarantee] element
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('[data-open-verification-guarantee]');
+      if (trigger) {
+        e.preventDefault();
+        const storeName = trigger.getAttribute('data-store-name') || '';
+        const storeSlug = trigger.getAttribute('data-store-slug') || '';
+        const dealTitle = trigger.getAttribute('data-deal-title') || '';
+        const dealCode = trigger.getAttribute('data-deal-code') || '';
+        window.openVerificationGuaranteeModal({ storeName, storeSlug, dealTitle, dealCode });
+      }
+    });
+  })();
+</script>

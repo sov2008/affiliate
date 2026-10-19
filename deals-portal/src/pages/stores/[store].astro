@@ -268,6 +268,20 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                     Verified Merchant Partner
                   </span>
+                  <button
+                    type="button"
+                    data-open-verification-guarantee
+                    data-store-name={store.name}
+                    data-store-slug={store.slug}
+                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 hover:bg-amber-100/90 text-amber-900 border border-amber-200/90 dark:bg-amber-400/15 dark:text-amber-300 dark:border-amber-400/30 transition shadow-xs cursor-pointer group"
+                    title="Click to inspect 3-tier editorial testing protocol"
+                  >
+                    <svg class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                    <span>Editorial Seal: QA Tested</span>
+                    <span class="text-[10px] bg-amber-200/60 dark:bg-amber-400/20 text-amber-800 dark:text-amber-200 px-1 rounded font-bold">ℹ️</span>
+                  </button>
                 </div>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
                   {store.fullDesc}
@@ -402,6 +416,28 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                 <span class="text-slate-500 dark:text-slate-400">Category:</span>
                 <span class="font-semibold text-slate-900 dark:text-slate-200">{store.category}</span>
               </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-500/30 text-xs space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-extrabold text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
+                  <span class="text-amber-600 dark:text-amber-400">🛡️</span>
+                  <span>Accuracy Guarantee</span>
+                </span>
+                <span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/60 px-1.5 py-0.5 rounded">3-Tier QA</span>
+              </div>
+              <p class="text-[11px] text-amber-900/80 dark:text-amber-200/80 leading-relaxed">
+                Codes tested in live checkout carts. Zero spam, zero dead links.
+              </p>
+              <button
+                type="button"
+                data-open-verification-guarantee
+                data-store-name={store.name}
+                data-store-slug={store.slug}
+                class="w-full py-1.5 px-3 rounded-xl bg-amber-200/70 hover:bg-amber-300/80 dark:bg-amber-400/20 dark:hover:bg-amber-400/30 text-amber-950 dark:text-amber-200 font-extrabold text-[11px] transition text-center cursor-pointer"
+              >
+                Inspect Testing Protocol →
+              </button>
             </div>
           </div>
 
@@ -616,6 +652,21 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
                             </svg>
                           </button>
+                          <button
+                            type="button"
+                            data-open-verification-guarantee
+                            data-store-name={store.name}
+                            data-store-slug={store.slug}
+                            data-deal-title={deal.title}
+                            data-deal-code={deal.code}
+                            class="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950/40 dark:hover:text-amber-400 transition cursor-pointer"
+                            title="Report invalid code or inspect QA proof"
+                            aria-label="Report invalid code"
+                          >
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                          </button>
                         </div>
                       </div>
 
@@ -630,10 +681,19 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                     <div class="space-y-2.5 pt-3.5 border-t border-slate-100 dark:border-slate-800/80">
                       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
-                          <span class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">
+                          <button
+                            type="button"
+                            data-open-verification-guarantee
+                            data-store-name={store.name}
+                            data-store-slug={store.slug}
+                            data-deal-title={deal.title}
+                            data-deal-code={deal.code}
+                            class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold hover:underline cursor-pointer"
+                            title="Click to inspect PromoRadar QA verification proof"
+                          >
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                            Verified on Checkout
-                          </span>
+                            <span>Verified on Checkout</span>
+                          </button>
                           <span>•</span>
                           <span>Success: <strong class="text-slate-800 dark:text-slate-200">{deal.successRate || '99%'}</strong></span>
                           {deal.terms && (
