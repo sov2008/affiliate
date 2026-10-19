@@ -201,7 +201,7 @@ async function ingestCoupons(advertiserId) {
   try {
     const xml = await requestCJ(
       'link-search.api.cj.com',
-      `/v2/link-search?website-id=${CONFIG.websiteId}&advertiser-ids=${advertiserId}&link-type=coupon&promotion-type=coupon&page-number=1&records-per-page=25`
+      `/v2/link-search?website-id=${CONFIG.websiteId}&advertiser-ids=${advertiserId}&promotion-type=coupon&page-number=1&records-per-page=25`
     );
 
     const coupons = [];
