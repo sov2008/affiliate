@@ -425,8 +425,10 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                             desc: deal.description,
                             code: deal.code,
                             storeName: store.name,
+                            storeSlug: store.slug,
                             badge: deal.discountBadge,
-                            affiliateUrl: deal.affiliateUrl
+                            affiliateUrl: deal.affiliateUrl,
+                            successRate: deal.successRate
                           })}
                         >
                           <span>Get Code</span>
@@ -435,14 +437,23 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                           </span>
                         </button>
                       ) : (
-                        <a
-                          href={deal.affiliateUrl}
-                          target="_blank"
-                          rel="nofollow sponsored"
-                          class="bg-slate-900 hover:bg-indigo-600 text-white rounded-xl px-4 py-2.5 text-xs font-bold flex items-center justify-center gap-1.5 shrink-0 transition shadow-sm"
+                        <button
+                          type="button"
+                          class="bg-slate-900 hover:bg-indigo-600 text-white rounded-xl px-4 py-2.5 text-xs font-bold flex items-center justify-center gap-1.5 shrink-0 transition shadow-sm cursor-pointer"
+                          data-reveal-deal={JSON.stringify({
+                            id: deal.id,
+                            title: deal.title,
+                            desc: deal.description,
+                            code: '',
+                            storeName: store.name,
+                            storeSlug: store.slug,
+                            badge: deal.discountBadge,
+                            affiliateUrl: deal.affiliateUrl,
+                            successRate: deal.successRate
+                          })}
                         >
                           <span>Activate Deal ↗</span>
-                        </a>
+                        </button>
                       )}
                     </div>
                   </article>

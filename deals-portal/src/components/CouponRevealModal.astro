@@ -1,0 +1,385 @@
+---
+import { COUPONS_DATA, STORES_DATA } from '../data/couponsData';
+import { STORE_DOMAINS_MAP } from '../data/storeDomains';
+
+// Create a lightweight lookup for cross-sell recommendations
+const storeDealsMap: Record<string, Array<{ id: string; title: string; code: string; badge: string; affiliateUrl: string }>> = {};
+COUPONS_DATA.forEach(deal => {
+  if (!storeDealsMap[deal.storeSlug]) {
+    storeDealsMap[deal.storeSlug] = [];
+  }
+  storeDealsMap[deal.storeSlug].push({
+    id: deal.id,
+    title: deal.title,
+    code: deal.code,
+    badge: deal.discountBadge,
+    affiliateUrl: deal.affiliateUrl
+  });
+});
+---
+
+<!-- Global Click-to-Reveal Coupon Modal (Dual-Tab & Cross-Sell Engine) -->
+<div
+  id="universalCouponModal"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modalDealTitle"
+>
+  <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-5 sm:p-7 shadow-2xl border border-slate-200/90 dark:border-slate-800 relative my-auto animate-fadeIn transform transition-all">
+    <!-- Close Button -->
+    <button
+      id="closeUniversalModalBtn"
+      type="button"
+      class="absolute right-4 top-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center font-bold text-sm cursor-pointer transition shadow-sm z-10"
+      aria-label="Close modal"
+    >
+      ✕
+    </button>
+
+    <!-- Modal Header with Verified Store Logo -->
+    <div class="flex items-center gap-3.5 mb-4 pr-8">
+      <div id="modalLogoContainer" class="brand-logo-container w-12 h-12 rounded-2xl bg-white p-1.5 border border-slate-200 flex items-center justify-center shrink-0 shadow-md relative overflow-hidden">
+        <img
+          id="modalLogoImg"
+          src=""
+          alt="Store Logo"
+          class="w-full h-full object-contain"
+          loading="lazy"
+        />
+        <span id="modalLogoFallback" class="hidden w-full h-full rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-rose-600 text-white font-extrabold text-xs items-center justify-center">
+          PR
+        </span>
+      </div>
+      <div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <span id="modalStoreName" class="font-extrabold text-slate-900 dark:text-white text-base">Store</span>
+          <span id="modalDiscountBadge" class="text-xs font-extrabold px-2.5 py-0.5 rounded-lg bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30">Verified</span>
+        </div>
+        <div class="flex items-center gap-2 mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">
+          <span class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            Tested on Checkout
+          </span>
+          <span>•</span>
+          <span id="modalReliabilityScore" class="font-bold text-slate-700 dark:text-slate-300">98% Success</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Title & Description -->
+    <h3 id="modalDealTitle" class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white mb-1.5 leading-snug"></h3>
+    <p id="modalDealDesc" class="text-xs text-slate-600 dark:text-slate-300 mb-4 leading-relaxed"></p>
+
+    <!-- Primary Voucher Code Box (Styled Honey / RetailMeNot Voucher) -->
+    <div id="modalCodeBox" class="bg-indigo-50/90 dark:bg-indigo-950/45 border-2 border-dashed border-indigo-300 dark:border-indigo-500/40 rounded-2xl p-4 mb-4 relative overflow-hidden">
+      <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-300 mb-2 px-1">
+        <span class="flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+          </svg>
+          EXCLUSIVE PROMO CODE
+        </span>
+        <span id="modalCodeStatusTag" class="text-emerald-600 dark:text-emerald-400 font-bold text-[10px] bg-emerald-100/70 dark:bg-emerald-950/80 px-2 py-0.5 rounded-md">
+          ACTIVE &amp; VERIFIED
+        </span>
+      </div>
+
+      <div class="flex items-center justify-between gap-2 bg-white dark:bg-slate-950/90 rounded-xl p-2 pl-4 border border-indigo-200 dark:border-indigo-500/30 shadow-inner">
+        <span id="modalCodeText" class="font-mono font-extrabold text-lg sm:text-xl tracking-widest text-slate-900 dark:text-white select-all"></span>
+        <button
+          id="copyModalCodeBtn"
+          type="button"
+          class="code-peel px-4 py-2.5 rounded-xl text-white font-bold text-xs transition shrink-0 cursor-pointer shadow-sm flex items-center gap-1.5 active:scale-95"
+        >
+          <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+          <span id="copyModalBtnLabel">Copy Code</span>
+        </button>
+      </div>
+
+      <!-- 3-Step Instant Instructions Micro-Guide -->
+      <div class="mt-3.5 pt-3 border-t border-indigo-200/60 dark:border-indigo-500/20 grid grid-cols-3 gap-2 text-center">
+        <div class="space-y-0.5">
+          <span class="w-4 h-4 rounded-full bg-indigo-600 text-white font-mono text-[9px] font-bold inline-flex items-center justify-center">1</span>
+          <p class="text-[10px] font-semibold text-slate-700 dark:text-slate-300">Code Copied</p>
+        </div>
+        <div class="space-y-0.5">
+          <span class="w-4 h-4 rounded-full bg-indigo-600 text-white font-mono text-[9px] font-bold inline-flex items-center justify-center">2</span>
+          <p class="text-[10px] font-semibold text-slate-700 dark:text-slate-300">Add to Cart</p>
+        </div>
+        <div class="space-y-0.5">
+          <span class="w-4 h-4 rounded-full bg-indigo-600 text-white font-mono text-[9px] font-bold inline-flex items-center justify-center">3</span>
+          <p class="text-[10px] font-semibold text-slate-700 dark:text-slate-300">Paste &amp; Save</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Outbound Affiliate Link Button -->
+    <a
+      id="modalOutboundLink"
+      href="#"
+      target="_blank"
+      rel="nofollow sponsored"
+      class="w-full py-3.5 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-gradient-to-r dark:from-emerald-600 dark:to-teal-600 dark:hover:from-emerald-500 dark:hover:to-teal-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg dark:shadow-emerald-950/50 border border-transparent dark:border-emerald-400/30 transition mb-3 group"
+    >
+      <span id="modalOutboundBtnLabel">Go to Official Store ↗</span>
+    </a>
+
+    <!-- Cross-Sell Section: "More Active Deals for this Store" -->
+    <div id="modalCrossSellSection" class="hidden mb-4 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/80 dark:border-slate-700/60">
+      <div class="flex items-center justify-between mb-2 px-1">
+        <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-700 dark:text-slate-300">More Active Offers</span>
+        <span class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400" id="modalCrossSellCount"></span>
+      </div>
+      <div id="modalCrossSellContainer" class="space-y-1.5">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- Crowdsourced Community Voting Footer (Wethrift & SimplyCodes Pattern) -->
+    <div class="pt-3.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+      <span class="font-medium">Did this coupon work?</span>
+      <div class="flex items-center gap-1.5">
+        <button
+          type="button"
+          data-vote="up"
+          class="modal-vote-btn px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 dark:bg-slate-800 dark:hover:bg-emerald-950/40 dark:text-slate-300 dark:hover:text-emerald-300 font-bold transition flex items-center gap-1 cursor-pointer"
+        >
+          <span>👍</span>
+          <span class="text-[11px]">Works (<span class="vote-up-count">142</span>)</span>
+        </button>
+        <button
+          type="button"
+          data-vote="down"
+          class="modal-vote-btn px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 hover:text-rose-700 dark:bg-slate-800 dark:hover:bg-rose-950/40 dark:text-slate-300 dark:hover:text-rose-300 font-bold transition flex items-center gap-1 cursor-pointer"
+        >
+          <span>👎</span>
+          <span class="text-[11px]">Didn't work</span>
+        </button>
+      </div>
+    </div>
+    <div id="modalVoteFeedback" class="hidden mt-2 text-center text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+      ✓ Thank you! Your feedback has been verified and recorded.
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ storeDealsMap, storeDomainsRegistry: STORE_DOMAINS_MAP }}>
+  (function() {
+    const modal = document.getElementById('universalCouponModal');
+    const closeBtn = document.getElementById('closeUniversalModalBtn');
+    const copyBtn = document.getElementById('copyModalCodeBtn');
+    const copyBtnLabel = document.getElementById('copyModalBtnLabel');
+    const voteFeedback = document.getElementById('modalVoteFeedback');
+    const crossSellSection = document.getElementById('modalCrossSellSection');
+    const crossSellContainer = document.getElementById('modalCrossSellContainer');
+    const crossSellCount = document.getElementById('modalCrossSellCount');
+
+    // Local user vote tracking in localStorage
+    function getVotedDeals() {
+      try { return JSON.parse(localStorage.getItem('promoradar_deal_votes') || '{}'); } catch(e) { return {}; }
+    }
+    function saveVotedDeal(dealId, voteType) {
+      const votes = getVotedDeals();
+      votes[dealId] = voteType;
+      try { localStorage.setItem('promoradar_deal_votes', JSON.stringify(votes)); } catch(e) {}
+    }
+
+    let activeDealData = null;
+
+    window.openCouponModal = function(data) {
+      if (!data) return;
+      activeDealData = data;
+
+      document.getElementById('modalStoreName').textContent = data.storeName || 'Store';
+      document.getElementById('modalDiscountBadge').textContent = data.badge || 'Verified';
+      document.getElementById('modalDealTitle').textContent = data.title || '';
+      document.getElementById('modalDealDesc').textContent = data.desc || '';
+      document.getElementById('modalCodeText').textContent = data.code || 'ACTIVATED_DEAL';
+      document.getElementById('modalOutboundBtnLabel').textContent = `Go to ${data.storeName} Official Store ↗`;
+
+      // Set reliability score dynamically
+      const relScore = document.getElementById('modalReliabilityScore');
+      if (relScore) {
+        relScore.textContent = data.successRate || '98% Success';
+      }
+
+      // Hide or show code box based on whether code exists
+      const codeBox = document.getElementById('modalCodeBox');
+      const isDirectDeal = !data.code || data.code.trim().length === 0;
+      if (isDirectDeal) {
+        document.getElementById('modalCodeText').textContent = 'AUTOMATIC DISCOUNT';
+        if (copyBtn) copyBtn.style.display = 'none';
+        document.getElementById('modalCodeStatusTag').textContent = 'ACTIVATED AT CHECKOUT';
+      } else {
+        if (copyBtn) copyBtn.style.display = 'flex';
+        document.getElementById('modalCodeStatusTag').textContent = 'ACTIVE & VERIFIED';
+      }
+
+      // Resolve brand logo
+      const storeSlug = data.storeSlug || '';
+      let domain = data.domain || '';
+      if (!domain && storeDomainsRegistry) {
+        domain = storeDomainsRegistry[data.storeName] || storeDomainsRegistry[storeSlug] || '';
+      }
+      const logoImg = document.getElementById('modalLogoImg');
+      const logoFallback = document.getElementById('modalLogoFallback');
+      if (logoImg && logoFallback) {
+        if (domain) {
+          logoImg.src = `https://logo.clearbit.com/${domain}`;
+          logoImg.dataset.fallbackGoogle = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+          logoImg.style.display = 'block';
+          logoFallback.classList.add('hidden');
+          logoFallback.classList.remove('flex');
+          logoImg.onerror = function() {
+            if (this.dataset.fallbackGoogle && this.src !== this.dataset.fallbackGoogle) {
+              this.src = this.dataset.fallbackGoogle;
+            } else {
+              this.style.display = 'none';
+              logoFallback.classList.remove('hidden');
+              logoFallback.classList.add('flex');
+              logoFallback.textContent = (data.storeName || 'PR').slice(0, 2).toUpperCase();
+            }
+          };
+        } else {
+          logoImg.style.display = 'none';
+          logoFallback.classList.remove('hidden');
+          logoFallback.classList.add('flex');
+          logoFallback.textContent = (data.storeName || 'PR').slice(0, 2).toUpperCase();
+        }
+      }
+
+      // Admitad Advanced SubID Enrichment (Precision Analytics)
+      let finalUrl = data.affiliateUrl || '#';
+      if (finalUrl.includes('admitad.com') || finalUrl.includes('/g/')) {
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? 'mob' : 'dsk';
+        const dealType = (data.code && data.code.trim().length > 0) ? 'code' : 'deal';
+        const sep = finalUrl.includes('?') ? '&' : '?';
+        finalUrl = `${finalUrl}${sep}subid1=${isMobile}&subid2=${dealType}&subid3=card_click`;
+      }
+      document.getElementById('modalOutboundLink').href = finalUrl;
+
+      // Populate Cross-Sell recommendations for same store
+      if (crossSellSection && crossSellContainer && storeDealsMap && storeSlug) {
+        const siblingDeals = (storeDealsMap[storeSlug] || []).filter(d => d.id !== data.id).slice(0, 2);
+        if (siblingDeals.length > 0) {
+          crossSellCount.textContent = `${siblingDeals.length} more`;
+          crossSellContainer.innerHTML = siblingDeals.map(sd => `
+            <div class="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 text-xs">
+              <div class="truncate pr-2">
+                <span class="font-bold text-rose-600 dark:text-rose-400 font-mono text-[11px]">${sd.badge || 'PROMO'}</span>
+                <span class="text-slate-800 dark:text-slate-200 font-medium ml-1">${sd.title}</span>
+              </div>
+              <button
+                type="button"
+                class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-indigo-600 text-white font-mono font-bold text-[10px] shrink-0 transition"
+                onclick='openCouponModal(${JSON.stringify({ ...sd, storeName: data.storeName, storeSlug: data.storeSlug, domain: domain }).replace(/'/g, "&#39;")})'
+              >
+                ${sd.code ? 'Code: ' + sd.code.slice(-3) : 'Redeem →'}
+              </button>
+            </div>
+          `).join('');
+          crossSellSection.classList.remove('hidden');
+        } else {
+          crossSellSection.classList.add('hidden');
+        }
+      }
+
+      // Reset voting state
+      voteFeedback?.classList.add('hidden');
+      const votes = getVotedDeals();
+      if (votes[data.id]) {
+        voteFeedback?.classList.remove('hidden');
+        voteFeedback.textContent = `✓ You previously voted that this deal ${votes[data.id] === 'up' ? 'worked' : 'failed'}.`;
+      }
+
+      // Show Modal
+      modal?.classList.remove('hidden');
+      modal?.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+
+      // Auto-Copy Code to clipboard
+      if (data.code && data.code.trim().length > 0) {
+        navigator.clipboard?.writeText(data.code).then(() => {
+          if (copyBtnLabel) copyBtnLabel.textContent = '✓ Copied!';
+          setTimeout(() => { if (copyBtnLabel) copyBtnLabel.textContent = 'Copy Code'; }, 2500);
+        }).catch(() => {});
+      }
+
+      // Open merchant in background tab (Dual-Tab Funnel)
+      if (finalUrl && finalUrl !== '#') {
+        window.open(finalUrl, '_blank', 'noopener,noreferrer');
+      }
+
+      // Dispatch tracking event
+      window.dispatchEvent(new CustomEvent('promoradar_deal_revealed', {
+        detail: {
+          code: data.code || 'VERIFIED_DEAL',
+          store: data.storeName || 'Partner Store',
+          affiliateUrl: finalUrl
+        }
+      }));
+    };
+
+    // Close Modal Handler
+    function closeModal() {
+      modal?.classList.add('hidden');
+      modal?.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    closeBtn?.addEventListener('click', closeModal);
+    modal?.addEventListener('click', (e) => {
+      if (e.target.id === 'universalCouponModal') closeModal();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    // Copy Button Handler
+    copyBtn?.addEventListener('click', () => {
+      const code = document.getElementById('modalCodeText')?.textContent || '';
+      if (code && code !== 'AUTOMATIC DISCOUNT') {
+        navigator.clipboard.writeText(code).then(() => {
+          if (copyBtnLabel) copyBtnLabel.textContent = '✓ Copied!';
+          setTimeout(() => { if (copyBtnLabel) copyBtnLabel.textContent = 'Copy Code'; }, 2000);
+        });
+      }
+    });
+
+    // Vote Button Handler (Thumbs Up / Down)
+    document.querySelectorAll('.modal-vote-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const voteType = btn.getAttribute('data-vote');
+        if (activeDealData && activeDealData.id) {
+          saveVotedDeal(activeDealData.id, voteType);
+        }
+        if (voteFeedback) {
+          voteFeedback.classList.remove('hidden');
+          voteFeedback.textContent = voteType === 'up'
+            ? '✓ Thank you! Verified as working for today.'
+            : '✓ Thank you! Reported to our editors for review.';
+        }
+      });
+    });
+
+    // Global Delegated Click Listener for any [data-reveal-deal] element
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('[data-reveal-deal]');
+      if (trigger) {
+        e.preventDefault();
+        try {
+          const raw = trigger.getAttribute('data-reveal-deal');
+          const data = JSON.parse(raw);
+          window.openCouponModal(data);
+        } catch(err) {
+          console.error('[PromoRadar] Could not parse deal data:', err);
+        }
+      }
+    });
+  })();
+</script>

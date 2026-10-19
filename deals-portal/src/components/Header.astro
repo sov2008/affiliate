@@ -225,6 +225,7 @@ const storesCount = STORES_DATA.length;
 
 <script>
   import { STORES_DATA, COUPONS_DATA } from '../data/couponsData';
+  import { STORE_DOMAINS_MAP } from '../data/storeDomains';
 
 
   // 2. Saved Vouchers Drawer & Real-Time Sync
@@ -348,34 +349,62 @@ const storesCount = STORES_DATA.length;
     if (spotlightStoresList) {
       spotlightStoresList.innerHTML = matchedStores.map(s => {
         const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+        const domain = (STORE_DOMAINS_MAP as Record<string, string>)[s.slug] || (STORE_DOMAINS_MAP as Record<string, string>)[s.name] || '';
+        const storeCount = COUPONS_DATA.filter(d => d.storeSlug === s.slug).length;
+        const logoUrl = domain ? `https://logo.clearbit.com/${domain}` : '';
+        const fallbackUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64` : '';
+        
         return `
-          <a href="${base}/stores/${s.slug}/" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 transition group">
-            <div class="flex items-center gap-2">
-              <span class="w-6 h-6 rounded-md bg-indigo-50 border border-indigo-200 text-indigo-700 font-extrabold text-[10px] flex items-center justify-center">${s.name.slice(0, 2).toUpperCase()}</span>
+          <a href="${base}/stores/${s.slug}/" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition group">
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-lg bg-white border border-slate-200 p-0.5 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                ${domain ? `<img src="${logoUrl}" onerror="this.onerror=null;this.src='${fallbackUrl}';" alt="${s.name}" class="w-full h-full object-contain" />` : `<span class="text-indigo-700 font-extrabold text-[10px]">${s.name.slice(0, 2).toUpperCase()}</span>`}
+              </div>
               <div>
-                <div class="text-xs font-bold text-slate-900 group-hover:text-indigo-600 transition">${s.name}</div>
-                <div class="text-[10px] text-slate-400">${s.category}</div>
+                <div class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 transition">${s.name}</div>
+                <div class="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">${storeCount} active offers · ${s.category}</div>
               </div>
             </div>
-            <span class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">Store Profile →</span>
+            <span class="text-[10px] font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded-full">Store →</span>
           </a>
         `;
       }).join('');
     }
 
     if (spotlightDealsList) {
-      spotlightDealsList.innerHTML = matchedDeals.map(d => `
-        <div class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 transition">
-          <div class="min-w-0 pr-2">
-            <div class="flex items-center gap-1.5">
-              <span class="text-xs font-bold text-slate-900 truncate">${d.storeName}</span>
-              <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-rose-50 text-rose-700">${d.discountBadge}</span>
+      spotlightDealsList.innerHTML = matchedDeals.map(d => {
+        const dealJson = JSON.stringify({
+          id: d.id,
+          title: d.title,
+          desc: d.description,
+          code: d.code,
+          storeName: d.storeName,
+          storeSlug: d.storeSlug,
+          domain: (STORE_DOMAINS_MAP as Record<string, string>)[d.storeSlug] || '',
+          badge: d.discountBadge,
+          affiliateUrl: d.affiliateUrl,
+          successRate: d.successRate
+        }).replace(/"/g, '&quot;');
+
+        return `
+          <button
+            type="button"
+            data-reveal-deal="${dealJson}"
+            class="w-full text-left flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer group"
+          >
+            <div class="min-w-0 pr-2">
+              <div class="flex items-center gap-1.5">
+                <span class="text-xs font-bold text-slate-900 dark:text-white truncate">${d.storeName}</span>
+                <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-rose-50 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300">${d.discountBadge}</span>
+              </div>
+              <p class="text-[11px] text-slate-600 dark:text-slate-400 truncate">${d.title}</p>
             </div>
-            <p class="text-[11px] text-slate-600 truncate">${d.title}</p>
-          </div>
-          <span class="font-mono text-xs font-bold text-indigo-900 bg-white px-2 py-1 rounded border border-slate-200 shrink-0">${d.code || 'DEAL'}</span>
-        </div>
-      `).join('');
+            <span class="font-mono text-xs font-bold text-indigo-900 bg-indigo-50 dark:bg-indigo-950 dark:text-indigo-300 px-2 py-1 rounded border border-indigo-200 dark:border-indigo-800 shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">
+              ${d.code ? '•••' + d.code.slice(-3) : 'Redeem →'}
+            </span>
+          </button>
+        `;
+      }).join('');
     }
 
     headerSearchSpotlight?.classList.remove('hidden');

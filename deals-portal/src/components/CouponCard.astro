@@ -76,6 +76,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           data-deal-id={deal.id}
           data-code={deal.code}
           data-affiliate-url={deal.affiliateUrl}
+          data-reveal-deal={JSON.stringify({
+            id: deal.id,
+            title: deal.title,
+            desc: deal.description,
+            code: deal.code,
+            storeName: deal.storeName,
+            storeSlug: deal.storeSlug,
+            badge: deal.discountBadge,
+            affiliateUrl: deal.affiliateUrl,
+            successRate: deal.successRate
+          })}
         >
           <Tag class="w-3.5 h-3.5 shrink-0" />
           <span class="btn-text">GET CODE &amp; OPEN STORE</span>

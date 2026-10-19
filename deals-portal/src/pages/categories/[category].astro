@@ -222,14 +222,23 @@ const breadcrumbs = [
                   <span>Success: <strong class="text-slate-800">{deal.successRate || '99%'}</strong></span>
                 </div>
 
-                <a
-                  href={deal.affiliateUrl}
-                  target="_blank"
-                  rel="nofollow sponsored"
-                  class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-sm"
+                <button
+                  type="button"
+                  class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-sm cursor-pointer"
+                  data-reveal-deal={JSON.stringify({
+                    id: deal.id,
+                    title: deal.title,
+                    desc: deal.description,
+                    code: deal.code || '',
+                    storeName: deal.storeName,
+                    storeSlug: deal.storeSlug,
+                    badge: deal.discountBadge || deal.badge,
+                    affiliateUrl: deal.affiliateUrl,
+                    successRate: deal.successRate || '99%'
+                  })}
                 >
                   <span>Reveal &amp; Activate ↗</span>
-                </a>
+                </button>
               </div>
             </article>
           ))}

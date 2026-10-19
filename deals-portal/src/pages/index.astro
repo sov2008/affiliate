@@ -766,18 +766,20 @@ const homeSchemas = [
               <!-- Bottom Action Bar -->
               <div class="space-y-2.5">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-500">
+                  <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] text-slate-500">
                     <span class="inline-flex items-center gap-1 text-emerald-600 font-semibold">
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                       Verified Today
                     </span>
-                    <span>🔥 {deal.successRate} success</span>
+                    <span>•</span>
+                    <span class="font-bold text-slate-700 dark:text-slate-300">{deal.successRate || '98%'} success</span>
+                    <span>•</span>
                     <button type="button" class="deal-terms-toggle text-slate-400 hover:text-indigo-600 underline underline-offset-2 font-medium cursor-pointer">
                       Terms ▾
                     </button>
                   </div>
 
-                  <!-- CTA Button -->
+                  <!-- CTA Button (Dual-Tab Engine for both promo codes and direct offers) -->
                   {isCode ? (
                     <button
                       type="button"
@@ -791,7 +793,8 @@ const homeSchemas = [
                         storeSlug: deal.storeSlug,
                         domain: STORE_DOMAINS[deal.storeSlug] || deal.cleanDomain || '',
                         badge: deal.discountBadge,
-                        affiliateUrl: deal.affiliateUrl
+                        affiliateUrl: deal.affiliateUrl,
+                        successRate: deal.successRate
                       })}
                     >
                       <span>Get Code</span>
@@ -800,14 +803,24 @@ const homeSchemas = [
                       </span>
                     </button>
                   ) : (
-                    <a
-                      href={deal.affiliateUrl}
-                      target="_blank"
-                      rel="nofollow sponsored"
-                      class="bg-slate-900 hover:bg-indigo-600 text-white rounded-xl px-4 py-2.5 text-xs font-bold flex items-center justify-center gap-1.5 shrink-0 transition shadow-sm"
+                    <button
+                      type="button"
+                      class="bg-slate-900 hover:bg-indigo-600 text-white rounded-xl px-4 py-2.5 text-xs font-bold flex items-center justify-center gap-1.5 shrink-0 transition shadow-sm cursor-pointer"
+                      data-reveal-deal={JSON.stringify({
+                        id: deal.id,
+                        title: deal.title,
+                        desc: deal.description,
+                        code: '',
+                        storeName: deal.storeName,
+                        storeSlug: deal.storeSlug,
+                        domain: STORE_DOMAINS[deal.storeSlug] || deal.cleanDomain || '',
+                        badge: deal.discountBadge,
+                        affiliateUrl: deal.affiliateUrl,
+                        successRate: deal.successRate
+                      })}
                     >
                       <span>Activate Deal ↗</span>
-                    </a>
+                    </button>
                   )}
                 </div>
 
@@ -1108,82 +1121,7 @@ const homeSchemas = [
 
   <Footer />
 
-  <!-- Universal Click-to-Reveal Coupon Modal -->
-  <div id="universalCouponModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/75 backdrop-blur-md">
-    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200/90 dark:border-slate-800 relative animate-fadeIn">
-      <button id="closeUniversalModalBtn" type="button" class="absolute right-4 top-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center font-bold text-sm cursor-pointer transition">
-        ✕
-      </button>
-
-      <!-- Modal Header -->
-      <div class="flex items-center gap-3.5 mb-4">
-        <div id="modalLogoContainer" class="brand-logo-container w-12 h-12 rounded-2xl bg-white p-1.5 border border-slate-200 flex items-center justify-center shrink-0 shadow-md relative overflow-hidden">
-          <img
-            id="modalLogoImg"
-            src=""
-            alt="Store Logo"
-            class="w-full h-full object-contain"
-            loading="lazy"
-          />
-          <span id="modalLogoFallback" class="hidden w-full h-full rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-rose-600 text-white font-extrabold text-xs items-center justify-center">
-            PR
-          </span>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span id="modalStoreName" class="font-extrabold text-slate-900 dark:text-white text-base">Store</span>
-            <span id="modalDiscountBadge" class="text-xs font-extrabold px-2.5 py-0.5 rounded-lg bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30">Verified</span>
-          </div>
-          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Official Merchant Partner Offer • Tested on Checkout</p>
-        </div>
-      </div>
-
-      <h3 id="modalDealTitle" class="text-lg font-extrabold text-slate-900 dark:text-white mb-2 leading-snug"></h3>
-      <p id="modalDealDesc" class="text-xs text-slate-600 dark:text-slate-300 mb-5 leading-relaxed"></p>
-
-      <!-- Code Container -->
-      <div id="modalCodeBox" class="bg-indigo-50/80 dark:bg-indigo-950/45 border-2 border-dashed border-indigo-300 dark:border-indigo-500/40 rounded-2xl p-4 mb-4">
-        <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-300 mb-2 px-1">
-          <span>VERIFIED MERCHANT CODE</span>
-          <span class="text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400"></span> • ACTIVE NOW
-          </span>
-        </div>
-        <div class="flex items-center justify-between gap-2 bg-white dark:bg-slate-950/90 rounded-xl p-2 pl-4 border border-indigo-200 dark:border-indigo-500/30 shadow-inner">
-          <span id="modalCodeText" class="font-mono font-extrabold text-lg sm:text-xl tracking-widest text-slate-900 dark:text-white select-all"></span>
-          <button id="copyModalCodeBtn" type="button" class="code-peel px-4 py-2.5 rounded-xl text-white font-bold text-xs transition shrink-0 cursor-pointer shadow-sm flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-            </svg>
-            <span>Copy Code</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Outbound Affiliate Link -->
-      <a
-        id="modalOutboundLink"
-        href="#"
-        target="_blank"
-        rel="nofollow sponsored"
-        class="w-full py-3.5 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-gradient-to-r dark:from-emerald-600 dark:to-teal-600 dark:hover:from-emerald-500 dark:hover:to-teal-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg dark:shadow-emerald-950/50 border border-transparent dark:border-emerald-400/30 transition mb-4"
-      >
-        <span id="modalOutboundBtnLabel">Go to Official Store ↗</span>
-      </a>
-
-      <!-- Verification Vote Footer -->
-      <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-        <span>Did this code work today?</span>
-        <div class="flex items-center gap-2">
-          <button type="button" class="modal-vote-btn px-3 py-1 rounded-lg bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 dark:bg-slate-800 dark:hover:bg-emerald-950/40 dark:text-slate-300 dark:hover:text-emerald-300 font-semibold transition cursor-pointer">👍 Yes, worked</button>
-          <button type="button" class="modal-vote-btn px-3 py-1 rounded-lg bg-slate-100 hover:bg-rose-50 hover:text-rose-700 dark:bg-slate-800 dark:hover:bg-rose-950/40 dark:text-slate-300 dark:hover:text-rose-300 font-semibold transition cursor-pointer">👎 No</button>
-        </div>
-      </div>
-      <div id="modalVoteFeedback" class="hidden mt-2 text-center text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-        Thank you! Your feedback has been recorded in our live verification radar.
-      </div>
-    </div>
-  </div>
+  <!-- Universal Click-to-Reveal Coupon Modal is now mounted globally via BaseLayout / CouponRevealModal.astro -->
 
   <!-- Toast Notification Container -->
   <div id="globalToast" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2.5 px-4 py-3 rounded-2xl bg-slate-900 text-white text-xs font-semibold shadow-2xl border border-slate-700">
@@ -1454,136 +1392,10 @@ const homeSchemas = [
 
     updateSavedBadge();
 
-    // Reveal Coupon Modal
-    const modal = document.getElementById('universalCouponModal');
-    const closeBtn = document.getElementById('closeUniversalModalBtn');
-    const copyBtn = document.getElementById('copyModalCodeBtn');
-    const voteFeedback = document.getElementById('modalVoteFeedback');
-
-    document.querySelectorAll('[data-reveal-deal]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const data = JSON.parse(btn.getAttribute('data-reveal-deal') || '{}');
-        document.getElementById('modalStoreName').textContent = data.storeName || 'Store';
-        document.getElementById('modalDiscountBadge').textContent = data.badge || 'Verified';
-        document.getElementById('modalDealTitle').textContent = data.title || '';
-        document.getElementById('modalDealDesc').textContent = data.desc || '';
-        document.getElementById('modalCodeText').textContent = data.code || '';
-        document.getElementById('modalOutboundLink').href = data.affiliateUrl || '#';
-        document.getElementById('modalOutboundBtnLabel').textContent = `Go to ${data.storeName} Official Store ↗`;
-
-        // Resolve real merchant logo
-        const storeSlug = data.storeSlug || '';
-        let domain = data.domain || '';
-        if (!domain && storeDomainsRegistry) {
-          domain = storeDomainsRegistry[data.storeName] || storeDomainsRegistry[storeSlug] || '';
-        }
-        const logoImg = document.getElementById('modalLogoImg');
-        const logoFallback = document.getElementById('modalLogoFallback');
-        if (logoImg && logoFallback) {
-          if (domain) {
-            logoImg.src = `https://logo.clearbit.com/${domain}`;
-            logoImg.dataset.fallbackGoogle = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
-            logoImg.style.display = 'block';
-            logoFallback.classList.add('hidden');
-            logoFallback.classList.remove('flex');
-            logoImg.onerror = function() {
-              if (this.dataset.fallbackGoogle && this.src !== this.dataset.fallbackGoogle) {
-                this.src = this.dataset.fallbackGoogle;
-              } else {
-                this.style.display = 'none';
-                logoFallback.classList.remove('hidden');
-                logoFallback.classList.add('flex');
-                logoFallback.textContent = (data.storeName || 'PR').slice(0, 2).toUpperCase();
-              }
-            };
-          } else {
-            logoImg.style.display = 'none';
-            logoFallback.classList.remove('hidden');
-            logoFallback.classList.add('flex');
-            logoFallback.textContent = (data.storeName || 'PR').slice(0, 2).toUpperCase();
-          }
-        }
-
-        voteFeedback?.classList.add('hidden');
-        modal?.classList.remove('hidden');
-        modal?.classList.add('flex');
-
-        // Dispatch deal revealed event for sticky bottom bar
-        window.dispatchEvent(new CustomEvent('promoradar_deal_revealed', {
-          detail: {
-            code: data.code || 'VERIFIED_DEAL',
-            store: data.storeName || 'Partner Store',
-            affiliateUrl: data.affiliateUrl || '#'
-          }
-        }));
-
-        // Innovation (Honey / RetailMeNot style Auto-Copy & Outbound Tab)
-        if (data.code && data.code.trim().length > 0) {
-          navigator.clipboard?.writeText(data.code).then(() => {
-            showToast(`Promo Code ${data.code} copied! Opening ${data.storeName}...`);
-          }).catch(() => {});
-        }
-
-        // Admitad Advanced SubID Enrichment (Precision Analytics)
-        let finalUrl = data.affiliateUrl || '#';
-        if (finalUrl.includes('admitad.com') || finalUrl.includes('/g/')) {
-          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? 'mob' : 'dsk';
-          const dealType = (data.code && data.code.trim().length > 0) ? 'code' : 'deal';
-          const sep = finalUrl.includes('?') ? '&' : '?';
-          finalUrl = `${finalUrl}${sep}subid1=${isMobile}&subid2=${dealType}&subid3=card_click`;
-        }
-
-        document.getElementById('modalOutboundLink').href = finalUrl;
-
-        // Open merchant store in background/new tab
-        if (finalUrl && finalUrl !== '#') {
-          window.open(finalUrl, '_blank', 'noopener,noreferrer');
-        }
-      });
-    });
-
     // Featured Deal of the day button
     document.getElementById('openFeaturedDealBtn')?.addEventListener('click', () => {
       const featuredCard = document.querySelector('[data-deal-id="deal-8"] [data-reveal-deal]');
       featuredCard?.click();
-    });
-
-    closeBtn?.addEventListener('click', () => {
-      modal?.classList.add('hidden');
-      modal?.classList.remove('flex');
-    });
-
-    modal?.addEventListener('click', (e) => {
-      if (e.target.id === 'universalCouponModal') {
-        modal?.classList.add('hidden');
-        modal?.classList.remove('flex');
-      }
-    });
-
-    copyBtn?.addEventListener('click', () => {
-      const code = document.getElementById('modalCodeText')?.textContent || '';
-      const store = document.getElementById('modalStoreName')?.textContent || '';
-      const affLink = document.getElementById('modalOutboundLink')?.href || '#';
-      if (code) {
-        navigator.clipboard.writeText(code).then(() => {
-          showToast(`Copied ${code} to clipboard!`);
-          window.dispatchEvent(new CustomEvent('promoradar_deal_revealed', {
-            detail: {
-              code: code,
-              store: store,
-              affiliateUrl: affLink
-            }
-          }));
-          copyBtn.textContent = '✓ Copied!';
-          setTimeout(() => { copyBtn.textContent = '📋 Copy Code'; }, 2000);
-        });
-      }
-    });
-
-    document.querySelectorAll('.modal-vote-btn').forEach(b => {
-      b.addEventListener('click', () => {
-        voteFeedback?.classList.remove('hidden');
-      });
     });
 
     // Store Filter Links on Cards ("+X more deals →")
