@@ -201,20 +201,21 @@ async function ingestCoupons(advertiserId) {
   try {
     const xml = await requestCJ(
       'link-search.api.cj.com',
-      `/v2/link-search?website-id=${CONFIG.websiteId}&advertiser-ids=${advertiserId}&promotion-type=coupon&page-number=1&records-per-page=25`
+      `/v2/link-search?website-id=${CONFIG.websiteId}&advertiser-ids=${advertiserId}&records-per-page=25`
     );
 
     const coupons = [];
-    const linkRegex = /<link>[\s\S]*?<link-id>(\d+)<\/link-id>[\s\S]*?<link-name>(.*?)<\/link-name>[\s\S]*?<clickUrl>(.*?)<\/clickUrl>[\s\S]*?<coupon-code>(.*?)<\/coupon-code>[\s\S]*?<\/link>/g;
+    const linkRegex = /<link>[\s\S]*?<link-id>(\d+)<\/link-id>[\s\S]*?<link-name>(.*?)<\/link-name>[\s\S]*?<clickUrl>(.*?)<\/clickUrl>(?:[\s\S]*?<coupon-code>(.*?)<\/coupon-code>)?[\s\S]*?<\/link>/g;
     let match;
     while ((match = linkRegex.exec(xml)) !== null) {
       coupons.push({
         linkId: match[1],
-        title: match[2],
+        title: match[2].replace(/&gt;/g, '>').replace(/&amp;/g, '&'),
         url: match[3],
-        code: match[4]
+        code: match[4] || ''
       });
     }
+    log(`Fetched ${coupons.length} promotional links/coupons for advertiser ${advertiserId}`);
     return coupons;
   } catch (err) {
     log(`Coupons ingest note for ${advertiserId}: ${err.message}`);
@@ -306,13 +307,14 @@ async function runLoop() {
     }
   }
 
-  // Every 4 cycles (approx once per hour), run auto-applier for top high-EPC CJ opportunities
-  if (cycleCount % 4 === 1) {
+  // Every 2 cycles (approx every 30 mins), run auto-applier for top high-EPC CJ opportunities
+  if (cycleCount % 2 === 1) {
     log('🎯 Scheduled run of cj_autonomous_applier.cjs for top opportunities...');
     const applierScript = path.resolve(__dirname, 'cj_autonomous_applier.cjs');
     if (fs.existsSync(applierScript)) {
-      exec(`node "${applierScript}"`, (err, stdout) => {
+      exec(`node "${applierScript}"`, (err, stdout, stderr) => {
         if (stdout) console.log(stdout);
+        if (stderr) console.error(stderr);
         if (err) log(`Auto-applier error: ${err.message}`);
       });
     }

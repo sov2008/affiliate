@@ -30,7 +30,9 @@ const BRAND_THEMES: Record<string, { bg: string; text: string; border: string; b
   'touch': { bg: 'from-violet-600 to-indigo-700', text: 'text-white', border: 'border-violet-200', badgeBg: 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30' },
   'nazih': { bg: 'from-rose-500 to-purple-600', text: 'text-white', border: 'border-rose-200', badgeBg: 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30' },
   'vperfumes': { bg: 'from-amber-600 to-stone-800', text: 'text-amber-200', border: 'border-amber-300', badgeBg: 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30' },
-  'raynatours': { bg: 'from-blue-600 to-indigo-700', text: 'text-white', border: 'border-blue-200', badgeBg: 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30' }
+  'raynatours': { bg: 'from-blue-600 to-indigo-700', text: 'text-white', border: 'border-blue-200', badgeBg: 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30' },
+  'abelssoft': { bg: 'from-blue-600 to-indigo-800', text: 'text-white', border: 'border-blue-200', badgeBg: 'bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-500/30' },
+  '945industries': { bg: 'from-stone-800 to-amber-900', text: 'text-amber-300', border: 'border-amber-300', badgeBg: 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30' }
 };
 
 // Helper for top-right discount pills
@@ -74,7 +76,9 @@ const STORE_REGIONS: Record<string, string[]> = {
   'discreet-local': ['US', 'GLOBAL'],
   'spokeo': ['US'],
   'polis': ['UA', 'EU'],
-  'hostinger': ['GLOBAL', 'US', 'EU', 'UA', 'GCC']
+  'hostinger': ['GLOBAL', 'US', 'EU', 'UA', 'GCC'],
+  'abelssoft': ['GLOBAL', 'EU', 'US'],
+  '945industries': ['US', 'GLOBAL', 'EU']
 };
 
 // Region badge display config
@@ -137,8 +141,29 @@ for (const d of COUPONS_DATA) {
   storeBuckets[d.storeSlug].push(d);
 }
 
+const CONFIRMED_PRIORITY = [
+  'abelssoft',
+  '945industries',
+  'touch',
+  'alibaba',
+  'hostinger',
+  'chicme',
+  'glasseslit',
+  'raynatours',
+  'polis',
+  'purevpn',
+  'expressvpn'
+];
+
 const interleavedDeals: typeof COUPONS_DATA = [];
-const storeKeys = Object.keys(storeBuckets);
+const storeKeys = Object.keys(storeBuckets).sort((a, b) => {
+  const aIdx = CONFIRMED_PRIORITY.indexOf(a);
+  const bIdx = CONFIRMED_PRIORITY.indexOf(b);
+  if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+  if (aIdx !== -1) return -1;
+  if (bIdx !== -1) return 1;
+  return a.localeCompare(b);
+});
 let hasMore = true;
 let round = 0;
 while (hasMore) {
@@ -290,10 +315,10 @@ const homeSchemas = [
               <!-- Quick Search Chips -->
               <div class="flex flex-wrap items-center gap-1.5 pt-2.5 px-2 text-xs">
                 <span id="trendingPrefix" class="text-slate-400 font-medium">Trending:</span>
-                <button type="button" data-chip="ALLPOWERS" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">ALLPOWERS (-15%)</button>
-                <button type="button" data-chip="Airalo" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">Airalo eSIM (-10%)</button>
-                <button type="button" data-chip="VogaCloset" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">VogaCloset (-80%)</button>
-                <button type="button" data-chip="The Deal Outlet" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">The Deal Outlet (-70%)</button>
+                <button type="button" data-chip="945 Industries" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">945 Industries (-10%)</button>
+                <button type="button" data-chip="Abelssoft" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">Abelssoft (-50%)</button>
+                <button type="button" data-chip="Touch UA" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">Touch UA (-30%)</button>
+                <button type="button" data-chip="Alibaba" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">Alibaba (-$20)</button>
                 <button type="button" data-chip="ExpressVPN" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">ExpressVPN (-81%)</button>
               </div>
             </div>
