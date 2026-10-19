@@ -167,49 +167,49 @@ async function runAutonomousApplier() {
         await page.waitForTimeout(2000);
 
         const submitBtn = await page.$('input[name="a_commit"], input[type="submit"][value*="Accept"], button:has-text("Accept and Apply")');
-        
         if (submitBtn) {
+          log(`  Submitting terms acceptance for "${advName}"...`);
           await submitBtn.click();
           await page.waitForTimeout(3000);
-
-          const resultText = await page.evaluate(() => document.body.innerText);
-          let status = 'SUBMITTED';
-          let statusLabel = '⏳ На рассмотрении';
-
-          if (/Application submitted for review|Pending Application/i.test(resultText)) {
-            status = 'PENDING_REVIEW';
-            statusLabel = '⏳ На рассмотрении рекламодателем';
-          } else if (/Application approved|Active|Successfully joined/i.test(resultText)) {
-            status = 'APPROVED';
-            statusLabel = '✅ Одобрена автоматически';
-          } else if (/Application declined/i.test(resultText)) {
-            status = 'DECLINED';
-            statusLabel = '❌ Отклонена правилами оффера';
-          }
-
-          log(`  Result for "${advName}": ${status}`);
-
-          history.applied[advId] = {
-            id: advId,
-            name: advName,
-            status,
-            epc,
-            appliedAt: new Date().toISOString()
-          };
-
-          batchResults.push({
-            id: advId,
-            name: advName,
-            status,
-            statusLabel,
-            epc
-          });
-
-        } else {
-          log(`  No submit button found on join page for ${advName}. Checking page content...`);
-          const bodySnippet = await page.evaluate(() => document.body.innerText.slice(0, 200));
-          log(`  Snippet: ${bodySnippet.replace(/\n+/g, ' ')}`);
         }
+
+        const resultText = await page.evaluate(() => document.body.innerText);
+        let status = 'SUBMITTED';
+        let statusLabel = '⏳ На рассмотрении';
+
+        if (/Application submitted for review|Pending Application/i.test(resultText)) {
+          status = 'PENDING_REVIEW';
+          statusLabel = '⏳ На рассмотрении рекламодателем';
+        } else if (/Application approved|Active|Successfully joined/i.test(resultText)) {
+          status = 'APPROVED';
+          statusLabel = '✅ Одобрена автоматически';
+        } else if (/Application declined/i.test(resultText)) {
+          status = 'DECLINED';
+          statusLabel = '❌ Отклонена правилами оффера';
+        } else if (resultText.includes('already applied') || resultText.includes('Already joined')) {
+          status = 'ALREADY_APPLIED';
+          statusLabel = 'ℹ️ Ранее подана';
+        } else {
+          log(`  Notice: Unrecognized response for ${advName}. Snippet: ${resultText.slice(0, 150).replace(/\n+/g, ' ')}`);
+        }
+
+        log(`  Result for "${advName}": ${status} (${statusLabel})`);
+
+        history.applied[advId] = {
+          id: advId,
+          name: advName,
+          status,
+          epc,
+          appliedAt: new Date().toISOString()
+        };
+
+        batchResults.push({
+          id: advId,
+          name: advName,
+          status,
+          statusLabel,
+          epc
+        });
 
       } catch (applyErr) {
         log(`  Error applying to ${advName}: ${applyErr.message}`);
