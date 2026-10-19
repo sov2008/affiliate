@@ -5,6 +5,7 @@ import CouponRevealModal from '../components/CouponRevealModal.astro';
 import FloatingStickyRedemptionBar from '../components/FloatingStickyRedemptionBar.astro';
 import VerificationGuaranteeModal from '../components/VerificationGuaranteeModal.astro';
 import MobileQRModal from '../components/MobileQRModal.astro';
+import SavingsWalletModal from '../components/SavingsWalletModal.astro';
 
 interface Props {
   title: string;
@@ -86,6 +87,7 @@ const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
     <FloatingStickyRedemptionBar />
     <VerificationGuaranteeModal />
     <MobileQRModal />
+    <SavingsWalletModal />
 
     <!-- Global Sleek Toast Notification -->
     <div

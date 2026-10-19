@@ -183,6 +183,17 @@
       });
     }
 
+    // Record in Savings Wallet
+    if (typeof (window as any).recordSavingsRedemption === 'function') {
+      (window as any).recordSavingsRedemption({
+        storeName: storeName || 'Store Voucher',
+        storeSlug: opts.storeSlug || '',
+        title: dealTitle || 'Verified Promo Code',
+        code: dealCode || '',
+        badge: badge || 'Verified'
+      });
+    }
+
     modal.classList.remove('hidden');
     modal.classList.add('flex');
     document.body.classList.add('overflow-hidden');
