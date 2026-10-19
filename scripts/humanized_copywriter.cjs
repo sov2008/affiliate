@@ -126,6 +126,21 @@ function getDeterministicFallback({ brand, category, discountBadge, code, rawTit
   } else if (category.includes('Insurance')) {
     title = `${dBadge} On ${brand} Certified Vehicle & Travel Policies`;
     description = `Get legally verified insurance coverage with immediate digital policy issuance to your email and Diia state app. Instant partner validation.`;
+  } else if (category.includes('Wholesale') || category.includes('Commerce')) {
+    title = `${dBadge} On ${brand} Factory-Direct Catalog & Global Sourcing`;
+    description = `Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.`;
+  } else if (category.includes('Dating') || category.includes('Lifestyle')) {
+    title = `${dBadge} On ${brand} Premium Verified Matches & Subscriptions`;
+    description = `Connect with genuine, identity-verified profiles using intelligent matching filters and private messaging. Activate your premium membership perks with instant discount savings.`;
+  } else if (category.includes('Education') || category.includes('Learning')) {
+    title = `${dBadge} On ${brand} Career Certifications & Interactive Courses`;
+    description = `Master high-income tech, business, and creative disciplines with self-paced video lessons from industry mentors. Claim verified tuition savings with lifetime course access.`;
+  } else if (category.includes('Gaming') || category.includes('Entertainment')) {
+    title = `${dBadge} On ${brand} Digital Keys, Season Passes & Gaming Gear`;
+    description = `Save on trending game titles, digital activation keys, and premium gaming peripherals. Guaranteed authentic keys with instant delivery directly to your account.`;
+  } else if (category.includes('Home')) {
+    title = `${dBadge} On ${brand} Modern Home Accents & Smart Living Essentials`;
+    description = `Upgrade your living space with functional home gadgets, cookware, and designer furnishings. Enjoy guaranteed partner markdowns with secure checkout and hassle-free returns.`;
   }
 
   return {
@@ -194,6 +209,7 @@ Rules:
 - STRICT ENGLISH ONLY.
 - NO AI clichés or tells (NEVER use words: 'unlock', 'unleash', 'elevate', 'game-changer', 'in today\'s world', 'say goodbye', 'look no further', 'seamless', 'robust', 'dive into').
 - NO contrasting formulas like 'it\'s not X, it\'s Y'.
+- NO raw affiliate boilerplate or conditions (NEVER write 'orders over X', 'order above X', 'valid on full-priced', 'terms apply'). Describe the product, value, and verified savings instead.
 - Focus on real customer value: what is the item/service, why buy now, exact discount, and clear verification.
 - Output MUST be valid JSON with 3 keys:
   "title": concise, high-converting offer title (6-12 words).
@@ -287,10 +303,103 @@ async function batchGenerateCopy(deals = [], storeMap = new Map(), concurrency =
   return results;
 }
 
+const RAW_NETWORK_STOP_PATTERNS = [
+  /promo\s*code\s*is\s*valid/i,
+  /exclusive\s+cj\s+affiliate/i,
+  /the\s*discount\s*applies\s*to/i,
+  /orders?\s*(over|above)\b/i,
+  /purchases?\s*(over|above)\b/i,
+  /spend\s*over/i,
+  /spending\s*over/i,
+  /minimum\s*spend/i,
+  /minimum\s*order/i,
+  /buy\s*\d+,\s*get\b/i,
+  /valid\s*on\s*full/i,
+  /discount\s*will\s*be\s*applied/i,
+  /terms\s*and\s*conditions\s*apply/i,
+  /not\s*cumulative\s*with/i,
+  /not\s*combinable/i,
+  /can\s*not\s*be\s*combined/i,
+  /cannot\s*be\s*combined/i,
+  /valid\s*for\s*new\s*customers\s*only/i,
+  /valid\s*until\s*\d/i,
+  /offer\s*valid\s*for/i,
+  /use\s*coupon\s*at\s*checkout\s*to\s*get\s*discount/i,
+  /use\s*promo\s*code\s*to\s*get\s*\d+%/i,
+  /enter\s*coupon\s*at\s*checkout\s*to\s*receive/i
+];
+
+/**
+ * Strict Quality Gate: Inspects all deals to ensure 100% compliance with
+ * Rule 4 (Strict Bespoke Conversion Copy Rule) before saving to couponsData.ts.
+ * Replaces any detected raw network boilerplate with humanized conversion copy.
+ */
+function enforceConversionQualityGate(deals = []) {
+  console.log(`[QualityGate] Verifying ${deals.length} deals against Rule 4 (Strict Bespoke Conversion Copy)...`);
+  let replacedCount = 0;
+
+  for (const deal of deals) {
+    let violation = false;
+    let reason = '';
+
+    const textToTest = `${deal.title || ''} ${deal.description || ''}`;
+
+    for (const pattern of RAW_NETWORK_STOP_PATTERNS) {
+      if (pattern.test(textToTest)) {
+        violation = true;
+        reason = `Matched stop pattern: ${pattern}`;
+        break;
+      }
+    }
+
+    if (!deal.description || deal.description.trim().length < 25) {
+      violation = true;
+      reason = 'Description too short or missing (<25 chars)';
+    }
+
+    if (violation) {
+      console.warn(`[QualityGate REWRITE] Deal ${deal.id} (${deal.storeName}): ${reason}. Applying bespoke conversion copy.`);
+      const replacement = getDeterministicFallback({
+        brand: deal.storeName,
+        category: deal.storeCategory,
+        discountBadge: deal.discountBadge,
+        code: deal.code,
+        rawTitle: deal.title,
+        rawDesc: deal.description
+      });
+
+      deal.title = replacement.title;
+      deal.description = replacement.description;
+      deal.terms = replacement.terms;
+      replacedCount++;
+    } else {
+      deal.title = sanitizeCopy(deal.title, deal.code);
+      deal.description = sanitizeCopy(deal.description, deal.code);
+      deal.terms = sanitizeCopy(deal.terms, deal.code);
+    }
+  }
+
+  // Final assertion pass: absolutely NO violations tolerated
+  for (const deal of deals) {
+    const textToTest = `${deal.title || ''} ${deal.description || ''}`;
+    for (const pattern of RAW_NETWORK_STOP_PATTERNS) {
+      if (pattern.test(textToTest)) {
+        throw new Error(`[QualityGate FATAL] Deal ${deal.id} still contains banned raw pattern ${pattern} after quality gate! Build aborted.`);
+      }
+    }
+  }
+
+  console.log(`[QualityGate PASSED] All ${deals.length} deals passed verification (${replacedCount} raw boilerplate items neutralized). Rule 4 strictly enforced.`);
+  return true;
+}
+
 module.exports = {
   generateCopy,
   batchGenerateCopy,
   sanitizeCopy,
   getDeterministicFallback,
-  normalizePromoCode
+  normalizePromoCode,
+  RAW_NETWORK_STOP_PATTERNS,
+  enforceConversionQualityGate
 };
+

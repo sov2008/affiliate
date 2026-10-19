@@ -11,7 +11,7 @@ const path = require('path');
 const https = require('https');
 const { execSync } = require('child_process');
 const dotenv = require('dotenv');
-const { batchGenerateCopy } = require('./humanized_copywriter.cjs');
+const { batchGenerateCopy, enforceConversionQualityGate } = require('./humanized_copywriter.cjs');
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../core/.env') });
@@ -488,6 +488,10 @@ async function syncAndBuild() {
     delete deal.rawDescription;
   }
   log(`✨ All ${generatedDeals.length} deal descriptions and titles are now bespoke, humanized, and conversion-optimized.`);
+
+  // 4.6. Strict Quality Gate Enforcement (Rule 4: STRICT BESPOKE CONVERSION COPY RULE)
+  log(`🛡️ Running Strict Quality Gate to verify 0 raw network boilerplate leaks across all ${generatedDeals.length} deals...`);
+  enforceConversionQualityGate(generatedDeals);
 
   // 5. Serialize into TypeScript format
   const updatedFileContent = `export interface CouponDeal {
