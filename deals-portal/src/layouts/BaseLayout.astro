@@ -80,5 +80,64 @@ const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
   <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 overflow-x-hidden w-full font-sans">
     <slot />
     <CouponRevealModal />
+
+    <!-- Global Sleek Toast Notification -->
+    <div
+      id="globalToast"
+      class="fixed bottom-6 right-6 z-50 hidden items-center gap-2.5 bg-slate-900/95 dark:bg-slate-800/95 text-white text-xs font-semibold px-4 py-3 rounded-2xl shadow-2xl border border-slate-700/80 backdrop-blur-md transition-all"
+      role="status"
+    >
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span id="globalToastMessage">Notification message</span>
+    </div>
+
+    <script is:inline>
+      window.showPromoToast = function(msg) {
+        const toast = document.getElementById('globalToast');
+        const text = document.getElementById('globalToastMessage');
+        if (!toast || !text) return;
+        text.textContent = msg;
+        toast.classList.remove('hidden');
+        toast.classList.add('flex');
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => {
+          toast.classList.add('hidden');
+          toast.classList.remove('flex');
+        }, 2800);
+      };
+
+      // Global Delegated Click Listener for .deal-share-btn
+      document.addEventListener('click', (e) => {
+        const shareBtn = e.target.closest('.deal-share-btn');
+        if (shareBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          const title = shareBtn.getAttribute('data-share-title') || 'PromoRadar Discount Voucher';
+          const desc = shareBtn.getAttribute('data-share-desc') || '';
+          const url = shareBtn.getAttribute('data-share-url') || window.location.href;
+
+          const sharePayload = {
+            title: `${title} | PromoRadar`,
+            text: `${desc ? desc + ' — ' : ''}Verified discount on PromoRadar:`,
+            url: url
+          };
+
+          if (navigator.share) {
+            navigator.share(sharePayload).catch(() => {
+              // Fallback to clipboard if cancelled or rejected
+              navigator.clipboard?.writeText(url).then(() => {
+                window.showPromoToast('Deal link copied to clipboard! Share it with friends ✨');
+              });
+            });
+          } else {
+            navigator.clipboard?.writeText(url).then(() => {
+              window.showPromoToast('Deal link copied to clipboard! Share it with friends ✨');
+            }).catch(() => {
+              window.showPromoToast('Unable to copy link');
+            });
+          }
+        }
+      });
+    </script>
   </body>
 </html>
