@@ -1,0 +1,4442 @@
+[
+  {
+    "id": "4931276",
+    "name": "Barclays US Online Savings",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Banking/Trading",
+    "website": "http://www.banking.barclaysus.com/online-savings.html",
+    "epc7d": 1098.24,
+    "epc90d": 1277.69,
+    "score": 1152.07
+  },
+  {
+    "id": "5808859",
+    "name": "Simply Business US",
+    "category": "Finance & Insurance",
+    "cjCategory": "Insurance > Commercial",
+    "website": "http://www.simplybusiness.com",
+    "epc7d": 920.79,
+    "epc90d": 1349.01,
+    "score": 1049.26
+  },
+  {
+    "id": "5577978",
+    "name": "ExpressVPN Global Programme",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.expressvpn.com/",
+    "epc7d": 1229.54,
+    "epc90d": 529.67,
+    "score": 1019.58
+  },
+  {
+    "id": "5428150",
+    "name": "Sainsbury's Money",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Banking/Trading",
+    "website": "https://money.sainsburys.co.uk",
+    "epc7d": 1147.98,
+    "epc90d": 636.22,
+    "score": 994.45
+  },
+  {
+    "id": "7541231",
+    "name": "Southern New Hampshire University",
+    "category": "Finance & Insurance",
+    "cjCategory": "Education > College",
+    "website": "https://degrees.snhu.edu",
+    "epc7d": 1093.58,
+    "epc90d": 757.47,
+    "score": 992.75
+  },
+  {
+    "id": "6580343",
+    "name": "New York Life Insurance",
+    "category": "Finance & Insurance",
+    "cjCategory": "Insurance > Personal Insurance",
+    "website": "http://www.newyorklife.com",
+    "epc7d": 794.27,
+    "epc90d": 769.75,
+    "score": 786.91
+  },
+  {
+    "id": "3344421",
+    "name": "Fairstone Canada Personal Loans",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Personal Loans",
+    "website": "https://www.fairstone.ca",
+    "epc7d": 765.69,
+    "epc90d": 527.27,
+    "score": 694.16
+  },
+  {
+    "id": "7733560",
+    "name": "Venmo Debit Card",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Credit Cards",
+    "website": "https://venmo.com/about/debitcard",
+    "epc7d": 236.17,
+    "epc90d": 1430.53,
+    "score": 594.48
+  },
+  {
+    "id": "5808860",
+    "name": "Simply Business UK",
+    "category": "Finance & Insurance",
+    "cjCategory": "Insurance > Commercial",
+    "website": "http://simplybusiness.co.uk",
+    "epc7d": 558.53,
+    "epc90d": 588.9,
+    "score": 567.64
+  },
+  {
+    "id": "7302246",
+    "name": "Luxury Card",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Credit Cards",
+    "website": "http://www.luxurycard.com",
+    "epc7d": 190.02,
+    "epc90d": 1425.3,
+    "score": 560.6
+  },
+  {
+    "id": "4047032",
+    "name": "Travelex Insurance",
+    "category": "Travel & Flights",
+    "cjCategory": "Insurance > Personal Insurance",
+    "website": "http://www.travelexinsurance.com",
+    "epc7d": 568.52,
+    "epc90d": 457.04,
+    "score": 535.08
+  },
+  {
+    "id": "7443634",
+    "name": "Jackery",
+    "category": "Software & Tools",
+    "cjCategory": "Home &amp; Garden > Energy Saving",
+    "website": "https://www.jackery.com",
+    "epc7d": 580.2,
+    "epc90d": 321.9,
+    "score": 502.71
+  },
+  {
+    "id": "7625188",
+    "name": "ProperHotel.com",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.properhotel.com",
+    "epc7d": 620.47,
+    "epc90d": 185.91,
+    "score": 490.1
+  },
+  {
+    "id": "5336128",
+    "name": "BMO",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Banking/Trading",
+    "website": "http://bmoharris.com",
+    "epc7d": 509.79,
+    "epc90d": 99.22,
+    "score": 386.62
+  },
+  {
+    "id": "7919880",
+    "name": "CanaDream RV",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://www.canadream.com",
+    "epc7d": 536.74,
+    "epc90d": 0,
+    "score": 375.72
+  },
+  {
+    "id": "6774658",
+    "name": "GetYourGuide US",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.getyourguide.com/",
+    "epc7d": 358.55,
+    "epc90d": 384.39,
+    "score": 366.3
+  },
+  {
+    "id": "4165310",
+    "name": "Hiscox Small Business Insurance",
+    "category": "Finance & Insurance",
+    "cjCategory": "Insurance > Commercial",
+    "website": "https://www.hiscox.com/",
+    "epc7d": 364.26,
+    "epc90d": 351.23,
+    "score": 360.35
+  },
+  {
+    "id": "5275609",
+    "name": "Hotels.com Italy",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://it.hotels.com",
+    "epc7d": 309.26,
+    "epc90d": 215.98,
+    "score": 281.28
+  },
+  {
+    "id": "5491843",
+    "name": "LG Electronics",
+    "category": "Fashion & Retail",
+    "cjCategory": "Home &amp; Garden > Home Appliances",
+    "website": "https://www.lg.com/us",
+    "epc7d": 306.03,
+    "epc90d": 196.36,
+    "score": 273.13
+  },
+  {
+    "id": "6708457",
+    "name": "Turkish Airlines-Americas",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.turkishairlines.com/",
+    "epc7d": 268.57,
+    "epc90d": 183.95,
+    "score": 243.18
+  },
+  {
+    "id": "5428138",
+    "name": "element14",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Computer HW",
+    "website": "http://au.element14.com",
+    "epc7d": 271.56,
+    "epc90d": 150.97,
+    "score": 235.38
+  },
+  {
+    "id": "4996371",
+    "name": "CyberGhost VPN",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.cyberghostvpn.com",
+    "epc7d": 268.56,
+    "epc90d": 154.16,
+    "score": 234.24
+  },
+  {
+    "id": "5275605",
+    "name": "Hotels.com Belgium &amp; Netherlands",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://hotels.com",
+    "epc7d": 248.27,
+    "epc90d": 137.12,
+    "score": 214.92
+  },
+  {
+    "id": "1905878",
+    "name": "TurboTax",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Tax Services",
+    "website": "https://turbotax.intuit.com/",
+    "epc7d": 284.78,
+    "epc90d": 31.78,
+    "score": 208.88
+  },
+  {
+    "id": "5620857",
+    "name": "Discount Electronics",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Computer HW",
+    "website": "https://discountelectronics.com/",
+    "epc7d": 286.14,
+    "epc90d": 16.2,
+    "score": 205.16
+  },
+  {
+    "id": "3588176",
+    "name": "Jared The Galleria of Jewelry",
+    "category": "Finance & Insurance",
+    "cjCategory": "Accessories > Jewelry",
+    "website": "http://www.jared.com",
+    "epc7d": 222.79,
+    "epc90d": 156.91,
+    "score": 203.03
+  },
+  {
+    "id": "5275628",
+    "name": "Hotels.com Turkey &amp; Middle East",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://hotels.com",
+    "epc7d": 157.7,
+    "epc90d": 297.5,
+    "score": 199.64
+  },
+  {
+    "id": "5207349",
+    "name": "BedJet",
+    "category": "Fashion & Retail",
+    "cjCategory": "Home &amp; Garden > Bed &amp; Bath",
+    "website": "https://bedjet.com/",
+    "epc7d": 194.91,
+    "epc90d": 207.9,
+    "score": 198.81
+  },
+  {
+    "id": "1003504",
+    "name": "Dentalplans.com",
+    "category": "Finance & Insurance",
+    "cjCategory": "Health and Wellness > Wellness",
+    "website": "https://www.dentalplans.com/lp/save-on-dental-care/",
+    "epc7d": 227.96,
+    "epc90d": 106.9,
+    "score": 191.64
+  },
+  {
+    "id": "4956152",
+    "name": "Autodesk Asia Pacific ",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.autodesk.com.sg/",
+    "epc7d": 259.71,
+    "epc90d": 30.58,
+    "score": 190.97
+  },
+  {
+    "id": "1675692",
+    "name": "InterContinental Hotels Group - AMER (Americas)",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.ihg.com",
+    "epc7d": 182.82,
+    "epc90d": 201.42,
+    "score": 188.4
+  },
+  {
+    "id": "4511038",
+    "name": "ContactsDirect Affiliate Program",
+    "category": "Finance & Insurance",
+    "cjCategory": "Health and Wellness > Vision Care",
+    "website": "https://www.contactsdirect.com/",
+    "epc7d": 184.27,
+    "epc90d": 176.96,
+    "score": 182.08
+  },
+  {
+    "id": "4772630",
+    "name": "Lands' End Business Outfitters",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://business.landsend.com/",
+    "epc7d": 210.56,
+    "epc90d": 110.97,
+    "score": 180.68
+  },
+  {
+    "id": "7886029",
+    "name": "Alembika.com",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://alembika.com",
+    "epc7d": 140.8,
+    "epc90d": 257.46,
+    "score": 175.8
+  },
+  {
+    "id": "7144456",
+    "name": "VIVA Finance",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Personal Loans",
+    "website": "https://www.viva-finance.com/",
+    "epc7d": 219.51,
+    "epc90d": 60.03,
+    "score": 171.67
+  },
+  {
+    "id": "7539431",
+    "name": "British Gas Landlords Home Insurance ",
+    "category": "Finance & Insurance",
+    "cjCategory": "Home &amp; Garden > Utilities",
+    "website": "https://www.britishgas.co.uk/landlords/insurance.html",
+    "epc7d": 0,
+    "epc90d": 558.35,
+    "score": 167.5
+  },
+  {
+    "id": "5620604",
+    "name": "Quark Software",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://www.quark.com/affiliate?utm_source=cj&amp;utm_medium=website",
+    "epc7d": 233.33,
+    "epc90d": 2.99,
+    "score": 164.23
+  },
+  {
+    "id": "6784655",
+    "name": "Ownwell",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Tax Services",
+    "website": "http://www.ownwell.com",
+    "epc7d": 179.62,
+    "epc90d": 123.43,
+    "score": 162.76
+  },
+  {
+    "id": "5273598",
+    "name": "DeleteMe",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://joindeleteme.com",
+    "epc7d": 136.16,
+    "epc90d": 193.37,
+    "score": 153.32
+  },
+  {
+    "id": "4837117",
+    "name": "NordVPN",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://NordVPN.com",
+    "epc7d": 146.66,
+    "epc90d": 139.51,
+    "score": 144.51
+  },
+  {
+    "id": "4368684",
+    "name": "Trip.com (Global)",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://www.trip.com/",
+    "epc7d": 152.55,
+    "epc90d": 122.05,
+    "score": 143.4
+  },
+  {
+    "id": "7864295",
+    "name": "Booking.com North America ",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.Booking.com",
+    "epc7d": 92.91,
+    "epc90d": 248.71,
+    "score": 139.65
+  },
+  {
+    "id": "5062715",
+    "name": "Virgin Holidays",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://www.virginholidays.co.uk/",
+    "epc7d": 73.83,
+    "epc90d": 283.5,
+    "score": 136.73
+  },
+  {
+    "id": "2125808",
+    "name": "Dell Home &amp; Home Office",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://www.dell.com/en-us/shop",
+    "epc7d": 118.03,
+    "epc90d": 179.24,
+    "score": 136.39
+  },
+  {
+    "id": "6364805",
+    "name": "Bcr.ro",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Banking/Trading",
+    "website": "https://george.bcr.ro/register/",
+    "epc7d": 159.21,
+    "epc90d": 62.5,
+    "score": 130.2
+  },
+  {
+    "id": "7819209",
+    "name": "EF Ultimate Break",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://www.efultimatebreak.com",
+    "epc7d": 35.21,
+    "epc90d": 350.3,
+    "score": 129.74
+  },
+  {
+    "id": "7286313",
+    "name": "X-Sense",
+    "category": "Fashion & Retail",
+    "cjCategory": "Home &amp; Garden > Home Appliances",
+    "website": "https://www.x-sense.com",
+    "epc7d": 148.01,
+    "epc90d": 86.27,
+    "score": 129.49
+  },
+  {
+    "id": "6867883",
+    "name": "Incogni",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "http://www.incogni.com",
+    "epc7d": 156.92,
+    "epc90d": 62.32,
+    "score": 128.54
+  },
+  {
+    "id": "5483733",
+    "name": "Private Internet Access VPN",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.privateinternetaccess.com/",
+    "epc7d": 160.36,
+    "epc90d": 52.03,
+    "score": 127.86
+  },
+  {
+    "id": "5275597",
+    "name": "Hotels.com UK",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://uk.hotels.com",
+    "epc7d": 126.03,
+    "epc90d": 127.06,
+    "score": 126.34
+  },
+  {
+    "id": "3401987",
+    "name": "Bose.ca",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "http://www.bose.ca",
+    "epc7d": 131.86,
+    "epc90d": 100.55,
+    "score": 122.47
+  },
+  {
+    "id": "6209159",
+    "name": "Kaspersky Australia &amp; New Zealand",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.kaspersky.com.au/",
+    "epc7d": 171.82,
+    "epc90d": 0.38,
+    "score": 120.39
+  },
+  {
+    "id": "1464653",
+    "name": "Priceline.com",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.priceline.com",
+    "epc7d": 92.52,
+    "epc90d": 185.26,
+    "score": 120.34
+  },
+  {
+    "id": "4095005",
+    "name": "VSP Individual Vision Plans",
+    "category": "Finance & Insurance",
+    "cjCategory": "Health and Wellness > Vision Care",
+    "website": "http://www.vspdirect.com",
+    "epc7d": 105.48,
+    "epc90d": 151.51,
+    "score": 119.29
+  },
+  {
+    "id": "5566445",
+    "name": "GetYourGuide INT",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://www.getyourguide.com",
+    "epc7d": 125.86,
+    "epc90d": 101,
+    "score": 118.4
+  },
+  {
+    "id": "7211079",
+    "name": "SmartCredit",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Credit Reporting and Repair",
+    "website": "https://www.smartcredit.com/",
+    "epc7d": 141.26,
+    "epc90d": 62.31,
+    "score": 117.57
+  },
+  {
+    "id": "4386835",
+    "name": "IHG AMEA (Asia, Middle East &amp; Africa)",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.ihg.com/",
+    "epc7d": 142.32,
+    "epc90d": 59.27,
+    "score": 117.41
+  },
+  {
+    "id": "4941187",
+    "name": "Frontier Communications",
+    "category": "Software & Tools",
+    "cjCategory": "Online Services > Internet Service Providers",
+    "website": "http://www.frontier.com/",
+    "epc7d": 101.16,
+    "epc90d": 147.68,
+    "score": 115.12
+  },
+  {
+    "id": "6081439",
+    "name": "Bahia Principe Americas",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.bahia-principe.com",
+    "epc7d": 148.6,
+    "epc90d": 35.97,
+    "score": 114.81
+  },
+  {
+    "id": "7512313",
+    "name": "Fortect",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.fortect.com",
+    "epc7d": 100.87,
+    "epc90d": 147.08,
+    "score": 114.73
+  },
+  {
+    "id": "5491845",
+    "name": "Herman Miller",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Home &amp; Garden > Furniture",
+    "website": "http://store.hermanmiller.com",
+    "epc7d": 121.82,
+    "epc90d": 92.35,
+    "score": 112.98
+  },
+  {
+    "id": "4355234",
+    "name": "E-file.com",
+    "category": "Software & Tools",
+    "cjCategory": "Financial Services > Tax Services",
+    "website": "http://www.e-file.com/",
+    "epc7d": 144.02,
+    "epc90d": 29.93,
+    "score": 109.79
+  },
+  {
+    "id": "4380018",
+    "name": "Dell Canada - Home &amp; Small Business",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Computer HW",
+    "website": "http://www.dell.ca",
+    "epc7d": 0,
+    "epc90d": 362.88,
+    "score": 108.86
+  },
+  {
+    "id": "3906677",
+    "name": "WillMaker – Nolo",
+    "category": "Finance & Insurance",
+    "cjCategory": "Legal > Services",
+    "website": "https://www.willmaker.com/",
+    "epc7d": 93.6,
+    "epc90d": 142.98,
+    "score": 108.41
+  },
+  {
+    "id": "7244998",
+    "name": "True Classic Tees",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://www.trueclassictees.com/",
+    "epc7d": 108.92,
+    "epc90d": 102.71,
+    "score": 107.06
+  },
+  {
+    "id": "6525364",
+    "name": "Virgin Atlantic North America",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.virginatlantic.com/us/en",
+    "epc7d": 106.02,
+    "epc90d": 108.74,
+    "score": 106.84
+  },
+  {
+    "id": "4697950",
+    "name": "AXA ASSISTANCE - CZ",
+    "category": "Finance & Insurance",
+    "cjCategory": "Insurance > Personal Insurance",
+    "website": "https://www.axa-assistance.cz",
+    "epc7d": 99.52,
+    "epc90d": 121.33,
+    "score": 106.06
+  },
+  {
+    "id": "4709802",
+    "name": "Eyeconic",
+    "category": "Finance & Insurance",
+    "cjCategory": "Health and Wellness > Vision Care",
+    "website": "http://www.Eyeconic.com",
+    "epc7d": 111.1,
+    "epc90d": 88.74,
+    "score": 104.39
+  },
+  {
+    "id": "5169207",
+    "name": "Funjet Vacations",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.funjet.com",
+    "epc7d": 118.78,
+    "epc90d": 63.48,
+    "score": 102.19
+  },
+  {
+    "id": "5166315",
+    "name": "Virgin Atlantic Airways UK",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.virginatlantic.com/",
+    "epc7d": 108.51,
+    "epc90d": 84.69,
+    "score": 101.36
+  },
+  {
+    "id": "6060110",
+    "name": "Desigual USA,CA &amp; JP",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.desigual.com/en_US/",
+    "epc7d": 113.88,
+    "epc90d": 67.54,
+    "score": 99.98
+  },
+  {
+    "id": "6569732",
+    "name": "TONS Pittsburgh",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://tons-shop.com/",
+    "epc7d": 82.26,
+    "epc90d": 140.64,
+    "score": 99.77
+  },
+  {
+    "id": "7794110",
+    "name": "Traveloka.com",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://www.traveloka.com/",
+    "epc7d": 138.88,
+    "epc90d": 5.57,
+    "score": 98.89
+  },
+  {
+    "id": "6173357",
+    "name": "Talbots",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "http://www.Talbots.com",
+    "epc7d": 112.67,
+    "epc90d": 64.99,
+    "score": 98.37
+  },
+  {
+    "id": "7401967",
+    "name": "Kinship",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://kinship.jp/",
+    "epc7d": 114.92,
+    "epc90d": 57.45,
+    "score": 97.68
+  },
+  {
+    "id": "6403961",
+    "name": "R13",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.r13.com",
+    "epc7d": 119.67,
+    "epc90d": 43.61,
+    "score": 96.85
+  },
+  {
+    "id": "860966",
+    "name": "Autodesk - The Americas",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.autodesk.com/",
+    "epc7d": 114.12,
+    "epc90d": 53.12,
+    "score": 95.82
+  },
+  {
+    "id": "7633648",
+    "name": "AXA Insurance USA",
+    "category": "Finance & Insurance",
+    "cjCategory": "Insurance > Personal Insurance",
+    "website": "https://www.axatravelinsurance.com/",
+    "epc7d": 39.85,
+    "epc90d": 222.59,
+    "score": 94.67
+  },
+  {
+    "id": "4354034",
+    "name": "Xfinity Residential ",
+    "category": "VPN & Security",
+    "cjCategory": "Telecommunications > Online/Wireless",
+    "website": "https://www.xfinity.com/",
+    "epc7d": 70.35,
+    "epc90d": 148.69,
+    "score": 93.85
+  },
+  {
+    "id": "7595654",
+    "name": "ExitLag",
+    "category": "VPN & Security",
+    "cjCategory": "Games &amp; Toys > Electronic Games",
+    "website": "https://www.exitlag.com/",
+    "epc7d": 124.82,
+    "epc90d": 14.7,
+    "score": 91.78
+  },
+  {
+    "id": "5167350",
+    "name": "Apple Vacations",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://www.applevacations.com/",
+    "epc7d": 110.01,
+    "epc90d": 47.44,
+    "score": 91.24
+  },
+  {
+    "id": "4639721",
+    "name": "Contabo COM",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Web Hosting/Servers",
+    "website": "https://contabo.com/",
+    "epc7d": 117.24,
+    "epc90d": 26.66,
+    "score": 90.07
+  },
+  {
+    "id": "5075736",
+    "name": "AVIANCA WORLDWIDE",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "http://www.avianca.com",
+    "epc7d": 90.16,
+    "epc90d": 81.68,
+    "score": 87.62
+  },
+  {
+    "id": "7008286",
+    "name": "HP Canada",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Computer HW",
+    "website": "https://www.hp.com/ca-en/shop/",
+    "epc7d": 74.86,
+    "epc90d": 106.74,
+    "score": 84.42
+  },
+  {
+    "id": "6819202",
+    "name": "Sklep.Eset.pl",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://sklep.eset.pl/",
+    "epc7d": 99.79,
+    "epc90d": 42.65,
+    "score": 82.65
+  },
+  {
+    "id": "4711521",
+    "name": "GeneraliCeska.cz",
+    "category": "Finance & Insurance",
+    "cjCategory": "Insurance > Personal Insurance",
+    "website": "https://www.generaliceska.cz/",
+    "epc7d": 57.93,
+    "epc90d": 139.89,
+    "score": 82.52
+  },
+  {
+    "id": "3272151",
+    "name": "Red Roof",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.redroof.com",
+    "epc7d": 64.41,
+    "epc90d": 121.9,
+    "score": 81.66
+  },
+  {
+    "id": "6629065",
+    "name": "Cathay Pacific US",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://www.cathaypacific.com",
+    "epc7d": 90.78,
+    "epc90d": 59.94,
+    "score": 81.53
+  },
+  {
+    "id": "7785516",
+    "name": "Avail.com",
+    "category": "Software & Tools",
+    "cjCategory": "Financial Services > Real Estate Services",
+    "website": "http://www.avail.com",
+    "epc7d": 83.72,
+    "epc90d": 75.05,
+    "score": 81.12
+  },
+  {
+    "id": "5936618",
+    "name": "Jessie James Handbags",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Handbags",
+    "website": "http://www.jessiejameshandbags.com",
+    "epc7d": 85.79,
+    "epc90d": 67.02,
+    "score": 80.16
+  },
+  {
+    "id": "1702763",
+    "name": "Hotels.com",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.hotels.com",
+    "epc7d": 80.27,
+    "epc90d": 79.19,
+    "score": 79.95
+  },
+  {
+    "id": "6548941",
+    "name": "Condor US ",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.condor.com/us",
+    "epc7d": 52.95,
+    "epc90d": 141.99,
+    "score": 79.66
+  },
+  {
+    "id": "2591819",
+    "name": "Experian.com",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Credit Reporting and Repair",
+    "website": "http://www.experian.com",
+    "epc7d": 74.05,
+    "epc90d": 91.59,
+    "score": 79.31
+  },
+  {
+    "id": "5300312",
+    "name": "DIRECTV",
+    "category": "Software & Tools",
+    "cjCategory": "Books/Media > Television",
+    "website": "https://www.directv.com/stream/",
+    "epc7d": 86.16,
+    "epc90d": 58.36,
+    "score": 77.82
+  },
+  {
+    "id": "3163922",
+    "name": "SeaWorld Parks",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://unitedparks.com",
+    "epc7d": 76.48,
+    "epc90d": 80.81,
+    "score": 77.78
+  },
+  {
+    "id": "2660710",
+    "name": "Kaspersky UK",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.kaspersky.co.uk/",
+    "epc7d": 107.4,
+    "epc90d": 2.12,
+    "score": 75.82
+  },
+  {
+    "id": "1525519",
+    "name": "RealDefense",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.iolo.com",
+    "epc7d": 90.79,
+    "epc90d": 38.68,
+    "score": 75.16
+  },
+  {
+    "id": "7604307",
+    "name": "OmniWatch",
+    "category": "VPN & Security",
+    "cjCategory": "Online Services > Web Tools",
+    "website": "https://www.omniwatch.com",
+    "epc7d": 0,
+    "epc90d": 246.11,
+    "score": 73.83
+  },
+  {
+    "id": "5150121",
+    "name": "Great Wolf Lodge",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "https://www.greatwolf.com",
+    "epc7d": 62.81,
+    "epc90d": 98.87,
+    "score": 73.63
+  },
+  {
+    "id": "4909148",
+    "name": "SVS Home Audio Speakers &amp; Subwoofers",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://www.svsound.com/",
+    "epc7d": 58.25,
+    "epc90d": 105.28,
+    "score": 72.36
+  },
+  {
+    "id": "5507936",
+    "name": "Amanda Uprichard",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://amandauprichard.com/",
+    "epc7d": 55.74,
+    "epc90d": 100.46,
+    "score": 69.16
+  },
+  {
+    "id": "4601919",
+    "name": "Abt Electronics",
+    "category": "Fashion & Retail",
+    "cjCategory": "Home &amp; Garden > Home Appliances",
+    "website": "http://www.abt.com/",
+    "epc7d": 67.88,
+    "epc90d": 71.68,
+    "score": 69.02
+  },
+  {
+    "id": "4975046",
+    "name": "Rack Room Shoes",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.rackroomshoes.com",
+    "epc7d": 63.2,
+    "epc90d": 72.52,
+    "score": 66
+  },
+  {
+    "id": "3579999",
+    "name": "Autodesk - Europe",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "http://www.autodesk.eu",
+    "epc7d": 69.02,
+    "epc90d": 57.86,
+    "score": 65.67
+  },
+  {
+    "id": "6481471",
+    "name": "Tiger of Sweden",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://www.tigerofsweden.com/se/en/home/",
+    "epc7d": 66.74,
+    "epc90d": 59.2,
+    "score": 64.48
+  },
+  {
+    "id": "3635222",
+    "name": "Office Depot and OfficeMax ",
+    "category": "Fashion & Retail",
+    "cjCategory": "Business > Office",
+    "website": "http://www.officedepot.com",
+    "epc7d": 46.13,
+    "epc90d": 107.09,
+    "score": 64.42
+  },
+  {
+    "id": "502178",
+    "name": "Kaspersky India, Africa &amp; Middle East",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.kaspersky.com",
+    "epc7d": 91.17,
+    "epc90d": 1.39,
+    "score": 64.24
+  },
+  {
+    "id": "6068899",
+    "name": "Sony",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "http://electronics.sony.com",
+    "epc7d": 60.77,
+    "epc90d": 71.21,
+    "score": 63.9
+  },
+  {
+    "id": "7090990",
+    "name": "Nobody's Child",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.nobodyschild.com/",
+    "epc7d": 74.17,
+    "epc90d": 38.82,
+    "score": 63.56
+  },
+  {
+    "id": "5533470",
+    "name": "LugLess - INT",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "http://www.lugless.com",
+    "epc7d": 59.71,
+    "epc90d": 72.31,
+    "score": 63.49
+  },
+  {
+    "id": "1513033",
+    "name": "GoDaddy.com",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Domain Registrations",
+    "website": "http://www.godaddy.com",
+    "epc7d": 57.03,
+    "epc90d": 76.32,
+    "score": 62.82
+  },
+  {
+    "id": "5261736",
+    "name": "Google Workspace LATAM",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Web Tools",
+    "website": "https://workspace.google.com/",
+    "epc7d": 0,
+    "epc90d": 206.9,
+    "score": 62.07
+  },
+  {
+    "id": "4110283",
+    "name": "TaxAct",
+    "category": "Software & Tools",
+    "cjCategory": "Financial Services > Tax Services",
+    "website": "http://www.taxact.com",
+    "epc7d": 69.6,
+    "epc90d": 43.64,
+    "score": 61.81
+  },
+  {
+    "id": "6660472",
+    "name": "Turkish Airlines EU &amp; INT",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.turkishairlines.com/",
+    "epc7d": 65.45,
+    "epc90d": 53.27,
+    "score": 61.8
+  },
+  {
+    "id": "7867267",
+    "name": "Komar Layering &amp; Kids",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Childrens",
+    "website": "https://cuddlduds.com",
+    "epc7d": 74.46,
+    "epc90d": 32.13,
+    "score": 61.76
+  },
+  {
+    "id": "5240791",
+    "name": "Ethiopian Airlines Affiliate Program",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.ethiopianairlines.com/AA/EN",
+    "epc7d": 84.08,
+    "epc90d": 9.52,
+    "score": 61.71
+  },
+  {
+    "id": "4524712",
+    "name": "Shopper's Voice",
+    "category": "Finance & Insurance",
+    "cjCategory": "Business > Marketing",
+    "website": "https://www.shoppersvoice.com",
+    "epc7d": 59.3,
+    "epc90d": 64.06,
+    "score": 60.73
+  },
+  {
+    "id": "7517515",
+    "name": "Brussels Airlines US",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.brusselsairlines.com/us/",
+    "epc7d": 67.97,
+    "epc90d": 43.08,
+    "score": 60.5
+  },
+  {
+    "id": "1549809",
+    "name": "Travelocity",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.travelocity.com",
+    "epc7d": 62.88,
+    "epc90d": 53.71,
+    "score": 60.13
+  },
+  {
+    "id": "6209147",
+    "name": "Kaspersky LATAM",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://latam.kaspersky.com/",
+    "epc7d": 75.35,
+    "epc90d": 23.96,
+    "score": 59.93
+  },
+  {
+    "id": "2376964",
+    "name": "Canon",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://www.usa.canon.com/",
+    "epc7d": 55.91,
+    "epc90d": 67.19,
+    "score": 59.29
+  },
+  {
+    "id": "5173193",
+    "name": "Hostinger",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Web Hosting/Servers",
+    "website": "https://www.hostinger.com/",
+    "epc7d": 47.35,
+    "epc90d": 84.74,
+    "score": 58.57
+  },
+  {
+    "id": "6231678",
+    "name": "Linux Foundation",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Education > Professional",
+    "website": "https://training.linuxfoundation.org/",
+    "epc7d": 28.25,
+    "epc90d": 129.12,
+    "score": 58.51
+  },
+  {
+    "id": "7872976",
+    "name": "Mighty Mule",
+    "category": "VPN & Security",
+    "cjCategory": "Home &amp; Garden > Home Appliances",
+    "website": "https://www.mightymule.com",
+    "epc7d": 78.31,
+    "epc90d": 11.7,
+    "score": 58.33
+  },
+  {
+    "id": "4687839",
+    "name": "Hotels.com Latin America",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.hoteles.com/",
+    "epc7d": 47.09,
+    "epc90d": 84.09,
+    "score": 58.19
+  },
+  {
+    "id": "7667126",
+    "name": "Flugladen",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.flugladen.de/",
+    "epc7d": 44.83,
+    "epc90d": 88.44,
+    "score": 57.91
+  },
+  {
+    "id": "5831155",
+    "name": "Houdini Sportswear",
+    "category": "Fashion & Retail",
+    "cjCategory": "Sports &amp; Fitness > Apparel",
+    "website": "http://www.houdinisportswear.com",
+    "epc7d": 66.9,
+    "epc90d": 34.31,
+    "score": 57.12
+  },
+  {
+    "id": "5275614",
+    "name": "Hotels.com Sweden",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://sv.hotels.com",
+    "epc7d": 62.27,
+    "epc90d": 44.71,
+    "score": 57
+  },
+  {
+    "id": "6533705",
+    "name": "Thursday Boot Company",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://thursdayboots.com/",
+    "epc7d": 70.63,
+    "epc90d": 22.83,
+    "score": 56.29
+  },
+  {
+    "id": "3776728",
+    "name": "Journeys",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "http://www.journeys.com",
+    "epc7d": 56.32,
+    "epc90d": 53.86,
+    "score": 55.58
+  },
+  {
+    "id": "7854073",
+    "name": "Booking.com Brazil",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.Booking.com",
+    "epc7d": 45.08,
+    "epc90d": 79.08,
+    "score": 55.28
+  },
+  {
+    "id": "3163767",
+    "name": "Rockport",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "http://www.rockport.com",
+    "epc7d": 62.87,
+    "epc90d": 35.22,
+    "score": 54.57
+  },
+  {
+    "id": "7464091",
+    "name": "PadSplit",
+    "category": "Finance & Insurance",
+    "cjCategory": "Home &amp; Garden > Real Estate",
+    "website": "https://www.padsplit.com/",
+    "epc7d": 39.06,
+    "epc90d": 89.98,
+    "score": 54.34
+  },
+  {
+    "id": "7743119",
+    "name": "Sembo ",
+    "category": "Software & Tools",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.sembo.com",
+    "epc7d": 69.25,
+    "epc90d": 16.21,
+    "score": 53.34
+  },
+  {
+    "id": "7591847",
+    "name": "WALLHACK",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Peripherals",
+    "website": "https://wallhack.com/",
+    "epc7d": 46.74,
+    "epc90d": 67.82,
+    "score": 53.06
+  },
+  {
+    "id": "1874913",
+    "name": "Expedia, Inc",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://www.expedia.com",
+    "epc7d": 54.35,
+    "epc90d": 50,
+    "score": 53.05
+  },
+  {
+    "id": "4671274",
+    "name": "TGW - The Golfer's World",
+    "category": "Fashion & Retail",
+    "cjCategory": "Sports &amp; Fitness > Golf",
+    "website": "http://www.tgw.com",
+    "epc7d": 32.52,
+    "epc90d": 100.85,
+    "score": 53.02
+  },
+  {
+    "id": "6810155",
+    "name": "Heymondo Travel Insurance (US, UK, CA, AUS, FR)",
+    "category": "Travel & Flights",
+    "cjCategory": "Insurance > Personal Insurance",
+    "website": "http://www.heymondo.com",
+    "epc7d": 66.01,
+    "epc90d": 22.46,
+    "score": 52.95
+  },
+  {
+    "id": "7661723",
+    "name": "Shelborne Hotel",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://shelborne.com",
+    "epc7d": 0,
+    "epc90d": 175.84,
+    "score": 52.75
+  },
+  {
+    "id": "6465808",
+    "name": "U.S. Polo Assn.",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://uspoloassn.com/",
+    "epc7d": 55.23,
+    "epc90d": 45.78,
+    "score": 52.39
+  },
+  {
+    "id": "6509930",
+    "name": "Canon UK",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "http://store.canon.co.uk ",
+    "epc7d": 46.93,
+    "epc90d": 61.95,
+    "score": 51.44
+  },
+  {
+    "id": "5683766",
+    "name": "Free Country",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "http://www.freecountry.com",
+    "epc7d": 54.85,
+    "epc90d": 39.78,
+    "score": 50.33
+  },
+  {
+    "id": "4593144",
+    "name": "Choice Home Warranty",
+    "category": "Finance & Insurance",
+    "cjCategory": " > Insurance",
+    "website": "http://www.ChoiceHomeWarranty.com",
+    "epc7d": 45.04,
+    "epc90d": 60.73,
+    "score": 49.75
+  },
+  {
+    "id": "5140517",
+    "name": "1Password - Password Manager",
+    "category": "VPN & Security",
+    "cjCategory": "Business > Productivity Tools",
+    "website": "https://1password.com/",
+    "epc7d": 42.57,
+    "epc90d": 66.36,
+    "score": 49.71
+  },
+  {
+    "id": "6176627",
+    "name": "Pro Standard",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://teamprostandard.com/",
+    "epc7d": 46.69,
+    "epc90d": 56.04,
+    "score": 49.49
+  },
+  {
+    "id": "7245946",
+    "name": "TourBox",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Computer HW",
+    "website": "https://www.tourboxtech.com",
+    "epc7d": 40.7,
+    "epc90d": 68.61,
+    "score": 49.07
+  },
+  {
+    "id": "5920303",
+    "name": "Photobucket",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Web Hosting/Servers",
+    "website": "http://www.photobucket.com",
+    "epc7d": 50.54,
+    "epc90d": 43.64,
+    "score": 48.47
+  },
+  {
+    "id": "1762860",
+    "name": "MyFax",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Business > Productivity Tools",
+    "website": "http://www.myfax.com",
+    "epc7d": 30.09,
+    "epc90d": 90.72,
+    "score": 48.28
+  },
+  {
+    "id": "5384393",
+    "name": "Vintage Boho",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Handbags",
+    "website": "http://www.vintagebohobags.com",
+    "epc7d": 31.82,
+    "epc90d": 85.81,
+    "score": 48.02
+  },
+  {
+    "id": "4934389",
+    "name": "ESET UK",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "http://www.eset.com/uk/",
+    "epc7d": 44.4,
+    "epc90d": 56.28,
+    "score": 47.96
+  },
+  {
+    "id": "5018595",
+    "name": "AXA-PARTNERS.PL",
+    "category": "Finance & Insurance",
+    "cjCategory": "Insurance > Personal Insurance",
+    "website": "http://www.axa-assistance.pl",
+    "epc7d": 34.44,
+    "epc90d": 77.53,
+    "score": 47.37
+  },
+  {
+    "id": "1390130",
+    "name": "myAutoloan.com",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Banking/Trading",
+    "website": "http://www.myautoloan.com",
+    "epc7d": 39.4,
+    "epc90d": 62.13,
+    "score": 46.22
+  },
+  {
+    "id": "5033111",
+    "name": "FootJoy",
+    "category": "Fashion & Retail",
+    "cjCategory": "Sports &amp; Fitness > Golf",
+    "website": "https://www.footjoy.com",
+    "epc7d": 46.04,
+    "epc90d": 46.48,
+    "score": 46.17
+  },
+  {
+    "id": "7417314",
+    "name": "Marc Cain -INT",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.marc-cain.com",
+    "epc7d": 31.38,
+    "epc90d": 80.27,
+    "score": 46.05
+  },
+  {
+    "id": "5241344",
+    "name": "Dr. Martens",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.drmartens.com/us/en/",
+    "epc7d": 46.45,
+    "epc90d": 44.76,
+    "score": 45.94
+  },
+  {
+    "id": "5414226",
+    "name": "Little Burgundy Shoes",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.littleburgundyshoes.com/",
+    "epc7d": 47.95,
+    "epc90d": 40.38,
+    "score": 45.68
+  },
+  {
+    "id": "7058001",
+    "name": "Billy Reid",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "http://www.billyreid.com",
+    "epc7d": 39.33,
+    "epc90d": 60.2,
+    "score": 45.59
+  },
+  {
+    "id": "4861280",
+    "name": "Orbitz",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://www.orbitz.com",
+    "epc7d": 33.88,
+    "epc90d": 72.78,
+    "score": 45.55
+  },
+  {
+    "id": "6668150",
+    "name": "Tablet Hotels",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "https://www.tablethotels.com/",
+    "epc7d": 51.77,
+    "epc90d": 29.77,
+    "score": 45.17
+  },
+  {
+    "id": "4942550",
+    "name": "NIKE",
+    "category": "Fashion & Retail",
+    "cjCategory": "Sports &amp; Fitness > Apparel",
+    "website": "http://www.nike.com",
+    "epc7d": 49.16,
+    "epc90d": 35.59,
+    "score": 45.09
+  },
+  {
+    "id": "4686482",
+    "name": "ShopWSS",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "http://www.ShopWSS.com",
+    "epc7d": 44.29,
+    "epc90d": 45.93,
+    "score": 44.78
+  },
+  {
+    "id": "6316814",
+    "name": "CAMPER UK",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.camper.com/en_GB",
+    "epc7d": 55.67,
+    "epc90d": 19.38,
+    "score": 44.78
+  },
+  {
+    "id": "7797916",
+    "name": "ALLPOWERS",
+    "category": "Software & Tools",
+    "cjCategory": "Home &amp; Garden > Home Appliances",
+    "website": "http://www.iallpowers.eu",
+    "epc7d": 61.17,
+    "epc90d": 5.56,
+    "score": 44.49
+  },
+  {
+    "id": "6511865",
+    "name": "Macy's",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "http://www.Macys.com",
+    "epc7d": 44.58,
+    "epc90d": 42.28,
+    "score": 43.89
+  },
+  {
+    "id": "6512958",
+    "name": "TeamViewer Int",
+    "category": "VPN & Security",
+    "cjCategory": "Business > Business-to-Business",
+    "website": "https://www.teamviewer.com",
+    "epc7d": 49.03,
+    "epc90d": 30.28,
+    "score": 43.41
+  },
+  {
+    "id": "5655976",
+    "name": "Few Moda",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://fewmoda.com/",
+    "epc7d": 39.94,
+    "epc90d": 48.87,
+    "score": 42.62
+  },
+  {
+    "id": "7055164",
+    "name": "Sonic Electronix",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "http://www.sonicelectronix.com",
+    "epc7d": 45.31,
+    "epc90d": 35.39,
+    "score": 42.33
+  },
+  {
+    "id": "7902933",
+    "name": "LIÉ STUDIO",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Jewelry",
+    "website": "https://lie-studio.com/",
+    "epc7d": 46.46,
+    "epc90d": 32.41,
+    "score": 42.24
+  },
+  {
+    "id": "6383102",
+    "name": "Earth Shoes",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://earthshoes.com/",
+    "epc7d": 44.76,
+    "epc90d": 35.99,
+    "score": 42.13
+  },
+  {
+    "id": "5400984",
+    "name": "Epidemic Sound",
+    "category": "Software & Tools",
+    "cjCategory": "Art/Photo/Music > Music",
+    "website": "https://www.epidemicsound.com/",
+    "epc7d": 44.44,
+    "epc90d": 36.49,
+    "score": 42.05
+  },
+  {
+    "id": "7686132",
+    "name": "SWAG Golf",
+    "category": "Fashion & Retail",
+    "cjCategory": "Sports &amp; Fitness > Golf",
+    "website": "https://swag.golf/",
+    "epc7d": 40.86,
+    "epc90d": 43.78,
+    "score": 41.74
+  },
+  {
+    "id": "2884295",
+    "name": "Easy Spirit",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "http://www.easyspirit.com",
+    "epc7d": 48.2,
+    "epc90d": 26.47,
+    "score": 41.68
+  },
+  {
+    "id": "1544502",
+    "name": "Travel Guard",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Accessories",
+    "website": "http://www.travelguard.com",
+    "epc7d": 57.43,
+    "epc90d": 3.44,
+    "score": 41.23
+  },
+  {
+    "id": "5535819",
+    "name": "Xtratuf",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "http://www.xtratuf.com",
+    "epc7d": 39.6,
+    "epc90d": 44.56,
+    "score": 41.09
+  },
+  {
+    "id": "5285843",
+    "name": "Omio Travel GmbH US",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://www.omio.com",
+    "epc7d": 39.26,
+    "epc90d": 44.8,
+    "score": 40.92
+  },
+  {
+    "id": "6316816",
+    "name": "CAMPER US, CA, AU, LATAM",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.camper.com",
+    "epc7d": 40.32,
+    "epc90d": 41.66,
+    "score": 40.72
+  },
+  {
+    "id": "7066144",
+    "name": "ARAKII",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://arakii.com/",
+    "epc7d": 45.1,
+    "epc90d": 29.61,
+    "score": 40.45
+  },
+  {
+    "id": "6968995",
+    "name": "BAHIA PRINCIPE EU",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "https://www.bahia-principe.com/es/",
+    "epc7d": 52.18,
+    "epc90d": 13.06,
+    "score": 40.44
+  },
+  {
+    "id": "4521871",
+    "name": "FlightHub",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "http://www.flighthub.com",
+    "epc7d": 43.4,
+    "epc90d": 31.34,
+    "score": 39.78
+  },
+  {
+    "id": "5929316",
+    "name": "Komar Traditional Sleepwear",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.komarbrands.com/",
+    "epc7d": 49.48,
+    "epc90d": 16.72,
+    "score": 39.65
+  },
+  {
+    "id": "7503853",
+    "name": "12GO",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://12go.asia/en/",
+    "epc7d": 35.38,
+    "epc90d": 49.34,
+    "score": 39.57
+  },
+  {
+    "id": "5830593",
+    "name": "The Bar",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://the--bar.com/",
+    "epc7d": 37.88,
+    "epc90d": 43.46,
+    "score": 39.55
+  },
+  {
+    "id": "4189863",
+    "name": "Mytheresa - FR",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.mytheresa.com/fr/fr/femme",
+    "epc7d": 41.56,
+    "epc90d": 34.22,
+    "score": 39.36
+  },
+  {
+    "id": "4584986",
+    "name": "JUSTFLY",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "http://www.justfly.com",
+    "epc7d": 37.24,
+    "epc90d": 40.56,
+    "score": 38.24
+  },
+  {
+    "id": "6488554",
+    "name": "PrivacyHawk",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.privacyhawk.com/",
+    "epc7d": 0,
+    "epc90d": 127.02,
+    "score": 38.11
+  },
+  {
+    "id": "6316820",
+    "name": "CAMPER EMEA",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.camper.com",
+    "epc7d": 44.16,
+    "epc90d": 22.31,
+    "score": 37.6
+  },
+  {
+    "id": "7799917",
+    "name": "KONTROLFREEK",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Peripherals",
+    "website": "https://www.kontrolfreek.com/",
+    "epc7d": 43.96,
+    "epc90d": 22.2,
+    "score": 37.43
+  },
+  {
+    "id": "5025311",
+    "name": "Movavi",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.Movavi.com",
+    "epc7d": 51.29,
+    "epc90d": 4.99,
+    "score": 37.4
+  },
+  {
+    "id": "4453383",
+    "name": "Vrbo Spain",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "https://www.vrbo.com/es-es",
+    "epc7d": 49.03,
+    "epc90d": 9.58,
+    "score": 37.2
+  },
+  {
+    "id": "7202610",
+    "name": "QVC UK",
+    "category": "Fashion & Retail",
+    "cjCategory": "Beauty > Cosmetics",
+    "website": "https://www.qvcuk.com/",
+    "epc7d": 44.45,
+    "epc90d": 20.06,
+    "score": 37.13
+  },
+  {
+    "id": "5275615",
+    "name": "Hotels.com Denmark",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://da.hotels.com",
+    "epc7d": 27.82,
+    "epc90d": 57.9,
+    "score": 36.84
+  },
+  {
+    "id": "6174711",
+    "name": "A2t.ro",
+    "category": "Software & Tools",
+    "cjCategory": "Telecommunications > Online/Wireless",
+    "website": "https://www.a2t.ro/",
+    "epc7d": 45.36,
+    "epc90d": 15.85,
+    "score": 36.51
+  },
+  {
+    "id": "1620136",
+    "name": "The Walking Company",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.thewalkingcompany.com",
+    "epc7d": 39.68,
+    "epc90d": 28.64,
+    "score": 36.37
+  },
+  {
+    "id": "7451848",
+    "name": "seats.aero",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://seats.aero/",
+    "epc7d": 34.12,
+    "epc90d": 40.61,
+    "score": 36.07
+  },
+  {
+    "id": "7481923",
+    "name": "CAMPERLAB",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.camperlab.com/",
+    "epc7d": 37.41,
+    "epc90d": 31.39,
+    "score": 35.6
+  },
+  {
+    "id": "6405048",
+    "name": "Motorola",
+    "category": "Software & Tools",
+    "cjCategory": "Telecommunications > Online/Wireless",
+    "website": "https://www.motorola.com/us/",
+    "epc7d": 28.45,
+    "epc90d": 51.5,
+    "score": 35.36
+  },
+  {
+    "id": "5599987",
+    "name": "VIVAIA INT",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.vivaia.com/",
+    "epc7d": 40.24,
+    "epc90d": 21.92,
+    "score": 34.74
+  },
+  {
+    "id": "5531758",
+    "name": "Haglofs",
+    "category": "Fashion & Retail",
+    "cjCategory": "Sports &amp; Fitness > Apparel",
+    "website": "https://www.haglofs.com",
+    "epc7d": 44.34,
+    "epc90d": 11.87,
+    "score": 34.6
+  },
+  {
+    "id": "6008402",
+    "name": "Li Ning Way of Wade",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.wayofwade.com/",
+    "epc7d": 30.7,
+    "epc90d": 43.55,
+    "score": 34.55
+  },
+  {
+    "id": "7462595",
+    "name": "ROA",
+    "category": "Fashion & Retail",
+    "cjCategory": "Recreation &amp; Leisure > Outdoors",
+    "website": "https://www.roa-hiking.com/",
+    "epc7d": 39.07,
+    "epc90d": 23.8,
+    "score": 34.49
+  },
+  {
+    "id": "2515404",
+    "name": "CheapOair",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "http://www.cheapoair.com",
+    "epc7d": 27.59,
+    "epc90d": 50.06,
+    "score": 34.33
+  },
+  {
+    "id": "6993128",
+    "name": "SATORISAN EU",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Green",
+    "website": "http://www.satorisan.com",
+    "epc7d": 36.79,
+    "epc90d": 28.33,
+    "score": 34.25
+  },
+  {
+    "id": "6264845",
+    "name": "By Malene Birger",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.bymalenebirger.com/",
+    "epc7d": 36.72,
+    "epc90d": 28.02,
+    "score": 34.11
+  },
+  {
+    "id": "7626343",
+    "name": "VIKTOR&amp;ROLF",
+    "category": "Travel & Flights",
+    "cjCategory": "Beauty > Fragrance",
+    "website": "http://us.viktor-rolf.com",
+    "epc7d": 45.04,
+    "epc90d": 8.22,
+    "score": 33.99
+  },
+  {
+    "id": "6828805",
+    "name": "Travelpro EU",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Luggage",
+    "website": "https://eu.travelpro.com/",
+    "epc7d": 29.26,
+    "epc90d": 44.4,
+    "score": 33.8
+  },
+  {
+    "id": "7667118",
+    "name": "vliegwinkel",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.vliegwinkel.nl/",
+    "epc7d": 32.54,
+    "epc90d": 36.04,
+    "score": 33.59
+  },
+  {
+    "id": "5279320",
+    "name": "Columbia Sportswear Canada",
+    "category": "Fashion & Retail",
+    "cjCategory": "Sports &amp; Fitness > Apparel",
+    "website": "http://www.columbiasportswear.ca",
+    "epc7d": 35.96,
+    "epc90d": 27.69,
+    "score": 33.48
+  },
+  {
+    "id": "6121945",
+    "name": "Polo Club EU",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://www.poloclub.com/",
+    "epc7d": 33.33,
+    "epc90d": 32.76,
+    "score": 33.16
+  },
+  {
+    "id": "6209109",
+    "name": "Kaspersky EU",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.kaspersky.com",
+    "epc7d": 46.06,
+    "epc90d": 2.68,
+    "score": 33.05
+  },
+  {
+    "id": "6305416",
+    "name": "Halara",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://halara.com/",
+    "epc7d": 34.61,
+    "epc90d": 29.3,
+    "score": 33.02
+  },
+  {
+    "id": "7469879",
+    "name": "Johnstons of Elgin",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Malls",
+    "website": "https://johnstonsofelgin.com/",
+    "epc7d": 43.15,
+    "epc90d": 7.62,
+    "score": 32.49
+  },
+  {
+    "id": "2691614",
+    "name": "Vrbo UK",
+    "category": "Finance & Insurance",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://www.vrbo.com/en-gb/",
+    "epc7d": 31.22,
+    "epc90d": 35.02,
+    "score": 32.36
+  },
+  {
+    "id": "2696047",
+    "name": "Phone.com Virtual Office",
+    "category": "Software & Tools",
+    "cjCategory": "Telecommunications > Telephone Services",
+    "website": "https://www.phone.com",
+    "epc7d": 38.77,
+    "epc90d": 16.98,
+    "score": 32.23
+  },
+  {
+    "id": "6163383",
+    "name": "Carl Friedrik",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://www.carlfriedrik.com/",
+    "epc7d": 26.32,
+    "epc90d": 43.56,
+    "score": 31.49
+  },
+  {
+    "id": "5018271",
+    "name": "CheapOair.ca",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.cheapoair.ca/",
+    "epc7d": 31.41,
+    "epc90d": 29.37,
+    "score": 30.8
+  },
+  {
+    "id": "6165218",
+    "name": "FinalCut",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://www.shopfinalcut.com",
+    "epc7d": 28.9,
+    "epc90d": 35.13,
+    "score": 30.77
+  },
+  {
+    "id": "5600250",
+    "name": "NordLayer",
+    "category": "VPN & Security",
+    "cjCategory": "Business > Business-to-Business",
+    "website": "https://nordlayer.com/",
+    "epc7d": 0,
+    "epc90d": 101.54,
+    "score": 30.46
+  },
+  {
+    "id": "6874782",
+    "name": "ezTaxReturn.com",
+    "category": "Software & Tools",
+    "cjCategory": "Financial Services > Tax Services",
+    "website": "https://www.eztaxreturn.com",
+    "epc7d": 41.56,
+    "epc90d": 4.2,
+    "score": 30.35
+  },
+  {
+    "id": "7879131",
+    "name": "Shadow NA",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://shadow.tech/",
+    "epc7d": 33.86,
+    "epc90d": 19.71,
+    "score": 29.61
+  },
+  {
+    "id": "4189902",
+    "name": "mytheresa - DACH",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.mytheresa.com/de/de/damen",
+    "epc7d": 31.09,
+    "epc90d": 26.06,
+    "score": 29.58
+  },
+  {
+    "id": "5715804",
+    "name": "PUMA UK",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://uk.puma.com",
+    "epc7d": 31.2,
+    "epc90d": 24.36,
+    "score": 29.15
+  },
+  {
+    "id": "7133590",
+    "name": "LG Peru",
+    "category": "Fashion & Retail",
+    "cjCategory": "Home &amp; Garden > Home Appliances",
+    "website": "https://www.lg.com/pe",
+    "epc7d": 36.62,
+    "epc90d": 11.72,
+    "score": 29.15
+  },
+  {
+    "id": "5102351",
+    "name": "JCPenney Affiliate",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "http://www.jcpenney.com/",
+    "epc7d": 31.01,
+    "epc90d": 24.05,
+    "score": 28.92
+  },
+  {
+    "id": "6981338",
+    "name": "Balearia Caribbean US",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://www.baleariacaribbean.com",
+    "epc7d": 0,
+    "epc90d": 95.48,
+    "score": 28.64
+  },
+  {
+    "id": "6153681",
+    "name": "Destira",
+    "category": "Fashion & Retail",
+    "cjCategory": "Sports &amp; Fitness > Apparel",
+    "website": "https://destira.com/",
+    "epc7d": 28.78,
+    "epc90d": 27.2,
+    "score": 28.31
+  },
+  {
+    "id": "6827734",
+    "name": "Radisson Hotel Group  APAC ",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://radisson.com",
+    "epc7d": 35.92,
+    "epc90d": 10,
+    "score": 28.14
+  },
+  {
+    "id": "2816786",
+    "name": "Mytheresa - UK",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.mytheresa.com/gb/en/women",
+    "epc7d": 33.56,
+    "epc90d": 14.97,
+    "score": 27.98
+  },
+  {
+    "id": "7504463",
+    "name": "Shadow EU",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://shadow.tech/",
+    "epc7d": 25.27,
+    "epc90d": 33.3,
+    "score": 27.68
+  },
+  {
+    "id": "7963000",
+    "name": "Garden Hotels",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.gardenhotels.com/",
+    "epc7d": 39.44,
+    "epc90d": 0,
+    "score": 27.61
+  },
+  {
+    "id": "7662403",
+    "name": "Malaysia Airlines",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.malaysiaairlines.com/",
+    "epc7d": 33.68,
+    "epc90d": 12.93,
+    "score": 27.45
+  },
+  {
+    "id": "7636568",
+    "name": "Coofandy",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://coofandy.com/",
+    "epc7d": 25.6,
+    "epc90d": 31.34,
+    "score": 27.32
+  },
+  {
+    "id": "4189905",
+    "name": "Mytheresa - International",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.mytheresa.com/int/en/women",
+    "epc7d": 29.88,
+    "epc90d": 19.39,
+    "score": 26.73
+  },
+  {
+    "id": "5227916",
+    "name": "Proton Partners Program",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://proton.me",
+    "epc7d": 29.48,
+    "epc90d": 19.72,
+    "score": 26.55
+  },
+  {
+    "id": "6271057",
+    "name": "DirectDeals",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.directdeals.com/",
+    "epc7d": 25.12,
+    "epc90d": 28.5,
+    "score": 26.13
+  },
+  {
+    "id": "7122257",
+    "name": "Gotogate",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.gotogate.com",
+    "epc7d": 26.7,
+    "epc90d": 23.28,
+    "score": 25.67
+  },
+  {
+    "id": "7159128",
+    "name": "GIROTTI",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://girotti.com/",
+    "epc7d": 23.26,
+    "epc90d": 30.93,
+    "score": 25.56
+  },
+  {
+    "id": "6383101",
+    "name": "Marc Fisher",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://marcfisherfootwear.com/",
+    "epc7d": 26.52,
+    "epc90d": 23.06,
+    "score": 25.48
+  },
+  {
+    "id": "2069963",
+    "name": "ESET North America",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.eset.com/us/",
+    "epc7d": 15.54,
+    "epc90d": 48.63,
+    "score": 25.47
+  },
+  {
+    "id": "6530142",
+    "name": "House of Sunny",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.houseofsunny.com",
+    "epc7d": 24.73,
+    "epc90d": 26.42,
+    "score": 25.24
+  },
+  {
+    "id": "2725075",
+    "name": "OneTravel",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "http://www.onetravel.com",
+    "epc7d": 23.78,
+    "epc90d": 28.26,
+    "score": 25.12
+  },
+  {
+    "id": "3774518",
+    "name": "INTERNATIONAL PROGRAM IBERIA EXPRESS",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "http://www.iberiaexpress.com/",
+    "epc7d": 24.81,
+    "epc90d": 25.49,
+    "score": 25.01
+  },
+  {
+    "id": "5128949",
+    "name": "AAA - Auto Club",
+    "category": "Finance & Insurance",
+    "cjCategory": "Insurance > Personal Insurance",
+    "website": "https://calstate.aaa.com/",
+    "epc7d": 23.25,
+    "epc90d": 28.26,
+    "score": 24.75
+  },
+  {
+    "id": "4109522",
+    "name": "123Ink.ca",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Peripherals",
+    "website": "https://www.123ink.ca",
+    "epc7d": 26.97,
+    "epc90d": 19.47,
+    "score": 24.72
+  },
+  {
+    "id": "7717732",
+    "name": "trivago UK",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "https://www.trivago.co.uk/",
+    "epc7d": 9.8,
+    "epc90d": 59.04,
+    "score": 24.57
+  },
+  {
+    "id": "1388074",
+    "name": "eFax",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Business > Productivity Tools",
+    "website": "http://www.efax.com",
+    "epc7d": 23.15,
+    "epc90d": 27.79,
+    "score": 24.54
+  },
+  {
+    "id": "7012836",
+    "name": "CPC",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://cpc.farnell.com",
+    "epc7d": 28.6,
+    "epc90d": 14.68,
+    "score": 24.42
+  },
+  {
+    "id": "6123342",
+    "name": "EcoFlow EU",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://eu.ecoflow.com",
+    "epc7d": 27.95,
+    "epc90d": 16.13,
+    "score": 24.4
+  },
+  {
+    "id": "6819725",
+    "name": "Western Union Europe",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Banking/Trading",
+    "website": "http://www.westernunion.com",
+    "epc7d": 0,
+    "epc90d": 80.84,
+    "score": 24.25
+  },
+  {
+    "id": "4615270",
+    "name": "Rainbow Shops",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.rainbowshops.com",
+    "epc7d": 29.46,
+    "epc90d": 11.83,
+    "score": 24.17
+  },
+  {
+    "id": "5504360",
+    "name": "Maceoo Global",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Malls",
+    "website": "http://Maceoo.com",
+    "epc7d": 17.3,
+    "epc90d": 39.36,
+    "score": 23.92
+  },
+  {
+    "id": "5261735",
+    "name": "Google Workspace APAC",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Web Tools",
+    "website": "https://workspace.google.com/",
+    "epc7d": 0,
+    "epc90d": 79.58,
+    "score": 23.87
+  },
+  {
+    "id": "4421352",
+    "name": "Target Optical",
+    "category": "Finance & Insurance",
+    "cjCategory": " > Health and Wellness",
+    "website": "https://www.targetoptical.com",
+    "epc7d": 23.4,
+    "epc90d": 24.97,
+    "score": 23.87
+  },
+  {
+    "id": "7667115",
+    "name": "BudgetAir",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.budgetair.com/",
+    "epc7d": 26.47,
+    "epc90d": 17.65,
+    "score": 23.82
+  },
+  {
+    "id": "6203392",
+    "name": "Lalal.ai global",
+    "category": "Software & Tools",
+    "cjCategory": "Art/Photo/Music > Music",
+    "website": "https://lalal.ai/",
+    "epc7d": 32.58,
+    "epc90d": 3.16,
+    "score": 23.75
+  },
+  {
+    "id": "2817689",
+    "name": "Mytheresa US/CA",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.mytheresa.com/us/en/women",
+    "epc7d": 24.68,
+    "epc90d": 20.08,
+    "score": 23.3
+  },
+  {
+    "id": "2691607",
+    "name": "Vrbo",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://www.vrbo.com",
+    "epc7d": 24.07,
+    "epc90d": 21.47,
+    "score": 23.29
+  },
+  {
+    "id": "5194827",
+    "name": "prAna",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Green",
+    "website": "https://www.prana.com/",
+    "epc7d": 18.78,
+    "epc90d": 33.28,
+    "score": 23.13
+  },
+  {
+    "id": "5279322",
+    "name": "Mountain Hardwear Canada",
+    "category": "Fashion & Retail",
+    "cjCategory": "Sports &amp; Fitness > Apparel",
+    "website": "http://www.mountainhardwear.ca",
+    "epc7d": 25.83,
+    "epc90d": 16.72,
+    "score": 23.1
+  },
+  {
+    "id": "5347297",
+    "name": "ASKET",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://asket.com/",
+    "epc7d": 19.31,
+    "epc90d": 31.26,
+    "score": 22.89
+  },
+  {
+    "id": "7103442",
+    "name": "361Sport",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://361sport.com/",
+    "epc7d": 24.94,
+    "epc90d": 17.59,
+    "score": 22.73
+  },
+  {
+    "id": "5565195",
+    "name": "Printfresh",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "http://printfresh.com",
+    "epc7d": 24.65,
+    "epc90d": 17.38,
+    "score": 22.47
+  },
+  {
+    "id": "3546818",
+    "name": "Monoprice.com",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "http://www.monoprice.com",
+    "epc7d": 25.36,
+    "epc90d": 15.31,
+    "score": 22.34
+  },
+  {
+    "id": "7109732",
+    "name": "Dr. Martens Canada",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.drmartens.com/ca/en_ca/",
+    "epc7d": 23.33,
+    "epc90d": 17.9,
+    "score": 21.7
+  },
+  {
+    "id": "7016567",
+    "name": "Kings Camo",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://www.kingscamo.com/",
+    "epc7d": 25.56,
+    "epc90d": 12.65,
+    "score": 21.69
+  },
+  {
+    "id": "6159036",
+    "name": "World Nomads",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://www.worldnomads.com",
+    "epc7d": 11.16,
+    "epc90d": 46.11,
+    "score": 21.64
+  },
+  {
+    "id": "6282055",
+    "name": "Surfshark",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "http://www.surfshark.com",
+    "epc7d": 24.78,
+    "epc90d": 14.08,
+    "score": 21.57
+  },
+  {
+    "id": "5207741",
+    "name": "Geox - United Kingdom",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.geox.com/",
+    "epc7d": 22.49,
+    "epc90d": 18.76,
+    "score": 21.37
+  },
+  {
+    "id": "2954830",
+    "name": "FWRD",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "http://www.FWRD.com/",
+    "epc7d": 23.22,
+    "epc90d": 16.95,
+    "score": 21.34
+  },
+  {
+    "id": "6310090",
+    "name": "Condor INT",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.condor.com",
+    "epc7d": 19.8,
+    "epc90d": 24.71,
+    "score": 21.27
+  },
+  {
+    "id": "4766423",
+    "name": "Kiwi.com",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "http://kiwi.com/us/",
+    "epc7d": 21.97,
+    "epc90d": 19.18,
+    "score": 21.13
+  },
+  {
+    "id": "5337709",
+    "name": "Vrbo Canada",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://www.vrbo.com/en-ca/",
+    "epc7d": 14.69,
+    "epc90d": 36.09,
+    "score": 21.11
+  },
+  {
+    "id": "6818540",
+    "name": "Fortunoff Backyard Store",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Home &amp; Garden > Furniture",
+    "website": "https://fortunoffbys.com/",
+    "epc7d": 25.62,
+    "epc90d": 9.96,
+    "score": 20.92
+  },
+  {
+    "id": "5929317",
+    "name": "Komar Intimates",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.komarbrands.com/",
+    "epc7d": 19.05,
+    "epc90d": 24.16,
+    "score": 20.58
+  },
+  {
+    "id": "6917030",
+    "name": "Currency Exchange International, Corp.",
+    "category": "Travel & Flights",
+    "cjCategory": "Financial Services > Investment",
+    "website": "https://order.ceifx.com",
+    "epc7d": 25.93,
+    "epc90d": 7.34,
+    "score": 20.35
+  },
+  {
+    "id": "7650988",
+    "name": "Lufthansa Japan",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://www.lufthansa.com/jp/ja/homepage",
+    "epc7d": 0,
+    "epc90d": 67.8,
+    "score": 20.34
+  },
+  {
+    "id": "7227611",
+    "name": "Electronic Express",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://www.electronicexpress.com/",
+    "epc7d": 23.06,
+    "epc90d": 13.86,
+    "score": 20.3
+  },
+  {
+    "id": "7711902",
+    "name": "AliExpress - Global",
+    "category": "Fashion & Retail",
+    "cjCategory": "Buying and Selling > E-commerce Solutions/Providers",
+    "website": "http://www.aliexpress.com",
+    "epc7d": 26.91,
+    "epc90d": 4.3,
+    "score": 20.13
+  },
+  {
+    "id": "7580001",
+    "name": "Yummy Mummy",
+    "category": "Finance & Insurance",
+    "cjCategory": "Family > Babies",
+    "website": "https://yummymummystore.com",
+    "epc7d": 15.71,
+    "epc90d": 30.24,
+    "score": 20.07
+  },
+  {
+    "id": "6164489",
+    "name": "EaseUS",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.easeus.com",
+    "epc7d": 20.18,
+    "epc90d": 19.16,
+    "score": 19.87
+  },
+  {
+    "id": "7220496",
+    "name": "Hibbett",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://www.hibbett.com/",
+    "epc7d": 20.38,
+    "epc90d": 17.62,
+    "score": 19.55
+  },
+  {
+    "id": "7154072",
+    "name": "P.C. Richard &amp; Son",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "http://www.pcrichard.com",
+    "epc7d": 12.89,
+    "epc90d": 34.42,
+    "score": 19.35
+  },
+  {
+    "id": "3150741",
+    "name": "Perry Ellis",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "http://www.perryellis.com",
+    "epc7d": 19.41,
+    "epc90d": 18.48,
+    "score": 19.13
+  },
+  {
+    "id": "6134751",
+    "name": "Threads 4 Thought",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.threads4thought.com",
+    "epc7d": 14.61,
+    "epc90d": 29.64,
+    "score": 19.12
+  },
+  {
+    "id": "7226122",
+    "name": "Arangrant",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://arangrant.com/en-us/",
+    "epc7d": 23.81,
+    "epc90d": 7.96,
+    "score": 19.05
+  },
+  {
+    "id": "6403655",
+    "name": "TrainPal",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.mytrainpal.com/",
+    "epc7d": 17.8,
+    "epc90d": 20.56,
+    "score": 18.63
+  },
+  {
+    "id": "6382932",
+    "name": "Full Compass Systems",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://www.fullcompass.com/",
+    "epc7d": 18.37,
+    "epc90d": 17.95,
+    "score": 18.24
+  },
+  {
+    "id": "4861279",
+    "name": "CheapTickets",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://www.cheaptickets.com",
+    "epc7d": 16.77,
+    "epc90d": 21.36,
+    "score": 18.15
+  },
+  {
+    "id": "4455279",
+    "name": "IBERIA UK",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "http://www.iberia.com",
+    "epc7d": 13.17,
+    "epc90d": 28.66,
+    "score": 17.82
+  },
+  {
+    "id": "869276",
+    "name": "Potpourri Group",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "http://www.potpourrigroup.com",
+    "epc7d": 17.53,
+    "epc90d": 18.3,
+    "score": 17.76
+  },
+  {
+    "id": "4723933",
+    "name": "PatPat",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Childrens",
+    "website": "http://www.patpat.com",
+    "epc7d": 22.27,
+    "epc90d": 6.66,
+    "score": 17.59
+  },
+  {
+    "id": "5612741",
+    "name": "behno",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "http://behno.com",
+    "epc7d": 18.31,
+    "epc90d": 15.86,
+    "score": 17.57
+  },
+  {
+    "id": "3743656",
+    "name": "Malwarebytes",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "http://www.malwarebytes.com",
+    "epc7d": 16.25,
+    "epc90d": 20.54,
+    "score": 17.54
+  },
+  {
+    "id": "5857841",
+    "name": "Lands' End DE",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.landsend.de/",
+    "epc7d": 14.23,
+    "epc90d": 24.83,
+    "score": 17.41
+  },
+  {
+    "id": "4912243",
+    "name": "Vrbo NL",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "https://www.vrbo.com/nl-nl/",
+    "epc7d": 18.9,
+    "epc90d": 13.22,
+    "score": 17.2
+  },
+  {
+    "id": "5782000",
+    "name": "WAKAKUU",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.wakakuu.com/",
+    "epc7d": 16.78,
+    "epc90d": 17.98,
+    "score": 17.14
+  },
+  {
+    "id": "6509919",
+    "name": "Canon EMEA",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://store.canon.de/",
+    "epc7d": 11.96,
+    "epc90d": 28.97,
+    "score": 17.06
+  },
+  {
+    "id": "2249115",
+    "name": "Pierre &amp; Vacances UK",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://www.pierreetvacances.com/gb-en",
+    "epc7d": 16.73,
+    "epc90d": 17.73,
+    "score": 17.03
+  },
+  {
+    "id": "3659001",
+    "name": "Vueling World Wide",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "http://www.vueling.com",
+    "epc7d": 14.91,
+    "epc90d": 21.68,
+    "score": 16.94
+  },
+  {
+    "id": "7929316",
+    "name": "Oberoi Hotels",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "https://www.oberoihotels.com/",
+    "epc7d": 0,
+    "epc90d": 55.78,
+    "score": 16.73
+  },
+  {
+    "id": "6342639",
+    "name": "Vantrue",
+    "category": "Finance & Insurance",
+    "cjCategory": "Automotive > Cars &amp; Trucks",
+    "website": "https://www.vantrue.com/",
+    "epc7d": 12.77,
+    "epc90d": 25.84,
+    "score": 16.69
+  },
+  {
+    "id": "6100840",
+    "name": "eSky INT",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.esky.com",
+    "epc7d": 18.39,
+    "epc90d": 12.11,
+    "score": 16.51
+  },
+  {
+    "id": "6169161",
+    "name": "LG Chile",
+    "category": "Fashion & Retail",
+    "cjCategory": "Home &amp; Garden > Home Appliances",
+    "website": "https://www.lg.com/cl",
+    "epc7d": 9.2,
+    "epc90d": 32.63,
+    "score": 16.23
+  },
+  {
+    "id": "6818519",
+    "name": "Chair King Backyard Store",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Home &amp; Garden > Furniture",
+    "website": "https://chairking.com/",
+    "epc7d": 20.71,
+    "epc90d": 5.4,
+    "score": 16.12
+  },
+  {
+    "id": "4912245",
+    "name": "Vrbo Nordics",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "https://www.vrbo.com/sv-se",
+    "epc7d": 2.66,
+    "epc90d": 47.25,
+    "score": 16.04
+  },
+  {
+    "id": "4441431",
+    "name": "Priceline.com Europe",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://priceline.com",
+    "epc7d": 0,
+    "epc90d": 51.54,
+    "score": 15.46
+  },
+  {
+    "id": "5513909",
+    "name": "GolfApparelShop.com",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://www.golfapparelshop.com/",
+    "epc7d": 18.24,
+    "epc90d": 8.78,
+    "score": 15.4
+  },
+  {
+    "id": "5344468",
+    "name": "Dorothee Schumacher - INT",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.dorothee-schumacher.com/en/us",
+    "epc7d": 0,
+    "epc90d": 50.94,
+    "score": 15.28
+  },
+  {
+    "id": "6005268",
+    "name": "Cupshe US",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "http://www.cupshe.com",
+    "epc7d": 11.6,
+    "epc90d": 22.9,
+    "score": 14.99
+  },
+  {
+    "id": "7209241",
+    "name": "Virgin Atlantic Airways (Rest of World)",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.virginatlantic.com",
+    "epc7d": 16.77,
+    "epc90d": 10.53,
+    "score": 14.9
+  },
+  {
+    "id": "5185191",
+    "name": "airhelp.com INT",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.airhelp.com/en/",
+    "epc7d": 18.58,
+    "epc90d": 6.28,
+    "score": 14.89
+  },
+  {
+    "id": "7728435",
+    "name": "HopeGoo",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "http://www.hopegoo.com",
+    "epc7d": 20.78,
+    "epc90d": 0.66,
+    "score": 14.74
+  },
+  {
+    "id": "2449164",
+    "name": "Lugz Footwear",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://lugz.com/",
+    "epc7d": 19.87,
+    "epc90d": 1.88,
+    "score": 14.47
+  },
+  {
+    "id": "5693235",
+    "name": "pCloud Partnership Program",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Business > Productivity Tools",
+    "website": "https://www.pcloud.com/",
+    "epc7d": 9.62,
+    "epc90d": 24.9,
+    "score": 14.2
+  },
+  {
+    "id": "5597393",
+    "name": "Carbonite",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Web Tools",
+    "website": "https://www.carbonite.com",
+    "epc7d": 16.24,
+    "epc90d": 8.91,
+    "score": 14.04
+  },
+  {
+    "id": "6284583",
+    "name": "Veepn.com",
+    "category": "VPN & Security",
+    "cjCategory": "Online Services > Web Tools",
+    "website": "https://veepn.com",
+    "epc7d": 17.24,
+    "epc90d": 6.18,
+    "score": 13.92
+  },
+  {
+    "id": "7562394",
+    "name": "Mysterium VPN",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer Support",
+    "website": "https://www.mysteriumvpn.com/",
+    "epc7d": 14.96,
+    "epc90d": 11.1,
+    "score": 13.8
+  },
+  {
+    "id": "4348962",
+    "name": "nixplay",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://www.nixplay.com/",
+    "epc7d": 13.62,
+    "epc90d": 13.99,
+    "score": 13.73
+  },
+  {
+    "id": "4731005",
+    "name": "Farnell Germany",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Computer HW",
+    "website": "http://de.farnell.com/",
+    "epc7d": 14.32,
+    "epc90d": 11.44,
+    "score": 13.46
+  },
+  {
+    "id": "5569379",
+    "name": "Puma EU",
+    "category": "Fashion & Retail",
+    "cjCategory": "Sports &amp; Fitness > Apparel",
+    "website": "https://eu.puma.com/",
+    "epc7d": 15.31,
+    "epc90d": 8.91,
+    "score": 13.39
+  },
+  {
+    "id": "7667121",
+    "name": "CheapTickets",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.cheaptickets.nl/",
+    "epc7d": 14.38,
+    "epc90d": 10.56,
+    "score": 13.23
+  },
+  {
+    "id": "5344950",
+    "name": "Meater",
+    "category": "Fashion & Retail",
+    "cjCategory": "Home &amp; Garden > Kitchen",
+    "website": "https://meater.com/",
+    "epc7d": 2.68,
+    "epc90d": 37.03,
+    "score": 12.98
+  },
+  {
+    "id": "7552333",
+    "name": "Adblockultimate.net",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Web Tools",
+    "website": "https://adblockultimate.net/",
+    "epc7d": 16.28,
+    "epc90d": 5.2,
+    "score": 12.96
+  },
+  {
+    "id": "1838477",
+    "name": "One.com",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Web Hosting/Servers",
+    "website": "http://www.one.com",
+    "epc7d": 15.72,
+    "epc90d": 6.29,
+    "score": 12.89
+  },
+  {
+    "id": "6322281",
+    "name": "Skechers",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.skechers.co.uk",
+    "epc7d": 11.79,
+    "epc90d": 15.15,
+    "score": 12.8
+  },
+  {
+    "id": "7448527",
+    "name": "Mure and Grand",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://mureandgrand.com/",
+    "epc7d": 15.83,
+    "epc90d": 5.38,
+    "score": 12.7
+  },
+  {
+    "id": "3207328",
+    "name": "Swiss International Air Lines - US",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.swiss.com/US/en",
+    "epc7d": 15.96,
+    "epc90d": 4.8,
+    "score": 12.61
+  },
+  {
+    "id": "6270685",
+    "name": "Shoes For Crews UK/DE/FR",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.shoesforcrewseurope.co.uk",
+    "epc7d": 12.92,
+    "epc90d": 11.03,
+    "score": 12.35
+  },
+  {
+    "id": "5275598",
+    "name": "Hotels.com Ireland",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://ie.hotels.com",
+    "epc7d": 3.61,
+    "epc90d": 32.36,
+    "score": 12.23
+  },
+  {
+    "id": "5367946",
+    "name": "NAKED",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://www.nakedcph.com/",
+    "epc7d": 6.13,
+    "epc90d": 26.42,
+    "score": 12.22
+  },
+  {
+    "id": "4055157",
+    "name": "Namecheap",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Domain Registrations",
+    "website": "https://www.namecheap.com",
+    "epc7d": 8.33,
+    "epc90d": 21.26,
+    "score": 12.21
+  },
+  {
+    "id": "5374388",
+    "name": "Nudie Jeans Co",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://www.nudiejeans.com/",
+    "epc7d": 12.16,
+    "epc90d": 12.13,
+    "score": 12.15
+  },
+  {
+    "id": "7748599",
+    "name": "Club del Sole",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://www.clubdelsole.com/",
+    "epc7d": 0.44,
+    "epc90d": 39.37,
+    "score": 12.12
+  },
+  {
+    "id": "5331920",
+    "name": "Sucuri",
+    "category": "VPN & Security",
+    "cjCategory": "Online Services > Web Tools",
+    "website": "https://sucuri.net/",
+    "epc7d": 12.14,
+    "epc90d": 11.33,
+    "score": 11.9
+  },
+  {
+    "id": "7241006",
+    "name": "Byway Travel",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Green",
+    "website": "https://www.byway.travel/",
+    "epc7d": 0,
+    "epc90d": 39.41,
+    "score": 11.82
+  },
+  {
+    "id": "3194603",
+    "name": "Wondershare",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.wondershare.com/",
+    "epc7d": 12.33,
+    "epc90d": 10.36,
+    "score": 11.74
+  },
+  {
+    "id": "6858572",
+    "name": "Djerf Avenue",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://djerfavenue.com/",
+    "epc7d": 10.15,
+    "epc90d": 15.38,
+    "score": 11.72
+  },
+  {
+    "id": "1952646",
+    "name": "123 Reg",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Domain Registrations",
+    "website": "http://www.123-reg.co.uk",
+    "epc7d": 13.32,
+    "epc90d": 7.77,
+    "score": 11.65
+  },
+  {
+    "id": "3519202",
+    "name": "Intego Antivirus Security",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "http://www.intego.com/",
+    "epc7d": 16.17,
+    "epc90d": 0.8,
+    "score": 11.56
+  },
+  {
+    "id": "7073996",
+    "name": "LG CZ",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://www.lg.com/cz",
+    "epc7d": 10.13,
+    "epc90d": 14.79,
+    "score": 11.53
+  },
+  {
+    "id": "7819785",
+    "name": "trivago DE",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.trivago.com/de",
+    "epc7d": 3.76,
+    "epc90d": 29.59,
+    "score": 11.51
+  },
+  {
+    "id": "7751357",
+    "name": "Aisle 6",
+    "category": "Fashion & Retail",
+    "cjCategory": "Buying and Selling > New/Used Goods",
+    "website": "https://aisle6.com/",
+    "epc7d": 1.01,
+    "epc90d": 36.02,
+    "score": 11.51
+  },
+  {
+    "id": "6616496",
+    "name": "DailySteals",
+    "category": "Fashion & Retail",
+    "cjCategory": "Department Stores/Malls > Virtual Malls",
+    "website": "https://www.dailysteals.com",
+    "epc7d": 10.91,
+    "epc90d": 12.82,
+    "score": 11.48
+  },
+  {
+    "id": "5289333",
+    "name": "Air Serbia",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.airserbia.com",
+    "epc7d": 11.12,
+    "epc90d": 11.76,
+    "score": 11.31
+  },
+  {
+    "id": "6505895",
+    "name": "Hotel Collection",
+    "category": "Travel & Flights",
+    "cjCategory": "Home &amp; Garden > Furniture",
+    "website": "https://www.hotelcollection.com",
+    "epc7d": 0,
+    "epc90d": 36.67,
+    "score": 11
+  },
+  {
+    "id": "5966498",
+    "name": "Western Digital APAC",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://www.westerndigital.com/ja-jp",
+    "epc7d": 0,
+    "epc90d": 36.65,
+    "score": 10.99
+  },
+  {
+    "id": "2747226",
+    "name": "Capital Bank",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Credit Cards",
+    "website": "https://www.openskycc.com/",
+    "epc7d": 12.11,
+    "epc90d": 7.45,
+    "score": 10.71
+  },
+  {
+    "id": "5316674",
+    "name": "VOLOTEA EU",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "http://www.volotea.com",
+    "epc7d": 9.14,
+    "epc90d": 14.02,
+    "score": 10.6
+  },
+  {
+    "id": "6144090",
+    "name": "NordVPN CEE",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "http://www.nordvpn.com",
+    "epc7d": 9.94,
+    "epc90d": 11.4,
+    "score": 10.38
+  },
+  {
+    "id": "4496922",
+    "name": "Footshop.pl",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.footshop.pl",
+    "epc7d": 11.85,
+    "epc90d": 6.77,
+    "score": 10.33
+  },
+  {
+    "id": "5560691",
+    "name": "Suitnegozi INT",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "https://suitnegozi.com",
+    "epc7d": 7.34,
+    "epc90d": 16.72,
+    "score": 10.15
+  },
+  {
+    "id": "3266946",
+    "name": "Kaspersky Canada",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.kaspersky.ca/",
+    "epc7d": 12.77,
+    "epc90d": 3.24,
+    "score": 9.91
+  },
+  {
+    "id": "4660055",
+    "name": "Dynadot.com",
+    "category": "VPN & Security",
+    "cjCategory": "Online Services > Domain Registrations",
+    "website": "http://www.dynadot.com",
+    "epc7d": 6.97,
+    "epc90d": 16.68,
+    "score": 9.88
+  },
+  {
+    "id": "5111980",
+    "name": "MARTINELLI",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.martinelli.es",
+    "epc7d": 11.14,
+    "epc90d": 6.68,
+    "score": 9.8
+  },
+  {
+    "id": "4487634",
+    "name": "IDrive",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "http://www.idrive.com",
+    "epc7d": 9.04,
+    "epc90d": 11.27,
+    "score": 9.71
+  },
+  {
+    "id": "3616985",
+    "name": "Atlantis Paradise Island",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.atlantisbahamas.com",
+    "epc7d": 0,
+    "epc90d": 32.23,
+    "score": 9.67
+  },
+  {
+    "id": "4960460",
+    "name": "Plex",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Books/Media > Videos/Movies",
+    "website": "http://www.plex.tv",
+    "epc7d": 1.5,
+    "epc90d": 28.54,
+    "score": 9.61
+  },
+  {
+    "id": "6094012",
+    "name": "Funko",
+    "category": "Software & Tools",
+    "cjCategory": "Games &amp; Toys > Toys",
+    "website": "http://www.funko.com",
+    "epc7d": 7.72,
+    "epc90d": 13.83,
+    "score": 9.55
+  },
+  {
+    "id": "4049128",
+    "name": "Extended Stay America",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "https://www.extendedstayamerica.com/",
+    "epc7d": 7.19,
+    "epc90d": 14.74,
+    "score": 9.46
+  },
+  {
+    "id": "7710549",
+    "name": "SQUATWOLF",
+    "category": "Fashion & Retail",
+    "cjCategory": "Sports &amp; Fitness > Apparel",
+    "website": "http://Squatwolf.com",
+    "epc7d": 11.04,
+    "epc90d": 5.02,
+    "score": 9.23
+  },
+  {
+    "id": "6896222",
+    "name": "UPDF",
+    "category": "Software & Tools",
+    "cjCategory": "Business > Productivity Tools",
+    "website": "https://updf.com",
+    "epc7d": 9.13,
+    "epc90d": 8.72,
+    "score": 9.01
+  },
+  {
+    "id": "4909784",
+    "name": "Woot!",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "http://www.woot.com",
+    "epc7d": 8.66,
+    "epc90d": 9.74,
+    "score": 8.98
+  },
+  {
+    "id": "7625430",
+    "name": "Whimstay",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://www.whimstay.com",
+    "epc7d": 7.27,
+    "epc90d": 12.88,
+    "score": 8.95
+  },
+  {
+    "id": "7152549",
+    "name": "Vonmag.ro",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://www.vonmag.ro/",
+    "epc7d": 8.13,
+    "epc90d": 10.6,
+    "score": 8.87
+  },
+  {
+    "id": "7819783",
+    "name": "trivago CH",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.trivago.com/ch",
+    "epc7d": 11.85,
+    "epc90d": 1.76,
+    "score": 8.82
+  },
+  {
+    "id": "5421525",
+    "name": "Libristo Europe",
+    "category": "Finance & Insurance",
+    "cjCategory": "Books/Media > Books",
+    "website": "https://www.libristo.cz",
+    "epc7d": 6.76,
+    "epc90d": 13.41,
+    "score": 8.75
+  },
+  {
+    "id": "4297289",
+    "name": "Booking.com DACH",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.booking.com",
+    "epc7d": 6.04,
+    "epc90d": 14.95,
+    "score": 8.71
+  },
+  {
+    "id": "3895296",
+    "name": "Vimeo",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Books/Media > Videos/Movies",
+    "website": "http://www.vimeo.com",
+    "epc7d": 2.89,
+    "epc90d": 21.41,
+    "score": 8.45
+  },
+  {
+    "id": "7556501",
+    "name": "EF Adventures",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://www.efadventures.com/",
+    "epc7d": 0,
+    "epc90d": 27.47,
+    "score": 8.24
+  },
+  {
+    "id": "6505415",
+    "name": "Footic Europe",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.footic.com/",
+    "epc7d": 6.7,
+    "epc90d": 10.85,
+    "score": 7.94
+  },
+  {
+    "id": "6258731",
+    "name": "Dream Pairs, Bruno Marc, Nortiv 8 &amp; Allswift Shoes",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://dreampairs.com",
+    "epc7d": 9.42,
+    "epc90d": 4.5,
+    "score": 7.94
+  },
+  {
+    "id": "1097361",
+    "name": "CyberLink",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "http://www.cyberlink.com",
+    "epc7d": 8.19,
+    "epc90d": 7.29,
+    "score": 7.92
+  },
+  {
+    "id": "1826017",
+    "name": "Tenergy",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://power.tenergy.com/",
+    "epc7d": 8.03,
+    "epc90d": 7.58,
+    "score": 7.89
+  },
+  {
+    "id": "6662957",
+    "name": "Michelin Guide Hotels",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "https://guide.michelin.com/us/en/hotels",
+    "epc7d": 7.66,
+    "epc90d": 7.76,
+    "score": 7.69
+  },
+  {
+    "id": "7122185",
+    "name": "Turbify",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Web Hosting/Servers",
+    "website": "https://www.turbify.com",
+    "epc7d": 3.59,
+    "epc90d": 16.95,
+    "score": 7.6
+  },
+  {
+    "id": "4347392",
+    "name": "Booking.com MEA",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.booking.com",
+    "epc7d": 6.82,
+    "epc90d": 8.5,
+    "score": 7.32
+  },
+  {
+    "id": "2278967",
+    "name": "TurboTax Canada",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Tax Services",
+    "website": "http://www.turbotax.ca",
+    "epc7d": 2.46,
+    "epc90d": 18.39,
+    "score": 7.24
+  },
+  {
+    "id": "5247945",
+    "name": "Kayak Canada",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://www.ca.kayak.com/",
+    "epc7d": 7.29,
+    "epc90d": 6.86,
+    "score": 7.16
+  },
+  {
+    "id": "6880275",
+    "name": "OVAGO",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://ovago.com/",
+    "epc7d": 6.15,
+    "epc90d": 9.1,
+    "score": 7.04
+  },
+  {
+    "id": "7453049",
+    "name": "Pluralsight",
+    "category": "VPN & Security",
+    "cjCategory": "Careers > Employment",
+    "website": "http://www.pluralsight.com",
+    "epc7d": 6.78,
+    "epc90d": 7.51,
+    "score": 7
+  },
+  {
+    "id": "7819820",
+    "name": "trivago BR",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.trivago.com.br/",
+    "epc7d": 2.35,
+    "epc90d": 17.11,
+    "score": 6.78
+  },
+  {
+    "id": "5320930",
+    "name": "Austrian Airlines - US",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://www.austrian.com/?sc_lang=en&amp;cc=US",
+    "epc7d": 6.88,
+    "epc90d": 6.51,
+    "score": 6.77
+  },
+  {
+    "id": "5144910",
+    "name": "KAYAK US",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.kayak.com/",
+    "epc7d": 6.13,
+    "epc90d": 7.95,
+    "score": 6.68
+  },
+  {
+    "id": "998086",
+    "name": "Corel Corporation",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "http://www.corel.com",
+    "epc7d": 6.41,
+    "epc90d": 7.13,
+    "score": 6.63
+  },
+  {
+    "id": "7819793",
+    "name": "trivago FR",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.trivago.com/fr",
+    "epc7d": 0,
+    "epc90d": 22,
+    "score": 6.6
+  },
+  {
+    "id": "2188468",
+    "name": "Hostpapa",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Web Hosting/Servers",
+    "website": "https://www.hostpapa.com",
+    "epc7d": 5.93,
+    "epc90d": 7.61,
+    "score": 6.43
+  },
+  {
+    "id": "4136885",
+    "name": "ABBYY USA ",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.abbyy.com",
+    "epc7d": 6.06,
+    "epc90d": 7.26,
+    "score": 6.42
+  },
+  {
+    "id": "7349431",
+    "name": "Going Going Gone",
+    "category": "Fashion & Retail",
+    "cjCategory": "Sports &amp; Fitness > Sports",
+    "website": "https://www.goinggoinggone.com/",
+    "epc7d": 5.49,
+    "epc90d": 8.35,
+    "score": 6.35
+  },
+  {
+    "id": "6809515",
+    "name": "Worth",
+    "category": "Fashion & Retail",
+    "cjCategory": "Sports &amp; Fitness > Sports",
+    "website": "https://worth.rawlings.com/",
+    "epc7d": 0,
+    "epc90d": 20.87,
+    "score": 6.26
+  },
+  {
+    "id": "6785595",
+    "name": "Tui.cz",
+    "category": "Finance & Insurance",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://www.tui.cz/",
+    "epc7d": 2.17,
+    "epc90d": 15.68,
+    "score": 6.22
+  },
+  {
+    "id": "5221082",
+    "name": "Stellar",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.stellarinfo.com/",
+    "epc7d": 4.8,
+    "epc90d": 9.28,
+    "score": 6.14
+  },
+  {
+    "id": "584642",
+    "name": "Panda Security",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "http://www.pandasecurity.com",
+    "epc7d": 7.42,
+    "epc90d": 3.09,
+    "score": 6.12
+  },
+  {
+    "id": "2612819",
+    "name": "Hotels.com APAC",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.hotels.com",
+    "epc7d": 1.29,
+    "epc90d": 17.24,
+    "score": 6.07
+  },
+  {
+    "id": "4072089",
+    "name": "HBX",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "http://www.hbx.com",
+    "epc7d": 3.47,
+    "epc90d": 12.02,
+    "score": 6.04
+  },
+  {
+    "id": "1596784",
+    "name": "Acronis International GmbH",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.acronis.com",
+    "epc7d": 5.72,
+    "epc90d": 6.72,
+    "score": 6.02
+  },
+  {
+    "id": "5277358",
+    "name": "DSquared2",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Womens",
+    "website": "http://www.dsquared2.com",
+    "epc7d": 0,
+    "epc90d": 20.01,
+    "score": 6
+  },
+  {
+    "id": "5197358",
+    "name": "Tenorshare/PassFab",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.tenorshare.com",
+    "epc7d": 5.96,
+    "epc90d": 6.07,
+    "score": 5.99
+  },
+  {
+    "id": "7864342",
+    "name": "Booking.com LATAM",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.Booking.com",
+    "epc7d": 5.14,
+    "epc90d": 7.89,
+    "score": 5.96
+  },
+  {
+    "id": "7742241",
+    "name": "Gandi",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Domain Registrations",
+    "website": "https://shop.gandi.net/",
+    "epc7d": 2.72,
+    "epc90d": 12.09,
+    "score": 5.53
+  },
+  {
+    "id": "7122259",
+    "name": "Flight Network",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Air",
+    "website": "https://us-en.flightnetwork.com",
+    "epc7d": 6.2,
+    "epc90d": 3.88,
+    "score": 5.5
+  },
+  {
+    "id": "6668575",
+    "name": "Havaianas APAC",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://havaianas.com/hk",
+    "epc7d": 4.22,
+    "epc90d": 8.28,
+    "score": 5.44
+  },
+  {
+    "id": "5144959",
+    "name": "Momondo US",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://www.momondo.com/",
+    "epc7d": 5.95,
+    "epc90d": 4.1,
+    "score": 5.39
+  },
+  {
+    "id": "4453391",
+    "name": "Vrbo Italia",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "https://www.vrbo.com/it-it",
+    "epc7d": 6.82,
+    "epc90d": 2.07,
+    "score": 5.39
+  },
+  {
+    "id": "4618730",
+    "name": "Hot Topic",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Malls",
+    "website": "http://www.hottopic.com",
+    "epc7d": 4.49,
+    "epc90d": 7.4,
+    "score": 5.36
+  },
+  {
+    "id": "5891927",
+    "name": "Philips.ro",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "https://www.philips.ro/",
+    "epc7d": 0.76,
+    "epc90d": 15.73,
+    "score": 5.25
+  },
+  {
+    "id": "3427850",
+    "name": "Carousel Checks",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Banking/Trading",
+    "website": "http://www.carouselchecks.com",
+    "epc7d": 4.42,
+    "epc90d": 6.88,
+    "score": 5.16
+  },
+  {
+    "id": "5217413",
+    "name": "The North Face NL",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Malls",
+    "website": "https://www.thenorthface.nl/",
+    "epc7d": 0,
+    "epc90d": 17.21,
+    "score": 5.16
+  },
+  {
+    "id": "7538034",
+    "name": "Agoda APAC",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "https://www.agoda.com/",
+    "epc7d": 2.67,
+    "epc90d": 10.89,
+    "score": 5.14
+  },
+  {
+    "id": "1589787",
+    "name": "Travelocity.ca",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://travelocity.ca",
+    "epc7d": 5.7,
+    "epc90d": 3.76,
+    "score": 5.12
+  },
+  {
+    "id": "6030618",
+    "name": "Sky Blue Credit",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Credit Reporting and Repair",
+    "website": "https://skybluecredit.com/",
+    "epc7d": 0,
+    "epc90d": 16.72,
+    "score": 5.02
+  },
+  {
+    "id": "2542022",
+    "name": "Beach Trading Co. (BeachCamera.com, BuyDig.com)",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "http://www.buydig.com",
+    "epc7d": 5.69,
+    "epc90d": 3.38,
+    "score": 5
+  },
+  {
+    "id": "6610500",
+    "name": "Kalkulator.cz",
+    "category": "Finance & Insurance",
+    "cjCategory": "Insurance > Personal Insurance",
+    "website": "https://www.kalkulator.cz/",
+    "epc7d": 0,
+    "epc90d": 16.51,
+    "score": 4.95
+  },
+  {
+    "id": "4921612",
+    "name": "TIPA.EU",
+    "category": "Software & Tools",
+    "cjCategory": "Department Stores/Malls > Virtual Malls",
+    "website": "https://www.tipa.eu/",
+    "epc7d": 4.58,
+    "epc90d": 5.46,
+    "score": 4.84
+  },
+  {
+    "id": "3768562",
+    "name": "Tanga.com",
+    "category": "Fashion & Retail",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "http://tanga.com",
+    "epc7d": 4.58,
+    "epc90d": 5.24,
+    "score": 4.78
+  },
+  {
+    "id": "5431745",
+    "name": "GigaNews",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "https://www.giganews.com/usenet-special",
+    "epc7d": 5.36,
+    "epc90d": 3.15,
+    "score": 4.7
+  },
+  {
+    "id": "7549838",
+    "name": "Canopy",
+    "category": "Software & Tools",
+    "cjCategory": "Online Services > Web Tools",
+    "website": "https://canopy.us/",
+    "epc7d": 0,
+    "epc90d": 15.66,
+    "score": 4.7
+  },
+  {
+    "id": "4652907",
+    "name": "Footshop DE &amp; AT",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.ftshp.de/de/",
+    "epc7d": 5.7,
+    "epc90d": 2.2,
+    "score": 4.65
+  },
+  {
+    "id": "7218698",
+    "name": "Travel Luggage &amp; Cabin Bags",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Luggage",
+    "website": "https://www.travelluggagecabinbags.com/",
+    "epc7d": 3.02,
+    "epc90d": 8.11,
+    "score": 4.55
+  },
+  {
+    "id": "7748841",
+    "name": "htophotels",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "https://www.htophotels.com/",
+    "epc7d": 0,
+    "epc90d": 15,
+    "score": 4.5
+  },
+  {
+    "id": "7624978",
+    "name": "OYO Vacation Homes EU",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "http://www.belvilla.com",
+    "epc7d": 2.14,
+    "epc90d": 10.02,
+    "score": 4.5
+  },
+  {
+    "id": "4710231",
+    "name": "Footshop - FR",
+    "category": "Fashion & Retail",
+    "cjCategory": "Accessories > Shoes",
+    "website": "https://www.footshop.fr/fr",
+    "epc7d": 3.48,
+    "epc90d": 6.85,
+    "score": 4.49
+  },
+  {
+    "id": "7850276",
+    "name": "Driffle INC",
+    "category": "Software & Tools",
+    "cjCategory": "Games &amp; Toys > Games",
+    "website": "http://www.driffle.com",
+    "epc7d": 5.04,
+    "epc90d": 3.11,
+    "score": 4.46
+  },
+  {
+    "id": "3812192",
+    "name": "(IS) Interserver Webhosting and VPS ",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Web Hosting/Servers",
+    "website": "https://www.interserver.net",
+    "epc7d": 5.33,
+    "epc90d": 2.06,
+    "score": 4.35
+  },
+  {
+    "id": "6868393",
+    "name": "Oojo",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "http://www.oojo.com",
+    "epc7d": 3.48,
+    "epc90d": 6.28,
+    "score": 4.32
+  },
+  {
+    "id": "1157059",
+    "name": "Trend Micro Home &amp; Home Office",
+    "category": "VPN & Security",
+    "cjCategory": "Computer &amp; Electronics > Computer SW",
+    "website": "http://www.trendmicro.com",
+    "epc7d": 1.64,
+    "epc90d": 10.41,
+    "score": 4.27
+  },
+  {
+    "id": "6103168",
+    "name": "Kayak MY CPC Program",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.kayak.com.my/",
+    "epc7d": 0,
+    "epc90d": 13.9,
+    "score": 4.17
+  },
+  {
+    "id": "7819824",
+    "name": "trivago TR",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.trivago.com.tr/",
+    "epc7d": 0.8,
+    "epc90d": 11.71,
+    "score": 4.07
+  },
+  {
+    "id": "7483525",
+    "name": "ZINIO US",
+    "category": "Finance & Insurance",
+    "cjCategory": "Books/Media > Magazines",
+    "website": "https://www.zinio.com/",
+    "epc7d": 2.72,
+    "epc90d": 7.15,
+    "score": 4.05
+  },
+  {
+    "id": "3989874",
+    "name": "Antonioli",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Malls",
+    "website": "https://www.antonioli.eu",
+    "epc7d": 1.62,
+    "epc90d": 8.96,
+    "score": 3.82
+  },
+  {
+    "id": "5103158",
+    "name": "Omio Travel GmbH UK &amp; US",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Vacation",
+    "website": "https://www.omio.co.uk",
+    "epc7d": 2.06,
+    "epc90d": 7.7,
+    "score": 3.75
+  },
+  {
+    "id": "6652708",
+    "name": "Ultahost",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Web Hosting/Servers",
+    "website": "https://ultahost.com/",
+    "epc7d": 2.19,
+    "epc90d": 6.77,
+    "score": 3.56
+  },
+  {
+    "id": "5365364",
+    "name": "FarmTogether",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Investment",
+    "website": "http://www.farmtogether.com",
+    "epc7d": 2.68,
+    "epc90d": 5.63,
+    "score": 3.56
+  },
+  {
+    "id": "6798066",
+    "name": "Elementor",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Online Services > Web Hosting/Servers",
+    "website": "https://elementor.com/",
+    "epc7d": 0,
+    "epc90d": 11.85,
+    "score": 3.55
+  },
+  {
+    "id": "6086371",
+    "name": "GAMIVO INT",
+    "category": "Software & Tools",
+    "cjCategory": "Games &amp; Toys > Electronic Games",
+    "website": "http://www.gamivo.com",
+    "epc7d": 2.62,
+    "epc90d": 5.01,
+    "score": 3.34
+  },
+  {
+    "id": "7582444",
+    "name": "Bc Babycare",
+    "category": "Web Hosting & Domains",
+    "cjCategory": "Family > Children",
+    "website": "https://www.bcbabycare.com/",
+    "epc7d": 0.2,
+    "epc90d": 10.56,
+    "score": 3.31
+  },
+  {
+    "id": "7816565",
+    "name": "Surprice &amp; Caradise Car Rentals",
+    "category": "Travel & Flights",
+    "cjCategory": "Automotive > Rentals",
+    "website": "https://surpricemobility.com/",
+    "epc7d": 0.5,
+    "epc90d": 8.94,
+    "score": 3.03
+  },
+  {
+    "id": "4390377",
+    "name": "IHG Greater China",
+    "category": "Travel & Flights",
+    "cjCategory": "Travel > Hotel",
+    "website": "http://www.ihg.com",
+    "epc7d": 0.13,
+    "epc90d": 9.74,
+    "score": 3.01
+  },
+  {
+    "id": "5500435",
+    "name": "Slam Jam",
+    "category": "Fashion & Retail",
+    "cjCategory": "Clothing/Apparel > Mens",
+    "website": "https://slamjam.com/",
+    "epc7d": 1.29,
+    "epc90d": 6.28,
+    "score": 2.79
+  },
+  {
+    "id": "7819798",
+    "name": "trivago JP",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.trivago.jp/",
+    "epc7d": 0,
+    "epc90d": 9.26,
+    "score": 2.78
+  },
+  {
+    "id": "7819784",
+    "name": "trivago AT",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.trivago.com/at",
+    "epc7d": 1.26,
+    "epc90d": 6,
+    "score": 2.68
+  },
+  {
+    "id": "7819812",
+    "name": "trivago MX",
+    "category": "Travel & Flights",
+    "cjCategory": "Business > Travel",
+    "website": "https://www.trivago.com.mx/",
+    "epc7d": 0,
+    "epc90d": 8.53,
+    "score": 2.56
+  },
+  {
+    "id": "7734375",
+    "name": "Sharaf DG_MENA",
+    "category": "Software & Tools",
+    "cjCategory": "Computer &amp; Electronics > Consumer Electronics",
+    "website": "http://uae.sharafdg.com",
+    "epc7d": 1.3,
+    "epc90d": 5.2,
+    "score": 2.47
+  },
+  {
+    "id": "7646631",
+    "name": "CUDDLY",
+    "category": "Fashion & Retail",
+    "cjCategory": "Home &amp; Garden > Pets",
+    "website": "http://shop.cuddly.com",
+    "epc7d": 0.76,
+    "epc90d": 5.14,
+    "score": 2.07
+  },
+  {
+    "id": "5990520",
+    "name": "UnitedPlugIns INT",
+    "category": "Software & Tools",
+    "cjCategory": "Art/Photo/Music > Music",
+    "website": "http://www.unitedplugins.com",
+    "epc7d": 0,
+    "epc90d": 5.89,
+    "score": 1.77
+  },
+  {
+    "id": "7238333",
+    "name": "WalletHub",
+    "category": "Finance & Insurance",
+    "cjCategory": "Financial Services > Credit Reporting and Repair",
+    "website": "https://wallethub.com",
+    "epc7d": 0,
+    "epc90d": 5.87,
+    "score": 1.76
+  }
+]
