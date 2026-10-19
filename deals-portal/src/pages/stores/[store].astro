@@ -40,6 +40,68 @@ const otherStores = STORES_DATA.filter(s => s.slug !== store.slug).slice(0, 4);
 const categoryAlternatives = STORES_DATA.filter(s => s.slug !== store.slug && s.category === store.category);
 const similarStores = categoryAlternatives.length > 0 ? categoryAlternatives : otherStores;
 
+// Known comparison pairs in /compare/[pair].astro
+const KNOWN_COMPARE_PAIRS = [
+  'expressvpn-vs-purevpn',
+  'airalo-vs-allpowers',
+  'keepersecurity-vs-qustodio',
+  'chicme-vs-vogacloset',
+  'alibaba-vs-thedealoutlet',
+  'vperfumes-vs-jashanmal'
+];
+
+function getComparePageUrl(slug1: string, slug2: string): string | null {
+  const direct = `${slug1}-vs-${slug2}`;
+  const reverse = `${slug2}-vs-${slug1}`;
+  if (KNOWN_COMPARE_PAIRS.includes(direct)) return `${base}/compare/${direct}/`;
+  if (KNOWN_COMPARE_PAIRS.includes(reverse)) return `${base}/compare/${reverse}/`;
+  return null;
+}
+
+// Current Store metrics for comparison matrix
+const currentStoreMetrics = {
+  store,
+  isCurrent: true,
+  dealsCount: storeDeals.length,
+  codesCount,
+  bestDiscount: store.bestDiscount || (storeDeals[0]?.discountBadge || 'Verified Deal'),
+  successRate: storeDeals[0]?.successRate || '99%',
+  compareUrl: null
+};
+
+// Sibling competitors in category (or fallback to top general stores)
+const topCategoryCompetitors = (categoryAlternatives.length >= 2
+  ? categoryAlternatives
+  : [...categoryAlternatives, ...otherStores.filter(s => !categoryAlternatives.some(c => c.slug === s.slug))]
+).slice(0, 3).map(comp => {
+  const deals = COUPONS_DATA.filter(d => d.storeSlug === comp.slug);
+  const compCodesCount = deals.filter(d => d.code && d.code.trim().length > 0).length;
+  let best = comp.bestDiscount || '';
+  if (!best && deals.length > 0) {
+    let maxVal = -1;
+    deals.forEach(d => {
+      const val = parseDiscountValue(d.discountBadge);
+      if (val > maxVal) {
+        maxVal = val;
+        best = d.discountBadge;
+      }
+    });
+  }
+  if (!best) best = 'Verified Deal';
+
+  return {
+    store: comp,
+    isCurrent: false,
+    dealsCount: deals.length,
+    codesCount: compCodesCount,
+    bestDiscount: best,
+    successRate: deals[0]?.successRate || '98%',
+    compareUrl: getComparePageUrl(store.slug, comp.slug)
+  };
+});
+
+const comparisonMatrixList = [currentStoreMetrics, ...topCategoryCompetitors];
+
 // Helper to calculate genuine remaining validity & urgency
 function getExpiryBadge(expiryDateStr: string) {
   if (!expiryDateStr) return { text: '⚡ Verified Oct 2026', class: 'bg-emerald-50 text-emerald-700 border-emerald-200/80 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30' };
@@ -629,6 +691,254 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
               <span class="font-mono text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 shrink-0 text-center">
                 ARCHIVE15
               </span>
+            </div>
+          </div>
+
+          <!-- Store Comparison Matrix («Brand vs Top Competitors») -->
+          <div class="bg-white dark:bg-slate-900/90 rounded-3xl p-6 sm:p-7 border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/80 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30">
+                    Head-to-Head Matrix
+                  </span>
+                  <span class="text-xs text-slate-400 dark:text-slate-500">•</span>
+                  <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                    {store.category} Category Benchmark
+                  </span>
+                </div>
+                <h3 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
+                  How {store.name} Compares to Top {store.category} Competitors
+                </h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Compare verified maximum discount depth, active coupon counts, and checkout reliability scores.
+                </p>
+              </div>
+              <a
+                href={`${base}/compare/`}
+                class="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition shrink-0 self-start sm:self-auto"
+              >
+                <span>All Comparisons</span>
+                <span>→</span>
+              </a>
+            </div>
+
+            <!-- Desktop Comparison Table (md and up) -->
+            <div class="hidden md:block overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-200/80 dark:border-slate-800 text-[11px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                    <th class="py-3 px-4">Brand / Merchant</th>
+                    <th class="py-3 px-3">Max Discount</th>
+                    <th class="py-3 px-3">Active Offers</th>
+                    <th class="py-3 px-3">Code Availability</th>
+                    <th class="py-3 px-3">Checkout Success</th>
+                    <th class="py-3 px-4 text-right">Action / Head-to-Head</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 text-xs">
+                  {comparisonMatrixList.map(item => {
+                    const compDomain = getStoreDomain(item.store.name) || getStoreDomain(item.store.slug) || item.store.cleanDomain || 'promoradar.store';
+                    return (
+                      <tr class={`transition-colors ${
+                        item.isCurrent
+                          ? 'bg-indigo-50/50 dark:bg-indigo-950/20 font-medium'
+                          : 'hover:bg-slate-50/80 dark:hover:bg-slate-800/40'
+                      }`}>
+                        <!-- Brand Column -->
+                        <td class="py-3.5 px-4">
+                          <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 flex items-center justify-center overflow-hidden shrink-0">
+                              <img
+                                src={`https://logo.clearbit.com/${compDomain}`}
+                                alt={`${item.store.name} logo`}
+                                class="w-6 h-6 object-contain"
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src='https://www.google.com/s2/favicons?domain=' + this.alt + '&sz=64';"
+                              />
+                            </div>
+                            <div class="min-w-0">
+                              <div class="flex items-center gap-1.5">
+                                {item.isCurrent ? (
+                                  <span class="font-extrabold text-slate-900 dark:text-white truncate">
+                                    {item.store.name}
+                                  </span>
+                                ) : (
+                                  <a
+                                    href={`${base}/stores/${item.store.slug}/`}
+                                    class="font-extrabold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition truncate"
+                                  >
+                                    {item.store.name}
+                                  </a>
+                                )}
+                                {item.isCurrent && (
+                                  <span class="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-indigo-600 text-white uppercase tracking-wider shrink-0">
+                                    Current
+                                  </span>
+                                )}
+                              </div>
+                              <span class="text-[11px] text-slate-400 dark:text-slate-500 truncate block">
+                                {item.store.cleanDomain || compDomain}
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+
+                        <!-- Max Discount -->
+                        <td class="py-3.5 px-3">
+                          <span class="inline-flex font-extrabold text-xs px-2.5 py-1 rounded-xl bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30">
+                            {item.bestDiscount}
+                          </span>
+                        </td>
+
+                        <!-- Active Offers -->
+                        <td class="py-3.5 px-3">
+                          <span class="font-bold text-slate-700 dark:text-slate-300">
+                            {item.dealsCount} {item.dealsCount === 1 ? 'deal' : 'deals'}
+                          </span>
+                        </td>
+
+                        <!-- Code Availability -->
+                        <td class="py-3.5 px-3">
+                          {item.codesCount > 0 ? (
+                            <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                              </svg>
+                              <span>{item.codesCount} Promo {item.codesCount === 1 ? 'Code' : 'Codes'}</span>
+                            </span>
+                          ) : (
+                            <span class="text-[11px] font-medium text-slate-400 dark:text-slate-500">
+                              Direct Deals Only
+                            </span>
+                          )}
+                        </td>
+
+                        <!-- Checkout Success -->
+                        <td class="py-3.5 px-3">
+                          <div class="flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            <span class="font-bold text-slate-800 dark:text-slate-200">{item.successRate}</span>
+                          </div>
+                        </td>
+
+                        <!-- Actions & Head-to-Head Link -->
+                        <td class="py-3.5 px-4 text-right">
+                          <div class="flex items-center justify-end gap-2">
+                            {item.compareUrl && (
+                              <a
+                                href={item.compareUrl}
+                                class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-[11px] transition shrink-0"
+                                title="View Detailed Head-to-Head Comparison"
+                              >
+                                <span>Compare ↗</span>
+                              </a>
+                            )}
+                            {item.isCurrent ? (
+                              <span class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-bold">
+                                Viewing
+                              </span>
+                            ) : (
+                              <a
+                                href={`${base}/stores/${item.store.slug}/`}
+                                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-sm shrink-0"
+                              >
+                                <span>Deals →</span>
+                              </a>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Mobile Stacked Cards (below md) -->
+            <div class="md:hidden space-y-3">
+              {comparisonMatrixList.map(item => {
+                const compDomain = getStoreDomain(item.store.name) || getStoreDomain(item.store.slug) || item.store.cleanDomain || 'promoradar.store';
+                return (
+                  <div class={`p-4 rounded-2xl border transition-all ${
+                    item.isCurrent
+                      ? 'bg-indigo-50/50 dark:bg-indigo-950/20 border-indigo-200 dark:border-indigo-800/80 ring-1 ring-indigo-500/20'
+                      : 'bg-slate-50/60 dark:bg-slate-800/50 border-slate-200/80 dark:border-slate-700/60'
+                  }`}>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                      <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
+                          <img
+                            src={`https://logo.clearbit.com/${compDomain}`}
+                            alt={`${item.store.name} logo`}
+                            class="w-6 h-6 object-contain"
+                            loading="lazy"
+                            onerror="this.onerror=null; this.src='https://www.google.com/s2/favicons?domain=' + this.alt + '&sz=64';"
+                          />
+                        </div>
+                        <div>
+                          <div class="flex items-center gap-1.5">
+                            <h4 class="font-extrabold text-sm text-slate-900 dark:text-white">
+                              {item.store.name}
+                            </h4>
+                            {item.isCurrent && (
+                              <span class="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-indigo-600 text-white uppercase tracking-wider">
+                                Current
+                              </span>
+                            )}
+                          </div>
+                          <span class="text-[11px] text-slate-400 dark:text-slate-500">
+                            {item.store.cleanDomain || compDomain}
+                          </span>
+                        </div>
+                      </div>
+                      <span class="font-extrabold text-xs px-2.5 py-1 rounded-xl bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30 shrink-0">
+                        {item.bestDiscount}
+                      </span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 text-xs py-2 border-y border-slate-200/60 dark:border-slate-700/60 mb-3">
+                      <div>
+                        <span class="text-slate-400 dark:text-slate-500 text-[11px] block">Active Offers</span>
+                        <span class="font-bold text-slate-800 dark:text-slate-200">{item.dealsCount} verified deals</span>
+                      </div>
+                      <div>
+                        <span class="text-slate-400 dark:text-slate-500 text-[11px] block">Checkout Success</span>
+                        <span class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                          {item.successRate}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="text-xs text-slate-500 dark:text-slate-400">
+                        {item.codesCount > 0 ? `🔥 ${item.codesCount} Promo Codes` : 'Direct Discounts'}
+                      </span>
+                      <div class="flex items-center gap-2">
+                        {item.compareUrl && (
+                          <a
+                            href={item.compareUrl}
+                            class="px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-bold text-xs transition"
+                          >
+                            Compare ↗
+                          </a>
+                        )}
+                        {item.isCurrent ? (
+                          <span class="text-xs font-bold text-slate-400 px-3 py-1.5">Viewing</span>
+                        ) : (
+                          <a
+                            href={`${base}/stores/${item.store.slug}/`}
+                            class="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-sm"
+                          >
+                            View Deals →
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
