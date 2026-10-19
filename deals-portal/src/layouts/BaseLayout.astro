@@ -4,6 +4,7 @@ import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import CouponRevealModal from '../components/CouponRevealModal.astro';
 import FloatingStickyRedemptionBar from '../components/FloatingStickyRedemptionBar.astro';
 import VerificationGuaranteeModal from '../components/VerificationGuaranteeModal.astro';
+import MobileQRModal from '../components/MobileQRModal.astro';
 
 interface Props {
   title: string;
@@ -84,6 +85,7 @@ const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
     <CouponRevealModal />
     <FloatingStickyRedemptionBar />
     <VerificationGuaranteeModal />
+    <MobileQRModal />
 
     <!-- Global Sleek Toast Notification -->
     <div

@@ -1,0 +1,264 @@
+---
+// deals-portal/src/components/MobileQRModal.astro
+// Mobile QR Code & "Scan-to-Redeem" Voucher Engine
+// Benchmarked against VoucherCodes.co.uk & RetailMeNot
+---
+
+<div
+  id="mobileQRModal"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="qrModalTitle"
+>
+  <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-slate-200/90 dark:border-slate-800 relative my-auto animate-fadeIn transform transition-all text-center">
+    <!-- Close Button -->
+    <button
+      id="closeQRModalBtn"
+      type="button"
+      class="absolute right-4 top-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center font-bold text-sm cursor-pointer transition shadow-sm z-10"
+      aria-label="Close modal"
+    >
+      ✕
+    </button>
+
+    <!-- Header Badge -->
+    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200/80 dark:border-indigo-500/30 text-indigo-700 dark:text-indigo-300 text-[11px] font-extrabold mb-3 shadow-xs">
+      <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+      </svg>
+      <span>DESKTOP-TO-MOBILE BRIDGE &amp; IN-STORE PASS</span>
+    </div>
+
+    <!-- Store & Deal Header -->
+    <div class="flex items-center justify-center gap-2.5 mb-2">
+      <h3 id="qrModalStoreName" class="text-lg font-black text-slate-900 dark:text-white">Store</h3>
+      <span id="qrModalDiscountBadge" class="text-xs font-black px-2.5 py-0.5 rounded-lg bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30">Verified</span>
+    </div>
+
+    <p id="qrModalDealTitle" class="text-xs text-slate-600 dark:text-slate-300 max-w-sm mx-auto mb-4 leading-relaxed font-medium"></p>
+
+    <!-- QR Code Canvas Display Box -->
+    <div class="bg-white p-4 rounded-3xl shadow-lg border border-slate-200 dark:border-slate-700 inline-block mb-4 relative group">
+      <div class="w-[190px] h-[190px] sm:w-[210px] sm:h-[210px] flex items-center justify-center bg-white rounded-2xl overflow-hidden relative">
+        <canvas id="qrCodeCanvas" class="w-full h-full object-contain"></canvas>
+      </div>
+
+      <!-- Center Logo / Watermark Tag -->
+      <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold text-slate-500">
+        <span class="flex items-center gap-1 text-emerald-600">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          Instant Mobile Link
+        </span>
+        <span class="font-mono text-slate-400">Scan to Checkout</span>
+      </div>
+    </div>
+
+    <!-- Promo Code Callout (If deal has a voucher code) -->
+    <div id="qrModalCodeContainer" class="hidden mb-4 p-3 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/80 dark:border-indigo-500/30 text-xs">
+      <div class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-300 mb-1">
+        Voucher Code to Paste on Mobile:
+      </div>
+      <div class="flex items-center justify-center gap-2">
+        <span id="qrModalCodeText" class="font-mono font-black text-base text-slate-900 dark:text-white tracking-widest select-all"></span>
+        <button
+          type="button"
+          id="copyQRModalCodeBtn"
+          class="px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-bold text-[11px] hover:bg-indigo-500 transition cursor-pointer active:scale-95 shadow-xs"
+        >
+          Copy
+        </button>
+      </div>
+    </div>
+
+    <!-- 3 Simple Scan Steps -->
+    <div class="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-500 dark:text-slate-400 mb-5">
+      <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+        <span class="font-bold text-slate-900 dark:text-white block mb-0.5">1. Open Camera</span>
+        <span>Use phone camera</span>
+      </div>
+      <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+        <span class="font-bold text-slate-900 dark:text-white block mb-0.5">2. Scan Screen</span>
+        <span>Point at QR code</span>
+      </div>
+      <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+        <span class="font-bold text-slate-900 dark:text-white block mb-0.5">3. Redeem</span>
+        <span>Discount applied</span>
+      </div>
+    </div>
+
+    <!-- Direct Actions -->
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        id="copyQRDirectUrlBtn"
+        class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs transition cursor-pointer flex items-center justify-center gap-1.5"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+        </svg>
+        <span id="copyQRUrlLabel">Copy Mobile Link</span>
+      </button>
+
+      <a
+        id="openQRStoreBtn"
+        href="#"
+        target="_blank"
+        rel="nofollow sponsored"
+        class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md shadow-indigo-600/20 transition cursor-pointer flex items-center justify-center gap-1"
+      >
+        <span>Open Store ↗</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  import QRCode from 'qrcode';
+
+  const modal = document.getElementById('mobileQRModal');
+  const closeBtn = document.getElementById('closeQRModalBtn');
+  const canvas = document.getElementById('qrCodeCanvas') as HTMLCanvasElement | null;
+  const storeNameEl = document.getElementById('qrModalStoreName');
+  const discountBadgeEl = document.getElementById('qrModalDiscountBadge');
+  const dealTitleEl = document.getElementById('qrModalDealTitle');
+  const codeContainer = document.getElementById('qrModalCodeContainer');
+  const codeTextEl = document.getElementById('qrModalCodeText');
+  const copyCodeBtn = document.getElementById('copyQRModalCodeBtn');
+  const copyUrlBtn = document.getElementById('copyQRDirectUrlBtn');
+  const copyUrlLabel = document.getElementById('copyQRUrlLabel');
+  const openStoreBtn = document.getElementById('openQRStoreBtn') as HTMLAnchorElement | null;
+
+  let currentTargetUrl = '';
+  let currentTargetCode = '';
+
+  declare global {
+    interface Window {
+      openMobileQRModal: (opts: {
+        storeName: string;
+        storeSlug?: string;
+        dealTitle: string;
+        dealCode?: string;
+        dealUrl: string;
+        badge?: string;
+      }) => void;
+      closeMobileQRModal: () => void;
+    }
+  }
+
+  window.openMobileQRModal = function(opts) {
+    if (!modal) return;
+    const { storeName, dealTitle, dealCode, dealUrl, badge } = opts;
+
+    currentTargetUrl = dealUrl || window.location.href;
+    currentTargetCode = dealCode || '';
+
+    if (storeNameEl) storeNameEl.textContent = storeName || 'Store Voucher';
+    if (discountBadgeEl) discountBadgeEl.textContent = badge || 'Verified Deal';
+    if (dealTitleEl) dealTitleEl.textContent = dealTitle || '';
+
+    if (dealCode && dealCode.trim().length > 0) {
+      if (codeTextEl) codeTextEl.textContent = dealCode;
+      codeContainer?.classList.remove('hidden');
+    } else {
+      codeContainer?.classList.add('hidden');
+    }
+
+    if (openStoreBtn) {
+      openStoreBtn.href = currentTargetUrl;
+    }
+
+    // Generate crisp QR code on canvas
+    if (canvas) {
+      QRCode.toCanvas(canvas, currentTargetUrl, {
+        width: 220,
+        margin: 2,
+        color: {
+          dark: '#0f172a',
+          light: '#ffffff'
+        },
+        errorCorrectionLevel: 'M'
+      }, (err) => {
+        if (err) console.error('[PromoRadar] QR Code generation error:', err);
+      });
+    }
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.classList.add('overflow-hidden');
+  };
+
+  window.closeMobileQRModal = function() {
+    if (!modal) return;
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.classList.remove('overflow-hidden');
+  };
+
+  closeBtn?.addEventListener('click', window.closeMobileQRModal);
+
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      window.closeMobileQRModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+      window.closeMobileQRModal();
+    }
+  });
+
+  // Copy code handler
+  copyCodeBtn?.addEventListener('click', () => {
+    if (!currentTargetCode) return;
+    navigator.clipboard?.writeText(currentTargetCode).then(() => {
+      copyCodeBtn.textContent = '✓ Copied';
+      if ((window as any).showPromoToast) {
+        (window as any).showPromoToast(`Code ${currentTargetCode} copied to clipboard! ✨`);
+      }
+      setTimeout(() => {
+        copyCodeBtn.textContent = 'Copy';
+      }, 2500);
+    });
+  });
+
+  // Copy direct url handler
+  copyUrlBtn?.addEventListener('click', () => {
+    if (!currentTargetUrl) return;
+    navigator.clipboard?.writeText(currentTargetUrl).then(() => {
+      if (copyUrlLabel) copyUrlLabel.textContent = '✓ Link Copied';
+      if ((window as any).showPromoToast) {
+        (window as any).showPromoToast('Mobile checkout link copied to clipboard! 📱');
+      }
+      setTimeout(() => {
+        if (copyUrlLabel) copyUrlLabel.textContent = 'Copy Mobile Link';
+      }, 2500);
+    });
+  });
+
+  // Global delegated listener for any element with [data-open-qr-modal] or .deal-qr-btn
+  document.addEventListener('click', (e) => {
+    const target = (e.target as HTMLElement)?.closest('[data-open-qr-modal], .deal-qr-btn') as HTMLElement | null;
+    if (target) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const storeName = target.getAttribute('data-qr-store') || target.getAttribute('data-store') || 'PromoRadar Partner';
+      const storeSlug = target.getAttribute('data-qr-slug') || '';
+      const dealTitle = target.getAttribute('data-qr-title') || 'Exclusive Verified Promo Code';
+      const dealCode = target.getAttribute('data-qr-code') || '';
+      const dealUrl = target.getAttribute('data-qr-url') || window.location.href;
+      const badge = target.getAttribute('data-qr-badge') || 'Verified';
+
+      window.openMobileQRModal({
+        storeName,
+        storeSlug,
+        dealTitle,
+        dealCode,
+        dealUrl,
+        badge
+      });
+    }
+  });
+</script>

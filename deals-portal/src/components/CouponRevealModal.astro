@@ -127,6 +127,24 @@ COUPONS_DATA.forEach(deal => {
       <span id="modalOutboundBtnLabel">Go to Official Store ↗</span>
     </a>
 
+    <!-- Desktop-to-Mobile QR Code Trigger -->
+    <div class="mb-3">
+      <button
+        type="button"
+        id="modalOpenQRBtn"
+        class="w-full py-2 px-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/60 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-700/60 text-slate-700 dark:text-slate-300 font-bold text-xs flex items-center justify-between transition cursor-pointer"
+        title="Open QR code to scan with your phone"
+      >
+        <span class="flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+          </svg>
+          <span>📱 Scan on Phone (Mobile Checkout / In-Store QR)</span>
+        </span>
+        <span class="text-[10px] text-slate-400">View QR →</span>
+      </button>
+    </div>
+
     <!-- Quick Share Deal Bar -->
     <div class="mb-4 p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-700/60">
       <div class="flex items-center justify-between mb-2 px-1">
@@ -489,6 +507,20 @@ COUPONS_DATA.forEach(deal => {
       }).catch(() => {
         if (window.showPromoToast) window.showPromoToast('Could not copy link');
       });
+    });
+
+    // Open QR Modal from Reveal Modal
+    document.getElementById('modalOpenQRBtn')?.addEventListener('click', () => {
+      if (activeDealData && window.openMobileQRModal) {
+        window.openMobileQRModal({
+          storeName: activeDealData.storeName || 'Store Voucher',
+          storeSlug: activeDealData.storeSlug || '',
+          dealTitle: activeDealData.title || '',
+          dealCode: activeDealData.code || '',
+          dealUrl: activeDealData.affiliateUrl || window.location.href,
+          badge: activeDealData.badge || 'Verified'
+        });
+      }
     });
 
     // Vote Button Handler (Thumbs Up / Down)
