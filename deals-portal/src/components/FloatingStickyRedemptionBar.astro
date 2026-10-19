@@ -1,0 +1,260 @@
+---
+// FloatingStickyRedemptionBar.astro
+// Floating bottom bar that persists revealed promo codes for shoppers when returning to PromoRadar or browsing
+---
+
+<!-- Floating Sticky Redemption Bar (Honey / RetailMeNot persistent checkout assistant) -->
+<aside
+  id="floatingRedemptionBar"
+  class="fixed bottom-0 inset-x-0 z-40 transform translate-y-full transition-all duration-300 ease-out pointer-events-none"
+  aria-label="Active Checkout Discount Bar"
+>
+  <div class="max-w-4xl mx-auto px-3 pb-3 sm:pb-4 pointer-events-auto">
+    <div class="bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-xl text-white rounded-2xl sm:rounded-3xl p-3 sm:px-5 sm:py-3.5 shadow-2xl border border-indigo-500/40 ring-1 ring-white/10 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 sm:gap-4 relative overflow-hidden">
+      <!-- Glow ambient background -->
+      <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-indigo-500/15 rounded-full blur-2xl pointer-events-none"></div>
+
+      <!-- Left: Merchant Identity & Status -->
+      <div class="flex items-center gap-3 min-w-0 flex-1">
+        <div class="w-10 h-10 rounded-xl bg-white p-1 border border-slate-200/40 dark:border-slate-700/80 flex items-center justify-center shrink-0 shadow-sm overflow-hidden">
+          <img
+            id="stickyBarLogoImg"
+            src=""
+            alt="Merchant Logo"
+            class="w-full h-full object-contain"
+            loading="lazy"
+          />
+          <span id="stickyBarLogoFallback" class="hidden w-full h-full rounded-lg bg-gradient-to-br from-indigo-600 to-rose-600 text-white font-black text-xs items-center justify-center">
+            PR
+          </span>
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span id="stickyBarStoreName" class="font-extrabold text-sm sm:text-base text-white truncate">
+              Store
+            </span>
+            <span id="stickyBarBadge" class="text-[10px] sm:text-xs font-extrabold px-2 py-0.5 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30 shrink-0">
+              Verified
+            </span>
+          </div>
+          <p id="stickyBarNotice" class="text-[11px] text-slate-300 truncate">
+            Ready to checkout? Your code is saved and active!
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: Code Peel + CTA Outbound + Dismiss -->
+      <div class="flex items-center gap-2 sm:gap-2.5 shrink-0 w-full sm:w-auto justify-end">
+        <!-- Promo Code Box with Instant Copy -->
+        <div id="stickyBarCodeContainer" class="flex items-center bg-slate-800/90 dark:bg-slate-900 border border-indigo-400/40 rounded-xl p-1 pl-3 shadow-inner">
+          <span
+            id="stickyBarCodeText"
+            class="font-mono font-black text-xs sm:text-sm tracking-wider text-amber-300 select-all mr-2 truncate max-w-[130px] sm:max-w-[160px]"
+          >
+            SAVEDCODE
+          </span>
+          <button
+            id="stickyBarCopyBtn"
+            type="button"
+            class="px-2.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-bold transition flex items-center gap-1 cursor-pointer active:scale-95 shadow-sm"
+            title="Copy promo code to clipboard"
+          >
+            <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+            <span id="stickyBarCopyBtnLabel">Copy</span>
+          </button>
+        </div>
+
+        <!-- Direct Link Out to Store Checkout -->
+        <a
+          id="stickyBarOutboundBtn"
+          href="#"
+          target="_blank"
+          rel="nofollow sponsored noopener noreferrer"
+          class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-extrabold text-xs transition shadow-md flex items-center gap-1.5 shrink-0"
+        >
+          <span>Go to Store</span>
+          <span>↗</span>
+        </a>
+
+        <!-- Dismiss Button -->
+        <button
+          id="stickyBarDismissBtn"
+          type="button"
+          class="w-7 h-7 rounded-lg bg-slate-800/70 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center text-xs font-bold transition cursor-pointer shrink-0"
+          title="Dismiss discount bar"
+          aria-label="Dismiss discount bar"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script is:inline>
+  (function() {
+    const bar = document.getElementById('floatingRedemptionBar');
+    if (!bar) return;
+
+    const logoImg = document.getElementById('stickyBarLogoImg');
+    const logoFallback = document.getElementById('stickyBarLogoFallback');
+    const storeNameEl = document.getElementById('stickyBarStoreName');
+    const badgeEl = document.getElementById('stickyBarBadge');
+    const noticeEl = document.getElementById('stickyBarNotice');
+    const codeContainer = document.getElementById('stickyBarCodeContainer');
+    const codeTextEl = document.getElementById('stickyBarCodeText');
+    const copyBtn = document.getElementById('stickyBarCopyBtn');
+    const copyBtnLabel = document.getElementById('stickyBarCopyBtnLabel');
+    const outboundBtn = document.getElementById('stickyBarOutboundBtn');
+    const dismissBtn = document.getElementById('stickyBarDismissBtn');
+
+    let isDismissedForSession = false;
+    let currentDeal = null;
+
+    // Load active deal from sessionStorage
+    function loadSavedDeal() {
+      try {
+        const raw = sessionStorage.getItem('promoradar_active_redemption');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          // Expire after 3 hours
+          if (Date.now() - parsed.timestamp < 3 * 60 * 60 * 1000) {
+            return parsed;
+          }
+        }
+      } catch(e) {}
+      return null;
+    }
+
+    function saveActiveDeal(deal) {
+      currentDeal = deal;
+      try {
+        sessionStorage.setItem('promoradar_active_redemption', JSON.stringify({
+          ...deal,
+          timestamp: Date.now()
+        }));
+      } catch(e) {}
+    }
+
+    function renderStickyBar(deal) {
+      if (!deal) return;
+
+      if (storeNameEl) storeNameEl.textContent = deal.storeName || deal.store || 'Store';
+      if (badgeEl) badgeEl.textContent = deal.badge || 'Verified';
+
+      const isCode = deal.code && deal.code.trim().length > 0 && deal.code !== 'ACTIVATED_DEAL';
+      if (isCode) {
+        if (codeContainer) codeContainer.style.display = 'flex';
+        if (codeTextEl) codeTextEl.textContent = deal.code;
+      } else {
+        if (codeContainer) codeContainer.style.display = 'none';
+      }
+
+      if (outboundBtn) {
+        outboundBtn.href = deal.affiliateUrl || '#';
+      }
+
+      // Brand Logo
+      const domain = deal.domain || '';
+      if (logoImg && logoFallback) {
+        if (domain) {
+          logoImg.src = `https://logo.clearbit.com/${domain}`;
+          logoImg.style.display = 'block';
+          logoFallback.classList.add('hidden');
+          logoFallback.classList.remove('flex');
+          logoImg.onerror = function() {
+            this.style.display = 'none';
+            logoFallback.classList.remove('hidden');
+            logoFallback.classList.add('flex');
+            logoFallback.textContent = (deal.storeName || 'PR').slice(0, 2).toUpperCase();
+          };
+        } else {
+          logoImg.style.display = 'none';
+          logoFallback.classList.remove('hidden');
+          logoFallback.classList.add('flex');
+          logoFallback.textContent = (deal.storeName || 'PR').slice(0, 2).toUpperCase();
+        }
+      }
+    }
+
+    function showBar(reason) {
+      if (isDismissedForSession || !currentDeal) return;
+
+      // Don't show if modal is currently open
+      const modal = document.getElementById('universalCouponModal');
+      if (modal && !modal.classList.contains('hidden')) {
+        return;
+      }
+
+      if (reason === 'tab_return' && noticeEl) {
+        noticeEl.textContent = `Welcome back! Ready to complete order at ${currentDeal.storeName || 'Store'}?`;
+      } else if (noticeEl) {
+        noticeEl.textContent = `Ready to checkout? Your code is saved and active!`;
+      }
+
+      renderStickyBar(currentDeal);
+      bar.classList.remove('translate-y-full');
+      bar.classList.add('translate-y-0');
+    }
+
+    function hideBar() {
+      bar.classList.add('translate-y-full');
+      bar.classList.remove('translate-y-0');
+    }
+
+    // Listen to coupon reveal event from modal
+    window.addEventListener('promoradar_deal_revealed', (e) => {
+      if (!e.detail) return;
+      isDismissedForSession = false;
+      saveActiveDeal(e.detail);
+    });
+
+    // When modal closes, immediately show sticky redemption bar
+    window.addEventListener('promoradar_modal_closed', () => {
+      if (currentDeal) {
+        setTimeout(() => {
+          showBar('modal_closed');
+        }, 300);
+      }
+    });
+
+    // Show when returning to tab (Tab Visibility API - Honey style)
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && currentDeal && !isDismissedForSession) {
+        showBar('tab_return');
+      }
+    });
+
+    // Copy Button Handler
+    copyBtn?.addEventListener('click', () => {
+      const code = codeTextEl?.textContent || '';
+      if (code) {
+        navigator.clipboard?.writeText(code).then(() => {
+          if (copyBtnLabel) copyBtnLabel.textContent = '✓ Copied!';
+          if (window.showPromoToast) {
+            window.showPromoToast(`Code ${code} copied! Ready to paste at checkout`);
+          }
+          setTimeout(() => {
+            if (copyBtnLabel) copyBtnLabel.textContent = 'Copy';
+          }, 2500);
+        });
+      }
+    });
+
+    // Dismiss Button Handler
+    dismissBtn?.addEventListener('click', () => {
+      isDismissedForSession = true;
+      hideBar();
+    });
+
+    // Check if there was already an active deal from prior browsing
+    currentDeal = loadSavedDeal();
+    if (currentDeal) {
+      setTimeout(() => {
+        showBar('page_load');
+      }, 1200);
+    }
+  })();
+</script>

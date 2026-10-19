@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import CouponRevealModal from '../components/CouponRevealModal.astro';
+import FloatingStickyRedemptionBar from '../components/FloatingStickyRedemptionBar.astro';
 
 interface Props {
   title: string;
@@ -80,6 +81,7 @@ const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
   <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 overflow-x-hidden w-full font-sans">
     <slot />
     <CouponRevealModal />
+    <FloatingStickyRedemptionBar />
 
     <!-- Global Sleek Toast Notification -->
     <div

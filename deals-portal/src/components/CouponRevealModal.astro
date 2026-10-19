@@ -395,12 +395,17 @@ COUPONS_DATA.forEach(deal => {
         whatsappBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
       }
 
-      // Dispatch tracking event
+      // Dispatch tracking event with rich metadata for sticky redemption bar
       window.dispatchEvent(new CustomEvent('promoradar_deal_revealed', {
         detail: {
           code: data.code || 'VERIFIED_DEAL',
           store: data.storeName || 'Partner Store',
-          affiliateUrl: finalUrl
+          storeName: data.storeName || 'Partner Store',
+          storeSlug: data.storeSlug || '',
+          badge: data.badge || 'Verified Deal',
+          affiliateUrl: finalUrl,
+          domain: domain,
+          title: data.title || ''
         }
       }));
     };
@@ -410,6 +415,7 @@ COUPONS_DATA.forEach(deal => {
       modal?.classList.add('hidden');
       modal?.classList.remove('flex');
       document.body.style.overflow = '';
+      window.dispatchEvent(new CustomEvent('promoradar_modal_closed'));
     }
 
     closeBtn?.addEventListener('click', closeModal);
