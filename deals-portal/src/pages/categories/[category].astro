@@ -110,6 +110,16 @@ export async function getStaticPaths() {
 
 const { cat, deals, stores } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const codesCount = deals.filter(d => d.code && d.code.trim().length > 0).length;
+const directDealsCount = deals.filter(d => !d.code || d.code.trim().length === 0).length;
+
+function parseDiscountValue(badge: string): number {
+  if (!badge) return 0;
+  const match = badge.match(/(\d+)/);
+  if (match) return parseInt(match[1], 10);
+  if (badge.toUpperCase().includes('FREE') || badge.toUpperCase().includes('VIP')) return 99;
+  return 10;
+}
 
 // Helper to calculate genuine remaining validity & urgency
 function getExpiryBadge(expiryDateStr: string) {
@@ -191,21 +201,98 @@ const breadcrumbs = [
 
       <!-- Deals List Grid -->
       <div class="space-y-4">
-        <h2 class="text-xl font-extrabold text-slate-900 dark:text-white flex items-center justify-between">
-          <span>Active Coupons &amp; Verified Offers</span>
-          <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30">
-            {deals.length} Verified
-          </span>
-        </h2>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>Active Coupons &amp; Verified Offers</span>
+              <span id="catFilteredCount" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30">
+                {deals.length} Verified
+              </span>
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Filtered and hand-tested partner network vouchers
+            </p>
+          </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Faceted Filter & Sort Controls for Category -->
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Type Tabs -->
+            <div class="inline-flex p-1 bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200/80 dark:border-slate-700/80 text-xs font-bold" role="tablist">
+              <button
+                type="button"
+                class="cat-facet-tab active px-3 py-1 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs transition cursor-pointer"
+                data-filter="all"
+              >
+                All ({deals.length})
+              </button>
+              <button
+                type="button"
+                class="cat-facet-tab px-3 py-1 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition cursor-pointer"
+                data-filter="code"
+              >
+                Codes ({codesCount})
+              </button>
+              <button
+                type="button"
+                class="cat-facet-tab px-3 py-1 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition cursor-pointer"
+                data-filter="deal"
+              >
+                Deals ({directDealsCount})
+              </button>
+            </div>
+
+            <!-- Store Selector within Category -->
+            <div class="relative">
+              <select
+                id="catStoreSelect"
+                aria-label="Filter by Store"
+                class="appearance-none bg-slate-100 hover:bg-slate-200/60 dark:bg-slate-800 dark:hover:bg-slate-700/80 text-slate-800 dark:text-slate-200 text-xs font-bold pl-3 pr-7 py-1.5 rounded-xl border border-slate-200/80 dark:border-slate-700/80 cursor-pointer outline-none focus:ring-2 focus:ring-indigo-500/20"
+              >
+                <option value="all">All Brands ({stores.length})</option>
+                {stores.map(s => (
+                  <option value={s.slug}>{s.name}</option>
+                ))}
+              </select>
+              <svg class="w-3.5 h-3.5 text-slate-400 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </div>
+
+            <!-- Sort Dropdown Selector -->
+            <div class="relative">
+              <select
+                id="catSortSelect"
+                aria-label="Sort Deals"
+                class="appearance-none bg-slate-100 hover:bg-slate-200/60 dark:bg-slate-800 dark:hover:bg-slate-700/80 text-slate-800 dark:text-slate-200 text-xs font-bold pl-3 pr-7 py-1.5 rounded-xl border border-slate-200/80 dark:border-slate-700/80 cursor-pointer outline-none focus:ring-2 focus:ring-indigo-500/20"
+              >
+                <option value="recommended">Sort: Best Match</option>
+                <option value="discount">Sort: Highest Discount</option>
+                <option value="expiry">Sort: Ending Soon</option>
+              </select>
+              <svg class="w-3.5 h-3.5 text-slate-400 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div id="catCouponsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
           {deals.map((deal, idx) => {
             const isCode = deal.code && deal.code.trim().length > 0;
             const isTopDeal = idx === 0;
             const expiryBadge = getExpiryBadge(deal.expiryDate);
+            const discountNum = parseDiscountValue(deal.discountBadge || deal.badge);
+            const expiryTs = deal.expiryDate ? new Date(deal.expiryDate).getTime() : 4102444800000;
 
             return (
-              <article class={`bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 card-hover shadow-sm flex flex-col justify-between dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] ${isTopDeal ? 'ring-1 ring-amber-400/30' : ''}`}>
+              <article
+                class={`cat-deal-card bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 card-hover shadow-sm flex flex-col justify-between dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] ${isTopDeal ? 'ring-1 ring-amber-400/30' : ''}`}
+                data-deal-type={isCode ? 'code' : 'deal'}
+                data-store-slug={deal.storeSlug}
+                data-discount-val={discountNum}
+                data-expiry-ts={expiryTs}
+                data-default-order={idx}
+              >
                 <div>
                   <div class="flex items-start justify-between gap-3 mb-3">
                     <div class="flex items-center gap-2 flex-wrap">
@@ -327,13 +414,29 @@ const breadcrumbs = [
               </article>
             );
           })}
+
+          <!-- Empty State for Category Filters -->
+          <div id="catFiltersEmptyState" class="hidden col-span-full p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3">
+            <div class="text-3xl">🔍</div>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white">No vouchers match the selected filter</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
+              Try switching back to all offers or select another brand in this category.
+            </p>
+            <button
+              type="button"
+              id="resetCatFilterBtn"
+              class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-500 transition cursor-pointer"
+            >
+              Reset Filters
+            </button>
+          </div>
         </div>
       </div>
 
     </div>
   </main>
 
-  <script>
+  <script is:inline>
     // Terms Drawers Toggle
     document.querySelectorAll('.deal-terms-toggle').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -341,6 +444,99 @@ const breadcrumbs = [
         const drawer = card?.querySelector('.deal-terms-drawer');
         drawer?.classList.toggle('hidden');
       });
+    });
+
+    // Faceted Filtering & Sorting Engine for Category Deals
+    let currentCatFilter = 'all';
+    let currentCatStore = 'all';
+    let currentCatSort = 'recommended';
+    const catCards = Array.from(document.querySelectorAll('.cat-deal-card'));
+    const catGrid = document.getElementById('catCouponsGrid');
+    const catCountEl = document.getElementById('catFilteredCount');
+    const catEmptyEl = document.getElementById('catFiltersEmptyState');
+
+    function applyCatFilters() {
+      let visibleCount = 0;
+
+      catCards.forEach(card => {
+        const dealType = card.getAttribute('data-deal-type') || 'deal';
+        const storeSlug = card.getAttribute('data-store-slug') || '';
+        const matchType = currentCatFilter === 'all' || dealType === currentCatFilter;
+        const matchStore = currentCatStore === 'all' || storeSlug === currentCatStore;
+
+        if (matchType && matchStore) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // Sort cards
+      if (catGrid && visibleCount > 0) {
+        const sorted = [...catCards].sort((a, b) => {
+          if (currentCatSort === 'discount') {
+            const valA = parseFloat(a.getAttribute('data-discount-val') || '0');
+            const valB = parseFloat(b.getAttribute('data-discount-val') || '0');
+            return valB - valA;
+          } else if (currentCatSort === 'expiry') {
+            const expA = parseFloat(a.getAttribute('data-expiry-ts') || '0');
+            const expB = parseFloat(b.getAttribute('data-expiry-ts') || '0');
+            return expA - expB;
+          } else {
+            const orderA = parseInt(a.getAttribute('data-default-order') || '0', 10);
+            const orderB = parseInt(b.getAttribute('data-default-order') || '0', 10);
+            return orderA - orderB;
+          }
+        });
+        sorted.forEach(card => catGrid.appendChild(card));
+        if (catEmptyEl) catGrid.appendChild(catEmptyEl);
+      }
+
+      if (catCountEl) catCountEl.textContent = `${visibleCount} Verified`;
+      if (catEmptyEl) {
+        if (visibleCount === 0) catEmptyEl.classList.remove('hidden');
+        else catEmptyEl.classList.add('hidden');
+      }
+    }
+
+    document.querySelectorAll('.cat-facet-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        currentCatFilter = tab.getAttribute('data-filter') || 'all';
+        document.querySelectorAll('.cat-facet-tab').forEach(t => {
+          const isActive = t === tab;
+          t.classList.toggle('active', isActive);
+          t.classList.toggle('bg-white', isActive);
+          t.classList.toggle('dark:bg-slate-900', isActive);
+          t.classList.toggle('text-slate-900', isActive);
+          t.classList.toggle('dark:text-white', isActive);
+          t.classList.toggle('shadow-xs', isActive);
+          t.classList.toggle('text-slate-600', !isActive);
+          t.classList.toggle('dark:text-slate-400', !isActive);
+        });
+        applyCatFilters();
+      });
+    });
+
+    document.getElementById('catStoreSelect')?.addEventListener('change', (e) => {
+      currentCatStore = e.target.value;
+      applyCatFilters();
+    });
+
+    document.getElementById('catSortSelect')?.addEventListener('change', (e) => {
+      currentCatSort = e.target.value;
+      applyCatFilters();
+    });
+
+    document.getElementById('resetCatFilterBtn')?.addEventListener('click', () => {
+      const allTab = document.querySelector('.cat-facet-tab[data-filter="all"]');
+      if (allTab) allTab.click();
+      const storeSelect = document.getElementById('catStoreSelect');
+      if (storeSelect) {
+        storeSelect.value = 'all';
+        currentCatStore = 'all';
+      }
+      applyCatFilters();
     });
   </script>
 
