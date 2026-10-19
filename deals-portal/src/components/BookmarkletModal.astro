@@ -1,0 +1,169 @@
+---
+// deals-portal/src/components/BookmarkletModal.astro
+// Instant Bookmarklet "PromoRadar One-Click"
+// Benchmarked against PayPal Honey / Capital One Shopping / SimplyCodes
+---
+
+<div
+  id="bookmarkletModal"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="bookmarkletModalTitle"
+>
+  <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-200/90 dark:border-slate-800 relative my-auto animate-fadeIn transform transition-all text-center">
+    <!-- Close Button -->
+    <button
+      id="closeBookmarkletModalBtn"
+      type="button"
+      class="absolute right-4 top-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center font-bold text-sm cursor-pointer transition shadow-sm z-10"
+      aria-label="Close modal"
+    >
+      ✕
+    </button>
+
+    <!-- Header Badge -->
+    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200/80 dark:border-indigo-500/30 text-indigo-700 dark:text-indigo-300 text-[11px] font-extrabold mb-3 shadow-xs">
+      <span>⚡ ZERO-INSTALL BROWSER TOOL</span>
+    </div>
+
+    <h3 id="bookmarkletModalTitle" class="text-xl font-black text-slate-900 dark:text-white mb-1.5">
+      PromoRadar One-Click Bookmarklet
+    </h3>
+    <p class="text-xs text-slate-600 dark:text-slate-300 max-w-sm mx-auto mb-5 leading-relaxed font-medium">
+      Find verified promo codes on any store cart with a single click. No Chrome Web Store extensions or permissions required.
+    </p>
+
+    <!-- Interactive Drag & Drop Target Box -->
+    <div class="p-5 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border-2 border-dashed border-indigo-300 dark:border-indigo-500/40 mb-5 relative group">
+      <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-300 block mb-2">
+        Drag This Button to Your Bookmarks Bar:
+      </span>
+
+      <!-- The Draggable Bookmarklet Anchor -->
+      <a
+        id="draggableBookmarkletLink"
+        href="javascript:(function(){var m={'expressvpn.com':'expressvpn','airalo.com':'airalo','iallpowers.com':'allpowers','allpowers.com':'allpowers','alibaba.com':'alibaba','chicme.com':'chicme','glasseslit.com':'glasseslit','raynatours.com':'raynatours','onlinesim.io':'onlinesim','purevpn.com':'purevpn','keepersecurity.com':'keepersecurity','qustodio.com':'qustodio','thedealoutlet.com':'thedealoutlet','kodland.org':'kodland','vogacloset.com':'vogacloset','nordvpn.com':'nordvpn','yesim.app':'yesim','surfshark.com':'surfshark','1password.com':'1password','hostinger.com':'hostinger','namecheap.com':'namecheap','trip.com':'trip','booking.com':'booking','elitedate.com':'elitedate','match.com':'verified-match','spokeo.com':'spokeo','consumer.huawei.com':'huawei','huawei.com':'huawei','nazih.sa':'nazih','touch.com.ua':'touch','jashanmal.com':'jashanmal','dabdoob.com':'dabdoob','vperfumes.com':'vperfumes','aovica.com':'aovica','markformelle.com':'markformelle','abelssoft.de':'abelssoft'};var host=window.location.hostname.replace(/^www\./,'').toLowerCase();var slug=m[host];if(!slug){for(var k in m){if(host.indexOf(k)!==-1||k.indexOf(host)!==-1){slug=m[k];break;}}}var base='https://promoradar.store';if(slug){window.open(base+'/stores/'+slug+'/?ref=bookmarklet','_blank');}else{var brand=host.split('.')[0];window.open(base+'/?search='+encodeURIComponent(brand)+'&ref=bookmarklet','_blank');}})();"
+        class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-rose-600 text-white font-black text-sm shadow-lg shadow-indigo-600/30 hover:scale-105 transition transform cursor-grab active:cursor-grabbing select-none"
+        title="Drag to your Bookmarks Bar"
+        onclick="event.preventDefault(); alert('Please DRAG this button to your browser bookmarks bar (or press Ctrl+D / Cmd+D to save)!');"
+      >
+        <span class="text-base">⚡</span>
+        <span>PromoRadar Deals</span>
+      </a>
+
+      <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-3 font-medium">
+        💡 Tip: If bookmarks bar is hidden, press <kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-mono font-bold">Ctrl+Shift+B</kbd> (or <kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-mono font-bold">Cmd+Shift+B</kbd> on Mac).
+      </p>
+    </div>
+
+    <!-- 3 Quick Steps Guide -->
+    <div class="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-600 dark:text-slate-300 mb-5">
+      <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+        <span class="font-bold text-slate-900 dark:text-white block mb-0.5">1. Drag &amp; Drop</span>
+        <span>Drop to bookmarks bar</span>
+      </div>
+      <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+        <span class="font-bold text-slate-900 dark:text-white block mb-0.5">2. Shop Anywhere</span>
+        <span>Open any online store</span>
+      </div>
+      <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+        <span class="font-bold text-slate-900 dark:text-white block mb-0.5">3. One-Click Deals</span>
+        <span>Click bookmark for codes</span>
+      </div>
+    </div>
+
+    <!-- Copy Code Alternative -->
+    <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
+      <button
+        type="button"
+        id="copyBookmarkletCodeBtn"
+        class="flex-1 py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs transition cursor-pointer flex items-center justify-center gap-1.5"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+        </svg>
+        <span id="copyBookmarkletLabel">Copy JavaScript Code</span>
+      </button>
+
+      <button
+        type="button"
+        id="testBookmarkletDemoBtn"
+        class="py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition cursor-pointer flex items-center justify-center gap-1"
+      >
+        <span>Test Demo ↗</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('bookmarkletModal');
+  const closeBtn = document.getElementById('closeBookmarkletModalBtn');
+  const copyBtn = document.getElementById('copyBookmarkletCodeBtn');
+  const copyLabel = document.getElementById('copyBookmarkletLabel');
+  const testBtn = document.getElementById('testBookmarkletDemoBtn');
+  const bookmarkletLink = document.getElementById('draggableBookmarkletLink') as HTMLAnchorElement | null;
+
+  declare global {
+    interface Window {
+      openBookmarkletModal: () => void;
+      closeBookmarkletModal: () => void;
+    }
+  }
+
+  window.openBookmarkletModal = function() {
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.classList.add('overflow-hidden');
+  };
+
+  window.closeBookmarkletModal = function() {
+    if (!modal) return;
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.classList.remove('overflow-hidden');
+  };
+
+  closeBtn?.addEventListener('click', window.closeBookmarkletModal);
+
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) window.closeBookmarkletModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+      window.closeBookmarkletModal();
+    }
+  });
+
+  copyBtn?.addEventListener('click', () => {
+    const code = bookmarkletLink?.getAttribute('href') || '';
+    if (!code) return;
+    navigator.clipboard?.writeText(code).then(() => {
+      if (copyLabel) copyLabel.textContent = '✓ JavaScript Copied!';
+      if ((window as any).showPromoToast) {
+        (window as any).showPromoToast('Bookmarklet code copied! Paste it in your bookmarks URL field.');
+      }
+      setTimeout(() => {
+        if (copyLabel) copyLabel.textContent = 'Copy JavaScript Code';
+      }, 2500);
+    });
+  });
+
+  testBtn?.addEventListener('click', () => {
+    window.closeBookmarkletModal();
+    // Simulate finding a top store
+    window.location.href = '/stores/chicme/?ref=bookmarklet_test';
+  });
+
+  // Global delegated listener
+  document.addEventListener('click', (e) => {
+    const target = (e.target as HTMLElement)?.closest('[data-open-bookmarklet-modal]');
+    if (target) {
+      e.preventDefault();
+      window.openBookmarkletModal();
+    }
+  });
+</script>
