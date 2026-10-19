@@ -143,6 +143,81 @@ html.dark .border-slate-300 {
   border-color: rgba(255, 255, 255, 0.16) !important;
 }
 
+/* Enhanced Color & Contrast Mappings for Dark Theme */
+html.dark .text-indigo-600 {
+  color: #818cf8 !important;
+}
+
+html.dark .text-indigo-700 {
+  color: #a5b4fc !important;
+}
+
+html.dark .text-indigo-500 {
+  color: #818cf8 !important;
+}
+
+html.dark .hover\:text-indigo-600:hover {
+  color: #a5b4fc !important;
+}
+
+html.dark .hover\:text-indigo-800:hover {
+  color: #c7d2fe !important;
+}
+
+html.dark .bg-indigo-50,
+html.dark .bg-indigo-100 {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  color: #a5b4fc !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+}
+
+html.dark .bg-emerald-50,
+html.dark .bg-emerald-100 {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  color: #6ee7b7 !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+html.dark .bg-rose-50,
+html.dark .bg-rose-100 {
+  background-color: rgba(244, 63, 94, 0.15) !important;
+  color: #fda4af !important;
+  border-color: rgba(244, 63, 94, 0.3) !important;
+}
+
+html.dark .bg-amber-50,
+html.dark .bg-amber-100 {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  color: #fcd34d !important;
+  border-color: rgba(245, 158, 11, 0.3) !important;
+}
+
+/* Opacity variants of bg-slate-50 / bg-white in Dark Mode */
+html.dark .bg-slate-50\/80,
+html.dark .bg-slate-50\/90,
+html.dark .bg-slate-50\/70,
+html.dark .bg-slate-50\/60,
+html.dark .bg-slate-50\/50 {
+  background-color: #151e32 !important;
+}
+
+html.dark .border-indigo-100,
+html.dark .border-indigo-200 {
+  border-color: rgba(99, 102, 241, 0.25) !important;
+}
+
+html.dark .border-emerald-100,
+html.dark .border-emerald-200 {
+  border-color: rgba(16, 185, 129, 0.25) !important;
+}
+
+html.dark .border-rose-100,
+html.dark .border-rose-200,
+html.dark .border-rose-200\/80 {
+  border-color: rgba(244, 63, 94, 0.25) !important;
+}
+
+
 /* Partner Store Horizontal Strip */
 html.dark .store-strip-pill {
   background-color: #131c31 !important;
