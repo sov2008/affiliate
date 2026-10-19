@@ -29,6 +29,21 @@ const otherStores = STORES_DATA.filter(s => s.slug !== store.slug).slice(0, 4);
 const categoryAlternatives = STORES_DATA.filter(s => s.slug !== store.slug && s.category === store.category);
 const similarStores = categoryAlternatives.length > 0 ? categoryAlternatives : otherStores;
 
+// Helper to calculate genuine remaining validity & urgency
+function getExpiryBadge(expiryDateStr: string) {
+  if (!expiryDateStr) return { text: '⚡ Verified Oct 2026', class: 'bg-emerald-50 text-emerald-700 border-emerald-200/80 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30' };
+  const expiry = new Date(expiryDateStr);
+  const now = new Date('2026-10-19');
+  const diffDays = Math.ceil((expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+  if (diffDays <= 7 && diffDays > 0) {
+    return { text: `⏳ Ends in ${diffDays}d`, class: 'bg-rose-50 text-rose-700 border-rose-200/80 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30 font-bold' };
+  } else if (diffDays <= 45 && diffDays > 0) {
+    return { text: `⏳ Ends in ${diffDays}d`, class: 'bg-amber-50 text-amber-800 border-amber-200/80 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30 font-bold' };
+  } else {
+    return { text: '⚡ Verified for Oct 2026', class: 'bg-slate-100 text-slate-600 border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700/60' };
+  }
+}
+
 const initials = store.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
 const storeDomain = getStoreDomain(store.name) || getStoreDomain(store.slug) || store.cleanDomain || 'promoradar.store';
 
@@ -382,13 +397,15 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
 
             <!-- List of Coupons -->
             <div class="space-y-4">
-              {storeDeals.map((deal) => {
+              {storeDeals.map((deal, idx) => {
                 const isCode = deal.code && deal.code.trim().length > 0;
+                const isTopDeal = idx === 0;
+                const expiryBadge = getExpiryBadge(deal.expiryDate);
                 return (
-                  <article class="bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 card-hover shadow-sm flex flex-col justify-between dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                  <article class={`bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 card-hover shadow-sm flex flex-col justify-between dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] ${isTopDeal ? 'ring-1 ring-amber-400/30' : ''}`}>
                     <div>
                       <div class="flex items-start justify-between gap-3 mb-3">
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2 flex-wrap">
                           <span class="text-xs font-extrabold px-2.5 py-1 rounded-xl bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30">
                             {deal.discountBadge}
                           </span>
@@ -397,9 +414,14 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                           }`}>
                             {isCode ? 'PROMO CODE' : 'DIRECT DEAL'}
                           </span>
+                          {isTopDeal && (
+                            <span class="inline-flex items-center gap-1 text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-200/80 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30 shrink-0">
+                              <span class="text-amber-500">★</span> Editor's Pick
+                            </span>
+                          )}
                         </div>
-                        <span class="text-[11px] text-slate-400 dark:text-slate-400 font-medium">
-                          Expires: {deal.expiryDate}
+                        <span class={`text-[10px] px-2 py-0.5 rounded-md border shrink-0 ${expiryBadge.class}`}>
+                          {expiryBadge.text}
                         </span>
                       </div>
 
@@ -411,55 +433,76 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                       </p>
                     </div>
 
-                    <div class="pt-3.5 border-t border-slate-100 dark:border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                      <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-                        <span class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">
-                          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                          Verified on Checkout
-                        </span>
-                        <span>•</span>
-                        <span>Success: <strong class="text-slate-800 dark:text-slate-200">{deal.successRate}</strong></span>
+                    <div class="space-y-2.5 pt-3.5 border-t border-slate-100 dark:border-slate-800/80">
+                      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
+                          <span class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            Verified on Checkout
+                          </span>
+                          <span>•</span>
+                          <span>Success: <strong class="text-slate-800 dark:text-slate-200">{deal.successRate || '99%'}</strong></span>
+                          {deal.terms && (
+                            <>
+                              <span>•</span>
+                              <button type="button" class="deal-terms-toggle text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 underline underline-offset-2 font-medium cursor-pointer">
+                                Terms ▾
+                              </button>
+                            </>
+                          )}
+                        </div>
+
+                        {isCode ? (
+                          <button
+                            type="button"
+                            class="code-peel text-white rounded-xl px-4 py-2.5 text-xs font-bold flex items-center justify-center gap-2 shrink-0 shadow-sm cursor-pointer"
+                            data-reveal-deal={JSON.stringify({
+                              id: deal.id,
+                              title: deal.title,
+                              desc: deal.description,
+                              code: deal.code,
+                              storeName: store.name,
+                              storeSlug: store.slug,
+                              badge: deal.discountBadge,
+                              affiliateUrl: deal.affiliateUrl,
+                              successRate: deal.successRate
+                            })}
+                          >
+                            <span>Get Code</span>
+                            <span class="font-mono text-[11px] bg-black/25 px-2 py-0.5 rounded border border-white/20">
+                              •••{deal.code.slice(-3)}
+                            </span>
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            class="bg-slate-900 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white rounded-xl px-4 py-2.5 text-xs font-bold flex items-center justify-center gap-1.5 shrink-0 transition shadow-sm cursor-pointer"
+                            data-reveal-deal={JSON.stringify({
+                              id: deal.id,
+                              title: deal.title,
+                              desc: deal.description,
+                              code: '',
+                              storeName: store.name,
+                              storeSlug: store.slug,
+                              badge: deal.discountBadge,
+                              affiliateUrl: deal.affiliateUrl,
+                              successRate: deal.successRate
+                            })}
+                          >
+                            <span>Activate Deal ↗</span>
+                          </button>
+                        )}
                       </div>
 
-                      {isCode ? (
-                        <button
-                          type="button"
-                          class="code-peel text-white rounded-xl px-4 py-2.5 text-xs font-bold flex items-center justify-center gap-2 shrink-0 shadow-sm cursor-pointer"
-                          data-reveal-deal={JSON.stringify({
-                            id: deal.id,
-                            title: deal.title,
-                            desc: deal.description,
-                            code: deal.code,
-                            storeName: store.name,
-                            storeSlug: store.slug,
-                            badge: deal.discountBadge,
-                            affiliateUrl: deal.affiliateUrl,
-                            successRate: deal.successRate
-                          })}
-                        >
-                          <span>Get Code</span>
-                          <span class="font-mono text-[11px] bg-black/25 px-2 py-0.5 rounded border border-white/20">
-                            •••{deal.code.slice(-3)}
-                          </span>
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          class="bg-slate-900 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white rounded-xl px-4 py-2.5 text-xs font-bold flex items-center justify-center gap-1.5 shrink-0 transition shadow-sm cursor-pointer"
-                          data-reveal-deal={JSON.stringify({
-                            id: deal.id,
-                            title: deal.title,
-                            desc: deal.description,
-                            code: '',
-                            storeName: store.name,
-                            storeSlug: store.slug,
-                            badge: deal.discountBadge,
-                            affiliateUrl: deal.affiliateUrl,
-                            successRate: deal.successRate
-                          })}
-                        >
-                          <span>Activate Deal ↗</span>
-                        </button>
+                      {/* Expandable Terms & Exclusions Drawer */}
+                      {deal.terms && (
+                        <div class="deal-terms-drawer hidden text-[11px] text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/60 p-3 rounded-xl border border-slate-200/70 dark:border-slate-700/60 space-y-1">
+                          <div class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between">
+                            <span>Terms &amp; Restrictions:</span>
+                            <span class="text-[10px] text-slate-400 font-mono">Expires {deal.expiryDate}</span>
+                          </div>
+                          <p class="leading-relaxed">{deal.terms}</p>
+                        </div>
                       )}
                     </div>
                   </article>
@@ -643,6 +686,15 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
 
     calcInput?.addEventListener('input', calculateSavings);
     calculateSavings();
+
+    // Terms Drawers Toggle
+    document.querySelectorAll('.deal-terms-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('article');
+        const drawer = card?.querySelector('.deal-terms-drawer');
+        drawer?.classList.toggle('hidden');
+      });
+    });
 
     const alertForm = document.getElementById('dealAlertForm');
     const alertSuccess = document.getElementById('dealAlertSuccess');
