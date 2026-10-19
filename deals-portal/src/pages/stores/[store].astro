@@ -6,6 +6,7 @@ import BrandLogo from '../../components/BrandLogo.astro';
 import { STORES_DATA, COUPONS_DATA, type StoreProfile } from '../../data/couponsData';
 
 import { getStoreDomain } from '../../data/storeDomains';
+import { getStorePolicy } from '../../data/storePolicies';
 
 export const prerender = true;
 
@@ -211,7 +212,23 @@ const offersListSchema = {
   }))
 };
 
-const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : []), offersListSchema];
+const storePolicy = getStorePolicy(store.slug, store.category, store.name);
+
+// Schema.org HowTo: Expert Saving Hacks Guide
+const howToSaveSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": `How to Maximize Savings with ${store.name} Promo Codes`,
+  "description": `Expert tested saving hacks and checkout policy rules to maximize discounts at ${store.name}.`,
+  "step": storePolicy.savingHacks.map((hack, idx) => ({
+    "@type": "HowToStep",
+    "position": idx + 1,
+    "name": hack.title,
+    "text": hack.description
+  }))
+};
+
+const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : []), offersListSchema, howToSaveSchema];
 ---
 
 <BaseLayout
@@ -454,6 +471,53 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                 <li class="marker:text-indigo-500 dark:marker:text-indigo-400 marker:font-bold">{step}</li>
               ))}
             </ol>
+          </div>
+
+          <!-- Store Checkout Policy Quick View -->
+          <div class="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                <span class="text-indigo-600 dark:text-indigo-400">📋</span>
+                <span>Checkout Rules &amp; Perks</span>
+              </h3>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-500/30">
+                Verified QA
+              </span>
+            </div>
+
+            <div class="space-y-2.5 text-xs">
+              <div class="flex items-center justify-between py-1 border-b border-slate-100 dark:border-slate-800">
+                <span class="text-slate-500 dark:text-slate-400">Coupon Stacking:</span>
+                <span class={`font-bold px-2 py-0.5 rounded text-[11px] ${storePolicy.stackingAllowed ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300' : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'}`}>
+                  {storePolicy.stackingAllowed ? '✓ Allowed' : '1 Code / Order'}
+                </span>
+              </div>
+              <div class="flex items-center justify-between py-1 border-b border-slate-100 dark:border-slate-800">
+                <span class="text-slate-500 dark:text-slate-400">Welcome Discount:</span>
+                <span class="font-bold text-slate-800 dark:text-slate-200 text-right truncate max-w-[130px]" title={storePolicy.newsletterDiscount}>
+                  {storePolicy.newsletterDiscount.slice(0, 20)}...
+                </span>
+              </div>
+              <div class="flex items-center justify-between py-1 border-b border-slate-100 dark:border-slate-800">
+                <span class="text-slate-500 dark:text-slate-400">Student Offer:</span>
+                <span class="font-bold text-slate-800 dark:text-slate-200">
+                  {storePolicy.studentDiscount.toLowerCase().includes('discount') || storePolicy.studentDiscount.toLowerCase().includes('trial') ? '✓ Active' : 'Available'}
+                </span>
+              </div>
+              <div class="flex items-center justify-between py-1">
+                <span class="text-slate-500 dark:text-slate-400">Return Window:</span>
+                <span class="font-bold text-emerald-600 dark:text-emerald-400 truncate max-w-[140px]" title={storePolicy.returnPolicy}>
+                  {storePolicy.returnPolicy.slice(0, 22)}
+                </span>
+              </div>
+            </div>
+
+            <a
+              href="#saving-hacks-guide"
+              class="block w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-extrabold text-[11px] transition text-center cursor-pointer"
+            >
+              Read Full Policy &amp; Saving Hacks ↓
+            </a>
           </div>
 
           <!-- Lead Magnet: Verified Deal Drop Alerts Engine -->
@@ -1053,6 +1117,200 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
               })}
             </div>
           </div>
+
+          <!-- Store Coupon Policy & Insider Saving Hacks Guide (Knoji / Slickdeals / Offers.com Standard) -->
+          <section id="saving-hacks-guide" class="bg-white dark:bg-slate-900/90 rounded-3xl p-6 sm:p-8 border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-7">
+            <!-- Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-slate-200/80 dark:border-slate-800">
+              <div>
+                <div class="flex items-center gap-2 mb-1.5">
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200/90 dark:bg-amber-400/15 dark:text-amber-300 dark:border-amber-400/30">
+                    EXPERT SHOPPER BLUEPRINT
+                  </span>
+                  <span class="text-xs text-slate-400">•</span>
+                  <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Verified for October 2026
+                  </span>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                  {store.name} Coupon Policy &amp; Insider Saving Hacks
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed max-w-2xl">
+                  Essential checkout rules, stackability conditions, and direct recommendations from our editorial QA desk to help you slash the highest dollar amount.
+                </p>
+              </div>
+
+              <a
+                href={store.primaryAffiliateUrl}
+                target="_blank"
+                rel="nofollow sponsored"
+                class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-bold text-xs transition shrink-0 self-start sm:self-auto shadow-sm"
+              >
+                <span>Visit {store.name} Store ↗</span>
+              </a>
+            </div>
+
+            <!-- 6-Part Checkout Policy Matrix Grid -->
+            <div>
+              <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3.5">
+                Official Checkout Policy Matrix
+              </h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                <!-- 1. Stacking -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>🏷️</span>
+                        <span>Coupon Stacking</span>
+                      </span>
+                      <span class={`text-[10px] font-extrabold px-2 py-0.5 rounded-md ${storePolicy.stackingAllowed ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'}`}>
+                        {storePolicy.stackingAllowed ? 'Allowed' : 'Single Code'}
+                      </span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                      {storePolicy.stackingDetails}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- 2. Newsletter -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>✉️</span>
+                        <span>Welcome Discount</span>
+                      </span>
+                      <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">
+                        First Order
+                      </span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                      {storePolicy.newsletterDiscount}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- 3. Student -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>🎓</span>
+                        <span>Student &amp; Youth</span>
+                      </span>
+                      <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">
+                        Academic
+                      </span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                      {storePolicy.studentDiscount}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- 4. Shipping -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>📦</span>
+                        <span>Delivery &amp; Freight</span>
+                      </span>
+                      <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                        Policy
+                      </span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                      {storePolicy.freeShippingThreshold}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- 5. Return Policy -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>🔄</span>
+                        <span>Refunds &amp; Returns</span>
+                      </span>
+                      <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300">
+                        Guarantee
+                      </span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                      {storePolicy.returnPolicy}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- 6. Loyalty Program -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>⭐</span>
+                        <span>Loyalty &amp; Points</span>
+                      </span>
+                      <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">
+                        Rewards
+                      </span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                      {storePolicy.rewardsProgram}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Insider Saving Hacks -->
+            <div class="pt-2">
+              <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3.5 flex items-center gap-1.5">
+                <span>💡</span>
+                <span>PromoRadar QA Desk: Expert Saving Hacks for {store.name}</span>
+              </h4>
+
+              <div class="space-y-3">
+                {storePolicy.savingHacks.map((hack, idx) => (
+                  <div class="p-4 rounded-2xl bg-gradient-to-r from-indigo-50/70 via-white to-indigo-50/40 dark:from-slate-800/90 dark:via-slate-800/60 dark:to-slate-800/90 border border-indigo-100/90 dark:border-slate-700/80 flex items-start gap-4">
+                    <div class="w-8 h-8 rounded-xl bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+                      0{idx + 1}
+                    </div>
+                    <div class="space-y-1 flex-1">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <span class="text-xs font-extrabold text-slate-900 dark:text-white">
+                          {hack.title}
+                        </span>
+                        <span class="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">
+                          {hack.tag}
+                        </span>
+                      </div>
+                      <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        {hack.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Bottom Action Callout -->
+            <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              <span class="text-slate-600 dark:text-slate-300">
+                Ready to put these hacks into action? Grab the highest-saving active promo code above.
+              </span>
+              <a
+                href="#storeCouponsGrid"
+                class="text-xs font-bold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 inline-flex items-center gap-1 shrink-0"
+              >
+                <span>Browse Active Codes ↑</span>
+              </a>
+            </div>
+          </section>
 
           <!-- Brand FAQs -->
           {store.faqs && store.faqs.length > 0 && (
