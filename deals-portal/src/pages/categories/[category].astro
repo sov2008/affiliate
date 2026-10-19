@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { COUPONS_DATA, STORES_DATA } from '../../data/couponsData';
+import { getDealLivePulse } from '../../data/pulseEngine';
 
 export const prerender = true;
 
@@ -406,6 +407,7 @@ const breadcrumbs = [
             const expiryBadge = getExpiryBadge(deal.expiryDate);
             const discountNum = parseDiscountValue(deal.discountBadge || deal.badge);
             const expiryTs = deal.expiryDate ? new Date(deal.expiryDate).getTime() : 4102444800000;
+            const pulse = getDealLivePulse(deal.id, deal.storeSlug, deal.successRate);
 
             return (
               <article
@@ -498,19 +500,33 @@ const breadcrumbs = [
                     <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
                       <button
                         type="button"
+                        data-open-pulse-modal
+                        data-pulse-store={deal.storeName}
+                        data-pulse-title={deal.title}
+                        data-pulse-code={deal.code}
+                        data-pulse-badge={deal.discountBadge}
+                        data-pulse-time={pulse.timeText}
+                        data-pulse-stability={pulse.stabilityBadge}
+                        data-pulse-url={deal.affiliateUrl}
+                        class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200/70 dark:border-emerald-500/30 text-[10px] font-bold hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition cursor-pointer"
+                        title="Inspect Live Health Pulse & Cart Simulation"
+                      >
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>Pulse: {pulse.timeText}</span>
+                      </button>
+                      <span>•</span>
+                      <button
+                        type="button"
                         data-open-verification-guarantee
                         data-store-name={deal.storeName}
                         data-store-slug={deal.storeSlug}
                         data-deal-title={deal.title}
                         data-deal-code={deal.code}
-                        class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold hover:underline cursor-pointer"
-                        title="Click to inspect PromoRadar QA verification proof"
+                        class="font-bold text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer"
+                        title="Inspect PromoRadar QA Proof"
                       >
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <span>Verified Live</span>
+                        <span>Success: <strong class="text-slate-800 dark:text-slate-200">{pulse.stabilityBadge}</strong></span>
                       </button>
-                      <span>•</span>
-                      <span>Success: <strong class="text-slate-800 dark:text-slate-200">{deal.successRate || '99%'}</strong></span>
                       {deal.terms && (
                         <>
                           <span>•</span>

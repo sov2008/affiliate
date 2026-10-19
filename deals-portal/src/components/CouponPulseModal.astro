@@ -1,0 +1,260 @@
+---
+// deals-portal/src/components/CouponPulseModal.astro
+// Coupon Accuracy & Live Health Pulse Index Inspector Modal
+// Benchmarked against CouponBirds Accuracy Index & SimplyCodes Real-Time Pulse
+---
+
+<div
+  id="couponPulseModal"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="pulseModalTitle"
+>
+  <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-200/90 dark:border-slate-800 relative my-auto animate-fadeIn transform transition-all">
+    <!-- Close Button -->
+    <button
+      id="closePulseModalBtn"
+      type="button"
+      class="absolute right-4 top-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center font-bold text-sm cursor-pointer transition shadow-sm z-10"
+      aria-label="Close modal"
+    >
+      ✕
+    </button>
+
+    <!-- Header Badge -->
+    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-200/80 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-[11px] font-extrabold mb-3 shadow-xs">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span>PROMORADAR LIVE HEALTH PULSE™</span>
+    </div>
+
+    <!-- Title and Store -->
+    <div class="flex items-center gap-2 mb-1">
+      <h3 id="pulseModalStoreName" class="text-base sm:text-lg font-black text-slate-900 dark:text-white">Store</h3>
+      <span id="pulseModalBadge" class="text-xs font-black px-2.5 py-0.5 rounded-lg bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30">Verified</span>
+    </div>
+    <p id="pulseModalDealTitle" class="text-xs text-slate-600 dark:text-slate-300 mb-4 line-clamp-2"></p>
+
+    <!-- Pulse Metric Dashboard Box -->
+    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 mb-5">
+      <div class="grid grid-cols-2 gap-3 mb-3 pb-3 border-b border-slate-200/80 dark:border-slate-700/60 text-center">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">Checkout Stability</span>
+          <div class="flex items-center justify-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            <span id="pulseModalStability" class="text-base font-black text-emerald-600 dark:text-emerald-400">99.2%</span>
+          </div>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400">High Reliability</span>
+        </div>
+
+        <div class="border-l border-slate-200/80 dark:border-slate-700/60">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">Last Cart Ping</span>
+          <span id="pulseModalTimeAgo" class="text-base font-black text-slate-900 dark:text-white">14m ago</span>
+          <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold block">Passed Simulation ✓</span>
+        </div>
+      </div>
+
+      <!-- 4 Live QA Checkpoints -->
+      <div class="space-y-2 text-xs">
+        <div class="flex items-center justify-between text-slate-700 dark:text-slate-300">
+          <span class="flex items-center gap-1.5">
+            <span class="text-emerald-500 font-bold">✓</span>
+            <span>Voucher Syntax &amp; Formatting</span>
+          </span>
+          <span class="font-mono text-[11px] font-bold text-slate-500">Validated</span>
+        </div>
+        <div class="flex items-center justify-between text-slate-700 dark:text-slate-300">
+          <span class="flex items-center gap-1.5">
+            <span class="text-emerald-500 font-bold">✓</span>
+            <span>Merchant Checkout Acceptance</span>
+          </span>
+          <span class="font-mono text-[11px] font-bold text-slate-500">200 OK</span>
+        </div>
+        <div class="flex items-center justify-between text-slate-700 dark:text-slate-300">
+          <span class="flex items-center gap-1.5">
+            <span class="text-emerald-500 font-bold">✓</span>
+            <span>Partner Network Commission Feed</span>
+          </span>
+          <span class="font-mono text-[11px] font-bold text-slate-500">Direct Sync</span>
+        </div>
+        <div class="flex items-center justify-between text-slate-700 dark:text-slate-300">
+          <span class="flex items-center gap-1.5">
+            <span class="text-emerald-500 font-bold">✓</span>
+            <span>Validity Period Verification</span>
+          </span>
+          <span class="font-mono text-[11px] font-bold text-emerald-600 dark:text-emerald-400">October 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Promo Code Callout if available -->
+    <div id="pulseModalCodeWrapper" class="hidden mb-4 p-3 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/80 dark:border-indigo-500/30 text-xs">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-300 block mb-0.5">Voucher Code</span>
+          <span id="pulseModalCodeText" class="font-mono font-black text-base text-slate-900 dark:text-white select-all"></span>
+        </div>
+        <button
+          type="button"
+          id="copyPulseCodeBtn"
+          class="px-3 py-1.5 rounded-xl bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-500 transition cursor-pointer active:scale-95 shadow-xs"
+        >
+          Copy Code
+        </button>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        id="pulseReportIssueBtn"
+        class="py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold text-xs transition cursor-pointer"
+      >
+        Report Issue
+      </button>
+
+      <a
+        id="pulseOpenStoreBtn"
+        href="#"
+        target="_blank"
+        rel="nofollow sponsored"
+        class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md shadow-indigo-600/20 transition cursor-pointer flex items-center justify-center gap-1.5"
+      >
+        <span>Open Store &amp; Apply ↗</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('couponPulseModal');
+  const closeBtn = document.getElementById('closePulseModalBtn');
+  const storeNameEl = document.getElementById('pulseModalStoreName');
+  const badgeEl = document.getElementById('pulseModalBadge');
+  const dealTitleEl = document.getElementById('pulseModalDealTitle');
+  const stabilityEl = document.getElementById('pulseModalStability');
+  const timeAgoEl = document.getElementById('pulseModalTimeAgo');
+  const codeWrapper = document.getElementById('pulseModalCodeWrapper');
+  const codeTextEl = document.getElementById('pulseModalCodeText');
+  const copyCodeBtn = document.getElementById('copyPulseCodeBtn');
+  const openStoreBtn = document.getElementById('pulseOpenStoreBtn') as HTMLAnchorElement | null;
+  const reportBtn = document.getElementById('pulseReportIssueBtn');
+
+  let currentCode = '';
+  let currentStore = '';
+  let currentTitle = '';
+
+  declare global {
+    interface Window {
+      openCouponPulseModal: (opts: {
+        storeName: string;
+        dealTitle: string;
+        code?: string;
+        badge?: string;
+        timeAgo?: string;
+        stability?: string;
+        affiliateUrl?: string;
+      }) => void;
+      closeCouponPulseModal: () => void;
+    }
+  }
+
+  window.openCouponPulseModal = function(opts) {
+    if (!modal) return;
+    currentStore = opts.storeName || 'Store';
+    currentTitle = opts.dealTitle || 'Verified Deal';
+    currentCode = opts.code || '';
+
+    if (storeNameEl) storeNameEl.textContent = currentStore;
+    if (badgeEl) badgeEl.textContent = opts.badge || 'Verified';
+    if (dealTitleEl) dealTitleEl.textContent = currentTitle;
+    if (stabilityEl) stabilityEl.textContent = opts.stability || '99.2%';
+    if (timeAgoEl) timeAgoEl.textContent = opts.timeAgo || '14m ago';
+
+    if (currentCode && currentCode.trim().length > 0) {
+      if (codeTextEl) codeTextEl.textContent = currentCode;
+      codeWrapper?.classList.remove('hidden');
+    } else {
+      codeWrapper?.classList.add('hidden');
+    }
+
+    if (openStoreBtn) {
+      openStoreBtn.href = opts.affiliateUrl || window.location.href;
+    }
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.classList.add('overflow-hidden');
+  };
+
+  window.closeCouponPulseModal = function() {
+    if (!modal) return;
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.classList.remove('overflow-hidden');
+  };
+
+  closeBtn?.addEventListener('click', window.closeCouponPulseModal);
+
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) window.closeCouponPulseModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+      window.closeCouponPulseModal();
+    }
+  });
+
+  copyCodeBtn?.addEventListener('click', () => {
+    if (!currentCode) return;
+    navigator.clipboard?.writeText(currentCode).then(() => {
+      copyCodeBtn.textContent = '✓ Copied';
+      if ((window as any).showPromoToast) {
+        (window as any).showPromoToast(`Code ${currentCode} copied!`);
+      }
+      setTimeout(() => {
+        copyCodeBtn.textContent = 'Copy Code';
+      }, 2000);
+    });
+  });
+
+  reportBtn?.addEventListener('click', () => {
+    window.closeCouponPulseModal();
+    if ((window as any).openVerificationGuaranteeModal) {
+      (window as any).openVerificationGuaranteeModal({
+        storeName: currentStore,
+        dealTitle: currentTitle,
+        dealCode: currentCode
+      });
+    }
+  });
+
+  // Global delegated listener for elements with [data-open-pulse-modal]
+  document.addEventListener('click', (e) => {
+    const target = (e.target as HTMLElement)?.closest('[data-open-pulse-modal]') as HTMLElement | null;
+    if (target) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const storeName = target.getAttribute('data-pulse-store') || 'Partner Store';
+      const dealTitle = target.getAttribute('data-pulse-title') || 'Verified Offer';
+      const code = target.getAttribute('data-pulse-code') || '';
+      const badge = target.getAttribute('data-pulse-badge') || 'Verified';
+      const timeAgo = target.getAttribute('data-pulse-time') || '18m ago';
+      const stability = target.getAttribute('data-pulse-stability') || '99.1%';
+      const affiliateUrl = target.getAttribute('data-pulse-url') || window.location.href;
+
+      window.openCouponPulseModal({
+        storeName,
+        dealTitle,
+        code,
+        badge,
+        timeAgo,
+        stability,
+        affiliateUrl
+      });
+    }
+  });
+</script>

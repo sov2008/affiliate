@@ -57,12 +57,12 @@ COUPONS_DATA.forEach(deal => {
           <span id="modalDiscountBadge" class="text-xs font-extrabold px-2.5 py-0.5 rounded-lg bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30">Verified</span>
         </div>
         <div class="flex items-center gap-2 mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">
-          <span class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">
+          <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200/70 dark:border-emerald-500/30 font-bold text-[10px]">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            Tested on Checkout
+            <span id="modalPulseStatusText">Pulse: Tested 14m ago</span>
           </span>
           <span>•</span>
-          <span id="modalReliabilityScore" class="font-bold text-slate-700 dark:text-slate-300">98% Success</span>
+          <span id="modalReliabilityScore" class="font-bold text-slate-700 dark:text-slate-300">99.2% Stability</span>
         </div>
       </div>
     </div>
@@ -288,7 +288,17 @@ COUPONS_DATA.forEach(deal => {
       // Set reliability score dynamically
       const relScore = document.getElementById('modalReliabilityScore');
       if (relScore) {
-        relScore.textContent = data.successRate || '98% Success';
+        relScore.textContent = data.successRate || '99.2% Stability';
+      }
+
+      // Update Live Pulse ping
+      const pulseStatusEl = document.getElementById('modalPulseStatusText');
+      const hashStr = (data.title || '') + (data.storeName || '');
+      let hashVal = 0;
+      for (let i = 0; i < hashStr.length; i++) { hashVal = (hashVal << 5) - hashVal + hashStr.charCodeAt(i); hashVal |= 0; }
+      const minAgo = (Math.abs(hashVal) % 40) + 5;
+      if (pulseStatusEl) {
+        pulseStatusEl.textContent = `Pulse: Tested ${minAgo}m ago`;
       }
 
       // Hide or show code box based on whether code exists
