@@ -8,8 +8,12 @@ import { STORE_DOMAINS_MAP } from '../data/storeDomains';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// Group unique categories
-const categoriesList = Array.from(new Set(COUPONS_DATA.map(d => d.storeCategory)));
+// Group unique categories with fallback to eliminate empty or undefined values
+const categoriesList = Array.from(
+  new Set(
+    COUPONS_DATA.map(d => (d.storeCategory && d.storeCategory.trim()) || 'Software & Utilities')
+  )
+).filter(c => Boolean(c && c.trim()));
 
 // Brand Visual Styling Helper (Honey / Slickdeals style branded identity)
 const BRAND_THEMES: Record<string, { bg: string; text: string; border: string; badgeBg: string }> = {
@@ -79,7 +83,7 @@ const REGION_BADGES: Record<string, { label: string; class: string }> = {
   'GCC': { label: '🇦🇪 UAE & MENA', class: 'bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30' },
   'US': { label: '🇺🇸 US', class: 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30' },
   'EU': { label: '🇪🇺 EU', class: 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30' },
-  'GLOBAL': { label: '🌍 Worldwide', class: 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700' }
+  'GLOBAL': { label: '🌐 Worldwide', class: 'bg-slate-100 text-slate-600 border border-slate-200 font-medium dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700' }
 };
 
 // Map store domain and store lookup map
@@ -552,62 +556,62 @@ const homeSchemas = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
       
       <!-- Filter Toolbar -->
-      <div class="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-sm mb-6 space-y-4">
+      <div class="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-sm mb-6 space-y-4 dark:bg-slate-900 dark:border-slate-800">
         
         <!-- Category Filter Row -->
-        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1" id="catFilterRow">
-          <button type="button" data-cat="ALL" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition">
+        <div class="flex items-center lg:flex-wrap gap-1.5 overflow-x-auto no-scrollbar pb-1" id="catFilterRow">
+          <button type="button" data-cat="ALL" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer">
             All Deals ({COUPONS_DATA.length})
           </button>
-          {categoriesList.map(cat => (
+          {categoriesList.filter(c => Boolean(c && c.trim())).map(cat => (
             <button
               type="button"
               data-cat={cat}
-              class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition"
+              class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer"
             >
-              {cat} ({COUPONS_DATA.filter(d => d.storeCategory === cat).length})
+              {cat} ({COUPONS_DATA.filter(d => (d.storeCategory?.trim() || 'Software & Utilities') === cat).length})
             </button>
           ))}
         </div>
 
         <!-- Region & Geo Filter Row (Targeted Localised Savings) -->
-        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-2 border-t border-slate-100" id="regionFilterRow">
-          <span class="text-xs font-semibold text-slate-400 shrink-0">Region:</span>
-          <button type="button" data-region="ALL" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition">
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-2 border-t border-slate-100 dark:border-slate-800" id="regionFilterRow">
+          <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 shrink-0">Region:</span>
+          <button type="button" data-region="ALL" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer">
             🌍 All Regions
           </button>
-          <button type="button" data-region="GLOBAL" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition">
+          <button type="button" data-region="GLOBAL" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer">
             🌐 Worldwide
           </button>
-          <button type="button" data-region="GCC" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition">
+          <button type="button" data-region="GCC" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer">
             🇦🇪 UAE &amp; GCC
           </button>
-          <button type="button" data-region="EU" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition">
+          <button type="button" data-region="EU" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer">
             🇪🇺 Europe
           </button>
-          <button type="button" data-region="UA" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition">
+          <button type="button" data-region="UA" class="region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer">
             🇺🇦 Ukraine
           </button>
         </div>
 
         <!-- Offer Type & Sort Row -->
-        <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100">
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="text-xs font-semibold text-slate-500">Offer Type:</span>
-            <button type="button" data-type="ALL" class="type-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition">
+            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Offer Type:</span>
+            <button type="button" data-type="ALL" class="type-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer">
               All ({COUPONS_DATA.length})
             </button>
-            <button type="button" data-type="code" class="type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition">
+            <button type="button" data-type="code" class="type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer">
               <svg class="w-3.5 h-3.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879a3 3 0 11-4.242-4.242 3 3 0 014.242 0zM12 12L9.121 9.121a3 3 0 10-4.242 4.242 3 3 0 004.242 0z"/>
               </svg>
               <span>Promo Codes ({COUPONS_DATA.filter(d => d.code && d.code.length > 0).length})</span>
             </button>
-            <button type="button" data-type="deal" class="type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition">
+            <button type="button" data-type="deal" class="type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer">
               <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
               </svg>
-              <span>Instant Deals &amp; Free Trials ({COUPONS_DATA.filter(d => !d.code || d.code.length === 0).length})</span>
+              <span>Direct Deals &amp; Free Trials ({COUPONS_DATA.filter(d => !d.code || d.code.length === 0).length})</span>
             </button>
 
             <!-- Active Store Chip -->
@@ -839,16 +843,16 @@ const homeSchemas = [
       </div>
 
       <!-- Editorial Comparison Spotlight (Slickdeals / Honey Inspiration) -->
-      <section class="mt-16 pt-10 border-t border-slate-200">
+      <section class="mt-16 pt-10 border-t border-slate-200 dark:border-slate-800">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
           <div>
             <div class="flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
-              <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Head-to-Head Brand Comparisons</h2>
+              <h2 class="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">Head-to-Head Brand Comparisons</h2>
             </div>
-            <p class="text-xs text-slate-500 mt-1">Can’t decide between top merchants? Compare checkout savings side-by-side.</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Can’t decide between top merchants? Compare checkout savings side-by-side.</p>
           </div>
-          <a href={`${base}/compare/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-1">
+          <a href={`${base}/compare/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 flex items-center gap-1">
             <span>Explore All 6 Comparisons</span>
             <span>→</span>
           </a>
@@ -856,11 +860,11 @@ const homeSchemas = [
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
           <!-- Card 1: ExpressVPN vs PureVPN -->
-          <div class="bg-white dark:bg-slate-900 border-2 border-indigo-500/30 rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between relative shadow-sm">
+          <div class="bg-slate-50 hover:bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm transition flex flex-col justify-between relative dark:bg-slate-900/95 dark:border-slate-800 dark:text-slate-100">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">PRIVACY &amp; SECURITY</span>
-                <span class="text-xs font-black text-rose-600">Save 81%</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/60 dark:bg-indigo-900/40 dark:text-indigo-300 dark:border-indigo-700/50">PRIVACY &amp; SECURITY</span>
+                <span class="text-xs font-black text-rose-600 dark:text-rose-400">Save 81%</span>
               </div>
 
               <!-- Brand Logos with VS Badge -->
@@ -892,20 +896,20 @@ const homeSchemas = [
                 </div>
               </div>
 
-              <h3 class="text-base font-extrabold text-slate-900 mb-2 text-center">ExpressVPN vs PureVPN</h3>
-              <p class="text-xs text-slate-600 leading-relaxed mb-4 text-center">Side-by-side audit of Lightway speeds, RAM-only privacy shields, and active voucher discounts.</p>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2 text-center">ExpressVPN vs PureVPN</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-center">Side-by-side audit of Lightway speeds, RAM-only privacy shields, and active voucher discounts.</p>
             </div>
-            <a href={`${base}/compare/expressvpn-vs-purevpn/`} class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center transition shadow-sm dark:bg-slate-800/90 dark:hover:bg-indigo-600 dark:text-slate-100 dark:border dark:border-slate-700/80 cursor-pointer">
+            <a href={`${base}/compare/expressvpn-vs-purevpn/`} class="bg-slate-900 hover:bg-indigo-600 text-white font-bold rounded-xl py-2.5 px-4 w-full text-xs text-center transition shadow-sm dark:bg-slate-800 dark:hover:bg-indigo-600 dark:text-white dark:border dark:border-slate-700 cursor-pointer">
               Compare Offers →
             </a>
           </div>
 
           <!-- Card 2: ChicMe vs VogaCloset -->
-          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between shadow-sm">
+          <div class="bg-slate-50 hover:bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm transition flex flex-col justify-between relative dark:bg-slate-900/95 dark:border-slate-800 dark:text-slate-100">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">FASHION &amp; APPAREL</span>
-                <span class="text-xs font-black text-rose-600">Save 80%</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/60 dark:bg-indigo-900/40 dark:text-indigo-300 dark:border-indigo-700/50">FASHION &amp; APPAREL</span>
+                <span class="text-xs font-black text-rose-600 dark:text-rose-400">Save 80%</span>
               </div>
 
               <!-- Brand Logos with VS Badge -->
@@ -937,20 +941,20 @@ const homeSchemas = [
                 </div>
               </div>
 
-              <h3 class="text-base font-extrabold text-slate-900 mb-2 text-center">ChicMe vs VogaCloset</h3>
-              <p class="text-xs text-slate-600 leading-relaxed mb-4 text-center">Compare international delivery times, returns policy, and stackable checkout coupons.</p>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2 text-center">ChicMe vs VogaCloset</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-center">Compare international delivery times, returns policy, and stackable checkout coupons.</p>
             </div>
-            <a href={`${base}/compare/chicme-vs-vogacloset/`} class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center transition shadow-sm dark:bg-slate-800/90 dark:hover:bg-indigo-600 dark:text-slate-100 dark:border dark:border-slate-700/80 cursor-pointer">
+            <a href={`${base}/compare/chicme-vs-vogacloset/`} class="bg-slate-900 hover:bg-indigo-600 text-white font-bold rounded-xl py-2.5 px-4 w-full text-xs text-center transition shadow-sm dark:bg-slate-800 dark:hover:bg-indigo-600 dark:text-white dark:border dark:border-slate-700 cursor-pointer">
               Compare Offers →
             </a>
           </div>
 
-          <!-- Card 3: RaynaTours vs Airalo eSIM (Fix #5: category-consistent Travel Essentials) -->
-          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:shadow-lg transition flex flex-col justify-between shadow-sm">
+          <!-- Card 3: RaynaTours vs Airalo eSIM -->
+          <div class="bg-slate-50 hover:bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm transition flex flex-col justify-between relative dark:bg-slate-900/95 dark:border-slate-800 dark:text-slate-100">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">TRAVEL &amp; ROAMING</span>
-                <span class="text-xs font-black text-indigo-600">Roaming vs Tours</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/60 dark:bg-indigo-900/40 dark:text-indigo-300 dark:border-indigo-700/50">TRAVEL &amp; ROAMING</span>
+                <span class="text-xs font-black text-indigo-600 dark:text-indigo-400">Roaming vs Tours</span>
               </div>
 
               <!-- Brand Logos with VS Badge -->
@@ -982,10 +986,10 @@ const homeSchemas = [
                 </div>
               </div>
 
-              <h3 class="text-base font-extrabold text-slate-900 mb-2 text-center">Ultimate Travel &amp; Roaming Bundle</h3>
-              <p class="text-xs text-slate-600 leading-relaxed mb-4 text-center">Compare Dubai desert tours &amp; attractions with 200+ country instant eSIM data packages.</p>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2 text-center">RaynaTours vs Airalo eSIM</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-center">Compare Dubai desert tours &amp; attractions with 200+ country instant eSIM data packages.</p>
             </div>
-            <a href={`${base}/compare/`} class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs text-center transition shadow-sm dark:bg-slate-800/90 dark:hover:bg-indigo-600 dark:text-slate-100 dark:border dark:border-slate-700/80 cursor-pointer">
+            <a href={`${base}/compare/`} class="bg-slate-900 hover:bg-indigo-600 text-white font-bold rounded-xl py-2.5 px-4 w-full text-xs text-center transition shadow-sm dark:bg-slate-800 dark:hover:bg-indigo-600 dark:text-white dark:border dark:border-slate-700 cursor-pointer">
               Compare Offers →
             </a>
           </div>
@@ -1293,7 +1297,7 @@ const homeSchemas = [
           if (b.getAttribute('data-cat') === currentCategory) {
             b.className = 'main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer';
           } else {
-            b.className = 'main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition cursor-pointer';
+            b.className = 'main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer';
           }
         });
         filterDeals();
@@ -1308,7 +1312,7 @@ const homeSchemas = [
           if (b.getAttribute('data-region') === currentRegion) {
             b.className = 'region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer';
           } else {
-            b.className = 'region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition cursor-pointer';
+            b.className = 'region-filter-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer';
           }
         });
         filterDeals();
@@ -1323,7 +1327,7 @@ const homeSchemas = [
           if (b.getAttribute('data-type') === currentType) {
             b.className = 'type-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer';
           } else {
-            b.className = 'type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800 transition cursor-pointer';
+            b.className = 'type-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer';
           }
         });
         filterDeals();
@@ -1609,9 +1613,9 @@ const homeSchemas = [
       currentCategory = catParam;
       document.querySelectorAll('.main-cat-btn').forEach(b => {
         if (b.getAttribute('data-cat') === currentCategory) {
-          b.className = 'main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-sm transition';
+          b.className = 'main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-sm dark:bg-indigo-600 dark:text-white dark:border-indigo-500 transition cursor-pointer';
         } else {
-          b.className = 'main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition';
+          b.className = 'main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700 transition cursor-pointer';
         }
       });
       filterDeals();
