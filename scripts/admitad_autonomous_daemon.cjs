@@ -8,7 +8,7 @@ dotenv.config({ path: path.resolve(__dirname, '../core/.env') });
 
 const CLIENT_ID = process.env.ADMITAD_CLIENT_ID || '497e2d7ed310265e6e2fb37cd2a237';
 const BASE64_HEADER = process.env.ADMITAD_BASE64_HEADER || 'NDk3ZTJkN2VkMzEwMjY1ZTZlMmZiMzdjZDJhMjM3OmY4MzJlOWU0NWQxOGVlN2E2MTU5ZTg3NDE3ODgyNA==';
-const WEBSITE_ID = process.env.ADMITAD_WEBSITE_ID || '3007248';
+const WEBSITE_IDS = ['3007248', '3012753']; // FlirtCheck & PromoRadar
 const SCOPES = process.env.ADMITAD_SCOPES || 'advcampaigns advcampaigns_for_website banners banners_for_website payments statistics coupons coupons_for_website websites private_data_balance deeplink_generator announcements referrals broken_links';
 
 const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID || '808343978';
@@ -120,37 +120,40 @@ async function executeSyncCycle() {
 
   const token = await getAccessToken();
 
-  // 1. Fetch active programs
-  const activeRes = await apiGet(token, `/advcampaigns/website/${WEBSITE_ID}/?connection_status=active&limit=100`);
-  const activeItems = activeRes.data?.results || [];
-  const activeCount = activeRes.data?._meta?.count || activeItems.length;
-
-  log(`Active approved programs in Admitad: ${activeCount}`);
-
-  // Build active map { [name]: gotolink, [id]: gotolink, details }
-  const activeMap = {};
+  // 1. Fetch active programs across both websites
+  const allActiveItems = [];
   const currentActiveIds = new Set();
+  const activeMap = {};
+  let totalPending = 0;
 
-  for (const it of activeItems) {
-    currentActiveIds.add(it.id);
-    activeMap[it.name] = it.gotolink;
-    activeMap[`id_${it.id}`] = {
-      id: it.id,
-      name: it.name,
-      gotolink: it.gotolink,
-      site_url: it.site_url,
-      rating: it.rating,
-      cr: it.cr,
-      epc: it.epc
-    };
+  for (const wId of WEBSITE_IDS) {
+    const activeRes = await apiGet(token, `/advcampaigns/website/${wId}/?connection_status=active&limit=100`);
+    const activeItems = activeRes.data?.results || [];
+    allActiveItems.push(...activeItems);
+
+    for (const it of activeItems) {
+      currentActiveIds.add(it.id);
+      activeMap[it.name] = it.gotolink;
+      activeMap[`id_${it.id}`] = {
+        id: it.id,
+        name: it.name,
+        website_id: wId,
+        gotolink: it.gotolink,
+        site_url: it.site_url,
+        rating: it.rating,
+        cr: it.cr,
+        epc: it.epc
+      };
+    }
+
+    const pendingRes = await apiGet(token, `/advcampaigns/website/${wId}/?connection_status=pending&limit=100`);
+    const pendingCount = pendingRes.data?._meta?.count || (pendingRes.data?.results || []).length;
+    totalPending += pendingCount;
   }
 
-  fs.writeFileSync(ACTIVE_LINKS_FILE, JSON.stringify(activeMap, null, 2), 'utf8');
+  log(`Active approved programs across all spaces: ${currentActiveIds.size} (Total on moderation: ${totalPending})`);
 
-  // 2. Fetch pending moderation count
-  const pendingRes = await apiGet(token, `/advcampaigns/website/${WEBSITE_ID}/?connection_status=pending&limit=100`);
-  const pendingCount = pendingRes.data?._meta?.count || (pendingRes.data?.results || []).length;
-  log(`Programs currently on moderation: ${pendingCount}`);
+  fs.writeFileSync(ACTIVE_LINKS_FILE, JSON.stringify(activeMap, null, 2), 'utf8');
 
   // 3. Detect state changes (Newly Approved Programs!)
   let knownState = { activeIds: [] };
@@ -161,7 +164,7 @@ async function executeSyncCycle() {
   }
 
   const previousActiveSet = new Set(knownState.activeIds || []);
-  const newlyApproved = activeItems.filter(it => !previousActiveSet.has(it.id));
+  const newlyApproved = allActiveItems.filter(it => !previousActiveSet.has(it.id));
 
   if (newlyApproved.length > 0 && previousActiveSet.size > 0) {
     for (const prog of newlyApproved) {
@@ -174,9 +177,18 @@ async function executeSyncCycle() {
 🔗 <b>Gotolink:</b> <code>${prog.gotolink}</code>
 📊 <b>Рейтинг / CR:</b> ${prog.rating || 'N/A'}★ / ${prog.cr || 0}%
 ━━━━━━━━━━━━━━━━━━
-⚡ <i>Трафик блога и TDS (/go) автоматически переключены на одобренный оффер!</i>
+⚡ <i>Программа мгновенно подключена к витрине PromoRadar и TDS (/go)!</i>
       `.trim();
       await sendTelegramAlert(msg);
+    }
+
+    // Trigger instant PromoRadar sync if new programs approved
+    try {
+      const { syncAndBuild } = require('./promoradar_catalog_sync.cjs');
+      await syncAndBuild();
+      log('🎉 PromoRadar catalog auto-synced with newly approved programs!');
+    } catch (e) {
+      log(`Notice triggering catalog sync: ${e.message}`);
     }
   }
 
@@ -188,7 +200,7 @@ async function executeSyncCycle() {
 
   // 4. Broken links monitor
   try {
-    const brokenRes = await apiGet(token, `/broken_links/?website=${WEBSITE_ID}`);
+    const brokenRes = await apiGet(token, `/broken_links/?website=${WEBSITE_IDS[0]}`);
     const brokenItems = brokenRes.data?.results || [];
     if (brokenItems.length > 0) {
       log(`⚠️ Broken links detected: ${brokenItems.length}`);
@@ -209,12 +221,13 @@ async function executeSyncCycle() {
   // 5. Recent Actions / Conversion check (Strict Zero Demo Data Rule)
   try {
     const today = new Date().toISOString().slice(0, 10);
-    const actionsRes = await apiGet(token, `/statistics/actions/?website=${WEBSITE_ID}&date_start=${today}`);
-    const actions = actionsRes.data?.results || [];
-    if (actions.length > 0) {
-      log(`💰 Real actions detected today: ${actions.length}`);
-      for (const act of actions) {
-        const actMsg = `
+    for (const wId of WEBSITE_IDS) {
+      const actionsRes = await apiGet(token, `/statistics/actions/?website=${wId}&date_start=${today}`);
+      const actions = actionsRes.data?.results || [];
+      if (actions.length > 0) {
+        log(`💰 Real actions detected today for space ${wId}: ${actions.length}`);
+        for (const act of actions) {
+          const actMsg = `
 💰 <b>[ADMITAD: РЕАЛЬНАЯ КОНВЕРСИЯ!]</b>
 ━━━━━━━━━━━━━━━━━━
 💼 <b>Оффер:</b> ${act.advcampaign_name}
@@ -222,15 +235,16 @@ async function executeSyncCycle() {
 🆔 <b>Order ID:</b> <code>${act.order_id}</code>
 🎯 <b>Click ID (SubID):</b> <code>${act.subid || 'direct'}</code>
 ⏱️ <b>Время:</b> <code>${act.action_date}</code>
-        `.trim();
-        await sendTelegramAlert(actMsg);
+          `.trim();
+          await sendTelegramAlert(actMsg);
+        }
       }
     }
   } catch (e) {
     log(`Actions check note: ${e.message}`);
   }
 
-  log(`Cycle complete. Status: Active=${activeCount}, Pending=${pendingCount}`);
+  log(`Cycle complete. Status: Total Active=${currentActiveIds.size}, Total Pending=${totalPending}`);
   log(`Next autonomous sync in ${CHECK_INTERVAL_MS / 60000} minutes.\n`);
 }
 

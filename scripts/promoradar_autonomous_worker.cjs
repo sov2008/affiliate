@@ -155,12 +155,12 @@ function slugify(name) {
 const { syncAndBuild } = require('./promoradar_catalog_sync.cjs');
 
 async function runAutoConnect() {
-  log('⚡ [AutoConnect] Scanning catalog for new merchant opportunities...');
+  log('⚡ [AutoConnect] Scanning catalog & submitting applications for top merchant opportunities...');
   try {
-    const scriptPath = path.resolve(__dirname, 'admitad_mass_connect_promoradar.cjs');
+    const scriptPath = path.resolve(__dirname, 'admitad_auto_applier.cjs');
     if (fs.existsSync(scriptPath)) {
       execSync(`node "${scriptPath}"`, { stdio: 'inherit', timeout: 300000 });
-      log('✅ [AutoConnect] Connection scan completed.');
+      log('✅ [AutoConnect] Applications cycle completed.');
     }
   } catch (err) {
     log(`⚠️ [AutoConnect] Notice: ${err.message}`);
@@ -221,8 +221,9 @@ async function runSyncCycle() {
 async function main() {
   log('🚀 PromoRadar Autonomous Affiliate Worker initialized.');
   
-  // 1. Initial run
+  // 1. Initial run: first submit applications to pending programs, then sync and build
   try {
+    await runAutoConnect();
     await runSyncCycle();
   } catch (e) {
     log(`Initial sync cycle error: ${e.message}`);

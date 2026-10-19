@@ -26,6 +26,7 @@ const { exec } = require('child_process');
 const CONFIG = {
   token: 'iTOZ5YSaULmdycZWAbA4ce0N1w',
   cid: '8102806',
+  websiteId: '101907236',
   pollIntervalMs: 15 * 60 * 1000 // 15 mins
 };
 
@@ -195,12 +196,12 @@ async function checkActivePrograms() {
   return activeList;
 }
 
-// 3. Ingest Links and Coupons
+// 3. Ingest Links and Coupons with verified PromoRadar website-id
 async function ingestCoupons(advertiserId) {
   try {
     const xml = await requestCJ(
       'link-search.api.cj.com',
-      `/v2/link-search?advertiser-ids=${advertiserId}&link-type=coupon&promotion-type=coupon&page-number=1&records-per-page=25`
+      `/v2/link-search?website-id=${CONFIG.websiteId}&advertiser-ids=${advertiserId}&link-type=coupon&promotion-type=coupon&page-number=1&records-per-page=25`
     );
 
     const coupons = [];
@@ -216,14 +217,46 @@ async function ingestCoupons(advertiserId) {
     }
     return coupons;
   } catch (err) {
+    log(`Coupons ingest note for ${advertiserId}: ${err.message}`);
     return [];
   }
 }
 
+// Ingest primary tracking link (evergreen / text / default)
+async function ingestPrimaryLink(advertiserId) {
+  try {
+    const xml = await requestCJ(
+      'link-search.api.cj.com',
+      `/v2/link-search?website-id=${CONFIG.websiteId}&advertiser-ids=${advertiserId}&page-number=1&records-per-page=10`
+    );
+
+    const linkRegex = /<link>[\s\S]*?<link-id>(\d+)<\/link-id>[\s\S]*?<link-name>(.*?)<\/link-name>[\s\S]*?<clickUrl>(.*?)<\/clickUrl>[\s\S]*?<\/link>/g;
+    let match;
+    const links = [];
+    while ((match = linkRegex.exec(xml)) !== null) {
+      links.push({
+        linkId: match[1],
+        title: match[2],
+        url: match[3]
+      });
+    }
+    if (links.length > 0) {
+      log(`🔗 Found ${links.length} tracking links for advertiser ${advertiserId}. Primary: ${links[0].url}`);
+      return links[0].url;
+    }
+    return '';
+  } catch (err) {
+    log(`Primary link ingest note for ${advertiserId}: ${err.message}`);
+    return '';
+  }
+}
+
 // 4. Autonomous Loop Execution
+let cycleCount = 0;
 async function runLoop() {
+  cycleCount++;
   log('================================================================');
-  log('⚡ RUNNING AUTONOMOUS CJ AFFILIATE PIPELINE (ZERO-DEMO ENFORCED)');
+  log(`⚡ RUNNING AUTONOMOUS CJ AFFILIATE PIPELINE (CYCLE #${cycleCount})`);
   log('================================================================');
 
   const opportunities = await scoutCatalog();
@@ -232,16 +265,27 @@ async function runLoop() {
   const manifest = {
     updatedAt: new Date().toISOString(),
     cid: CONFIG.cid,
+    websiteId: CONFIG.websiteId,
     totalScouted: opportunities.length,
     totalActive: activePrograms.length,
     activeProgramsDetails: {},
     topOpportunities: opportunities.slice(0, 15)
   };
 
+  let hasPendingOffers = false;
+
   for (const p of activePrograms) {
+    if (p.status === 'PENDING_OFFER') {
+      hasPendingOffers = true;
+      log(`⚠️ Program ${p.id} (${p.name || ''}) is in PENDING_OFFER status.`);
+    }
+
     const coupons = await ingestCoupons(p.id);
+    const primaryUrl = await ingestPrimaryLink(p.id);
+
     manifest.activeProgramsDetails[p.id] = {
       ...p,
+      primaryUrl,
       coupons
     };
   }
@@ -249,6 +293,30 @@ async function runLoop() {
   fs.writeFileSync(MANIFEST_FILE, JSON.stringify(manifest, null, 2));
   fs.writeFileSync(STATE_FILE, JSON.stringify(manifest.activeProgramsDetails, null, 2));
   log(`Autonomous cycle completed. Manifest updated at: ${MANIFEST_FILE}`);
+
+  // If there are pending offers, trigger direct acceptor
+  if (hasPendingOffers) {
+    log('🚀 Triggering cj_accept_direct_offer.cjs to accept pending offers...');
+    const acceptScript = path.resolve(__dirname, 'cj_accept_direct_offer.cjs');
+    if (fs.existsSync(acceptScript)) {
+      exec(`node "${acceptScript}"`, (err, stdout) => {
+        if (stdout) console.log(stdout);
+        if (err) log(`Accept offer error: ${err.message}`);
+      });
+    }
+  }
+
+  // Every 4 cycles (approx once per hour), run auto-applier for top high-EPC CJ opportunities
+  if (cycleCount % 4 === 1) {
+    log('🎯 Scheduled run of cj_autonomous_applier.cjs for top opportunities...');
+    const applierScript = path.resolve(__dirname, 'cj_autonomous_applier.cjs');
+    if (fs.existsSync(applierScript)) {
+      exec(`node "${applierScript}"`, (err, stdout) => {
+        if (stdout) console.log(stdout);
+        if (err) log(`Auto-applier error: ${err.message}`);
+      });
+    }
+  }
 
   // Trigger site catalog update if active deals are present
   try {
