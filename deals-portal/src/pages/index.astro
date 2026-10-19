@@ -664,7 +664,7 @@ const homeSchemas = [
           
           return (
             <article
-              class={`deal-grid-card p-5 flex flex-col justify-between card-hover relative overflow-hidden ${idx >= 16 ? 'deal-item-collapsed hidden' : ''}`}
+              class={`deal-grid-card rounded-2xl p-5 flex flex-col justify-between card-hover relative overflow-hidden ${idx >= 16 ? 'deal-item-collapsed hidden' : ''}`}
               data-store={deal.storeName}
               data-category={deal.storeCategory}
               data-type={isCode ? 'code' : 'deal'}
