@@ -11,6 +11,7 @@ const path = require('path');
 const https = require('https');
 const { execSync } = require('child_process');
 const dotenv = require('dotenv');
+const { batchGenerateCopy } = require('./humanized_copywriter.cjs');
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../core/.env') });
@@ -461,13 +462,32 @@ async function syncAndBuild() {
       affiliateUrl: affiliateUrl,
       storeLogoText: store.logoText,
       terms: promoCode ? `Enter promo code "${promoCode}" at checkout to activate discount.` : 'Instant promotional markdown applied automatically at merchant checkout.',
-      successRate: '99.4%'
+      successRate: '99.4%',
+      rawTitle: c.name || c.short_name || '',
+      rawDescription: c.description || ''
     });
     admitadAdded++;
   }
 
   log(`Merged ${admitadAdded} verified Admitad live coupons + ${manualDeals.length} partner deals.`);
-  log(`Total live deals ready for publication: ${generatedDeals.length}`);
+  log(`Total live deals before humanized rewrite: ${generatedDeals.length}`);
+
+  // Attach raw fields for manualDeals as well so old texts get completely rewritten
+  for (const m of manualDeals) {
+    if (!m.rawTitle) m.rawTitle = m.title;
+    if (!m.rawDescription) m.rawDescription = m.description;
+  }
+
+  // 4.5. Run Humanized Conversion Copywriter on all deals (Strict English & Conversion Copywriting Skill)
+  log(`🎨 Running Humanized Conversion Copywriting Engine on all ${generatedDeals.length} deals...`);
+  await batchGenerateCopy(generatedDeals, storeMap, 4);
+
+  // Strip temporary raw fields before serialization
+  for (const deal of generatedDeals) {
+    delete deal.rawTitle;
+    delete deal.rawDescription;
+  }
+  log(`✨ All ${generatedDeals.length} deal descriptions and titles are now bespoke, humanized, and conversion-optimized.`);
 
   // 5. Serialize into TypeScript format
   const updatedFileContent = `export interface CouponDeal {
