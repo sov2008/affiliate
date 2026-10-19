@@ -69,14 +69,15 @@ async function main() {
     // STEP 1: Connect instant no-moderation affiliate programs (has_moderation=2)
     // =========================================================================
     log('📋 STEP 1: Scanning instant programs (has_moderation=2)...');
+    const attemptedOffers = new Set();
     
-    for (let pageNum = 1; pageNum <= 6; pageNum++) {
+    for (let pageNum = 1; pageNum <= 2; pageNum++) {
       const targetUrl = `https://store.admitad.com/ru/webmaster/websites/${WEBSITE_ID}/catalog/?has_moderation=2&page=${pageNum}`;
       log(`📄 Navigating to instant catalog page ${pageNum}: ${targetUrl}`);
       
       try {
-        await page.goto(targetUrl, { waitUntil: 'networkidle', timeout: 45000 });
-        await page.waitForTimeout(3000);
+        await page.goto(targetUrl, { waitUntil: 'networkidle', timeout: 35000 });
+        await page.waitForTimeout(2000);
         await dismissOverlays(page);
       } catch (err) {
         log(`⚠️ Navigation warning on page ${pageNum}: ${err.message}`);
@@ -88,43 +89,51 @@ async function main() {
       const count = await connectButtons.count();
       log(`Found ${count} connectable offers on page ${pageNum}`);
 
-      for (let i = 0; i < count && i < 15; i++) {
+      for (let i = 0; i < count && i < 10; i++) {
         try {
-          const btn = page.locator('button.offer-card__cta').filter({ hasText: /подключиться/i }).first();
-          if (!(await btn.isVisible())) {
-            break;
-          }
+          const btn = connectButtons.nth(i);
+          if (!(await btn.isVisible())) continue;
 
           // Read offer title if available
           const cardText = await btn.evaluate(el => {
             const card = el.closest('.offer-card, mat-card, .catalog-card') || el.parentElement;
-            return card ? card.innerText.split('\n')[0] : 'Offer';
+            return card ? card.innerText.split('\n')[0].trim() : 'Offer';
           });
+
+          if (attemptedOffers.has(cardText)) {
+            continue;
+          }
+          attemptedOffers.add(cardText);
 
           log(`👉 Connecting to offer: "${cardText}"...`);
           await btn.click({ force: true });
           await page.waitForTimeout(1500);
 
-          // Check if modal dialog appears with "Принять" button
+          // Check if modal dialog appears
           const dialog = page.locator('[role="dialog"], mat-dialog-container, .modal').first();
           if (await dialog.isVisible()) {
-            const acceptBtn = dialog.locator('button:has-text("Принять"), button:has-text("Согласен")').first();
+            const cb = dialog.locator('input[type="checkbox"]').first();
+            if (await cb.isVisible() && !(await cb.isChecked())) {
+              await cb.check({ force: true }).catch(() => {});
+              await page.waitForTimeout(500);
+            }
+
+            const acceptBtn = dialog.locator('button:has-text("Принять"), button:has-text("Согласен"), button:has-text("Подключиться")').first();
             if (await acceptBtn.isVisible()) {
-              await acceptBtn.click({ force: true });
+              await acceptBtn.click({ force: true }).catch(() => {});
               log(`✅ Rules accepted for: "${cardText}"`);
               totalConnected++;
-              await page.waitForTimeout(2000);
+              await page.waitForTimeout(1500);
             } else {
-              // Close modal if can't accept
               const closeBtn = dialog.locator('button[mat-dialog-close], button[aria-label="Close"], button:has-text("Отменить")').first();
-              if (await closeBtn.isVisible()) await closeBtn.click({ force: true });
+              if (await closeBtn.isVisible()) await closeBtn.click({ force: true }).catch(() => {});
             }
           }
           await page.waitForTimeout(1000);
         } catch (innerErr) {
           log(`Notice while connecting offer ${i}: ${innerErr.message}`);
           await page.keyboard.press('Escape');
-          await page.waitForTimeout(1000);
+          await page.waitForTimeout(800);
         }
       }
     }
@@ -134,13 +143,13 @@ async function main() {
     // =========================================================================
     log('🎟️ STEP 2: Connecting tracking promocode programs (tracking_promocode_programs)...');
     
-    for (let pageNum = 1; pageNum <= 8; pageNum++) {
+    for (let pageNum = 1; pageNum <= 2; pageNum++) {
       const promoUrl = `https://store.admitad.com/ru/webmaster/websites/${WEBSITE_ID}/catalog/tracking_promocode_programs/?page=${pageNum}`;
       log(`📄 Ingesting promocodes from page ${pageNum}: ${promoUrl}`);
 
       try {
-        await page.goto(promoUrl, { waitUntil: 'networkidle', timeout: 45000 });
-        await page.waitForTimeout(2500);
+        await page.goto(promoUrl, { waitUntil: 'networkidle', timeout: 35000 });
+        await page.waitForTimeout(2000);
         await dismissOverlays(page);
       } catch (err) {
         log(`⚠️ Navigation warning on promo page ${pageNum}: ${err.message}`);
@@ -150,7 +159,7 @@ async function main() {
       let promoPageProcessed = 0;
       let noProgress = 0;
 
-      while (noProgress < 3 && promoPageProcessed < 15) {
+      while (noProgress < 2 && promoPageProcessed < 10) {
         const hasReqBtn = await page.evaluate(() => {
           const btns = Array.from(document.querySelectorAll('button, a')).filter(el => {
             const t = (el.innerText || '').trim();
@@ -196,14 +205,14 @@ async function main() {
           totalConnected++;
           promoPageProcessed++;
           noProgress = 0;
-          await page.waitForTimeout(2000);
+          await page.waitForTimeout(1500);
         } else {
           noProgress++;
         }
 
         // Close any dangling modal
         await page.keyboard.press('Escape');
-        await page.waitForTimeout(800);
+        await page.waitForTimeout(600);
       }
     }
 
@@ -213,8 +222,8 @@ async function main() {
     log('🌐 STEP 3: Scanning Partner Network Programs (Awin / Impact / CJ)...');
     try {
       const partnersUrl = `https://store.admitad.com/ru/webmaster/websites/${WEBSITE_ID}/catalog/public_partners_programs/`;
-      await page.goto(partnersUrl, { waitUntil: 'networkidle', timeout: 45000 });
-      await page.waitForTimeout(3000);
+      await page.goto(partnersUrl, { waitUntil: 'networkidle', timeout: 30000 });
+      await page.waitForTimeout(2000);
       await dismissOverlays(page);
 
       // Extract available partner cards with direct affiliate tracking links
@@ -233,16 +242,15 @@ async function main() {
       log(`Found ${partnerOffers.length} available partner network offers on first page.`);
       
       const harvestedPartnerLinks = [];
-      // Harvest top 10 partner links (e.g. Trip.com, Airalo, Flixbus, etc.)
       const linkButtons = page.locator('button').filter({ hasText: 'Получить ссылку' });
       const btnsCount = await linkButtons.count();
 
-      for (let bIdx = 0; bIdx < btnsCount && bIdx < 30; bIdx++) {
+      for (let bIdx = 0; bIdx < btnsCount && bIdx < 15; bIdx++) {
         try {
           const currentBtn = linkButtons.nth(bIdx);
           await currentBtn.scrollIntoViewIfNeeded();
           await currentBtn.click({ force: true });
-          await page.waitForTimeout(1500);
+          await page.waitForTimeout(1200);
 
           const dialog = page.locator('[role="dialog"], mat-dialog-container, .modal').first();
           if (await dialog.isVisible()) {
@@ -266,11 +274,11 @@ async function main() {
               }
             }
             await page.keyboard.press('Escape');
-            await page.waitForTimeout(800);
+            await page.waitForTimeout(600);
           }
         } catch (linkErr) {
           await page.keyboard.press('Escape');
-          await page.waitForTimeout(800);
+          await page.waitForTimeout(600);
         }
       }
 
@@ -287,27 +295,32 @@ async function main() {
     // STEP 4: Mass Apply to High-Conversion Catalog Programs
     // =========================================================================
     log('🛍️ STEP 4: Scanning general catalog for high-demand merchants to apply...');
-    for (let pageNum = 1; pageNum <= 5; pageNum++) {
+    for (let pageNum = 1; pageNum <= 2; pageNum++) {
       const catUrl = `https://store.admitad.com/ru/webmaster/websites/${WEBSITE_ID}/catalog/?page=${pageNum}`;
       log(`📄 Catalog page ${pageNum}: ${catUrl}`);
       try {
-        await page.goto(catUrl, { waitUntil: 'networkidle', timeout: 45000 });
-        await page.waitForTimeout(2500);
+        await page.goto(catUrl, { waitUntil: 'networkidle', timeout: 35000 });
+        await page.waitForTimeout(2000);
         await dismissOverlays(page);
 
         const connectButtons = page.locator('button.offer-card__cta').filter({ hasText: /подключиться/i });
         const count = await connectButtons.count();
         log(`Found ${count} unapplied programs on catalog page ${pageNum}`);
 
-        for (let i = 0; i < count && i < 15; i++) {
+        for (let i = 0; i < count && i < 10; i++) {
           try {
-            const btn = page.locator('button.offer-card__cta').filter({ hasText: /подключиться/i }).first();
-            if (!(await btn.isVisible())) break;
+            const btn = connectButtons.nth(i);
+            if (!(await btn.isVisible())) continue;
 
             const cardTitle = await btn.evaluate(el => {
               const card = el.closest('.offer-card, mat-card, .catalog-card') || el.parentElement;
-              return card ? card.innerText.split('\n')[0] : 'Merchant';
+              return card ? card.innerText.split('\n')[0].trim() : 'Merchant';
             });
+
+            if (attemptedOffers.has(cardTitle)) {
+              continue;
+            }
+            attemptedOffers.add(cardTitle);
 
             log(`  📝 Submitting application to: "${cardTitle}"...`);
             await btn.click({ force: true });
@@ -317,25 +330,25 @@ async function main() {
             if (await dialog.isVisible()) {
               const cb = dialog.locator('input[type="checkbox"]').first();
               if (await cb.isVisible() && !(await cb.isChecked())) {
-                await cb.check({ force: true });
+                await cb.check({ force: true }).catch(() => {});
                 await page.waitForTimeout(500);
               }
 
               const submitBtn = dialog.locator('button:has-text("Подать заявку"), button:has-text("Принять"), button:has-text("Согласен"), button:has-text("Подключиться")').first();
               if (await submitBtn.isVisible()) {
-                await submitBtn.click({ force: true });
+                await submitBtn.click({ force: true }).catch(() => {});
                 log(`  ✅ Application submitted for: "${cardTitle}"`);
                 totalConnected++;
-                await page.waitForTimeout(2000);
+                await page.waitForTimeout(1500);
               } else {
                 const cancelBtn = dialog.locator('button:has-text("Отменить"), button[mat-dialog-close]').first();
-                if (await cancelBtn.isVisible()) await cancelBtn.click({ force: true });
+                if (await cancelBtn.isVisible()) await cancelBtn.click({ force: true }).catch(() => {});
               }
             }
-            await page.waitForTimeout(1000);
+            await page.waitForTimeout(800);
           } catch (innerErr) {
             await page.keyboard.press('Escape');
-            await page.waitForTimeout(1000);
+            await page.waitForTimeout(800);
           }
         }
       } catch (catErr) {

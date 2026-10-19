@@ -249,7 +249,16 @@ async function runLoop() {
   fs.writeFileSync(MANIFEST_FILE, JSON.stringify(manifest, null, 2));
   fs.writeFileSync(STATE_FILE, JSON.stringify(manifest.activeProgramsDetails, null, 2));
   log(`Autonomous cycle completed. Manifest updated at: ${MANIFEST_FILE}`);
+
+  // Trigger site catalog update if active deals are present
+  try {
+    const { syncAndBuild } = require('./promoradar_catalog_sync.cjs');
+    await syncAndBuild();
+  } catch (syncErr) {
+    log(`Notice triggering site catalog sync: ${syncErr.message}`);
+  }
 }
 
 runLoop();
 setInterval(runLoop, CONFIG.pollIntervalMs);
+

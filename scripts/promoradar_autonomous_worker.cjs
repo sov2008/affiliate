@@ -152,12 +152,14 @@ function slugify(name) {
     .replace(/^-+|-+$/g, '') || 'partner';
 }
 
+const { syncAndBuild } = require('./promoradar_catalog_sync.cjs');
+
 async function runAutoConnect() {
   log('⚡ [AutoConnect] Scanning catalog for new merchant opportunities...');
   try {
     const scriptPath = path.resolve(__dirname, 'admitad_mass_connect_promoradar.cjs');
     if (fs.existsSync(scriptPath)) {
-      execSync(`node "${scriptPath}"`, { stdio: 'pipe', timeout: 120000 });
+      execSync(`node "${scriptPath}"`, { stdio: 'inherit', timeout: 300000 });
       log('✅ [AutoConnect] Connection scan completed.');
     }
   } catch (err) {
@@ -170,53 +172,19 @@ async function runSyncCycle() {
   log('🔄 STARTING PROMORADAR SYNC & PUBLISHING CYCLE');
   log('======================================================');
 
-  let state = { knownCouponIds: [], lastSync: null };
-  if (fs.existsSync(STATE_FILE)) {
-    try { state = JSON.parse(fs.readFileSync(STATE_FILE, 'utf8')); } catch {}
+  try {
+    await syncAndBuild();
+  } catch (syncErr) {
+    log(`❌ Catalog sync & build failed: ${syncErr.message}`);
   }
 
-  const token = await getAccessToken();
-  const allCoupons = [];
-  const allCampaigns = [];
-
-  // Fetch from all websites in account
-  for (const wId of WEBSITE_IDS) {
-    try {
-      const campRes = await apiGet(token, `/advcampaigns/website/${wId}/?connection_status=active&limit=100`);
-      if (campRes.results) allCampaigns.push(...campRes.results);
-
-      const coupRes = await apiGet(token, `/coupons/website/${wId}/?limit=100`);
-      if (coupRes.results) allCoupons.push(...coupRes.results);
-    } catch (e) {
-      log(`API fetch note for website ${wId}: ${e.message}`);
-    }
+  const token = await getAccessToken().catch(() => null);
+  if (!token) {
+    log('⚠️ Skipping secondary health checks due to token error.');
+    return;
   }
 
-  log(`Fetched ${allCampaigns.length} total active campaign entries and ${allCoupons.length} coupons.`);
-
-  // Detect newly arrived coupons
-  const knownSet = new Set(state.knownCouponIds || []);
-  const newCoupons = allCoupons.filter(c => !knownSet.has(c.id));
-
-  if (newCoupons.length > 0) {
-    log(`🎉 Discovered ${newCoupons.length} NEW genuine promo codes / vouchers!`);
-    for (const c of newCoupons.slice(0, 3)) {
-      const alertMsg = `
-🏷️ <b>[PROMORADAR: НОВЫЙ ПРОМОКОД И ДОБАВЛЕНИЕ НА САЙТ]</b>
-━━━━━━━━━━━━━━━━━━
-🏪 <b>Магазин:</b> ${c.campaign?.name || 'Partner'}
-🎟️ <b>Промокод:</b> <code>${c.promocode || 'АКЦИЯ'}</code>
-💸 <b>Скидка:</b> ${c.discount || 'Special Offer'}
-📝 <b>Название:</b> ${c.name}
-🔗 <b>Ссылка:</b> <a href="${c.goto_link}">Открыть оффер</a>
-━━━━━━━━━━━━━━━━━━
-🚀 <i>Сайт PromoRadar автоматически пересобран и обновлен!</i>
-      `.trim();
-      await sendTelegramAlert(alertMsg);
-    }
-  }
-
-  // 4. Broken Links & Safety Check
+  // Broken Links & Safety Check
   try {
     const brokenRes = await apiGet(token, `/broken_links/?limit=20`);
     if (brokenRes.results && brokenRes.results.length > 0) {
@@ -228,38 +196,23 @@ async function runSyncCycle() {
     log(`Broken links audit note: ${err.message}`);
   }
 
-  // 5. Check Merchant Announcements for Launch Opportunities
+  // Check Merchant Announcements for Launch Opportunities
   try {
     const annRes = await apiGet(token, `/announcements/?limit=5`);
     if (annRes.results && annRes.results.length > 0) {
       const latestAnn = annRes.results[0];
+      let state = {};
+      if (fs.existsSync(STATE_FILE)) {
+        try { state = JSON.parse(fs.readFileSync(STATE_FILE, 'utf8')); } catch {}
+      }
       if (state.lastAnnouncementId !== latestAnn.id) {
         log(`📢 Fresh merchant announcement: [${latestAnn.event}] ${latestAnn.message || ''}`);
         state.lastAnnouncementId = latestAnn.id;
+        fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
       }
     }
   } catch (err) {
     log(`Announcements note: ${err.message}`);
-  }
-
-  // Update state with current coupons
-  state.knownCouponIds = allCoupons.map(c => c.id);
-  state.lastSync = new Date().toISOString();
-  fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
-
-  // If new coupons found or rebuild requested, trigger build & deploy
-  if (newCoupons.length > 0) {
-    log('🔨 Rebuilding PromoRadar static portal...');
-    try {
-      execSync('npm run build', { cwd: DEALS_DIR, stdio: 'pipe' });
-      log('🚀 Deploying updated static bundle to production server...');
-      execSync(`node "${path.resolve(__dirname, 'deploy-deals-portal-to-prod.cjs')}"`, { cwd: ROOT_DIR, stdio: 'pipe' });
-      log('🎉 Live deployment successfully updated on promoradar.store!');
-    } catch (buildErr) {
-      log(`❌ Build/Deploy error: ${buildErr.message}`);
-    }
-  } else {
-    log('Site catalog is already up to date. No new coupons required deployment.');
   }
 
   log(`Sync cycle complete. Next run in ${SYNC_INTERVAL_MS / 60000} minutes.\n`);
