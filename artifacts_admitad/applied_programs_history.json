@@ -1,0 +1,251 @@
+{
+  "history": {
+    "12087": {
+      "id": 12087,
+      "name": "Chicco UA",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "14571": {
+      "id": 14571,
+      "name": "Foxtrot UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "15387": {
+      "id": 15387,
+      "name": "Localrent",
+      "website_id": "3012753",
+      "attempts": 1,
+      "last_attempt_at": "2026-10-19T11:41:43.861Z",
+      "status": "failed",
+      "last_error": "dialog_not_closed"
+    },
+    "15667": {
+      "id": 15667,
+      "name": "Nykaa Beauty [CPS] IN",
+      "website_id": "3012753",
+      "attempts": 1,
+      "last_attempt_at": "2026-10-19T11:41:27.201Z",
+      "status": "pending_or_joined",
+      "updated_at": "2026-10-19T11:41:31.703Z"
+    },
+    "17400": {
+      "id": 17400,
+      "name": "Mamasandpapas AE SA KW Tracking promo codes",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "17970": {
+      "id": 17970,
+      "name": "Glasseslit WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "18183": {
+      "id": 18183,
+      "name": "RaynaTours Many Geos tracking promo codes",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "18336": {
+      "id": 18336,
+      "name": "ChicMe WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "19301": {
+      "id": 19301,
+      "name": "Vuso UA",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "19333": {
+      "id": 19333,
+      "name": "SharafDG AE affiliate program",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "19458": {
+      "id": 19458,
+      "name": "Modoza UA",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "19959": {
+      "id": 19959,
+      "name": "Agromarket UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "20021": {
+      "id": 20021,
+      "name": "Level Shoes GCC US Links & Tracking promo codes",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "20181": {
+      "id": 20181,
+      "name": "Pokupon [CPS] UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "20861": {
+      "id": 20861,
+      "name": "Є-Гроші [CPS] UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "20881": {
+      "id": 20881,
+      "name": "Alibaba WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "21026": {
+      "id": 21026,
+      "name": "Touch UA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "23707": {
+      "id": 23707,
+      "name": "Blinkist WW",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "26562": {
+      "id": 26562,
+      "name": "Street-One NL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "27390": {
+      "id": 27390,
+      "name": "ATB UA",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "29382": {
+      "id": 29382,
+      "name": "VARUS.UA",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "29414": {
+      "id": 29414,
+      "name": "Kvshop UA",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "37025": {
+      "id": 37025,
+      "name": "Swyft Filings  Many GEOs",
+      "website_id": "3012753",
+      "attempts": 2,
+      "last_attempt_at": "2026-10-19T11:40:31.482Z",
+      "status": "failed",
+      "last_error": "dialog_not_closed"
+    },
+    "37709": {
+      "id": 37709,
+      "name": "Bliss Club [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "40613": {
+      "id": 40613,
+      "name": "Mirson UA",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "78568": {
+      "id": 78568,
+      "name": "KurJerzy PL",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "101241": {
+      "id": 101241,
+      "name": "Levis MX",
+      "website_id": "3012753",
+      "attempts": 1,
+      "last_attempt_at": "2026-10-19T11:42:25.382Z",
+      "status": "submitted",
+      "applied_at": "2026-10-19T11:42:35.341Z",
+      "updated_at": "2026-10-19T11:42:35.341Z"
+    },
+    "103950": {
+      "id": 103950,
+      "name": "FoRoom UA",
+      "website_id": "3012753",
+      "attempts": 1,
+      "last_attempt_at": "2026-10-19T11:41:14.947Z",
+      "status": "submitted",
+      "applied_at": "2026-10-19T11:41:24.946Z",
+      "updated_at": "2026-10-19T11:41:24.946Z"
+    },
+    "127037": {
+      "id": 127037,
+      "name": "Notta AI WW",
+      "website_id": "3012753",
+      "attempts": 1,
+      "last_attempt_at": "2026-10-19T11:41:31.705Z",
+      "status": "submitted",
+      "applied_at": "2026-10-19T11:41:41.554Z",
+      "updated_at": "2026-10-19T11:41:41.554Z"
+    },
+    "162597": {
+      "id": 162597,
+      "name": "Proton VPN Many GEOs",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "188421": {
+      "id": 188421,
+      "name": "БагатоЛосося UA",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "191411": {
+      "id": 191411,
+      "name": "Rooler UA",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    },
+    "199219": {
+      "id": 199219,
+      "name": "Proton Lumo WW",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-10-19T11:40:26.926Z"
+    }
+  },
+  "last_run": "2026-10-19T11:42:37.795Z"
+}

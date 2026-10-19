@@ -153,13 +153,29 @@ function slugify(name) {
 }
 
 const { syncAndBuild } = require('./promoradar_catalog_sync.cjs');
+const AUTO_CONNECT_INTERVAL_MS = 24 * 60 * 60 * 1000; // Run auto-connect applications once every 24 hours
 
-async function runAutoConnect() {
+async function runAutoConnect(force = false) {
+  let state = {};
+  if (fs.existsSync(STATE_FILE)) {
+    try { state = JSON.parse(fs.readFileSync(STATE_FILE, 'utf8')); } catch {}
+  }
+
+  const now = Date.now();
+  const lastRun = state.lastAutoConnectTime || 0;
+  if (!force && (now - lastRun < AUTO_CONNECT_INTERVAL_MS)) {
+    const hoursLeft = Math.round((AUTO_CONNECT_INTERVAL_MS - (now - lastRun)) / (60 * 60 * 1000));
+    log(`⏳ [AutoConnect] Cooldown active (next application scan in ~${hoursLeft}h). Skipping.`);
+    return;
+  }
+
   log('⚡ [AutoConnect] Scanning catalog & submitting applications for top merchant opportunities...');
   try {
     const scriptPath = path.resolve(__dirname, 'admitad_auto_applier.cjs');
     if (fs.existsSync(scriptPath)) {
       execSync(`node "${scriptPath}"`, { stdio: 'inherit', timeout: 300000 });
+      state.lastAutoConnectTime = now;
+      fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
       log('✅ [AutoConnect] Applications cycle completed.');
     }
   } catch (err) {

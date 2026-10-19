@@ -24,6 +24,50 @@ function log(msg) {
   } catch {}
 }
 
+const ARTIFACTS_DIR = path.resolve(__dirname, '../artifacts_admitad');
+const HISTORY_FILE = path.resolve(ARTIFACTS_DIR, 'applied_programs_history.json');
+
+function loadHistory() {
+  if (fs.existsSync(HISTORY_FILE)) {
+    try {
+      return JSON.parse(fs.readFileSync(HISTORY_FILE, 'utf8'));
+    } catch {}
+  }
+  return { history: {}, last_run: null };
+}
+
+function saveHistory(data) {
+  try {
+    fs.mkdirSync(ARTIFACTS_DIR, { recursive: true });
+    fs.writeFileSync(HISTORY_FILE, JSON.stringify(data, null, 2), 'utf8');
+  } catch {}
+}
+
+function isOfferAlreadyProcessed(name, history) {
+  if (!name || name === 'Offer' || name === 'Merchant') return false;
+  const normName = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+  for (const item of Object.values(history || {})) {
+    if (!item.name) continue;
+    const itemNorm = item.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if ((normName.length > 3 && itemNorm.includes(normName)) || (itemNorm.length > 3 && normName.includes(itemNorm))) {
+      if (item.status === 'active' || item.status === 'pending') return true;
+      if (item.status === 'declined') {
+        const lastTime = new Date(item.updated_at || item.applied_at || 0).getTime();
+        if (Date.now() - lastTime < 90 * 24 * 60 * 60 * 1000) return true;
+      }
+      if (item.status === 'submitted') {
+        const lastTime = new Date(item.applied_at || 0).getTime();
+        if (Date.now() - lastTime < 30 * 24 * 60 * 60 * 1000) return true;
+      }
+      if (item.status === 'failed' && (item.attempts || 0) >= 2) {
+        const lastTime = new Date(item.last_attempt_at || 0).getTime();
+        if (Date.now() - lastTime < 14 * 24 * 60 * 60 * 1000) return true;
+      }
+    }
+  }
+  return false;
+}
+
 async function dismissOverlays(page) {
   try {
     const okayBtn = await page.$('button:has-text("OKAY"), button:has-text("Accept"), button:has-text("Принять"), #cmpwelcomebtnyes');
@@ -49,6 +93,9 @@ async function main() {
     log(`❌ Session state file not found at: ${STATE_FILE}`);
     process.exit(1);
   }
+
+  const historyData = loadHistory();
+  const history = historyData.history || {};
 
   const launchOpts = {
     headless: true,
@@ -76,7 +123,9 @@ async function main() {
       log(`📄 Navigating to instant catalog page ${pageNum}: ${targetUrl}`);
       
       try {
-        await page.goto(targetUrl, { waitUntil: 'networkidle', timeout: 35000 });
+        await page.goto(targetUrl, { waitUntil: 'networkidle', timeout: 35000 }).catch(async () => {
+          await page.goto(targetUrl, { waitUntil: 'domcontentloaded', timeout: 20000 });
+        });
         await page.waitForTimeout(2000);
         await dismissOverlays(page);
       } catch (err) {
@@ -94,13 +143,20 @@ async function main() {
           const btn = connectButtons.nth(i);
           if (!(await btn.isVisible())) continue;
 
+          // Exclude header promo banners
+          const isBanner = await btn.evaluate(el => {
+            return !!el.closest('.banner, .promo-banner, .top-offer, .special-offer, .header-banner, .catalog-header, [class*="slider"]');
+          });
+          if (isBanner) continue;
+
           // Read offer title if available
           const cardText = await btn.evaluate(el => {
             const card = el.closest('.offer-card, mat-card, .catalog-card') || el.parentElement;
             return card ? card.innerText.split('\n')[0].trim() : 'Offer';
           });
 
-          if (attemptedOffers.has(cardText)) {
+          if (attemptedOffers.has(cardText) || isOfferAlreadyProcessed(cardText, history)) {
+            log(`⏭️ Skipping "${cardText}" (already applied/pending/active/declined)`);
             continue;
           }
           attemptedOffers.add(cardText);
@@ -118,15 +174,55 @@ async function main() {
               await page.waitForTimeout(500);
             }
 
-            const acceptBtn = dialog.locator('button:has-text("Принять"), button:has-text("Согласен"), button:has-text("Подключиться")').first();
-            if (await acceptBtn.isVisible()) {
-              await acceptBtn.click({ force: true }).catch(() => {});
-              log(`✅ Rules accepted for: "${cardText}"`);
+            // Trigger submit via angular if available or button click
+            await page.evaluate(() => {
+              const b = Array.from(document.querySelectorAll('[role="dialog"] button, .modal button')).find(el => {
+                const t = (el.innerText || '').trim();
+                return t === 'Принять' || t === 'Согласен' || t === 'Подключиться' || t === 'Подать заявку';
+              });
+              if (b) {
+                if (window.angular) {
+                  try {
+                    const sc = window.angular.element(b).scope();
+                    if (sc && typeof sc.connectWebsite === 'function') {
+                      sc.$apply(() => sc.connectWebsite());
+                      return;
+                    }
+                  } catch (e) {}
+                }
+                b.click();
+              }
+            });
+
+            await page.waitForTimeout(2000);
+
+            // Verify closure
+            const closed = await page.waitForFunction(() => {
+              const d = document.querySelector('[role="dialog"], mat-dialog-container, .modal');
+              return !d;
+            }, { timeout: 4000 }).catch(() => false);
+
+            if (closed) {
+              log(`✅ Rules accepted and program connected for: "${cardText}"`);
               totalConnected++;
-              await page.waitForTimeout(1500);
+              history[cardText] = {
+                name: cardText,
+                website_id: WEBSITE_ID,
+                status: 'submitted',
+                applied_at: new Date().toISOString()
+              };
+              saveHistory(historyData);
             } else {
               const closeBtn = dialog.locator('button[mat-dialog-close], button[aria-label="Close"], button:has-text("Отменить")').first();
               if (await closeBtn.isVisible()) await closeBtn.click({ force: true }).catch(() => {});
+              history[cardText] = {
+                name: cardText,
+                website_id: WEBSITE_ID,
+                status: 'failed',
+                last_attempt_at: new Date().toISOString(),
+                attempts: 1
+              };
+              saveHistory(historyData);
             }
           }
           await page.waitForTimeout(1000);
@@ -312,12 +408,19 @@ async function main() {
             const btn = connectButtons.nth(i);
             if (!(await btn.isVisible())) continue;
 
+            // Exclude header promo banners
+            const isBanner = await btn.evaluate(el => {
+              return !!el.closest('.banner, .promo-banner, .top-offer, .special-offer, .header-banner, .catalog-header, [class*="slider"]');
+            });
+            if (isBanner) continue;
+
             const cardTitle = await btn.evaluate(el => {
               const card = el.closest('.offer-card, mat-card, .catalog-card') || el.parentElement;
               return card ? card.innerText.split('\n')[0].trim() : 'Merchant';
             });
 
-            if (attemptedOffers.has(cardTitle)) {
+            if (attemptedOffers.has(cardTitle) || isOfferAlreadyProcessed(cardTitle, history)) {
+              log(`  ⏭️ Skipping "${cardTitle}" (already applied/pending/active/declined)`);
               continue;
             }
             attemptedOffers.add(cardTitle);
@@ -334,15 +437,54 @@ async function main() {
                 await page.waitForTimeout(500);
               }
 
-              const submitBtn = dialog.locator('button:has-text("Подать заявку"), button:has-text("Принять"), button:has-text("Согласен"), button:has-text("Подключиться")').first();
-              if (await submitBtn.isVisible()) {
-                await submitBtn.click({ force: true }).catch(() => {});
+              // Submit via Angular if present, or click
+              await page.evaluate(() => {
+                const b = Array.from(document.querySelectorAll('[role="dialog"] button, .modal button')).find(el => {
+                  const t = (el.innerText || '').trim();
+                  return t === 'Подать заявку' || t === 'Принять' || t === 'Согласен' || t === 'Подключиться';
+                });
+                if (b) {
+                  if (window.angular) {
+                    try {
+                      const sc = window.angular.element(b).scope();
+                      if (sc && typeof sc.connectWebsite === 'function') {
+                        sc.$apply(() => sc.connectWebsite());
+                        return;
+                      }
+                    } catch (e) {}
+                  }
+                  b.click();
+                }
+              });
+
+              await page.waitForTimeout(2000);
+
+              const closed = await page.waitForFunction(() => {
+                const d = document.querySelector('[role="dialog"], mat-dialog-container, .modal');
+                return !d;
+              }, { timeout: 4000 }).catch(() => false);
+
+              if (closed) {
                 log(`  ✅ Application submitted for: "${cardTitle}"`);
                 totalConnected++;
-                await page.waitForTimeout(1500);
+                history[cardTitle] = {
+                  name: cardTitle,
+                  website_id: WEBSITE_ID,
+                  status: 'submitted',
+                  applied_at: new Date().toISOString()
+                };
+                saveHistory(historyData);
               } else {
                 const cancelBtn = dialog.locator('button:has-text("Отменить"), button[mat-dialog-close]').first();
                 if (await cancelBtn.isVisible()) await cancelBtn.click({ force: true }).catch(() => {});
+                history[cardTitle] = {
+                  name: cardTitle,
+                  website_id: WEBSITE_ID,
+                  status: 'failed',
+                  last_attempt_at: new Date().toISOString(),
+                  attempts: 1
+                };
+                saveHistory(historyData);
               }
             }
             await page.waitForTimeout(800);
@@ -355,6 +497,9 @@ async function main() {
         log(`Catalog page ${pageNum} warning: ${catErr.message}`);
       }
     }
+
+    historyData.last_run = new Date().toISOString();
+    saveHistory(historyData);
 
     log('================================================================');
     log(`🎉 SELECTION RUN COMPLETED! Total programs/promos connected: ${totalConnected}`);

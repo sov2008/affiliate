@@ -28,6 +28,7 @@ const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '';
 const ARTIFACTS_DIR = path.resolve(__dirname, '../artifacts_admitad');
 const STATE_FILE = path.resolve(ARTIFACTS_DIR, 'auth_state.json');
 const LOG_FILE = path.resolve(ARTIFACTS_DIR, 'admitad_applier.log');
+const HISTORY_FILE = path.resolve(ARTIFACTS_DIR, 'applied_programs_history.json');
 
 function log(msg) {
   const line = `[${new Date().toISOString()}] [ADMITAD-AUTO-APPLIER] ${msg}`;
@@ -36,6 +37,26 @@ function log(msg) {
     fs.mkdirSync(ARTIFACTS_DIR, { recursive: true });
     fs.appendFileSync(LOG_FILE, line + '\n', 'utf8');
   } catch {}
+}
+
+function loadHistory() {
+  if (fs.existsSync(HISTORY_FILE)) {
+    try {
+      return JSON.parse(fs.readFileSync(HISTORY_FILE, 'utf8'));
+    } catch (e) {
+      log(`⚠️ Failed to parse history file, starting fresh: ${e.message}`);
+    }
+  }
+  return { history: {}, last_run: null };
+}
+
+function saveHistory(data) {
+  try {
+    fs.mkdirSync(ARTIFACTS_DIR, { recursive: true });
+    fs.writeFileSync(HISTORY_FILE, JSON.stringify(data, null, 2), 'utf8');
+  } catch (e) {
+    log(`⚠️ Failed to save history file: ${e.message}`);
+  }
 }
 
 async function sendTelegramAlert(text) {
@@ -149,16 +170,71 @@ async function runAutoApplier(maxApplications = 6) {
 
   const excludeSet = new Set([...activeIds, ...pendingIds, ...declinedIds]);
 
+  // Sync API state to persistent history
+  const historyData = loadHistory();
+  const history = historyData.history || {};
+
+  for (const r of (activeRes.results || [])) {
+    history[String(r.id)] = {
+      id: r.id,
+      name: r.name,
+      website_id: WEBSITE_ID,
+      status: 'active',
+      updated_at: new Date().toISOString()
+    };
+  }
+  for (const r of (pendingRes.results || [])) {
+    history[String(r.id)] = {
+      id: r.id,
+      name: r.name,
+      website_id: WEBSITE_ID,
+      status: 'pending',
+      updated_at: new Date().toISOString()
+    };
+  }
+  for (const r of (declinedRes.results || [])) {
+    history[String(r.id)] = {
+      id: r.id,
+      name: r.name,
+      website_id: WEBSITE_ID,
+      status: 'declined',
+      updated_at: new Date().toISOString()
+    };
+  }
+  saveHistory(historyData);
+
   // 2. Query top campaigns from catalog (page 1 & 2)
   const catalogRes = await apiGet(token, `/advcampaigns/?limit=100&has_moderation=1`);
   const candidates = (catalogRes.results || []).filter(c => {
+    const cid = String(c.id);
     if (excludeSet.has(c.id)) return false;
     if (c.status !== 'active') return false;
+
+    // Check persistent history and cooldowns
+    const record = history[cid];
+    if (record) {
+      if (record.status === 'active' || record.status === 'pending') {
+        return false;
+      }
+      if (record.status === 'declined') {
+        const lastTime = new Date(record.updated_at || record.applied_at || 0).getTime();
+        if (Date.now() - lastTime < 90 * 24 * 60 * 60 * 1000) return false; // 90 days cooldown
+      }
+      if (record.status === 'submitted') {
+        const lastTime = new Date(record.applied_at || 0).getTime();
+        if (Date.now() - lastTime < 30 * 24 * 60 * 60 * 1000) return false; // 30 days cooldown for submitted
+      }
+      if (record.status === 'failed' && (record.attempts || 0) >= 2) {
+        const lastTime = new Date(record.last_attempt_at || 0).getTime();
+        if (Date.now() - lastTime < 14 * 24 * 60 * 60 * 1000) return false; // 14 days cooldown for repeated failures
+      }
+    }
+
     // Prefer campaigns with rating >= 3 or good cr/epc
     return (c.rating >= 3 || c.epc > 0 || c.cr > 0);
   });
 
-  log(`Discovered ${candidates.length} qualified candidate programs not yet applied.`);
+  log(`Discovered ${candidates.length} qualified candidate programs not yet applied (after history & cooldown filters).`);
 
   if (candidates.length === 0) {
     log('No new candidates to apply to at this time.');
@@ -191,12 +267,19 @@ async function runAutoApplier(maxApplications = 6) {
   let appliedSuccessCount = 0;
 
   for (const camp of batch) {
+    const cid = String(camp.id);
     const offerUrl = `https://store.admitad.com/ru/webmaster/websites/${WEBSITE_ID}/offers/${camp.id}/`;
     log(`Navigating to program page: ${camp.name} (ID: ${camp.id}) -> ${offerUrl}`);
 
+    history[cid] = history[cid] || { id: camp.id, name: camp.name, website_id: WEBSITE_ID, attempts: 0 };
+    history[cid].attempts = (history[cid].attempts || 0) + 1;
+    history[cid].last_attempt_at = new Date().toISOString();
+
     try {
-      await page.goto(offerUrl, { waitUntil: 'networkidle', timeout: 45000 });
-      await page.waitForTimeout(2500);
+      await page.goto(offerUrl, { waitUntil: 'networkidle', timeout: 35000 }).catch(async () => {
+        await page.goto(offerUrl, { waitUntil: 'domcontentloaded', timeout: 20000 });
+      });
+      await page.waitForTimeout(2000);
       await dismissOverlays(page);
 
       // Check if button "Подать заявку" / "Подключиться" / join_dialog exists
@@ -205,6 +288,9 @@ async function runAutoApplier(maxApplications = 6) {
       const isVisible = await joinBtn.isVisible({ timeout: 5000 }).catch(() => false);
       if (!isVisible) {
         log(`ℹ️ Join button not visible for ${camp.name} (ID: ${camp.id}). May already be pending/joined.`);
+        history[cid].status = 'pending_or_joined';
+        history[cid].updated_at = new Date().toISOString();
+        saveHistory(historyData);
         continue;
       }
 
@@ -212,11 +298,17 @@ async function runAutoApplier(maxApplications = 6) {
       await joinBtn.click({ force: true });
       await page.waitForTimeout(2000);
 
-      // Check for accept / join confirmation button directly on page or in dialog
-      await page.waitForTimeout(1500);
+      const dialog = page.locator('.advcampaign-join-dialog, .modal, [role="dialog"]').first();
+      if (!(await dialog.isVisible({ timeout: 4000 }).catch(() => false))) {
+        log(`⚠️ Join dialog did not appear for ${camp.name}`);
+        history[cid].status = 'failed';
+        history[cid].last_error = 'dialog_not_opened';
+        saveHistory(historyData);
+        continue;
+      }
 
       // If traffic description textarea exists, fill it
-      const textarea = page.locator('.advcampaign-join-dialog textarea, .modal textarea, textarea').first();
+      const textarea = dialog.locator('textarea').first();
       if (await textarea.isVisible().catch(() => false)) {
         const promoDesc = `PromoRadar (https://promoradar.store) is an automated coupon, promo codes, and deals curation portal. We drive high-intent, targeted buyer traffic to promotional discounts, vouchers, and seasonal sales.`;
         await textarea.fill(promoDesc);
@@ -225,7 +317,7 @@ async function runAutoApplier(maxApplications = 6) {
       }
 
       // If rules agreement checkbox exists and not checked, check it
-      const checkbox = page.locator('.advcampaign-join-dialog input[type="checkbox"], input[type="checkbox"]').first();
+      const checkbox = dialog.locator('input[type="checkbox"]').first();
       if (await checkbox.isVisible().catch(() => false)) {
         const isChecked = await checkbox.isChecked().catch(() => false);
         if (!isChecked) {
@@ -234,16 +326,51 @@ async function runAutoApplier(maxApplications = 6) {
         }
       }
 
-      // Click Accept / Apply button
-      const confirmBtn = page.locator('.advcampaign-join-dialog button:has-text("Принять"), .advcampaign-join-dialog button:has-text("Подать заявку"), button:has-text("Принять"), button:has-text("Подать заявку")').first();
-      if (await confirmBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
-        await confirmBtn.click({ force: true });
-        log(`✅ Clicked confirmation button for ${camp.name}!`);
-        appliedSuccessCount++;
-        await page.waitForTimeout(3000);
+      // Trigger submit via AngularJS connectWebsite or native click
+      log(`Submitting application for ${camp.name}...`);
+      const submitResult = await page.evaluate(() => {
+        const btn = document.querySelector('.mod-rules__cta_primary, button.ga-join-btn, .advcampaign-join-dialog button.mod-rules__cta_primary') ||
+                    Array.from(document.querySelectorAll('.advcampaign-join-dialog button, [role="dialog"] button')).find(b => {
+                      const t = (b.innerText || '').trim();
+                      return t === 'Принять' || t === 'Подать заявку' || t === 'Подключиться' || t === 'Согласен';
+                    });
+        if (!btn) return { error: 'No submit button found' };
 
-          // Alert via Telegram
-          const alertMsg = `
+        if (window.angular) {
+          try {
+            const scope = window.angular.element(btn).scope();
+            if (scope && typeof scope.connectWebsite === 'function') {
+              scope.$apply(() => { scope.connectWebsite(); });
+              return { success: true, method: 'angular_connectWebsite' };
+            }
+          } catch (e) {
+            // fallback to click
+          }
+        }
+
+        btn.click();
+        return { success: true, method: 'dom_click' };
+      });
+
+      await page.waitForTimeout(3000);
+
+      // Verify that dialog closed or success toast appeared
+      const isClosed = await page.waitForFunction(() => {
+        const d = document.querySelector('.advcampaign-join-dialog, .modal, [role="dialog"]');
+        const toast = document.querySelector('.notification-success, .alert-success, [class*="success"]');
+        return !d || !!toast;
+      }, { timeout: 6000 }).catch(() => false);
+
+      if (isClosed) {
+        log(`✅ Successfully submitted application for ${camp.name}! (method: ${submitResult?.method || 'direct'})`);
+        appliedSuccessCount++;
+        history[cid].status = 'submitted';
+        history[cid].applied_at = new Date().toISOString();
+        history[cid].updated_at = new Date().toISOString();
+        saveHistory(historyData);
+
+        // Alert via Telegram
+        const alertMsg = `
 🚀 <b>[ADMITAD: ПОДАНА НОВАЯ ЗАЯВКА НА ОФФЕР]</b>
 ━━━━━━━━━━━━━━━━━━
 💼 <b>Программа:</b> ${camp.name} (ID: <code>${camp.id}</code>)
@@ -252,21 +379,29 @@ async function runAutoApplier(maxApplications = 6) {
 🎯 <b>Площадка:</b> PromoRadar (ID: <code>${WEBSITE_ID}</code>)
 ━━━━━━━━━━━━━━━━━━
 ⚡ <i>Заявка успешно отправлена на модерацию в Admitad!</i>
-          `.trim();
-          await sendTelegramAlert(alertMsg);
-
-        } else {
-          log(`⚠️ Confirmation button not found in dialog for ${camp.name}`);
-        }
+        `.trim();
+        await sendTelegramAlert(alertMsg);
+      } else {
+        log(`⚠️ Dialog remained open after click for ${camp.name}. Submission not confirmed.`);
+        history[cid].status = 'failed';
+        history[cid].last_error = 'dialog_not_closed';
+        saveHistory(historyData);
+        await page.keyboard.press('Escape');
+      }
 
     } catch (err) {
       log(`Error applying to ${camp.name} (${camp.id}): ${err.message}`);
+      history[cid].status = 'error';
+      history[cid].last_error = err.message;
+      saveHistory(historyData);
     }
 
     await page.waitForTimeout(2000);
   }
 
   await browser.close();
+  historyData.last_run = new Date().toISOString();
+  saveHistory(historyData);
   log(`🎉 Application batch complete. Successfully applied to ${appliedSuccessCount} programs.`);
 }
 
@@ -278,3 +413,4 @@ if (require.main === module) {
 }
 
 module.exports = { runAutoApplier };
+

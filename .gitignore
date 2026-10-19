@@ -71,4 +71,5 @@ deals-portal/dist/
 deals-portal/.astro/
 *.tar.gz
 *_b64.txt
+artifacts_admitad/*.png
 
