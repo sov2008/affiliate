@@ -15,6 +15,39 @@ const categoriesList = Array.from(
   )
 ).filter(c => Boolean(c && c.trim()));
 
+// Registries for instant Live Spotlight Auto-suggest
+const storesRegistry = STORES_DATA.map(s => ({
+  slug: s.slug,
+  name: s.name,
+  category: s.category
+}));
+
+const dealsRegistry = COUPONS_DATA.map(d => ({
+  id: d.id,
+  title: d.title,
+  desc: d.description,
+  storeName: d.storeName,
+  storeSlug: d.storeSlug,
+  code: d.code,
+  badge: d.discountBadge,
+  affiliateUrl: d.affiliateUrl,
+  successRate: d.successRate
+}));
+
+const categoriesRegistry = [
+  { slug: 'privacy-security', name: 'Privacy, VPN & Cybersecurity', categoryName: 'Privacy & Security', icon: '🛡' },
+  { slug: 'dating-lifestyle', name: 'Dating & Lifestyle Services', categoryName: 'Dating & Lifestyle', icon: '💬' },
+  { slug: 'fashion-apparel', name: 'Fashion & Apparel', categoryName: 'Fashion & Apparel', icon: '👗' },
+  { slug: 'eyewear-health', name: 'Eyewear & Optical Health', categoryName: 'Eyewear & Health', icon: '👓' },
+  { slug: 'travel-tours', name: 'Travel, Desert Safaris & Tours', categoryName: 'Travel & Tours', icon: '✈️' },
+  { slug: 'ecommerce-wholesale', name: 'E-Commerce & Department Stores', categoryName: 'E-Commerce & Wholesale', icon: '📦' },
+  { slug: 'electronics-gadgets', name: 'Electronics & Portable Power', categoryName: 'Electronics & Gadgets', icon: '⚡' },
+  { slug: 'education-learning', name: 'Education & Online Learning', categoryName: 'Education & Learning', icon: '🎓' },
+  { slug: 'beauty-fragrances', name: 'Beauty, Cosmetics & Fragrances', categoryName: 'Beauty & Fragrances', icon: '✨' },
+  { slug: 'insurance-finance', name: 'Insurance & Financial Protection', categoryName: 'Insurance & Finance', icon: '💰' },
+  { slug: 'web-hosting-domains', name: 'Web Hosting, Domains & Servers', categoryName: 'Web Hosting & Domains', icon: '🌐' }
+];
+
 // Brand Visual Styling Helper (Honey / Slickdeals style branded identity)
 const BRAND_THEMES: Record<string, { bg: string; text: string; border: string; badgeBg: string }> = {
   'expressvpn': { bg: 'from-rose-600 to-red-700', text: 'text-white', border: 'border-red-200', badgeBg: 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30' },
@@ -312,8 +345,8 @@ const homeSchemas = [
               Instant savings across global fashion, prescription eyewear, UAE &amp; Dubai travel, privacy software, and digital services. Synced via direct merchant partner feeds and verified at checkout.
             </p>
 
-            <!-- Search Bar -->
-            <div class="bg-white/10 backdrop-blur-md p-2 rounded-2xl border border-white/15 max-w-2xl shadow-2xl">
+            <!-- Search Bar with Live Spotlight Dropdown -->
+            <div id="heroSearchWrapper" class="bg-white/10 backdrop-blur-md p-2 rounded-2xl border border-white/15 max-w-2xl shadow-2xl relative">
               <div class="flex flex-col sm:flex-row gap-2">
                 <div class="relative flex-1">
                   <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -322,17 +355,60 @@ const homeSchemas = [
                   <input
                     id="mainHeroSearchInput"
                     type="text"
+                    autocomplete="off"
                     placeholder={`Search ${STORES_DATA.length} partner stores, categories, or keywords (e.g., eSIM, ALLPOWERS, VPN, Dubai)...`}
-                    class="w-full pl-11 pr-4 py-3 rounded-xl bg-white text-slate-900 placeholder-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    class="w-full pl-11 pr-4 py-3 rounded-xl bg-white text-slate-900 placeholder-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-inner"
                   />
                 </div>
                 <button
                   id="mainHeroSearchBtn"
                   type="button"
-                  class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition shrink-0 shadow-lg shadow-indigo-600/30"
+                  class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition shrink-0 shadow-lg shadow-indigo-600/30 cursor-pointer"
                 >
                   <span id="findDealsBtnText">Find Deals</span>
                 </button>
+              </div>
+
+              <!-- Hero Live Search Spotlight Dropdown -->
+              <div
+                id="heroSearchSpotlight"
+                class="hidden absolute top-full left-0 right-0 mt-2 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200/90 dark:border-slate-800 z-50 overflow-hidden text-left animate-fadeIn max-h-[440px] flex flex-col"
+              >
+                <div class="p-3 bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 shrink-0">
+                  <span id="heroSpotlightStatus" class="font-bold uppercase tracking-wider text-[10px] text-slate-400 dark:text-slate-400">Search Suggestions</span>
+                  <span class="text-[10px] bg-slate-200/80 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-slate-600 dark:text-slate-300">ESC to close</span>
+                </div>
+                <div class="overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/60">
+                  <!-- Stores Section -->
+                  <div id="heroSpotlightStoresSection" class="p-2 space-y-1">
+                    <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2 py-1">Stores &amp; Brands</div>
+                    <div id="heroSpotlightStoresList" class="space-y-1"></div>
+                  </div>
+                  <!-- Categories Section -->
+                  <div id="heroSpotlightCategoriesSection" class="p-2 space-y-1">
+                    <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2 py-1">Categories</div>
+                    <div id="heroSpotlightCategoriesList" class="space-y-1"></div>
+                  </div>
+                  <!-- Deals Section -->
+                  <div id="heroSpotlightDealsSection" class="p-2 space-y-1">
+                    <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2 py-1">Matching Promo Codes</div>
+                    <div id="heroSpotlightDealsList" class="space-y-1"></div>
+                  </div>
+                </div>
+                <!-- Empty Results State -->
+                <div id="heroSpotlightEmpty" class="hidden p-6 text-center text-xs text-slate-500 dark:text-slate-400">
+                  No matching stores or promo codes found.
+                </div>
+                <!-- Footer Action to Scroll down -->
+                <div class="p-2.5 bg-slate-50 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 text-center shrink-0">
+                  <button
+                    id="heroSpotlightViewAllBtn"
+                    type="button"
+                    class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1 cursor-pointer"
+                  >
+                    <span>View all matching results in catalog ↓</span>
+                  </button>
+                </div>
               </div>
 
               <!-- Quick Search Chips -->
@@ -1192,7 +1268,7 @@ const homeSchemas = [
     <span id="globalToastMessage">Notification</span>
   </div>
 
-  <script is:inline define:vars={{ storeDomainsRegistry: STORE_DOMAINS_MAP }}>
+  <script is:inline define:vars={{ storeDomainsRegistry: STORE_DOMAINS_MAP, storesRegistry, dealsRegistry, categoriesRegistry, baseUrl: base }}>
     // State & Interactive Logic
     let currentCategory = 'ALL';
     let currentRegion = 'ALL';
@@ -1393,6 +1469,150 @@ const homeSchemas = [
       filterDeals();
     });
 
+    // Live Hero Spotlight Search Auto-suggest Engine
+    const heroSpotlight = document.getElementById('heroSearchSpotlight');
+    const heroSpotlightStoresList = document.getElementById('heroSpotlightStoresList');
+    const heroSpotlightCategoriesList = document.getElementById('heroSpotlightCategoriesList');
+    const heroSpotlightDealsList = document.getElementById('heroSpotlightDealsList');
+    const heroSpotlightStoresSection = document.getElementById('heroSpotlightStoresSection');
+    const heroSpotlightCategoriesSection = document.getElementById('heroSpotlightCategoriesSection');
+    const heroSpotlightDealsSection = document.getElementById('heroSpotlightDealsSection');
+    const heroSpotlightEmpty = document.getElementById('heroSpotlightEmpty');
+    const heroSpotlightStatus = document.getElementById('heroSpotlightStatus');
+
+    function renderHeroSpotlight(query) {
+      if (!query || query.trim().length < 2) {
+        heroSpotlight?.classList.add('hidden');
+        return;
+      }
+
+      const q = query.trim().toLowerCase();
+      if (heroSpotlightStatus) heroSpotlightStatus.textContent = `Suggestions for "${query.trim()}"`;
+
+      // 1. Match Stores
+      const matchedStores = (storesRegistry || []).filter(s =>
+        s.name.toLowerCase().includes(q) || s.category.toLowerCase().includes(q) || s.slug.includes(q)
+      ).slice(0, 4);
+
+      // 2. Match Categories
+      const matchedCategories = (categoriesRegistry || []).filter(c =>
+        c.name.toLowerCase().includes(q) || c.categoryName.toLowerCase().includes(q) || c.slug.includes(q)
+      ).slice(0, 3);
+
+      // 3. Match Deals / Promo Codes
+      const matchedDeals = (dealsRegistry || []).filter(d =>
+        d.title.toLowerCase().includes(q) || d.storeName.toLowerCase().includes(q) || d.code.toLowerCase().includes(q)
+      ).slice(0, 4);
+
+      const totalMatches = matchedStores.length + matchedCategories.length + matchedDeals.length;
+
+      if (totalMatches === 0) {
+        heroSpotlightStoresSection?.classList.add('hidden');
+        heroSpotlightCategoriesSection?.classList.add('hidden');
+        heroSpotlightDealsSection?.classList.add('hidden');
+        heroSpotlightEmpty?.classList.remove('hidden');
+        heroSpotlight?.classList.remove('hidden');
+        return;
+      }
+
+      heroSpotlightEmpty?.classList.add('hidden');
+
+      // Render Stores
+      if (matchedStores.length > 0) {
+        heroSpotlightStoresSection?.classList.remove('hidden');
+        if (heroSpotlightStoresList) {
+          heroSpotlightStoresList.innerHTML = matchedStores.map(s => {
+            const domain = (storeDomainsRegistry && (storeDomainsRegistry[s.slug] || storeDomainsRegistry[s.name])) || '';
+            const logoUrl = domain ? `https://logo.clearbit.com/${domain}` : '';
+            const fallbackUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64` : '';
+            const count = (dealsRegistry || []).filter(d => d.storeSlug === s.slug).length;
+
+            return `
+              <a href="${baseUrl}/stores/${s.slug}/" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition group">
+                <div class="flex items-center gap-2.5 min-w-0 pr-2">
+                  <div class="w-7 h-7 rounded-lg bg-white border border-slate-200 p-0.5 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                    ${domain ? `<img src="${logoUrl}" onerror="this.onerror=null;this.src='${fallbackUrl}';" alt="${s.name}" class="w-full h-full object-contain" />` : `<span class="text-indigo-700 font-extrabold text-[10px]">${s.name.slice(0, 2).toUpperCase()}</span>`}
+                  </div>
+                  <div class="truncate">
+                    <div class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 transition truncate">${s.name}</div>
+                    <div class="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">${count} active offers · ${s.category}</div>
+                  </div>
+                </div>
+                <span class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2.5 py-1 rounded-lg shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">Store →</span>
+              </a>
+            `;
+          }).join('');
+        }
+      } else {
+        heroSpotlightStoresSection?.classList.add('hidden');
+      }
+
+      // Render Categories
+      if (matchedCategories.length > 0) {
+        heroSpotlightCategoriesSection?.classList.remove('hidden');
+        if (heroSpotlightCategoriesList) {
+          heroSpotlightCategoriesList.innerHTML = matchedCategories.map(c => {
+            return `
+              <a href="${baseUrl}/categories/${c.slug}/" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition group">
+                <div class="flex items-center gap-2">
+                  <span class="text-base">${c.icon}</span>
+                  <span class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 transition">${c.name}</span>
+                </div>
+                <span class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2.5 py-1 rounded-lg shrink-0">Category →</span>
+              </a>
+            `;
+          }).join('');
+        }
+      } else {
+        heroSpotlightCategoriesSection?.classList.add('hidden');
+      }
+
+      // Render Deals
+      if (matchedDeals.length > 0) {
+        heroSpotlightDealsSection?.classList.remove('hidden');
+        if (heroSpotlightDealsList) {
+          heroSpotlightDealsList.innerHTML = matchedDeals.map(d => {
+            const domain = (storeDomainsRegistry && (storeDomainsRegistry[d.storeSlug] || storeDomainsRegistry[d.storeName])) || '';
+            const dealJson = JSON.stringify({
+              id: d.id,
+              title: d.title,
+              desc: d.desc,
+              code: d.code,
+              storeName: d.storeName,
+              storeSlug: d.storeSlug,
+              domain: domain,
+              badge: d.badge,
+              affiliateUrl: d.affiliateUrl,
+              successRate: d.successRate
+            }).replace(/"/g, '&quot;');
+
+            return `
+              <button
+                type="button"
+                data-reveal-deal="${dealJson}"
+                class="w-full text-left flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer group"
+              >
+                <div class="min-w-0 pr-2">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-xs font-bold text-slate-900 dark:text-white truncate">${d.storeName}</span>
+                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-rose-50 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300 border border-rose-200/60 dark:border-rose-500/30">${d.badge}</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 dark:text-slate-400 truncate">${d.title}</p>
+                </div>
+                <span class="font-mono text-xs font-bold text-indigo-900 bg-indigo-50 dark:bg-indigo-950 dark:text-indigo-300 px-2.5 py-1 rounded-lg border border-indigo-200 dark:border-indigo-800 shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">
+                  ${d.code ? '•••' + d.code.slice(-3) : 'Redeem →'}
+                </span>
+              </button>
+            `;
+          }).join('');
+        }
+      } else {
+        heroSpotlightDealsSection?.classList.add('hidden');
+      }
+
+      heroSpotlight?.classList.remove('hidden');
+    }
+
     // Search Inputs
     const heroInput = document.getElementById('mainHeroSearchInput');
     const headerInput = document.getElementById('headerQuickSearch');
@@ -1401,12 +1621,47 @@ const homeSchemas = [
       searchQuery = e.target.value;
       if (headerInput) headerInput.value = searchQuery;
       filterDeals();
+      renderHeroSpotlight(searchQuery);
+    });
+
+    heroInput?.addEventListener('focus', () => {
+      if (heroInput.value.trim().length >= 2) {
+        renderHeroSpotlight(heroInput.value);
+      }
     });
 
     headerInput?.addEventListener('input', (e) => {
       searchQuery = e.target.value;
       if (heroInput) heroInput.value = searchQuery;
       filterDeals();
+    });
+
+    // Dismiss spotlight on click outside
+    document.addEventListener('click', (e) => {
+      const heroWrapper = document.getElementById('heroSearchWrapper');
+      if (heroWrapper && !heroWrapper.contains(e.target)) {
+        heroSpotlight?.classList.add('hidden');
+      }
+    });
+
+    // Escape and Enter key listeners for hero input
+    heroInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        heroSpotlight?.classList.add('hidden');
+      } else if (e.key === 'Enter') {
+        heroSpotlight?.classList.add('hidden');
+        document.getElementById('mainDealsGrid')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    document.getElementById('mainHeroSearchBtn')?.addEventListener('click', () => {
+      heroSpotlight?.classList.add('hidden');
+      document.getElementById('mainDealsGrid')?.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    document.getElementById('heroSpotlightViewAllBtn')?.addEventListener('click', () => {
+      heroSpotlight?.classList.add('hidden');
+      document.getElementById('mainDealsGrid')?.scrollIntoView({ behavior: 'smooth' });
     });
 
     // Quick Search Chips

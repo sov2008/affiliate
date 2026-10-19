@@ -123,12 +123,13 @@ const storesCount = STORES_DATA.length;
           </svg>
 
           <!-- Search Spotlight Floating Dropdown -->
-          <div id="headerSearchSpotlight" class="hidden absolute top-full right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200/90 z-50 overflow-hidden animate-fadeIn">
-            <div class="p-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-xs text-slate-500">
-              <span class="font-bold uppercase tracking-wider text-[10px] text-slate-400">Search Results</span>
-              <span class="text-[10px] bg-slate-200/80 px-1.5 py-0.5 rounded font-mono">ESC to close</span>
+          <div id="headerSearchSpotlight" class="hidden absolute top-full right-0 mt-2 w-80 sm:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200/90 dark:border-slate-800 z-50 overflow-hidden animate-fadeIn">
+            <div class="p-3 bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-bold uppercase tracking-wider text-[10px] text-slate-400 dark:text-slate-400">Search Results</span>
+              <span class="text-[10px] bg-slate-200/80 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-slate-600 dark:text-slate-300">ESC to close</span>
             </div>
-            <div id="spotlightStoresList" class="p-2 space-y-1 max-h-48 overflow-y-auto border-b border-slate-100"></div>
+            <div id="spotlightCategoriesList" class="p-2 space-y-1 max-h-36 overflow-y-auto border-b border-slate-100 dark:border-slate-800 hidden"></div>
+            <div id="spotlightStoresList" class="p-2 space-y-1 max-h-48 overflow-y-auto border-b border-slate-100 dark:border-slate-800"></div>
             <div id="spotlightDealsList" class="p-2 space-y-1 max-h-60 overflow-y-auto"></div>
           </div>
         </div>
@@ -323,6 +324,21 @@ const storesCount = STORES_DATA.length;
   const headerSearchSpotlight = document.getElementById('headerSearchSpotlight');
   const spotlightStoresList = document.getElementById('spotlightStoresList');
   const spotlightDealsList = document.getElementById('spotlightDealsList');
+  const spotlightCategoriesList = document.getElementById('spotlightCategoriesList');
+
+  const HEADER_CATEGORIES = [
+    { slug: 'privacy-security', name: 'Privacy, VPN & Cybersecurity', icon: '🛡' },
+    { slug: 'dating-lifestyle', name: 'Dating & Lifestyle Services', icon: '💬' },
+    { slug: 'fashion-apparel', name: 'Fashion & Apparel', icon: '👗' },
+    { slug: 'eyewear-health', name: 'Eyewear & Optical Health', icon: '👓' },
+    { slug: 'travel-tours', name: 'Travel, Desert Safaris & Tours', icon: '✈️' },
+    { slug: 'ecommerce-wholesale', name: 'E-Commerce & Wholesale', icon: '📦' },
+    { slug: 'electronics-gadgets', name: 'Electronics & Portable Power', icon: '⚡' },
+    { slug: 'education-learning', name: 'Education & Learning', icon: '🎓' },
+    { slug: 'beauty-fragrances', name: 'Beauty & Fragrances', icon: '✨' },
+    { slug: 'insurance-finance', name: 'Insurance & Finance', icon: '💰' },
+    { slug: 'web-hosting-domains', name: 'Web Hosting & Domains', icon: '🌐' }
+  ];
 
   function renderSpotlightResults(query: string) {
     if (!query || query.trim().length < 2) {
@@ -331,6 +347,8 @@ const storesCount = STORES_DATA.length;
     }
 
     const q = query.trim().toLowerCase();
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
     const matchedStores = STORES_DATA.filter(s =>
       s.name.toLowerCase().includes(q) || s.category.toLowerCase().includes(q) || s.slug.includes(q)
     ).slice(0, 4);
@@ -339,11 +357,34 @@ const storesCount = STORES_DATA.length;
       d.title.toLowerCase().includes(q) || d.storeName.toLowerCase().includes(q) || d.code.toLowerCase().includes(q)
     ).slice(0, 4);
 
-    if (matchedStores.length === 0 && matchedDeals.length === 0) {
+    const matchedCategories = HEADER_CATEGORIES.filter(c =>
+      c.name.toLowerCase().includes(q) || c.slug.includes(q)
+    ).slice(0, 2);
+
+    if (matchedStores.length === 0 && matchedDeals.length === 0 && matchedCategories.length === 0) {
       if (spotlightStoresList) spotlightStoresList.innerHTML = `<div class="p-3 text-xs text-slate-500 text-center">No stores or coupons match "${query}"</div>`;
       if (spotlightDealsList) spotlightDealsList.innerHTML = '';
+      if (spotlightCategoriesList) spotlightCategoriesList.classList.add('hidden');
       headerSearchSpotlight?.classList.remove('hidden');
       return;
+    }
+
+    if (spotlightCategoriesList) {
+      if (matchedCategories.length > 0) {
+        spotlightCategoriesList.innerHTML = matchedCategories.map(c => `
+          <a href="${base}/categories/${c.slug}/" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition group">
+            <div class="flex items-center gap-2">
+              <span class="text-sm">${c.icon}</span>
+              <span class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 transition">${c.name}</span>
+            </div>
+            <span class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded-full">Category →</span>
+          </a>
+        `).join('');
+        spotlightCategoriesList.classList.remove('hidden');
+      } else {
+        spotlightCategoriesList.classList.add('hidden');
+        spotlightCategoriesList.innerHTML = '';
+      }
     }
 
     if (spotlightStoresList) {
