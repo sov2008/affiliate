@@ -212,37 +212,35 @@ async function runAutoApplier(maxApplications = 6) {
       await joinBtn.click({ force: true });
       await page.waitForTimeout(2000);
 
-      // Wait for modal dialog
-      const dialog = page.locator('[role="dialog"], mat-dialog-container, .modal, .dialog').first();
-      if (await dialog.isVisible({ timeout: 5000 }).catch(() => false)) {
-        log(`Dialog opened for ${camp.name}. Filling requirements...`);
+      // Check for accept / join confirmation button directly on page or in dialog
+      await page.waitForTimeout(1500);
 
-        // If traffic description textarea exists, fill it
-        const textarea = dialog.locator('textarea, input[type="text"]').first();
-        if (await textarea.isVisible().catch(() => false)) {
-          const promoDesc = `PromoRadar (https://promoradar.store) is an automated coupon, promo codes, and deals curation portal. We drive high-intent, targeted buyer traffic to promotional discounts, vouchers, and seasonal sales.`;
-          await textarea.fill(promoDesc);
-          log('Filled traffic source description in dialog.');
+      // If traffic description textarea exists, fill it
+      const textarea = page.locator('.advcampaign-join-dialog textarea, .modal textarea, textarea').first();
+      if (await textarea.isVisible().catch(() => false)) {
+        const promoDesc = `PromoRadar (https://promoradar.store) is an automated coupon, promo codes, and deals curation portal. We drive high-intent, targeted buyer traffic to promotional discounts, vouchers, and seasonal sales.`;
+        await textarea.fill(promoDesc);
+        log('Filled traffic source description in dialog.');
+        await page.waitForTimeout(500);
+      }
+
+      // If rules agreement checkbox exists and not checked, check it
+      const checkbox = page.locator('.advcampaign-join-dialog input[type="checkbox"], input[type="checkbox"]').first();
+      if (await checkbox.isVisible().catch(() => false)) {
+        const isChecked = await checkbox.isChecked().catch(() => false);
+        if (!isChecked) {
+          await checkbox.check({ force: true }).catch(() => {});
           await page.waitForTimeout(500);
         }
+      }
 
-        // If rules agreement checkbox exists and not checked, check it
-        const checkbox = dialog.locator('input[type="checkbox"]').first();
-        if (await checkbox.isVisible().catch(() => false)) {
-          const isChecked = await checkbox.isChecked().catch(() => false);
-          if (!isChecked) {
-            await checkbox.check({ force: true }).catch(() => {});
-            await page.waitForTimeout(500);
-          }
-        }
-
-        // Click Accept / Apply button
-        const confirmBtn = dialog.locator('button:has-text("Принять"), button:has-text("Подать заявку"), button:has-text("Подключиться"), button:has-text("Отправить")').first();
-        if (await confirmBtn.isVisible().catch(() => false)) {
-          await confirmBtn.click({ force: true });
-          log(`✅ Clicked confirmation button for ${camp.name}!`);
-          appliedSuccessCount++;
-          await page.waitForTimeout(3000);
+      // Click Accept / Apply button
+      const confirmBtn = page.locator('.advcampaign-join-dialog button:has-text("Принять"), .advcampaign-join-dialog button:has-text("Подать заявку"), button:has-text("Принять"), button:has-text("Подать заявку")').first();
+      if (await confirmBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
+        await confirmBtn.click({ force: true });
+        log(`✅ Clicked confirmation button for ${camp.name}!`);
+        appliedSuccessCount++;
+        await page.waitForTimeout(3000);
 
           // Alert via Telegram
           const alertMsg = `
@@ -260,9 +258,6 @@ async function runAutoApplier(maxApplications = 6) {
         } else {
           log(`⚠️ Confirmation button not found in dialog for ${camp.name}`);
         }
-      } else {
-        log(`⚠️ Modal dialog did not appear for ${camp.name}`);
-      }
 
     } catch (err) {
       log(`Error applying to ${camp.name} (${camp.id}): ${err.message}`);
