@@ -420,33 +420,74 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
             </ol>
           </div>
 
-          <!-- Lead Magnet: Deal Drop Alerts -->
+          <!-- Lead Magnet: Verified Deal Drop Alerts Engine -->
           <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 text-white rounded-3xl p-6 border border-indigo-500/30 shadow-xl space-y-3.5 relative overflow-hidden">
-            <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
-              </svg>
-              <h3 class="text-sm font-extrabold text-white">Get {store.name} Deal Alerts</h3>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="p-1.5 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                  </svg>
+                </span>
+                <h3 class="text-sm font-extrabold text-white">Get {store.name} Deal Alerts</h3>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-400/10 text-amber-300 border border-amber-400/20">
+                ⚡ Instant Drop
+              </span>
             </div>
+
             <p class="text-xs text-slate-300 leading-relaxed">
-              Never miss a 50%+ discount or exclusive flash voucher. Get instant notification when new tested codes drop.
+              Never miss a 50%+ discount or exclusive flash voucher. Get instant verified notifications when new tested codes drop.
             </p>
-            <form id="dealAlertForm" class="space-y-2.5">
-              <input
-                type="email"
-                required
-                placeholder="Enter your email..."
-                class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-800/90 text-white placeholder-slate-400 border border-slate-700/80 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              />
+
+            <form id="dealAlertForm" class="space-y-3">
+              <!-- Threshold Preference Selector -->
+              <div class="grid grid-cols-2 gap-1.5 p-1 bg-slate-800/80 rounded-xl border border-slate-700/80 text-[11px] font-bold">
+                <label class="flex items-center justify-center py-1.5 px-2 rounded-lg cursor-pointer transition text-center has-[:checked]:bg-indigo-600 has-[:checked]:text-white text-slate-400">
+                  <input type="radio" name="alertThreshold" value="50plus" checked class="sr-only" />
+                  <span>50%+ Deals Only</span>
+                </label>
+                <label class="flex items-center justify-center py-1.5 px-2 rounded-lg cursor-pointer transition text-center has-[:checked]:bg-indigo-600 has-[:checked]:text-white text-slate-400">
+                  <input type="radio" name="alertThreshold" value="all" class="sr-only" />
+                  <span>All New Codes</span>
+                </label>
+              </div>
+
+              <div>
+                <input
+                  type="email"
+                  id="dealAlertEmail"
+                  required
+                  placeholder="Enter your email address..."
+                  class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-800/90 text-white placeholder-slate-400 border border-slate-700/80 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+                />
+                <span id="dealAlertEmailError" class="hidden text-[10px] text-rose-400 mt-1 block"></span>
+              </div>
+
               <button
                 type="submit"
-                class="w-full py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-bold text-xs shadow-md transition cursor-pointer"
+                id="dealAlertSubmitBtn"
+                class="w-full py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-400 hover:to-indigo-500 text-white font-extrabold text-xs shadow-md transition cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
               >
-                Notify Me ⚡
+                <span>Notify Me ⚡</span>
               </button>
             </form>
-            <div id="dealAlertSuccess" class="hidden text-center text-[11px] font-semibold text-emerald-300 bg-emerald-950/60 p-2.5 rounded-xl border border-emerald-500/30">
-              ✓ Subscribed! You will receive notifications for {store.name}.
+
+            <div id="dealAlertSuccess" class="hidden text-left text-xs bg-emerald-950/60 p-3.5 rounded-2xl border border-emerald-500/40 space-y-2">
+              <div class="flex items-center gap-2 text-emerald-300 font-extrabold text-xs">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Active Subscription Confirmed!</span>
+              </div>
+              <p id="dealAlertSuccessMsg" class="text-[11px] text-emerald-200/90 leading-relaxed">
+                You will receive real-time notifications for {store.name} discount drops.
+              </p>
+              <button
+                type="button"
+                id="dealAlertManageBtn"
+                class="text-[10px] text-emerald-400 hover:text-emerald-300 underline underline-offset-2 font-medium cursor-pointer"
+              >
+                Change settings or unsubscribe
+              </button>
             </div>
           </div>
 
@@ -1138,12 +1179,79 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
       });
     });
 
+    // Persistent Verified Deal Drop Alerts Engine
     const alertForm = document.getElementById('dealAlertForm');
     const alertSuccess = document.getElementById('dealAlertSuccess');
+    const alertSuccessMsg = document.getElementById('dealAlertSuccessMsg');
+    const alertEmailInput = document.getElementById('dealAlertEmail');
+    const alertErrorEl = document.getElementById('dealAlertEmailError');
+    const alertManageBtn = document.getElementById('dealAlertManageBtn');
+    const alertStoreSlug = window.location.pathname.split('/').filter(Boolean).pop() || 'store';
+
+    function checkExistingAlert() {
+      try {
+        const stored = JSON.parse(localStorage.getItem('promoradar_deal_alerts') || '{}');
+        const alert = stored[alertStoreSlug];
+        if (alert && alert.email) {
+          if (alertForm) alertForm.classList.add('hidden');
+          if (alertSuccess) alertSuccess.classList.remove('hidden');
+          if (alertSuccessMsg) {
+            const thresholdText = alert.threshold === '50plus' ? '50%+ discounts' : 'all new verified coupons';
+            alertSuccessMsg.textContent = `Alert active for ${alert.email} (${thresholdText}).`;
+          }
+        }
+      } catch (e) {}
+    }
+
+    checkExistingAlert();
+
     alertForm?.addEventListener('submit', (e) => {
       e.preventDefault();
-      alertForm.classList.add('hidden');
-      alertSuccess?.classList.remove('hidden');
+      const email = (alertEmailInput?.value || '').trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (alertErrorEl) {
+          alertErrorEl.textContent = 'Please enter a valid email address.';
+          alertErrorEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      if (alertErrorEl) alertErrorEl.classList.add('hidden');
+
+      const selectedThreshold = (document.querySelector('input[name="alertThreshold"]:checked')?.value) || '50plus';
+
+      try {
+        const stored = JSON.parse(localStorage.getItem('promoradar_deal_alerts') || '{}');
+        stored[alertStoreSlug] = {
+          email,
+          threshold: selectedThreshold,
+          storeName: storeName,
+          timestamp: new Date().toISOString()
+        };
+        localStorage.setItem('promoradar_deal_alerts', JSON.stringify(stored));
+      } catch (err) {}
+
+      if (alertForm) alertForm.classList.add('hidden');
+      if (alertSuccess) alertSuccess.classList.remove('hidden');
+      if (alertSuccessMsg) {
+        const thresholdText = selectedThreshold === '50plus' ? '50%+ discounts' : 'all new verified coupons';
+        alertSuccessMsg.textContent = `Subscribed! ${email} will receive alerts for ${thresholdText}.`;
+      }
+
+      if (window.showPromoToast) {
+        window.showPromoToast(`⚡ Deal alerts active for ${storeName}!`);
+      }
+
+      // Dispatch GA4 custom event
+      window.dispatchEvent(new CustomEvent('promoradar_alert_subscribed', {
+        detail: { email, store: storeName, threshold: selectedThreshold }
+      }));
+    });
+
+    alertManageBtn?.addEventListener('click', () => {
+      if (alertSuccess) alertSuccess.classList.add('hidden');
+      if (alertForm) alertForm.classList.remove('hidden');
+      if (alertEmailInput) alertEmailInput.focus();
     });
 
     // Faceted Filtering & Sorting Engine for Store Coupons

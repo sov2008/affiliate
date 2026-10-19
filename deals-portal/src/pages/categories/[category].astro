@@ -544,10 +544,72 @@ const breadcrumbs = [
         </div>
       </div>
 
+      <!-- Category Deal Drop Alerts Banner (CouponFollow / Honey Droplist) -->
+      <section class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 text-white rounded-3xl p-6 sm:p-8 border border-indigo-500/30 shadow-xl relative overflow-hidden mt-10">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+          <div class="max-w-xl space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="p-1.5 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                </svg>
+              </span>
+              <span class="text-xs font-bold uppercase tracking-wider text-indigo-300">
+                Real-Time Price &amp; Coupon Droplist
+              </span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-white">
+              Get Instant {cat.name} Deal Alerts
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Never overpay for {cat.categoryName}. Subscribe to be alerted the exact moment a verified 50%+ discount or exclusive checkout code drops.
+            </p>
+          </div>
+
+          <div class="w-full lg:w-96 shrink-0">
+            <form id="catAlertForm" class="space-y-2.5">
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input
+                  type="email"
+                  id="catAlertEmail"
+                  required
+                  placeholder="Enter email address..."
+                  class="flex-1 px-4 py-2.5 text-xs rounded-xl bg-slate-800/90 text-white placeholder-slate-400 border border-slate-700/80 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+                />
+                <button
+                  type="submit"
+                  class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-400 hover:to-indigo-500 text-white font-extrabold text-xs shadow-md transition cursor-pointer shrink-0 active:scale-95"
+                >
+                  Alert Me ⚡
+                </button>
+              </div>
+              <span id="catAlertEmailError" class="hidden text-[10px] text-rose-400 block"></span>
+            </form>
+
+            <div id="catAlertSuccess" class="hidden text-xs bg-emerald-950/60 p-3.5 rounded-2xl border border-emerald-500/40 space-y-1.5">
+              <div class="flex items-center gap-2 text-emerald-300 font-extrabold text-xs">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Active Category Alerts!</span>
+              </div>
+              <p id="catAlertSuccessMsg" class="text-[11px] text-emerald-200/90">
+                You're subscribed to real-time {cat.categoryName} discount alerts.
+              </p>
+              <button
+                type="button"
+                id="catAlertManageBtn"
+                class="text-[10px] text-emerald-400 hover:text-emerald-300 underline underline-offset-2 font-medium cursor-pointer"
+              >
+                Change or unsubscribe
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   </main>
 
-  <script is:inline define:vars={{ rawCategoryDeals: deals, catCategoryName: cat.categoryName, base }}>
+  <script is:inline define:vars={{ rawCategoryDeals: deals, catCategoryName: cat.categoryName, catSlug: cat.slug, base }}>
     // Live Category Savings Calculator Engine (Honey & Capital One Shopping style)
     const catCalcInput = document.getElementById('catCalcInput');
     const winnerBrandEl = document.getElementById('catCalcWinnerBrand');
@@ -784,6 +846,76 @@ const breadcrumbs = [
         currentCatStore = 'all';
       }
       applyCatFilters();
+    });
+
+    // Category Deal Alerts Handler
+    const catAlertForm = document.getElementById('catAlertForm');
+    const catAlertSuccess = document.getElementById('catAlertSuccess');
+    const catAlertSuccessMsg = document.getElementById('catAlertSuccessMsg');
+    const catAlertEmailInput = document.getElementById('catAlertEmail');
+    const catAlertErrorEl = document.getElementById('catAlertEmailError');
+    const catAlertManageBtn = document.getElementById('catAlertManageBtn');
+    const alertCategoryKey = `category_${catSlug}`;
+
+    function checkExistingCategoryAlert() {
+      try {
+        const stored = JSON.parse(localStorage.getItem('promoradar_deal_alerts') || '{}');
+        const alert = stored[alertCategoryKey];
+        if (alert && alert.email) {
+          if (catAlertForm) catAlertForm.classList.add('hidden');
+          if (catAlertSuccess) catAlertSuccess.classList.remove('hidden');
+          if (catAlertSuccessMsg) {
+            catAlertSuccessMsg.textContent = `Alert active for ${alert.email} in ${catCategoryName}.`;
+          }
+        }
+      } catch (e) {}
+    }
+
+    checkExistingCategoryAlert();
+
+    catAlertForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = (catAlertEmailInput?.value || '').trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (catAlertErrorEl) {
+          catAlertErrorEl.textContent = 'Please enter a valid email address.';
+          catAlertErrorEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      if (catAlertErrorEl) catAlertErrorEl.classList.add('hidden');
+
+      try {
+        const stored = JSON.parse(localStorage.getItem('promoradar_deal_alerts') || '{}');
+        stored[alertCategoryKey] = {
+          email,
+          categoryName: catCategoryName,
+          categorySlug: catSlug,
+          timestamp: new Date().toISOString()
+        };
+        localStorage.setItem('promoradar_deal_alerts', JSON.stringify(stored));
+      } catch (err) {}
+
+      if (catAlertForm) catAlertForm.classList.add('hidden');
+      if (catAlertSuccess) catAlertSuccess.classList.remove('hidden');
+      if (catAlertSuccessMsg) {
+        catAlertSuccessMsg.textContent = `Subscribed! ${email} will receive alerts for ${catCategoryName}.`;
+      }
+
+      if (window.showPromoToast) {
+        window.showPromoToast(`⚡ Category deal alerts active for ${catCategoryName}!`);
+      }
+
+      window.dispatchEvent(new CustomEvent('promoradar_category_alert_subscribed', {
+        detail: { email, category: catCategoryName, categorySlug: catSlug }
+      }));
+    });
+
+    catAlertManageBtn?.addEventListener('click', () => {
+      if (catAlertSuccess) catAlertSuccess.classList.add('hidden');
+      if (catAlertForm) catAlertForm.classList.remove('hidden');
+      if (catAlertEmailInput) catAlertEmailInput.focus();
     });
   </script>
 
