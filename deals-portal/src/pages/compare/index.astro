@@ -109,7 +109,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
                 </div>
 
                 <!-- Side by side Logos -->
-                <div class="flex items-center justify-center gap-3 py-2 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-100 dark:border-slate-700/60">
+                <div class="flex items-center justify-center gap-4 py-3 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-100 dark:border-slate-700/60">
                   {item.storeA && <BrandLogo store={item.storeA} size="md" />}
                   <span class="font-extrabold text-sm text-slate-400">VS</span>
                   {item.storeB && <BrandLogo store={item.storeB} size="md" />}

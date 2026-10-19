@@ -823,8 +823,8 @@ const homeSchemas = [
                       {STORES_MAP[deal.storeSlug] ? (
                         <BrandLogo store={STORES_MAP[deal.storeSlug]} size="md" />
                       ) : (
-                        <div class="brand-logo-container w-11 h-11 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm shrink-0">
-                          <span class="w-full h-full rounded-lg bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center">{initials}</span>
+                        <div class="brand-logo-container w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white border border-slate-200 p-1.5 sm:p-2 flex items-center justify-center shadow-xs shrink-0">
+                          <span class="w-full h-full rounded-xl bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center">{initials}</span>
                         </div>
                       )}
                     </a>
@@ -1698,7 +1698,7 @@ const homeSchemas = [
             return `
               <a href="${baseUrl}/stores/${s.slug}/" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition group">
                 <div class="flex items-center gap-2.5 min-w-0 pr-2">
-                  <div class="w-7 h-7 rounded-lg bg-white border border-slate-200 p-0.5 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                  <div class="w-9 h-9 rounded-xl bg-white border border-slate-200 p-1 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
                     ${domain ? `<img src="${logoUrl}" onerror="this.onerror=null;this.src='${fallbackUrl}';" alt="${s.name}" class="w-full h-full object-contain" />` : `<span class="text-indigo-700 font-extrabold text-[10px]">${s.name.slice(0, 2).toUpperCase()}</span>`}
                   </div>
                   <div class="truncate">

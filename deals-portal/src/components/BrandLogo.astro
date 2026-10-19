@@ -28,19 +28,19 @@ if (!domain && store.websiteUrl) {
 // Fallback letter monogram
 const initials = store.name ? store.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() : 'PR';
 
-// Sizing classes
+// Sizing classes - ergonomically enlarged for crisp brand recognition without breaking layout
 const sizeClasses = {
-  sm: 'w-7 h-7 rounded-lg text-[10px]',
-  md: 'w-10 h-10 rounded-xl text-xs',
-  lg: 'w-14 h-14 rounded-2xl text-base',
-  xl: 'w-16 h-16 sm:w-20 sm:h-20 rounded-2xl text-xl sm:text-2xl'
+  sm: 'w-9 h-9 sm:w-10 sm:h-10 rounded-xl text-xs',
+  md: 'w-12 h-12 sm:w-14 sm:h-14 rounded-2xl text-sm font-extrabold',
+  lg: 'w-16 h-16 sm:w-20 sm:h-20 rounded-2xl text-lg sm:text-xl font-black',
+  xl: 'w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-3xl text-2xl sm:text-3xl font-black'
 };
 
 const paddingClasses = {
-  sm: 'p-1',
-  md: 'p-1.5',
-  lg: 'p-2',
-  xl: 'p-2.5'
+  sm: 'p-1 sm:p-1.5',
+  md: 'p-1.5 sm:p-2',
+  lg: 'p-2 sm:p-2.5',
+  xl: 'p-3 sm:p-3.5'
 };
 
 const containerSize = sizeClasses[size] || sizeClasses.md;
@@ -53,12 +53,12 @@ const clearbitUrl = domain ? `https://logo.clearbit.com/${domain}` : '';
 const googleFaviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '';
 ---
 
-<div class={`brand-logo-container relative ${containerSize} ${pad} bg-white border border-slate-200/90 shadow-sm flex items-center justify-center shrink-0 overflow-hidden ${className}`}>
+<div class={`brand-logo-container relative ${containerSize} ${pad} bg-white border border-slate-200/90 shadow-xs flex items-center justify-center shrink-0 overflow-hidden group ${className}`}>
   {domain ? (
     <img
       src={clearbitUrl}
       alt={`${store.name} logo`}
-      class="w-full h-full object-contain"
+      class="w-full h-full object-contain filter group-hover:scale-105 transition-transform duration-200"
       loading="lazy"
       data-fallback-google={googleFaviconUrl}
       onerror={`
@@ -74,7 +74,7 @@ const googleFaviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${d
 
   <!-- Tier 3: Styled gradient monogram badge fallback -->
   <div
-    class={`brand-logo-monogram w-full h-full rounded-lg bg-gradient-to-br from-indigo-600 via-indigo-700 to-rose-600 text-white font-black items-center justify-center shadow-inner ${domain ? 'hidden' : 'flex'}`}
+    class={`brand-logo-monogram w-full h-full rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-rose-600 text-white font-black items-center justify-center shadow-inner ${domain ? 'hidden' : 'flex'}`}
   >
     {initials}
   </div>

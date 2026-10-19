@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { COUPONS_DATA, STORES_DATA } from '../../data/couponsData';
 import { getDealLivePulse } from '../../data/pulseEngine';
+import BrandLogo from '../../components/BrandLogo.astro';
 
 export const prerender = true;
 
@@ -111,6 +112,7 @@ export async function getStaticPaths() {
 
 const { cat, deals, stores } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const STORES_MAP = Object.fromEntries(STORES_DATA.map(s => [s.slug, s]));
 const codesCount = deals.filter(d => d.code && d.code.trim().length > 0).length;
 const directDealsCount = deals.filter(d => !d.code || d.code.trim().length === 0).length;
 
@@ -419,22 +421,44 @@ const breadcrumbs = [
                 data-default-order={idx}
               >
                 <div>
-                  <div class="flex items-start justify-between gap-3 mb-3">
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <span class="text-xs font-extrabold px-2.5 py-1 rounded-xl bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30">
-                        {deal.discountBadge || deal.badge}
-                      </span>
+                  <div class="flex items-start justify-between gap-3 mb-3.5">
+                    <div class="flex items-center gap-3 min-w-0">
                       <a
                         href={`${base}/stores/${deal.storeSlug}/`}
-                        class="text-xs font-bold text-slate-800 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
+                        class="shrink-0 hover:scale-105 transition"
+                        title={deal.storeName}
                       >
-                        {deal.storeName}
+                        {STORES_MAP[deal.storeSlug] ? (
+                          <BrandLogo store={STORES_MAP[deal.storeSlug]} size="md" />
+                        ) : (
+                          <div class="brand-logo-container w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white border border-slate-200 p-1.5 sm:p-2 flex items-center justify-center shadow-xs shrink-0">
+                            <span class="w-full h-full rounded-xl bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center">{(deal.storeName || 'PR').slice(0, 2).toUpperCase()}</span>
+                          </div>
+                        )}
                       </a>
-                      {isTopDeal && (
-                        <span class="inline-flex items-center gap-1 text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-200/80 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30 shrink-0">
-                          <span class="text-amber-500">★</span> Editor's Pick
-                        </span>
-                      )}
+                      <div class="min-w-0">
+                        <div class="flex items-center gap-2 flex-wrap">
+                          <span class="text-xs font-extrabold px-2.5 py-1 rounded-xl bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30">
+                            {deal.discountBadge || deal.badge}
+                          </span>
+                          <a
+                            href={`${base}/stores/${deal.storeSlug}/`}
+                            class="text-sm font-extrabold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition truncate"
+                          >
+                            {deal.storeName}
+                          </a>
+                          <span class={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${
+                            isCode ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30'
+                          }`}>
+                            {isCode ? 'PROMO CODE' : 'DIRECT DEAL'}
+                          </span>
+                          {isTopDeal && (
+                            <span class="inline-flex items-center gap-1 text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-200/80 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30 shrink-0">
+                              <span class="text-amber-500">★</span> Editor's Pick
+                            </span>
+                          )}
+                        </div>
+                      </div>
                     </div>
                     <div class="flex items-center gap-1.5 shrink-0">
                       <span class={`text-[10px] px-2 py-0.5 rounded-md border shrink-0 ${expiryBadge.class}`}>

@@ -399,7 +399,7 @@ const storesCount = STORES_DATA.length;
         return `
           <a href="${base}/stores/${s.slug}/" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition group">
             <div class="flex items-center gap-2.5">
-              <div class="w-7 h-7 rounded-lg bg-white border border-slate-200 p-0.5 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+              <div class="w-9 h-9 rounded-xl bg-white border border-slate-200 p-1 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
                 ${domain ? `<img src="${logoUrl}" onerror="this.onerror=null;this.src='${fallbackUrl}';" alt="${s.name}" class="w-full h-full object-contain" />` : `<span class="text-indigo-700 font-extrabold text-[10px]">${s.name.slice(0, 2).toUpperCase()}</span>`}
               </div>
               <div>
