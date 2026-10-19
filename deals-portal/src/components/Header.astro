@@ -22,11 +22,6 @@ const storesCount = STORES_DATA.length;
     </div>
     <div class="flex items-center gap-3 ml-auto">
       <span id="topBarNetworkText" class="text-slate-400 hidden md:inline">Global Partner Network</span>
-      <div class="h-3.5 w-px bg-slate-700 hidden md:block"></div>
-      <div class="inline-flex rounded-lg bg-slate-800 p-0.5 border border-slate-700">
-        <button id="langEnBtn" type="button" class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-600 text-white transition cursor-pointer">EN</button>
-        <button id="langRuBtn" type="button" class="px-2 py-0.5 rounded-md text-[11px] font-semibold text-slate-400 hover:text-white transition cursor-pointer">RU</button>
-      </div>
     </div>
   </div>
 </div>
@@ -231,30 +226,6 @@ const storesCount = STORES_DATA.length;
 <script>
   import { STORES_DATA, COUPONS_DATA } from '../data/couponsData';
 
-  // 1. Language Handling (EN / RU switcher)
-  const langEnBtn = document.getElementById('langEnBtn');
-  const langRuBtn = document.getElementById('langRuBtn');
-
-  function setLanguage(lang: 'en' | 'ru') {
-    localStorage.setItem('promoradar_lang', lang);
-    if (lang === 'ru') {
-      langEnBtn?.classList.remove('bg-indigo-600', 'text-white');
-      langEnBtn?.classList.add('text-slate-400');
-      langRuBtn?.classList.add('bg-indigo-600', 'text-white');
-      langRuBtn?.classList.remove('text-slate-400');
-    } else {
-      langRuBtn?.classList.remove('bg-indigo-600', 'text-white');
-      langRuBtn?.classList.add('text-slate-400');
-      langEnBtn?.classList.add('bg-indigo-600', 'text-white');
-      langEnBtn?.classList.remove('text-slate-400');
-    }
-  }
-
-  const savedLang = (localStorage.getItem('promoradar_lang') as 'en' | 'ru') || 'en';
-  setLanguage(savedLang);
-
-  langEnBtn?.addEventListener('click', () => setLanguage('en'));
-  langRuBtn?.addEventListener('click', () => setLanguage('ru'));
 
   // 2. Saved Vouchers Drawer & Real-Time Sync
   const savedDrawerOverlay = document.getElementById('savedVouchersDrawerOverlay');
