@@ -23,6 +23,13 @@ const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
 const { chromium } = require('playwright');
+const {
+  CATEGORY_MAP,
+  generateHookTitle,
+  parseArticleContent,
+  buildSeoDescription,
+  renderPinImage
+} = require('./pinterest-pin-generator.cjs');
 
 const CONFIG = {
   postsDir: path.resolve(__dirname, '../blog/src/content/posts'),
@@ -769,490 +776,60 @@ class PinterestQueueManager {
   }
 
   /**
-   * High-contrast, mobile-first Pinterest Pin Generator with REAL ARTICLE COVER
-   * Masterpiece Layered Design:
-   * 1. Crisp Editorial Background & Top Accent Bar
-   * 2. High-Resolution Article Cover (900x490, rx=20)
-   * 3. Floating Glassmorphism Status Badge directly on cover
-   * 4. Editorial Headline (high-contrast, max 2 lines)
-   * 5. Interactive Archetype Value Card (Chat Teardown / Algorithm / Catfish / Checklist)
-   * 6. High-Converting Viral Action Button ("📌 SAVE THIS PIN & READ GUIDE ➔")
-   * 7. FlirtCheck.site Watermark
+   * High-contrast, mobile-first Pinterest Pin Generator (New Editorial / Chat / Checklist Engine)
    */
-  async renderPinCreative(item) {
-    const width = 1000;
-    const height = 1500;
-
-    const postPath = path.join(CONFIG.postsDir, `${item.slug}.md`);
-    let rawPost = '';
-    if (fs.existsSync(postPath)) {
-      rawPost = fs.readFileSync(postPath, 'utf8');
+  async renderPinCreative(item, browserInstance = null) {
+    const article = parseArticleContent(item.slug);
+    if (!article) {
+      log(`Warning: Failed to parse article content for ${item.slug}`);
+      return;
     }
+    const mode = (item.mode && ['editorial', 'chat', 'checklist'].includes(item.mode)) 
+      ? item.mode 
+      : (CATEGORY_MAP[article.category]?.mode || 'editorial');
+    item.mode = mode;
+    await renderPinImage(article, item.creativePath, mode, browserInstance);
 
-    const cleanTitle = cleanHeadlineForPin(item.title);
-    const bullets = extractKeyTakeaways(rawPost, cleanTitle);
-    const textComb = (cleanTitle + ' ' + item.slug + ' ' + (item.category || '')).toLowerCase();
-
-    // Determine Design Archetype
-    let archetype = 'checklist-infographic';
-    if (
-      textComb.includes('catfish') ||
-      textComb.includes('deepfake') ||
-      textComb.includes('photo') ||
-      textComb.includes('picture') ||
-      textComb.includes('stolen') ||
-      textComb.includes('facial symmetry') ||
-      textComb.includes('reverse search') ||
-      textComb.includes('verification checkmark') ||
-      textComb.includes('bot')
-    ) {
-      archetype = 'photo-verification';
-    } else if (
-      textComb.includes('algorithm') ||
-      textComb.includes('elo') ||
-      textComb.includes('shadowban') ||
-      textComb.includes('scoring') ||
-      textComb.includes('compatible') ||
-      textComb.includes('telemetry') ||
-      textComb.includes('slot machine') ||
-      textComb.includes('burnout') ||
-      textComb.includes('reset')
-    ) {
-      archetype = 'algorithm-unmasked';
-    } else if (
-      textComb.includes('text') ||
-      textComb.includes('chat') ||
-      textComb.includes('message') ||
-      textComb.includes('reply') ||
-      textComb.includes('ghosting') ||
-      textComb.includes('icebreaker') ||
-      textComb.includes('opening line') ||
-      textComb.includes('flirt') ||
-      textComb.includes('boundary') ||
-      textComb.includes('time-waster') ||
-      textComb.includes('narcissist') ||
-      textComb.includes('love bombing') ||
-      textComb.includes('scam') ||
-      textComb.includes('sextortion') ||
-      textComb.includes('blackmail') ||
-      textComb.includes('whatsapp')
-    ) {
-      archetype = 'chat-teardown';
-    }
-
-    // 1. Process and format real article cover
-    const coverWidth = 900;
-    const coverHeight = 490;
-    const coverTop = 105;
-    const coverLeft = 50;
-    const cornerRadius = 20;
-
-    let coverBuffer = null;
-    const coverPath = this.resolveCoverImagePath(item, rawPost);
-    if (coverPath && fs.existsSync(coverPath)) {
-      try {
-        const maskSvg = Buffer.from(`
-          <svg width="${coverWidth}" height="${coverHeight}">
-            <rect x="0" y="0" width="${coverWidth}" height="${coverHeight}" rx="${cornerRadius}" ry="${cornerRadius}" fill="#fff"/>
-          </svg>
-        `);
-        coverBuffer = await sharp(coverPath)
-          .resize(coverWidth, coverHeight, { fit: 'cover', position: 'center' })
-          .composite([{ input: maskSvg, blend: 'dest-in' }])
-          .png()
-          .toBuffer();
-      } catch (err) {
-        log(`Warning preparing cover image for ${item.slug}: ${err.message}`);
-      }
-    }
-
-    // Archetype specific palette & Pinterest Save triggers
-    let accentColor = '#E11D48';
-    let badgeBg = '#FFE4E6';
-    let badgeBorder = '#FDA4AF';
-    let badgeText = '#BE123C';
-    let badgeTitle = '🚩 TEXTING RED FLAGS // TEARDOWN';
-    let floatingBadge = 'CASE DOSSIER // VERIFIED';
-    let btnGradientStart = '#E11D48';
-    let btnGradientEnd = '#F43F5E';
-    let btnText = '📌 SAVE THIS PIN &amp; READ GUIDE ➔';
-
-    if (archetype === 'algorithm-unmasked') {
-      accentColor = '#4F46E5';
-      badgeBg = '#EDE9FE';
-      badgeBorder = '#C4B5FD';
-      badgeText = '#4338CA';
-      badgeTitle = '🔬 ALGORITHM AUDIT // REVERSE ENGINEERED';
-      floatingBadge = 'TELEMETRY LOG // VERIFIED';
-      btnGradientStart = '#4F46E5';
-      btnGradientEnd = '#6366F1';
-      btnText = '📌 SAVE THIS PIN &amp; UNMASK ALGORITHM ➔';
-    } else if (archetype === 'photo-verification') {
-      accentColor = '#DC2626';
-      badgeBg = '#FEF3C7';
-      badgeBorder = '#FDE68A';
-      badgeText = '#B45309';
-      badgeTitle = '⚠️ CATFISH ALERT // 60-SEC VERIFY';
-      floatingBadge = 'FORENSIC AUDIT // VERIFIED';
-      btnGradientStart = '#DC2626';
-      btnGradientEnd = '#EF4444';
-      btnText = '📌 SAVE THIS PIN &amp; VERIFY PROFILE ➔';
-    } else if (archetype === 'checklist-infographic') {
-      accentColor = '#0F172A';
-      badgeBg = '#E2E8F0';
-      badgeBorder = '#CBD5E1';
-      badgeText = '#0F172A';
-      badgeTitle = '📋 DATING PROTOCOL // ACTIONABLE CHECKLIST';
-      floatingBadge = 'ACTION PROTOCOL // VERIFIED';
-      btnGradientStart = '#0F172A';
-      btnGradientEnd = '#1E293B';
-      btnText = '📌 SAVE THIS PIN &amp; READ DOSSIER ➔';
-    }
-
-    // Base background canvas
-    const bgSvg = Buffer.from(`
-      <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="bgLight" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#FFFFFF" />
-            <stop offset="100%" stop-color="#FAF9F6" />
-          </linearGradient>
-        </defs>
-        <rect width="${width}" height="${height}" fill="url(#bgLight)" />
-        <rect x="0" y="0" width="${width}" height="10" fill="${accentColor}" />
-      </svg>
-    `);
-
-    // Headline wrap (2 lines under cover image, max 28 chars/line)
-    const titleLines = wrapHeadline(cleanTitle, 28).slice(0, 2);
-    const cardTopY = 745;
-    const cardHeight = 545;
-
-    let cardContentSvg = '';
-
-    if (archetype === 'chat-teardown') {
-      const scenario = selectDatingScenario(item);
-      const incoming = (scenario.incoming[0] || 'Are you free tonight? Come over late.')
-        .replace(/^["'“”«\s]+|["'“”»\s]+$/g, '')
-        .trim();
-      const outgoing = (scenario.outgoing[0] || 'I prefer meeting in daylight for coffee first.')
-        .replace(/^["'“”«\s]+|["'“”»\s]+$/g, '')
-        .trim();
-
-      cardContentSvg = `
-        <!-- Chat Card Header -->
-        <rect x="50" y="${cardTopY}" width="${coverWidth}" height="55" rx="20" fill="#F8FAFC" />
-        <circle cx="85" cy="${cardTopY + 27}" r="14" fill="#E2E8F0" />
-        <text x="85" y="${cardTopY + 32}" font-family="sans-serif" font-size="12" text-anchor="middle">👤</text>
-        <text x="110" y="${cardTopY + 34}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#0F172A">
-          Dating App Match Conversation Teardown
-        </text>
-
-        <!-- Incoming Message -->
-        <rect x="80" y="${cardTopY + 75}" width="720" height="75" rx="14" fill="#F1F5F9" />
-        <text x="105" y="${cardTopY + 120}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="19" font-weight="500" fill="#1E293B">
-          “${escapeXml(incoming)}”
-        </text>
-
-        <!-- Red Flag Annotation Overlay Sticker -->
-        <rect x="80" y="${cardTopY + 165}" width="840" height="48" rx="12" fill="#FEF2F2" stroke="#EF4444" stroke-width="1.5" />
-        <text x="500" y="${cardTopY + 196}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#DC2626" text-anchor="middle" letter-spacing="0.5">
-          🚩 ${escapeXml(scenario.badge.replace(/^🚩\s*/, ''))}
-        </text>
-
-        <!-- Outgoing High-Value Boundary Response -->
-        <rect x="220" y="${cardTopY + 230}" width="700" height="75" rx="14" fill="#2563EB" />
-        <text x="250" y="${cardTopY + 275}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="600" fill="#FFFFFF">
-          “${escapeXml(outgoing)}”
-        </text>
-
-        <!-- Analysis Bullet Box -->
-        <rect x="80" y="${cardTopY + 325}" width="840" height="190" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" />
-        <text x="105" y="${cardTopY + 358}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#64748B" letter-spacing="1">
-          PSYCHOLOGICAL PATTERN ANALYSIS:
-        </text>
-        ${scenario.analysis.slice(0, 2).map((b, idx) => `
-          <g transform="translate(105, ${cardTopY + 395 + idx * 58})">
-            <circle cx="8" cy="-4" r="8" fill="#FEE2E2" stroke="#EF4444" stroke-width="1.5" />
-            <text x="8" y="0" font-family="sans-serif" font-size="10" font-weight="bold" fill="#DC2626" text-anchor="middle">!</text>
-            <text x="28" y="0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#0F172A">
-              ${escapeXml(b.prefix)}: <tspan font-weight="400" fill="#475569">${escapeXml(b.body)}</tspan>
-            </text>
-          </g>
-        `).join('')}
-      `;
-    } else if (archetype === 'algorithm-unmasked') {
-      const cardBullets = resolveCardBullets('algorithm-unmasked', bullets);
-      const b1 = cardBullets[0];
-      const b2 = cardBullets[1];
-      const b3 = cardBullets[2];
-
-      cardContentSvg = `
-        <!-- Metric 1 -->
-        <g transform="translate(80, ${cardTopY + 25})">
-          <rect width="840" height="150" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
-          <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#4F46E5" letter-spacing="1">
-            METRIC 01: ${escapeXmlUpper(b1.prefix)}
-          </text>
-          <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#0F172A">
-            ${escapeXml(b1.prefix)} Analysis
-          </text>
-          <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#475569">
-            ${escapeXml(b1.body)}
-          </text>
-        </g>
-
-        <!-- Metric 2 -->
-        <g transform="translate(80, ${cardTopY + 195})">
-          <rect width="840" height="150" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
-          <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#D97706" letter-spacing="1">
-            METRIC 02: ${escapeXmlUpper(b2.prefix)}
-          </text>
-          <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#0F172A">
-            ${escapeXml(b2.prefix)} Mechanics
-          </text>
-          <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#475569">
-            ${escapeXml(b2.body)}
-          </text>
-        </g>
-
-        <!-- Protocol -->
-        <g transform="translate(80, ${cardTopY + 365})">
-          <rect width="840" height="150" rx="14" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.2" />
-          <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#15803D" letter-spacing="1">
-            ACTION PROTOCOL: ${escapeXmlUpper(b3.prefix)}
-          </text>
-          <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#166534">
-            ${escapeXml(b3.prefix)} Calibration
-          </text>
-          <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#166534">
-            ${escapeXml(b3.body)}
-          </text>
-        </g>
-      `;
-    } else if (archetype === 'photo-verification') {
-      const cardBullets = resolveCardBullets('photo-verification', bullets);
-      const b1 = cardBullets[0];
-      const b2 = cardBullets[1];
-      const b3 = cardBullets[2];
-
-      cardContentSvg = `
-        <!-- Warning Sign 1 -->
-        <g transform="translate(80, ${cardTopY + 25})">
-          <rect width="840" height="150" rx="14" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.2" />
-          <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#DC2626" letter-spacing="1">
-            RED FLAG 01: ${escapeXmlUpper(b1.prefix)}
-          </text>
-          <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#991B1B">
-            ${escapeXml(b1.prefix)}
-          </text>
-          <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#4B5563">
-            ${escapeXml(b1.body)}
-          </text>
-        </g>
-
-        <!-- Warning Sign 2 -->
-        <g transform="translate(80, ${cardTopY + 195})">
-          <rect width="840" height="150" rx="14" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.2" />
-          <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#DC2626" letter-spacing="1">
-            RED FLAG 02: ${escapeXmlUpper(b2.prefix)}
-          </text>
-          <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#991B1B">
-            ${escapeXml(b2.prefix)}
-          </text>
-          <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#4B5563">
-            ${escapeXml(b2.body)}
-          </text>
-        </g>
-
-        <!-- Defense Protocol -->
-        <g transform="translate(80, ${cardTopY + 365})">
-          <rect width="840" height="150" rx="14" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.2" />
-          <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#15803D" letter-spacing="1">
-            DEFENSE PROTOCOL: ${escapeXmlUpper(b3.prefix)}
-          </text>
-          <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900" fill="#166534">
-            ${escapeXml(b3.prefix)}
-          </text>
-          <text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#166534">
-            ${escapeXml(b3.body)}
-          </text>
-        </g>
-      `;
-    } else {
-      const cardBullets = resolveCardBullets('checklist-infographic', bullets);
-      cardContentSvg = `
-        ${cardBullets.map((b, idx) => {
-          const y = cardTopY + 25 + idx * 170;
-          const icons = ['❌', '🔍', '✓'];
-          const iconBgs = ['#FEE2E2', '#EFF6FF', '#F0FDF4'];
-          const iconStrokes = ['#F87171', '#60A5FA', '#86EFAC'];
-          const titleColors = ['#991B1B', '#1E40AF', '#166534'];
-
-          return `
-            <g transform="translate(80, ${y})">
-              <rect width="840" height="145" rx="14" fill="#FAF8F5" stroke="#E2E8F0" stroke-width="1.2" />
-              <rect x="25" y="25" width="48" height="48" rx="12" fill="${iconBgs[idx % iconBgs.length]}" stroke="${iconStrokes[idx % iconStrokes.length]}" stroke-width="1.5" />
-              <text x="49" y="56" font-family="sans-serif" font-size="20" text-anchor="middle">${icons[idx % icons.length]}</text>
-              <text x="90" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="19" font-weight="900" fill="${titleColors[idx % titleColors.length]}">
-                RULE 0${idx + 1}: ${escapeXml(b.prefix)}
-              </text>
-              <text x="90" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#475569">
-                ${escapeXml(b.body)}
-              </text>
-            </g>
-          `;
-        }).join('')}
-      `;
-    }
-
-    // Foreground overlay SVG (sits on top of background & cover)
-    const overlaySvg = Buffer.from(`
-      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="btnGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="${btnGradientStart}" />
-            <stop offset="100%" stop-color="${btnGradientEnd}" />
-          </linearGradient>
-          <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.08" />
-          </filter>
-        </defs>
-
-        <!-- Top Header -->
-        <rect x="50" y="40" width="460" height="44" rx="10" fill="${badgeBg}" stroke="${badgeBorder}" stroke-width="1.5" />
-        <circle cx="75" cy="62" r="5" fill="${accentColor}" />
-        <text x="95" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="900" fill="${badgeText}" letter-spacing="1.2">
-          ${escapeXml(badgeTitle)}
-        </text>
-
-        <!-- Brand Watermark -->
-        <text x="950" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="900" fill="#64748B" text-anchor="end" letter-spacing="1.5">
-          FLIRTCHECK.SITE
-        </text>
-
-        <!-- Frame around Cover -->
-        <rect x="${coverLeft}" y="${coverTop}" width="${coverWidth}" height="${coverHeight}" rx="${cornerRadius}" fill="none" stroke="#E2E8F0" stroke-width="2" />
-
-        <!-- Floating Glassmorphic Pill on Cover -->
-        <g transform="translate(75, ${coverTop + coverHeight - 48})">
-          <rect width="260" height="34" rx="8" fill="#0F172A" fill-opacity="0.85" />
-          <circle cx="20" cy="17" r="4" fill="#10B981" />
-          <text x="34" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" fill="#FFFFFF" letter-spacing="1">
-            ${escapeXml(floatingBadge)}
-          </text>
-        </g>
-
-        <!-- Headline under cover -->
-        ${titleLines.map((line, i) => `
-          <text x="50" y="${640 + i * 46}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="38" font-weight="900" fill="#0F172A" letter-spacing="-0.8">
-            ${escapeXml(line)}
-          </text>
-        `).join('')}
-
-        <!-- Interactive Card Container -->
-        <rect x="50" y="${cardTopY}" width="${coverWidth}" height="${cardHeight}" rx="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" filter="url(#cardShadow)" />
-
-        ${cardContentSvg}
-
-        <!-- Bottom Viral Action Button (Save & Read trigger for Pinterest algorithm) -->
-        <rect x="50" y="1320" width="${coverWidth}" height="84" rx="42" fill="url(#btnGradient)" filter="url(#cardShadow)" />
-        <text x="500" y="1373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
-          ${btnText}
-        </text>
-
-        <!-- Subtext Footer -->
-        <text x="500" y="1455" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#64748B" text-anchor="middle">
-          FlirtCheck.site • Independent Dating Safety Audits &amp; Profile Verification
-        </text>
-      </svg>
-    `);
-
-    // Composite layered design
-    const composites = [];
-    if (coverBuffer) {
-      composites.push({
-        input: coverBuffer,
-        top: coverTop,
-        left: coverLeft,
-      });
-    }
-    composites.push({
-      input: overlaySvg,
-      top: 0,
-      left: 0,
-    });
-
-    await sharp(bgSvg)
-      .composite(composites)
-      .png({ quality: 95 })
-      .toFile(item.creativePath);
+    item.board = item.board || CATEGORY_MAP[article.category]?.board || CONFIG.boardName;
+    item.hookTitle = article.hookTitle;
 
     if (item.status !== 'published') {
       item.status = 'ready';
     }
     this.saveQueue();
-    log(`🎨 Rendered VIRAL LIGHT PIN WITH COVER (${archetype}): ${path.basename(item.creativePath)}`);
+    log(`🎨 Rendered VIRAL EDITORIAL PIN (${mode}): ${path.basename(item.creativePath)}`);
   }
 
   async buildAllCreatives(force = false) {
     log('Rebuilding high-contrast bright editorial creatives for items in queue...');
     let count = 0;
-    for (const item of this.queue) {
-      if (force || item.status === 'ready' || item.status === 'pending') {
-        try {
-          await this.renderPinCreative(item);
-          count++;
-        } catch (err) {
-          log(`Error rendering ${item.slug}: ${err.message}`);
+    const browser = await chromium.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--font-render-hinting=none']
+    });
+    try {
+      for (const item of this.queue) {
+        if (force || item.status === 'ready' || item.status === 'pending') {
+          try {
+            await this.renderPinCreative(item, browser);
+            count++;
+          } catch (err) {
+            log(`Error rendering ${item.slug}: ${err.message}`);
+          }
         }
       }
+    } finally {
+      await browser.close().catch(() => {});
     }
-    log(`✅ All ${count} light-mode creatives rebuilt successfully in ${CONFIG.pinsOutputDir}`);
+    log(`✅ All ${count} editorial creatives rebuilt successfully in ${CONFIG.pinsOutputDir}`);
   }
 
   generatePinDescription(item) {
-    const postPath = path.join(CONFIG.postsDir, `${item.slug}.md`);
-    let rawPost = '';
-    if (fs.existsSync(postPath)) {
-      rawPost = fs.readFileSync(postPath, 'utf8');
+    const article = parseArticleContent(item.slug);
+    if (article) {
+      return buildSeoDescription(article);
     }
-    const bullets = extractKeyTakeaways(rawPost, item.title);
-
-    // High-Intent Pinterest Search SEO Keywords Hook
-    const hooks = [
-      'Online dating safety guide & red flags checklist',
-      'Texting rules for dating apps & relationship advice',
-      'Profile verification guide & how to spot catfish',
-      'Dating app algorithm secrets & conversation tips'
-    ];
-    const hook = hooks[Math.abs(item.slug.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)) % hooks.length];
-
-    let desc = `⚡ ${hook}\n\n`;
-    desc += `📌 ${item.title}\n\n`;
-    if (item.description) {
-      desc += `${item.description.trim()}\n\n`;
-    }
-    desc += `🚨 Key Takeaways & Action Rules:\n`;
-    bullets.slice(0, 2).forEach((b) => {
-      desc += `• ${b.prefix}: ${b.body}\n`;
-    });
-    if (!CONFIG.omitDestinationLink && item.targetUrl) {
-      desc += `\n👉 Full forensic audit & guide at:\n${item.targetUrl}\n\n`;
-    } else {
-      desc += `\n👉 Full forensic audit & verification protocol by FlirtCheck.\n\n`;
-    }
-    desc += `#DatingSafety #DatingRedFlags #OnlineDatingTips #TextingTips #TinderAdvice #BumbleTips #HingeTips #RelationshipAdvice #FlirtCheck #CatfishWarning`;
-
-    if (desc.length > 490) {
-      const lastHash = desc.lastIndexOf('#', 490);
-      if (lastHash > 200) {
-        desc = desc.substring(0, lastHash).trim();
-      } else {
-        desc = desc.substring(0, 480).trim();
-      }
-    }
-    return desc;
+    return `Save this dating guide for your next match! ${item.title}. Dating app safety checklist, chat analysis, and profile verification breakdown.`;
   }
 
   async publishItem(item) {
@@ -1309,7 +886,7 @@ class PinterestQueueManager {
       log('Filling Title...');
       const titleInput = page.locator('textarea[id*="pin-draft-title"], textarea[placeholder*="название" i], textarea[placeholder*="title" i], [data-test-id="editor-title"] textarea').first();
       await titleInput.waitFor({ state: 'visible', timeout: 8000 });
-      const pinTitle = item.title.substring(0, 99);
+      const pinTitle = (item.hookTitle || generateHookTitle(item.title)).substring(0, 99);
       await titleInput.fill(pinTitle);
       let curTitle = await titleInput.inputValue().catch(() => '');
       if (!curTitle) {
