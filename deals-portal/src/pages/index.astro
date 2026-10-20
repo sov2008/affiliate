@@ -625,39 +625,62 @@ const homeSchemas = [
     </section>
 
     <!-- Popular Partner Stores Horizontal Scrollable Strip -->
-    <div class="bg-white border-b border-slate-200/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Popular Partner Stores</span>
-            <span class="text-[11px] text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded-full dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">Click any brand to filter deals</span>
-          </div>
-          <a href={`${base}/stores/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-700">
-            View All {STORES_DATA.length} Stores →
-          </a>
+    <!-- Popular Partner Stores Infinite Ticker (Borderless, Monochrome, Left to Right) -->
+    <div class="relative overflow-hidden bg-white dark:bg-canvas-dark border-b border-slate-200/80 dark:border-white/10 py-3.5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-2 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Popular Partner Stores</span>
+          <span class="text-[11px] text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded-full dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">Click any brand to filter deals</span>
         </div>
-        
-        <div class="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-1" id="storeFilterBar">
-          {STORES_DATA.map(store => {
-            const initials = store.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-            const domain = STORE_DOMAINS[store.slug];
-            const faviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '';
-            return (
+        <a href={`${base}/stores/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300">
+          View All {STORES_DATA.length} Stores →
+        </a>
+      </div>
+
+      <!-- Ticker Marquee Track with Left-to-Right Flow -->
+      <div class="relative w-full overflow-hidden marquee-wrapper py-1">
+        <!-- Subtle Gradient Fade Edges -->
+        <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-r from-white dark:from-canvas-dark to-transparent z-10"></div>
+        <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-l from-white dark:from-canvas-dark to-transparent z-10"></div>
+
+        <div class="marquee-track flex items-center gap-4 w-max">
+          <!-- Set 1 -->
+          <div class="marquee-group flex items-center gap-4 shrink-0">
+            {STORES_DATA.map(store => (
               <button
                 type="button"
                 data-filter-store={store.name}
-                class="store-strip-pill shrink-0 flex items-center gap-2.5 px-3 py-2 rounded-xl border border-slate-200 hover:border-slate-300 bg-slate-50 hover:bg-white transition cursor-pointer"
+                class="store-strip-pill shrink-0 flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-transparent hover:bg-slate-100 dark:hover:bg-white/10 transition-all cursor-pointer group"
+                title={`Filter by ${store.name}`}
               >
-                <div class="shrink-0">
-                  <BrandLogo store={store} size="sm" />
+                <div class="shrink-0 monochrome-logo-box w-7 h-7 flex items-center justify-center">
+                  <BrandLogo store={store} size="sm" class="!border-0 !shadow-none !bg-transparent w-7 h-7" />
                 </div>
-                <div class="text-left">
-                  <div class="text-xs font-bold text-slate-900 leading-none">{store.name}</div>
-                  <div class="text-[10px] font-semibold text-rose-600 mt-0.5">Verified</div>
-                </div>
+                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-white transition whitespace-nowrap">
+                  {store.name}
+                </span>
               </button>
-            );
-          })}
+            ))}
+          </div>
+
+          <!-- Set 2 (Seamless loop duplicate) -->
+          <div class="marquee-group flex items-center gap-4 shrink-0" aria-hidden="true">
+            {STORES_DATA.map(store => (
+              <button
+                type="button"
+                data-filter-store={store.name}
+                class="store-strip-pill shrink-0 flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-transparent hover:bg-slate-100 dark:hover:bg-white/10 transition-all cursor-pointer group"
+                title={`Filter by ${store.name}`}
+              >
+                <div class="shrink-0 monochrome-logo-box w-7 h-7 flex items-center justify-center">
+                  <BrandLogo store={store} size="sm" class="!border-0 !shadow-none !bg-transparent w-7 h-7" />
+                </div>
+                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-white transition whitespace-nowrap">
+                  {store.name}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

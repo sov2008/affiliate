@@ -405,20 +405,64 @@ html.dark .border-rose-200\/80 {
 }
 
 
-/* Partner Store Horizontal Strip */
+/* Partner Store Infinite Ticker Animation (Left-to-Right) */
+@keyframes marquee-ltr {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.marquee-track {
+  animation: marquee-ltr 38s linear infinite;
+  will-change: transform;
+}
+
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Borderless Store Strip Pills */
+.store-strip-pill {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Monochrome Vector Logos */
+.monochrome-logo-box img {
+  filter: grayscale(100%) opacity(70%);
+  transition: all 0.25s ease;
+}
+
+.store-strip-pill:hover .monochrome-logo-box img {
+  filter: grayscale(0%) opacity(100%);
+  transform: scale(1.08);
+}
+
+.monochrome-logo-box .brand-logo-container {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+html.dark .monochrome-logo-box img {
+  filter: grayscale(100%) brightness(140%) opacity(75%);
+}
+
+html.dark .store-strip-pill:hover .monochrome-logo-box img {
+  filter: grayscale(0%) brightness(100%) opacity(100%);
+}
+
 html.dark .store-strip-pill {
-  background-color: #131c31 !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
+  background-color: transparent !important;
 }
 
 html.dark .store-strip-pill:hover {
-  background-color: #1c2742 !important;
-  border-color: rgba(99, 102, 241, 0.5) !important;
-  box-shadow: 0 4px 15px -2px rgba(99, 102, 241, 0.25);
-}
-
-html.dark .store-strip-pill .text-slate-900 {
-  color: #f1f5f9 !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 /* Category & Filter Console Bento Box Styles */
