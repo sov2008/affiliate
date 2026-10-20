@@ -221,35 +221,6 @@ for (const slug of Object.keys(storeBuckets)) {
   }
 }
 
-// Strictly curated authentic partner stores with verified vector logos
-// Guarantees 0% unknown grey badges, no CPA offers or placeholder terms
-const VERIFIED_TICKER_SLUGS = new Set([
-  'expressvpn',
-  'purevpn',
-  'chicme',
-  'glasseslit',
-  'airalo',
-  'raynatours',
-  'alibaba',
-  'allpowers',
-  'thedealoutlet',
-  'vogacloset',
-  'kodland',
-  'hostinger',
-  'huawei',
-  'touch',
-  'polis',
-  'abelssoft',
-  '945industries',
-  'jashanmal',
-  'dabdoob',
-  'vperfumes',
-  'markformelle',
-  'nazih'
-]);
-
-const tickerStores = STORES_DATA.filter(s => VERIFIED_TICKER_SLUGS.has(s.slug));
-
 // Helper to calculate genuine remaining validity & urgency
 function getExpiryBadge(expiryDateStr: string) {
   if (!expiryDateStr) return { text: '⚡ Verified Oct 2026', class: 'bg-emerald-50 text-emerald-700 border-emerald-200/80 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30' };
@@ -653,77 +624,40 @@ const homeSchemas = [
       </div>
     </section>
 
-    <!-- Popular Partner Stores (Clean, Borderless, Background-Free with Vertical Flow) -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-4">
-      <div class="relative py-1">
-        <div class="mb-3 flex items-center justify-between">
+    <!-- Popular Partner Stores Horizontal Scrollable Strip -->
+    <div class="bg-white border-b border-slate-200/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex items-center justify-between mb-3">
           <div class="flex items-center gap-2">
             <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Popular Partner Stores</span>
-            <span class="text-[11px] text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded-full dark:bg-indigo-500/15 dark:text-indigo-300">Click brand to filter</span>
+            <span class="text-[11px] text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded-full dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">Click any brand to filter deals</span>
           </div>
-          <a href={`${base}/stores/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300">
-            View All Stores →
+          <a href={`${base}/stores/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-700">
+            View All {STORES_DATA.length} Stores →
           </a>
         </div>
-
-        <!-- Vertical Upward Flow Stage -->
-        <div class="relative w-full overflow-hidden brand-vertical-stage min-h-[44px]">
-          <!-- Set 1 (Active by default) -->
-          <div id="brandVerticalRowA" class="brand-vertical-row flex items-center justify-between sm:justify-around flex-wrap gap-y-2 gap-x-4 transition-all duration-700 opacity-100 transform translate-y-0">
-            {tickerStores.slice(0, 7).map(store => (
+        
+        <div class="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-1" id="storeFilterBar">
+          {STORES_DATA.map(store => {
+            const initials = store.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+            const domain = STORE_DOMAINS[store.slug];
+            const faviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '';
+            return (
               <button
                 type="button"
                 data-filter-store={store.name}
-                class="store-strip-pill shrink-0 flex items-center gap-2 px-2.5 py-1.5 cursor-pointer group"
-                title={`Filter by ${store.name}`}
+                class="store-strip-pill shrink-0 flex items-center gap-2.5 px-3 py-2 rounded-xl border border-slate-200 hover:border-slate-300 bg-slate-50 hover:bg-white transition cursor-pointer"
               >
-                <div class="shrink-0 monochrome-logo-box w-7 h-7 flex items-center justify-center">
-                  <BrandLogo store={store} size="sm" unstyled={true} class="w-7 h-7" />
+                <div class="shrink-0">
+                  <BrandLogo store={store} size="sm" />
                 </div>
-                <span class="text-xs font-bold text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-white transition whitespace-nowrap">
-                  {store.name}
-                </span>
-              </button>
-            ))}
-          </div>
-
-          <!-- Set 2 -->
-          <div id="brandVerticalRowB" class="brand-vertical-row hidden flex items-center justify-between sm:justify-around flex-wrap gap-y-2 gap-x-4 transition-all duration-700 opacity-0 transform translate-y-4">
-            {tickerStores.slice(7, 14).map(store => (
-              <button
-                type="button"
-                data-filter-store={store.name}
-                class="store-strip-pill shrink-0 flex items-center gap-2 px-2.5 py-1.5 cursor-pointer group"
-                title={`Filter by ${store.name}`}
-              >
-                <div class="shrink-0 monochrome-logo-box w-7 h-7 flex items-center justify-center">
-                  <BrandLogo store={store} size="sm" unstyled={true} class="w-7 h-7" />
+                <div class="text-left">
+                  <div class="text-xs font-bold text-slate-900 leading-none">{store.name}</div>
+                  <div class="text-[10px] font-semibold text-rose-600 mt-0.5">Verified</div>
                 </div>
-                <span class="text-xs font-bold text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-white transition whitespace-nowrap">
-                  {store.name}
-                </span>
               </button>
-            ))}
-          </div>
-
-          <!-- Set 3 -->
-          <div id="brandVerticalRowC" class="brand-vertical-row hidden flex items-center justify-between sm:justify-around flex-wrap gap-y-2 gap-x-4 transition-all duration-700 opacity-0 transform translate-y-4">
-            {tickerStores.slice(14).map(store => (
-              <button
-                type="button"
-                data-filter-store={store.name}
-                class="store-strip-pill shrink-0 flex items-center gap-2 px-2.5 py-1.5 cursor-pointer group"
-                title={`Filter by ${store.name}`}
-              >
-                <div class="shrink-0 monochrome-logo-box w-7 h-7 flex items-center justify-center">
-                  <BrandLogo store={store} size="sm" unstyled={true} class="w-7 h-7" />
-                </div>
-                <span class="text-xs font-bold text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-white transition whitespace-nowrap">
-                  {store.name}
-                </span>
-              </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -1822,9 +1756,9 @@ const homeSchemas = [
         currentStore = currentStore === sName ? null : sName;
         document.querySelectorAll('.store-strip-pill').forEach(b => {
           if (b.getAttribute('data-filter-store') === currentStore) {
-            b.classList.add('is-active', 'bg-indigo-100/70', 'dark:bg-white/20');
+            b.classList.add('bg-indigo-50', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
           } else {
-            b.classList.remove('is-active', 'bg-indigo-100/70', 'dark:bg-white/20');
+            b.classList.remove('bg-indigo-50', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
           }
         });
         filterDeals();
@@ -1834,45 +1768,10 @@ const homeSchemas = [
     document.getElementById('clearStoreFilterBtn')?.addEventListener('click', () => {
       currentStore = null;
       document.querySelectorAll('.store-strip-pill').forEach(b => {
-        b.classList.remove('is-active', 'bg-indigo-100/70', 'dark:bg-white/20');
+        b.classList.remove('bg-indigo-50', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
       });
       filterDeals();
     });
-
-    // Smooth Upward Float & Fade Brand Switcher
-    const brandRows = [
-      document.getElementById('brandVerticalRowA'),
-      document.getElementById('brandVerticalRowB'),
-      document.getElementById('brandVerticalRowC')
-    ].filter(Boolean);
-
-    let activeRowIndex = 0;
-    if (brandRows.length > 1) {
-      setInterval(() => {
-        const currentRow = brandRows[activeRowIndex];
-        activeRowIndex = (activeRowIndex + 1) % brandRows.length;
-        const nextRow = brandRows[activeRowIndex];
-
-        if (currentRow && nextRow) {
-          // Slide & Fade current row upward
-          currentRow.classList.remove('opacity-100', 'translate-y-0');
-          currentRow.classList.add('opacity-0', '-translate-y-4');
-
-          setTimeout(() => {
-            currentRow.classList.add('hidden');
-            currentRow.classList.remove('-translate-y-4');
-            currentRow.classList.add('translate-y-4');
-
-            // Bring in next row from slightly below
-            nextRow.classList.remove('hidden');
-            // Force browser reflow
-            void nextRow.offsetHeight;
-            nextRow.classList.remove('opacity-0', 'translate-y-4');
-            nextRow.classList.add('opacity-100', 'translate-y-0');
-          }, 350);
-        }
-      }, 4500);
-    }
 
     document.getElementById('resetMainFiltersBtn')?.addEventListener('click', () => {
       currentCategory = 'ALL';
@@ -2276,9 +2175,9 @@ const homeSchemas = [
         currentStore = sName;
         document.querySelectorAll('.store-strip-pill').forEach(b => {
           if (b.getAttribute('data-filter-store') === currentStore) {
-            b.classList.add('is-active', 'bg-indigo-100/70', 'dark:bg-white/20');
+            b.classList.add('bg-indigo-50', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
           } else {
-            b.classList.remove('is-active', 'bg-indigo-100/70', 'dark:bg-white/20');
+            b.classList.remove('bg-indigo-50', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
           }
         });
         filterDeals();
