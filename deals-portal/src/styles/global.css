@@ -405,41 +405,68 @@ html.dark .border-rose-200\/80 {
 }
 
 
-/* Partner Store Infinite Ticker Animation (Left-to-Right) */
+/* Partner Store Infinite Ticker Animation (Smooth Left-to-Right) */
 @keyframes marquee-ltr {
   0% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
   100% {
-    transform: translateX(0%);
+    transform: translate3d(0%, 0, 0);
   }
 }
 
+.marquee-wrapper {
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+}
+
 .marquee-track {
-  animation: marquee-ltr 38s linear infinite;
+  display: flex;
+  width: max-content;
+  animation: marquee-ltr 42s linear infinite;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .marquee-wrapper:hover .marquee-track {
   animation-play-state: paused;
 }
 
-/* Borderless Store Strip Pills */
+/* Borderless Store Strip Pills with Soft Hover */
 .store-strip-pill {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
+  background-color: transparent !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.store-strip-pill:hover {
+  background-color: rgba(99, 102, 241, 0.08) !important;
+  transform: translateY(-1px);
+}
+
+html.dark .store-strip-pill:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 /* Monochrome Vector Logos */
+.monochrome-logo-box {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+}
+
 .monochrome-logo-box img {
-  filter: grayscale(100%) opacity(70%);
-  transition: all 0.25s ease;
+  filter: grayscale(100%) opacity(65%);
+  transition: filter 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  object-fit: contain;
 }
 
 .store-strip-pill:hover .monochrome-logo-box img {
   filter: grayscale(0%) opacity(100%);
-  transform: scale(1.08);
+  transform: scale(1.12);
 }
 
 .monochrome-logo-box .brand-logo-container {
@@ -447,22 +474,26 @@ html.dark .border-rose-200\/80 {
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.monochrome-logo-box .brand-logo-monogram {
+  filter: grayscale(100%) opacity(60%);
+  border-radius: 0.5rem !important;
+}
+
+.store-strip-pill:hover .monochrome-logo-box .brand-logo-monogram {
+  filter: grayscale(0%) opacity(100%);
+  transform: scale(1.08);
 }
 
 html.dark .monochrome-logo-box img {
-  filter: grayscale(100%) brightness(140%) opacity(75%);
+  filter: grayscale(100%) brightness(130%) opacity(70%);
 }
 
 html.dark .store-strip-pill:hover .monochrome-logo-box img {
   filter: grayscale(0%) brightness(100%) opacity(100%);
-}
-
-html.dark .store-strip-pill {
-  background-color: transparent !important;
-}
-
-html.dark .store-strip-pill:hover {
-  background-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 /* Category & Filter Console Bento Box Styles */

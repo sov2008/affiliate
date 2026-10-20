@@ -221,6 +221,14 @@ for (const slug of Object.keys(storeBuckets)) {
   }
 }
 
+// Curated authentic partner stores for the popular ticker (strictly real brand names, no raw CPA/terms placeholders)
+const tickerStores = STORES_DATA.filter(s => {
+  const isCpaPlaceholder = s.name.includes('Terms') || s.name.includes('CPA') || s.name.includes('Default Payout') || s.slug.includes('terms') || s.slug.includes('cpa');
+  const domain = STORE_DOMAINS_MAP[s.slug] || STORE_DOMAINS_MAP[s.name] || s.cleanDomain || '';
+  const isFakeDomain = domain.includes('-standard-terms') || domain.includes('-default-payout') || domain.includes('-affiliate-program-terms') || domain.includes('4-20-27-cpa');
+  return !isCpaPlaceholder && !isFakeDomain;
+});
+
 // Helper to calculate genuine remaining validity & urgency
 function getExpiryBadge(expiryDateStr: string) {
   if (!expiryDateStr) return { text: '⚡ Verified Oct 2026', class: 'bg-emerald-50 text-emerald-700 border-emerald-200/80 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30' };
@@ -645,8 +653,8 @@ const homeSchemas = [
 
         <div class="marquee-track flex items-center gap-4 w-max">
           <!-- Set 1 -->
-          <div class="marquee-group flex items-center gap-4 shrink-0">
-            {STORES_DATA.map(store => (
+          <div class="marquee-group flex items-center gap-5 shrink-0">
+            {tickerStores.map(store => (
               <button
                 type="button"
                 data-filter-store={store.name}
@@ -664,8 +672,8 @@ const homeSchemas = [
           </div>
 
           <!-- Set 2 (Seamless loop duplicate) -->
-          <div class="marquee-group flex items-center gap-4 shrink-0" aria-hidden="true">
-            {STORES_DATA.map(store => (
+          <div class="marquee-group flex items-center gap-5 shrink-0" aria-hidden="true">
+            {tickerStores.map(store => (
               <button
                 type="button"
                 data-filter-store={store.name}
