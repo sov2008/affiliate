@@ -47,6 +47,21 @@ export class PostingWorker {
     const profileId = options.profileId || `profile_${item.target_platform}_${item.network}`;
     const repo = ContentQueueRepository.getInstance();
 
+    if (item.target_platform?.toLowerCase() === 'reddit' || item.platform?.toLowerCase() === 'reddit') {
+      console.warn(`[PostingWorker] Skipping Reddit post [${item.id}]: Reddit posting is stopped by operator.`);
+      repo.updateStatus(item.id, 'CANCELLED');
+      return {
+        success: false,
+        itemId: item.id,
+        platform: item.target_platform,
+        publishedUrl: '',
+        postId: '',
+        profileId,
+        durationMs: 0,
+        error: 'Reddit posting is stopped by operator.',
+      };
+    }
+
     console.log(`\n\x1b[1m\x1b[35m=== [PostingWorker] Dispatching Post [${item.id.slice(0, 8)}] to ${item.target_platform.toUpperCase()} ===\x1b[0m`);
     console.log(`👤 Profile: \x1b[36m${profileId}\x1b[0m | Campaign: ${item.campaign_id} | Network: ${item.network.toUpperCase()}`);
     console.log(`✍️  Hook: "${item.hook.slice(0, 50)}..."`);

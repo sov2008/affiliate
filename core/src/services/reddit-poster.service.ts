@@ -211,6 +211,16 @@ export class RedditPosterService {
    * 4. Zero bio hooks during karma warmup phase.
    */
   public canPost(now: number = Date.now(), ignorePacing: boolean = false): PostEligibility {
+    // 0. Operator Kill-Switch: Check if Reddit posting is disabled
+    if (process.env.REDDIT_POSTING_ENABLED === 'false') {
+      return {
+        allowed: false,
+        reason: 'Reddit posting is explicitly stopped by operator (REDDIT_POSTING_ENABLED=false).',
+        postsIn24h: 0,
+        isBioHook: false,
+      };
+    }
+
     const ONE_HOUR = 3600 * 1000;
     const TWENTY_FOUR_HOURS = 24 * ONE_HOUR;
     const MIN_PACING_MS = Math.floor(2.5 * ONE_HOUR); // 2.5h base
@@ -459,6 +469,11 @@ export class RedditPosterService {
       subreddit?: string;
     } = {}
   ): Promise<{ success: boolean; commentId?: string; permalink?: string; error?: string; isBioHook?: boolean }> {
+    if (process.env.REDDIT_POSTING_ENABLED === 'false' && !options.simulate) {
+      console.warn('[RedditPosterService] Comment rejected: Reddit posting is explicitly stopped by operator.');
+      return { success: false, error: 'Reddit posting is explicitly stopped by operator.' };
+    }
+
     if (options.subreddit) {
       const subCheck = this.isSubredditAllowed(options.subreddit);
       if (!subCheck.allowed) {

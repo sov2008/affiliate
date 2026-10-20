@@ -1164,6 +1164,14 @@ We found <b>15+ verified profiles</b> matching your preferences:
       const repo = ContentQueueRepository.getInstance();
       const item = repo.getItem(queueId);
 
+      if (process.env.REDDIT_POSTING_ENABLED === 'false') {
+        await this.answerCallbackQuery(query.id, '⛔ Публикация в Reddit отключена оператором.', true);
+        if (chatId) {
+          await this.sendMessage(chatId, `⛔ <b>Публикация в Reddit остановлена оператором (REDDIT_POSTING_ENABLED=false).</b>`);
+        }
+        return;
+      }
+
       // 1. Show immediate progress indicator
       await this.answerCallbackQuery(query.id, '⏳ Публикую ответ в Reddit от u/sov2008...');
 

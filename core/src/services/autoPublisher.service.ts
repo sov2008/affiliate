@@ -470,11 +470,13 @@ ${article.bodyMarkdown}
     const snippetIds: string[] = [];
     const now = Date.now();
     const cluster = 'cluster' in intent ? intent.cluster : ('category' in intent ? (intent as EditorialTopicDefinition).category : 'dating_advice');
+    const autopilot = AutopilotStateService.getInstance();
 
-    // 1. Reddit Case Discussion
-    const redditId = `snip_rd_${now}_${crypto.randomBytes(2).toString('hex')}`;
-    const redditHook = `Question regarding ${intent.keyword}: how do you verify matches before meeting?`;
-    const redditBody = `Hey everyone, seeing a huge spike in unverified profiles and potential bot scripts on dating apps lately.
+    // 1. Reddit Case Discussion (Only if REDDIT_POSTING_ENABLED === 'true')
+    if (process.env.REDDIT_POSTING_ENABLED === 'true') {
+      const redditId = `snip_rd_${now}_${crypto.randomBytes(2).toString('hex')}`;
+      const redditHook = `Question regarding ${intent.keyword}: how do you verify matches before meeting?`;
+      const redditBody = `Hey everyone, seeing a huge spike in unverified profiles and potential bot scripts on dating apps lately.
 
 Just finished researching the latest 2026 verification protocols:
 1. Quick background lookup on photos.
@@ -485,36 +487,36 @@ Full breakdown and safety checklists: ${postUrl}
 
 What is your personal go-to checklist before meeting an online match in person?`;
 
-    const autopilot = AutopilotStateService.getInstance();
-    const redditRisk = 1;
-    const redditStatus = autopilot.shouldAutoApproveSnippet(redditRisk) ? 'APPROVED' : 'PENDING_APPROVAL';
+      const redditRisk = 1;
+      const redditStatus = autopilot.shouldAutoApproveSnippet(redditRisk) ? 'APPROVED' : 'PENDING_APPROVAL';
 
-    this.queueRepo.enqueue({
-      id: redditId,
-      campaign_id: `social_syndication_${slug}`,
-      network: 'organic',
-      target_platform: 'SOCIAL_SNIPPET',
-      platform: 'REDDIT',
-      subreddit: cluster === 'scam_detection' ? 'DatingApps' : 'dating_advice',
-      target_url: postUrl,
-      payload: JSON.stringify({
-        parentBlogPostId,
-        blogSlug: slug,
-        platform: 'Reddit',
-        content: redditBody,
-        url: postUrl,
-      }),
-      hook: redditHook,
-      body: redditBody,
-      stealth_cta: 'View Guide Discussion',
-      tracking_url: postUrl,
-      image_path: '',
-      risk_score: redditRisk,
-      status: redditStatus,
-      created_at: now,
-      updated_at: now,
-    });
-    snippetIds.push(redditId);
+      this.queueRepo.enqueue({
+        id: redditId,
+        campaign_id: `social_syndication_${slug}`,
+        network: 'organic',
+        target_platform: 'SOCIAL_SNIPPET',
+        platform: 'REDDIT',
+        subreddit: cluster === 'scam_detection' ? 'DatingApps' : 'dating_advice',
+        target_url: postUrl,
+        payload: JSON.stringify({
+          parentBlogPostId,
+          blogSlug: slug,
+          platform: 'Reddit',
+          content: redditBody,
+          url: postUrl,
+        }),
+        hook: redditHook,
+        body: redditBody,
+        stealth_cta: 'View Guide Discussion',
+        tracking_url: postUrl,
+        image_path: '',
+        risk_score: redditRisk,
+        status: redditStatus,
+        created_at: now,
+        updated_at: now,
+      });
+      snippetIds.push(redditId);
+    }
 
     // 2. Twitter/X Thread
     const twitterId = `snip_tw_${now}_${crypto.randomBytes(2).toString('hex')}`;

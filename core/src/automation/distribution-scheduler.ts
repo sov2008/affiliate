@@ -331,6 +331,10 @@ export class DistributionScheduler {
     let remainingCooldownMs = 0;
 
     for (const item of approvedItems) {
+      if (item.target_platform?.toLowerCase() === 'reddit' || item.platform?.toLowerCase() === 'reddit') {
+        continue; // Reddit distribution explicitly stopped
+      }
+
       if (options.forcePlatform && item.target_platform !== options.forcePlatform) {
         continue;
       }
@@ -509,19 +513,20 @@ export class DistributionScheduler {
       });
     }, this.pollIntervalMs);
 
-    // Initial Reddit Scout run (warmup 10s)
-    setTimeout(() => {
-      import('../workers/scout-reddit.worker.js')
-        .then(({ ScoutRedditWorker }) => ScoutRedditWorker.getInstance().runScoutCycle())
-        .catch((err) => console.error('[DistributionScheduler Scout Reddit Initial Error]', err));
-    }, 10000);
+    // Periodic Reddit Scout Watcher interval (only if REDDIT_SCOUT_ENABLED === 'true')
+    if (process.env.REDDIT_SCOUT_ENABLED === 'true') {
+      setTimeout(() => {
+        import('../workers/scout-reddit.worker.js')
+          .then(({ ScoutRedditWorker }) => ScoutRedditWorker.getInstance().runScoutCycle())
+          .catch((err) => console.error('[DistributionScheduler Scout Reddit Initial Error]', err));
+      }, 10000);
 
-    // Periodic Reddit Scout Watcher interval (every 15 minutes)
-    this.redditScoutTimer = setInterval(() => {
-      import('../workers/scout-reddit.worker.js')
-        .then(({ ScoutRedditWorker }) => ScoutRedditWorker.getInstance().runScoutCycle())
-        .catch((err) => console.error('[DistributionScheduler Scout Reddit Periodic Error]', err));
-    }, 15 * 60 * 1000);
+      this.redditScoutTimer = setInterval(() => {
+        import('../workers/scout-reddit.worker.js')
+          .then(({ ScoutRedditWorker }) => ScoutRedditWorker.getInstance().runScoutCycle())
+          .catch((err) => console.error('[DistributionScheduler Scout Reddit Periodic Error]', err));
+      }, 15 * 60 * 1000);
+    }
 
     // Initial Drip Retention run (warmup 15s)
     setTimeout(() => {

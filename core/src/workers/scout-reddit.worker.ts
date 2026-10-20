@@ -350,6 +350,11 @@ export class ScoutRedditWorker {
    * Executes a complete scout cycle across target subreddits
    */
   public async runScoutCycle(): Promise<{ scanned: number; matched: number; alerted: number }> {
+    if (process.env.REDDIT_SCOUT_ENABLED === 'false') {
+      console.log('🛑 [ScoutRedditWorker] Reddit Scout is stopped by operator (REDDIT_SCOUT_ENABLED=false). Skipping cycle.');
+      return { scanned: 0, matched: 0, alerted: 0 };
+    }
+
     const accountStatus = getRedditAccountStatus();
     const activeSubreddits = accountStatus.comment_karma < 30
       ? WARMUP_WHITELIST_SUBREDDITS

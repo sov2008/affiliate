@@ -14,6 +14,11 @@ function timestamp(): string {
 }
 
 async function runDaemonLoop(): Promise<void> {
+  if (process.env.REDDIT_SCOUT_ENABLED !== 'true') {
+    console.log(`[${timestamp()}] 🛑 [ScoutRedditDaemon] Reddit Scout is STOPPED by operator (REDDIT_SCOUT_ENABLED !== true). Exiting...`);
+    process.exit(0);
+  }
+
   console.log(`[${timestamp()}] 🛡️ [ScoutRedditDaemon] Инициализация демона Reddit Scout [KARMA WARMUP / FARMING MODE]...`);
   console.log(`[${timestamp()}] 🎯 [ScoutRedditDaemon] Целевые сабреддиты: r/AskReddit, r/CasualConversation, r/NoStupidQuestions`);
   console.log(`[${timestamp()}] ⏱️ [ScoutRedditDaemon] Интервал опроса: ${CYCLE_INTERVAL_MS / 1000} сек (10 мин).`);

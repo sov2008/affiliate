@@ -7,6 +7,7 @@ export type QueueStatus =
   | 'PENDING_APPROVAL'
   | 'APPROVED'
   | 'REJECTED'
+  | 'CANCELLED'
   | 'DISPATCHED'
   | 'FAILED'
   | 'POSTED';

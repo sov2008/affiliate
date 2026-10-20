@@ -227,10 +227,11 @@ export class BlogPublisherWorker {
   ): Promise<string[]> {
     const createdIds: string[] = [];
 
-    // Snippet 1: Reddit Discussion Opener
-    const redditId = `snip_rd_${Date.now()}_${crypto.randomBytes(2).toString('hex')}`;
-    const redditTopic = parentItem.hook || 'Dating Profile Verification';
-    const redditBody = `Is it just me, or has online dating become an absolute minefield of automated bot accounts and catfish profiles lately?
+    // Snippet 1: Reddit Discussion Opener (Only if REDDIT_POSTING_ENABLED === 'true')
+    if (process.env.REDDIT_POSTING_ENABLED === 'true') {
+      const redditId = `snip_rd_${Date.now()}_${crypto.randomBytes(2).toString('hex')}`;
+      const redditTopic = parentItem.hook || 'Dating Profile Verification';
+      const redditBody = `Is it just me, or has online dating become an absolute minefield of automated bot accounts and catfish profiles lately?
 
 I recently did a deep dive into modern GAN deepfake headshots and romance scam tactics, and put together an exhaustive verification protocol with practical reverse-lookup checklists.
 
@@ -243,32 +244,33 @@ Wrote up the complete 2026 self-verification guide with full breakdown here for 
 
 What's the weirdest catfish or bot match you've encountered recently?`;
 
-    this.queueRepo.enqueue({
-      id: redditId,
-      campaign_id: parentItem.campaign_id || 'cmp_lospollos_dating',
-      network: 'organic',
-      target_platform: 'reddit',
-      platform: 'reddit',
-      subreddit: 'dating_advice',
-      target_url: blogUrl,
-      hook: `Red Flags in 2026: ${redditTopic} (How to spot synthetic profiles)`,
-      body: redditBody,
-      stealth_cta: `Detailed guide at ${blogUrl}`,
-      tracking_url: blogUrl,
-      image_path: '',
-      risk_score: 2,
-      status: 'PENDING_APPROVAL',
-      payload: JSON.stringify({
-        parentPostId: parentItem.id,
-        blogUrl,
-        type: 'SOCIAL_SNIPPET',
+      this.queueRepo.enqueue({
+        id: redditId,
+        campaign_id: parentItem.campaign_id || 'cmp_lospollos_dating',
+        network: 'organic',
+        target_platform: 'reddit',
         platform: 'reddit',
-      }),
-      created_at: Date.now(),
-      updated_at: Date.now(),
-    });
-    createdIds.push(redditId);
-    console.log(`🤖 [BlogPublisherWorker] Created Reddit snippet: ${redditId}`);
+        subreddit: 'dating_advice',
+        target_url: blogUrl,
+        hook: `Red Flags in 2026: ${redditTopic} (How to spot synthetic profiles)`,
+        body: redditBody,
+        stealth_cta: `Detailed guide at ${blogUrl}`,
+        tracking_url: blogUrl,
+        image_path: '',
+        risk_score: 2,
+        status: 'PENDING_APPROVAL',
+        payload: JSON.stringify({
+          parentPostId: parentItem.id,
+          blogUrl,
+          type: 'SOCIAL_SNIPPET',
+          platform: 'reddit',
+        }),
+        created_at: Date.now(),
+        updated_at: Date.now(),
+      });
+      createdIds.push(redditId);
+      console.log(`🤖 [BlogPublisherWorker] Created Reddit snippet: ${redditId}`);
+    }
 
     // Snippet 2: X / Twitter Value Thread
     const twitterId = `snip_tw_${Date.now()}_${crypto.randomBytes(2).toString('hex')}`;
