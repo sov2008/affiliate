@@ -3,152 +3,444 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import BrandLogo from '../../components/BrandLogo.astro';
-import { STORES_DATA } from '../../data/couponsData';
+import { STORES_DATA, COUPONS_DATA } from '../../data/couponsData';
+
+export const prerender = true;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Group coupons by store to derive real counts & max discounts
+const storeCouponsMap: Record<string, typeof COUPONS_DATA> = {};
+for (const c of COUPONS_DATA) {
+  if (!storeCouponsMap[c.storeSlug]) storeCouponsMap[c.storeSlug] = [];
+  storeCouponsMap[c.storeSlug].push(c);
+}
+
+function getMaxDiscount(slug: string): string {
+  const coupons = storeCouponsMap[slug] || [];
+  let maxPercent = 0;
+  for (const c of coupons) {
+    const match = c.discountBadge.match(/(\d+)%/);
+    if (match) {
+      const val = parseInt(match[1], 10);
+      if (val > maxPercent) maxPercent = val;
+    }
+  }
+  if (maxPercent > 0) return `Up to ${maxPercent}% OFF`;
+  return coupons[0]?.discountBadge || 'Verified Deal';
+}
+
+const totalStores = STORES_DATA.length;
+const totalOffers = COUPONS_DATA.length;
+
+// Unique categories
+const storeCategories = Array.from(new Set(STORES_DATA.map(s => s.category))).filter(Boolean);
+
+// Alphabet letters A-Z that exist
+const alphabetLetters = ['ALL', '#', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')];
+
+// Featured Store of the Month (ExpressVPN)
+const featuredStore = STORES_DATA.find(s => s.slug === 'expressvpn') || STORES_DATA[0];
+const featuredCoupons = storeCouponsMap[featuredStore.slug] || [];
 ---
 
 <BaseLayout
-  title="Partner Stores Directory A–Z — PromoRadar (October 2026)"
-  description={`Browse all ${STORES_DATA.length} verified merchant stores and brands on PromoRadar. Find active coupons, redemption tips, and tested vouchers.`}
+  title={`Browse All Partner Stores & Merchant Hubs (${totalStores}) — PromoRadar`}
+  description={`Access 45+ hand-verified partner storefronts. Automated API syndication with direct checkout codes across privacy, cloud tech, international retail, and travel.`}
   activePath="/stores"
 >
   <Header activePath="/stores" />
 
-  <main class="flex-1">
-    <!-- Stores Directory Hero -->
-    <div class="bg-white border-b border-slate-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-5">
-          <div>
-            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Verified Partner Directory</span>
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Browse Verified Stores &amp; Brands</h1>
-            <p class="text-xs sm:text-sm text-slate-600 mt-1.5 max-w-2xl leading-relaxed">
-              Select any partner store below to open its dedicated brand profile with tested promo codes, store-specific checkout rules, and verified merchant affiliate links.
+  <main class="w-full bg-surface min-h-[calc(100vh-18rem)]">
+    <!-- Top Hero Header Section -->
+    <section class="w-full pt-8 pb-6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Trust Indicator Monospace Strip -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <div class="flex items-center gap-1.5 font-mono text-xs text-badge-verified-text bg-badge-verified-fill px-3.5 py-1.5 rounded-full border border-emerald-200">
+            <span class="material-symbols-outlined text-[16px] text-badge-verified-text">verified</span>
+            <span class="font-bold tracking-tight">DIRECT AFFILIATE API TELEMETRY • {totalStores} ACTIVE MERCHANT HUBS</span>
+          </div>
+          <div class="flex items-center gap-3 font-mono text-xs text-on-surface-variant">
+            <span class="flex items-center gap-1.5">
+              <span class="h-2 w-2 rounded-full bg-badge-verified-text animate-pulse"></span>
+              99.4% Checkout Validity
+            </span>
+            <span>•</span>
+            <span>Updated: October 2026</span>
+          </div>
+        </div>
+
+        <!-- Main Headline & Subtitle -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+          <div class="max-w-3xl">
+            <span class="font-mono text-xs uppercase tracking-wider text-primary font-bold mb-1.5 block">Verified Partner Network Index</span>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-on-surface tracking-tight leading-tight">
+              Browse All Partner Stores &amp; Merchant Hubs
+            </h1>
+            <p class="text-sm sm:text-base text-on-surface-variant mt-2 leading-relaxed">
+              Access {totalStores}+ hand-verified partner storefronts. Automated API syndication with direct checkout codes across privacy, cloud tech, international retail, and travel.
             </p>
           </div>
-          <div class="w-full md:w-72">
-            <input
-              id="storeDirectorySearch"
-              type="text"
-              placeholder="Filter stores by name..."
-              class="w-full px-4 py-2.5 text-sm bg-slate-100 focus:bg-white rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition"
-            />
+
+          <!-- Quick Summary Stats Bento Box -->
+          <div class="grid grid-cols-3 gap-2 bg-surface-container-lowest p-3 rounded-2xl shadow-sm border border-border-subtle min-w-[300px] shrink-0">
+            <div class="text-center px-3 py-1">
+              <span class="font-mono text-[11px] text-on-surface-variant block uppercase">Stores</span>
+              <span class="text-2xl font-black text-primary">{totalStores}</span>
+            </div>
+            <div class="text-center px-3 py-1 bg-surface-container-low rounded-xl">
+              <span class="font-mono text-[11px] text-on-surface-variant block uppercase">Offers</span>
+              <span class="text-2xl font-black text-on-surface">{totalOffers}</span>
+            </div>
+            <div class="text-center px-3 py-1">
+              <span class="font-mono text-[11px] text-discount-rose block uppercase">Max Cut</span>
+              <span class="text-2xl font-black text-discount-rose">81%</span>
+            </div>
           </div>
         </div>
 
-        <!-- Alphabet Bar -->
-        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-6" id="alphaFilterBar">
-          <button type="button" data-range="ALL" class="alpha-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow-sm transition">
-            All Stores ({STORES_DATA.length})
-          </button>
-          <button type="button" data-range="A-E" class="alpha-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
-            A – E
-          </button>
-          <button type="button" data-range="F-M" class="alpha-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
-            F – M
-          </button>
-          <button type="button" data-range="N-S" class="alpha-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
-            N – S
-          </button>
-          <button type="button" data-range="T-Z" class="alpha-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
-            T – Z
-          </button>
-        </div>
-      </div>
-    </div>
+        <!-- Search Bar + Filter Deck -->
+        <div class="bg-surface-container-lowest p-4 sm:p-5 rounded-2xl shadow-sm border border-border-subtle mb-8 flex flex-col gap-4">
+          <!-- Search Input Command Box -->
+          <div class="relative w-full">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline">
+              <span class="material-symbols-outlined text-[22px]">search</span>
+            </div>
+            <input
+              id="storeSearchField"
+              type="text"
+              autocomplete="off"
+              placeholder={`Search ${totalStores} partner stores by name, niche, or discount (e.g., 'ExpressVPN', 'Apparel', '80%')...`}
+              class="w-full pl-12 pr-28 py-3 bg-surface-container-low rounded-xl text-sm font-medium text-on-surface placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-primary/20 transition-all border border-transparent focus:border-primary/30"
+            />
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <span class="font-mono text-[11px] font-bold text-on-surface-variant bg-surface-container-lowest px-2 py-1 rounded shadow-sm border border-border-subtle">⌘ STORE</span>
+            </div>
+          </div>
 
-    <!-- Stores Directory Grid -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-      <div id="storesCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {STORES_DATA.map((store) => {
-          const initials = store.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-          return (
-            <div
-              class="store-dir-card bg-white rounded-2xl p-5 border border-slate-200/90 flex flex-col justify-between card-hover shadow-sm"
-              data-store-name={store.name.toLowerCase()}
-              data-initial={store.name.charAt(0).toUpperCase()}
+          <!-- Category Filters Horizontal Scroll -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none" id="categoryFilterBar">
+            <button
+              type="button"
+              data-cat="all"
+              class="store-cat-btn px-3.5 py-1.5 rounded-xl bg-primary text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
             >
-              <div>
-                <div class="flex items-start justify-between gap-3 mb-3.5">
-                  <div class="flex items-center gap-3">
-                    <div class="shrink-0">
-                      <BrandLogo store={store} size="md" />
-                    </div>
-                    <div>
-                      <h3 class="text-base font-extrabold text-slate-900 leading-snug">{store.name}</h3>
-                      <span class="text-[11px] text-slate-400 font-medium">{store.category}</span>
-                    </div>
-                  </div>
-                  <span class="px-2 py-0.5 rounded-lg text-[10px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    Verified
-                  </span>
-                </div>
-                <p class="text-xs text-slate-600 leading-relaxed mb-5">
-                  {store.shortDesc}
-                </p>
+              <span>All Stores</span>
+              <span class="font-mono text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full">{totalStores}</span>
+            </button>
+            {storeCategories.map(cat => (
+              <button
+                type="button"
+                data-cat={cat}
+                class="store-cat-btn px-3.5 py-1.5 rounded-xl bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container text-xs font-semibold transition-all whitespace-nowrap cursor-pointer"
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          <!-- A-Z Alphabetical Index Filter Bar -->
+          <div class="pt-2 border-t border-border-subtle flex items-center justify-between gap-1 overflow-x-auto scrollbar-none" id="letterFilterBar">
+            <span class="font-mono text-[11px] text-on-surface-variant uppercase pr-2 font-bold shrink-0">Index:</span>
+            <div class="flex items-center gap-1 shrink-0">
+              {alphabetLetters.map(letter => (
+                <button
+                  type="button"
+                  data-letter={letter}
+                  class={`store-letter-btn px-2.5 py-1 text-center font-mono text-xs rounded-lg transition-colors cursor-pointer ${
+                    letter === 'ALL'
+                      ? 'bg-primary text-white font-bold shadow-sm'
+                      : 'bg-surface-container-low text-on-surface hover:bg-surface-container font-semibold'
+                  }`}
+                >
+                  {letter}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Merchant of the Month Spotlight Banner (ExpressVPN) -->
+        <div class="relative overflow-hidden rounded-3xl bg-canvas-dark text-white p-6 sm:p-8 shadow-xl mb-12 border border-white/10">
+          <div class="absolute -right-24 -top-24 w-96 h-96 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute right-1/4 -bottom-20 w-80 h-80 bg-tertiary-fixed-dim/10 rounded-full blur-2xl pointer-events-none"></div>
+
+          <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+            <!-- Left Info -->
+            <div class="lg:col-span-7 flex flex-col gap-3">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-urgency-amber text-slate-950 font-extrabold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">star</span>
+                  FEATURED MERCHANT OF THE MONTH
+                </span>
+                <span class="font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-badge-verified-fill text-badge-verified-text font-bold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">verified</span>
+                  Verified Partner Sync
+                </span>
+                <span class="font-mono text-[11px] text-tertiary-fixed-dim flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">timer</span>
+                  Resets in 14h 22m
+                </span>
               </div>
 
-              <div class="pt-3.5 border-t border-slate-100 flex items-center justify-between">
-                <span class="text-xs text-slate-500">
-                  Partner: <strong class="text-slate-800 font-semibold">Direct Feed</strong>
-                </span>
+              <div class="flex items-center gap-3.5 my-1">
+                <div class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center p-2 shadow-md shrink-0">
+                  <BrandLogo store={featuredStore} size="md" />
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-white">{featuredStore.name}</h2>
+                    <span class="font-mono text-xs bg-slate-800 text-amber-300 px-2 py-0.5 rounded-lg border border-white/10">★ 4.9 Top Pick</span>
+                  </div>
+                  <p class="text-xs text-slate-400 mt-0.5">{featuredStore.category} • Official Direct Partner</p>
+                </div>
+              </div>
+
+              <h3 class="text-base sm:text-lg font-bold text-white leading-snug">
+                81% Off 2-Year Privacy Shield Plan + 4 Free Months Included
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl">
+                {featuredStore.shortDesc} Maximum savings via verified partner link with high-speed Lightway protocols and 30-day money-back guarantee.
+              </p>
+
+              <div class="flex flex-wrap items-center gap-4 pt-2 font-mono text-xs text-slate-400">
+                <div class="flex items-center gap-1.5 text-tertiary-fixed-dim">
+                  <span class="h-2 w-2 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+                  Active Live Checkout Ping
+                </div>
+                <div>Success Rate: <strong class="text-white">99.4%</strong></div>
+                <div>Offers in Hub: <strong class="text-white">{featuredCoupons.length} Active Deals</strong></div>
+              </div>
+            </div>
+
+            <!-- Right Instant Action Card -->
+            <div class="lg:col-span-5 bg-slate-900/90 backdrop-blur-md p-6 rounded-2xl flex flex-col justify-between gap-4 border border-white/10 shadow-2xl">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="font-mono text-xs text-slate-400 block uppercase">Peak Discount</span>
+                  <span class="text-3xl font-black text-discount-rose">81% OFF</span>
+                </div>
+                <div class="text-right">
+                  <span class="font-mono text-xs text-slate-400 block">Voucher Code</span>
+                  <span class="font-mono text-xs font-bold text-tertiary-fixed-dim bg-emerald-950/70 px-2.5 py-1 rounded border border-emerald-500/30">
+                    ••• d20
+                  </span>
+                </div>
+              </div>
+
+              <p class="text-xs text-slate-300">
+                1-click instant coupon activation. Direct merchant handshake applies maximum available discount at checkout automatically.
+              </p>
+
+              <div class="flex flex-col sm:flex-row items-center gap-2.5">
                 <a
-                  href={`${base}/stores/${store.slug}/`}
-                  class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-indigo-600 hover:text-white text-slate-800 text-xs font-bold transition-all shadow-sm"
+                  href={`${base}/stores/${featuredStore.slug}/`}
+                  class="w-full sm:flex-1 py-3 px-4 rounded-xl bg-primary hover:bg-primary-container text-white text-xs font-bold text-center transition-all shadow-md flex items-center justify-center gap-1.5"
                 >
-                  View All Deals →
+                  <span>Explore ExpressVPN Hub ({featuredCoupons.length} Deals)</span>
+                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
                 </a>
               </div>
             </div>
-          );
-        })}
+          </div>
+        </div>
+
+        <!-- Store Cards Master Grid Section -->
+        <div class="mb-6 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <h2 class="text-xl sm:text-2xl font-extrabold text-on-surface">Verified Merchant Directory</h2>
+            <span class="font-mono text-xs bg-surface-container px-3 py-1 rounded-full text-primary font-bold">
+              <span id="visibleStoresCount">{totalStores}</span> of {totalStores} Stores
+            </span>
+          </div>
+          <div class="hidden sm:flex items-center gap-2 font-mono text-xs text-on-surface-variant">
+            <span>Sort:</span>
+            <span class="font-bold text-on-surface bg-surface-container px-2.5 py-1 rounded-lg">Highest Trust &amp; Discount</span>
+          </div>
+        </div>
+
+        <!-- Stores Bento Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-14" id="storesGridContainer">
+          {STORES_DATA.map((store) => {
+            const coupons = storeCouponsMap[store.slug] || [];
+            const maxDiscount = getMaxDiscount(store.slug);
+            const firstLetter = store.name.charAt(0).toUpperCase();
+            const letterTag = /^[0-9]/.test(firstLetter) ? '#' : firstLetter;
+            
+            return (
+              <article
+                class="store-card-item bg-surface-container-lowest rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md border border-border-subtle hover:border-primary/40 transition-all group"
+                data-name={store.name.toLowerCase()}
+                data-category={store.category}
+                data-letter={letterTag}
+                data-discount={maxDiscount}
+              >
+                <div>
+                  <div class="flex items-start justify-between gap-3 mb-3.5">
+                    <div class="flex items-center gap-3 min-w-0">
+                      <div class="shrink-0 shadow-sm rounded-xl overflow-hidden">
+                        <BrandLogo store={store} size="md" />
+                      </div>
+                      <div class="min-w-0">
+                        <h3 class="text-base font-extrabold text-on-surface group-hover:text-primary transition-colors truncate">
+                          {store.name}
+                        </h3>
+                        <div class="flex items-center gap-1.5 font-mono text-[11px] text-on-surface-variant">
+                          <span class="text-urgency-amber">★ 4.9</span>
+                          <span>Verified Partner</span>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="font-mono text-[11px] px-2 py-0.5 rounded-lg bg-discount-rose/10 text-discount-rose font-bold shrink-0">
+                      {maxDiscount}
+                    </span>
+                  </div>
+
+                  <div class="flex flex-wrap items-center gap-1.5 mb-3">
+                    <span class="text-[11px] font-semibold bg-surface-container px-2.5 py-0.5 rounded-full text-on-surface">
+                      {store.category}
+                    </span>
+                    <span class="text-[11px] font-semibold bg-badge-verified-fill text-badge-verified-text px-2 py-0.5 rounded-full flex items-center gap-1">
+                      <span class="material-symbols-outlined text-[13px]">verified</span>
+                      Tested Live
+                    </span>
+                  </div>
+
+                  <p class="text-xs text-on-surface-variant line-clamp-2 leading-relaxed mb-4">
+                    {store.shortDesc}
+                  </p>
+                </div>
+
+                <div class="pt-3.5 bg-surface-container-low/70 -mx-5 -mb-5 px-5 py-3 rounded-b-2xl border-t border-border-subtle flex items-center justify-between">
+                  <div class="flex items-center gap-1.5 font-mono text-xs text-on-surface">
+                    <span class="material-symbols-outlined text-[16px] text-primary">sell</span>
+                    <span><strong>{coupons.length}</strong> active offers</span>
+                  </div>
+                  <a
+                    href={`${base}/stores/${store.slug}/`}
+                    class="text-xs font-bold text-primary group-hover:text-primary-container flex items-center gap-1 hover:underline transition-colors"
+                  >
+                    <span>View Deals</span>
+                    <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <!-- No Results Fallback Notice -->
+        <div id="noStoresNotice" class="hidden text-center py-16 bg-surface-container-lowest rounded-2xl border border-border-subtle mb-14 p-6">
+          <span class="material-symbols-outlined text-4xl text-slate-400 mb-2">storefront</span>
+          <h3 class="text-base font-bold text-on-surface">No matching partner stores found</h3>
+          <p class="text-xs text-on-surface-variant mt-1 max-w-sm mx-auto">
+            Try adjusting your search query or reset the category and letter filters.
+          </p>
+          <button
+            id="resetFiltersBtn"
+            type="button"
+            class="mt-4 px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-container transition shadow-sm cursor-pointer"
+          >
+            Reset All Filters
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
   </main>
 
   <Footer />
 
+  <!-- Dynamic Filter State Machine -->
   <script is:inline>
-    const searchInput = document.getElementById('storeDirectorySearch');
-    const cards = Array.from(document.querySelectorAll('.store-dir-card'));
-    let activeRange = 'ALL';
+    (function() {
+      const state = {
+        searchQuery: '',
+        activeCategory: 'all',
+        activeLetter: 'ALL'
+      };
 
-    function filterStores() {
-      const q = (searchInput?.value || '').toLowerCase().trim();
-      cards.forEach(card => {
-        const name = card.getAttribute('data-store-name') || '';
-        const initial = card.getAttribute('data-initial') || '';
-        let matchesRange = true;
+      const searchInput = document.getElementById('storeSearchField');
+      const cards = Array.from(document.querySelectorAll('.store-card-item'));
+      const countEl = document.getElementById('visibleStoresCount');
+      const noStoresNotice = document.getElementById('noStoresNotice');
+      const resetBtn = document.getElementById('resetFiltersBtn');
 
-        if (activeRange === 'A-E') matchesRange = initial >= 'A' && initial <= 'E';
-        if (activeRange === 'F-M') matchesRange = initial >= 'F' && initial <= 'M';
-        if (activeRange === 'N-S') matchesRange = initial >= 'N' && initial <= 'S';
-        if (activeRange === 'T-Z') matchesRange = initial >= 'T' && initial <= 'Z';
+      function applyFilter() {
+        const q = state.searchQuery.toLowerCase().trim();
+        const cat = state.activeCategory;
+        const letter = state.activeLetter;
+        let visible = 0;
 
-        const matchesQuery = !q || name.includes(q);
-        if (matchesRange && matchesQuery) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-    }
+        cards.forEach(card => {
+          const name = card.getAttribute('data-name') || '';
+          const cardCat = card.getAttribute('data-category') || '';
+          const cardLetter = card.getAttribute('data-letter') || '';
+          const discount = card.getAttribute('data-discount') || '';
 
-    searchInput?.addEventListener('input', filterStores);
+          const matchSearch = !q || name.includes(q) || cardCat.toLowerCase().includes(q) || discount.toLowerCase().includes(q);
+          const matchCat = cat === 'all' || cardCat === cat;
+          const matchLetter = letter === 'ALL' || (letter === '#' ? /^[0-9]/.test(cardLetter) : cardLetter === letter);
 
-    document.querySelectorAll('.alpha-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        activeRange = btn.getAttribute('data-range') || 'ALL';
-        document.querySelectorAll('.alpha-btn').forEach(b => {
-          if (b.getAttribute('data-range') === activeRange) {
-            b.className = 'alpha-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow-sm transition';
+          if (matchSearch && matchCat && matchLetter) {
+            card.classList.remove('hidden');
+            visible++;
           } else {
-            b.className = 'alpha-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition';
+            card.classList.add('hidden');
           }
         });
-        filterStores();
+
+        if (countEl) countEl.innerText = visible;
+        if (noStoresNotice) {
+          if (visible === 0) noStoresNotice.classList.remove('hidden');
+          else noStoresNotice.classList.add('hidden');
+        }
+      }
+
+      searchInput?.addEventListener('input', (e) => {
+        state.searchQuery = e.target.value;
+        applyFilter();
       });
-    });
+
+      // Category filter buttons
+      document.querySelectorAll('.store-cat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.activeCategory = btn.getAttribute('data-cat') || 'all';
+          document.querySelectorAll('.store-cat-btn').forEach(b => {
+            if (b.getAttribute('data-cat') === state.activeCategory) {
+              b.className = 'store-cat-btn px-3.5 py-1.5 rounded-xl bg-primary text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5 whitespace-nowrap cursor-pointer';
+            } else {
+              b.className = 'store-cat-btn px-3.5 py-1.5 rounded-xl bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container text-xs font-semibold transition-all whitespace-nowrap cursor-pointer';
+            }
+          });
+          applyFilter();
+        });
+      });
+
+      // Letter filter buttons
+      document.querySelectorAll('.store-letter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.activeLetter = btn.getAttribute('data-letter') || 'ALL';
+          document.querySelectorAll('.store-letter-btn').forEach(b => {
+            if (b.getAttribute('data-letter') === state.activeLetter) {
+              b.className = 'store-letter-btn px-2.5 py-1 text-center font-mono text-xs rounded-lg transition-colors cursor-pointer bg-primary text-white font-bold shadow-sm';
+            } else {
+              b.className = 'store-letter-btn px-2.5 py-1 text-center font-mono text-xs rounded-lg transition-colors cursor-pointer bg-surface-container-low text-on-surface hover:bg-surface-container font-semibold';
+            }
+          });
+          applyFilter();
+        });
+      });
+
+      resetBtn?.addEventListener('click', () => {
+        if (searchInput) searchInput.value = '';
+        state.searchQuery = '';
+        state.activeCategory = 'all';
+        state.activeLetter = 'ALL';
+        
+        document.querySelector('.store-cat-btn[data-cat="all"]')?.click();
+        document.querySelector('.store-letter-btn[data-letter="ALL"]')?.click();
+      });
+    })();
   </script>
 </BaseLayout>

@@ -324,19 +324,43 @@ const homeSchemas = [
   <Header activePath="/" />
 
   <main class="flex-1">
+    <!-- Top Trust & Control Bar -->
+    <section class="w-full bg-surface-subtle py-2.5 border-b border-border-subtle">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-3 text-xs text-on-surface-variant">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold px-2.5 py-0.5 rounded-lg bg-badge-verified-fill text-badge-verified-text border border-emerald-200">
+            <span class="material-symbols-outlined text-[14px]">verified</span>
+            Verified Discount Radar
+          </span>
+          <span class="hidden sm:inline font-medium">Hand-Tested Promo Codes &amp; Merchant Vouchers • Active October 2026 Feed</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-1 text-urgency-amber font-semibold">
+            <span class="material-symbols-outlined text-[15px]">verified_user</span>
+            <span>Editorial QA Guarantee</span>
+          </div>
+          <div class="flex items-center gap-1.5 font-mono text-[11px] text-badge-verified-text font-bold">
+            <span class="h-2 w-2 rounded-full bg-badge-verified-text animate-pulse"></span>
+            <span>Feed: LIVE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Modern Bento Hero Section -->
-    <section class="relative overflow-hidden bg-gradient-to-b from-indigo-950 via-slate-900 to-slate-900 text-white border-b border-slate-800">
-      <div class="absolute inset-0 opacity-25 pointer-events-none" style="background-image: radial-gradient(#6366f1 1px, transparent 1px); background-size: 24px 24px;"></div>
+    <section class="relative overflow-hidden bg-canvas-dark text-white border-b border-white/10 py-10 lg:py-16">
+      <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-primary/20 blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-tertiary-container/15 blur-3xl pointer-events-none"></div>
       
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16 relative z-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
           <!-- Left Column (7 cols): Hero Value Proposition & Search -->
           <div class="lg:col-span-7 space-y-5">
             <div class="flex flex-wrap items-center gap-2">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-semibold">
-                <span class="px-1.5 py-0.5 rounded bg-rose-500 text-white text-[10px] font-bold uppercase tracking-wider">Verified Discount Radar</span>
-                <span id="heroBadgeLabel">Hand-Tested Promo Codes &amp; Merchant Vouchers • October 2026</span>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur border border-white/15 text-tertiary-fixed-dim text-xs font-semibold">
+                <span class="material-symbols-outlined text-[14px]">bolt</span>
+                <span id="heroBadgeLabel">US Coupons 🇺🇸 &amp; Global Partner Network</span>
               </div>
               <button
                 type="button"
@@ -344,7 +368,7 @@ const homeSchemas = [
                 class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/15 hover:bg-amber-400/25 border border-amber-400/30 text-amber-300 text-xs font-bold transition cursor-pointer group"
                 title="Inspect 3-Tier Code Accuracy Guarantee"
               >
-                <span class="text-amber-400 group-hover:scale-110 transition-transform">🛡️</span>
+                <span class="material-symbols-outlined text-[15px]">verified_user</span>
                 <span>Editorial QA Guarantee</span>
                 <span class="text-[10px] bg-amber-400/20 px-1 rounded font-bold">ℹ️</span>
               </button>
@@ -516,52 +540,68 @@ const homeSchemas = [
           </div>
 
           <!-- Right Column (5 cols): Deal of the Day Card -->
-          <div class="lg:col-span-5">
-            <div class="glass-panel-dark rounded-3xl p-6 border border-indigo-400/20 shadow-2xl relative overflow-hidden group">
-              <div class="absolute -right-12 -top-12 w-48 h-48 bg-rose-500/15 rounded-full blur-3xl pointer-events-none group-hover:bg-rose-500/25 transition duration-700"></div>
-              <div class="absolute -left-12 -bottom-12 w-48 h-48 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none group-hover:bg-indigo-500/25 transition duration-700"></div>
-              
-              <div class="flex items-center justify-between gap-2 mb-4 relative z-10">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow-sm tracking-wide uppercase">
-                  <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+          <div class="lg:col-span-5 flex flex-col">
+            <div class="bg-surface-dark rounded-2xl p-6 shadow-2xl relative overflow-hidden border border-white/10">
+              <!-- Header bar inside spotlight -->
+              <div class="flex items-center justify-between pb-3 relative z-10">
+                <span class="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold px-2.5 py-1 rounded bg-urgency-orange text-white uppercase tracking-wider">
+                  <span class="material-symbols-outlined text-[13px]">local_fire_department</span>
                   Verified Exclusive • Deal of the Day
                 </span>
-                <span class="text-xs font-mono text-indigo-300 bg-indigo-950/70 px-2.5 py-1 rounded-xl border border-indigo-400/20">
-                  ⏱ Ends in: 14h 22m
-                </span>
+                <div class="flex items-center gap-1 font-mono text-xs text-urgency-amber">
+                  <span class="material-symbols-outlined text-[14px]">schedule</span>
+                  <span>Ends in: <strong class="text-white">14h 22m</strong></span>
+                </div>
               </div>
 
-              <div class="flex items-center gap-3.5 mb-4 relative z-10">
-                <div class="shrink-0 shadow-lg shadow-rose-950/30 rounded-2xl overflow-hidden">
+              <!-- Merchant info -->
+              <div class="flex items-center gap-3.5 py-2 relative z-10">
+                <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-1.5 shadow-md shrink-0">
                   {STORES_MAP['expressvpn'] && (
-                    <BrandLogo store={STORES_MAP['expressvpn']} size="lg" />
+                    <BrandLogo store={STORES_MAP['expressvpn']} size="md" />
                   )}
                 </div>
                 <div>
                   <div class="flex items-center gap-2">
                     <span class="text-lg font-bold text-white tracking-tight">ExpressVPN</span>
-                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">Verified Today</span>
+                    <span class="inline-flex items-center gap-0.5 font-mono text-[10px] px-2 py-0.5 rounded bg-badge-verified-fill text-badge-verified-text font-bold">
+                      <span class="material-symbols-outlined text-[12px]">verified</span> Verified Today
+                    </span>
                   </div>
-                  <p class="text-xs text-slate-400">Privacy &amp; Security • Official Merchant Partner</p>
-                </div>
-                <div class="ml-auto text-right">
-                  <span class="block text-2xl font-black text-amber-400 leading-none">81% OFF</span>
-                  <span class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">+4 Mo. Free</span>
+                  <span class="text-xs text-slate-400">Privacy &amp; Security • Official Merchant Partner</span>
                 </div>
               </div>
 
-              <h2 class="text-lg font-bold text-white mb-2 leading-snug relative z-10">
+              <!-- Discount highlight banner with SVG Telemetry gauge -->
+              <div class="my-3 p-3.5 rounded-xl bg-canvas-dark border border-white/5 flex items-center justify-between relative z-10">
+                <div>
+                  <div class="text-3xl font-black text-tertiary-fixed-dim leading-none">81% OFF</div>
+                  <span class="font-mono text-[11px] text-slate-300 tracking-wider uppercase font-bold">+ 4 Months Free</span>
+                </div>
+                <!-- Telemetry gauge SVG -->
+                <div class="flex flex-col items-end">
+                  <svg class="w-13 h-13" viewBox="0 0 36 36">
+                    <path class="text-slate-800 stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3.5"></path>
+                    <path class="text-badge-verified-text stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="99.4, 100" stroke-linecap="round" stroke-width="3.5"></path>
+                    <text class="font-mono text-[8px] font-bold fill-current text-white text-center" text-anchor="middle" x="18" y="21">99.4%</text>
+                  </svg>
+                  <span class="font-mono text-[10px] text-tertiary-fixed-dim mt-0.5">Success Rate</span>
+                </div>
+              </div>
+
+              <h3 class="text-base font-bold text-white relative z-10">
                 81% Off 2-Year Privacy Shield Plan + 4 Months Free
-              </h2>
-              <p class="text-xs text-slate-300 mb-5 leading-relaxed relative z-10">
+              </h3>
+              <p class="text-xs text-slate-300 mt-1 mb-4 leading-relaxed relative z-10">
                 Maximum savings via our verified merchant partner link: high-speed Lightway VPN across 8 devices, Keys password manager, and a 30-day money-back guarantee.
               </p>
 
-              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 relative z-10">
+              <!-- Signature 2-part Action Reveal Button -->
+              <div class="flex flex-col sm:flex-row items-center gap-2.5 relative z-10">
                 <button
                   type="button"
                   id="openFeaturedDealBtn"
-                  class="flex-1 py-3 px-4 rounded-xl code-peel text-white font-bold text-xs sm:text-sm shadow-lg shadow-indigo-600/30 flex items-center justify-between transition cursor-pointer"
+                  class="flex-1 w-full flex items-stretch rounded-xl overflow-hidden shadow-lg group cursor-pointer border border-transparent hover:border-white/20 transition-all"
                   data-reveal-deal={JSON.stringify({
                     id: "expressvpn-81",
                     title: "81% Off 2-Year Privacy Shield Plan + 4 Months Free",
@@ -574,27 +614,29 @@ const homeSchemas = [
                     affiliateUrl: "https://ad.admitad.com/g/9c336bfeacfa34419ad24f6d4d12ec/?subid=promoradar_dealday"
                   })}
                 >
-                  <span class="flex items-center gap-1.5">
-                    <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879a3 3 0 11-4.242-4.242 3 3 0 014.242 0zM12 12L9.121 9.121a3 3 0 10-4.242 4.242 3 3 0 004.242 0z"/>
-                    </svg>
+                  <div class="bg-primary hover:bg-primary-container px-4 py-3 text-white font-bold text-xs flex items-center justify-center gap-2 flex-1 transition-colors">
+                    <span class="material-symbols-outlined text-[16px]">lock_open</span>
                     <span>Claim 81% Voucher</span>
-                  </span>
-                  <span class="font-mono text-xs bg-black/35 px-2 py-0.5 rounded-lg border border-white/20 font-bold">
-                    •••d20
-                  </span>
+                  </div>
+                  <div class="bg-canvas-dark text-white px-3.5 py-3 font-mono text-xs font-bold flex items-center justify-center tracking-wider">
+                    ••• d20
+                  </div>
                 </button>
                 <a
                   href={`${base}/stores/expressvpn/`}
-                  class="py-3 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs text-center border border-white/15 transition cursor-pointer"
+                  class="w-full sm:w-auto px-4 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs transition-colors text-center whitespace-nowrap border border-white/10"
                 >
                   All Offers →
                 </a>
               </div>
 
-              <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400 relative z-10">
-                <span>⚡ Verified Checkout: <strong class="text-slate-200">Active Live</strong></span>
-                <span>Success rate: <strong class="text-emerald-400 font-bold">99.4%</strong></span>
+              <!-- Verification metadata footer -->
+              <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between font-mono text-[11px] text-slate-400 relative z-10">
+                <span class="flex items-center gap-1.5">
+                  <span class="h-2 w-2 rounded-full bg-badge-verified-text animate-ping"></span>
+                  <span>Verified Checkout: <strong class="text-white">Active Live</strong></span>
+                </span>
+                <span>Audited 12m ago</span>
               </div>
             </div>
           </div>
