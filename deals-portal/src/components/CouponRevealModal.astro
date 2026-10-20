@@ -400,7 +400,10 @@ COUPONS_DATA.forEach(deal => {
         navigator.clipboard?.writeText(data.code).then(() => {
           if (copyBtnLabel) copyBtnLabel.textContent = '✓ Copied!';
           setTimeout(() => { if (copyBtnLabel) copyBtnLabel.textContent = 'Copy Code'; }, 2500);
-        }).catch(() => {});
+          window.dispatchEvent(new CustomEvent('promoradar_code_copied', { detail: data }));
+        }).catch(() => {
+          window.dispatchEvent(new CustomEvent('promoradar_code_copied', { detail: data }));
+        });
       }
 
       // Open merchant in background tab (Dual-Tab Funnel)
@@ -463,6 +466,9 @@ COUPONS_DATA.forEach(deal => {
         navigator.clipboard.writeText(code).then(() => {
           if (copyBtnLabel) copyBtnLabel.textContent = '✓ Copied!';
           setTimeout(() => { if (copyBtnLabel) copyBtnLabel.textContent = 'Copy Code'; }, 2000);
+          if (activeDealData) {
+            window.dispatchEvent(new CustomEvent('promoradar_code_copied', { detail: activeDealData }));
+          }
         });
       }
     });

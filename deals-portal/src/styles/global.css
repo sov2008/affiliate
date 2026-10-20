@@ -348,19 +348,23 @@ html.dark .deal-grid-card:hover {
 }
 
 /* Perforated Ticket Divider with Circular Cutouts */
-.ticket-perforated-divider {
+.ticket-perforated-divider,
+.stitch-perforated-top {
   position: relative;
   border-top: 1.5px dashed #e2e8f0;
   margin-left: -1.25rem;
   margin-right: -1.25rem;
 }
 
-html.dark .ticket-perforated-divider {
+html.dark .ticket-perforated-divider,
+html.dark .stitch-perforated-top {
   border-top: 1.5px dashed rgba(255, 255, 255, 0.12);
 }
 
 .ticket-perforated-divider::before,
-.ticket-perforated-divider::after {
+.ticket-perforated-divider::after,
+.stitch-perforated-top::before,
+.stitch-perforated-top::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -372,23 +376,37 @@ html.dark .ticket-perforated-divider {
 }
 
 html:not(.dark) .ticket-perforated-divider::before,
-html:not(.dark) .ticket-perforated-divider::after {
+html:not(.dark) .ticket-perforated-divider::after,
+html:not(.dark) .stitch-perforated-top::before,
+html:not(.dark) .stitch-perforated-top::after {
   background-color: #f8fafc;
   box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.06);
 }
 
 html.dark .ticket-perforated-divider::before,
-html.dark .ticket-perforated-divider::after {
+html.dark .ticket-perforated-divider::after,
+html.dark .stitch-perforated-top::before,
+html.dark .stitch-perforated-top::after {
   background-color: #0b0f19;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.ticket-perforated-divider::before {
+.ticket-perforated-divider::before,
+.stitch-perforated-top::before {
   left: -7px;
 }
 
-.ticket-perforated-divider::after {
+.ticket-perforated-divider::after,
+.stitch-perforated-top::after {
   right: -7px;
+}
+
+/* 44x44px Brand Logo Container Alignment */
+.brand-logo-box {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
 }
 
 /* Discount Badge Variants */

@@ -182,14 +182,11 @@
     function showBar(reason) {
       if (isDismissedForSession || !currentDeal) return;
 
-      // Don't show if modal is currently open
-      const modal = document.getElementById('universalCouponModal');
-      if (modal && !modal.classList.contains('hidden')) {
-        return;
-      }
-
-      if (reason === 'tab_return' && noticeEl) {
-        noticeEl.textContent = `Welcome back! Ready to complete order at ${currentDeal.storeName || 'Store'}?`;
+      // When code is copied, always show the active voucher bar
+      if (reason === 'code_copied' && noticeEl) {
+        noticeEl.textContent = `Active voucher copied! Ready to paste at ${currentDeal.storeName || currentDeal.store || 'Store'} checkout.`;
+      } else if (reason === 'tab_return' && noticeEl) {
+        noticeEl.textContent = `Welcome back! Ready to complete order at ${currentDeal.storeName || currentDeal.store || 'Store'}?`;
       } else if (noticeEl) {
         noticeEl.textContent = `Ready to checkout? Your code is saved and active!`;
       }
@@ -204,14 +201,25 @@
       bar.classList.remove('translate-y-0');
     }
 
+    // Listen to code copied event - instant high-conversion trigger!
+    window.addEventListener('promoradar_code_copied', (e) => {
+      if (!e.detail) return;
+      isDismissedForSession = false;
+      saveActiveDeal(e.detail);
+      showBar('code_copied');
+    });
+
     // Listen to coupon reveal event from modal
     window.addEventListener('promoradar_deal_revealed', (e) => {
       if (!e.detail) return;
       isDismissedForSession = false;
       saveActiveDeal(e.detail);
+      if (e.detail.code && e.detail.code.trim().length > 0 && e.detail.code !== 'ACTIVATED_DEAL') {
+        showBar('code_copied');
+      }
     });
 
-    // When modal closes, immediately show sticky redemption bar
+    // When modal closes, show sticky redemption bar
     window.addEventListener('promoradar_modal_closed', () => {
       if (currentDeal) {
         setTimeout(() => {
