@@ -543,12 +543,12 @@ const homeSchemas = [
           <div class="lg:col-span-5 flex flex-col">
             <div class="bg-surface-dark rounded-2xl p-6 shadow-2xl relative overflow-hidden border border-white/10">
               <!-- Header bar inside spotlight -->
-              <div class="flex items-center justify-between pb-3 relative z-10">
-                <span class="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold px-2.5 py-1 rounded bg-urgency-orange text-white uppercase tracking-wider">
-                  <span class="material-symbols-outlined text-[13px]">local_fire_department</span>
+              <div class="flex flex-wrap items-center justify-between gap-2.5 pb-3 relative z-10">
+                <span class="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold px-2.5 py-1 rounded bg-urgency-orange text-white uppercase tracking-wider shrink-0 shadow-sm">
+                  <span class="material-symbols-outlined text-[14px]">local_fire_department</span>
                   Verified Exclusive • Deal of the Day
                 </span>
-                <div class="flex items-center gap-1 font-mono text-xs text-urgency-amber">
+                <div class="flex items-center gap-1 font-mono text-xs text-urgency-amber shrink-0 ml-auto">
                   <span class="material-symbols-outlined text-[14px]">schedule</span>
                   <span>Ends in: <strong class="text-white">14h 22m</strong></span>
                 </div>
@@ -1388,16 +1388,16 @@ const homeSchemas = [
           <!-- 3-Tier Bento Grid -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
             <!-- Tier 1 -->
-            <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition flex flex-col justify-between relative overflow-hidden group">
-              <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-indigo-500/5 rounded-full pointer-events-none group-hover:scale-125 transition-transform"></div>
+            <div class="guarantee-bento-card p-6 rounded-3xl transition flex flex-col justify-between relative overflow-hidden group">
+              <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-indigo-500/10 rounded-full pointer-events-none group-hover:scale-125 transition-transform"></div>
               <div>
                 <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 font-black text-sm flex items-center justify-center mb-4 border border-indigo-200/70 dark:border-indigo-500/30">
                   01
                 </div>
-                <h3 class="text-base font-extrabold text-slate-900 dark:text-white mb-2">
+                <h3 class="guarantee-card-title text-base font-extrabold mb-2">
                   Live Merchant Basket QA
                 </h3>
-                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                <p class="guarantee-card-desc text-xs leading-relaxed mb-4">
                   Our QA team loads real items into store shopping carts across target geos (US, EU, UAE, Global) to confirm that promo codes deduct the exact promised savings.
                 </p>
               </div>
@@ -1407,16 +1407,16 @@ const homeSchemas = [
             </div>
 
             <!-- Tier 2 -->
-            <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition flex flex-col justify-between relative overflow-hidden group">
-              <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-emerald-500/5 rounded-full pointer-events-none group-hover:scale-125 transition-transform"></div>
+            <div class="guarantee-bento-card p-6 rounded-3xl transition flex flex-col justify-between relative overflow-hidden group">
+              <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-emerald-500/10 rounded-full pointer-events-none group-hover:scale-125 transition-transform"></div>
               <div>
                 <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 font-black text-sm flex items-center justify-center mb-4 border border-emerald-200/70 dark:border-emerald-500/30">
                   02
                 </div>
-                <h3 class="text-base font-extrabold text-slate-900 dark:text-white mb-2">
+                <h3 class="guarantee-card-title text-base font-extrabold mb-2">
                   Direct Affiliate Network API Sync
                 </h3>
-                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                <p class="guarantee-card-desc text-xs leading-relaxed mb-4">
                   We maintain direct partnerships via Admitad and CJ Affiliate. When an advertiser changes discount rates or campaign terms, expired offers are updated immediately.
                 </p>
               </div>
@@ -1426,16 +1426,16 @@ const homeSchemas = [
             </div>
 
             <!-- Tier 3 -->
-            <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition flex flex-col justify-between relative overflow-hidden group">
-              <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/5 rounded-full pointer-events-none group-hover:scale-125 transition-transform"></div>
+            <div class="guarantee-bento-card p-6 rounded-3xl transition flex flex-col justify-between relative overflow-hidden group">
+              <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/10 rounded-full pointer-events-none group-hover:scale-125 transition-transform"></div>
               <div>
                 <div class="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 font-black text-sm flex items-center justify-center mb-4 border border-amber-200/70 dark:border-amber-500/30">
                   03
                 </div>
-                <h3 class="text-base font-extrabold text-slate-900 dark:text-white mb-2">
+                <h3 class="guarantee-card-title text-base font-extrabold mb-2">
                   Shopper Voting &amp; Fast Demotion
                 </h3>
-                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                <p class="guarantee-card-desc text-xs leading-relaxed mb-4">
                   Community feedback (👍 Works / 👎 Didn't work) feeds our live reliability algorithm. Any code flagged by shoppers is immediately scheduled for manual re-test.
                 </p>
               </div>
