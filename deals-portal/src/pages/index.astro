@@ -221,13 +221,34 @@ for (const slug of Object.keys(storeBuckets)) {
   }
 }
 
-// Curated authentic partner stores for the popular ticker (strictly real brand names, no raw CPA/terms placeholders)
-const tickerStores = STORES_DATA.filter(s => {
-  const isCpaPlaceholder = s.name.includes('Terms') || s.name.includes('CPA') || s.name.includes('Default Payout') || s.slug.includes('terms') || s.slug.includes('cpa');
-  const domain = STORE_DOMAINS_MAP[s.slug] || STORE_DOMAINS_MAP[s.name] || s.cleanDomain || '';
-  const isFakeDomain = domain.includes('-standard-terms') || domain.includes('-default-payout') || domain.includes('-affiliate-program-terms') || domain.includes('4-20-27-cpa');
-  return !isCpaPlaceholder && !isFakeDomain;
-});
+// Strictly curated authentic partner stores with verified vector logos
+// Guarantees 0% unknown grey badges, no CPA offers or placeholder terms
+const VERIFIED_TICKER_SLUGS = new Set([
+  'expressvpn',
+  'purevpn',
+  'chicme',
+  'glasseslit',
+  'airalo',
+  'raynatours',
+  'alibaba',
+  'allpowers',
+  'thedealoutlet',
+  'vogacloset',
+  'kodland',
+  'hostinger',
+  'huawei',
+  'touch',
+  'polis',
+  'abelssoft',
+  '945industries',
+  'jashanmal',
+  'dabdoob',
+  'vperfumes',
+  'markformelle',
+  'nazih'
+]);
+
+const tickerStores = STORES_DATA.filter(s => VERIFIED_TICKER_SLUGS.has(s.slug));
 
 // Helper to calculate genuine remaining validity & urgency
 function getExpiryBadge(expiryDateStr: string) {
@@ -632,62 +653,63 @@ const homeSchemas = [
       </div>
     </section>
 
-    <!-- Popular Partner Stores Horizontal Scrollable Strip -->
-    <!-- Popular Partner Stores Infinite Ticker (Borderless, Monochrome, Left to Right) -->
-    <div class="relative overflow-hidden bg-white dark:bg-canvas-dark border-b border-slate-200/80 dark:border-white/10 py-3.5">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-2 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Popular Partner Stores</span>
-          <span class="text-[11px] text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded-full dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">Click any brand to filter deals</span>
-        </div>
-        <a href={`${base}/stores/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300">
-          View All {STORES_DATA.length} Stores →
-        </a>
-      </div>
-
-      <!-- Ticker Marquee Track with Left-to-Right Flow -->
-      <div class="relative w-full overflow-hidden marquee-wrapper py-1">
-        <!-- Subtle Gradient Fade Edges -->
-        <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-r from-white dark:from-canvas-dark to-transparent z-10"></div>
-        <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-l from-white dark:from-canvas-dark to-transparent z-10"></div>
-
-        <div class="marquee-track flex items-center gap-4 w-max">
-          <!-- Set 1 -->
-          <div class="marquee-group flex items-center gap-5 shrink-0">
-            {tickerStores.map(store => (
-              <button
-                type="button"
-                data-filter-store={store.name}
-                class="store-strip-pill shrink-0 flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-transparent hover:bg-slate-100 dark:hover:bg-white/10 transition-all cursor-pointer group"
-                title={`Filter by ${store.name}`}
-              >
-                <div class="shrink-0 monochrome-logo-box w-7 h-7 flex items-center justify-center">
-                  <BrandLogo store={store} size="sm" class="!border-0 !shadow-none !bg-transparent w-7 h-7" />
-                </div>
-                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-white transition whitespace-nowrap">
-                  {store.name}
-                </span>
-              </button>
-            ))}
+    <!-- Popular Partner Stores Strip (Constrained to Site Grid, Borderless & Elegant) -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-3">
+      <div class="relative overflow-hidden bg-slate-50/70 dark:bg-canvas-dark/60 rounded-2xl border border-slate-200/70 dark:border-white/10 py-3 px-4">
+        <div class="mb-2.5 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Popular Partner Stores</span>
+            <span class="text-[11px] text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded-full dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">Click any brand to filter deals</span>
           </div>
+          <a href={`${base}/stores/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300">
+            View All Stores →
+          </a>
+        </div>
 
-          <!-- Set 2 (Seamless loop duplicate) -->
-          <div class="marquee-group flex items-center gap-5 shrink-0" aria-hidden="true">
-            {tickerStores.map(store => (
-              <button
-                type="button"
-                data-filter-store={store.name}
-                class="store-strip-pill shrink-0 flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-transparent hover:bg-slate-100 dark:hover:bg-white/10 transition-all cursor-pointer group"
-                title={`Filter by ${store.name}`}
-              >
-                <div class="shrink-0 monochrome-logo-box w-7 h-7 flex items-center justify-center">
-                  <BrandLogo store={store} size="sm" class="!border-0 !shadow-none !bg-transparent w-7 h-7" />
-                </div>
-                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-white transition whitespace-nowrap">
-                  {store.name}
-                </span>
-              </button>
-            ))}
+        <!-- Carousel / Marquee Track inside container -->
+        <div class="relative w-full overflow-hidden marquee-wrapper py-1">
+          <!-- Subtle Gradient Fade Edges -->
+          <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-slate-50 dark:from-canvas-dark to-transparent z-10"></div>
+          <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-slate-50 dark:from-canvas-dark to-transparent z-10"></div>
+
+          <div class="marquee-track flex items-center gap-4 w-max">
+            <!-- Set 1 -->
+            <div class="marquee-group flex items-center gap-3 shrink-0">
+              {tickerStores.map(store => (
+                <button
+                  type="button"
+                  data-filter-store={store.name}
+                  class="store-strip-pill shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-xl cursor-pointer group"
+                  title={`Filter by ${store.name}`}
+                >
+                  <div class="shrink-0 monochrome-logo-box w-7 h-7 flex items-center justify-center">
+                    <BrandLogo store={store} size="sm" class="!border-0 !shadow-none !bg-transparent w-7 h-7" />
+                  </div>
+                  <span class="text-xs font-semibold text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-white transition whitespace-nowrap">
+                    {store.name}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            <!-- Set 2 (Seamless loop duplicate) -->
+            <div class="marquee-group flex items-center gap-3 shrink-0" aria-hidden="true">
+              {tickerStores.map(store => (
+                <button
+                  type="button"
+                  data-filter-store={store.name}
+                  class="store-strip-pill shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-xl cursor-pointer group"
+                  title={`Filter by ${store.name}`}
+                >
+                  <div class="shrink-0 monochrome-logo-box w-7 h-7 flex items-center justify-center">
+                    <BrandLogo store={store} size="sm" class="!border-0 !shadow-none !bg-transparent w-7 h-7" />
+                  </div>
+                  <span class="text-xs font-semibold text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-white transition whitespace-nowrap">
+                    {store.name}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -1787,9 +1809,9 @@ const homeSchemas = [
         currentStore = currentStore === sName ? null : sName;
         document.querySelectorAll('.store-strip-pill').forEach(b => {
           if (b.getAttribute('data-filter-store') === currentStore) {
-            b.classList.add('bg-indigo-50', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
+            b.classList.add('is-active', 'bg-indigo-100/70', 'dark:bg-white/20');
           } else {
-            b.classList.remove('bg-indigo-50', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
+            b.classList.remove('is-active', 'bg-indigo-100/70', 'dark:bg-white/20');
           }
         });
         filterDeals();
@@ -1799,7 +1821,7 @@ const homeSchemas = [
     document.getElementById('clearStoreFilterBtn')?.addEventListener('click', () => {
       currentStore = null;
       document.querySelectorAll('.store-strip-pill').forEach(b => {
-        b.classList.remove('bg-indigo-50', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
+        b.classList.remove('is-active', 'bg-indigo-100/70', 'dark:bg-white/20');
       });
       filterDeals();
     });
@@ -2206,9 +2228,9 @@ const homeSchemas = [
         currentStore = sName;
         document.querySelectorAll('.store-strip-pill').forEach(b => {
           if (b.getAttribute('data-filter-store') === currentStore) {
-            b.classList.add('bg-indigo-50', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
+            b.classList.add('is-active', 'bg-indigo-100/70', 'dark:bg-white/20');
           } else {
-            b.classList.remove('bg-indigo-50', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
+            b.classList.remove('is-active', 'bg-indigo-100/70', 'dark:bg-white/20');
           }
         });
         filterDeals();

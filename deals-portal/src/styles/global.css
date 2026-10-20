@@ -405,7 +405,7 @@ html.dark .border-rose-200\/80 {
 }
 
 
-/* Partner Store Infinite Ticker Animation (Smooth Left-to-Right) */
+/* Partner Store Infinite Ticker Animation (Smooth, Organic, Borderless Flow) */
 @keyframes marquee-ltr {
   0% {
     transform: translate3d(-50%, 0, 0);
@@ -416,14 +416,14 @@ html.dark .border-rose-200\/80 {
 }
 
 .marquee-wrapper {
-  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
 }
 
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee-ltr 42s linear infinite;
+  animation: marquee-ltr 48s linear infinite;
   will-change: transform;
   transform: translate3d(0, 0, 0);
 }
@@ -432,13 +432,24 @@ html.dark .border-rose-200\/80 {
   animation-play-state: paused;
 }
 
-/* Borderless Store Strip Pills with Soft Hover */
+/* Borderless Store Strip Pills with Soft Hover (Strictly No Borders / Rings) */
 .store-strip-pill {
-  border: none !important;
+  border: 0 !important;
   outline: none !important;
   box-shadow: none !important;
-  background-color: transparent !important;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  -webkit-tap-highlight-color: transparent !important;
+  background-color: transparent;
+  transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.store-strip-pill:hover,
+.store-strip-pill:focus,
+.store-strip-pill:active,
+.store-strip-pill.is-active {
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  ring: 0 !important;
 }
 
 .store-strip-pill:hover {
