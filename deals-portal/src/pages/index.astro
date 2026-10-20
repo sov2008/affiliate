@@ -653,63 +653,76 @@ const homeSchemas = [
       </div>
     </section>
 
-    <!-- Popular Partner Stores Strip (Constrained to Site Grid, Borderless & Elegant) -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-3">
-      <div class="relative overflow-hidden bg-slate-50/70 dark:bg-canvas-dark/60 rounded-2xl border border-slate-200/70 dark:border-white/10 py-3 px-4">
-        <div class="mb-2.5 flex items-center justify-between">
+    <!-- Popular Partner Stores (Clean, Borderless, Background-Free with Vertical Flow) -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-4">
+      <div class="relative py-1">
+        <div class="mb-3 flex items-center justify-between">
           <div class="flex items-center gap-2">
             <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Popular Partner Stores</span>
-            <span class="text-[11px] text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded-full dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">Click any brand to filter deals</span>
+            <span class="text-[11px] text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded-full dark:bg-indigo-500/15 dark:text-indigo-300">Click brand to filter</span>
           </div>
           <a href={`${base}/stores/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300">
             View All Stores →
           </a>
         </div>
 
-        <!-- Carousel / Marquee Track inside container -->
-        <div class="relative w-full overflow-hidden marquee-wrapper py-1">
-          <!-- Subtle Gradient Fade Edges -->
-          <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-slate-50 dark:from-canvas-dark to-transparent z-10"></div>
-          <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-slate-50 dark:from-canvas-dark to-transparent z-10"></div>
+        <!-- Vertical Upward Flow Stage -->
+        <div class="relative w-full overflow-hidden brand-vertical-stage min-h-[44px]">
+          <!-- Set 1 (Active by default) -->
+          <div id="brandVerticalRowA" class="brand-vertical-row flex items-center justify-between sm:justify-around flex-wrap gap-y-2 gap-x-4 transition-all duration-700 opacity-100 transform translate-y-0">
+            {tickerStores.slice(0, 7).map(store => (
+              <button
+                type="button"
+                data-filter-store={store.name}
+                class="store-strip-pill shrink-0 flex items-center gap-2 px-2.5 py-1.5 cursor-pointer group"
+                title={`Filter by ${store.name}`}
+              >
+                <div class="shrink-0 monochrome-logo-box w-7 h-7 flex items-center justify-center">
+                  <BrandLogo store={store} size="sm" unstyled={true} class="w-7 h-7" />
+                </div>
+                <span class="text-xs font-bold text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-white transition whitespace-nowrap">
+                  {store.name}
+                </span>
+              </button>
+            ))}
+          </div>
 
-          <div class="marquee-track flex items-center gap-4 w-max">
-            <!-- Set 1 -->
-            <div class="marquee-group flex items-center gap-3 shrink-0">
-              {tickerStores.map(store => (
-                <button
-                  type="button"
-                  data-filter-store={store.name}
-                  class="store-strip-pill shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-xl cursor-pointer group"
-                  title={`Filter by ${store.name}`}
-                >
-                  <div class="shrink-0 monochrome-logo-box w-7 h-7 flex items-center justify-center">
-                    <BrandLogo store={store} size="sm" class="!border-0 !shadow-none !bg-transparent w-7 h-7" />
-                  </div>
-                  <span class="text-xs font-semibold text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-white transition whitespace-nowrap">
-                    {store.name}
-                  </span>
-                </button>
-              ))}
-            </div>
+          <!-- Set 2 -->
+          <div id="brandVerticalRowB" class="brand-vertical-row hidden flex items-center justify-between sm:justify-around flex-wrap gap-y-2 gap-x-4 transition-all duration-700 opacity-0 transform translate-y-4">
+            {tickerStores.slice(7, 14).map(store => (
+              <button
+                type="button"
+                data-filter-store={store.name}
+                class="store-strip-pill shrink-0 flex items-center gap-2 px-2.5 py-1.5 cursor-pointer group"
+                title={`Filter by ${store.name}`}
+              >
+                <div class="shrink-0 monochrome-logo-box w-7 h-7 flex items-center justify-center">
+                  <BrandLogo store={store} size="sm" unstyled={true} class="w-7 h-7" />
+                </div>
+                <span class="text-xs font-bold text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-white transition whitespace-nowrap">
+                  {store.name}
+                </span>
+              </button>
+            ))}
+          </div>
 
-            <!-- Set 2 (Seamless loop duplicate) -->
-            <div class="marquee-group flex items-center gap-3 shrink-0" aria-hidden="true">
-              {tickerStores.map(store => (
-                <button
-                  type="button"
-                  data-filter-store={store.name}
-                  class="store-strip-pill shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-xl cursor-pointer group"
-                  title={`Filter by ${store.name}`}
-                >
-                  <div class="shrink-0 monochrome-logo-box w-7 h-7 flex items-center justify-center">
-                    <BrandLogo store={store} size="sm" class="!border-0 !shadow-none !bg-transparent w-7 h-7" />
-                  </div>
-                  <span class="text-xs font-semibold text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-white transition whitespace-nowrap">
-                    {store.name}
-                  </span>
-                </button>
-              ))}
-            </div>
+          <!-- Set 3 -->
+          <div id="brandVerticalRowC" class="brand-vertical-row hidden flex items-center justify-between sm:justify-around flex-wrap gap-y-2 gap-x-4 transition-all duration-700 opacity-0 transform translate-y-4">
+            {tickerStores.slice(14).map(store => (
+              <button
+                type="button"
+                data-filter-store={store.name}
+                class="store-strip-pill shrink-0 flex items-center gap-2 px-2.5 py-1.5 cursor-pointer group"
+                title={`Filter by ${store.name}`}
+              >
+                <div class="shrink-0 monochrome-logo-box w-7 h-7 flex items-center justify-center">
+                  <BrandLogo store={store} size="sm" unstyled={true} class="w-7 h-7" />
+                </div>
+                <span class="text-xs font-bold text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-white transition whitespace-nowrap">
+                  {store.name}
+                </span>
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -1825,6 +1838,41 @@ const homeSchemas = [
       });
       filterDeals();
     });
+
+    // Smooth Upward Float & Fade Brand Switcher
+    const brandRows = [
+      document.getElementById('brandVerticalRowA'),
+      document.getElementById('brandVerticalRowB'),
+      document.getElementById('brandVerticalRowC')
+    ].filter(Boolean);
+
+    let activeRowIndex = 0;
+    if (brandRows.length > 1) {
+      setInterval(() => {
+        const currentRow = brandRows[activeRowIndex];
+        activeRowIndex = (activeRowIndex + 1) % brandRows.length;
+        const nextRow = brandRows[activeRowIndex];
+
+        if (currentRow && nextRow) {
+          // Slide & Fade current row upward
+          currentRow.classList.remove('opacity-100', 'translate-y-0');
+          currentRow.classList.add('opacity-0', '-translate-y-4');
+
+          setTimeout(() => {
+            currentRow.classList.add('hidden');
+            currentRow.classList.remove('-translate-y-4');
+            currentRow.classList.add('translate-y-4');
+
+            // Bring in next row from slightly below
+            nextRow.classList.remove('hidden');
+            // Force browser reflow
+            void nextRow.offsetHeight;
+            nextRow.classList.remove('opacity-0', 'translate-y-4');
+            nextRow.classList.add('opacity-100', 'translate-y-0');
+          }, 350);
+        }
+      }, 4500);
+    }
 
     document.getElementById('resetMainFiltersBtn')?.addEventListener('click', () => {
       currentCategory = 'ALL';

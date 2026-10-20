@@ -10,10 +10,11 @@ interface Props {
     logoText?: string;
   };
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  unstyled?: boolean;
   class?: string;
 }
 
-const { store, size = 'md', class: className = '' } = Astro.props;
+const { store, size = 'md', unstyled = false, class: className = '' } = Astro.props;
 
 // Domain resolution for logos using registry first, then cleanDomain, then websiteUrl
 let domain = getStoreDomain(store.name) || getStoreDomain(store.slug) || store.cleanDomain || '';
@@ -44,7 +45,10 @@ const paddingClasses = {
 };
 
 const containerSize = sizeClasses[size] || sizeClasses.md;
-const pad = paddingClasses[size] || paddingClasses.md;
+const pad = unstyled ? 'p-0' : (paddingClasses[size] || paddingClasses.md);
+const styleClasses = unstyled
+  ? 'bg-transparent border-0 shadow-none rounded-none'
+  : 'bg-white border border-slate-200/90 shadow-xs';
 
 // Multi-Tier Logo sources:
 // Tier 1: Clearbit Logo API
@@ -53,7 +57,7 @@ const clearbitUrl = domain ? `https://logo.clearbit.com/${domain}` : '';
 const googleFaviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '';
 ---
 
-<div class={`brand-logo-container brand-logo-box relative ${containerSize} ${pad} bg-white border border-slate-200/90 shadow-xs flex items-center justify-center shrink-0 overflow-hidden group ${className}`}>
+<div class={`brand-logo-container brand-logo-box relative ${containerSize} ${pad} ${styleClasses} flex items-center justify-center shrink-0 overflow-hidden group ${className}`}>
   {domain ? (
     <img
       src={clearbitUrl}
