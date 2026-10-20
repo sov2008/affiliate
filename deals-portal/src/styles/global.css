@@ -472,6 +472,19 @@ html.dark .border-rose-200\/80 {
   padding: 0 !important;
 }
 
+.monochrome-logo-box svg {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  opacity: 0.75;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.store-strip-pill:hover .monochrome-logo-box svg {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
 .monochrome-logo-box img {
   filter: grayscale(100%) opacity(70%);
   transition: filter 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -513,6 +526,14 @@ html.dark .border-rose-200\/80 {
 
 html.dark .monochrome-logo-box img {
   filter: grayscale(100%) brightness(140%) opacity(75%);
+}
+
+html.dark .monochrome-logo-box svg {
+  opacity: 0.85;
+}
+
+html.dark .store-strip-pill:hover .monochrome-logo-box svg {
+  opacity: 1;
 }
 
 html.dark .store-strip-pill:hover .monochrome-logo-box img {

@@ -1,5 +1,6 @@
 ---
 import { getStoreDomain } from '../data/storeDomains';
+import { BRAND_VECTOR_SVGS } from '../data/brandVectorIcons';
 
 interface Props {
   store: {
@@ -15,6 +16,9 @@ interface Props {
 }
 
 const { store, size = 'md', unstyled = false, class: className = '' } = Astro.props;
+
+// Check for direct pure vector SVG mark first
+const vectorSvg = BRAND_VECTOR_SVGS[store.slug] || BRAND_VECTOR_SVGS[store.name.toLowerCase().replace(/\s+/g, '')] || '';
 
 // Domain resolution for logos using registry first, then cleanDomain, then websiteUrl
 let domain = getStoreDomain(store.name) || getStoreDomain(store.slug) || store.cleanDomain || '';
@@ -58,7 +62,9 @@ const googleFaviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${d
 ---
 
 <div class={`brand-logo-container brand-logo-box relative ${containerSize} ${pad} ${styleClasses} flex items-center justify-center shrink-0 overflow-hidden group ${className}`}>
-  {domain ? (
+  {vectorSvg ? (
+    <div class="w-full h-full flex items-center justify-center" set:html={vectorSvg} />
+  ) : domain ? (
     <img
       src={clearbitUrl}
       alt={`${store.name} logo`}
@@ -76,10 +82,12 @@ const googleFaviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${d
     />
   ) : null}
 
-  <!-- Tier 3: Styled gradient monogram badge fallback -->
-  <div
-    class={`brand-logo-monogram w-full h-full rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-rose-600 text-white font-black items-center justify-center shadow-inner ${domain ? 'hidden' : 'flex'}`}
-  >
-    {initials}
-  </div>
+  <!-- Tier 3: Styled gradient monogram badge fallback (only when no vector & no domain) -->
+  {!vectorSvg && (
+    <div
+      class={`brand-logo-monogram w-full h-full rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-rose-600 text-white font-black items-center justify-center shadow-inner ${domain ? 'hidden' : 'flex'}`}
+    >
+      {initials}
+    </div>
+  )}
 </div>
