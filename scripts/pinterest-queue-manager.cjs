@@ -921,42 +921,38 @@ class PinterestQueueManager {
       await page.waitForTimeout(3500);
 
       // 2. Title (Ensure React controlled component is filled and verified)
-      log('Filling Title...');
+      log('Filling Title via keyboard simulation...');
       const titleInput = page.locator('textarea[id*="pin-draft-title"], textarea[placeholder*="название" i], textarea[placeholder*="title" i], [data-test-id="editor-title"] textarea').first();
       await titleInput.waitFor({ state: 'visible', timeout: 8000 });
       const pinTitle = (item.hookTitle || generateHookTitle(item.title)).substring(0, 99);
-      await titleInput.fill(pinTitle);
-      let curTitle = await titleInput.inputValue().catch(() => '');
-      if (!curTitle) {
-        await titleInput.click();
-        await page.keyboard.press('Control+A');
-        await page.keyboard.insertText(pinTitle);
-      }
+      await titleInput.click();
+      await page.keyboard.press('Control+A');
+      await page.keyboard.press('Backspace');
+      await page.keyboard.type(pinTitle, { delay: 10 });
       log(`Title status: "${await titleInput.inputValue()}" ✅`);
 
       // 3. High-Converting SEO Description
-      log('Filling High-Converting Pinterest SEO Description...');
+      log('Filling High-Converting Pinterest SEO Description via keyboard simulation...');
       const descArea = page.locator('div[aria-label*="описание пина" i], div[contenteditable="true"], [data-test-id="editor-description"] div[contenteditable="true"]').first();
       if (await descArea.isVisible({ timeout: 5000 }).catch(() => false)) {
         await descArea.click();
+        await page.keyboard.press('Control+A');
+        await page.keyboard.press('Backspace');
         const descText = this.generatePinDescription(item);
-        await descArea.fill(descText);
+        await page.keyboard.type(descText, { delay: 5 });
         log('Description filled ✅');
       }
 
       // 4. Destination Link (Optional / Omitted when pending domain whitelist)
       if (!CONFIG.omitDestinationLink && item.targetUrl) {
-        log(`Filling Destination Link: ${item.targetUrl}...`);
+        log(`Filling Destination Link: ${item.targetUrl} via keyboard simulation...`);
         const linkInput = page.locator('textarea[id*="pin-draft-link"], textarea[placeholder*="целевую ссылку" i], textarea[placeholder*="ссылк" i], textarea[placeholder*="destination" i], input[placeholder*="link" i]').first();
         await linkInput.waitFor({ state: 'visible', timeout: 8000 });
-        await linkInput.fill(item.targetUrl);
-        let curLink = await linkInput.inputValue().catch(() => '');
-        if (!curLink) {
-          await linkInput.click();
-          await page.keyboard.press('Control+A');
-          await page.keyboard.insertText(item.targetUrl);
-        }
-        curLink = await linkInput.inputValue().catch(() => '');
+        await linkInput.click();
+        await page.keyboard.press('Control+A');
+        await page.keyboard.press('Backspace');
+        await page.keyboard.type(item.targetUrl, { delay: 10 });
+        const curLink = await linkInput.inputValue().catch(() => '');
         if (!curLink || !curLink.startsWith('http')) {
           throw new Error(`CRITICAL: Destination link was NOT set for ${item.slug}. Aborting publish to prevent untitled/broken pins.`);
         }
