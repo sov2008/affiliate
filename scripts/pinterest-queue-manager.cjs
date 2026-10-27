@@ -1051,8 +1051,8 @@ class PinterestQueueManager {
       // 7. Wait for success confirmation or network API response
       log('⏳ Waiting for Pinterest to process and confirm pin creation...');
       let confirmed = false;
-      for (let i = 1; i <= 12; i++) {
-        await page.waitForTimeout(2000);
+      for (let i = 1; i <= 15; i++) {
+        await page.waitForTimeout(1500);
         if (createdPinId) {
           confirmed = true;
           log(`🎉 Pinterest confirmed pin creation via PinResource API! Pin ID: ${createdPinId}`);
@@ -1068,9 +1068,25 @@ class PinterestQueueManager {
             break;
           }
         }
-        const modal = await page.$('text="Вы создали пин", [aria-label="Вы создали пин"], button:has-text("Открыть пин"), text="Сохранено на доске", text="Pin created"');
+        
+        // Comprehensive check for Pinterest success toast / notification / modal
+        const toasts = await page.$eval('[role="alert"], [data-test-id*="toast"], div[class*="toast"], div[class*="alert"]', els => els.map(e => (e.innerText || '').trim()));
+        const successToast = toasts.find(t => 
+          t.includes('Сохранено на доске') || 
+          t.includes('Вы создали пин') || 
+          t.includes('Pin created') || 
+          t.includes('Saved to') ||
+          t.includes('создан')
+        );
+        if (successToast) {
+          log(`🎉 Pinterest confirmed pin creation via toast: "${successToast}" at ${i * 1.5}s!`);
+          confirmed = true;
+          break;
+        }
+
+        const modal = await page.$('text="Вы создали пин", [aria-label="Вы создали пин"], button:has-text("Открыть пин"), text="Сохранено на доске", text="Pin created", a[href*="/pin/"]');
         if (modal) {
-          log(`🎉 Pinterest confirmed pin creation via toast/modal at ${i * 2}s!`);
+          log(`🎉 Pinterest confirmed pin creation via modal/link at ${i * 1.5}s!`);
           confirmed = true;
           break;
         }
