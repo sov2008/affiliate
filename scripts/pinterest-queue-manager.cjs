@@ -706,40 +706,54 @@ class PinterestQueueManager {
       const isAlreadyPublished = !!(state.published && state.published[slug]);
       const creativeExists = fs.existsSync(creativePath);
 
-      let existing = this.queue.find(item => item.slug === slug);
-      if (!existing) {
-        existing = {
-          slug,
-          title,
-          description: desc,
-          category,
-          caseId,
-          coverImage: cover,
-          targetUrl: `${CONFIG.domain}/${slug}/?utm_source=pinterest&utm_medium=social&utm_campaign=${slug}`,
-          board: (CATEGORY_MAP[category] && CATEGORY_MAP[category].board) || CONFIG.boardName,
-          status: isAlreadyPublished ? 'published' : (creativeExists ? 'ready' : 'pending'),
-          creativePath,
-          createdAt: new Date().toISOString(),
-          publishedAt: isAlreadyPublished ? (state.published[slug].publishedAt || new Date().toISOString()) : null,
-          attempts: 0
-        };
-        this.queue.push(existing);
-        addedCount++;
-      } else {
-        existing.title = title;
-        existing.description = desc;
-        existing.coverImage = cover;
-        existing.caseId = caseId;
-        existing.targetUrl = `${CONFIG.domain}/${slug}/?utm_source=pinterest&utm_medium=social&utm_campaign=${slug}`;
-        existing.board = (CATEGORY_MAP[category] && CATEGORY_MAP[category].board) || CONFIG.boardName;
-        existing.creativePath = creativePath;
-        if (isAlreadyPublished) {
-          existing.status = 'published';
-          if (!existing.publishedAt) {
-            existing.publishedAt = state.published[slug].publishedAt || new Date().toISOString();
+      const primaryMode = (CATEGORY_MAP[category] && CATEGORY_MAP[category].mode) || 'editorial';
+      const modesToSupport = [primaryMode, primaryMode === 'chat' ? 'checklist' : 'chat'];
+
+      for (const m of modesToSupport) {
+        const itemKey = m === primaryMode ? slug : `${slug}-${m}`;
+        const creativePathVar = path.join(CONFIG.pinsOutputDir, `pin_${itemKey}.png`);
+        const isPublished = !!(state.published && (state.published[itemKey] || (m === primaryMode && state.published[slug])));
+        const creativeExistsVar = fs.existsSync(creativePathVar);
+
+        let existing = this.queue.find(item => (item.key || item.slug) === itemKey);
+        if (!existing) {
+          existing = {
+            key: itemKey,
+            slug,
+            mode: m,
+            title,
+            description: desc,
+            category,
+            caseId,
+            coverImage: cover,
+            targetUrl: `${CONFIG.domain}/${slug}/?utm_source=pinterest&utm_medium=social&utm_campaign=${itemKey}`,
+            board: (CATEGORY_MAP[category] && CATEGORY_MAP[category].board) || CONFIG.boardName,
+            status: isPublished ? 'published' : (creativeExistsVar ? 'ready' : 'pending'),
+            creativePath: creativePathVar,
+            createdAt: new Date().toISOString(),
+            publishedAt: isPublished ? ((state.published[itemKey] && state.published[itemKey].publishedAt) || (state.published[slug] && state.published[slug].publishedAt) || new Date().toISOString()) : null,
+            attempts: 0
+          };
+          this.queue.push(existing);
+          addedCount++;
+        } else {
+          existing.key = itemKey;
+          existing.mode = m;
+          existing.title = title;
+          existing.description = desc;
+          existing.coverImage = cover;
+          existing.caseId = caseId;
+          existing.targetUrl = `${CONFIG.domain}/${slug}/?utm_source=pinterest&utm_medium=social&utm_campaign=${itemKey}`;
+          existing.board = (CATEGORY_MAP[category] && CATEGORY_MAP[category].board) || CONFIG.boardName;
+          existing.creativePath = creativePathVar;
+          if (isPublished) {
+            existing.status = 'published';
+            if (!existing.publishedAt) {
+              existing.publishedAt = (state.published[itemKey] && state.published[itemKey].publishedAt) || (state.published[slug] && state.published[slug].publishedAt) || new Date().toISOString();
+            }
+          } else if (existing.status !== 'published') {
+            existing.status = creativeExistsVar ? 'ready' : 'pending';
           }
-        } else if (existing.status !== 'published') {
-          existing.status = creativeExists ? 'ready' : 'pending';
         }
       }
     }
@@ -1037,7 +1051,8 @@ class PinterestQueueManager {
           ? JSON.parse(fs.readFileSync(CONFIG.stateFile, 'utf8'))
           : { published: {}, lastRunAt: null, dailyCount: 0, lastDailyReset: new Date().toDateString() };
         state.published = state.published || {};
-        state.published[item.slug] = {
+        const pubKey = item.key || item.slug;
+        state.published[pubKey] = {
           publishedAt: item.publishedAt,
           title: item.title,
           pinUrl: pinDirectUrl,

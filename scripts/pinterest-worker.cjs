@@ -180,7 +180,7 @@ async function executePublicationCycle(options = {}) {
       throw new Error(`Target post "${options.targetSlug}" not found in queue!`);
     }
   } else {
-    targetItem = manager.queue.find((i) => (i.status === 'ready' || i.status === 'pending') && !publishedSlugs.has(i.slug));
+    targetItem = manager.queue.find((i) => (i.status === 'ready' || i.status === 'pending') && !publishedSlugs.has(i.key || i.slug));
   }
 
   if (!targetItem) {
@@ -198,7 +198,7 @@ async function executePublicationCycle(options = {}) {
   );
 
   // 4. Update persistent state
-  stateMgr.recordPublication(targetItem.slug, {
+  stateMgr.recordPublication(targetItem.key || targetItem.slug, {
     title: targetItem.title,
     pinUrl: targetItem.pinUrl || 'published',
     board: targetItem.board || CONFIG.boardName,
