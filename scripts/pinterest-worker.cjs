@@ -201,7 +201,7 @@ async function executePublicationCycle(options = {}) {
   stateMgr.recordPublication(targetItem.slug, {
     title: targetItem.title,
     pinUrl: targetItem.pinUrl || 'published',
-    board: CONFIG.boardName,
+    board: targetItem.board || CONFIG.boardName,
     directArticleUrl: targetItem.targetUrl,
   });
 
