@@ -37,10 +37,11 @@ const CONFIG = {
   stateFile: path.resolve(__dirname, '../.antigravity/pinterest_state.json'),
   cookiesFile: path.resolve(__dirname, '../pinterest_cookies.json'),
   pinsOutputDir: path.resolve(__dirname, '../scratch/pins'),
-  boardName: 'MoneyCash.pw',
+  boardName: 'FlirtCheck',
+  fallbackBoard: 'MoneyCash.pw',
   domain: 'https://flirtcheck.site',
   minIntervalMs: 60 * 1000,
-  omitDestinationLink: process.env.PINTEREST_INCLUDE_LINK === 'true' ? false : true,
+  omitDestinationLink: process.env.PINTEREST_OMIT_LINK === 'true',
 };
 
 // Ensure directories
@@ -646,6 +647,13 @@ function resolveEditorialTheme(title, slug, category = '') {
   };
 }
 
+function resolveTargetBoard(item) {
+  if (item && item.category && CATEGORY_MAP[item.category] && CATEGORY_MAP[item.category].board) {
+    return CATEGORY_MAP[item.category].board;
+  }
+  return CONFIG.boardName || 'FlirtCheck';
+}
+
 class PinterestQueueManager {
   constructor() {
     this.queue = [];
@@ -707,7 +715,8 @@ class PinterestQueueManager {
           category,
           caseId,
           coverImage: cover,
-          targetUrl: `${CONFIG.domain}/${slug}/`,
+          targetUrl: `${CONFIG.domain}/${slug}/?utm_source=pinterest&utm_medium=social&utm_campaign=${slug}`,
+          board: (CATEGORY_MAP[category] && CATEGORY_MAP[category].board) || CONFIG.boardName,
           status: isAlreadyPublished ? 'published' : (creativeExists ? 'ready' : 'pending'),
           creativePath,
           createdAt: new Date().toISOString(),
@@ -721,7 +730,8 @@ class PinterestQueueManager {
         existing.description = desc;
         existing.coverImage = cover;
         existing.caseId = caseId;
-        existing.targetUrl = `${CONFIG.domain}/${slug}/`;
+        existing.targetUrl = `${CONFIG.domain}/${slug}/?utm_source=pinterest&utm_medium=social&utm_campaign=${slug}`;
+        existing.board = (CATEGORY_MAP[category] && CATEGORY_MAP[category].board) || CONFIG.boardName;
         existing.creativePath = creativePath;
         if (isAlreadyPublished) {
           existing.status = 'published';
@@ -944,18 +954,27 @@ class PinterestQueueManager {
       }
 
       // 6. Board Selection & Publish
-      log(`Ensuring board "${CONFIG.boardName}" is selected...`);
+      const targetBoard = item.board || resolveTargetBoard(item);
+      log(`Ensuring target board "${targetBoard}" (fallback: "${CONFIG.boardName}") is selected...`);
       const boardButton = await page.$('[data-test-id="board-dropdown-select-button"]');
       const boardText = boardButton ? await boardButton.innerText() : '';
       
-      if (!boardText.includes(CONFIG.boardName)) {
+      if (!boardText.includes(targetBoard)) {
         if (boardButton) {
           await boardButton.click();
           await page.waitForTimeout(1500);
-          const boardRow = await page.$(`[data-test-id="board-row"]:has-text("${CONFIG.boardName}")`);
+          let boardRow = await page.$(`[data-test-id="board-row"]:has-text("${targetBoard}")`);
+          if (!boardRow && CONFIG.boardName) {
+            boardRow = await page.$(`[data-test-id="board-row"]:has-text("${CONFIG.boardName}")`);
+          }
+          if (!boardRow && CONFIG.fallbackBoard) {
+            boardRow = await page.$(`[data-test-id="board-row"]:has-text("${CONFIG.fallbackBoard}")`);
+          }
           if (boardRow) {
             await boardRow.click();
             await page.waitForTimeout(1000);
+          } else {
+            log(`Target board "${targetBoard}" not in list, keeping current selection`);
           }
         }
       }
@@ -1020,7 +1039,7 @@ class PinterestQueueManager {
           publishedAt: item.publishedAt,
           title: item.title,
           pinUrl: pinDirectUrl,
-          board: CONFIG.boardName,
+          board: targetBoard || CONFIG.boardName,
           directArticleUrl: item.targetUrl,
           destinationLink: item.targetUrl
         };
