@@ -946,7 +946,9 @@ class PinterestQueueManager {
         }
         const altInput = page.locator('textarea[placeholder*="альтернативн"], textarea[placeholder*="alt text" i], [aria-label*="альтернативн"]').first();
         if (await altInput.isVisible({ timeout: 1500 }).catch(() => false)) {
-          await altInput.fill(`Infographic guide: ${item.title}. Dating app safety checklist, chat analysis, and profile verification breakdown.`);
+          const categoryTag = (item.category || '').replace(/-/g, ' ');
+          const altText = `Visual guide and infographic: ${item.title}. ${categoryTag} dating guide, safety checklist, and verification protocols.`;
+          await altInput.fill(altText.slice(0, 480));
           log('Alt text successfully filled for Pinterest Visual Search.');
         }
       } catch (altErr) {

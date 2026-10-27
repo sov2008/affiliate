@@ -436,19 +436,35 @@ function parseArticleContent(slugOrPath) {
 /**
  * Builds Pinterest SEO description starting with mandatory Save CTA
  */
+const CATEGORY_HASHTAGS = {
+  'digital-dialogue': '#DatingTexting #TextingTips #DatingAppOpeners #HingeConversation #TinderTips #DatingAdvice #FlirtCheck',
+  'first-dates': '#FirstDateTips #FirstDateIdeas #DatingSafety #FirstDateRedFlags #DatingAdvice #RelationshipGoals #FlirtCheck',
+  'modern-psychology': '#DatingPsychology #DatingRedFlags #AttachmentStyles #RelationshipAdvice #LoveBombing #HealthyDating #FlirtCheck',
+  'romantic-essays': '#DatingReflections #ModernDating #RelationshipInsights #DatingBurnout #SlowDating #IntentionalDating #FlirtCheck',
+  'algo-mechanics': '#TinderAlgorithm #BumbleTips #HingeAlgorithm #DatingProfileTips #ShadowbanCheck #DatingAppHacks #FlirtCheck',
+  'safety-dossier': '#RomanceScams #Catfishing #OnlineDatingSafety #DeepfakeDetection #ScamWarning #StaySafeOnline #FlirtCheck'
+};
+
 function buildSeoDescription(article) {
-  const cta = 'Save this dating guide for your next match!';
-  const hook = `${cta} Practical advice on ${article.hookTitle.toLowerCase()} to keep your dating pipeline safe, fun, and high-value.`;
+  const cta = 'Save this actionable dating guide to your board!';
+  const hook = `${cta} Expert breakdown: ${article.hookTitle}. Protect your heart, optimize your matches, and spot red flags early.`;
   
   let desc = `📌 ${hook}\n\n`;
-  desc += `🚨 Key Takeaways:\n`;
-  article.takeaways.slice(0, 3).forEach((t, i) => {
-    desc += `• Step 0${i + 1}: ${t.title} – ${t.desc}\n`;
-  });
-  desc += `\n👉 Read full guide & access interactive scripts at:\n${article.targetUrl}\n\n`;
-  desc += `#DatingSafety #OnlineDatingTips #DatingAdvice #DatingRedFlags #TextingScripts #TinderTips #BumbleAdvice #HingeDating #FlirtCheck #ModernDating`;
+  if (article.takeaways && article.takeaways.length > 0) {
+    desc += `🔍 Core Insights & Checklist:\n`;
+    article.takeaways.slice(0, 3).forEach((t, i) => {
+      desc += `✓ 0${i + 1}. ${t.title}: ${t.desc}\n`;
+    });
+    desc += `\n`;
+  }
   
-  return desc.slice(0, 490);
+  const tags = (article.category && CATEGORY_HASHTAGS[article.category]) 
+    ? CATEGORY_HASHTAGS[article.category] 
+    : '#DatingSafety #OnlineDatingTips #DatingAdvice #DatingRedFlags #FlirtCheck';
+    
+  desc += `👉 Full investigation & protocols: ${article.targetUrl}\n\n${tags}`;
+  
+  return desc.length > 495 ? desc.slice(0, 495) : desc;
 }
 
 /**
