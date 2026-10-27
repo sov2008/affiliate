@@ -1070,7 +1070,7 @@ class PinterestQueueManager {
         }
         
         // Comprehensive check for Pinterest success toast / notification / modal
-        const toasts = await page.$eval('[role="alert"], [data-test-id*="toast"], div[class*="toast"], div[class*="alert"]', els => els.map(e => (e.innerText || '').trim()));
+        const toasts = await page.$eval('[role="alert"], [data-test-id*="toast"], div[class*="toast"], div[class*="alert"]', els => els.map(e => (e.innerText || '').trim())).catch(() => []);
         const successToast = toasts.find(t => 
           t.includes('Сохранено на доске') || 
           t.includes('Вы создали пин') || 
