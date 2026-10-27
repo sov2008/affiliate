@@ -889,6 +889,20 @@ class PinterestQueueManager {
     try {
       await page.goto('https://www.pinterest.com/pin-builder/', { waitUntil: 'domcontentloaded', timeout: 45000 });
       await page.waitForTimeout(4000);
+      let createdPinId = null;
+      page.on('response', async res => {
+        if (res.url().includes('PinResource/create')) {
+          try {
+            const json = await res.json();
+            const nodeId = json.resource_response?.data?.node_id;
+            if (nodeId) {
+              const raw = Buffer.from(nodeId, 'base64').toString('utf8');
+              createdPinId = raw.replace('Pin:', '');
+            }
+          } catch (e) {}
+        }
+      });
+
 
       // Dismiss any tour modals / overlays
       for (let i = 0; i < 2; i++) {
@@ -979,52 +993,82 @@ class PinterestQueueManager {
         if (boardButton) {
           await boardButton.click();
           await page.waitForTimeout(1500);
-          let boardRow = await page.$(`[data-test-id="board-row"]:has-text("${targetBoard}")`);
+
+          // Try finding board row across different Pinterest DOM selector variations
+          let boardRow = await page.$(`[data-test-id="board-row-${targetBoard}"], [data-test-id="board-row"]:has-text("${targetBoard}")`);
           if (!boardRow && CONFIG.boardName) {
-            boardRow = await page.$(`[data-test-id="board-row"]:has-text("${CONFIG.boardName}")`);
+            boardRow = await page.$(`[data-test-id="board-row-${CONFIG.boardName}"], [data-test-id="board-row"]:has-text("${CONFIG.boardName}")`);
           }
           if (!boardRow && CONFIG.fallbackBoard) {
-            boardRow = await page.$(`[data-test-id="board-row"]:has-text("${CONFIG.fallbackBoard}")`);
+            boardRow = await page.$(`[data-test-id="board-row-${CONFIG.fallbackBoard}"], [data-test-id="board-row"]:has-text("${CONFIG.fallbackBoard}")`);
           }
+
           if (boardRow) {
             await boardRow.click();
             await page.waitForTimeout(1000);
           } else {
-            log(`Target board "${targetBoard}" not in list, keeping current selection`);
+            // Check if we can create the board on the fly
+            const createBoardBtn = await page.$('[data-test-id="create-board-button"], div:has-text("Создать доску"), button:has-text("Создать доску")');
+            if (createBoardBtn) {
+              log(`Target board "${targetBoard}" not found. Creating new board "${targetBoard}"...`);
+              await createBoardBtn.click();
+              await page.waitForTimeout(1500);
+              const nameInput = await page.$('input[id*="board-name"], input[placeholder*="Название"], input[name*="name"]');
+              if (nameInput) {
+                await nameInput.fill(targetBoard);
+                await page.waitForTimeout(500);
+                const submitCreateBtn = await page.$('button[type="submit"]:has-text("Создать"), button:has-text("Создать"), [data-test-id="board-creation-submit"]');
+                if (submitCreateBtn) {
+                  await submitCreateBtn.click();
+                  log(`Created and selected board "${targetBoard}" ✅`);
+                  await page.waitForTimeout(2500);
+                }
+              }
+            } else {
+              log(`Target board "${targetBoard}" not in list and create button not found, keeping current selection`);
+            }
+          }
+
+          // Ensure flyout is dismissed so it never covers the Publish button
+          const flyout = await page.$('[data-test-id="board-picker-flyout"]');
+          if (flyout) {
+            await page.keyboard.press('Escape');
+            await page.waitForTimeout(800);
           }
         }
       }
 
-      let createdPinId = null;
-      page.on('response', async res => {
-        if (res.url().includes('PinResource/create')) {
-          try {
-            const json = await res.json();
-            const nodeId = json.resource_response?.data?.node_id;
-            if (nodeId) {
-              const raw = Buffer.from(nodeId, 'base64').toString('utf8');
-              createdPinId = raw.replace('Pin:', '');
-            }
-          } catch (e) {}
-        }
-      });
-
       log('🚀 Clicking Publish button...');
       const publishBtn = await page.$('[data-test-id="board-dropdown-save-button"], button:has-text("Опубликовать"), button:has-text("Сохранить")');
       if (!publishBtn) throw new Error('Publish button not found');
+      
+      const isBtnEnabled = await publishBtn.isEnabled().catch(() => true);
+      if (!isBtnEnabled) {
+        log('Publish button appears disabled, checking form fields...');
+      }
       await publishBtn.click({ force: true });
 
       // 7. Wait for success confirmation or network API response
       log('⏳ Waiting for Pinterest to process and confirm pin creation...');
       let confirmed = false;
-      for (let i = 1; i <= 10; i++) {
+      for (let i = 1; i <= 12; i++) {
         await page.waitForTimeout(2000);
         if (createdPinId) {
           confirmed = true;
           log(`🎉 Pinterest confirmed pin creation via PinResource API! Pin ID: ${createdPinId}`);
           break;
         }
-        const modal = await page.$('text="Вы создали пин", [aria-label="Вы создали пин"], button:has-text("Открыть пин"), text="Сохранено на доске"');
+        const currentUrl = page.url();
+        if (currentUrl.includes('/pin/')) {
+          const m = currentUrl.match(/\/pin\/(\d+)/);
+          if (m && m[1]) {
+            createdPinId = m[1];
+            confirmed = true;
+            log(`🎉 Pinterest redirected to pin page! Pin ID: ${createdPinId}`);
+            break;
+          }
+        }
+        const modal = await page.$('text="Вы создали пин", [aria-label="Вы создали пин"], button:has-text("Открыть пин"), text="Сохранено на доске", text="Pin created"');
         if (modal) {
           log(`🎉 Pinterest confirmed pin creation via toast/modal at ${i * 2}s!`);
           confirmed = true;
@@ -1038,7 +1082,7 @@ class PinterestQueueManager {
         throw new Error(`CRITICAL: Pinterest did NOT confirm pin creation for "${item.slug}". Screenshot saved to ${failPath}. Aborting to prevent ghost published status.`);
       }
 
-      const pinDirectUrl = createdPinId ? `https://www.pinterest.com/pin/${createdPinId}/` : 'published';
+            const pinDirectUrl = createdPinId ? `https://www.pinterest.com/pin/${createdPinId}/` : 'published';
       item.status = 'published';
       item.pinUrl = pinDirectUrl;
       item.publishedAt = new Date().toISOString();
