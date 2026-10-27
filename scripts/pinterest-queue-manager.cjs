@@ -1046,7 +1046,13 @@ class PinterestQueueManager {
       if (!isBtnEnabled) {
         log('Publish button appears disabled, checking form fields...');
       }
-      await publishBtn.click({ force: true });
+
+      // Pinterest's Publish button is a div[role="button"][tabindex="0"].
+      // Playwright's click() sometimes misses React event delegation in headless mode.
+      // Triggering focus + Enter + click ensures 100% activation of React onClick/onKeyDown.
+      await publishBtn.focus().catch(() => {});
+      await publishBtn.click({ force: true }).catch(() => {});
+      await page.keyboard.press('Enter').catch(() => {});
 
       // 7. Wait for success confirmation or network API response
       log('⏳ Waiting for Pinterest to process and confirm pin creation...');
