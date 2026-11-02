@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import BrandLogo from '../../components/BrandLogo.astro';
 import { STORES_DATA, COUPONS_DATA } from '../../data/couponsData';
+import { getUniqueCleanStores } from '../../utils/dealNormalizer';
 
 export const prerender = true;
 
@@ -137,11 +138,13 @@ export async function getStaticPaths() {
     }
   ];
 
+  const cleanStores = getUniqueCleanStores(STORES_DATA, COUPONS_DATA);
+
   return pairs.map(p => {
-    const dataA = STORES_DATA.find(s => s.slug === p.storeA);
-    const dataB = STORES_DATA.find(s => s.slug === p.storeB);
-    const dealsA = COUPONS_DATA.filter(d => d.storeSlug === p.storeA);
-    const dealsB = COUPONS_DATA.filter(d => d.storeSlug === p.storeB);
+    const dataA = cleanStores.find(s => s.slug === p.storeA || s.originalSlug === p.storeA) || STORES_DATA.find(s => s.slug === p.storeA);
+    const dataB = cleanStores.find(s => s.slug === p.storeB || s.originalSlug === p.storeB) || STORES_DATA.find(s => s.slug === p.storeB);
+    const dealsA = COUPONS_DATA.filter(d => d.storeSlug === p.storeA || d.storeSlug === dataA?.originalSlug || d.storeSlug === dataA?.slug);
+    const dealsB = COUPONS_DATA.filter(d => d.storeSlug === p.storeB || d.storeSlug === dataB?.originalSlug || d.storeSlug === dataB?.slug);
 
     return {
       params: { pair: p.slug },

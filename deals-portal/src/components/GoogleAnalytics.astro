@@ -1,5 +1,5 @@
 ---
-// Google Analytics 4 (GA4) Tag & Comprehensive Telemetry Engine for PromoRadar
+// Google Analytics 4 (GA4) Tag with Google Consent Mode v2 Engine
 interface Props {
   measurementId?: string;
 }
@@ -7,11 +7,39 @@ interface Props {
 const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
 ---
 
+<!-- Google Consent Mode v2 Defaults (GDPR / ePrivacy Compliance) -->
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  // Read saved consent from localStorage if exists
+  var savedConsent = null;
+  try {
+    savedConsent = localStorage.getItem('promoradar_cookie_consent');
+  } catch (e) {}
+
+  if (savedConsent === 'granted') {
+    gtag('consent', 'default', {
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'wait_for_update': 500
+    });
+  } else {
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'wait_for_update': 500
+    });
+  }
+</script>
+
 <!-- Google tag (gtag.js) -->
 <script async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
 <script is:inline define:vars={{ measurementId }}>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', measurementId, {
@@ -48,47 +76,22 @@ const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
       // Track Manual Copy Code in Modal
       var copyBtn = target.closest ? target.closest('#copyCodeBtn, #copyStoreCodeBtn') : null;
       if (copyBtn && typeof window.gtag === 'function') {
-        window.gtag('event', 'coupon_copy', {
+        window.gtag('event', 'coupon_copied', {
           event_category: 'Conversion',
-          event_label: 'clipboard_copy',
           page_path: window.location.pathname
         });
       }
 
-      // Track Outbound Affiliate Links
-      var link = target.closest ? target.closest('a') : null;
-      if (!link || !link.href) return;
-      var href = link.href;
-
-      var isAffiliate = (link.rel && link.rel.indexOf('sponsored') !== -1) ||
-                        href.indexOf('admitad.com') !== -1 ||
-                        href.indexOf('/g/') !== -1 ||
-                        href.indexOf('rzekl.com') !== -1 ||
-                        href.indexOf('track') !== -1;
-
-      if (isAffiliate && typeof window.gtag === 'function') {
+      // Track External Merchant Clicks
+      var affLink = target.closest ? target.closest('a[href*="/go?"]') : null;
+      if (affLink && typeof window.gtag === 'function') {
         window.gtag('event', 'affiliate_click', {
-          event_category: 'Monetization',
-          event_label: href,
-          target_url: href,
-          page_path: window.location.pathname,
-          transport_type: 'beacon'
-        });
-      }
-
-      // Track Category & Region Filter Clicks
-      var catBtn = target.closest ? target.closest('.main-cat-btn, .region-filter-btn, .type-filter-btn') : null;
-      if (catBtn && typeof window.gtag === 'function') {
-        var filterType = catBtn.getAttribute('data-cat') ? 'category' : (catBtn.getAttribute('data-region') ? 'region' : 'type');
-        var filterVal = catBtn.getAttribute('data-cat') || catBtn.getAttribute('data-region') || catBtn.getAttribute('data-type');
-        window.gtag('event', 'filter_change', {
-          event_category: 'Engagement',
-          filter_type: filterType,
-          filter_value: filterVal,
+          event_category: 'Affiliate',
+          event_label: affLink.href,
           page_path: window.location.pathname
         });
       }
-    }, { passive: true });
+    });
   }
 
   if (document.readyState === 'loading') {
@@ -96,8 +99,4 @@ const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
   } else {
     setupPromoradarTelemetry();
   }
-  document.addEventListener('astro:page-load', function() {
-    window._promoradar_telemetry_attached = false;
-    setupPromoradarTelemetry();
-  });
 </script>

@@ -1,0 +1,162 @@
+---
+// ExitIntentRecoveryModal.astro - Journalistic Exit-Intent & Bounce Rescue Modal
+---
+
+<div
+  id="exitRecoveryModal"
+  class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs transition-opacity duration-200 not-prose"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="exitModalTitle"
+>
+  <div
+    class="relative w-full max-w-lg bg-[#FFFDF9] border-2 border-slate-900 shadow-[8px_8px_0px_0px_#0f172a] p-6 sm:p-8"
+  >
+    <!-- Close Button -->
+    <button
+      id="closeExitModalBtn"
+      type="button"
+      class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 text-xs font-mono font-bold transition-colors cursor-pointer"
+      aria-label="Close modal"
+    >
+      ✕
+    </button>
+
+    <!-- Dossier Badge -->
+    <div class="inline-flex items-center gap-2 mb-3 px-2 py-0.5 border border-rose-300 bg-rose-50 font-mono text-[10px] text-rose-800 font-bold uppercase tracking-wider">
+      <span class="w-1.5 h-1.5 rounded-full bg-rose-700 animate-pulse"></span>
+      <span>CLEARANCE DISPATCH // BEFORE YOU LEAVE</span>
+    </div>
+
+    <!-- Heading -->
+    <h3
+      id="exitModalTitle"
+      class="font-serif font-black text-xl sm:text-2xl text-slate-950 tracking-tight leading-snug mb-3"
+    >
+      Don't Get Trapped by Synthetic Personas & Ghosting Scripts
+    </h3>
+
+    <!-- Description -->
+    <p class="font-sans text-xs sm:text-sm text-slate-700 leading-relaxed mb-6">
+      Over 42% of active dating profiles audited in our Cheltenham laboratory exhibit synthetic linguistic tells or stolen imagery. Run an instant empirical assessment before texting your next match.
+    </p>
+
+    <!-- Action Buttons -->
+    <div class="space-y-3 font-mono text-xs">
+      <a
+        href="/quiz/"
+        id="exitQuizCta"
+        class="min-h-[44px] w-full flex items-center justify-between px-4 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold uppercase tracking-wider transition-colors shadow-xs"
+      >
+        <span class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>Take 2-Min Charisma & Safety Quiz</span>
+        </span>
+        <span class="text-emerald-400">FREE ↗</span>
+      </a>
+
+      <a
+        href="/deeptrace/"
+        id="exitDeepTraceCta"
+        class="min-h-[44px] w-full flex items-center justify-between px-4 py-3 bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-bold uppercase tracking-wider transition-colors shadow-xs"
+      >
+        <span class="flex items-center gap-2">
+          <span>🔍</span>
+          <span>Launch DeepTrace Photo Scanner</span>
+        </span>
+        <span class="text-slate-500">TERMINAL ↗</span>
+      </a>
+    </div>
+
+    <!-- Dismiss Text -->
+    <div class="mt-5 text-center">
+      <button
+        id="dismissExitModalLink"
+        type="button"
+        class="text-[11px] font-mono text-slate-600 hover:text-slate-900 underline underline-offset-2 transition-colors cursor-pointer"
+      >
+        Continue reading article without clearance
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupExitIntentRecovery() {
+    const modal = document.getElementById('exitRecoveryModal');
+    const closeBtn = document.getElementById('closeExitModalBtn');
+    const dismissLink = document.getElementById('dismissExitModalLink');
+    if (!modal) return;
+
+    // Check if user already saw or dismissed the exit rescue in current session
+    const STORAGE_KEY = 'fc_exit_rescue_shown_v1';
+    if (sessionStorage.getItem(STORAGE_KEY)) return;
+
+    let hasTriggered = false;
+
+    function showModal() {
+      if (hasTriggered) return;
+      hasTriggered = true;
+      sessionStorage.setItem(STORAGE_KEY, 'true');
+      modal.classList.remove('hidden');
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'exit_intent_prompt_shown', {
+          event_category: 'CRO_Recovery',
+          source_page: window.location.pathname
+        });
+      }
+    }
+
+    function hideModal() {
+      modal.classList.add('hidden');
+    }
+
+    // 1. Desktop Exit-Intent: Detect mouse moving above the top viewport threshold
+    function handleMouseLeave(e) {
+      if (e.clientY <= 10 && !hasTriggered) {
+        showModal();
+        document.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    }
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    // 2. Mobile Exit-Intent: Fallback trigger when user reaches 80% scroll depth and stops
+    let mobileTimer = null;
+    function handleMobileScroll() {
+      if (hasTriggered || window.innerWidth > 1024) return;
+      const scrollPos = window.scrollY + window.innerHeight;
+      const totalHeight = document.documentElement.scrollHeight;
+      if (scrollPos / totalHeight >= 0.85) {
+        if (!mobileTimer) {
+          mobileTimer = setTimeout(() => {
+            if (!hasTriggered && !sessionStorage.getItem(STORAGE_KEY)) {
+              showModal();
+            }
+          }, 4000);
+        }
+      }
+    }
+    window.addEventListener('scroll', handleMobileScroll, { passive: true });
+
+    // Close handlers
+    closeBtn?.addEventListener('click', hideModal);
+    dismissLink?.addEventListener('click', hideModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) hideModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        hideModal();
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupExitIntentRecovery);
+  } else {
+    setupExitIntentRecovery();
+  }
+  document.addEventListener('astro:page-load', setupExitIntentRecovery);
+</script>
+

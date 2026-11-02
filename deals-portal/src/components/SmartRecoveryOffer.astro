@@ -1,0 +1,389 @@
+---
+/**
+ * SmartRecoveryOffer.astro
+ * Context-aware conversion recovery system:
+ * - Desktop: Exit-Intent Modal on mouse leaving viewport (clientY <= 5 after 8s engagement).
+ * - Mobile: Compact Bottom Sticky Bar after 25s dwell time OR rapid upward scroll (>300px delta) after 50% scroll.
+ * Injects the #1 highest-scoring UNCLAIMED deal matching user GEO, OS, and affinity.
+ */
+---
+
+<!-- Desktop Exit-Intent Modal Container -->
+<div
+  id="desktopExitIntentOverlay"
+  class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/75 backdrop-blur-md transition-opacity duration-300 opacity-0"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="recoveryModalTitle"
+>
+  <div
+    id="desktopExitIntentCard"
+    class="relative w-full max-w-md bg-slate-900 border border-emerald-500/40 rounded-3xl p-6 sm:p-7 shadow-2xl text-white transform transition-transform duration-300 scale-95"
+  >
+    <!-- Close Button -->
+    <button
+      type="button"
+      id="closeDesktopRecoveryBtn"
+      class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition cursor-pointer"
+      aria-label="Close offer modal"
+    >
+      ✕
+    </button>
+
+    <!-- Header Badge -->
+    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mb-4">
+      <span class="animate-pulse">⚡</span>
+      <span id="recoveryBadgeText">WAIT! TOP PICK FOR YOUR REGION</span>
+    </div>
+
+    <!-- Merchant Info Row -->
+    <div class="flex items-center gap-3.5 mb-4">
+      <div id="recoveryStoreLogo" class="w-12 h-12 rounded-2xl bg-white text-slate-900 font-extrabold text-base flex items-center justify-center shrink-0 shadow-md">
+        PR
+      </div>
+      <div class="min-w-0">
+        <div class="flex items-center gap-2">
+          <h3 id="recoveryStoreName" class="text-lg font-black text-white truncate">Store Name</h3>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Verified</span>
+        </div>
+        <p class="text-xs text-slate-400 flex items-center gap-1.5 mt-0.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>99.6% Checkout Success</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Discount Headline & Description -->
+    <div class="bg-slate-800/80 rounded-2xl p-4 border border-slate-700/60 mb-5">
+      <div id="recoveryDiscountBadge" class="text-xl sm:text-2xl font-black text-amber-400 tracking-tight mb-1">
+        81% OFF + 4 Months Free
+      </div>
+      <p id="recoveryDealTitle" class="text-xs text-slate-300 leading-relaxed line-clamp-2">
+        Instant verified checkout discount available right now.
+      </p>
+    </div>
+
+    <!-- Urgency Countdown Banner -->
+    <div class="flex items-center justify-between text-xs text-slate-400 mb-5 px-1 font-mono">
+      <span class="flex items-center gap-1.5 text-amber-300 font-bold">
+        <span>⏳</span>
+        <span>Verified code reserved for:</span>
+      </span>
+      <span id="recoveryCountdownTimer" class="font-bold text-amber-400">04:59</span>
+    </div>
+
+    <!-- Primary CTA Button -->
+    <button
+      type="button"
+      id="claimDesktopRecoveryBtn"
+      class="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-sm tracking-wide transition shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+    >
+      <span id="claimDesktopBtnText">Copy Code & Open Store ↗</span>
+    </button>
+  </div>
+</div>
+
+<!-- Mobile Smart Sticky Bar (< 768px Viewport) -->
+<div
+  id="mobileStickyRecoveryBar"
+  class="fixed bottom-3 left-3 right-3 z-50 md:hidden hidden transform transition-all duration-300 translate-y-24 opacity-0 bg-slate-900/95 backdrop-blur-xl border border-emerald-500/40 rounded-2xl p-3 shadow-2xl text-white"
+>
+  <div class="flex items-center justify-between gap-2.5">
+    <!-- Left Logo / Initials -->
+    <div id="mobileRecoveryLogo" class="w-10 h-10 rounded-xl bg-white text-slate-900 font-black text-xs flex items-center justify-center shrink-0 shadow-sm">
+      PR
+    </div>
+
+    <!-- Center Info -->
+    <div class="min-w-0 flex-1">
+      <div class="flex items-center gap-1.5">
+        <span id="mobileRecoveryStoreName" class="text-xs font-black truncate text-white">Store</span>
+        <span id="mobileRecoveryBadge" class="text-[9px] font-black px-1.5 py-0.5 rounded bg-amber-400/20 text-amber-300 shrink-0">50% OFF</span>
+      </div>
+      <p id="mobileRecoveryTitle" class="text-[11px] text-slate-300 truncate mt-0.5">Verified savings deal</p>
+    </div>
+
+    <!-- Right Action & Close -->
+    <div class="flex items-center gap-1.5 shrink-0">
+      <button
+        type="button"
+        id="claimMobileRecoveryBtn"
+        class="px-3 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs transition shadow-sm cursor-pointer"
+      >
+        <span id="claimMobileBtnText">Claim ↗</span>
+      </button>
+
+      <button
+        type="button"
+        id="closeMobileRecoveryBtn"
+        class="w-7 h-7 rounded-xl bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center text-xs transition cursor-pointer"
+        aria-label="Dismiss offer"
+      >
+        ✕
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import {
+    getUserProfile,
+    getRecoveryOffer,
+    canShowRecovery,
+    recordRecoveryShown,
+    recordRecoveryDismissed,
+    markDealClaimed,
+    trackUserAction,
+    type CandidateDeal
+  } from '../utils/personalizationEngine';
+
+  function initPredictiveRecovery() {
+    if (!canShowRecovery()) return;
+
+    // Collect candidate deals directly from DOM data attributes of existing cards
+    const dealCards = Array.from(document.querySelectorAll('[data-reveal-deal]'));
+    const candidateDeals: CandidateDeal[] = [];
+
+    dealCards.forEach(card => {
+      try {
+        const raw = card.getAttribute('data-reveal-deal');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed.id && parsed.affiliateUrl) {
+            candidateDeals.push({
+              id: parsed.id,
+              title: parsed.title,
+              desc: parsed.desc || parsed.description,
+              code: parsed.code,
+              badge: parsed.badge || parsed.discountBadge,
+              discountBadge: parsed.badge || parsed.discountBadge,
+              storeName: parsed.storeName,
+              storeSlug: parsed.storeSlug,
+              canonicalSlug: parsed.storeSlug,
+              domain: parsed.domain,
+              affiliateUrl: parsed.affiliateUrl,
+              successRate: parsed.successRate
+            });
+          }
+        }
+      } catch (e) {}
+    });
+
+    if (candidateDeals.length === 0) return;
+
+    const profile = getUserProfile();
+    const topOffer = getRecoveryOffer(candidateDeals, profile);
+    if (!topOffer) return;
+
+    // Elements
+    const desktopOverlay = document.getElementById('desktopExitIntentOverlay');
+    const desktopCard = document.getElementById('desktopExitIntentCard');
+    const mobileBar = document.getElementById('mobileStickyRecoveryBar');
+
+    const recoveryStoreLogo = document.getElementById('recoveryStoreLogo');
+    const recoveryStoreName = document.getElementById('recoveryStoreName');
+    const recoveryDiscountBadge = document.getElementById('recoveryDiscountBadge');
+    const recoveryDealTitle = document.getElementById('recoveryDealTitle');
+    const claimDesktopBtn = document.getElementById('claimDesktopRecoveryBtn');
+    const claimDesktopBtnText = document.getElementById('claimDesktopBtnText');
+    const closeDesktopBtn = document.getElementById('closeDesktopRecoveryBtn');
+
+    const mobileRecoveryLogo = document.getElementById('mobileRecoveryLogo');
+    const mobileRecoveryStoreName = document.getElementById('mobileRecoveryStoreName');
+    const mobileRecoveryBadge = document.getElementById('mobileRecoveryBadge');
+    const mobileRecoveryTitle = document.getElementById('mobileRecoveryTitle');
+    const claimMobileBtn = document.getElementById('claimMobileRecoveryBtn');
+    const claimMobileBtnText = document.getElementById('claimMobileBtnText');
+    const closeMobileBtn = document.getElementById('closeMobileRecoveryBtn');
+
+    // Populate Data
+    const initials = (topOffer.storeName || 'PR').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    if (recoveryStoreLogo) recoveryStoreLogo.textContent = initials;
+    if (recoveryStoreName) recoveryStoreName.textContent = topOffer.storeName;
+    if (recoveryDiscountBadge) recoveryDiscountBadge.textContent = topOffer.discountBadge || topOffer.badge || 'SPECIAL OFFER';
+    if (recoveryDealTitle) recoveryDealTitle.textContent = topOffer.title;
+
+    if (mobileRecoveryLogo) mobileRecoveryLogo.textContent = initials;
+    if (mobileRecoveryStoreName) mobileRecoveryStoreName.textContent = topOffer.storeName;
+    if (mobileRecoveryBadge) mobileRecoveryBadge.textContent = topOffer.discountBadge || topOffer.badge || 'DEAL';
+    if (mobileRecoveryTitle) mobileRecoveryTitle.textContent = topOffer.title;
+
+    const hasCode = topOffer.code && topOffer.code.trim().length > 0;
+    if (claimDesktopBtnText) {
+      claimDesktopBtnText.textContent = hasCode ? `Copy Code (${topOffer.code}) & Claim ↗` : 'Activate Instant Deal ↗';
+    }
+    if (claimMobileBtnText) {
+      claimMobileBtnText.textContent = hasCode ? 'Copy & Claim ↗' : 'Claim ↗';
+    }
+
+    let isShown = false;
+    let countdownInterval: any = null;
+
+    // Start 5-minute countdown timer
+    function startCountdown() {
+      let secondsRemaining = 299; // 04:59
+      const timerEl = document.getElementById('recoveryCountdownTimer');
+      if (!timerEl) return;
+
+      countdownInterval = setInterval(() => {
+        secondsRemaining--;
+        if (secondsRemaining <= 0) {
+          clearInterval(countdownInterval);
+          timerEl.textContent = '00:00';
+          return;
+        }
+        const m = Math.floor(secondsRemaining / 60);
+        const s = secondsRemaining % 60;
+        timerEl.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      }, 1000);
+    }
+
+    // Trigger Desktop Modal
+    function showDesktopModal() {
+      if (isShown || !canShowRecovery() || window.innerWidth < 768) return;
+      isShown = true;
+      recordRecoveryShown();
+      startCountdown();
+
+      if (desktopOverlay && desktopCard) {
+        desktopOverlay.classList.remove('hidden');
+        desktopOverlay.classList.add('flex');
+        setTimeout(() => {
+          desktopOverlay.classList.remove('opacity-0');
+          desktopOverlay.classList.add('opacity-100');
+          desktopCard.classList.remove('scale-95');
+          desktopCard.classList.add('scale-100');
+        }, 10);
+      }
+    }
+
+    // Dismiss Desktop Modal
+    function hideDesktopModal() {
+      if (desktopOverlay && desktopCard) {
+        desktopOverlay.classList.remove('opacity-100');
+        desktopOverlay.classList.add('opacity-0');
+        desktopCard.classList.remove('scale-100');
+        desktopCard.classList.add('scale-95');
+        setTimeout(() => {
+          desktopOverlay.classList.add('hidden');
+          desktopOverlay.classList.remove('flex');
+        }, 300);
+      }
+      if (countdownInterval) clearInterval(countdownInterval);
+      recordRecoveryDismissed();
+    }
+
+    // Trigger Mobile Sticky Bar
+    function showMobileStickyBar() {
+      if (isShown || !canShowRecovery() || window.innerWidth >= 768) return;
+      isShown = true;
+      recordRecoveryShown();
+
+      if (mobileBar) {
+        mobileBar.classList.remove('hidden');
+        setTimeout(() => {
+          mobileBar.classList.remove('translate-y-24', 'opacity-0');
+          mobileBar.classList.add('translate-y-0', 'opacity-100');
+        }, 10);
+      }
+    }
+
+    // Dismiss Mobile Sticky Bar
+    function hideMobileStickyBar() {
+      if (mobileBar) {
+        mobileBar.classList.remove('translate-y-0', 'opacity-100');
+        mobileBar.classList.add('translate-y-24', 'opacity-0');
+        setTimeout(() => {
+          mobileBar.classList.add('hidden');
+        }, 300);
+      }
+      recordRecoveryDismissed();
+    }
+
+    // Handle Claim action (Copies code if present + opens affiliate URL)
+    function handleClaim(btnTextEl: HTMLElement | null) {
+      if (topOffer.code) {
+        try {
+          navigator.clipboard.writeText(topOffer.code);
+          if (btnTextEl) btnTextEl.textContent = '✓ Code Copied! Opening...';
+        } catch (e) {}
+      }
+
+      markDealClaimed(topOffer.id);
+      trackUserAction({
+        type: 'claim_deal',
+        dealId: topOffer.id,
+        storeSlug: topOffer.storeSlug
+      });
+
+      setTimeout(() => {
+        window.open(topOffer.affiliateUrl, '_blank', 'noopener,noreferrer');
+        if (window.innerWidth >= 768) {
+          hideDesktopModal();
+        } else {
+          hideMobileStickyBar();
+        }
+      }, 400);
+    }
+
+    // Desktop Exit-Intent: Arm after 8 seconds of engagement
+    setTimeout(() => {
+      document.addEventListener('mouseleave', (e) => {
+        if (e.clientY <= 5) {
+          showDesktopModal();
+        }
+      });
+    }, 8000);
+
+    // Mobile Triggers:
+    // 1. Dwell time: 25 seconds
+    setTimeout(() => {
+      showMobileStickyBar();
+    }, 25000);
+
+    // 2. Rapid upward scroll (>300px delta) after reaching >= 50% scroll depth
+    let lastScrollY = window.scrollY;
+    let maxScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+      if (currentY > maxScrollY) maxScrollY = currentY;
+
+      const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollDepth = pageHeight > 0 ? maxScrollY / pageHeight : 0;
+
+      if (scrollDepth >= 0.5) {
+        const upwardDelta = lastScrollY - currentY;
+        if (upwardDelta > 300) {
+          showMobileStickyBar();
+        }
+      }
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    // Click Listeners
+    claimDesktopBtn?.addEventListener('click', () => handleClaim(claimDesktopBtnText));
+    claimMobileBtn?.addEventListener('click', () => handleClaim(claimMobileBtnText));
+    closeDesktopBtn?.addEventListener('click', hideDesktopModal);
+    closeMobileBtn?.addEventListener('click', hideMobileStickyBar);
+
+    desktopOverlay?.addEventListener('click', (e) => {
+      if (e.target === desktopOverlay) hideDesktopModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isShown) {
+        hideDesktopModal();
+        hideMobileStickyBar();
+      }
+    });
+  }
+
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPredictiveRecovery);
+  } else {
+    initPredictiveRecovery();
+  }
+</script>
+

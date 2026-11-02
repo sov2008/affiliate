@@ -1,0 +1,188 @@
+---
+// deals-portal/src/components/SeasonalPromoCarousel.astro
+import { PROMOTIONAL_BANNERS, getCurrentSeasonTag, type PromoBanner } from '../data/promotionalBanners';
+
+const currentSeason = getCurrentSeasonTag();
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Prioritize banners matching current season or top deals
+const sortedBanners = [...PROMOTIONAL_BANNERS].sort((a, b) => {
+  if (a.seasonTag === currentSeason && b.seasonTag !== currentSeason) return -1;
+  if (b.seasonTag === currentSeason && a.seasonTag !== currentSeason) return 1;
+  return 0;
+});
+---
+
+<section class="my-8 relative overflow-hidden" aria-label="Seasonal Merchant Rotator">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-3.5">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">
+          <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+          <span>Seasonal Merchant Showcase</span>
+        </span>
+        <span class="text-xs text-slate-400 hidden sm:inline">• Official verified partner campaigns</span>
+      </div>
+
+      <!-- Controls: Prev / Next & Indicators -->
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1" id="carouselIndicators">
+          {sortedBanners.map((_, i) => (
+            <button
+              type="button"
+              class={`carousel-dot w-2 h-2 rounded-full transition-all cursor-pointer ${i === 0 ? 'bg-indigo-500 w-5' : 'bg-slate-700 hover:bg-slate-500'}`}
+              data-slide-index={i}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
+        <div class="flex items-center gap-1 ml-2">
+          <button
+            type="button"
+            id="carouselPrevBtn"
+            class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition border border-slate-700 cursor-pointer"
+            aria-label="Previous Slide"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            id="carouselNextBtn"
+            class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition border border-slate-700 cursor-pointer"
+            aria-label="Next Slide"
+          >
+            ›
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel Container -->
+    <div class="relative overflow-hidden rounded-3xl border border-slate-800 shadow-2xl bg-slate-950">
+      <div id="carouselSlidesWrapper" class="flex transition-transform duration-500 ease-out">
+        {sortedBanners.map((banner, index) => (
+          <div class="w-full shrink-0 relative p-6 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
+            <!-- Background Gradient Tint -->
+            <div class={`absolute inset-0 bg-gradient-to-r ${banner.accentGradient} opacity-90 pointer-events-none`}></div>
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-black/60 pointer-events-none"></div>
+
+            <!-- Content Left -->
+            <div class="relative z-10 flex-1 min-w-0 space-y-3.5 text-center md:text-left">
+              <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
+                <span class="text-xs font-black px-3 py-1 rounded-xl bg-amber-400 text-slate-950 shadow-md">
+                  {banner.badge}
+                </span>
+                <span class="text-xs font-bold px-2.5 py-0.5 rounded-lg bg-white/15 text-white backdrop-blur border border-white/20">
+                  {banner.category}
+                </span>
+                <span class="text-[11px] font-mono text-emerald-300 font-bold">
+                  ✓ Verified Feed
+                </span>
+              </div>
+
+              <h2 class="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight leading-tight">
+                {banner.headline}
+              </h2>
+
+              <p class="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-xl">
+                {banner.subheadline}
+              </p>
+
+              <div class="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-3">
+                <a
+                  href={banner.affiliateUrl}
+                  target="_blank"
+                  rel="nofollow sponsored"
+                  class="px-5 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-black text-xs sm:text-sm shadow-xl transition flex items-center gap-1.5 transform hover:scale-105 active:scale-95"
+                >
+                  <span>{banner.ctaText}</span>
+                </a>
+                <a
+                  href={`${base}/stores/${banner.storeSlug}/`}
+                  class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs backdrop-blur border border-white/15 transition"
+                >
+                  <span>View All {banner.storeName} Codes →</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Visual Asset Right -->
+            <div class="relative z-10 shrink-0 w-44 h-44 sm:w-56 sm:h-56 rounded-2xl overflow-hidden bg-white/10 p-2 border border-white/20 backdrop-blur shadow-2xl flex items-center justify-center">
+              <img
+                src={banner.imageUrl}
+                alt={`${banner.storeName} promotional showcase`}
+                class="w-full h-full object-contain rounded-xl hover:scale-105 transition-transform duration-300"
+                loading={index === 0 ? 'eager' : 'lazy'}
+                onerror="this.onerror=null; this.src='https://promoradar.store/favicon.svg';"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const wrapper = document.getElementById('carouselSlidesWrapper');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.getElementById('carouselPrevBtn');
+    const nextBtn = document.getElementById('carouselNextBtn');
+    if (!wrapper || dots.length === 0) return;
+
+    let currentSlide = 0;
+    const totalSlides = dots.length;
+    let autoPlayTimer = null;
+
+    function goToSlide(index) {
+      currentSlide = (index + totalSlides) % totalSlides;
+      wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+      dots.forEach((dot, idx) => {
+        if (idx === currentSlide) {
+          dot.classList.add('bg-indigo-500', 'w-5');
+          dot.classList.remove('bg-slate-700', 'w-2');
+        } else {
+          dot.classList.remove('bg-indigo-500', 'w-5');
+          dot.classList.add('bg-slate-700', 'w-2');
+        }
+      });
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      autoPlayTimer = setInterval(() => {
+        goToSlide(currentSlide + 1);
+      }, 5000); // 5s interval
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayTimer) clearInterval(autoPlayTimer);
+    }
+
+    prevBtn?.addEventListener('click', () => {
+      goToSlide(currentSlide - 1);
+      startAutoPlay();
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      goToSlide(currentSlide + 1);
+      startAutoPlay();
+    });
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        goToSlide(idx);
+        startAutoPlay();
+      });
+    });
+
+    // Pause on hover
+    wrapper.parentElement?.addEventListener('mouseenter', stopAutoPlay);
+    wrapper.parentElement?.addEventListener('mouseleave', startAutoPlay);
+
+    startAutoPlay();
+  })();
+</script>
+

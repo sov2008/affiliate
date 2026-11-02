@@ -1,6 +1,11 @@
 ---
 import { STORES_DATA } from '../data/couponsData';
+import { getUniqueCleanStores } from '../utils/dealNormalizer';
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Deduplicate stores by cleaned brand name & canonical slug
+const cleanStoresList = getUniqueCleanStores(STORES_DATA);
 ---
 
 <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 mt-16">
@@ -28,7 +33,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <div class="md:col-span-4 space-y-2">
         <div class="text-xs font-bold uppercase tracking-wider text-slate-200 mb-3">Popular Partner Stores</div>
         <div class="grid grid-cols-2 gap-2 text-xs">
-          {STORES_DATA.slice(0, 8).map(store => (
+          {cleanStoresList.slice(0, 8).map(store => (
             <a href={`${base}/stores/${store.slug}/`} class="text-slate-400 hover:text-white transition-colors truncate">
               {store.name}
             </a>

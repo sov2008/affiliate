@@ -1,0 +1,28 @@
+---
+// deals-portal/src/components/HalloweenTopBanner.astro
+// Floating / Sticky Top Festive Bar with Verified Coupon Callout
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<div class="bg-gradient-to-r from-orange-950 via-slate-950 to-purple-950 border-b border-orange-500/30 text-white text-xs py-2.5 px-4 relative z-40">
+  <div class="max-w-7xl mx-auto flex items-center justify-between gap-3 flex-wrap">
+    <div class="flex items-center gap-2">
+      <span class="text-base animate-bounce">🎃</span>
+      <span class="font-bold text-orange-400">Halloween Savings Week:</span>
+      <span class="text-slate-200 hidden sm:inline">Hand-verified night-vision optics, tactical gear &amp; cybersecurity codes are live.</span>
+    </div>
+
+    <div class="flex items-center gap-3 ml-auto">
+      <span class="font-mono text-[11px] bg-orange-500/20 text-orange-300 border border-orange-500/40 px-2 py-0.5 rounded">
+        Save up to 72%
+      </span>
+      <a
+        href="#halloweenSpookySpotlight"
+        class="font-black text-slate-950 bg-orange-400 hover:bg-orange-300 px-3 py-1 rounded-lg transition text-[11px] whitespace-nowrap shadow-xs"
+      >
+        <span>Explore Spooky Deals ↓</span>
+      </a>
+    </div>
+  </div>
+</div>
+

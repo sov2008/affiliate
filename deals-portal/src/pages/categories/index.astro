@@ -3,54 +3,86 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { COUPONS_DATA, STORES_DATA } from '../../data/couponsData';
+import { cleanBrandName, isJunkTestOffer, resolveSmartCategory, getCanonicalStoreSlug, getUniqueCleanStores } from '../../utils/dealNormalizer';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const CATEGORIES = [
+// Helper to get sanitized, case-insensitively deduplicated store pills for each category
+function getSanitizedStores(categoryName: string) {
+  const allCleanStores = getUniqueCleanStores(STORES_DATA);
+  const matchingStores = allCleanStores.filter(s => s.category === categoryName);
+
+  return {
+    visible: matchingStores.slice(0, 8),
+    totalCount: matchingStores.length,
+    remainingCount: Math.max(0, matchingStores.length - 8)
+  };
+}
+
+export const CATEGORIES = [
   {
     slug: 'privacy-security',
     name: 'Privacy, VPN & Cybersecurity',
     categoryName: 'Privacy & Security',
-    icon: '🛡',
+    icon: '🛡️',
     desc: 'Military-grade VPNs, encrypted zero-knowledge password vaults, family screen time parental controls, and virtual phone numbers for instant SMS activation.',
-    maxDiscount: 'Up to 81% OFF',
-    stores: STORES_DATA.filter(s => s.category === 'Privacy & Security')
+    maxDiscount: 'Up to 81% OFF'
   },
   {
-    slug: 'dating-lifestyle',
-    name: 'Dating & Lifestyle Services',
-    categoryName: 'Dating & Lifestyle',
-    icon: '💬',
-    desc: 'Camera-verified dating platforms with priority compatibility scoring, anonymous stealth matching passes, and zero bot guarantees.',
-    maxDiscount: '100% Free VIP',
-    stores: STORES_DATA.filter(s => s.category === 'Dating & Lifestyle')
+    slug: 'gaming-software',
+    name: 'Gaming, Media & Software',
+    categoryName: 'Gaming, Media & Software',
+    icon: '🎮',
+    desc: 'Verified software licenses, PC gaming keys, streaming media subscriptions, audio tools, and AI utilities with checkout discounts.',
+    maxDiscount: 'Up to 70% OFF'
+  },
+  {
+    slug: 'home-living',
+    name: 'Home, Furniture & Living',
+    categoryName: 'Home & Living',
+    icon: '🛋️',
+    desc: 'Smart furniture, 3D printing equipment, luxury vanity mirrors, modern organizers, and ergonomic interior decor direct from makers.',
+    maxDiscount: 'Up to 45% OFF'
   },
   {
     slug: 'fashion-apparel',
     name: 'Fashion & Apparel',
     categoryName: 'Fashion & Apparel',
     icon: '👗',
-    desc: 'Worldwide on-trend women\'s fashion, seasonal dresses, swimwear, and footwear with stackable voucher discounts.',
-    maxDiscount: '12% OFF Code',
-    stores: STORES_DATA.filter(s => s.category === 'Fashion & Apparel')
-  },
-  {
-    slug: 'eyewear-health',
-    name: 'Eyewear & Optical Health',
-    categoryName: 'Eyewear & Health',
-    icon: '👓',
-    desc: 'Factory-direct prescription optical frames, anti-blue-light lenses, bifocals, and polarized sunglasses without retail markup.',
-    maxDiscount: '$8 OFF Voucher',
-    stores: STORES_DATA.filter(s => s.category === 'Eyewear & Health')
+    desc: 'Worldwide on-trend women\'s fashion, designer denim, footwear, activewear, and jewelry with stackable voucher discounts.',
+    maxDiscount: '12% OFF Code'
   },
   {
     slug: 'travel-tours',
-    name: 'Travel, Desert Safaris & Tours',
+    name: 'Travel, Stays & Global Tours',
     categoryName: 'Travel & Tours',
     icon: '✈️',
-    desc: 'UAE desert safaris, Dubai Marina luxury dhow dinner cruises, Burj Khalifa observation deck admissions, and global sightseeing excursions.',
-    maxDiscount: '20% OFF Booking',
-    stores: STORES_DATA.filter(s => s.category === 'Travel & Tours')
+    desc: 'Luxury desert safaris, boutique hotel bookings, Burj Khalifa tickets, sports event admissions, and international flight reservations.',
+    maxDiscount: '20% OFF Booking'
+  },
+  {
+    slug: 'auto-mobility',
+    name: 'Auto, Dashcams & Mobility',
+    categoryName: 'Auto, Dashcams & Mobility',
+    icon: '🚗',
+    desc: 'Wireless CarPlay adapters, 4K night-vision dashcams, automotive electronics, and hands-free travel navigation units.',
+    maxDiscount: 'Up to 30% OFF'
+  },
+  {
+    slug: 'food-nutrition',
+    name: 'Food, Beverage & Nutrition',
+    categoryName: 'Food, Beverage & Nutrition',
+    icon: '☕',
+    desc: 'Artisan roast coffee, premium frozen gourmet steaks, whey protein isolates, and organic nutrition delivered directly to your doorstep.',
+    maxDiscount: '15% OFF Voucher'
+  },
+  {
+    slug: 'electronics-gadgets',
+    name: 'Electronics & Portable Power',
+    categoryName: 'Electronics & Gadgets',
+    icon: '⚡',
+    desc: 'Emergency backup power stations, solar generators, smart wireless audio devices, fast chargers, and computer peripherals.',
+    maxDiscount: 'Up to 40% OFF'
   },
   {
     slug: 'ecommerce-wholesale',
@@ -58,17 +90,15 @@ const CATEGORIES = [
     categoryName: 'E-Commerce & Wholesale',
     icon: '📦',
     desc: 'Global B2B wholesale platforms, luxury department stores, and Trade Assurance factory-direct sourcing with voucher discounts.',
-    maxDiscount: 'Up to $20 OFF',
-    stores: STORES_DATA.filter(s => s.category === 'E-Commerce & Wholesale')
+    maxDiscount: 'Up to $20 OFF'
   },
   {
-    slug: 'electronics-gadgets',
-    name: 'Electronics & Portable Power',
-    categoryName: 'Electronics & Gadgets',
-    icon: '⚡',
-    desc: 'Emergency backup power stations, solar generators, smart wireless audio devices, and computer peripherals.',
-    maxDiscount: 'Up to 40% OFF',
-    stores: STORES_DATA.filter(s => s.category === 'Electronics & Gadgets')
+    slug: 'dating-lifestyle',
+    name: 'Dating & Lifestyle Services',
+    categoryName: 'Dating & Lifestyle',
+    icon: '💬',
+    desc: 'Camera-verified dating platforms with priority compatibility scoring, anonymous stealth matching passes, and zero bot guarantees.',
+    maxDiscount: '100% Free VIP'
   },
   {
     slug: 'education-learning',
@@ -76,8 +106,15 @@ const CATEGORIES = [
     categoryName: 'Education & Learning',
     icon: '🎓',
     desc: 'Live interactive coding academy, Roblox game development, and digital arts for kids and teens with expert tutors.',
-    maxDiscount: '30% OFF Course',
-    stores: STORES_DATA.filter(s => s.category === 'Education & Learning')
+    maxDiscount: '30% OFF Course'
+  },
+  {
+    slug: 'eyewear-health',
+    name: 'Eyewear & Optical Health',
+    categoryName: 'Eyewear & Health',
+    icon: '👓',
+    desc: 'Factory-direct prescription optical frames, anti-blue-light lenses, bifocals, and polarized sunglasses without retail markup.',
+    maxDiscount: '$8 OFF Voucher'
   },
   {
     slug: 'kids-toys',
@@ -85,8 +122,7 @@ const CATEGORIES = [
     categoryName: 'Kids & Toys',
     icon: '🧸',
     desc: 'Top-rated educational toys, family board games, celebration gifts, and expedited gift wrapping delivery.',
-    maxDiscount: 'Up to 25% OFF',
-    stores: STORES_DATA.filter(s => s.category === 'Kids & Toys')
+    maxDiscount: 'Up to 25% OFF'
   },
   {
     slug: 'beauty-fragrances',
@@ -94,8 +130,7 @@ const CATEGORIES = [
     categoryName: 'Beauty & Fragrances',
     icon: '✨',
     desc: '100% authentic French designer perfumes, niche Arabian oud, and luxury gift collections with free regional delivery.',
-    maxDiscount: 'Free Express Delivery',
-    stores: STORES_DATA.filter(s => s.category === 'Beauty & Fragrances')
+    maxDiscount: 'Free Express Delivery'
   },
   {
     slug: 'insurance-finance',
@@ -103,8 +138,7 @@ const CATEGORIES = [
     categoryName: 'Insurance & Finance',
     icon: '💼',
     desc: 'Online auto MTPL, international Green Card travel policies, medical insurance, and digital micro-loans comparison with instant electronic delivery.',
-    maxDiscount: 'Up to 15% OFF',
-    stores: STORES_DATA.filter(s => s.category === 'Insurance & Finance')
+    maxDiscount: 'Up to 15% OFF'
   },
   {
     slug: 'web-hosting-domains',
@@ -112,70 +146,82 @@ const CATEGORIES = [
     categoryName: 'Web Hosting & Domains',
     icon: '🌐',
     desc: 'High-performance NVMe cloud hosting, free custom domains, 1-click WordPress stacks, and SSL certificates with money-back guarantees.',
-    maxDiscount: 'Up to 75% OFF',
-    stores: STORES_DATA.filter(s => s.category === 'Web Hosting & Domains')
+    maxDiscount: 'Up to 75% OFF'
   }
 ];
 ---
 
 <BaseLayout
   title="Deal Categories & Curated Collections — PromoRadar"
-  description="Explore tested promo codes and checkout vouchers by category: Privacy & VPNs, Dating, Fashion, Eyewear, UAE Travel, and B2B Wholesale."
+  description="Explore tested promo codes and checkout vouchers across 16 specialized verticals: Privacy, Gaming, Home, Fashion, Travel, Auto, Food, and more."
   activePath="/categories"
 >
   <Header activePath="/categories" />
 
   <main class="flex-1">
     <!-- Category Hero Header -->
-    <div class="bg-white border-b border-slate-200">
+    <div class="border-b border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 transition-colors">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Explore By Vertical</span>
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Deal Categories &amp; Curated Collections</h1>
-        <p class="text-xs sm:text-sm text-slate-600 mt-1.5 max-w-2xl leading-relaxed">
-          Browse verified merchant partner offers organized by vertical—from high-speed VPNs and digital security tools to international fashion and luxury Dubai excursions.
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Explore 16 Curated Verticals</span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Deal Categories &amp; Curated Collections</h1>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1.5 max-w-2xl leading-relaxed">
+          Browse hand-verified merchant partner offers across 16 specialized verticals—from high-speed VPNs and gaming keys to luxury home goods, travel bookings, and tech gear.
         </p>
       </div>
     </div>
 
     <!-- Categories Bento Grid -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {CATEGORIES.map(cat => {
-          const dealCount = COUPONS_DATA.filter(d => d.storeCategory === cat.categoryName).length;
+          const dealCount = COUPONS_DATA.filter(d => {
+            if (isJunkTestOffer(d.storeName, d.title)) return false;
+            const clean = cleanBrandName(d.storeName, d.title);
+            return resolveSmartCategory(d.storeCategory, clean, d.title) === cat.categoryName;
+          }).length;
+          const { visible, remainingCount } = getSanitizedStores(cat.categoryName);
           return (
-            <div class="bg-white rounded-2xl p-6 border border-slate-200/90 flex flex-col justify-between card-hover shadow-sm">
+            <div class="bg-white dark:bg-slate-900/90 rounded-2xl p-5 border border-slate-200/90 dark:border-slate-800/90 flex flex-col justify-between card-hover shadow-sm transition-all hover:border-indigo-500/30">
               <div>
-                <div class="flex items-center justify-between mb-4">
-                  <span class="w-12 h-12 rounded-2xl bg-indigo-50 text-2xl flex items-center justify-center border border-indigo-100 shadow-sm">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="w-11 h-11 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 text-xl flex items-center justify-center border border-indigo-100 dark:border-indigo-800/50 shadow-sm">
                     {cat.icon}
                   </span>
-                  <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-rose-50 text-rose-600 border border-rose-200/80">
+                  <span class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200/80 dark:border-rose-800/40 whitespace-nowrap">
                     {cat.maxDiscount}
                   </span>
                 </div>
-                <h3 class="text-lg font-extrabold text-slate-900 mb-2 leading-snug">
+                <h3 class="text-base font-extrabold text-slate-900 dark:text-white mb-1.5 leading-snug">
                   {cat.name}
                 </h3>
-                <p class="text-xs text-slate-600 leading-relaxed mb-5">
+                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4 line-clamp-3">
                   {cat.desc}
                 </p>
-                <div class="flex flex-wrap gap-1.5 mb-6">
-                  {cat.stores.map(store => (
+                <div class="flex flex-wrap gap-1.5 mb-5">
+                  {visible.map(store => (
                     <a
                       href={`${base}/stores/${store.slug}/`}
-                      class="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 transition"
+                      class="text-[11px] font-semibold px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800/70 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 hover:text-indigo-700 dark:hover:text-indigo-300 text-slate-700 dark:text-slate-300 transition"
                     >
                       {store.name}
                     </a>
                   ))}
+                  {remainingCount > 0 && (
+                    <a
+                      href={`${base}/categories/${cat.slug}/`}
+                      class="text-[11px] font-bold px-2 py-0.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition"
+                    >
+                      +{remainingCount} more
+                    </a>
+                  )}
                 </div>
               </div>
 
               <a
                 href={`${base}/categories/${cat.slug}/`}
-                class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold text-center transition shadow-sm"
+                class="w-full py-2 rounded-xl bg-slate-900 dark:bg-indigo-600 hover:bg-indigo-600 dark:hover:bg-indigo-500 text-white text-xs font-bold text-center transition shadow-sm"
               >
-                Browse Category Deals ({dealCount}) →
+                Browse Deals ({dealCount}) →
               </a>
             </div>
           );
@@ -199,7 +245,7 @@ const CATEGORIES = [
           href={`${base}/?cat=${encodeURIComponent('Privacy & Security')}`}
           class="px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition shrink-0 shadow-lg shadow-indigo-600/30 relative z-10"
         >
-          Explore 6 Security Deals →
+          Explore Security Deals →
         </a>
       </div>
     </div>

@@ -4,44 +4,52 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import BrandLogo from '../../components/BrandLogo.astro';
 import { STORES_DATA, COUPONS_DATA } from '../../data/couponsData';
+import { resolveMerchantIdentity, isJunkTestOffer, resolveSmartCategory, getUniqueCleanStores, getCanonicalStoreSlug } from '../../utils/dealNormalizer';
 
 export const prerender = true;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// Group coupons by store to derive real counts & max discounts
+// Filter and deduplicate stores with unified canonical slugs
+const cleanStores = getUniqueCleanStores(STORES_DATA);
+
+// Group coupons by canonical store key
 const storeCouponsMap: Record<string, typeof COUPONS_DATA> = {};
 for (const c of COUPONS_DATA) {
-  if (!storeCouponsMap[c.storeSlug]) storeCouponsMap[c.storeSlug] = [];
-  storeCouponsMap[c.storeSlug].push(c);
+  if (isJunkTestOffer(c.storeName, c.title)) continue;
+  const identity = resolveMerchantIdentity(c);
+  const canonKey = identity.brand.toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (!storeCouponsMap[canonKey]) storeCouponsMap[canonKey] = [];
+  storeCouponsMap[canonKey].push(c);
 }
 
-function getMaxDiscount(slug: string): string {
-  const coupons = storeCouponsMap[slug] || [];
+function getMaxDiscount(canonKey: string): string {
+  const coupons = storeCouponsMap[canonKey] || [];
   let maxPercent = 0;
   for (const c of coupons) {
-    const match = c.discountBadge.match(/(\d+)%/);
+    const match = (c.discountBadge || c.badge || '').match(/(\d+)%/);
     if (match) {
       const val = parseInt(match[1], 10);
       if (val > maxPercent) maxPercent = val;
     }
   }
   if (maxPercent > 0) return `Up to ${maxPercent}% OFF`;
-  return coupons[0]?.discountBadge || 'Verified Deal';
+  return coupons[0]?.discountBadge || coupons[0]?.badge || 'Verified Deal';
 }
 
-const totalStores = STORES_DATA.length;
-const totalOffers = COUPONS_DATA.length;
+const totalStores = cleanStores.length;
+const totalOffers = Object.values(storeCouponsMap).reduce((acc, list) => acc + list.length, 0);
 
 // Unique categories
-const storeCategories = Array.from(new Set(STORES_DATA.map(s => s.category))).filter(Boolean);
+const storeCategories = Array.from(new Set(cleanStores.map(s => s.category))).filter(Boolean);
 
 // Alphabet letters A-Z that exist
 const alphabetLetters = ['ALL', '#', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')];
 
 // Featured Store of the Month (ExpressVPN)
-const featuredStore = STORES_DATA.find(s => s.slug === 'expressvpn') || STORES_DATA[0];
-const featuredCoupons = storeCouponsMap[featuredStore.slug] || [];
+const featuredStore = cleanStores.find(s => s.canonicalBrand.toLowerCase().includes('expressvpn')) || cleanStores[0];
+const featuredCanonKey = featuredStore.canonicalBrand.toLowerCase().replace(/[^a-z0-9]/g, '');
+const featuredCoupons = storeCouponsMap[featuredCanonKey] || [];
 ---
 
 <BaseLayout
@@ -262,16 +270,17 @@ const featuredCoupons = storeCouponsMap[featuredStore.slug] || [];
 
         <!-- Stores Bento Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-14" id="storesGridContainer">
-          {STORES_DATA.map((store) => {
-            const coupons = storeCouponsMap[store.slug] || [];
-            const maxDiscount = getMaxDiscount(store.slug);
-            const firstLetter = store.name.charAt(0).toUpperCase();
+          {cleanStores.map((store) => {
+            const canonKey = store.canonicalBrand.toLowerCase().replace(/[^a-z0-9]/g, '');
+            const coupons = storeCouponsMap[canonKey] || [];
+            const maxDiscount = getMaxDiscount(canonKey);
+            const firstLetter = store.canonicalBrand.charAt(0).toUpperCase();
             const letterTag = /^[0-9]/.test(firstLetter) ? '#' : firstLetter;
             
             return (
               <article
                 class="store-card-item bg-surface-container-lowest rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md border border-border-subtle hover:border-primary/40 transition-all group"
-                data-name={store.name.toLowerCase()}
+                data-name={store.canonicalBrand.toLowerCase()}
                 data-category={store.category}
                 data-letter={letterTag}
                 data-discount={maxDiscount}
@@ -284,7 +293,7 @@ const featuredCoupons = storeCouponsMap[featuredStore.slug] || [];
                       </div>
                       <div class="min-w-0">
                         <h3 class="text-base font-extrabold text-on-surface group-hover:text-primary transition-colors truncate">
-                          {store.name}
+                          {store.canonicalBrand}
                         </h3>
                         <div class="flex items-center gap-1.5 font-mono text-[11px] text-on-surface-variant">
                           <span class="text-urgency-amber">★ 4.9</span>

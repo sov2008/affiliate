@@ -1,0 +1,105 @@
+﻿---
+import { STORE_PRODUCTS, type StoreProduct } from '../data/productsData';
+
+// Flatten top verified products across stores
+const allProducts: StoreProduct[] = Object.values(STORE_PRODUCTS).flat();
+
+// Select high-converting diverse showcase products
+const featuredProducts = allProducts.filter(p => 
+  ['BAG-QAPS-DESERT-SAND-IWB', 'MS-WIN-10-11-OEM', 'CARPURIDE-C92-CONSOLE', 'BAG-SPIRE-S-SLATE', 'MS-OFFICE-2016-PLUS'].includes(p.id)
+);
+const displayList = featuredProducts.length >= 4 ? featuredProducts : allProducts.slice(0, 4);
+
+// Format JSON-LD Product Schema for rich Google search cards
+const productSchemaList = displayList.map((p, idx) => ({
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": p.title,
+  "image": p.imageUrl,
+  "description": p.description,
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": p.currency || "USD",
+    "price": p.price.replace(/[^0-9.]/g, ''),
+    "availability": "https://schema.org/InStock",
+    "url": p.productUrl,
+    "seller": {
+      "@type": "Organization",
+      "name": "PromoRadar Verified Partner"
+    }
+  }
+}));
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(productSchemaList)} />
+
+<section class="bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 border-y border-indigo-500/20 py-8 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-indigo-400">
+          <span class="text-xl">⚡</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-lg font-black text-white tracking-tight">Verified In-Stock Products &amp; Direct Deals</h2>
+            <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Live CJ Feed</span>
+          </div>
+          <p class="text-xs text-slate-400">Direct factory pricing &amp; automatic basket markdowns — no coupon code required at checkout</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="text-xs font-semibold text-slate-400 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Stock Synced Today
+        </span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {displayList.map(item => (
+        <article class="bg-slate-800/80 hover:bg-slate-800 rounded-2xl border border-slate-700/80 hover:border-indigo-500/50 p-4 transition-all duration-200 flex flex-col justify-between shadow-lg group">
+          <div>
+            <div class="relative w-full h-44 rounded-xl overflow-hidden bg-slate-900 mb-3 border border-slate-700/50">
+              <img 
+                src={item.imageUrl} 
+                alt={item.title} 
+                loading="lazy"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              {item.badge && (
+                <span class="absolute top-2 left-2 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-950/80 backdrop-blur-md text-amber-300 border border-amber-400/30">
+                  {item.badge}
+                </span>
+              )}
+              <span class="absolute bottom-2 right-2 text-xs font-black px-2.5 py-1 rounded-lg bg-emerald-600 text-white shadow-md">
+                {item.price}
+              </span>
+            </div>
+
+            <h3 class="text-xs font-bold text-white line-clamp-2 mb-1.5 leading-snug group-hover:text-indigo-300 transition-colors" title={item.title}>
+              {item.title}
+            </h3>
+            <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">
+              {item.description}
+            </p>
+          </div>
+
+          <div class="pt-3 mt-3 border-t border-slate-700/60 flex items-center justify-between gap-2">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+              {item.storeSlug}
+            </span>
+            <a
+              href={item.productUrl}
+              target="_blank"
+              rel="nofollow sponsored noopener"
+              class="py-1.5 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition flex items-center gap-1 shadow-xs"
+            >
+              <span>View Deal ↗</span>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

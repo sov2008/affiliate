@@ -1,4 +1,4 @@
----
+﻿---
 import '../styles/global.css';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import CouponRevealModal from '../components/CouponRevealModal.astro';
@@ -7,6 +7,7 @@ import VerificationGuaranteeModal from '../components/VerificationGuaranteeModal
 import MobileQRModal from '../components/MobileQRModal.astro';
 import CouponPulseModal from '../components/CouponPulseModal.astro';
 import BookmarkletModal from '../components/BookmarkletModal.astro';
+import SmartRecoveryOffer from '../components/SmartRecoveryOffer.astro';
 
 interface Props {
   title: string;
@@ -36,6 +37,7 @@ const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="p:domain_verify" content="9809e84106b1c9cf5dcdcb45246046e5" />
     <link rel="canonical" href={fullCanonical} />
     <link rel="icon" href={`${base}/favicon.ico`} sizes="any" />
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
@@ -90,6 +92,7 @@ const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
     <MobileQRModal />
     <CouponPulseModal />
     <BookmarkletModal />
+    <SmartRecoveryOffer />
 
     <!-- Global Sleek Toast Notification -->
     <div

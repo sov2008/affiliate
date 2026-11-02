@@ -47,22 +47,22 @@ const containerSize = sizeClasses[size] || sizeClasses.md;
 const pad = paddingClasses[size] || paddingClasses.md;
 
 // Multi-Tier Logo sources:
-// Tier 1: Clearbit Logo API
-const clearbitUrl = domain ? `https://logo.clearbit.com/${domain}` : '';
+// Tier 1: Local High-Performance Static Asset (/logos/[slug].png)
+const localLogoUrl = store.slug ? `/logos/${store.slug}.png` : '';
 // Tier 2: Google HD Favicon
 const googleFaviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '';
 ---
 
 <div class={`brand-logo-container brand-logo-box relative ${containerSize} ${pad} bg-white border border-slate-200/90 shadow-xs flex items-center justify-center shrink-0 overflow-hidden group ${className}`}>
-  {domain ? (
+  {localLogoUrl || domain ? (
     <img
-      src={clearbitUrl}
+      src={localLogoUrl || googleFaviconUrl}
       alt={`${store.name} logo`}
       class="w-full h-full object-contain filter group-hover:scale-105 transition-transform duration-200"
       loading="lazy"
       data-fallback-google={googleFaviconUrl}
       onerror={`
-        if (this.src !== this.getAttribute('data-fallback-google')) {
+        if (this.getAttribute('data-fallback-google') && this.src !== this.getAttribute('data-fallback-google')) {
           this.src = this.getAttribute('data-fallback-google');
         } else {
           this.style.display = 'none';

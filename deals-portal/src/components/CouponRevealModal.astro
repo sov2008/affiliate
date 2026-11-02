@@ -1,14 +1,18 @@
 ---
 import { COUPONS_DATA, STORES_DATA } from '../data/couponsData';
 import { STORE_DOMAINS_MAP } from '../data/storeDomains';
+import { resolveMerchantIdentity, isJunkTestOffer } from '../utils/dealNormalizer';
 
 // Create a lightweight lookup for cross-sell recommendations
 const storeDealsMap: Record<string, Array<{ id: string; title: string; code: string; badge: string; affiliateUrl: string }>> = {};
 COUPONS_DATA.forEach(deal => {
-  if (!storeDealsMap[deal.storeSlug]) {
-    storeDealsMap[deal.storeSlug] = [];
+  if (isJunkTestOffer(deal.storeName, deal.title)) return;
+  const identity = resolveMerchantIdentity(deal);
+  const canonKey = identity.brand.toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (!storeDealsMap[canonKey]) {
+    storeDealsMap[canonKey] = [];
   }
-  storeDealsMap[deal.storeSlug].push({
+  storeDealsMap[canonKey].push({
     id: deal.id,
     title: deal.title,
     code: deal.code,
@@ -102,16 +106,19 @@ COUPONS_DATA.forEach(deal => {
       <!-- 3-Step Instant Instructions Micro-Guide -->
       <div class="mt-3.5 pt-3 border-t border-indigo-200/60 dark:border-indigo-500/20 grid grid-cols-3 gap-2 text-center">
         <div class="space-y-0.5">
-          <span class="w-4 h-4 rounded-full bg-indigo-600 text-white font-mono text-[9px] font-bold inline-flex items-center justify-center">1</span>
-          <p class="text-[10px] font-semibold text-slate-700 dark:text-slate-300">Code Copied</p>
+          <span class="w-4 h-4 rounded-full bg-emerald-600 text-white font-mono text-[9px] font-bold inline-flex items-center justify-center">✓</span>
+          <p class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">1. Copied ✓</p>
+          <p class="text-[9px] text-slate-500 dark:text-slate-400">Ready to use</p>
         </div>
         <div class="space-y-0.5">
           <span class="w-4 h-4 rounded-full bg-indigo-600 text-white font-mono text-[9px] font-bold inline-flex items-center justify-center">2</span>
-          <p class="text-[10px] font-semibold text-slate-700 dark:text-slate-300">Add to Cart</p>
+          <p class="text-[10px] font-semibold text-slate-700 dark:text-slate-300">2. Go to Store</p>
+          <p class="text-[9px] text-slate-500 dark:text-slate-400">Add items to cart</p>
         </div>
         <div class="space-y-0.5">
           <span class="w-4 h-4 rounded-full bg-indigo-600 text-white font-mono text-[9px] font-bold inline-flex items-center justify-center">3</span>
-          <p class="text-[10px] font-semibold text-slate-700 dark:text-slate-300">Paste &amp; Save</p>
+          <p class="text-[10px] font-semibold text-slate-700 dark:text-slate-300">3. Paste Code</p>
+          <p class="text-[9px] text-slate-500 dark:text-slate-400">Save at checkout!</p>
         </div>
       </div>
     </div>
@@ -395,9 +402,14 @@ COUPONS_DATA.forEach(deal => {
       modal?.classList.add('flex');
       document.body.style.overflow = 'hidden';
 
-      // Auto-Copy Code to clipboard
+      // Auto-Copy Code to clipboard immediately upon opening the modal
       if (data.code && data.code.trim().length > 0) {
         navigator.clipboard?.writeText(data.code).then(() => {
+          const statusTag = document.getElementById('modalCodeStatusTag');
+          if (statusTag) {
+            statusTag.textContent = '✅ CODE COPIED TO CLIPBOARD!';
+            statusTag.className = 'text-emerald-600 dark:text-emerald-400 font-black text-[10px] bg-emerald-100 dark:bg-emerald-950/80 px-2.5 py-0.5 rounded-md animate-pulse';
+          }
           if (copyBtnLabel) copyBtnLabel.textContent = '✓ Copied!';
           setTimeout(() => { if (copyBtnLabel) copyBtnLabel.textContent = 'Copy Code'; }, 2500);
           window.dispatchEvent(new CustomEvent('promoradar_code_copied', { detail: data }));

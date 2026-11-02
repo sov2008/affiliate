@@ -1,75 +1,132 @@
-name: Production Deployment & CI/CD Pipeline
+name: PromoRadar Production CI/CD & Hygiene Pipeline
 
 on:
   push:
     branches:
       - main
+      - promoradar-portal
+    paths:
+      - 'deals-portal/**'
+      - '.github/workflows/deploy.yml'
   workflow_dispatch:
+  schedule:
+    # Automatic feed refresh, date roll-forward & verification every 6 hours
+    - cron: '0 */6 * * *'
 
 jobs:
-  test:
-    name: Run DeepTrace Automated Forensics & UI Test Suite
+  # ----------------------------------------------------------------------------
+  # 1. CI: Data Hygiene Gate & Astro Static Generation
+  # ----------------------------------------------------------------------------
+  build-and-validate:
+    name: 🧪 Data Hygiene & Static Compilation
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Source Code
+      - name: 📥 Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 20.x
+      - name: 🟢 Setup Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
+          cache-dependency-path: deals-portal/package-lock.json
 
-      - name: Install Dependencies
+      - name: 📦 Install Deals Portal Dependencies
+        working-directory: deals-portal
         run: npm ci
 
-      - name: Validate TypeScript Schemas
-        run: npx tsx src/tests/deeptrace-schema.spec.ts
+      - name: 🛡️ Pre-Build Data Hygiene Gate
+        working-directory: deals-portal
+        run: npm run test:hygiene
 
-      - name: Execute Forensic Heuristics & Stylometrics Engine Tests
-        run: npx tsx src/tests/deeptrace-analyzer.spec.ts
+      - name: 🔨 Compile Production Static Build
+        working-directory: deals-portal
+        run: npm run build
 
-      - name: Verify Radar UI React Components SSR
-        run: npx tsx src/tests/deeptrace-components.spec.tsx
+      - name: 🔍 Post-Build Compiled HTML & Inventory Verification
+        working-directory: deals-portal
+        run: |
+          test -f dist/index.html || { echo "❌ dist/index.html missing"; exit 1; }
+          test -f dist/sitemap-index.xml || test -f dist/sitemap-0.xml || { echo "❌ Sitemap missing"; exit 1; }
+          # Run hygiene gate on compiled dist/index.html
+          npx tsx scripts/verify-hygiene.ts
+          # Explicit grep assertion for zero forbidden CPA tokens
+          if grep -i -E "(Default Payout|RS S2S|Public Affiliate Terms|with performance incentives|\$4/\$20/\$27 CPA|Base 4%|Default US/CA|OYO 3% Term)" dist/index.html; then
+            echo "❌ Forbidden affiliate token detected in compiled dist/index.html!"
+            exit 1
+          fi
+          echo "✅ All build checks & post-build hygiene validations passed!"
 
-      - name: Run End-to-End Image Processing & Analysis Pipeline
-        run: npx tsx src/tests/deeptrace-pipeline.spec.ts
+      - name: 📦 Archive Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: promoradar-dist
+          path: deals-portal/dist/
+          retention-days: 5
 
-  build-and-deploy:
-    name: Build Container & Deploy to DigitalOcean
-    needs: test
+  # ----------------------------------------------------------------------------
+  # 2. CD: Atomic Zero-Downtime Deployment to DigitalOcean
+  # ----------------------------------------------------------------------------
+  deploy-production:
+    name: 🚀 Zero-Downtime Deploy (DigitalOcean)
+    needs: build-and-validate
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
 
     steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v4
-
-      - name: Deploy to DigitalOcean Droplet via SSH
-        if: ${{ env.DO_KEY != '' }}
-        env:
-          DO_KEY: ${{ secrets.DO_SSH_KEY }}
-        uses: appleboy/ssh-action@v1.0.3
+      - name: 📥 Download Build Artifacts
+        uses: actions/download-artifact@v4
         with:
-          host: ${{ secrets.DO_HOST || '178.128.199.28' }}
-          username: ${{ secrets.DO_USER || 'root' }}
-          key: ${{ secrets.DO_SSH_KEY }}
-          script: |
-            set -e
-            echo "🚀 Initiating production synchronization on target host..."
-            cd /var/www/affiliate || cd ~/affiliate
-            git fetch origin main
-            git reset --hard origin/main
-            npm --prefix blog run build
-            cd core && npm run build
-            pm2 restart ecosystem.config.cjs --env production || pm2 reload all
-            echo "✅ Deployment finished successfully!"
+          name: promoradar-dist
+          path: dist-release
 
-      - name: Skip Droplet SSH Notice
-        if: ${{ env.DO_KEY == '' }}
-        env:
-          DO_KEY: ${{ secrets.DO_SSH_KEY }}
+      - name: 🔑 Setup SSH Key
+        if: ${{ secrets.DO_SSH_KEY != '' }}
         run: |
-          echo "ℹ️ DigitalOcean direct SSH deployment skipped: DO_SSH_KEY secret is not defined in repository settings."
-          echo "✅ Production runs independently on DigitalOcean node (178.128.199.28)."
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DO_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.DO_HOST || '178.128.199.28' }} >> ~/.ssh/known_hosts
+
+      - name: 🚀 Rsync Release & Atomic Symlink Switch
+        if: ${{ secrets.DO_SSH_KEY != '' }}
+        env:
+          DO_HOST: ${{ secrets.DO_HOST || '178.128.199.28' }}
+          DO_USER: ${{ secrets.DO_USER || 'root' }}
+          RELEASE_ID: ${{ github.sha }}
+        run: |
+          set -e
+          echo "📦 Deploying release: $RELEASE_ID to /var/www/promoradar.store/releases/$RELEASE_ID..."
+          
+          # 1. Create target release folder
+          ssh $DO_USER@$DO_HOST "mkdir -p /var/www/promoradar.store/releases/$RELEASE_ID"
+          
+          # 2. Rsync files into release directory
+          rsync -avz --delete dist-release/ $DO_USER@$DO_HOST:/var/www/promoradar.store/releases/$RELEASE_ID/
+          
+          # 3. Add affiliate verification tokens & atomic symlink flip
+          ssh $DO_USER@$DO_HOST "
+            set -e
+            echo 'dcaf1a95-f2a7-42c8-b67f-4a463294ee43' > /var/www/promoradar.store/releases/$RELEASE_ID/dcaf1a95-f2a7-42c8-b67f-4a463294ee43.txt
+            echo 'fa9e3fd878' > /var/www/promoradar.store/releases/$RELEASE_ID/admitad-verification.txt
+            
+            # Atomic symlink swap
+            ln -sfn /var/www/promoradar.store/releases/$RELEASE_ID /var/www/promoradar.store/current
+            
+            # Keep only the last 3 releases for 1-second instant rollback
+            cd /var/www/promoradar.store/releases && ls -1dt * | tail -n +4 | xargs -r rm -rf
+            
+            nginx -t && systemctl reload nginx
+            echo '✅ Symlink switched to release $RELEASE_ID and Nginx reloaded!'
+          "
+
+      - name: 🌐 Post-Deploy Smoke Check (HTTP 200)
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://promoradar.store/)
+          echo "PromoRadar HTTP Status: $STATUS"
+          if [ "$STATUS" -ne 200 ]; then
+            echo "❌ Smoke check failed: expected HTTP 200, got $STATUS"
+            exit 1
+          fi
+          echo "✅ Production smoke check passed: https://promoradar.store returned HTTP 200"

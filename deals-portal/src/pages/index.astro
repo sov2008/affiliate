@@ -3,11 +3,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import BrandLogo from '../components/BrandLogo.astro';
+import CuratedSpotlightSection from '../components/CuratedSpotlightSection.astro';
+import { cleanBrandName, normalizeDiscountBadge, extractSmartDiscountBadge, isJunkTestOffer, resolveMerchantIdentity, diversifyDealsFeed, getBrandGradient, getUniqueCleanStores, getCanonicalStoreSlug, resolveSmartCategory, normalizeExpiryDate } from '../utils/dealNormalizer';
 import { COUPONS_DATA, STORES_DATA } from '../data/couponsData';
 import { STORE_DOMAINS_MAP } from '../data/storeDomains';
 import { getDealLivePulse } from '../data/pulseEngine';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Deduplicate stores using single canonical source of truth
+const uniqueCleanStoresList = getUniqueCleanStores(STORES_DATA);
+const deduplicatedTickerStores = uniqueCleanStoresList.map(s => ({
+  cleanName: s.canonicalBrand,
+  slug: s.slug
+}));
 
 // Group unique categories with fallback to eliminate empty or undefined values
 const categoriesList = Array.from(
@@ -17,23 +26,26 @@ const categoriesList = Array.from(
 ).filter(c => Boolean(c && c.trim()));
 
 // Registries for instant Live Spotlight Auto-suggest
-const storesRegistry = STORES_DATA.map(s => ({
+const storesRegistry = uniqueCleanStoresList.map(s => ({
   slug: s.slug,
-  name: s.name,
+  name: s.canonicalBrand,
   category: s.category
 }));
 
-const dealsRegistry = COUPONS_DATA.map(d => ({
-  id: d.id,
-  title: d.title,
-  desc: d.description,
-  storeName: d.storeName,
-  storeSlug: d.storeSlug,
-  code: d.code,
-  badge: d.discountBadge,
-  affiliateUrl: d.affiliateUrl,
-  successRate: d.successRate
-}));
+const dealsRegistry = COUPONS_DATA.filter(d => !isJunkTestOffer(d.storeName, d.title)).map(d => {
+  const identity = resolveMerchantIdentity(d);
+  return {
+    id: d.id,
+    title: d.title,
+    desc: d.description,
+    storeName: identity.brand,
+    storeSlug: getCanonicalStoreSlug(identity.brand),
+    code: d.code,
+    badge: extractSmartDiscountBadge(d.discountBadge, d.title),
+    affiliateUrl: d.affiliateUrl,
+    successRate: d.successRate
+  };
+});
 
 const categoriesRegistry = [
   { slug: 'privacy-security', name: 'Privacy, VPN & Cybersecurity', categoryName: 'Privacy & Security', icon: '🛡' },
@@ -72,10 +84,16 @@ const BRAND_THEMES: Record<string, { bg: string; text: string; border: string; b
 // Helper for top-right discount pills
 function getDiscountBadgeClasses(badge: string): string {
   const b = (badge || '').toUpperCase();
+  if (b === 'SPECIAL DEAL') {
+    return 'bg-indigo-500/12 text-indigo-700 dark:text-indigo-300 border-indigo-500/30';
+  }
+  if (b === 'VIP RATE') {
+    return 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30';
+  }
   if (b.includes('$') || b.includes('AED') || b.includes('UAH') || (b.includes('SAVE') && !b.includes('%'))) {
     return 'badge-cash-rebate';
   }
-  if (b.includes('FREE') || b.includes('EXTRA') || b.includes('CASHBACK') || b.includes('VIP') || b.includes('GIFTS') || b.includes('+')) {
+  if (b.includes('FREE') || b.includes('BOGO') || b.includes('TRIAL') || b.includes('EXTRA') || b.includes('CASHBACK') || b.includes('VIP') || b.includes('GIFTS') || b.includes('+')) {
     return 'badge-bonus-deal';
   }
   return 'badge-standard-discount';
@@ -162,77 +180,59 @@ if (endingSoonDeals.length < 4) {
   }
 }
 
-// Count total coupons per store for "+X more [Store Name] deals →"
-const storeCouponCounts: Record<string, number> = {};
-for (const d of COUPONS_DATA) {
-  storeCouponCounts[d.storeName] = (storeCouponCounts[d.storeName] || 0) + 1;
-}
+// Filter out junk internal test campaigns like "1929B TESTED FR" and nameless records
+const validCouponsData = COUPONS_DATA.filter(d => !isJunkTestOffer(d.storeName, d.title));
 
-// Round-robin brand interleaving for main deals grid to prevent same-brand walls
-const storeBuckets: Record<string, typeof COUPONS_DATA> = {};
-for (const d of COUPONS_DATA) {
-  if (!storeBuckets[d.storeSlug]) storeBuckets[d.storeSlug] = [];
-  storeBuckets[d.storeSlug].push(d);
-}
-
-const CONFIRMED_PRIORITY = [
-  'abelssoft',
-  '945industries',
-  'touch',
-  'alibaba',
-  'hostinger',
-  'chicme',
-  'glasseslit',
-  'raynatours',
-  'polis',
-  'purevpn',
-  'expressvpn'
-];
-
-const interleavedDeals: typeof COUPONS_DATA = [];
-const storeKeys = Object.keys(storeBuckets).sort((a, b) => {
-  const aIdx = CONFIRMED_PRIORITY.indexOf(a);
-  const bIdx = CONFIRMED_PRIORITY.indexOf(b);
-  if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
-  if (aIdx !== -1) return -1;
-  if (bIdx !== -1) return 1;
-  return a.localeCompare(b);
+// Pre-resolve merchant identity and discount badge for every coupon
+const enrichedDeals = validCouponsData.map(d => {
+  const identity = resolveMerchantIdentity(d);
+  const smartBadge = extractSmartDiscountBadge(d.discountBadge, d.title);
+  const canonicalSlug = getCanonicalStoreSlug(identity.brand);
+  const smartCategory = resolveSmartCategory(d.storeCategory, identity.brand, d.title);
+  return {
+    ...d,
+    cleanBrand: identity.brand,
+    canonicalSlug,
+    smartCategory,
+    resolvedDomain: identity.domain,
+    cleanBadge: smartBadge
+  };
 });
-let hasMore = true;
-let round = 0;
-while (hasMore) {
-  hasMore = false;
-  for (const slug of storeKeys) {
-    if (storeBuckets[slug][round]) {
-      interleavedDeals.push(storeBuckets[slug][round]);
-      if (storeBuckets[slug][round + 1]) {
-        hasMore = true;
-      }
-    }
-  }
-  round++;
+
+// Count total coupons per resolved clean brand for "+X more [Brand] deals →"
+const storeCouponCounts: Record<string, number> = {};
+for (const d of enrichedDeals) {
+  storeCouponCounts[d.cleanBrand] = (storeCouponCounts[d.cleanBrand] || 0) + 1;
 }
+
+// Strict round-robin merchant interleaver (prevents 2-3 same brand cards adjacent)
+const interleavedDeals = diversifyDealsFeed(enrichedDeals);
 
 // Identify Top Store Deal for "Editor's Pick" badge
 const topStoreDealIds = new Set<string>();
-for (const slug of Object.keys(storeBuckets)) {
-  if (storeBuckets[slug] && storeBuckets[slug].length > 0) {
-    topStoreDealIds.add(storeBuckets[slug][0].id);
+const seenPickBrands = new Set<string>();
+for (const d of interleavedDeals) {
+  if (!seenPickBrands.has(d.cleanBrand)) {
+    seenPickBrands.add(d.cleanBrand);
+    topStoreDealIds.add(d.id);
   }
 }
 
-// Helper to calculate genuine remaining validity & urgency
+// Helper to calculate genuine remaining validity & urgency with evergreen roll-forward
 function getExpiryBadge(expiryDateStr: string) {
-  if (!expiryDateStr) return { text: '⚡ Verified Oct 2026', class: 'bg-emerald-50 text-emerald-700 border-emerald-200/80 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30' };
-  const expiry = new Date(expiryDateStr);
-  const now = new Date('2026-10-19');
+  const normalizedDate = normalizeExpiryDate(expiryDateStr);
+  const expiry = new Date(normalizedDate);
+  const now = new Date();
   const diffDays = Math.ceil((expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+  const monthName = expiry.toLocaleString('en-US', { month: 'short' });
+  const yearNum = expiry.getFullYear();
+
   if (diffDays <= 7 && diffDays > 0) {
-    return { text: `⏳ Ends in ${diffDays}d`, class: 'bg-rose-50 text-rose-700 border-rose-200/80 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30 font-bold' };
+    return { text: `⏳ Ends in ${diffDays}d`, class: 'bg-rose-50 text-rose-700 border-rose-200/80 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30 font-bold', date: normalizedDate };
   } else if (diffDays <= 45 && diffDays > 0) {
-    return { text: `⏳ Ends in ${diffDays}d`, class: 'bg-amber-50 text-amber-800 border-amber-200/80 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30 font-bold' };
+    return { text: `⏳ Ends in ${diffDays}d`, class: 'bg-amber-50 text-amber-800 border-amber-200/80 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30 font-bold', date: normalizedDate };
   } else {
-    return { text: '⚡ Verified for Oct 2026', class: 'bg-slate-100 text-slate-600 border-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700/60' };
+    return { text: `⚡ Verified for ${monthName} ${yearNum}`, class: 'bg-emerald-50 text-emerald-700 border-emerald-200/80 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30', date: normalizedDate };
   }
 }
 
@@ -242,50 +242,26 @@ const homeFaqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How does PromoRadar test and verify promo codes?",
+      "name": "How do I use a promo code?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Our verification engine and QA team test coupon combinations directly in the merchant shopping cart before publishing. We verify code validity, minimum basket thresholds, expiration dates, and merchant restrictions to ensure you never waste time on broken codes."
+        "text": "Click 'Copy Code', go to the store, and paste the code into the 'Promo Code' box in your shopping cart to save money immediately."
       }
     },
     {
       "@type": "Question",
-      "name": "Why do some merchant deals not require a code?",
+      "name": "Why do some deals say 'Get Discount' without a code?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Direct Deals, seasonal clearance markdowns, and free trial promotions are activated automatically when you click our verified partner link. The discount applies immediately at checkout without requiring manual voucher code entry."
+        "text": "Those discounts turn on automatically! Just click the button and the lower price will already be waiting for you at the store."
       }
     },
     {
       "@type": "Question",
-      "name": "How do Admitad official partner links work?",
+      "name": "Do I need to create an account or pay anything?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "PromoRadar is connected directly to official affiliate feeds via Admitad and licensed merchant affiliate programs. When you click our links, you are safely routed to the authentic merchant store, and we may earn a small referral commission at no additional cost to you."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Are promo codes valid in all countries and currencies?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Each coupon card displays a geographic region badge (such as Worldwide, UAE & MENA, UA, US, or EU). Some vouchers feature currency-specific savings that apply only when checking out in those regional storefronts."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can promo codes be combined with seasonal sales or clearance items?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "In most cases, merchant promo codes stack on top of catalog price cuts, flash sales, and free shipping allowances. Click the Terms toggle on any card to inspect individual store stackability rules."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What should I do if a promo code fails at checkout?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "First verify that your cart meets the minimum purchase amount and does not contain excluded brands. You can also vote 'No' inside our reveal modal to flag the voucher for automated re-verification by our team."
+        "text": "Never! PromoRadar is 100% free and you don't need to register."
       }
     }
   ]
@@ -372,7 +348,7 @@ const homeSchemas = [
                     id="mainHeroSearchInput"
                     type="text"
                     autocomplete="off"
-                    placeholder={`Search ${STORES_DATA.length} partner stores, categories, or keywords (e.g., eSIM, ALLPOWERS, VPN, Dubai)...`}
+                    placeholder={`Search ${uniqueCleanStoresList.length} partner stores, categories, or keywords (e.g., eSIM, ALLPOWERS, VPN, Dubai)...`}
                     class="w-full pl-11 pr-4 py-3 rounded-xl bg-white text-slate-900 placeholder-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-inner"
                   />
                 </div>
@@ -624,230 +600,73 @@ const homeSchemas = [
       </div>
     </section>
 
-    <!-- Popular Partner Stores Horizontal Scrollable Strip -->
-    <div class="bg-white border-b border-slate-200/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Popular Partner Stores</span>
-            <span class="text-[11px] text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded-full dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">Click any brand to filter deals</span>
-          </div>
-          <a href={`${base}/stores/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-700">
-            View All {STORES_DATA.length} Stores →
-          </a>
-        </div>
-        
-        <div class="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-1" id="storeFilterBar">
-          {STORES_DATA.map(store => {
-            const initials = store.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-            const domain = STORE_DOMAINS[store.slug];
-            const faviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '';
-            return (
-              <button
-                type="button"
-                data-filter-store={store.name}
-                class="store-strip-pill shrink-0 flex items-center gap-2.5 px-3 py-2 rounded-xl border border-slate-200 hover:border-slate-300 bg-slate-50 hover:bg-white transition cursor-pointer"
+    <!-- Brand Directory Ticker (Clean Normalized Brands) -->
+    <div class="border-y border-slate-200/80 dark:border-slate-800/80 bg-slate-50 dark:bg-slate-900/60 py-3 transition-colors">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-2 overflow-hidden min-w-0">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 shrink-0">
+            Browse Verified Brands:
+          </span>
+          <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5" id="heroStoreTicker">
+            {deduplicatedTickerStores.slice(0, 18).map(store => (
+              <a
+                href={`${base}/store/${store.slug}/`}
+                data-filter-store={store.cleanName}
+                class="store-strip-pill shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 text-slate-700 dark:text-slate-300 hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center"
               >
-                <div class="shrink-0">
-                  <BrandLogo store={store} size="sm" />
-                </div>
-                <div class="text-left">
-                  <div class="text-xs font-bold text-slate-900 leading-none">{store.name}</div>
-                  <div class="text-[10px] font-semibold text-rose-600 mt-0.5">Verified</div>
-                </div>
-              </button>
-            );
-          })}
+                {store.cleanName}
+              </a>
+            ))}
+          </div>
         </div>
+        <a href={`${base}/stores/`} class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 hover:underline shrink-0 whitespace-nowrap">
+          View All {uniqueCleanStoresList.length} Stores →
+        </a>
       </div>
     </div>
 
-    <!-- Deals Ending Soon Urgency Section (FOMO Conversion Booster) -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-4" id="expiringSoonSection">
-      <div id="expiringSoonBanner" class="deals-expiring-banner p-6 transition">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-          <div class="flex items-center gap-3">
-            <div class="flex items-center gap-2">
-              <span class="flex h-3 w-3 relative">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
-              </span>
-              <span class="expiring-banner-heading font-extrabold text-base tracking-tight flex items-center gap-1.5">
-                ⚡ Deals Expiring Soon
-              </span>
-            </div>
-            <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-500 dark:text-rose-300 border border-rose-500/30">
-              Limited Redemptions
-            </span>
-          </div>
-
-          <div class="countdown-timer-box flex items-center gap-2 text-xs px-3 py-1.5 rounded-xl font-medium">
-            <span class="opacity-80">Checkout cycle resets in:</span>
-            <span id="countdownTimer" class="font-mono font-black tracking-wider">04:47:19</span>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-          {endingSoonDeals.map((deal, idx) => {
-            const initials = deal.storeName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-            const domain = STORE_DOMAINS[deal.storeSlug];
-            const faviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '';
-            const codeSuffix = deal.code ? deal.code.slice(-3) : 'OFF';
-            const scarcityList = [
-              { time: '02h 18m', count: 9 },
-              { time: '04h 45m', count: 6 },
-              { time: '01h 32m', count: 4 },
-              { time: '03h 10m', count: 8 }
-            ];
-            const scarcity = scarcityList[idx % scarcityList.length];
-
-            return (
-              <div class="flash-deal-card p-4 flex flex-col justify-between transition group shadow-sm">
-                <div>
-                  <div class="flex items-center justify-between gap-2 mb-2.5">
-                    <div class="flex items-center gap-2.5 min-w-0">
-                      <div class="shrink-0">
-                        {STORES_MAP[deal.storeSlug] ? (
-                          <BrandLogo store={STORES_MAP[deal.storeSlug]} size="sm" />
-                        ) : (
-                          <div class="w-8 h-8 rounded-xl bg-indigo-600 text-white font-extrabold text-[10px] flex items-center justify-center">
-                            {initials}
-                          </div>
-                        )}
-                      </div>
-                      <span class="flash-deal-store-name text-xs font-bold truncate">{deal.storeName}</span>
-                    </div>
-                    <span class="text-[11px] font-black text-rose-600 dark:text-amber-400 bg-rose-50 dark:bg-amber-400/10 px-2 py-0.5 rounded border border-rose-200 dark:border-amber-400/20 shrink-0">
-                      {deal.discountBadge}
-                    </span>
-                  </div>
-                  <h4 class="flash-deal-title text-xs font-bold line-clamp-1 transition">
-                    {deal.title}
-                  </h4>
-                  <p class="flash-deal-desc text-[11px] line-clamp-1 mt-0.5">
-                    {deal.description}
-                  </p>
-                  <!-- Subtle Scarcity Indicator -->
-                  <div class="flex items-center justify-between gap-1 mt-2 text-[10px] text-slate-500 dark:text-slate-400 font-medium">
-                    <span class="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 font-bold">
-                      <span>⏳</span>
-                      <span>{scarcity.time} left</span>
-                    </span>
-                    <span class="text-slate-300 dark:text-slate-600">•</span>
-                    <span class="text-slate-600 dark:text-slate-300 font-bold">{scarcity.count} codes left</span>
-                  </div>
-                </div>
-
-                <div class="flash-deal-divider mt-3.5 pt-3">
-                  <button
-                    type="button"
-                    class="code-peel w-full text-white rounded-xl py-2 px-3 text-xs font-bold flex items-center justify-between transition cursor-pointer shadow-sm"
-                    data-reveal-deal={JSON.stringify({
-                      id: deal.id,
-                      title: deal.title,
-                      desc: deal.description,
-                      code: deal.code,
-                      storeName: deal.storeName,
-                      storeSlug: deal.storeSlug,
-                      domain: STORE_DOMAINS[deal.storeSlug] || deal.cleanDomain || '',
-                      badge: deal.discountBadge,
-                      affiliateUrl: deal.affiliateUrl
-                    })}
-                  >
-                    <span class="flex items-center gap-1.5 font-bold">
-                      <span>Claim</span>
-                      <span class="bg-black/30 border border-white/20 px-2 py-0.5 rounded font-mono text-[11px] text-amber-300 font-bold">
-                        •••{codeSuffix}
-                      </span>
-                    </span>
-                    <span class="text-xs text-white/90 font-bold">↗</span>
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+    <!-- Consolidated Curated Spotlight (Pill Tabs: Expiring Soon, In-Stock Gear, Seasonal, Software) -->
+    <CuratedSpotlightSection endingSoonDeals={endingSoonDeals} />
 
     <!-- Main Deals Filter & Grid Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
       
-      <!-- Filter Toolbar Bento Console (Compacted from 4 rows to strictly 2 rows) -->
-      <div id="filterConsoleWrapper" class="p-4 mb-6 space-y-3 transition rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800 shadow-sm">
-        
-        <!-- Row 1: Core Verticals Category Filter Row -->
-        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1" id="catFilterRow">
+      <!-- Filter Toolbar Bento Console: Compact 1-Row Category Filter -->
+      <div id="filterConsoleWrapper" class="sticky top-[68px] z-30 backdrop-blur-xl bg-white/90 dark:bg-slate-900/90 border-y border-slate-200/80 dark:border-slate-800/80 p-3.5 mb-6 transition shadow-md rounded-2xl">
+        <!-- Core Verticals Category Filter Row -->
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5" id="catFilterRow">
+          <button type="button" data-cat="BLACK_FRIDAY" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/30 transition cursor-pointer flex items-center gap-1.5"><span class="animate-pulse">🔥</span><span>Black Friday Deals</span></button>
           <button type="button" data-cat="ALL" class="main-cat-btn is-active shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer">
             All Deals ({COUPONS_DATA.length})
           </button>
-          <button type="button" data-cat="Privacy & VPN" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            Privacy &amp; VPN
+          <button type="button" data-cat="Privacy & Security" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            🛡️ Privacy &amp; VPN
           </button>
-          <button type="button" data-cat="Electronics & Tech" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            Electronics &amp; Tech
+          <button type="button" data-cat="Gaming, Media & Software" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            🎮 Gaming &amp; Software
+          </button>
+          <button type="button" data-cat="Home & Living" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            🛋️ Home &amp; Living
           </button>
           <button type="button" data-cat="Fashion & Apparel" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            Fashion &amp; Apparel
+            👗 Fashion &amp; Apparel
           </button>
-          <button type="button" data-cat="Travel & eSIM" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            Travel &amp; eSIM
+          <button type="button" data-cat="Travel & Tours" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            ✈️ Travel &amp; Stays
           </button>
-          <button type="button" data-cat="E-Commerce & Retail" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            E-Commerce &amp; Retail
+          <button type="button" data-cat="Electronics & Gadgets" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            ⚡ Electronics &amp; Power
           </button>
-          <button type="button" data-cat="Digital Services" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            Digital Services &amp; Hosting
+          <button type="button" data-cat="Auto, Dashcams & Mobility" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            🚗 Auto &amp; Dashcams
+          </button>
+          <button type="button" data-cat="Food, Beverage & Nutrition" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            ☕ Food &amp; Nutrition
+          </button>
+          <button type="button" data-cat="E-Commerce & Wholesale" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            📦 E-Commerce &amp; B2B
           </button>
         </div>
-
-        <!-- Row 2: Unified Secondary Control Bar (Region + Type + Sort with Vertical Dividers) -->
-        <div class="flex flex-wrap items-center justify-between gap-2.5 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
-          <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 flex-1 min-w-0">
-            <!-- Region Pills -->
-            <span class="filter-section-label text-xs font-semibold shrink-0 text-slate-500 dark:text-slate-400">Region:</span>
-            <div class="flex items-center gap-1 shrink-0" id="regionFilterRow">
-              <button type="button" data-region="ALL" class="region-filter-btn is-active px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer">All</button>
-              <button type="button" data-region="GLOBAL" class="region-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer">🌐 Worldwide</button>
-              <button type="button" data-region="US" class="region-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer">🇺🇸 US</button>
-              <button type="button" data-region="EU" class="region-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer">🇪🇺 EU</button>
-              <button type="button" data-region="GCC" class="region-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer">🇦🇪 UAE</button>
-              <button type="button" data-region="UA" class="region-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer">🇺🇦 UA</button>
-            </div>
-
-            <!-- Vertical Divider -->
-            <div class="h-4 w-px bg-slate-300 dark:bg-slate-700/60 shrink-0 mx-1 hidden sm:block"></div>
-
-            <!-- Offer Type Section -->
-            <span class="filter-section-label text-xs font-semibold shrink-0 text-slate-500 dark:text-slate-400 hidden sm:inline">Type:</span>
-            <div class="flex items-center gap-1 shrink-0" id="typeFilterRow">
-              <button type="button" data-type="ALL" class="type-filter-btn is-active px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer">All</button>
-              <button type="button" data-type="code" class="type-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer">Promo Codes</button>
-              <button type="button" data-type="deal" class="type-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer">Direct Deals</button>
-            </div>
-
-            <!-- Active Store Filter Badge -->
-            <div id="activeStoreFilterBadge" class="hidden items-center gap-1.5 px-2 py-0.5 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30 text-xs font-bold shrink-0">
-              <span>Store: <strong id="activeStoreFilterText"></strong></span>
-              <button id="clearStoreFilterBtn" type="button" class="hover:text-rose-900 ml-1 cursor-pointer">✕</button>
-            </div>
-          </div>
-
-          <!-- Sort Dropdown on Right -->
-          <div class="flex items-center gap-2 shrink-0 ml-auto">
-            <div class="h-4 w-px bg-slate-300 dark:bg-slate-700/60 shrink-0 hidden md:block"></div>
-            <label for="dealsSortSelect" class="filter-section-label text-xs font-medium text-slate-500 dark:text-slate-400 shrink-0">Sort:</label>
-            <select
-              id="dealsSortSelect"
-              class="text-xs font-semibold rounded-xl px-2.5 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
-            >
-              <option value="popular">Most Popular</option>
-              <option value="discount">Highest Discount</option>
-              <option value="verified">Recently Verified</option>
-            </select>
-          </div>
-        </div>
-
       </div>
 
       <!-- Results Count & Live Meta -->
@@ -863,272 +682,179 @@ const homeSchemas = [
         </div>
       </div>
 
-      <!-- Modern 2-Column Responsive Coupon Cards Grid -->
-      <div id="dealsGridContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+      <!-- Modern 4-Column Responsive Coupon Cards Grid -->
+      <div id="dealsGridContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-stretch">
         {interleavedDeals.map((deal, idx) => {
           const isCode = deal.code && deal.code.trim().length > 0;
-          const initials = deal.storeName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+          const cleanName = deal.cleanBrand;
+          const cleanBadge = deal.cleanBadge;
+          const brandDomain = deal.resolvedDomain;
+          const initials = cleanName.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase() || 'PR';
+          const brandGradient = getBrandGradient(cleanName);
           const regions = (STORE_REGIONS[deal.storeSlug] || ['GLOBAL']).join(',');
           const primaryRegionKey = (STORE_REGIONS[deal.storeSlug] || ['GLOBAL'])[0];
           const regionBadge = REGION_BADGES[primaryRegionKey] || REGION_BADGES['GLOBAL'];
-          const totalStoreDeals = storeCouponCounts[deal.storeName] || 1;
+          const totalStoreDeals = storeCouponCounts[cleanName] || 1;
           const isTopDeal = topStoreDealIds.has(deal.id);
           const expiryBadge = getExpiryBadge(deal.expiryDate);
           const pulse = getDealLivePulse(deal.id, deal.storeSlug, deal.successRate);
           
           return (
             <article
-              class={`deal-grid-card rounded-2xl p-5 flex flex-col justify-between card-hover relative overflow-hidden ${idx >= 16 ? 'deal-item-collapsed hidden' : ''} ${isTopDeal ? 'ring-1 ring-amber-400/30' : ''}`}
-              data-store={deal.storeName}
-              data-category={deal.storeCategory}
+              class={`deal-grid-card rounded-2xl p-4 flex flex-col justify-between gap-3 h-full card-hover relative overflow-hidden ${idx >= 24 ? 'deal-item-collapsed hidden' : ''} ${isTopDeal ? 'ring-1 ring-amber-400/30' : ''}`}
+              data-store={cleanName}
+              data-category={deal.smartCategory || deal.storeCategory}
               data-type={isCode ? 'code' : 'deal'}
               data-regions={regions}
               data-deal-id={deal.id}
+              data-search={`${cleanName} ${deal.title} ${deal.code || ''} ${deal.smartCategory || deal.storeCategory}`.toLowerCase()}
             >
               <div>
-                <!-- Top Meta Row: Strictly 2 clean horizontal rows aligned with the 44x44px white logo box -->
-                <div class="flex items-start gap-3 mb-3">
+                <!-- Top Meta Row: Store Avatar, Store Name + inline check, and Save Favorite Button -->
+                <div class="flex items-start gap-2.5 mb-2.5">
                   <a
-                    href={`${base}/stores/${deal.storeSlug}/`}
+                    href={`${base}/stores/${deal.canonicalSlug || deal.storeSlug}/`}
                     class="shrink-0 hover:scale-105 transition"
-                    title={deal.storeName}
+                    title={cleanName}
                   >
-                    {STORES_MAP[deal.storeSlug] ? (
-                      <BrandLogo store={STORES_MAP[deal.storeSlug]} size="md" />
+                    {brandDomain ? (
+                      <div class="brand-logo-container brand-logo-box w-9 h-9 rounded-xl bg-white border border-slate-200/90 dark:border-slate-700/80 p-1 flex items-center justify-center shadow-xs shrink-0 overflow-hidden">
+                        <img
+                          src={`https://www.google.com/s2/favicons?domain=${brandDomain}&sz=128`}
+                          alt={`${cleanName} logo`}
+                          class="w-full h-full object-contain"
+                          loading="lazy"
+                          onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+                        />
+                        <span class={`hidden w-full h-full rounded-lg bg-gradient-to-br ${brandGradient} text-white font-extrabold text-[11px] items-center justify-center shadow-inner`}>
+                          {initials}
+                        </span>
+                      </div>
                     ) : (
-                      <div class="brand-logo-container brand-logo-box w-11 h-11 rounded-xl bg-white border border-slate-200/90 p-1 flex items-center justify-center shadow-xs shrink-0">
-                        <span class="w-full h-full rounded-lg bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center">{initials}</span>
+                      <div class="brand-logo-container brand-logo-box w-9 h-9 rounded-xl bg-indigo-50 dark:bg-slate-800 border border-indigo-200/80 dark:border-slate-700/80 p-1 flex items-center justify-center shadow-xs shrink-0">
+                        <span class="w-full h-full rounded-lg bg-indigo-600 text-white font-extrabold text-[11px] flex items-center justify-center">{initials}</span>
                       </div>
                     )}
                   </a>
 
                   <div class="flex-1 min-w-0">
-                    <!-- Row 1: Brand Name + Star Rating (Left), Discount Badge + Bookmark Button (Right) -->
-                    <div class="flex items-center justify-between gap-2 min-w-0">
-                      <div class="flex items-center gap-1.5 min-w-0">
-                        <a href={`${base}/stores/${deal.storeSlug}/`} class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition truncate">
-                          {deal.storeName}
+                    <div class="flex items-center justify-between gap-1.5 min-w-0">
+                      <div class="flex items-center gap-1 min-w-0">
+                        <a href={`${base}/stores/${deal.canonicalSlug || deal.storeSlug}/`} class="text-[15px] font-bold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition truncate max-w-[140px]">
+                          {cleanName}
                         </a>
-                        <span class="inline-flex items-center gap-0.5 text-[11px] sm:text-xs font-bold text-amber-500 shrink-0">
-                          <span class="text-amber-400">★</span> 4.9
-                        </span>
-                        {isTopDeal && (
-                          <span class="hidden sm:inline-flex items-center gap-1 text-[9px] font-extrabold px-1.5 py-0.2 rounded bg-amber-50 text-amber-800 border border-amber-200/80 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30 shrink-0">
-                            Top Pick
-                          </span>
-                        )}
+                        <span class="text-emerald-500 font-bold text-xs shrink-0" title="Verified Working">✓</span>
                       </div>
 
-                      <div class="flex items-center gap-1.5 shrink-0">
-                        <span class={`px-2.5 py-1 rounded-xl text-xs font-black tracking-tight border ${getDiscountBadgeClasses(deal.discountBadge)} shadow-xs`}>
-                          {deal.discountBadge}
-                        </span>
-                        <button
-                          type="button"
-                          class="deal-save-btn w-7 h-7 sm:w-8 sm:h-8 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition cursor-pointer shrink-0"
-                          data-save-id={deal.id}
-                          title="Save Voucher"
-                          aria-label="Save Voucher"
-                        >
-                          ♥
-                        </button>
-                      </div>
+                      <button
+                        type="button"
+                        class="deal-save-btn w-7 h-7 rounded-xl border border-slate-200 dark:border-slate-700/80 flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition cursor-pointer shrink-0 text-xs"
+                        data-save-id={deal.id}
+                        title="Save Voucher"
+                        aria-label="Save Voucher"
+                      >
+                        ♥
+                      </button>
                     </div>
 
-                    <!-- Row 2: Category label + Region pill + Offer Type badge -->
-                    <div class="flex items-center gap-1.5 mt-1 text-[11px] flex-wrap">
-                      <span class="text-slate-500 dark:text-slate-400 font-medium truncate max-w-[120px] sm:max-w-none">{deal.storeCategory}</span>
-                      <span class="text-slate-300 dark:text-slate-600">•</span>
-                      <span class={`text-[10px] font-bold px-1.5 py-0.2 rounded border ${regionBadge.class}`}>
-                        {regionBadge.label}
-                      </span>
-                      <span class="text-slate-300 dark:text-slate-600">•</span>
-                      <span class={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.2 rounded ${
-                        isCode ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30'
-                      }`}>
-                        {isCode ? 'PROMO CODE' : 'DIRECT DEAL'}
-                      </span>
+                    <!-- Single Compact Metadata Line -->
+                    <div class="flex items-center gap-1 text-[11px] text-slate-400 truncate mt-0.5">
+                      <span class="truncate">{deal.storeCategory}</span>
+                      <span>•</span>
+                      <span class="font-medium shrink-0">{regionBadge.label}</span>
                     </div>
                   </div>
                 </div>
 
-                <!-- Deal Title & Description with Line-clamp & min-height for uniform card height -->
-                <h3 class="text-base font-extrabold text-slate-900 dark:text-white mb-1.5 leading-snug line-clamp-2 min-h-[3rem] flex items-center">
-                  <a href={`${base}/stores/${deal.storeSlug}/`} class="text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+                <!-- Giant Bold Hero Discount Badge -->
+                <div class="my-2">
+                  <span class={`inline-block px-2.5 py-0.5 rounded-lg text-lg sm:text-xl font-extrabold tracking-tight border shadow-xs ${getDiscountBadgeClasses(cleanBadge)}`}>
+                    {cleanBadge}
+                  </span>
+                </div>
+
+                <!-- Deal Title & Description (Even Alignment across 4 Columns) -->
+                <h3 class="font-bold text-[14px] leading-snug line-clamp-2 mt-2 min-h-[2.5rem] text-slate-900 dark:text-white">
+                  <a href={`${base}/stores/${deal.canonicalSlug || deal.storeSlug}/`} class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
                     {deal.title}
                   </a>
                 </h3>
-                <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed mb-3 line-clamp-2 min-h-[2.5rem] font-medium">
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1 line-clamp-2 min-h-[2rem] font-medium">
                   {deal.description}
                 </p>
               </div>
 
-              <!-- Perforated Ticket Divider with Notches: Aligns horizontally across all card pairs -->
-              <div class="ticket-perforated-divider stitch-perforated-top my-3.5"></div>
-
-              <!-- Bottom Action Bar -->
-              <div class="space-y-2.5">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] text-slate-500 dark:text-slate-400">
-                    <button
-                      type="button"
-                      data-open-pulse-modal
-                      data-pulse-store={deal.storeName}
-                      data-pulse-title={deal.title}
-                      data-pulse-code={deal.code}
-                      data-pulse-badge={deal.discountBadge}
-                      data-pulse-time={pulse.timeText}
-                      data-pulse-stability={pulse.stabilityBadge}
-                      data-pulse-url={deal.affiliateUrl}
-                      class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200/70 dark:border-emerald-500/30 text-[10px] font-bold hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition cursor-pointer"
-                      title="Inspect Live Health Pulse & Cart Simulation"
-                    >
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                      <span>Pulse: {pulse.timeText}</span>
-                    </button>
-                    <span>•</span>
-                    <button
-                      type="button"
-                      data-open-verification-guarantee
-                      data-store-name={deal.storeName}
-                      data-store-slug={deal.storeSlug}
-                      data-deal-title={deal.title}
-                      data-deal-code={deal.code}
-                      class="font-bold text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer"
-                      title="Inspect PromoRadar QA Proof"
-                    >
-                      {pulse.stabilityBadge}
-                    </button>
-                    <span>•</span>
-                    <button type="button" class="deal-terms-toggle text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 underline underline-offset-2 font-medium cursor-pointer">
-                      Terms &amp; QA Info ▾
-                    </button>
-                  </div>
-
-                  <!-- CTA Button -->
-                  {isCode ? (
-                    <button
-                      type="button"
-                      class="code-peel text-white rounded-xl px-4 py-2.5 text-xs font-bold flex items-center justify-between sm:justify-center gap-2.5 shrink-0 shadow-sm cursor-pointer"
-                      data-reveal-deal={JSON.stringify({
-                        id: deal.id,
-                        title: deal.title,
-                        desc: deal.description,
-                        code: deal.code,
-                        storeName: deal.storeName,
-                        storeSlug: deal.storeSlug,
-                        domain: STORE_DOMAINS[deal.storeSlug] || deal.cleanDomain || '',
-                        badge: deal.discountBadge,
-                        affiliateUrl: deal.affiliateUrl,
-                        successRate: deal.successRate
-                      })}
-                    >
-                      <span>Get Code</span>
-                      <span class="bg-black/30 border border-white/20 px-2 py-0.5 rounded font-mono text-[11px] text-amber-300 font-bold">
-                        •••{deal.code.slice(-3)}
-                      </span>
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      class="bg-slate-900 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white rounded-xl px-4 py-2.5 text-xs font-bold flex items-center justify-center gap-1.5 shrink-0 transition shadow-sm cursor-pointer"
-                      data-reveal-deal={JSON.stringify({
-                        id: deal.id,
-                        title: deal.title,
-                        desc: deal.description,
-                        code: '',
-                        storeName: deal.storeName,
-                        storeSlug: deal.storeSlug,
-                        domain: STORE_DOMAINS[deal.storeSlug] || deal.cleanDomain || '',
-                        badge: deal.discountBadge,
-                        affiliateUrl: deal.affiliateUrl,
-                        successRate: deal.successRate
-                      })}
-                    >
-                      <span>Activate Deal ↗</span>
-                    </button>
-                  )}
-                </div>
-
-                <!-- Expandable Terms & QA Info Drawer with Micro-interaction -->
-                <div class="deal-terms-drawer hidden text-[11px] text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/60 p-3.5 rounded-xl border border-slate-200/70 dark:border-slate-700/60 space-y-2 mt-2">
-                  <div class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between">
-                    <span class="flex items-center gap-1.5">
-                      <span class="text-indigo-500">🛡️</span>
-                      <span>Terms &amp; QA Verification:</span>
+              <!-- Full-Width Compact Action Button (h-10) -->
+              <div class="pt-1 mt-auto">
+                {isCode ? (
+                  <button
+                    type="button"
+                    class="w-full h-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-[13px] rounded-xl px-3 flex items-center justify-between gap-1.5 shadow-sm hover:shadow transition cursor-pointer"
+                    data-reveal-deal={JSON.stringify({
+                      id: deal.id,
+                      title: deal.title,
+                      desc: deal.description,
+                      code: deal.code,
+                      storeName: cleanName,
+                      storeSlug: deal.canonicalSlug || deal.storeSlug,
+                      domain: brandDomain,
+                      badge: cleanBadge,
+                      affiliateUrl: deal.affiliateUrl,
+                      successRate: deal.successRate
+                    })}
+                  >
+                    <span>Copy Code</span>
+                    <span class="bg-black/25 px-1.5 py-0.5 rounded font-mono text-[11px] text-amber-300 font-bold tracking-wider">
+                      ···{deal.code.slice(-3)}
                     </span>
-                    <span class="text-[10px] text-slate-400 font-mono">Expires {deal.expiryDate}</span>
-                  </div>
-                  <p class="leading-relaxed text-slate-500 dark:text-slate-400">
-                    {deal.terms || 'Verified for checkout through official partner affiliate network feed. QA tested on active baskets.'}
-                  </p>
-                  
-                  <!-- Compact "Did it work? 👍 / 👎" Micro-interaction -->
-                  <div class="pt-2 border-t border-slate-200/60 dark:border-slate-700/60 flex items-center justify-between">
-                    <span class="text-slate-600 dark:text-slate-300 font-semibold">Did it work?</span>
-                    <div class="flex items-center gap-1.5 card-vote-container" data-deal-id={deal.id}>
-                      <button
-                        type="button"
-                        class="card-vote-btn px-2.5 py-1 rounded-lg bg-white hover:bg-emerald-50 hover:text-emerald-700 dark:bg-slate-900 dark:hover:bg-emerald-950/40 dark:text-slate-300 dark:hover:text-emerald-300 border border-slate-200 dark:border-slate-700 text-[10px] font-bold transition flex items-center gap-1 cursor-pointer"
-                        data-vote="up"
-                        title="Yes, this deal worked"
-                      >
-                        <span>👍</span>
-                        <span>Yes</span>
-                      </button>
-                      <button
-                        type="button"
-                        class="card-vote-btn px-2.5 py-1 rounded-lg bg-white hover:bg-rose-50 hover:text-rose-700 dark:bg-slate-900 dark:hover:bg-rose-950/40 dark:text-slate-300 dark:hover:text-rose-300 border border-slate-200 dark:border-slate-700 text-[10px] font-bold transition flex items-center gap-1 cursor-pointer"
-                        data-vote="down"
-                        title="No, code did not apply"
-                      >
-                        <span>👎</span>
-                        <span>No</span>
-                      </button>
-                      <span class="card-vote-feedback hidden text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
-                        ✓ Recorded!
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Card Footer with Filter by Store Link or Store Profile -->
-                <div class="pt-1 h-5 flex items-center justify-between text-[11px]">
-                  {totalStoreDeals > 1 ? (
-                    <button
-                      type="button"
-                      data-filter-store={deal.storeName}
-                      class="deal-more-store-link text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 font-semibold transition flex items-center gap-1 cursor-pointer"
-                    >
-                      <span>+{totalStoreDeals - 1} more {deal.storeName} deals</span>
-                      <span>→</span>
-                    </button>
-                  ) : (
-                    <a
-                      href={`${base}/stores/${deal.storeSlug}/`}
-                      class="text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition flex items-center gap-1"
-                    >
-                      <span>View {deal.storeName} profile</span>
-                      <span>→</span>
-                    </a>
-                  )}
-                </div>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    class="w-full h-10 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-[13px] rounded-xl px-3 flex items-center justify-center gap-1.5 shadow-sm hover:shadow transition cursor-pointer"
+                    data-reveal-deal={JSON.stringify({
+                      id: deal.id,
+                      title: deal.title,
+                      desc: deal.description,
+                      code: '',
+                      storeName: cleanName,
+                      storeSlug: deal.canonicalSlug || deal.storeSlug,
+                      domain: brandDomain,
+                      badge: cleanBadge,
+                      affiliateUrl: deal.affiliateUrl,
+                      successRate: deal.successRate
+                    })}
+                  >
+                    <span>Get Discount</span>
+                    <span class="material-symbols-outlined text-[16px]">north_east</span>
+                  </button>
+                )}
               </div>
             </article>
           );
         })}
       </div>
 
-      <!-- Load More Button (Slickdeals / Honey UX: prevents endless scroll fatigue) -->
-      <div id="loadMoreContainer" class="mt-8 text-center">
+      <!-- Load More Button with Progress Counter & Indicator -->
+      <div id="loadMoreContainer" class="mt-10 flex flex-col items-center gap-3">
+        <!-- Progress Counter -->
+        <div class="flex flex-col items-center gap-1.5">
+          <span id="paginationProgressText" class="text-xs font-semibold text-slate-500 dark:text-slate-400">
+            Showing <strong class="text-slate-900 dark:text-white" id="paginationShowingCount">{Math.min(24, validCouponsData.length)}</strong> of <strong class="text-slate-900 dark:text-white">{validCouponsData.length}</strong> verified offers
+          </span>
+          <div class="h-1.5 w-52 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div id="paginationProgressBar" class="h-full bg-indigo-500 transition-all duration-300" style={`width: ${Math.min(100, Math.round((Math.min(24, validCouponsData.length) / Math.max(1, validCouponsData.length)) * 100))}%;`}></div>
+          </div>
+        </div>
+
         <button
           type="button"
           id="loadMoreDealsBtn"
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white hover:bg-slate-50 text-slate-900 font-extrabold text-xs sm:text-sm border border-slate-200 shadow-sm hover:border-indigo-300 hover:shadow-md transition cursor-pointer"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-extrabold text-xs sm:text-sm border border-slate-200 dark:border-slate-700 shadow-sm hover:border-indigo-300 hover:shadow-md transition cursor-pointer"
         >
           <span>Load More Verified Coupons &amp; Deals</span>
-          <span class="px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold dark:bg-indigo-500/15 dark:text-indigo-300 dark:border dark:border-indigo-500/30">
-            +{COUPONS_DATA.length - 16} more
+          <span class="px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold dark:bg-indigo-500/20 dark:text-indigo-300 dark:border dark:border-indigo-500/30">
+            +{Math.max(0, validCouponsData.length - 24)} left
           </span>
           <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -1599,12 +1325,16 @@ const homeSchemas = [
     }
 
     const CORE_VERTICAL_MAP = {
-      'Privacy & VPN': ['Privacy & Security'],
-      'Electronics & Tech': ['Electronics & Gadgets'],
+      'Privacy & Security': ['Privacy & Security'],
+      'Gaming, Media & Software': ['Gaming, Media & Software', 'Gaming & Entertainment', 'Software & Utilities'],
+      'Home & Living': ['Home & Living', 'Home & Lifestyle'],
       'Fashion & Apparel': ['Fashion & Apparel', 'Eyewear & Health', 'Beauty & Fragrances'],
-      'Travel & eSIM': ['Travel & Tours', 'Dating & Lifestyle'],
-      'E-Commerce & Retail': ['E-Commerce & Wholesale', 'Home & Lifestyle', 'Kids & Toys'],
-      'Digital Services': ['Education & Learning', 'Insurance & Finance', 'Web Hosting & Domains', 'Gaming & Entertainment', 'Software & Utilities']
+      'Travel & Tours': ['Travel & Tours', 'Dating & Lifestyle'],
+      'Electronics & Gadgets': ['Electronics & Gadgets'],
+      'Auto, Dashcams & Mobility': ['Auto, Dashcams & Mobility'],
+      'Food, Beverage & Nutrition': ['Food, Beverage & Nutrition'],
+      'E-Commerce & Wholesale': ['E-Commerce & Wholesale', 'Kids & Toys'],
+      'Digital Services': ['Education & Learning', 'Insurance & Finance', 'Web Hosting & Domains']
     };
 
     function filterDeals() {
@@ -1621,6 +1351,16 @@ const homeSchemas = [
       }
 
       let isFiltered = currentCategory !== 'ALL' || currentRegion !== 'ALL' || currentType !== 'ALL' || !!currentStore || !!q;
+      const liveResetBtn = document.getElementById('liveResetFiltersBtn');
+      if (liveResetBtn) {
+        if (isFiltered) {
+          liveResetBtn.classList.remove('hidden');
+          liveResetBtn.classList.add('inline-flex');
+        } else {
+          liveResetBtn.classList.add('hidden');
+          liveResetBtn.classList.remove('inline-flex');
+        }
+      }
       const loadMoreContainer = document.getElementById('loadMoreContainer');
 
       cards.forEach((card, index) => {
@@ -1628,11 +1368,16 @@ const homeSchemas = [
         const cStore = card.getAttribute('data-store') || '';
         const cType = card.getAttribute('data-type') || '';
         const cRegions = (card.getAttribute('data-regions') || 'GLOBAL').split(',');
+        const cSearch = card.getAttribute('data-search') || '';
         const cText = card.innerText.toLowerCase();
 
         let matchCat = false;
         if (currentCategory === 'ALL') {
           matchCat = true;
+        } else if (currentCategory === 'BLACK_FRIDAY') {
+          const discountMatch = cText.match(/(\d+)%/);
+          const pct = discountMatch ? parseInt(discountMatch[1], 10) : 0;
+          matchCat = pct >= 40 || cText.includes('black friday') || cText.includes('cyber') || cText.includes('save up to') || cText.includes('free');
         } else if (CORE_VERTICAL_MAP[currentCategory]) {
           matchCat = CORE_VERTICAL_MAP[currentCategory].includes(cCat);
         } else {
@@ -1641,8 +1386,8 @@ const homeSchemas = [
 
         const matchRegion = currentRegion === 'ALL' || cRegions.includes(currentRegion) || cRegions.includes('GLOBAL');
         const matchType = currentType === 'ALL' || cType === currentType;
-        const matchStore = !currentStore || cStore === currentStore;
-        const matchQuery = !q || cText.includes(q);
+        const matchStore = !currentStore || cStore.toLowerCase() === currentStore.toLowerCase();
+        const matchQuery = !q || cText.includes(q) || cSearch.includes(q) || cStore.toLowerCase().includes(q);
 
         if (matchCat && matchRegion && matchType && matchStore && matchQuery) {
           if (isFiltered || !card.classList.contains('deal-item-collapsed')) {
@@ -1673,13 +1418,36 @@ const homeSchemas = [
       }
     }
 
-    // Load More Interaction
+    // Load More Interaction with incremental progress (24 cards per batch)
     document.getElementById('loadMoreDealsBtn')?.addEventListener('click', () => {
-      document.querySelectorAll('.deal-item-collapsed').forEach(c => {
+      const collapsed = Array.from(document.querySelectorAll('.deal-item-collapsed'));
+      const batchToReveal = collapsed.slice(0, 24);
+      
+      batchToReveal.forEach(c => {
         c.classList.remove('deal-item-collapsed', 'hidden');
       });
-      document.getElementById('loadMoreContainer')?.classList.add('hidden');
-      showToast('All 40+ verified vouchers revealed!');
+
+      const totalCards = document.querySelectorAll('.deal-grid-card').length;
+      const visibleCards = totalCards - document.querySelectorAll('.deal-item-collapsed').length;
+
+      const showingCountEl = document.getElementById('paginationShowingCount');
+      if (showingCountEl) showingCountEl.textContent = String(visibleCards);
+
+      const progressBar = document.getElementById('paginationProgressBar');
+      if (progressBar && totalCards > 0) {
+        const pct = Math.min(100, Math.round((visibleCards / totalCards) * 100));
+        progressBar.style.width = `${pct}%`;
+      }
+
+      if (collapsed.length <= 24) {
+        document.getElementById('loadMoreContainer')?.classList.add('hidden');
+        showToast('All verified coupon vouchers revealed!');
+      } else {
+        const leftCount = collapsed.length - 24;
+        const leftSpan = document.querySelector('#loadMoreDealsBtn span:nth-child(2)');
+        if (leftSpan) leftSpan.textContent = `+${leftCount} left`;
+        showToast(`Revealed 24 more verified offers (${leftCount} remaining)`);
+      }
     });
 
     // Category Buttons
@@ -1698,7 +1466,11 @@ const homeSchemas = [
 
     // Region & Geo Buttons
     document.querySelectorAll('.region-filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        // If clicking on client filter, prevent default navigation for instant interactive filtering
+        if (btn.tagName === 'A') {
+          e.preventDefault();
+        }
         currentRegion = btn.getAttribute('data-region') || 'ALL';
         document.querySelectorAll('.region-filter-btn').forEach(b => {
           const isActive = b.getAttribute('data-region') === currentRegion;
@@ -1751,7 +1523,10 @@ const homeSchemas = [
 
     // Store Strip Filter Buttons
     document.querySelectorAll('.store-strip-pill').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        if (btn.tagName === 'A') {
+          e.preventDefault();
+        }
         const sName = btn.getAttribute('data-filter-store');
         currentStore = currentStore === sName ? null : sName;
         document.querySelectorAll('.store-strip-pill').forEach(b => {
@@ -1770,6 +1545,20 @@ const homeSchemas = [
       document.querySelectorAll('.store-strip-pill').forEach(b => {
         b.classList.remove('bg-indigo-50', 'border-indigo-500', 'ring-2', 'ring-indigo-500/20');
       });
+      filterDeals();
+    });
+
+    // Live Reset Filters in Sticky Bar
+    document.getElementById('liveResetFiltersBtn')?.addEventListener('click', () => {
+      currentCategory = 'ALL';
+      currentRegion = 'ALL';
+      currentType = 'ALL';
+      currentStore = null;
+      searchQuery = '';
+      if (document.getElementById('mainHeroSearchInput')) document.getElementById('mainHeroSearchInput').value = '';
+      document.querySelectorAll('.main-cat-btn').forEach(b => b.classList.toggle('is-active', b.getAttribute('data-cat') === 'ALL'));
+      document.querySelectorAll('.region-filter-btn').forEach(b => b.classList.toggle('is-active', b.getAttribute('data-region') === 'ALL'));
+      document.querySelectorAll('.type-filter-btn').forEach(b => b.classList.toggle('is-active', b.getAttribute('data-type') === 'ALL'));
       filterDeals();
     });
 
@@ -1805,7 +1594,7 @@ const homeSchemas = [
       // 1. Match Stores
       const matchedStores = (storesRegistry || []).filter(s =>
         s.name.toLowerCase().includes(q) || s.category.toLowerCase().includes(q) || s.slug.includes(q)
-      ).slice(0, 4);
+      ).slice(0, 5);
 
       // 2. Match Categories
       const matchedCategories = (categoriesRegistry || []).filter(c =>
@@ -1947,6 +1736,13 @@ const homeSchemas = [
       searchQuery = e.target.value;
       if (heroInput) heroInput.value = searchQuery;
       filterDeals();
+      renderHeroSpotlight(searchQuery);
+    });
+
+    headerInput?.addEventListener('focus', () => {
+      if (headerInput.value.trim().length >= 2) {
+        renderHeroSpotlight(headerInput.value);
+      }
     });
 
     // Dismiss spotlight on click outside
@@ -1988,37 +1784,7 @@ const homeSchemas = [
       });
     });
 
-    // Terms Drawers Toggle
-    document.querySelectorAll('.deal-terms-toggle').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const card = btn.closest('.deal-grid-card');
-        const drawer = card?.querySelector('.deal-terms-drawer');
-        drawer?.classList.toggle('hidden');
-      });
-    });
 
-    // Card Terms Drawer Voting Micro-interaction ("Did it work? 👍 / 👎")
-    document.querySelectorAll('.card-vote-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const container = btn.closest('.card-vote-container');
-        const dealId = container?.getAttribute('data-deal-id') || 'deal';
-        const vote = btn.getAttribute('data-vote') || 'up';
-
-        let votes = {};
-        try {
-          votes = JSON.parse(localStorage.getItem('promoradar_deal_votes') || '{}');
-        } catch (err) {}
-        votes[dealId] = vote;
-        localStorage.setItem('promoradar_deal_votes', JSON.stringify(votes));
-
-        container?.querySelectorAll('.card-vote-btn').forEach(b => b.classList.add('hidden'));
-        const feedback = container?.querySelector('.card-vote-feedback');
-        if (feedback) feedback.classList.remove('hidden');
-
-        showToast(vote === 'up' ? 'Thanks! Coupon marked as working 👍' : 'Thanks! Code flagged for QA re-verification 🛡️');
-      });
-    });
 
     // Hero Region Selector Dropdown
     const heroRegionBtn = document.getElementById('heroRegionDropdownBtn');

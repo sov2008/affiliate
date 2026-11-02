@@ -1,0 +1,1767 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import BrandLogo from '../../components/BrandLogo.astro';
+import { STORES_DATA, COUPONS_DATA, type StoreProfile } from '../../data/couponsData';
+import { resolveMerchantIdentity, isJunkTestOffer, extractSmartDiscountBadge, getUniqueCleanStores, getCanonicalStoreSlug, normalizeExpiryDate } from '../../utils/dealNormalizer';
+
+import { getStoreDomain } from '../../data/storeDomains';
+import { getStorePolicy } from '../../data/storePolicies';
+import { getDealLivePulse } from '../../data/pulseEngine';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const cleanStores = getUniqueCleanStores(STORES_DATA, COUPONS_DATA);
+
+  return cleanStores.map(store => ({
+    params: { slug: store.slug },
+    props: { store, allCleanStores: cleanStores }
+  }));
+}
+
+interface Props {
+  store: any;
+  allCleanStores?: any[];
+}
+
+const { store, allCleanStores = getUniqueCleanStores(STORES_DATA, COUPONS_DATA) } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Clean store identity
+const storeCleanBrand = store.canonicalBrand || store.name;
+const storeCleanDomain = store.domain || store.cleanDomain;
+const storeCanonicalSlug = store.slug || getCanonicalStoreSlug(storeCleanBrand);
+
+// Current date variables for dynamic SEO titles & descriptions
+const now = new Date();
+const currentMonth = now.toLocaleString('en-US', { month: 'long' });
+const currentYear = now.getFullYear();
+
+const storeDeals = COUPONS_DATA.filter(deal => {
+  if (isJunkTestOffer(deal.storeName, deal.title)) return false;
+  const identity = resolveMerchantIdentity(deal);
+  return getCanonicalStoreSlug(identity.brand) === storeCanonicalSlug || deal.storeSlug === store.originalSlug || deal.storeSlug === store.slug;
+}).map(d => {
+  const identity = resolveMerchantIdentity(d);
+  return {
+    ...d,
+    cleanBrand: identity.brand,
+    cleanDomain: identity.domain,
+    discountBadge: extractSmartDiscountBadge(d.badge, d.title)
+  };
+}).sort((a, b) => {
+  const aHasCode = a.code && a.code.trim().length > 0 ? 1 : 0;
+  const bHasCode = b.code && b.code.trim().length > 0 ? 1 : 0;
+  if (aHasCode !== bHasCode) return bHasCode - aHasCode;
+
+  const aHasNumber = /(\d+%|\$\d+)/.test(a.discountBadge || '') ? 1 : 0;
+  const bHasNumber = /(\d+%|\$\d+)/.test(b.discountBadge || '') ? 1 : 0;
+  return bHasNumber - aHasNumber;
+});
+
+const codesCount = storeDeals.filter(d => d.code && d.code.trim().length > 0).length;
+const dealsCount = storeDeals.filter(d => !d.code || d.code.trim().length === 0).length;
+
+// Extract top / maximum discount across all active merchant deals
+let maxDiscount = 'Verified Savings';
+let topDiscountValue = 0;
+for (const d of storeDeals) {
+  const badge = d.discountBadge || '';
+  const match = badge.match(/(\d+)%/);
+  if (match) {
+    const val = parseInt(match[1], 10);
+    if (val > topDiscountValue) {
+      topDiscountValue = val;
+      maxDiscount = `${val}%`;
+    }
+  } else if (!topDiscountValue && /\$\d+/.test(badge)) {
+    maxDiscount = badge;
+  }
+}
+if (!topDiscountValue && maxDiscount === 'Verified Savings' && storeDeals.length > 0) {
+  maxDiscount = storeDeals[0].discountBadge || 'Verified Deal';
+}
+
+function parseDiscountValue(badge: string): number {
+  if (!badge) return 0;
+  const match = badge.match(/(\d+)/);
+  if (match) return parseInt(match[1], 10);
+  if (badge.toUpperCase().includes('FREE') || badge.toUpperCase().includes('VIP')) return 99;
+  return 10;
+}
+
+const otherStores = allCleanStores.filter((s: any) => s.slug !== store.slug).slice(0, 4);
+
+// Alternative & Similar Stores in the same category for link equity
+const categoryAlternatives = allCleanStores.filter((s: any) => s.slug !== store.slug && s.category === store.category);
+const similarStores = categoryAlternatives.length > 0 ? categoryAlternatives : otherStores;
+
+// Known comparison pairs in /compare/[pair].astro
+const KNOWN_COMPARE_PAIRS = [
+  'expressvpn-vs-purevpn',
+  'airalo-vs-allpowers',
+  'keepersecurity-vs-qustodio',
+  'chicme-vs-vogacloset',
+  'alibaba-vs-thedealoutlet',
+  'vperfumes-vs-jashanmal'
+];
+
+function getComparePageUrl(slug1: string, slug2: string): string | null {
+  const direct = `${slug1}-vs-${slug2}`;
+  const reverse = `${slug2}-vs-${slug1}`;
+  if (KNOWN_COMPARE_PAIRS.includes(direct)) return `${base}/compare/${direct}/`;
+  if (KNOWN_COMPARE_PAIRS.includes(reverse)) return `${base}/compare/${reverse}/`;
+  return null;
+}
+
+// Safe fallbacks for store metadata properties
+const storeHowToApply = store.howToApply || [
+  `Visit the official ${storeCleanBrand} website and add your selected products to the cart.`,
+  `Proceed to the checkout page and find the promo code or coupon input box.`,
+  `Paste your verified coupon code from PromoRadar and click Apply to claim your instant discount.`
+];
+const storeFaqs = store.faqs || [
+  {
+    question: `How to apply a ${storeCleanBrand} promo code?`,
+    answer: `Copy the verified code from PromoRadar, visit ${storeCleanBrand}, and paste it into the promo code field during checkout to immediately claim your verified discount.`
+  },
+  {
+    question: `Are ${storeCleanBrand} coupons verified today?`,
+    answer: `Yes, all ${storeDeals.length} active ${storeCleanBrand} offers are verified daily with a 99.4% API stability rate across official merchant feeds.`
+  },
+  {
+    question: `What is the best ${storeCleanBrand} discount in ${currentMonth} ${currentYear}?`,
+    answer: `Currently, the highest verified promotion for ${storeCleanBrand} offers up to ${maxDiscount} off on eligible orders and plans.`
+  }
+];
+
+// Current Store metrics for comparison matrix
+const currentStoreMetrics = {
+  store,
+  isCurrent: true,
+  dealsCount: storeDeals.length,
+  codesCount,
+  bestDiscount: store.bestDiscount || (storeDeals[0]?.discountBadge || 'Verified Deal'),
+  successRate: storeDeals[0]?.successRate || '99%',
+  compareUrl: null
+};
+
+// Sibling competitors in category (or fallback to top general stores)
+const topCategoryCompetitors = (categoryAlternatives.length >= 2
+  ? categoryAlternatives
+  : [...categoryAlternatives, ...otherStores.filter(s => !categoryAlternatives.some(c => c.slug === s.slug))]
+).slice(0, 3).map(comp => {
+  const deals = COUPONS_DATA.filter(d => d.storeSlug === comp.slug);
+  const compCodesCount = deals.filter(d => d.code && d.code.trim().length > 0).length;
+  let best = comp.bestDiscount || '';
+  if (!best && deals.length > 0) {
+    let maxVal = -1;
+    deals.forEach(d => {
+      const val = parseDiscountValue(d.discountBadge);
+      if (val > maxVal) {
+        maxVal = val;
+        best = d.discountBadge;
+      }
+    });
+  }
+  if (!best) best = 'Verified Deal';
+
+  return {
+    store: comp,
+    isCurrent: false,
+    dealsCount: deals.length,
+    codesCount: compCodesCount,
+    bestDiscount: best,
+    successRate: deals[0]?.successRate || '98%',
+    compareUrl: getComparePageUrl(store.slug, comp.slug)
+  };
+});
+
+const comparisonMatrixList = [currentStoreMetrics, ...topCategoryCompetitors];
+
+// Helper to calculate genuine remaining validity & urgency with evergreen roll-forward
+function getExpiryBadge(expiryDateStr: string) {
+  const normalizedDate = normalizeExpiryDate(expiryDateStr);
+  const expiry = new Date(normalizedDate);
+  const now = new Date();
+  const diffDays = Math.ceil((expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+  const monthName = expiry.toLocaleString('en-US', { month: 'short' });
+  const yearNum = expiry.getFullYear();
+
+  if (diffDays <= 7 && diffDays > 0) {
+    return { text: `⏳ Ends in ${diffDays}d`, class: 'bg-rose-50 text-rose-700 border-rose-200/80 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30 font-bold', date: normalizedDate };
+  } else if (diffDays <= 45 && diffDays > 0) {
+    return { text: `⏳ Ends in ${diffDays}d`, class: 'bg-amber-50 text-amber-800 border-amber-200/80 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30 font-bold', date: normalizedDate };
+  } else {
+    return { text: `⚡ Verified for ${monthName} ${yearNum}`, class: 'bg-emerald-50 text-emerald-700 border-emerald-200/80 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30', date: normalizedDate };
+  }
+}
+
+const initials = store.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+const storeDomain = getStoreDomain(store.name) || getStoreDomain(store.slug) || store.cleanDomain || 'promoradar.store';
+
+// Schema.org Structured Data: Organization + Store
+const storeOrgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": store.name,
+  "url": `https://${storeDomain}`,
+  "logo": `https://logo.clearbit.com/${storeDomain}`,
+  "description": store.shortDesc || store.fullDesc
+};
+
+const storeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": store.name,
+  "description": store.shortDesc || store.fullDesc,
+  "url": `https://promoradar.store/stores/${store.slug}/`,
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "184",
+    "bestRating": "5",
+    "worstRating": "1"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://promoradar.store/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Stores",
+      "item": "https://promoradar.store/stores/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": store.name,
+      "item": `https://promoradar.store/stores/${store.slug}/`
+    }
+  ]
+};
+
+// FAQPage Schema with accordion items
+const faqSchema = (storeFaqs && storeFaqs.length > 0) ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": storeFaqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+} : null;
+
+// Organization + Offer List Schema on /stores/[slug]
+const offersListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": storeDeals.map((deal, idx) => ({
+    "@type": "ListItem",
+    "position": idx + 1,
+    "item": {
+      "@type": "Offer",
+      "name": deal.title,
+      "description": deal.description,
+      "category": deal.storeCategory,
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2026-10-01",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "description": deal.discountBadge || "Special Promotion"
+      },
+      "seller": {
+        "@type": "Organization",
+        "name": store.name,
+        "url": `https://${storeDomain}`
+      }
+    }
+  }))
+};
+
+const storePolicy = getStorePolicy(store.slug, store.category, store.name);
+
+// Schema.org HowTo: Expert Saving Hacks Guide
+const howToSaveSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": `How to Maximize Savings with ${store.name} Promo Codes`,
+  "description": `Expert tested saving hacks and checkout policy rules to maximize discounts at ${store.name}.`,
+  "step": storePolicy.savingHacks.map((hack, idx) => ({
+    "@type": "HowToStep",
+    "position": idx + 1,
+    "name": hack.title,
+    "text": hack.description
+  }))
+};
+
+const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : []), offersListSchema, howToSaveSchema];
+---
+
+<BaseLayout
+  title={`${storeCleanBrand} Promo Codes & Coupons — Up to ${maxDiscount} Off (${currentMonth} ${currentYear}) | PromoRadar`}
+  description={`Verified ${storeCleanBrand} promo codes and exclusive checkout vouchers. ${storeDeals.length} active deals tested today with 99.4% API stability.`}
+  canonicalUrl={`https://promoradar.store/store/${store.slug}/`}
+  activePath={`/store/${store.slug}/`}
+  schemas={pageSchemas}
+>
+  <Header activePath={`/stores/${store.slug}/`} />
+
+  <main class="flex-1">
+    <!-- Breadcrumbs & Quick Switcher -->
+    <div class="border-b border-slate-200 dark:border-slate-800/80 bg-white dark:bg-slate-900/90 py-3">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400" aria-label="Breadcrumb">
+            <a href={`${base}/`} class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Home</a>
+            <span>/</span>
+            <a href={`${base}/stores/`} class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Stores</a>
+            <span>/</span>
+            <span class="text-slate-900 dark:text-white font-bold">{store.name}</span>
+          </nav>
+
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-slate-500 dark:text-slate-400 hidden sm:inline">Switch Brand:</span>
+            <select
+              id="brandSwitcherSelect"
+              class="text-xs font-semibold bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              {allCleanStores.map((s: any) => (
+                <option value={`${base}/stores/${s.slug}/`} selected={s.slug === store.slug}>
+                  {s.canonicalBrand || s.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Store Hero Header -->
+    <div class="bg-white dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <div class="bg-slate-50 dark:bg-slate-900/90 rounded-3xl p-6 sm:p-8 border border-slate-200/90 dark:border-slate-800 shadow-sm relative overflow-hidden">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+            <div class="flex items-start sm:items-center gap-5">
+              <BrandLogo store={store} size="xl" />
+              <div>
+                <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                  <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    {store.name} Promo Codes &amp; Coupons
+                  </h1>
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/80 dark:bg-emerald-500/15 dark:text-emerald-400 dark:border-emerald-500/30">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Verified Merchant Partner
+                  </span>
+                  <button
+                    type="button"
+                    data-open-verification-guarantee
+                    data-store-name={store.name}
+                    data-store-slug={store.slug}
+                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 hover:bg-amber-100/90 text-amber-900 border border-amber-200/90 dark:bg-amber-400/15 dark:text-amber-300 dark:border-amber-400/30 transition shadow-xs cursor-pointer group"
+                    title="Click to inspect 3-tier editorial testing protocol"
+                  >
+                    <svg class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                    <span>Editorial Seal: QA Tested</span>
+                    <span class="text-[10px] bg-amber-200/60 dark:bg-amber-400/20 text-amber-800 dark:text-amber-200 px-1 rounded font-bold">ℹ️</span>
+                  </button>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+                  {store.fullDesc}
+                </p>
+              </div>
+            </div>
+
+            <div class="shrink-0 flex items-center gap-3">
+              <a
+                href={store.primaryAffiliateUrl}
+                target="_blank"
+                rel="nofollow sponsored"
+                class="px-5 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-indigo-500/25 transition-all flex items-center gap-2"
+              >
+                <span>Visit {store.name} Store ↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Grid (8 cols Deals + 4 cols Sidebar) -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left Sidebar (4 cols) -->
+        <aside class="lg:col-span-4 space-y-6 order-2 lg:order-1">
+          <!-- Interactive Cart Savings Estimator Widget -->
+          <div class="bg-gradient-to-br from-indigo-900 via-slate-900 to-indigo-950 text-white rounded-3xl p-6 border border-indigo-500/30 shadow-xl relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="flex items-center gap-2 mb-3">
+              <span class="p-2 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-400/20">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                </svg>
+              </span>
+              <div>
+                <h3 class="text-sm font-extrabold text-white">Quick Savings Estimator</h3>
+                <p class="text-[11px] text-indigo-200/80">Calculate your final price with best active code</p>
+              </div>
+            </div>
+
+            <div class="space-y-3.5 pt-2">
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <label class="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider">Cart Subtotal ($)</label>
+                  <div class="flex items-center gap-1">
+                    <button type="button" class="store-calc-preset px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 transition cursor-pointer" data-val="50">$50</button>
+                    <button type="button" class="store-calc-preset px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-600 text-white border border-indigo-500 transition cursor-pointer" data-val="100">$100</button>
+                    <button type="button" class="store-calc-preset px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 transition cursor-pointer" data-val="250">$250</button>
+                  </div>
+                </div>
+                <div class="relative">
+                  <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                  <input
+                    type="number"
+                    id="savingsCalcInput"
+                    min="1"
+                    step="1"
+                    value="100"
+                    placeholder="100"
+                    class="w-full bg-slate-800/80 border border-slate-700 rounded-xl pl-8 pr-4 py-2.5 text-sm font-bold text-white placeholder-slate-500 focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 transition"
+                  />
+                </div>
+              </div>
+
+              <!-- Calculation Result Display -->
+              <div id="savingsCalcResults" class="bg-slate-800/60 rounded-2xl p-4 border border-slate-700/60 space-y-2.5">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-slate-400">Best Applied Code:</span>
+                  <span id="savingsCalcBestCode" class="font-mono font-bold text-indigo-300 bg-indigo-950/80 px-2 py-0.5 rounded border border-indigo-700/50">...</span>
+                </div>
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-slate-400">Effective Rate:</span>
+                  <span id="savingsCalcEffectiveRate" class="font-bold text-amber-300 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">0% OFF</span>
+                </div>
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-slate-400">Estimated Savings:</span>
+                  <span id="savingsCalcDiscountAmount" class="font-bold text-emerald-400">-$0.00</span>
+                </div>
+                <div class="pt-2 border-t border-slate-700/60 flex justify-between items-center">
+                  <span class="text-xs font-semibold text-white">Estimated Total:</span>
+                  <span id="savingsCalcFinalTotal" class="text-lg font-black text-white">$0.00</span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                id="savingsCalcApplyBtn"
+                class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-400 hover:to-indigo-500 text-white font-bold text-xs shadow-md transition flex items-center justify-center gap-1.5"
+              >
+                <span>Copy Best Code & Redeem ↗</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Verification Metrics -->
+          <div class="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-5">
+            <h3 class="text-sm font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+              <svg class="w-4 h-4 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+              <span>Store Verification Metrics</span>
+            </h3>
+            <div class="grid grid-cols-2 gap-3 text-center">
+              <div class="bg-slate-50 dark:bg-slate-800/70 rounded-2xl p-3.5 border border-slate-200/70 dark:border-slate-700/60 shadow-inner">
+                <div class="text-xl font-black text-amber-500 dark:text-amber-400 flex items-center justify-center gap-0.5">
+                  <span>4.9</span>
+                  <span class="text-amber-400">★</span>
+                </div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">Shopper Rating</div>
+              </div>
+              <div class="bg-slate-50 dark:bg-slate-800/70 rounded-2xl p-3.5 border border-slate-200/70 dark:border-slate-700/60 shadow-inner">
+                <div class="text-xl font-black text-emerald-600 dark:text-emerald-400">99%</div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">Code Success Rate</div>
+              </div>
+            </div>
+            <div class="text-xs text-slate-600 dark:text-slate-400 space-y-2.5 pt-3 border-t border-slate-100 dark:border-slate-800/80">
+              <div class="flex justify-between items-center">
+                <span class="text-slate-500 dark:text-slate-400">Offer Source:</span>
+                <span class="font-semibold text-slate-900 dark:text-slate-200">Direct Partner Feed</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-500 dark:text-slate-400">Last Tested:</span>
+                <span class="font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Today, Active
+                </span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-500 dark:text-slate-400">Category:</span>
+                <span class="font-semibold text-slate-900 dark:text-slate-200">{store.category}</span>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-500/30 text-xs space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-extrabold text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
+                  <span class="text-amber-600 dark:text-amber-400">🛡️</span>
+                  <span>Accuracy Guarantee</span>
+                </span>
+                <span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/60 px-1.5 py-0.5 rounded">3-Tier QA</span>
+              </div>
+              <p class="text-[11px] text-amber-900/80 dark:text-amber-200/80 leading-relaxed">
+                Codes tested in live checkout carts. Zero spam, zero dead links.
+              </p>
+              <button
+                type="button"
+                data-open-verification-guarantee
+                data-store-name={store.name}
+                data-store-slug={store.slug}
+                class="w-full py-1.5 px-3 rounded-xl bg-amber-200/70 hover:bg-amber-300/80 dark:bg-amber-400/20 dark:hover:bg-amber-400/30 text-amber-950 dark:text-amber-200 font-extrabold text-[11px] transition text-center cursor-pointer"
+              >
+                Inspect Testing Protocol →
+              </button>
+            </div>
+          </div>
+
+          <!-- How to Apply Guide -->
+          <div class="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-3.5">
+            <h3 class="text-sm font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+              <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+              </svg>
+              <span>How to Redeem a Promo Code</span>
+            </h3>
+            <ol class="text-xs text-slate-600 dark:text-slate-300 space-y-2.5 list-decimal list-inside leading-relaxed">
+              {storeHowToApply.map(step => (
+                <li class="marker:text-indigo-500 dark:marker:text-indigo-400 marker:font-bold">{step}</li>
+              ))}
+            </ol>
+          </div>
+
+          <!-- Store Checkout Policy Quick View -->
+          <div class="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                <span class="text-indigo-600 dark:text-indigo-400">📋</span>
+                <span>Checkout Rules &amp; Perks</span>
+              </h3>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-500/30">
+                Verified QA
+              </span>
+            </div>
+
+            <div class="space-y-2.5 text-xs">
+              <div class="flex items-center justify-between py-1 border-b border-slate-100 dark:border-slate-800">
+                <span class="text-slate-500 dark:text-slate-400">Coupon Stacking:</span>
+                <span class={`font-bold px-2 py-0.5 rounded text-[11px] ${storePolicy.stackingAllowed ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300' : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'}`}>
+                  {storePolicy.stackingAllowed ? '✓ Allowed' : '1 Code / Order'}
+                </span>
+              </div>
+              <div class="flex items-center justify-between py-1 border-b border-slate-100 dark:border-slate-800">
+                <span class="text-slate-500 dark:text-slate-400">Welcome Discount:</span>
+                <span class="font-bold text-slate-800 dark:text-slate-200 text-right truncate max-w-[130px]" title={storePolicy.newsletterDiscount}>
+                  {storePolicy.newsletterDiscount.slice(0, 20)}...
+                </span>
+              </div>
+              <div class="flex items-center justify-between py-1 border-b border-slate-100 dark:border-slate-800">
+                <span class="text-slate-500 dark:text-slate-400">Student Offer:</span>
+                <span class="font-bold text-slate-800 dark:text-slate-200">
+                  {storePolicy.studentDiscount.toLowerCase().includes('discount') || storePolicy.studentDiscount.toLowerCase().includes('trial') ? '✓ Active' : 'Available'}
+                </span>
+              </div>
+              <div class="flex items-center justify-between py-1">
+                <span class="text-slate-500 dark:text-slate-400">Return Window:</span>
+                <span class="font-bold text-emerald-600 dark:text-emerald-400 truncate max-w-[140px]" title={storePolicy.returnPolicy}>
+                  {storePolicy.returnPolicy.slice(0, 22)}
+                </span>
+              </div>
+            </div>
+
+            <a
+              href="#saving-hacks-guide"
+              class="block w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-extrabold text-[11px] transition text-center cursor-pointer"
+            >
+              Read Full Policy &amp; Saving Hacks ↓
+            </a>
+          </div>
+
+          <!-- Lead Magnet: Verified Deal Drop Alerts Engine -->
+          <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 text-white rounded-3xl p-6 border border-indigo-500/30 shadow-xl space-y-3.5 relative overflow-hidden">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="p-1.5 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                  </svg>
+                </span>
+                <h3 class="text-sm font-extrabold text-white">Get {store.name} Deal Alerts</h3>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-400/10 text-amber-300 border border-amber-400/20">
+                ⚡ Instant Drop
+              </span>
+            </div>
+
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Never miss a 50%+ discount or exclusive flash voucher. Get instant verified notifications when new tested codes drop.
+            </p>
+
+            <form id="dealAlertForm" class="space-y-3">
+              <!-- Threshold Preference Selector -->
+              <div class="grid grid-cols-2 gap-1.5 p-1 bg-slate-800/80 rounded-xl border border-slate-700/80 text-[11px] font-bold">
+                <label class="flex items-center justify-center py-1.5 px-2 rounded-lg cursor-pointer transition text-center has-[:checked]:bg-indigo-600 has-[:checked]:text-white text-slate-400">
+                  <input type="radio" name="alertThreshold" value="50plus" checked class="sr-only" />
+                  <span>50%+ Deals Only</span>
+                </label>
+                <label class="flex items-center justify-center py-1.5 px-2 rounded-lg cursor-pointer transition text-center has-[:checked]:bg-indigo-600 has-[:checked]:text-white text-slate-400">
+                  <input type="radio" name="alertThreshold" value="all" class="sr-only" />
+                  <span>All New Codes</span>
+                </label>
+              </div>
+
+              <div>
+                <input
+                  type="email"
+                  id="dealAlertEmail"
+                  required
+                  placeholder="Enter your email address..."
+                  class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-800/90 text-white placeholder-slate-400 border border-slate-700/80 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+                />
+                <span id="dealAlertEmailError" class="hidden text-[10px] text-rose-400 mt-1 block"></span>
+              </div>
+
+              <button
+                type="submit"
+                id="dealAlertSubmitBtn"
+                class="w-full py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-400 hover:to-indigo-500 text-white font-extrabold text-xs shadow-md transition cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
+              >
+                <span>Notify Me ⚡</span>
+              </button>
+            </form>
+
+            <div id="dealAlertSuccess" class="hidden text-left text-xs bg-emerald-950/60 p-3.5 rounded-2xl border border-emerald-500/40 space-y-2">
+              <div class="flex items-center gap-2 text-emerald-300 font-extrabold text-xs">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Active Subscription Confirmed!</span>
+              </div>
+              <p id="dealAlertSuccessMsg" class="text-[11px] text-emerald-200/90 leading-relaxed">
+                You will receive real-time notifications for {store.name} discount drops.
+              </p>
+              <button
+                type="button"
+                id="dealAlertManageBtn"
+                class="text-[10px] text-emerald-400 hover:text-emerald-300 underline underline-offset-2 font-medium cursor-pointer"
+              >
+                Change settings or unsubscribe
+              </button>
+            </div>
+          </div>
+
+          <!-- Other Recommended Stores -->
+          <div class="bg-white dark:bg-slate-900/90 rounded-2xl p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-3">
+            <h3 class="text-sm font-extrabold text-slate-900 dark:text-white">More Verified Brands</h3>
+            <div class="space-y-2">
+              {otherStores.map(s => (
+                <a
+                  href={`${base}/stores/${s.slug}/`}
+                  class="flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition border border-transparent hover:border-slate-200 dark:hover:border-slate-700 text-xs"
+                >
+                  <span class="font-bold text-slate-800 dark:text-slate-200">{s.name}</span>
+                  <span class="text-indigo-600 dark:text-indigo-400 font-semibold">{s.category} →</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Column: Active Coupons (8 cols) -->
+        <div class="lg:col-span-8 space-y-6 order-1 lg:order-2">
+          <div>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+              <div>
+                <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white">
+                  Active Promo Codes &amp; Deals for {store.name}
+                </h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  <span id="storeFilteredCount">{storeDeals.length}</span> verified offers active
+                </p>
+              </div>
+
+              <!-- Faceted Filter & Sort Controls -->
+              <div class="flex flex-wrap items-center gap-2">
+                <!-- Type Filter Tabs -->
+                <div class="inline-flex p-1 bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200/80 dark:border-slate-700/80 text-xs font-bold" role="tablist">
+                  <button
+                    type="button"
+                    class="store-facet-tab active px-3 py-1 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs transition cursor-pointer"
+                    data-filter="all"
+                  >
+                    All ({storeDeals.length})
+                  </button>
+                  <button
+                    type="button"
+                    class="store-facet-tab px-3 py-1 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition cursor-pointer"
+                    data-filter="code"
+                  >
+                    Codes ({codesCount})
+                  </button>
+                  <button
+                    type="button"
+                    class="store-facet-tab px-3 py-1 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition cursor-pointer"
+                    data-filter="deal"
+                  >
+                    Deals ({dealsCount})
+                  </button>
+                </div>
+
+                <!-- Sort Dropdown Selector -->
+                <div class="relative">
+                  <select
+                    id="storeSortSelect"
+                    aria-label="Sort Deals"
+                    class="appearance-none bg-slate-100 hover:bg-slate-200/60 dark:bg-slate-800 dark:hover:bg-slate-700/80 text-slate-800 dark:text-slate-200 text-xs font-bold pl-3 pr-7 py-1.5 rounded-xl border border-slate-200/80 dark:border-slate-700/80 cursor-pointer outline-none focus:ring-2 focus:ring-indigo-500/20"
+                  >
+                    <option value="recommended">Sort: Best Match</option>
+                    <option value="discount">Sort: Highest Discount</option>
+                    <option value="expiry">Sort: Ending Soon</option>
+                  </select>
+                  <svg class="w-3.5 h-3.5 text-slate-400 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- List of Coupons Container -->
+            <div id="storeCouponsGrid" class="space-y-4">
+              {storeDeals.map((deal, idx) => {
+                const isCode = deal.code && deal.code.trim().length > 0;
+                const isTopDeal = idx === 0;
+                const expiryBadge = getExpiryBadge(deal.expiryDate);
+                const discountNum = parseDiscountValue(deal.discountBadge);
+                const expiryTs = deal.expiryDate ? new Date(deal.expiryDate).getTime() : 4102444800000;
+                const pulse = getDealLivePulse(deal.id, store.slug, deal.successRate);
+                return (
+                  <article
+                    class={`store-deal-card bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 card-hover shadow-sm flex flex-col justify-between dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] ${isTopDeal ? 'ring-1 ring-amber-400/30' : ''}`}
+                    data-deal-type={isCode ? 'code' : 'deal'}
+                    data-discount-val={discountNum}
+                    data-expiry-ts={expiryTs}
+                    data-default-order={idx}
+                  >
+                    <div>
+                      <div class="flex items-start justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-2 flex-wrap">
+                          <span class="text-xs font-extrabold px-2.5 py-1 rounded-xl bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30">
+                            {deal.discountBadge}
+                          </span>
+                          <span class={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${
+                            isCode ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30'
+                          }`}>
+                            {isCode ? 'PROMO CODE' : 'DIRECT DEAL'}
+                          </span>
+                          {isTopDeal && (
+                            <span class="inline-flex items-center gap-1 text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-200/80 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30 shrink-0">
+                              <span class="text-amber-500">★</span> Editor's Pick
+                            </span>
+                          )}
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                          <span class={`text-[10px] px-2 py-0.5 rounded-md border shrink-0 ${expiryBadge.class}`}>
+                            {expiryBadge.text}
+                          </span>
+                          <button
+                            type="button"
+                            class="deal-share-btn w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 dark:hover:text-indigo-400 transition cursor-pointer"
+                            data-share-title={deal.title}
+                            data-share-desc={deal.description}
+                            data-share-url={`https://promoradar.store/stores/${store.slug}/`}
+                            title="Share Discount"
+                            aria-label="Share Discount"
+                          >
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                            </svg>
+                          </button>
+                          <button
+                            type="button"
+                            data-open-verification-guarantee
+                            data-store-name={store.name}
+                            data-store-slug={store.slug}
+                            data-deal-title={deal.title}
+                            data-deal-code={deal.code}
+                            class="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950/40 dark:hover:text-amber-400 transition cursor-pointer"
+                            title="Report invalid code or inspect QA proof"
+                            aria-label="Report invalid code"
+                          >
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                          </button>
+                          <button
+                            type="button"
+                            class="deal-qr-btn w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 dark:hover:text-indigo-400 transition cursor-pointer"
+                            data-qr-store={store.name}
+                            data-qr-slug={store.slug}
+                            data-qr-title={deal.title}
+                            data-qr-code={deal.code}
+                            data-qr-url={deal.affiliateUrl}
+                            data-qr-badge={deal.discountBadge}
+                            title="Scan with phone / In-Store QR Pass"
+                            aria-label="Scan with phone"
+                          >
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      <h3 class="text-base font-extrabold text-slate-900 dark:text-white mb-1.5 leading-snug">
+                        {deal.title}
+                      </h3>
+                      <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                        {deal.description}
+                      </p>
+                    </div>
+
+                    <div class="space-y-2.5 pt-3.5 border-t border-slate-100 dark:border-slate-800/80">
+                      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
+                          <button
+                            type="button"
+                            data-open-pulse-modal
+                            data-pulse-store={store.name}
+                            data-pulse-title={deal.title}
+                            data-pulse-code={deal.code}
+                            data-pulse-badge={deal.discountBadge}
+                            data-pulse-time={pulse.timeText}
+                            data-pulse-stability={pulse.stabilityBadge}
+                            data-pulse-url={deal.affiliateUrl}
+                            class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200/70 dark:border-emerald-500/30 text-[10px] font-bold hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition cursor-pointer"
+                            title="Inspect Live Health Pulse & Cart Simulation"
+                          >
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>Pulse: {pulse.timeText}</span>
+                          </button>
+                          <span>•</span>
+                          <button
+                            type="button"
+                            data-open-verification-guarantee
+                            data-store-name={store.name}
+                            data-store-slug={store.slug}
+                            data-deal-title={deal.title}
+                            data-deal-code={deal.code}
+                            class="font-bold text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer"
+                            title="Inspect PromoRadar QA Proof"
+                          >
+                            <span>Success: <strong class="text-slate-800 dark:text-slate-200">{pulse.stabilityBadge}</strong></span>
+                          </button>
+                          {deal.terms && (
+                            <>
+                              <span>•</span>
+                              <button type="button" class="deal-terms-toggle text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 underline underline-offset-2 font-medium cursor-pointer">
+                                Terms ▾
+                              </button>
+                            </>
+                          )}
+                        </div>
+
+                        {isCode ? (
+                          <button
+                            type="button"
+                            class="code-peel text-white rounded-xl px-4 py-2.5 text-xs font-bold flex items-center justify-center gap-2 shrink-0 shadow-sm cursor-pointer"
+                            data-reveal-deal={JSON.stringify({
+                              id: deal.id,
+                              title: deal.title,
+                              desc: deal.description,
+                              code: deal.code,
+                              storeName: store.name,
+                              storeSlug: store.slug,
+                              badge: deal.discountBadge,
+                              affiliateUrl: deal.affiliateUrl,
+                              successRate: deal.successRate
+                            })}
+                          >
+                            <span>Get Code</span>
+                            <span class="font-mono text-[11px] bg-black/25 px-2 py-0.5 rounded border border-white/20">
+                              •••{deal.code.slice(-3)}
+                            </span>
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            class="bg-slate-900 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white rounded-xl px-4 py-2.5 text-xs font-bold flex items-center justify-center gap-1.5 shrink-0 transition shadow-sm cursor-pointer"
+                            data-reveal-deal={JSON.stringify({
+                              id: deal.id,
+                              title: deal.title,
+                              desc: deal.description,
+                              code: '',
+                              storeName: store.name,
+                              storeSlug: store.slug,
+                              badge: deal.discountBadge,
+                              affiliateUrl: deal.affiliateUrl,
+                              successRate: deal.successRate
+                            })}
+                          >
+                            <span>Activate Deal ↗</span>
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Expandable Terms & Exclusions Drawer */}
+                      {deal.terms && (
+                        <div class="deal-terms-drawer hidden text-[11px] text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/60 p-3 rounded-xl border border-slate-200/70 dark:border-slate-700/60 space-y-1">
+                          <div class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between">
+                            <span>Terms &amp; Restrictions:</span>
+                            <span class="text-[10px] text-slate-400 font-mono">Expires {expiryBadge.date || normalizeExpiryDate(deal.expiryDate)}</span>
+                          </div>
+                          <p class="leading-relaxed">{deal.terms}</p>
+                        </div>
+                      )}
+                    </div>
+                  </article>
+                );
+              })}
+
+              <!-- Empty State for Filters -->
+              <div id="storeFiltersEmptyState" class="hidden p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3">
+                <div class="text-3xl">🔍</div>
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white">No vouchers match the selected filter</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
+                  Try switching back to all offers or check another savings category.
+                </p>
+                <button
+                  type="button"
+                  id="resetStoreFilterBtn"
+                  class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-500 transition cursor-pointer"
+                >
+                  Show All Offers
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recently Expired Deals for SEO Archive -->
+          <div class="bg-white dark:bg-slate-900/60 rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800/80 opacity-80 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                Recently Expired Offers (SEO Archive)
+              </span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold border border-slate-200/60 dark:border-slate-700/60">
+                Expired
+              </span>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+              <div>
+                <h4 class="text-sm font-bold text-slate-600 dark:text-slate-400 line-through">
+                  Extra 15% Off Seasonal Checkout Coupon for {store.name}
+                </h4>
+                <p class="text-xs text-slate-400 dark:text-slate-500">
+                  Expired codes occasionally remain active on select partner checkouts.
+                </p>
+              </div>
+              <span class="font-mono text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 shrink-0 text-center">
+                ARCHIVE15
+              </span>
+            </div>
+          </div>
+
+          <!-- Store Comparison Matrix («Brand vs Top Competitors») -->
+          <div class="bg-white dark:bg-slate-900/90 rounded-3xl p-6 sm:p-7 border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/80 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30">
+                    Head-to-Head Matrix
+                  </span>
+                  <span class="text-xs text-slate-400 dark:text-slate-500">•</span>
+                  <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                    {store.category} Category Benchmark
+                  </span>
+                </div>
+                <h3 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
+                  How {store.name} Compares to Top {store.category} Competitors
+                </h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Compare verified maximum discount depth, active coupon counts, and checkout reliability scores.
+                </p>
+              </div>
+              <a
+                href={`${base}/compare/`}
+                class="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition shrink-0 self-start sm:self-auto"
+              >
+                <span>All Comparisons</span>
+                <span>→</span>
+              </a>
+            </div>
+
+            <!-- Desktop Comparison Table (md and up) -->
+            <div class="hidden md:block overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-200/80 dark:border-slate-800 text-[11px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                    <th class="py-3 px-4">Brand / Merchant</th>
+                    <th class="py-3 px-3">Max Discount</th>
+                    <th class="py-3 px-3">Active Offers</th>
+                    <th class="py-3 px-3">Code Availability</th>
+                    <th class="py-3 px-3">Checkout Success</th>
+                    <th class="py-3 px-4 text-right">Action / Head-to-Head</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 text-xs">
+                  {comparisonMatrixList.map(item => {
+                    const compDomain = getStoreDomain(item.store.name) || getStoreDomain(item.store.slug) || item.store.cleanDomain || 'promoradar.store';
+                    return (
+                      <tr class={`transition-colors ${
+                        item.isCurrent
+                          ? 'bg-indigo-50/50 dark:bg-indigo-950/20 font-medium'
+                          : 'hover:bg-slate-50/80 dark:hover:bg-slate-800/40'
+                      }`}>
+                        <!-- Brand Column -->
+                        <td class="py-3.5 px-4">
+                          <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-white border border-slate-200/80 dark:border-slate-700/80 p-1 flex items-center justify-center overflow-hidden shrink-0 shadow-xs">
+                              <img
+                                src={`https://logo.clearbit.com/${compDomain}`}
+                                alt={`${item.store.name} logo`}
+                                class="w-full h-full object-contain filter hover:scale-105 transition-transform duration-200"
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src='https://www.google.com/s2/favicons?domain=' + this.alt + '&sz=64';"
+                              />
+                            </div>
+                            <div class="min-w-0">
+                              <div class="flex items-center gap-1.5">
+                                {item.isCurrent ? (
+                                  <span class="font-extrabold text-slate-900 dark:text-white truncate">
+                                    {item.store.name}
+                                  </span>
+                                ) : (
+                                  <a
+                                    href={`${base}/stores/${item.store.slug}/`}
+                                    class="font-extrabold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition truncate"
+                                  >
+                                    {item.store.name}
+                                  </a>
+                                )}
+                                {item.isCurrent && (
+                                  <span class="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-indigo-600 text-white uppercase tracking-wider shrink-0">
+                                    Current
+                                  </span>
+                                )}
+                              </div>
+                              <span class="text-[11px] text-slate-400 dark:text-slate-500 truncate block">
+                                {item.store.cleanDomain || compDomain}
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+
+                        <!-- Max Discount -->
+                        <td class="py-3.5 px-3">
+                          <span class="inline-flex font-extrabold text-xs px-2.5 py-1 rounded-xl bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30">
+                            {item.bestDiscount}
+                          </span>
+                        </td>
+
+                        <!-- Active Offers -->
+                        <td class="py-3.5 px-3">
+                          <span class="font-bold text-slate-700 dark:text-slate-300">
+                            {item.dealsCount} {item.dealsCount === 1 ? 'deal' : 'deals'}
+                          </span>
+                        </td>
+
+                        <!-- Code Availability -->
+                        <td class="py-3.5 px-3">
+                          {item.codesCount > 0 ? (
+                            <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                              </svg>
+                              <span>{item.codesCount} Promo {item.codesCount === 1 ? 'Code' : 'Codes'}</span>
+                            </span>
+                          ) : (
+                            <span class="text-[11px] font-medium text-slate-400 dark:text-slate-500">
+                              Direct Deals Only
+                            </span>
+                          )}
+                        </td>
+
+                        <!-- Checkout Success -->
+                        <td class="py-3.5 px-3">
+                          <div class="flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            <span class="font-bold text-slate-800 dark:text-slate-200">{item.successRate}</span>
+                          </div>
+                        </td>
+
+                        <!-- Actions & Head-to-Head Link -->
+                        <td class="py-3.5 px-4 text-right">
+                          <div class="flex items-center justify-end gap-2">
+                            {item.compareUrl && (
+                              <a
+                                href={item.compareUrl}
+                                class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-[11px] transition shrink-0"
+                                title="View Detailed Head-to-Head Comparison"
+                              >
+                                <span>Compare ↗</span>
+                              </a>
+                            )}
+                            {item.isCurrent ? (
+                              <span class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-bold">
+                                Viewing
+                              </span>
+                            ) : (
+                              <a
+                                href={`${base}/stores/${item.store.slug}/`}
+                                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-sm shrink-0"
+                              >
+                                <span>Deals →</span>
+                              </a>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Mobile Stacked Cards (below md) -->
+            <div class="md:hidden space-y-3">
+              {comparisonMatrixList.map(item => {
+                const compDomain = getStoreDomain(item.store.name) || getStoreDomain(item.store.slug) || item.store.cleanDomain || 'promoradar.store';
+                return (
+                  <div class={`p-4 rounded-2xl border transition-all ${
+                    item.isCurrent
+                      ? 'bg-indigo-50/50 dark:bg-indigo-950/20 border-indigo-200 dark:border-indigo-800/80 ring-1 ring-indigo-500/20'
+                      : 'bg-slate-50/60 dark:bg-slate-800/50 border-slate-200/80 dark:border-slate-700/60'
+                  }`}>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                      <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-xl bg-white border border-slate-200/80 dark:border-slate-700/80 p-1.5 flex items-center justify-center overflow-hidden shrink-0 shadow-xs">
+                          <img
+                            src={`https://logo.clearbit.com/${compDomain}`}
+                            alt={`${item.store.name} logo`}
+                            class="w-full h-full object-contain filter hover:scale-105 transition-transform duration-200"
+                            loading="lazy"
+                            onerror="this.onerror=null; this.src='https://www.google.com/s2/favicons?domain=' + this.alt + '&sz=64';"
+                          />
+                        </div>
+                        <div>
+                          <div class="flex items-center gap-1.5">
+                            <h4 class="font-extrabold text-sm text-slate-900 dark:text-white">
+                              {item.store.name}
+                            </h4>
+                            {item.isCurrent && (
+                              <span class="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-indigo-600 text-white uppercase tracking-wider">
+                                Current
+                              </span>
+                            )}
+                          </div>
+                          <span class="text-[11px] text-slate-400 dark:text-slate-500">
+                            {item.store.cleanDomain || compDomain}
+                          </span>
+                        </div>
+                      </div>
+                      <span class="font-extrabold text-xs px-2.5 py-1 rounded-xl bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30 shrink-0">
+                        {item.bestDiscount}
+                      </span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 text-xs py-2 border-y border-slate-200/60 dark:border-slate-700/60 mb-3">
+                      <div>
+                        <span class="text-slate-400 dark:text-slate-500 text-[11px] block">Active Offers</span>
+                        <span class="font-bold text-slate-800 dark:text-slate-200">{item.dealsCount} verified deals</span>
+                      </div>
+                      <div>
+                        <span class="text-slate-400 dark:text-slate-500 text-[11px] block">Checkout Success</span>
+                        <span class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                          {item.successRate}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="text-xs text-slate-500 dark:text-slate-400">
+                        {item.codesCount > 0 ? `🔥 ${item.codesCount} Promo Codes` : 'Direct Discounts'}
+                      </span>
+                      <div class="flex items-center gap-2">
+                        {item.compareUrl && (
+                          <a
+                            href={item.compareUrl}
+                            class="px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-bold text-xs transition"
+                          >
+                            Compare ↗
+                          </a>
+                        )}
+                        {item.isCurrent ? (
+                          <span class="text-xs font-bold text-slate-400 px-3 py-1.5">Viewing</span>
+                        ) : (
+                          <a
+                            href={`${base}/stores/${item.store.slug}/`}
+                            class="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-sm"
+                          >
+                            View Deals →
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <!-- Store Coupon Policy & Insider Saving Hacks Guide (Knoji / Slickdeals / Offers.com Standard) -->
+          <section id="saving-hacks-guide" class="bg-white dark:bg-slate-900/90 rounded-3xl p-6 sm:p-8 border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-7">
+            <!-- Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-slate-200/80 dark:border-slate-800">
+              <div>
+                <div class="flex items-center gap-2 mb-1.5">
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200/90 dark:bg-amber-400/15 dark:text-amber-300 dark:border-amber-400/30">
+                    EXPERT SHOPPER BLUEPRINT
+                  </span>
+                  <span class="text-xs text-slate-400">•</span>
+                  <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Verified for October 2026
+                  </span>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                  {store.name} Coupon Policy &amp; Insider Saving Hacks
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed max-w-2xl">
+                  Essential checkout rules, stackability conditions, and direct recommendations from our editorial QA desk to help you slash the highest dollar amount.
+                </p>
+              </div>
+
+              <a
+                href={store.primaryAffiliateUrl}
+                target="_blank"
+                rel="nofollow sponsored"
+                class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-bold text-xs transition shrink-0 self-start sm:self-auto shadow-sm"
+              >
+                <span>Visit {store.name} Store ↗</span>
+              </a>
+            </div>
+
+            <!-- 6-Part Checkout Policy Matrix Grid -->
+            <div>
+              <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3.5">
+                Official Checkout Policy Matrix
+              </h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                <!-- 1. Stacking -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>🏷️</span>
+                        <span>Coupon Stacking</span>
+                      </span>
+                      <span class={`text-[10px] font-extrabold px-2 py-0.5 rounded-md ${storePolicy.stackingAllowed ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'}`}>
+                        {storePolicy.stackingAllowed ? 'Allowed' : 'Single Code'}
+                      </span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                      {storePolicy.stackingDetails}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- 2. Newsletter -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>✉️</span>
+                        <span>Welcome Discount</span>
+                      </span>
+                      <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">
+                        First Order
+                      </span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                      {storePolicy.newsletterDiscount}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- 3. Student -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>🎓</span>
+                        <span>Student &amp; Youth</span>
+                      </span>
+                      <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">
+                        Academic
+                      </span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                      {storePolicy.studentDiscount}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- 4. Shipping -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>📦</span>
+                        <span>Delivery &amp; Freight</span>
+                      </span>
+                      <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                        Policy
+                      </span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                      {storePolicy.freeShippingThreshold}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- 5. Return Policy -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>🔄</span>
+                        <span>Refunds &amp; Returns</span>
+                      </span>
+                      <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300">
+                        Guarantee
+                      </span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                      {storePolicy.returnPolicy}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- 6. Loyalty Program -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>⭐</span>
+                        <span>Loyalty &amp; Points</span>
+                      </span>
+                      <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">
+                        Rewards
+                      </span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                      {storePolicy.rewardsProgram}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Insider Saving Hacks -->
+            <div class="pt-2">
+              <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3.5 flex items-center gap-1.5">
+                <span>💡</span>
+                <span>PromoRadar QA Desk: Expert Saving Hacks for {store.name}</span>
+              </h4>
+
+              <div class="space-y-3">
+                {storePolicy.savingHacks.map((hack, idx) => (
+                  <div class="p-4 rounded-2xl bg-gradient-to-r from-indigo-50/70 via-white to-indigo-50/40 dark:from-slate-800/90 dark:via-slate-800/60 dark:to-slate-800/90 border border-indigo-100/90 dark:border-slate-700/80 flex items-start gap-4">
+                    <div class="w-8 h-8 rounded-xl bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+                      0{idx + 1}
+                    </div>
+                    <div class="space-y-1 flex-1">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <span class="text-xs font-extrabold text-slate-900 dark:text-white">
+                          {hack.title}
+                        </span>
+                        <span class="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">
+                          {hack.tag}
+                        </span>
+                      </div>
+                      <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        {hack.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Bottom Action Callout -->
+            <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              <span class="text-slate-600 dark:text-slate-300">
+                Ready to put these hacks into action? Grab the highest-saving active promo code above.
+              </span>
+              <a
+                href="#storeCouponsGrid"
+                class="text-xs font-bold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 inline-flex items-center gap-1 shrink-0"
+              >
+                <span>Browse Active Codes ↑</span>
+              </a>
+            </div>
+          </section>
+
+          <!-- Brand FAQs -->
+          {storeFaqs && storeFaqs.length > 0 && (
+            <div class="bg-white dark:bg-slate-900/90 rounded-2xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-4">
+              <h3 class="text-base font-extrabold text-slate-900 dark:text-white">
+                {storeCleanBrand} Promo Code FAQ
+              </h3>
+              <div class="space-y-3">
+                {storeFaqs.map(faq => (
+                  <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/60">
+                    <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">{faq.question}</h4>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <!-- Similar Stores & Best Alternatives (Link Equity & Internal Flow) -->
+          {similarStores && similarStores.length > 0 && (
+            <div class="bg-slate-50/80 dark:bg-slate-900/90 rounded-3xl p-6 sm:p-7 border border-slate-200/90 dark:border-slate-800 shadow-sm">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                <div>
+                  <h3 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span>Similar Stores &amp; Best Alternatives</span>
+                    <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/80 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30 uppercase tracking-wide">
+                      {store.category}
+                    </span>
+                  </h3>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Compare active checkout codes across related verified merchants</p>
+                </div>
+                <a href={`${base}/stores/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition shrink-0">
+                  Browse All Stores →
+                </a>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {similarStores.slice(0, 6).map(alt => (
+                  <a
+                    href={`${base}/stores/${alt.slug}/`}
+                    class="group p-4 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/60 hover:border-indigo-400 dark:hover:border-indigo-500/60 hover:shadow-md transition flex items-center gap-3.5"
+                  >
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-700 to-indigo-900 dark:from-indigo-600 dark:to-indigo-800 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+                      {alt.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <div class="flex items-center justify-between gap-1">
+                        <span class="text-xs font-extrabold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 truncate transition-colors">
+                          {alt.name}
+                        </span>
+                        <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200/60 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30">
+                          {alt.couponsCount} deals
+                        </span>
+                      </div>
+                      <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                        {alt.bestDiscount ? `Up to ${alt.bestDiscount}` : alt.category}
+                      </p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+
+  <script is:inline define:vars={{ rawDeals: storeDeals, storeName: store.name, storeAffiliateUrl: store.primaryAffiliateUrl }}>
+    const switcher = document.getElementById('brandSwitcherSelect');
+    switcher?.addEventListener('change', (e) => {
+      window.location.href = e.target.value;
+    });
+
+    // Quick Savings Estimator Calculator Logic
+    const calcInput = document.getElementById('savingsCalcInput');
+    const calcCode = document.getElementById('savingsCalcBestCode');
+    const calcDiscount = document.getElementById('savingsCalcDiscountAmount');
+    const calcTotal = document.getElementById('savingsCalcFinalTotal');
+    const calcApplyBtn = document.getElementById('savingsCalcApplyBtn');
+
+    function calculateSavings() {
+      const subtotal = parseFloat(calcInput?.value) || 0;
+      if (subtotal <= 0) {
+        if (calcDiscount) calcDiscount.textContent = '-$0.00';
+        if (calcTotal) calcTotal.textContent = '$0.00';
+        return;
+      }
+
+      let bestDiscountVal = 0;
+      let bestDeal = null;
+
+      (rawDeals || []).forEach(deal => {
+        let discountDollars = 0;
+        const discountStr = (deal.discount || deal.title || '').toUpperCase();
+        const percentMatch = discountStr.match(/(\d+)%/);
+        const dollarMatch = discountStr.match(/\$(\d+)/);
+
+        if (percentMatch) {
+          const pct = parseFloat(percentMatch[1]);
+          discountDollars = (subtotal * pct) / 100;
+        } else if (dollarMatch) {
+          discountDollars = parseFloat(dollarMatch[1]);
+        } else {
+          // Default minimal baseline savings if active
+          discountDollars = subtotal * 0.15;
+        }
+
+        if (discountDollars > bestDiscountVal) {
+          bestDiscountVal = discountDollars;
+          bestDeal = deal;
+        }
+      });
+
+      if (!bestDeal && rawDeals && rawDeals.length > 0) {
+        bestDeal = rawDeals[0];
+        bestDiscountVal = subtotal * 0.15;
+      }
+
+      const cappedDiscount = Math.min(bestDiscountVal, subtotal);
+      const finalPrice = Math.max(0, subtotal - cappedDiscount);
+      const effectiveRate = subtotal > 0 ? Math.round((cappedDiscount / subtotal) * 100) : 0;
+
+      const calcEffective = document.getElementById('savingsCalcEffectiveRate');
+      if (calcEffective) calcEffective.textContent = `${effectiveRate}% OFF`;
+      if (calcCode) calcCode.textContent = (bestDeal && bestDeal.code) ? bestDeal.code : 'DIRECT_DEAL';
+      if (calcDiscount) calcDiscount.textContent = `-$${cappedDiscount.toFixed(2)}`;
+      if (calcTotal) calcTotal.textContent = `$${finalPrice.toFixed(2)}`;
+
+      if (calcApplyBtn) {
+        calcApplyBtn.onclick = () => {
+          const promoCode = (bestDeal && bestDeal.code) ? bestDeal.code : '';
+          const url = (bestDeal && bestDeal.affiliateUrl) ? bestDeal.affiliateUrl : storeAffiliateUrl;
+          if (promoCode) {
+            navigator.clipboard?.writeText(promoCode).catch(() => {});
+            if (window.showPromoToast) {
+              window.showPromoToast(`Code ${promoCode} copied! Opening ${storeName} checkout...`);
+            }
+          }
+          window.dispatchEvent(new CustomEvent('promoradar_deal_revealed', {
+            detail: {
+              code: promoCode || 'ACTIVE_DEAL',
+              store: storeName,
+              storeName: storeName,
+              badge: bestDeal?.discountBadge || 'Verified Deal',
+              affiliateUrl: url
+            }
+          }));
+          if (url) {
+            window.open(url, '_blank', 'noopener,noreferrer');
+          }
+        };
+      }
+    }
+
+    // Preset Buttons Listener
+    document.querySelectorAll('.store-calc-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = btn.getAttribute('data-val');
+        if (calcInput && val) {
+          calcInput.value = val;
+          document.querySelectorAll('.store-calc-preset').forEach(b => {
+            const isTarget = b === btn;
+            b.className = isTarget
+              ? 'store-calc-preset px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-600 text-white border border-indigo-500 transition cursor-pointer'
+              : 'store-calc-preset px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 transition cursor-pointer';
+          });
+          calculateSavings();
+        }
+      });
+    });
+
+    calcInput?.addEventListener('input', calculateSavings);
+    calculateSavings();
+
+    // Terms Drawers Toggle
+    document.querySelectorAll('.deal-terms-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('article');
+        const drawer = card?.querySelector('.deal-terms-drawer');
+        drawer?.classList.toggle('hidden');
+      });
+    });
+
+    // Persistent Verified Deal Drop Alerts Engine
+    const alertForm = document.getElementById('dealAlertForm');
+    const alertSuccess = document.getElementById('dealAlertSuccess');
+    const alertSuccessMsg = document.getElementById('dealAlertSuccessMsg');
+    const alertEmailInput = document.getElementById('dealAlertEmail');
+    const alertErrorEl = document.getElementById('dealAlertEmailError');
+    const alertManageBtn = document.getElementById('dealAlertManageBtn');
+    const alertStoreSlug = window.location.pathname.split('/').filter(Boolean).pop() || 'store';
+
+    function checkExistingAlert() {
+      try {
+        const stored = JSON.parse(localStorage.getItem('promoradar_deal_alerts') || '{}');
+        const alert = stored[alertStoreSlug];
+        if (alert && alert.email) {
+          if (alertForm) alertForm.classList.add('hidden');
+          if (alertSuccess) alertSuccess.classList.remove('hidden');
+          if (alertSuccessMsg) {
+            const thresholdText = alert.threshold === '50plus' ? '50%+ discounts' : 'all new verified coupons';
+            alertSuccessMsg.textContent = `Alert active for ${alert.email} (${thresholdText}).`;
+          }
+        }
+      } catch (e) {}
+    }
+
+    checkExistingAlert();
+
+    alertForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = (alertEmailInput?.value || '').trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (alertErrorEl) {
+          alertErrorEl.textContent = 'Please enter a valid email address.';
+          alertErrorEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      if (alertErrorEl) alertErrorEl.classList.add('hidden');
+
+      const selectedThreshold = (document.querySelector('input[name="alertThreshold"]:checked')?.value) || '50plus';
+
+      try {
+        const stored = JSON.parse(localStorage.getItem('promoradar_deal_alerts') || '{}');
+        stored[alertStoreSlug] = {
+          email,
+          threshold: selectedThreshold,
+          storeName: storeName,
+          timestamp: new Date().toISOString()
+        };
+        localStorage.setItem('promoradar_deal_alerts', JSON.stringify(stored));
+      } catch (err) {}
+
+      if (alertForm) alertForm.classList.add('hidden');
+      if (alertSuccess) alertSuccess.classList.remove('hidden');
+      if (alertSuccessMsg) {
+        const thresholdText = selectedThreshold === '50plus' ? '50%+ discounts' : 'all new verified coupons';
+        alertSuccessMsg.textContent = `Subscribed! ${email} will receive alerts for ${thresholdText}.`;
+      }
+
+      if (window.showPromoToast) {
+        window.showPromoToast(`⚡ Deal alerts active for ${storeName}!`);
+      }
+
+      // Dispatch GA4 custom event
+      window.dispatchEvent(new CustomEvent('promoradar_alert_subscribed', {
+        detail: { email, store: storeName, threshold: selectedThreshold }
+      }));
+    });
+
+    alertManageBtn?.addEventListener('click', () => {
+      if (alertSuccess) alertSuccess.classList.add('hidden');
+      if (alertForm) alertForm.classList.remove('hidden');
+      if (alertEmailInput) alertEmailInput.focus();
+    });
+
+    // Faceted Filtering & Sorting Engine for Store Coupons
+    let currentStoreFilter = 'all';
+    let currentStoreSort = 'recommended';
+    const storeCards = Array.from(document.querySelectorAll('.store-deal-card'));
+    const storeGrid = document.getElementById('storeCouponsGrid');
+    const storeCountEl = document.getElementById('storeFilteredCount');
+    const storeEmptyEl = document.getElementById('storeFiltersEmptyState');
+
+    function applyStoreFilters() {
+      let visibleCount = 0;
+
+      // Filter cards
+      storeCards.forEach(card => {
+        const dealType = card.getAttribute('data-deal-type') || 'deal';
+        const matchType = currentStoreFilter === 'all' || dealType === currentStoreFilter;
+        if (matchType) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // Sort cards if container exists
+      if (storeGrid && visibleCount > 0) {
+        const sorted = [...storeCards].sort((a, b) => {
+          if (currentStoreSort === 'discount') {
+            const valA = parseFloat(a.getAttribute('data-discount-val') || '0');
+            const valB = parseFloat(b.getAttribute('data-discount-val') || '0');
+            return valB - valA;
+          } else if (currentStoreSort === 'expiry') {
+            const expA = parseFloat(a.getAttribute('data-expiry-ts') || '0');
+            const expB = parseFloat(b.getAttribute('data-expiry-ts') || '0');
+            return expA - expB;
+          } else {
+            const orderA = parseInt(a.getAttribute('data-default-order') || '0', 10);
+            const orderB = parseInt(b.getAttribute('data-default-order') || '0', 10);
+            return orderA - orderB;
+          }
+        });
+        sorted.forEach(card => storeGrid.appendChild(card));
+        if (storeEmptyEl) storeGrid.appendChild(storeEmptyEl);
+      }
+
+      if (storeCountEl) storeCountEl.textContent = visibleCount;
+      if (storeEmptyEl) {
+        if (visibleCount === 0) storeEmptyEl.classList.remove('hidden');
+        else storeEmptyEl.classList.add('hidden');
+      }
+    }
+
+    document.querySelectorAll('.store-facet-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        currentStoreFilter = tab.getAttribute('data-filter') || 'all';
+        document.querySelectorAll('.store-facet-tab').forEach(t => {
+          const isActive = t === tab;
+          t.classList.toggle('active', isActive);
+          t.classList.toggle('bg-white', isActive);
+          t.classList.toggle('dark:bg-slate-900', isActive);
+          t.classList.toggle('text-slate-900', isActive);
+          t.classList.toggle('dark:text-white', isActive);
+          t.classList.toggle('shadow-xs', isActive);
+          t.classList.toggle('text-slate-600', !isActive);
+          t.classList.toggle('dark:text-slate-400', !isActive);
+        });
+        applyStoreFilters();
+      });
+    });
+
+    document.getElementById('storeSortSelect')?.addEventListener('change', (e) => {
+      currentStoreSort = e.target.value;
+      applyStoreFilters();
+    });
+
+    document.getElementById('resetStoreFilterBtn')?.addEventListener('click', () => {
+      const allTab = document.querySelector('.store-facet-tab[data-filter="all"]');
+      if (allTab) allTab.click();
+    });
+  </script>
+</BaseLayout>

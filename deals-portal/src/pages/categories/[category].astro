@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import { COUPONS_DATA, STORES_DATA } from '../../data/couponsData';
 import { getDealLivePulse } from '../../data/pulseEngine';
 import BrandLogo from '../../components/BrandLogo.astro';
+import { resolveMerchantIdentity, isJunkTestOffer, resolveSmartCategory, extractSmartDiscountBadge, getUniqueCleanStores, getCanonicalStoreSlug } from '../../utils/dealNormalizer';
 
 export const prerender = true;
 
@@ -14,17 +15,25 @@ export async function getStaticPaths() {
       slug: 'privacy-security',
       name: 'Privacy, VPN & Cybersecurity',
       categoryName: 'Privacy & Security',
-      icon: '🛡',
+      icon: '🛡️',
       desc: 'Military-grade VPNs, encrypted zero-knowledge password vaults, family screen time parental controls, and virtual phone numbers for instant SMS activation.',
       maxDiscount: 'Up to 81% OFF'
     },
     {
-      slug: 'dating-lifestyle',
-      name: 'Dating & Lifestyle Services',
-      categoryName: 'Dating & Lifestyle',
-      icon: '💬',
-      desc: 'Camera-verified dating platforms with priority compatibility scoring, anonymous stealth matching passes, and zero bot guarantees.',
-      maxDiscount: '100% Free VIP'
+      slug: 'gaming-software',
+      name: 'Gaming, Media & Software',
+      categoryName: 'Gaming, Media & Software',
+      icon: '🎮',
+      desc: 'Verified software licenses, PC gaming keys, streaming media subscriptions, audio tools, and AI utilities with checkout discounts.',
+      maxDiscount: 'Up to 70% OFF'
+    },
+    {
+      slug: 'home-living',
+      name: 'Home, Furniture & Living',
+      categoryName: 'Home & Living',
+      icon: '🛋️',
+      desc: 'Smart furniture, 3D printing equipment, luxury vanity mirrors, modern organizers, and ergonomic interior decor direct from makers.',
+      maxDiscount: 'Up to 45% OFF'
     },
     {
       slug: 'fashion-apparel',
@@ -35,20 +44,28 @@ export async function getStaticPaths() {
       maxDiscount: '12% OFF Code'
     },
     {
-      slug: 'eyewear-health',
-      name: 'Eyewear & Optical Health',
-      categoryName: 'Eyewear & Health',
-      icon: '👓',
-      desc: 'Factory-direct prescription optical frames, anti-blue-light lenses, bifocals, and polarized sunglasses without retail markup.',
-      maxDiscount: '$8 OFF Voucher'
-    },
-    {
       slug: 'travel-tours',
-      name: 'Travel, Desert Safaris & Tours',
+      name: 'Travel, Stays & Global Tours',
       categoryName: 'Travel & Tours',
       icon: '✈️',
-      desc: 'UAE desert safaris, Dubai Marina luxury dhow dinner cruises, Burj Khalifa observation deck admissions, and global sightseeing excursions.',
+      desc: 'UAE desert safaris, boutique hotel bookings, Burj Khalifa tickets, sports event admissions, and international flight reservations.',
       maxDiscount: '20% OFF Booking'
+    },
+    {
+      slug: 'auto-mobility',
+      name: 'Auto, Dashcams & Mobility',
+      categoryName: 'Auto, Dashcams & Mobility',
+      icon: '🚗',
+      desc: 'Wireless CarPlay adapters, 4K night-vision dashcams, automotive electronics, and hands-free travel navigation units.',
+      maxDiscount: 'Up to 30% OFF'
+    },
+    {
+      slug: 'food-nutrition',
+      name: 'Food, Beverage & Nutrition',
+      categoryName: 'Food, Beverage & Nutrition',
+      icon: '☕',
+      desc: 'Artisan roast coffee, premium frozen gourmet steaks, whey protein isolates, and organic nutrition delivered directly to your doorstep.',
+      maxDiscount: '15% OFF Voucher'
     },
     {
       slug: 'ecommerce-wholesale',
@@ -56,7 +73,7 @@ export async function getStaticPaths() {
       categoryName: 'E-Commerce & Wholesale',
       icon: '📦',
       desc: 'Global B2B wholesale platforms, luxury department stores, and Trade Assurance factory-direct sourcing with voucher discounts.',
-      maxDiscount: 'Up to 75% OFF'
+      maxDiscount: 'Up to $20 OFF'
     },
     {
       slug: 'electronics-gadgets',
@@ -67,12 +84,36 @@ export async function getStaticPaths() {
       maxDiscount: 'Up to $800 OFF'
     },
     {
+      slug: 'dating-lifestyle',
+      name: 'Dating & Lifestyle Services',
+      categoryName: 'Dating & Lifestyle',
+      icon: '💬',
+      desc: 'Camera-verified dating platforms with priority compatibility scoring, anonymous stealth matching passes, and zero bot guarantees.',
+      maxDiscount: '100% Free VIP'
+    },
+    {
+      slug: 'eyewear-health',
+      name: 'Eyewear & Optical Health',
+      categoryName: 'Eyewear & Health',
+      icon: '👓',
+      desc: 'Factory-direct prescription optical frames, anti-blue-light lenses, bifocals, and polarized sunglasses without retail markup.',
+      maxDiscount: '$8 OFF Voucher'
+    },
+    {
       slug: 'education-learning',
       name: 'Online Education & Coding',
       categoryName: 'Education & Learning',
       icon: '🎓',
       desc: 'Interactive coding academies, English lessons, and digital skills courses for kids and adults.',
       maxDiscount: 'Up to 30% OFF'
+    },
+    {
+      slug: 'kids-toys',
+      name: 'Kids & Toys',
+      categoryName: 'Kids & Toys',
+      icon: '🧸',
+      desc: 'Top-rated educational toys, family board games, celebration gifts, and expedited gift wrapping delivery.',
+      maxDiscount: 'Up to 25% OFF'
     },
     {
       slug: 'beauty-fragrances',
@@ -101,8 +142,27 @@ export async function getStaticPaths() {
   ];
 
   return CATEGORIES_DEF.map(cat => {
-    const deals = COUPONS_DATA.filter(d => d.storeCategory === cat.categoryName);
-    const stores = STORES_DATA.filter(s => s.category === cat.categoryName);
+    // Filter and sanitize deals for this category
+    const deals = COUPONS_DATA.filter(d => {
+      if (isJunkTestOffer(d.storeName, d.title)) return false;
+      const identity = resolveMerchantIdentity(d);
+      const smartCat = resolveSmartCategory(d.storeCategory, identity.brand, d.title);
+      return smartCat === cat.categoryName;
+    }).map(d => {
+      const identity = resolveMerchantIdentity(d);
+      return {
+        ...d,
+        cleanBrand: identity.brand,
+        canonicalSlug: getCanonicalStoreSlug(identity.brand),
+        cleanDomain: identity.domain,
+        discountBadge: extractSmartDiscountBadge(d.badge, d.title)
+      };
+    });
+
+    // Deduplicated canonical stores for this category
+    const allCleanStores = getUniqueCleanStores(STORES_DATA);
+    const stores = allCleanStores.filter(s => s.category === cat.categoryName);
+
     return {
       params: { category: cat.slug },
       props: { cat, deals, stores }
@@ -424,15 +484,24 @@ const breadcrumbs = [
                   <div class="flex items-start justify-between gap-3 mb-3.5">
                     <div class="flex items-center gap-3 min-w-0">
                       <a
-                        href={`${base}/stores/${deal.storeSlug}/`}
+                        href={`${base}/stores/${deal.canonicalSlug || deal.storeSlug}/`}
                         class="shrink-0 hover:scale-105 transition"
-                        title={deal.storeName}
+                        title={deal.cleanBrand || deal.storeName}
                       >
-                        {STORES_MAP[deal.storeSlug] ? (
-                          <BrandLogo store={STORES_MAP[deal.storeSlug]} size="md" />
+                        {deal.cleanDomain ? (
+                          <div class="brand-logo-container w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white border border-slate-200 p-1.5 sm:p-2 flex items-center justify-center shadow-xs shrink-0 overflow-hidden">
+                            <img
+                              src={`https://www.google.com/s2/favicons?domain=${deal.cleanDomain}&sz=128`}
+                              alt={`${deal.cleanBrand || deal.storeName} logo`}
+                              class="w-full h-full object-contain"
+                              loading="lazy"
+                              onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+                            />
+                            <span class="hidden w-full h-full rounded-xl bg-indigo-600 text-white font-extrabold text-xs items-center justify-center">{(deal.cleanBrand || deal.storeName || 'PR').slice(0, 2).toUpperCase()}</span>
+                          </div>
                         ) : (
                           <div class="brand-logo-container w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white border border-slate-200 p-1.5 sm:p-2 flex items-center justify-center shadow-xs shrink-0">
-                            <span class="w-full h-full rounded-xl bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center">{(deal.storeName || 'PR').slice(0, 2).toUpperCase()}</span>
+                            <span class="w-full h-full rounded-xl bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center">{(deal.cleanBrand || deal.storeName || 'PR').slice(0, 2).toUpperCase()}</span>
                           </div>
                         )}
                       </a>
@@ -442,10 +511,10 @@ const breadcrumbs = [
                             {deal.discountBadge || deal.badge}
                           </span>
                           <a
-                            href={`${base}/stores/${deal.storeSlug}/`}
+                            href={`${base}/stores/${deal.canonicalSlug || deal.storeSlug}/`}
                             class="text-sm font-extrabold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition truncate"
                           >
-                            {deal.storeName}
+                            {deal.cleanBrand || deal.storeName}
                           </a>
                           <span class={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${
                             isCode ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30'
@@ -469,7 +538,7 @@ const breadcrumbs = [
                         class="deal-share-btn w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 dark:hover:text-indigo-400 transition cursor-pointer"
                         data-share-title={deal.title}
                         data-share-desc={deal.description}
-                        data-share-url={`https://promoradar.store/stores/${deal.storeSlug}/`}
+                        data-share-url={`https://promoradar.store/stores/${deal.canonicalSlug || deal.storeSlug}/`}
                         title="Share Discount"
                         aria-label="Share Discount"
                       >
@@ -808,7 +877,7 @@ const breadcrumbs = [
                 <span class="text-[11px] text-emerald-400 font-bold">-$${r.savings.toFixed(2)} (${r.effectiveRate}% off)</span>
               </div>
               <a
-                href="${base}/stores/${r.deal.storeSlug}/"
+                href="${base}/stores/${r.deal.canonicalSlug || r.deal.storeSlug}/"
                 class="px-2.5 py-1 rounded-lg bg-indigo-600/80 hover:bg-indigo-600 text-white font-bold text-[11px] transition shrink-0"
               >
                 Deals →

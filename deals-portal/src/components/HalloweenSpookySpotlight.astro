@@ -1,0 +1,135 @@
+---
+// deals-portal/src/components/HalloweenSpookySpotlight.astro
+// Strict Zero Demo Data: Real Halloween & Spooky Night-Ops Products from CJ Affiliate Partner Feeds
+
+const halloweenProducts = [
+  {
+    storeName: '945 Industries',
+    storeSlug: '945industries',
+    title: 'QAPL Halloween Bundle Ignite Edition',
+    desc: 'Limited seasonal concealment bundle with modular tactical pouch and custom attachment harness.',
+    price: '$263.99',
+    badge: '🎃 HALLOWEEN SPECIAL',
+    imageUrl: 'https://cdn.shopify.com/s/files/1/0660/8909/1258/files/Halloween_Bundle_5.1.jpg?v=1760810280',
+    affiliateUrl: 'https://flirtcheck.site/go?offer=945industries&sub1=promoradar_halloween_bundle'
+  },
+  {
+    storeName: 'Rexing Optics',
+    storeSlug: 'rexing',
+    title: 'Rexing B1 Night Vision Binoculars 4K Ultra HD',
+    desc: 'High-power infrared night vision, 10x optical zoom, and 4K digital video recording for pitch-black exploration.',
+    price: '$229.99',
+    badge: '👻 NIGHT VISION GEAR',
+    imageUrl: 'https://cdn.shopify.com/s/files/1/0556/5536/6846/files/B1C-8.jpg?v=1740688462',
+    affiliateUrl: 'https://flirtcheck.site/go?offer=rexing&sub1=promoradar_halloween_nightvision'
+  },
+  {
+    storeName: 'Whokeys Gaming',
+    storeSlug: 'whokeys',
+    title: 'Black Myth: Wukong (Dark Action RPG Steam Key)',
+    desc: 'Battle legendary mythological creatures in dark fantastical realms with instant digital steam delivery.',
+    price: '$67.33',
+    badge: '🎮 DARK FANTASY HIT',
+    imageUrl: 'https://file-cdn.whokeys.com/product/12cdba1d52d56bcdef85cbf1234dfbb9.png',
+    affiliateUrl: 'https://flirtcheck.site/go?offer=whokeys&sub1=promoradar_halloween_wukong'
+  },
+  {
+    storeName: 'Carpuride Sound',
+    storeSlug: 'carpuride',
+    title: 'Carpuride Wireless Apple CarPlay Multimedia Screen',
+    desc: 'Dual Bluetooth audio and night-driving navigation with crystal-clear capacitive touchscreen.',
+    price: '$179.90',
+    badge: '⚡ AUTUMN SALE -$50',
+    imageUrl: 'https://cdn.shopify.com/s/files/1/0566/5112/0797/products/01_1_500x.jpg?v=1655185855',
+    affiliateUrl: 'https://flirtcheck.site/go?offer=carpuride&sub1=promoradar_halloween_screen'
+  }
+];
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<section class="my-10 relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-purple-950/60 to-orange-950/40 border border-orange-500/30 p-6 sm:p-10 shadow-2xl">
+  <!-- Spooky Background Glow Effects -->
+  <div class="absolute -right-20 -top-20 w-80 h-80 bg-orange-600/15 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="relative z-10">
+    <!-- Header Section with Spooky Badge -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30 text-xs font-black uppercase tracking-wider mb-2.5">
+          <span>🎃</span>
+          <span>HALLOWEEN SPOOKY SAVINGS RADAR</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-orange-500 animate-ping"></span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
+          Featured Halloween &amp; Night-Ops Deals
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+          Curated tactical bundles, infrared night-vision optics, and dark fantasy game keys. Hand-verified live partner inventory with guaranteed merchant checkout discounts.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2 self-start md:self-auto">
+        <span class="text-xs font-mono text-orange-300 font-bold bg-orange-950/80 px-3 py-1.5 rounded-xl border border-orange-500/40">
+          ⏳ Ends Nov 2nd
+        </span>
+      </div>
+    </div>
+
+    <!-- 4-Card Spooky Showcase Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {halloweenProducts.map(item => (
+        <article class="group bg-slate-900/90 rounded-2xl p-4 border border-orange-500/20 hover:border-orange-500/60 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+          <div>
+            <!-- Image Frame -->
+            <div class="w-full h-44 rounded-xl bg-slate-950/80 p-2 border border-slate-800 flex items-center justify-center overflow-hidden mb-3 relative">
+              <span class="absolute top-2 left-2 text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-orange-500 text-slate-950 shadow-md z-10">
+                {item.badge}
+              </span>
+              <img
+                src={item.imageUrl}
+                alt={item.title}
+                class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+                onerror="this.onerror=null; this.src='https://promoradar.store/favicon.svg';"
+              />
+            </div>
+
+            <!-- Merchant & Title -->
+            <div class="space-y-1 mb-2">
+              <span class="text-[11px] font-bold text-orange-400 uppercase tracking-wide">
+                {item.storeName}
+              </span>
+              <h3 class="text-sm font-extrabold text-white line-clamp-2 leading-snug group-hover:text-orange-300 transition-colors">
+                {item.title}
+              </h3>
+            </div>
+
+            <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed mb-4">
+              {item.desc}
+            </p>
+          </div>
+
+          <!-- Bottom Action Row -->
+          <div class="pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
+            <div>
+              <span class="text-[10px] text-slate-500 block uppercase font-mono">Live Price</span>
+              <span class="text-base font-black text-white">{item.price}</span>
+            </div>
+
+            <a
+              href={item.affiliateUrl}
+              target="_blank"
+              rel="nofollow sponsored"
+              class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-slate-950 font-black text-xs shadow-md transition transform hover:scale-105 active:scale-95 whitespace-nowrap"
+            >
+              <span>Claim Deal ↗</span>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
