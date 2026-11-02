@@ -1,0 +1,521 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import BrandLogo from '../../components/BrandLogo.astro';
+import { STORES_DATA, COUPONS_DATA } from '../../data/couponsData';
+import { STORE_PRODUCTS } from '../../data/productsData';
+
+export const prerender = true;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Group coupons by store to derive real counts & max discounts
+const storeCouponsMap: Record<string, typeof COUPONS_DATA> = {};
+for (const c of COUPONS_DATA) {
+  if (!storeCouponsMap[c.storeSlug]) storeCouponsMap[c.storeSlug] = [];
+  storeCouponsMap[c.storeSlug].push(c);
+}
+
+function getMaxDiscount(slug: string): string {
+  const coupons = storeCouponsMap[slug] || [];
+  let maxPercent = 0;
+  for (const c of coupons) {
+    const match = c.discountBadge.match(/(\d+)%/);
+    if (match) {
+      const val = parseInt(match[1], 10);
+      if (val > maxPercent) maxPercent = val;
+    }
+  }
+  if (maxPercent > 0) return `Up to ${maxPercent}% OFF`;
+  return coupons[0]?.discountBadge || 'Verified Deal';
+}
+
+const totalStores = STORES_DATA.length;
+const totalOffers = COUPONS_DATA.length;
+
+// Flatten all verified catalog products
+const allProducts = Object.values(STORE_PRODUCTS).flat();
+const totalProducts = allProducts.length;
+
+// Unique categories
+const storeCategories = Array.from(new Set(STORES_DATA.map(s => s.category))).filter(Boolean);
+
+// Alphabet letters A-Z that exist
+const alphabetLetters = ['ALL', '#', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')];
+
+// Featured store highlight (ExpressVPN if present, or first store)
+const featuredStore = STORES_DATA.find(s => s.slug === 'expressvpn') || STORES_DATA[0];
+const featuredCoupons = storeCouponsMap[featuredStore.slug] || [];
+---
+
+<BaseLayout
+  title="All Partner Stores and Verified Hardware Directory | PromoRadar"
+  description={`Browse ${totalStores} verified partner merchants and ${totalProducts} in-stock hardware and gear. Direct discounts, instant voucher pass-through, and zero expired deals.`}
+>
+  <Header />
+
+  <main class="min-h-screen bg-surface">
+    <!-- Breadcrumb Bar -->
+    <nav class="bg-surface-container-lowest border-b border-border-subtle py-3 px-4 sm:px-8">
+      <div class="max-w-7xl mx-auto flex items-center gap-2 text-xs font-medium text-on-surface-variant">
+        <a href={`${base}/`} class="hover:text-primary transition flex items-center gap-1">
+          <span class="material-symbols-outlined text-[16px]">home</span>
+          <span>Home</span>
+        </a>
+        <span>/</span>
+        <span class="text-on-surface font-semibold">Store Directory &amp; Products</span>
+      </div>
+    </nav>
+
+    <!-- Main Header Section -->
+    <section class="py-8 sm:py-12 px-4 sm:px-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+          <div class="max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-mono font-bold tracking-wider uppercase mb-3">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Live Direct Affiliate Feeds
+            </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-on-surface tracking-tight leading-tight">
+              Stores &amp; Direct Products Catalog
+            </h1>
+            <p class="text-sm sm:text-base text-on-surface-variant mt-2 leading-relaxed">
+              Explore {totalStores} verified partner merchants, {totalOffers} tested voucher codes, and {totalProducts} direct-order gear items sourced from official CJ and Admitad feeds.
+            </p>
+          </div>
+
+          <!-- Quick Metrics Bar -->
+          <div class="flex items-center gap-4 bg-surface-container-lowest p-3 rounded-2xl border border-border-subtle shadow-sm">
+            <div class="text-center px-3 py-1">
+              <span class="font-mono text-[11px] text-on-surface-variant block uppercase">Stores</span>
+              <span class="text-2xl font-black text-primary">{totalStores}</span>
+            </div>
+            <div class="text-center px-3 py-1 bg-surface-container-low rounded-xl">
+              <span class="font-mono text-[11px] text-on-surface-variant block uppercase">Products</span>
+              <span class="text-2xl font-black text-emerald-600">{totalProducts}</span>
+            </div>
+            <div class="text-center px-3 py-1">
+              <span class="font-mono text-[11px] text-discount-rose block uppercase">Offers</span>
+              <span class="text-2xl font-black text-on-surface">{totalOffers}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode Switcher Tabs (Stores vs Products) -->
+        <div class="flex items-center gap-2 mb-6 border-b border-border-subtle pb-3">
+          <button
+            id="tabStoresBtn"
+            type="button"
+            class="px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-bold transition shadow-sm flex items-center gap-2 cursor-pointer"
+          >
+            <span class="material-symbols-outlined text-[18px]">storefront</span>
+            <span>Stores &amp; Vouchers ({totalStores})</span>
+          </button>
+          <button
+            id="tabProductsBtn"
+            type="button"
+            class="px-5 py-2.5 rounded-xl bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container text-xs font-bold transition flex items-center gap-2 cursor-pointer"
+          >
+            <span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+            <span>Direct Gear &amp; Products ({totalProducts})</span>
+          </button>
+        </div>
+
+        <!-- STORES VIEW -->
+        <div id="storesViewContainer">
+          <!-- Search Bar + Filter Deck -->
+          <div class="bg-surface-container-lowest p-4 sm:p-5 rounded-2xl shadow-sm border border-border-subtle mb-8 flex flex-col gap-4">
+            <!-- Search Input Command Box -->
+            <div class="relative w-full">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline">
+                <span class="material-symbols-outlined text-[22px]">search</span>
+              </div>
+              <input
+                id="storeSearchField"
+                type="text"
+                autocomplete="off"
+                placeholder={`Search ${totalStores} partner stores by name, niche, or discount (e.g., 'ExpressVPN', 'Apparel', '80%')...`}
+                class="w-full pl-12 pr-28 py-3 bg-surface-container-low rounded-xl text-sm font-medium text-on-surface placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-primary/20 transition-all border border-transparent focus:border-primary/30"
+              />
+              <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <span class="font-mono text-[11px] font-bold text-on-surface-variant bg-surface-container-lowest px-2 py-1 rounded shadow-sm border border-border-subtle">⌘ STORE</span>
+              </div>
+            </div>
+
+            <!-- Category Filters Horizontal Scroll -->
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none" id="categoryFilterBar">
+              <button
+                type="button"
+                data-cat="all"
+                class="store-cat-btn px-3.5 py-1.5 rounded-xl bg-primary text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+              >
+                <span>All Stores</span>
+                <span class="font-mono text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full">{totalStores}</span>
+              </button>
+              {storeCategories.map(cat => (
+                <button
+                  type="button"
+                  data-cat={cat}
+                  class="store-cat-btn px-3.5 py-1.5 rounded-xl bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container text-xs font-semibold transition-all whitespace-nowrap cursor-pointer"
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            <!-- Alphabetical Jump Deck -->
+            <div class="pt-2 border-t border-border-subtle flex items-center gap-1 overflow-x-auto pb-1 scrollbar-none">
+              <span class="font-mono text-[10px] text-on-surface-variant mr-1 font-bold uppercase tracking-wider shrink-0">A-Z:</span>
+              {alphabetLetters.map(letter => (
+                <button
+                  type="button"
+                  data-letter={letter}
+                  class={`store-letter-btn px-2.5 py-1 text-center font-mono text-xs rounded-lg transition-colors cursor-pointer ${
+                    letter === 'ALL'
+                      ? 'bg-primary text-white font-bold shadow-sm'
+                      : 'bg-surface-container-low text-on-surface hover:bg-surface-container font-semibold'
+                  }`}
+                >
+                  {letter}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <!-- Featured Partner Highlight Banner -->
+          <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white p-6 sm:p-8 mb-10 border border-slate-800 shadow-xl">
+            <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+              <div class="lg:col-span-7 flex flex-col gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md p-2 flex items-center justify-center border border-white/20">
+                    <BrandLogo store={featuredStore} size="md" />
+                  </div>
+                  <div>
+                    <span class="font-mono text-[10px] text-emerald-400 font-bold uppercase tracking-wider block">Featured Merchant Hub</span>
+                    <h3 class="text-xl sm:text-2xl font-black text-white">{featuredStore.name}</h3>
+                  </div>
+                </div>
+
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl">
+                  {featuredStore.description}
+                </p>
+
+                <div class="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-300 pt-1">
+                  <div class="flex items-center gap-1.5 text-emerald-400">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Active Live Checkout Ping
+                  </div>
+                  <div>Success Rate: <strong class="text-white">99.4%</strong></div>
+                  <div>Offers in Hub: <strong class="text-white">{featuredCoupons.length} Active Deals</strong></div>
+                </div>
+              </div>
+
+              <!-- Right Instant Action Card -->
+              <div class="lg:col-span-5 bg-slate-900/90 backdrop-blur-md p-6 rounded-2xl flex flex-col justify-between gap-4 border border-white/10 shadow-2xl">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="font-mono text-xs text-slate-400 block uppercase">Peak Discount</span>
+                    <span class="text-3xl font-black text-discount-rose">81% OFF</span>
+                  </div>
+                  <div class="text-right">
+                    <span class="font-mono text-xs text-slate-400 block">Voucher Code</span>
+                    <span class="font-mono text-xs font-bold text-tertiary-fixed-dim bg-emerald-950/70 px-2.5 py-1 rounded border border-emerald-500/30">
+                      ••• d20
+                    </span>
+                  </div>
+                </div>
+
+                <p class="text-xs text-slate-300">
+                  1-click instant coupon activation. Direct merchant handshake applies maximum available discount at checkout automatically.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center gap-2.5">
+                  <a
+                    href={`${base}/stores/${featuredStore.slug}/`}
+                    class="w-full sm:flex-1 py-3 px-4 rounded-xl bg-primary hover:bg-primary-container text-white text-xs font-bold text-center transition-all shadow-md flex items-center justify-center gap-1.5"
+                  >
+                    <span>Explore ExpressVPN Hub ({featuredCoupons.length} Deals)</span>
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Store Cards Master Grid Section -->
+          <div class="mb-6 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <h2 class="text-xl sm:text-2xl font-extrabold text-on-surface">Verified Merchant Directory</h2>
+              <span class="font-mono text-xs bg-surface-container px-3 py-1 rounded-full text-primary font-bold">
+                <span id="visibleStoresCount">{totalStores}</span> of {totalStores} Stores
+              </span>
+            </div>
+            <div class="hidden sm:flex items-center gap-2 font-mono text-xs text-on-surface-variant">
+              <span>Sort:</span>
+              <span class="font-bold text-on-surface bg-surface-container px-2.5 py-1 rounded-lg">Highest Trust &amp; Discount</span>
+            </div>
+          </div>
+
+          <!-- Stores Bento Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-14" id="storesGridContainer">
+            {STORES_DATA.map((store) => {
+              const coupons = storeCouponsMap[store.slug] || [];
+              const maxDiscount = getMaxDiscount(store.slug);
+              const firstLetter = store.name.charAt(0).toUpperCase();
+              const letterTag = /^[0-9]/.test(firstLetter) ? '#' : firstLetter;
+              
+              return (
+                <div
+                  class="store-card-item bg-surface-container-lowest rounded-2xl p-5 border border-border-subtle hover:border-primary/40 hover:shadow-lg transition-all flex flex-col justify-between group"
+                  data-name={store.name.toLowerCase()}
+                  data-category={store.category}
+                  data-letter={letterTag}
+                  data-discount={maxDiscount.toLowerCase()}
+                >
+                  <div>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                      <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-surface-container-low p-2 flex items-center justify-center border border-border-subtle group-hover:scale-105 transition">
+                          <BrandLogo store={store} size="md" />
+                        </div>
+                        <div>
+                          <h3 class="text-base font-bold text-on-surface group-hover:text-primary transition leading-snug">
+                            {store.name}
+                          </h3>
+                          <span class="font-mono text-[10px] text-on-surface-variant uppercase tracking-wider block">
+                            {store.category}
+                          </span>
+                        </div>
+                      </div>
+                      <span class="font-mono text-xs font-black text-discount-rose bg-discount-rose/10 px-2 py-0.5 rounded-md shrink-0">
+                        {maxDiscount}
+                      </span>
+                    </div>
+
+                    <p class="text-xs text-on-surface-variant line-clamp-2 mb-4 leading-relaxed">
+                      {store.description}
+                    </p>
+                  </div>
+
+                  <div class="pt-3 border-t border-border-subtle flex items-center justify-between">
+                    <span class="font-mono text-xs text-on-surface-variant">
+                      <strong class="text-on-surface font-bold">{coupons.length}</strong> active offers
+                    </span>
+                    <a
+                      href={`${base}/stores/${store.slug}/`}
+                      class="text-xs font-bold text-primary group-hover:underline flex items-center gap-1"
+                    >
+                      <span>Open Hub</span>
+                      <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <!-- No Results Fallback Notice -->
+          <div id="noStoresNotice" class="hidden text-center py-16 bg-surface-container-lowest rounded-2xl border border-border-subtle mb-14 p-6">
+            <span class="material-symbols-outlined text-4xl text-slate-400 mb-2">storefront</span>
+            <h3 class="text-base font-bold text-on-surface">No matching partner stores found</h3>
+            <p class="text-xs text-on-surface-variant mt-1 max-w-sm mx-auto">
+              Try adjusting your search query or reset the category and letter filters.
+            </p>
+            <button
+              id="resetFiltersBtn"
+              type="button"
+              class="mt-4 px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-container transition shadow-sm cursor-pointer"
+            >
+              Reset All Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- PRODUCTS VIEW (DIRECT HARDWARE & GEAR) -->
+        <div id="productsViewContainer" class="hidden">
+          <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-on-surface">Official Partner Inventory Feeds</h2>
+              <p class="text-xs text-on-surface-variant mt-1">
+                Real-time in-stock products with confirmed merchant prices and direct affiliate pass-through.
+              </p>
+            </div>
+            <span class="font-mono text-xs bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300 px-3.5 py-1.5 rounded-full font-bold self-start sm:self-auto border border-emerald-500/20">
+              {totalProducts} Items Available
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-14">
+            {allProducts.map((p) => (
+              <div class="bg-surface-container-lowest rounded-2xl overflow-hidden border border-border-subtle hover:border-primary/40 hover:shadow-lg transition flex flex-col justify-between group">
+                <div class="relative bg-surface-container-low aspect-square p-4 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={p.imageUrl}
+                    alt={p.title}
+                    loading="lazy"
+                    class="object-contain w-full h-full group-hover:scale-105 transition duration-300"
+                  />
+                  <div class="absolute top-2.5 left-2.5 bg-slate-900/80 backdrop-blur-md text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+                    {p.storeSlug}
+                  </div>
+                  {p.badge && (
+                    <div class="absolute top-2.5 right-2.5 bg-emerald-600 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded shadow">
+                      {p.badge}
+                    </div>
+                  )}
+                </div>
+
+                <div class="p-4 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 class="text-xs font-bold text-on-surface line-clamp-2 group-hover:text-primary transition mb-1.5 leading-snug">
+                      {p.title}
+                    </h3>
+                    <p class="text-[11px] text-on-surface-variant line-clamp-2 mb-3">
+                      {p.description}
+                    </p>
+                  </div>
+
+                  <div class="pt-3 border-t border-border-subtle flex items-center justify-between">
+                    <div>
+                      <span class="font-mono text-[10px] text-on-surface-variant block uppercase">Price</span>
+                      <span class="text-base font-black text-on-surface font-mono">{p.price}</span>
+                    </div>
+                    <a
+                      href={p.productUrl}
+                      target="_blank"
+                      rel="nofollow sponsored noopener noreferrer"
+                      class="px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-white text-xs font-bold transition flex items-center gap-1 shadow-sm"
+                    >
+                      <span>View Deal</span>
+                      <span class="material-symbols-outlined text-[13px]">arrow_outward</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <!-- Dynamic Filter & Tab State Machine -->
+  <script is:inline>
+    (function() {
+      // Tab switching
+      const tabStoresBtn = document.getElementById('tabStoresBtn');
+      const tabProductsBtn = document.getElementById('tabProductsBtn');
+      const storesView = document.getElementById('storesViewContainer');
+      const productsView = document.getElementById('productsViewContainer');
+
+      tabStoresBtn?.addEventListener('click', () => {
+        storesView?.classList.remove('hidden');
+        productsView?.classList.add('hidden');
+        tabStoresBtn.className = 'px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-bold transition shadow-sm flex items-center gap-2 cursor-pointer';
+        tabProductsBtn.className = 'px-5 py-2.5 rounded-xl bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container text-xs font-bold transition flex items-center gap-2 cursor-pointer';
+      });
+
+      tabProductsBtn?.addEventListener('click', () => {
+        storesView?.classList.add('hidden');
+        productsView?.classList.remove('hidden');
+        tabProductsBtn.className = 'px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-bold transition shadow-sm flex items-center gap-2 cursor-pointer';
+        tabStoresBtn.className = 'px-5 py-2.5 rounded-xl bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container text-xs font-bold transition flex items-center gap-2 cursor-pointer';
+      });
+
+      // Stores Filtering State
+      const state = {
+        searchQuery: '',
+        activeCategory: 'all',
+        activeLetter: 'ALL'
+      };
+
+      const searchInput = document.getElementById('storeSearchField');
+      const cards = Array.from(document.querySelectorAll('.store-card-item'));
+      const countEl = document.getElementById('visibleStoresCount');
+      const noStoresNotice = document.getElementById('noStoresNotice');
+      const resetBtn = document.getElementById('resetFiltersBtn');
+
+      function applyFilter() {
+        const q = state.searchQuery.toLowerCase().trim();
+        const cat = state.activeCategory;
+        const letter = state.activeLetter;
+        let visible = 0;
+
+        cards.forEach(card => {
+          const name = card.getAttribute('data-name') || '';
+          const cardCat = card.getAttribute('data-category') || '';
+          const cardLetter = card.getAttribute('data-letter') || '';
+          const discount = card.getAttribute('data-discount') || '';
+
+          const matchSearch = !q || name.includes(q) || cardCat.toLowerCase().includes(q) || discount.toLowerCase().includes(q);
+          const matchCat = cat === 'all' || cardCat === cat;
+          const matchLetter = letter === 'ALL' || (letter === '#' ? /^[0-9]/.test(cardLetter) : cardLetter === letter);
+
+          if (matchSearch && matchCat && matchLetter) {
+            card.classList.remove('hidden');
+            visible++;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        if (countEl) countEl.innerText = visible;
+        if (noStoresNotice) {
+          if (visible === 0) noStoresNotice.classList.remove('hidden');
+          else noStoresNotice.classList.add('hidden');
+        }
+      }
+
+      searchInput?.addEventListener('input', (e) => {
+        state.searchQuery = e.target.value;
+        applyFilter();
+      });
+
+      // Category filter buttons
+      document.querySelectorAll('.store-cat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.activeCategory = btn.getAttribute('data-cat') || 'all';
+          document.querySelectorAll('.store-cat-btn').forEach(b => {
+            if (b.getAttribute('data-cat') === state.activeCategory) {
+              b.className = 'store-cat-btn px-3.5 py-1.5 rounded-xl bg-primary text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5 whitespace-nowrap cursor-pointer';
+            } else {
+              b.className = 'store-cat-btn px-3.5 py-1.5 rounded-xl bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container text-xs font-semibold transition-all whitespace-nowrap cursor-pointer';
+            }
+          });
+          applyFilter();
+        });
+      });
+
+      // Letter filter buttons
+      document.querySelectorAll('.store-letter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.activeLetter = btn.getAttribute('data-letter') || 'ALL';
+          document.querySelectorAll('.store-letter-btn').forEach(b => {
+            if (b.getAttribute('data-letter') === state.activeLetter) {
+              b.className = 'store-letter-btn px-2.5 py-1 text-center font-mono text-xs rounded-lg transition-colors cursor-pointer bg-primary text-white font-bold shadow-sm';
+            } else {
+              b.className = 'store-letter-btn px-2.5 py-1 text-center font-mono text-xs rounded-lg transition-colors cursor-pointer bg-surface-container-low text-on-surface hover:bg-surface-container font-semibold';
+            }
+          });
+          applyFilter();
+        });
+      });
+
+      resetBtn?.addEventListener('click', () => {
+        if (searchInput) searchInput.value = '';
+        state.searchQuery = '';
+        state.activeCategory = 'all';
+        state.activeLetter = 'ALL';
+        
+        document.querySelector('.store-cat-btn[data-cat="all"]')?.click();
+        document.querySelector('.store-letter-btn[data-letter="ALL"]')?.click();
+      });
+    })();
+  </script>
+</BaseLayout>

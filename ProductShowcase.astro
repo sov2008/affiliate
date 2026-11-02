@@ -1,0 +1,73 @@
+﻿---
+import type { StoreProduct } from '../data/productsData';
+
+interface Props {
+  products: StoreProduct[];
+  storeName: string;
+}
+
+const { products, storeName } = Astro.props;
+if (!products || products.length === 0) return null;
+---
+
+<section class="mt-8 mb-6">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+        </svg>
+      </div>
+      <div>
+        <h2 class="text-base font-extrabold text-slate-900 dark:text-white">Featured Best-Sellers &amp; Verified Hardware</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Live stock items direct from official manufacturer feeds</p>
+      </div>
+    </div>
+    <span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+      Verified In Stock
+    </span>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    {products.map(product => (
+      <article class="bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200/90 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+        <div class="p-3.5">
+          <div class="relative w-full h-44 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 mb-3 border border-slate-100 dark:border-slate-800/80">
+            <img 
+              src={product.imageUrl} 
+              alt={product.title} 
+              loading="lazy"
+              class="w-full h-full object-cover hover:scale-105 transition duration-300"
+            />
+            {product.badge && (
+              <span class="absolute top-2 left-2 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-900/80 backdrop-blur-md text-white border border-white/20">
+                {product.badge}
+              </span>
+            )}
+            <span class="absolute bottom-2 right-2 text-xs font-black px-2.5 py-1 rounded-lg bg-emerald-600 text-white shadow-sm">
+              {product.price}
+            </span>
+          </div>
+
+          <h3 class="text-sm font-extrabold text-slate-900 dark:text-white line-clamp-1 mb-1.5" title={product.title}>
+            {product.title}
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+            {product.description}
+          </p>
+        </div>
+
+        <div class="p-3.5 pt-0">
+          <a
+            href={product.productUrl}
+            target="_blank"
+            rel="nofollow sponsored noopener"
+            class="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white font-bold text-xs transition flex items-center justify-center gap-1.5 shadow-sm"
+          >
+            <span>View Official Product ↗</span>
+          </a>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

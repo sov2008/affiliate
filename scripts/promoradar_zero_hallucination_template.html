@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800;900&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      /* Theme variables injected deterministically per brand */
+      --canvas-bg: #0B0F19;
+      --card-bg: #111827;
+      --halo-left: rgba(79, 70, 229, 0.4);
+      --halo-right: rgba(244, 63, 94, 0.35);
+      --card-border-glow: #4F46E5;
+      --card-border-glow-2: #E11D48;
+      --headline-start: #FEF08A;
+      --headline-mid: #F59E0B;
+      --headline-end: #EF4444;
+      --code-color: #38BDF8;
+      --btn-bg: linear-gradient(135deg, #4F46E5 0%, #E11D48 100%);
+    }
+
+    body {
+      width: 1000px;
+      height: 1500px;
+      background: var(--canvas-bg);
+      color: #FFFFFF;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 56px 60px 48px 60px;
+    }
+
+    /* 1. ATMOSPHERIC RADAR GRID & GLOWS (STITCH AMBIENCE) */
+    .cyber-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: 1;
+    }
+    .radar-sweep-rings {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 900px;
+      border-radius: 50%;
+      border: 1px dashed rgba(79, 70, 229, 0.15);
+      box-shadow: 
+        0 0 0 150px rgba(79, 70, 229, 0.04),
+        0 0 0 300px rgba(79, 70, 229, 0.02);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .glow-left {
+      position: absolute;
+      width: 550px;
+      height: 550px;
+      top: 350px;
+      left: -180px;
+      background: radial-gradient(circle, var(--halo-left) 0%, transparent 70%);
+      filter: blur(70px);
+      z-index: 1;
+    }
+    .glow-right {
+      position: absolute;
+      width: 550px;
+      height: 550px;
+      top: 350px;
+      right: -180px;
+      background: radial-gradient(circle, var(--halo-right) 0%, transparent 70%);
+      filter: blur(70px);
+      z-index: 1;
+    }
+
+    /* 2. CANONICAL BRAND HEADER (100% ID с Header.astro) */
+    .brand-header-zone {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    .brand-badge {
+      width: 80px;
+      height: 80px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #4F46E5 0%, #4338CA 50%, #E11D48 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px -4px rgba(79, 70, 229, 0.6), 0 0 0 1.5px rgba(255, 255, 255, 0.2);
+      flex-shrink: 0;
+    }
+    .brand-badge svg {
+      width: 44px;
+      height: 44px;
+      color: #FFFFFF;
+    }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .brand-name {
+      font-size: 50px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+    .brand-tagline {
+      font-size: 15px;
+      font-weight: 700;
+      color: #94A3B8;
+      letter-spacing: 0.5px;
+      margin-top: 5px;
+    }
+    .sub-telemetry-badge {
+      margin-top: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 22px;
+      border-radius: 9999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #818CF8;
+      text-transform: uppercase;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    .sub-telemetry-badge .ping {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 10px #10B981;
+    }
+
+    /* 3. PHYSICAL DIGITAL VOUCHER TICKET (100% ЧИСТАЯ ГЕОМЕТРИЯ С ПЕРФОРАЦИЯМИ) */
+    .voucher-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      margin: 10px 0;
+    }
+    .voucher-glow-aura {
+      position: absolute;
+      inset: -4px;
+      border-radius: 36px;
+      background: linear-gradient(135deg, var(--card-border-glow) 0%, var(--card-border-glow-2) 100%);
+      filter: blur(14px);
+      opacity: 0.65;
+    }
+    .voucher-ticket-body {
+      position: relative;
+      background: #0E1424;
+      border: 2px solid rgba(255, 255, 255, 0.16);
+      border-radius: 32px;
+      padding: 50px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    /* Physical ticket notches (перфорированные полукруглые пазы) */
+    .perforated-notch {
+      position: absolute;
+      width: 56px;
+      height: 56px;
+      background: var(--canvas-bg);
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      border: 2px solid rgba(255, 255, 255, 0.16);
+    }
+    .notch-l {
+      left: -29px;
+      clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+    }
+    .notch-r {
+      right: -29px;
+      clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+    }
+
+    /* Perforated ticket divider dashed line */
+    .dashed-ticket-border {
+      position: absolute;
+      inset: 14px;
+      border: 1.5px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      pointer-events: none;
+    }
+
+    /* Merchant Header Inside Ticket */
+    .merchant-slot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      margin-bottom: 20px;
+    }
+    .merchant-slot .bolt {
+      color: #F59E0B;
+    }
+
+    /* Bold Direct Headlines */
+    .headline-main {
+      font-size: 80px;
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      background: linear-gradient(135deg, var(--headline-start) 0%, var(--headline-mid) 40%, var(--headline-end) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    .headline-second {
+      font-size: 60px;
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      color: #FFFFFF;
+      margin-bottom: 22px;
+    }
+    .subhead-features {
+      font-size: 22px;
+      line-height: 1.45;
+      font-weight: 600;
+      color: #CBD5E1;
+      max-width: 720px;
+    }
+
+    /* 4. PHYSICAL COUPON BOX */
+    .coupon-code-strip {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      margin: 10px 0;
+      background: #080C16;
+      border: 2px dashed rgba(99, 102, 241, 0.6);
+      border-radius: 24px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .coupon-code-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 46px;
+      font-weight: 800;
+      color: var(--code-color);
+      letter-spacing: 4px;
+      padding-left: 20px;
+    }
+    .btn-copy-activate {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--btn-bg);
+      color: #FFFFFF;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 22px 36px;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px -4px rgba(225, 29, 72, 0.5);
+    }
+
+    /* 5. TRUST ROW (100% ZERO HALLUCINATIONS) */
+    .trust-telemetry-row {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 8px;
+    }
+    .trust-pill-qa {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1.5px solid rgba(16, 185, 129, 0.45);
+      padding: 14px 24px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+    }
+    .trust-pill-qa svg { width: 30px; height: 30px; color: #34D399; }
+    .trust-pill-qa-text {
+      font-size: 15px;
+      font-weight: 800;
+      color: #34D399;
+      letter-spacing: 1px;
+      line-height: 1.15;
+      text-align: left;
+    }
+    .trust-pill-guarantee {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 19px;
+      font-weight: 700;
+      color: #94A3B8;
+    }
+    .trust-pill-guarantee svg { width: 26px; height: 26px; color: #818CF8; }
+    .trust-rating-box {
+      font-size: 23px;
+      font-weight: 800;
+      color: #F8FAFC;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stars { color: #FBBF24; font-size: 21px; }
+
+    /* 6. BOTTOM CTA BAR */
+    .bottom-cta-banner {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      background: linear-gradient(135deg, rgba(22, 27, 46, 0.95) 0%, rgba(35, 33, 70, 0.95) 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 24px 38px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    }
+    .cta-msg-brand {
+      font-size: 23px;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+    .cta-msg-domain {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--code-color);
+    }
+    .cta-action-btn {
+      background: #FFFFFF;
+      color: #0B0F19;
+      font-size: 19px;
+      font-weight: 900;
+      padding: 15px 30px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body style="{{THEME_VARS}}">
+  <div class="cyber-grid"></div>
+  <div class="radar-sweep-rings"></div>
+  <div class="glow-left"></div>
+  <div class="glow-right"></div>
+
+  <!-- 1. 100% CANONICAL BRAND HEADER (FIXED PIXELS & FONTS) -->
+  <header class="brand-header-zone">
+    <div class="brand-lockup">
+      <div class="brand-badge">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" stroke-width="2" opacity="0.4"></circle>
+          <circle cx="12" cy="12" r="5" stroke-width="2" opacity="0.75"></circle>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 12l6-6"></path>
+          <circle cx="12" cy="2" fill="currentColor"></circle>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">PromoRadar</span>
+        <span class="brand-tagline">Verified Promo Codes &amp; Deals</span>
+      </div>
+    </div>
+    <div class="sub-telemetry-badge">
+      <span class="ping"></span>
+      <span>VERIFIED VOUCHER RADAR • OCTOBER 2026</span>
+    </div>
+  </header>
+
+  <!-- 2. PHYSICAL DIGITAL VOUCHER TICKET (PRECISE CODE & NOTCHES) -->
+  <div class="voucher-container">
+    <div class="voucher-glow-aura"></div>
+    <div class="voucher-ticket-body">
+      <div class="perforated-notch notch-l"></div>
+      <div class="perforated-notch notch-r"></div>
+      <div class="dashed-ticket-border"></div>
+
+      <div class="merchant-slot">
+        <span class="bolt">⚡</span> {{MERCHANT_NAME}}
+      </div>
+      <div class="headline-main">{{HEADLINE_MAIN}}</div>
+      <div class="headline-second">{{HEADLINE_SECOND}}</div>
+      <p class="subhead-features">{{SUBHEAD_FEATURES}}</p>
+    </div>
+  </div>
+
+  <!-- 3. DETACHED COUPON CODE STRIP -->
+  <div class="coupon-code-strip">
+    <div class="coupon-code-text">{{COUPON_CODE}}</div>
+    <div class="btn-copy-activate">
+      <span>COPY &amp; ACTIVATE</span>
+      <span>➔</span>
+    </div>
+  </div>
+
+  <!-- 4. TRUST BADGES ROW (100% CRISP VECTOR SVG) -->
+  <div class="trust-telemetry-row">
+    <div class="trust-pill-qa">
+      <svg fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+      </svg>
+      <div class="trust-pill-qa-text">
+        100% QA VERIFIED<br>AT CHECKOUT
+      </div>
+    </div>
+
+    <div class="trust-pill-guarantee">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+      </svg>
+      <span>0% Dead-Link Guarantee</span>
+    </div>
+
+    <div class="trust-rating-box">
+      <span class="stars">★ ★ ★ ★ ★</span>
+      <span>4.9 Top Verified</span>
+    </div>
+  </div>
+
+  <!-- 5. BOTTOM BRAND CTA BAR -->
+  <footer class="bottom-cta-banner">
+    <div>
+      <div class="cta-msg-brand">Save Big on {{MERCHANT_NAME}}</div>
+      <div class="cta-msg-domain">promoradar.store/stores/{{MERCHANT_SLUG}}/</div>
+    </div>
+    <div class="cta-action-btn">
+      <span>Get Deal</span>
+      <span>→</span>
+    </div>
+  </footer>
+</body>
+</html>
+

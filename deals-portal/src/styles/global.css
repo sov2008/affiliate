@@ -124,22 +124,14 @@
   --color-error-container: #ffdad6;
 }
 
-.material-symbols-outlined {
-  font-family: 'Material Symbols Outlined';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 20px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-feature-settings: 'liga';
-  -webkit-font-smoothing: antialiased;
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
+/* Material Symbols removed in favor of Lucide Icons */
+
+/* Filled solid icon styles - Pure black in light theme, bright white in dark theme */
+/* Material Symbols removed in favor of Lucide Icons */
+
+
+
+
 
 :root {
   --glass-bg: rgba(255, 255, 255, 0.85);
@@ -215,21 +207,12 @@ html.dark body {
   color: #f1f5f9;
 }
 
-/* Header & Top Bar */
-html.dark header.sticky {
-  background-color: rgba(11, 17, 32, 0.94) !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
-}
+/* Header & Top Bar - Pure Transparent & Clean */
+
 
 html.dark header nav {
-  background-color: #151e32 !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
-}
-
-html.dark header nav a.bg-white {
-  background-color: #243049 !important;
-  color: #a5b4fc !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
 }
 
 html.dark header nav a.text-slate-600 {
@@ -1223,3 +1206,51 @@ html.dark #modalStoreAffiliateLink:hover {
   background: linear-gradient(to right, #10b981, #14b8a6) !important;
 }
 
+
+
+/* Premium Product Showcase: Studio Display in Light & Dark Mode */
+.product-media-stage,
+html.dark .product-media-stage,
+html.dark div.product-media-stage {
+  height: 180px !important;
+  border-radius: 14px !important;
+  padding: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  position: relative !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04), 0 2px 8px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.product-media-stage img,
+html.dark .product-media-stage img,
+html.dark div.product-media-stage img {
+  object-fit: contain !important;
+  max-height: 144px !important;
+  width: auto !important;
+  max-width: 90% !important;
+  mix-blend-mode: normal !important;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.12)) !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.product-media-stage:hover img {
+  transform: scale(1.06) !important;
+}
+
+/* Universal Solid Header for both Light & Dark themes */
+header.sticky,
+html.dark header.sticky {
+  background-color: #0B0F19 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4) !important;
+}
+
+header nav,
+html.dark header nav {
+  background-color: transparent !important;
+  border: none !important;
+}

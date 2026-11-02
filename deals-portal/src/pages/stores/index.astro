@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Store, Search, ExternalLink, Tag, ShieldCheck, ArrowRight, Grid, Award, Layers, Star, Clock, BadgeCheck } from 'lucide-astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import BrandLogo from '../../components/BrandLogo.astro';
@@ -66,7 +67,7 @@ const featuredCoupons = storeCouponsMap[featuredCanonKey] || [];
         <!-- Trust Indicator Monospace Strip -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
           <div class="flex items-center gap-1.5 font-mono text-xs text-badge-verified-text bg-badge-verified-fill px-3.5 py-1.5 rounded-full border border-emerald-200">
-            <span class="material-symbols-outlined text-[16px] text-badge-verified-text">verified</span>
+            <BadgeCheck class="w-4 h-4 text-emerald-500" />
             <span class="font-bold tracking-tight">DIRECT AFFILIATE API TELEMETRY • {totalStores} ACTIVE MERCHANT HUBS</span>
           </div>
           <div class="flex items-center gap-3 font-mono text-xs text-on-surface-variant">
@@ -113,7 +114,7 @@ const featuredCoupons = storeCouponsMap[featuredCanonKey] || [];
           <!-- Search Input Command Box -->
           <div class="relative w-full">
             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline">
-              <span class="material-symbols-outlined text-[22px]">search</span>
+              <Search class="w-4 h-4" />
             </div>
             <input
               id="storeSearchField"
@@ -179,15 +180,15 @@ const featuredCoupons = storeCouponsMap[featuredCanonKey] || [];
             <div class="lg:col-span-7 flex flex-col gap-3">
               <div class="flex flex-wrap items-center gap-2">
                 <span class="font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-urgency-amber text-slate-950 font-extrabold flex items-center gap-1">
-                  <span class="material-symbols-outlined text-[13px]">star</span>
+                  <Star class="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                   FEATURED MERCHANT OF THE MONTH
                 </span>
                 <span class="font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-badge-verified-fill text-badge-verified-text font-bold flex items-center gap-1">
-                  <span class="material-symbols-outlined text-[13px]">verified</span>
+                  <BadgeCheck class="w-3.5 h-3.5 text-emerald-500" />
                   Verified Partner Sync
                 </span>
                 <span class="font-mono text-[11px] text-tertiary-fixed-dim flex items-center gap-1">
-                  <span class="material-symbols-outlined text-[13px]">timer</span>
+                  <Clock class="w-3.5 h-3.5 text-slate-400" />
                   Resets in 14h 22m
                 </span>
               </div>
@@ -247,7 +248,7 @@ const featuredCoupons = storeCouponsMap[featuredCanonKey] || [];
                   class="w-full sm:flex-1 py-3 px-4 rounded-xl bg-primary hover:bg-primary-container text-white text-xs font-bold text-center transition-all shadow-md flex items-center justify-center gap-1.5"
                 >
                   <span>Explore ExpressVPN Hub ({featuredCoupons.length} Deals)</span>
-                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  <ArrowRight class="w-4 h-4" />
                 </a>
               </div>
             </div>
@@ -311,7 +312,7 @@ const featuredCoupons = storeCouponsMap[featuredCanonKey] || [];
                       {store.category}
                     </span>
                     <span class="text-[11px] font-semibold bg-badge-verified-fill text-badge-verified-text px-2 py-0.5 rounded-full flex items-center gap-1">
-                      <span class="material-symbols-outlined text-[13px]">verified</span>
+                      <BadgeCheck class="w-3.5 h-3.5 text-emerald-500" />
                       Tested Live
                     </span>
                   </div>
@@ -323,7 +324,7 @@ const featuredCoupons = storeCouponsMap[featuredCanonKey] || [];
 
                 <div class="pt-3.5 bg-surface-container-low/70 -mx-5 -mb-5 px-5 py-3 rounded-b-2xl border-t border-border-subtle flex items-center justify-between">
                   <div class="flex items-center gap-1.5 font-mono text-xs text-on-surface">
-                    <span class="material-symbols-outlined text-[16px] text-primary">sell</span>
+                    <Tag class="w-4 h-4" />
                     <span><strong>{coupons.length}</strong> active offers</span>
                   </div>
                   <a
@@ -331,7 +332,7 @@ const featuredCoupons = storeCouponsMap[featuredCanonKey] || [];
                     class="text-xs font-bold text-primary group-hover:text-primary-container flex items-center gap-1 hover:underline transition-colors"
                   >
                     <span>View Deals</span>
-                    <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                    <ArrowRight class="w-4 h-4" />
                   </a>
                 </div>
               </article>
@@ -341,7 +342,7 @@ const featuredCoupons = storeCouponsMap[featuredCanonKey] || [];
 
         <!-- No Results Fallback Notice -->
         <div id="noStoresNotice" class="hidden text-center py-16 bg-surface-container-lowest rounded-2xl border border-border-subtle mb-14 p-6">
-          <span class="material-symbols-outlined text-4xl text-slate-400 mb-2">storefront</span>
+          <Store class="w-10 h-10 text-slate-400 mb-2 stroke-[1.5]" />
           <h3 class="text-base font-bold text-on-surface">No matching partner stores found</h3>
           <p class="text-xs text-on-surface-variant mt-1 max-w-sm mx-auto">
             Try adjusting your search query or reset the category and letter filters.

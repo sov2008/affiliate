@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 800px;
+      height: 800px;
+      background: #0B0F19;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Ambient Glow */
+    .glow {
+      position: absolute;
+      width: 750px;
+      height: 750px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.45) 0%, rgba(225, 29, 72, 0.25) 50%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Clean Pure Radar SVG without outer frames or text */
+    .radar-svg {
+      width: 700px;
+      height: 700px;
+      position: relative;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <svg class="radar-svg" viewBox="0 0 512 512" fill="none">
+    <defs>
+      <!-- Base Radar Fill Gradient -->
+      <linearGradient id="radarBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4f46e5" />
+        <stop offset="55%" stop-color="#6366f1" />
+        <stop offset="100%" stop-color="#e11d48" />
+      </linearGradient>
+
+      <!-- Radar Sweep Beam Gradient -->
+      <linearGradient id="sweepBeamGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0.55" />
+      </linearGradient>
+
+      <!-- Soft Glow Filter -->
+      <filter id="blipGlow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="8" result="blur" />
+        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+      </filter>
+    </defs>
+
+    <!-- Radar Disc Background -->
+    <circle cx="256" cy="256" r="236" fill="url(#radarBodyGrad)" />
+    <circle cx="256" cy="256" r="236" stroke="#ffffff" stroke-opacity="0.25" stroke-width="6" />
+
+    <!-- Radar Grid Concentric Circles -->
+    <circle cx="256" cy="256" r="180" stroke="#ffffff" stroke-width="12" stroke-opacity="0.3" />
+    <circle cx="256" cy="256" r="120" stroke="#ffffff" stroke-width="12" stroke-opacity="0.45" />
+    <circle cx="256" cy="256" r="60" stroke="#ffffff" stroke-width="12" stroke-opacity="0.7" />
+
+    <!-- Crosshairs Reticle -->
+    <line x1="256" y1="20" x2="256" y2="492" stroke="#ffffff" stroke-width="6" stroke-opacity="0.25" stroke-dasharray="10 10" />
+    <line x1="20" y1="256" x2="492" y2="256" stroke="#ffffff" stroke-width="6" stroke-opacity="0.25" stroke-dasharray="10 10" />
+
+    <!-- Radar Sweep Sector -->
+    <path d="M 256 256 L 390 122 A 180 180 0 0 0 256 76 Z" fill="url(#sweepBeamGrad)" />
+    <!-- Active Scanner Beam -->
+    <line x1="256" y1="256" x2="390" y2="122" stroke="#ffffff" stroke-width="16" stroke-linecap="round" filter="url(#blipGlow)" />
+
+    <!-- Active Discount Hot Ping Blip -->
+    <circle cx="365" cy="145" r="24" fill="#38bdf8" filter="url(#blipGlow)" />
+    <circle cx="365" cy="145" r="12" fill="#ffffff" />
+
+    <!-- Center Core Beacon -->
+    <circle cx="256" cy="256" r="32" fill="#ffffff" filter="url(#blipGlow)" />
+    <circle cx="256" cy="256" r="18" fill="#e11d48" />
+  </svg>
+</body>
+</html>

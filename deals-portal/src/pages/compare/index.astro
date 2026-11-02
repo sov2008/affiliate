@@ -7,6 +7,7 @@ import { STORES_DATA, COUPONS_DATA } from '../../data/couponsData';
 
 export const prerender = true;
 
+import { ArrowLeftRight, Check, ShieldCheck, Flame, ExternalLink, ArrowRight, ArrowRightLeft, CheckCircle2, Star } from 'lucide-astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // Head-to-Head Showdown definitions matching Screen 3 design
@@ -266,12 +267,12 @@ const BENCHMARK_ROWS = [
           </div>
           <div class="flex items-center gap-4 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-1.5">
-              <span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">verified_user</span>
+              <ShieldCheck class="w-4 h-4" />
               Real-Cart Basket Simulated
             </span>
             <span class="text-slate-600">•</span>
             <span class="flex items-center gap-1.5">
-              <span class="material-symbols-outlined text-[16px] text-brand-accent-blue">sync_alt</span>
+              <ArrowRightLeft class="w-4 h-4 text-indigo-500" />
               15-Minute Heartbeat Pings
             </span>
           </div>
@@ -323,7 +324,7 @@ const BENCHMARK_ROWS = [
           <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface">Curated Head-to-Head Showdowns</h2>
         </div>
         <div class="flex items-center gap-1.5 text-xs text-on-surface-variant font-medium">
-          <span class="material-symbols-outlined text-[18px] text-badge-verified-text">check_circle</span>
+          <CheckCircle2 class="w-4.5 h-4.5 text-emerald-500" />
           <span>Independent Editorial QA Verified • No Scraped Deals</span>
         </div>
       </div>
@@ -403,7 +404,7 @@ const BENCHMARK_ROWS = [
                   type="button"
                   class="flex-1 bg-primary group-hover/btn:bg-primary-container text-white py-3 px-3.5 text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
-                  <span class="material-symbols-outlined text-[16px]">verified</span>
+                  <ShieldCheck class="w-4 h-4" />
                   <span class="btn-label">{item.btnLabel}</span>
                 </button>
                 <div class="bg-canvas-dark text-white font-mono text-xs px-3.5 py-3 flex items-center tracking-wider font-bold shrink-0">
@@ -477,7 +478,7 @@ const BENCHMARK_ROWS = [
                   <td class="py-3.5 px-3 text-on-surface-variant">{row.refund}</td>
                   <td class="py-3.5 px-3 font-mono font-bold">
                     <div class="flex items-center gap-1 text-on-surface">
-                      <span class="material-symbols-outlined text-[15px] text-urgency-amber">star</span>
+                      <Star class="w-4 h-4 text-amber-400 fill-amber-400" />
                       <span>{row.rating} / 5.0</span>
                     </div>
                   </td>

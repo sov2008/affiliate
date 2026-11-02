@@ -1,45 +1,114 @@
 ---
 import { STORES_DATA } from '../data/couponsData';
 import { getUniqueCleanStores } from '../utils/dealNormalizer';
+import { LOCALES, DEFAULT_LOCALE, getTranslation } from '../i18n/ui';
+import { Flame, Store, Shapes, ArrowLeftRight, HelpCircle, ChevronDown, Sun, Moon, Heart, Globe } from 'lucide-astro';
 
 interface Props {
   activePath?: string;
+  locale?: string;
 }
 
-const { activePath = '/' } = Astro.props;
+const { activePath = '/', locale = DEFAULT_LOCALE } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const uniqueStores = getUniqueCleanStores(STORES_DATA);
 const storesCount = uniqueStores.length;
+const t = getTranslation(locale);
+const currentLocaleConfig = LOCALES[locale] || LOCALES[DEFAULT_LOCALE];
 ---
 
 <!-- Sticky Main Glass Header (h-[68px]) -->
-<header class="sticky top-0 z-40 h-[68px] bg-white/95 dark:bg-[#0B0F19]/95 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 shadow-xs transition-colors">
+<header class="sticky top-0 z-40 h-[68px] bg-[#0B0F19] text-white border-b border-white/10 shadow-md transition-colors">
   <div class="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
     
-    <!-- Exact PromoRadar Logo & Brand Block from code.html -->
-    <a href={`${base}/`} class="flex items-center gap-3 text-left group shrink-0">
-      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/25 group-hover:scale-105 transition-transform">
-        <span class="material-symbols-outlined text-[24px]">radar</span>
+    <!-- Canonical Live Production PromoRadar Logo & Brand Block -->
+    <a href={`${base}/`} class="flex items-center gap-2.5 text-left group shrink-0">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-rose-600 flex items-center justify-center text-white font-extrabold text-lg shadow-md shadow-indigo-500/20 group-hover:scale-105 transition">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" stroke-width="2" class="opacity-40"></circle>
+          <circle cx="12" cy="12" r="5" stroke-width="2" class="opacity-75"></circle>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 12l6-6"></path>
+          <circle cx="12" cy="2" fill="currentColor"></circle>
+        </svg>
       </div>
       <div>
-        <div class="font-extrabold text-[19px] tracking-tight leading-none text-slate-900 dark:text-white">PromoRadar</div>
-        <div class="text-[9.5px] uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400 leading-none mt-1">GLOBAL Verified Deals</div>
+        <span class="font-extrabold text-lg tracking-tight text-white">PromoRadar</span>
+        <p class="text-[11px] text-slate-400 leading-none mt-0.5">Verified Promo Codes &amp; Deals</p>
       </div>
     </a>
 
-    <!-- Clean Header Actions (Region + Saved + Theme Switcher) -->
-    <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+    <!-- Desktop Navigation Menu Tabs (Clean, Frameless, Pure Typography & Lucide Icons) -->
+    <nav class="hidden lg:flex items-center gap-1 text-xs font-bold" aria-label="Main Navigation">
+      <a
+        href={`${base}/`}
+        class={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition whitespace-nowrap ${
+          activePath === '/' 
+            ? 'text-indigo-600 dark:text-indigo-400 font-extrabold' 
+            : 'text-slate-300 hover:text-white transition-colors '
+        }`}
+      >
+        <Flame class="w-4 h-4" />
+        <span data-i18n="allDeals">All Deals</span>
+      </a>
+      <a
+        href={`${base}/stores/`}
+        class={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition whitespace-nowrap ${
+          activePath.startsWith('/stores') && !activePath.includes('/stores/')
+            ? 'text-indigo-600 dark:text-indigo-400 font-extrabold' 
+            : 'text-slate-300 hover:text-white transition-colors '
+        }`}
+      >
+        <Store class="w-4 h-4" />
+        <span data-i18n="stores">Stores</span><span class="font-normal text-slate-400">({storesCount})</span>
+      </a>
+      <a
+        href={`${base}/categories/`}
+        class={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition whitespace-nowrap ${
+          activePath.startsWith('/categories') 
+            ? 'text-indigo-600 dark:text-indigo-400 font-extrabold' 
+            : 'text-slate-300 hover:text-white transition-colors '
+        }`}
+      >
+        <Shapes class="w-4 h-4" />
+        <span data-i18n="categories">Categories</span>
+      </a>
+      <a
+        href={`${base}/compare/`}
+        class={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition whitespace-nowrap ${
+          activePath.startsWith('/compare') 
+            ? 'text-indigo-600 dark:text-indigo-400 font-extrabold' 
+            : 'text-slate-300 hover:text-white transition-colors '
+        }`}
+      >
+        <ArrowLeftRight class="w-4 h-4" />
+        <span data-i18n="compare">Compare</span>
+      </a>
+      <a
+        href={`${base}/about/`}
+        class={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition whitespace-nowrap ${
+          activePath.startsWith('/about') 
+            ? 'text-indigo-600 dark:text-indigo-400 font-extrabold' 
+            : 'text-slate-300 hover:text-white transition-colors '
+        }`}
+      >
+        <HelpCircle class="w-4 h-4" />
+        <span data-i18n="faq">FAQ</span>
+      </a>
+    </nav>
+
+    <!-- Clean Header Actions (Frameless, Borderless, Background-free) -->
+    <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
       
-      <!-- Region Selector Pill -->
+      <!-- Region Selector (Frameless) -->
       <div class="relative">
         <button
           type="button"
           id="headerRegionDropdownBtn"
-          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold transition shrink-0 cursor-pointer"
+          class="h-9 inline-flex items-center gap-1 px-2.5 rounded-lg  text-slate-200 hover:text-white text-xs font-bold transition shrink-0 cursor-pointer whitespace-nowrap"
           title="Select Target Region"
         >
-          <span id="headerSelectedRegionText">🌐 Worldwide</span>
-          <span class="material-symbols-outlined text-[14px] text-slate-400">expand_more</span>
+          <span id="headerSelectedRegionText" class="inline-flex items-center gap-1.5"><Globe class="w-4 h-4 text-slate-500 dark:text-slate-400" /> <span>Worldwide</span></span>
+          <ChevronDown class="w-3.5 h-3.5 text-slate-400" />
         </button>
         <div
           id="headerRegionMenu"
@@ -47,117 +116,110 @@ const storesCount = uniqueStores.length;
         >
           <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Target Region</div>
           <button type="button" data-region-code="GLOBAL" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-            <span>🌐 Worldwide</span>
+            <span class="inline-flex items-center gap-2"><Globe class="w-4 h-4 text-slate-500 dark:text-slate-400" /> <span>Worldwide</span></span>
             <span class="region-check text-emerald-500 font-bold">✓</span>
           </button>
-          <button type="button" data-region-code="US" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-            <span>🇺🇸 United States</span>
+          <button type="button" data-region-code="US" data-flag="/flags/us.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+            <span class="inline-flex items-center gap-2">
+              <img src="/flags/us.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="US" />
+              <span>United States</span>
+            </span>
           </button>
-          <button type="button" data-region-code="EU" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-            <span>🇪🇺 Europe</span>
+          <button type="button" data-region-code="EU" data-flag="/flags/eu.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+            <span class="inline-flex items-center gap-2">
+              <img src="/flags/eu.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="EU" />
+              <span>Europe</span>
+            </span>
           </button>
-          <button type="button" data-region-code="GCC" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-            <span>🇦🇪 UAE &amp; GCC</span>
+          <button type="button" data-region-code="GCC" data-flag="/flags/ae.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+            <span class="inline-flex items-center gap-2">
+              <img src="/flags/ae.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GCC" />
+              <span>UAE &amp; GCC</span>
+            </span>
           </button>
-          <button type="button" data-region-code="UA" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-            <span>🇺🇦 Ukraine</span>
+          <button type="button" data-region-code="UA" data-flag="/flags/ua.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+            <span class="inline-flex items-center gap-2">
+              <img src="/flags/ua.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="UA" />
+              <span>Ukraine</span>
+            </span>
           </button>
         </div>
       </div>
 
-      <!-- Saved Deals Pill -->
+      <!-- Saved Deals Icon Pill -->
       <button
         id="headerSavedBtn"
         type="button"
-        class="relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold transition shrink-0 cursor-pointer"
+        class="h-9 inline-flex items-center gap-1.5 px-2 rounded-lg text-rose-500 hover:text-rose-400 transition shrink-0 cursor-pointer group"
         title="Saved Vouchers"
+        aria-label="Saved Vouchers"
       >
-        <span class="text-rose-500">❤️</span>
-        <span>Saved</span>
-        <span id="savedCountBadge" class="text-xs font-bold px-1.5 py-0.2 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300">0</span>
+        <Heart class="w-[18px] h-[18px] text-rose-500 fill-rose-500 group-hover:scale-110 transition-transform" />
+        <span id="savedCountBadge" class="text-[10px] font-mono font-extrabold px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 min-w-[18px] text-center leading-none">0</span>
       </button>
 
-      <!-- 3-State Light / Auto / Dark Theme Pill Toggle (`#theme-control-wrapper`) -->
-      <div id="theme-control-wrapper" class="flex items-center p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200/90 dark:border-slate-700/80 text-xs">
+      <!-- Language Selector (Frameless) -->
+      <div class="relative">
         <button
           type="button"
-          data-theme-val="light"
-          class="theme-toggle-option px-2 py-1 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition flex items-center justify-center cursor-pointer"
-          title="Light Theme"
-          aria-label="Light mode"
+          id="headerLangDropdownBtn"
+          class="h-9 inline-flex items-center gap-1 px-2 rounded-lg text-slate-200 hover:text-white text-xs font-bold transition shrink-0 cursor-pointer whitespace-nowrap"
+          title="Select Language"
         >
-          <span class="material-symbols-outlined text-[15px]">light_mode</span>
+          <img id="headerSelectedLangFlag" src={`/flags/${currentLocaleConfig.countryCode || 'us'}.svg`} class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="" />
+          <span id="headerSelectedLangText" class="uppercase tracking-wider text-[11px] font-mono">{currentLocaleConfig.code}</span>
+          <ChevronDown class="w-3.5 h-3.5 text-slate-400" />
         </button>
-        <button
-          type="button"
-          data-theme-val="auto"
-          class="theme-toggle-option px-2 py-1 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition flex items-center justify-center cursor-pointer"
-          title="Auto / System Preference"
-          aria-label="Auto mode"
+        <div
+          id="headerLangMenu"
+          class="hidden absolute top-full right-0 mt-2 w-44 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 p-1.5 text-left text-xs"
         >
-          <span class="material-symbols-outlined text-[15px]">brightness_auto</span>
-        </button>
-        <button
-          type="button"
-          data-theme-val="dark"
-          class="theme-toggle-option px-2 py-1 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition flex items-center justify-center cursor-pointer"
-          title="Dark Theme"
-          aria-label="Dark mode"
-        >
-          <span class="material-symbols-outlined text-[15px]">dark_mode</span>
-        </button>
+          <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Available Languages</div>
+          {Object.values(LOCALES).map(loc => (
+            <button
+              type="button"
+              data-lang-code={loc.code}
+              class={`header-lang-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer ${loc.code === locale ? 'bg-indigo-50/70 dark:bg-slate-800/90 text-indigo-600 dark:text-indigo-400' : ''}`}
+            >
+              <span class="flex items-center gap-2">
+                <img src={`/flags/${loc.countryCode}.svg`} class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt={loc.name} />
+                <span>{loc.nativeName}</span>
+              </span>
+              <span class="text-[10px] uppercase font-mono text-slate-400">{loc.code}</span>
+            </button>
+          ))}
+        </div>
       </div>
+
+      <!-- Single Icon Theme Toggle (Light / Dark) -->
+      <button
+        id="singleThemeToggleBtn"
+        type="button"
+        class="h-9 w-9 inline-flex items-center justify-center rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition cursor-pointer shrink-0"
+        title="Toggle Light / Dark theme"
+        aria-label="Toggle theme"
+      >
+        <Sun id="themeSunIcon" class="w-[18px] h-[18px] hidden dark:block text-amber-300" />
+        <Moon id="themeMoonIcon" class="w-[18px] h-[18px] block dark:hidden text-slate-200" />
+      </button>
 
     </div>
   </div>
 </header>
 
 <script is:inline>
-  // 3-State Light / Auto / Dark Theme Controller
-  (function initThreeStateTheme() {
-    const wrapper = document.getElementById('theme-control-wrapper');
-    if (!wrapper) return;
+  // Single Icon Light / Dark Theme Toggle Controller
+  (function initSingleThemeToggle() {
+    const btn = document.getElementById('singleThemeToggleBtn');
+    if (!btn) return;
 
-    function applyTheme(mode) {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (mode === 'dark' || (mode === 'auto' && prefersDark)) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-
-      // Update active toggle button style
-      wrapper.querySelectorAll('.theme-toggle-option').forEach(btn => {
-        const val = btn.getAttribute('data-theme-val');
-        if (val === mode) {
-          btn.classList.add('bg-white', 'dark:bg-slate-900', 'text-indigo-600', 'dark:text-indigo-400', 'shadow-xs', 'font-bold');
-          btn.classList.remove('text-slate-600', 'dark:text-slate-400');
-        } else {
-          btn.classList.remove('bg-white', 'dark:bg-slate-900', 'text-indigo-600', 'dark:text-indigo-400', 'shadow-xs', 'font-bold');
-          btn.classList.add('text-slate-600', 'dark:text-slate-400');
-        }
-      });
-
+    btn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      const newTheme = isDark ? 'dark' : 'light';
       try {
-        localStorage.setItem('promoradar_theme_mode', mode);
-        localStorage.setItem('promoradar_theme', mode === 'auto' ? (prefersDark ? 'dark' : 'light') : mode);
+        localStorage.setItem('promoradar_theme', newTheme);
+        localStorage.setItem('promoradar_theme_mode', newTheme);
       } catch (e) {}
-    }
-
-    const currentMode = localStorage.getItem('promoradar_theme_mode') || 'auto';
-    applyTheme(currentMode);
-
-    wrapper.querySelectorAll('.theme-toggle-option').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const selected = btn.getAttribute('data-theme-val') || 'auto';
-        applyTheme(selected);
-      });
-    });
-
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-      if ((localStorage.getItem('promoradar_theme_mode') || 'auto') === 'auto') {
-        applyTheme('auto');
-      }
     });
   })();
 
@@ -179,8 +241,16 @@ const storesCount = uniqueStores.length;
     menu?.querySelectorAll('.header-region-item').forEach(item => {
       item.addEventListener('click', () => {
         const code = item.getAttribute('data-region-code') || 'GLOBAL';
-        const text = item.querySelector('span')?.textContent || '🌐 Worldwide';
-        if (label) label.textContent = text;
+        const img = item.querySelector('img');
+        const textSpan = item.querySelector('span > span:last-child') || item.querySelector('span');
+        const text = textSpan ? textSpan.textContent.trim() : (item.textContent.trim());
+        if (label) {
+          if (img) {
+            label.innerHTML = `<img src="${img.src}" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="" /> <span>${text}</span>`;
+          } else {
+            label.innerHTML = `<svg class="w-4 h-4 text-slate-500 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>${text.replace('🌐', '').trim()}</span>`;
+          }
+        }
         menu.classList.add('hidden');
 
         // Checkmark sync
@@ -209,5 +279,60 @@ const storesCount = uniqueStores.length;
     document.getElementById('headerSavedBtn')?.addEventListener('click', () => {
       window.dispatchEvent(new CustomEvent('promoradar_filter_saved'));
     });
+  })();
+
+  // Language Selector Dropdown
+  (function initHeaderLanguageDropdown() {
+    const btn = document.getElementById('headerLangDropdownBtn');
+    const menu = document.getElementById('headerLangMenu');
+    const flagEl = document.getElementById('headerSelectedLangFlag');
+    const textEl = document.getElementById('headerSelectedLangText');
+
+    btn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu?.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+    });
+
+    menu?.querySelectorAll('.header-lang-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const lang = item.getAttribute('data-lang-code') || 'en';
+        const flagImg = item.querySelector('img');
+        if (flagEl && flagImg) {
+          flagEl.src = flagImg.src;
+        }
+        if (textEl) textEl.textContent = lang.toUpperCase();
+        menu.classList.add('hidden');
+        
+        try {
+          localStorage.setItem('promoradar_lang', lang);
+        } catch (e) {}
+
+        // Broadcast language change
+        window.dispatchEvent(new CustomEvent('promoradar_lang_changed', { detail: { lang } }));
+      });
+    });
+
+    // Check stored language on load
+    try {
+      let stored = localStorage.getItem('promoradar_lang');
+      if (stored === 'uk') {
+        stored = 'ua';
+        localStorage.setItem('promoradar_lang', 'ua');
+      }
+      if (stored && stored !== 'en') {
+        const matchingBtn = menu?.querySelector(`[data-lang-code="${stored}"]`);
+        if (matchingBtn) {
+          const flagImg = matchingBtn.querySelector('img');
+          if (flagEl && flagImg) {
+            flagEl.src = flagImg.src;
+          }
+          if (textEl) textEl.textContent = stored.toUpperCase();
+        }
+      }
+    } catch (e) {}
   })();
 </script>

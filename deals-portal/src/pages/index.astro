@@ -8,6 +8,7 @@ import { cleanBrandName, normalizeDiscountBadge, extractSmartDiscountBadge, isJu
 import { COUPONS_DATA, STORES_DATA } from '../data/couponsData';
 import { STORE_DOMAINS_MAP } from '../data/storeDomains';
 import { getDealLivePulse } from '../data/pulseEngine';
+import { Zap, ShieldCheck, Flame, Clock, BadgeCheck, LockOpen, Filter, ArrowUpRight, Globe, Shield, Gamepad2, Home, Shirt, Plane, Laptop, Car, Coffee, Package } from 'lucide-astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -134,13 +135,58 @@ const STORE_REGIONS: Record<string, string[]> = {
 };
 
 // Region badge display config
+// Comprehensive Country & Region Flag Mapping
 const REGION_BADGES: Record<string, { label: string; class: string }> = {
-  'UA': { label: '🇺🇦 UA', class: 'deal-region-badge' },
-  'GCC': { label: '🇦🇪 UAE & GCC', class: 'deal-region-badge' },
   'US': { label: '🇺🇸 US', class: 'deal-region-badge' },
+  'AE': { label: '🇦🇪 UAE & GCC', class: 'deal-region-badge' },
+  'GCC': { label: '🇦🇪 UAE & GCC', class: 'deal-region-badge' },
   'EU': { label: '🇪🇺 EU', class: 'deal-region-badge' },
-  'GLOBAL': { label: '🌐 Worldwide', class: 'deal-region-badge' }
+  'GB': { label: '🇬🇧 UK', class: 'deal-region-badge' },
+  'UK': { label: '🇬🇧 UK', class: 'deal-region-badge' },
+  'DE': { label: '🇩🇪 Germany', class: 'deal-region-badge' },
+  'FR': { label: '🇫🇷 France', class: 'deal-region-badge' },
+  'ES': { label: '🇪🇸 Spain', class: 'deal-region-badge' },
+  'IT': { label: '🇮🇹 Italy', class: 'deal-region-badge' },
+  'PL': { label: '🇵🇱 Poland', class: 'deal-region-badge' },
+  'CZ': { label: '🇨🇿 Czechia', class: 'deal-region-badge' },
+  'UA': { label: '🇺🇦 Ukraine', class: 'deal-region-badge' },
+  'KZ': { label: '🇰🇿 Kazakhstan', class: 'deal-region-badge' },
+  'IN': { label: '🇮🇳 India', class: 'deal-region-badge' },
+  'BR': { label: '🇧🇷 Brazil', class: 'deal-region-badge' },
+  'MX': { label: '🇲🇽 Mexico', class: 'deal-region-badge' },
+  'ID': { label: '🇮🇩 Indonesia', class: 'deal-region-badge' },
+  'PH': { label: '🇵🇭 Philippines', class: 'deal-region-badge' },
+  'BY': { label: '🇧🇾 Belarus', class: 'deal-region-badge' },
+  'GLOBAL': { label: '🌐 Global', class: 'deal-region-badge' }
 };
+
+// Automatic smart detector for exact country flag by slug or merchant name
+function detectDealCountryFlag(storeSlug = '', brandName = ''): { label: string; class: string } {
+  const s = storeSlug.toLowerCase();
+  const b = brandName.toLowerCase();
+  
+  if (s.endsWith('-in') || s.includes('-in-') || b.includes(' india')) return REGION_BADGES['IN'];
+  if (s.endsWith('-mx') || s.includes('-mx-') || b.includes(' mexico')) return REGION_BADGES['MX'];
+  if (s.endsWith('-br') || s.includes('-br-') || b.includes(' brasil') || b.includes(' brazil')) return REGION_BADGES['BR'];
+  if (s.endsWith('-cz') || s.includes('-cz-') || b.includes(' czech')) return REGION_BADGES['CZ'];
+  if (s.endsWith('-pl') || s.includes('-pl-') || b.includes(' poland')) return REGION_BADGES['PL'];
+  if (s.endsWith('-kz') || s.includes('-kz-') || b.includes(' kazakhstan')) return REGION_BADGES['KZ'];
+  if (s.endsWith('-ua') || s.includes('touch') || s.includes('polis') || s.includes('turbosto') || b.includes(' ukraine')) return REGION_BADGES['UA'];
+  if (s.endsWith('-uk') || s.includes('-uk-') || b.includes(' united kingdom') || s.includes('123-reg')) return REGION_BADGES['GB'];
+  if (s.endsWith('-de') || s.includes('-de-') || b.includes(' germany')) return REGION_BADGES['DE'];
+  if (s.endsWith('-fr') || s.includes('-fr-') || b.includes(' france')) return REGION_BADGES['FR'];
+  if (s.endsWith('-id') || s.includes('-id-') || b.includes(' indonesia')) return REGION_BADGES['ID'];
+  if (s.endsWith('-ph') || s.includes('-ph-') || b.includes(' philippines')) return REGION_BADGES['PH'];
+  if (s.endsWith('-by') || b.includes(' belarus')) return REGION_BADGES['BY'];
+  if (['kw', 'om', 'sa', 'dubai', 'uae', 'rayna', 'dabdoob', 'vperfumes', 'jashanmal', 'nazih', 'vogacloset', 'thedealoutlet', 'qasr', 'eyewa'].some(k => s.includes(k))) return REGION_BADGES['AE'];
+  if (['usa', 'spokeo', 'discreet', 'verified-match', '945', 'wild-fork', 'directdeals', 'bannerbuzz', 'wristband', 'diecast1'].some(k => s.includes(k))) return REGION_BADGES['US'];
+  
+  const mapped = STORE_REGIONS[storeSlug];
+  if (mapped && mapped.length > 0 && REGION_BADGES[mapped[0]]) {
+    return REGION_BADGES[mapped[0]];
+  }
+  return REGION_BADGES['GLOBAL'];
+}
 
 // Map store domain and store lookup map
 const STORES_MAP: Record<string, typeof STORES_DATA[0]> = {};
@@ -303,9 +349,9 @@ const homeSchemas = [
 
 
     <!-- Modern Bento Hero Section -->
-    <section class="relative overflow-hidden bg-canvas-dark text-white border-b border-white/10 py-10 lg:py-16">
-      <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-primary/20 blur-3xl pointer-events-none"></div>
-      <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-tertiary-container/15 blur-3xl pointer-events-none"></div>
+    <section class="relative overflow-hidden bg-white dark:bg-[#0B0F19] text-slate-900 dark:text-white border-b border-slate-200/80 dark:border-slate-800/80 py-10 lg:py-16">
+      <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-indigo-500/5 dark:bg-primary/20 blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-rose-500/5 dark:bg-tertiary-container/15 blur-3xl pointer-events-none"></div>
       
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
@@ -313,8 +359,8 @@ const homeSchemas = [
           <!-- Left Column (7 cols): Hero Value Proposition & Search -->
           <div class="lg:col-span-7 space-y-5">
             <div class="flex flex-wrap items-center gap-2">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur border border-white/15 text-tertiary-fixed-dim text-xs font-semibold">
-                <span class="material-symbols-outlined text-[14px]">bolt</span>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/10 backdrop-blur border border-slate-200 dark:border-white/15 text-indigo-700 dark:text-tertiary-fixed-dim text-xs font-semibold">
+                <Zap class="w-3.5 h-3.5" />
                 <span id="heroBadgeLabel">US Coupons 🇺🇸 &amp; Global Partner Network</span>
               </div>
               <button
@@ -323,7 +369,7 @@ const homeSchemas = [
                 class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/15 hover:bg-amber-400/25 border border-amber-400/30 text-amber-300 text-xs font-bold transition cursor-pointer group"
                 title="Inspect 3-Tier Code Accuracy Guarantee"
               >
-                <span class="material-symbols-outlined text-[15px]">verified_user</span>
+                <ShieldCheck class="w-3.5 h-3.5" />
                 <span>Editorial QA Guarantee</span>
                 <span class="text-[10px] bg-amber-400/20 px-1 rounded font-bold">ℹ️</span>
               </button>
@@ -333,12 +379,12 @@ const homeSchemas = [
               Tested Promo Codes &amp; <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-violet-300 to-rose-400">Exclusive Checkout Vouchers</span>
             </h1>
 
-            <p id="heroSubtitleText" class="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
+            <p id="heroSubtitleText" class="text-slate-600 dark:text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
               Instant savings across global fashion, prescription eyewear, UAE &amp; Dubai travel, privacy software, and digital services. Synced via direct merchant partner feeds and verified at checkout.
             </p>
 
             <!-- Search Bar with Integrated Region Selector & Live Spotlight Dropdown -->
-            <div id="heroSearchWrapper" class="bg-white/10 backdrop-blur-md p-2 rounded-2xl border border-white/15 max-w-2xl shadow-2xl relative">
+            <div id="heroSearchWrapper" class="bg-slate-50/90 dark:bg-white/10 backdrop-blur-md p-2 rounded-2xl border border-slate-200 dark:border-white/15 max-w-2xl shadow-xl dark:shadow-2xl relative">
               <div class="flex flex-col sm:flex-row gap-2">
                 <div class="relative flex-1">
                   <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -349,7 +395,7 @@ const homeSchemas = [
                     type="text"
                     autocomplete="off"
                     placeholder={`Search ${uniqueCleanStoresList.length} partner stores, categories, or keywords (e.g., eSIM, ALLPOWERS, VPN, Dubai)...`}
-                    class="w-full pl-11 pr-4 py-3 rounded-xl bg-white text-slate-900 placeholder-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-inner"
+                    class="w-full pl-11 pr-4 py-3 rounded-xl bg-white text-slate-900 placeholder-slate-400 text-sm font-medium border border-slate-200 dark:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-xs"
                   />
                 </div>
 
@@ -358,12 +404,11 @@ const homeSchemas = [
                   <button
                     id="heroRegionDropdownBtn"
                     type="button"
-                    class="h-full px-3 py-3 rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs border border-white/20 transition flex items-center gap-1.5 cursor-pointer shrink-0 shadow-xs"
+                    class="h-full px-3 py-3 rounded-xl bg-slate-200/80 hover:bg-slate-200 dark:bg-white/15 dark:hover:bg-white/25 text-slate-800 dark:text-white font-bold text-xs border border-slate-300 dark:border-white/20 transition flex items-center gap-1.5 cursor-pointer shrink-0 shadow-xs"
                     title="Select Target Region"
                   >
-                    <span class="text-amber-400">⚡</span>
-                    <span id="heroSelectedRegionText">US Coupons 🇺🇸</span>
-                    <svg class="w-3.5 h-3.5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <span id="heroSelectedRegionText" class="inline-flex items-center gap-1.5"><img src="/flags/us.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="" /> <span>United States</span></span>
+                    <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                     </svg>
                   </button>
@@ -372,24 +417,33 @@ const homeSchemas = [
                     class="hidden absolute top-full right-0 mt-2 w-48 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 p-1.5 text-left text-xs"
                   >
                     <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Target Region</div>
-                    <button type="button" data-hero-region="ALL" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-                      <span>🌍 All Regions</span>
+                    <button type="button" data-hero-region="GLOBAL" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+                      <span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span></span>
                     </button>
                     <button type="button" data-hero-region="US" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-                      <span>🇺🇸 US Coupons</span>
+                      <span class="inline-flex items-center gap-2">
+                        <img src="/flags/us.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="US" />
+                        <span>United States</span>
+                      </span>
                       <span class="hero-region-check text-emerald-500 font-bold">✓</span>
                     </button>
-                    <button type="button" data-hero-region="GLOBAL" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-                      <span>🌐 Worldwide</span>
-                    </button>
                     <button type="button" data-hero-region="EU" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-                      <span>🇪🇺 Europe</span>
+                      <span class="inline-flex items-center gap-2">
+                        <img src="/flags/eu.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="EU" />
+                        <span>Europe</span>
+                      </span>
                     </button>
                     <button type="button" data-hero-region="GCC" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-                      <span>🇦🇪 UAE &amp; GCC</span>
+                      <span class="inline-flex items-center gap-2">
+                        <img src="/flags/ae.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GCC" />
+                        <span>UAE &amp; GCC</span>
+                      </span>
                     </button>
                     <button type="button" data-hero-region="UA" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-                      <span>🇺🇦 Ukraine</span>
+                      <span class="inline-flex items-center gap-2">
+                        <img src="/flags/ua.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="UA" />
+                        <span>Ukraine</span>
+                      </span>
                     </button>
                   </div>
                 </div>
@@ -448,47 +502,47 @@ const homeSchemas = [
               <!-- Quick Search Chips -->
               <div class="flex flex-wrap items-center gap-1.5 pt-2.5 px-2 text-xs">
                 <span id="trendingPrefix" class="text-slate-400 font-medium">Trending:</span>
-                <button type="button" data-chip="945 Industries" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">945 Industries (-10%)</button>
-                <button type="button" data-chip="Abelssoft" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">Abelssoft (-50%)</button>
-                <button type="button" data-chip="Touch UA" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">Touch UA (-30%)</button>
-                <button type="button" data-chip="Alibaba" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">Alibaba (-$20)</button>
-                <button type="button" data-chip="ExpressVPN" class="trending-chip px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition font-medium">ExpressVPN (-81%)</button>
+                <button type="button" data-chip="945 Industries" class="trending-chip px-2.5 py-0.5 rounded-md bg-slate-200/80 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition font-medium">945 Industries (-10%)</button>
+                <button type="button" data-chip="Abelssoft" class="trending-chip px-2.5 py-0.5 rounded-md bg-slate-200/80 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition font-medium">Abelssoft (-50%)</button>
+                <button type="button" data-chip="Touch UA" class="trending-chip px-2.5 py-0.5 rounded-md bg-slate-200/80 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition font-medium">Touch UA (-30%)</button>
+                <button type="button" data-chip="Alibaba" class="trending-chip px-2.5 py-0.5 rounded-md bg-slate-200/80 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition font-medium">Alibaba (-$20)</button>
+                <button type="button" data-chip="ExpressVPN" class="trending-chip px-2.5 py-0.5 rounded-md bg-slate-200/80 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition font-medium">ExpressVPN (-81%)</button>
               </div>
             </div>
 
             <!-- Trust Metrics Strip (Fix #4: max-w-2xl aligned with search bar, whitespace-nowrap badge titles) -->
             <div class="grid grid-cols-3 gap-3 pt-2 max-w-2xl">
-              <div class="flex items-center gap-2.5 bg-white/5 rounded-xl px-3 py-2 border border-white/10">
+              <div class="flex items-center gap-2.5 bg-slate-50 dark:bg-white/5 rounded-xl px-3 py-2 border border-slate-200 dark:border-white/10 shadow-2xs">
                 <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm shrink-0">
                   <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                   </svg>
                 </span>
                 <div class="min-w-0">
-                  <div class="text-xs font-bold text-white whitespace-nowrap">100% Tested Codes</div>
-                  <div class="text-[11px] text-slate-400 truncate">Manual QA on checkout</div>
+                  <div class="text-xs font-bold text-slate-800 dark:text-white whitespace-nowrap">100% Tested Codes</div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Manual QA on checkout</div>
                 </div>
               </div>
-              <div class="flex items-center gap-2.5 bg-white/5 rounded-xl px-3 py-2 border border-white/10">
+              <div class="flex items-center gap-2.5 bg-slate-50 dark:bg-white/5 rounded-xl px-3 py-2 border border-slate-200 dark:border-white/10 shadow-2xs">
                 <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-sm shrink-0">
                   <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                   </svg>
                 </span>
                 <div class="min-w-0">
-                  <div class="text-xs font-bold text-white whitespace-nowrap">No Signup Needed</div>
-                  <div class="text-[11px] text-slate-400 truncate">1-click instant access</div>
+                  <div class="text-xs font-bold text-slate-800 dark:text-white whitespace-nowrap">No Signup Needed</div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">1-click instant access</div>
                 </div>
               </div>
-              <div class="flex items-center gap-2.5 bg-white/5 rounded-xl px-3 py-2 border border-white/10">
+              <div class="flex items-center gap-2.5 bg-slate-50 dark:bg-white/5 rounded-xl px-3 py-2 border border-slate-200 dark:border-white/10 shadow-2xs">
                 <span class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-sm shrink-0">
                   <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                   </svg>
                 </span>
                 <div class="min-w-0">
-                  <div class="text-xs font-bold text-white whitespace-nowrap">Official Partner</div>
-                  <div class="text-[11px] text-slate-400 truncate">Direct Partner links</div>
+                  <div class="text-xs font-bold text-slate-800 dark:text-white whitespace-nowrap">Official Partner</div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Direct Partner links</div>
                 </div>
               </div>
             </div>
@@ -496,15 +550,15 @@ const homeSchemas = [
 
           <!-- Right Column (5 cols): Deal of the Day Card -->
           <div class="lg:col-span-5 flex flex-col">
-            <div class="bg-surface-dark rounded-2xl p-6 shadow-2xl relative overflow-hidden border border-white/10">
+            <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-xl dark:shadow-2xl relative overflow-hidden border border-slate-200/90 dark:border-white/10">
               <!-- Header bar inside spotlight -->
-              <div class="flex items-center justify-between gap-3 pb-3 relative z-10 border-b border-white/10 mb-2">
+              <div class="flex items-center justify-between gap-3 pb-3 relative z-10 border-b border-slate-200 dark:border-white/10 mb-2">
                 <span class="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold px-2.5 py-1 rounded-md bg-urgency-orange text-white uppercase tracking-wider shrink-0 shadow-sm">
-                  <span class="material-symbols-outlined text-[14px]">local_fire_department</span>
+                  <Flame class="w-3.5 h-3.5" />
                   Deal of the Day
                 </span>
                 <div class="inline-flex items-center gap-1.5 font-mono text-xs text-urgency-amber shrink-0 bg-white/5 px-2.5 py-1 rounded-md border border-white/10">
-                  <span class="material-symbols-outlined text-[14px]">schedule</span>
+                  <Clock class="w-3.5 h-3.5" />
                   <span>Ends in: <strong class="text-white">14h 22m</strong></span>
                 </div>
               </div>
@@ -518,9 +572,9 @@ const homeSchemas = [
                 </div>
                 <div>
                   <div class="flex items-center gap-2">
-                    <span class="text-lg font-bold text-white tracking-tight">ExpressVPN</span>
+                    <span class="text-lg font-bold text-slate-900 dark:text-white tracking-tight">ExpressVPN</span>
                     <span class="inline-flex items-center gap-0.5 font-mono text-[10px] px-2 py-0.5 rounded bg-badge-verified-fill text-badge-verified-text font-bold">
-                      <span class="material-symbols-outlined text-[12px]">verified</span> Verified Today
+                      <BadgeCheck class="w-3 h-3 text-emerald-400" /> Verified Today
                     </span>
                   </div>
                   <span class="text-xs text-slate-400">Privacy &amp; Security • Official Merchant Partner</span>
@@ -528,7 +582,7 @@ const homeSchemas = [
               </div>
 
               <!-- Discount highlight banner with SVG Telemetry gauge -->
-              <div class="my-3 p-3.5 rounded-xl bg-canvas-dark border border-white/5 flex items-center justify-between relative z-10">
+              <div class="my-3 p-3.5 rounded-xl bg-slate-50 dark:bg-canvas-dark border border-slate-200 dark:border-white/5 flex items-center justify-between relative z-10 shadow-xs">
                 <div>
                   <div class="text-3xl font-black text-tertiary-fixed-dim leading-none">81% OFF</div>
                   <span class="font-mono text-[11px] text-slate-300 tracking-wider uppercase font-bold">+ 4 Months Free</span>
@@ -544,10 +598,10 @@ const homeSchemas = [
                 </div>
               </div>
 
-              <h3 class="text-base font-bold text-white relative z-10">
+              <h3 class="text-base font-bold text-slate-900 dark:text-white relative z-10">
                 81% Off 2-Year Privacy Shield Plan + 4 Months Free
               </h3>
-              <p class="text-xs text-slate-300 mt-1 mb-4 leading-relaxed relative z-10">
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 mb-4 leading-relaxed relative z-10">
                 Maximum savings via our verified merchant partner link: high-speed Lightway VPN across 8 devices, Keys password manager, and a 30-day money-back guarantee.
               </p>
 
@@ -570,26 +624,26 @@ const homeSchemas = [
                   })}
                 >
                   <div class="bg-primary hover:bg-primary-container px-4 py-3 text-white font-bold text-xs flex items-center justify-center gap-2 flex-1 transition-colors">
-                    <span class="material-symbols-outlined text-[16px]">lock_open</span>
+                    <LockOpen class="w-4 h-4" />
                     <span>Claim 81% Voucher</span>
                   </div>
-                  <div class="bg-canvas-dark text-white px-3.5 py-3 font-mono text-xs font-bold flex items-center justify-center tracking-wider">
+                  <div class="bg-slate-900 text-white px-3.5 py-3 font-mono text-xs font-bold flex items-center justify-center tracking-wider">
                     ••• d20
                   </div>
                 </button>
                 <a
                   href={`${base}/stores/expressvpn/`}
-                  class="w-full sm:w-auto px-4 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs transition-colors text-center whitespace-nowrap border border-white/10"
+                  class="w-full sm:w-auto px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-slate-800 dark:text-white font-bold text-xs transition-colors text-center whitespace-nowrap border border-slate-200 dark:border-white/10"
                 >
                   All Offers →
                 </a>
               </div>
 
               <!-- Verification metadata footer -->
-              <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between font-mono text-[11px] text-slate-400 relative z-10">
+              <div class="mt-4 pt-3 border-t border-slate-200 dark:border-white/10 flex items-center justify-between font-mono text-[11px] text-slate-500 dark:text-slate-400 relative z-10">
                 <span class="flex items-center gap-1.5">
                   <span class="h-2 w-2 rounded-full bg-badge-verified-text animate-ping"></span>
-                  <span>Verified Checkout: <strong class="text-white">Active Live</strong></span>
+                  <span>Verified Checkout: <strong class="text-slate-900 dark:text-white">Active Live</strong></span>
                 </span>
                 <span>Audited 12m ago</span>
               </div>
@@ -631,40 +685,58 @@ const homeSchemas = [
     <!-- Main Deals Filter & Grid Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
       
-      <!-- Filter Toolbar Bento Console: Compact 1-Row Category Filter -->
-      <div id="filterConsoleWrapper" class="sticky top-[68px] z-30 backdrop-blur-xl bg-white/90 dark:bg-slate-900/90 border-y border-slate-200/80 dark:border-slate-800/80 p-3.5 mb-6 transition shadow-md rounded-2xl">
+      <!-- Filter Toolbar Bento Console: Compact Category Filter + Grid Search -->
+      <div id="filterConsoleWrapper" class="sticky top-[68px] z-30 backdrop-blur-xl bg-white/95 dark:bg-slate-900/95 border border-slate-200/90 dark:border-slate-800/90 p-3 mb-6 transition shadow-md rounded-2xl flex flex-col md:flex-row items-stretch md:items-center gap-3">
+        <!-- Live Instant Filter Input for Deals Grid -->
+        <div class="relative shrink-0 md:w-72">
+          <Filter class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+          <input
+            type="text"
+            id="gridStoreFilterInput"
+            placeholder="Filter by brand or code..."
+            class="w-full pl-9 pr-7 py-2 rounded-xl text-xs bg-slate-50 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/80 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium transition"
+            autocomplete="off"
+          />
+          <button
+            type="button"
+            id="gridFilterClearBtn"
+            class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs font-bold"
+            title="Clear filter"
+          >✕</button>
+        </div>
+
         <!-- Core Verticals Category Filter Row -->
-        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5" id="catFilterRow">
-          <button type="button" data-cat="BLACK_FRIDAY" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/30 transition cursor-pointer flex items-center gap-1.5"><span class="animate-pulse">🔥</span><span>Black Friday Deals</span></button>
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 flex-1" id="catFilterRow">
+          <button type="button" data-cat="BLACK_FRIDAY" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/30 transition cursor-pointer flex items-center gap-1.5"><Flame class="w-4 h-4" /><span>Black Friday Deals</span></button>
           <button type="button" data-cat="ALL" class="main-cat-btn is-active shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer">
             All Deals ({COUPONS_DATA.length})
           </button>
           <button type="button" data-cat="Privacy & Security" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            🛡️ Privacy &amp; VPN
+            <span class="inline-flex items-center gap-1.5"><Shield class="w-4 h-4" /> <span>Privacy &amp; VPN</span></span>
           </button>
           <button type="button" data-cat="Gaming, Media & Software" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            🎮 Gaming &amp; Software
+            <span class="inline-flex items-center gap-1.5"><Gamepad2 class="w-4 h-4" /> <span>Gaming &amp; Software</span></span>
           </button>
           <button type="button" data-cat="Home & Living" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            🛋️ Home &amp; Living
+            <span class="inline-flex items-center gap-1.5"><Home class="w-4 h-4" /> <span>Home &amp; Living</span></span>
           </button>
           <button type="button" data-cat="Fashion & Apparel" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            👗 Fashion &amp; Apparel
+            <span class="inline-flex items-center gap-1.5"><Shirt class="w-4 h-4" /> <span>Fashion &amp; Apparel</span></span>
           </button>
           <button type="button" data-cat="Travel & Tours" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            ✈️ Travel &amp; Stays
+            <span class="inline-flex items-center gap-1.5"><Plane class="w-4 h-4" /> <span>Travel &amp; Stays</span></span>
           </button>
           <button type="button" data-cat="Electronics & Gadgets" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            ⚡ Electronics &amp; Power
+            <span class="inline-flex items-center gap-1.5"><Laptop class="w-4 h-4" /> <span>Electronics &amp; Power</span></span>
           </button>
           <button type="button" data-cat="Auto, Dashcams & Mobility" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            🚗 Auto &amp; Dashcams
+            <span class="inline-flex items-center gap-1.5"><Car class="w-4 h-4" /> <span>Auto &amp; Dashcams</span></span>
           </button>
           <button type="button" data-cat="Food, Beverage & Nutrition" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            ☕ Food &amp; Nutrition
+            <span class="inline-flex items-center gap-1.5"><Coffee class="w-4 h-4" /> <span>Food &amp; Nutrition</span></span>
           </button>
           <button type="button" data-cat="E-Commerce & Wholesale" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            📦 E-Commerce &amp; B2B
+            <span class="inline-flex items-center gap-1.5"><Package class="w-4 h-4" /> <span>E-Commerce &amp; B2B</span></span>
           </button>
         </div>
       </div>
@@ -693,7 +765,7 @@ const homeSchemas = [
           const brandGradient = getBrandGradient(cleanName);
           const regions = (STORE_REGIONS[deal.storeSlug] || ['GLOBAL']).join(',');
           const primaryRegionKey = (STORE_REGIONS[deal.storeSlug] || ['GLOBAL'])[0];
-          const regionBadge = REGION_BADGES[primaryRegionKey] || REGION_BADGES['GLOBAL'];
+          const regionBadge = detectDealCountryFlag(deal.storeSlug, cleanName);
           const totalStoreDeals = storeCouponCounts[cleanName] || 1;
           const isTopDeal = topStoreDealIds.has(deal.id);
           const expiryBadge = getExpiryBadge(deal.expiryDate);
@@ -758,7 +830,7 @@ const homeSchemas = [
                     </div>
 
                     <!-- Single Compact Metadata Line -->
-                    <div class="flex items-center gap-1 text-[11px] text-slate-400 truncate mt-0.5">
+                    <div class="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
                       <span class="truncate">{deal.storeCategory}</span>
                       <span>•</span>
                       <span class="font-medium shrink-0">{regionBadge.label}</span>
@@ -826,7 +898,7 @@ const homeSchemas = [
                     })}
                   >
                     <span>Get Discount</span>
-                    <span class="material-symbols-outlined text-[16px]">north_east</span>
+                    <ArrowUpRight class="w-4 h-4" />
                   </button>
                 )}
               </div>
@@ -1480,16 +1552,16 @@ const homeSchemas = [
         });
 
         // Sync Hero Region text & checkmark
-        const labelMap = {
-          'ALL': 'All Regions 🌍',
-          'US': 'US Coupons 🇺🇸',
-          'GLOBAL': 'Worldwide 🌐',
-          'EU': 'Europe 🇪🇺',
-          'GCC': 'UAE & GCC 🇦🇪',
-          'UA': 'Ukraine 🇺🇦'
+        const regionHtmlMap = {
+          'ALL': '<svg class="w-4 h-4 text-slate-500 mr-1 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span>',
+          'GLOBAL': '<svg class="w-4 h-4 text-slate-500 mr-1 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span>',
+          'US': '<img src="/flags/us.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="US" /> <span>United States</span>',
+          'EU': '<img src="/flags/eu.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="EU" /> <span>Europe</span>',
+          'GCC': '<img src="/flags/ae.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="GCC" /> <span>UAE &amp; GCC</span>',
+          'UA': '<img src="/flags/ua.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="UA" /> <span>Ukraine</span>'
         };
         const heroRegionText = document.getElementById('heroSelectedRegionText');
-        if (heroRegionText) heroRegionText.textContent = labelMap[currentRegion] || currentRegion;
+        if (heroRegionText) heroRegionText.innerHTML = regionHtmlMap[currentRegion] || currentRegion;
 
         document.querySelectorAll('.hero-region-option').forEach(o => {
           const isSel = o.getAttribute('data-hero-region') === currentRegion;
@@ -1505,6 +1577,23 @@ const homeSchemas = [
 
         filterDeals();
       });
+    });
+
+    // Listen to header region changes
+    window.addEventListener('promoradar_region_changed', (e) => {
+      const reg = e.detail?.region || 'GLOBAL';
+      currentRegion = reg;
+      if (heroRegionText) heroRegionText.innerHTML = regionHtmlMap[reg] || reg;
+      document.querySelectorAll('.hero-region-option').forEach(o => {
+        const isSel = o.getAttribute('data-hero-region') === reg;
+        let check = o.querySelector('.hero-region-check');
+        if (isSel) {
+          if (!check) o.insertAdjacentHTML('beforeend', '<span class="hero-region-check text-emerald-500 font-bold">✓</span>');
+        } else {
+          if (check) check.remove();
+        }
+      });
+      filterDeals();
     });
 
     // Offer Type Buttons
@@ -1568,7 +1657,32 @@ const homeSchemas = [
       currentStore = null;
       searchQuery = '';
       if (document.getElementById('mainHeroSearchInput')) document.getElementById('mainHeroSearchInput').value = '';
+      if (document.getElementById('gridStoreFilterInput')) document.getElementById('gridStoreFilterInput').value = '';
+      document.getElementById('gridFilterClearBtn')?.classList.add('hidden');
       filterDeals();
+    });
+
+    // Grid Instant Filter Input Handler
+    const gridFilterInput = document.getElementById('gridStoreFilterInput');
+    const gridFilterClearBtn = document.getElementById('gridFilterClearBtn');
+
+    gridFilterInput?.addEventListener('input', (e) => {
+      const val = e.target.value.trim();
+      searchQuery = val;
+      if (val.length > 0) {
+        gridFilterClearBtn?.classList.remove('hidden');
+      } else {
+        gridFilterClearBtn?.classList.add('hidden');
+      }
+      filterDeals();
+    });
+
+    gridFilterClearBtn?.addEventListener('click', () => {
+      if (gridFilterInput) gridFilterInput.value = '';
+      gridFilterClearBtn.classList.add('hidden');
+      searchQuery = '';
+      filterDeals();
+      gridFilterInput?.focus();
     });
 
     // Live Hero Spotlight Search Auto-suggest Engine
@@ -1807,15 +1921,15 @@ const homeSchemas = [
         const reg = opt.getAttribute('data-hero-region') || 'ALL';
         currentRegion = reg;
 
-        const labelMap = {
-          'ALL': 'All Regions 🌍',
-          'US': 'US Coupons 🇺🇸',
-          'GLOBAL': 'Worldwide 🌐',
-          'EU': 'Europe 🇪🇺',
-          'GCC': 'UAE & GCC 🇦🇪',
-          'UA': 'Ukraine 🇺🇦'
+        const regionHtmlMap = {
+          'ALL': '<svg class="w-4 h-4 text-slate-500 mr-1 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span>',
+          'GLOBAL': '<svg class="w-4 h-4 text-slate-500 mr-1 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span>',
+          'US': '<img src="/flags/us.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="US" /> <span>United States</span>',
+          'EU': '<img src="/flags/eu.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="EU" /> <span>Europe</span>',
+          'GCC': '<img src="/flags/ae.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="GCC" /> <span>UAE &amp; GCC</span>',
+          'UA': '<img src="/flags/ua.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="UA" /> <span>Ukraine</span>'
         };
-        if (heroRegionText) heroRegionText.textContent = labelMap[reg] || reg;
+        if (heroRegionText) heroRegionText.innerHTML = regionHtmlMap[reg] || reg;
 
         document.querySelectorAll('.hero-region-option').forEach(o => {
           const isSel = o.getAttribute('data-hero-region') === reg;

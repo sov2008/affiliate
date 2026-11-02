@@ -49,10 +49,10 @@ const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
     <meta name="mitgo-verification" content="fa9e3fd878" />
     <meta name="google-site-verification" content="EoZOJUjFA2-uy89WOLVK-1Ze_Ub5mzaLpKVlh9ZYCVk" />
 
-    <!-- Google Fonts: Inter, JetBrains Mono & Material Symbols Outlined -->
+    <!-- Google Fonts: Inter & JetBrains Mono (Zero External Icon Font Payload) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
 
     <!-- OpenGraph Metadata -->
     <meta property="og:site_name" content="PromoRadar — Verified Promo Codes & Deals" />
@@ -64,6 +64,20 @@ const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
     <!-- Google Analytics 4 (GA4) -->
     <GoogleAnalytics measurementId="G-ZKTJYVZEPT" />
 
+    <!-- Theme & Instant Language Initialization Script -->
+    <script is:inline>
+      (function() {
+        try {
+          const storedLang = localStorage.getItem('promoradar_lang');
+          if (storedLang) {
+            document.documentElement.lang = storedLang;
+            if (storedLang === 'ar') {
+              document.documentElement.dir = 'rtl';
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
     <!-- Theme Initialization Script (Instant, Zero-FOUC, Defaults to OS preference) -->
     <script is:inline>
       (function() {
@@ -151,6 +165,10 @@ const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
           }
         }
       });
+    </script>
+    <script>
+      import { initClientI18n } from '../i18n/client';
+      initClientI18n();
     </script>
   </body>
 </html>
