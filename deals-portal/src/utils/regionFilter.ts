@@ -14,11 +14,20 @@ export const STORE_GEO_MAPPING: Record<string, string[]> = {
   'vperfumes': ['GCC'],
   'nazih': ['GCC'],
   'eyewa-kw-qt-om': ['GCC'],
+  'mamasandpapas': ['GCC'],
+  'footlocker-kw': ['GCC'],
+  'victoria-s-secret': ['GCC'],
+  'bath-body-works': ['GCC'],
+  'dkny-kw-coupons': ['GCC'],
 
   // Pure Ukraine Offers
   'touch': ['UA'],
   'polis': ['UA'],
   'turbosto': ['UA'],
+  'gold': ['UA'],
+  'intertop': ['UA'],
+  'punisher-shop': ['UA'],
+  'partner': ['UA'],
 
   // Pure India Offers
   'bliss-club-in': ['IN'],
