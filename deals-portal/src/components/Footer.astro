@@ -14,16 +14,40 @@ const cleanStoresList = getUniqueCleanStores(STORES_DATA);
       
       <!-- Brand & Mission Column -->
       <div class="md:col-span-5 space-y-3.5">
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-600 via-indigo-700 to-rose-600 text-white flex items-center justify-center shadow-md shadow-indigo-500/20">
-            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="9" stroke-width="2" class="opacity-40"></circle>
-              <circle cx="12" cy="12" r="5" stroke-width="2" class="opacity-75"></circle>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 12l6-6"></path>
-              <circle cx="12" cy="2" fill="currentColor"></circle>
-            </svg>
+        <div class="flex items-center gap-3">
+          <div class="relative w-9 h-9 rounded-[11px] bg-gradient-to-b from-[#635BFF] via-[#4F46E5] to-[#312E81] p-[1.5px] shadow-md shadow-indigo-500/25 shrink-0">
+            <div class="w-full h-full rounded-[9.5px] bg-[#1E1B4B] flex items-center justify-center overflow-hidden relative">
+              <svg class="w-8 h-8" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="stitch-sweep-footer" x1="20" y1="20" x2="32" y2="8" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#10B981" stop-opacity="0.65" />
+                    <stop offset="100%" stop-color="#10B981" stop-opacity="0.0" />
+                  </linearGradient>
+                  <filter id="emerald-glow-footer" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="1.5" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                <circle cx="20" cy="20" r="15" stroke="#818CF8" stroke-opacity="0.45" stroke-width="1.2" />
+                <circle cx="20" cy="20" r="10.5" stroke="#818CF8" stroke-opacity="0.35" stroke-width="1" />
+                <circle cx="20" cy="20" r="6" stroke="#818CF8" stroke-opacity="0.35" stroke-width="1" />
+                <line x1="20" y1="4" x2="20" y2="36" stroke="#818CF8" stroke-opacity="0.25" stroke-width="1" />
+                <line x1="4" y1="20" x2="36" y2="20" stroke="#818CF8" stroke-opacity="0.25" stroke-width="1" />
+                <!-- Static target blips & hub (No animations in footer) -->
+                <circle cx="28" cy="12" r="2.3" fill="#34D399" filter="url(#emerald-glow-footer)" />
+                <circle cx="25.5" cy="26.5" r="2" fill="#10B981" filter="url(#emerald-glow-footer)" opacity="0.85" />
+                <circle cx="20" cy="20" r="3" fill="#10B981" filter="url(#emerald-glow-footer)" />
+                <circle cx="20" cy="20" r="1.5" fill="#A7F3D0" />
+              </svg>
+            </div>
           </div>
-          <span class="text-white font-extrabold text-lg tracking-tight">PromoRadar</span>
+          <div class="flex items-center gap-1.5">
+            <span class="text-white font-extrabold text-lg tracking-tight">Promo<span class="text-indigo-400">Radar</span></span>
+            <span class="px-1.5 py-0.5 rounded-full bg-blue-600 text-white font-bold text-[10px] leading-none tracking-wide shadow-sm">.store</span>
+          </div>
         </div>
         <p class="text-xs text-slate-400 leading-relaxed max-w-sm">
           Independent coupon and checkout voucher radar. Hand-tested discount codes across global fashion, prescription eyewear, international travel, privacy software, and B2B wholesale marketplaces powered by verified partner networks.

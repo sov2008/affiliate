@@ -2,12 +2,13 @@
 import '../styles/global.css';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import CouponRevealModal from '../components/CouponRevealModal.astro';
-import FloatingStickyRedemptionBar from '../components/FloatingStickyRedemptionBar.astro';
 import VerificationGuaranteeModal from '../components/VerificationGuaranteeModal.astro';
 import MobileQRModal from '../components/MobileQRModal.astro';
 import CouponPulseModal from '../components/CouponPulseModal.astro';
 import BookmarkletModal from '../components/BookmarkletModal.astro';
 import SmartRecoveryOffer from '../components/SmartRecoveryOffer.astro';
+import PagePreloader from '../components/PagePreloader.astro';
+import SavedDealsModal from '../components/SavedDealsModal.astro';
 
 interface Props {
   title: string;
@@ -99,14 +100,15 @@ const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
     ))}
   </head>
   <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 overflow-x-hidden w-full font-sans">
+    <PagePreloader />
     <slot />
     <CouponRevealModal />
-    <FloatingStickyRedemptionBar />
     <VerificationGuaranteeModal />
     <MobileQRModal />
     <CouponPulseModal />
     <BookmarkletModal />
     <SmartRecoveryOffer />
+    <SavedDealsModal />
 
     <!-- Global Sleek Toast Notification -->
     <div

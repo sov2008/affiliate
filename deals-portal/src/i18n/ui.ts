@@ -53,6 +53,9 @@ export interface UIStrings {
   foodNutrition: string;
   ecommerceWholesale: string;
   blackFridayDeals: string;
+  heroHeadlineMain: string;
+  heroHeadlineHighlight: string;
+  heroSubtitle: string;
 }
 
 export const UI_TRANSLATIONS: Record<string, UIStrings> = {
@@ -88,7 +91,10 @@ export const UI_TRANSLATIONS: Record<string, UIStrings> = {
     autoMobility: "Auto & Dashcams",
     foodNutrition: "Food & Nutrition",
     ecommerceWholesale: "E-Commerce & B2B",
-    blackFridayDeals: "Black Friday Deals"
+    blackFridayDeals: "Black Friday Deals",
+    heroHeadlineMain: "Verified Promo Codes &",
+    heroHeadlineHighlight: "Instant Checkout Savings",
+    heroSubtitle: "Hand-tested coupons, exclusive vouchers, and direct merchant discounts across 100+ stores. Updated hourly and verified at cart."
   },
   ar: {
     allDeals: "جميع العروض",
@@ -122,7 +128,10 @@ export const UI_TRANSLATIONS: Record<string, UIStrings> = {
     autoMobility: "السيارات وكاميرات المراقبة",
     foodNutrition: "الأغذية والمكملات",
     ecommerceWholesale: "التجارة الإلكترونية والجملة",
-    blackFridayDeals: "عروض الجمعة البيضاء"
+    blackFridayDeals: "عروض الجمعة البيضاء",
+    heroHeadlineMain: "أكواد خصم مجربة وقسائم",
+    heroHeadlineHighlight: "تخفيضات دفع فورية",
+    heroSubtitle: "كوبونات مفحوصة يدويًا وخصومات مباشرة من المتاجر لأكثر من 100 علامة تجارية. يتم التحديث كل ساعة والتحقق أثناء الدفع."
   },
   es: {
     allDeals: "Ofertas",
@@ -156,7 +165,10 @@ export const UI_TRANSLATIONS: Record<string, UIStrings> = {
     autoMobility: "Autos y Dashcams",
     foodNutrition: "Alimentos y Nutrición",
     ecommerceWholesale: "Comercio y Mayoristas",
-    blackFridayDeals: "Ofertas Black Friday"
+    blackFridayDeals: "Ofertas Black Friday",
+    heroHeadlineMain: "Cupones Verificados y",
+    heroHeadlineHighlight: "Ahorro Directo al Pagar",
+    heroSubtitle: "Códigos promocionales probados manualmente y descuentos oficiales en más de 100 tiendas. Actualizados cada hora y validados en el carrito."
   },
   pt: {
     allDeals: "Todas as Ofertas",
@@ -190,7 +202,10 @@ export const UI_TRANSLATIONS: Record<string, UIStrings> = {
     autoMobility: "Automotivo & Dashcams",
     foodNutrition: "Alimentos & Nutrição",
     ecommerceWholesale: "Comércio & Atacado",
-    blackFridayDeals: "Ofertas Black Friday"
+    blackFridayDeals: "Ofertas Black Friday",
+    heroHeadlineMain: "Cupons Verificados e",
+    heroHeadlineHighlight: "Descontos Diretos no Checkout",
+    heroSubtitle: "Cupons testados manualmente e descontos oficiais de parceiros em mais de 100 lojas. Atualizados a cada hora e confirmados no carrinho."
   },
   de: {
     allDeals: "Alle Deals",
@@ -224,7 +239,10 @@ export const UI_TRANSLATIONS: Record<string, UIStrings> = {
     autoMobility: "Auto & Dashcams",
     foodNutrition: "Essen & Ernährung",
     ecommerceWholesale: "E-Commerce & B2B",
-    blackFridayDeals: "Black Friday Angebote"
+    blackFridayDeals: "Black Friday Angebote",
+    heroHeadlineMain: "Geprüfte Gutscheincodes &",
+    heroHeadlineHighlight: "Sofortrabatte an der Kasse",
+    heroSubtitle: "Manuell verifizierte Gutscheine und offizielle Partnerrabatte für über 100 Onlineshops. Stündlich aktualisiert und im Warenkorb getestet."
   },
   ua: {
     allDeals: "Знижки",
@@ -258,7 +276,10 @@ export const UI_TRANSLATIONS: Record<string, UIStrings> = {
     autoMobility: "Авто та Відеореєстратори",
     foodNutrition: "Їжа та Харчування",
     ecommerceWholesale: "E-Commerce та Опт",
-    blackFridayDeals: "Знижки Black Friday"
+    blackFridayDeals: "Знижки Black Friday",
+    heroHeadlineMain: "Перевірені промокоди та",
+    heroHeadlineHighlight: "Миттєва вигода при оплаті",
+    heroSubtitle: "Вручну протестовані купони та офіційні знижки у понад 100 магазинах. Оновлюються щогодини та перевіряються безпосередньо у кошику."
   },
   pl: {
     allDeals: "Wszystkie okazje",
@@ -290,6 +311,49 @@ export const UI_TRANSLATIONS: Record<string, UIStrings> = {
     travelTours: "Podróże i Wycieczki",
     electronicsGadgets: "Elektronika i Gadżety",
     autoMobility: "Auto i Kamery samochodowe",
+    foodNutrition: "Żywność i Suplementy",
+    ecommerceWholesale: "E-Commerce i Hurt",
+    blackFridayDeals: "Okazje Black Friday",
+    heroHeadlineMain: "Sprawdzone kody rabatowe i",
+    heroHeadlineHighlight: "Natychmiastowe oszczędności w kasie",
+    heroSubtitle: "Ręcznie testowane kupony i oficjalne zniżki partnerskie w ponad 100 sklepach. Aktualizowane co godzinę i weryfikowane bezpośrednio w koszyku."
+  },
+  cs: {
+    allDeals: "Všechny slevy",
+    stores: "Obchody",
+    categories: "Kategorie",
+    compare: "Porovnání",
+    faq: "Časté dotazy",
+    saved: "Uložené",
+    copyCode: "Kopírovat kód",
+    getDiscount: "Získat slevu",
+    claimDeal: "Uplatnit kupón",
+    verifiedWorking: "Ověřeno",
+    testedToday: "Dnes ověřeno",
+    searchPlaceholder: "Hledat obchody, kategorie nebo kupóny...",
+    filterByBrand: "Filtrovat podle značky nebo kódu...",
+    allCategories: "Všechny nabídky",
+    loadMore: "Načíst další nabídky",
+    showingOffers: "Zobrazeno {count} z {total} ověřených nabídek",
+    targetRegion: "Cílový region",
+    selectLanguage: "Vyberte jazyk",
+    editorialSeal: "PŘÍMÁ TELEMETRIE PARTNERSKÝCH API • 100% OVĚŘENO",
+    viewAllStores: "Zobrazit všechny obchody v katalogu →",
+    endsInDays: "Končí za {days} dní",
+    verifiedForMonth: "Ověřeno pro {month} {year}",
+    privacySecurity: "Soukromí a VPN",
+    gamingSoftware: "Hry a Software",
+    homeLiving: "Dům a Bydlení",
+    fashionApparel: "Móda a Oblečení",
+    travelTours: "Cestování a Zájezdy",
+    electronicsGadgets: "Elektronika a Příslušenství",
+    autoMobility: "Auto a Palubní kamery",
+    foodNutrition: "Potraviny a Výživa",
+    ecommerceWholesale: "E-Commerce a Velkoobchod",
+    blackFridayDeals: "Nabídky Black Friday",
+    heroHeadlineMain: "Ověřené promo kódy a",
+    heroHeadlineHighlight: "Okamžitá úspora u pokladny",
+    heroSubtitle: "Ručně testované kupóny a oficiální slevy ve více než 100 obchodech. Aktualizováno každou hodinu a ověřeno přímo v nákupním košíku.",
     foodNutrition: "Żywność i Suplementy",
     ecommerceWholesale: "E-Commerce i Hurt",
     blackFridayDeals: "Okazje Black Friday"

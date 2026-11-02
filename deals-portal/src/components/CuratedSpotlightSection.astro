@@ -6,6 +6,7 @@ import { STORE_DOMAINS_MAP } from '../data/storeDomains';
 import { STORE_PRODUCTS, type StoreProduct } from '../data/productsData';
 import { PROMOTIONAL_BANNERS } from '../data/promotionalBanners';
 import { cleanBrandName, normalizeDiscountBadge, deduplicateProducts } from '../utils/dealNormalizer';
+import { getStoreAllowedRegions, detectDealLanguage } from '../utils/regionFilter';
 
 interface Props {
   endingSoonDeals: CouponDeal[];
@@ -158,8 +159,15 @@ const softwareBanner = PROMOTIONAL_BANNERS.find(b => b.storeSlug === 'abelssoft'
           ];
           const scarcity = scarcityList[idx % scarcityList.length];
 
+          const allowedRegs = getStoreAllowedRegions(deal.storeSlug, cleanName);
+          const dealLang = detectDealLanguage({ storeSlug: deal.storeSlug, title: deal.title, description: deal.description });
+
           return (
-            <div class="bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 rounded-2xl p-4 flex flex-col justify-between transition-all group shadow-xs">
+            <div
+              class="spotlight-expiring-card bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 rounded-2xl p-4 flex flex-col justify-between transition-all group shadow-xs"
+              data-regions={allowedRegs.join(',')}
+              data-lang={dealLang}
+            >
               <div>
                 <div class="flex items-center justify-between gap-2 mb-3">
                   <div class="flex items-center gap-2 min-w-0">
@@ -405,6 +413,34 @@ const softwareBanner = PROMOTIONAL_BANNERS.find(b => b.storeSlug === 'abelssoft'
       });
     });
   });
+
+  // Dynamic Geo & Language filtering for Curated Spotlight Expiring Soon cards
+  function syncSpotlightFilters() {
+    let reg = 'GLOBAL';
+    let lang = 'en';
+    try {
+      reg = localStorage.getItem('promoradar_selected_region') || 'GLOBAL';
+      lang = localStorage.getItem('promoradar_lang') || 'en';
+    } catch (e) {}
+
+    document.querySelectorAll('.spotlight-expiring-card').forEach(card => {
+      const cRegions = (card.getAttribute('data-regions') || 'GLOBAL').split(',');
+      const cLang = card.getAttribute('data-lang') || 'en';
+
+      const matchRegion = (!reg || reg === 'ALL' || reg === 'GLOBAL') ? true : cRegions.includes(reg);
+      const matchLang = (lang === 'en') ? (cLang === 'en') : (cLang === lang || cLang === 'en');
+
+      if (matchRegion && matchLang) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  syncSpotlightFilters();
+  window.addEventListener('promoradar_region_changed', syncSpotlightFilters);
+  window.addEventListener('promoradar_lang_changed', syncSpotlightFilters);
 </script>
 
 <style>

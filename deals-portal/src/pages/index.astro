@@ -5,10 +5,11 @@ import Footer from '../components/Footer.astro';
 import BrandLogo from '../components/BrandLogo.astro';
 import CuratedSpotlightSection from '../components/CuratedSpotlightSection.astro';
 import { cleanBrandName, normalizeDiscountBadge, extractSmartDiscountBadge, isJunkTestOffer, resolveMerchantIdentity, diversifyDealsFeed, getBrandGradient, getUniqueCleanStores, getCanonicalStoreSlug, resolveSmartCategory, normalizeExpiryDate } from '../utils/dealNormalizer';
+import { getStoreAllowedRegions, detectDealLanguage } from '../utils/regionFilter';
 import { COUPONS_DATA, STORES_DATA } from '../data/couponsData';
 import { STORE_DOMAINS_MAP } from '../data/storeDomains';
 import { getDealLivePulse } from '../data/pulseEngine';
-import { Zap, ShieldCheck, Flame, Clock, BadgeCheck, LockOpen, Filter, ArrowUpRight, Globe, Shield, Gamepad2, Home, Shirt, Plane, Laptop, Car, Coffee, Package } from 'lucide-astro';
+import { Zap, ShieldCheck, Flame, Clock, BadgeCheck, LockOpen, Filter, ArrowUpRight, Globe, Shield, Gamepad2, Home, Shirt, Plane, Laptop, Car, Coffee, Package, Check, Handshake } from 'lucide-astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -201,6 +202,95 @@ for (const s of STORES_DATA) {
   }
 }
 
+// Curated rotation pool of 100% authentic merchant deals for Hero Deal of the Day card
+const HERO_ROTATING_DEALS = [
+  {
+    id: 'deal_expressvpn_49',
+    storeName: 'ExpressVPN',
+    storeSlug: 'expressvpn',
+    storeCategory: 'Privacy & Security',
+    discountBadge: '49% OFF',
+    discountSub: '+ 3 Months Free',
+    title: '49% Off ExpressVPN Annual Plan Plus Three Free Months',
+    description: 'Save 49% with 3 bonus months of verified RAM-only high-speed encryption across 105 countries with Keys password manager and 30-day money-back guarantee.',
+    code: 'EXPRESS49',
+    maskedCode: '••• S49',
+    successRate: '99.8%',
+    affiliateUrl: 'https://ziejy.com/g/4raik6r0sq367099d2cc309c6148a0/?i=3',
+    domain: 'expressvpn.com',
+    timerEnds: '14h 22m',
+    auditedAgo: '12m ago'
+  },
+  {
+    id: 'deal_hostinger_cloud_75',
+    storeName: 'Hostinger',
+    storeSlug: 'hostinger',
+    storeCategory: 'Web Hosting & Domains',
+    discountBadge: '75% OFF',
+    discountSub: '+ Free Domain Included',
+    title: 'Host 100 Websites: 75% Off Premium Web Hosting',
+    description: 'Deploy on ultra-fast NVMe LiteSpeed servers with 100 website slots, complimentary domain name, unmetered bandwidth, and automated daily backups.',
+    code: 'HOSTING75',
+    maskedCode: '••• G75',
+    successRate: '99.9%',
+    affiliateUrl: 'https://flirtcheck.site/go?offer=hostinger&source=deals_hostinger&trigger=coupon_card&intent=deals&sub3=hosting75',
+    domain: 'hostinger.com',
+    timerEnds: '08h 45m',
+    auditedAgo: '8m ago'
+  },
+  {
+    id: 'cj-abelssoft-50off',
+    storeName: 'Abelssoft',
+    storeSlug: 'abelssoft',
+    storeCategory: 'Privacy & Security',
+    discountBadge: '50% OFF',
+    discountSub: 'Lifetime License Deal',
+    title: '50% Off Abelssoft Windows Tuning & System Security Software',
+    description: 'Optimize and shield your PC with award-winning registry cleaners, privacy guards, and real-time disk acceleration utilities with lifetime upgrades.',
+    code: 'ABELSSOFT50',
+    maskedCode: '••• T50',
+    successRate: '99.8%',
+    affiliateUrl: 'https://www.anrdoezrs.net/click-8102806-15509939',
+    domain: 'abelssoft.de',
+    timerEnds: '19h 10m',
+    auditedAgo: '15m ago'
+  },
+  {
+    id: 'net_849211',
+    storeName: 'Airalo eSIM',
+    storeSlug: 'airalo',
+    storeCategory: 'Travel & Tours',
+    discountBadge: '10% OFF',
+    discountSub: 'Global Travel Data',
+    title: 'Save 10% on Airalo Global Travel eSIM Data Packages',
+    description: 'Skip roaming fees and connect in 200+ countries instantly upon landing. Verified checkout coupon works on local and regional eSIM data passes.',
+    code: 'ADM',
+    maskedCode: '••• ADM',
+    successRate: '99.4%',
+    affiliateUrl: 'https://dhwnh.com/g/7rvld26bcl367099d2cc0471e42028/?i=3',
+    domain: 'airalo.com',
+    timerEnds: '11h 30m',
+    auditedAgo: '5m ago'
+  },
+  {
+    id: 'net_899182',
+    storeName: 'Alibaba',
+    storeSlug: 'alibaba',
+    storeCategory: 'E-Commerce & Wholesale',
+    discountBadge: '$20 OFF',
+    discountSub: 'Direct Factory Sourcing',
+    title: '20 $ OFF On Alibaba Factory-Direct Sourcing & Global Catalog',
+    description: 'Source trending consumer tech, gadgets, and lifestyle gear directly from verified manufacturers with volume tier discounts and tracked global delivery.',
+    code: 'HH12',
+    maskedCode: '••• H12',
+    successRate: '99.4%',
+    affiliateUrl: 'https://rzekl.com/g/384usiqcl3367099d2cc219aa26f6f/?i=3',
+    domain: 'alibaba.com',
+    timerEnds: '16h 05m',
+    auditedAgo: '18m ago'
+  }
+];
+
 // Distinct high-urgency offers for "Deals Expiring Soon" (Fix #3: no duplication with top grid cards)
 const TARGET_EXPIRING_SLUGS = ['vogacloset', 'keepersecurity', 'allpowers', 'alibaba'];
 const endingSoonDeals: typeof COUPONS_DATA = [];
@@ -349,304 +439,410 @@ const homeSchemas = [
 
 
     <!-- Modern Bento Hero Section -->
-    <section class="relative overflow-hidden bg-white dark:bg-[#0B0F19] text-slate-900 dark:text-white border-b border-slate-200/80 dark:border-slate-800/80 py-10 lg:py-16">
-      <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-indigo-500/5 dark:bg-primary/20 blur-3xl pointer-events-none"></div>
-      <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-rose-500/5 dark:bg-tertiary-container/15 blur-3xl pointer-events-none"></div>
+    <section class="relative overflow-hidden bg-slate-100/70 dark:bg-[#0B0F19] text-slate-900 dark:text-white border-b border-slate-200/90 dark:border-slate-800/80 py-10 lg:py-16 transition-colors">
+      <!-- Subtle tactile texture overlay for Light Theme (dot-grid matrix + subtle vignette) -->
+      <div class="absolute inset-0 pointer-events-none opacity-60 dark:opacity-0 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_100%)]"></div>
+      
+      <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-indigo-500/10 dark:bg-primary/20 blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-rose-500/10 dark:bg-tertiary-container/15 blur-3xl pointer-events-none"></div>
       
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
-          <!-- Left Column (7 cols): Hero Value Proposition & Search -->
-          <div class="lg:col-span-7 space-y-5">
-            <div class="flex flex-wrap items-center gap-2">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/10 backdrop-blur border border-slate-200 dark:border-white/15 text-indigo-700 dark:text-tertiary-fixed-dim text-xs font-semibold">
-                <Zap class="w-3.5 h-3.5" />
-                <span id="heroBadgeLabel">US Coupons 🇺🇸 &amp; Global Partner Network</span>
-              </div>
-              <button
-                type="button"
-                data-open-verification-guarantee
-                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/15 hover:bg-amber-400/25 border border-amber-400/30 text-amber-300 text-xs font-bold transition cursor-pointer group"
-                title="Inspect 3-Tier Code Accuracy Guarantee"
-              >
-                <ShieldCheck class="w-3.5 h-3.5" />
-                <span>Editorial QA Guarantee</span>
-                <span class="text-[10px] bg-amber-400/20 px-1 rounded font-bold">ℹ️</span>
-              </button>
-            </div>
-
-            <h1 id="heroH1Title" class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.12]">
-              Tested Promo Codes &amp; <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-violet-300 to-rose-400">Exclusive Checkout Vouchers</span>
+          <!-- Left Column (7 cols): Hero Value Proposition & Search with Atmospheric Glow -->
+          <div id="heroLeftContainer" class="lg:col-span-7 relative rounded-3xl p-4 sm:p-6 lg:p-8 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] dark:from-indigo-950/30 dark:via-transparent dark:to-transparent from-white/80 via-white/40 to-transparent border border-white/60 dark:border-transparent shadow-xs dark:shadow-none space-y-6">
+            <h1 id="heroH1Title" class="hero-stagger-item text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight leading-[1.15] max-w-2xl text-center">
+              <span id="heroH1Main" data-i18n="heroHeadlineMain" class="hero-headline-animated-gradient">Verified Promo Codes &amp;</span> <span id="heroH1Highlight" data-i18n="heroHeadlineHighlight" class="hero-headline-savings-gradient">Instant Checkout Savings</span>
             </h1>
 
-            <p id="heroSubtitleText" class="text-slate-600 dark:text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
-              Instant savings across global fashion, prescription eyewear, UAE &amp; Dubai travel, privacy software, and digital services. Synced via direct merchant partner feeds and verified at checkout.
+            <p id="heroSubtitleText" data-i18n="heroSubtitle" class="hero-stagger-item text-slate-700 dark:text-slate-300 text-base sm:text-lg mt-3 max-w-xl mx-auto font-normal leading-relaxed text-center">
+              Hand-tested coupons, exclusive vouchers, and direct merchant discounts across 100+ stores. Updated hourly and verified at cart.
             </p>
 
-            <!-- Search Bar with Integrated Region Selector & Live Spotlight Dropdown -->
-            <div id="heroSearchWrapper" class="bg-slate-50/90 dark:bg-white/10 backdrop-blur-md p-2 rounded-2xl border border-slate-200 dark:border-white/15 max-w-2xl shadow-xl dark:shadow-2xl relative">
-              <div class="flex flex-col sm:flex-row gap-2">
-                <div class="relative flex-1">
-                  <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                  </svg>
-                  <input
-                    id="mainHeroSearchInput"
-                    type="text"
-                    autocomplete="off"
-                    placeholder={`Search ${uniqueCleanStoresList.length} partner stores, categories, or keywords (e.g., eSIM, ALLPOWERS, VPN, Dubai)...`}
-                    class="w-full pl-11 pr-4 py-3 rounded-xl bg-white text-slate-900 placeholder-slate-400 text-sm font-medium border border-slate-200 dark:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-xs"
-                  />
-                </div>
-
-                <!-- Region Selector Integrated on Right of Search -->
-                <div class="relative shrink-0 flex items-center">
-                  <button
-                    id="heroRegionDropdownBtn"
-                    type="button"
-                    class="h-full px-3 py-3 rounded-xl bg-slate-200/80 hover:bg-slate-200 dark:bg-white/15 dark:hover:bg-white/25 text-slate-800 dark:text-white font-bold text-xs border border-slate-300 dark:border-white/20 transition flex items-center gap-1.5 cursor-pointer shrink-0 shadow-xs"
-                    title="Select Target Region"
-                  >
-                    <span id="heroSelectedRegionText" class="inline-flex items-center gap-1.5"><img src="/flags/us.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="" /> <span>United States</span></span>
-                    <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            <!-- Clean Search Area without outer card container/border -->
+            <div id="heroSearchWrapper" class="hero-stagger-item max-w-2xl relative space-y-3 z-30">
+              <div class="relative">
+                <div class="flex flex-col sm:flex-row gap-2 relative z-20">
+                  <div class="relative flex-1">
+                    <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
-                  </button>
-                  <div
-                    id="heroRegionMenu"
-                    class="hidden absolute top-full right-0 mt-2 w-48 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 p-1.5 text-left text-xs"
-                  >
-                    <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Target Region</div>
-                    <button type="button" data-hero-region="GLOBAL" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-                      <span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span></span>
-                    </button>
-                    <button type="button" data-hero-region="US" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-                      <span class="inline-flex items-center gap-2">
-                        <img src="/flags/us.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="US" />
-                        <span>United States</span>
-                      </span>
-                      <span class="hero-region-check text-emerald-500 font-bold">✓</span>
-                    </button>
-                    <button type="button" data-hero-region="EU" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-                      <span class="inline-flex items-center gap-2">
-                        <img src="/flags/eu.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="EU" />
-                        <span>Europe</span>
-                      </span>
-                    </button>
-                    <button type="button" data-hero-region="GCC" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-                      <span class="inline-flex items-center gap-2">
-                        <img src="/flags/ae.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GCC" />
-                        <span>UAE &amp; GCC</span>
-                      </span>
-                    </button>
-                    <button type="button" data-hero-region="UA" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-                      <span class="inline-flex items-center gap-2">
-                        <img src="/flags/ua.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="UA" />
-                        <span>Ukraine</span>
-                      </span>
-                    </button>
+                    <input
+                      id="mainHeroSearchInput"
+                      type="text"
+                      autocomplete="off"
+                      placeholder={`Search ${uniqueCleanStoresList.length} partner stores, categories, or keywords (e.g., eSIM, ALLPOWERS, VPN, Dubai)...`}
+                      class="w-full pl-11 pr-4 py-3 rounded-xl bg-white dark:bg-white/10 text-slate-900 dark:text-white placeholder-slate-400 text-sm font-medium border border-slate-200 dark:border-white/15 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm backdrop-blur-sm"
+                    />
                   </div>
-                </div>
 
-                <button
-                  id="mainHeroSearchBtn"
-                  type="button"
-                  class="px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition shrink-0 shadow-lg shadow-indigo-600/30 cursor-pointer"
-                >
-                  <span id="findDealsBtnText">Find Deals</span>
-                </button>
-              </div>
+                  <!-- Region Selector Integrated on Right of Search -->
+                  <div class="relative shrink-0 flex items-center">
+                    <button
+                      id="heroRegionDropdownBtn"
+                      type="button"
+                      class="h-full px-3 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white font-bold text-xs border border-slate-200 dark:border-white/15 transition flex items-center gap-1.5 cursor-pointer shrink-0 shadow-sm"
+                      title="Select Target Region"
+                    >
+                      <span id="heroSelectedRegionText" class="inline-flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500 mr-1 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span></span>
+                      <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div
+                      id="heroRegionMenu"
+                      class="hidden absolute top-full right-0 mt-2 w-48 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 p-1.5 text-left text-xs"
+                    >
+                      <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Target Region</div>
+                      <button type="button" data-hero-region="GLOBAL" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+                        <span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span></span>
+                      </button>
+                      <button type="button" data-hero-region="US" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+                        <span class="inline-flex items-center gap-2">
+                          <img src="/flags/us.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="US" />
+                          <span>United States</span>
+                        </span>
+                        <span class="hero-region-check text-emerald-500 font-bold">✓</span>
+                      </button>
+                      <button type="button" data-hero-region="EU" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+                        <span class="inline-flex items-center gap-2">
+                          <img src="/flags/eu.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="EU" />
+                          <span>Europe</span>
+                        </span>
+                      </button>
+                      <button type="button" data-hero-region="GCC" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+                        <span class="inline-flex items-center gap-2">
+                          <img src="/flags/ae.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GCC" />
+                          <span>UAE &amp; GCC</span>
+                        </span>
+                      </button>
+                      <button type="button" data-hero-region="UA" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+                        <span class="inline-flex items-center gap-2">
+                          <img src="/flags/ua.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="UA" />
+                          <span>Ukraine</span>
+                        </span>
+                      </button>
+                      <button type="button" data-hero-region="GB" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+                        <span class="inline-flex items-center gap-2">
+                          <img src="/flags/gb.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GB" />
+                          <span>United Kingdom</span>
+                        </span>
+                      </button>
+                      <button type="button" data-hero-region="IN" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+                        <span class="inline-flex items-center gap-2">
+                          <img src="/flags/in.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="IN" />
+                          <span>India</span>
+                        </span>
+                      </button>
+                      <button type="button" data-hero-region="MX" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+                        <span class="inline-flex items-center gap-2">
+                          <img src="/flags/mx.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="MX" />
+                          <span>Mexico</span>
+                        </span>
+                      </button>
+                      <button type="button" data-hero-region="BR" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+                        <span class="inline-flex items-center gap-2">
+                          <img src="/flags/br.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="BR" />
+                          <span>Brazil</span>
+                        </span>
+                      </button>
+                      <button type="button" data-hero-region="CZ" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+                        <span class="inline-flex items-center gap-2">
+                          <img src="/flags/cz.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="CZ" />
+                          <span>Czechia</span>
+                        </span>
+                      </button>
+                      <button type="button" data-hero-region="PL" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+                        <span class="inline-flex items-center gap-2">
+                          <img src="/flags/pl.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="PL" />
+                          <span>Poland</span>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
 
-              <!-- Hero Live Search Spotlight Dropdown -->
-              <div
-                id="heroSearchSpotlight"
-                class="hidden absolute top-full left-0 right-0 mt-2 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200/90 dark:border-slate-800 z-50 overflow-hidden text-left animate-fadeIn max-h-[440px] flex flex-col"
-              >
-                <div class="p-3 bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 shrink-0">
-                  <span id="heroSpotlightStatus" class="font-bold uppercase tracking-wider text-[10px] text-slate-400 dark:text-slate-400">Search Suggestions</span>
-                  <span class="text-[10px] bg-slate-200/80 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-slate-600 dark:text-slate-300">ESC to close</span>
-                </div>
-                <div class="overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/60">
-                  <!-- Stores Section -->
-                  <div id="heroSpotlightStoresSection" class="p-2 space-y-1">
-                    <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2 py-1">Stores &amp; Brands</div>
-                    <div id="heroSpotlightStoresList" class="space-y-1"></div>
-                  </div>
-                  <!-- Categories Section -->
-                  <div id="heroSpotlightCategoriesSection" class="p-2 space-y-1">
-                    <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2 py-1">Categories</div>
-                    <div id="heroSpotlightCategoriesList" class="space-y-1"></div>
-                  </div>
-                  <!-- Deals Section -->
-                  <div id="heroSpotlightDealsSection" class="p-2 space-y-1">
-                    <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2 py-1">Matching Promo Codes</div>
-                    <div id="heroSpotlightDealsList" class="space-y-1"></div>
-                  </div>
-                </div>
-                <!-- Empty Results State -->
-                <div id="heroSpotlightEmpty" class="hidden p-6 text-center text-xs text-slate-500 dark:text-slate-400">
-                  No matching stores or promo codes found.
-                </div>
-                <!-- Footer Action to Scroll down -->
-                <div class="p-2.5 bg-slate-50 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 text-center shrink-0">
                   <button
-                    id="heroSpotlightViewAllBtn"
+                    id="mainHeroSearchBtn"
                     type="button"
-                    class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1 cursor-pointer"
+                    class="px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition shrink-0 shadow-lg shadow-indigo-600/30 cursor-pointer"
                   >
-                    <span>View all matching results in catalog ↓</span>
+                    <span id="findDealsBtnText">Find Deals</span>
                   </button>
+                </div>
+
+                <!-- Hero Live Search Spotlight Dropdown (Directly tethered under search bar) -->
+                <div
+                  id="heroSearchSpotlight"
+                  class="hidden absolute top-full left-0 right-0 mt-2 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200/90 dark:border-slate-800 z-50 overflow-hidden text-left animate-fadeIn max-h-[440px] flex flex-col backdrop-blur-xl"
+                >
+                  <div class="px-4 py-2.5 bg-slate-50/90 dark:bg-slate-800/80 border-b border-slate-200/70 dark:border-slate-700/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 shrink-0">
+                    <span id="heroSpotlightStatus" class="font-bold uppercase tracking-wider text-[10px] text-slate-500 dark:text-slate-300">Search Suggestions</span>
+                    <span class="text-[10px] bg-slate-200/70 dark:bg-slate-700/80 px-2 py-0.5 rounded font-mono font-medium text-slate-600 dark:text-slate-300">ESC to close</span>
+                  </div>
+                  <div class="overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/70">
+                    <!-- Stores Section -->
+                    <div id="heroSpotlightStoresSection" class="p-2 space-y-1">
+                      <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2.5 py-1">Stores &amp; Brands</div>
+                      <div id="heroSpotlightStoresList" class="space-y-1"></div>
+                    </div>
+                    <!-- Categories Section -->
+                    <div id="heroSpotlightCategoriesSection" class="p-2 space-y-1">
+                      <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2.5 py-1">Categories</div>
+                      <div id="heroSpotlightCategoriesList" class="space-y-1"></div>
+                    </div>
+                    <!-- Deals Section -->
+                    <div id="heroSpotlightDealsSection" class="p-2 space-y-1">
+                      <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2.5 py-1">Matching Promo Codes</div>
+                      <div id="heroSpotlightDealsList" class="space-y-1"></div>
+                    </div>
+                  </div>
+                  <!-- Empty Results State -->
+                  <div id="heroSpotlightEmpty" class="hidden p-6 text-center text-xs text-slate-500 dark:text-slate-400">
+                    No matching stores or promo codes found.
+                  </div>
+                  <!-- Footer Action to Scroll down -->
+                  <div class="p-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-t border-slate-200/70 dark:border-slate-700/80 text-center shrink-0">
+                    <button
+                      id="heroSpotlightViewAllBtn"
+                      type="button"
+                      class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>View all matching results in catalog ↓</span>
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <!-- Quick Search Chips -->
-              <div class="flex flex-wrap items-center gap-1.5 pt-2.5 px-2 text-xs">
+              <!-- Clean Trending Tags as Text Links -->
+              <div id="heroTrendingRow" class="hero-stagger-item flex flex-wrap items-center gap-2 pt-1 text-xs">
                 <span id="trendingPrefix" class="text-slate-400 font-medium">Trending:</span>
-                <button type="button" data-chip="945 Industries" class="trending-chip px-2.5 py-0.5 rounded-md bg-slate-200/80 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition font-medium">945 Industries (-10%)</button>
-                <button type="button" data-chip="Abelssoft" class="trending-chip px-2.5 py-0.5 rounded-md bg-slate-200/80 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition font-medium">Abelssoft (-50%)</button>
-                <button type="button" data-chip="Touch UA" class="trending-chip px-2.5 py-0.5 rounded-md bg-slate-200/80 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition font-medium">Touch UA (-30%)</button>
-                <button type="button" data-chip="Alibaba" class="trending-chip px-2.5 py-0.5 rounded-md bg-slate-200/80 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition font-medium">Alibaba (-$20)</button>
-                <button type="button" data-chip="ExpressVPN" class="trending-chip px-2.5 py-0.5 rounded-md bg-slate-200/80 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition font-medium">ExpressVPN (-81%)</button>
+                <button type="button" data-chip="945 Industries" class="trending-chip text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">945 Industries (-10%)</button>
+                <span class="text-slate-300 dark:text-slate-700">•</span>
+                <button type="button" data-chip="Abelssoft" class="trending-chip text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">Abelssoft (-50%)</button>
+                <span class="text-slate-300 dark:text-slate-700">•</span>
+                <button type="button" data-chip="Touch UA" class="trending-chip text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">Touch UA (-30%)</button>
+                <span class="text-slate-300 dark:text-slate-700">•</span>
+                <button type="button" data-chip="Alibaba" class="trending-chip text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">Alibaba (-$20)</button>
+                <span class="text-slate-300 dark:text-slate-700">•</span>
+                <button type="button" data-chip="ExpressVPN" class="trending-chip text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">ExpressVPN (-81%)</button>
               </div>
             </div>
 
-            <!-- Trust Metrics Strip (Fix #4: max-w-2xl aligned with search bar, whitespace-nowrap badge titles) -->
-            <div class="grid grid-cols-3 gap-3 pt-2 max-w-2xl">
-              <div class="flex items-center gap-2.5 bg-slate-50 dark:bg-white/5 rounded-xl px-3 py-2 border border-slate-200 dark:border-white/10 shadow-2xs">
-                <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm shrink-0">
-                  <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                  </svg>
+            <!-- Borderless Trust Metrics Strip (Centered with Lucide SVG Icons) -->
+            <div id="heroTrustStrip" class="hero-stagger-item flex flex-wrap sm:flex-nowrap items-center justify-center gap-4 sm:gap-6 pt-3 max-w-2xl mx-auto border-t border-slate-200/40 dark:border-white/5">
+              <div class="hero-trust-badge flex items-center gap-2.5">
+                <span class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
+                  <Check class="w-3.5 h-3.5 stroke-[2.5]" />
                 </span>
-                <div class="min-w-0">
-                  <div class="text-xs font-bold text-slate-800 dark:text-white whitespace-nowrap">100% Tested Codes</div>
-                  <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Manual QA on checkout</div>
+                <div class="min-w-0 text-left">
+                  <div class="text-xs font-bold text-slate-900 dark:text-slate-200 whitespace-nowrap">100% Tested Codes</div>
+                  <div class="text-[11px] text-slate-600 dark:text-slate-400">Manual QA on checkout</div>
                 </div>
               </div>
-              <div class="flex items-center gap-2.5 bg-slate-50 dark:bg-white/5 rounded-xl px-3 py-2 border border-slate-200 dark:border-white/10 shadow-2xs">
-                <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-sm shrink-0">
-                  <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                  </svg>
+
+              <div class="hero-trust-divider hidden sm:block w-px h-6 bg-slate-200/60 dark:bg-white/10 shrink-0"></div>
+
+              <div class="hero-trust-badge flex items-center gap-2.5">
+                <span class="w-6 h-6 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center shrink-0">
+                  <Zap class="w-3.5 h-3.5 fill-amber-500/20" />
                 </span>
-                <div class="min-w-0">
-                  <div class="text-xs font-bold text-slate-800 dark:text-white whitespace-nowrap">No Signup Needed</div>
-                  <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">1-click instant access</div>
+                <div class="min-w-0 text-left">
+                  <div class="text-xs font-bold text-slate-900 dark:text-slate-200 whitespace-nowrap">No Signup Needed</div>
+                  <div class="text-[11px] text-slate-600 dark:text-slate-400">1-click instant access</div>
                 </div>
               </div>
-              <div class="flex items-center gap-2.5 bg-slate-50 dark:bg-white/5 rounded-xl px-3 py-2 border border-slate-200 dark:border-white/10 shadow-2xs">
-                <span class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-sm shrink-0">
-                  <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                  </svg>
+
+              <div class="hero-trust-divider hidden sm:block w-px h-6 bg-slate-200/60 dark:bg-white/10 shrink-0"></div>
+
+              <div class="hero-trust-badge flex items-center gap-2.5">
+                <span class="w-6 h-6 rounded-full bg-indigo-500/10 text-indigo-500 flex items-center justify-center shrink-0">
+                  <Handshake class="w-3.5 h-3.5" />
                 </span>
-                <div class="min-w-0">
-                  <div class="text-xs font-bold text-slate-800 dark:text-white whitespace-nowrap">Official Partner</div>
-                  <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Direct Partner links</div>
+                <div class="min-w-0 text-left">
+                  <div class="text-xs font-bold text-slate-900 dark:text-slate-200 whitespace-nowrap">Official Partner</div>
+                  <div class="text-[11px] text-slate-600 dark:text-slate-400">Direct Partner links</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Right Column (5 cols): Deal of the Day Card -->
-          <div class="lg:col-span-5 flex flex-col">
-            <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-xl dark:shadow-2xl relative overflow-hidden border border-slate-200/90 dark:border-white/10">
+          <!-- Right Column (5 cols): Deal of the Day Card with Animated Rotation -->
+          <div class="lg:col-span-5 flex flex-col h-full">
+            <div id="heroDealCard" class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-xl shadow-slate-200/80 dark:shadow-2xl dark:shadow-black/40 relative overflow-hidden border border-slate-200/90 dark:border-white/10 select-none flex flex-col justify-between h-[490px] sm:h-[480px]">
+
               <!-- Header bar inside spotlight -->
-              <div class="flex items-center justify-between gap-3 pb-3 relative z-10 border-b border-slate-200 dark:border-white/10 mb-2">
-                <span class="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold px-2.5 py-1 rounded-md bg-urgency-orange text-white uppercase tracking-wider shrink-0 shadow-sm">
-                  <Flame class="w-3.5 h-3.5" />
-                  Deal of the Day
-                </span>
-                <div class="inline-flex items-center gap-1.5 font-mono text-xs text-urgency-amber shrink-0 bg-white/5 px-2.5 py-1 rounded-md border border-white/10">
-                  <Clock class="w-3.5 h-3.5" />
-                  <span>Ends in: <strong class="text-white">14h 22m</strong></span>
+              <div class="deal-stagger-item flex items-center justify-between gap-3 pb-3 relative z-10 border-b border-slate-200 dark:border-white/10 mb-2 shrink-0">
+                <div class="deal-fire-text-group inline-flex items-center gap-2 select-none">
+                  <Flame class="deal-fire-icon w-4.5 h-4.5 shrink-0" />
+                  <span class="deal-fire-text font-mono text-xs sm:text-sm font-black uppercase tracking-wider leading-none">
+                    Deal of the Day
+                  </span>
                 </div>
-              </div>
 
-              <!-- Merchant info -->
-              <div class="flex items-center gap-3.5 py-2 relative z-10">
-                <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-1.5 shadow-md shrink-0">
-                  {STORES_MAP['expressvpn'] && (
-                    <BrandLogo store={STORES_MAP['expressvpn']} size="md" />
-                  )}
-                </div>
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-lg font-bold text-slate-900 dark:text-white tracking-tight">ExpressVPN</span>
-                    <span class="inline-flex items-center gap-0.5 font-mono text-[10px] px-2 py-0.5 rounded bg-badge-verified-fill text-badge-verified-text font-bold">
-                      <BadgeCheck class="w-3 h-3 text-emerald-400" /> Verified Today
-                    </span>
+                <!-- Vintage Split-Flap Flip Clock Countdown Timer -->
+                <div class="inline-flex items-center gap-2 font-mono text-xs shrink-0 select-none">
+                  <Clock class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
+                  <span class="text-xs font-bold text-amber-700 dark:text-amber-400/90 tracking-wide uppercase">Ends in:</span>
+                  
+                  <!-- Retro Split-Flap Digits -->
+                  <div id="heroFlipClock" class="inline-flex items-center gap-1 font-mono font-bold text-sm">
+                    <span id="flipHours" class="flip-card-unit">14</span>
+                    <span class="text-amber-500 font-black text-sm leading-none animate-pulse">:</span>
+                    <span id="flipMinutes" class="flip-card-unit">22</span>
+                    <span class="text-amber-500 font-black text-sm leading-none animate-pulse">:</span>
+                    <span id="flipSeconds" class="flip-card-unit text-amber-400">45</span>
                   </div>
-                  <span class="text-xs text-slate-400">Privacy &amp; Security • Official Merchant Partner</span>
                 </div>
               </div>
 
-              <!-- Discount highlight banner with SVG Telemetry gauge -->
-              <div class="my-3 p-3.5 rounded-xl bg-slate-50 dark:bg-canvas-dark border border-slate-200 dark:border-white/5 flex items-center justify-between relative z-10 shadow-xs">
-                <div>
-                  <div class="text-3xl font-black text-tertiary-fixed-dim leading-none">81% OFF</div>
-                  <span class="font-mono text-[11px] text-slate-300 tracking-wider uppercase font-bold">+ 4 Months Free</span>
-                </div>
-                <!-- Telemetry gauge SVG -->
-                <div class="flex flex-col items-end">
-                  <svg class="w-13 h-13" viewBox="0 0 36 36">
-                    <path class="text-slate-800 stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3.5"></path>
-                    <path class="text-badge-verified-text stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="99.4, 100" stroke-linecap="round" stroke-width="3.5"></path>
-                    <text class="font-mono text-[8px] font-bold fill-current text-white text-center" text-anchor="middle" x="18" y="21">99.4%</text>
-                  </svg>
-                  <span class="font-mono text-[10px] text-tertiary-fixed-dim mt-0.5">Success Rate</span>
-                </div>
-              </div>
-
-              <h3 class="text-base font-bold text-slate-900 dark:text-white relative z-10">
-                81% Off 2-Year Privacy Shield Plan + 4 Months Free
-              </h3>
-              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 mb-4 leading-relaxed relative z-10">
-                Maximum savings via our verified merchant partner link: high-speed Lightway VPN across 8 devices, Keys password manager, and a 30-day money-back guarantee.
-              </p>
-
-              <!-- Signature 2-part Action Reveal Button -->
-              <div class="flex flex-col sm:flex-row items-center gap-2.5 relative z-10">
-                <button
-                  type="button"
-                  id="openFeaturedDealBtn"
-                  class="flex-1 w-full flex items-stretch rounded-xl overflow-hidden shadow-lg group cursor-pointer border border-transparent hover:border-white/20 transition-all"
-                  data-reveal-deal={JSON.stringify({
-                    id: "expressvpn-81",
-                    title: "81% Off 2-Year Privacy Shield Plan + 4 Months Free",
-                    desc: "Save 81% on ExpressVPN multi-device subscription. High-speed encrypted tunnel across 105 countries.",
-                    code: "admitad20",
-                    storeName: "ExpressVPN",
-                    storeSlug: "expressvpn",
-                    domain: "expressvpn.com",
-                    badge: "81% OFF",
-                    affiliateUrl: "https://ad.admitad.com/g/9c336bfeacfa34419ad24f6d4d12ec/?subid=promoradar_dealday"
-                  })}
-                >
-                  <div class="bg-primary hover:bg-primary-container px-4 py-3 text-white font-bold text-xs flex items-center justify-center gap-2 flex-1 transition-colors">
-                    <LockOpen class="w-4 h-4" />
-                    <span>Claim 81% Voucher</span>
+              <!-- Animated Content Wrapper for Fluid Cross-fade -->
+              <div id="heroDealDynamicContent" class="flex-1 flex flex-col justify-between space-y-3 transition-all duration-300">
+                <!-- Merchant info -->
+                <div class="deal-stagger-item flex items-center gap-3.5 py-1 relative z-10 shrink-0">
+                  <div id="heroDealLogoBox" class="deal-logo-box w-12 h-12 rounded-xl bg-slate-50 dark:bg-white border border-slate-200/80 dark:border-transparent flex items-center justify-center p-1.5 shadow-sm shrink-0 overflow-hidden">
+                    {STORES_MAP['expressvpn'] && (
+                      <BrandLogo store={STORES_MAP['expressvpn']} size="md" />
+                    )}
                   </div>
-                  <div class="bg-slate-900 text-white px-3.5 py-3 font-mono text-xs font-bold flex items-center justify-center tracking-wider">
-                    ••• d20
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span id="heroDealStoreName" class="text-lg font-bold text-slate-900 dark:text-white tracking-tight">ExpressVPN</span>
+                      <span class="inline-flex items-center gap-0.5 font-mono text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 dark:bg-badge-verified-fill dark:text-badge-verified-text border border-emerald-200/60 dark:border-transparent font-bold">
+                        <BadgeCheck class="w-3 h-3 text-emerald-600 dark:text-emerald-400" /> Verified Today
+                      </span>
+                    </div>
+                    <span id="heroDealStoreCat" class="text-xs text-slate-500 dark:text-slate-400">Privacy &amp; Security • Official Merchant Partner</span>
                   </div>
-                </button>
-                <a
-                  href={`${base}/stores/expressvpn/`}
-                  class="w-full sm:w-auto px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-slate-800 dark:text-white font-bold text-xs transition-colors text-center whitespace-nowrap border border-slate-200 dark:border-white/10"
-                >
-                  All Offers →
-                </a>
+                </div>
+
+                <!-- Discount highlight banner with SVG Telemetry gauge -->
+                <div class="deal-stagger-item p-3.5 rounded-xl bg-gradient-to-r from-emerald-50/70 via-teal-50/40 to-slate-50 dark:bg-canvas-dark dark:from-transparent dark:via-transparent dark:to-transparent border border-emerald-200/60 dark:border-white/5 flex items-center justify-between relative z-10 shadow-xs shrink-0">
+                  <div>
+                    <div id="heroDealBadge" class="text-3xl font-black text-emerald-700 dark:text-tertiary-fixed-dim leading-none">49% OFF</div>
+                    <span id="heroDealBadgeSub" class="font-mono text-[11px] text-slate-600 dark:text-slate-300 tracking-wider uppercase font-bold">+ 3 Months Free</span>
+                  </div>
+                  <!-- Telemetry gauge SVG -->
+                  <div class="flex flex-col items-end">
+                    <svg class="w-13 h-13" viewBox="0 0 36 36">
+                      <path class="text-slate-200 dark:text-slate-800 stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3.5"></path>
+                      <path id="heroDealGaugeCircle" class="deal-gauge-circle text-emerald-600 dark:text-badge-verified-text stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="99.8, 100" stroke-linecap="round" stroke-width="3.5"></path>
+                      <text id="heroDealSuccessText" class="font-mono text-[8px] font-bold fill-current text-slate-900 dark:text-white text-center" text-anchor="middle" x="18" y="21">99.8%</text>
+                    </svg>
+                    <span class="font-mono text-[10px] text-emerald-800 dark:text-tertiary-fixed-dim font-bold mt-0.5">Success Rate</span>
+                  </div>
+                </div>
+
+                <div class="deal-stagger-item flex-1 flex flex-col justify-center min-h-[72px]">
+                  <h3 id="heroDealTitle" class="text-base font-bold text-slate-900 dark:text-white relative z-10 leading-snug line-clamp-1">
+                    49% Off ExpressVPN Annual Plan Plus Three Free Months
+                  </h3>
+                  <p id="heroDealDesc" class="text-xs text-slate-600 dark:text-slate-300 mt-1 mb-1 leading-relaxed relative z-10 line-clamp-2 h-[34px]">
+                    Save 49% with 3 bonus months of verified RAM-only high-speed encryption across 105 countries with Keys password manager and 30-day money-back guarantee.
+                  </p>
+                </div>
+
+                <!-- Signature 2-part Action Reveal Button -->
+                <div class="deal-stagger-item flex flex-col sm:flex-row items-center gap-2.5 relative z-10 pt-1 shrink-0">
+                  <button
+                    type="button"
+                    id="openFeaturedDealBtn"
+                    class="flex-1 w-full flex items-stretch rounded-xl overflow-hidden shadow-md group cursor-pointer border border-transparent hover:border-indigo-400 dark:hover:border-white/20 transition-all"
+                    data-reveal-deal={JSON.stringify({
+                      id: "deal_expressvpn_49",
+                      title: "49% Off ExpressVPN Annual Plan Plus Three Free Months",
+                      desc: "Save 49% on ExpressVPN with 3 bonus months and verified checkout voucher.",
+                      code: "EXPRESS49",
+                      storeName: "ExpressVPN",
+                      storeSlug: "expressvpn",
+                      domain: "expressvpn.com",
+                      badge: "49% OFF",
+                      affiliateUrl: "https://ziejy.com/g/4raik6r0sq367099d2cc309c6148a0/?i=3"
+                    })}
+                  >
+                    <div class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-3 font-bold text-xs flex items-center justify-center gap-2 flex-1 transition-colors">
+                      <LockOpen class="w-4 h-4" />
+                      <span id="heroDealClaimText">Claim 49% Voucher</span>
+                    </div>
+                    <div id="heroDealMaskedCode" class="bg-slate-900 text-white px-3.5 py-3 font-mono text-xs font-bold flex items-center justify-center tracking-wider">
+                      ••• S49
+                    </div>
+                  </button>
+                  <a
+                    id="heroDealAllOffersLink"
+                    href={`${base}/stores/expressvpn/`}
+                    class="w-full sm:w-auto px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-slate-800 dark:text-white font-bold text-xs transition-colors text-center whitespace-nowrap border border-slate-200/90 dark:border-white/10"
+                  >
+                    All Offers →
+                  </a>
+                </div>
               </div>
 
-              <!-- Verification metadata footer -->
-              <div class="mt-4 pt-3 border-t border-slate-200 dark:border-white/10 flex items-center justify-between font-mono text-[11px] text-slate-500 dark:text-slate-400 relative z-10">
-                <span class="flex items-center gap-1.5">
-                  <span class="h-2 w-2 rounded-full bg-badge-verified-text animate-ping"></span>
-                  <span>Verified Checkout: <strong class="text-slate-900 dark:text-white">Active Live</strong></span>
-                </span>
-                <span>Audited 12m ago</span>
+              <!-- Progress Line as divider right above bottom controls -->
+              <div class="relative w-full h-[3px] bg-slate-200/90 dark:bg-white/10 rounded-full overflow-hidden mt-3 z-10 shrink-0">
+                <div id="heroDealTimerBar" class="h-full bg-gradient-to-r from-indigo-500 via-rose-500 to-amber-500 w-0 transition-all duration-300 rounded-full"></div>
               </div>
+
+              <!-- Controls bar centered -->
+              <div class="deal-stagger-item pt-2.5 pb-0.5 flex items-center justify-center font-mono text-[11px] text-slate-600 dark:text-slate-400 relative z-10 shrink-0">
+                <!-- Centered controls: Play/Pause, Dots, [Prev + Next] -->
+                <div class="flex items-center gap-3">
+                  <!-- Play / Pause Toggle Button -->
+                  <button
+                    id="heroDealPlayPauseBtn"
+                    type="button"
+                    class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 border border-slate-200/70 dark:border-transparent flex items-center justify-center transition cursor-pointer shadow-2xs"
+                    title="Pause Rotation"
+                    aria-label="Pause Rotation"
+                  >
+                    <!-- Pause Icon (Default) -->
+                    <svg id="heroDealPauseIcon" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                      <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+                      <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+                    </svg>
+                    <!-- Play Icon (When paused) -->
+                    <svg id="heroDealPlayIcon" class="w-3.5 h-3.5 hidden ml-0.5" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                  </button>
+
+                  <!-- Pagination dots -->
+                  <div class="flex items-center gap-1.5 px-1" id="heroDealDots">
+                    {HERO_ROTATING_DEALS.map((_, idx) => (
+                      <button
+                        type="button"
+                        data-hero-deal-index={idx}
+                        class={`hero-deal-dot h-2 rounded-full transition-all duration-300 cursor-pointer ${idx === 0 ? 'bg-indigo-600 w-6' : 'bg-slate-300 dark:bg-white/25 w-2 hover:bg-slate-400'}`}
+                        aria-label={`Switch to Deal ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  <!-- Arrow Controls Group (Prev + Next together) -->
+                  <div class="flex items-center gap-1">
+                    <!-- Prev button -->
+                    <button
+                      id="heroDealPrevBtn"
+                      type="button"
+                      class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 border border-slate-200/70 dark:border-transparent flex items-center justify-center text-sm font-bold transition cursor-pointer shadow-2xs"
+                      title="Previous Deal"
+                      aria-label="Previous Deal"
+                    >
+                      ‹
+                    </button>
+                    <!-- Next button -->
+                    <button
+                      id="heroDealNextBtn"
+                      type="button"
+                      class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 border border-slate-200/70 dark:border-transparent flex items-center justify-center text-sm font-bold transition cursor-pointer shadow-2xs"
+                      title="Next Deal"
+                      aria-label="Next Deal"
+                    >
+                      ›
+                    </button>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -763,7 +959,9 @@ const homeSchemas = [
           const brandDomain = deal.resolvedDomain;
           const initials = cleanName.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase() || 'PR';
           const brandGradient = getBrandGradient(cleanName);
-          const regions = (STORE_REGIONS[deal.storeSlug] || ['GLOBAL']).join(',');
+          const allowedRegs = getStoreAllowedRegions(deal.storeSlug, cleanName);
+          const regions = allowedRegs.join(',');
+          const dealLang = detectDealLanguage({ storeSlug: deal.storeSlug, title: deal.title, description: deal.description });
           const primaryRegionKey = (STORE_REGIONS[deal.storeSlug] || ['GLOBAL'])[0];
           const regionBadge = detectDealCountryFlag(deal.storeSlug, cleanName);
           const totalStoreDeals = storeCouponCounts[cleanName] || 1;
@@ -778,6 +976,7 @@ const homeSchemas = [
               data-category={deal.smartCategory || deal.storeCategory}
               data-type={isCode ? 'code' : 'deal'}
               data-regions={regions}
+              data-lang={dealLang}
               data-deal-id={deal.id}
               data-search={`${cleanName} ${deal.title} ${deal.code || ''} ${deal.smartCategory || deal.storeCategory}`.toLowerCase()}
             >
@@ -1341,6 +1540,13 @@ const homeSchemas = [
     // State & Interactive Logic
     let currentCategory = 'ALL';
     let currentRegion = 'ALL';
+    let currentLang = 'en';
+    try {
+      const storedReg = localStorage.getItem('promoradar_selected_region');
+      if (storedReg) currentRegion = storedReg;
+      const storedLang = localStorage.getItem('promoradar_lang');
+      if (storedLang) currentLang = storedLang;
+    } catch (e) {}
     let currentType = 'ALL';
     let currentStore = null;
     let searchQuery = '';
@@ -1440,6 +1646,7 @@ const homeSchemas = [
         const cStore = card.getAttribute('data-store') || '';
         const cType = card.getAttribute('data-type') || '';
         const cRegions = (card.getAttribute('data-regions') || 'GLOBAL').split(',');
+        const cLang = card.getAttribute('data-lang') || 'en';
         const cSearch = card.getAttribute('data-search') || '';
         const cText = card.innerText.toLowerCase();
 
@@ -1456,12 +1663,26 @@ const homeSchemas = [
           matchCat = cCat === currentCategory || cCat.toLowerCase().includes(currentCategory.toLowerCase());
         }
 
-        const matchRegion = currentRegion === 'ALL' || cRegions.includes(currentRegion) || cRegions.includes('GLOBAL');
+        // Strict region eligibility: If a region like 'US' or 'GCC' or 'UA' or 'EU' is selected,
+        // show ONLY offers that are explicitly eligible in that region.
+        // E.g., UAE/GCC stores won't show in US, Ukraine stores won't show in GCC, etc.
+        const matchRegion = (!currentRegion || currentRegion === 'ALL' || currentRegion === 'GLOBAL') 
+          ? true 
+          : cRegions.includes(currentRegion);
+
+        // Strict language eligibility:
+        // When user chooses English ('en'), show English-written deals only.
+        // When user chooses regional language (e.g. 'ua', 'es', 'pt', 'pl', 'cs', 'ar', 'de'),
+        // show deals matching that language or universal English baseline.
+        const matchLang = (currentLang === 'en')
+          ? (cLang === 'en')
+          : (cLang === currentLang || cLang === 'en');
+
         const matchType = currentType === 'ALL' || cType === currentType;
         const matchStore = !currentStore || cStore.toLowerCase() === currentStore.toLowerCase();
         const matchQuery = !q || cText.includes(q) || cSearch.includes(q) || cStore.toLowerCase().includes(q);
 
-        if (matchCat && matchRegion && matchType && matchStore && matchQuery) {
+        if (matchCat && matchRegion && matchLang && matchType && matchStore && matchQuery) {
           if (isFiltered || !card.classList.contains('deal-item-collapsed')) {
             card.classList.remove('hidden');
           } else {
@@ -1536,56 +1757,31 @@ const homeSchemas = [
       });
     });
 
-    // Region & Geo Buttons
-    document.querySelectorAll('.region-filter-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        // If clicking on client filter, prevent default navigation for instant interactive filtering
-        if (btn.tagName === 'A') {
-          e.preventDefault();
-        }
-        currentRegion = btn.getAttribute('data-region') || 'ALL';
-        document.querySelectorAll('.region-filter-btn').forEach(b => {
-          const isActive = b.getAttribute('data-region') === currentRegion;
-          b.classList.toggle('is-active', isActive);
-          b.classList.toggle('font-bold', isActive);
-          b.classList.toggle('font-semibold', !isActive);
-        });
+    const regionHtmlMap = {
+      'ALL': '<svg class="w-4 h-4 text-slate-500 mr-1 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span>',
+      'GLOBAL': '<svg class="w-4 h-4 text-slate-500 mr-1 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span>',
+      'US': '<img src="/flags/us.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="US" /> <span>United States</span>',
+      'EU': '<img src="/flags/eu.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="EU" /> <span>Europe</span>',
+      'GCC': '<img src="/flags/ae.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="GCC" /> <span>UAE &amp; GCC</span>',
+      'UA': '<img src="/flags/ua.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="UA" /> <span>Ukraine</span>',
+      'GB': '<img src="/flags/gb.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="GB" /> <span>United Kingdom</span>',
+      'IN': '<img src="/flags/in.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="IN" /> <span>India</span>',
+      'MX': '<img src="/flags/mx.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="MX" /> <span>Mexico</span>',
+      'BR': '<img src="/flags/br.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="BR" /> <span>Brazil</span>',
+      'CZ': '<img src="/flags/cz.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="CZ" /> <span>Czechia</span>',
+      'PL': '<img src="/flags/pl.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="PL" /> <span>Poland</span>'
+    };
 
-        // Sync Hero Region text & checkmark
-        const regionHtmlMap = {
-          'ALL': '<svg class="w-4 h-4 text-slate-500 mr-1 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span>',
-          'GLOBAL': '<svg class="w-4 h-4 text-slate-500 mr-1 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span>',
-          'US': '<img src="/flags/us.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="US" /> <span>United States</span>',
-          'EU': '<img src="/flags/eu.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="EU" /> <span>Europe</span>',
-          'GCC': '<img src="/flags/ae.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="GCC" /> <span>UAE &amp; GCC</span>',
-          'UA': '<img src="/flags/ua.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="UA" /> <span>Ukraine</span>'
-        };
-        const heroRegionText = document.getElementById('heroSelectedRegionText');
-        if (heroRegionText) heroRegionText.innerHTML = regionHtmlMap[currentRegion] || currentRegion;
+    function applySelectedRegion(reg, skipDispatch = false) {
+      currentRegion = reg || 'GLOBAL';
+      const heroRegionText = document.getElementById('heroSelectedRegionText');
+      if (heroRegionText && regionHtmlMap[currentRegion]) {
+        heroRegionText.innerHTML = regionHtmlMap[currentRegion];
+      }
 
-        document.querySelectorAll('.hero-region-option').forEach(o => {
-          const isSel = o.getAttribute('data-hero-region') === currentRegion;
-          let check = o.querySelector('.hero-region-check');
-          if (isSel) {
-            if (!check) {
-              o.insertAdjacentHTML('beforeend', '<span class="hero-region-check text-emerald-500 font-bold">✓</span>');
-            }
-          } else {
-            if (check) check.remove();
-          }
-        });
-
-        filterDeals();
-      });
-    });
-
-    // Listen to header region changes
-    window.addEventListener('promoradar_region_changed', (e) => {
-      const reg = e.detail?.region || 'GLOBAL';
-      currentRegion = reg;
-      if (heroRegionText) heroRegionText.innerHTML = regionHtmlMap[reg] || reg;
+      // Sync Hero dropdown checkmarks
       document.querySelectorAll('.hero-region-option').forEach(o => {
-        const isSel = o.getAttribute('data-hero-region') === reg;
+        const isSel = o.getAttribute('data-hero-region') === currentRegion;
         let check = o.querySelector('.hero-region-check');
         if (isSel) {
           if (!check) o.insertAdjacentHTML('beforeend', '<span class="hero-region-check text-emerald-500 font-bold">✓</span>');
@@ -1593,7 +1789,48 @@ const homeSchemas = [
           if (check) check.remove();
         }
       });
+
+      // Sync secondary region filter pills if present
+      document.querySelectorAll('.region-filter-btn').forEach(b => {
+        const isAct = b.getAttribute('data-region') === currentRegion;
+        b.classList.toggle('is-active', isAct);
+        b.classList.toggle('font-bold', isAct);
+        b.classList.toggle('font-semibold', !isAct);
+      });
+
+      try { localStorage.setItem('promoradar_selected_region', currentRegion); } catch (e) {}
+
+      if (!skipDispatch) {
+        window.dispatchEvent(new CustomEvent('promoradar_region_changed', { detail: { region: currentRegion } }));
+      }
+
       filterDeals();
+    }
+
+    // Region & Geo Buttons
+    document.querySelectorAll('.region-filter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        if (btn.tagName === 'A') e.preventDefault();
+        const reg = btn.getAttribute('data-region') || 'GLOBAL';
+        applySelectedRegion(reg);
+      });
+    });
+
+    // Listen to header region changes
+    window.addEventListener('promoradar_region_changed', (e) => {
+      const reg = e.detail?.region || 'GLOBAL';
+      if (reg !== currentRegion) {
+        applySelectedRegion(reg, true);
+      }
+    });
+
+    // Listen to language changes
+    window.addEventListener('promoradar_lang_changed', (e) => {
+      const lang = e.detail?.lang || 'en';
+      if (lang !== currentLang) {
+        currentLang = lang;
+        filterDeals();
+      }
     });
 
     // Offer Type Buttons
@@ -1705,20 +1942,26 @@ const homeSchemas = [
       const q = query.trim().toLowerCase();
       if (heroSpotlightStatus) heroSpotlightStatus.textContent = `Suggestions for "${query.trim()}"`;
 
-      // 1. Match Stores
-      const matchedStores = (storesRegistry || []).filter(s =>
-        s.name.toLowerCase().includes(q) || s.category.toLowerCase().includes(q) || s.slug.includes(q)
-      ).slice(0, 5);
+      // 1. Match Stores (filter junk names)
+      const matchedStores = (storesRegistry || []).filter(s => {
+        const name = (s.name || '').toLowerCase();
+        // Skip junk campaigns
+        if (name.includes('get 1%') || name.includes('1929b') || name.includes('tested fr')) return false;
+        return name.includes(q) || (s.category || '').toLowerCase().includes(q) || (s.slug || '').includes(q);
+      }).slice(0, 5);
 
       // 2. Match Categories
       const matchedCategories = (categoriesRegistry || []).filter(c =>
-        c.name.toLowerCase().includes(q) || c.categoryName.toLowerCase().includes(q) || c.slug.includes(q)
+        (c.name || '').toLowerCase().includes(q) || (c.categoryName || '').toLowerCase().includes(q) || (c.slug || '').includes(q)
       ).slice(0, 3);
 
       // 3. Match Deals / Promo Codes
-      const matchedDeals = (dealsRegistry || []).filter(d =>
-        d.title.toLowerCase().includes(q) || d.storeName.toLowerCase().includes(q) || d.code.toLowerCase().includes(q)
-      ).slice(0, 4);
+      const matchedDeals = (dealsRegistry || []).filter(d => {
+        const title = (d.title || '').toLowerCase();
+        const sName = (d.storeName || '').toLowerCase();
+        if (title.includes('1929b') || sName.includes('get 1%')) return false;
+        return title.includes(q) || sName.includes(q) || (d.code || '').toLowerCase().includes(q);
+      }).slice(0, 4);
 
       const totalMatches = matchedStores.length + matchedCategories.length + matchedDeals.length;
 
@@ -1744,17 +1987,17 @@ const homeSchemas = [
             const count = (dealsRegistry || []).filter(d => d.storeSlug === s.slug).length;
 
             return `
-              <a href="${baseUrl}/stores/${s.slug}/" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition group">
-                <div class="flex items-center gap-2.5 min-w-0 pr-2">
-                  <div class="w-9 h-9 rounded-xl bg-white border border-slate-200 p-1 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
-                    ${domain ? `<img src="${logoUrl}" onerror="this.onerror=null;this.src='${fallbackUrl}';" alt="${s.name}" class="w-full h-full object-contain" />` : `<span class="text-indigo-700 font-extrabold text-[10px]">${s.name.slice(0, 2).toUpperCase()}</span>`}
+              <a href="${baseUrl}/stores/${s.slug}/" class="flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors group">
+                <div class="flex items-center gap-3 min-w-0 pr-2">
+                  <div class="w-9 h-9 rounded-xl bg-white border border-slate-200 dark:border-slate-700/80 p-1 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                    ${domain ? `<img src="${logoUrl}" onerror="this.onerror=null;this.src='${fallbackUrl}';" alt="${s.name}" class="w-full h-full object-contain" />` : `<span class="text-indigo-600 dark:text-indigo-400 font-extrabold text-[11px]">${s.name.slice(0, 2).toUpperCase()}</span>`}
                   </div>
                   <div class="truncate">
-                    <div class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 transition truncate">${s.name}</div>
-                    <div class="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">${count} active offers · ${s.category}</div>
+                    <div class="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition truncate">${s.name}</div>
+                    <div class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">${count} active offers · ${s.category}</div>
                   </div>
                 </div>
-                <span class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2.5 py-1 rounded-lg shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">Store →</span>
+                <span class="text-[10px] font-bold text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/80 border border-indigo-100 dark:border-indigo-800/50 px-2.5 py-1 rounded-lg shrink-0 group-hover:bg-indigo-600 group-hover:text-white dark:group-hover:bg-indigo-500 transition shadow-2xs">Store →</span>
               </a>
             `;
           }).join('');
@@ -1769,12 +2012,12 @@ const homeSchemas = [
         if (heroSpotlightCategoriesList) {
           heroSpotlightCategoriesList.innerHTML = matchedCategories.map(c => {
             return `
-              <a href="${baseUrl}/categories/${c.slug}/" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition group">
-                <div class="flex items-center gap-2">
+              <a href="${baseUrl}/categories/${c.slug}/" class="flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors group">
+                <div class="flex items-center gap-2.5">
                   <span class="text-base">${c.icon}</span>
-                  <span class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 transition">${c.name}</span>
+                  <span class="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">${c.name}</span>
                 </div>
-                <span class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2.5 py-1 rounded-lg shrink-0">Category →</span>
+                <span class="text-[10px] font-bold text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/80 border border-indigo-100 dark:border-indigo-800/50 px-2.5 py-1 rounded-lg shrink-0 group-hover:bg-indigo-600 group-hover:text-white dark:group-hover:bg-indigo-500 transition">Category →</span>
               </a>
             `;
           }).join('');
@@ -1806,17 +2049,17 @@ const homeSchemas = [
               <button
                 type="button"
                 data-reveal-deal="${dealJson}"
-                class="w-full text-left flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer group"
+                class="w-full text-left flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors cursor-pointer group"
               >
                 <div class="min-w-0 pr-2">
                   <div class="flex items-center gap-1.5">
-                    <span class="text-xs font-bold text-slate-900 dark:text-white truncate">${d.storeName}</span>
-                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-rose-50 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300 border border-rose-200/60 dark:border-rose-500/30">${d.badge}</span>
+                    <span class="text-xs font-bold text-slate-900 dark:text-slate-100 truncate">${d.storeName}</span>
+                    <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-rose-50 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300 border border-rose-200/60 dark:border-rose-500/30">${d.badge}</span>
                   </div>
-                  <p class="text-[11px] text-slate-600 dark:text-slate-400 truncate">${d.title}</p>
+                  <p class="text-[11px] text-slate-600 dark:text-slate-300 truncate mt-0.5">${d.title}</p>
                 </div>
-                <span class="font-mono text-xs font-bold text-indigo-900 bg-indigo-50 dark:bg-indigo-950 dark:text-indigo-300 px-2.5 py-1 rounded-lg border border-indigo-200 dark:border-indigo-800 shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">
-                  ${d.code ? '•••' + d.code.slice(-3) : 'Redeem →'}
+                <span class="font-mono text-xs font-bold text-indigo-700 bg-indigo-50 dark:bg-indigo-950 dark:text-indigo-300 px-2.5 py-1 rounded-lg border border-indigo-200 dark:border-indigo-800/70 shrink-0 group-hover:bg-indigo-600 group-hover:text-white dark:group-hover:bg-indigo-500 transition shadow-2xs">
+                  ${d.code ? '••• ' + d.code.slice(-3) : 'Redeem →'}
                 </span>
               </button>
             `;
@@ -1918,41 +2161,9 @@ const homeSchemas = [
 
     document.querySelectorAll('.hero-region-option').forEach(opt => {
       opt.addEventListener('click', () => {
-        const reg = opt.getAttribute('data-hero-region') || 'ALL';
-        currentRegion = reg;
-
-        const regionHtmlMap = {
-          'ALL': '<svg class="w-4 h-4 text-slate-500 mr-1 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span>',
-          'GLOBAL': '<svg class="w-4 h-4 text-slate-500 mr-1 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span>',
-          'US': '<img src="/flags/us.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="US" /> <span>United States</span>',
-          'EU': '<img src="/flags/eu.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="EU" /> <span>Europe</span>',
-          'GCC': '<img src="/flags/ae.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="GCC" /> <span>UAE &amp; GCC</span>',
-          'UA': '<img src="/flags/ua.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="UA" /> <span>Ukraine</span>'
-        };
-        if (heroRegionText) heroRegionText.innerHTML = regionHtmlMap[reg] || reg;
-
-        document.querySelectorAll('.hero-region-option').forEach(o => {
-          const isSel = o.getAttribute('data-hero-region') === reg;
-          let check = o.querySelector('.hero-region-check');
-          if (isSel) {
-            if (!check) {
-              o.insertAdjacentHTML('beforeend', '<span class="hero-region-check text-emerald-500 font-bold">✓</span>');
-            }
-          } else {
-            if (check) check.remove();
-          }
-        });
-
-        // Sync secondary control row
-        document.querySelectorAll('.region-filter-btn').forEach(b => {
-          const isAct = b.getAttribute('data-region') === currentRegion;
-          b.classList.toggle('is-active', isAct);
-          b.classList.toggle('font-bold', isAct);
-          b.classList.toggle('font-semibold', !isAct);
-        });
-
+        const reg = opt.getAttribute('data-hero-region') || 'GLOBAL';
+        applySelectedRegion(reg);
         heroRegionMenu?.classList.add('hidden');
-        filterDeals();
         document.getElementById('mainDealsGrid')?.scrollIntoView({ behavior: 'smooth' });
       });
     });
@@ -2106,5 +2317,812 @@ const homeSchemas = [
       });
       filterDeals();
     }
+
+    // Apply stored region on initial page mount (syncs UI & checkmarks without re-dispatching)
+    applySelectedRegion(currentRegion, true);
+
+    // Micro-animation choreography for Hero Section & Deal of the Day Card
+    (function initHeroEntranceAnimation() {
+      const heroContainer = document.getElementById('heroLeftContainer');
+      const dealCard = document.getElementById('heroDealCard');
+
+      const triggerHeroReveal = () => {
+        heroContainer?.classList.add('is-revealed');
+        dealCard?.classList.add('is-revealed');
+      };
+
+      const preloader = document.getElementById('promoradar-preloader');
+      if (preloader && preloader.dataset.hidden !== 'true') {
+        window.addEventListener('promoradar_preloader_done', () => {
+          // Micro delay buffer to start cascading after radar logo settles
+          setTimeout(() => {
+            requestAnimationFrame(triggerHeroReveal);
+          }, 80);
+        }, { once: true });
+      } else {
+        setTimeout(() => {
+          requestAnimationFrame(triggerHeroReveal);
+        }, 120);
+      }
+    })();
+
+    // Animated Deal of the Day Rotation Engine (Buttery-smooth cross-fade & progress bar)
+    (function initHeroDealRotation() {
+      const card = document.getElementById('heroDealCard');
+      const dynamicContent = document.getElementById('heroDealDynamicContent');
+      const timerBar = document.getElementById('heroDealTimerBar');
+      const dots = document.querySelectorAll('.hero-deal-dot');
+      const prevBtn = document.getElementById('heroDealPrevBtn');
+      const nextBtn = document.getElementById('heroDealNextBtn');
+      const playPauseBtn = document.getElementById('heroDealPlayPauseBtn');
+      const playIcon = document.getElementById('heroDealPlayIcon');
+      const pauseIcon = document.getElementById('heroDealPauseIcon');
+
+      // Flip Clock Digit Elements
+      const flipH = document.getElementById('flipHours');
+      const flipM = document.getElementById('flipMinutes');
+      const flipS = document.getElementById('flipSeconds');
+
+      if (!card || !dynamicContent) return;
+
+      const rotatingDeals = [
+        {
+          id: 'deal_expressvpn_49',
+          storeName: 'ExpressVPN',
+          storeSlug: 'expressvpn',
+          storeCategory: 'Privacy & Security',
+          discountBadge: '49% OFF',
+          discountSub: '+ 3 Months Free',
+          title: '49% Off ExpressVPN Annual Plan Plus Three Free Months',
+          description: 'Save 49% with 3 bonus months of verified RAM-only high-speed encryption across 105 countries with Keys password manager and 30-day money-back guarantee.',
+          code: 'EXPRESS49',
+          maskedCode: '••• S49',
+          successRate: '99.8%',
+          affiliateUrl: 'https://ziejy.com/g/4raik6r0sq367099d2cc309c6148a0/?i=3',
+          domain: 'expressvpn.com',
+          timerEnds: '14h 22m',
+          auditedAgo: '12m ago',
+          logoUrl: '/logos/expressvpn.png'
+        },
+        {
+          id: 'deal_hostinger_cloud_75',
+          storeName: 'Hostinger',
+          storeSlug: 'hostinger',
+          storeCategory: 'Web Hosting & Domains',
+          discountBadge: '75% OFF',
+          discountSub: '+ Free Domain Included',
+          title: 'Host 100 Websites: 75% Off Premium Web Hosting',
+          description: 'Deploy on ultra-fast NVMe LiteSpeed servers with 100 website slots, complimentary domain name, unmetered bandwidth, and automated daily backups.',
+          code: 'HOSTING75',
+          maskedCode: '••• G75',
+          successRate: '99.9%',
+          affiliateUrl: 'https://flirtcheck.site/go?offer=hostinger&source=deals_hostinger&trigger=coupon_card&intent=deals&sub3=hosting75',
+          domain: 'hostinger.com',
+          timerEnds: '08h 45m',
+          auditedAgo: '8m ago',
+          logoUrl: '/logos/hostinger.png'
+        },
+        {
+          id: 'cj-abelssoft-50off',
+          storeName: 'Abelssoft',
+          storeSlug: 'abelssoft',
+          storeCategory: 'Privacy & Security',
+          discountBadge: '50% OFF',
+          discountSub: 'Lifetime License Deal',
+          title: '50% Off Abelssoft Windows Tuning & System Security Software',
+          description: 'Optimize and shield your PC with award-winning registry cleaners, privacy guards, and real-time disk acceleration utilities with lifetime upgrades.',
+          code: 'ABELSSOFT50',
+          maskedCode: '••• T50',
+          successRate: '99.8%',
+          affiliateUrl: 'https://www.anrdoezrs.net/click-8102806-15509939',
+          domain: 'abelssoft.de',
+          timerEnds: '19h 10m',
+          auditedAgo: '15m ago',
+          logoUrl: '/logos/abelssoft.png'
+        },
+        {
+          id: 'net_849211',
+          storeName: 'Airalo eSIM',
+          storeSlug: 'airalo',
+          storeCategory: 'Travel & Tours',
+          discountBadge: '10% OFF',
+          discountSub: 'Global Travel Data',
+          title: 'Save 10% on Airalo Global Travel eSIM Data Packages',
+          description: 'Skip roaming fees and connect in 200+ countries instantly upon landing. Verified checkout coupon works on local and regional eSIM data passes.',
+          code: 'ADM',
+          maskedCode: '••• ADM',
+          successRate: '99.4%',
+          affiliateUrl: 'https://dhwnh.com/g/7rvld26bcl367099d2cc0471e42028/?i=3',
+          domain: 'airalo.com',
+          timerEnds: '11h 30m',
+          auditedAgo: '5m ago',
+          logoUrl: '/logos/airalo.png'
+        },
+        {
+          id: 'net_899182',
+          storeName: 'Alibaba',
+          storeSlug: 'alibaba',
+          storeCategory: 'E-Commerce & Wholesale',
+          discountBadge: '$20 OFF',
+          discountSub: 'Direct Factory Sourcing',
+          title: '20 $ OFF On Alibaba Factory-Direct Sourcing & Global Catalog',
+          description: 'Source trending consumer tech, gadgets, and lifestyle gear directly from verified manufacturers with volume tier discounts and tracked global delivery.',
+          code: 'HH12',
+          maskedCode: '••• H12',
+          successRate: '99.4%',
+          affiliateUrl: 'https://rzekl.com/g/384usiqcl3367099d2cc219aa26f6f/?i=3',
+          domain: 'alibaba.com',
+          timerEnds: '16h 05m',
+          auditedAgo: '18m ago',
+          logoUrl: '/logos/alibaba.png'
+        }
+      ];
+
+      let currentIndex = 0;
+      let isTransitioning = false;
+      let isUserPaused = false;
+      let isHoverPaused = false;
+      let progressInterval = null;
+      const ROTATION_INTERVAL_MS = 6000;
+      const stepMs = 50;
+      const totalSteps = ROTATION_INTERVAL_MS / stepMs;
+      let stepCount = 0;
+
+      // Realtime Vintage Split-Flap Flip Clock Countdown
+      function parseSecondsFromStr(str) {
+        const hMatch = str.match(/(\d+)h/);
+        const mMatch = str.match(/(\d+)m/);
+        const h = hMatch ? parseInt(hMatch[1], 10) : 12;
+        const m = mMatch ? parseInt(mMatch[1], 10) : 0;
+        return h * 3600 + m * 60 + 45;
+      }
+
+      let currentRemainingSec = parseSecondsFromStr(rotatingDeals[0].timerEnds);
+
+      function triggerFlipAnim(el, newText) {
+        if (!el || el.textContent === newText) return;
+        el.textContent = newText;
+        el.classList.remove('is-flipping');
+        void el.offsetWidth; // force reflow
+        el.classList.add('is-flipping');
+      }
+
+      function updateClockDisplay() {
+        if (currentRemainingSec < 0) currentRemainingSec = 0;
+        const hrs = String(Math.floor(currentRemainingSec / 3600)).padStart(2, '0');
+        const mins = String(Math.floor((currentRemainingSec % 3600) / 60)).padStart(2, '0');
+        const secs = String(currentRemainingSec % 60).padStart(2, '0');
+
+        triggerFlipAnim(flipH, hrs);
+        triggerFlipAnim(flipM, mins);
+        triggerFlipAnim(flipS, secs);
+      }
+
+      // Initial clock render
+      updateClockDisplay();
+
+      // Live 1-second countdown interval
+      setInterval(() => {
+        if (currentRemainingSec > 0) {
+          currentRemainingSec--;
+          updateClockDisplay();
+        }
+      }, 1000);
+
+      // Update interactive deal components smoothly
+      function renderDeal(index, direction = 'next') {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        const deal = rotatingDeals[index];
+
+        // Sync flip clock timer with active deal duration
+        currentRemainingSec = parseSecondsFromStr(deal.timerEnds);
+        updateClockDisplay();
+
+        // 1. Initiate slide-fade out
+        dynamicContent.style.transition = 'opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1), transform 0.28s cubic-bezier(0.4, 0, 0.2, 1)';
+        dynamicContent.style.opacity = '0';
+        dynamicContent.style.transform = direction === 'next' ? 'translate3d(0, -8px, 0)' : 'translate3d(0, 8px, 0)';
+
+        setTimeout(() => {
+          try {
+            // 2. Mutate DOM content
+            const logoBox = document.getElementById('heroDealLogoBox');
+            if (logoBox) {
+              logoBox.innerHTML = `<img src="${deal.logoUrl}" alt="${deal.storeName}" class="max-w-full max-h-full object-contain filter drop-shadow-sm transition-transform duration-300" onerror="this.onerror=null; this.src='/logos/${deal.storeSlug}.png';" />`;
+            }
+
+            const storeNameEl = document.getElementById('heroDealStoreName');
+            if (storeNameEl) storeNameEl.textContent = deal.storeName;
+
+            const storeCatEl = document.getElementById('heroDealStoreCat');
+            if (storeCatEl) storeCatEl.textContent = `${deal.storeCategory} • Official Merchant Partner`;
+
+            const badgeEl = document.getElementById('heroDealBadge');
+            if (badgeEl) {
+              badgeEl.textContent = deal.discountBadge;
+              badgeEl.className = 'text-3xl font-black text-emerald-700 dark:text-tertiary-fixed-dim leading-none';
+            }
+
+            const badgeSubEl = document.getElementById('heroDealBadgeSub');
+            if (badgeSubEl) badgeSubEl.textContent = deal.discountSub;
+
+            const successTextEl = document.getElementById('heroDealSuccessText');
+            if (successTextEl) successTextEl.textContent = deal.successRate;
+
+            const gaugeCircleEl = document.getElementById('heroDealGaugeCircle');
+            if (gaugeCircleEl) {
+              const num = parseFloat(deal.successRate.replace('%', '')) || 99.4;
+              gaugeCircleEl.setAttribute('stroke-dasharray', `${num}, 100`);
+            }
+
+            const titleEl = document.getElementById('heroDealTitle');
+            if (titleEl) titleEl.textContent = deal.title;
+
+            const descEl = document.getElementById('heroDealDesc');
+            if (descEl) descEl.textContent = deal.description;
+
+            const claimTextEl = document.getElementById('heroDealClaimText');
+            if (claimTextEl) claimTextEl.textContent = `Claim ${deal.discountBadge} Voucher`;
+
+            const maskedCodeEl = document.getElementById('heroDealMaskedCode');
+            if (maskedCodeEl) maskedCodeEl.textContent = deal.maskedCode;
+
+            const auditedTextEl = document.getElementById('heroDealAuditedText');
+            if (auditedTextEl) auditedTextEl.textContent = `Audited ${deal.auditedAgo}`;
+
+            const allOffersLink = document.getElementById('heroDealAllOffersLink');
+            if (allOffersLink) {
+              const resolvedBase = typeof baseUrl !== 'undefined' ? baseUrl : '';
+              allOffersLink.setAttribute('href', `${resolvedBase}/stores/${deal.storeSlug}/`);
+            }
+
+            const openBtn = document.getElementById('openFeaturedDealBtn');
+            if (openBtn) {
+              openBtn.setAttribute('data-reveal-deal', JSON.stringify({
+                id: deal.id,
+                title: deal.title,
+                desc: deal.description,
+                code: deal.code,
+                storeName: deal.storeName,
+                storeSlug: deal.storeSlug,
+                domain: deal.domain,
+                badge: deal.discountBadge,
+                affiliateUrl: deal.affiliateUrl
+              }));
+            }
+
+            // Update pagination dots
+            dots.forEach((dot, dIdx) => {
+              if (dIdx === index) {
+                dot.className = 'hero-deal-dot w-6 h-2 rounded-full transition-all duration-300 cursor-pointer bg-indigo-600 dark:bg-indigo-500';
+              } else {
+                dot.className = 'hero-deal-dot w-2 h-2 rounded-full transition-all duration-300 cursor-pointer bg-slate-300 dark:bg-white/25 hover:bg-slate-400';
+              }
+            });
+
+            // 3. Slide-fade in from opposite position
+            dynamicContent.style.transform = direction === 'next' ? 'translate3d(0, 10px, 0)' : 'translate3d(0, -10px, 0)';
+
+            requestAnimationFrame(() => {
+              dynamicContent.style.transition = 'opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+              dynamicContent.style.opacity = '1';
+              dynamicContent.style.transform = 'translate3d(0, 0, 0)';
+              setTimeout(() => {
+                isTransitioning = false;
+              }, 450);
+            });
+          } catch (err) {
+            console.error('Error during hero deal rotation:', err);
+            dynamicContent.style.opacity = '1';
+            dynamicContent.style.transform = 'translate3d(0, 0, 0)';
+            isTransitioning = false;
+          }
+        }, 280);
+      }
+
+      function nextDeal() {
+        currentIndex = (currentIndex + 1) % rotatingDeals.length;
+        renderDeal(currentIndex, 'next');
+        resetProgressBar();
+      }
+
+      function prevDeal() {
+        currentIndex = (currentIndex - 1 + rotatingDeals.length) % rotatingDeals.length;
+        renderDeal(currentIndex, 'prev');
+        resetProgressBar();
+      }
+
+      function resetProgressBar() {
+        stepCount = 0;
+        if (timerBar) {
+          timerBar.style.transition = 'none';
+          timerBar.style.width = '0%';
+        }
+      }
+
+      // Auto-rotation progress ticker
+      function startRotationLoop() {
+        if (isUserPaused || isHoverPaused) return;
+        stopRotationLoop();
+
+        progressInterval = setInterval(() => {
+          if (isUserPaused || isHoverPaused) return;
+          stepCount++;
+          const progressPercent = (stepCount / totalSteps) * 100;
+          if (timerBar) {
+            timerBar.style.transition = 'width 50ms linear';
+            timerBar.style.width = `${progressPercent}%`;
+          }
+
+          if (stepCount >= totalSteps) {
+            stepCount = 0;
+            nextDeal();
+          }
+        }, stepMs);
+      }
+
+      function stopRotationLoop() {
+        if (progressInterval) {
+          clearInterval(progressInterval);
+          progressInterval = null;
+        }
+      }
+
+      function togglePlayPause() {
+        isUserPaused = !isUserPaused;
+        if (isUserPaused) {
+          stopRotationLoop();
+          playIcon?.classList.remove('hidden');
+          pauseIcon?.classList.add('hidden');
+          playPauseBtn?.setAttribute('title', 'Resume Rotation');
+          playPauseBtn?.setAttribute('aria-label', 'Resume Rotation');
+        } else {
+          playIcon?.classList.add('hidden');
+          pauseIcon?.classList.remove('hidden');
+          playPauseBtn?.setAttribute('title', 'Pause Rotation');
+          playPauseBtn?.setAttribute('aria-label', 'Pause Rotation');
+          if (!isHoverPaused) startRotationLoop();
+        }
+      }
+
+      // Play / Pause event
+      playPauseBtn?.addEventListener('click', () => {
+        togglePlayPause();
+      });
+
+      // Pause rotation on hover, resume on mouse leave
+      card.addEventListener('mouseenter', () => {
+        isHoverPaused = true;
+        stopRotationLoop();
+      });
+
+      card.addEventListener('mouseleave', () => {
+        isHoverPaused = false;
+        if (!isUserPaused) {
+          startRotationLoop();
+        }
+      });
+
+      // Event listeners for dots and arrows
+      nextBtn?.addEventListener('click', () => {
+        nextDeal();
+        if (!isUserPaused) startRotationLoop();
+      });
+
+      prevBtn?.addEventListener('click', () => {
+        prevDeal();
+        if (!isUserPaused) startRotationLoop();
+      });
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const idx = parseInt(dot.getAttribute('data-hero-deal-index') || '0', 10);
+          if (idx !== currentIndex) {
+            const dir = idx > currentIndex ? 'next' : 'prev';
+            currentIndex = idx;
+            renderDeal(currentIndex, dir);
+            resetProgressBar();
+            if (!isUserPaused) startRotationLoop();
+          }
+        });
+      });
+
+      // Start loop when visible
+      startRotationLoop();
+    })();
   </script>
+
+  <style>
+    /* Premium hardware-accelerated micro-animations for Hero Block */
+    .hero-stagger-item {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0);
+      transition:
+        opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    /* Trust metrics children smooth emergence */
+    .hero-trust-badge,
+    .hero-trust-divider {
+      opacity: 0;
+      transform: translate3d(0, 10px, 0);
+      transition:
+        opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    /* Cascading reveal triggers */
+    #heroLeftContainer.is-revealed .hero-stagger-item {
+      opacity: 1 !important;
+      transform: translate3d(0, 0, 0) !important;
+    }
+
+    #heroLeftContainer.is-revealed .hero-trust-badge,
+    #heroLeftContainer.is-revealed .hero-trust-divider {
+      opacity: 1 !important;
+      transform: translate3d(0, 0, 0) !important;
+    }
+
+    /* Staggered sequential timeline */
+    /* 1. Main H1 Headline */
+    #heroLeftContainer.is-revealed #heroH1Title {
+      transition-delay: 0.05s;
+    }
+
+    /* 2. Subtitle paragraph */
+    #heroLeftContainer.is-revealed #heroSubtitleText {
+      transition-delay: 0.15s;
+    }
+
+    /* 3. Search Bar wrapper */
+    #heroLeftContainer.is-revealed #heroSearchWrapper {
+      transition-delay: 0.25s;
+    }
+
+    /* 4. Trending chips row */
+    #heroLeftContainer.is-revealed #heroTrendingRow {
+      transition-delay: 0.35s;
+    }
+
+    /* 5. Trust metrics strip container */
+    #heroLeftContainer.is-revealed #heroTrustStrip {
+      transition-delay: 0.45s;
+    }
+
+    /* Trust badges individual cascade within strip */
+    #heroLeftContainer.is-revealed .hero-trust-badge:nth-child(1) {
+      transition-delay: 0.50s;
+    }
+    #heroLeftContainer.is-revealed .hero-trust-divider:nth-child(2) {
+      transition-delay: 0.56s;
+    }
+    #heroLeftContainer.is-revealed .hero-trust-badge:nth-child(3) {
+      transition-delay: 0.60s;
+    }
+    #heroLeftContainer.is-revealed .hero-trust-divider:nth-child(4) {
+      transition-delay: 0.66s;
+    }
+    #heroLeftContainer.is-revealed .hero-trust-badge:nth-child(5) {
+      transition-delay: 0.70s;
+    }
+
+    /* Subtle hover micro-interactions for trust badges */
+    .hero-trust-badge {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero-trust-badge:hover {
+      transform: translate3d(0, -1.5px, 0) !important;
+    }
+
+    /* =========================================================================
+       Right Column: Deal of the Day Card Entrance Choreography
+       ========================================================================= */
+    #heroDealCard {
+      opacity: 0;
+      transform: translate3d(0, 22px, 0) scale(0.985);
+      transition:
+        opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.18s,
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.18s,
+        box-shadow 0.35s ease;
+      will-change: opacity, transform;
+    }
+
+    #heroDealCard.is-revealed {
+      opacity: 1 !important;
+      transform: translate3d(0, 0, 0) scale(1) !important;
+    }
+
+    /* Internal cascading elements of Deal of the Day Card */
+    .deal-stagger-item {
+      opacity: 0;
+      transform: translate3d(0, 10px, 0);
+      transition:
+        opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    #heroDealCard.is-revealed .deal-stagger-item {
+      opacity: 1 !important;
+      transform: translate3d(0, 0, 0) !important;
+    }
+
+    #heroDealDynamicContent .deal-stagger-item {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    /* Deal card sequential staggered timing */
+    /* Item 1: Top badge & countdown timer bar */
+    #heroDealCard.is-revealed .deal-stagger-item:nth-child(1) {
+      transition-delay: 0.26s;
+    }
+
+    /* Item 2: Merchant logo & Verified Today row */
+    #heroDealCard.is-revealed .deal-stagger-item:nth-child(2) {
+      transition-delay: 0.34s;
+    }
+
+    /* Item 3: 81% OFF banner & Telemetry circular gauge */
+    #heroDealCard.is-revealed .deal-stagger-item:nth-child(3) {
+      transition-delay: 0.42s;
+    }
+
+    /* Item 4: Title & Subtitle description */
+    #heroDealCard.is-revealed .deal-stagger-item:nth-child(4) {
+      transition-delay: 0.50s;
+    }
+
+    /* Item 5: Action buttons (Claim Voucher & All Offers) */
+    #heroDealCard.is-revealed .deal-stagger-item:nth-child(5) {
+      transition-delay: 0.58s;
+    }
+
+    /* Item 6: Audited timestamp & live ping footer */
+    #heroDealCard.is-revealed .deal-stagger-item:nth-child(6) {
+      transition-delay: 0.66s;
+    }
+
+    /* Telemetry Circular Gauge stroke animation */
+    .deal-gauge-circle {
+      stroke-dashoffset: 100;
+      transition: stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+    }
+
+    #heroDealCard.is-revealed .deal-gauge-circle {
+      stroke-dashoffset: 0;
+    }
+
+    /* Merchant Logo Subtle Scale & Hover */
+    .deal-logo-box {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #heroDealCard:hover .deal-logo-box {
+      transform: scale(1.05) translateZ(0);
+    }
+
+    /* Animated Fire Text & Flame Icon (Fire gradient flow, zero pulsing/jumping) */
+    .deal-fire-text-group {
+      position: relative;
+    }
+
+    .deal-fire-text {
+      background: linear-gradient(90deg, #ea580c, #f97316, #ef4444, #f59e0b, #ea580c);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fireTextFlow 4s linear infinite;
+      filter: drop-shadow(0 1px 2px rgba(234, 88, 12, 0.25));
+    }
+
+    @keyframes fireTextFlow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Flickering Flame Icon */
+    .deal-fire-icon {
+      color: #ea580c;
+      fill: #f59e0b;
+      transform-origin: 50% 90%;
+      animation: flameWiggle 1.6s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.6));
+    }
+
+    @keyframes flameWiggle {
+      0% {
+        transform: scale(1) rotate(-4deg);
+      }
+      50% {
+        transform: scale(1.15, 1.08) rotate(5deg);
+      }
+      100% {
+        transform: scale(0.95, 1.12) rotate(-3deg);
+      }
+    }
+
+    /* Vintage Mechanical Flip Clock (Split-flap digit display) */
+    .flip-card-unit {
+      position: relative;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 24px;
+      height: 26px;
+      border-radius: 5px;
+      padding: 0 5px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+      color: #f8fafc;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 2px 4px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(0, 0, 0, 0.7);
+      user-select: none;
+      overflow: hidden;
+    }
+
+    :global(.dark) .flip-card-unit {
+      background: linear-gradient(180deg, #181d27 0%, #0a0d14 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 2px 4px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    /* Center split flap horizontal seam */
+    .flip-card-unit::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.85);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Split flap side hinge notches */
+    .flip-card-unit::after {
+      content: '';
+      position: absolute;
+      left: -2px;
+      top: 50%;
+      width: 3px;
+      height: 3px;
+      background: #0f172a;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      box-shadow: calc(100% + 21px) 0 0 #0f172a;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Flip animation pulse when digit changes */
+    .flip-card-unit.is-flipping {
+      animation: splitFlapFlip 0.22s ease-in-out;
+    }
+
+    @keyframes splitFlapFlip {
+      0% {
+        transform: rotateX(0deg);
+      }
+      50% {
+        transform: rotateX(85deg);
+        filter: brightness(0.7);
+      }
+      100% {
+        transform: rotateX(0deg);
+        filter: brightness(1);
+      }
+    }
+
+    /* Smooth Fluid Dual-Theme Animated Gradient Headline */
+    .hero-headline-animated-gradient {
+      background: linear-gradient(
+        135deg,
+        #0f172a 0%,
+        #312e81 25%,
+        #4338ca 50%,
+        #1e1b4b 75%,
+        #0f172a 100%
+      );
+      background-size: 250% 250%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: heroFlowGradient 9s ease infinite;
+    }
+
+    :global(.dark) .hero-headline-animated-gradient {
+      background: linear-gradient(
+        135deg,
+        #f8fafc 0%,
+        #c7d2fe 25%,
+        #e0e7ff 50%,
+        #a5b4fc 75%,
+        #f8fafc 100%
+      );
+      background-size: 250% 250%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: heroFlowGradient 9s ease infinite;
+    }
+
+    .hero-headline-savings-gradient {
+      background: linear-gradient(
+        135deg,
+        #4f46e5 0%,
+        #7c3aed 30%,
+        #db2777 65%,
+        #ea580c 85%,
+        #4f46e5 100%
+      );
+      background-size: 250% 250%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: heroFlowGradient 7s ease infinite;
+    }
+
+    :global(.dark) .hero-headline-savings-gradient {
+      background: linear-gradient(
+        135deg,
+        #818cf8 0%,
+        #a78bfa 30%,
+        #f472b6 65%,
+        #fb923c 85%,
+        #818cf8 100%
+      );
+      background-size: 250% 250%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: heroFlowGradient 7s ease infinite;
+    }
+
+    @keyframes heroFlowGradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Accessibility respect */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-headline-animated-gradient,
+      .hero-headline-savings-gradient {
+        animation: none !important;
+        background-size: 100% 100% !important;
+      }
+      .hero-stagger-item,
+      .hero-trust-badge,
+      .hero-trust-divider,
+      #heroDealCard,
+      .deal-stagger-item,
+      .deal-gauge-circle {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        stroke-dashoffset: 0 !important;
+      }
+    }
+  </style>
 </BaseLayout>

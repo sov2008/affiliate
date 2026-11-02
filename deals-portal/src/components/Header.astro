@@ -2,7 +2,7 @@
 import { STORES_DATA } from '../data/couponsData';
 import { getUniqueCleanStores } from '../utils/dealNormalizer';
 import { LOCALES, DEFAULT_LOCALE, getTranslation } from '../i18n/ui';
-import { Flame, Store, Shapes, ArrowLeftRight, HelpCircle, ChevronDown, Sun, Moon, Heart, Globe } from 'lucide-astro';
+import { Flame, Store, Shapes, ArrowLeftRight, HelpCircle, ChevronDown, Sun, Moon, Heart, Globe, Sparkles, Shield, Zap, Home, Shirt, Plane, Gamepad2, Coffee, Car, ShoppingBag, ArrowRight, Compass, Percent, Layers, HeartHandshake, Glasses, Menu, X } from 'lucide-astro';
 
 interface Props {
   activePath?: string;
@@ -15,69 +15,412 @@ const uniqueStores = getUniqueCleanStores(STORES_DATA);
 const storesCount = uniqueStores.length;
 const t = getTranslation(locale);
 const currentLocaleConfig = LOCALES[locale] || LOCALES[DEFAULT_LOCALE];
+
+// Prepare categorized stores for RetailMeNot-style Mega Menu
+const megaCategories = [
+  { name: 'Popular', key: 'popular', icon: Sparkles },
+  { name: 'Privacy & Security', key: 'privacy', icon: Shield },
+  { name: 'Electronics & Gadgets', key: 'electronics', icon: Zap },
+  { name: 'Home & Living', key: 'home', icon: Home },
+  { name: 'Fashion & Apparel', key: 'fashion', icon: Shirt },
+  { name: 'Travel & Tours', key: 'travel', icon: Plane },
+  { name: 'Gaming & Software', key: 'software', icon: Gamepad2 },
+  { name: 'Food & Nutrition', key: 'food', icon: Coffee },
+  { name: 'Auto & Mobility', key: 'auto', icon: Car },
+  { name: 'E-Commerce & Wholesale', key: 'ecommerce', icon: ShoppingBag }
+];
+
+// Popular priority stores (like Amazon, Best Buy, etc. on RetailMeNot)
+const popularStores = uniqueStores.filter(s => 
+  ['expressvpn', 'nordvpn', 'surfshark', 'target', 'walmart', 'best-buy', 'aliexpress', 'dhgate', 'temu', 'hostinger', 'namecheap', 'shein', 'wayfair', 'viator', 'qvc', 'macys'].some(slug => (s.slug || '').toLowerCase().includes(slug)) ||
+  (s.rating && s.rating >= 4.8)
+).slice(0, 14);
+
+
+// Smart Categories Data with verified deals counters, max discount & top stores
+const smartCategories = [
+  {
+    slug: 'privacy-security',
+    name: 'Privacy, VPN & Security',
+    key: 'privacy',
+    icon: Shield,
+    desc: 'Military-grade VPNs, encrypted zero-knowledge password vaults & proxies.',
+    discountBadge: 'Up to 82% OFF',
+    featuredStores: ['ExpressVPN', 'NordVPN', 'Surfshark', 'Private Internet Access']
+  },
+  {
+    slug: 'electronics-gadgets',
+    name: 'Electronics & Portable Power',
+    key: 'electronics',
+    icon: Zap,
+    desc: 'Power stations, solar generators, audio devices & smart accessories.',
+    discountBadge: 'Up to 45% OFF',
+    featuredStores: ['EcoFlow', 'Jackery', 'Bluetti', 'Baseus']
+  },
+  {
+    slug: 'fashion-apparel',
+    name: 'Fashion & Designer Apparel',
+    key: 'fashion',
+    icon: Shirt,
+    desc: 'Worldwide on-trend designer fashion, footwear, denim & luxury jewelry.',
+    discountBadge: 'Up to 60% OFF',
+    featuredStores: ['SHEIN', 'ChicMe', 'Zaful', 'ASOS']
+  },
+  {
+    slug: 'travel-tours',
+    name: 'Travel, Flights & Desert Safaris',
+    key: 'travel',
+    icon: Plane,
+    desc: 'Boutique hotel bookings, desert tours, Burj Khalifa tickets & flights.',
+    discountBadge: 'Up to 25% OFF',
+    featuredStores: ['Viator', 'Trip.com', 'Agoda', 'Klook']
+  },
+  {
+    slug: 'gaming-software',
+    name: 'Gaming & Digital Software',
+    key: 'software',
+    icon: Gamepad2,
+    desc: 'Software licenses, PC gaming keys, streaming media & AI tools.',
+    discountBadge: 'Up to 70% OFF',
+    featuredStores: ['G2A', 'Kinguin', 'Eneba', 'Hostinger']
+  },
+  {
+    slug: 'home-living',
+    name: 'Home, Furniture & 3D Print',
+    key: 'home',
+    icon: Home,
+    desc: 'Smart furniture, 3D printing equipment, modern organizers & decor.',
+    discountBadge: 'Up to 40% OFF',
+    featuredStores: ['Anycubic', 'Elegoo', 'Wayfair', 'Costway']
+  },
+  {
+    slug: 'ecommerce-wholesale',
+    name: 'E-Commerce & Wholesale Hubs',
+    key: 'ecommerce',
+    icon: ShoppingBag,
+    desc: 'Global B2B wholesale platforms, factory-direct sourcing & department stores.',
+    discountBadge: 'Up to $30 OFF',
+    featuredStores: ['AliExpress', 'DHgate', 'Temu', 'Target']
+  },
+  {
+    slug: 'auto-mobility',
+    name: 'Auto & 4K Dashcams',
+    key: 'auto',
+    icon: Car,
+    desc: 'Wireless CarPlay adapters, 4K night-vision dashcams & accessories.',
+    discountBadge: 'Up to 35% OFF',
+    featuredStores: ['VIOFO', 'Carlinkit', '70mai', 'Rexing']
+  }
+];
+const storesByCategory: Record<string, typeof uniqueStores> = {
+  popular: popularStores.length > 0 ? popularStores : uniqueStores.slice(0, 12),
+  privacy: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('privacy') || (s.category || '').toLowerCase().includes('security')).slice(0, 14),
+  electronics: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('electronic') || (s.category || '').toLowerCase().includes('gadget')).slice(0, 14),
+  home: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('home') || (s.category || '').toLowerCase().includes('living')).slice(0, 14),
+  fashion: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('fashion') || (s.category || '').toLowerCase().includes('apparel')).slice(0, 14),
+  travel: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('travel') || (s.category || '').toLowerCase().includes('tour')).slice(0, 14),
+  software: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('software') || (s.category || '').toLowerCase().includes('gaming')).slice(0, 14),
+  food: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('food') || (s.category || '').toLowerCase().includes('nutrition') || (s.category || '').toLowerCase().includes('beverage')).slice(0, 14),
+  auto: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('auto') || (s.category || '').toLowerCase().includes('mobility')).slice(0, 14),
+  ecommerce: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('commerce') || (s.category || '').toLowerCase().includes('wholesale') || (s.category || '').toLowerCase().includes('department')).slice(0, 14)
+};
 ---
 
 <!-- Sticky Main Glass Header (h-[68px]) -->
 <header class="sticky top-0 z-40 h-[68px] bg-[#0B0F19] text-white border-b border-white/10 shadow-md transition-colors">
   <div class="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
     
-    <!-- Canonical Live Production PromoRadar Logo & Brand Block -->
-    <a href={`${base}/`} class="flex items-center gap-2.5 text-left group shrink-0">
-      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-rose-600 flex items-center justify-center text-white font-extrabold text-lg shadow-md shadow-indigo-500/20 group-hover:scale-105 transition">
-        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="9" stroke-width="2" class="opacity-40"></circle>
-          <circle cx="12" cy="12" r="5" stroke-width="2" class="opacity-75"></circle>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 12l6-6"></path>
-          <circle cx="12" cy="2" fill="currentColor"></circle>
-        </svg>
+        <!-- Balanced PromoRadar Brand Lockup -->
+    <a href={`${base}/`} class="pr-logo-root inline-flex items-center gap-1 sm:gap-1.5 group focus:outline-none select-none shrink-0" aria-label="PromoRadar Home">
+      <!-- 1. Squircle Radar Icon (With One-Time Intro Animation) -->
+      <div id="header-radar-badge" class="pr-logo-badge relative w-10 h-10 sm:w-11 sm:h-11 rounded-[13px] bg-gradient-to-b from-[#635BFF] via-[#4F46E5] to-[#312E81] p-[2px] shadow-md shadow-indigo-500/25 shrink-0 opacity-0 scale-90">
+        <div class="w-full h-full rounded-[11px] bg-[#1E1B4B] flex items-center justify-center overflow-hidden relative">
+          <svg class="w-9 h-9 sm:w-10 sm:h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="stitch-sweep" x1="20" y1="20" x2="32" y2="8" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#10B981" stop-opacity="0.65" />
+                <stop offset="100%" stop-color="#10B981" stop-opacity="0.0" />
+              </linearGradient>
+              <filter id="emerald-glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="1.5" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <circle cx="20" cy="20" r="15" stroke="#818CF8" stroke-opacity="0.45" stroke-width="1.2" />
+            <circle cx="20" cy="20" r="10.5" stroke="#818CF8" stroke-opacity="0.35" stroke-width="1" />
+            <circle cx="20" cy="20" r="6" stroke="#818CF8" stroke-opacity="0.35" stroke-width="1" />
+            <line x1="20" y1="4" x2="20" y2="36" stroke="#818CF8" stroke-opacity="0.25" stroke-width="1" />
+            <line x1="4" y1="20" x2="36" y2="20" stroke="#818CF8" stroke-opacity="0.25" stroke-width="1" />
+
+            <g class="header-radar-sweep-group" id="header-radar-sweep-group">
+              <path d="M20 20 L20 5 A15 15 0 0 1 31.5 10.4 Z" fill="url(#stitch-sweep)" />
+              <line x1="20" y1="20" x2="30.6" y2="9.4" stroke="#34D399" stroke-width="1.8" stroke-linecap="round" />
+            </g>
+
+            <circle cx="28" cy="12" r="2.3" fill="#34D399" filter="url(#emerald-glow)" class="header-radar-blip-1" id="header-radar-blip-1" />
+            <circle cx="25.5" cy="26.5" r="2" fill="#10B981" filter="url(#emerald-glow)" class="header-radar-blip-2" id="header-radar-blip-2" />
+
+            <circle cx="20" cy="20" r="3" fill="#10B981" filter="url(#emerald-glow)" />
+            <circle cx="20" cy="20" r="1.5" fill="#A7F3D0" />
+          </svg>
+        </div>
       </div>
-      <div>
-        <span class="font-extrabold text-lg tracking-tight text-white">PromoRadar</span>
-        <p class="text-[11px] text-slate-400 leading-none mt-0.5">Verified Promo Codes &amp; Deals</p>
+
+      <!-- 2. Balanced Typography Lockup (Emerges from behind radar, slogan glides down from above) -->
+      <div id="header-brand-block" class="flex flex-col justify-center overflow-hidden">
+        <div id="header-brand-title" class="tracking-tight leading-none overflow-hidden flex items-baseline">
+          <span class="pr-logo-title font-extrabold text-[20px] sm:text-[22px] text-white tracking-tight leading-none inline-flex items-baseline">
+            Promo<span class="text-indigo-400">Radar</span>
+          </span>
+          <!-- .store rolls out smoothly from left to right as the finale -->
+          <span id="header-brand-store-tag" class="text-[9.5px] sm:text-[10.5px] font-bold text-indigo-300/80 tracking-normal -ml-[1px] self-end">.store</span>
+        </div>
+        <div id="header-brand-sub" class="pr-logo-subtitle mt-0.5 overflow-hidden">
+          <span class="text-[8.5px] uppercase tracking-[0.06em] font-bold text-slate-400 leading-none block whitespace-nowrap">
+            Verified Promo Codes &amp; Deals
+          </span>
+        </div>
       </div>
     </a>
 
     <!-- Desktop Navigation Menu Tabs (Clean, Frameless, Pure Typography & Lucide Icons) -->
-    <nav class="hidden lg:flex items-center gap-1 text-xs font-bold" aria-label="Main Navigation">
+    <nav id="headerNavMenu" class="header-nav-menu hidden xl:flex items-center gap-1 text-xs font-bold" aria-label="Main Navigation">
       <a
         href={`${base}/`}
-        class={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition whitespace-nowrap ${
+        class={`header-stagger-item flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
           activePath === '/' 
-            ? 'text-indigo-600 dark:text-indigo-400 font-extrabold' 
-            : 'text-slate-300 hover:text-white transition-colors '
+            ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400 font-extrabold shadow-sm shadow-indigo-500/20' 
+            : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15'
         }`}
       >
         <Flame class="w-4 h-4" />
         <span data-i18n="allDeals">All Deals</span>
       </a>
-      <a
-        href={`${base}/stores/`}
-        class={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition whitespace-nowrap ${
-          activePath.startsWith('/stores') && !activePath.includes('/stores/')
-            ? 'text-indigo-600 dark:text-indigo-400 font-extrabold' 
-            : 'text-slate-300 hover:text-white transition-colors '
-        }`}
-      >
-        <Store class="w-4 h-4" />
-        <span data-i18n="stores">Stores</span><span class="font-normal text-slate-400">({storesCount})</span>
-      </a>
-      <a
-        href={`${base}/categories/`}
-        class={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition whitespace-nowrap ${
-          activePath.startsWith('/categories') 
-            ? 'text-indigo-600 dark:text-indigo-400 font-extrabold' 
-            : 'text-slate-300 hover:text-white transition-colors '
-        }`}
-      >
-        <Shapes class="w-4 h-4" />
-        <span data-i18n="categories">Categories</span>
-      </a>
+      <!-- RetailMeNot Style Stores Mega Menu Dropdown -->
+      <div class="relative group/stores header-stagger-item">
+        <a
+          href={`${base}/stores/`}
+          id="headerStoresNavBtn"
+          class={`flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
+            activePath.startsWith('/stores')
+              ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400 font-extrabold shadow-sm shadow-indigo-500/20' 
+              : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15 group-hover/stores:bg-white/5 group-hover/stores:border-white/15 group-hover/stores:text-white'
+          }`}
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <Store class="w-4 h-4" />
+          <span data-i18n="stores">Stores</span>
+          <span class="font-normal text-slate-400 text-[11px]">({storesCount})</span>
+          <ChevronDown class="w-3.5 h-3.5 text-slate-400 group-hover/stores:rotate-180 transition-transform duration-200" />
+        </a>
+
+        <!-- 2-Column Split Dropdown (RetailMeNot Reverse-Engineered Architecture) -->
+        <div
+          id="storesMegaDropdown"
+          class="hidden group-hover/stores:flex absolute top-full left-0 mt-1 w-[490px] bg-[#0E131F] border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200"
+        >
+          <!-- Left Column: Categories List (Width: 175px) -->
+          <div class="w-[205px] bg-[#080B14] py-3 px-2 border-r border-white/10 shrink-0 space-y-0.5">
+            {megaCategories.map((cat, idx) => {
+              const IconComp = cat.icon;
+              return (
+                <button
+                  type="button"
+                  data-mega-cat={cat.key}
+                  class={`mega-cat-btn w-full text-left px-2.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 flex items-center justify-between gap-1.5 cursor-pointer ${
+                    idx === 0 
+                      ? 'bg-indigo-600/20 text-indigo-400 font-bold border border-indigo-500/30' 
+                      : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                  }`}
+                >
+                  <span class="flex items-center gap-2 truncate">
+                    <IconComp class="w-3.5 h-3.5 shrink-0 opacity-80" />
+                    <span class="truncate">{cat.name}</span>
+                  </span>
+                  <span class="text-[10px] text-slate-500 font-mono shrink-0">{(storesByCategory[cat.key] || []).length}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <!-- Right Column: Stores List for the Selected Category (Width: 280px) -->
+          <div class="flex-1 p-3.5 flex flex-col justify-between bg-[#0E131F]">
+            <div>
+              <div class="flex items-center justify-between pb-2 mb-2 border-b border-white/10">
+                <span id="megaCurrentCatTitle" class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">Popular Stores</span>
+                <a href={`${base}/stores/`} class="text-[11px] text-indigo-400 hover:text-indigo-300 font-bold transition flex items-center gap-1">
+                  View All &rarr;
+                </a>
+              </div>
+
+              <!-- Store Items Container -->
+              {megaCategories.map((cat, idx) => (
+                <div
+                  id={`mega-store-list-${cat.key}`}
+                  class={`mega-store-panel ${idx === 0 ? 'grid' : 'hidden'} grid-cols-2 gap-x-2 gap-y-1.5`}
+                >
+                  {(storesByCategory[cat.key] || []).map((store) => (
+                    <a
+                      href={`${base}/stores/${store.slug}/`}
+                      class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white transition group/store truncate"
+                      title={store.name}
+                    >
+                      <div class="w-5 h-5 rounded-md bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-bold text-indigo-400 shrink-0 uppercase">
+                        {(store.name || 'S').charAt(0)}
+                      </div>
+                      <span class="text-xs font-medium truncate group-hover/store:text-white">{store.name}</span>
+                    </a>
+                  ))}
+                  {(storesByCategory[cat.key] || []).length === 0 && (
+                    <div class="col-span-2 py-4 text-center text-xs text-slate-500">
+                      Explore all partner stores in the directory.
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <!-- Bottom Promo Bar in Dropdown -->
+            <div class="pt-3 mt-3 border-t border-white/10 flex items-center justify-between text-[11px]">
+              <span class="text-slate-400">All codes verified today</span>
+              <a href={`${base}/stores/`} class="text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 px-3 py-1 rounded-lg transition shadow-sm">
+                Browse Directory
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Smart Categories Mega Menu Dropdown (RetailMeNot Split Architecture) -->
+      <div class="relative group/categories header-stagger-item">
+        <a
+          href={`${base}/categories/`}
+          id="headerCategoriesNavBtn"
+          class={`flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
+            activePath.startsWith('/categories') 
+              ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400 font-extrabold shadow-sm shadow-indigo-500/20' 
+              : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15 group-hover/categories:bg-white/5 group-hover/categories:border-white/15 group-hover/categories:text-white'
+          }`}
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <Shapes class="w-4 h-4" />
+          <span data-i18n="categories">Categories</span>
+          <ChevronDown class="w-3.5 h-3.5 text-slate-400 group-hover/categories:rotate-180 transition-transform duration-200" />
+        </a>
+
+        <!-- 2-Column Split Dropdown for Smart Categories -->
+        <div
+          id="categoriesMegaDropdown"
+          class="hidden group-hover/categories:flex absolute top-full left-0 mt-1 w-[530px] bg-[#0E131F] border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200"
+        >
+          <!-- Left Column: Category Selector List (Width: 220px) -->
+          <div class="w-[220px] bg-[#080B14] py-3 px-2 border-r border-white/10 shrink-0 space-y-0.5">
+            {smartCategories.map((cat, idx) => {
+              const IconComponent = cat.icon;
+              return (
+                <button
+                  type="button"
+                  data-smart-cat={cat.key}
+                  class={`smart-cat-btn w-full text-left px-2.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 flex items-center justify-between gap-1.5 cursor-pointer ${
+                    idx === 0 
+                      ? 'bg-indigo-600/20 text-indigo-400 font-bold border border-indigo-500/30' 
+                      : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                  }`}
+                >
+                  <span class="flex items-center gap-2 truncate">
+                    <IconComponent class="w-3.5 h-3.5 shrink-0 opacity-80" />
+                    <span class="truncate">{cat.name.split('&')[0]}</span>
+                  </span>
+                  <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 shrink-0">
+                    {cat.discountBadge.replace('Up to ', '')}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <!-- Right Column: Smart Category Highlights, Stores & Quick Actions -->
+          <div class="flex-1 p-4 flex flex-col justify-between bg-[#0E131F]">
+            <div>
+              {smartCategories.map((cat, idx) => {
+                const CatIcon = cat.icon;
+                return (
+                  <div
+                    id={`smart-cat-panel-${cat.key}`}
+                    class={`smart-cat-panel ${idx === 0 ? 'block' : 'hidden'} space-y-3.5`}
+                  >
+                    <!-- Header with Icon & Verified Badge -->
+                    <div class="flex items-start justify-between gap-2 border-b border-white/10 pb-2.5">
+                      <div class="flex items-center gap-2">
+                        <div class="w-7 h-7 rounded-lg bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shrink-0">
+                          <CatIcon class="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 class="text-xs font-extrabold text-white leading-tight">{cat.name}</h4>
+                          <span class="text-[10px] text-emerald-400 font-semibold">{cat.discountBadge} verified savings</span>
+                        </div>
+                      </div>
+                      <a
+                        href={`${base}/categories/#${cat.slug}`}
+                        class="text-[11px] font-bold text-indigo-400 hover:text-indigo-300 transition flex items-center gap-0.5 shrink-0"
+                      >
+                        Explore &rarr;
+                      </a>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-[11px] text-slate-400 leading-relaxed">
+                      {cat.desc}
+                    </p>
+
+                    <!-- Featured Stores in Category -->
+                    <div>
+                      <div class="text-[10px] uppercase font-bold tracking-wider text-slate-500 mb-1.5">Top Partner Stores</div>
+                      <div class="flex flex-wrap gap-1.5">
+                        {cat.featuredStores.map((storeName) => (
+                          <a
+                            href={`${base}/stores/${storeName.toLowerCase().replace(/[^a-z0-9]/g, '-')}/`}
+                            class="text-xs px-2.5 py-1 rounded-lg bg-white/5 hover:bg-indigo-600/20 text-slate-300 hover:text-white border border-white/10 hover:border-indigo-500/30 transition flex items-center gap-1.5 font-medium"
+                          >
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                            <span>{storeName}</span>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <!-- Bottom Action Footer -->
+            <div class="pt-3 mt-3 border-t border-white/10 flex items-center justify-between text-[11px]">
+              <span class="text-slate-400 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Active coupon feeds</span>
+              </span>
+              <a
+                href={`${base}/categories/`}
+                class="text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 px-3.5 py-1.5 rounded-lg transition shadow-md shadow-indigo-600/20 flex items-center gap-1"
+              >
+                <span>All Categories</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
       <a
         href={`${base}/compare/`}
-        class={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition whitespace-nowrap ${
+        class={`header-stagger-item flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
           activePath.startsWith('/compare') 
-            ? 'text-indigo-600 dark:text-indigo-400 font-extrabold' 
-            : 'text-slate-300 hover:text-white transition-colors '
+            ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400 font-extrabold shadow-sm shadow-indigo-500/20' 
+            : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15'
         }`}
       >
         <ArrowLeftRight class="w-4 h-4" />
@@ -85,10 +428,10 @@ const currentLocaleConfig = LOCALES[locale] || LOCALES[DEFAULT_LOCALE];
       </a>
       <a
         href={`${base}/about/`}
-        class={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition whitespace-nowrap ${
+        class={`header-stagger-item flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
           activePath.startsWith('/about') 
-            ? 'text-indigo-600 dark:text-indigo-400 font-extrabold' 
-            : 'text-slate-300 hover:text-white transition-colors '
+            ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400 font-extrabold shadow-sm shadow-indigo-500/20' 
+            : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15'
         }`}
       >
         <HelpCircle class="w-4 h-4" />
@@ -97,17 +440,17 @@ const currentLocaleConfig = LOCALES[locale] || LOCALES[DEFAULT_LOCALE];
     </nav>
 
     <!-- Clean Header Actions (Frameless, Borderless, Background-free) -->
-    <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
+    <div id="headerActionsBlock" class="header-actions-block flex items-center gap-1 sm:gap-2 shrink-0">
       
       <!-- Region Selector (Frameless) -->
-      <div class="relative">
+      <div class="relative header-stagger-item">
         <button
           type="button"
           id="headerRegionDropdownBtn"
-          class="h-9 inline-flex items-center gap-1 px-2.5 rounded-lg  text-slate-200 hover:text-white text-xs font-bold transition shrink-0 cursor-pointer whitespace-nowrap"
+          class="h-9 inline-flex items-center gap-1 px-2.5 rounded-lg text-slate-200 hover:text-white text-xs font-bold transition shrink-0 cursor-pointer whitespace-nowrap"
           title="Select Target Region"
         >
-          <span id="headerSelectedRegionText" class="inline-flex items-center gap-1.5"><Globe class="w-4 h-4 text-slate-500 dark:text-slate-400" /> <span>Worldwide</span></span>
+          <span id="headerSelectedRegionText" class="inline-flex items-center gap-1.5"><Globe class="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" /> <span class="hidden sm:inline">Worldwide</span></span>
           <ChevronDown class="w-3.5 h-3.5 text-slate-400" />
         </button>
         <div
@@ -143,23 +486,47 @@ const currentLocaleConfig = LOCALES[locale] || LOCALES[DEFAULT_LOCALE];
               <span>Ukraine</span>
             </span>
           </button>
+          <button type="button" data-region-code="GB" data-flag="/flags/gb.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+            <span class="inline-flex items-center gap-2">
+              <img src="/flags/gb.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GB" />
+              <span>United Kingdom</span>
+            </span>
+          </button>
+          <button type="button" data-region-code="IN" data-flag="/flags/in.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+            <span class="inline-flex items-center gap-2">
+              <img src="/flags/in.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="IN" />
+              <span>India</span>
+            </span>
+          </button>
+          <button type="button" data-region-code="MX" data-flag="/flags/mx.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+            <span class="inline-flex items-center gap-2">
+              <img src="/flags/mx.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="MX" />
+              <span>Mexico</span>
+            </span>
+          </button>
+          <button type="button" data-region-code="BR" data-flag="/flags/br.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+            <span class="inline-flex items-center gap-2">
+              <img src="/flags/br.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="BR" />
+              <span>Brazil</span>
+            </span>
+          </button>
+          <button type="button" data-region-code="CZ" data-flag="/flags/cz.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+            <span class="inline-flex items-center gap-2">
+              <img src="/flags/cz.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="CZ" />
+              <span>Czechia</span>
+            </span>
+          </button>
+          <button type="button" data-region-code="PL" data-flag="/flags/pl.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+            <span class="inline-flex items-center gap-2">
+              <img src="/flags/pl.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="PL" />
+              <span>Poland</span>
+            </span>
+          </button>
         </div>
       </div>
 
-      <!-- Saved Deals Icon Pill -->
-      <button
-        id="headerSavedBtn"
-        type="button"
-        class="h-9 inline-flex items-center gap-1.5 px-2 rounded-lg text-rose-500 hover:text-rose-400 transition shrink-0 cursor-pointer group"
-        title="Saved Vouchers"
-        aria-label="Saved Vouchers"
-      >
-        <Heart class="w-[18px] h-[18px] text-rose-500 fill-rose-500 group-hover:scale-110 transition-transform" />
-        <span id="savedCountBadge" class="text-[10px] font-mono font-extrabold px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 min-w-[18px] text-center leading-none">0</span>
-      </button>
-
       <!-- Language Selector (Frameless) -->
-      <div class="relative">
+      <div class="relative header-stagger-item">
         <button
           type="button"
           id="headerLangDropdownBtn"
@@ -167,7 +534,7 @@ const currentLocaleConfig = LOCALES[locale] || LOCALES[DEFAULT_LOCALE];
           title="Select Language"
         >
           <img id="headerSelectedLangFlag" src={`/flags/${currentLocaleConfig.countryCode || 'us'}.svg`} class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="" />
-          <span id="headerSelectedLangText" class="uppercase tracking-wider text-[11px] font-mono">{currentLocaleConfig.code}</span>
+          <span id="headerSelectedLangText" class="uppercase tracking-wider text-[11px] font-mono leading-none">{currentLocaleConfig.code}</span>
           <ChevronDown class="w-3.5 h-3.5 text-slate-400" />
         </button>
         <div
@@ -191,11 +558,23 @@ const currentLocaleConfig = LOCALES[locale] || LOCALES[DEFAULT_LOCALE];
         </div>
       </div>
 
+      <!-- Saved Deals Icon & Pure Number Counter -->
+      <button
+        id="headerSavedBtn"
+        type="button"
+        class="header-stagger-item h-9 inline-flex items-center gap-1 px-2 rounded-xl border border-transparent hover:border-white/15 hover:bg-white/5 transition-all duration-200 shrink-0 cursor-pointer group select-none"
+        title="Saved Vouchers"
+        aria-label="Saved Vouchers"
+      >
+        <Heart class="w-[18px] h-[18px] text-rose-500 fill-rose-500 group-hover:scale-110 transition-transform duration-200" />
+        <span id="savedCountBadge" class="text-xs font-mono font-bold text-rose-400 tracking-tight leading-none">0</span>
+      </button>
+
       <!-- Single Icon Theme Toggle (Light / Dark) -->
       <button
         id="singleThemeToggleBtn"
         type="button"
-        class="h-9 w-9 inline-flex items-center justify-center rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition cursor-pointer shrink-0"
+        class="header-stagger-item h-9 w-9 inline-flex items-center justify-center rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition cursor-pointer shrink-0"
         title="Toggle Light / Dark theme"
         aria-label="Toggle theme"
       >
@@ -203,7 +582,83 @@ const currentLocaleConfig = LOCALES[locale] || LOCALES[DEFAULT_LOCALE];
         <Moon id="themeMoonIcon" class="w-[18px] h-[18px] block dark:hidden text-slate-200" />
       </button>
 
+      <!-- Mobile Menu Hamburger Button (visible on < md screens) -->
+      <button
+        id="headerMobileMenuBtn"
+        type="button"
+        class="header-stagger-item xl:hidden h-9 w-9 inline-flex items-center justify-center rounded-xl border border-white/10 hover:border-white/20 bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white transition cursor-pointer shrink-0"
+        aria-label="Toggle Mobile Navigation"
+      >
+        <Menu id="headerMobileMenuOpenIcon" class="w-5 h-5 block" />
+        <X id="headerMobileMenuCloseIcon" class="w-5 h-5 hidden" />
+      </button>
+
     </div>
+  </div>
+
+  <!-- Mobile Dropdown Navigation Drawer -->
+  <div
+    id="headerMobileNavDrawer"
+    class="hidden xl:hidden border-t border-white/10 bg-[#0B0F19]/98 backdrop-blur-xl px-4 py-4 space-y-2 animate-in slide-in-from-top-2 duration-200 shadow-2xl"
+  >
+    <a
+      href={`${base}/`}
+      class={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl border text-sm font-bold transition ${
+        activePath === '/'
+          ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400'
+          : 'border-transparent text-slate-300 hover:bg-white/5 hover:text-white'
+      }`}
+    >
+      <Flame class="w-4 h-4" />
+      <span data-i18n="allDeals">All Deals</span>
+    </a>
+    <a
+      href={`${base}/stores/`}
+      class={`flex items-center justify-between px-3 py-2.5 rounded-xl border text-sm font-bold transition ${
+        activePath.startsWith('/stores')
+          ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400'
+          : 'border-transparent text-slate-300 hover:bg-white/5 hover:text-white'
+      }`}
+    >
+      <span class="flex items-center gap-2.5">
+        <Store class="w-4 h-4" />
+        <span data-i18n="stores">Stores</span>
+      </span>
+      <span class="text-xs text-slate-400 font-mono">({storesCount})</span>
+    </a>
+    <a
+      href={`${base}/categories/`}
+      class={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl border text-sm font-bold transition ${
+        activePath.startsWith('/categories')
+          ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400'
+          : 'border-transparent text-slate-300 hover:bg-white/5 hover:text-white'
+      }`}
+    >
+      <Shapes class="w-4 h-4" />
+      <span data-i18n="categories">Categories</span>
+    </a>
+    <a
+      href={`${base}/compare/`}
+      class={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl border text-sm font-bold transition ${
+        activePath.startsWith('/compare')
+          ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400'
+          : 'border-transparent text-slate-300 hover:bg-white/5 hover:text-white'
+      }`}
+    >
+      <ArrowLeftRight class="w-4 h-4" />
+      <span data-i18n="compare">Compare</span>
+    </a>
+    <a
+      href={`${base}/about/`}
+      class={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl border text-sm font-bold transition ${
+        activePath.startsWith('/about')
+          ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400'
+          : 'border-transparent text-slate-300 hover:bg-white/5 hover:text-white'
+      }`}
+    >
+      <HelpCircle class="w-4 h-4" />
+      <span data-i18n="faq">FAQ</span>
+    </a>
   </div>
 </header>
 
@@ -223,11 +678,33 @@ const currentLocaleConfig = LOCALES[locale] || LOCALES[DEFAULT_LOCALE];
     });
   })();
 
-  // Header Region Dropdown
+  // Header Region Dropdown with Persistent Storage & Global Event Sync
   (function initHeaderRegionDropdown() {
     const btn = document.getElementById('headerRegionDropdownBtn');
     const menu = document.getElementById('headerRegionMenu');
     const label = document.getElementById('headerSelectedRegionText');
+
+    // Restore selected region on load
+    try {
+      const savedRegion = localStorage.getItem('promoradar_selected_region') || 'GLOBAL';
+      if (savedRegion && savedRegion !== 'GLOBAL') {
+        const item = menu?.querySelector(`[data-region-code="${savedRegion}"]`);
+        if (item) {
+          const img = item.querySelector('img');
+          const textSpan = item.querySelector('span > span:last-child') || item.querySelector('span');
+          const text = textSpan ? textSpan.textContent.trim() : item.textContent.trim();
+          if (label) {
+            if (img) {
+              label.innerHTML = `<img src="${img.src}" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="" /> <span>${text}</span>`;
+            } else {
+              label.innerHTML = `<svg class="w-4 h-4 text-slate-500 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>${text.replace('🌐', '').trim()}</span>`;
+            }
+          }
+          menu.querySelectorAll('.region-check').forEach(c => c.remove());
+          item.insertAdjacentHTML('beforeend', '<span class="region-check text-emerald-500 font-bold">✓</span>');
+        }
+      }
+    } catch (e) {}
 
     btn?.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -238,12 +715,13 @@ const currentLocaleConfig = LOCALES[locale] || LOCALES[DEFAULT_LOCALE];
       menu?.classList.add('hidden');
     });
 
-    menu?.querySelectorAll('.header-region-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const code = item.getAttribute('data-region-code') || 'GLOBAL';
+    function updateHeaderRegionUI(regionCode) {
+      const targetCode = regionCode || 'GLOBAL';
+      const item = menu?.querySelector(`[data-region-code="${targetCode}"]`);
+      if (item) {
         const img = item.querySelector('img');
         const textSpan = item.querySelector('span > span:last-child') || item.querySelector('span');
-        const text = textSpan ? textSpan.textContent.trim() : (item.textContent.trim());
+        const text = textSpan ? textSpan.textContent.trim() : item.textContent.trim();
         if (label) {
           if (img) {
             label.innerHTML = `<img src="${img.src}" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs mr-1" alt="" /> <span>${text}</span>`;
@@ -251,15 +729,28 @@ const currentLocaleConfig = LOCALES[locale] || LOCALES[DEFAULT_LOCALE];
             label.innerHTML = `<svg class="w-4 h-4 text-slate-500 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>${text.replace('🌐', '').trim()}</span>`;
           }
         }
-        menu.classList.add('hidden');
-
-        // Checkmark sync
         menu.querySelectorAll('.region-check').forEach(c => c.remove());
         item.insertAdjacentHTML('beforeend', '<span class="region-check text-emerald-500 font-bold">✓</span>');
+      }
+    }
 
-        // Dispatch global region change event
+    menu?.querySelectorAll('.header-region-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const code = item.getAttribute('data-region-code') || 'GLOBAL';
+        updateHeaderRegionUI(code);
+        menu.classList.add('hidden');
+
+        // Save to localStorage & dispatch global region change event
+        try { localStorage.setItem('promoradar_selected_region', code); } catch (e) {}
         window.dispatchEvent(new CustomEvent('promoradar_region_changed', { detail: { region: code } }));
       });
+    });
+
+    // Listen to region changes from Hero search bar or other components
+    window.addEventListener('promoradar_region_changed', (e) => {
+      if (e.detail?.region) {
+        updateHeaderRegionUI(e.detail.region);
+      }
     });
   })();
 
@@ -335,4 +826,338 @@ const currentLocaleConfig = LOCALES[locale] || LOCALES[DEFAULT_LOCALE];
       }
     } catch (e) {}
   })();
+
+  // Trigger Header Radar Sweep once Preloader finishes (Hardware-Accelerated CSS GPU Animation)
+  (function initHeaderRadarTrigger() {
+    function startHeaderRadar() {
+      try {
+        const radarBadge = document.getElementById('header-radar-badge');
+        const sweepGroup = document.getElementById('header-radar-sweep-group');
+        const blip1 = document.getElementById('header-radar-blip-1');
+        const blip2 = document.getElementById('header-radar-blip-2');
+
+        // 1. Silky emergence of squircle radar badge
+        if (radarBadge) {
+          radarBadge.classList.add('is-revealed');
+        }
+
+        // 2. Start graceful radar sweep
+        if (sweepGroup) {
+          sweepGroup.classList.add('is-active');
+        }
+        if (blip1) {
+          blip1.classList.add('is-active');
+        }
+        if (blip2) {
+          blip2.classList.add('is-active');
+        }
+
+        // 3. Staggered organic reveal of Brand Title and Subtitle
+        const brandTitle = document.getElementById('header-brand-title');
+        const brandSub = document.getElementById('header-brand-sub');
+        const storeTag = document.getElementById('header-brand-store-tag');
+        if (brandTitle) {
+          brandTitle.classList.add('is-revealed');
+        }
+        if (brandSub) {
+          brandSub.classList.add('is-revealed');
+        }
+        if (storeTag) {
+          storeTag.classList.add('is-revealed');
+        }
+
+        // 4. Staggered graceful reveal of Nav items & Header actions
+        const navMenu = document.getElementById('headerNavMenu');
+        const actionsBlock = document.getElementById('headerActionsBlock');
+        if (navMenu) {
+          navMenu.classList.add('is-revealed');
+        }
+        if (actionsBlock) {
+          actionsBlock.classList.add('is-revealed');
+        }
+      } catch (e) {
+        console.warn('Radar animation trigger fallback:', e);
+      }
+    }
+
+    // If preloader exists on page, trigger seamlessly as preloader starts dissolving
+    const preloader = document.getElementById('promoradar-preloader');
+    if (preloader && preloader.dataset.hidden !== 'true') {
+      window.addEventListener('promoradar_preloader_done', () => {
+        // Small 40ms frame buffer for seamless GPU compositing
+        requestAnimationFrame(() => {
+          startHeaderRadar();
+        });
+      }, { once: true });
+    } else {
+      startHeaderRadar();
+    }
+  })();
+
+  // RetailMeNot Style Stores Mega Menu Interactions
+  (function initStoresMegaMenu() {
+    const catButtons = document.querySelectorAll('.mega-cat-btn');
+    const storePanels = document.querySelectorAll('.mega-store-panel');
+    const titleEl = document.getElementById('megaCurrentCatTitle');
+
+    catButtons.forEach(btn => {
+      // Switch on hover (like RetailMeNot desktop) and click
+      const switchCategory = () => {
+        const catKey = btn.getAttribute('data-mega-cat');
+        const catName = btn.querySelector('span')?.textContent || 'Stores';
+
+        // Update active button state
+        catButtons.forEach(b => {
+          b.classList.remove('bg-indigo-600/20', 'text-indigo-400', 'font-bold', 'border-indigo-500/30');
+          b.classList.add('text-slate-400', 'border-transparent');
+        });
+        btn.classList.add('bg-indigo-600/20', 'text-indigo-400', 'font-bold', 'border-indigo-500/30');
+        btn.classList.remove('text-slate-400', 'border-transparent');
+
+        // Update title
+        if (titleEl) {
+          titleEl.textContent = catName.toUpperCase() + (catKey === 'popular' ? ' STORES' : '');
+        }
+
+        // Show matching panel
+        storePanels.forEach(panel => {
+          panel.classList.add('hidden');
+          panel.classList.remove('grid');
+        });
+        const targetPanel = document.getElementById('mega-store-list-' + catKey);
+        if (targetPanel) {
+          targetPanel.classList.remove('hidden');
+          targetPanel.classList.add('grid');
+        }
+      };
+
+      btn.addEventListener('mouseenter', switchCategory);
+      btn.addEventListener('click', switchCategory);
+    });
+  })();
+
+  // Smart Categories Mega Menu Hover & Click Controller
+  (function initCategoriesMegaMenu() {
+    const catButtons = document.querySelectorAll('.smart-cat-btn');
+    const catPanels = document.querySelectorAll('.smart-cat-panel');
+
+    catButtons.forEach(btn => {
+      const switchCat = () => {
+        const catKey = btn.getAttribute('data-smart-cat');
+
+        catButtons.forEach(b => {
+          b.classList.remove('bg-indigo-600/20', 'text-indigo-400', 'font-bold', 'border-indigo-500/30');
+          b.classList.add('text-slate-400', 'border-transparent');
+        });
+        btn.classList.add('bg-indigo-600/20', 'text-indigo-400', 'font-bold', 'border-indigo-500/30');
+        btn.classList.remove('text-slate-400', 'border-transparent');
+
+        catPanels.forEach(panel => {
+          panel.classList.add('hidden');
+          panel.classList.remove('block');
+        });
+        const target = document.getElementById('smart-cat-panel-' + catKey);
+        if (target) {
+          target.classList.remove('hidden');
+          target.classList.add('block');
+        }
+      };
+
+      btn.addEventListener('mouseenter', switchCat);
+      btn.addEventListener('click', switchCat);
+    });
+  })();
+
+  // Mobile Navigation Drawer Toggle Controller
+  (function initMobileNav() {
+    const btn = document.getElementById('headerMobileMenuBtn');
+    const drawer = document.getElementById('headerMobileNavDrawer');
+    const openIcon = document.getElementById('headerMobileMenuOpenIcon');
+    const closeIcon = document.getElementById('headerMobileMenuCloseIcon');
+
+    if (!btn || !drawer) return;
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = !drawer.classList.contains('hidden');
+      if (isOpen) {
+        drawer.classList.add('hidden');
+        openIcon?.classList.remove('hidden');
+        closeIcon?.classList.add('hidden');
+      } else {
+        drawer.classList.remove('hidden');
+        openIcon?.classList.add('hidden');
+        closeIcon?.classList.remove('hidden');
+      }
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!drawer.contains(e.target) && !btn.contains(e.target)) {
+        drawer.classList.add('hidden');
+        openIcon?.classList.remove('hidden');
+        closeIcon?.classList.add('hidden');
+      }
+    });
+  })();
 </script>
+
+<style>
+  /* Seamless, Fluid GPU-Accelerated Header Brand Choreography */
+  .pr-logo-badge {
+    transition: opacity 0.5s ease-out, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    will-change: opacity, transform;
+    transform: translateZ(0);
+  }
+
+  .pr-logo-badge.is-revealed {
+    opacity: 1 !important;
+    transform: scale(1) translateZ(0) !important;
+  }
+
+  /* Deliberate, smooth subtle scale on hover */
+  .pr-logo-root:hover .pr-logo-badge.is-revealed,
+  .pr-logo-badge.is-revealed:hover {
+    transform: scale(1.06) translateZ(0) !important;
+    box-shadow: 0 10px 25px -5px rgba(99, 91, 255, 0.4) !important;
+  }
+
+  /* 1. PromoRadar rolls out smoothly from behind the radar without waiting */
+  #header-brand-title {
+    opacity: 0;
+    transform: translate3d(-14px, 0, 0);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+
+  #header-brand-title.is-revealed {
+    opacity: 1 !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+
+  /* 2. .store tag glides out from left to right as the finale */
+  #header-brand-store-tag {
+    opacity: 0;
+    transform: translate3d(-10px, 0, 0);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.35s, opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+    will-change: transform, opacity;
+    display: inline-block;
+  }
+
+  #header-brand-store-tag.is-revealed {
+    opacity: 1 !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+
+  /* 3. Slogan cascades fluidly right after PromoRadar settles */
+  #header-brand-sub {
+    opacity: 0;
+    transform: translate3d(0, -6px, 0);
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.16s, opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.16s;
+    will-change: transform, opacity;
+  }
+
+  #header-brand-sub.is-revealed {
+    opacity: 1 !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+
+  /* 4. Staggered cascade for Navigation Menu items and Header Actions */
+  .header-stagger-item {
+    opacity: 0;
+    transform: translate3d(0, -5px, 0);
+    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
+  .header-nav-menu.is-revealed .header-stagger-item,
+  .header-actions-block.is-revealed .header-stagger-item {
+    opacity: 1 !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+
+  /* Nav Menu sequential delays (All Deals -> Stores -> Categories -> Compare -> FAQ) */
+  .header-nav-menu.is-revealed .header-stagger-item:nth-child(1) { transition-delay: 0.22s; }
+  .header-nav-menu.is-revealed .header-stagger-item:nth-child(2) { transition-delay: 0.28s; }
+  .header-nav-menu.is-revealed .header-stagger-item:nth-child(3) { transition-delay: 0.34s; }
+  .header-nav-menu.is-revealed .header-stagger-item:nth-child(4) { transition-delay: 0.40s; }
+  .header-nav-menu.is-revealed .header-stagger-item:nth-child(5) { transition-delay: 0.46s; }
+
+  /* Actions Block sequential delays (Region -> Language -> Saved -> Theme) */
+  .header-actions-block.is-revealed .header-stagger-item:nth-child(1) { transition-delay: 0.52s; }
+  .header-actions-block.is-revealed .header-stagger-item:nth-child(2) { transition-delay: 0.58s; }
+  .header-actions-block.is-revealed .header-stagger-item:nth-child(3) { transition-delay: 0.64s; }
+  .header-actions-block.is-revealed .header-stagger-item:nth-child(4) { transition-delay: 0.70s; }
+  .header-actions-block.is-revealed .header-stagger-item:nth-child(5) { transition-delay: 0.52s; } /* mobile hamburger */
+
+  .header-radar-sweep-group {
+    transform-origin: 20px 20px;
+    transform: rotate(0deg);
+    will-change: transform;
+  }
+
+  .header-radar-sweep-group.is-active {
+    animation: headerRadarSweep 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes headerRadarSweep {
+    0% {
+      transform: rotate(-360deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  .header-radar-blip-1 {
+    transform-origin: 28px 12px;
+    opacity: 0;
+    transform: scale(0.6);
+    will-change: opacity, transform;
+  }
+
+  .header-radar-blip-1.is-active {
+    animation: headerRadarBlip1 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+  }
+
+  @keyframes headerRadarBlip1 {
+    0%, 40% {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+    75% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .header-radar-blip-2 {
+    transform-origin: 25.5px 26.5px;
+    opacity: 0;
+    transform: scale(0.6);
+    will-change: opacity, transform;
+  }
+
+  .header-radar-blip-2.is-active {
+    animation: headerRadarBlip2 1.3s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+  }
+
+  @keyframes headerRadarBlip2 {
+    0%, 30% {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+    65% {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+    100% {
+      opacity: 0.85;
+      transform: scale(1);
+    }
+  }
+</style>
