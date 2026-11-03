@@ -9,7 +9,7 @@ import { getStoreAllowedRegions, detectDealLanguage } from '../utils/regionFilte
 import { COUPONS_DATA, STORES_DATA } from '../data/couponsData';
 import { STORE_DOMAINS_MAP } from '../data/storeDomains';
 import { getDealLivePulse } from '../data/pulseEngine';
-import { Zap, ShieldCheck, Flame, Clock, BadgeCheck, LockOpen, Filter, ArrowUpRight, Globe, Shield, Gamepad2, Home, Shirt, Plane, Laptop, Car, Coffee, Package, Check, Handshake } from 'lucide-astro';
+import { Zap, ShieldCheck, Flame, Clock, BadgeCheck, LockOpen, Filter, ArrowUpRight, Globe, Shield, Gamepad2, Home, Shirt, Plane, Laptop, Car, Coffee, Package, Check, Handshake, Server, Sparkles, Glasses, HeartHandshake, GraduationCap, Baby, Heart } from 'lucide-astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -50,17 +50,22 @@ const dealsRegistry = COUPONS_DATA.filter(d => !isJunkTestOffer(d.storeName, d.t
 });
 
 const categoriesRegistry = [
-  { slug: 'privacy-security', name: 'Privacy, VPN & Cybersecurity', categoryName: 'Privacy & Security', icon: '🛡' },
-  { slug: 'dating-lifestyle', name: 'Dating & Lifestyle Services', categoryName: 'Dating & Lifestyle', icon: '💬' },
+  { slug: 'privacy-security', name: 'Privacy, VPN & Cybersecurity', categoryName: 'Privacy & Security', icon: '🛡️' },
+  { slug: 'gaming-software', name: 'Gaming, Media & Software', categoryName: 'Gaming, Media & Software', icon: '🎮' },
+  { slug: 'web-hosting-domains', name: 'Web Hosting, Servers & Cloud', categoryName: 'Web Hosting & Domains', icon: '🌐' },
+  { slug: 'travel-tours', name: 'Travel, Stays & Global Tours', categoryName: 'Travel & Tours', icon: '✈️' },
+  { slug: 'electronics-gadgets', name: 'Electronics, Solar & Power', categoryName: 'Electronics & Gadgets', icon: '⚡' },
+  { slug: 'home-living', name: 'Home, Furniture & Living', categoryName: 'Home & Living', icon: '🛋️' },
   { slug: 'fashion-apparel', name: 'Fashion & Apparel', categoryName: 'Fashion & Apparel', icon: '👗' },
+  { slug: 'beauty-fragrances', name: 'Beauty & Luxury Fragrances', categoryName: 'Beauty & Fragrances', icon: '✨' },
   { slug: 'eyewear-health', name: 'Eyewear & Optical Health', categoryName: 'Eyewear & Health', icon: '👓' },
-  { slug: 'travel-tours', name: 'Travel, Desert Safaris & Tours', categoryName: 'Travel & Tours', icon: '✈️' },
-  { slug: 'ecommerce-wholesale', name: 'E-Commerce & Department Stores', categoryName: 'E-Commerce & Wholesale', icon: '📦' },
-  { slug: 'electronics-gadgets', name: 'Electronics & Portable Power', categoryName: 'Electronics & Gadgets', icon: '⚡' },
+  { slug: 'auto-mobility', name: 'Auto, Dashcams & Mobility', categoryName: 'Auto, Dashcams & Mobility', icon: '🚗' },
+  { slug: 'food-nutrition', name: 'Food, Beverage & Nutrition', categoryName: 'Food, Beverage & Nutrition', icon: '☕' },
+  { slug: 'insurance-finance', name: 'Insurance & Financial Services', categoryName: 'Insurance & Finance', icon: '💰' },
   { slug: 'education-learning', name: 'Education & Online Learning', categoryName: 'Education & Learning', icon: '🎓' },
-  { slug: 'beauty-fragrances', name: 'Beauty, Cosmetics & Fragrances', categoryName: 'Beauty & Fragrances', icon: '✨' },
-  { slug: 'insurance-finance', name: 'Insurance & Financial Protection', categoryName: 'Insurance & Finance', icon: '💰' },
-  { slug: 'web-hosting-domains', name: 'Web Hosting, Domains & Servers', categoryName: 'Web Hosting & Domains', icon: '🌐' }
+  { slug: 'kids-toys', name: 'Kids, Family & Toys', categoryName: 'Kids & Toys', icon: '🧸' },
+  { slug: 'dating-lifestyle', name: 'Dating & Lifestyle Services', categoryName: 'Dating & Lifestyle', icon: '💬' },
+  { slug: 'ecommerce-wholesale', name: 'E-Commerce & Department Stores', categoryName: 'E-Commerce & Wholesale', icon: '📦' }
 ];
 
 // Brand Visual Styling Helper (Honey / Slickdeals style branded identity)
@@ -911,25 +916,46 @@ const homeSchemas = [
             <span class="inline-flex items-center gap-1.5"><Shield class="w-4 h-4" /> <span>Privacy &amp; VPN</span></span>
           </button>
           <button type="button" data-cat="Gaming, Media & Software" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            <span class="inline-flex items-center gap-1.5"><Gamepad2 class="w-4 h-4" /> <span>Gaming &amp; Software</span></span>
+            <span class="inline-flex items-center gap-1.5"><Gamepad2 class="w-4 h-4" /> <span>Software &amp; AI</span></span>
           </button>
-          <button type="button" data-cat="Home & Living" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            <span class="inline-flex items-center gap-1.5"><Home class="w-4 h-4" /> <span>Home &amp; Living</span></span>
-          </button>
-          <button type="button" data-cat="Fashion & Apparel" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            <span class="inline-flex items-center gap-1.5"><Shirt class="w-4 h-4" /> <span>Fashion &amp; Apparel</span></span>
+          <button type="button" data-cat="Web Hosting & Domains" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            <span class="inline-flex items-center gap-1.5"><Server class="w-4 h-4" /> <span>Hosting &amp; Cloud</span></span>
           </button>
           <button type="button" data-cat="Travel & Tours" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-            <span class="inline-flex items-center gap-1.5"><Plane class="w-4 h-4" /> <span>Travel &amp; Stays</span></span>
+            <span class="inline-flex items-center gap-1.5"><Plane class="w-4 h-4" /> <span>Travel &amp; Flights</span></span>
           </button>
           <button type="button" data-cat="Electronics & Gadgets" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
             <span class="inline-flex items-center gap-1.5"><Laptop class="w-4 h-4" /> <span>Electronics &amp; Power</span></span>
+          </button>
+          <button type="button" data-cat="Home & Living" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            <span class="inline-flex items-center gap-1.5"><Home class="w-4 h-4" /> <span>Home &amp; Furniture</span></span>
+          </button>
+          <button type="button" data-cat="Fashion & Apparel" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            <span class="inline-flex items-center gap-1.5"><Shirt class="w-4 h-4" /> <span>Fashion &amp; Shoes</span></span>
+          </button>
+          <button type="button" data-cat="Beauty & Fragrances" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            <span class="inline-flex items-center gap-1.5"><Sparkles class="w-4 h-4" /> <span>Beauty &amp; Fragrances</span></span>
+          </button>
+          <button type="button" data-cat="Eyewear & Health" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            <span class="inline-flex items-center gap-1.5"><Glasses class="w-4 h-4" /> <span>Eyewear &amp; Health</span></span>
           </button>
           <button type="button" data-cat="Auto, Dashcams & Mobility" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
             <span class="inline-flex items-center gap-1.5"><Car class="w-4 h-4" /> <span>Auto &amp; Dashcams</span></span>
           </button>
           <button type="button" data-cat="Food, Beverage & Nutrition" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
             <span class="inline-flex items-center gap-1.5"><Coffee class="w-4 h-4" /> <span>Food &amp; Nutrition</span></span>
+          </button>
+          <button type="button" data-cat="Insurance & Finance" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            <span class="inline-flex items-center gap-1.5"><HeartHandshake class="w-4 h-4" /> <span>Finance &amp; Insurance</span></span>
+          </button>
+          <button type="button" data-cat="Education & Learning" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            <span class="inline-flex items-center gap-1.5"><GraduationCap class="w-4 h-4" /> <span>Education &amp; Coding</span></span>
+          </button>
+          <button type="button" data-cat="Kids & Toys" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            <span class="inline-flex items-center gap-1.5"><Baby class="w-4 h-4" /> <span>Kids &amp; Toys</span></span>
+          </button>
+          <button type="button" data-cat="Dating & Lifestyle" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+            <span class="inline-flex items-center gap-1.5"><Heart class="w-4 h-4" /> <span>Dating &amp; Lifestyle</span></span>
           </button>
           <button type="button" data-cat="E-Commerce & Wholesale" class="main-cat-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
             <span class="inline-flex items-center gap-1.5"><Package class="w-4 h-4" /> <span>E-Commerce &amp; B2B</span></span>
@@ -1604,15 +1630,21 @@ const homeSchemas = [
 
     const CORE_VERTICAL_MAP = {
       'Privacy & Security': ['Privacy & Security'],
-      'Gaming, Media & Software': ['Gaming, Media & Software', 'Gaming & Entertainment', 'Software & Utilities'],
-      'Home & Living': ['Home & Living', 'Home & Lifestyle'],
-      'Fashion & Apparel': ['Fashion & Apparel', 'Eyewear & Health', 'Beauty & Fragrances'],
-      'Travel & Tours': ['Travel & Tours', 'Dating & Lifestyle'],
+      'Gaming, Media & Software': ['Gaming, Media & Software'],
+      'Web Hosting & Domains': ['Web Hosting & Domains'],
+      'Travel & Tours': ['Travel & Tours'],
       'Electronics & Gadgets': ['Electronics & Gadgets'],
+      'Home & Living': ['Home & Living'],
+      'Fashion & Apparel': ['Fashion & Apparel'],
+      'Beauty & Fragrances': ['Beauty & Fragrances'],
+      'Eyewear & Health': ['Eyewear & Health'],
       'Auto, Dashcams & Mobility': ['Auto, Dashcams & Mobility'],
       'Food, Beverage & Nutrition': ['Food, Beverage & Nutrition'],
-      'E-Commerce & Wholesale': ['E-Commerce & Wholesale', 'Kids & Toys'],
-      'Digital Services': ['Education & Learning', 'Insurance & Finance', 'Web Hosting & Domains']
+      'Insurance & Finance': ['Insurance & Finance'],
+      'Education & Learning': ['Education & Learning'],
+      'Kids & Toys': ['Kids & Toys'],
+      'Dating & Lifestyle': ['Dating & Lifestyle'],
+      'E-Commerce & Wholesale': ['E-Commerce & Wholesale']
     };
 
     function filterDeals() {

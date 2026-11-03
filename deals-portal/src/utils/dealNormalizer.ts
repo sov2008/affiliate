@@ -141,44 +141,94 @@ export function getUniqueCleanStores(storesData = STORES_DATA, dealsData = COUPO
  */
 export function resolveSmartCategory(rawCategory = '', cleanBrand = '', rawTitle = ''): string {
   const brand = (cleanBrand || '').trim();
+  const title = (rawTitle || '').trim();
+  const combined = `${brand} ${title}`.toLowerCase();
 
   // 1. Privacy, VPN & Security
-  if (/expressvpn|purevpn|nordvpn|surfshark|proton|qustodio|onlinesim|kaspersky|bitdefender|keeper|1password/i.test(brand)) {
+  if (/expressvpn|purevpn|nordvpn|surfshark|proton|qustodio|onlinesim|kaspersky|bitdefender|keeper|1password|antivirus|cyber|vpn/i.test(combined)) {
     return 'Privacy & Security';
   }
 
-  // 2. Software, AI & Gaming Keys
-  if (/whokeys|abelssoft|topaz|skylum|luminar|hostinger|namecheap|kodland|wondershare|notta/i.test(brand)) {
+  // 2. Web Hosting, Cloud & Domains
+  if (/hostinger|123-reg|namecheap|siteground|bluehost|godaddy|liquidweb|cloudways|vps|web hosting/i.test(combined)) {
+    return 'Web Hosting & Domains';
+  }
+
+  // 3. Software, AI & Gaming
+  if (/whokeys|abelssoft|topaz|skylum|luminar|wondershare|edraw|restoro|directdeals|corel|notta|game key/i.test(combined)) {
     return 'Gaming, Media & Software';
   }
 
-  // 3. Travel, Hotels & eSIM
-  if (/accor\s*plus|booking|airalo|yesim|trip\.com|expedia|raynatours|sports\s*events\s*365/i.test(brand)) {
+  // 4. Auto, Dashcams & Mobility
+  if (/carpuride|nilight|dashcam|turbosto|automotive|carplay|vehicle|tires/i.test(combined)) {
+    return 'Auto, Dashcams & Mobility';
+  }
+
+  // 5. Travel, Hotels, Flights & eSIM
+  if (/accor\s*plus|booking|cruisedirect|oojo|airalo|yesim|trip\.com|expedia|raynatours|sports\s*events\s*365|vacation|hotel|cruise|flight|resort|safari/i.test(combined)) {
     return 'Travel & Tours';
   }
 
-  // 4. Tactical, Outdoor & Power Gear
-  if (/915gear|945\s*industries|rovyvon|allpowers|binovibe|redtiger|cuktech|ugreen/i.test(brand)) {
+  // 6. Food, Beverage & Gourmet Nutrition
+  if (/coffee|upscale\s*coffee|zchocolat|protein|pure\s*genius|food|nutrition|steak|snack|gourmet|herbspro/i.test(combined)) {
+    return 'Food, Beverage & Nutrition';
+  }
+
+  // 7. Eyewear & Optical Health
+  if (/glasseslit|eyewear|glasses|sunglasses|optical|treatmyuti|uti|paternity\s*lab|mfi\s*medical|dna test|health/i.test(combined)) {
+    return 'Eyewear & Health';
+  }
+
+  // 8. Beauty, Fragrances & Cosmetics
+  if (/fragrance|perfume|yves\s*rocher|unice|hair|cosmetics|beauty|skincare|makeup|oud|scent/i.test(combined)) {
+    return 'Beauty & Fragrances';
+  }
+
+  // 9. Kids, Family & Toys
+  if (/kaiya\s*baby|xplora|baby|toy|doll|stroller|infant|toddler|kids|dabdoob/i.test(combined)) {
+    return 'Kids & Toys';
+  }
+
+  // 10. Dating & Lifestyle
+  if (/eharmony|mylead\s*dating|elitedate|discreet|dating|match|single|flirt/i.test(combined)) {
+    return 'Dating & Lifestyle';
+  }
+
+  // 11. Insurance & Financial Services
+  if (/insurance|finance|barclays|sainsbury|venmo|loan|bank|credit|polis|cool\s*credit|zonky/i.test(combined)) {
+    return 'Insurance & Finance';
+  }
+
+  // 12. Education & Online Learning
+  if (/kodland|education|snhu|university|course|learning|academy|coding/i.test(combined)) {
+    return 'Education & Learning';
+  }
+
+  // 13. Home, Furniture & Smart Living
+  if (/switchbot|fufugaga|homsee|sleep\s*&\s*beyond|sleepandbeyond|click\s*&\s*grow|groundluxe|furniture|home|decor|mattress|bedding|kenwood/i.test(combined)) {
+    return 'Home & Living';
+  }
+
+  // 14. Electronics, Solar & Power Gear
+  if (/915gear|945\s*industries|rovyvon|allpowers|binovibe|redtiger|cuktech|ugreen|jackery|creality|3d|tenergy|power\s*station|solar/i.test(combined)) {
     return 'Electronics & Gadgets';
   }
 
-  // 5. Fashion, Eyewear & Lifestyle
-  if (/chicme|glasseslit|mark\s*formelle|eharmony|wristband\s*express|voga|elitedate|discreet/i.test(brand)) {
-    if (/glasseslit/i.test(brand)) return 'Eyewear & Health';
-    if (/eharmony|elitedate|discreet/i.test(brand)) return 'Dating & Lifestyle';
+  // 15. Fashion, Apparel & Shoes
+  if (/chicme|fashion|apparel|dress|shoes|clothing|pandahall|silverrush|dream\s*pairs|bruno\s*marc|mark\s*formelle|voga/i.test(combined)) {
     return 'Fashion & Apparel';
   }
 
-  // 6. E-Commerce & Wholesale (genuine wholesale & marketplaces)
-  if (/alibaba|aliexpress|chinavasion|dhgate|touch/i.test(brand)) {
+  // 16. E-Commerce, Wholesale & Marketplaces
+  if (/alibaba|aliexpress|chinavasion|dhgate|touch|wholesale|sourcing/i.test(combined)) {
     return 'E-Commerce & Wholesale';
   }
 
   // Fallback to normalized rawCategory
+  if (rawCategory === 'Home & Lifestyle') return 'Home & Living';
   return rawCategory || 'E-Commerce & Wholesale';
 }
 
-// Backward-compatible cleanBrandName wrapper using resolveMerchantIdentity
 export function cleanBrandName(rawBrand = '', rawTitle = '', merchantUrl = '', storeSlug = ''): string {
   const resolved = resolveMerchantIdentity({ storeName: rawBrand, title: rawTitle, merchantUrl, storeSlug });
   return resolved.brand;
