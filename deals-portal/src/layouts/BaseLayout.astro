@@ -170,7 +170,9 @@ const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
     </script>
     <script>
       import { initClientI18n } from '../i18n/client';
+      import { initRecommendationListeners } from '../utils/recommendationEngine';
       initClientI18n();
+      initRecommendationListeners();
     </script>
   </body>
 </html>
