@@ -40,6 +40,16 @@ const fullCanonical = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
     <meta name="description" content={description} />
     <meta name="p:domain_verify" content="9809e84106b1c9cf5dcdcb45246046e5" />
     <link rel="canonical" href={fullCanonical} />
+    <!-- International SEO Hreflang Tags (affiliate-seo-pro & localization-pro) -->
+    <link rel="alternate" hreflang="x-default" href={fullCanonical} />
+    <link rel="alternate" hreflang="en" href={fullCanonical} />
+    <link rel="alternate" hreflang="ar" href={fullCanonical} />
+    <link rel="alternate" hreflang="es" href={fullCanonical} />
+    <link rel="alternate" hreflang="pt" href={fullCanonical} />
+    <link rel="alternate" hreflang="de" href={fullCanonical} />
+    <link rel="alternate" hreflang="uk-UA" href={fullCanonical} />
+    <link rel="alternate" hreflang="pl" href={fullCanonical} />
+    <link rel="alternate" hreflang="cs" href={fullCanonical} />
     <link rel="icon" href={`${base}/favicon.ico`} sizes="any" />
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
     <link rel="icon" type="image/png" sizes="32x32" href={`${base}/favicon-32x32.png`} />

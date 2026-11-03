@@ -1,4 +1,5 @@
 import { UI_TRANSLATIONS, LOCALES } from './ui';
+import { REGIONAL_DEAL_TRANSLATIONS } from '../data/dealTranslations';
 
 // Extended Multilingual phrase dictionary for all common portal strings
 export const EXTENDED_DICTIONARY: Record<string, Record<string, string>> = {
@@ -815,6 +816,53 @@ export function initClientI18n() {
         } else if (text === 'Claim Deal' && EXTENDED_DICTIONARY['Claim Deal']?.[lang]) {
           if (!firstSpan.hasAttribute('data-original-en')) firstSpan.setAttribute('data-original-en', 'Claim Deal');
           firstSpan.textContent = EXTENDED_DICTIONARY['Claim Deal'][lang];
+        }
+      }
+    });
+
+    // 6. Streaming Localized Deal Cards (conversion-copywriter-pro & localization-pro)
+    document.querySelectorAll('[data-deal-id]').forEach(card => {
+      const dealId = card.getAttribute('data-deal-id');
+      if (!dealId) return;
+
+      const titleEl = card.querySelector('h3 a') || card.querySelector('h3');
+      const descEl = card.querySelector('p');
+      const badgeEl = card.querySelector('.deal-badge, span[class*="text-rose"], span[class*="rounded-xl"]');
+
+      if (lang === 'en') {
+        if (titleEl && titleEl.hasAttribute('data-orig-title')) {
+          titleEl.textContent = titleEl.getAttribute('data-orig-title') || '';
+        }
+        if (descEl && descEl.hasAttribute('data-orig-desc')) {
+          descEl.textContent = descEl.getAttribute('data-orig-desc') || '';
+        }
+        if (badgeEl && badgeEl.hasAttribute('data-orig-badge')) {
+          badgeEl.textContent = badgeEl.getAttribute('data-orig-badge') || '';
+        }
+        return;
+      }
+
+      const trans = REGIONAL_DEAL_TRANSLATIONS[dealId]?.[lang];
+      if (trans) {
+        if (titleEl) {
+          if (!titleEl.hasAttribute('data-orig-title')) {
+            titleEl.setAttribute('data-orig-title', titleEl.textContent?.trim() || '');
+          }
+          titleEl.textContent = trans.title;
+        }
+
+        if (descEl) {
+          if (!descEl.hasAttribute('data-orig-desc')) {
+            descEl.setAttribute('data-orig-desc', descEl.textContent?.trim() || '');
+          }
+          descEl.textContent = trans.description;
+        }
+
+        if (badgeEl && trans.badge) {
+          if (!badgeEl.hasAttribute('data-orig-badge')) {
+            badgeEl.setAttribute('data-orig-badge', badgeEl.textContent?.trim() || '');
+          }
+          badgeEl.textContent = trans.badge;
         }
       }
     });
