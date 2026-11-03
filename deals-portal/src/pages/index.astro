@@ -2763,9 +2763,789 @@ const homeSchemas = [
       // Start loop when visible
       startRotationLoop();
     })();
+
+    // Brand Directory Ticker Interactive Carousel (Wheel with Physics & Continuous Lens Zoom)
+    (function initBrandInfiniteWheel() {
+      const track = document.getElementById('heroStoreTicker');
+      const prevBtn = document.getElementById('brandTickerPrevBtn');
+      const nextBtn = document.getElementById('brandTickerNextBtn');
+
+      if (!track) return;
+
+      const GEO_BRAND_POOLS = {
+      "UA": [
+            {
+                  "name": "Touch",
+                  "slug": "touch",
+                  "domain": "touch.com.ua"
+            },
+            {
+                  "name": "Polis.ua",
+                  "slug": "polis",
+                  "domain": "polis.ua"
+            },
+            {
+                  "name": "ALLPOWERS",
+                  "slug": "allpowers",
+                  "domain": "allpowersukraine.com"
+            },
+            {
+                  "name": "Kodland",
+                  "slug": "kodland",
+                  "domain": "kodland.com"
+            },
+            {
+                  "name": "Airalo eSIM",
+                  "slug": "airalo",
+                  "domain": "airalo.com"
+            },
+            {
+                  "name": "ExpressVPN",
+                  "slug": "expressvpn",
+                  "domain": "expressvpn.com"
+            },
+            {
+                  "name": "Turbosto",
+                  "slug": "turbosto",
+                  "domain": "turbosto.com.ua"
+            },
+            {
+                  "name": "Hostinger",
+                  "slug": "hostinger",
+                  "domain": "hostinger.com"
+            },
+            {
+                  "name": "PureVPN",
+                  "slug": "purevpn",
+                  "domain": "purevpn.com"
+            }
+      ],
+      "GCC": [
+            {
+                  "name": "VogaCloset",
+                  "slug": "vogacloset",
+                  "domain": "vogacloset.com"
+            },
+            {
+                  "name": "The Deal Outlet",
+                  "slug": "thedealoutlet",
+                  "domain": "thedealoutlet.com"
+            },
+            {
+                  "name": "Rayna Tours",
+                  "slug": "raynatours",
+                  "domain": "raynatours.com"
+            },
+            {
+                  "name": "V Perfumes",
+                  "slug": "vperfumes",
+                  "domain": "vperfumes.com"
+            },
+            {
+                  "name": "Nazih",
+                  "slug": "nazih",
+                  "domain": "nazih.sa"
+            },
+            {
+                  "name": "Jashanmal",
+                  "slug": "jashanmal",
+                  "domain": "jashanmal.com"
+            },
+            {
+                  "name": "Dabdoob",
+                  "slug": "dabdoob",
+                  "domain": "dabdoob.com"
+            },
+            {
+                  "name": "ChicMe",
+                  "slug": "chicme",
+                  "domain": "chicme.com"
+            },
+            {
+                  "name": "Alibaba",
+                  "slug": "alibaba",
+                  "domain": "alibaba.com"
+            },
+            {
+                  "name": "ExpressVPN",
+                  "slug": "expressvpn",
+                  "domain": "expressvpn.com"
+            },
+            {
+                  "name": "Airalo eSIM",
+                  "slug": "airalo",
+                  "domain": "airalo.com"
+            }
+      ],
+      "US": [
+            {
+                  "name": "ExpressVPN",
+                  "slug": "expressvpn",
+                  "domain": "expressvpn.com"
+            },
+            {
+                  "name": "Spokeo",
+                  "slug": "spokeo",
+                  "domain": "spokeo.com"
+            },
+            {
+                  "name": "Keeper Security",
+                  "slug": "keepersecurity",
+                  "domain": "keepersecurity.com"
+            },
+            {
+                  "name": "Qustodio",
+                  "slug": "qustodio",
+                  "domain": "qustodio.com"
+            },
+            {
+                  "name": "BannerBuzz",
+                  "slug": "bannerbuzz",
+                  "domain": "bannerbuzz.com"
+            },
+            {
+                  "name": "DirectDeals",
+                  "slug": "directdeals",
+                  "domain": "directdeals.com"
+            },
+            {
+                  "name": "ChicMe",
+                  "slug": "chicme",
+                  "domain": "chicme.com"
+            },
+            {
+                  "name": "GlassesLit",
+                  "slug": "glasseslit",
+                  "domain": "glasseslit.com"
+            },
+            {
+                  "name": "Airalo eSIM",
+                  "slug": "airalo",
+                  "domain": "airalo.com"
+            },
+            {
+                  "name": "Hostinger",
+                  "slug": "hostinger",
+                  "domain": "hostinger.com"
+            }
+      ],
+      "EU": [
+            {
+                  "name": "Abelssoft",
+                  "slug": "abelssoft",
+                  "domain": "abelssoft.de"
+            },
+            {
+                  "name": "PureVPN",
+                  "slug": "purevpn",
+                  "domain": "purevpn.com"
+            },
+            {
+                  "name": "ExpressVPN",
+                  "slug": "expressvpn",
+                  "domain": "expressvpn.com"
+            },
+            {
+                  "name": "Airalo eSIM",
+                  "slug": "airalo",
+                  "domain": "airalo.com"
+            },
+            {
+                  "name": "Hostinger",
+                  "slug": "hostinger",
+                  "domain": "hostinger.com"
+            },
+            {
+                  "name": "Zonky",
+                  "slug": "zonky-cz",
+                  "domain": "zonky.cz"
+            },
+            {
+                  "name": "MEGOGO",
+                  "slug": "megogo-pl",
+                  "domain": "megogo.net"
+            },
+            {
+                  "name": "Alibaba",
+                  "slug": "alibaba",
+                  "domain": "alibaba.com"
+            },
+            {
+                  "name": "Qustodio",
+                  "slug": "qustodio",
+                  "domain": "qustodio.com"
+            }
+      ],
+      "IN": [
+            {
+                  "name": "Lenovo",
+                  "slug": "lenovo-india-in",
+                  "domain": "lenovo.com"
+            },
+            {
+                  "name": "Acer",
+                  "slug": "acer-in",
+                  "domain": "acer.com"
+            },
+            {
+                  "name": "Bliss Club",
+                  "slug": "bliss-club-in",
+                  "domain": "blissclub.com"
+            },
+            {
+                  "name": "Nveda",
+                  "slug": "nveda-in",
+                  "domain": "nveda.in"
+            },
+            {
+                  "name": "Salty",
+                  "slug": "salty-in",
+                  "domain": "salty.co.in"
+            },
+            {
+                  "name": "R for Rabbit",
+                  "slug": "r-for-rabbit-in",
+                  "domain": "rforrabbit.com"
+            },
+            {
+                  "name": "Airalo eSIM",
+                  "slug": "airalo",
+                  "domain": "airalo.com"
+            }
+      ],
+      "MX": [
+            {
+                  "name": "Levis",
+                  "slug": "levis-mx",
+                  "domain": "levi.com.mx"
+            },
+            {
+                  "name": "SharkNinja",
+                  "slug": "sharkninja-mx",
+                  "domain": "sharkninja.com"
+            },
+            {
+                  "name": "Wild Fork",
+                  "slug": "wild-fork-mx",
+                  "domain": "wildfork.mx"
+            },
+            {
+                  "name": "Solcredito",
+                  "slug": "sol-cr-dito-mx",
+                  "domain": "solcredito.mx"
+            },
+            {
+                  "name": "American Eagle",
+                  "slug": "american-eagle-mx",
+                  "domain": "ae.com"
+            },
+            {
+                  "name": "Cheapvuelos",
+                  "slug": "cheapvuelos",
+                  "domain": "cheapvuelos.com"
+            }
+      ],
+      "BR": [
+            {
+                  "name": "Shopee",
+                  "slug": "shopee-br",
+                  "domain": "shopee.com.br"
+            },
+            {
+                  "name": "Bold Snacks",
+                  "slug": "bold-snacks-br",
+                  "domain": "boldsnacks.com.br"
+            },
+            {
+                  "name": "Phooto",
+                  "slug": "phooto-br",
+                  "domain": "phooto.com.br"
+            },
+            {
+                  "name": "Guldi",
+                  "slug": "guldi-br",
+                  "domain": "guldi.com.br"
+            },
+            {
+                  "name": "Saude Abril",
+                  "slug": "saude-abril-br-grupo-abril",
+                  "domain": "abril.com.br"
+            }
+      ],
+      "PL": [
+            {
+                  "name": "MEGOGO PL",
+                  "slug": "megogo-pl",
+                  "domain": "megogo.net"
+            },
+            {
+                  "name": "Konesso",
+                  "slug": "konesso-pl",
+                  "domain": "konesso.pl"
+            },
+            {
+                  "name": "Katalog Marzen",
+                  "slug": "katalog-marze-pl",
+                  "domain": "katalogmarzen.pl"
+            },
+            {
+                  "name": "ExpressVPN",
+                  "slug": "expressvpn",
+                  "domain": "expressvpn.com"
+            },
+            {
+                  "name": "Hostinger",
+                  "slug": "hostinger",
+                  "domain": "hostinger.com"
+            }
+      ],
+      "CZ": [
+            {
+                  "name": "Zonky",
+                  "slug": "zonky-cz",
+                  "domain": "zonky.cz"
+            },
+            {
+                  "name": "Kenwood",
+                  "slug": "kenwood-cz",
+                  "domain": "kenwoodworld.com"
+            },
+            {
+                  "name": "Cool Credit",
+                  "slug": "coolcredit-cz",
+                  "domain": "coolcredit.cz"
+            },
+            {
+                  "name": "ExpressVPN",
+                  "slug": "expressvpn",
+                  "domain": "expressvpn.com"
+            },
+            {
+                  "name": "Hostinger",
+                  "slug": "hostinger",
+                  "domain": "hostinger.com"
+            }
+      ],
+      "GLOBAL": [
+            {
+                  "name": "AliExpress",
+                  "slug": "alibaba",
+                  "domain": "aliexpress.com"
+            },
+            {
+                  "name": "ExpressVPN",
+                  "slug": "expressvpn",
+                  "domain": "expressvpn.com"
+            },
+            {
+                  "name": "Hostinger",
+                  "slug": "hostinger",
+                  "domain": "hostinger.com"
+            },
+            {
+                  "name": "Airalo eSIM",
+                  "slug": "airalo",
+                  "domain": "airalo.com"
+            },
+            {
+                  "name": "PureVPN",
+                  "slug": "purevpn",
+                  "domain": "purevpn.com"
+            },
+            {
+                  "name": "Abelssoft",
+                  "slug": "abelssoft",
+                  "domain": "abelssoft.de"
+            },
+            {
+                  "name": "ChicMe",
+                  "slug": "chicme",
+                  "domain": "chicme.com"
+            },
+            {
+                  "name": "GlassesLit",
+                  "slug": "glasseslit",
+                  "domain": "glasseslit.com"
+            },
+            {
+                  "name": "ALLPOWERS",
+                  "slug": "allpowers",
+                  "domain": "allpowersukraine.com"
+            },
+            {
+                  "name": "Rayna Tours",
+                  "slug": "raynatours",
+                  "domain": "raynatours.com"
+            },
+            {
+                  "name": "VogaCloset",
+                  "slug": "vogacloset",
+                  "domain": "vogacloset.com"
+            },
+            {
+                  "name": "Keeper Security",
+                  "slug": "keepersecurity",
+                  "domain": "keepersecurity.com"
+            },
+            {
+                  "name": "Qustodio",
+                  "slug": "qustodio",
+                  "domain": "qustodio.com"
+            }
+      ]
+};
+
+      const resolvedBase = typeof baseUrl !== 'undefined' ? baseUrl : '';
+
+      // Determine current user region
+      function detectUserRegion() {
+        try {
+          const stored = localStorage.getItem('promoradar_selected_region');
+          if (stored && stored !== 'ALL' && stored !== 'GLOBAL' && GEO_BRAND_POOLS[stored]) {
+            return stored;
+          }
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+          if (tz.includes('Kyiv') || tz.includes('Kiev') || tz.includes('Simferopol') || tz.includes('Uzhgorod') || tz.includes('Zaporozhye')) return 'UA';
+          if (tz.includes('Dubai') || tz.includes('Riyadh') || tz.includes('Qatar') || tz.includes('Muscat') || tz.includes('Kuwait') || tz.includes('Bahrain')) return 'GCC';
+          if (tz.includes('New_York') || tz.includes('Chicago') || tz.includes('Los_Angeles') || tz.includes('Denver') || tz.includes('Phoenix')) return 'US';
+          if (tz.includes('Calcutta') || tz.includes('Kolkata')) return 'IN';
+          if (tz.includes('Mexico') || tz.includes('Cancun') || tz.includes('Monterrey')) return 'MX';
+          if (tz.includes('Sao_Paulo') || tz.includes('Fortaleza') || tz.includes('Bahia')) return 'BR';
+          if (tz.includes('Warsaw')) return 'PL';
+          if (tz.includes('Prague')) return 'CZ';
+          if (tz.includes('London') || tz.includes('Berlin') || tz.includes('Paris') || tz.includes('Madrid') || tz.includes('Rome') || tz.includes('Amsterdam')) return 'EU';
+        } catch (e) {}
+        return 'GLOBAL';
+      }
+
+      let currentRegion = detectUserRegion();
+      let activeBrandList = GEO_BRAND_POOLS[currentRegion] || GEO_BRAND_POOLS['GLOBAL'];
+      let items = [];
+
+      // Render items in a 3x buffer for seamless infinite loop
+      function renderBrandItems() {
+        track.innerHTML = '';
+        for (let setIndex = 0; setIndex < 3; setIndex++) {
+          activeBrandList.forEach(brand => {
+            const googleFav = brand.domain ? `https://www.google.com/s2/favicons?domain=${brand.domain}&sz=64` : '';
+            const localLogo = `/logos/${brand.slug}.png`;
+
+            const slot = document.createElement('div');
+            slot.className = 'brand-ticker-slot';
+
+            const a = document.createElement('a');
+            a.href = `${resolvedBase}/store/${brand.slug}/`;
+            a.setAttribute('data-filter-store', brand.name);
+            a.className = 'brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-2';
+            a.style.transformOrigin = 'center center';
+            a.style.willChange = 'transform';
+
+            const img = document.createElement('img');
+            img.src = localLogo;
+            img.alt = '';
+            img.className = 'w-4 h-4 object-contain shrink-0 rounded-xs bg-transparent';
+            img.loading = 'lazy';
+            if (googleFav) img.setAttribute('data-fallback-google', googleFav);
+            img.onerror = function() {
+              const fb = this.getAttribute('data-fallback-google');
+              if (fb && this.src !== fb) {
+                this.src = fb;
+              } else {
+                this.style.display = 'none';
+              }
+            };
+
+            const span = document.createElement('span');
+            span.className = 'brand-name-text whitespace-nowrap font-medium';
+            span.textContent = brand.name;
+
+            a.appendChild(img);
+            a.appendChild(span);
+            slot.appendChild(a);
+            track.appendChild(slot);
+          });
+        }
+        items = Array.from(track.querySelectorAll('.brand-ticker-item'));
+        initScrollPosition();
+      }
+
+      // Base auto-spin speed (pixels per frame)
+      const BASE_SPEED = 0.65;
+      let currentVelocity = BASE_SPEED;
+      let targetVelocity = BASE_SPEED;
+      let isPaused = false;
+      let isDragging = false;
+      let startX = 0;
+      let lastX = 0;
+      let dragVelocity = 0;
+      let lastDragTime = 0;
+      let hasDragged = false;
+      let rafId = null;
+
+      function initScrollPosition() {
+        const singleSetWidth = track.scrollWidth / 3;
+        if (singleSetWidth > 0) {
+          track.scrollLeft = singleSetWidth;
+        }
+      }
+
+      function triggerEntranceNudge() {
+        currentVelocity = 14.5; // High dynamic initial entrance spin
+        targetVelocity = BASE_SPEED;
+      }
+
+      function handleInfiniteWrap() {
+        const singleSetWidth = track.scrollWidth / 3;
+        if (singleSetWidth <= 0) return;
+
+        if (track.scrollLeft >= singleSetWidth * 2) {
+          track.scrollLeft -= singleSetWidth;
+        } else if (track.scrollLeft <= 5) {
+          track.scrollLeft += singleSetWidth;
+        }
+      }
+
+      function updateCenterLensZoom() {
+        const trackRect = track.getBoundingClientRect();
+        if (!trackRect.width) return;
+        const trackCenter = trackRect.left + trackRect.width / 2;
+        const maxDist = trackRect.width * 0.45;
+
+        for (let i = 0; i < items.length; i++) {
+          const item = items[i];
+          const rect = item.getBoundingClientRect();
+
+          // If element is outside visible container, park it at small baseline
+          if (rect.right < trackRect.left - 50 || rect.left > trackRect.right + 50) {
+            item.style.transform = 'scale(0.88)';
+            item.style.opacity = '0.60';
+            item.style.zIndex = '1';
+            continue;
+          }
+
+          const itemCenter = rect.left + rect.width / 2;
+          const dist = Math.abs(trackCenter - itemCenter);
+          const ratio = Math.min(1, dist / maxDist);
+
+          // Progressive bell curve: 1 at exact center, 0 at outer edges
+          const proximity = Math.cos(ratio * Math.PI * 0.5); // Cosine smooth ease: 1.0 -> 0.0
+
+          // Magnification scale: from 0.88 at borders up to 1.15 at center (never collides)
+          const scale = 0.88 + (proximity * 0.27);
+          // Opacity: from 0.60 at edges to 1.0 at center
+          const opacity = 0.60 + (proximity * 0.40);
+
+          item.style.transform = `scale(${scale.toFixed(3)})`;
+          item.style.opacity = opacity.toFixed(2);
+
+          if (proximity > 0.65) {
+            item.classList.add('font-bold');
+            item.style.zIndex = '20';
+          } else {
+            item.classList.remove('font-bold');
+            item.style.zIndex = String(Math.round(proximity * 10) + 1);
+          }
+        }
+      }
+
+      function physicsTick() {
+        if (!isDragging) {
+          if (Math.abs(currentVelocity - targetVelocity) > 0.02) {
+            currentVelocity += (targetVelocity - currentVelocity) * 0.045;
+          } else {
+            currentVelocity = targetVelocity;
+          }
+
+          if (!isPaused || Math.abs(currentVelocity) > 0.1) {
+            track.scrollLeft += currentVelocity;
+            handleInfiniteWrap();
+          }
+        }
+
+        updateCenterLensZoom();
+        rafId = requestAnimationFrame(physicsTick);
+      }
+
+      // Initial Render & Start Loop
+      renderBrandItems();
+      rafId = requestAnimationFrame(physicsTick);
+
+      const preloader = document.getElementById('promoradar-preloader');
+      if (preloader && preloader.dataset.hidden !== 'true') {
+        window.addEventListener('promoradar_preloader_done', () => {
+          setTimeout(triggerEntranceNudge, 250);
+        }, { once: true });
+      } else {
+        setTimeout(triggerEntranceNudge, 350);
+      }
+
+      // Listen to region changes from Header to dynamically reload tailored regional brands
+      window.addEventListener('promoradar_region_changed', (e) => {
+        const reg = e.detail?.region || 'GLOBAL';
+        const newBrands = GEO_BRAND_POOLS[reg] || GEO_BRAND_POOLS['GLOBAL'];
+        if (newBrands && newBrands !== activeBrandList) {
+          activeBrandList = newBrands;
+          renderBrandItems();
+          triggerEntranceNudge();
+        }
+      });
+
+      // Controls & Drag
+      prevBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        targetVelocity = -12.0;
+        setTimeout(() => { targetVelocity = BASE_SPEED; }, 650);
+      });
+
+      nextBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        targetVelocity = 13.0;
+        setTimeout(() => { targetVelocity = BASE_SPEED; }, 650);
+      });
+
+      track.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        hasDragged = false;
+        startX = e.pageX;
+        lastX = e.pageX;
+        lastDragTime = performance.now();
+        dragVelocity = 0;
+        targetVelocity = 0;
+        currentVelocity = 0;
+        track.style.cursor = 'grabbing';
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const now = performance.now();
+        const dt = Math.max(1, now - lastDragTime);
+        const dx = e.pageX - lastX;
+
+        if (Math.abs(e.pageX - startX) > 4) {
+          hasDragged = true;
+        }
+
+        track.scrollLeft -= dx;
+        handleInfiniteWrap();
+
+        dragVelocity = (-dx / dt) * 16;
+        lastX = e.pageX;
+        lastDragTime = now;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        track.style.cursor = '';
+        if (Math.abs(dragVelocity) > 0.4) {
+          currentVelocity = Math.max(-20, Math.min(20, dragVelocity));
+        }
+        targetVelocity = BASE_SPEED;
+      });
+
+      track.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const wheelDelta = e.deltaX !== 0 ? e.deltaX : e.deltaY;
+        currentVelocity += wheelDelta * 0.08;
+        currentVelocity = Math.max(-18, Math.min(18, currentVelocity));
+        targetVelocity = BASE_SPEED;
+      }, { passive: false });
+
+      track.addEventListener('mouseenter', () => {
+        isPaused = true;
+        targetVelocity = 0;
+      });
+
+      track.addEventListener('mouseleave', () => {
+        isPaused = false;
+        targetVelocity = BASE_SPEED;
+      });
+
+      track.addEventListener('click', (e) => {
+        if (hasDragged) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, true);
+
+      window.addEventListener('resize', () => {
+        handleInfiniteWrap();
+        updateCenterLensZoom();
+      });
+    })();
+
   </script>
 
   <style>
+    /* Pure Zero-Chrome Brand Ticker Carousel */
+    .brand-ticker-slot {
+      width: 220px;
+      min-width: 220px;
+      max-width: 220px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      box-sizing: border-box;
+    }
+
+    .brand-ticker-item {
+      position: relative;
+      background: transparent !important;
+      background-color: transparent !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      padding: 4px 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .brand-ticker-item img {
+      background: transparent !important;
+      background-color: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      transition: filter 0.25s ease, transform 0.25s ease;
+    }
+
+    .brand-ticker-item .brand-name-text {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: currentColor;
+      transition: -webkit-text-fill-color 0.25s ease, filter 0.25s ease, background-position 0.4s ease;
+    }
+
+    /* Radiant Gradient Glow on Hover */
+    .brand-ticker-item:hover .brand-name-text {
+      -webkit-text-fill-color: transparent !important;
+      background-position: right center;
+      filter: drop-shadow(0 0 10px rgba(124, 58, 237, 0.65));
+    }
+
+    .brand-ticker-item:hover img {
+      filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.75)) drop-shadow(0 0 18px rgba(236, 72, 153, 0.5));
+    }
+
+    .brand-ticker-item.is-active-filter {
+      background: transparent !important;
+      background-color: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    .brand-ticker-item.is-active-filter .brand-name-text {
+      -webkit-text-fill-color: transparent !important;
+      filter: drop-shadow(0 0 8px rgba(79, 70, 229, 0.6));
+    }
+
     /* Premium hardware-accelerated micro-animations for Hero Block */
     .hero-stagger-item {
       opacity: 0;
