@@ -871,7 +871,7 @@ const homeSchemas = [
                   <a
                     href={`${base}/store/${store.slug}/`}
                     data-filter-store={store.cleanName}
-                    class="brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center"
+                    class="brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-1.5"
                   >
                     <img
                       src={localLogo}
@@ -3249,7 +3249,7 @@ const homeSchemas = [
             const a = document.createElement('a');
             a.href = `${resolvedBase}/store/${brand.slug}/`;
             a.setAttribute('data-filter-store', brand.name);
-            a.className = 'brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center';
+            a.className = 'brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-1.5';
             a.style.transformOrigin = 'center center';
             a.style.willChange = 'transform';
 
@@ -3283,7 +3283,7 @@ const homeSchemas = [
       }
 
       // Base auto-spin speed (pixels per frame)
-      const BASE_SPEED = 0.60;
+      const BASE_SPEED = -0.65;
       let currentVelocity = BASE_SPEED;
       let targetVelocity = BASE_SPEED;
       let isPaused = false;
@@ -3303,7 +3303,7 @@ const homeSchemas = [
       }
 
       function triggerEntranceNudge() {
-        currentVelocity = 1.2; // Soft smooth entrance drift
+        currentVelocity = -1.5; // Soft smooth inverted entrance drift
         targetVelocity = BASE_SPEED;
       }
 
@@ -3311,9 +3311,10 @@ const homeSchemas = [
         const singleSetWidth = track.scrollWidth / 3;
         if (singleSetWidth <= 0) return;
 
+        // Circular seamless infinite wrap in both directions
         if (track.scrollLeft >= singleSetWidth * 2) {
           track.scrollLeft -= singleSetWidth;
-        } else if (track.scrollLeft <= 5) {
+        } else if (track.scrollLeft <= 10) {
           track.scrollLeft += singleSetWidth;
         }
       }
@@ -3462,7 +3463,7 @@ const homeSchemas = [
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0 16px;
+      padding: 0 20px;
       margin: 0;
       flex-shrink: 0;
       box-sizing: border-box;
@@ -3479,11 +3480,12 @@ const homeSchemas = [
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 3.5px !important;
+      gap: 5px !important;
       user-select: none;
       -webkit-user-select: none;
       white-space: nowrap;
       text-decoration: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
     .brand-ticker-item img {
@@ -3493,7 +3495,12 @@ const homeSchemas = [
       box-shadow: none !important;
       margin-right: 0 !important;
       pointer-events: none;
-      transition: transform 0.2s ease, opacity 0.2s ease;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, filter 0.25s ease;
+    }
+
+    /* Dark mode inversion for dark logos (ensuring high visibility on dark theme) */
+    html.dark .brand-ticker-item img {
+      filter: brightness(1.15) contrast(1.05);
     }
 
     .brand-ticker-item .brand-name-text {
@@ -3503,18 +3510,23 @@ const homeSchemas = [
       color: inherit;
       user-select: none;
       -webkit-user-select: none;
+      letter-spacing: -0.01em;
       transition: color 0.2s ease;
     }
 
-    /* Subtle clean hover without loud colored gradient distraction */
+    /* Elegant hover animation with smooth lift & glow */
+    .brand-ticker-item:hover {
+      transform: translateY(-1px);
+    }
+
     .brand-ticker-item:hover .brand-name-text {
       color: #4f46e5 !important;
       -webkit-text-fill-color: #4f46e5 !important;
     }
 
     .brand-ticker-item:hover img {
-      transform: scale(1.08);
-      opacity: 1;
+      transform: scale(1.12);
+      filter: drop-shadow(0 2px 6px rgba(79, 70, 229, 0.35));
     }
 
     .brand-ticker-item.is-active-filter {
