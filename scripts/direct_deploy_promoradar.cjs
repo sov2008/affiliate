@@ -63,6 +63,10 @@ conn.on('ready', async () => {
   try {
     console.log('✅ SSH Connected to 178.128.199.28');
     
+    // 0. Ensure CSS is injected
+    const { injectMissingCss } = require('./postbuild_inject_css.cjs');
+    injectMissingCss(distDir);
+
     // 1. Tar local dist for ultra-fast single file streaming upload
     const tarPath = path.resolve(__dirname, '../deals-portal/dist.tar.gz');
     console.log('📦 Archiving local dist to tar.gz...');
