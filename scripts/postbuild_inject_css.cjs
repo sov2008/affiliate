@@ -47,7 +47,12 @@ function injectMissingCss(distDir) {
 }
 
 if (require.main === module) {
-  const targetDir = process.argv[2] || path.resolve(__dirname, '../deals-portal/dist');
+  let targetDir = process.argv[2] ? path.resolve(process.argv[2]) : path.resolve(__dirname, '../deals-portal/dist');
+  if (path.basename(targetDir) !== 'dist') {
+    if (fs.existsSync(path.join(targetDir, 'dist'))) {
+      targetDir = path.join(targetDir, 'dist');
+    }
+  }
   injectMissingCss(targetDir);
 }
 

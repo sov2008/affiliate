@@ -871,7 +871,7 @@ const homeSchemas = [
                   <a
                     href={`${base}/store/${store.slug}/`}
                     data-filter-store={store.cleanName}
-                    class="brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-1.5"
+                    class="brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center"
                   >
                     <img
                       src={localLogo}
@@ -3249,7 +3249,7 @@ const homeSchemas = [
             const a = document.createElement('a');
             a.href = `${resolvedBase}/store/${brand.slug}/`;
             a.setAttribute('data-filter-store', brand.name);
-            a.className = 'brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-1.5';
+            a.className = 'brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center';
             a.style.transformOrigin = 'center center';
             a.style.willChange = 'transform';
 
@@ -3283,7 +3283,7 @@ const homeSchemas = [
       }
 
       // Base auto-spin speed (pixels per frame)
-      const BASE_SPEED = 0.65;
+      const BASE_SPEED = 0.60;
       let currentVelocity = BASE_SPEED;
       let targetVelocity = BASE_SPEED;
       let isPaused = false;
@@ -3303,7 +3303,7 @@ const homeSchemas = [
       }
 
       function triggerEntranceNudge() {
-        currentVelocity = 14.5; // High dynamic initial entrance spin
+        currentVelocity = 1.2; // Soft smooth entrance drift
         targetVelocity = BASE_SPEED;
       }
 
@@ -3319,45 +3319,12 @@ const homeSchemas = [
       }
 
       function updateCenterLensZoom() {
-        const trackRect = track.getBoundingClientRect();
-        if (!trackRect.width) return;
-        const trackCenter = trackRect.left + trackRect.width / 2;
-        const maxDist = trackRect.width * 0.45;
-
+        // Uniform rendering: keep scale 1.0 and uniform opacity to ensure exact even spacing
+        // and eliminate any overlapping collisions between adjacent brands.
         for (let i = 0; i < items.length; i++) {
           const item = items[i];
-          const rect = item.getBoundingClientRect();
-
-          // If element is outside visible container, park it at small baseline
-          if (rect.right < trackRect.left - 50 || rect.left > trackRect.right + 50) {
-            item.style.transform = 'scale(0.88)';
-            item.style.opacity = '0.60';
-            item.style.zIndex = '1';
-            continue;
-          }
-
-          const itemCenter = rect.left + rect.width / 2;
-          const dist = Math.abs(trackCenter - itemCenter);
-          const ratio = Math.min(1, dist / maxDist);
-
-          // Progressive bell curve: 1 at exact center, 0 at outer edges
-          const proximity = Math.cos(ratio * Math.PI * 0.5); // Cosine smooth ease: 1.0 -> 0.0
-
-          // Magnification scale: from 0.88 at borders up to 1.15 at center (never collides)
-          const scale = 0.88 + (proximity * 0.27);
-          // Opacity: from 0.60 at edges to 1.0 at center
-          const opacity = 0.60 + (proximity * 0.40);
-
-          item.style.transform = `scale(${scale.toFixed(3)})`;
-          item.style.opacity = opacity.toFixed(2);
-
-          if (proximity > 0.65) {
-            item.classList.add('font-bold');
-            item.style.zIndex = '20';
-          } else {
-            item.classList.remove('font-bold');
-            item.style.zIndex = String(Math.round(proximity * 10) + 1);
-          }
+          item.style.transform = 'none';
+          item.style.opacity = '1';
         }
       }
 
@@ -3495,8 +3462,8 @@ const homeSchemas = [
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0 24px;
-      margin: 0 4px;
+      padding: 0 16px;
+      margin: 0;
       flex-shrink: 0;
       box-sizing: border-box;
     }
@@ -3512,8 +3479,9 @@ const homeSchemas = [
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px !important;
+      gap: 3.5px !important;
       user-select: none;
+      -webkit-user-select: none;
       white-space: nowrap;
       text-decoration: none;
     }
@@ -3523,26 +3491,30 @@ const homeSchemas = [
       background-color: transparent !important;
       border: none !important;
       box-shadow: none !important;
-      transition: filter 0.25s ease, transform 0.25s ease;
+      margin-right: 0 !important;
+      pointer-events: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
     }
 
     .brand-ticker-item .brand-name-text {
-      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: currentColor;
-      transition: -webkit-text-fill-color 0.25s ease, filter 0.25s ease, background-position 0.4s ease;
+      background: none !important;
+      -webkit-background-clip: unset !important;
+      -webkit-text-fill-color: currentColor !important;
+      color: inherit;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: color 0.2s ease;
     }
 
-    /* Radiant Gradient Glow on Hover */
+    /* Subtle clean hover without loud colored gradient distraction */
     .brand-ticker-item:hover .brand-name-text {
-      -webkit-text-fill-color: transparent !important;
-      background-position: right center;
-      filter: drop-shadow(0 0 10px rgba(124, 58, 237, 0.65));
+      color: #4f46e5 !important;
+      -webkit-text-fill-color: #4f46e5 !important;
     }
 
     .brand-ticker-item:hover img {
-      filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.75)) drop-shadow(0 0 18px rgba(236, 72, 153, 0.5));
+      transform: scale(1.08);
+      opacity: 1;
     }
 
     .brand-ticker-item.is-active-filter {
@@ -3553,8 +3525,9 @@ const homeSchemas = [
     }
 
     .brand-ticker-item.is-active-filter .brand-name-text {
-      -webkit-text-fill-color: transparent !important;
-      filter: drop-shadow(0 0 8px rgba(79, 70, 229, 0.6));
+      color: #4f46e5 !important;
+      -webkit-text-fill-color: #4f46e5 !important;
+      font-weight: 700;
     }
 
     /* Premium hardware-accelerated micro-animations for Hero Block */
