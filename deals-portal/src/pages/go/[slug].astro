@@ -1,0 +1,40 @@
+---
+import { STORES_DATA } from '../../data/couponsData';
+
+export async function getStaticPaths() {
+  return STORES_DATA.map(store => ({
+    params: { slug: store.slug },
+    props: {
+      targetUrl: store.primaryAffiliateUrl || store.websiteUrl,
+      storeName: store.name
+    }
+  }));
+}
+
+const { targetUrl, storeName } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Redirecting to {storeName}...</title>
+    <meta http-equiv="refresh" content={`0;url=${targetUrl}`} />
+    <script define:vars={{ targetUrl }}>
+      window.location.replace(targetUrl);
+    </script>
+  </head>
+  <body class="bg-slate-900 text-white flex items-center justify-center min-h-screen font-sans">
+    <div class="text-center p-6 space-y-3">
+      <div class="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+      <p class="text-sm font-medium text-slate-300">
+        Redirecting to verified partner deal for <strong class="text-white">{storeName}</strong>...
+      </p>
+      <p class="text-xs text-slate-500">
+        If you are not redirected automatically, <a href={targetUrl} rel="nofollow sponsored" class="text-indigo-400 underline">click here</a>.
+      </p>
+    </div>
+  </body>
+</html>
+
