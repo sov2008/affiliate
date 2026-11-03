@@ -863,15 +863,28 @@ const homeSchemas = [
             Browse Verified Brands:
           </span>
           <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5" id="heroStoreTicker">
-            {deduplicatedTickerStores.slice(0, 18).map(store => (
-              <a
-                href={`${base}/store/${store.slug}/`}
-                data-filter-store={store.cleanName}
-                class="store-strip-pill shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 text-slate-700 dark:text-slate-300 hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center"
-              >
-                {store.cleanName}
-              </a>
-            ))}
+            {deduplicatedTickerStores.slice(0, 18).map(store => {
+              const googleFav = store.domain ? `https://www.google.com/s2/favicons?domain=${store.domain}&sz=64` : '';
+              const localLogo = `/logos/${store.slug}.png`;
+              return (
+                <div class="brand-ticker-slot">
+                  <a
+                    href={`${base}/store/${store.slug}/`}
+                    data-filter-store={store.cleanName}
+                    class="brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-1.5"
+                  >
+                    <img
+                      src={localLogo}
+                      alt=""
+                      class="w-4 h-4 object-contain shrink-0 rounded-xs bg-transparent"
+                      loading="lazy"
+                      data-fallback-google={googleFav}
+                    />
+                    <span class="brand-name-text whitespace-nowrap font-medium">{store.cleanName}</span>
+                  </a>
+                </div>
+              );
+            })}
           </div>
         </div>
         <a href={`${base}/stores/`} class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 hover:underline shrink-0 whitespace-nowrap">
@@ -3236,7 +3249,7 @@ const homeSchemas = [
             const a = document.createElement('a');
             a.href = `${resolvedBase}/store/${brand.slug}/`;
             a.setAttribute('data-filter-store', brand.name);
-            a.className = 'brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-2';
+            a.className = 'brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-1.5';
             a.style.transformOrigin = 'center center';
             a.style.willChange = 'transform';
 
@@ -3479,14 +3492,12 @@ const homeSchemas = [
   <style>
     /* Pure Zero-Chrome Brand Ticker Carousel */
     .brand-ticker-slot {
-      width: 220px;
-      min-width: 220px;
-      max-width: 220px;
-      flex-shrink: 0;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0 16px;
+      padding: 0 24px;
+      margin: 0 4px;
+      flex-shrink: 0;
       box-sizing: border-box;
     }
 
@@ -3501,7 +3512,7 @@ const homeSchemas = [
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px !important;
       user-select: none;
       white-space: nowrap;
       text-decoration: none;
