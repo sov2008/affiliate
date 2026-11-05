@@ -9,6 +9,9 @@ import parallelsBannersRaw from '../../data/parallelsBanners.json';
 import wondershareBannersRaw from '../../data/wondershareBanners.json';
 import lenovoBannersRaw from '../../data/lenovoBanners.json';
 import casetifyBannersRaw from '../../data/casetifyBanners.json';
+import turbostoBannersRaw from '../../data/turbostoBanners.json';
+import zonkyBannersRaw from '../../data/zonky-czBanners.json';
+import answearBannersRaw from '../../data/answearBanners.json';
 import { resolveMerchantIdentity, isJunkTestOffer, extractSmartDiscountBadge, getUniqueCleanStores, getCanonicalStoreSlug, normalizeExpiryDate } from '../../utils/dealNormalizer';
 
 import { getStoreDomain } from '../../data/storeDomains';
@@ -54,7 +57,11 @@ const PARTNER_BANNERS_MAP: Record<string, any[]> = {
   wondershare: wondershareBannersRaw as any[],
   lenovo: lenovoBannersRaw as any[],
   'lenovo-india-in': lenovoBannersRaw as any[],
-  casetify: casetifyBannersRaw as any[]
+  casetify: casetifyBannersRaw as any[],
+  turbosto: turbostoBannersRaw as any[],
+  'zonky-cz': zonkyBannersRaw as any[],
+  zonky: zonkyBannersRaw as any[],
+  answear: answearBannersRaw as any[]
 };
 
 const storeBanners = PARTNER_BANNERS_MAP[storeCanonicalSlug] || PARTNER_BANNERS_MAP[store.slug] || PARTNER_BANNERS_MAP[store.originalSlug] || [];
