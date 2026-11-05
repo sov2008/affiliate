@@ -18,27 +18,32 @@ interface Props {
 
 const { storeSlug, storeName, banners = [] } = Astro.props;
 
-// Pick hero leaderboard (728x90) and two square/medium rectangles (300x250)
-const heroLeaderboard = banners.find(b => b.sizeKey === '728x90' && b.isBlackFriday) || banners.find(b => b.sizeKey === '728x90');
-const mediumRectangles = banners.filter(b => b.sizeKey === '300x250' || b.sizeKey === '336x280').slice(0, 2);
+// Pick hero banner: 728x90, or 1200x628, or first banner
+const heroBanner = banners.find(b => b.sizeKey === '728x90' && b.isBlackFriday) 
+  || banners.find(b => b.sizeKey === '728x90')
+  || banners.find(b => b.sizeKey === '1200x628')
+  || (banners.length > 0 && banners[0].width >= 600 ? banners[0] : null);
+
+// Pick grid items (300x250, 336x280, 800x500 or remainder)
+const gridBanners = banners.filter(b => b !== heroBanner && (b.sizeKey === '300x250' || b.sizeKey === '336x280' || b.sizeKey === '800x500')).slice(0, 2);
 ---
 
 {banners.length > 0 && (
   <div class="my-6 space-y-4">
-    <!-- Clean Leaderboard Banner (без рамок, плашек, скруглений и подписей) -->
-    {heroLeaderboard && (
+    <!-- Clean Hero Banner (без рамок, плашек, скруглений и подписей) -->
+    {heroBanner && (
       <div class="flex items-center justify-center">
         <a 
-          href={heroLeaderboard.affiliateUrl} 
+          href={heroBanner.affiliateUrl} 
           target="_blank" 
           rel="nofollow sponsored"
           class="block transition duration-200 hover:opacity-95"
         >
           <img 
-            src={heroLeaderboard.src} 
+            src={heroBanner.src} 
             alt={`${storeName} Promo Banner`} 
-            width={heroLeaderboard.width} 
-            height={heroLeaderboard.height}
+            width={heroBanner.width} 
+            height={heroBanner.height}
             loading="lazy"
             class="max-w-full h-auto block"
           />
@@ -46,10 +51,10 @@ const mediumRectangles = banners.filter(b => b.sizeKey === '300x250' || b.sizeKe
       </div>
     )}
 
-    <!-- Clean Rectangle Banners Grid (без рамок, плашек, скруглений и подписей) -->
-    {mediumRectangles.length > 0 && (
+    <!-- Clean Grid Banners (без рамок, плашек, скруглений и подписей) -->
+    {gridBanners.length > 0 && (
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 place-items-center">
-        {mediumRectangles.map(banner => (
+        {gridBanners.map(banner => (
           <a 
             href={banner.affiliateUrl} 
             target="_blank" 

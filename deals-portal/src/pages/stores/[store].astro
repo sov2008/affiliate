@@ -6,6 +6,9 @@ import BrandLogo from '../../components/BrandLogo.astro';
 import PartnerBanners from '../../components/PartnerBanners.astro';
 import { STORES_DATA, COUPONS_DATA, type StoreProfile } from '../../data/couponsData';
 import parallelsBannersRaw from '../../data/parallelsBanners.json';
+import wondershareBannersRaw from '../../data/wondershareBanners.json';
+import lenovoBannersRaw from '../../data/lenovoBanners.json';
+import casetifyBannersRaw from '../../data/casetifyBanners.json';
 import { resolveMerchantIdentity, isJunkTestOffer, extractSmartDiscountBadge, getUniqueCleanStores, getCanonicalStoreSlug, normalizeExpiryDate } from '../../utils/dealNormalizer';
 
 import { getStoreDomain } from '../../data/storeDomains';
@@ -46,7 +49,15 @@ const currentMonth = now.toLocaleString('en-US', { month: 'long' });
 const currentYear = now.getFullYear();
 
 // Check if official partner promotional banners are registered for this store
-const storeBanners = (storeCanonicalSlug === 'parallels' || store.slug === 'parallels') ? (parallelsBannersRaw as any[]) : [];
+const PARTNER_BANNERS_MAP: Record<string, any[]> = {
+  parallels: parallelsBannersRaw as any[],
+  wondershare: wondershareBannersRaw as any[],
+  lenovo: lenovoBannersRaw as any[],
+  'lenovo-india-in': lenovoBannersRaw as any[],
+  casetify: casetifyBannersRaw as any[]
+};
+
+const storeBanners = PARTNER_BANNERS_MAP[storeCanonicalSlug] || PARTNER_BANNERS_MAP[store.slug] || PARTNER_BANNERS_MAP[store.originalSlug] || [];
 
 const storeDeals = COUPONS_DATA.filter(deal => {
   if (isJunkTestOffer(deal.storeName, deal.title)) return false;
