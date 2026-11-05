@@ -870,7 +870,7 @@ const homeSchemas = [
               return (
                 <div class="brand-ticker-slot">
                   <a
-                    href={`${base}/store/${store.slug}/`}
+                    href={`${base}/stores/${store.slug}/`}
                     data-filter-store={store.cleanName}
                     class="brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-1.5"
                   >
@@ -2798,7 +2798,7 @@ const homeSchemas = [
             },
             {
                   "name": "Polis.ua",
-                  "slug": "polis",
+                  "slug": "polis-ua",
                   "domain": "polis.ua"
             },
             {
@@ -2845,12 +2845,12 @@ const homeSchemas = [
             },
             {
                   "name": "The Deal Outlet",
-                  "slug": "thedealoutlet",
+                  "slug": "the-deal-outlet",
                   "domain": "thedealoutlet.com"
             },
             {
                   "name": "Rayna Tours",
-                  "slug": "raynatours",
+                  "slug": "rayna-tours",
                   "domain": "raynatours.com"
             },
             {
@@ -2860,7 +2860,7 @@ const homeSchemas = [
             },
             {
                   "name": "Nazih",
-                  "slug": "nazih",
+                  "slug": "nazih-cosmetics",
                   "domain": "nazih.sa"
             },
             {
@@ -2902,12 +2902,12 @@ const homeSchemas = [
             },
             {
                   "name": "Spokeo",
-                  "slug": "spokeo",
+                  "slug": "spokeo-reverse-scan",
                   "domain": "spokeo.com"
             },
             {
                   "name": "Keeper Security",
-                  "slug": "keepersecurity",
+                  "slug": "keeper-security",
                   "domain": "keepersecurity.com"
             },
             {
@@ -2922,7 +2922,7 @@ const homeSchemas = [
             },
             {
                   "name": "DirectDeals",
-                  "slug": "directdeals",
+                  "slug": "directdeals-software",
                   "domain": "directdeals.com"
             },
             {
@@ -2979,7 +2979,7 @@ const homeSchemas = [
             },
             {
                   "name": "MEGOGO",
-                  "slug": "megogo-pl",
+                  "slug": "megogo",
                   "domain": "megogo.net"
             },
             {
@@ -3033,7 +3033,7 @@ const homeSchemas = [
       "MX": [
             {
                   "name": "Levis",
-                  "slug": "levis-mx",
+                  "slug": "levis",
                   "domain": "levi.com.mx"
             },
             {
@@ -3043,7 +3043,7 @@ const homeSchemas = [
             },
             {
                   "name": "Wild Fork",
-                  "slug": "wild-fork-mx",
+                  "slug": "wild-fork",
                   "domain": "wildfork.mx"
             },
             {
@@ -3092,7 +3092,7 @@ const homeSchemas = [
       "PL": [
             {
                   "name": "MEGOGO PL",
-                  "slug": "megogo-pl",
+                  "slug": "megogo",
                   "domain": "megogo.net"
             },
             {
@@ -3191,7 +3191,7 @@ const homeSchemas = [
             },
             {
                   "name": "Rayna Tours",
-                  "slug": "raynatours",
+                  "slug": "rayna-tours",
                   "domain": "raynatours.com"
             },
             {
@@ -3201,7 +3201,7 @@ const homeSchemas = [
             },
             {
                   "name": "Keeper Security",
-                  "slug": "keepersecurity",
+                  "slug": "keeper-security",
                   "domain": "keepersecurity.com"
             },
             {
@@ -3251,7 +3251,7 @@ const homeSchemas = [
             slot.className = 'brand-ticker-slot';
 
             const a = document.createElement('a');
-            a.href = `${resolvedBase}/store/${brand.slug}/`;
+            a.href = `${resolvedBase}/stores/${brand.slug}/`;
             a.setAttribute('data-filter-store', brand.name);
             a.className = 'brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-1.5';
             a.style.transformOrigin = 'center center';
@@ -3406,7 +3406,7 @@ const homeSchemas = [
         const dt = Math.max(1, now - lastDragTime);
         const dx = e.pageX - lastX;
 
-        if (Math.abs(e.pageX - startX) > 4) {
+        if (Math.abs(e.pageX - startX) > 10) {
           hasDragged = true;
         }
 
