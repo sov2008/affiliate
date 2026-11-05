@@ -38,7 +38,7 @@ function getMaxDiscount(canonKey: string): string {
   return coupons[0]?.discountBadge || coupons[0]?.badge || 'Verified Deal';
 }
 
-const totalStores = cleanStores.length;
+const totalStores = STORES_DATA.length;
 const totalOffers = Object.values(storeCouponsMap).reduce((acc, list) => acc + list.length, 0);
 
 // Unique categories
