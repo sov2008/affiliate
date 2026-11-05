@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import BrandLogo from '../components/BrandLogo.astro';
 import CuratedSpotlightSection from '../components/CuratedSpotlightSection.astro';
+import PartnerBannerRotator from '../components/PartnerBannerRotator.astro';
 import { cleanBrandName, normalizeDiscountBadge, extractSmartDiscountBadge, isJunkTestOffer, resolveMerchantIdentity, diversifyDealsFeed, getBrandGradient, getUniqueCleanStores, getCanonicalStoreSlug, resolveSmartCategory, normalizeExpiryDate } from '../utils/dealNormalizer';
 import { getStoreAllowedRegions, detectDealLanguage } from '../utils/regionFilter';
 import { COUPONS_DATA, STORES_DATA } from '../data/couponsData';
@@ -895,6 +896,9 @@ const homeSchemas = [
 
     <!-- Consolidated Curated Spotlight (Pill Tabs: Expiring Soon, In-Stock Gear, Seasonal, Software) -->
     <CuratedSpotlightSection endingSoonDeals={endingSoonDeals} />
+
+    <!-- Organic Verified Partner Banner Rotator -->
+    <PartnerBannerRotator />
 
     <!-- Main Deals Filter & Grid Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">

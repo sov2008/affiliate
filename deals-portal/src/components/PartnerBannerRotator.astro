@@ -1,0 +1,183 @@
+---
+/**
+ * PartnerBannerRotator.astro
+ * Organic, modern multi-partner banner carousel rotator.
+ * Zero demo data: utilizes 100% genuine creative assets and tracking URLs from Admitad.
+ * Clean, borderless design respecting user guidelines.
+ */
+import rotatorData from '../data/homeRotatorBanners.json';
+
+const { leaderboards = [], rectangles = [] } = rotatorData;
+---
+
+<section id="partnerRotatorSection" class="relative my-8 sm:my-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Top Mini Indicator / Controls Bar -->
+    <div class="flex items-center justify-between gap-4 mb-3">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400 animate-pulse"></span>
+          Verified Partner Spotlight
+        </span>
+        <span class="text-xs text-slate-400 dark:text-slate-500 hidden sm:inline">• Official Creatives</span>
+      </div>
+
+      <!-- Carousel Navigation & Indicators -->
+      <div class="flex items-center gap-2">
+        <!-- Dot Indicators for Leaderboards -->
+        <div id="rotatorDots" class="flex items-center gap-1.5 mr-2">
+          {leaderboards.map((_, i) => (
+            <button
+              type="button"
+              class={`w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-indigo-600 w-5' : 'bg-slate-300 dark:bg-slate-700 hover:bg-slate-400'}`}
+              data-slide-index={i}
+              aria-label={`Go to slide ${i + 1}`}
+            ></button>
+          ))}
+        </div>
+
+        <button
+          id="rotatorPrevBtn"
+          type="button"
+          class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition text-xs"
+          aria-label="Previous Partner Banner"
+        >
+          ‹
+        </button>
+        <button
+          id="rotatorNextBtn"
+          type="button"
+          class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition text-xs"
+          aria-label="Next Partner Banner"
+        >
+          ›
+        </button>
+      </div>
+    </div>
+
+    <!-- Rotator Carousel Container (Single Responsive Slide at a Time) -->
+    <div class="relative overflow-hidden rounded-2xl bg-slate-100/60 dark:bg-slate-900/40 p-2 sm:p-3 transition-all">
+      <div id="rotatorTrack" class="relative w-full">
+        {leaderboards.map((item, idx) => (
+          <div
+            class={`rotator-slide ${idx === 0 ? 'block' : 'hidden'} transition-opacity duration-500 ease-in-out`}
+            data-index={idx}
+          >
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+              <!-- Left Mini Info on Brand -->
+              <div class="flex items-center gap-3 w-full md:w-auto px-2">
+                <span class="text-xs font-bold text-slate-900 dark:text-white shrink-0">
+                  {item.brand}
+                </span>
+                <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                  {item.category}
+                </span>
+                <a
+                  href={`/stores/${item.partnerSlug}/`}
+                  class="ml-auto md:ml-2 text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 hover:underline shrink-0 flex items-center gap-0.5"
+                >
+                  View Coupons ↗
+                </a>
+              </div>
+
+              <!-- Main Banner Artwork Link -->
+              <a
+                href={item.affiliateUrl}
+                target="_blank"
+                rel="nofollow sponsored"
+                class="block w-full max-w-[728px] mx-auto hover:opacity-95 transition-opacity duration-200"
+                title={`${item.brand} Special Deal`}
+              >
+                <img
+                  src={item.src}
+                  alt={`${item.brand} Official Creative`}
+                  width={item.width}
+                  height={item.height}
+                  loading={idx === 0 ? "eager" : "lazy"}
+                  class="w-full h-auto max-h-[90px] object-contain mx-auto block"
+                />
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    const slides = document.querySelectorAll('.rotator-slide');
+    const dots = document.querySelectorAll('#rotatorDots button');
+    const prevBtn = document.getElementById('rotatorPrevBtn');
+    const nextBtn = document.getElementById('rotatorNextBtn');
+
+    if (!slides.length) return;
+
+    let currentIndex = 0;
+    let timer = null;
+
+    function showSlide(index) {
+      if (index < 0) index = slides.length - 1;
+      if (index >= slides.length) index = 0;
+      currentIndex = index;
+
+      slides.forEach((slide, i) => {
+        if (i === currentIndex) {
+          slide.classList.remove('hidden');
+          slide.classList.add('block');
+        } else {
+          slide.classList.add('hidden');
+          slide.classList.remove('block');
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        if (i === currentIndex) {
+          dot.className = 'w-5 h-2 rounded-full transition-all duration-300 bg-indigo-600';
+        } else {
+          dot.className = 'w-2 h-2 rounded-full transition-all duration-300 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400';
+        }
+      });
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      timer = setInterval(() => {
+        showSlide(currentIndex + 1);
+      }, 5000);
+    }
+
+    function stopAutoPlay() {
+      if (timer) clearInterval(timer);
+    }
+
+    prevBtn?.addEventListener('click', () => {
+      stopAutoPlay();
+      showSlide(currentIndex - 1);
+      startAutoPlay();
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      stopAutoPlay();
+      showSlide(currentIndex + 1);
+      startAutoPlay();
+    });
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        stopAutoPlay();
+        showSlide(i);
+        startAutoPlay();
+      });
+    });
+
+    const container = document.getElementById('partnerRotatorSection');
+    container?.addEventListener('mouseenter', stopAutoPlay);
+    container?.addEventListener('mouseleave', startAutoPlay);
+
+    // Initial setup
+    startAutoPlay();
+  })();
+</script>
+

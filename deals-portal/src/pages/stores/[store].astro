@@ -420,9 +420,9 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                 href={storeAffiliateUrl}
                 target="_blank"
                 rel="nofollow sponsored"
-                class="px-5 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-indigo-500/25 transition-all flex items-center gap-2 cursor-pointer"
+                class="relative z-20 px-5 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-indigo-500/25 transition-all flex items-center gap-2 cursor-pointer select-none"
               >
-                <span>Visit {store.name} Store ↗</span>
+                <span>Visit {store.name} Store &nearr;</span>
               </a>
             </div>
           </div>
@@ -1293,7 +1293,7 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                 rel="nofollow sponsored"
                 class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-bold text-xs transition shrink-0 self-start sm:self-auto shadow-sm"
               >
-                <span>Visit {store.name} Store ↗</span>
+                <span>Visit {store.name} Store &nearr;</span>
               </a>
             </div>
 

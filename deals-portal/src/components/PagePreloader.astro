@@ -4,7 +4,7 @@
 
 <div
   id="promoradar-preloader"
-  class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0B0F19] transition-opacity duration-500 ease-out pointer-events-auto"
+  class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0B0F19] transition-opacity duration-300 ease-out pointer-events-none"
   aria-label="Loading PromoRadar..."
 >
   <div class="flex flex-col items-center">
@@ -80,31 +80,23 @@
       preloader.dataset.hidden = 'true';
       preloader.style.opacity = '0';
       preloader.style.pointerEvents = 'none';
+      preloader.style.display = 'none';
       
       // Dispatch event as soon as preloader begins dissolving
       window.dispatchEvent(new CustomEvent('promoradar_preloader_done'));
 
       setTimeout(() => {
         preloader.remove();
-      }, 550);
+      }, 100);
     }
 
-    // Minimum visible display duration to let the scanning radar animation breathe
-    const minDisplayMs = 850;
-    const startTime = Date.now();
-
-    function scheduleDismiss() {
-      const elapsed = Date.now() - startTime;
-      const remaining = Math.max(0, minDisplayMs - elapsed);
-      setTimeout(hidePreloader, remaining);
-    }
-
+    // Dismiss immediately on ready
     if (document.readyState === 'complete') {
-      scheduleDismiss();
+      hidePreloader();
     } else {
-      window.addEventListener('load', scheduleDismiss);
-      // Fallback timeout in case of slow resources
-      setTimeout(hidePreloader, 3000);
+      window.addEventListener('load', hidePreloader);
+      document.addEventListener('DOMContentLoaded', hidePreloader);
+      setTimeout(hidePreloader, 600);
     }
   })();
 </script>

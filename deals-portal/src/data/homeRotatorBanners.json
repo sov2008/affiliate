@@ -1,0 +1,136 @@
+{
+  "leaderboards": [
+    {
+      "brand": "Parallels",
+      "partnerSlug": "parallels",
+      "category": "Software & OS Virtualization",
+      "src": "/banners/parallels/parallels_728x90_13.png",
+      "width": 728,
+      "height": 90,
+      "name": "Parallels Desktop Official Partner Creative (728x90)",
+      "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_728x90"
+    },
+    {
+      "brand": "Lenovo",
+      "partnerSlug": "lenovo",
+      "category": "Laptops, Tech & Hardware",
+      "src": "/banners/lenovo/lenovo_728x90_16.jpg",
+      "width": 728,
+      "height": 90,
+      "name": "Lenovo Official Partner Creative (728x90)",
+      "affiliateUrl": "https://bednari.com/g/6iia5dppfefa9e3fd878cc01b591a8/?subid=lenovo_banner_728x90"
+    },
+    {
+      "brand": "Wondershare",
+      "partnerSlug": "wondershare",
+      "category": "Creative Tools & Utilities",
+      "src": "/banners/wondershare/wondershare_728x90_13.jpg",
+      "width": 728,
+      "height": 90,
+      "name": "Wondershare Official Partner Creative (728x90)",
+      "affiliateUrl": "https://kjuzv.com/g/8u3trxihmwfa9e3fd878ef655e4ac9/?subid=wondershare_banner_728x90"
+    },
+    {
+      "brand": "Answear",
+      "partnerSlug": "answear",
+      "category": "Fashion & Premium Apparel",
+      "src": "/banners/answear/answear_728x90_19.jpg",
+      "width": 728,
+      "height": 90,
+      "name": "Answear Official Partner Creative (728x90)",
+      "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_728x90"
+    },
+    {
+      "brand": "TurboSTO",
+      "partnerSlug": "turbosto",
+      "category": "Auto Repair & Mobility",
+      "src": "/banners/turbosto/turbosto_600x90_15.jpg",
+      "width": 600,
+      "height": 90,
+      "name": "TurboSTO Official Partner Creative (600x90)",
+      "affiliateUrl": "https://xnmik.com/g/g9n1gnlxazfa9e3fd878651cd57d89/?subid=turbosto_banner_600x90"
+    },
+    {
+      "brand": "Zonky CZ",
+      "partnerSlug": "zonky-cz",
+      "category": "Finance & Peer-to-Peer Loans",
+      "src": "/banners/zonky-cz/zonky-cz_728x90_19.jpg",
+      "width": 728,
+      "height": 90,
+      "name": "Zonky Official Partner Creative (728x90)",
+      "affiliateUrl": "https://ytyaz.com/g/kw5iel2aqjfa9e3fd8787b4a20a6f1/?subid=zonky-cz_banner_728x90"
+    }
+  ],
+  "rectangles": [
+    {
+      "brand": "Parallels",
+      "partnerSlug": "parallels",
+      "category": "Software & OS Virtualization",
+      "src": "/banners/parallels/parallels_300x250_2.png",
+      "width": 300,
+      "height": 250,
+      "name": "Parallels Desktop Official Partner Creative (300x250)",
+      "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_300x250"
+    },
+    {
+      "brand": "Lenovo",
+      "partnerSlug": "lenovo",
+      "category": "Laptops, Tech & Hardware",
+      "src": "/banners/lenovo/lenovo_300x250_6.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Lenovo Official Partner Creative (300x250)",
+      "affiliateUrl": "https://bednari.com/g/6iia5dppfefa9e3fd878cc01b591a8/?subid=lenovo_banner_300x250"
+    },
+    {
+      "brand": "Wondershare",
+      "partnerSlug": "wondershare",
+      "category": "Creative Tools & Utilities",
+      "src": "/banners/wondershare/wondershare_300x250_6.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Wondershare Official Partner Creative (300x250)",
+      "affiliateUrl": "https://kjuzv.com/g/8u3trxihmwfa9e3fd878ef655e4ac9/?subid=wondershare_banner_300x250"
+    },
+    {
+      "brand": "CASETiFY",
+      "partnerSlug": "casetify",
+      "category": "Phone Cases & Tech Accessories",
+      "src": "/banners/casetify/casetify_800x500_1.png",
+      "width": 800,
+      "height": 500,
+      "name": "Casetify Official Partner Creative (800x500)",
+      "affiliateUrl": "https://bywiola.com/g/tv8h1uy8nifa9e3fd8782f7a77e67e/?subid=casetify_banner_800x500"
+    },
+    {
+      "brand": "Answear",
+      "partnerSlug": "answear",
+      "category": "Fashion & Premium Apparel",
+      "src": "/banners/answear/answear_300x250_14.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Answear Official Partner Creative (300x250)",
+      "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_300x250"
+    },
+    {
+      "brand": "TurboSTO",
+      "partnerSlug": "turbosto",
+      "category": "Auto Repair & Mobility",
+      "src": "/banners/turbosto/turbosto_300x250_8.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "TurboSTO Official Partner Creative (300x250)",
+      "affiliateUrl": "https://xnmik.com/g/g9n1gnlxazfa9e3fd878651cd57d89/?subid=turbosto_banner_300x250"
+    },
+    {
+      "brand": "Zonky CZ",
+      "partnerSlug": "zonky-cz",
+      "category": "Finance & Peer-to-Peer Loans",
+      "src": "/banners/zonky-cz/zonky-cz_300x250_9.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Zonky Official Partner Creative (300x250)",
+      "affiliateUrl": "https://ytyaz.com/g/kw5iel2aqjfa9e3fd8787b4a20a6f1/?subid=zonky-cz_banner_300x250"
+    }
+  ]
+}
