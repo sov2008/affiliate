@@ -1036,7 +1036,7 @@ export const STORES_DATA: StoreProfile[] = [
     "fullDesc": "Hostinger provides market-leading solutions in web hosting & domains, emphasizing verified service reliability, transparent customer support, and direct manufacturer pricing. Shoppers choose Hostinger to access premium solutions tailored to everyday consumer needs with full merchant order protection. Our deal verification desk monitors active promotions, seasonal campaigns, and checkout vouchers daily to guarantee that every listed coupon works reliably in live shopping carts.",
     "websiteUrl": "https://www.hostinger.com",
     "cleanDomain": "hostinger.com",
-    "primaryAffiliateUrl": "https://flirtcheck.site/go?offer=hostinger&source=deals_hostinger&trigger=store_header&intent=deals",
+    "primaryAffiliateUrl": "https://www.hostinger.com/?utm_source=promoradar&utm_medium=affiliate&utm_campaign=store_header",
     "howToApply": [
       "Choose a Premium or Business Cloud web hosting plan on Hostinger.",
       "Select a 48-month or 12-month billing period to secure maximum introductory pricing.",
@@ -7452,7 +7452,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "isExclusive": true,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://flirtcheck.site/go?offer=hostinger&source=deals_hostinger&trigger=coupon_card&intent=deals&sub3=hosting75",
+    "affiliateUrl": "https://www.hostinger.com/web-hosting?utm_source=promoradar&utm_medium=affiliate&utm_campaign=hosting75",
     "storeLogoText": "HOSTINGER",
     "terms": "Enter code HOSTING75 at checkout to apply 75% discount and free domain.",
     "successRate": "99.9%"
@@ -7469,7 +7469,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "isExclusive": false,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://flirtcheck.site/go?offer=hostinger&source=deals_hostinger&trigger=coupon_card&intent=deals&sub3=cloudlaunch",
+    "affiliateUrl": "https://www.hostinger.com/cloud-hosting?utm_source=promoradar&utm_medium=affiliate&utm_campaign=cloudlaunch",
     "storeLogoText": "HOSTINGER",
     "terms": "Enter code CLOUDLAUNCH at checkout to apply the 65% discount.",
     "successRate": "99.5%"
