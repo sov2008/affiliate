@@ -1,0 +1,72 @@
+---
+interface BannerItem {
+  name: string;
+  width: number;
+  height: number;
+  sizeKey: string;
+  src: string;
+  cdnSrc: string;
+  isBlackFriday: boolean;
+  affiliateUrl: string;
+}
+
+interface Props {
+  storeSlug: string;
+  storeName: string;
+  banners?: BannerItem[];
+}
+
+const { storeSlug, storeName, banners = [] } = Astro.props;
+
+// Pick hero leaderboard (728x90) and two square/medium rectangles (300x250)
+const heroLeaderboard = banners.find(b => b.sizeKey === '728x90' && b.isBlackFriday) || banners.find(b => b.sizeKey === '728x90');
+const mediumRectangles = banners.filter(b => b.sizeKey === '300x250' || b.sizeKey === '336x280').slice(0, 2);
+---
+
+{banners.length > 0 && (
+  <div class="my-6 space-y-4">
+    <!-- Clean Leaderboard Banner (без рамок, плашек, скруглений и подписей) -->
+    {heroLeaderboard && (
+      <div class="flex items-center justify-center">
+        <a 
+          href={heroLeaderboard.affiliateUrl} 
+          target="_blank" 
+          rel="nofollow sponsored"
+          class="block transition duration-200 hover:opacity-95"
+        >
+          <img 
+            src={heroLeaderboard.src} 
+            alt={`${storeName} Promo Banner`} 
+            width={heroLeaderboard.width} 
+            height={heroLeaderboard.height}
+            loading="lazy"
+            class="max-w-full h-auto block"
+          />
+        </a>
+      </div>
+    )}
+
+    <!-- Clean Rectangle Banners Grid (без рамок, плашек, скруглений и подписей) -->
+    {mediumRectangles.length > 0 && (
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 place-items-center">
+        {mediumRectangles.map(banner => (
+          <a 
+            href={banner.affiliateUrl} 
+            target="_blank" 
+            rel="nofollow sponsored"
+            class="block transition duration-200 hover:opacity-95"
+          >
+            <img 
+              src={banner.src} 
+              alt={`${storeName} ${banner.sizeKey} Banner`} 
+              width={banner.width} 
+              height={banner.height}
+              loading="lazy"
+              class="max-w-full h-auto block"
+            />
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+)}

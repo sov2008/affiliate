@@ -3,7 +3,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import BrandLogo from '../../components/BrandLogo.astro';
+import PartnerBanners from '../../components/PartnerBanners.astro';
 import { STORES_DATA, COUPONS_DATA, type StoreProfile } from '../../data/couponsData';
+import parallelsBannersRaw from '../../data/parallelsBanners.json';
 import { resolveMerchantIdentity, isJunkTestOffer, extractSmartDiscountBadge, getUniqueCleanStores, getCanonicalStoreSlug, normalizeExpiryDate } from '../../utils/dealNormalizer';
 
 import { getStoreDomain } from '../../data/storeDomains';
@@ -38,6 +40,9 @@ const storeCanonicalSlug = store.slug || getCanonicalStoreSlug(storeCleanBrand);
 const now = new Date();
 const currentMonth = now.toLocaleString('en-US', { month: 'long' });
 const currentYear = now.getFullYear();
+
+// Check if official partner promotional banners are registered for this store
+const storeBanners = (storeCanonicalSlug === 'parallels' || store.slug === 'parallels') ? (parallelsBannersRaw as any[]) : [];
 
 const storeDeals = COUPONS_DATA.filter(deal => {
   if (isJunkTestOffer(deal.storeName, deal.title)) return false;
@@ -747,6 +752,11 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                 </div>
               </div>
             </div>
+
+            <!-- Official Partner Promotional Banners Section -->
+            {storeBanners.length > 0 && (
+              <PartnerBanners storeSlug={store.slug} storeName={store.name} banners={storeBanners} />
+            )}
 
             <!-- List of Coupons Container -->
             <div id="storeCouponsGrid" class="space-y-4">
