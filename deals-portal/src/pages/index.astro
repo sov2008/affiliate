@@ -1025,7 +1025,7 @@ const homeSchemas = [
           
           return [
             <article
-              class={`deal-grid-card rounded-2xl p-4 flex flex-col justify-between gap-3 h-full card-hover relative overflow-hidden ${idx >= 21 ? 'deal-item-collapsed hidden' : ''} ${isTopDeal ? 'ring-1 ring-amber-400/30' : ''}`}
+              class={`deal-grid-card rounded-2xl p-4 flex flex-col justify-between gap-3 h-full card-hover relative overflow-hidden ${idx >= 21 ? 'deal-item-collapsed hidden' : 'animate-card-entrance'} ${isTopDeal ? 'ring-1 ring-amber-400/30' : ''}`}
               data-store={cleanName}
               data-category={deal.smartCategory || deal.storeCategory}
               data-type={isCode ? 'code' : 'deal'}
@@ -1159,7 +1159,7 @@ const homeSchemas = [
             /* In-Grid Contextual Partner Creative Banner Slot (Organically inserted after every 7th deal card so 7+1=8, 14+2=16, 21+3=24 items -> perfectly fills 4-col rows with 0 hanging cards) */
             ((idx + 1) % 7 === 0 && inGridPartnerBanners.length > 0) ? (
               <div
-                class={`in-grid-partner-banner rounded-2xl p-3 flex flex-col justify-between gap-2.5 h-full relative overflow-hidden bg-gradient-to-br from-indigo-50/70 via-slate-50 to-indigo-50/40 dark:from-indigo-950/40 dark:via-slate-900/60 dark:to-indigo-950/20 border border-indigo-200/80 dark:border-indigo-800/60 shadow-sm transition hover:shadow-md hover:border-indigo-400 dark:hover:border-indigo-600 ${idx >= 21 ? 'deal-item-collapsed hidden' : ''}`}
+                class={`in-grid-partner-banner rounded-2xl p-3 flex flex-col justify-between gap-2.5 h-full relative overflow-hidden bg-gradient-to-br from-indigo-50/70 via-slate-50 to-indigo-50/40 dark:from-indigo-950/40 dark:via-slate-900/60 dark:to-indigo-950/20 border border-indigo-200/80 dark:border-indigo-800/60 shadow-sm transition hover:shadow-md hover:border-indigo-400 dark:hover:border-indigo-600 ${idx >= 21 ? 'deal-item-collapsed hidden' : 'animate-card-entrance'}`}
                 data-banner-partner={inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].partnerSlug}
                 data-banner-category={inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].category}
                 data-banner-regions={(STORE_REGIONS[inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].partnerSlug] || ['GLOBAL']).join(',')}
@@ -1837,25 +1837,44 @@ const homeSchemas = [
         if (matchCat && matchRegion && matchLang && matchType && matchStore && matchQuery) {
           matchedCount++;
           if (matchedCount <= visibleLimit) {
+            const wasHidden = card.classList.contains('hidden');
             card.classList.remove('hidden');
+            if (wasHidden) {
+              card.classList.remove('animate-card-entrance');
+              void card.offsetWidth; // retrigger CSS animation
+              card.classList.add('animate-card-entrance');
+              card.style.animationDelay = ((actuallyShown % 21) * 20) + 'ms';
+            }
             actuallyShown++;
           } else {
             card.classList.add('hidden');
+            card.classList.remove('animate-card-entrance');
+            card.style.animationDelay = '';
           }
         } else {
           card.classList.add('hidden');
+          card.classList.remove('animate-card-entrance');
+          card.style.animationDelay = '';
         }
       });
 
-      // In-Grid Partner Banners: ALWAYS display within active visible batch across all versions, locales and regions
+      // Synchronize in-grid partner banners with visible cards: exactly 1 banner for every 7 visible cards!
       const gridBanners = document.querySelectorAll('.in-grid-partner-banner');
+      const maxBannersToShow = Math.floor(actuallyShown / 7);
       gridBanners.forEach((b, bIdx) => {
-        // Show banner whenever within the current visible batch (7 cards per banner slot)
-        const bannerPosition = (bIdx + 1) * 7;
-        if (bannerPosition <= visibleLimit) {
+        if (bIdx < maxBannersToShow) {
+          const wasHidden = b.classList.contains('hidden');
           b.classList.remove('hidden');
+          if (wasHidden) {
+            b.classList.remove('animate-card-entrance');
+            void b.offsetWidth;
+            b.classList.add('animate-card-entrance');
+            b.style.animationDelay = ((bIdx % 3) * 60) + 'ms';
+          }
         } else {
           b.classList.add('hidden');
+          b.classList.remove('animate-card-entrance');
+          b.style.animationDelay = '';
         }
       });
 

@@ -338,25 +338,72 @@ export function diversifyDealsFeed<T extends { cleanBrand?: string; code?: strin
     });
   }
 
-  // Round-robin pick across buckets so adjacent cards are always different brands
   const result: T[] = [];
-  let added = true;
-  while (added) {
-    added = false;
-    for (const [, list] of buckets.entries()) {
-      if (list.length > 0) {
-        result.push(list.shift()!);
-        added = true;
+  const brandList = Array.from(buckets.keys());
+  const MIN_SPACING = 4;
+  const recentHistory: string[] = [];
+  let totalRemaining = deals.length;
+
+  // Compute pacing target for each brand so dominant brands don't bunch at the end
+  const totalCount = deals.length;
+  const brandFrequency = new Map<string, number>();
+  for (const b of brandList) {
+    const count = buckets.get(b)!.length;
+    const idealInterval = Math.max(MIN_SPACING, Math.floor(totalCount / Math.max(1, count)));
+    brandFrequency.set(b, idealInterval);
+  }
+
+  while (totalRemaining > 0) {
+    const activeBrands = brandList.filter(b => buckets.get(b)!.length > 0);
+
+    activeBrands.sort((a, b) => {
+      const aIdx = recentHistory.lastIndexOf(a);
+      const bIdx = recentHistory.lastIndexOf(b);
+
+      const aDist = aIdx === -1 ? 999 : (recentHistory.length - aIdx);
+      const bDist = bIdx === -1 ? 999 : (recentHistory.length - bIdx);
+
+      const aPacing = brandFrequency.get(a) || MIN_SPACING;
+      const bPacing = brandFrequency.get(b) || MIN_SPACING;
+
+      const aReady = aDist >= aPacing;
+      const bReady = bDist >= bPacing;
+
+      // Prioritize brands that have waited their pacing interval
+      if (aReady !== bReady) {
+        return aReady ? -1 : 1;
       }
+
+      // If both ready or both not ready, check absolute MIN_SPACING
+      const aAllowed = aDist >= MIN_SPACING;
+      const bAllowed = bDist >= MIN_SPACING;
+      if (aAllowed !== bAllowed) {
+        return aAllowed ? -1 : 1;
+      }
+
+      // Prioritize higher relative remaining count (drain large queues smoothly)
+      const aRem = buckets.get(a)!.length;
+      const bRem = buckets.get(b)!.length;
+      if (aRem !== bRem) {
+        return bRem - aRem;
+      }
+
+      return bDist - aDist;
+    });
+
+    const chosenBrand = activeBrands[0];
+    const deal = buckets.get(chosenBrand)!.shift()!;
+    result.push(deal);
+    recentHistory.push(chosenBrand);
+    if (recentHistory.length > 25) {
+      recentHistory.shift();
     }
+    totalRemaining--;
   }
 
   return result;
 }
 
-/**
- * Deterministic brand gradient palette (6 vibrant high-contrast styles)
- */
 export const MONOGRAM_GRADIENTS = [
   'from-indigo-600 via-indigo-700 to-indigo-800',  // 0: Indigo #4F46E5
   'from-rose-600 via-rose-700 to-rose-800',        // 1: Rose #E11D48

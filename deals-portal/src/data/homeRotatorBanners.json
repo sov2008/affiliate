@@ -93,89 +93,749 @@
   ],
   "rectangles": [
     {
-      "brand": "Parallels",
-      "partnerSlug": "parallels",
-      "category": "Software & OS Virtualization",
-      "src": "/promo-media/parallels/parallels_card_2.png",
+      "brand": "acer-cps-in",
+      "partnerSlug": "acer-cps-in",
+      "category": "Verified Partner",
+      "src": "/promo-media/acer-cps-in/acer-cps-in_card_0.jpg",
       "width": 300,
       "height": 250,
-      "name": "Parallels Desktop Official Partner Creative (300x250)",
-      "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_300x250"
+      "name": "Acer [CPS] IN Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tjzuh.com/g/nsw6bi76i1fa9e3fd878759e60847d/?subid=promoradar_banner_acer-cps-in"
     },
     {
-      "brand": "Lenovo",
-      "partnerSlug": "lenovo",
-      "category": "Laptops, Tech & Hardware",
-      "src": "/promo-media/lenovo/lenovo_card_6.jpg",
+      "brand": "adidas",
+      "partnerSlug": "adidas",
+      "category": "Verified Partner",
+      "src": "/promo-media/adidas/adidas_card_4.jpg",
+      "width": 250,
+      "height": 250,
+      "name": "Adidas [CPS] ID Official Partner Banner (250x250)",
+      "affiliateUrl": "https://rzekl.com/g/ioandfo5nofa9e3fd8782d166b81fd/?subid=promoradar_banner_adidas"
+    },
+    {
+      "brand": "adidas",
+      "partnerSlug": "adidas",
+      "category": "Verified Partner",
+      "src": "/promo-media/adidas/adidas_card_7.jpg",
+      "width": 250,
+      "height": 250,
+      "name": "Adidas [CPS] ID Official Partner Banner (250x250)",
+      "affiliateUrl": "https://rzekl.com/g/snu59px9enfa9e3fd8782d166b81fd/?subid=promoradar_banner_adidas"
+    },
+    {
+      "brand": "aktuality-sk",
+      "partnerSlug": "aktuality-sk",
+      "category": "Verified Partner",
+      "src": "/promo-media/aktuality-sk/aktuality-sk_card_4.png",
+      "width": 300,
+      "height": 300,
+      "name": "Aktuality SK CPS Official Partner Banner (300x300)",
+      "affiliateUrl": "https://wbbsv.com/g/i4pz9l0akifa9e3fd8785cfb54564f/?subid=promoradar_banner_aktuality-sk"
+    },
+    {
+      "brand": "aktuality-sk",
+      "partnerSlug": "aktuality-sk",
+      "category": "Verified Partner",
+      "src": "/promo-media/aktuality-sk/aktuality-sk_card_5.png",
+      "width": 300,
+      "height": 300,
+      "name": "Aktuality SK CPS Official Partner Banner (300x300)",
+      "affiliateUrl": "https://wbbsv.com/g/lp6766pda4fa9e3fd8785cfb54564f/?subid=promoradar_banner_aktuality-sk"
+    },
+    {
+      "brand": "alibaba",
+      "partnerSlug": "alibaba",
+      "category": "Verified Partner",
+      "src": "/promo-media/alibaba/alibaba_card_0.jpg",
       "width": 300,
       "height": 250,
-      "name": "Lenovo Official Partner Creative (300x250)",
-      "affiliateUrl": "https://bednari.com/g/6iia5dppfefa9e3fd878cc01b591a8/?subid=lenovo_banner_300x250"
+      "name": "Alibaba WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/xi1e0mzkhkfa9e3fd878219aa26f6f/?subid=promoradar_banner_alibaba"
     },
     {
-      "brand": "Wondershare",
-      "partnerSlug": "wondershare",
-      "category": "Creative Tools & Utilities",
-      "src": "/promo-media/wondershare/wondershare_card_6.jpg",
+      "brand": "alibaba",
+      "partnerSlug": "alibaba",
+      "category": "Verified Partner",
+      "src": "/promo-media/alibaba/alibaba_card_1.jpg",
       "width": 300,
       "height": 250,
-      "name": "Wondershare Official Partner Creative (300x250)",
-      "affiliateUrl": "https://kjuzv.com/g/8u3trxihmwfa9e3fd878ef655e4ac9/?subid=wondershare_banner_300x250"
+      "name": "Alibaba WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/n11go1amqvfa9e3fd878219aa26f6f/?subid=promoradar_banner_alibaba"
     },
     {
-      "brand": "CASETiFY",
-      "partnerSlug": "casetify",
-      "category": "Phone Cases & Tech Accessories",
-      "src": "/promo-media/casetify/casetify_wide_1.png",
-      "width": 800,
-      "height": 500,
-      "name": "Casetify Official Partner Creative (800x500)",
-      "affiliateUrl": "https://bywiola.com/g/tv8h1uy8nifa9e3fd8782f7a77e67e/?subid=casetify_banner_800x500"
-    },
-    {
-      "brand": "Answear",
-      "partnerSlug": "answear",
-      "category": "Fashion & Premium Apparel",
-      "src": "/promo-media/answear/answear_card_14.jpg",
+      "brand": "alibaba",
+      "partnerSlug": "alibaba",
+      "category": "Verified Partner",
+      "src": "/promo-media/alibaba/alibaba_card_2.jpg",
       "width": 300,
       "height": 250,
-      "name": "Answear Official Partner Creative (300x250)",
-      "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_300x250"
+      "name": "Alibaba WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/lj3ttkk82zfa9e3fd878219aa26f6f/?subid=promoradar_banner_alibaba"
     },
     {
-      "brand": "TurboSTO",
-      "partnerSlug": "turbosto",
-      "category": "Auto Repair & Mobility",
-      "src": "/promo-media/turbosto/turbosto_card_8.jpg",
+      "brand": "alibaba",
+      "partnerSlug": "alibaba",
+      "category": "Verified Partner",
+      "src": "/promo-media/alibaba/alibaba_card_3.png",
       "width": 300,
       "height": 250,
-      "name": "TurboSTO Official Partner Creative (300x250)",
-      "affiliateUrl": "https://xnmik.com/g/g9n1gnlxazfa9e3fd878651cd57d89/?subid=turbosto_banner_300x250"
+      "name": "Alibaba WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/jebnle58s5fa9e3fd878219aa26f6f/?subid=promoradar_banner_alibaba"
     },
     {
-      "brand": "Zonky CZ",
-      "partnerSlug": "zonky-cz",
-      "category": "Finance & Peer-to-Peer Loans",
-      "src": "/promo-media/zonky-cz/zonky-cz_card_9.jpg",
+      "brand": "alibaba",
+      "partnerSlug": "alibaba",
+      "category": "Verified Partner",
+      "src": "/promo-media/alibaba/alibaba_card_4.png",
       "width": 300,
       "height": 250,
-      "name": "Zonky Official Partner Creative (300x250)",
-      "affiliateUrl": "https://ytyaz.com/g/kw5iel2aqjfa9e3fd8787b4a20a6f1/?subid=zonky-cz_banner_300x250"
+      "name": "Alibaba WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/rpzuhqf457fa9e3fd878219aa26f6f/?subid=promoradar_banner_alibaba"
     },
     {
-      "brand": "MEGOGO",
-      "partnerSlug": "megogo-pl",
-      "category": "Partner Deals",
-      "src": "/promo-media/megogo-pl/megogo-pl_card_1.jpg",
+      "brand": "alibaba",
+      "partnerSlug": "alibaba",
+      "category": "Verified Partner",
+      "src": "/promo-media/alibaba/alibaba_card_5.png",
       "width": 300,
       "height": 250,
-      "name": "MEGOGO PL Official Partner Banner (300x250)",
-      "affiliateUrl": "https://ficca2021.com/g/gg6smqu8h2fa9e3fd878893991dc96/?subid=promoradar_banner_megogo-pl"
+      "name": "Alibaba WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/xl5hnban8afa9e3fd878219aa26f6f/?subid=promoradar_banner_alibaba"
     },
     {
-      "brand": "Footlocker",
+      "brand": "alibaba",
+      "partnerSlug": "alibaba",
+      "category": "Verified Partner",
+      "src": "/promo-media/alibaba/alibaba_card_6.png",
+      "width": 300,
+      "height": 250,
+      "name": "Alibaba WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/l5wd94pe0cfa9e3fd878219aa26f6f/?subid=promoradar_banner_alibaba"
+    },
+    {
+      "brand": "alibaba",
+      "partnerSlug": "alibaba",
+      "category": "Verified Partner",
+      "src": "/promo-media/alibaba/alibaba_card_7.png",
+      "width": 300,
+      "height": 250,
+      "name": "Alibaba WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/j6mjn8janifa9e3fd878219aa26f6f/?subid=promoradar_banner_alibaba"
+    },
+    {
+      "brand": "allpowers",
+      "partnerSlug": "allpowers",
+      "category": "Verified Partner",
+      "src": "/promo-media/allpowers/allpowers_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "ALLPOWERS UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://zmgig.com/g/a0hg25hkqifa9e3fd878c628098d9a/?subid=promoradar_banner_allpowers"
+    },
+    {
+      "brand": "allpowers",
+      "partnerSlug": "allpowers",
+      "category": "Verified Partner",
+      "src": "/promo-media/allpowers/allpowers_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "ALLPOWERS UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://zmgig.com/g/li2a7tlztpfa9e3fd878c628098d9a/?subid=promoradar_banner_allpowers"
+    },
+    {
+      "brand": "allpowers",
+      "partnerSlug": "allpowers",
+      "category": "Verified Partner",
+      "src": "/promo-media/allpowers/allpowers_card_4.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "ALLPOWERS UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://zmgig.com/g/a2wqy4gdu8fa9e3fd878c628098d9a/?subid=promoradar_banner_allpowers"
+    },
+    {
+      "brand": "allpowers",
+      "partnerSlug": "allpowers",
+      "category": "Verified Partner",
+      "src": "/promo-media/allpowers/allpowers_card_5.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "ALLPOWERS UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://zmgig.com/g/aspybe5zwvfa9e3fd878c628098d9a/?subid=promoradar_banner_allpowers"
+    },
+    {
+      "brand": "allpowers",
+      "partnerSlug": "allpowers",
+      "category": "Verified Partner",
+      "src": "/promo-media/allpowers/allpowers_card_6.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "ALLPOWERS UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://zmgig.com/g/qbnzsv55ayfa9e3fd878c628098d9a/?subid=promoradar_banner_allpowers"
+    },
+    {
+      "brand": "allpowers",
+      "partnerSlug": "allpowers",
+      "category": "Verified Partner",
+      "src": "/promo-media/allpowers/allpowers_card_7.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "ALLPOWERS UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://zmgig.com/g/9qa3a72jkbfa9e3fd878c628098d9a/?subid=promoradar_banner_allpowers"
+    },
+    {
+      "brand": "aomei",
+      "partnerSlug": "aomei",
+      "category": "Verified Partner",
+      "src": "/promo-media/aomei/aomei_card_1.png",
+      "width": 300,
+      "height": 250,
+      "name": "AOMEI [CPS] WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://kpwfp.com/g/rp2jwh1ul2fa9e3fd878fec4620825/?subid=promoradar_banner_aomei"
+    },
+    {
+      "brand": "aomei",
+      "partnerSlug": "aomei",
+      "category": "Verified Partner",
+      "src": "/promo-media/aomei/aomei_card_2.png",
+      "width": 336,
+      "height": 280,
+      "name": "AOMEI [CPS] WW Official Partner Banner (336x280)",
+      "affiliateUrl": "https://kpwfp.com/g/yuy3u5tfekfa9e3fd878fec4620825/?subid=promoradar_banner_aomei"
+    },
+    {
+      "brand": "aovica",
+      "partnerSlug": "aovica",
+      "category": "Verified Partner",
+      "src": "/promo-media/aovica/aovica_card_1.png",
+      "width": 300,
+      "height": 250,
+      "name": "Aovica Official Store Aliexpress Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rcpsj.com/g/1i2x3c8getfa9e3fd878caca192191/?subid=promoradar_banner_aovica"
+    },
+    {
+      "brand": "barcelo-mx-br",
+      "partnerSlug": "barcelo-mx-br",
+      "category": "Verified Partner",
+      "src": "/promo-media/barcelo-mx-br/barcelo-mx-br_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Barcelo MX/BR Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/1h1gvtip47fa9e3fd878465bc89443/?subid=promoradar_banner_barcelo-mx-br"
+    },
+    {
+      "brand": "barcelo-mx-br",
+      "partnerSlug": "barcelo-mx-br",
+      "category": "Verified Partner",
+      "src": "/promo-media/barcelo-mx-br/barcelo-mx-br_card_4.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Barcelo MX/BR Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/6q8vrqilvifa9e3fd878465bc89443/?subid=promoradar_banner_barcelo-mx-br"
+    },
+    {
+      "brand": "barcelo-mx-br",
+      "partnerSlug": "barcelo-mx-br",
+      "category": "Verified Partner",
+      "src": "/promo-media/barcelo-mx-br/barcelo-mx-br_card_5.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Barcelo MX/BR Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/io5lozqhocfa9e3fd878465bc89443/?subid=promoradar_banner_barcelo-mx-br"
+    },
+    {
+      "brand": "bath-body-works",
+      "partnerSlug": "bath-body-works",
+      "category": "Verified Partner",
+      "src": "/promo-media/bath-body-works/bath-body-works_card_1.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Bath & Body Works Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://flcoz.com/g/by644zd5wofa9e3fd878138e6e819a/?subid=promoradar_banner_bath-body-works"
+    },
+    {
+      "brand": "bath-body-works",
+      "partnerSlug": "bath-body-works",
+      "category": "Verified Partner",
+      "src": "/promo-media/bath-body-works/bath-body-works_card_5.jpg",
+      "width": 250,
+      "height": 250,
+      "name": "Bath & Body Works Many GEOs Official Partner Banner (250x250)",
+      "affiliateUrl": "https://flcoz.com/g/1tk0bufdfafa9e3fd878138e6e819a/?subid=promoradar_banner_bath-body-works"
+    },
+    {
+      "brand": "bold-snacks-br",
+      "partnerSlug": "bold-snacks-br",
+      "category": "Verified Partner",
+      "src": "/promo-media/bold-snacks-br/bold-snacks-br_card_0.png",
+      "width": 336,
+      "height": 280,
+      "name": "Bold Snacks BR Official Partner Banner (336x280)",
+      "affiliateUrl": "https://ytebb.com/g/msd2th25bvfa9e3fd878b8e9fcfe31/?subid=promoradar_banner_bold-snacks-br"
+    },
+    {
+      "brand": "camp-david-soccx-cz",
+      "partnerSlug": "camp-david-soccx-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/camp-david-soccx-cz/camp-david-soccx-cz_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Camp David | Soccx CZ CPS Official Partner Banner (300x250)",
+      "affiliateUrl": "https://xqjeo.com/g/t9b3cf7majfa9e3fd8785474323be3/?subid=promoradar_banner_camp-david-soccx-cz"
+    },
+    {
+      "brand": "camp-david-soccx-cz",
+      "partnerSlug": "camp-david-soccx-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/camp-david-soccx-cz/camp-david-soccx-cz_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Camp David | Soccx CZ CPS Official Partner Banner (300x250)",
+      "affiliateUrl": "https://xqjeo.com/g/xhqbtypqi0fa9e3fd8785474323be3/?subid=promoradar_banner_camp-david-soccx-cz"
+    },
+    {
+      "brand": "camp-david-soccx-cz",
+      "partnerSlug": "camp-david-soccx-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/camp-david-soccx-cz/camp-david-soccx-cz_card_4.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Camp David | Soccx CZ CPS Official Partner Banner (336x280)",
+      "affiliateUrl": "https://xqjeo.com/g/l1a0uo66odfa9e3fd8785474323be3/?subid=promoradar_banner_camp-david-soccx-cz"
+    },
+    {
+      "brand": "camp-david-soccx-cz",
+      "partnerSlug": "camp-david-soccx-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/camp-david-soccx-cz/camp-david-soccx-cz_card_5.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Camp David | Soccx CZ CPS Official Partner Banner (336x280)",
+      "affiliateUrl": "https://xqjeo.com/g/kkfkogvcspfa9e3fd8785474323be3/?subid=promoradar_banner_camp-david-soccx-cz"
+    },
+    {
+      "brand": "canon-uae",
+      "partnerSlug": "canon-uae",
+      "category": "Verified Partner",
+      "src": "/promo-media/canon-uae/canon-uae_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Canon UAE Official Partner Banner (300x250)",
+      "affiliateUrl": "https://dhwnh.com/g/xudu4b3arlfa9e3fd878697a6f5f74/?subid=promoradar_banner_canon-uae"
+    },
+    {
+      "brand": "canon-uae",
+      "partnerSlug": "canon-uae",
+      "category": "Verified Partner",
+      "src": "/promo-media/canon-uae/canon-uae_card_4.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Canon UAE Official Partner Banner (300x250)",
+      "affiliateUrl": "https://dhwnh.com/g/hdzf8fy3nmfa9e3fd878697a6f5f74/?subid=promoradar_banner_canon-uae"
+    },
+    {
+      "brand": "canon-uae",
+      "partnerSlug": "canon-uae",
+      "category": "Verified Partner",
+      "src": "/promo-media/canon-uae/canon-uae_card_5.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Canon UAE Official Partner Banner (300x250)",
+      "affiliateUrl": "https://dhwnh.com/g/0r8az5m1q2fa9e3fd878697a6f5f74/?subid=promoradar_banner_canon-uae"
+    },
+    {
+      "brand": "canon-uae",
+      "partnerSlug": "canon-uae",
+      "category": "Verified Partner",
+      "src": "/promo-media/canon-uae/canon-uae_card_6.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Canon UAE Official Partner Banner (336x280)",
+      "affiliateUrl": "https://dhwnh.com/g/nsx19g5sh5fa9e3fd878697a6f5f74/?subid=promoradar_banner_canon-uae"
+    },
+    {
+      "brand": "canon-uae",
+      "partnerSlug": "canon-uae",
+      "category": "Verified Partner",
+      "src": "/promo-media/canon-uae/canon-uae_card_7.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Canon UAE Official Partner Banner (336x280)",
+      "affiliateUrl": "https://dhwnh.com/g/rb7nprfiqlfa9e3fd878697a6f5f74/?subid=promoradar_banner_canon-uae"
+    },
+    {
+      "brand": "compensair",
+      "partnerSlug": "compensair",
+      "category": "Verified Partner",
+      "src": "/promo-media/compensair/compensair_card_4.png",
+      "width": 300,
+      "height": 250,
+      "name": "Compensair Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://dbnua.com/g/558wj5bflefa9e3fd87890465e1588/?subid=promoradar_banner_compensair"
+    },
+    {
+      "brand": "compensair",
+      "partnerSlug": "compensair",
+      "category": "Verified Partner",
+      "src": "/promo-media/compensair/compensair_card_5.png",
+      "width": 300,
+      "height": 250,
+      "name": "Compensair Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://dbnua.com/g/ajl6b49x1ufa9e3fd87890465e1588/?subid=promoradar_banner_compensair"
+    },
+    {
+      "brand": "compensair",
+      "partnerSlug": "compensair",
+      "category": "Verified Partner",
+      "src": "/promo-media/compensair/compensair_card_6.png",
+      "width": 300,
+      "height": 250,
+      "name": "Compensair Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://dbnua.com/g/8xx1qdlai4fa9e3fd87890465e1588/?subid=promoradar_banner_compensair"
+    },
+    {
+      "brand": "compensair",
+      "partnerSlug": "compensair",
+      "category": "Verified Partner",
+      "src": "/promo-media/compensair/compensair_card_7.png",
+      "width": 300,
+      "height": 250,
+      "name": "Compensair Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://dbnua.com/g/suf0nl7lhsfa9e3fd87890465e1588/?subid=promoradar_banner_compensair"
+    },
+    {
+      "brand": "coolcredit-cz",
+      "partnerSlug": "coolcredit-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/coolcredit-cz/coolcredit-cz_card_1.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "CoolCredit cz Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rthsu.com/g/dlvnytvkhxfa9e3fd878e3e2807c9a/?subid=promoradar_banner_coolcredit-cz"
+    },
+    {
+      "brand": "coolcredit-cz",
+      "partnerSlug": "coolcredit-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/coolcredit-cz/coolcredit-cz_card_4.jpg",
+      "width": 300,
+      "height": 300,
+      "name": "CoolCredit cz Official Partner Banner (300x300)",
+      "affiliateUrl": "https://rthsu.com/g/wm0cdvdx54fa9e3fd878e3e2807c9a/?subid=promoradar_banner_coolcredit-cz"
+    },
+    {
+      "brand": "corsair",
+      "partnerSlug": "corsair",
+      "category": "Verified Partner",
+      "src": "/promo-media/corsair/corsair_card_0.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Corsair WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ntzgd.com/g/sp0u38d6q3fa9e3fd87845cfa0a3aa/?subid=promoradar_banner_corsair"
+    },
+    {
+      "brand": "corsair",
+      "partnerSlug": "corsair",
+      "category": "Verified Partner",
+      "src": "/promo-media/corsair/corsair_card_1.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Corsair WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ntzgd.com/g/hohd6qde4ffa9e3fd87845cfa0a3aa/?subid=promoradar_banner_corsair"
+    },
+    {
+      "brand": "corsair",
+      "partnerSlug": "corsair",
+      "category": "Verified Partner",
+      "src": "/promo-media/corsair/corsair_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Corsair WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ntzgd.com/g/fp0ax25viqfa9e3fd87845cfa0a3aa/?subid=promoradar_banner_corsair"
+    },
+    {
+      "brand": "corsair",
+      "partnerSlug": "corsair",
+      "category": "Verified Partner",
+      "src": "/promo-media/corsair/corsair_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Corsair WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ntzgd.com/g/cp0w3zgppxfa9e3fd87845cfa0a3aa/?subid=promoradar_banner_corsair"
+    },
+    {
+      "brand": "corsair",
+      "partnerSlug": "corsair",
+      "category": "Verified Partner",
+      "src": "/promo-media/corsair/corsair_card_4.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Corsair WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ntzgd.com/g/enid71w64ffa9e3fd87845cfa0a3aa/?subid=promoradar_banner_corsair"
+    },
+    {
+      "brand": "corsair",
+      "partnerSlug": "corsair",
+      "category": "Verified Partner",
+      "src": "/promo-media/corsair/corsair_card_5.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Corsair WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ntzgd.com/g/7a81v3cc95fa9e3fd87845cfa0a3aa/?subid=promoradar_banner_corsair"
+    },
+    {
+      "brand": "corsair",
+      "partnerSlug": "corsair",
+      "category": "Verified Partner",
+      "src": "/promo-media/corsair/corsair_card_6.jpg",
+      "width": 250,
+      "height": 300,
+      "name": "Corsair WW Official Partner Banner (250x300)",
+      "affiliateUrl": "https://ntzgd.com/g/bkezw1xzy0fa9e3fd87845cfa0a3aa/?subid=promoradar_banner_corsair"
+    },
+    {
+      "brand": "corsair",
+      "partnerSlug": "corsair",
+      "category": "Verified Partner",
+      "src": "/promo-media/corsair/corsair_card_7.jpg",
+      "width": 250,
+      "height": 300,
+      "name": "Corsair WW Official Partner Banner (250x300)",
+      "affiliateUrl": "https://ntzgd.com/g/i88wsi8fvtfa9e3fd87845cfa0a3aa/?subid=promoradar_banner_corsair"
+    },
+    {
+      "brand": "dermazone-many-geos-links-promo-codes",
+      "partnerSlug": "dermazone-many-geos-links-promo-codes",
+      "category": "Verified Partner",
+      "src": "/promo-media/dermazone-many-geos-links-promo-codes/dermazone-many-geos-links-promo-codes_card_0.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "DermaZone Many GEOs links & promo codes Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bjpql.com/g/7pb1r9jtsdfa9e3fd878238e05a71e/?subid=promoradar_banner_dermazone-many-geos-links-promo-codes"
+    },
+    {
+      "brand": "dermazone-many-geos-links-promo-codes",
+      "partnerSlug": "dermazone-many-geos-links-promo-codes",
+      "category": "Verified Partner",
+      "src": "/promo-media/dermazone-many-geos-links-promo-codes/dermazone-many-geos-links-promo-codes_card_1.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "DermaZone Many GEOs links & promo codes Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bjpql.com/g/ei70wzkakufa9e3fd878238e05a71e/?subid=promoradar_banner_dermazone-many-geos-links-promo-codes"
+    },
+    {
+      "brand": "dermazone-many-geos-links-promo-codes",
+      "partnerSlug": "dermazone-many-geos-links-promo-codes",
+      "category": "Verified Partner",
+      "src": "/promo-media/dermazone-many-geos-links-promo-codes/dermazone-many-geos-links-promo-codes_card_2.png",
+      "width": 300,
+      "height": 250,
+      "name": "DermaZone Many GEOs links & promo codes Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bjpql.com/g/m1889knb11fa9e3fd878238e05a71e/?subid=promoradar_banner_dermazone-many-geos-links-promo-codes"
+    },
+    {
+      "brand": "dermazone-many-geos-links-promo-codes",
+      "partnerSlug": "dermazone-many-geos-links-promo-codes",
+      "category": "Verified Partner",
+      "src": "/promo-media/dermazone-many-geos-links-promo-codes/dermazone-many-geos-links-promo-codes_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "DermaZone Many GEOs links & promo codes Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bjpql.com/g/88oeukv3cgfa9e3fd878238e05a71e/?subid=promoradar_banner_dermazone-many-geos-links-promo-codes"
+    },
+    {
+      "brand": "dermazone-many-geos-links-promo-codes",
+      "partnerSlug": "dermazone-many-geos-links-promo-codes",
+      "category": "Verified Partner",
+      "src": "/promo-media/dermazone-many-geos-links-promo-codes/dermazone-many-geos-links-promo-codes_card_4.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "DermaZone Many GEOs links & promo codes Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bjpql.com/g/q00rfsyygifa9e3fd878238e05a71e/?subid=promoradar_banner_dermazone-many-geos-links-promo-codes"
+    },
+    {
+      "brand": "dermazone-many-geos-links-promo-codes",
+      "partnerSlug": "dermazone-many-geos-links-promo-codes",
+      "category": "Verified Partner",
+      "src": "/promo-media/dermazone-many-geos-links-promo-codes/dermazone-many-geos-links-promo-codes_card_5.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "DermaZone Many GEOs links & promo codes Official Partner Banner (336x280)",
+      "affiliateUrl": "https://bjpql.com/g/ptk6x90si8fa9e3fd878238e05a71e/?subid=promoradar_banner_dermazone-many-geos-links-promo-codes"
+    },
+    {
+      "brand": "dermazone-many-geos-links-promo-codes",
+      "partnerSlug": "dermazone-many-geos-links-promo-codes",
+      "category": "Verified Partner",
+      "src": "/promo-media/dermazone-many-geos-links-promo-codes/dermazone-many-geos-links-promo-codes_card_6.png",
+      "width": 336,
+      "height": 280,
+      "name": "DermaZone Many GEOs links & promo codes Official Partner Banner (336x280)",
+      "affiliateUrl": "https://bjpql.com/g/u7rynifsa4fa9e3fd878238e05a71e/?subid=promoradar_banner_dermazone-many-geos-links-promo-codes"
+    },
+    {
+      "brand": "dermazone-many-geos-links-promo-codes",
+      "partnerSlug": "dermazone-many-geos-links-promo-codes",
+      "category": "Verified Partner",
+      "src": "/promo-media/dermazone-many-geos-links-promo-codes/dermazone-many-geos-links-promo-codes_card_7.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "DermaZone Many GEOs links & promo codes Official Partner Banner (336x280)",
+      "affiliateUrl": "https://bjpql.com/g/tub9yytpwlfa9e3fd878238e05a71e/?subid=promoradar_banner_dermazone-many-geos-links-promo-codes"
+    },
+    {
+      "brand": "elitedate",
+      "partnerSlug": "elitedate",
+      "category": "Verified Partner",
+      "src": "/promo-media/elitedate/elitedate_card_4.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Elitedate CZ/SK/HU/RO CPL+CPS Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ypetp.com/g/gasua66mey367099d2cceea6df302f/?subid=promoradar_banner_elitedate"
+    },
+    {
+      "brand": "elitedate",
+      "partnerSlug": "elitedate",
+      "category": "Verified Partner",
+      "src": "/promo-media/elitedate/elitedate_card_5.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Elitedate CZ/SK/HU/RO CPL+CPS Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ypetp.com/g/s58ah1ik9j367099d2cceea6df302f/?subid=promoradar_banner_elitedate"
+    },
+    {
+      "brand": "elitedate",
+      "partnerSlug": "elitedate",
+      "category": "Verified Partner",
+      "src": "/promo-media/elitedate/elitedate_card_6.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Elitedate CZ/SK/HU/RO CPL+CPS Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ypetp.com/g/hr4k06f1e7367099d2cceea6df302f/?subid=promoradar_banner_elitedate"
+    },
+    {
+      "brand": "elitedate",
+      "partnerSlug": "elitedate",
+      "category": "Verified Partner",
+      "src": "/promo-media/elitedate/elitedate_card_7.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Elitedate CZ/SK/HU/RO CPL+CPS Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ypetp.com/g/mknjcrl9a1367099d2cceea6df302f/?subid=promoradar_banner_elitedate"
+    },
+    {
+      "brand": "eset-br",
+      "partnerSlug": "eset-br",
+      "category": "Verified Partner",
+      "src": "/promo-media/eset-br/eset-br_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Eset BR Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/9f8118bdsqfa9e3fd8782ca1814dd2/?subid=promoradar_banner_eset-br"
+    },
+    {
+      "brand": "eset-br",
+      "partnerSlug": "eset-br",
+      "category": "Verified Partner",
+      "src": "/promo-media/eset-br/eset-br_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Eset BR Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/1vzjnmyx2ifa9e3fd8782ca1814dd2/?subid=promoradar_banner_eset-br"
+    },
+    {
+      "brand": "eset-br",
+      "partnerSlug": "eset-br",
+      "category": "Verified Partner",
+      "src": "/promo-media/eset-br/eset-br_card_4.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Eset BR Official Partner Banner (336x280)",
+      "affiliateUrl": "https://rzekl.com/g/xy4jn9n836fa9e3fd8782ca1814dd2/?subid=promoradar_banner_eset-br"
+    },
+    {
+      "brand": "eset-br",
+      "partnerSlug": "eset-br",
+      "category": "Verified Partner",
+      "src": "/promo-media/eset-br/eset-br_card_5.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Eset BR Official Partner Banner (336x280)",
+      "affiliateUrl": "https://rzekl.com/g/itwmfa0y23fa9e3fd8782ca1814dd2/?subid=promoradar_banner_eset-br"
+    },
+    {
+      "brand": "eurowings",
+      "partnerSlug": "eurowings",
+      "category": "Verified Partner",
+      "src": "/promo-media/eurowings/eurowings_card_1.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Eurowings WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://codeaven.com/g/pepvddlzwhfa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+    },
+    {
+      "brand": "eurowings",
+      "partnerSlug": "eurowings",
+      "category": "Verified Partner",
+      "src": "/promo-media/eurowings/eurowings_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Eurowings WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://codeaven.com/g/xghnlgti2ffa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+    },
+    {
+      "brand": "eurowings",
+      "partnerSlug": "eurowings",
+      "category": "Verified Partner",
+      "src": "/promo-media/eurowings/eurowings_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Eurowings WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://codeaven.com/g/sufbz9gm2bfa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+    },
+    {
+      "brand": "eurowings",
+      "partnerSlug": "eurowings",
+      "category": "Verified Partner",
+      "src": "/promo-media/eurowings/eurowings_card_4.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Eurowings WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://codeaven.com/g/al4hs2zss5fa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+    },
+    {
+      "brand": "eurowings",
+      "partnerSlug": "eurowings",
+      "category": "Verified Partner",
+      "src": "/promo-media/eurowings/eurowings_card_5.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Eurowings WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://codeaven.com/g/yvw5744byzfa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+    },
+    {
+      "brand": "eurowings",
+      "partnerSlug": "eurowings",
+      "category": "Verified Partner",
+      "src": "/promo-media/eurowings/eurowings_card_6.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Eurowings WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://codeaven.com/g/5tmv1udrgpfa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+    },
+    {
+      "brand": "eurowings",
+      "partnerSlug": "eurowings",
+      "category": "Verified Partner",
+      "src": "/promo-media/eurowings/eurowings_card_7.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Eurowings WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://codeaven.com/g/f4g2iioh2jfa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+    },
+    {
+      "brand": "footlocker",
       "partnerSlug": "footlocker",
-      "category": "Partner Deals",
+      "category": "Verified Partner",
       "src": "/promo-media/footlocker/footlocker_card_2.jpg",
       "width": 300,
       "height": 250,
@@ -183,49 +843,589 @@
       "affiliateUrl": "https://bywiola.com/g/0amhjs7imdfa9e3fd87855df12721b/?subid=promoradar_banner_footlocker"
     },
     {
-      "brand": "Notta AI",
-      "partnerSlug": "notta-ai",
-      "category": "Partner Deals",
-      "src": "/promo-media/notta-ai/notta-ai_card_1.png",
+      "brand": "footlocker",
+      "partnerSlug": "footlocker",
+      "category": "Verified Partner",
+      "src": "/promo-media/footlocker/footlocker_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Footlocker AE SA KW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bywiola.com/g/la17kyqb01fa9e3fd87855df12721b/?subid=promoradar_banner_footlocker"
+    },
+    {
+      "brand": "gold",
+      "partnerSlug": "gold",
+      "category": "Verified Partner",
+      "src": "/promo-media/gold/gold_card_6.gif",
+      "width": 300,
+      "height": 250,
+      "name": "Gold UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ytebb.com/g/4436ee8fcafa9e3fd878dec3118284/?subid=promoradar_banner_gold"
+    },
+    {
+      "brand": "gold",
+      "partnerSlug": "gold",
+      "category": "Verified Partner",
+      "src": "/promo-media/gold/gold_card_7.gif",
+      "width": 300,
+      "height": 250,
+      "name": "Gold UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ytebb.com/g/7c3242d0f7fa9e3fd878dec3118284/?subid=promoradar_banner_gold"
+    },
+    {
+      "brand": "guldi-br",
+      "partnerSlug": "guldi-br",
+      "category": "Verified Partner",
+      "src": "/promo-media/guldi-br/guldi-br_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Guldi BR Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bednari.com/g/fqvpfp0kfdfa9e3fd8783e86b72106/?subid=promoradar_banner_guldi-br"
+    },
+    {
+      "brand": "guldi-br",
+      "partnerSlug": "guldi-br",
+      "category": "Verified Partner",
+      "src": "/promo-media/guldi-br/guldi-br_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Guldi BR Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bednari.com/g/4ffy875i1qfa9e3fd8783e86b72106/?subid=promoradar_banner_guldi-br"
+    },
+    {
+      "brand": "guldi-br",
+      "partnerSlug": "guldi-br",
+      "category": "Verified Partner",
+      "src": "/promo-media/guldi-br/guldi-br_card_4.jpg",
       "width": 336,
       "height": 280,
-      "name": "Notta AI WW Official Partner Banner (336x280)",
-      "affiliateUrl": "https://ypetp.com/g/t7qtq28tpxfa9e3fd878f50bb56640/?subid=promoradar_banner_notta-ai"
+      "name": "Guldi BR Official Partner Banner (336x280)",
+      "affiliateUrl": "https://bednari.com/g/o16mw4eb6ffa9e3fd8783e86b72106/?subid=promoradar_banner_guldi-br"
     },
     {
-      "brand": "Shopee CPA",
-      "partnerSlug": "shopee-cpa-br",
-      "category": "Partner Deals",
-      "src": "/promo-media/shopee-cpa-br/shopee-cpa-br_card_0.jpg",
+      "brand": "guldi-br",
+      "partnerSlug": "guldi-br",
+      "category": "Verified Partner",
+      "src": "/promo-media/guldi-br/guldi-br_card_5.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Guldi BR Official Partner Banner (336x280)",
+      "affiliateUrl": "https://bednari.com/g/yw2q1lordafa9e3fd8783e86b72106/?subid=promoradar_banner_guldi-br"
+    },
+    {
+      "brand": "h-m",
+      "partnerSlug": "h-m",
+      "category": "Verified Partner",
+      "src": "/promo-media/h-m/h-m_card_2.jpg",
       "width": 300,
       "height": 250,
-      "name": "Shopee CPA BR Official Partner Banner (300x250)",
-      "affiliateUrl": "https://xqjeo.com/g/trch28svzkfa9e3fd87804f147125c/?subid=promoradar_banner_shopee-cpa-br"
+      "name": "H&M Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://gndrz.com/g/hq4lxinspkfa9e3fd8781b24ab9504/?subid=promoradar_banner_h-m"
     },
     {
-      "brand": "Uniqlo",
-      "partnerSlug": "uniqlo",
-      "category": "Partner Deals",
-      "src": "/promo-media/uniqlo/uniqlo_card_2.jpg",
+      "brand": "h-m",
+      "partnerSlug": "h-m",
+      "category": "Verified Partner",
+      "src": "/promo-media/h-m/h-m_card_3.jpg",
       "width": 300,
       "height": 250,
-      "name": "Uniqlo India [CPS] IN Official Partner Banner (300x250)",
-      "affiliateUrl": "https://tjzuh.com/g/qeg8wpafxzfa9e3fd878ccb93e5ddd/?subid=promoradar_banner_uniqlo"
+      "name": "H&M Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://gndrz.com/g/dxv7tl9qa3fa9e3fd8781b24ab9504/?subid=promoradar_banner_h-m"
     },
     {
-      "brand": "Spartoo [",
-      "partnerSlug": "spartoo",
-      "category": "Partner Deals",
-      "src": "/promo-media/spartoo/spartoo_card_7.gif",
+      "brand": "harfington",
+      "partnerSlug": "harfington",
+      "category": "Verified Partner",
+      "src": "/promo-media/harfington/harfington_card_5.jpg",
       "width": 300,
       "height": 250,
-      "name": "Spartoo [Many GEOs] Official Partner Banner (300x250)",
-      "affiliateUrl": "https://tsygg.com/g/39nudcwr06fa9e3fd878266cbebcee/?subid=promoradar_banner_spartoo"
+      "name": "Harfington Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/8oarfgyjdofa9e3fd878e2f44ca4bf/?subid=promoradar_banner_harfington"
     },
     {
-      "brand": "MyHeritage DNA",
+      "brand": "harfington",
+      "partnerSlug": "harfington",
+      "category": "Verified Partner",
+      "src": "/promo-media/harfington/harfington_card_6.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Harfington Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/d3v5u4c3drfa9e3fd878e2f44ca4bf/?subid=promoradar_banner_harfington"
+    },
+    {
+      "brand": "harfington",
+      "partnerSlug": "harfington",
+      "category": "Verified Partner",
+      "src": "/promo-media/harfington/harfington_card_7.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Harfington Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/gopuc7yh80fa9e3fd878e2f44ca4bf/?subid=promoradar_banner_harfington"
+    },
+    {
+      "brand": "home-nature-de-fr",
+      "partnerSlug": "home-nature-de-fr",
+      "category": "Verified Partner",
+      "src": "/promo-media/home-nature-de-fr/home-nature-de-fr_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Home Nature DE FR Official Partner Banner (300x250)",
+      "affiliateUrl": "https://flcoz.com/g/vggg6bjnw5fa9e3fd8789f150afce6/?subid=promoradar_banner_home-nature-de-fr"
+    },
+    {
+      "brand": "home-nature-de-fr",
+      "partnerSlug": "home-nature-de-fr",
+      "category": "Verified Partner",
+      "src": "/promo-media/home-nature-de-fr/home-nature-de-fr_card_3.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Home Nature DE FR Official Partner Banner (336x280)",
+      "affiliateUrl": "https://flcoz.com/g/jd5r2uun0zfa9e3fd8789f150afce6/?subid=promoradar_banner_home-nature-de-fr"
+    },
+    {
+      "brand": "home-nature-de-fr",
+      "partnerSlug": "home-nature-de-fr",
+      "category": "Verified Partner",
+      "src": "/promo-media/home-nature-de-fr/home-nature-de-fr_card_4.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Home Nature DE FR Official Partner Banner (336x280)",
+      "affiliateUrl": "https://flcoz.com/g/gjkfptrj8sfa9e3fd8789f150afce6/?subid=promoradar_banner_home-nature-de-fr"
+    },
+    {
+      "brand": "home-nature-de-fr",
+      "partnerSlug": "home-nature-de-fr",
+      "category": "Verified Partner",
+      "src": "/promo-media/home-nature-de-fr/home-nature-de-fr_card_5.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Home Nature DE FR Official Partner Banner (336x280)",
+      "affiliateUrl": "https://flcoz.com/g/aw97t6gnqjfa9e3fd8789f150afce6/?subid=promoradar_banner_home-nature-de-fr"
+    },
+    {
+      "brand": "homestyler",
+      "partnerSlug": "homestyler",
+      "category": "Verified Partner",
+      "src": "/promo-media/homestyler/homestyler_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Homestyler WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://cafxq.com/g/sl479tae6pfa9e3fd87828a65238d7/?subid=promoradar_banner_homestyler"
+    },
+    {
+      "brand": "homestyler",
+      "partnerSlug": "homestyler",
+      "category": "Verified Partner",
+      "src": "/promo-media/homestyler/homestyler_card_4.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Homestyler WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://cafxq.com/g/4k1kgzdlwvfa9e3fd87828a65238d7/?subid=promoradar_banner_homestyler"
+    },
+    {
+      "brand": "homestyler",
+      "partnerSlug": "homestyler",
+      "category": "Verified Partner",
+      "src": "/promo-media/homestyler/homestyler_card_5.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Homestyler WW Official Partner Banner (336x280)",
+      "affiliateUrl": "https://cafxq.com/g/9dih9264lvfa9e3fd87828a65238d7/?subid=promoradar_banner_homestyler"
+    },
+    {
+      "brand": "homestyler",
+      "partnerSlug": "homestyler",
+      "category": "Verified Partner",
+      "src": "/promo-media/homestyler/homestyler_card_6.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Homestyler WW Official Partner Banner (336x280)",
+      "affiliateUrl": "https://cafxq.com/g/uxr0n2lucyfa9e3fd87828a65238d7/?subid=promoradar_banner_homestyler"
+    },
+    {
+      "brand": "horacredit-ro",
+      "partnerSlug": "horacredit-ro",
+      "category": "Verified Partner",
+      "src": "/promo-media/horacredit-ro/horacredit-ro_card_1.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "HoraCredit RO Official Partner Banner (300x250)",
+      "affiliateUrl": "https://rzekl.com/g/21c6q5yec5fa9e3fd878527fa9a677/?subid=promoradar_banner_horacredit-ro"
+    },
+    {
+      "brand": "horacredit-ro",
+      "partnerSlug": "horacredit-ro",
+      "category": "Verified Partner",
+      "src": "/promo-media/horacredit-ro/horacredit-ro_card_2.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "HoraCredit RO Official Partner Banner (336x280)",
+      "affiliateUrl": "https://rzekl.com/g/1p2uzu8sizfa9e3fd878527fa9a677/?subid=promoradar_banner_horacredit-ro"
+    },
+    {
+      "brand": "igp",
+      "partnerSlug": "igp",
+      "category": "Verified Partner",
+      "src": "/promo-media/igp/igp_card_1.png",
+      "width": 300,
+      "height": 250,
+      "name": "IGP [CPS] WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tjzuh.com/g/rtknom6bxvfa9e3fd8780451de8123/?subid=promoradar_banner_igp"
+    },
+    {
+      "brand": "igp",
+      "partnerSlug": "igp",
+      "category": "Verified Partner",
+      "src": "/promo-media/igp/igp_card_2.png",
+      "width": 336,
+      "height": 280,
+      "name": "IGP [CPS] WW Official Partner Banner (336x280)",
+      "affiliateUrl": "https://tjzuh.com/g/p11v1wiluafa9e3fd8780451de8123/?subid=promoradar_banner_igp"
+    },
+    {
+      "brand": "intertop",
+      "partnerSlug": "intertop",
+      "category": "Verified Partner",
+      "src": "/promo-media/intertop/intertop_card_4.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "INTERTOP UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://dkfrh.com/g/egn8jjl4hdfa9e3fd878b9f189b651/?subid=promoradar_banner_intertop"
+    },
+    {
+      "brand": "intertop",
+      "partnerSlug": "intertop",
+      "category": "Verified Partner",
+      "src": "/promo-media/intertop/intertop_card_5.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "INTERTOP UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://dkfrh.com/g/udfj6j6t6xfa9e3fd878b9f189b651/?subid=promoradar_banner_intertop"
+    },
+    {
+      "brand": "intertop",
+      "partnerSlug": "intertop",
+      "category": "Verified Partner",
+      "src": "/promo-media/intertop/intertop_card_6.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "INTERTOP UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://dkfrh.com/g/1zmbkpxsltfa9e3fd878b9f189b651/?subid=promoradar_banner_intertop"
+    },
+    {
+      "brand": "intertop",
+      "partnerSlug": "intertop",
+      "category": "Verified Partner",
+      "src": "/promo-media/intertop/intertop_card_7.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "INTERTOP UA Official Partner Banner (336x280)",
+      "affiliateUrl": "https://dkfrh.com/g/7u7zu00b05fa9e3fd878b9f189b651/?subid=promoradar_banner_intertop"
+    },
+    {
+      "brand": "jashanmal",
+      "partnerSlug": "jashanmal",
+      "category": "Verified Partner",
+      "src": "/promo-media/jashanmal/jashanmal_card_1.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Jashanmal AE tracking promo codes & links Official Partner Banner (300x250)",
+      "affiliateUrl": "https://codeaven.com/g/mheuogolbk367099d2cc62651c44e1/?subid=promoradar_banner_jashanmal"
+    },
+    {
+      "brand": "jashanmal",
+      "partnerSlug": "jashanmal",
+      "category": "Verified Partner",
+      "src": "/promo-media/jashanmal/jashanmal_card_2.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Jashanmal AE tracking promo codes & links Official Partner Banner (336x280)",
+      "affiliateUrl": "https://codeaven.com/g/69412sfxeh367099d2cc62651c44e1/?subid=promoradar_banner_jashanmal"
+    },
+    {
+      "brand": "katalog-marze-pl",
+      "partnerSlug": "katalog-marze-pl",
+      "category": "Verified Partner",
+      "src": "/promo-media/katalog-marze-pl/katalog-marze-pl_card_1.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Katalog Marzeń PL Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ytebb.com/g/n5r5wwoltpfa9e3fd878267db677ba/?subid=promoradar_banner_katalog-marze-pl"
+    },
+    {
+      "brand": "katalog-marze-pl",
+      "partnerSlug": "katalog-marze-pl",
+      "category": "Verified Partner",
+      "src": "/promo-media/katalog-marze-pl/katalog-marze-pl_card_2.png",
+      "width": 300,
+      "height": 250,
+      "name": "Katalog Marzeń PL Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ytebb.com/g/wznwbgabfsfa9e3fd878267db677ba/?subid=promoradar_banner_katalog-marze-pl"
+    },
+    {
+      "brand": "katalog-marze-pl",
+      "partnerSlug": "katalog-marze-pl",
+      "category": "Verified Partner",
+      "src": "/promo-media/katalog-marze-pl/katalog-marze-pl_card_3.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Katalog Marzeń PL Official Partner Banner (336x280)",
+      "affiliateUrl": "https://ytebb.com/g/d4nxp0v4pnfa9e3fd878267db677ba/?subid=promoradar_banner_katalog-marze-pl"
+    },
+    {
+      "brand": "klook",
+      "partnerSlug": "klook",
+      "category": "Verified Partner",
+      "src": "/promo-media/klook/klook_card_3.png",
+      "width": 250,
+      "height": 250,
+      "name": "Klook WW Official Partner Banner (250x250)",
+      "affiliateUrl": "https://bjpql.com/g/h9m6yaohx3fa9e3fd8786ca26c9222/?subid=promoradar_banner_klook"
+    },
+    {
+      "brand": "konesso-pl",
+      "partnerSlug": "konesso-pl",
+      "category": "Verified Partner",
+      "src": "/promo-media/konesso-pl/konesso-pl_card_0.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Konesso PL Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ad.admitad.com/g/1amw2f1b8efa9e3fd878c8277afbbe/?subid=promoradar_banner_konesso-pl"
+    },
+    {
+      "brand": "konesso-pl",
+      "partnerSlug": "konesso-pl",
+      "category": "Verified Partner",
+      "src": "/promo-media/konesso-pl/konesso-pl_card_1.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Konesso PL Official Partner Banner (336x280)",
+      "affiliateUrl": "https://ad.admitad.com/g/163ok82butfa9e3fd878c8277afbbe/?subid=promoradar_banner_konesso-pl"
+    },
+    {
+      "brand": "kz",
+      "partnerSlug": "kz",
+      "category": "Verified Partner",
+      "src": "/promo-media/kz/kz_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Lacoste KZ Official Partner Banner (300x250)",
+      "affiliateUrl": "https://fxxag.com/g/zrzguvi5iqfa9e3fd878e329afd461/?subid=promoradar_banner_kz"
+    },
+    {
+      "brand": "kz",
+      "partnerSlug": "kz",
+      "category": "Verified Partner",
+      "src": "/promo-media/kz/kz_card_4.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Lacoste KZ Official Partner Banner (300x250)",
+      "affiliateUrl": "https://fxxag.com/g/xvb4qvae8wfa9e3fd878e329afd461/?subid=promoradar_banner_kz"
+    },
+    {
+      "brand": "kz",
+      "partnerSlug": "kz",
+      "category": "Verified Partner",
+      "src": "/promo-media/kz/kz_card_5.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Lacoste KZ Official Partner Banner (300x250)",
+      "affiliateUrl": "https://fxxag.com/g/6onvzzyxiwfa9e3fd878e329afd461/?subid=promoradar_banner_kz"
+    },
+    {
+      "brand": "kz",
+      "partnerSlug": "kz",
+      "category": "Verified Partner",
+      "src": "/promo-media/kz/kz_card_6.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Lacoste KZ Official Partner Banner (336x280)",
+      "affiliateUrl": "https://fxxag.com/g/3ie9jxik9wfa9e3fd878e329afd461/?subid=promoradar_banner_kz"
+    },
+    {
+      "brand": "kz",
+      "partnerSlug": "kz",
+      "category": "Verified Partner",
+      "src": "/promo-media/kz/kz_card_7.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Lacoste KZ Official Partner Banner (336x280)",
+      "affiliateUrl": "https://fxxag.com/g/rkzp0nvmr9fa9e3fd878e329afd461/?subid=promoradar_banner_kz"
+    },
+    {
+      "brand": "lennuabi",
+      "partnerSlug": "lennuabi",
+      "category": "Verified Partner",
+      "src": "/promo-media/lennuabi/lennuabi_card_0.png",
+      "width": 300,
+      "height": 250,
+      "name": "Lennuabi Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://cafxq.com/g/kvk453xyv9fa9e3fd878a8b9cbb737/?subid=promoradar_banner_lennuabi"
+    },
+    {
+      "brand": "lennuabi",
+      "partnerSlug": "lennuabi",
+      "category": "Verified Partner",
+      "src": "/promo-media/lennuabi/lennuabi_card_1.png",
+      "width": 336,
+      "height": 280,
+      "name": "Lennuabi Many GEOs Official Partner Banner (336x280)",
+      "affiliateUrl": "https://cafxq.com/g/z4rh2a4pjxfa9e3fd878a8b9cbb737/?subid=promoradar_banner_lennuabi"
+    },
+    {
+      "brand": "lenovo",
+      "partnerSlug": "lenovo",
+      "category": "Verified Partner",
+      "src": "/promo-media/lenovo/lenovo_card_1.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Lenovo India [CPS] IN Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tjzuh.com/g/uzf5kga51afa9e3fd878e452830f0f/?subid=promoradar_banner_lenovo"
+    },
+    {
+      "brand": "lenovo",
+      "partnerSlug": "lenovo",
+      "category": "Verified Partner",
+      "src": "/promo-media/lenovo/lenovo_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Lenovo India [CPS] IN Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tjzuh.com/g/gdgh4a2umufa9e3fd878e452830f0f/?subid=promoradar_banner_lenovo"
+    },
+    {
+      "brand": "megogo-pl",
+      "partnerSlug": "megogo-pl",
+      "category": "Verified Partner",
+      "src": "/promo-media/megogo-pl/megogo-pl_card_1.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "MEGOGO PL Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ficca2021.com/g/gg6smqu8h2fa9e3fd878893991dc96/?subid=promoradar_banner_megogo-pl"
+    },
+    {
+      "brand": "megogo-pl",
+      "partnerSlug": "megogo-pl",
+      "category": "Verified Partner",
+      "src": "/promo-media/megogo-pl/megogo-pl_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "MEGOGO PL Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ficca2021.com/g/imc3ojet2cfa9e3fd878893991dc96/?subid=promoradar_banner_megogo-pl"
+    },
+    {
+      "brand": "meshnology",
+      "partnerSlug": "meshnology",
+      "category": "Verified Partner",
+      "src": "/promo-media/meshnology/meshnology_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Meshnology - Оборудование для Meshtastic и LoRa Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tywhh.com/g/r19tourg6qfa9e3fd878e95c5fd652/?subid=promoradar_banner_meshnology"
+    },
+    {
+      "brand": "meshnology",
+      "partnerSlug": "meshnology",
+      "category": "Verified Partner",
+      "src": "/promo-media/meshnology/meshnology_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Meshnology - Оборудование для Meshtastic и LoRa Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tywhh.com/g/307xha7sdsfa9e3fd878e95c5fd652/?subid=promoradar_banner_meshnology"
+    },
+    {
+      "brand": "meshnology",
+      "partnerSlug": "meshnology",
+      "category": "Verified Partner",
+      "src": "/promo-media/meshnology/meshnology_card_4.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Meshnology - Оборудование для Meshtastic и LoRa Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tywhh.com/g/3qqy1r4dsdfa9e3fd878e95c5fd652/?subid=promoradar_banner_meshnology"
+    },
+    {
+      "brand": "meshnology",
+      "partnerSlug": "meshnology",
+      "category": "Verified Partner",
+      "src": "/promo-media/meshnology/meshnology_card_5.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Meshnology - Оборудование для Meshtastic и LoRa Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tywhh.com/g/2n7l9ih1gcfa9e3fd878e95c5fd652/?subid=promoradar_banner_meshnology"
+    },
+    {
+      "brand": "meshnology",
+      "partnerSlug": "meshnology",
+      "category": "Verified Partner",
+      "src": "/promo-media/meshnology/meshnology_card_6.png",
+      "width": 300,
+      "height": 250,
+      "name": "Meshnology - Оборудование для Meshtastic и LoRa Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tywhh.com/g/xglivzwvrgfa9e3fd878e95c5fd652/?subid=promoradar_banner_meshnology"
+    },
+    {
+      "brand": "meshnology",
+      "partnerSlug": "meshnology",
+      "category": "Verified Partner",
+      "src": "/promo-media/meshnology/meshnology_card_7.png",
+      "width": 300,
+      "height": 250,
+      "name": "Meshnology - Оборудование для Meshtastic и LoRa Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tywhh.com/g/y5t9i1pam5fa9e3fd878e95c5fd652/?subid=promoradar_banner_meshnology"
+    },
+    {
+      "brand": "miravia-es-pt",
+      "partnerSlug": "miravia-es-pt",
+      "category": "Verified Partner",
+      "src": "/promo-media/miravia-es-pt/miravia-es-pt_card_3.png",
+      "width": 300,
+      "height": 250,
+      "name": "Miravia ES, PT Official Partner Banner (300x250)",
+      "affiliateUrl": "https://sgkaa.com/g/8wq1brr5b2fa9e3fd878903dd028f6/?subid=promoradar_banner_miravia-es-pt"
+    },
+    {
+      "brand": "miravia-es-pt",
+      "partnerSlug": "miravia-es-pt",
+      "category": "Verified Partner",
+      "src": "/promo-media/miravia-es-pt/miravia-es-pt_card_4.png",
+      "width": 300,
+      "height": 250,
+      "name": "Miravia ES, PT Official Partner Banner (300x250)",
+      "affiliateUrl": "https://sgkaa.com/g/o8so9szd5afa9e3fd878903dd028f6/?subid=promoradar_banner_miravia-es-pt"
+    },
+    {
+      "brand": "miravia-es-pt",
+      "partnerSlug": "miravia-es-pt",
+      "category": "Verified Partner",
+      "src": "/promo-media/miravia-es-pt/miravia-es-pt_card_5.png",
+      "width": 300,
+      "height": 250,
+      "name": "Miravia ES, PT Official Partner Banner (300x250)",
+      "affiliateUrl": "https://sgkaa.com/g/c8bsd78r32fa9e3fd878903dd028f6/?subid=promoradar_banner_miravia-es-pt"
+    },
+    {
+      "brand": "multilogin",
+      "partnerSlug": "multilogin",
+      "category": "Verified Partner",
+      "src": "/promo-media/multilogin/multilogin_card_2.gif",
+      "width": 300,
+      "height": 250,
+      "name": "Multilogin WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://kpwfp.com/g/l3g850vz0nfa9e3fd87840e692d5b7/?subid=promoradar_banner_multilogin"
+    },
+    {
+      "brand": "multilogin",
+      "partnerSlug": "multilogin",
+      "category": "Verified Partner",
+      "src": "/promo-media/multilogin/multilogin_card_3.gif",
+      "width": 336,
+      "height": 280,
+      "name": "Multilogin WW Official Partner Banner (336x280)",
+      "affiliateUrl": "https://kpwfp.com/g/llk1trpi2tfa9e3fd87840e692d5b7/?subid=promoradar_banner_multilogin"
+    },
+    {
+      "brand": "myheritage-dna",
       "partnerSlug": "myheritage-dna",
-      "category": "Partner Deals",
+      "category": "Verified Partner",
       "src": "/promo-media/myheritage-dna/myheritage-dna_card_0.jpg",
       "width": 300,
       "height": 250,
@@ -233,9 +1433,289 @@
       "affiliateUrl": "https://naiawork.com/g/5tuj9dzx5rfa9e3fd878e403a0fd30/?subid=promoradar_banner_myheritage-dna"
     },
     {
-      "brand": "Qustodio",
+      "brand": "myheritage-dna",
+      "partnerSlug": "myheritage-dna",
+      "category": "Verified Partner",
+      "src": "/promo-media/myheritage-dna/myheritage-dna_card_1.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "MyHeritage DNA WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://naiawork.com/g/310nn6yy51fa9e3fd878e403a0fd30/?subid=promoradar_banner_myheritage-dna"
+    },
+    {
+      "brand": "myheritage-dna",
+      "partnerSlug": "myheritage-dna",
+      "category": "Verified Partner",
+      "src": "/promo-media/myheritage-dna/myheritage-dna_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "MyHeritage DNA WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://naiawork.com/g/h9ijwkl3okfa9e3fd878e403a0fd30/?subid=promoradar_banner_myheritage-dna"
+    },
+    {
+      "brand": "myheritage-dna",
+      "partnerSlug": "myheritage-dna",
+      "category": "Verified Partner",
+      "src": "/promo-media/myheritage-dna/myheritage-dna_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "MyHeritage DNA WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://naiawork.com/g/cg14k9qandfa9e3fd878e403a0fd30/?subid=promoradar_banner_myheritage-dna"
+    },
+    {
+      "brand": "myheritage-dna",
+      "partnerSlug": "myheritage-dna",
+      "category": "Verified Partner",
+      "src": "/promo-media/myheritage-dna/myheritage-dna_card_4.png",
+      "width": 300,
+      "height": 250,
+      "name": "MyHeritage DNA WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://naiawork.com/g/h3hex5vd2qfa9e3fd878e403a0fd30/?subid=promoradar_banner_myheritage-dna"
+    },
+    {
+      "brand": "myheritage-dna",
+      "partnerSlug": "myheritage-dna",
+      "category": "Verified Partner",
+      "src": "/promo-media/myheritage-dna/myheritage-dna_card_5.png",
+      "width": 300,
+      "height": 250,
+      "name": "MyHeritage DNA WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://naiawork.com/g/muqnlzv3bcfa9e3fd878e403a0fd30/?subid=promoradar_banner_myheritage-dna"
+    },
+    {
+      "brand": "myheritage-dna",
+      "partnerSlug": "myheritage-dna",
+      "category": "Verified Partner",
+      "src": "/promo-media/myheritage-dna/myheritage-dna_card_6.png",
+      "width": 300,
+      "height": 250,
+      "name": "MyHeritage DNA WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://naiawork.com/g/klgopbgcpofa9e3fd878e403a0fd30/?subid=promoradar_banner_myheritage-dna"
+    },
+    {
+      "brand": "neion-mx",
+      "partnerSlug": "neion-mx",
+      "category": "Verified Partner",
+      "src": "/promo-media/neion-mx/neion-mx_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Neion MX Official Partner Banner (300x250)",
+      "affiliateUrl": "https://xqjeo.com/g/7arl0lpwi4fa9e3fd87826a21eaac2/?subid=promoradar_banner_neion-mx"
+    },
+    {
+      "brand": "neion-mx",
+      "partnerSlug": "neion-mx",
+      "category": "Verified Partner",
+      "src": "/promo-media/neion-mx/neion-mx_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Neion MX Official Partner Banner (300x250)",
+      "affiliateUrl": "https://xqjeo.com/g/zipgt4bwydfa9e3fd87826a21eaac2/?subid=promoradar_banner_neion-mx"
+    },
+    {
+      "brand": "notta-ai",
+      "partnerSlug": "notta-ai",
+      "category": "Verified Partner",
+      "src": "/promo-media/notta-ai/notta-ai_card_1.png",
+      "width": 336,
+      "height": 280,
+      "name": "Notta AI WW Official Partner Banner (336x280)",
+      "affiliateUrl": "https://ypetp.com/g/t7qtq28tpxfa9e3fd878f50bb56640/?subid=promoradar_banner_notta-ai"
+    },
+    {
+      "brand": "polis",
+      "partnerSlug": "polis",
+      "category": "Verified Partner",
+      "src": "/promo-media/polis/polis_card_1.png",
+      "width": 300,
+      "height": 250,
+      "name": "Polis UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://naiawork.com/g/t4lb085na5367099d2cc063ddfdb47/?subid=promoradar_banner_polis"
+    },
+    {
+      "brand": "polis",
+      "partnerSlug": "polis",
+      "category": "Verified Partner",
+      "src": "/promo-media/polis/polis_card_2.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Polis UA Official Partner Banner (336x280)",
+      "affiliateUrl": "https://naiawork.com/g/oyumbcx2l6367099d2cc063ddfdb47/?subid=promoradar_banner_polis"
+    },
+    {
+      "brand": "polis",
+      "partnerSlug": "polis",
+      "category": "Verified Partner",
+      "src": "/promo-media/polis/polis_card_3.png",
+      "width": 336,
+      "height": 280,
+      "name": "Polis UA Official Partner Banner (336x280)",
+      "affiliateUrl": "https://naiawork.com/g/ofbqzim3aw367099d2cc063ddfdb47/?subid=promoradar_banner_polis"
+    },
+    {
+      "brand": "potamy",
+      "partnerSlug": "potamy",
+      "category": "Verified Partner",
+      "src": "/promo-media/potamy/potamy_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "POTAMY Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://yynbx.com/g/ab3bgy17yqfa9e3fd878ef17ea0b0b/?subid=promoradar_banner_potamy"
+    },
+    {
+      "brand": "potamy",
+      "partnerSlug": "potamy",
+      "category": "Verified Partner",
+      "src": "/promo-media/potamy/potamy_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "POTAMY Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://yynbx.com/g/a1paojvgjhfa9e3fd878ef17ea0b0b/?subid=promoradar_banner_potamy"
+    },
+    {
+      "brand": "potamy",
+      "partnerSlug": "potamy",
+      "category": "Verified Partner",
+      "src": "/promo-media/potamy/potamy_card_4.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "POTAMY Many GEOs Official Partner Banner (336x280)",
+      "affiliateUrl": "https://yynbx.com/g/053i1lbva3fa9e3fd878ef17ea0b0b/?subid=promoradar_banner_potamy"
+    },
+    {
+      "brand": "potamy",
+      "partnerSlug": "potamy",
+      "category": "Verified Partner",
+      "src": "/promo-media/potamy/potamy_card_5.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "POTAMY Many GEOs Official Partner Banner (336x280)",
+      "affiliateUrl": "https://yynbx.com/g/9i4oxwwydbfa9e3fd878ef17ea0b0b/?subid=promoradar_banner_potamy"
+    },
+    {
+      "brand": "proficredit-cz",
+      "partnerSlug": "proficredit-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/proficredit-cz/proficredit-cz_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Proficredit cz CPS Official Partner Banner (300x250)",
+      "affiliateUrl": "https://twnfz.com/g/fse1zoe7r0fa9e3fd8785f8c52a9ee/?subid=promoradar_banner_proficredit-cz"
+    },
+    {
+      "brand": "proficredit-cz",
+      "partnerSlug": "proficredit-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/proficredit-cz/proficredit-cz_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Proficredit cz CPS Official Partner Banner (300x250)",
+      "affiliateUrl": "https://twnfz.com/g/3idbbs0uv0fa9e3fd8785f8c52a9ee/?subid=promoradar_banner_proficredit-cz"
+    },
+    {
+      "brand": "proficredit-cz",
+      "partnerSlug": "proficredit-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/proficredit-cz/proficredit-cz_card_4.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Proficredit cz CPS Official Partner Banner (300x250)",
+      "affiliateUrl": "https://twnfz.com/g/i172rgs8wyfa9e3fd8785f8c52a9ee/?subid=promoradar_banner_proficredit-cz"
+    },
+    {
+      "brand": "proficredit-cz",
+      "partnerSlug": "proficredit-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/proficredit-cz/proficredit-cz_card_5.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Proficredit cz CPS Official Partner Banner (336x280)",
+      "affiliateUrl": "https://twnfz.com/g/857xtl3k62fa9e3fd8785f8c52a9ee/?subid=promoradar_banner_proficredit-cz"
+    },
+    {
+      "brand": "proficredit-cz",
+      "partnerSlug": "proficredit-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/proficredit-cz/proficredit-cz_card_6.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Proficredit cz CPS Official Partner Banner (336x280)",
+      "affiliateUrl": "https://twnfz.com/g/qdogbgs3o1fa9e3fd8785f8c52a9ee/?subid=promoradar_banner_proficredit-cz"
+    },
+    {
+      "brand": "proton",
+      "partnerSlug": "proton",
+      "category": "Verified Partner",
+      "src": "/promo-media/proton/proton_card_5.png",
+      "width": 300,
+      "height": 250,
+      "name": "Proton Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://zmgig.com/g/h6hcpptju7367099d2ccce230d48cb/?subid=promoradar_banner_proton"
+    },
+    {
+      "brand": "proton",
+      "partnerSlug": "proton",
+      "category": "Verified Partner",
+      "src": "/promo-media/proton/proton_card_6.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Proton Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://zmgig.com/g/16huouccfi367099d2ccce230d48cb/?subid=promoradar_banner_proton"
+    },
+    {
+      "brand": "proton",
+      "partnerSlug": "proton",
+      "category": "Verified Partner",
+      "src": "/promo-media/proton/proton_card_7.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Proton Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://zmgig.com/g/234mks2a8y367099d2ccce230d48cb/?subid=promoradar_banner_proton"
+    },
+    {
+      "brand": "pujckaplus-cz",
+      "partnerSlug": "pujckaplus-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/pujckaplus-cz/pujckaplus-cz_card_1.png",
+      "width": 300,
+      "height": 250,
+      "name": "Pujckaplus CZ [CPS] Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bjpql.com/g/lx20w965q4fa9e3fd878e35c9874e2/?subid=promoradar_banner_pujckaplus-cz"
+    },
+    {
+      "brand": "pujckaplus-cz",
+      "partnerSlug": "pujckaplus-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/pujckaplus-cz/pujckaplus-cz_card_5.png",
+      "width": 250,
+      "height": 250,
+      "name": "Pujckaplus CZ [CPS] Official Partner Banner (250x250)",
+      "affiliateUrl": "https://bjpql.com/g/2owpetdubnfa9e3fd878e35c9874e2/?subid=promoradar_banner_pujckaplus-cz"
+    },
+    {
+      "brand": "purevpn",
+      "partnerSlug": "purevpn",
+      "category": "Verified Partner",
+      "src": "/promo-media/purevpn/purevpn_card_1.png",
+      "width": 300,
+      "height": 250,
+      "name": "PureVPN Many Geos Official Partner Banner (300x250)",
+      "affiliateUrl": "https://plrvq.com/g/9w5sb657o7fa9e3fd878dd63dd688c/?subid=promoradar_banner_purevpn"
+    },
+    {
+      "brand": "purevpn",
+      "partnerSlug": "purevpn",
+      "category": "Verified Partner",
+      "src": "/promo-media/purevpn/purevpn_card_2.png",
+      "width": 336,
+      "height": 280,
+      "name": "PureVPN Many Geos Official Partner Banner (336x280)",
+      "affiliateUrl": "https://plrvq.com/g/p3gile1008fa9e3fd878dd63dd688c/?subid=promoradar_banner_purevpn"
+    },
+    {
+      "brand": "qustodio",
       "partnerSlug": "qustodio",
-      "category": "Partner Deals",
+      "category": "Verified Partner",
       "src": "/promo-media/qustodio/qustodio_card_0.png",
       "width": 300,
       "height": 250,
@@ -243,14 +1723,534 @@
       "affiliateUrl": "https://zejcl.com/g/4lnors72fzfa9e3fd8782411861ed1/?subid=promoradar_banner_qustodio"
     },
     {
-      "brand": "PureVPN",
-      "partnerSlug": "purevpn",
-      "category": "Partner Deals",
-      "src": "/promo-media/purevpn/purevpn_card_1.png",
+      "brand": "raynatours",
+      "partnerSlug": "raynatours",
+      "category": "Verified Partner",
+      "src": "/promo-media/raynatours/raynatours_card_1.jpg",
       "width": 300,
       "height": 250,
-      "name": "PureVPN Many Geos Official Partner Banner (300x250)",
-      "affiliateUrl": "https://plrvq.com/g/9w5sb657o7fa9e3fd878dd63dd688c/?subid=promoradar_banner_purevpn"
+      "name": "RaynaTours Many Geos tracking promo codes Official Partner Banner (300x250)",
+      "affiliateUrl": "https://xpuvo.com/g/1oysm75b32fa9e3fd878e94db72a90/?subid=promoradar_banner_raynatours"
+    },
+    {
+      "brand": "redmagic",
+      "partnerSlug": "redmagic",
+      "category": "Verified Partner",
+      "src": "/promo-media/redmagic/redmagic_card_5.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Redmagic WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://yyczo.com/g/2qg0d47pzefa9e3fd87856637026d8/?subid=promoradar_banner_redmagic"
+    },
+    {
+      "brand": "redmagic",
+      "partnerSlug": "redmagic",
+      "category": "Verified Partner",
+      "src": "/promo-media/redmagic/redmagic_card_6.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Redmagic WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://yyczo.com/g/rb73hf0n65fa9e3fd87856637026d8/?subid=promoradar_banner_redmagic"
+    },
+    {
+      "brand": "redmagic",
+      "partnerSlug": "redmagic",
+      "category": "Verified Partner",
+      "src": "/promo-media/redmagic/redmagic_card_7.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Redmagic WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://yyczo.com/g/vp2zxheagafa9e3fd87856637026d8/?subid=promoradar_banner_redmagic"
+    },
+    {
+      "brand": "refsee",
+      "partnerSlug": "refsee",
+      "category": "Verified Partner",
+      "src": "/promo-media/refsee/refsee_card_4.png",
+      "width": 300,
+      "height": 250,
+      "name": "Refsee WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://xcdus.com/g/98vw6s14shfa9e3fd8787792ea44f3/?subid=promoradar_banner_refsee"
+    },
+    {
+      "brand": "refsee",
+      "partnerSlug": "refsee",
+      "category": "Verified Partner",
+      "src": "/promo-media/refsee/refsee_card_5.png",
+      "width": 300,
+      "height": 250,
+      "name": "Refsee WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://xcdus.com/g/y4mv8xxl6ofa9e3fd8787792ea44f3/?subid=promoradar_banner_refsee"
+    },
+    {
+      "brand": "refsee",
+      "partnerSlug": "refsee",
+      "category": "Verified Partner",
+      "src": "/promo-media/refsee/refsee_card_6.png",
+      "width": 300,
+      "height": 250,
+      "name": "Refsee WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://xcdus.com/g/k519up67b1fa9e3fd8787792ea44f3/?subid=promoradar_banner_refsee"
+    },
+    {
+      "brand": "refsee",
+      "partnerSlug": "refsee",
+      "category": "Verified Partner",
+      "src": "/promo-media/refsee/refsee_card_7.png",
+      "width": 300,
+      "height": 250,
+      "name": "Refsee WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://xcdus.com/g/3wfzm7tgzifa9e3fd8787792ea44f3/?subid=promoradar_banner_refsee"
+    },
+    {
+      "brand": "saude-abril-br-grupo-abril",
+      "partnerSlug": "saude-abril-br-grupo-abril",
+      "category": "Verified Partner",
+      "src": "/promo-media/saude-abril-br-grupo-abril/saude-abril-br-grupo-abril_card_2.jpg",
+      "width": 250,
+      "height": 250,
+      "name": "Saude Abril BR (Grupo Abril) Official Partner Banner (250x250)",
+      "affiliateUrl": "https://yknhc.com/g/lb94zibdhjfa9e3fd8785d4de28506/?subid=promoradar_banner_saude-abril-br-grupo-abril"
+    },
+    {
+      "brand": "sharafdg",
+      "partnerSlug": "sharafdg",
+      "category": "Verified Partner",
+      "src": "/promo-media/sharafdg/sharafdg_card_2.png",
+      "width": 300,
+      "height": 250,
+      "name": "SharafDG AE affiliate program Official Partner Banner (300x250)",
+      "affiliateUrl": "https://qwpeg.com/g/1allj3h19tfa9e3fd87865c829fe6a/?subid=promoradar_banner_sharafdg"
+    },
+    {
+      "brand": "sharafdg",
+      "partnerSlug": "sharafdg",
+      "category": "Verified Partner",
+      "src": "/promo-media/sharafdg/sharafdg_card_3.png",
+      "width": 300,
+      "height": 250,
+      "name": "SharafDG AE affiliate program Official Partner Banner (300x250)",
+      "affiliateUrl": "https://qwpeg.com/g/gvndbo53irfa9e3fd87865c829fe6a/?subid=promoradar_banner_sharafdg"
+    },
+    {
+      "brand": "sharafdg",
+      "partnerSlug": "sharafdg",
+      "category": "Verified Partner",
+      "src": "/promo-media/sharafdg/sharafdg_card_4.png",
+      "width": 300,
+      "height": 250,
+      "name": "SharafDG AE affiliate program Official Partner Banner (300x250)",
+      "affiliateUrl": "https://qwpeg.com/g/yubhbv8t1tfa9e3fd87865c829fe6a/?subid=promoradar_banner_sharafdg"
+    },
+    {
+      "brand": "sharafdg",
+      "partnerSlug": "sharafdg",
+      "category": "Verified Partner",
+      "src": "/promo-media/sharafdg/sharafdg_card_5.png",
+      "width": 300,
+      "height": 250,
+      "name": "SharafDG AE affiliate program Official Partner Banner (300x250)",
+      "affiliateUrl": "https://qwpeg.com/g/eilgoqro87fa9e3fd87865c829fe6a/?subid=promoradar_banner_sharafdg"
+    },
+    {
+      "brand": "sharafdg",
+      "partnerSlug": "sharafdg",
+      "category": "Verified Partner",
+      "src": "/promo-media/sharafdg/sharafdg_card_6.png",
+      "width": 300,
+      "height": 250,
+      "name": "SharafDG AE affiliate program Official Partner Banner (300x250)",
+      "affiliateUrl": "https://qwpeg.com/g/3kyvl1choofa9e3fd87865c829fe6a/?subid=promoradar_banner_sharafdg"
+    },
+    {
+      "brand": "sharafdg",
+      "partnerSlug": "sharafdg",
+      "category": "Verified Partner",
+      "src": "/promo-media/sharafdg/sharafdg_card_7.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "SharafDG AE affiliate program Official Partner Banner (300x250)",
+      "affiliateUrl": "https://qwpeg.com/g/owo55ox5nffa9e3fd87865c829fe6a/?subid=promoradar_banner_sharafdg"
+    },
+    {
+      "brand": "shopee-cpa-br",
+      "partnerSlug": "shopee-cpa-br",
+      "category": "Verified Partner",
+      "src": "/promo-media/shopee-cpa-br/shopee-cpa-br_card_0.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Shopee CPA BR Official Partner Banner (300x250)",
+      "affiliateUrl": "https://xqjeo.com/g/trch28svzkfa9e3fd87804f147125c/?subid=promoradar_banner_shopee-cpa-br"
+    },
+    {
+      "brand": "sitpack",
+      "partnerSlug": "sitpack",
+      "category": "Verified Partner",
+      "src": "/promo-media/sitpack/sitpack_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Sitpack WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ujhjj.com/g/vf0ammptehfa9e3fd878ef57333d53/?subid=promoradar_banner_sitpack"
+    },
+    {
+      "brand": "sitpack",
+      "partnerSlug": "sitpack",
+      "category": "Verified Partner",
+      "src": "/promo-media/sitpack/sitpack_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Sitpack WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ujhjj.com/g/3urzeg7pfbfa9e3fd878ef57333d53/?subid=promoradar_banner_sitpack"
+    },
+    {
+      "brand": "sol-cr-dito-mx",
+      "partnerSlug": "sol-cr-dito-mx",
+      "category": "Verified Partner",
+      "src": "/promo-media/sol-cr-dito-mx/sol-cr-dito-mx_card_0.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Sol Crédito MX Official Partner Banner (300x250)",
+      "affiliateUrl": "https://dkfrh.com/g/9k0cwagbasfa9e3fd878bd6fe4c78f/?subid=promoradar_banner_sol-cr-dito-mx"
+    },
+    {
+      "brand": "spartoo",
+      "partnerSlug": "spartoo",
+      "category": "Verified Partner",
+      "src": "/promo-media/spartoo/spartoo_card_7.gif",
+      "width": 300,
+      "height": 250,
+      "name": "Spartoo [Many GEOs] Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tsygg.com/g/39nudcwr06fa9e3fd878266cbebcee/?subid=promoradar_banner_spartoo"
+    },
+    {
+      "brand": "sunshouse",
+      "partnerSlug": "sunshouse",
+      "category": "Verified Partner",
+      "src": "/promo-media/sunshouse/sunshouse_card_1.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Sunshouse UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bywiola.com/g/vinh1h7cigfa9e3fd878a9ba2d93a7/?subid=promoradar_banner_sunshouse"
+    },
+    {
+      "brand": "sunshouse",
+      "partnerSlug": "sunshouse",
+      "category": "Verified Partner",
+      "src": "/promo-media/sunshouse/sunshouse_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Sunshouse UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bywiola.com/g/w2uszgsdkmfa9e3fd878a9ba2d93a7/?subid=promoradar_banner_sunshouse"
+    },
+    {
+      "brand": "sunshouse",
+      "partnerSlug": "sunshouse",
+      "category": "Verified Partner",
+      "src": "/promo-media/sunshouse/sunshouse_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Sunshouse UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bywiola.com/g/i4j4xbrurvfa9e3fd878a9ba2d93a7/?subid=promoradar_banner_sunshouse"
+    },
+    {
+      "brand": "sunshouse",
+      "partnerSlug": "sunshouse",
+      "category": "Verified Partner",
+      "src": "/promo-media/sunshouse/sunshouse_card_4.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Sunshouse UA Official Partner Banner (336x280)",
+      "affiliateUrl": "https://bywiola.com/g/qp9if7b022fa9e3fd878a9ba2d93a7/?subid=promoradar_banner_sunshouse"
+    },
+    {
+      "brand": "sunshouse",
+      "partnerSlug": "sunshouse",
+      "category": "Verified Partner",
+      "src": "/promo-media/sunshouse/sunshouse_card_5.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Sunshouse UA Official Partner Banner (336x280)",
+      "affiliateUrl": "https://bywiola.com/g/qfkuk9v9ylfa9e3fd878a9ba2d93a7/?subid=promoradar_banner_sunshouse"
+    },
+    {
+      "brand": "sunshouse",
+      "partnerSlug": "sunshouse",
+      "category": "Verified Partner",
+      "src": "/promo-media/sunshouse/sunshouse_card_6.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Sunshouse UA Official Partner Banner (336x280)",
+      "affiliateUrl": "https://bywiola.com/g/yjsl88p342fa9e3fd878a9ba2d93a7/?subid=promoradar_banner_sunshouse"
+    },
+    {
+      "brand": "the-hindu",
+      "partnerSlug": "the-hindu",
+      "category": "Verified Partner",
+      "src": "/promo-media/the-hindu/the-hindu_card_1.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "The Hindu [CPS] IN Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tjzuh.com/g/4rtbr1dovtfa9e3fd878d1068ae2f4/?subid=promoradar_banner_the-hindu"
+    },
+    {
+      "brand": "the-luxury-closet",
+      "partnerSlug": "the-luxury-closet",
+      "category": "Verified Partner",
+      "src": "/promo-media/the-luxury-closet/the-luxury-closet_card_2.png",
+      "width": 300,
+      "height": 250,
+      "name": "The Luxury Closet WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ad.admitad.com/g/2z4qrbdtukfa9e3fd8784413e8fc1b/?subid=promoradar_banner_the-luxury-closet"
+    },
+    {
+      "brand": "the-luxury-closet",
+      "partnerSlug": "the-luxury-closet",
+      "category": "Verified Partner",
+      "src": "/promo-media/the-luxury-closet/the-luxury-closet_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "The Luxury Closet WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ad.admitad.com/g/ip8c14xe62fa9e3fd8784413e8fc1b/?subid=promoradar_banner_the-luxury-closet"
+    },
+    {
+      "brand": "ticombo-global-event-tickets",
+      "partnerSlug": "ticombo-global-event-tickets",
+      "category": "Verified Partner",
+      "src": "/promo-media/ticombo-global-event-tickets/ticombo-global-event-tickets_card_2.png",
+      "width": 300,
+      "height": 250,
+      "name": "Ticombo - Global Event Tickets Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://zmgig.com/g/oq15lj6kc5fa9e3fd878bcf92d8d7a/?subid=promoradar_banner_ticombo-global-event-tickets"
+    },
+    {
+      "brand": "ticombo-global-event-tickets",
+      "partnerSlug": "ticombo-global-event-tickets",
+      "category": "Verified Partner",
+      "src": "/promo-media/ticombo-global-event-tickets/ticombo-global-event-tickets_card_3.png",
+      "width": 300,
+      "height": 250,
+      "name": "Ticombo - Global Event Tickets Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://zmgig.com/g/s6futgyc3kfa9e3fd878bcf92d8d7a/?subid=promoradar_banner_ticombo-global-event-tickets"
+    },
+    {
+      "brand": "ticombo-global-event-tickets",
+      "partnerSlug": "ticombo-global-event-tickets",
+      "category": "Verified Partner",
+      "src": "/promo-media/ticombo-global-event-tickets/ticombo-global-event-tickets_card_4.png",
+      "width": 336,
+      "height": 280,
+      "name": "Ticombo - Global Event Tickets Many GEOs Official Partner Banner (336x280)",
+      "affiliateUrl": "https://zmgig.com/g/2keswufdhafa9e3fd878bcf92d8d7a/?subid=promoradar_banner_ticombo-global-event-tickets"
+    },
+    {
+      "brand": "ticombo-global-event-tickets",
+      "partnerSlug": "ticombo-global-event-tickets",
+      "category": "Verified Partner",
+      "src": "/promo-media/ticombo-global-event-tickets/ticombo-global-event-tickets_card_5.png",
+      "width": 336,
+      "height": 280,
+      "name": "Ticombo - Global Event Tickets Many GEOs Official Partner Banner (336x280)",
+      "affiliateUrl": "https://zmgig.com/g/vhftbfnvpnfa9e3fd878bcf92d8d7a/?subid=promoradar_banner_ticombo-global-event-tickets"
+    },
+    {
+      "brand": "ttgo-e-bike",
+      "partnerSlug": "ttgo-e-bike",
+      "category": "Verified Partner",
+      "src": "/promo-media/ttgo-e-bike/ttgo-e-bike_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "TTGO E-bike Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://dkfrh.com/g/4t9jc1jc35fa9e3fd878d0a9902774/?subid=promoradar_banner_ttgo-e-bike"
+    },
+    {
+      "brand": "ttgo-e-bike",
+      "partnerSlug": "ttgo-e-bike",
+      "category": "Verified Partner",
+      "src": "/promo-media/ttgo-e-bike/ttgo-e-bike_card_3.png",
+      "width": 300,
+      "height": 250,
+      "name": "TTGO E-bike Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://dkfrh.com/g/d3ypvcaurlfa9e3fd878d0a9902774/?subid=promoradar_banner_ttgo-e-bike"
+    },
+    {
+      "brand": "ttgo-e-bike",
+      "partnerSlug": "ttgo-e-bike",
+      "category": "Verified Partner",
+      "src": "/promo-media/ttgo-e-bike/ttgo-e-bike_card_4.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "TTGO E-bike Many GEOs Official Partner Banner (336x280)",
+      "affiliateUrl": "https://dkfrh.com/g/13rie8deb2fa9e3fd878d0a9902774/?subid=promoradar_banner_ttgo-e-bike"
+    },
+    {
+      "brand": "ttgo-e-bike",
+      "partnerSlug": "ttgo-e-bike",
+      "category": "Verified Partner",
+      "src": "/promo-media/ttgo-e-bike/ttgo-e-bike_card_5.png",
+      "width": 336,
+      "height": 280,
+      "name": "TTGO E-bike Many GEOs Official Partner Banner (336x280)",
+      "affiliateUrl": "https://dkfrh.com/g/qer95qlij7fa9e3fd878d0a9902774/?subid=promoradar_banner_ttgo-e-bike"
+    },
+    {
+      "brand": "turbosto",
+      "partnerSlug": "turbosto",
+      "category": "Verified Partner",
+      "src": "/promo-media/turbosto/turbosto_card_5.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Turbosto UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://xnmik.com/g/cf4r62eph2fa9e3fd878651cd57d89/?subid=promoradar_banner_turbosto"
+    },
+    {
+      "brand": "turbosto",
+      "partnerSlug": "turbosto",
+      "category": "Verified Partner",
+      "src": "/promo-media/turbosto/turbosto_card_6.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Turbosto UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://xnmik.com/g/polqsp1fykfa9e3fd878651cd57d89/?subid=promoradar_banner_turbosto"
+    },
+    {
+      "brand": "turbosto",
+      "partnerSlug": "turbosto",
+      "category": "Verified Partner",
+      "src": "/promo-media/turbosto/turbosto_card_7.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Turbosto UA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://xnmik.com/g/5phow60w4yfa9e3fd878651cd57d89/?subid=promoradar_banner_turbosto"
+    },
+    {
+      "brand": "uniqlo",
+      "partnerSlug": "uniqlo",
+      "category": "Verified Partner",
+      "src": "/promo-media/uniqlo/uniqlo_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Uniqlo India [CPS] IN Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tjzuh.com/g/qeg8wpafxzfa9e3fd878ccb93e5ddd/?subid=promoradar_banner_uniqlo"
+    },
+    {
+      "brand": "vectorstock",
+      "partnerSlug": "vectorstock",
+      "category": "Verified Partner",
+      "src": "/promo-media/vectorstock/vectorstock_card_1.png",
+      "width": 300,
+      "height": 250,
+      "name": "VectorStock WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://grfpr.com/g/b53vc3v391fa9e3fd87869ba13f9ec/?subid=promoradar_banner_vectorstock"
+    },
+    {
+      "brand": "victoria-s-secret",
+      "partnerSlug": "victoria-s-secret",
+      "category": "Verified Partner",
+      "src": "/promo-media/victoria-s-secret/victoria-s-secret_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Victoria's Secret AE SA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bywiola.com/g/i4fb5grwiwfa9e3fd8785b775d128d/?subid=promoradar_banner_victoria-s-secret"
+    },
+    {
+      "brand": "victoria-s-secret",
+      "partnerSlug": "victoria-s-secret",
+      "category": "Verified Partner",
+      "src": "/promo-media/victoria-s-secret/victoria-s-secret_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Victoria's Secret AE SA Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bywiola.com/g/io0ul16wkgfa9e3fd8785b775d128d/?subid=promoradar_banner_victoria-s-secret"
+    },
+    {
+      "brand": "wild-fork-mx",
+      "partnerSlug": "wild-fork-mx",
+      "category": "Verified Partner",
+      "src": "/promo-media/wild-fork-mx/wild-fork-mx_card_5.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Wild Fork MX Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ujhjj.com/g/5pk50rylnufa9e3fd878030f2cdcde/?subid=promoradar_banner_wild-fork-mx"
+    },
+    {
+      "brand": "wild-fork-mx",
+      "partnerSlug": "wild-fork-mx",
+      "category": "Verified Partner",
+      "src": "/promo-media/wild-fork-mx/wild-fork-mx_card_6.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Wild Fork MX Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ujhjj.com/g/gwtj00z26xfa9e3fd878030f2cdcde/?subid=promoradar_banner_wild-fork-mx"
+    },
+    {
+      "brand": "wild-fork-mx",
+      "partnerSlug": "wild-fork-mx",
+      "category": "Verified Partner",
+      "src": "/promo-media/wild-fork-mx/wild-fork-mx_card_7.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Wild Fork MX Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ujhjj.com/g/4jn5dpsczxfa9e3fd878030f2cdcde/?subid=promoradar_banner_wild-fork-mx"
+    },
+    {
+      "brand": "ya-man-kz",
+      "partnerSlug": "ya-man-kz",
+      "category": "Verified Partner",
+      "src": "/promo-media/ya-man-kz/ya-man-kz_card_1.png",
+      "width": 300,
+      "height": 250,
+      "name": "ЭПЛ Даймонд KZ Official Partner Banner (300x250)",
+      "affiliateUrl": "https://uuwgc.com/g/ovqur2c9offa9e3fd8780edae3104d/?subid=promoradar_banner_ya-man-kz"
+    },
+    {
+      "brand": "ya-man-kz",
+      "partnerSlug": "ya-man-kz",
+      "category": "Verified Partner",
+      "src": "/promo-media/ya-man-kz/ya-man-kz_card_2.png",
+      "width": 336,
+      "height": 280,
+      "name": "ЭПЛ Даймонд KZ Official Partner Banner (336x280)",
+      "affiliateUrl": "https://uuwgc.com/g/bilw792ascfa9e3fd8780edae3104d/?subid=promoradar_banner_ya-man-kz"
+    },
+    {
+      "brand": "zonky-cz",
+      "partnerSlug": "zonky-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/zonky-cz/zonky-cz_card_3.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Zonky CZ Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ytyaz.com/g/22t6ouwclgfa9e3fd8787b4a20a6f1/?subid=promoradar_banner_zonky-cz"
+    },
+    {
+      "brand": "zonky-cz",
+      "partnerSlug": "zonky-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/zonky-cz/zonky-cz_card_4.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Zonky CZ Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ytyaz.com/g/f0ubznvpgsfa9e3fd8787b4a20a6f1/?subid=promoradar_banner_zonky-cz"
+    },
+    {
+      "brand": "zonky-cz",
+      "partnerSlug": "zonky-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/zonky-cz/zonky-cz_card_5.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Zonky CZ Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ytyaz.com/g/50d2gnueulfa9e3fd8787b4a20a6f1/?subid=promoradar_banner_zonky-cz"
+    },
+    {
+      "brand": "zonky-cz",
+      "partnerSlug": "zonky-cz",
+      "category": "Verified Partner",
+      "src": "/promo-media/zonky-cz/zonky-cz_card_6.jpg",
+      "width": 336,
+      "height": 280,
+      "name": "Zonky CZ Official Partner Banner (336x280)",
+      "affiliateUrl": "https://ytyaz.com/g/x4k7rtgvm9fa9e3fd8787b4a20a6f1/?subid=promoradar_banner_zonky-cz"
     }
   ]
 }
