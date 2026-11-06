@@ -1848,21 +1848,12 @@ const homeSchemas = [
         }
       });
 
-      // Also filter in-grid banners by region and category, only show if within current page limit
+      // In-Grid Partner Banners: ALWAYS display within active visible batch across all versions, locales and regions
       const gridBanners = document.querySelectorAll('.in-grid-partner-banner');
       gridBanners.forEach((b, bIdx) => {
-        const bRegs = (b.getAttribute('data-banner-regions') || 'GLOBAL').split(',');
-        const bCat = b.getAttribute('data-banner-category') || '';
-        const matchReg = (!currentRegion || currentRegion === 'ALL' || currentRegion === 'GLOBAL' || bRegs.includes('GLOBAL'))
-          ? true
-          : bRegs.includes(currentRegion);
-        const matchCat = (currentCategory === 'ALL')
-          ? true
-          : (bCat === currentCategory || bCat.toLowerCase().includes(currentCategory.toLowerCase()));
-
-        // Show banner only if matching and its position corresponds to revealed cards (7 cards per banner)
+        // Show banner whenever within the current visible batch (7 cards per banner slot)
         const bannerPosition = (bIdx + 1) * 7;
-        if (matchReg && matchCat && !currentStore && !q && bannerPosition <= visibleLimit) {
+        if (bannerPosition <= visibleLimit) {
           b.classList.remove('hidden');
         } else {
           b.classList.add('hidden');
