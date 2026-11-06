@@ -62,6 +62,8 @@ const { leaderboards = [], rectangles = [] } = rotatorData;
           <div
             class={`rotator-slide ${idx === 0 ? 'block' : 'hidden'} transition-opacity duration-500 ease-in-out`}
             data-index={idx}
+            data-partner-slug={item.partnerSlug}
+            data-category={item.category}
           >
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
               <!-- Left Mini Info on Brand -->
@@ -107,8 +109,8 @@ const { leaderboards = [], rectangles = [] } = rotatorData;
 
 <script is:inline>
   (function () {
-    const slides = document.querySelectorAll('.rotator-slide');
-    const dots = document.querySelectorAll('#rotatorDots button');
+    const slides = Array.from(document.querySelectorAll('.rotator-slide'));
+    const dots = Array.from(document.querySelectorAll('#rotatorDots button'));
     const prevBtn = document.getElementById('rotatorPrevBtn');
     const nextBtn = document.getElementById('rotatorNextBtn');
 
@@ -116,6 +118,101 @@ const { leaderboards = [], rectangles = [] } = rotatorData;
 
     let currentIndex = 0;
     let timer = null;
+
+    // Detect User Context & Personalize Initial Slide Order
+    function getPersonalizedInitialIndex() {
+      try {
+        let geo = 'GLOBAL';
+        const storedGeo = localStorage.getItem('promoradar_selected_region');
+        if (storedGeo && storedGeo !== 'ALL') {
+          geo = storedGeo;
+        } else {
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+          if (tz.includes('Kyiv') || tz.includes('Kiev') || tz.includes('Simferopol')) geo = 'UA';
+          else if (tz.includes('Dubai') || tz.includes('Riyadh') || tz.includes('Qatar') || tz.includes('Muscat')) geo = 'GCC';
+          else if (tz.includes('New_York') || tz.includes('Chicago') || tz.includes('Los_Angeles') || tz.includes('Denver')) geo = 'US';
+          else if (tz.includes('Warsaw') || tz.includes('Berlin') || tz.includes('Paris') || tz.includes('London') || tz.includes('Madrid') || tz.includes('Rome')) geo = 'EU';
+        }
+
+        const ua = navigator.userAgent;
+        let os = 'Windows';
+        if (/iPad|iPhone|iPod/.test(ua)) os = 'iOS';
+        else if (/Android/.test(ua)) os = 'Android';
+        else if (/Macintosh|Mac OS X/.test(ua)) os = 'macOS';
+        else if (/Linux/.test(ua)) os = 'Linux';
+
+        // Check stored category/store affinities
+        let profile = { categoryAffinities: {}, storeAffinities: {} };
+        const rawProfile = localStorage.getItem('pr_user_profile_v1');
+        if (rawProfile) {
+          try { profile = JSON.parse(rawProfile); } catch (e) {}
+        }
+
+        const STORE_GEOS = {
+          'turbosto': ['UA'],
+          'touch': ['UA'],
+          'touch-ua': ['UA'],
+          'allpowers': ['UA', 'EU', 'GLOBAL'],
+          'parallels': ['GLOBAL', 'EU', 'US'],
+          'lenovo': ['GLOBAL', 'EU', 'US', 'UA'],
+          'wondershare': ['GLOBAL', 'EU', 'US'],
+          'answear': ['EU', 'UA'],
+          'chicme': ['GLOBAL', 'EU', 'US'],
+          'hostinger': ['GLOBAL', 'US', 'EU', 'UA', 'GCC'],
+          'airalo': ['GLOBAL', 'EU', 'GCC', 'US', 'UA'],
+          'purevpn': ['GLOBAL', 'EU', 'US', 'GCC']
+        };
+
+        const STORE_OS = {
+          'parallels': ['macOS'],
+          'wondershare': ['macOS', 'Windows'],
+          'airalo': ['iOS', 'Android']
+        };
+
+        let bestIndex = 0;
+        let maxScore = -999;
+
+        slides.forEach((slide, idx) => {
+          const slug = (slide.getAttribute('data-partner-slug') || '').toLowerCase();
+          const category = slide.getAttribute('data-category') || '';
+          let score = 0;
+
+          // GEO scoring
+          const allowedGeos = STORE_GEOS[slug] || ['GLOBAL'];
+          if (geo !== 'GLOBAL') {
+            if (allowedGeos.includes(geo)) score += 30;
+            else if (allowedGeos.includes('GLOBAL')) score += 10;
+            else score -= 40;
+          }
+
+          // OS scoring
+          const targetOs = STORE_OS[slug];
+          if (targetOs) {
+            if (targetOs.includes(os)) score += 20;
+            else score -= 15;
+          }
+
+          // Affinity scoring
+          if (profile.categoryAffinities && profile.categoryAffinities[category]) {
+            score += profile.categoryAffinities[category] * 8;
+          }
+          if (profile.storeAffinities && profile.storeAffinities[slug]) {
+            score += profile.storeAffinities[slug] * 12;
+          }
+
+          if (score > maxScore) {
+            maxScore = score;
+            bestIndex = idx;
+          }
+        });
+
+        return bestIndex;
+      } catch (err) {
+        return 0;
+      }
+    }
+
+    currentIndex = getPersonalizedInitialIndex();
 
     function showSlide(index) {
       if (index < 0) index = slides.length - 1;
@@ -145,7 +242,7 @@ const { leaderboards = [], rectangles = [] } = rotatorData;
       stopAutoPlay();
       timer = setInterval(() => {
         showSlide(currentIndex + 1);
-      }, 5000);
+      }, 5500);
     }
 
     function stopAutoPlay() {
@@ -176,7 +273,8 @@ const { leaderboards = [], rectangles = [] } = rotatorData;
     container?.addEventListener('mouseenter', stopAutoPlay);
     container?.addEventListener('mouseleave', startAutoPlay);
 
-    // Initial setup
+    // Initial setup with personalized best slide
+    showSlide(currentIndex);
     startAutoPlay();
   })();
 </script>

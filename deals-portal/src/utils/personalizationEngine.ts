@@ -172,6 +172,154 @@ export function trackUserAction(action: {
 }
 
 /**
+ * Target OS mapping for stores and offers
+ */
+export const STORE_OS_TARGETS: Record<string, string[]> = {
+  'parallels': ['macOS'],
+  'wondershare': ['macOS', 'Windows'],
+  'abelssoft': ['Windows'],
+  'iolo': ['Windows'],
+  'airalo': ['iOS', 'Android'],
+  'globalyo': ['iOS', 'Android'],
+  'purevpn': ['Windows', 'macOS', 'iOS', 'Android', 'Linux'],
+  'expressvpn': ['Windows', 'macOS', 'iOS', 'Android', 'Linux'],
+  'nordvpn': ['Windows', 'macOS', 'iOS', 'Android', 'Linux'],
+  'protonvpn': ['Windows', 'macOS', 'iOS', 'Android', 'Linux'],
+  'keepersecurity': ['iOS', 'Android', 'macOS', 'Windows'],
+  'qustodio': ['iOS', 'Android', 'macOS', 'Windows'],
+  'touch': ['iOS', 'Android'],
+  'touch-ua': ['iOS', 'Android'],
+  'turbify': ['Windows', 'macOS', 'Linux'],
+  'hostinger': ['Windows', 'macOS', 'Linux']
+};
+
+/**
+ * Related Category Synergy Matrix (Affinity Spillover)
+ */
+export const CATEGORY_SYNERGY: Record<string, string[]> = {
+  'Software & Tools': ['Hosting & Domains', 'VPN & Security', 'Web Services'],
+  'Hosting & Domains': ['Software & Tools', 'VPN & Security', 'Web Services'],
+  'VPN & Security': ['Hosting & Domains', 'Software & Tools', 'Travel & Flights'],
+  'Travel & Flights': ['eSIM & Connectivity', 'Fashion & Retail', 'Luggage & Gear'],
+  'Fashion & Retail': ['Beauty & Health', 'Travel & Flights', 'Accessories'],
+  'Electronics & Hardware': ['Software & Tools', 'Gaming', 'Office & Home']
+};
+
+/**
+ * Banner item definition for scoring
+ */
+export interface BannerItem {
+  brand: string;
+  partnerSlug: string;
+  category: string;
+  src: string;
+  width?: number;
+  height?: number;
+  name?: string;
+  affiliateUrl: string;
+}
+
+/**
+ * Extract marketing intent from URL params (UTM tags) and seed affinities
+ */
+export function initializeUtmAttribution(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const utmCampaign = (params.get('utm_campaign') || '').toLowerCase();
+    const utmContent = (params.get('utm_content') || '').toLowerCase();
+    const utmTerm = (params.get('utm_term') || '').toLowerCase();
+
+    const textToMatch = `${utmCampaign} ${utmContent} ${utmTerm}`;
+    if (!textToMatch.trim()) return;
+
+    const profile = getUserProfile();
+    let updated = false;
+
+    if (textToMatch.includes('vpn') || textToMatch.includes('privacy') || textToMatch.includes('security')) {
+      profile.categoryAffinities['VPN & Security'] = (profile.categoryAffinities['VPN & Security'] || 0) + 6;
+      updated = true;
+    }
+    if (textToMatch.includes('hosting') || textToMatch.includes('domain') || textToMatch.includes('vps') || textToMatch.includes('server')) {
+      profile.categoryAffinities['Hosting & Domains'] = (profile.categoryAffinities['Hosting & Domains'] || 0) + 6;
+      updated = true;
+    }
+    if (textToMatch.includes('software') || textToMatch.includes('tools') || textToMatch.includes('mac') || textToMatch.includes('windows')) {
+      profile.categoryAffinities['Software & Tools'] = (profile.categoryAffinities['Software & Tools'] || 0) + 6;
+      updated = true;
+    }
+    if (textToMatch.includes('travel') || textToMatch.includes('flight') || textToMatch.includes('hotel') || textToMatch.includes('esim')) {
+      profile.categoryAffinities['Travel & Flights'] = (profile.categoryAffinities['Travel & Flights'] || 0) + 6;
+      updated = true;
+    }
+
+    if (updated) {
+      saveUserProfile(profile);
+    }
+  } catch (e) {}
+}
+
+/**
+ * Score banner creative against user profile (Geo, OS, Category affinity, Synergy)
+ */
+export function scoreBanner(banner: BannerItem, profile: UserProfile): number {
+  let score = 0;
+  const slug = (banner.partnerSlug || '').toLowerCase();
+
+  // 1. GEO compatibility
+  const allowedGeos = STORE_GEOS[slug] || ['GLOBAL'];
+  if (profile.geo !== 'GLOBAL') {
+    if (allowedGeos.includes(profile.geo)) {
+      score += 40;
+    } else if (allowedGeos.includes('GLOBAL')) {
+      score += 15;
+    } else {
+      score -= 50; // Incompatible with user's GEO!
+    }
+  } else {
+    score += 10;
+  }
+
+  // 2. OS compatibility
+  const targetOsList = STORE_OS_TARGETS[slug];
+  if (targetOsList && targetOsList.length > 0) {
+    if (targetOsList.includes(profile.os)) {
+      score += 30; // Perfect match (e.g. Parallels on macOS, Airalo on mobile)
+    } else {
+      score -= 25; // Negative weight for non-target OS (e.g. Parallels on Android)
+    }
+  }
+
+  // 3. Category direct affinity
+  if (banner.category && profile.categoryAffinities[banner.category]) {
+    score += profile.categoryAffinities[banner.category] * 12;
+  }
+
+  // 4. Category synergy (spillover)
+  for (const [userCat, points] of Object.entries(profile.categoryAffinities)) {
+    const related = CATEGORY_SYNERGY[userCat];
+    if (related && related.includes(banner.category)) {
+      score += points * 4;
+    }
+  }
+
+  // 5. Store affinity
+  if (profile.storeAffinities[slug]) {
+    score += profile.storeAffinities[slug] * 15;
+  }
+
+  return score;
+}
+
+/**
+ * Return sorted banners based on user context
+ */
+export function getPersonalizedBanners(banners: BannerItem[], customProfile?: UserProfile): BannerItem[] {
+  const profile = customProfile || getUserProfile();
+  return [...banners].sort((a, b) => scoreBanner(b, profile) - scoreBanner(a, profile));
+}
+
+/**
  * Extract percentage discount value for tie-breaking
  */
 function extractDiscountValue(deal: CandidateDeal): number {
