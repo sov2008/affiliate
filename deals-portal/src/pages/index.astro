@@ -139,7 +139,14 @@ const STORE_REGIONS: Record<string, string[]> = {
   'polis': ['UA', 'EU'],
   'hostinger': ['GLOBAL', 'US', 'EU', 'UA', 'GCC'],
   'abelssoft': ['GLOBAL', 'EU', 'US'],
-  '945industries': ['US', 'GLOBAL', 'EU']
+  '945industries': ['US', 'GLOBAL', 'EU'],
+  'parallels': ['GLOBAL', 'EU', 'US', 'UA', 'GCC'],
+  'lenovo': ['GLOBAL', 'EU', 'US', 'UA', 'GCC'],
+  'wondershare': ['GLOBAL', 'EU', 'US', 'UA', 'GCC'],
+  'casetify': ['GLOBAL', 'EU', 'US', 'UA', 'GCC'],
+  'answear': ['GLOBAL', 'EU', 'UA', 'PL'],
+  'turbosto': ['UA', 'GLOBAL', 'EU'],
+  'zonky-cz': ['CZ', 'EU', 'GLOBAL']
 };
 
 // Region badge display config
@@ -1846,7 +1853,7 @@ const homeSchemas = [
       gridBanners.forEach((b, bIdx) => {
         const bRegs = (b.getAttribute('data-banner-regions') || 'GLOBAL').split(',');
         const bCat = b.getAttribute('data-banner-category') || '';
-        const matchReg = (!currentRegion || currentRegion === 'ALL' || currentRegion === 'GLOBAL')
+        const matchReg = (!currentRegion || currentRegion === 'ALL' || currentRegion === 'GLOBAL' || bRegs.includes('GLOBAL'))
           ? true
           : bRegs.includes(currentRegion);
         const matchCat = (currentCategory === 'ALL')
