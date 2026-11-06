@@ -1172,12 +1172,12 @@ const homeSchemas = [
                   </a>
                 </div>
 
-                <!-- Creative Visual Area -->
+                <!-- Creative Visual Area with Fallback -->
                 <a
                   href={inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].affiliateUrl}
                   target="_blank"
                   rel="nofollow sponsored"
-                  class="group relative block w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-950/5 dark:bg-slate-950/40 flex items-center justify-center"
+                  class="group relative block w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-indigo-100/50 dark:border-indigo-900/30"
                   title={`${inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].brand} - ${inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].category}`}
                 >
                   <img
@@ -1185,8 +1185,21 @@ const homeSchemas = [
                     alt={inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].name || `${inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].brand} Official Partner Offer`}
                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
+                    onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
                   />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2.5">
+                  <!-- Beautiful Fallback Display if image is blocked by client adblocker -->
+                  <div class="hidden w-full h-full absolute inset-0 bg-gradient-to-br from-indigo-900 via-slate-900 to-indigo-950 p-4 flex-col justify-center items-center text-center">
+                    <span class="text-2xl mb-1">🏷️</span>
+                    <span class="text-xs font-black text-white uppercase tracking-wider">
+                      {inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].brand}
+                    </span>
+                    <span class="text-[10px] text-amber-300 font-bold mt-0.5">Verified Partner Deal</span>
+                    <span class="text-[9px] text-slate-300 line-clamp-1 mt-1">
+                      {inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].category}
+                    </span>
+                  </div>
+
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2.5 pointer-events-none">
                     <span class="text-[11px] font-bold text-white bg-indigo-600/90 px-2.5 py-1 rounded-lg backdrop-blur-xs flex items-center gap-1 shadow-sm">
                       Claim Verified Deal <ArrowUpRight class="w-3.5 h-3.5" />
                     </span>
