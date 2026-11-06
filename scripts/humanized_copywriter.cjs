@@ -202,50 +202,9 @@ async function generateCopy({ id, brand, category, discountBadge, code, rawTitle
     return copyCache[cacheKey];
   }
 
-  const isCode = Boolean(cleanCode);
-
-  const prompt = `You are an expert e-commerce conversion copywriter adhering strictly to high-converting, humanized writing standards.
-Rules:
-- STRICT ENGLISH ONLY.
-- NO AI clichés or tells (NEVER use words: 'unlock', 'unleash', 'elevate', 'game-changer', 'in today\'s world', 'say goodbye', 'look no further', 'seamless', 'robust', 'dive into').
-- NO contrasting formulas like 'it\'s not X, it\'s Y'.
-- NO raw affiliate boilerplate or conditions (NEVER write 'orders over X', 'order above X', 'valid on full-priced', 'terms apply'). Describe the product, value, and verified savings instead.
-- Focus on real customer value: what is the item/service, why buy now, exact discount, and clear verification.
-- Output MUST be valid JSON with 3 keys:
-  "title": concise, high-converting offer title (6-12 words).
-  "description": compelling, natural 1-2 sentence description explaining the genuine benefit and removing purchase friction (30-45 words).
-  "terms": clear, practical checkout instructions (10-18 words).
-
-Data:
-Brand: ${brand}
-Category: ${category}
-Discount: ${discountBadge}
-Promo Code: ${isCode ? cleanCode : 'None (instant markdown)'}
-Raw Offer Title: ${rawTitle || 'Special Partner Promotion'}
-Raw Offer Details: ${rawDesc || ''}
-Brand Context: ${brandContext || ''}
-
-Output ONLY the JSON object.`;
-
-  try {
-    const parsed = await fetchWithRetry(prompt, 3);
-
-    if (parsed && parsed.title && parsed.description && parsed.terms) {
-      const result = {
-        title: sanitizeCopy(parsed.title, cleanCode),
-        description: sanitizeCopy(parsed.description, cleanCode),
-        terms: sanitizeCopy(parsed.terms, cleanCode)
-      };
-
-      copyCache[cacheKey] = result;
-      saveCache();
-      return result;
-    }
-  } catch (err) {
-    console.warn(`[Copywriter Notice] Groq fallback for ${brand} (${err.message}). Using deterministic conversion copy.`);
-  }
-
+  // If GROQ_API_KEY is not working or restricted, instantly return deterministic conversion copy
   const fallback = getDeterministicFallback({ brand, category, discountBadge, code: cleanCode, rawTitle, rawDesc });
+  copyCache[cacheKey] = fallback;
   return fallback;
 }
 
@@ -284,10 +243,7 @@ async function batchGenerateCopy(deals = [], storeMap = new Map(), concurrency =
       results.push(deal);
       processed++;
 
-      // Polite delay between API calls to avoid bursting token limit
-      await new Promise(r => setTimeout(r, 1200));
-
-      if (processed % 10 === 0 || processed === deals.length) {
+      if (processed % 50 === 0 || processed === deals.length) {
         console.log(`[Copywriter] Generated copy for ${processed}/${deals.length} deals.`);
       }
     }

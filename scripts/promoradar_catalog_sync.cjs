@@ -314,12 +314,22 @@ async function syncAndBuild() {
 
   const token = await getAccessToken();
 
-  // 1. Fetch campaigns from all websites
+  // 1. Fetch campaigns from all websites with full pagination
   const rawCampaigns = [];
   for (const wId of WEBSITE_IDS) {
     try {
-      const res = await apiGet(token, `/advcampaigns/website/${wId}/?connection_status=active&limit=100`);
-      if (res.results) rawCampaigns.push(...res.results);
+      let offset = 0;
+      const limit = 100;
+      while (true) {
+        const res = await apiGet(token, `/advcampaigns/website/${wId}/?connection_status=active&limit=${limit}&offset=${offset}`);
+        const results = res.results || [];
+        rawCampaigns.push(...results);
+        log(`Ingested ${results.length} active campaigns (offset ${offset}) for website ${wId}`);
+        if (results.length < limit || rawCampaigns.length >= (res._meta ? res._meta.count : 0)) {
+          break;
+        }
+        offset += limit;
+      }
     } catch (e) {
       log(`Error fetching campaigns for website ${wId}: ${e.message}`);
     }
@@ -334,12 +344,22 @@ async function syncAndBuild() {
   }
   log(`Found ${campaignMap.size} unique active approved campaigns across Admitad.`);
 
-  // 2. Fetch coupons from all websites
+  // 2. Fetch coupons from all websites with full pagination
   const rawCoupons = [];
   for (const wId of WEBSITE_IDS) {
     try {
-      const res = await apiGet(token, `/coupons/website/${wId}/?limit=100`);
-      if (res.results) rawCoupons.push(...res.results);
+      let offset = 0;
+      const limit = 100;
+      while (true) {
+        const res = await apiGet(token, `/coupons/website/${wId}/?limit=${limit}&offset=${offset}`);
+        const results = res.results || [];
+        rawCoupons.push(...results);
+        log(`Ingested ${results.length} coupons (offset ${offset}) for website ${wId}`);
+        if (results.length < limit || rawCoupons.length >= (res._meta ? res._meta.count : 0)) {
+          break;
+        }
+        offset += limit;
+      }
     } catch (e) {
       log(`Error fetching coupons for website ${wId}: ${e.message}`);
     }
