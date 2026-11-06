@@ -209,7 +209,7 @@ export const STORE_GEOS: Record<string, string[]> = {
   'dabdoob': ['GCC'],
   'vperfumes': ['GCC'],
   'aovica': ['GLOBAL', 'EU', 'US'],
-  'markformelle': ['GLOBAL', 'EU'],
+  'chicme': ['GLOBAL', 'EU'],
   'elitedate': ['EU'],
   'verified-match': ['US', 'GLOBAL'],
   'discreet-local': ['US', 'GLOBAL'],

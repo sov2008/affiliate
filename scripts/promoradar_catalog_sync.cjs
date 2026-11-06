@@ -152,6 +152,35 @@ function mapCampaignToSlug(name = '') {
     .replace(/^-+|-+$/g, '') || 'partner';
 }
 
+/**
+ * Rule 8: STRICT BAN ON RU & BY AFFILIATE PROGRAMS
+ * Categorically bans any campaigns, stores, or coupons associated with Russia or Belarus
+ */
+function isBannedRuByProgram(camp = {}) {
+  const name = String(camp.name || '').trim();
+  const site = String(camp.site_url || camp.websiteUrl || '').trim();
+  const slug = String(camp.slug || '').trim();
+  const desc = String(camp.description || camp.raw_description || '').trim();
+  const regs = Array.isArray(camp.regions) ? camp.regions.map(r => typeof r === 'string' ? r : r.region) : [];
+
+  // TLD check (.ru, .by, .su, .рф, .бел)
+  if (/\.(ru|by|su|xn--p1ai)(\/|$)/i.test(site)) return true;
+
+  // Name patterns
+  if (/\b(BY|RU|RUS|BLR|Belarus|Russia)\b/i.test(name) && !/\b(BUY|TRUST|RUBY)\b/i.test(name)) return true;
+  if (/-by$/.test(slug) || /-ru$/.test(slug) || slug === 'by') return true;
+
+  // Specific brands known to be based in / focused on BY / RU
+  if (slug === 'markformelle' || /mark\s*formelle/i.test(name)) return true;
+  if (/meshnology/i.test(slug) || /meshnology/i.test(name)) return true;
+  if (name.includes('Офистон') || name.includes('НА СВЯЗИ')) return true;
+
+  // If regions target ONLY BY or RU
+  if (regs.length > 0 && regs.every(r => r === 'BY' || r === 'RU')) return true;
+
+  return false;
+}
+
 function inferCategory(campName = '', siteUrl = '') {
   const lower = (campName + ' ' + siteUrl).toLowerCase();
   if (lower.includes('fashion') || lower.includes('cloth') || lower.includes('dress') || lower.includes('apparel') || lower.includes('wear') || lower.includes('shoes') || lower.includes('handbag')) {
@@ -335,14 +364,16 @@ async function syncAndBuild() {
     }
   }
 
+  // Filter out any banned RU/BY campaigns upfront
+  const filteredCampaigns = rawCampaigns.filter(c => !isBannedRuByProgram(c));
   const campaignMap = new Map();
-  for (const c of rawCampaigns) {
+  for (const c of filteredCampaigns) {
     const slug = mapCampaignToSlug(c.name);
     if (!campaignMap.has(slug) || (c.gotolink && !campaignMap.get(slug).gotolink)) {
       campaignMap.set(slug, c);
     }
   }
-  log(`Found ${campaignMap.size} unique active approved campaigns across Admitad.`);
+  log(`Found ${campaignMap.size} unique active approved campaigns across Admitad (excluding RU/BY).`);
 
   // 2. Fetch coupons from all websites with full pagination
   const rawCoupons = [];
@@ -451,8 +482,17 @@ async function syncAndBuild() {
 
   const storeMap = new Map(storesData.map(s => [s.slug, s]));
 
+  // Purge any existing banned RU/BY stores from storeMap
+  for (const [slug, store] of storeMap.entries()) {
+    if (isBannedRuByProgram(store)) {
+      storeMap.delete(slug);
+      log(`🚫 Purged banned RU/BY store from storeMap: ${store.name} (${slug})`);
+    }
+  }
+
   // Update primaryAffiliateUrl for stores from active campaigns AND auto-provision unmapped stores!
   for (const [slug, camp] of campaignMap.entries()) {
+    if (isBannedRuByProgram(camp)) continue;
     if (camp.gotolink) {
       if (storeMap.has(slug)) {
         const store = storeMap.get(slug);
@@ -685,6 +725,10 @@ async function syncAndBuild() {
     const rawCampName = c.campaign ? c.campaign.name : '';
     const slug = mapCampaignToSlug(rawCampName);
     let store = storeMap.get(slug);
+
+    if (isBannedRuByProgram(c) || isBannedRuByProgram(c.campaign) || (store && isBannedRuByProgram(store))) {
+      continue;
+    }
 
     if (!store) {
       const campObj = campaignMap.get(slug) || {

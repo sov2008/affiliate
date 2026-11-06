@@ -155,7 +155,6 @@ export const STORE_DOMAINS_MAP: Record<string, string> = {
   "Magic Story": "magicstory.ua",
   "Mamas & Papas": "mamasandpapas.com",
   "Manset": "manset.com",
-  "Mark Formelle": "markformelle.by",
   "Megapopust HR SI": "megapopust.hr",
   "MFI Medical CJ Affiliate 1": "mfimedical.com",
   "MyLead Dating & Verified Match": "match.com",
@@ -216,7 +215,6 @@ export const STORE_DOMAINS_MAP: Record<string, string> = {
   "Xplora - Standard Commission 10": "myxplora.com",
   "Xplora UK Affiliate Programme": "myxplora.co.uk",
   "YA-MAN KZ": "ya-man.kz",
-  "Yves Rocher BY": "yves-rocher.by",
   "zChocolat 20% per confirmed sale": "zchocolat.com",
   "Zonky CZ": "zonky.cz",
 
@@ -275,7 +273,6 @@ export const STORE_DOMAINS_MAP: Record<string, string> = {
   "dabdoob": "dabdoob.com",
   "vperfumes": "vperfumes.com",
   "aovica": "aovica.com",
-  "markformelle": "markformelle.com",
   "luxfurni": "luxfurni.com",
   "ankermake": "ankermake.com",
   "mottandbow": "mottandbow.com",
@@ -371,7 +368,6 @@ export const STORE_DOMAINS_MAP: Record<string, string> = {
   "magic-story": "magicstory.ua",
   "mamas-and-papas": "mamasandpapas.com",
   "manset": "manset.com",
-  "mark-formelle": "markformelle.by",
   "may": "cruisedirect.com",
   "megapopust-hr-si": "megapopust.hr",
   "mfi-medical-cj-affiliate-1": "mfimedical.com",
@@ -436,7 +432,6 @@ export const STORE_DOMAINS_MAP: Record<string, string> = {
   "xplora-standard-commission-10": "myxplora.com",
   "xplora-uk-affiliate-programme": "myxplora.co.uk",
   "ya-man-kz": "ya-man.kz",
-  "yves-rocher-by": "yves-rocher.by",
   "zchocolat-20-per-confirmed-sale": "zchocolat.com",
   "zonky-cz": "zonky.cz"
 };

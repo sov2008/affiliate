@@ -721,40 +721,6 @@ export const STORES_DATA: StoreProfile[] = [
     ]
   },
   {
-    "slug": "markformelle",
-    "name": "Mark Formelle",
-    "category": "Fashion & Apparel",
-    "logoText": "MARKFORMELLE",
-    "shortDesc": "Comfortable family homewear, stylish casual basics, knitwear, and organic everyday essentials.",
-    "fullDesc": "Mark Formelle provides market-leading solutions in fashion & apparel, emphasizing contemporary design trends, durable textile craftsmanship, inclusive size ranges, and versatile wardrobe styling. Shoppers choose Mark Formelle to refresh everyday looks and seasonal staples with premium fabrics without paying traditional department store retail markups. Our deal verification desk monitors active promotions, seasonal campaigns, and checkout vouchers daily to guarantee that every listed coupon works reliably in live shopping carts.",
-    "websiteUrl": "https://markformelle.com",
-    "cleanDomain": "markformelle.com",
-    "primaryAffiliateUrl": "https://xqjeo.com/g/xu8ibhasrf367099d2cc5a98e4de8b/?i=31",
-    "howToApply": [
-      "Select your homewear and everyday casual items.",
-      "Enter promo code ADMMF436 at checkout.",
-      "Enjoy an instant 10% reduction on your entire basket."
-    ],
-    "faqs": [
-      {
-        "question": "How do I apply a promo code at Mark Formelle?",
-        "answer": "Select your desired products on the official Mark Formelle website and proceed to your shopping cart. Locate the 'Promo Code', 'Discount Code', or 'Voucher' field on the checkout screen, paste the code copied from PromoRadar, and click 'Apply' to see your instant order markdown."
-      },
-      {
-        "question": "Are the discount codes for Mark Formelle verified and tested?",
-        "answer": "Yes. Every coupon code and deal for Mark Formelle listed on PromoRadar is audited directly through merchant feeds and verified by our editorial desk in real checkout carts to ensure zero dead links and active discounts."
-      },
-      {
-        "question": "Can I combine multiple coupons on a single Mark Formelle order?",
-        "answer": "In most cases, Mark Formelle allows one promotional code per transaction. However, you can frequently apply verified voucher codes to items already marked down in the sale or clearance sections to maximize your total savings."
-      },
-      {
-        "question": "What is the best way to save money when shopping at Mark Formelle?",
-        "answer": "Stack verified promotional codes on top of existing mid-season clearance or flash markdown sections for maximum basket reductions. Additionally, check PromoRadar before finalizing your purchase to grab the latest verified flash sales and exclusive checkout vouchers."
-      }
-    ]
-  },
-  {
     "slug": "elitedate",
     "name": "EliteDate",
     "category": "Dating & Lifestyle",
@@ -2983,41 +2949,6 @@ export const STORES_DATA: StoreProfile[] = [
       },
       {
         "question": "What is the best way to save money when shopping at Gold?",
-        "answer": "Verify terms and apply promotional codes directly in the merchant cart before completing checkout. Additionally, check PromoRadar before finalizing your purchase to grab the latest verified flash sales and exclusive checkout vouchers."
-      }
-    ]
-  },
-  {
-    "slug": "yves-rocher-by",
-    "name": "Yves Rocher BY",
-    "category": "Beauty & Fragrances",
-    "logoText": "YVESROCHERBY",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Yves Rocher BY.",
-    "fullDesc": "Yves Rocher BY is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Yves Rocher BY online shoppers. Yves Rocher BY is known for verified service reliability, transparent customer support, and direct manufacturer pricing. Our deal verification desk tests checkout coupons and direct seasonal markdown offers across partner channels to ensure shoppers save effortlessly without encountering expired codes.",
-    "websiteUrl": "https://www.y-r.by/",
-    "cleanDomain": "y-r.by",
-    "primaryAffiliateUrl": "https://dorinebeaumont.com/g/9ukdodqinmfa9e3fd8782665169b10/",
-    "howToApply": [
-      "Select your desired items on Yves Rocher BY and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "How do I apply a promo code at Yves Rocher BY?",
-        "answer": "Select your desired products on the official Yves Rocher BY website and proceed to your shopping cart. Locate the 'Promo Code', 'Discount Code', or 'Voucher' field on the checkout screen, paste the code copied from PromoRadar, and click 'Apply' to see your instant order markdown."
-      },
-      {
-        "question": "Are the discount codes for Yves Rocher BY verified and tested?",
-        "answer": "Yes. Every coupon code and deal for Yves Rocher BY listed on PromoRadar is audited directly through merchant feeds and verified by our editorial desk in real checkout carts to ensure zero dead links and active discounts."
-      },
-      {
-        "question": "Can I combine multiple coupons on a single Yves Rocher BY order?",
-        "answer": "In most cases, Yves Rocher BY allows one promotional code per transaction. However, you can frequently apply verified voucher codes to items already marked down in the sale or clearance sections to maximize your total savings."
-      },
-      {
-        "question": "What is the best way to save money when shopping at Yves Rocher BY?",
         "answer": "Verify terms and apply promotional codes directly in the merchant cart before completing checkout. Additionally, check PromoRadar before finalizing your purchase to grab the latest verified flash sales and exclusive checkout vouchers."
       }
     ]
@@ -7421,33 +7352,6 @@ export const STORES_DATA: StoreProfile[] = [
     ]
   },
   {
-    "slug": "oz-by",
-    "name": "OZ BY",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "OZBY",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for OZ BY.",
-    "fullDesc": "OZ BY is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for OZ BY online shoppers.",
-    "websiteUrl": "https://oz.by/",
-    "cleanDomain": "oz.by",
-    "primaryAffiliateUrl": "https://cafxq.com/g/levlnhoktffa9e3fd878738699a0c1/",
-    "howToApply": [
-      "Select your desired items on OZ BY and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are OZ BY coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for OZ BY are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a OZ BY promo code?",
-        "answer": "OZ BY frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
     "slug": "uniqlo-india-in",
     "name": "Uniqlo India IN",
     "category": "E-Commerce & Wholesale",
@@ -7556,33 +7460,6 @@ export const STORES_DATA: StoreProfile[] = [
     ]
   },
   {
-    "slug": "by",
-    "name": "Офистон Маркет BY",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "BY",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Офистон Маркет BY.",
-    "fullDesc": "Офистон Маркет BY is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Офистон Маркет BY online shoppers.",
-    "websiteUrl": "https://officetonmarket.by",
-    "cleanDomain": "officetonmarket.by",
-    "primaryAffiliateUrl": "https://yjfca.com/g/g4f9xe2v0ofa9e3fd878293000753b/",
-    "howToApply": [
-      "Select your desired items on Офистон Маркет BY and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Офистон Маркет BY coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Офистон Маркет BY are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Офистон Маркет BY promo code?",
-        "answer": "Офистон Маркет BY frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
     "slug": "horacredit-ro",
     "name": "HoraCredit RO",
     "category": "Insurance & Finance",
@@ -7606,33 +7483,6 @@ export const STORES_DATA: StoreProfile[] = [
       {
         "question": "Can I get free shipping with a HoraCredit RO promo code?",
         "answer": "HoraCredit RO frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "luch-by",
-    "name": "Luch BY",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "LUCHBY",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Luch BY.",
-    "fullDesc": "Luch BY is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Luch BY online shoppers.",
-    "websiteUrl": "https://luch.by",
-    "cleanDomain": "luch.by",
-    "primaryAffiliateUrl": "https://yjfca.com/g/wszlfluuz7fa9e3fd878e31021dd1f/",
-    "howToApply": [
-      "Select your desired items on Luch BY and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Luch BY coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Luch BY are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Luch BY promo code?",
-        "answer": "Luch BY frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
       }
     ]
   },
@@ -8069,33 +7919,6 @@ export const STORES_DATA: StoreProfile[] = [
     ]
   },
   {
-    "slug": "intercars-by",
-    "name": "INTERCARS BY",
-    "category": "Travel & Tours",
-    "logoText": "INTERCARSBY",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for INTERCARS BY.",
-    "fullDesc": "INTERCARS BY is a premier online merchant in the Travel & Tours sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for INTERCARS BY online shoppers.",
-    "websiteUrl": "https://www.intercars-tickets.com/",
-    "cleanDomain": "intercars-tickets.com",
-    "primaryAffiliateUrl": "https://bywiola.com/g/rcev6m907efa9e3fd8787337dbd47f/",
-    "howToApply": [
-      "Select your desired items on INTERCARS BY and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are INTERCARS BY coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for INTERCARS BY are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a INTERCARS BY promo code?",
-        "answer": "INTERCARS BY frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
     "slug": "adidas-id",
     "name": "Adidas ID",
     "category": "E-Commerce & Wholesale",
@@ -8312,60 +8135,6 @@ export const STORES_DATA: StoreProfile[] = [
     ]
   },
   {
-    "slug": "ggsel-by",
-    "name": "GGsel BY",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "GGSELBY",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for GGsel BY.",
-    "fullDesc": "GGsel BY is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for GGsel BY online shoppers.",
-    "websiteUrl": "https://GGsel.net",
-    "cleanDomain": "ggsel.net",
-    "primaryAffiliateUrl": "https://xqjeo.com/g/tqwshtmiqqfa9e3fd8783206007594/",
-    "howToApply": [
-      "Select your desired items on GGsel BY and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are GGsel BY coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for GGsel BY are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a GGsel BY promo code?",
-        "answer": "GGsel BY frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "meshnology-meshtastic-lora",
-    "name": "Meshnology - Оборудование для Meshtastic и LoRa",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "MESHNOLOGYME",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Meshnology - Оборудование для Meshtastic и LoRa.",
-    "fullDesc": "Meshnology - Оборудование для Meshtastic и LoRa is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Meshnology - Оборудование для Meshtastic и LoRa online shoppers.",
-    "websiteUrl": "https://meshnology.com/",
-    "cleanDomain": "meshnology.com",
-    "primaryAffiliateUrl": "https://tywhh.com/g/97h026mnpxfa9e3fd878e95c5fd652/",
-    "howToApply": [
-      "Select your desired items on Meshnology - Оборудование для Meshtastic и LoRa and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Meshnology - Оборудование для Meshtastic и LoRa coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Meshnology - Оборудование для Meshtastic и LoRa are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Meshnology - Оборудование для Meshtastic и LoRa promo code?",
-        "answer": "Meshnology - Оборудование для Meshtastic и LoRa frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
     "slug": "megogo",
     "name": "MEGOGO",
     "category": "E-Commerce & Wholesale",
@@ -8470,33 +8239,6 @@ export const STORES_DATA: StoreProfile[] = [
       {
         "question": "Can I get free shipping with a PriceTravel MX promo code?",
         "answer": "PriceTravel MX frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "amd-by",
-    "name": "Amd BY",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "AMDBY",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Amd BY.",
-    "fullDesc": "Amd BY is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Amd BY online shoppers.",
-    "websiteUrl": "https://www.amd.by/",
-    "cleanDomain": "amd.by",
-    "primaryAffiliateUrl": "https://tywhh.com/g/dqcwjzhhw8fa9e3fd878dfc4faff32/",
-    "howToApply": [
-      "Select your desired items on Amd BY and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Amd BY coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Amd BY are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Amd BY promo code?",
-        "answer": "Amd BY frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
       }
     ]
   },
@@ -8740,33 +8482,6 @@ export const STORES_DATA: StoreProfile[] = [
       {
         "question": "Can I get free shipping with a Leroy Merlin promo code?",
         "answer": "Leroy Merlin frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "rulez-by",
-    "name": "Rulez BY",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "RULEZBY",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Rulez BY.",
-    "fullDesc": "Rulez BY is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Rulez BY online shoppers.",
-    "websiteUrl": "https://rulez.by/",
-    "cleanDomain": "rulez.by",
-    "primaryAffiliateUrl": "https://xcdus.com/g/66hsnobd0ffa9e3fd8788b141a6ee8/",
-    "howToApply": [
-      "Select your desired items on Rulez BY and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Rulez BY coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Rulez BY are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Rulez BY promo code?",
-        "answer": "Rulez BY frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
       }
     ]
   },
@@ -10472,33 +10187,6 @@ export const STORES_DATA: StoreProfile[] = [
     ]
   },
   {
-    "slug": "by-benson-5",
-    "name": "by Benson_5%",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "BYBENSON5",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for by Benson_5%.",
-    "fullDesc": "by Benson_5% is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for by Benson_5% online shoppers.",
-    "websiteUrl": "https://by-benson-5.com",
-    "cleanDomain": "by-benson-5.com",
-    "primaryAffiliateUrl": "https://www.tkqlhce.com/click-101907236-17293474-1791410540000",
-    "howToApply": [
-      "Select your desired items on by Benson_5% and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are by Benson_5% coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for by Benson_5% are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a by Benson_5% promo code?",
-        "answer": "by Benson_5% frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
     "slug": "public-terms",
     "name": "Public Terms",
     "category": "E-Commerce & Wholesale",
@@ -10522,33 +10210,6 @@ export const STORES_DATA: StoreProfile[] = [
       {
         "question": "Can I get free shipping with a Public Terms promo code?",
         "answer": "Public Terms frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "meshnology",
-    "name": "Meshnology",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "MESHNOLOGY",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Meshnology.",
-    "fullDesc": "Meshnology is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Meshnology online shoppers.",
-    "websiteUrl": "https://meshnology.com/",
-    "cleanDomain": "meshnology.com",
-    "primaryAffiliateUrl": "https://tywhh.com/g/3gs7ziqvl6fa9e3fd878e95c5fd652/?i=3",
-    "howToApply": [
-      "Select your desired items on Meshnology and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Meshnology coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Meshnology are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Meshnology promo code?",
-        "answer": "Meshnology frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
       }
     ]
   },
@@ -11156,23 +10817,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://ewwhk.com/g/11du4h2rtq367099d2cca5fc6f34cb/?i=31",
     "storeLogoText": "KODLAND",
     "terms": "Enter code START30-2 in the promo field during checkout to apply your discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_943280",
-    "storeSlug": "markformelle",
-    "storeName": "Mark Formelle",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On Mark Formelle Seasonal Apparel & Trending Collections",
-    "description": "Refresh your wardrobe with authentic Mark Formelle clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
-    "code": "ADMMF436",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/xu8ibhasrf367099d2cc5a98e4de8b/?i=31",
-    "storeLogoText": "MARKFORMELLE",
-    "terms": "Apply promo code ADMMF436 at cart checkout to claim discount.",
     "successRate": "99.4%"
   },
   {
@@ -11856,74 +11500,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "net_969747",
-    "storeSlug": "rulez-by",
-    "storeName": "Rulez BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On Rulez BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "PROMO10",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-11-15",
-    "affiliateUrl": "https://xcdus.com/g/1tt8gz8f4gfa9e3fd8788b141a6ee8/?i=3",
-    "storeLogoText": "RULEZBY",
-    "terms": "Apply promo code PROMO10 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_969746",
-    "storeSlug": "rulez-by",
-    "storeName": "Rulez BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "20% OFF",
-    "title": "20% OFF On Rulez BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "НЕ НУЖЕН",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-11-15",
-    "affiliateUrl": "https://xcdus.com/g/2mqja01oaqfa9e3fd8788b141a6ee8/?i=3",
-    "storeLogoText": "RULEZBY",
-    "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_969612",
-    "storeSlug": "amd-by",
-    "storeName": "Amd BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "15% OFF",
-    "title": "15% OFF On Amd BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "РЕМОНТ",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://tywhh.com/g/9i9jfa1le4fa9e3fd878dfc4faff32/?i=3",
-    "storeLogoText": "AMDBY",
-    "terms": "Apply promo code РЕМОНТ at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_969611",
-    "storeSlug": "amd-by",
-    "storeName": "Amd BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On Amd BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "sale26",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-11-29",
-    "affiliateUrl": "https://tywhh.com/g/111bnog9n1fa9e3fd878dfc4faff32/?i=3",
-    "storeLogoText": "AMDBY",
-    "terms": "Apply promo code sale26 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
     "id": "net_969610",
     "storeSlug": "skillbox-kz",
     "storeName": "Skillbox KZ",
@@ -12040,40 +11616,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://zallj.com/g/mxpfc0h6sffa9e3fd8785d13f15f75/?i=3",
     "storeLogoText": "HONORUAE",
     "terms": "Apply promo code AUAE50 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_968656",
-    "storeSlug": "oz-by",
-    "storeName": "OZ BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "7% OFF",
-    "title": "7% OFF On OZ BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "NOV1",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-11-27",
-    "affiliateUrl": "https://cafxq.com/g/xhm5f6crqnfa9e3fd878738699a0c1/?i=3",
-    "storeLogoText": "OZBY",
-    "terms": "Apply promo code NOV1 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_968651",
-    "storeSlug": "yves-rocher-by",
-    "storeName": "Yves Rocher BY",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "50% OFF",
-    "title": "50% OFF On Yves Rocher BY Luxury Fragrances & Salon-Grade Care",
-    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
-    "code": "НЕ НУЖЕН",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-11-30",
-    "affiliateUrl": "https://dorinebeaumont.com/g/iqc31t4ie2fa9e3fd8782665169b10/?i=3",
-    "storeLogoText": "YVESROCHERBY",
-    "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
     "successRate": "99.4%"
   },
   {
@@ -14967,91 +14509,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "net_967885",
-    "storeSlug": "oz-by",
-    "storeName": "OZ BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "25% OFF",
-    "title": "25% OFF On OZ BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "25RDV",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-11-30",
-    "affiliateUrl": "https://cafxq.com/g/9cddfftt0xfa9e3fd878738699a0c1/?i=3",
-    "storeLogoText": "OZBY",
-    "terms": "Apply promo code 25RDV at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_967884",
-    "storeSlug": "oz-by",
-    "storeName": "OZ BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "30% OFF",
-    "title": "30% OFF On OZ BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "30NG",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-11-24",
-    "affiliateUrl": "https://cafxq.com/g/8r9lxr54r2fa9e3fd878738699a0c1/?i=3",
-    "storeLogoText": "OZBY",
-    "terms": "Apply promo code 30NG at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_967883",
-    "storeSlug": "oz-by",
-    "storeName": "OZ BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "30% OFF",
-    "title": "30% OFF On OZ BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "30AZKA",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-11-20",
-    "affiliateUrl": "https://cafxq.com/g/vswvi8kh3qfa9e3fd878738699a0c1/?i=3",
-    "storeLogoText": "OZBY",
-    "terms": "Apply promo code 30AZKA at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_967882",
-    "storeSlug": "oz-by",
-    "storeName": "OZ BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "30% OFF",
-    "title": "30% OFF On OZ BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "30ROS",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-11-06",
-    "affiliateUrl": "https://cafxq.com/g/qpehf2ox54fa9e3fd878738699a0c1/?i=3",
-    "storeLogoText": "OZBY",
-    "terms": "Apply promo code 30ROS at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_967877",
-    "storeSlug": "oz-by",
-    "storeName": "OZ BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "5% OFF",
-    "title": "5% OFF On OZ BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "ADM11",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-11-30",
-    "affiliateUrl": "https://cafxq.com/g/eaeo35zmoqfa9e3fd878738699a0c1/?i=3",
-    "storeLogoText": "OZBY",
-    "terms": "Apply promo code ADM11 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
     "id": "net_967815",
     "storeSlug": "intertop",
     "storeName": "INTERTOP",
@@ -15579,499 +15036,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "net_942592",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "CHATGPT10",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/qipp28c7tffa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code CHATGPT10 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942591",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "CHATGPT10",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/onkfmgeujrfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code CHATGPT10 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942590",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "GTA6GG",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/xzmwoj666tfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code GTA6GG at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942589",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "GLWOR10",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/qt718vxlmhfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code GLWOR10 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942588",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "GLOH10",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/cvst2gv0txfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code GLOH10 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942587",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "GLWWM10",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/oyl51c4cr3fa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code GLWWM10 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942586",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "GLAFF10",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/zflaqou98ofa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code GLAFF10 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942585",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "GLIC5",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/5khzo3gi9vfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code GLIC5 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942584",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "GLARK5",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/7mj7b6ky9gfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code GLARK5 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942583",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "GLAO10",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/hwxd6j5k0gfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code GLAO10 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942582",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "Phoenix4you",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/lp1q3r8liqfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code Phoenix4you at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942581",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "8% OFF",
-    "title": "8% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "REANSSS8",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/t6su7qas51fa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code REANSSS8 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942580",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "8% OFF",
-    "title": "8% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "REANSSS8",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/i6iuu9q143fa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code REANSSS8 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942579",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "8% OFF",
-    "title": "8% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "REANSSS8",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/3f8aoj8hbtfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code REANSSS8 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942578",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "8% OFF",
-    "title": "8% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "REANSSS8",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/2cs4nchk08fa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code REANSSS8 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942577",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "8% OFF",
-    "title": "8% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "REANSSS8",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/m9x68exhbpfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code REANSSS8 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942576",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "8% OFF",
-    "title": "8% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "REANSSS8",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/n8pdghqt1ofa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code REANSSS8 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942575",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "8% OFF",
-    "title": "8% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "REANSSS8",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/gyf32q5m8yfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code REANSSS8 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942574",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "GGSEL10",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/4ff7fardv7fa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code GGSEL10 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942573",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "GLAO10",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/3iz7sl9baofa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code GLAO10 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942572",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "5% OFF",
-    "title": "5% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "ALLSKIN5",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/xec42msomdfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code ALLSKIN5 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942571",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "15% OFF",
-    "title": "15% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "TRAVELVIBE",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/2zu7f4sf3ifa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code TRAVELVIBE at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942570",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "15% OFF",
-    "title": "15% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "TRAVELVIBE",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/6y51w4af4xfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code TRAVELVIBE at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942569",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "15% OFF",
-    "title": "15% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "TRAVELVIBE",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/fivv3tfjn7fa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code TRAVELVIBE at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942568",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "15% OFF",
-    "title": "15% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "TRAVELVIBE",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/jf20p0jfllfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code TRAVELVIBE at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942567",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "15% OFF",
-    "title": "15% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "TRAVELVIBE",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/eb6lvwteozfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code TRAVELVIBE at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942566",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "15% OFF",
-    "title": "15% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "TRAVELVIBE",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/ngb55w6u53fa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code TRAVELVIBE at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942565",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "7% OFF",
-    "title": "7% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "SKIN7",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/33ffgo52jlfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code SKIN7 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_942564",
-    "storeSlug": "ggsel-by",
-    "storeName": "GGsel BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "7% OFF",
-    "title": "7% OFF On GGsel BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "GGSELRF7",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xqjeo.com/g/yppe3b7tccfa9e3fd8783206007594/?i=3",
-    "storeLogoText": "GGSELBY",
-    "terms": "Apply promo code GGSELRF7 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
     "id": "net_941113",
     "storeSlug": "refsee",
     "storeName": "Refsee",
@@ -16103,23 +15067,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://xcdus.com/g/9aqyxjyfyffa9e3fd8787792ea44f3/?i=3",
     "storeLogoText": "REFSEE",
     "terms": "Apply promo code GET20 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_940880",
-    "storeSlug": "by",
-    "storeName": "Офистон Маркет BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "75% OFF",
-    "title": "75% OFF On Офистон Маркет BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "НЕ НУЖЕН",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://yjfca.com/g/rjfdhv11srfa9e3fd878293000753b/?i=3",
-    "storeLogoText": "BY",
-    "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
     "successRate": "99.4%"
   },
   {
@@ -16344,23 +15291,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "net_931854",
-    "storeSlug": "rulez-by",
-    "storeName": "Rulez BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "5% OFF",
-    "title": "5% OFF On Rulez BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "PROMO5",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xcdus.com/g/45jigdp9lcfa9e3fd8788b141a6ee8/?i=3",
-    "storeLogoText": "RULEZBY",
-    "terms": "Apply promo code PROMO5 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
     "id": "net_931403",
     "storeSlug": "lacoste-kz",
     "storeName": "Lacoste KZ",
@@ -16412,40 +15342,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "net_928616",
-    "storeSlug": "rulez-by",
-    "storeName": "Rulez BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "1% OFF",
-    "title": "1% OFF On Rulez BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "НЕ НУЖЕН",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xcdus.com/g/5fvdh2kv3qfa9e3fd8788b141a6ee8/?i=3",
-    "storeLogoText": "RULEZBY",
-    "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_928615",
-    "storeSlug": "rulez-by",
-    "storeName": "Rulez BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "7% OFF",
-    "title": "7% OFF On Rulez BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "НЕ НУЖЕН",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://xcdus.com/g/zk7bbfdwl5fa9e3fd8788b141a6ee8/?i=3",
-    "storeLogoText": "RULEZBY",
-    "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
     "id": "net_925415",
     "storeSlug": "myheritage-dna",
     "storeName": "MyHeritage DNA",
@@ -16460,23 +15356,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://naiawork.com/g/223bbgtde0fa9e3fd878e403a0fd30/?i=3",
     "storeLogoText": "MYHERITAGEDN",
     "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_904338",
-    "storeSlug": "meshnology",
-    "storeName": "Meshnology",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On Meshnology Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "MESH010",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://tywhh.com/g/3gs7ziqvl6fa9e3fd878e95c5fd652/?i=3",
-    "storeLogoText": "MESHNOLOGY",
-    "terms": "Apply promo code MESH010 at cart checkout to claim discount.",
     "successRate": "99.4%"
   },
   {
@@ -16667,57 +15546,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "net_901738",
-    "storeSlug": "meshnology",
-    "storeName": "Meshnology",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "15% OFF",
-    "title": "15% OFF On Meshnology Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "NEWMESH15",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://tywhh.com/g/mj3n6twwa4fa9e3fd878e95c5fd652/?i=3",
-    "storeLogoText": "MESHNOLOGY",
-    "terms": "Apply promo code NEWMESH15 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_901737",
-    "storeSlug": "meshnology",
-    "storeName": "Meshnology",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On Meshnology Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "mesh10",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://tywhh.com/g/hzpx37y6h9fa9e3fd878e95c5fd652/?i=3",
-    "storeLogoText": "MESHNOLOGY",
-    "terms": "Apply promo code mesh10 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_901102",
-    "storeSlug": "ttgo-e-bike",
-    "storeName": "TTGO E-bike",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "5% OFF",
-    "title": "5% OFF On TTGO E-bike Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "ttgo",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://dkfrh.com/g/ehzh1a663bfa9e3fd878d0a9902774/?i=3",
-    "storeLogoText": "TTGOEBIKE",
-    "terms": "Apply promo code ttgo at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
     "id": "net_900559",
     "storeSlug": "adheart",
     "storeName": "Adheart",
@@ -16888,23 +15716,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "net_894927",
-    "storeSlug": "myheritage-dna",
-    "storeName": "MyHeritage DNA",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "1% OFF",
-    "title": "1% OFF On MyHeritage DNA Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://naiawork.com/g/1xbw80cotrfa9e3fd878e403a0fd30/?i=3",
-    "storeLogoText": "MYHERITAGEDN",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.4%"
-  },
-  {
     "id": "net_894926",
     "storeSlug": "myheritage-dna",
     "storeName": "MyHeritage DNA",
@@ -16919,23 +15730,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://naiawork.com/g/193tyo7v8gfa9e3fd878e403a0fd30/?i=3",
     "storeLogoText": "MYHERITAGEDN",
     "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_893946",
-    "storeSlug": "meshnology",
-    "storeName": "Meshnology",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "8% OFF",
-    "title": "8% OFF On Meshnology Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "WELCOME8",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://tywhh.com/g/cpxau9j8s8fa9e3fd878e95c5fd652/?i=3",
-    "storeLogoText": "MESHNOLOGY",
-    "terms": "Apply promo code WELCOME8 at cart checkout to claim discount.",
     "successRate": "99.4%"
   },
   {
@@ -18996,23 +17790,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "net_762805",
-    "storeSlug": "amd-by",
-    "storeName": "Amd BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "EXCLUSIVE DEAL On Amd BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://tywhh.com/g/isx9icujs8fa9e3fd878dfc4faff32/?i=3",
-    "storeLogoText": "AMDBY",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.4%"
-  },
-  {
     "id": "net_762709",
     "storeSlug": "mamasandpapas",
     "storeName": "Mamasandpapas KW promo",
@@ -19264,40 +18041,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "expiryDate": "2026-12-31",
     "affiliateUrl": "https://rzekl.com/g/fwp8lok5vffa9e3fd87816525dc3e8/?i=3",
     "storeLogoText": "ALIEXPRESS",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_678586",
-    "storeSlug": "amd-by",
-    "storeName": "Amd BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On Amd BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "AdmitadAMD",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://tywhh.com/g/ttop63297sfa9e3fd878dfc4faff32/?i=3",
-    "storeLogoText": "AMDBY",
-    "terms": "Apply promo code AdmitadAMD at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_678575",
-    "storeSlug": "amd-by",
-    "storeName": "Amd BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "EXCLUSIVE DEAL On Amd BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://tywhh.com/g/2vwipuwmjlfa9e3fd878dfc4faff32/?i=3",
-    "storeLogoText": "AMDBY",
     "terms": "Direct promotional pricing applied automatically at merchant checkout.",
     "successRate": "99.4%"
   },
@@ -19775,23 +18518,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://yknhc.com/g/81m9gmp4h6fa9e3fd878ef285ae838/?i=3",
     "storeLogoText": "DOCTORSLONKZ",
     "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_572273",
-    "storeSlug": "oz-by",
-    "storeName": "OZ BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "20% OFF",
-    "title": "20% OFF On OZ BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://cafxq.com/g/1skhb91g8cfa9e3fd878738699a0c1/?i=3",
-    "storeLogoText": "OZBY",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
     "successRate": "99.4%"
   },
   {
@@ -23773,74 +22499,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "net_cj_link_17293474",
-    "storeSlug": "by-benson-5",
-    "storeName": "by Benson_5%",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "EXCLUSIVE DEAL OFF",
-    "title": "EXCLUSIVE DEAL OFF On by Benson_5% Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.jdoqocy.com/click-101907236-17293474-1791410540000",
-    "storeLogoText": "BYBENSON5",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_cj_link_17361004",
-    "storeSlug": "by-benson-5",
-    "storeName": "by Benson_5%",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "EXCLUSIVE DEAL OFF",
-    "title": "EXCLUSIVE DEAL OFF On by Benson_5% Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.tkqlhce.com/click-101907236-17361004-1791410540000",
-    "storeLogoText": "BYBENSON5",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_cj_link_17362273",
-    "storeSlug": "by-benson-5",
-    "storeName": "by Benson_5%",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "EXCLUSIVE DEAL OFF",
-    "title": "EXCLUSIVE DEAL OFF On by Benson_5% Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.tkqlhce.com/click-101907236-17362273",
-    "storeLogoText": "BYBENSON5",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_cj_link_17352322",
-    "storeSlug": "by-benson-5",
-    "storeName": "by Benson_5%",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "EXCLUSIVE DEAL OFF",
-    "title": "EXCLUSIVE DEAL OFF On by Benson_5% Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.kqzyfj.com/click-101907236-17352322-1791410540000",
-    "storeLogoText": "BYBENSON5",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.4%"
-  },
-  {
     "id": "net_cj_link_17307325",
     "storeSlug": "public-terms",
     "storeName": "Public Terms",
@@ -27241,23 +25899,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.8%"
   },
   {
-    "id": "deal_luch-by_verified_baseline",
-    "storeSlug": "luch-by",
-    "storeName": "Luch BY",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "EXCLUSIVE DEAL On Luch BY Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "",
-    "isExclusive": true,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://yjfca.com/g/wszlfluuz7fa9e3fd878e31021dd1f/",
-    "storeLogoText": "LUCHBY",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.8%"
-  },
-  {
     "id": "deal_sunshouse_verified_baseline",
     "storeSlug": "sunshouse",
     "storeName": "Sunshouse",
@@ -27288,23 +25929,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "expiryDate": "2026-12-31",
     "affiliateUrl": "https://rthsu.com/g/d59il9migtfa9e3fd87820bedc2379/",
     "storeLogoText": "DELSOLMX",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.8%"
-  },
-  {
-    "id": "deal_intercars-by_verified_baseline",
-    "storeSlug": "intercars-by",
-    "storeName": "INTERCARS BY",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "EXCLUSIVE DEAL On INTERCARS BY Global Bookings & Travel Experiences",
-    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
-    "code": "",
-    "isExclusive": true,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://bywiola.com/g/rcev6m907efa9e3fd8787337dbd47f/",
-    "storeLogoText": "INTERCARSBY",
     "terms": "Direct promotional pricing applied automatically at merchant checkout.",
     "successRate": "99.8%"
   },
@@ -27411,23 +26035,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.8%"
   },
   {
-    "id": "deal_meshnology-meshtastic-lora_verified_baseline",
-    "storeSlug": "meshnology-meshtastic-lora",
-    "storeName": "Meshnology - Оборудование для Meshtastic и LoRa",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "EXCLUSIVE DEAL On Meshnology - Оборудование для Meshtastic и LoRa Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "",
-    "isExclusive": true,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://tywhh.com/g/97h026mnpxfa9e3fd878e95c5fd652/",
-    "storeLogoText": "MESHNOLOGYME",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.8%"
-  },
-  {
     "id": "deal_megogo_verified_baseline",
     "storeSlug": "megogo",
     "storeName": "MEGOGO",
@@ -27526,6 +26133,23 @@ export const COUPONS_DATA: CouponDeal[] = [
     "expiryDate": "2026-12-31",
     "affiliateUrl": "https://tjzuh.com/g/cozq2t2pxufa9e3fd87848f53de592/",
     "storeLogoText": "PALMONASIN",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "99.8%"
+  },
+  {
+    "id": "deal_ttgo-e-bike_verified_baseline",
+    "storeSlug": "ttgo-e-bike",
+    "storeName": "TTGO E-bike",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "EXCLUSIVE DEAL",
+    "title": "EXCLUSIVE DEAL On TTGO E-bike Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "",
+    "isExclusive": true,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://dkfrh.com/g/nz4081dh12fa9e3fd878d0a9902774/",
+    "storeLogoText": "TTGOEBIKE",
     "terms": "Direct promotional pricing applied automatically at merchant checkout.",
     "successRate": "99.8%"
   },
