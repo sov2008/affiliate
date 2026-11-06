@@ -519,7 +519,7 @@ const homeSchemas = [
                           <img src="/flags/us.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="US" />
                           <span>United States</span>
                         </span>
-                        <span class="hero-region-check text-emerald-500 font-bold">✓</span>
+                        
                       </button>
                       <button type="button" data-hero-region="EU" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
                         <span class="inline-flex items-center gap-2">
@@ -1837,13 +1837,14 @@ const homeSchemas = [
         if (matchCat && matchRegion && matchLang && matchType && matchStore && matchQuery) {
           matchedCount++;
           if (matchedCount <= visibleLimit) {
-            const wasHidden = card.classList.contains('hidden');
-            card.classList.remove('hidden');
+            const wasHidden = card.classList.contains('hidden') || card.style.display === 'none';
+            card.classList.remove('hidden', 'deal-item-collapsed');
+            card.style.display = '';
             if (wasHidden) {
               card.classList.remove('animate-card-entrance');
-              void card.offsetWidth; // retrigger CSS animation
+              void card.offsetWidth; // Force reflow to reliably restart CSS keyframe animation
               card.classList.add('animate-card-entrance');
-              card.style.animationDelay = ((actuallyShown % 21) * 20) + 'ms';
+              card.style.animationDelay = ((actuallyShown % 21) * 35) + 'ms';
             }
             actuallyShown++;
           } else {
@@ -1863,13 +1864,14 @@ const homeSchemas = [
       const maxBannersToShow = Math.floor(actuallyShown / 7);
       gridBanners.forEach((b, bIdx) => {
         if (bIdx < maxBannersToShow) {
-          const wasHidden = b.classList.contains('hidden');
-          b.classList.remove('hidden');
+          const wasHidden = b.classList.contains('hidden') || b.style.display === 'none';
+          b.classList.remove('hidden', 'deal-item-collapsed');
+          b.style.display = '';
           if (wasHidden) {
             b.classList.remove('animate-card-entrance');
-            void b.offsetWidth;
+            void b.offsetWidth; // Force reflow
             b.classList.add('animate-card-entrance');
-            b.style.animationDelay = ((bIdx % 3) * 60) + 'ms';
+            b.style.animationDelay = ((bIdx % 3) * 80) + 'ms';
           }
         } else {
           b.classList.add('hidden');

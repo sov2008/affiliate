@@ -313,91 +313,97 @@ export function deduplicateProducts<T extends { imageUrl: string; title: string;
 }
 
 /**
- * Prioritize high-value offers and interleave merchants round-robin
- * so adjacent cards are always different brands.
+ * Prioritize high-value offers and interleave merchants so that:
+ * 1. Round 1: ALL unique merchants get 1 offer before ANY repeat appears (guarantees maximum catalog diversity).
+ * 2. Subsequent rounds: remaining offers are interleaved with generous minimum spacing.
  */
 export function diversifyDealsFeed<T extends { cleanBrand?: string; code?: string; discountBadge?: string; badge?: string }>(deals: T[]): T[] {
-  // Sort each merchant's deals: codes & explicit discounts first
-  const buckets = new Map<string, T[]>();
+  const buckets = new Map<string, { brand: string; deals: T[] }>();
   for (const deal of deals) {
-    const key = (deal.cleanBrand || 'unknown').toLowerCase();
-    if (!buckets.has(key)) buckets.set(key, []);
-    buckets.get(key)!.push(deal);
+    const rawBrand = (deal.cleanBrand || 'unknown').trim();
+    const key = rawBrand.toLowerCase();
+    if (!buckets.has(key)) buckets.set(key, { brand: rawBrand, deals: [] });
+    buckets.get(key)!.deals.push(deal);
   }
 
   // Sort inside each bucket: code first, then %/$ discount
-  for (const list of buckets.values()) {
-    list.sort((a, b) => {
+  for (const b of buckets.values()) {
+    b.deals.sort((a, bDeal) => {
       const aHasCode = a.code && a.code.trim().length > 0 ? 1 : 0;
-      const bHasCode = b.code && b.code.trim().length > 0 ? 1 : 0;
+      const bHasCode = bDeal.code && bDeal.code.trim().length > 0 ? 1 : 0;
       if (aHasCode !== bHasCode) return bHasCode - aHasCode;
 
-      const aHasNumber = /(\d+%|\$\d+)/.test(a.discountBadge || a.badge || '') ? 1 : 0;
-      const bHasNumber = /(\d+%|\$\d+)/.test(b.discountBadge || b.badge || '') ? 1 : 0;
+      const aHasNumber = /(\d+%|\$\d+|€\d+)/.test(a.discountBadge || a.badge || '') ? 1 : 0;
+      const bHasNumber = /(\d+%|\$\d+|€\d+)/.test(bDeal.discountBadge || bDeal.badge || '') ? 1 : 0;
       return bHasNumber - aHasNumber;
     });
   }
 
   const result: T[] = [];
-  const brandList = Array.from(buckets.keys());
-  const MIN_SPACING = 4;
-  const recentHistory: string[] = [];
-  let totalRemaining = deals.length;
+  const brandKeys = Array.from(buckets.keys());
 
-  // Compute pacing target for each brand so dominant brands don't bunch at the end
-  const totalCount = deals.length;
-  const brandFrequency = new Map<string, number>();
-  for (const b of brandList) {
-    const count = buckets.get(b)!.length;
-    const idealInterval = Math.max(MIN_SPACING, Math.floor(totalCount / Math.max(1, count)));
-    brandFrequency.set(b, idealInterval);
-  }
+  // Priority Tier: High-intent flagship brands to headline the top of the feed
+  const HEADLINE_BRANDS = [
+    'hostinger', 'expressvpn', 'nordvpn', 'surfshark', 'aliexpress',
+    'kaspersky', 'booking.com', 'allpowers', 'harfington', 'corsair',
+    'prohoster', 'redmagic', 'adguard', 'airalo esim', 'newbalance',
+    'lenovo', 'miravia es, pt', 'honor uae', 'answear', 'chicme'
+  ];
+
+  // Round 1: Take exactly 1 best deal from each unique merchant
+  const round1Order = [...brandKeys].sort((a, b) => {
+    const aHead = HEADLINE_BRANDS.indexOf(a);
+    const bHead = HEADLINE_BRANDS.indexOf(b);
+    if (aHead !== -1 && bHead !== -1) return aHead - bHead;
+    if (aHead !== -1) return -1;
+    if (bHead !== -1) return 1;
+
+    // Prioritize brands with discount codes
+    const aHasCode = buckets.get(a)!.deals[0]?.code ? 1 : 0;
+    const bHasCode = buckets.get(b)!.deals[0]?.code ? 1 : 0;
+    if (aHasCode !== bHasCode) return bHasCode - aHasCode;
+
+    return a.localeCompare(b);
+  });
+
+  round1Order.forEach(k => {
+    const b = buckets.get(k)!;
+    if (b.deals.length > 0) {
+      result.push(b.deals.shift()!);
+    }
+  });
+
+  // Subsequent rounds: interleave remaining deals with strict spacing >= 10
+  let totalRemaining = 0;
+  for (const b of buckets.values()) totalRemaining += b.deals.length;
+
+  const recentHistory = result.slice(-30).map(d => (d.cleanBrand || 'unknown').trim().toLowerCase());
 
   while (totalRemaining > 0) {
-    const activeBrands = brandList.filter(b => buckets.get(b)!.length > 0);
-
-    activeBrands.sort((a, b) => {
+    const active = brandKeys.filter(k => buckets.get(k)!.deals.length > 0);
+    active.sort((a, b) => {
       const aIdx = recentHistory.lastIndexOf(a);
       const bIdx = recentHistory.lastIndexOf(b);
-
       const aDist = aIdx === -1 ? 999 : (recentHistory.length - aIdx);
       const bDist = bIdx === -1 ? 999 : (recentHistory.length - bIdx);
 
-      const aPacing = brandFrequency.get(a) || MIN_SPACING;
-      const bPacing = brandFrequency.get(b) || MIN_SPACING;
+      const aOk = aDist >= 10;
+      const bOk = bDist >= 10;
+      if (aOk !== bOk) return aOk ? -1 : 1;
 
-      const aReady = aDist >= aPacing;
-      const bReady = bDist >= bPacing;
-
-      // Prioritize brands that have waited their pacing interval
-      if (aReady !== bReady) {
-        return aReady ? -1 : 1;
-      }
-
-      // If both ready or both not ready, check absolute MIN_SPACING
-      const aAllowed = aDist >= MIN_SPACING;
-      const bAllowed = bDist >= MIN_SPACING;
-      if (aAllowed !== bAllowed) {
-        return aAllowed ? -1 : 1;
-      }
-
-      // Prioritize higher relative remaining count (drain large queues smoothly)
-      const aRem = buckets.get(a)!.length;
-      const bRem = buckets.get(b)!.length;
-      if (aRem !== bRem) {
-        return bRem - aRem;
-      }
+      // Higher remaining count gets priority
+      const aRem = buckets.get(a)!.deals.length;
+      const bRem = buckets.get(b)!.deals.length;
+      if (aRem !== bRem) return bRem - aRem;
 
       return bDist - aDist;
     });
 
-    const chosenBrand = activeBrands[0];
-    const deal = buckets.get(chosenBrand)!.shift()!;
+    const chosen = active[0];
+    const deal = buckets.get(chosen)!.deals.shift()!;
     result.push(deal);
-    recentHistory.push(chosenBrand);
-    if (recentHistory.length > 25) {
-      recentHistory.shift();
-    }
+    recentHistory.push(chosen);
+    if (recentHistory.length > 30) recentHistory.shift();
     totalRemaining--;
   }
 

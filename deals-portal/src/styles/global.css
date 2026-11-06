@@ -519,20 +519,19 @@ html.dark .type-filter-btn:not(.is-active):hover {
 .deal-grid-card,
 .in-grid-partner-banner {
   border-radius: 1rem !important;
-  transform: translateZ(0) !important;
   transition: box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
   will-change: opacity, transform;
 }
 
 /* Micro-animation of cards and banners entrance with GPU acceleration and subtle scale-up */
 .animate-card-entrance {
-  animation: dealCardReveal 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: dealCardReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1) both !important;
 }
 
 @keyframes dealCardReveal {
   0% {
     opacity: 0;
-    transform: translateY(10px) scale(0.985);
+    transform: translateY(14px) scale(0.97);
   }
   100% {
     opacity: 1;
