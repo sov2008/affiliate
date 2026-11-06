@@ -515,9 +515,23 @@ html.dark .type-filter-btn:not(.is-active):hover {
   border-color: rgba(99, 102, 241, 0.4) !important;
 }
 
-/* Coupon Cards - Light & Dark Craftsmanship */
+/* Coupon Cards - Light & Dark Craftsmanship with Pure Glow (No Shift) */
 .deal-grid-card {
   border-radius: 1rem !important;
+  transform: none !important;
+  transition: box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  animation: cardFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+@keyframes cardFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 html:not(.dark) .deal-grid-card {
@@ -527,10 +541,11 @@ html:not(.dark) .deal-grid-card {
   border-radius: 1rem !important;
 }
 
+/* Light Theme: Pure Illuminated Glow without position movement */
 html:not(.dark) .deal-grid-card:hover {
-  border-color: rgba(53, 37, 205, 0.4) !important;
-  box-shadow: 0 20px 35px -12px rgba(15, 23, 42, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
-  transform: translateY(-3.5px);
+  border-color: rgba(99, 102, 241, 0.55) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2), 0 12px 28px -6px rgba(99, 102, 241, 0.18), 0 4px 12px rgba(15, 23, 42, 0.06) !important;
+  transform: none !important;
   border-radius: 1rem !important;
 }
 
@@ -577,10 +592,11 @@ html.dark .deal-grid-card {
   border-radius: 1rem !important;
 }
 
+/* Dark Theme: Soft Neon/Indigo Cyber Glow without position movement */
 html.dark .deal-grid-card:hover {
-  border-color: rgba(99, 102, 241, 0.55) !important;
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 16px 36px -8px rgba(79, 70, 229, 0.25), 0 0 0 1px rgba(99, 102, 241, 0.3) !important;
-  transform: translateY(-3px);
+  border-color: rgba(99, 102, 241, 0.7) !important;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.15), 0 0 20px 2px rgba(99, 102, 241, 0.28), 0 0 0 1px rgba(99, 102, 241, 0.4) !important;
+  transform: none !important;
   border-radius: 1rem !important;
 }
 
@@ -762,10 +778,10 @@ html.dark .bg-blue-50 {
   border-color: rgba(59, 130, 246, 0.3) !important;
 }
 
-/* Brand Logos in Dark Mode - ALWAYS pure white container */
+/* Brand Logos in Dark Mode - clean transparent container matching brand style */
 html.dark .brand-logo-container {
-  background-color: #ffffff !important; /* Keep white circle behind transparent SVGs for crisp visibility */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 /* Deal Badges */

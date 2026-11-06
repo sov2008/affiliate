@@ -150,33 +150,33 @@ const STORE_REGIONS: Record<string, string[]> = {
 };
 
 // Region badge display config
-// Comprehensive Country & Region Flag Mapping
-const REGION_BADGES: Record<string, { label: string; class: string }> = {
-  'US': { label: '🇺🇸 US', class: 'deal-region-badge' },
-  'AE': { label: '🇦🇪 UAE & GCC', class: 'deal-region-badge' },
-  'GCC': { label: '🇦🇪 UAE & GCC', class: 'deal-region-badge' },
-  'EU': { label: '🇪🇺 EU', class: 'deal-region-badge' },
-  'GB': { label: '🇬🇧 UK', class: 'deal-region-badge' },
-  'UK': { label: '🇬🇧 UK', class: 'deal-region-badge' },
-  'DE': { label: '🇩🇪 Germany', class: 'deal-region-badge' },
-  'FR': { label: '🇫🇷 France', class: 'deal-region-badge' },
-  'ES': { label: '🇪🇸 Spain', class: 'deal-region-badge' },
-  'IT': { label: '🇮🇹 Italy', class: 'deal-region-badge' },
-  'PL': { label: '🇵🇱 Poland', class: 'deal-region-badge' },
-  'CZ': { label: '🇨🇿 Czechia', class: 'deal-region-badge' },
-  'UA': { label: '🇺🇦 Ukraine', class: 'deal-region-badge' },
-  'KZ': { label: '🇰🇿 Kazakhstan', class: 'deal-region-badge' },
-  'IN': { label: '🇮🇳 India', class: 'deal-region-badge' },
-  'BR': { label: '🇧🇷 Brazil', class: 'deal-region-badge' },
-  'MX': { label: '🇲🇽 Mexico', class: 'deal-region-badge' },
-  'ID': { label: '🇮🇩 Indonesia', class: 'deal-region-badge' },
-  'PH': { label: '🇵🇭 Philippines', class: 'deal-region-badge' },
-  'BY': { label: '🇧🇾 Belarus', class: 'deal-region-badge' },
-  'GLOBAL': { label: '🌐 Global', class: 'deal-region-badge' }
+// Clean Country & Region text without flags or emoji icons
+const REGION_BADGES: Record<string, { label: string; cleanName: string; class: string }> = {
+  'US': { label: '🇺🇸 US', cleanName: 'US', class: 'deal-region-badge' },
+  'AE': { label: '🇦🇪 UAE & GCC', cleanName: 'UAE & GCC', class: 'deal-region-badge' },
+  'GCC': { label: '🇦🇪 UAE & GCC', cleanName: 'UAE & GCC', class: 'deal-region-badge' },
+  'EU': { label: '🇪🇺 EU', cleanName: 'EU', class: 'deal-region-badge' },
+  'GB': { label: '🇬🇧 UK', cleanName: 'UK', class: 'deal-region-badge' },
+  'UK': { label: '🇬🇧 UK', cleanName: 'UK', class: 'deal-region-badge' },
+  'DE': { label: '🇩🇪 Germany', cleanName: 'Germany', class: 'deal-region-badge' },
+  'FR': { label: '🇫🇷 France', cleanName: 'France', class: 'deal-region-badge' },
+  'ES': { label: '🇪🇸 Spain', cleanName: 'Spain', class: 'deal-region-badge' },
+  'IT': { label: '🇮🇹 Italy', cleanName: 'Italy', class: 'deal-region-badge' },
+  'PL': { label: '🇵🇱 Poland', cleanName: 'Poland', class: 'deal-region-badge' },
+  'CZ': { label: '🇨🇿 Czechia', cleanName: 'Czechia', class: 'deal-region-badge' },
+  'UA': { label: '🇺🇦 Ukraine', cleanName: 'Ukraine', class: 'deal-region-badge' },
+  'KZ': { label: '🇰🇿 Kazakhstan', cleanName: 'Kazakhstan', class: 'deal-region-badge' },
+  'IN': { label: '🇮🇳 India', cleanName: 'India', class: 'deal-region-badge' },
+  'BR': { label: '🇧🇷 Brazil', cleanName: 'Brazil', class: 'deal-region-badge' },
+  'MX': { label: '🇲🇽 Mexico', cleanName: 'Mexico', class: 'deal-region-badge' },
+  'ID': { label: '🇮🇩 Indonesia', cleanName: 'Indonesia', class: 'deal-region-badge' },
+  'PH': { label: '🇵🇭 Philippines', cleanName: 'Philippines', class: 'deal-region-badge' },
+  'BY': { label: '🇧🇾 Belarus', cleanName: 'Belarus', class: 'deal-region-badge' },
+  'GLOBAL': { label: '🌐 Global', cleanName: 'Global', class: 'deal-region-badge' }
 };
 
 // Automatic smart detector for exact country flag by slug or merchant name
-function detectDealCountryFlag(storeSlug = '', brandName = ''): { label: string; class: string } {
+function detectDealCountryFlag(storeSlug = '', brandName = ''): { label: string; cleanName: string; class: string } {
   const s = storeSlug.toLowerCase();
   const b = brandName.toLowerCase();
   
@@ -1039,25 +1039,25 @@ const homeSchemas = [
                 <div class="flex items-start gap-2.5 mb-2.5">
                   <a
                     href={`${base}/stores/${deal.canonicalSlug || deal.storeSlug}/`}
-                    class="shrink-0 hover:scale-105 transition"
+                    class="shrink-0 hover:opacity-90 transition"
                     title={cleanName}
                   >
                     {brandDomain ? (
-                      <div class="brand-logo-container brand-logo-box w-9 h-9 rounded-xl bg-white border border-slate-200/90 dark:border-slate-700/80 p-1 flex items-center justify-center shadow-xs shrink-0 overflow-hidden">
+                      <div class="brand-logo-container brand-logo-box w-11 h-11 rounded-xl bg-transparent border-0 p-0.5 flex items-center justify-center shrink-0 overflow-hidden">
                         <img
                           src={`https://www.google.com/s2/favicons?domain=${brandDomain}&sz=128`}
                           alt={`${cleanName} logo`}
-                          class="w-full h-full object-contain"
+                          class="w-full h-full object-contain filter drop-shadow-xs"
                           loading="lazy"
                           onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
                         />
-                        <span class={`hidden w-full h-full rounded-lg bg-gradient-to-br ${brandGradient} text-white font-extrabold text-[11px] items-center justify-center shadow-inner`}>
+                        <span class={`hidden w-full h-full rounded-xl bg-gradient-to-br ${brandGradient} text-white font-extrabold text-[12px] items-center justify-center shadow-inner`}>
                           {initials}
                         </span>
                       </div>
                     ) : (
-                      <div class="brand-logo-container brand-logo-box w-9 h-9 rounded-xl bg-indigo-50 dark:bg-slate-800 border border-indigo-200/80 dark:border-slate-700/80 p-1 flex items-center justify-center shadow-xs shrink-0">
-                        <span class="w-full h-full rounded-lg bg-indigo-600 text-white font-extrabold text-[11px] flex items-center justify-center">{initials}</span>
+                      <div class="brand-logo-container brand-logo-box w-11 h-11 rounded-xl bg-transparent border-0 p-0.5 flex items-center justify-center shrink-0">
+                        <span class="w-full h-full rounded-xl bg-indigo-600 text-white font-extrabold text-[12px] flex items-center justify-center">{initials}</span>
                       </div>
                     )}
                   </a>
@@ -1065,10 +1065,9 @@ const homeSchemas = [
                   <div class="flex-1 min-w-0">
                     <div class="flex items-center justify-between gap-1.5 min-w-0">
                       <div class="flex items-center gap-1 min-w-0">
-                        <a href={`${base}/stores/${deal.canonicalSlug || deal.storeSlug}/`} class="text-[15px] font-bold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition truncate max-w-[140px]">
+                        <a href={`${base}/stores/${deal.canonicalSlug || deal.storeSlug}/`} class="text-[15px] font-bold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition truncate max-w-[150px]">
                           {cleanName}
                         </a>
-                        <span class="text-emerald-500 font-bold text-xs shrink-0" title="Verified Working">✓</span>
                       </div>
 
                       <button
@@ -1083,10 +1082,10 @@ const homeSchemas = [
                     </div>
 
                     <!-- Single Compact Metadata Line -->
-                    <div class="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                    <div class="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
                       <span class="truncate">{deal.storeCategory}</span>
                       <span>•</span>
-                      <span class="font-medium shrink-0">{regionBadge.label}</span>
+                      <span class="font-medium shrink-0">{regionBadge.cleanName}</span>
                     </div>
                   </div>
                 </div>
@@ -1104,7 +1103,7 @@ const homeSchemas = [
                     {deal.title}
                   </a>
                 </h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1 line-clamp-2 min-h-[2rem] font-medium">
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1 line-clamp-3 min-h-[3rem] font-medium">
                   {deal.description}
                 </p>
               </div>
