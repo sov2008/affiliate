@@ -5,13 +5,7 @@ import Footer from '../../components/Footer.astro';
 import BrandLogo from '../../components/BrandLogo.astro';
 import PartnerBanners from '../../components/PartnerBanners.astro';
 import { STORES_DATA, COUPONS_DATA, type StoreProfile } from '../../data/couponsData';
-import parallelsBannersRaw from '../../data/parallelsBanners.json';
-import wondershareBannersRaw from '../../data/wondershareBanners.json';
-import lenovoBannersRaw from '../../data/lenovoBanners.json';
-import casetifyBannersRaw from '../../data/casetifyBanners.json';
-import turbostoBannersRaw from '../../data/turbostoBanners.json';
-import zonkyBannersRaw from '../../data/zonky-czBanners.json';
-import answearBannersRaw from '../../data/answearBanners.json';
+import allBrandsBannersMapRaw from '../../data/allBrandsBannersMap.json';
 import { resolveMerchantIdentity, isJunkTestOffer, extractSmartDiscountBadge, getUniqueCleanStores, getCanonicalStoreSlug, normalizeExpiryDate } from '../../utils/dealNormalizer';
 
 import { getStoreDomain } from '../../data/storeDomains';
@@ -52,19 +46,9 @@ const currentMonth = now.toLocaleString('en-US', { month: 'long' });
 const currentYear = now.getFullYear();
 
 // Check if official partner promotional banners are registered for this store
-const PARTNER_BANNERS_MAP: Record<string, any[]> = {
-  parallels: parallelsBannersRaw as any[],
-  wondershare: wondershareBannersRaw as any[],
-  lenovo: lenovoBannersRaw as any[],
-  'lenovo-india-in': lenovoBannersRaw as any[],
-  casetify: casetifyBannersRaw as any[],
-  turbosto: turbostoBannersRaw as any[],
-  'zonky-cz': zonkyBannersRaw as any[],
-  zonky: zonkyBannersRaw as any[],
-  answear: answearBannersRaw as any[]
-};
+const PARTNER_BANNERS_MAP: Record<string, any[]> = allBrandsBannersMapRaw as Record<string, any[]>;
 
-const storeBanners = PARTNER_BANNERS_MAP[storeCanonicalSlug] || PARTNER_BANNERS_MAP[store.slug] || PARTNER_BANNERS_MAP[store.originalSlug] || [];
+const storeBanners = PARTNER_BANNERS_MAP[storeCanonicalSlug] || PARTNER_BANNERS_MAP[store.slug] || PARTNER_BANNERS_MAP[store.originalSlug] || PARTNER_BANNERS_MAP[storeCanonicalSlug.replace(/-[a-z]{2}$/, '')] || [];
 
 const storeDeals = COUPONS_DATA.filter(deal => {
   if (isJunkTestOffer(deal.storeName, deal.title)) return false;

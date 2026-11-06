@@ -59,6 +59,36 @@
       "height": 90,
       "name": "Zonky Official Partner Creative (728x90)",
       "affiliateUrl": "https://ytyaz.com/g/kw5iel2aqjfa9e3fd8787b4a20a6f1/?subid=zonky-cz_banner_728x90"
+    },
+    {
+      "brand": "MEGOGO",
+      "partnerSlug": "megogo-pl",
+      "category": "Partner Deals",
+      "src": "/promo-media/megogo-pl/megogo-pl_hero_0.jpg",
+      "width": 728,
+      "height": 90,
+      "name": "MEGOGO PL Official Partner Banner (728x90)",
+      "affiliateUrl": "https://ficca2021.com/g/mo788vzqvxfa9e3fd878893991dc96/?subid=promoradar_banner_megogo-pl"
+    },
+    {
+      "brand": "Footlocker",
+      "partnerSlug": "footlocker",
+      "category": "Partner Deals",
+      "src": "/promo-media/footlocker/footlocker_hero_0.jpg",
+      "width": 728,
+      "height": 90,
+      "name": "Footlocker AE SA KW Official Partner Banner (728x90)",
+      "affiliateUrl": "https://bywiola.com/g/dpo22mh8pdfa9e3fd87855df12721b/?subid=promoradar_banner_footlocker"
+    },
+    {
+      "brand": "Notta AI",
+      "partnerSlug": "notta-ai",
+      "category": "Partner Deals",
+      "src": "/promo-media/notta-ai/notta-ai_hero_0.png",
+      "width": 728,
+      "height": 90,
+      "name": "Notta AI WW Official Partner Banner (728x90)",
+      "affiliateUrl": "https://ypetp.com/g/c7f6zkmsjjfa9e3fd878f50bb56640/?subid=promoradar_banner_notta-ai"
     }
   ],
   "rectangles": [
@@ -131,6 +161,96 @@
       "height": 250,
       "name": "Zonky Official Partner Creative (300x250)",
       "affiliateUrl": "https://ytyaz.com/g/kw5iel2aqjfa9e3fd8787b4a20a6f1/?subid=zonky-cz_banner_300x250"
+    },
+    {
+      "brand": "MEGOGO",
+      "partnerSlug": "megogo-pl",
+      "category": "Partner Deals",
+      "src": "/promo-media/megogo-pl/megogo-pl_card_1.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "MEGOGO PL Official Partner Banner (300x250)",
+      "affiliateUrl": "https://ficca2021.com/g/gg6smqu8h2fa9e3fd878893991dc96/?subid=promoradar_banner_megogo-pl"
+    },
+    {
+      "brand": "Footlocker",
+      "partnerSlug": "footlocker",
+      "category": "Partner Deals",
+      "src": "/promo-media/footlocker/footlocker_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Footlocker AE SA KW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://bywiola.com/g/0amhjs7imdfa9e3fd87855df12721b/?subid=promoradar_banner_footlocker"
+    },
+    {
+      "brand": "Notta AI",
+      "partnerSlug": "notta-ai",
+      "category": "Partner Deals",
+      "src": "/promo-media/notta-ai/notta-ai_card_1.png",
+      "width": 336,
+      "height": 280,
+      "name": "Notta AI WW Official Partner Banner (336x280)",
+      "affiliateUrl": "https://ypetp.com/g/t7qtq28tpxfa9e3fd878f50bb56640/?subid=promoradar_banner_notta-ai"
+    },
+    {
+      "brand": "Shopee CPA",
+      "partnerSlug": "shopee-cpa-br",
+      "category": "Partner Deals",
+      "src": "/promo-media/shopee-cpa-br/shopee-cpa-br_card_0.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Shopee CPA BR Official Partner Banner (300x250)",
+      "affiliateUrl": "https://xqjeo.com/g/trch28svzkfa9e3fd87804f147125c/?subid=promoradar_banner_shopee-cpa-br"
+    },
+    {
+      "brand": "Uniqlo",
+      "partnerSlug": "uniqlo",
+      "category": "Partner Deals",
+      "src": "/promo-media/uniqlo/uniqlo_card_2.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Uniqlo India [CPS] IN Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tjzuh.com/g/qeg8wpafxzfa9e3fd878ccb93e5ddd/?subid=promoradar_banner_uniqlo"
+    },
+    {
+      "brand": "Spartoo [",
+      "partnerSlug": "spartoo",
+      "category": "Partner Deals",
+      "src": "/promo-media/spartoo/spartoo_card_7.gif",
+      "width": 300,
+      "height": 250,
+      "name": "Spartoo [Many GEOs] Official Partner Banner (300x250)",
+      "affiliateUrl": "https://tsygg.com/g/39nudcwr06fa9e3fd878266cbebcee/?subid=promoradar_banner_spartoo"
+    },
+    {
+      "brand": "MyHeritage DNA",
+      "partnerSlug": "myheritage-dna",
+      "category": "Partner Deals",
+      "src": "/promo-media/myheritage-dna/myheritage-dna_card_0.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "MyHeritage DNA WW Official Partner Banner (300x250)",
+      "affiliateUrl": "https://naiawork.com/g/5tuj9dzx5rfa9e3fd878e403a0fd30/?subid=promoradar_banner_myheritage-dna"
+    },
+    {
+      "brand": "Qustodio",
+      "partnerSlug": "qustodio",
+      "category": "Partner Deals",
+      "src": "/promo-media/qustodio/qustodio_card_0.png",
+      "width": 300,
+      "height": 250,
+      "name": "Qustodio Many GEOs Official Partner Banner (300x250)",
+      "affiliateUrl": "https://zejcl.com/g/4lnors72fzfa9e3fd8782411861ed1/?subid=promoradar_banner_qustodio"
+    },
+    {
+      "brand": "PureVPN",
+      "partnerSlug": "purevpn",
+      "category": "Partner Deals",
+      "src": "/promo-media/purevpn/purevpn_card_1.png",
+      "width": 300,
+      "height": 250,
+      "name": "PureVPN Many Geos Official Partner Banner (300x250)",
+      "affiliateUrl": "https://plrvq.com/g/9w5sb657o7fa9e3fd878dd63dd688c/?subid=promoradar_banner_purevpn"
     }
   ]
 }

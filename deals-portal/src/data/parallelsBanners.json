@@ -1,202 +1,82 @@
 [
   {
-    "name": "Parallels Desktop Official Partner Creative (160x600)",
-    "width": 160,
-    "height": 600,
-    "sizeKey": "160x600",
-    "src": "/promo-media/parallels/parallels_tower_0.png",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/10/14/screativeref_1100l143319.a126.png",
+    "name": "Parallels WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/parallels/parallels_hero_0.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2021/05/27/screativeref_1101l96436.34f5.jpg",
     "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_160x600"
+    "affiliateUrl": "https://ficca2021.com/g/ncxfx6eb7sfa9e3fd878ad29faedc4/?subid=promoradar_banner_parallels"
   },
   {
-    "name": "Parallels Desktop Official Partner Creative (160x600)",
-    "width": 160,
-    "height": 600,
-    "sizeKey": "160x600",
-    "src": "/promo-media/parallels/parallels_tower_1.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2021/05/27/screativeref_1011l96551.0a01.jpg",
+    "name": "Parallels WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/parallels/parallels_hero_1.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/10/14/screativeref_1100l143316.65b6.png",
     "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_160x600"
+    "affiliateUrl": "https://ficca2021.com/g/wik9588brefa9e3fd878ad29faedc4/?subid=promoradar_banner_parallels"
   },
   {
-    "name": "Parallels Desktop Official Partner Creative (300x250)",
-    "width": 300,
-    "height": 250,
-    "sizeKey": "300x250",
-    "src": "/promo-media/parallels/parallels_card_2.png",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/10/14/screativeref_1101l296345.bb89.png",
+    "name": "Parallels WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/parallels/parallels_hero_2.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/10/14/screativeref_1100l178528.af52.jpg",
     "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_300x250"
+    "affiliateUrl": "https://ficca2021.com/g/7vr17go4pvfa9e3fd878ad29faedc4/?subid=promoradar_banner_parallels"
   },
   {
-    "name": "Parallels Desktop Official Partner Creative (300x250)",
-    "width": 300,
-    "height": 250,
-    "sizeKey": "300x250",
-    "src": "/promo-media/parallels/parallels_card_3.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2021/05/27/screativeref_1100l96993.6a9a.jpg",
+    "name": "Parallels WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/parallels/parallels_hero_3.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/10/14/screativeref_1101l287433.8a22.png",
     "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_300x250"
+    "affiliateUrl": "https://ficca2021.com/g/fsipxzddyhfa9e3fd878ad29faedc4/?subid=promoradar_banner_parallels"
   },
   {
-    "name": "Parallels Black Friday Special (300x250)",
-    "width": 300,
-    "height": 250,
-    "sizeKey": "300x250",
-    "src": "/promo-media/parallels/parallels_card_4_bf.png",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/11/03/Parallels_Black_Friday_2026_300x250_v2.385e.png",
+    "name": "Parallels WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/parallels/parallels_hero_4.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/10/14/screativeref_1101l296343.d83d.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ficca2021.com/g/m9nang1hkhfa9e3fd878ad29faedc4/?subid=promoradar_banner_parallels"
+  },
+  {
+    "name": "Parallels WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/parallels/parallels_hero_5.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/10/14/screativeref_1101l296348.95e5.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ficca2021.com/g/6154j9oda5fa9e3fd878ad29faedc4/?subid=promoradar_banner_parallels"
+  },
+  {
+    "name": "Parallels WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/parallels/parallels_hero_6.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/11/03/Parallels_Black_Friday_2026_728x90_v2.d63b.png",
     "isBlackFriday": true,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_300x250"
+    "affiliateUrl": "https://ficca2021.com/g/6waeimx7udfa9e3fd878ad29faedc4/?subid=promoradar_banner_parallels"
   },
   {
-    "name": "Parallels Black Friday Special (300x250)",
-    "width": 300,
-    "height": 250,
-    "sizeKey": "300x250",
-    "src": "/promo-media/parallels/parallels_card_5_bf.png",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/11/03/Parallels_Black_Friday_2026_300x250_v1.b9c1.png",
+    "name": "Parallels WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/parallels/parallels_hero_7.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/11/03/Parallels_Black_Friday_2026_728x90_v1.18c6.png",
     "isBlackFriday": true,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_300x250"
-  },
-  {
-    "name": "Parallels Desktop Official Partner Creative (300x250)",
-    "width": 300,
-    "height": 250,
-    "sizeKey": "300x250",
-    "src": "/promo-media/parallels/parallels_card_6.png",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/10/14/screativeref_1101l287430.0dee.png",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_300x250"
-  },
-  {
-    "name": "Parallels Desktop Official Partner Creative (300x250)",
-    "width": 300,
-    "height": 250,
-    "sizeKey": "300x250",
-    "src": "/promo-media/parallels/parallels_card_7.png",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/10/14/screativeref_1101l296353.06f4.png",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_300x250"
-  },
-  {
-    "name": "Parallels Desktop Official Partner Creative (300x600)",
-    "width": 300,
-    "height": 600,
-    "sizeKey": "300x600",
-    "src": "/promo-media/parallels/parallels_300x600_8.png",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/10/14/screativeref_1100l143318.ca6e.png",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_300x600"
-  },
-  {
-    "name": "Parallels Desktop Official Partner Creative (300x600)",
-    "width": 300,
-    "height": 600,
-    "sizeKey": "300x600",
-    "src": "/promo-media/parallels/parallels_300x600_9.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/10/14/screativeref_1011l178542.77a6.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_300x600"
-  },
-  {
-    "name": "Parallels Desktop Official Partner Creative (300x600)",
-    "width": 300,
-    "height": 600,
-    "sizeKey": "300x600",
-    "src": "/promo-media/parallels/parallels_300x600_10.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/10/14/screativeref_1101l178233.dc37.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_300x600"
-  },
-  {
-    "name": "Parallels Desktop Official Partner Creative (336x280)",
-    "width": 336,
-    "height": 280,
-    "sizeKey": "336x280",
-    "src": "/promo-media/parallels/parallels_box_11.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/10/14/screativeref_1100l178530.5a8e.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_336x280"
-  },
-  {
-    "name": "Parallels Desktop Official Partner Creative (336x280)",
-    "width": 336,
-    "height": 280,
-    "sizeKey": "336x280",
-    "src": "/promo-media/parallels/parallels_box_12.png",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/10/14/screativeref_1100l143317.7ba5.png",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_336x280"
-  },
-  {
-    "name": "Parallels Desktop Official Partner Creative (728x90)",
-    "width": 728,
-    "height": 90,
-    "sizeKey": "728x90",
-    "src": "/promo-media/parallels/parallels_hero_13.png",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/10/14/screativeref_1101l296343.d83d.png",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_728x90"
-  },
-  {
-    "name": "Parallels Desktop Official Partner Creative (728x90)",
-    "width": 728,
-    "height": 90,
-    "sizeKey": "728x90",
-    "src": "/promo-media/parallels/parallels_hero_14.png",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/10/14/screativeref_1101l296348.95e5.png",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_728x90"
-  },
-  {
-    "name": "Parallels Desktop Official Partner Creative (728x90)",
-    "width": 728,
-    "height": 90,
-    "sizeKey": "728x90",
-    "src": "/promo-media/parallels/parallels_hero_15.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2021/05/27/screativeref_1101l96436.34f5.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_728x90"
-  },
-  {
-    "name": "Parallels Black Friday Special (728x90)",
-    "width": 728,
-    "height": 90,
-    "sizeKey": "728x90",
-    "src": "/promo-media/parallels/parallels_hero_16_bf.png",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/11/03/Parallels_Black_Friday_2026_728x90_v2.d63b.png",
-    "isBlackFriday": true,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_728x90"
-  },
-  {
-    "name": "Parallels Black Friday Special (728x90)",
-    "width": 728,
-    "height": 90,
-    "sizeKey": "728x90",
-    "src": "/promo-media/parallels/parallels_hero_17_bf.png",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/11/03/Parallels_Black_Friday_2026_728x90_v1.18c6.png",
-    "isBlackFriday": true,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_728x90"
-  },
-  {
-    "name": "Parallels Desktop Official Partner Creative (728x90)",
-    "width": 728,
-    "height": 90,
-    "sizeKey": "728x90",
-    "src": "/promo-media/parallels/parallels_hero_18.png",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/10/14/screativeref_1100l143316.65b6.png",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_728x90"
-  },
-  {
-    "name": "Parallels Desktop Official Partner Creative (728x90)",
-    "width": 728,
-    "height": 90,
-    "sizeKey": "728x90",
-    "src": "/promo-media/parallels/parallels_hero_19.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/10/14/screativeref_1100l178528.af52.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://ficca2021.com/g/5ermu17f1nfa9e3fd878ad29faedc4/?subid=parallels_banner_728x90"
+    "affiliateUrl": "https://ficca2021.com/g/zy6fzwrqhdfa9e3fd878ad29faedc4/?subid=promoradar_banner_parallels"
   }
 ]

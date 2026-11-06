@@ -1,202 +1,82 @@
 [
   {
-    "name": "Answear Official Partner Creative (120x600)",
-    "width": 120,
-    "height": 600,
-    "sizeKey": "120x600",
-    "src": "/promo-media/answear/answear_tall_0.gif",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2016/09/26/b37c1607764d80ea6e0cebbd6c6e63e6.gif",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_120x600"
-  },
-  {
-    "name": "Answear Official Partner Creative (125x125)",
-    "width": 125,
-    "height": 125,
-    "sizeKey": "125x125",
-    "src": "/promo-media/answear/answear_btn_1.gif",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2016/09/26/ed21fcb2e2f5ce208fc0a3274d5a8ece.gif",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_125x125"
-  },
-  {
-    "name": "Answear Official Partner Creative (160x600)",
-    "width": 160,
-    "height": 600,
-    "sizeKey": "160x600",
-    "src": "/promo-media/answear/answear_tower_2.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/05/22/160x600_casual_ua.753e.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_160x600"
-  },
-  {
-    "name": "Answear Official Partner Creative (160x600)",
-    "width": 160,
-    "height": 600,
-    "sizeKey": "160x600",
-    "src": "/promo-media/answear/answear_tower_3.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/05/22/160x600_casual_ua.0bf1.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_160x600"
-  },
-  {
-    "name": "Answear Official Partner Creative (160x600)",
-    "width": 160,
-    "height": 600,
-    "sizeKey": "160x600",
-    "src": "/promo-media/answear/answear_tower_4.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/05/22/160x600_bags.8115.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_160x600"
-  },
-  {
-    "name": "Answear Official Partner Creative (160x600)",
-    "width": 160,
-    "height": 600,
-    "sizeKey": "160x600",
-    "src": "/promo-media/answear/answear_tower_5.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/05/22/160x600_dresses.7f5c.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_160x600"
-  },
-  {
-    "name": "Answear Official Partner Creative (160x600)",
-    "width": 160,
-    "height": 600,
-    "sizeKey": "160x600",
-    "src": "/promo-media/answear/answear_tower_6.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/05/22/160x600_elegance.f2eb.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_160x600"
-  },
-  {
-    "name": "Answear Official Partner Creative (160x600)",
-    "width": 160,
-    "height": 600,
-    "sizeKey": "160x600",
-    "src": "/promo-media/answear/answear_tower_7.gif",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2016/09/26/05bf4ddc75bd3dd03f393e67fc06031e.gif",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_160x600"
-  },
-  {
-    "name": "Answear Official Partner Creative (160x600)",
-    "width": 160,
-    "height": 600,
-    "sizeKey": "160x600",
-    "src": "/promo-media/answear/answear_tower_8.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/05/22/160x600_outdoor.32fb.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_160x600"
-  },
-  {
-    "name": "Answear Official Partner Creative (160x600)",
-    "width": 160,
-    "height": 600,
-    "sizeKey": "160x600",
-    "src": "/promo-media/answear/answear_tower_9.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/05/22/160x600_sport.a41c.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_160x600"
-  },
-  {
-    "name": "Answear Official Partner Creative (200x200)",
-    "width": 200,
-    "height": 200,
-    "sizeKey": "200x200",
-    "src": "/promo-media/answear/answear_sq_10.gif",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2016/09/26/f966b6876333fb1394f5c81d352e8300.gif",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_200x200"
-  },
-  {
-    "name": "Answear Official Partner Creative (240x400)",
-    "width": 240,
-    "height": 400,
-    "sizeKey": "240x400",
-    "src": "/promo-media/answear/answear_panel_11.gif",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2016/09/26/beb3a63390a4df7ad7376f2b21bcb65b.gif",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_240x400"
-  },
-  {
-    "name": "Answear Official Partner Creative (240x400)",
-    "width": 240,
-    "height": 400,
-    "sizeKey": "240x400",
-    "src": "/promo-media/answear/answear_panel_12.gif",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2016/09/26/8726b95cb0768604e6ea10735c036904.gif",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_240x400"
-  },
-  {
-    "name": "Answear Official Partner Creative (250x250)",
-    "width": 250,
-    "height": 250,
-    "sizeKey": "250x250",
-    "src": "/promo-media/answear/answear_square_13.gif",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2016/09/26/1ec99fa4b1b6bd6ea786ebfb3d643dfe.gif",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_250x250"
-  },
-  {
-    "name": "Answear Official Partner Creative (300x250)",
-    "width": 300,
-    "height": 250,
-    "sizeKey": "300x250",
-    "src": "/promo-media/answear/answear_card_14.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/05/22/300x250_casual_ua.8d0a.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_300x250"
-  },
-  {
-    "name": "Answear Official Partner Creative (320x100)",
-    "width": 320,
-    "height": 100,
-    "sizeKey": "320x100",
-    "src": "/promo-media/answear/answear_strip_15.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/05/22/320x100_dresses.6c1f.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_320x100"
-  },
-  {
-    "name": "Answear Official Partner Creative (320x100)",
-    "width": 320,
-    "height": 100,
-    "sizeKey": "320x100",
-    "src": "/promo-media/answear/answear_strip_16.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/05/22/320x100_outdoor.c8e5.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_320x100"
-  },
-  {
-    "name": "Answear Official Partner Creative (336x280)",
-    "width": 336,
-    "height": 280,
-    "sizeKey": "336x280",
-    "src": "/promo-media/answear/answear_box_17.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/05/22/336x280_dresses.26c4.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_336x280"
-  },
-  {
-    "name": "Answear Official Partner Creative (336x280)",
-    "width": 336,
-    "height": 280,
-    "sizeKey": "336x280",
-    "src": "/promo-media/answear/answear_box_18.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/05/22/336x280_outdoor.a885.jpg",
-    "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_336x280"
-  },
-  {
-    "name": "Answear Official Partner Creative (728x90)",
+    "name": "Answear UA Official Partner Banner (728x90)",
     "width": 728,
     "height": 90,
     "sizeKey": "728x90",
-    "src": "/promo-media/answear/answear_hero_19.jpg",
-    "cdnSrc": "https://cdn.admitad-connect.com/public/bs/2026/05/22/728x90_casual_ua.97bf.jpg",
+    "src": "/promo-media/answear/answear_hero_0.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/05/22/728x90_casual_ua.97bf.jpg",
     "isBlackFriday": false,
-    "affiliateUrl": "https://hxbok.com/g/h29o15jdr6fa9e3fd878a76d99edd2/?subid=answear_banner_728x90"
+    "affiliateUrl": "https://hxbok.com/g/rlikec3cu9fa9e3fd878a76d99edd2/?subid=promoradar_banner_answear"
+  },
+  {
+    "name": "Answear UA Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/answear/answear_hero_1.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/05/22/728x90_casual_ua.f14d.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://hxbok.com/g/elw7etcc72fa9e3fd878a76d99edd2/?subid=promoradar_banner_answear"
+  },
+  {
+    "name": "Answear UA Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/answear/answear_hero_2.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/05/22/728x90_bags.8d36.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://hxbok.com/g/qkjif09tjnfa9e3fd878a76d99edd2/?subid=promoradar_banner_answear"
+  },
+  {
+    "name": "Answear UA Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/answear/answear_hero_3.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/05/22/728x90_dresses.ab64.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://hxbok.com/g/2qari0c1dofa9e3fd878a76d99edd2/?subid=promoradar_banner_answear"
+  },
+  {
+    "name": "Answear UA Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/answear/answear_hero_4.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/05/22/728x90_elegance.db7d.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://hxbok.com/g/w28k58y3ydfa9e3fd878a76d99edd2/?subid=promoradar_banner_answear"
+  },
+  {
+    "name": "Answear UA Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/answear/answear_hero_5.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/05/22/728x90_outdoor.6e81.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://hxbok.com/g/vndf935iy6fa9e3fd878a76d99edd2/?subid=promoradar_banner_answear"
+  },
+  {
+    "name": "Answear UA Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/answear/answear_hero_6.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/05/22/728x90_sport.b95c.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://hxbok.com/g/ct70t2m1i2fa9e3fd878a76d99edd2/?subid=promoradar_banner_answear"
+  },
+  {
+    "name": "Answear UA Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/answear/answear_hero_7.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/05/22/728x90_sport.2caf.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://hxbok.com/g/mm9vgo0vs6fa9e3fd878a76d99edd2/?subid=promoradar_banner_answear"
   }
 ]
