@@ -2,16 +2,16 @@ const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
 
-const ARTIFACTS_DIR = path.resolve(__dirname, '../artifacts_cj');
+const ARTIFACTS_DIR = path.resolve(__dirname, '../artifacts_admitad');
+const CJ_DIR = path.resolve(__dirname, '../artifacts_cj');
 
 async function run() {
-  console.log('🚀 Launching headed browser for human reCAPTCHA verification...');
+  console.log('🚀 Запуск браузера Chrome для входа в CJ Affiliate...');
   const browser = await chromium.launch({
-    headless: false, // Visible window on user screen!
+    headless: false,
     channel: 'chrome',
     args: ['--start-maximized']
   }).catch(async () => {
-    // Fallback if system chrome not found
     return await chromium.launch({ headless: false, args: ['--start-maximized'] });
   });
 
@@ -24,7 +24,6 @@ async function run() {
   try {
     await page.goto('https://members.cj.com/member/publisher/login.cj', { waitUntil: 'domcontentloaded' });
 
-    // Pre-fill email
     try {
       const emailInput = await page.waitForSelector('input[type="email"], #username', { timeout: 10000 });
       if (emailInput) {
@@ -32,21 +31,27 @@ async function run() {
       }
     } catch {}
 
-    console.log('Window opened. Waiting for user to solve captcha / complete login...');
+    console.log('Окно открыто. Пожалуйста, введите пароль и пройдите проверку в открывшемся окне Chrome...');
 
-    // Wait until logged in to member dashboard (URL changes to cj.com member area)
     await page.waitForURL(url => url.toString().includes('members.cj.com') && !url.toString().includes('login') && !url.toString().includes('signin.cj.com'), { timeout: 300000 });
 
-    console.log('🎉 Successfully logged into CJ.com!');
+    console.log('🎉 Успешный вход в личный кабинет CJ!');
     await page.waitForTimeout(3000);
 
     const cookies = await context.cookies();
-    fs.writeFileSync(path.join(ARTIFACTS_DIR, 'cookies.json'), JSON.stringify(cookies, null, 2));
-    await page.screenshot({ path: path.join(ARTIFACTS_DIR, '05_logged_in_dashboard.png') });
+    const storageState = await context.storageState();
 
-    console.log('Saved authenticated session cookies.');
+    fs.mkdirSync(ARTIFACTS_DIR, { recursive: true });
+    fs.mkdirSync(CJ_DIR, { recursive: true });
+
+    fs.writeFileSync(path.join(ARTIFACTS_DIR, 'cj_auth_state.json'), JSON.stringify(storageState, null, 2));
+    fs.writeFileSync(path.join(CJ_DIR, 'cj_auth_state.json'), JSON.stringify(storageState, null, 2));
+    fs.writeFileSync(path.join(CJ_DIR, 'cookies.json'), JSON.stringify(cookies, null, 2));
+
+    await page.screenshot({ path: path.join(ARTIFACTS_DIR, '05_logged_in_dashboard.png') });
+    console.log('✅ Сессия успешно сохранена в artifacts_admitad/cj_auth_state.json!');
   } catch (err) {
-    console.log('Session wait finished or timed out:', err.message);
+    console.log('Время ожидания входа истекло или окно было закрыто:', err.message);
   } finally {
     await browser.close().catch(() => {});
   }

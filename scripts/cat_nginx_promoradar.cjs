@@ -14,3 +14,4 @@ conn.on('ready', () => {
   password: 'AffOps_Root_Secure_2026!k9P2w8',
   readyTimeout: 10000
 });
+

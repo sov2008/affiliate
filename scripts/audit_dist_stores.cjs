@@ -108,3 +108,4 @@ console.log(directClean.map(d => ({ slug: d.slug, name: d.storeName, href: d.hea
 const flirtcheckLinks = results.filter(r => r.type === 'FlirtCheck_TDS');
 console.log(`\nFlirtCheck TDS links count: ${flirtcheckLinks.length}`);
 console.log(flirtcheckLinks.map(d => ({ slug: d.slug, name: d.storeName, href: d.headerHref })));
+
