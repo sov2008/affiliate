@@ -8,6 +8,14 @@ core/.env
 ga-credentials.json
 google-analytics-key.json
 pinterest_cookies.json
+*auth_state*.json
+*cookies*.json
+artifacts_admitad/*auth*.json
+artifacts_admitad/*cookies*.json
+artifacts_cj/*
+artifacts_admitad/*.png
+artifacts_admitad/*.jpg
+artifacts_admitad/*.html
 
 # Authentication Sessions & Storage
 .auth/
