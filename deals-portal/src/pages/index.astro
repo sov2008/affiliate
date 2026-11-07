@@ -1915,7 +1915,7 @@ const homeSchemas = [
 
         const matchRegion = (!currentRegion || currentRegion === 'ALL' || currentRegion === 'GLOBAL') 
           ? true 
-          : cRegions.includes(currentRegion);
+          : (cRegions.includes(currentRegion) || cRegions.includes("GLOBAL"));
 
         const matchLang = (currentLang === 'en')
           ? (cLang === 'en')
