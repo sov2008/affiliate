@@ -57,11 +57,35 @@ function checkUrlLive(url, timeoutMs = 7000) {
       }, (res) => {
         const status = res.statusCode;
         const location = res.headers.location || null;
-        res.resume(); // discard body
-        resolve({
-          status,
-          location,
-          isOk: (status >= 200 && status < 400)
+        let bodyLen = 0;
+        res.on('data', d => bodyLen += d.length);
+        res.on('end', () => {
+          // CRITICAL: An HTTP 200 with 0 bytes from Admitad tracking domains means an EXPIRED or DELETED affiliate link (white blank screen)!
+          const isEmptyZero200 = (status === 200 && bodyLen === 0);
+          const isErrorStatus = (status >= 400);
+
+          if (isEmptyZero200) {
+            resolve({
+              status,
+              location,
+              isOk: false,
+              error: 'EXPIRED_ZERO_BYTE_BLANK_SCREEN'
+            });
+          } else if (isErrorStatus) {
+            resolve({
+              status,
+              location,
+              isOk: false,
+              error: `HTTP_${status}`
+            });
+          } else {
+            resolve({
+              status,
+              location,
+              isOk: true,
+              bodyLen
+            });
+          }
         });
       });
 

@@ -9700,7 +9700,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "isExclusive": true,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://ziejy.com/g/4raik6r0sq367099d2cc309c6148a0/?i=3",
+    "affiliateUrl": "https://ziejy.com/g/4raik6r0sq367099d2cc954d043f6e/",
     "storeLogoText": "EXPRESSVPN",
     "terms": "Enter code EXPRESS49 at checkout to apply the discount and free months.",
     "successRate": "99.8%"
@@ -9717,7 +9717,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "isExclusive": true,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://zejcl.com/g/zgsaevrb3a367099d2cc9537f00609/?i=3",
+    "affiliateUrl": "https://zejcl.com/g/zgsaevrb3a367099d2cc2411861ed1/",
     "storeLogoText": "QUSTODIO",
     "terms": "Enter code FAMILY20 in the discount field during checkout to apply the 20% discount.",
     "successRate": "99.1%"
@@ -9734,7 +9734,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "isExclusive": true,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://ewwhk.com/g/gei3abuc8o367099d2cc6868dfbb80/?i=3",
+    "affiliateUrl": "https://ewwhk.com/g/gei3abuc8o367099d2ccbaf376d56c/",
     "storeLogoText": "ONLINESIM",
     "terms": "Apply code SIMSECURE15 during checkout to receive 15% bonus credits on your purchase.",
     "successRate": "98.9%"
@@ -9751,7 +9751,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "isExclusive": false,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://wbbsv.com/g/ynys1f2mjpfa9e3fd8784fc29ae1f9/?i=3",
+    "affiliateUrl": "https://wbbsv.com/g/ynys1f2mjp367099d2cc0e81904d8b/",
     "storeLogoText": "TOUCH",
     "terms": "Enter code TOUCHGADGET at checkout to apply your discount.",
     "successRate": "99.2%"
