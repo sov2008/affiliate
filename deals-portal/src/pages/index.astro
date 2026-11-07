@@ -816,26 +816,32 @@ const homeSchemas = [
                     <div class="flex items-center gap-2">
                       <span id="heroDealStoreName" class="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight leading-snug truncate">ExpressVPN</span>
                     </div>
-                    <span id="heroDealStoreCat" class="text-xs text-slate-500 dark:text-slate-400 block truncate">Privacy &amp; Security • Official Merchant Partner</span>
+                    <span id="heroDealStoreCat" class="text-xs text-slate-500 dark:text-slate-400 block truncate">Privacy &amp; Security</span>
                   </div>
                 </div>
 
-                <!-- Authentic Minimalist Voucher Ticket with Integrated Savings (Single Seamless Ticket) -->
+                <!-- Authentic Perforated Rip-Off Voucher Ticket with Integrated Savings -->
                 <div class="deal-stagger-item relative z-10 shrink-0 my-1 flex justify-start">
-                  <div class="relative overflow-hidden rounded-xl bg-slate-900/60 dark:bg-white/[0.04] border border-emerald-500/30 dark:border-emerald-400/25 px-5 sm:px-6 py-2.5 flex items-center justify-between gap-5 sm:gap-6 shadow-sm w-fit max-w-full">
-                    <!-- Left circular notch cutout -->
-                    <div class="absolute -left-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-slate-950 dark:bg-surface-dark border-r border-emerald-500/30 dark:border-emerald-400/25"></div>
-                    <!-- Right circular notch cutout -->
-                    <div class="absolute -right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-slate-950 dark:bg-surface-dark border-l border-emerald-500/30 dark:border-emerald-400/25"></div>
+                  <div class="voucher-ticket-container relative overflow-hidden rounded-xl bg-slate-900/70 dark:bg-white/[0.04] border-2 border-dashed border-emerald-500/40 dark:border-emerald-400/35 px-4.5 sm:px-5 py-2.5 flex items-center justify-between gap-4 sm:gap-5 shadow-sm w-fit max-w-full">
+                    <!-- Left circular notch cutout (ticket punch) -->
+                    <div class="absolute -left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-slate-950 dark:bg-surface-dark border-r-2 border-dashed border-emerald-500/40 dark:border-emerald-400/35"></div>
+                    <!-- Right circular notch cutout (ticket punch) -->
+                    <div class="absolute -right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-slate-950 dark:bg-surface-dark border-l-2 border-dashed border-emerald-500/40 dark:border-emerald-400/35"></div>
 
-                    <!-- 1. Left Section: Discount Value and Subtitle -->
-                    <div class="pl-1 text-left min-w-0">
-                      <div id="heroDealBadge" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight leading-none whitespace-nowrap">49% OFF</div>
+                    <!-- 1. Main Left Coupon Body: Discount & Promo Tier -->
+                    <div class="pl-1.5 text-left min-w-0">
+                      <div id="heroDealBadge" class="text-2xl sm:text-3xl font-black text-emerald-400 tracking-tight leading-none whitespace-nowrap drop-shadow-xs">49% OFF</div>
                       <span id="heroDealBadgeSub" class="block font-sans text-[11px] sm:text-xs text-slate-300 dark:text-slate-300 font-medium mt-1 tracking-normal whitespace-nowrap">+ 3 Months Free</span>
                     </div>
 
-                    <!-- 2. Middle Section: Integrated Financial Savings (No icon, clean typography) -->
-                    <div id="heroDealSavingsBox" class="border-l border-dashed border-emerald-500/25 dark:border-emerald-400/20 pl-4 sm:pl-5 text-left min-w-0">
+                    <!-- Perforated Tear-Off Divider 1 with Top/Bottom Notch -->
+                    <div class="ticket-perforation-divider relative h-10 border-l-2 border-dashed border-emerald-500/35 dark:border-emerald-400/30 flex flex-col justify-between items-center -mx-1">
+                      <div class="w-1.5 h-1.5 rounded-full bg-slate-950 dark:bg-surface-dark -mt-1 -ml-[3px]"></div>
+                      <div class="w-1.5 h-1.5 rounded-full bg-slate-950 dark:bg-surface-dark -mb-1 -ml-[3px]"></div>
+                    </div>
+
+                    <!-- 2. Middle Section: Estimated Financial Savings -->
+                    <div id="heroDealSavingsBox" class="text-left min-w-0 px-1">
                       <span id="heroDealSavingsLabel" class="block text-[9px] font-mono font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap">EST. SAVINGS</span>
                       <div class="flex items-baseline gap-1 mt-0.5 whitespace-nowrap">
                         <span id="heroDealSavingsValue" class="text-sm sm:text-base font-black text-emerald-400 dark:text-emerald-300 leading-none">$60+</span>
@@ -843,10 +849,16 @@ const homeSchemas = [
                       </div>
                     </div>
 
-                    <!-- 3. Right Section: Official Verified Stamp -->
-                    <div class="border-l border-dashed border-emerald-500/25 dark:border-emerald-400/20 pl-4 pr-1 text-right whitespace-nowrap">
-                      <div class="ticket-stub-official text-[9px] font-mono font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-widest">OFFICIAL</div>
-                      <div class="ticket-stub-verified text-[11px] font-mono font-bold text-emerald-400 dark:text-emerald-300 uppercase tracking-wider mt-0.5">VERIFIED</div>
+                    <!-- Perforated Tear-Off Divider 2 with Top/Bottom Notch -->
+                    <div class="ticket-perforation-divider relative h-10 border-l-2 border-dashed border-emerald-500/35 dark:border-emerald-400/30 flex flex-col justify-between items-center -mx-1">
+                      <div class="w-1.5 h-1.5 rounded-full bg-slate-950 dark:bg-surface-dark -mt-1 -ml-[3px]"></div>
+                      <div class="w-1.5 h-1.5 rounded-full bg-slate-950 dark:bg-surface-dark -mb-1 -ml-[3px]"></div>
+                    </div>
+
+                    <!-- 3. Right Tear-Off Stub: Official Verified Stamp (Talon stub) -->
+                    <div class="pr-1 text-right whitespace-nowrap">
+                      <div class="ticket-stub-official text-[9px] font-mono font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest">OFFICIAL</div>
+                      <div class="ticket-stub-verified text-[11px] font-mono font-black text-emerald-400 dark:text-emerald-300 uppercase tracking-wider mt-0.5">VERIFIED</div>
                     </div>
                   </div>
                 </div>
@@ -3689,7 +3701,7 @@ const homeSchemas = [
             if (storeNameEl) storeNameEl.textContent = deal.storeName;
 
             const storeCatEl = document.getElementById('heroDealStoreCat');
-            if (storeCatEl) storeCatEl.textContent = deal.storeCategory + ' • Official Merchant Partner';
+            if (storeCatEl) storeCatEl.textContent = deal.storeCategory;
 
             const badgeEl = document.getElementById('heroDealBadge');
             if (badgeEl) {
