@@ -7,6 +7,9 @@ import { STORE_DOMAINS_MAP } from '../data/storeDomains';
 // Patterns to strip technical affiliate/CPA metadata
 const AFFILIATE_METADATA_REGEXES: RegExp[] = [
   // Technical suffixes / tokens
+  /\b\d{1,2}\s+[A-Za-z]{3,9}\s+incentive\s+campaign\b/gi,
+  /\bincentive\s+campaign\b/gi,
+  /\b(?:clone\s+of|non\s+coupon\s+publishers|standard\s+commission|referral\s+period)\b/gi,
   /\b(Default\s+Payout|Program\s+Terms?|Standard\s+Terms?|Public\s+Affiliate\s+Terms?|with\s+performance\s+incentives|Terms|Payout|RS|S2S|CPA|CPS|CPL|RevShare)\b/gi,
   // Locking strings
   /\+\s*\d+\s*Days?\s*Locking/gi,
@@ -84,7 +87,25 @@ export const EXPLICIT_MERCHANT_MAP: Array<[RegExp, { brand: string; domain: stri
   [/raynatours|rayna\s*tours/i, { brand: 'Rayna Tours', domain: 'raynatours.com' }],
   [/qustodio/i, { brand: 'Qustodio', domain: 'qustodio.com' }],
   [/keeper/i, { brand: 'Keeper Security', domain: 'keepersecurity.com' }],
-  [/1password/i, { brand: '1Password', domain: '1password.com' }]
+  [/1password/i, { brand: '1Password', domain: '1password.com' }],
+  [/aiper/i, { brand: 'Aiper', domain: 'aiper.com' }],
+  [/wargaming/i, { brand: 'Wargaming', domain: 'wargaming.net' }],
+  [/stylevana/i, { brand: 'Stylevana', domain: 'stylevana.com' }],
+  [/gearup/i, { brand: 'GearUP', domain: 'gearupbooster.com' }],
+  [/overgear/i, { brand: 'Overgear', domain: 'overgear.com' }],
+  [/iseehair/i, { brand: 'ISEE Hair', domain: 'iseehair.com' }],
+  [/raws*paws/i, { brand: 'Raw Paws Pet Food', domain: 'rawpawspetfood.com' }],
+  [/wowangel/i, { brand: 'Wowangel', domain: 'wowangel.com' }],
+  [/ayurvedas*experience/i, { brand: 'The Ayurveda Experience', domain: 'theayurvedaexperience.com' }],
+  [/legendz/i, { brand: 'Legendz', domain: 'legendz.com' }],
+  [/sharafs*dg|sharafdg/i, { brand: 'Sharaf DG', domain: 'sharafdg.com' }],
+  [/vips*cars/i, { brand: 'VIP Cars', domain: 'vipcars.com' }],
+  [/kaer/i, { brand: 'KAER', domain: 'kaer.com' }],
+  [/yoses*power/i, { brand: 'Yose Power', domain: 'yosepower.com' }],
+  [/gabiona/i, { brand: 'Gabiona', domain: 'gabiona.de' }],
+  [/empowerdx/i, { brand: 'empowerDX', domain: 'empowerdxlab.com' }],
+  [/airs*serbia/i, { brand: 'Air Serbia', domain: 'airserbia.com' }],
+  [/expondo/i, { brand: 'Expondo', domain: 'expondo.de' }]
 ];
 
 /**

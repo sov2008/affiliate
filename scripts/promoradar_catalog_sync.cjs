@@ -229,9 +229,53 @@ function extractCleanDomain(url = '') {
   }
 }
 
+const EXPLICIT_MERCHANT_MAP = {
+  '26 nov incentive campaign aiper10%': 'Aiper',
+  'aiper': 'Aiper',
+  'program terms for wargaming': 'Wargaming',
+  'wargaming': 'Wargaming',
+  'stylevana 5% program terms': 'Stylevana',
+  'stylevana': 'Stylevana',
+  'gearup booster': 'GearUP',
+  'overgear default program': 'Overgear',
+  'isee hair default program': 'ISEE Hair',
+  'raw paws pet food terms': 'Raw Paws Pet Food',
+  'wowangel program terms': 'Wowangel',
+  'the ayurveda experience terms': 'The Ayurveda Experience',
+  'legendz program terms': 'Legendz',
+  'vip cars 1-3 terms': 'VIP Cars',
+  'kaer terms': 'KAER',
+  'yose power cj program': 'Yose Power',
+  'gabiona program terms': 'Gabiona',
+  'empowerdx program terms': 'empowerDX',
+  'air serbia cj terms': 'Air Serbia',
+  'expondo cj terms': 'Expondo',
+  'rexing usa terms': 'Rexing USA'
+};
+
+const PURE_JUNK_REGEX = /^(default sale|clone of \d+|travel club|\d+[- ]*(%|percent)?\s*(commission|referral period)|term\s*\d+|cpa\s*terms|standard commission)/i;
+
+function isValidBrandName(name = '') {
+  const trimmed = name.trim();
+  if (!trimmed || trimmed.length < 2 || trimmed.length > 50) return false;
+  if (PURE_JUNK_REGEX.test(trimmed)) return false;
+  if (/^\d+([.,]\d+)?%?\s*(commission|cpa|payout)/i.test(trimmed)) return false;
+  if (/^clone\s+of/i.test(trimmed)) return false;
+  if (/^\d+d\s+referral\s+period/i.test(trimmed)) return false;
+  return true;
+}
+
 function cleanBrandName(rawName = '') {
+  const lower = rawName.toLowerCase().trim();
+  if (EXPLICIT_MERCHANT_MAP[lower]) return EXPLICIT_MERCHANT_MAP[lower];
+  for (const [key, val] of Object.entries(EXPLICIT_MERCHANT_MAP)) {
+    if (lower.includes(key)) return val;
+  }
+
   let name = rawName
-    .replace(/\b(ww|many geos|ua|ae|sa|gcc|offline|codes|links|tracking|cpl|cps|android|ios|affiliate program)\b/gi, '')
+    .replace(/\b\d{1,2}\s+[A-Za-z]{3,9}\s+incentive\s+campaign\b/gi, '')
+    .replace(/\b(incentive campaign|program terms|default program|cj program terms|cj program|affiliate program)\b/gi, '')
+    .replace(/\b(ww|many geos|ua|ae|sa|gcc|offline|codes|links|tracking|cpl|cps|android|ios)\b/gi, '')
     .replace(/\[.*?\]/g, '')
     .replace(/\.com.*$/i, '')
     .replace(/ - \d+%.*$/i, '')
@@ -414,7 +458,11 @@ async function syncAndBuild() {
         if ((prog.status === 'ACTIVE' || prog.status === 'PENDING_OFFER') && prog.primaryUrl) {
           const rawName = prog.name || prog.terms || `CJ Partner ${cjId}`;
           const brandName = cleanBrandName(rawName);
-          const slug = mapCampaignToSlug(rawName);
+          if (!isValidBrandName(brandName)) {
+            log(`🚫 Skipped junk CJ campaign/tariff: "${rawName}"`);
+            continue;
+          }
+          const slug = mapCampaignToSlug(brandName);
           const cjCampObj = {
             id: `cj_${cjId}`,
             name: brandName,
