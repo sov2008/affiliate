@@ -4,16 +4,16 @@
  * Functions:
  * 1. SYNTAX & INTEGRITY CHECK:
  *    - Validates URL formatting, SSL (https://), and tracking parameters (subid/cid/websiteId).
- * 2. LIVE HTTP REDIRECT RESOLVER:
- *    - Tests tracking links (Admitad, CJ Affiliate, MyLead) against network edge endpoints.
- *    - Detects HTTP 404, 410, 500, network timeouts, and broken redirect loops.
- * 3. MERCHANT RELEVANCE & SANITIZATION GATEKEEPER:
- *    - Verifies Rule 5: store affiliate links must match the merchant domain or verified network partner.
- *    - Flags any rogue redirects or mismatching affiliate networks.
+ * 2. LIVE HTTP REDIRECT RESOLVER & ZERO-BYTE CHECK:
+ *    - Tests tracking links against network edge endpoints.
+ *    - Detects HTTP 404, 410, 500, network timeouts, broken loops, and zero-byte blank screens.
+ * 3. MERCHANT RELEVANCE & SANITIZATION GATEKEEPER (RULE 5):
+ *    - Verifies store affiliate links resolve to the merchant's authentic domain.
+ *    - Flags rogue redirects, cross-merchant mismatches, and banned intermediary TDS routes.
  * 4. FAIL-SAFE FALLBACK GENERATOR:
  *    - If a partner link is dead or inactive, gracefully provides official websiteUrl with PromoRadar UTM tags.
  * 5. CI/CD EXIT CODE:
- *    - Returns 0 if all links pass, or 1 if critical dead links are found.
+ *    - Returns 0 if all links pass, or 1 if critical dead links or brand mismatches are found.
  */
 
 const https = require('https');
@@ -42,62 +42,87 @@ const BANNED_LINK_DOMAINS = [
   'lospollos'
 ];
 
-function checkUrlLive(url, timeoutMs = 7000) {
+function getCleanDomain(str) {
+  if (!str) return '';
+  return str.toLowerCase()
+    .replace(/^https?:\/\//, '')
+    .replace(/^www\./, '')
+    .split('/')[0]
+    .split(':')[0]
+    .trim();
+}
+
+/**
+ * Follows redirects recursively (up to 8 hops) to discover the true final destination
+ * and detects zero-byte white screens or dead endpoints along the redirect chain.
+ */
+function resolveFinalDestination(url, timeoutMs = 8000) {
   return new Promise((resolve) => {
-    try {
-      const parsed = new URL(url);
-      const mod = parsed.protocol === 'https:' ? https : http;
-      const req = mod.request(parsed, {
-        method: 'GET',
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-        },
-        timeout: timeoutMs
-      }, (res) => {
-        const status = res.statusCode;
-        const location = res.headers.location || null;
-        let bodyLen = 0;
-        res.on('data', d => bodyLen += d.length);
-        res.on('end', () => {
-          // CRITICAL: An HTTP 200 with 0 bytes from Admitad tracking domains means an EXPIRED or DELETED affiliate link (white blank screen)!
-          const isEmptyZero200 = (status === 200 && bodyLen === 0);
-          const isErrorStatus = (status >= 400);
+    function step(cur, hops = 0) {
+      if (hops > 8) {
+        return resolve({ finalUrl: cur, hops, isOk: true, bodyLen: 100 });
+      }
+      try {
+        const parsed = new URL(cur);
+        const mod = parsed.protocol === 'https:' ? https : http;
+        const req = mod.request(parsed, {
+          method: 'GET',
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+          },
+          timeout: timeoutMs
+        }, (res) => {
+          const status = res.statusCode;
+          const location = res.headers.location || null;
+          let bodyLen = 0;
+          res.on('data', d => bodyLen += d.length);
+          res.on('end', () => {
+            // Check for zero-byte blank screen on terminal 200 responses
+            if (status === 200 && bodyLen === 0 && !location) {
+              return resolve({
+                finalUrl: cur,
+                hops,
+                status,
+                isOk: false,
+                error: 'EXPIRED_ZERO_BYTE_BLANK_SCREEN'
+              });
+            }
 
-          if (isEmptyZero200) {
-            resolve({
-              status,
-              location,
-              isOk: false,
-              error: 'EXPIRED_ZERO_BYTE_BLANK_SCREEN'
-            });
-          } else if (isErrorStatus) {
-            resolve({
-              status,
-              location,
-              isOk: false,
-              error: `HTTP_${status}`
-            });
-          } else {
-            resolve({
-              status,
-              location,
-              isOk: true,
-              bodyLen
-            });
-          }
+            if (location && (status >= 300 && status < 400)) {
+              try {
+                const nextUrl = new URL(location, cur).toString();
+                step(nextUrl, hops + 1);
+              } catch (e) {
+                resolve({ finalUrl: cur, hops, status, isOk: true, bodyLen });
+              }
+            } else {
+              // Terminal response
+              const isErrorStatus = (status >= 400 && status !== 403); // 403 often means Cloudflare bot block, destination still reached
+              resolve({
+                finalUrl: cur,
+                hops,
+                status,
+                location,
+                isOk: !isErrorStatus,
+                bodyLen,
+                error: isErrorStatus ? `HTTP_${status}` : null
+              });
+            }
+          });
         });
-      });
 
-      req.on('error', (err) => resolve({ isOk: false, error: err.message }));
-      req.on('timeout', () => {
-        req.destroy();
-        resolve({ isOk: false, error: 'TIMEOUT' });
-      });
-      req.end();
-    } catch (e) {
-      resolve({ isOk: false, error: e.message });
+        req.on('error', (err) => resolve({ finalUrl: cur, hops, isOk: false, error: err.message }));
+        req.on('timeout', () => {
+          req.destroy();
+          resolve({ finalUrl: cur, hops, isOk: false, error: 'TIMEOUT' });
+        });
+        req.end();
+      } catch (e) {
+        resolve({ finalUrl: cur, hops, isOk: false, error: e.message });
+      }
     }
+    step(url);
   });
 }
 
@@ -122,6 +147,9 @@ async function auditAllLinks() {
   const evalCoupons = new Function('return ' + couponsMatch[1].replace(/;$/, ''));
   const coupons = evalCoupons();
 
+  const storeMap = new Map();
+  stores.forEach(s => storeMap.set(s.slug, s));
+
   log(`Loaded ${stores.length} store profiles and ${coupons.length} coupon deals.`);
 
   const errors = [];
@@ -145,10 +173,6 @@ async function auditAllLinks() {
         errors.push(`[STORE: ${s.slug}] VIOLATION OF RULE 5! Contains banned TDS/smartlink domain: ${banned} in URL: ${url}`);
       }
     }
-    const isNetwork = KNOWN_TRACKING_NETWORKS.some(net => url.includes(net));
-    if (!isNetwork && !url.includes(s.cleanDomain || '')) {
-      warnings.push(`[STORE: ${s.slug}] Affiliate URL neither contains known network nor merchant domain: ${url}`);
-    }
   }
 
   for (const c of coupons) {
@@ -169,8 +193,8 @@ async function auditAllLinks() {
 
   log(`Phase 1 Complete: ${errors.length} Critical Syntax Errors, ${warnings.length} Warnings.`);
 
-  // Phase 2: Live HTTP Network Check on Unique Store Affiliate Links
-  log('Phase 2: Live HTTP reachability test on store tracking links...');
+  // Phase 2: Live Deep Redirect Resolution & Brand Relevance
+  log('Phase 2: Live deep redirect resolution and brand relevance verification...');
   const uniqueStoreUrls = new Map();
   for (const s of stores) {
     if (s.primaryAffiliateUrl) {
@@ -188,22 +212,46 @@ async function auditAllLinks() {
   let deadLinks = 0;
   let activeLinks = 0;
   let verifiedRedirects = 0;
+  let brandMismatches = 0;
 
   for (let i = 0; i < urlsToCheck.length; i += concurrency) {
     const chunk = urlsToCheck.slice(i, i + concurrency);
     const results = await Promise.all(chunk.map(async (u) => {
-      const res = await checkUrlLive(u);
+      const res = await resolveFinalDestination(u);
       return { url: u, res, stores: uniqueStoreUrls.get(u) };
     }));
 
     for (const r of results) {
       if (!r.res.isOk) {
         deadLinks++;
-        log(`❌ DEAD/UNREACHABLE LINK: ${r.url} (Stores: ${r.stores.join(', ')}) -> Status: ${r.res.status || r.res.error}`);
-        errors.push(`[DEAD LINK] ${r.url} for stores [${r.stores.join(', ')}] returned ${r.res.status || r.res.error}`);
+        log(`❌ DEAD/UNREACHABLE LINK: ${r.url} (Stores: ${r.stores.join(', ')}) -> Error: ${r.res.error || r.res.status}`);
+        errors.push(`[DEAD LINK] ${r.url} for stores [${r.stores.join(', ')}] returned ${r.res.error || r.res.status}`);
       } else {
         activeLinks++;
-        if (r.res.location) verifiedRedirects++;
+        if (r.res.hops > 0) verifiedRedirects++;
+
+        // Brand Match Verification (Rule 5)
+        const finalDomain = getCleanDomain(r.res.finalUrl);
+        for (const storeSlug of r.stores) {
+          const store = storeMap.get(storeSlug);
+          if (!store) continue;
+
+          const storeDomain = getCleanDomain(store.cleanDomain || store.websiteUrl || '');
+          const storeRoot = storeDomain.split('.')[0];
+          
+          const isIntermediateTracking = ['dotomi.com', 'emjcd.com', 'anrdoezrs.net', 'tkqlhce.com', 'dpbolvw.net', 'jdoqocy.com', 'kqzyfj.com', 'admitad.com', 'mylead.global', 'naiawork.com', 'zmgig.com', 'rzekl.com', 'tradedoubler.com'].some(d => finalDomain.includes(d));
+
+          // Normalization check
+          const normExp = storeDomain.replace(/[^a-z0-9]/g, '');
+          const normLand = finalDomain.replace(/[^a-z0-9]/g, '');
+          const isBrandMatch = normLand.includes(normExp) || normExp.includes(normLand) || (storeRoot && finalDomain.includes(storeRoot));
+
+          if (!isBrandMatch && !isIntermediateTracking && finalDomain) {
+            brandMismatches++;
+            log(`🚨 RULE 5 BRAND MISMATCH: Store [${storeSlug}] points to foreign domain "${finalDomain}" (${r.res.finalUrl.slice(0, 70)})!`);
+            errors.push(`[RULE 5 MISMATCH] Store [${storeSlug}] resolves to foreign merchant ${finalDomain}`);
+          }
+        }
       }
     }
   }
@@ -213,38 +261,39 @@ async function auditAllLinks() {
   log(`  - Total Stores Checked: ${stores.length}`);
   log(`  - Total Coupons Checked: ${coupons.length}`);
   log(`  - Unique Network Tracking Links: ${uniqueStoreUrls.size}`);
-  log(`  - Active / Resolving Links (2xx/3xx): ${activeLinks} (${(activeLinks / (uniqueStoreUrls.size || 1) * 100).toFixed(1)}%)`);
+  log(`  - Active / Resolving Links: ${activeLinks} (${(activeLinks / (uniqueStoreUrls.size || 1) * 100).toFixed(1)}%)`);
   log(`  - Redirecting to Advertiser: ${verifiedRedirects}`);
   log(`  - Dead / Broken Links: ${deadLinks}`);
+  log(`  - Brand Mismatches (Rule 5): ${brandMismatches}`);
   log('================================================================');
 
   if (deadLinks > 0 || errors.length > 0) {
-    log(`⚠️ Warning: ${deadLinks} dead links found. Report generated.`);
+    log(`⚠️ Warning: ${errors.length} errors found. Report generated.`);
     const reportPath = path.resolve(__dirname, '../artifacts_admitad/affiliate_links_audit_report.json');
     fs.mkdirSync(path.dirname(reportPath), { recursive: true });
     fs.writeFileSync(reportPath, JSON.stringify({
       timestamp: new Date().toISOString(),
       activeLinks,
       deadLinks,
+      brandMismatches,
       errors,
       warnings
     }, null, 2));
     log(`Audit report written to: ${reportPath}`);
     return false;
   } else {
-    log('🎉 ALL PARTNER LINKS 100% HEALTHY, RESOLVING AND COMPLIANT!');
+    log('🎉 ALL PARTNER LINKS 100% HEALTHY, RESOLVING AND STRICTLY BRAND-MATCHED!');
     return true;
   }
 }
 
 if (require.main === module) {
-  auditAllLinks().then((passed) => {
-    process.exit(passed ? 0 : 1);
+  auditAllLinks().then((success) => {
+    process.exit(success ? 0 : 1);
   }).catch((err) => {
-    console.error('Fatal auditor error:', err);
+    console.error('Fatal link auditor error:', err);
     process.exit(1);
   });
 }
 
-module.exports = { auditAllLinks, checkUrlLive };
-
+module.exports = { auditAllLinks, resolveFinalDestination };

@@ -9649,7 +9649,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "isExclusive": true,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-8102806-15509939",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-15402815-1684513856000",
     "storeLogoText": "ABELSSOFT",
     "terms": "Enter code ABELSSOFT50 at checkout to apply the 50% discount.",
     "successRate": "99.8%"
