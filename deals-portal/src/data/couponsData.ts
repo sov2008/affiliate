@@ -1309,41 +1309,6 @@ export const STORES_DATA: StoreProfile[] = [
     ]
   },
   {
-    "slug": "ya-man-kz",
-    "name": "YA-MAN KZ",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "YAMANKZ",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for YA-MAN KZ.",
-    "fullDesc": "YA-MAN KZ is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for YA-MAN KZ online shoppers. YA-MAN KZ is known for verified service reliability, transparent customer support, and direct manufacturer pricing. Our deal verification desk tests checkout coupons and direct seasonal markdown offers across partner channels to ensure shoppers save effortlessly without encountering expired codes.",
-    "websiteUrl": "https://ya-man.kz",
-    "cleanDomain": "ya-man.kz",
-    "primaryAffiliateUrl": "https://uuwgc.com/g/u8ze4rfz23fa9e3fd8788e4f8d3db5/",
-    "howToApply": [
-      "Select your desired items on YA-MAN KZ and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "How do I apply a promo code at YA-MAN KZ?",
-        "answer": "Select your desired products on the official YA-MAN KZ website and proceed to your shopping cart. Locate the 'Promo Code', 'Discount Code', or 'Voucher' field on the checkout screen, paste the code copied from PromoRadar, and click 'Apply' to see your instant order markdown."
-      },
-      {
-        "question": "Are the discount codes for YA-MAN KZ verified and tested?",
-        "answer": "Yes. Every coupon code and deal for YA-MAN KZ listed on PromoRadar is audited directly through merchant feeds and verified by our editorial desk in real checkout carts to ensure zero dead links and active discounts."
-      },
-      {
-        "question": "Can I combine multiple coupons on a single YA-MAN KZ order?",
-        "answer": "In most cases, YA-MAN KZ allows one promotional code per transaction. However, you can frequently apply verified voucher codes to items already marked down in the sale or clearance sections to maximize your total savings."
-      },
-      {
-        "question": "What is the best way to save money when shopping at YA-MAN KZ?",
-        "answer": "Verify terms and apply promotional codes directly in the merchant cart before completing checkout. Additionally, check PromoRadar before finalizing your purchase to grab the latest verified flash sales and exclusive checkout vouchers."
-      }
-    ]
-  },
-  {
     "slug": "lenovo",
     "name": "Lenovo",
     "category": "E-Commerce & Wholesale",
@@ -2949,41 +2914,6 @@ export const STORES_DATA: StoreProfile[] = [
       },
       {
         "question": "What is the best way to save money when shopping at Gold?",
-        "answer": "Verify terms and apply promotional codes directly in the merchant cart before completing checkout. Additionally, check PromoRadar before finalizing your purchase to grab the latest verified flash sales and exclusive checkout vouchers."
-      }
-    ]
-  },
-  {
-    "slug": "kz",
-    "name": "Aquaphor Filtration",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "KZ",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Аквафор KZ.",
-    "fullDesc": "Аквафор KZ is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Аквафор KZ online shoppers. Аквафор KZ is known for verified service reliability, transparent customer support, and direct manufacturer pricing. Our deal verification desk tests checkout coupons and direct seasonal markdown offers across partner channels to ensure shoppers save effortlessly without encountering expired codes.",
-    "websiteUrl": "https://www.aquaphor.kz",
-    "cleanDomain": "aquaphor.kz",
-    "primaryAffiliateUrl": "https://vxrlm.com/g/qdpdqzzyvafa9e3fd8787c9a9f7e4b/",
-    "howToApply": [
-      "Select your desired items on Аквафор KZ and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "How do I apply a promo code at Аквафор KZ?",
-        "answer": "Select your desired products on the official Аквафор KZ website and proceed to your shopping cart. Locate the 'Promo Code', 'Discount Code', or 'Voucher' field on the checkout screen, paste the code copied from PromoRadar, and click 'Apply' to see your instant order markdown."
-      },
-      {
-        "question": "Are the discount codes for Аквафор KZ verified and tested?",
-        "answer": "Yes. Every coupon code and deal for Аквафор KZ listed on PromoRadar is audited directly through merchant feeds and verified by our editorial desk in real checkout carts to ensure zero dead links and active discounts."
-      },
-      {
-        "question": "Can I combine multiple coupons on a single Аквафор KZ order?",
-        "answer": "In most cases, Аквафор KZ allows one promotional code per transaction. However, you can frequently apply verified voucher codes to items already marked down in the sale or clearance sections to maximize your total savings."
-      },
-      {
-        "question": "What is the best way to save money when shopping at Аквафор KZ?",
         "answer": "Verify terms and apply promotional codes directly in the merchant cart before completing checkout. Additionally, check PromoRadar before finalizing your purchase to grab the latest verified flash sales and exclusive checkout vouchers."
       }
     ]
@@ -5570,33 +5500,6 @@ export const STORES_DATA: StoreProfile[] = [
     ]
   },
   {
-    "slug": "doctorslon-kz",
-    "name": "Doctorslon KZ",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "DOCTORSLONKZ",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Doctorslon KZ.",
-    "fullDesc": "Doctorslon KZ is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Doctorslon KZ online shoppers.",
-    "websiteUrl": "https://doctorslon.kz/",
-    "cleanDomain": "doctorslon.kz",
-    "primaryAffiliateUrl": "https://yknhc.com/g/ttfls6sqisfa9e3fd878ef285ae838/",
-    "howToApply": [
-      "Select your desired items on Doctorslon KZ and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Doctorslon KZ coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Doctorslon KZ are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Doctorslon KZ promo code?",
-        "answer": "Doctorslon KZ frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
     "slug": "konesso-pl",
     "name": "Konesso PL",
     "category": "E-Commerce & Wholesale",
@@ -7676,33 +7579,6 @@ export const STORES_DATA: StoreProfile[] = [
     ]
   },
   {
-    "slug": "lacoste-kz",
-    "name": "Lacoste KZ",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "LACOSTEKZ",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Lacoste KZ.",
-    "fullDesc": "Lacoste KZ is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Lacoste KZ online shoppers.",
-    "websiteUrl": "https://lacoste.kz/",
-    "cleanDomain": "lacoste.kz",
-    "primaryAffiliateUrl": "https://fxxag.com/g/mfx24mc1h3fa9e3fd878e329afd461/",
-    "howToApply": [
-      "Select your desired items on Lacoste KZ and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Lacoste KZ coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Lacoste KZ are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Lacoste KZ promo code?",
-        "answer": "Lacoste KZ frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
     "slug": "sunshouse",
     "name": "Sunshouse",
     "category": "E-Commerce & Wholesale",
@@ -8081,33 +7957,6 @@ export const STORES_DATA: StoreProfile[] = [
     ]
   },
   {
-    "slug": "tengebai-cpa-kz",
-    "name": "Tengebai CPA KZ",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "TENGEBAICPAK",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Tengebai CPA KZ.",
-    "fullDesc": "Tengebai CPA KZ is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Tengebai CPA KZ online shoppers.",
-    "websiteUrl": "https://tengebai.kz",
-    "cleanDomain": "tengebai.kz",
-    "primaryAffiliateUrl": "https://grfpr.com/g/fr335omhvdfa9e3fd878c08018ab69/",
-    "howToApply": [
-      "Select your desired items on Tengebai CPA KZ and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Tengebai CPA KZ coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Tengebai CPA KZ are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Tengebai CPA KZ promo code?",
-        "answer": "Tengebai CPA KZ frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
     "slug": "aomei",
     "name": "AOMEI",
     "category": "E-Commerce & Wholesale",
@@ -8428,33 +8277,6 @@ export const STORES_DATA: StoreProfile[] = [
       {
         "question": "Can I get free shipping with a Italojewerly promo code?",
         "answer": "Italojewerly frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "skillbox-kz",
-    "name": "Skillbox KZ",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "SKILLBOXKZ",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Skillbox KZ.",
-    "fullDesc": "Skillbox KZ is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Skillbox KZ online shoppers.",
-    "websiteUrl": "https://skillbox.kz/",
-    "cleanDomain": "skillbox.kz",
-    "primaryAffiliateUrl": "https://xpuvo.com/g/bhmho5vfmefa9e3fd878a5220b9368/",
-    "howToApply": [
-      "Select your desired items on Skillbox KZ and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Skillbox KZ coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Skillbox KZ are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Skillbox KZ promo code?",
-        "answer": "Skillbox KZ frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
       }
     ]
   },
@@ -10512,6 +10334,7 @@ export const STORES_DATA: StoreProfile[] = [
   }
 ];
 
+
 export const COUPONS_DATA: CouponDeal[] = [
   {
     "id": "cj-abelssoft-50off",
@@ -11497,23 +11320,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://ficca2021.com/g/uphdtw5n9ifa9e3fd878f3199c6ed1/?i=3",
     "storeLogoText": "REEBOKANDPRO",
     "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_969610",
-    "storeSlug": "skillbox-kz",
-    "storeName": "Skillbox KZ",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "70% OFF",
-    "title": "70% OFF On Skillbox KZ Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping. Experience reliable high-performance hardware backed by official manufacturer warranties, certified smart technology, and express priority shipping.",
-    "code": "ADMBF",
-    "isExclusive": true,
-    "isVerified": true,
-    "expiryDate": "2026-11-30",
-    "affiliateUrl": "https://xpuvo.com/g/sdwbckgdbbfa9e3fd878a5220b9368/?i=3",
-    "storeLogoText": "SKILLBOXKZ",
-    "terms": "Apply promo code ADMBF at cart checkout to claim discount.",
     "successRate": "99.4%"
   },
   {
@@ -14781,23 +14587,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "net_967643",
-    "storeSlug": "kz",
-    "storeName": "Aquaphor Filtration",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "EXCLUSIVE DEAL On Aquaphor Filtration Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping. Experience reliable high-performance hardware backed by official manufacturer warranties, certified smart technology, and express priority shipping.",
-    "code": "НЕ НУЖЕН",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://fxxag.com/g/lqqqauhy8afa9e3fd878eb6d57faa3/?i=3",
-    "storeLogoText": "KZ",
-    "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
     "id": "net_967617",
     "storeSlug": "answear",
     "storeName": "Answear",
@@ -15291,23 +15080,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "net_931403",
-    "storeSlug": "lacoste-kz",
-    "storeName": "Lacoste KZ",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "30% OFF",
-    "title": "30% OFF On Lacoste KZ Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping. Experience reliable high-performance hardware backed by official manufacturer warranties, certified smart technology, and express priority shipping.",
-    "code": "НЕ НУЖЕН",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://fxxag.com/g/f7xqnbmkfzfa9e3fd878e329afd461/?i=3",
-    "storeLogoText": "LACOSTEKZ",
-    "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
     "id": "net_930710",
     "storeSlug": "godlike-host",
     "storeName": "Godlike.Host",
@@ -15747,23 +15519,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://ntzgd.com/g/ay6rkc48ajfa9e3fd87845cfa0a3aa/?i=3",
     "storeLogoText": "CORSAIR",
     "terms": "Apply promo code EE-WINTER20 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_891282",
-    "storeSlug": "lacoste-kz",
-    "storeName": "Lacoste KZ",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "30% OFF",
-    "title": "30% OFF On Lacoste KZ Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping. Experience reliable high-performance hardware backed by official manufacturer warranties, certified smart technology, and express priority shipping.",
-    "code": "НЕ НУЖЕН",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://fxxag.com/g/vtrttvp9nofa9e3fd878e329afd461/?i=3",
-    "storeLogoText": "LACOSTEKZ",
-    "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
     "successRate": "99.4%"
   },
   {
@@ -17960,74 +17715,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "net_684123",
-    "storeSlug": "lacoste-kz",
-    "storeName": "Lacoste KZ",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "15% OFF",
-    "title": "15% OFF On Lacoste KZ Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping. Experience reliable high-performance hardware backed by official manufacturer warranties, certified smart technology, and express priority shipping.",
-    "code": "Lacostekz15",
-    "isExclusive": true,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://fxxag.com/g/dkrfilagqcfa9e3fd878e329afd461/?i=3",
-    "storeLogoText": "LACOSTEKZ",
-    "terms": "Apply promo code Lacostekz15 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_684122",
-    "storeSlug": "lacoste-kz",
-    "storeName": "Lacoste KZ",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "50% OFF",
-    "title": "50% OFF On Lacoste KZ Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping. Experience reliable high-performance hardware backed by official manufacturer warranties, certified smart technology, and express priority shipping.",
-    "code": "НЕ НУЖЕН",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://fxxag.com/g/cgmsv6wja5fa9e3fd878e329afd461/?i=3",
-    "storeLogoText": "LACOSTEKZ",
-    "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_684121",
-    "storeSlug": "lacoste-kz",
-    "storeName": "Lacoste KZ",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "50% OFF",
-    "title": "50% OFF On Lacoste KZ Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping. Experience reliable high-performance hardware backed by official manufacturer warranties, certified smart technology, and express priority shipping.",
-    "code": "НЕ НУЖЕН",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://fxxag.com/g/bg407apt3efa9e3fd878e329afd461/?i=3",
-    "storeLogoText": "LACOSTEKZ",
-    "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_684119",
-    "storeSlug": "lacoste-kz",
-    "storeName": "Lacoste KZ",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On Lacoste KZ Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping. Experience reliable high-performance hardware backed by official manufacturer warranties, certified smart technology, and express priority shipping.",
-    "code": "НЕ НУЖЕН",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://fxxag.com/g/zhvuh8vh8mfa9e3fd878e329afd461/?i=3",
-    "storeLogoText": "LACOSTEKZ",
-    "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
     "id": "net_679893",
     "storeSlug": "aliexpress",
     "storeName": "AliExpress",
@@ -18467,57 +18154,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://bywiola.com/g/6gs8if1ru9fa9e3fd87855df12721b/?i=3",
     "storeLogoText": "FOOTLOCKERKW",
     "terms": "Apply promo code ADMFL10 at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_572370",
-    "storeSlug": "doctorslon-kz",
-    "storeName": "Doctorslon KZ",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "EXCLUSIVE DEAL On Doctorslon KZ Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping. Experience reliable high-performance hardware backed by official manufacturer warranties, certified smart technology, and express priority shipping.",
-    "code": "НЕ НУЖЕН",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://yknhc.com/g/92kf9dielnfa9e3fd878ef285ae838/?i=3",
-    "storeLogoText": "DOCTORSLONKZ",
-    "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_572369",
-    "storeSlug": "doctorslon-kz",
-    "storeName": "Doctorslon KZ",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On Doctorslon KZ Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping. Experience reliable high-performance hardware backed by official manufacturer warranties, certified smart technology, and express priority shipping.",
-    "code": "НЕ НУЖЕН",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://yknhc.com/g/717nr7gghtfa9e3fd878ef285ae838/?i=3",
-    "storeLogoText": "DOCTORSLONKZ",
-    "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_572368",
-    "storeSlug": "doctorslon-kz",
-    "storeName": "Doctorslon KZ",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "10% OFF",
-    "title": "10% OFF On Doctorslon KZ Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping. Experience reliable high-performance hardware backed by official manufacturer warranties, certified smart technology, and express priority shipping.",
-    "code": "НЕ НУЖЕН",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://yknhc.com/g/81m9gmp4h6fa9e3fd878ef285ae838/?i=3",
-    "storeLogoText": "DOCTORSLONKZ",
-    "terms": "Apply promo code НЕ НУЖЕН at cart checkout to claim discount.",
     "successRate": "99.4%"
   },
   {
@@ -22771,23 +22407,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.8%"
   },
   {
-    "id": "deal_ya-man-kz_verified_baseline",
-    "storeSlug": "ya-man-kz",
-    "storeName": "YA-MAN KZ",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "EXCLUSIVE DEAL On YA-MAN KZ Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping. Experience reliable high-performance hardware backed by official manufacturer warranties, certified smart technology, and express priority shipping.",
-    "code": "",
-    "isExclusive": true,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://uuwgc.com/g/u8ze4rfz23fa9e3fd8788e4f8d3db5/",
-    "storeLogoText": "YAMANKZ",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.8%"
-  },
-  {
     "id": "deal_finbert_verified_baseline",
     "storeSlug": "finbert",
     "storeName": "Finbert",
@@ -26014,23 +25633,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "expiryDate": "2026-12-31",
     "affiliateUrl": "https://tjzuh.com/g/lynazuo4zkfa9e3fd878250ba7ef59/",
     "storeLogoText": "ANTINORMIN",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.8%"
-  },
-  {
-    "id": "deal_tengebai-cpa-kz_verified_baseline",
-    "storeSlug": "tengebai-cpa-kz",
-    "storeName": "Tengebai CPA KZ",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "EXCLUSIVE DEAL On Tengebai CPA KZ Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping. Experience reliable high-performance hardware backed by official manufacturer warranties, certified smart technology, and express priority shipping.",
-    "code": "",
-    "isExclusive": true,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://grfpr.com/g/fr335omhvdfa9e3fd878c08018ab69/",
-    "storeLogoText": "TENGEBAICPAK",
     "terms": "Direct promotional pricing applied automatically at merchant checkout.",
     "successRate": "99.8%"
   },

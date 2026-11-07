@@ -163,20 +163,21 @@ function isBannedRuByProgram(camp = {}) {
   const desc = String(camp.description || camp.raw_description || '').trim();
   const regs = Array.isArray(camp.regions) ? camp.regions.map(r => typeof r === 'string' ? r : r.region) : [];
 
-  // TLD check (.ru, .by, .su, .рф, .бел)
-  if (/\.(ru|by|su|xn--p1ai)(\/|$)/i.test(site)) return true;
+  // TLD check (.ru, .by, .kz, .su, .рф, .бел)
+  if (/\.(ru|by|kz|su|xn--p1ai)(\/|$)/i.test(site)) return true;
 
   // Name patterns
-  if (/\b(BY|RU|RUS|BLR|Belarus|Russia)\b/i.test(name) && !/\b(BUY|TRUST|RUBY)\b/i.test(name)) return true;
-  if (/-by$/.test(slug) || /-ru$/.test(slug) || slug === 'by') return true;
+  if (/\b(BY|RU|KZ|RUS|BLR|KAZ|Belarus|Russia|Kazakhstan|Казахстан)\b/i.test(name) && !/\b(BUY|TRUST|RUBY)\b/i.test(name)) return true;
+  if (/-by$/.test(slug) || /-ru$/.test(slug) || /-kz$/.test(slug) || slug === 'by' || slug === 'kz') return true;
 
-  // Specific brands known to be based in / focused on BY / RU
+  // Specific brands known to be based in / focused on BY / RU / KZ
   if (slug === 'markformelle' || /mark\s*formelle/i.test(name)) return true;
   if (/meshnology/i.test(slug) || /meshnology/i.test(name)) return true;
   if (name.includes('Офистон') || name.includes('НА СВЯЗИ')) return true;
+  if (/tengebai|doctorslon|skillbox.*kz|ya-man.*kz/i.test(slug) || /tengebai|doctorslon/i.test(name)) return true;
 
-  // If regions target ONLY BY or RU
-  if (regs.length > 0 && regs.every(r => r === 'BY' || r === 'RU')) return true;
+  // If regions target ONLY BY, RU or KZ
+  if (regs.length > 0 && regs.every(r => r === 'BY' || r === 'RU' || r === 'KZ')) return true;
 
   return false;
 }
