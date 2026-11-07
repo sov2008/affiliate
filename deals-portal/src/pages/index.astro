@@ -823,10 +823,6 @@ const homeSchemas = [
                 <!-- Authentic Realistic Perforated Rip-Off Voucher Ticket with Integrated Savings -->
                 <div class="deal-stagger-item relative z-10 shrink-0 my-1 flex justify-start">
                   <div class="hero-rip-ticket relative overflow-hidden rounded-xl bg-gradient-to-r from-emerald-950/40 via-slate-900/80 to-slate-900/60 dark:from-emerald-950/30 dark:via-white/[0.04] dark:to-white/[0.02] border border-emerald-500/35 dark:border-emerald-400/30 px-5 sm:px-6 py-2.5 flex items-center justify-between gap-5 sm:gap-6 shadow-md shadow-emerald-950/20 w-fit max-w-full">
-                    <!-- Top & Bottom Perforated Cutout Teeth Patterns -->
-                    <div class="ticket-teeth ticket-teeth-top"></div>
-                    <div class="ticket-teeth ticket-teeth-bottom"></div>
-
                     <!-- Left ticket punch notch -->
                     <div class="ticket-notch ticket-notch-left"></div>
                     <!-- Right ticket punch notch -->
@@ -4854,79 +4850,40 @@ const homeSchemas = [
     /* Authentic Rip-Off Voucher Ticket Styles */
     .hero-rip-ticket {
       position: relative;
-      background-image: radial-gradient(circle at 0 50%, transparent 6px, rgba(16, 185, 129, 0.05) 7px);
-      box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(16, 185, 129, 0.2) inset;
     }
 
-    /* Left & Right Circular Punch Notches */
+    /* Left & Right Clean Single-Border Cutout Notches */
     .ticket-notch {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       border-radius: 9999px;
-      background-color: #0f172a; /* Slate 900 base */
+      background-color: #0f172a; /* Card background match */
       z-index: 5;
     }
     :global(.dark) .ticket-notch {
       background-color: var(--color-surface-dark, #0b0f19);
     }
     .ticket-notch-left {
-      left: -7px;
-      border-right: 1.5px solid rgba(52, 211, 153, 0.45);
-      box-shadow: inset -2px 0 3px rgba(0, 0, 0, 0.5);
+      left: -9px;
+      border-right: 1px solid rgba(52, 211, 153, 0.35);
     }
     .ticket-notch-right {
-      right: -7px;
-      border-left: 1.5px solid rgba(52, 211, 153, 0.45);
-      box-shadow: inset 2px 0 3px rgba(0, 0, 0, 0.5);
+      right: -9px;
+      border-left: 1px solid rgba(52, 211, 153, 0.35);
     }
 
-    /* Top & Bottom Perforated Edge Micro-Teeth */
-    .ticket-teeth {
-      position: absolute;
-      left: 14px;
-      right: 14px;
-      height: 3px;
-      z-index: 4;
-      background-image: radial-gradient(circle, #0f172a 1.5px, transparent 1.5px);
-      background-size: 8px 3px;
-    }
-    :global(.dark) .ticket-teeth {
-      background-image: radial-gradient(circle, var(--color-surface-dark, #0b0f19) 1.5px, transparent 1.5px);
-    }
-    .ticket-teeth-top {
-      top: -1.5px;
-    }
-    .ticket-teeth-bottom {
-      bottom: -1.5px;
-    }
-
-    /* Vertical Perforated Tear Lines with micro punch notches */
+    /* Vertical Perforated Tear Lines (Clean dashed line, no top/bottom dots) */
     .ticket-stub-col::before {
       content: '';
       position: absolute;
       left: 0;
-      top: 10%;
-      bottom: 10%;
+      top: 12%;
+      bottom: 12%;
       width: 0;
-      border-left: 1.5px dashed rgba(52, 211, 153, 0.35);
-    }
-    .ticket-stub-col::after {
-      content: '';
-      position: absolute;
-      left: -3px;
-      top: -11px;
-      width: 6px;
-      height: 6px;
-      border-radius: 9999px;
-      background-color: #0f172a;
-      border-bottom: 1px solid rgba(52, 211, 153, 0.4);
-      z-index: 5;
-    }
-    :global(.dark) .ticket-stub-col::after {
-      background-color: var(--color-surface-dark, #0b0f19);
+      border-left: 1.5px dashed rgba(52, 211, 153, 0.3);
     }
 
     /* Flickering Flame Icon */
