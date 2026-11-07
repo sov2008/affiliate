@@ -402,7 +402,19 @@ COUPONS_DATA.forEach(deal => {
       modal?.classList.add('flex');
       document.body.style.overflow = 'hidden';
 
-      // Auto-Copy Code to clipboard immediately upon opening the modal
+      // 1. Immediately open merchant in background tab (Synchronous in user-gesture thread to avoid browser popup blockers)
+      if (finalUrl && finalUrl !== '#' && finalUrl !== '') {
+        try {
+          const merchantTab = window.open(finalUrl, '_blank', 'noopener,noreferrer');
+          if (!merchantTab || merchantTab.closed || typeof merchantTab.closed === 'undefined') {
+            console.warn('[PromoRadar] Popup blocked by browser. User can click Go to Official Store button.');
+          }
+        } catch (openErr) {
+          console.warn('[PromoRadar] Error opening merchant tab:', openErr);
+        }
+      }
+
+      // 2. Auto-Copy Code to clipboard immediately upon opening the modal
       if (data.code && data.code.trim().length > 0) {
         navigator.clipboard?.writeText(data.code).then(() => {
           const statusTag = document.getElementById('modalCodeStatusTag');
@@ -416,11 +428,6 @@ COUPONS_DATA.forEach(deal => {
         }).catch(() => {
           window.dispatchEvent(new CustomEvent('promoradar_code_copied', { detail: data }));
         });
-      }
-
-      // Open merchant in background tab (Dual-Tab Funnel)
-      if (finalUrl && finalUrl !== '#') {
-        window.open(finalUrl, '_blank', 'noopener,noreferrer');
       }
 
       // Update Quick Share URLs (Telegram, WhatsApp)
