@@ -794,9 +794,9 @@ export const STORES_DATA: StoreProfile[] = [
     "logoText": "VERIFIED",
     "shortDesc": "Pre-vetted singles network enforcing mandatory camera-liveness checks and zero bot tolerance.",
     "fullDesc": "Verified Match VIP provides market-leading solutions in dating & lifestyle, emphasizing verified profile authentications, smart preference-matching algorithms, privacy-first messaging, and global social communities. Shoppers choose Verified Match VIP to meet genuine compatible partners locally or internationally with streamlined sign-up steps. Our deal verification desk monitors active promotions, seasonal campaigns, and checkout vouchers daily to guarantee that every listed coupon works reliably in live shopping carts.",
-    "websiteUrl": "https://flirtcheck.site/go/verified-match",
+    "websiteUrl": "https://promoradar.store/go?offer=lospollos_dating",
     "cleanDomain": "match.com",
-    "primaryAffiliateUrl": "https://flirtcheck.site/go/verified-match?src=deals_portal&ctx=store_header&intent=deals",
+    "primaryAffiliateUrl": "https://promoradar.store/go?offer=lospollos_dating",
     "howToApply": [
       "Select your desired items on Verified Match VIP and proceed to checkout.",
       "Locate the promotional voucher or coupon code field on the payment screen.",
@@ -830,9 +830,9 @@ export const STORES_DATA: StoreProfile[] = [
     "logoText": "DISCREET",
     "shortDesc": "High-privacy casual encounter network with stealth profile browsing and zero social media sync.",
     "fullDesc": "Discreet Local Pass provides market-leading solutions in dating & lifestyle, emphasizing verified profile authentications, smart preference-matching algorithms, privacy-first messaging, and global social communities. Shoppers choose Discreet Local Pass to meet genuine compatible partners locally or internationally with streamlined sign-up steps. Our deal verification desk monitors active promotions, seasonal campaigns, and checkout vouchers daily to guarantee that every listed coupon works reliably in live shopping carts.",
-    "websiteUrl": "https://flirtcheck.site/go/discreet-local",
+    "websiteUrl": "https://promoradar.store/go?offer=lospollos_dating",
     "cleanDomain": "ashleymadison.com",
-    "primaryAffiliateUrl": "https://flirtcheck.site/go/discreet-local?src=deals_portal&ctx=store_header&intent=deals",
+    "primaryAffiliateUrl": "https://promoradar.store/go?offer=lospollos_dating",
     "howToApply": [
       "Select your desired items on Discreet Local Pass and proceed to checkout.",
       "Locate the promotional voucher or coupon code field on the payment screen.",
@@ -866,9 +866,9 @@ export const STORES_DATA: StoreProfile[] = [
     "logoText": "SPOKEO",
     "shortDesc": "Forensic digital footprint, image hash, and phone number verification search engine.",
     "fullDesc": "Spokeo Reverse Scan provides market-leading solutions in privacy & security, emphasizing encrypted data transmission, zero-log bandwidth, multi-device cross-platform apps, and automated DNS leak protection. Shoppers choose Spokeo Reverse Scan to safeguard private communications, evade regional throttling, and browse securely on public WiFi networks. Our deal verification desk monitors active promotions, seasonal campaigns, and checkout vouchers daily to guarantee that every listed coupon works reliably in live shopping carts.",
-    "websiteUrl": "https://flirtcheck.site/go/deep-lookup",
+    "websiteUrl": "https://www.spokeo.com",
     "cleanDomain": "spokeo.com",
-    "primaryAffiliateUrl": "https://flirtcheck.site/go/deep-lookup?src=deals_portal&ctx=store_header&intent=deals",
+    "primaryAffiliateUrl": "https://www.spokeo.com/?utm_source=promoradar&utm_medium=affiliate",
     "howToApply": [
       "Select your desired items on Spokeo Reverse Scan and proceed to checkout.",
       "Locate the promotional voucher or coupon code field on the payment screen.",
@@ -18548,7 +18548,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "isExclusive": true,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://flirtcheck.site/go/verified-match?src=deals_portal&ctx=store_header&intent=deals",
+    "affiliateUrl": "https://promoradar.store/go?offer=lospollos_dating",
     "storeLogoText": "VERIFIED",
     "terms": "Code applies automatically at checkout for all new and returning members.",
     "successRate": "99.8%"
@@ -18565,7 +18565,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "isExclusive": true,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://flirtcheck.site/go/discreet-local?src=deals_portal&ctx=store_header&intent=deals",
+    "affiliateUrl": "https://promoradar.store/go?offer=lospollos_dating",
     "storeLogoText": "DISCREET",
     "terms": "Discount applies automatically at checkout for all eligible online purchases.",
     "successRate": "99.8%"
@@ -18582,7 +18582,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "isExclusive": true,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://flirtcheck.site/go/deep-lookup?src=deals_portal&ctx=store_header&intent=deals",
+    "affiliateUrl": "https://www.spokeo.com/?utm_source=promoradar&utm_medium=affiliate",
     "storeLogoText": "SPOKEO",
     "terms": "Apply automatically at checkout. No code required.",
     "successRate": "99.8%"
