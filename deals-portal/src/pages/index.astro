@@ -306,11 +306,15 @@ const HERO_ROTATING_DEALS = [
 ];
 
 // Distinct high-urgency offers for "Deals Expiring Soon" (Fix #3: no duplication with top grid cards)
-const TARGET_EXPIRING_SLUGS = ['vogacloset', 'keepersecurity', 'allpowers', 'alibaba'];
+const TARGET_EXPIRING_SLUGS = [
+  'vogacloset', 'keepersecurity', 'allpowers', 'alibaba',
+  'hostinger', 'expressvpn', 'qustodio', 'touch', 'polis',
+  'onlinesim', 'airalo', 'dabdoob', 'honor-uae', 'answear',
+  'casetify', 'redmagic', 'harfington', 'corsair'
+];
 const endingSoonDeals: typeof COUPONS_DATA = [];
 const pickedStoreSlugs = new Set<string>();
 
-// First pick distinct priority high-urgency offers
 for (const slug of TARGET_EXPIRING_SLUGS) {
   const match = COUPONS_DATA.find(d => d.storeSlug === slug && d.code && d.code.length > 0 && !pickedStoreSlugs.has(d.storeSlug));
   if (match) {
@@ -319,22 +323,27 @@ for (const slug of TARGET_EXPIRING_SLUGS) {
   }
 }
 
-// Fallback fill to 4 if needed with other unique stores
-if (endingSoonDeals.length < 4) {
-  for (const d of COUPONS_DATA) {
-    if (d.code && d.code.length > 0 && !pickedStoreSlugs.has(d.storeSlug)) {
-      pickedStoreSlugs.add(d.storeSlug);
-      endingSoonDeals.push(d);
-      if (endingSoonDeals.length === 4) break;
-    }
+for (const d of COUPONS_DATA) {
+  if (endingSoonDeals.length >= 16) break;
+  if (d.code && d.code.length > 0 && !pickedStoreSlugs.has(d.storeSlug) && !isJunkTestOffer(d.storeName, d.title)) {
+    pickedStoreSlugs.add(d.storeSlug);
+    endingSoonDeals.push(d);
   }
 }
 
-// Filter out junk internal test campaigns like "1929B TESTED FR" and nameless records
 const validCouponsData = COUPONS_DATA.filter(d => !isJunkTestOffer(d.storeName, d.title));
 
+// 1. Strict Offer Deduplication via Composite Fingerprint
+const seenDealFps = new Set<string>();
+const deduplicatedCoupons = validCouponsData.filter(deal => {
+  const fp = deal.storeSlug + "::" + deal.discountBadge + "::" + (deal.code || "").toLowerCase() + "::" + deal.title.toLowerCase().slice(0, 30);
+  if (seenDealFps.has(fp)) return false;
+  seenDealFps.add(fp);
+  return true;
+});
+
 // Pre-resolve merchant identity and discount badge for every coupon
-const enrichedDeals = validCouponsData.map(d => {
+const enrichedDeals = deduplicatedCoupons.map(d => {
   const identity = resolveMerchantIdentity(d);
   const smartBadge = extractSmartDiscountBadge(d.discountBadge, d.title);
   const canonicalSlug = getCanonicalStoreSlug(identity.brand);
@@ -349,19 +358,101 @@ const enrichedDeals = validCouponsData.map(d => {
   };
 });
 
-// Count total coupons per resolved clean brand for "+X more [Brand] deals →"
+// Count total coupons per resolved clean brand for "+X more [Brand] deals ₖ"
 const storeCouponCounts: Record<string, number> = {};
 for (const d of enrichedDeals) {
   storeCouponCounts[d.cleanBrand] = (storeCouponCounts[d.cleanBrand] || 0) + 1;
 }
 
-// Strict round-robin merchant interleaver (prevents 2-3 same brand cards adjacent)
-const interleavedDeals = diversifyDealsFeed(enrichedDeals);
+// 2. Homepage Brand Diversity: Group by store, sort by best offer, cap at max 2 offers per store, and interleave Round-Robin
+const storeBuckets = new Map<string, typeof enrichedDeals>();
+for (const deal of enrichedDeals) {
+  const key = (deal.canonicalSlug || deal.storeSlug).toLowerCase();
+  if (!storeBuckets.has(key)) storeBuckets.set(key, []);
+  storeBuckets.get(key)!.push(deal);
+}
 
-// Partner creative rectangle banners for organic in-grid placement
-const inGridPartnerBanners = homeRotatorBanners.rectangles || [];
+// Sort deals within each store bucket: offers with promo code first, then highest discount
+for (const bucket of storeBuckets.values()) {
+  bucket.sort((a, b) => {
+    const aHasCode = a.code && a.code.length > 0 ? 1 : 0;
+    const bHasCode = b.code && b.code.length > 0 ? 1 : 0;
+    if (aHasCode !== bHasCode) return bHasCode - aHasCode;
+    const aNum = parseInt((a.cleanBadge.match(/\d+/) || ["0"])[0], 10);
+    const bNum = parseInt((b.cleanBadge.match(/\d+/) || ["0"])[0], 10);
+    return bNum - aNum;
+  });
+}
 
-// Identify Top Store Deal for "Editor's Pick" badge
+// Priority flagship headliners
+const HEADLINE_SLUGS = [
+  "vogacloset", "hostinger", "expressvpn", "nordvpn", "surfshark",
+  "aliexpress", "kaspersky", "booking.com", "allpowers", "harfington",
+  "corsair", "prohoster", "redmagic", "adguard", "airalo",
+  "newbalance", "lenovo", "miravia-es-pt", "honor-uae", "answear", "chicme"
+];
+
+const sortedStoreKeys = Array.from(storeBuckets.keys()).sort((a, b) => {
+  const aIdx = HEADLINE_SLUGS.indexOf(a);
+  const bIdx = HEADLINE_SLUGS.indexOf(b);
+  if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+  if (aIdx !== -1) return -1;
+  if (bIdx !== -1) return 1;
+  const aCode = storeBuckets.get(a)[0]?.code ? 1 : 0;
+  const bCode = storeBuckets.get(b)[0]?.code ? 1 : 0;
+  if (aCode !== bCode) return bCode - aCode;
+  return a.localeCompare(b);
+});
+
+// Round-Robin Interleaving: Pass 1 (deal #1 of each store), Pass 2 (deal #2 of stores that have a 2nd)
+const interleavedDeals: typeof enrichedDeals = [];
+for (const key of sortedStoreKeys) {
+  const deals = storeBuckets.get(key)!;
+  if (deals.length > 0) interleavedDeals.push(deals[0]);
+}
+for (const key of sortedStoreKeys) {
+  const deals = storeBuckets.get(key)!;
+  if (deals.length > 1) interleavedDeals.push(deals[1]);
+}
+
+// 3. In-Grid Creative Banners: Strictly deduplicate by image and id, and round-robin across partner brands
+const rawBanners = homeRotatorBanners.rectangles || [];
+const seenBannerImgs = new Set<string>();
+const seenBannerIds = new Set<string>();
+const uniqueBannerList: typeof rawBanners = [];
+
+for (const b of rawBanners) {
+  const img = b.src || b.imageUrl || b.image;
+  const bId = b.id || b.name || img;
+  if (!img || seenBannerImgs.has(img) || seenBannerIds.has(bId)) continue;
+  seenBannerImgs.add(img);
+  seenBannerIds.add(bId);
+  uniqueBannerList.push(b);
+}
+
+// Round-robin banners by partnerSlug to prevent adjacent same-brand banners
+const bannerPartnerBuckets = new Map<string, typeof rawBanners>();
+for (const b of uniqueBannerList) {
+  const p = b.partnerSlug || "other";
+  if (!bannerPartnerBuckets.has(p)) bannerPartnerBuckets.set(p, []);
+  bannerPartnerBuckets.get(p)!.push(b);
+}
+
+const inGridPartnerBanners: typeof rawBanners = [];
+let bannerRemaining = true;
+let bannerRound = 0;
+while (bannerRemaining) {
+  bannerRemaining = false;
+  for (const list of bannerPartnerBuckets.values()) {
+    if (list.length > bannerRound) {
+      inGridPartnerBanners.push(list[bannerRound]);
+      bannerRemaining = true;
+    }
+  }
+  bannerRound++;
+}
+
+
 const topStoreDealIds = new Set<string>();
 const seenPickBrands = new Set<string>();
 for (const d of interleavedDeals) {
@@ -1837,14 +1928,13 @@ const homeSchemas = [
         if (matchCat && matchRegion && matchLang && matchType && matchStore && matchQuery) {
           matchedCount++;
           if (matchedCount <= visibleLimit) {
-            const wasHidden = card.classList.contains('hidden') || card.style.display === 'none';
-            card.classList.remove('hidden', 'deal-item-collapsed');
-            card.style.display = '';
+            const wasHidden = card.classList.contains('hidden');
+            card.classList.remove('hidden');
             if (wasHidden) {
               card.classList.remove('animate-card-entrance');
-              void card.offsetWidth; // Force reflow to reliably restart CSS keyframe animation
+              void card.offsetWidth; // retrigger CSS animation
               card.classList.add('animate-card-entrance');
-              card.style.animationDelay = ((actuallyShown % 21) * 35) + 'ms';
+              card.style.animationDelay = ((actuallyShown % 21) * 20) + 'ms';
             }
             actuallyShown++;
           } else {
@@ -1864,14 +1954,13 @@ const homeSchemas = [
       const maxBannersToShow = Math.floor(actuallyShown / 7);
       gridBanners.forEach((b, bIdx) => {
         if (bIdx < maxBannersToShow) {
-          const wasHidden = b.classList.contains('hidden') || b.style.display === 'none';
-          b.classList.remove('hidden', 'deal-item-collapsed');
-          b.style.display = '';
+          const wasHidden = b.classList.contains('hidden');
+          b.classList.remove('hidden');
           if (wasHidden) {
             b.classList.remove('animate-card-entrance');
-            void b.offsetWidth; // Force reflow
+            void b.offsetWidth;
             b.classList.add('animate-card-entrance');
-            b.style.animationDelay = ((bIdx % 3) * 80) + 'ms';
+            b.style.animationDelay = ((bIdx % 3) * 60) + 'ms';
           }
         } else {
           b.classList.add('hidden');
@@ -2360,35 +2449,49 @@ const homeSchemas = [
       });
     });
 
-    // Deals Sort Select
-    const sortSelect = document.getElementById('dealsSortSelect');
-    sortSelect?.addEventListener('change', () => {
+    // Deals Sort Select with Banner Rhythm Preservation
+    const sortSelect = document.getElementById("dealsSortSelect");
+    sortSelect?.addEventListener("change", function() {
       const mode = sortSelect.value;
-      const grid = document.getElementById('dealsGridContainer');
+      const grid = document.getElementById("dealsGridContainer");
       if (!grid) return;
-      const allCards = Array.from(grid.querySelectorAll('.deal-grid-card'));
+      const dealCards = Array.from(grid.querySelectorAll(".deal-grid-card"));
+      const bannerCards = Array.from(grid.querySelectorAll(".in-grid-partner-banner"));
 
-      allCards.sort((a, b) => {
-        if (mode === 'discount') {
-          const getDisc = (el) => {
-            const badge = el.querySelector('.badge-standard-discount, .badge-cash-rebate, .badge-bonus-deal')?.textContent || '';
-            const match = badge.match(/\d+/);
-            return match ? parseInt(match[0], 10) : 0;
-          };
-          return getDisc(b) - getDisc(a);
-        } else if (mode === 'verified') {
-          const isTopA = a.classList.contains('ring-1') ? 1 : 0;
-          const isTopB = b.classList.contains('ring-1') ? 1 : 0;
+      dealCards.sort(function(a, b) {
+        if (mode === "discount") {
+          const badgeA = a.querySelector(".badge-standard-discount, .badge-cash-rebate, .badge-bonus-deal")?.textContent || "";
+          const badgeB = b.querySelector(".badge-standard-discount, .badge-cash-rebate, .badge-bonus-deal")?.textContent || "";
+          const matchA = badgeA.match(/\d+/);
+          const matchB = badgeB.match(/\d+/);
+          const discA = matchA ? parseInt(matchA[0], 10) : 0;
+          const discB = matchB ? parseInt(matchB[0], 10) : 0;
+          return discB - discA;
+        } else if (mode === "verified") {
+          const isTopA = a.classList.contains("ring-1") ? 1 : 0;
+          const isTopB = b.classList.contains("ring-1") ? 1 : 0;
           return isTopB - isTopA;
+        } else {
+          return 0;
         }
-        return 0;
       });
 
-      allCards.forEach(c => grid.appendChild(c));
+      grid.innerHTML = "";
+      dealCards.forEach(function(card, idx) {
+        grid.appendChild(card);
+        if ((idx + 1) % 7 === 0) {
+          const bIdx = Math.floor((idx + 1) / 7) - 1;
+          if (bannerCards[bIdx]) {
+            grid.appendChild(bannerCards[bIdx]);
+          }
+        }
+      });
       filterDeals();
     });
 
-    // Instant Deal Alert Subscribe Form
+    
+
+// Instant Deal Alert Subscribe Form
     const dealAlertForm = document.getElementById('dealAlertSubscribeForm');
     const dealAlertInput = document.getElementById('dealAlertInput');
     const dealAlertSuccess = document.getElementById('dealAlertSuccessMessage');

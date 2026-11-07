@@ -415,7 +415,7 @@ const softwareBanner = PROMOTIONAL_BANNERS.find(b => b.storeSlug === 'abelssoft'
   });
 
   // Dynamic Geo & Language filtering for Curated Spotlight Expiring Soon cards
-  function syncSpotlightFilters() {
+function syncSpotlightFilters() {
     let reg = 'GLOBAL';
     let lang = 'en';
     try {
@@ -423,7 +423,11 @@ const softwareBanner = PROMOTIONAL_BANNERS.find(b => b.storeSlug === 'abelssoft'
       lang = localStorage.getItem('promoradar_lang') || 'en';
     } catch (e) {}
 
-    document.querySelectorAll('.spotlight-expiring-card').forEach(card => {
+    const allCards = Array.from(document.querySelectorAll('.spotlight-expiring-card'));
+    const matchingRegional = [];
+    const fallbackWorldwide = [];
+
+    allCards.forEach(card => {
       const cRegions = (card.getAttribute('data-regions') || 'GLOBAL').split(',');
       const cLang = card.getAttribute('data-lang') || 'en';
 
@@ -431,6 +435,22 @@ const softwareBanner = PROMOTIONAL_BANNERS.find(b => b.storeSlug === 'abelssoft'
       const matchLang = (lang === 'en') ? (cLang === 'en') : (cLang === lang || cLang === 'en');
 
       if (matchRegion && matchLang) {
+        matchingRegional.push(card);
+      } else if (cRegions.includes('GLOBAL') || cRegions.includes('US') || cRegions.includes('EU')) {
+        fallbackWorldwide.push(card);
+      }
+    });
+
+    const toShow = new Set(matchingRegional.slice(0, 4));
+    if (toShow.size < 4) {
+      for (const fb of fallbackWorldwide) {
+        toShow.add(fb);
+        if (toShow.size === 4) break;
+      }
+    }
+
+    allCards.forEach(card => {
+      if (toShow.has(card)) {
         card.classList.remove('hidden');
       } else {
         card.classList.add('hidden');
