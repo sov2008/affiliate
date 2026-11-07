@@ -31,7 +31,15 @@ function log(msg) {
 const KNOWN_TRACKING_NETWORKS = [
   'admitad', 'rzekl.com', 'ntzgd.com', 'tjzuh.com', 'ytebb.com', 'bywiola.com',
   'codeaven.com', 'zmgig.com', 'yyczo.com', 'xpuvo.com', 'cj.com', 'tkqlhce.com',
-  'dpbolvw.net', 'jdoqocy.com', 'anrdoezrs.net', 'kqzyfj.com', 'mylead', 'flirtcheck.site'
+  'dpbolvw.net', 'jdoqocy.com', 'anrdoezrs.net', 'kqzyfj.com', 'mylead'
+];
+
+// STRICT BANNED INTERMEDIARY TDS / SMARTLINKS ON PROMORADAR (RULE 5)
+const BANNED_LINK_DOMAINS = [
+  'flirtcheck.site',
+  'chemistrydrivensmile.org',
+  'yex2brk',
+  'lospollos'
 ];
 
 function checkUrlLive(url, timeoutMs = 7000) {
@@ -107,7 +115,12 @@ async function auditAllLinks() {
       errors.push(`[STORE: ${s.slug}] Invalid protocol in URL: ${url}`);
       continue;
     }
-    // Check if network link has subid or site id
+    // Rule 5: Strict merchant relevance & Ban on intermediary smartlinks
+    for (const banned of BANNED_LINK_DOMAINS) {
+      if (url.includes(banned)) {
+        errors.push(`[STORE: ${s.slug}] VIOLATION OF RULE 5! Contains banned TDS/smartlink domain: ${banned} in URL: ${url}`);
+      }
+    }
     const isNetwork = KNOWN_TRACKING_NETWORKS.some(net => url.includes(net));
     if (!isNetwork && !url.includes(s.cleanDomain || '')) {
       warnings.push(`[STORE: ${s.slug}] Affiliate URL neither contains known network nor merchant domain: ${url}`);
@@ -122,6 +135,11 @@ async function auditAllLinks() {
     }
     if (!url.startsWith('https://') && !url.startsWith('http://')) {
       errors.push(`[COUPON: ${c.id}] Invalid protocol: ${url}`);
+    }
+    for (const banned of BANNED_LINK_DOMAINS) {
+      if (url.includes(banned)) {
+        errors.push(`[COUPON: ${c.id} (${c.storeSlug})] VIOLATION OF RULE 5! Contains banned TDS domain: ${banned} in URL: ${url}`);
+      }
     }
   }
 

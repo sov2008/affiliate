@@ -32,78 +32,6 @@ export interface StoreProfile {
 
 export const STORES_DATA: StoreProfile[] = [
   {
-    "slug": "mylead-dating",
-    "name": "MyLead Dating & Verified Match",
-    "category": "Dating & Lifestyle",
-    "logoText": "MYLEADDATING",
-    "shortDesc": "Smart algorithm-driven verified matchmaking, local dates, and global community connections.",
-    "fullDesc": "MyLead Dating connects singles with verified local matches across 180+ countries. Using dynamic smartlink matching technology, users find compatible partners based on shared interests, age preferences, and regional proximity with instant sign-up access. MyLead Dating & Verified Match is known for verified profile authentications, smart preference-matching algorithms, privacy-first messaging, and global social communities. Our deal verification desk tests checkout coupons and direct seasonal markdown offers across partner channels to ensure shoppers save effortlessly without encountering expired codes.",
-    "websiteUrl": "https://flirtcheck.site/go?offer=mylead&sub1=promoradar_hub",
-    "cleanDomain": "mylead.global",
-    "primaryAffiliateUrl": "https://flirtcheck.site/go?offer=mylead&sub1=promoradar_hub&sub2=landing",
-    "howToApply": [
-      "Select your desired items on MyLead Dating & Verified Match and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are MyLead Dating & Verified Match coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for MyLead Dating & Verified Match are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "How often does MyLead Dating & Verified Match release new discounts?",
-        "answer": "MyLead Dating & Verified Match frequently updates special seasonal sales, holiday promo codes, and category markdowns throughout the year."
-      },
-      {
-        "question": "Can I get free shipping with a MyLead Dating & Verified Match promo code?",
-        "answer": "MyLead Dating & Verified Match frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ],
-    "howToSaveSteps": [
-      "Select your desired items on MyLead Dating & Verified Match and proceed to checkout.",
-      "Review your cart summary and locate the promo code or discount voucher box.",
-      "Enter the verified MyLead Dating & Verified Match promo code from PromoRadar and click apply to see your final savings."
-    ]
-  },
-  {
-    "slug": "mylead-private-vpn",
-    "name": "MyLead UltraShield VPN",
-    "category": "Privacy & Security",
-    "logoText": "ULTRASHIELDVPN",
-    "shortDesc": "Military-grade encrypted browsing, zero-log bandwidth, and lightning-fast global streaming nodes.",
-    "fullDesc": "MyLead UltraShield VPN secures your everyday web browsing across mobile, desktop, and router environments. Featuring 256-bit AES encryption, unlimited bandwidth, and automated kill-switch failovers, it protects personal privacy and unlocks geo-restricted streaming content seamlessly. MyLead UltraShield VPN is known for encrypted data transmission, zero-log bandwidth, multi-device cross-platform apps, and automated DNS leak protection. Our deal verification desk tests checkout coupons and direct seasonal markdown offers across partner channels to ensure shoppers save effortlessly without encountering expired codes.",
-    "websiteUrl": "https://flirtcheck.site/go?offer=mylead&sub1=promoradar_vpn",
-    "cleanDomain": "mylead.global",
-    "primaryAffiliateUrl": "https://flirtcheck.site/go?offer=mylead&sub1=promoradar_vpn&sub2=landing",
-    "howToApply": [
-      "Select your desired items on MyLead UltraShield VPN and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are MyLead UltraShield VPN coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for MyLead UltraShield VPN are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "How often does MyLead UltraShield VPN release new discounts?",
-        "answer": "MyLead UltraShield VPN frequently updates special seasonal sales, holiday promo codes, and category markdowns throughout the year."
-      },
-      {
-        "question": "Can I get free shipping with a MyLead UltraShield VPN promo code?",
-        "answer": "MyLead UltraShield VPN frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ],
-    "howToSaveSteps": [
-      "Select your desired items on MyLead UltraShield VPN and proceed to checkout.",
-      "Review your cart summary and locate the promo code or discount voucher box.",
-      "Enter the verified MyLead UltraShield VPN promo code from PromoRadar and click apply to see your final savings."
-    ]
-  },
-  {
     "slug": "chicme",
     "name": "ChicMe",
     "category": "Fashion & Apparel",
@@ -785,78 +713,6 @@ export const STORES_DATA: StoreProfile[] = [
       "Select your desired items on EliteDate and proceed to checkout.",
       "Review your cart summary and locate the promo code or discount voucher box.",
       "Enter the verified EliteDate promo code from PromoRadar and click apply to see your final savings."
-    ]
-  },
-  {
-    "slug": "verified-match",
-    "name": "Verified Match VIP",
-    "category": "Dating & Lifestyle",
-    "logoText": "VERIFIED",
-    "shortDesc": "Pre-vetted singles network enforcing mandatory camera-liveness checks and zero bot tolerance.",
-    "fullDesc": "Verified Match VIP provides market-leading solutions in dating & lifestyle, emphasizing verified profile authentications, smart preference-matching algorithms, privacy-first messaging, and global social communities. Shoppers choose Verified Match VIP to meet genuine compatible partners locally or internationally with streamlined sign-up steps. Our deal verification desk monitors active promotions, seasonal campaigns, and checkout vouchers daily to guarantee that every listed coupon works reliably in live shopping carts.",
-    "websiteUrl": "https://promoradar.store/go?offer=lospollos_dating",
-    "cleanDomain": "match.com",
-    "primaryAffiliateUrl": "https://promoradar.store/go?offer=lospollos_dating",
-    "howToApply": [
-      "Select your desired items on Verified Match VIP and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Verified Match VIP coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Verified Match VIP are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "How often does Verified Match VIP release new discounts?",
-        "answer": "Verified Match VIP frequently updates special seasonal sales, holiday promo codes, and category markdowns throughout the year."
-      },
-      {
-        "question": "Can I get free shipping with a Verified Match VIP promo code?",
-        "answer": "Verified Match VIP frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ],
-    "howToSaveSteps": [
-      "Select your desired items on Verified Match VIP and proceed to checkout.",
-      "Review your cart summary and locate the promo code or discount voucher box.",
-      "Enter the verified Verified Match VIP promo code from PromoRadar and click apply to see your final savings."
-    ]
-  },
-  {
-    "slug": "discreet-local",
-    "name": "Discreet Local Pass",
-    "category": "Dating & Lifestyle",
-    "logoText": "DISCREET",
-    "shortDesc": "High-privacy casual encounter network with stealth profile browsing and zero social media sync.",
-    "fullDesc": "Discreet Local Pass provides market-leading solutions in dating & lifestyle, emphasizing verified profile authentications, smart preference-matching algorithms, privacy-first messaging, and global social communities. Shoppers choose Discreet Local Pass to meet genuine compatible partners locally or internationally with streamlined sign-up steps. Our deal verification desk monitors active promotions, seasonal campaigns, and checkout vouchers daily to guarantee that every listed coupon works reliably in live shopping carts.",
-    "websiteUrl": "https://promoradar.store/go?offer=lospollos_dating",
-    "cleanDomain": "ashleymadison.com",
-    "primaryAffiliateUrl": "https://promoradar.store/go?offer=lospollos_dating",
-    "howToApply": [
-      "Select your desired items on Discreet Local Pass and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Discreet Local Pass coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Discreet Local Pass are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "How often does Discreet Local Pass release new discounts?",
-        "answer": "Discreet Local Pass frequently updates special seasonal sales, holiday promo codes, and category markdowns throughout the year."
-      },
-      {
-        "question": "Can I get free shipping with a Discreet Local Pass promo code?",
-        "answer": "Discreet Local Pass frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ],
-    "howToSaveSteps": [
-      "Select your desired items on Discreet Local Pass and proceed to checkout.",
-      "Review your cart summary and locate the promo code or discount voucher box.",
-      "Enter the verified Discreet Local Pass promo code from PromoRadar and click apply to see your final savings."
     ]
   },
   {
@@ -9810,7 +9666,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "isExclusive": true,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://flirtcheck.site/go?offer=hostinger&source=deals_hostinger&trigger=coupon_card&intent=deals&sub3=hosting75",
+    "affiliateUrl": "https://www.hostinger.com/?utm_source=promoradar&utm_medium=affiliate&utm_campaign=deal_card",
     "storeLogoText": "HOSTINGER",
     "terms": "Enter code HOSTING75 at checkout to apply 75% discount and free domain.",
     "successRate": "99.9%"
@@ -9827,7 +9683,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "isExclusive": false,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://flirtcheck.site/go?offer=hostinger&source=deals_hostinger&trigger=coupon_card&intent=deals&sub3=cloudlaunch",
+    "affiliateUrl": "https://www.hostinger.com/?utm_source=promoradar&utm_medium=affiliate&utm_campaign=deal_card",
     "storeLogoText": "HOSTINGER",
     "terms": "Enter code CLOUDLAUNCH at checkout to apply the 65% discount.",
     "successRate": "99.5%"
@@ -18469,40 +18325,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "deal_mylead-dating_verified_baseline",
-    "storeSlug": "mylead-dating",
-    "storeName": "MyLead Dating & Verified Match",
-    "storeCategory": "Dating & Lifestyle",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "EXCLUSIVE DEAL On MyLead Dating & Verified Match Premium Verified Matches & Subscriptions",
-    "description": "Connect with genuine, identity-verified profiles using intelligent matching filters and private messaging. Activate your premium membership perks with instant discount savings.",
-    "code": "",
-    "isExclusive": true,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://flirtcheck.site/go?offer=mylead&sub1=promoradar_hub&sub2=landing",
-    "storeLogoText": "MYLEADDATING",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.8%"
-  },
-  {
-    "id": "deal_mylead-private-vpn_verified_baseline",
-    "storeSlug": "mylead-private-vpn",
-    "storeName": "MyLead UltraShield VPN",
-    "storeCategory": "Privacy & Security",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "EXCLUSIVE DEAL On MyLead UltraShield VPN High-Speed Encryption & Privacy Protection",
-    "description": "Secure your connected devices with military-grade privacy and zero log guarantees. Enjoy verified exclusive deal with quick setup and unconditional money-back guarantees.",
-    "code": "",
-    "isExclusive": true,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://flirtcheck.site/go?offer=mylead&sub1=promoradar_vpn&sub2=landing",
-    "storeLogoText": "ULTRASHIELDVPN",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.8%"
-  },
-  {
     "id": "deal_purevpn_verified_baseline",
     "storeSlug": "purevpn",
     "storeName": "PureVPN",
@@ -18534,40 +18356,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://ypetp.com/g/vvdd5k8qbw367099d2cceea6df302f/",
     "storeLogoText": "ELITEDATE",
     "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.8%"
-  },
-  {
-    "id": "deal_verified-match_verified_baseline",
-    "storeSlug": "verified-match",
-    "storeName": "Verified Match VIP",
-    "storeCategory": "Dating & Lifestyle",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "Verified Match VIP Exclusive Discount for Real Singles",
-    "description": "Skip the endless swiping and connect with pre-vetted, camera-verified singles who pass strict liveness checks. This exclusive partner offer applies instantly to your purchase, ensuring you meet genuine people without the usual dating app headaches.",
-    "code": "",
-    "isExclusive": true,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://promoradar.store/go?offer=lospollos_dating",
-    "storeLogoText": "VERIFIED",
-    "terms": "Code applies automatically at checkout for all new and returning members.",
-    "successRate": "99.8%"
-  },
-  {
-    "id": "deal_discreet-local_verified_baseline",
-    "storeSlug": "discreet-local",
-    "storeName": "Discreet Local Pass",
-    "storeCategory": "Dating & Lifestyle",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "Discreet Local Pass: Verified Discount on Premium Access",
-    "description": "Browse local matches with total privacy using stealth profiles that never sync with your social media. This verified partner offer applies an instant markdown to your purchase, ensuring complete discretion without extra steps.",
-    "code": "",
-    "isExclusive": true,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://promoradar.store/go?offer=lospollos_dating",
-    "storeLogoText": "DISCREET",
-    "terms": "Discount applies automatically at checkout for all eligible online purchases.",
     "successRate": "99.8%"
   },
   {

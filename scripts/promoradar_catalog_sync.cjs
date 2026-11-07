@@ -591,7 +591,7 @@ async function syncAndBuild() {
       isExclusive: true,
       isVerified: true,
       expiryDate: '2026-12-31',
-      affiliateUrl: 'https://flirtcheck.site/go?offer=hostinger&source=deals_hostinger&trigger=coupon_card&intent=deals&sub3=hosting75',
+      affiliateUrl: 'https://www.hostinger.com/?utm_source=promoradar&utm_medium=affiliate&utm_campaign=deal_card',
       storeLogoText: 'HOSTINGER',
       terms: 'Use code HOSTING75 at checkout to apply the 75% discount and free domain.',
       successRate: '99.9%'
@@ -608,7 +608,7 @@ async function syncAndBuild() {
       isExclusive: false,
       isVerified: true,
       expiryDate: '2026-12-31',
-      affiliateUrl: 'https://flirtcheck.site/go?offer=hostinger&source=deals_hostinger&trigger=coupon_card&intent=deals&sub3=cloudlaunch',
+      affiliateUrl: 'https://www.hostinger.com/?utm_source=promoradar&utm_medium=affiliate&utm_campaign=deal_card',
       storeLogoText: 'HOSTINGER',
       terms: 'Enter code CLOUDLAUNCH at checkout to apply the 65% discount instantly.',
       successRate: '99.5%'

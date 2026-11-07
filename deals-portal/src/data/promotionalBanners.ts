@@ -39,7 +39,7 @@ export const PROMOTIONAL_BANNERS: PromoBanner[] = [
     seasonTag: 'FALL_SALE',
     imageUrl: 'https://cdn.shopify.com/s/files/1/0566/5112/0797/products/01_1_500x.jpg?v=1655185855',
     ctaText: 'Claim Carpuride Deal ↗',
-    affiliateUrl: 'https://flirtcheck.site/go?offer=carpuride&sub1=promoradar_rotator',
+    affiliateUrl: 'https://www.dpbolvw.net/click-101907236-17349415',
     category: 'Electronics & Gadgets',
     accentGradient: 'from-blue-600 via-indigo-700 to-slate-900'
   },
@@ -53,7 +53,7 @@ export const PROMOTIONAL_BANNERS: PromoBanner[] = [
     seasonTag: 'FALL_SALE',
     imageUrl: 'https://cdn.shopify.com/s/files/1/0660/8909/1258/files/QAPSsand1.jpg?v=1773075528',
     ctaText: 'Shop Tactical Gear ↗',
-    affiliateUrl: 'https://flirtcheck.site/go?offer=945industries&sub1=promoradar_rotator',
+    affiliateUrl: 'https://www.jdoqocy.com/click-101907236-17157463-1759456272000',
     category: 'Fashion & Apparel',
     accentGradient: 'from-amber-700 via-stone-800 to-slate-950'
   },
@@ -67,7 +67,7 @@ export const PROMOTIONAL_BANNERS: PromoBanner[] = [
     seasonTag: 'HALLOWEEN',
     imageUrl: 'https://cdn.shopify.com/s/files/1/0556/5536/6846/files/C2-Main.jpg?v=1759425546',
     ctaText: 'Get Rexing Camera ↗',
-    affiliateUrl: 'https://flirtcheck.site/go?offer=rexing&sub1=promoradar_rotator',
+    affiliateUrl: 'https://www.jdoqocy.com/click-101907236-13999325-1767249723000',
     category: 'Electronics & Gadgets',
     accentGradient: 'from-slate-800 via-cyan-900 to-slate-950'
   },
@@ -81,7 +81,7 @@ export const PROMOTIONAL_BANNERS: PromoBanner[] = [
     seasonTag: 'FALL_SALE',
     imageUrl: 'https://cdn.shopify.com/s/files/1/0782/7927/8809/files/1_85180240-ea1e-42f2-8425-202fba5047f2.jpg?v=1764313142',
     ctaText: 'View Furniture Deal ↗',
-    affiliateUrl: 'https://flirtcheck.site/go?offer=fufugaga&sub1=promoradar_rotator',
+    affiliateUrl: 'https://www.dpbolvw.net/click-101907236-17342272-1789478950000',
     category: 'Home & Lifestyle',
     accentGradient: 'from-amber-600 via-rose-900 to-slate-950'
   },
@@ -95,7 +95,7 @@ export const PROMOTIONAL_BANNERS: PromoBanner[] = [
     seasonTag: 'HALLOWEEN',
     imageUrl: 'https://static.abelssoft.de/resize/storage/uploads/2024/08/09/jetdrive_de_uid_66b5b1c9e064d.png?h=490',
     ctaText: 'Accelerate Windows ↗',
-    affiliateUrl: 'https://flirtcheck.site/go?offer=abelssoft&sub1=promoradar_rotator',
+    affiliateUrl: 'https://www.anrdoezrs.net/click-101907236-15402312-1684513856000',
     category: 'Electronics & Software',
     accentGradient: 'from-emerald-700 via-teal-900 to-slate-950'
   },
@@ -109,7 +109,7 @@ export const PROMOTIONAL_BANNERS: PromoBanner[] = [
     seasonTag: 'EVERGREEN',
     imageUrl: 'https://cdn.shopify.com/s/files/1/0612/3637/9763/files/502.jpg?v=1774933218',
     ctaText: 'Explore Solar Shades ↗',
-    affiliateUrl: 'https://flirtcheck.site/go?offer=kincmo&sub1=promoradar_rotator',
+    affiliateUrl: 'https://www.dpbolvw.net/click-101907236-17364740-1791820929000',
     category: 'Home & Lifestyle',
     accentGradient: 'from-indigo-800 via-slate-900 to-slate-950'
   }
