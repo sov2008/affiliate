@@ -1140,7 +1140,8 @@ const homeSchemas = [
                           alt={`${cleanName} logo`}
                           class="w-full h-full object-contain filter drop-shadow-xs"
                           loading="lazy"
-                          onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+                          data-duck-fallback={`https://icons.duckduckgo.com/ip3/${brandDomain}.ico`}
+                          onerror="if(this.getAttribute('data-duck-fallback') && this.src !== this.getAttribute('data-duck-fallback')){ this.src = this.getAttribute('data-duck-fallback'); } else { this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex'; }"
                         />
                         <span class={`hidden w-full h-full rounded-xl bg-gradient-to-br ${brandGradient} text-white font-extrabold text-[12px] items-center justify-center shadow-inner`}>
                           {initials}

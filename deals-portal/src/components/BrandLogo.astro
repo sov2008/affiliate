@@ -15,14 +15,21 @@ interface Props {
 
 const { store, size = 'md', class: className = '' } = Astro.props;
 
-// Domain resolution for logos using registry first, then cleanDomain, then websiteUrl
-let domain = getStoreDomain(store.name) || getStoreDomain(store.slug) || store.cleanDomain || '';
-if (!domain && store.websiteUrl) {
+// Multi-Tier Domain resolution using authoritative store registry, cleanDomain, or websiteUrl
+let domain = getStoreDomain(store.name) || getStoreDomain(store.slug) || '';
+if (!domain && store.cleanDomain && !/terms|program|locking|affiliate|^[a-z]{5}\.com$/i.test(store.cleanDomain)) {
+  domain = store.cleanDomain;
+}
+if (!domain && store.websiteUrl && !/terms|program|locking|affiliate|flirtcheck/i.test(store.websiteUrl)) {
   try {
     domain = new URL(store.websiteUrl).hostname.replace(/^www\./, '');
   } catch (e) {
     domain = '';
   }
+}
+if (!domain || /^[a-z]{5}\.com$/i.test(domain)) {
+  const fallbackSlug = (store.slug || store.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (fallbackSlug.length >= 3) domain = `${fallbackSlug}.com`;
 }
 
 // Fallback letter monogram
@@ -47,23 +54,28 @@ const containerSize = sizeClasses[size] || sizeClasses.md;
 const pad = paddingClasses[size] || paddingClasses.md;
 
 // Multi-Tier Logo sources:
-// Tier 1: Local High-Performance Static Asset (/logos/[slug].png)
-const localLogoUrl = store.slug ? `/logos/${store.slug}.png` : '';
-// Tier 2: Google HD Favicon
+// Tier 1: Google HD Favicon
 const googleFaviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '';
+// Tier 2: DuckDuckGo High-Res Icon Fallback
+const duckFaviconUrl = domain ? `https://icons.duckduckgo.com/ip3/${domain}.ico` : '';
+// Tier 3: Local Asset
+const localLogoUrl = store.slug ? `/logos/${store.slug}.png` : '';
 ---
 
 <div class={`brand-logo-container brand-logo-box relative ${containerSize} ${pad} bg-transparent border-0 flex items-center justify-center shrink-0 overflow-hidden group ${className}`}>
-  {localLogoUrl || domain ? (
+  {googleFaviconUrl || localLogoUrl ? (
     <img
-      src={localLogoUrl || googleFaviconUrl}
+      src={googleFaviconUrl || localLogoUrl}
       alt={`${store.name} logo`}
       class="w-full h-full object-contain filter group-hover:scale-105 transition-transform duration-200"
       loading="lazy"
-      data-fallback-google={googleFaviconUrl}
+      data-fallback-duck={duckFaviconUrl}
+      data-fallback-local={localLogoUrl}
       onerror={`
-        if (this.getAttribute('data-fallback-google') && this.src !== this.getAttribute('data-fallback-google')) {
-          this.src = this.getAttribute('data-fallback-google');
+        if (this.getAttribute('data-fallback-duck') && this.src !== this.getAttribute('data-fallback-duck')) {
+          this.src = this.getAttribute('data-fallback-duck');
+        } else if (this.getAttribute('data-fallback-local') && this.src !== this.getAttribute('data-fallback-local')) {
+          this.src = this.getAttribute('data-fallback-local');
         } else {
           this.style.display = 'none';
           if (this.nextElementSibling) this.nextElementSibling.style.display = 'flex';
@@ -72,7 +84,7 @@ const googleFaviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${d
     />
   ) : null}
 
-  <!-- Tier 3: Styled gradient monogram badge fallback -->
+  <!-- Tier 4: Styled gradient monogram badge fallback -->
   <div
     class={`brand-logo-monogram w-full h-full rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-rose-600 text-white font-black items-center justify-center shadow-inner ${domain ? 'hidden' : 'flex'}`}
   >

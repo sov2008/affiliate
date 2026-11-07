@@ -1,5 +1,5 @@
 import { STORES_DATA, COUPONS_DATA } from '../data/couponsData';
-import { STORE_DOMAINS_MAP } from '../data/storeDomains';
+import { STORE_DOMAINS_MAP, getStoreDomain } from '../data/storeDomains';
 import {
   sanitizeStoreName,
   isValidBrandName,
@@ -77,17 +77,24 @@ export function resolveMerchantIdentity(deal: any): { brand: string; domain: str
   }
 
   // 4. Resolve clean domain for Google S2 Favicon lookup
-  let domain = '';
-  if (STORE_DOMAINS_MAP[name]) {
-    domain = STORE_DOMAINS_MAP[name];
-  } else if (rawUrl && !/admitad|impact|awltovhc|tkqlhce|anrdoezrs|dpbolvw|tjzuh|ujhjj|rthsu|yynbx/i.test(rawUrl)) {
+  const rawSlug = String(deal?.storeSlug || deal?.slug || '').trim();
+  let domain = getStoreDomain(name) || getStoreDomain(rawSlug) || getStoreDomain(rawBrand);
+
+  if (!domain && rawSlug) {
+    const storeObj = STORES_DATA.find(s => s.slug === rawSlug || s.slug.toLowerCase() === rawSlug.toLowerCase() || s.name.toLowerCase() === name.toLowerCase());
+    if (storeObj && storeObj.cleanDomain && !/terms|program|locking|affiliate|^[a-z]{5}\.com$/i.test(storeObj.cleanDomain)) {
+      domain = storeObj.cleanDomain;
+    }
+  }
+
+  if (!domain && rawUrl && !/admitad|impact|awltovhc|tkqlhce|anrdoezrs|dpbolvw|tjzuh|ujhjj|rthsu|yynbx|flirtcheck/i.test(rawUrl)) {
     try {
       domain = new URL(rawUrl).hostname.replace(/^www\./, '');
     } catch {}
   }
-  if (!domain) {
-    const slug = name.toLowerCase().replace(/[^a-z0-9]/g, '');
-    if (slug.length >= 3) domain = `${slug}.com`;
+  if (!domain || /^[a-z]{5}\.com$/i.test(domain)) {
+    const fallbackSlug = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (fallbackSlug.length >= 3) domain = `${fallbackSlug}.com`;
   }
 
   return { brand: name, domain };
