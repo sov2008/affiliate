@@ -820,39 +820,33 @@ const homeSchemas = [
                   </div>
                 </div>
 
-                <!-- Authentic Minimalist Voucher Ticket Display & Estimated Savings (Option 5) -->
-                <div class="deal-stagger-item relative z-10 shrink-0 my-1 flex flex-wrap sm:flex-nowrap items-center gap-3">
-                  <!-- Left Voucher Ticket -->
-                  <div class="relative overflow-hidden rounded-xl bg-slate-900/60 dark:bg-white/[0.04] border border-emerald-500/30 dark:border-emerald-400/25 px-5 sm:px-6 py-2.5 flex items-center justify-between gap-6 shadow-sm w-fit max-w-full shrink-0">
+                <!-- Authentic Minimalist Voucher Ticket with Integrated Savings (Single Seamless Ticket) -->
+                <div class="deal-stagger-item relative z-10 shrink-0 my-1 flex justify-start">
+                  <div class="relative overflow-hidden rounded-xl bg-slate-900/60 dark:bg-white/[0.04] border border-emerald-500/30 dark:border-emerald-400/25 px-5 sm:px-6 py-2.5 flex items-center justify-between gap-5 sm:gap-6 shadow-sm w-fit max-w-full">
                     <!-- Left circular notch cutout -->
                     <div class="absolute -left-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-slate-950 dark:bg-surface-dark border-r border-emerald-500/30 dark:border-emerald-400/25"></div>
                     <!-- Right circular notch cutout -->
                     <div class="absolute -right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-slate-950 dark:bg-surface-dark border-l border-emerald-500/30 dark:border-emerald-400/25"></div>
 
-                    <!-- Discount Value and Subtitle -->
-                    <div class="pl-1 text-left">
-                      <div id="heroDealBadge" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight leading-none">49% OFF</div>
-                      <span id="heroDealBadgeSub" class="block font-sans text-[11px] sm:text-xs text-slate-300 dark:text-slate-300 font-medium mt-1 tracking-normal">+ 3 Months Free</span>
+                    <!-- 1. Left Section: Discount Value and Subtitle -->
+                    <div class="pl-1 text-left min-w-0">
+                      <div id="heroDealBadge" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight leading-none whitespace-nowrap">49% OFF</div>
+                      <span id="heroDealBadgeSub" class="block font-sans text-[11px] sm:text-xs text-slate-300 dark:text-slate-300 font-medium mt-1 tracking-normal whitespace-nowrap">+ 3 Months Free</span>
                     </div>
 
-                    <!-- Right Official Verified Stamp -->
-                    <div class="border-l border-dashed border-emerald-500/25 dark:border-emerald-400/20 pl-4 pr-1 text-right">
+                    <!-- 2. Middle Section: Integrated Financial Savings (No icon, clean typography) -->
+                    <div id="heroDealSavingsBox" class="border-l border-dashed border-emerald-500/25 dark:border-emerald-400/20 pl-4 sm:pl-5 text-left min-w-0">
+                      <span id="heroDealSavingsLabel" class="block text-[9px] font-mono font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap">EST. SAVINGS</span>
+                      <div class="flex items-baseline gap-1 mt-0.5 whitespace-nowrap">
+                        <span id="heroDealSavingsValue" class="text-sm sm:text-base font-black text-emerald-400 dark:text-emerald-300 leading-none">$60+</span>
+                        <span id="heroDealSavingsSub" class="text-[10px] font-medium text-slate-400 dark:text-slate-400">Save 49%</span>
+                      </div>
+                    </div>
+
+                    <!-- 3. Right Section: Official Verified Stamp -->
+                    <div class="border-l border-dashed border-emerald-500/25 dark:border-emerald-400/20 pl-4 pr-1 text-right whitespace-nowrap">
                       <div class="ticket-stub-official text-[9px] font-mono font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-widest">OFFICIAL</div>
                       <div class="ticket-stub-verified text-[11px] font-mono font-bold text-emerald-400 dark:text-emerald-300 uppercase tracking-wider mt-0.5">VERIFIED</div>
-                    </div>
-                  </div>
-
-                  <!-- Right: Estimated Savings Widget (Option 5) -->
-                  <div id="heroDealSavingsBox" class="flex-1 min-w-[130px] rounded-xl bg-emerald-500/10 dark:bg-emerald-400/10 border border-emerald-500/20 dark:border-emerald-400/20 px-3.5 py-2 flex items-center gap-2.5 shadow-xs">
-                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 dark:bg-emerald-400/20 text-emerald-500 dark:text-emerald-300 flex items-center justify-center font-bold text-sm shrink-0">
-                      💰
-                    </div>
-                    <div class="min-w-0">
-                      <span id="heroDealSavingsLabel" class="block text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold truncate">Est. Savings</span>
-                      <div class="flex items-baseline gap-1.5">
-                        <span id="heroDealSavingsValue" class="text-base sm:text-lg font-black text-emerald-600 dark:text-emerald-400 leading-none">$60+</span>
-                        <span id="heroDealSavingsSub" class="text-[10px] font-semibold text-slate-400 dark:text-slate-400 truncate">Save 49%</span>
-                      </div>
                     </div>
                   </div>
                 </div>
