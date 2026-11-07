@@ -789,7 +789,6 @@ const homeSchemas = [
 
                 <!-- Vintage Split-Flap Flip Clock Countdown Timer -->
                 <div class="inline-flex items-center gap-2 font-mono text-xs shrink-0 select-none">
-                  <Clock class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
                   <span class="text-xs font-bold text-amber-700 dark:text-amber-400/90 tracking-wide uppercase">Ends in:</span>
                   
                   <!-- Retro Split-Flap Digits -->
@@ -807,9 +806,9 @@ const homeSchemas = [
               <div id="heroDealDynamicContent" class="flex-1 flex flex-col justify-between space-y-3 transition-all duration-300">
                 <!-- Merchant info -->
                 <div class="deal-stagger-item flex items-center gap-3.5 py-1 relative z-10 shrink-0">
-                  <div id="heroDealLogoBox" class="deal-logo-box w-12 h-12 rounded-xl bg-slate-50 dark:bg-white border border-slate-200/80 dark:border-transparent flex items-center justify-center p-1.5 shadow-sm shrink-0 overflow-hidden">
+                  <div id="heroDealLogoBox" class="deal-logo-box w-16 h-16 sm:w-18 sm:h-18 bg-transparent flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
                     {STORES_MAP['expressvpn'] && (
-                      <BrandLogo store={STORES_MAP['expressvpn']} size="md" />
+                      <BrandLogo store={STORES_MAP['expressvpn']} size="lg" />
                     )}
                   </div>
                   <div>
@@ -823,20 +822,30 @@ const homeSchemas = [
                   </div>
                 </div>
 
-                <!-- Discount highlight banner with SVG Telemetry gauge -->
-                <div class="deal-stagger-item p-3.5 rounded-xl bg-gradient-to-r from-emerald-50/70 via-teal-50/40 to-slate-50 dark:bg-canvas-dark dark:from-transparent dark:via-transparent dark:to-transparent border border-emerald-200/60 dark:border-white/5 flex items-center justify-between relative z-10 shadow-xs shrink-0">
-                  <div>
-                    <div id="heroDealBadge" class="text-3xl font-black text-emerald-700 dark:text-tertiary-fixed-dim leading-none">49% OFF</div>
-                    <span id="heroDealBadgeSub" class="font-mono text-[11px] text-slate-600 dark:text-slate-300 tracking-wider uppercase font-bold">+ 3 Months Free</span>
-                  </div>
-                  <!-- Telemetry gauge SVG -->
-                  <div class="flex flex-col items-end">
-                    <svg class="w-13 h-13" viewBox="0 0 36 36">
-                      <path class="text-slate-200 dark:text-slate-800 stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3.5"></path>
-                      <path id="heroDealGaugeCircle" class="deal-gauge-circle text-emerald-600 dark:text-badge-verified-text stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="99.8, 100" stroke-linecap="round" stroke-width="3.5"></path>
-                      <text id="heroDealSuccessText" class="font-mono text-[8px] font-bold fill-current text-slate-900 dark:text-white text-center" text-anchor="middle" x="18" y="21">99.8%</text>
-                    </svg>
-                    <span class="font-mono text-[10px] text-emerald-800 dark:text-tertiary-fixed-dim font-bold mt-0.5">Success Rate</span>
+                <!-- Authentic Coupon Voucher Ticket Display (Zero Success Rate Gauge) -->
+                <div class="deal-stagger-item relative z-10 shrink-0 my-1">
+                  <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-indigo-500/10 dark:from-emerald-500/15 dark:via-teal-500/15 dark:to-indigo-500/15 border-2 border-dashed border-emerald-500/50 dark:border-emerald-400/50 px-5 py-3.5 flex items-center justify-between shadow-xs">
+                    <!-- Left circular ticket notch cutout -->
+                    <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white dark:bg-surface-dark border-r-2 border-dashed border-emerald-500/50 dark:border-emerald-400/50"></div>
+                    <!-- Right circular ticket notch cutout -->
+                    <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white dark:bg-surface-dark border-l-2 border-dashed border-emerald-500/50 dark:border-emerald-400/50"></div>
+
+                    <!-- Discount Value and description -->
+                    <div class="pl-2">
+                      <div class="flex items-baseline gap-2.5">
+                        <div id="heroDealBadge" class="text-3xl sm:text-4xl font-black text-emerald-600 dark:text-emerald-400 tracking-tight leading-none drop-shadow-xs">49% OFF</div>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-mono font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
+                          Coupon
+                        </span>
+                      </div>
+                      <span id="heroDealBadgeSub" class="block font-mono text-[11px] text-slate-600 dark:text-slate-300 tracking-wider uppercase font-bold mt-1.5">+ 3 Months Free</span>
+                    </div>
+
+                    <!-- Coupon Voucher stub -->
+                    <div class="border-l border-dashed border-emerald-500/30 dark:border-emerald-400/30 pl-4 pr-1 text-right">
+                      <div class="text-[10px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">OFFICIAL</div>
+                      <div class="text-xs font-mono font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mt-0.5">VERIFIED</div>
+                    </div>
                   </div>
                 </div>
 
@@ -875,14 +884,7 @@ const homeSchemas = [
                       ••• S49
                     </div>
                   </button>
-                  <a
-                    id="heroDealAllOffersLink"
-                    href={`${base}/stores/expressvpn/`}
-                    class="w-full sm:w-auto px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-slate-800 dark:text-white font-bold text-xs transition-colors text-center whitespace-nowrap border border-slate-200/90 dark:border-white/10"
-                  >
-                    All Offers →
-                  </a>
-                </div>
+                  </div>
               </div>
 
               <!-- Progress Line as divider right above bottom controls -->
@@ -2826,7 +2828,7 @@ const homeSchemas = [
             // 2. Mutate DOM content
             const logoBox = document.getElementById('heroDealLogoBox');
             if (logoBox) {
-              logoBox.innerHTML = `<img src="${deal.logoUrl}" alt="${deal.storeName}" class="max-w-full max-h-full object-contain filter drop-shadow-sm transition-transform duration-300" onerror="this.onerror=null; this.src='/logos/${deal.storeSlug}.png';" />`;
+              logoBox.innerHTML = `<img src="${deal.logoUrl}" alt="${deal.storeName}" class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-300" onerror="this.onerror=null; this.src='/logos/${deal.storeSlug}.png';" />`;
             }
 
             const storeNameEl = document.getElementById('heroDealStoreName');
