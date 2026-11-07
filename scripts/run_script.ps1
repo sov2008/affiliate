@@ -1,0 +1,1 @@
+[System.IO.File]::WriteAllBytes('scripts/patcher_full.cjs', [System.Convert]::FromBase64String([System.IO.File]::ReadAllText('scripts/b64_raw.txt').Trim())); node scripts/patcher_full.cjs

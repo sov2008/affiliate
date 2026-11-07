@@ -1,0 +1,1 @@
+const fs = require(" \fs\\); const b = fs.readFileSync(\\scripts/b64.txt\\, \\utf8\\).trim(); fs.writeFileSync(\\scripts/patcher_full.cjs\\, Buffer.from(b, \\base64\\));
