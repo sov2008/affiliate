@@ -820,29 +820,29 @@ const homeSchemas = [
                   </div>
                 </div>
 
-                <!-- Authentic Coupon Voucher Ticket Display (Zero Success Rate Gauge) -->
+                <!-- Authentic Minimalist Voucher Ticket Display -->
                 <div class="deal-stagger-item relative z-10 shrink-0 my-1">
-                  <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-indigo-500/10 dark:from-emerald-500/15 dark:via-teal-500/15 dark:to-indigo-500/15 border-2 border-dashed border-emerald-500/50 dark:border-emerald-400/50 px-5 py-3.5 flex items-center justify-between shadow-xs">
-                    <!-- Left circular ticket notch cutout -->
-                    <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white dark:bg-surface-dark border-r-2 border-dashed border-emerald-500/50 dark:border-emerald-400/50"></div>
-                    <!-- Right circular ticket notch cutout -->
-                    <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white dark:bg-surface-dark border-l-2 border-dashed border-emerald-500/50 dark:border-emerald-400/50"></div>
+                  <div class="relative overflow-hidden rounded-xl bg-slate-900/60 dark:bg-white/[0.04] border border-emerald-500/30 dark:border-emerald-400/25 px-4 sm:px-5 py-3 flex items-center justify-between shadow-sm">
+                    <!-- Left circular notch cutout -->
+                    <div class="absolute -left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-slate-950 dark:bg-surface-dark border-r border-emerald-500/30 dark:border-emerald-400/25"></div>
+                    <!-- Right circular notch cutout -->
+                    <div class="absolute -right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-slate-950 dark:bg-surface-dark border-l border-emerald-500/30 dark:border-emerald-400/25"></div>
 
-                    <!-- Discount Value and description -->
-                    <div class="pl-2">
-                      <div class="flex items-baseline gap-2.5">
-                        <div id="heroDealBadge" class="text-3xl sm:text-4xl font-black text-emerald-600 dark:text-emerald-400 tracking-tight leading-none drop-shadow-xs">49% OFF</div>
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-mono font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
-                          Coupon
+                    <!-- Discount Value and Subtitle -->
+                    <div class="pl-1">
+                      <div class="flex items-center gap-2">
+                        <div id="heroDealBadge" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight leading-none">49% OFF</div>
+                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
+                          VOUCHER
                         </span>
                       </div>
-                      <span id="heroDealBadgeSub" class="block font-mono text-[11px] text-slate-600 dark:text-slate-300 tracking-wider uppercase font-bold mt-1.5">+ 3 Months Free</span>
+                      <span id="heroDealBadgeSub" class="block font-sans text-xs text-slate-300 dark:text-slate-300 font-medium mt-1 tracking-normal">+ 3 Months Free</span>
                     </div>
 
-                    <!-- Coupon Voucher stub -->
-                    <div class="border-l border-dashed border-emerald-500/30 dark:border-emerald-400/30 pl-4 pr-1 text-right">
-                      <div class="ticket-stub-official text-[10px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">OFFICIAL</div>
-                      <div class="ticket-stub-verified text-xs font-mono font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mt-0.5">VERIFIED</div>
+                    <!-- Right Official Verified Stamp -->
+                    <div class="border-l border-dashed border-emerald-500/25 dark:border-emerald-400/20 pl-3.5 pr-1 text-right">
+                      <div class="ticket-stub-official text-[9px] font-mono font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-widest">OFFICIAL</div>
+                      <div class="ticket-stub-verified text-[11px] font-mono font-bold text-emerald-400 dark:text-emerald-300 uppercase tracking-wider mt-0.5">VERIFIED</div>
                     </div>
                   </div>
                 </div>
@@ -3690,7 +3690,7 @@ const homeSchemas = [
             const badgeEl = document.getElementById('heroDealBadge');
             if (badgeEl) {
               badgeEl.textContent = localeData.discountBadge;
-              badgeEl.className = 'text-3xl sm:text-4xl font-black text-emerald-600 dark:text-emerald-400 tracking-tight leading-none drop-shadow-xs';
+              badgeEl.className = 'text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight leading-none';
             }
 
             const badgeSubEl = document.getElementById('heroDealBadgeSub');
