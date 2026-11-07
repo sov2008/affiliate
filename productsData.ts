@@ -55,7 +55,7 @@ export const STORE_PRODUCTS: Record<string, StoreProduct[]> = {
       price: "$28.17",
       currency: "USD",
       imageUrl: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=400&q=80",
-      productUrl: "https://www.jdoqocy.com/click-101907236-15509939?url=https%3A%2F%2Fwww.whokeys.com",
+      productUrl: "https://www.jdoqocy.com/click-101907236-15402815-1684513856000?url=https%3A%2F%2Fwww.whokeys.com",
       badge: "Top Rated"
     },
     {
@@ -66,7 +66,7 @@ export const STORE_PRODUCTS: Record<string, StoreProduct[]> = {
       price: "$45.52",
       currency: "USD",
       imageUrl: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=400&q=80",
-      productUrl: "https://www.jdoqocy.com/click-101907236-15509939?url=https%3A%2F%2Fwww.whokeys.com",
+      productUrl: "https://www.jdoqocy.com/click-101907236-15402815-1684513856000?url=https%3A%2F%2Fwww.whokeys.com",
       badge: "Popular Deal"
     }
   ],
@@ -79,7 +79,7 @@ export const STORE_PRODUCTS: Record<string, StoreProduct[]> = {
       price: "$169.99",
       currency: "USD",
       imageUrl: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=400&q=80",
-      productUrl: "https://www.jdoqocy.com/click-101907236-15509939?url=https%3A%2F%2Fcarpuride.com",
+      productUrl: "https://www.jdoqocy.com/click-101907236-15402815-1684513856000?url=https%3A%2F%2Fcarpuride.com",
       badge: "Verified Hardware"
     }
   ]
