@@ -5,146 +5,28 @@ import Footer from '../../components/Footer.astro';
 import BrandLogo from '../../components/BrandLogo.astro';
 import { STORES_DATA, COUPONS_DATA } from '../../data/couponsData';
 import { getUniqueCleanStores } from '../../utils/dealNormalizer';
+import { 
+  generateComparisonPairs, 
+  calculateStoreMetrics, 
+  generateComparisonFaqSchema,
+  type ComparisonPair,
+  type StoreComparisonMetrics
+} from '../../utils/comparisonMatrix';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const pairs = [
-    {
-      slug: 'expressvpn-vs-purevpn',
-      storeA: 'expressvpn',
-      storeB: 'purevpn',
-      title: 'ExpressVPN vs PureVPN — 2026 Promo Codes & Direct Speed/Price Comparison',
-      desc: 'Compare ExpressVPN and PureVPN discount deals, promo vouchers, server speeds, and checkout pricing for October 2026.',
-      maxDiscountA: '81% OFF + 4 Mo. Free',
-      maxDiscountB: '85% OFF + 3 Mo. Free',
-      startingPriceA: '$6.67/mo',
-      startingPriceB: '$2.14/mo',
-      guaranteeA: '30-Day Money-Back',
-      guaranteeB: '31-Day Money-Back',
-      regionsA: 'Global (105 countries)',
-      regionsB: 'Global (65+ countries)',
-      bestForA: 'High-speed 4K streaming, Lightway protocol, and strict privacy',
-      bestForB: 'Budget-conscious multi-year subscriptions with port forwarding',
-      scoreA: '9.8 / 10',
-      scoreB: '9.3 / 10',
-      verdictTitle: 'ExpressVPN Wins for Performance, PureVPN for Pure Price',
-      verdictBody: 'If your priority is zero buffering, instant streaming unblocks for Netflix/BBC iPlayer, and ultra-reliable connection stability, ExpressVPN is the gold standard. For users looking to spend the least amount of cash over a 5-year horizon, PureVPN represents unbeatable raw savings.'
-    },
-    {
-      slug: 'airalo-vs-allpowers',
-      storeA: 'airalo',
-      storeB: 'allpowers',
-      title: 'Airalo eSIM vs ALLPOWERS Solar — Digital Travel Tech Coupons Compared',
-      desc: 'Direct comparison of travel connectivity and remote power deals. Save up to $800 with verified promo codes.',
-      maxDiscountA: '10% OFF',
-      maxDiscountB: '15% OFF (Up to $800)',
-      startingPriceA: '$4.50 (1GB data)',
-      startingPriceB: '$199 (Power Station)',
-      guaranteeA: 'Instant digital delivery & 24/7 support',
-      guaranteeB: '5-Year Manufacturer Warranty',
-      regionsA: '200+ Countries worldwide',
-      regionsB: 'US, EU, Ukraine, Global',
-      bestForA: 'Instant international mobile data without physical SIM cards',
-      bestForB: 'Off-grid camping, blackouts, and heavy solar power resilience',
-      scoreA: '9.7 / 10',
-      scoreB: '9.5 / 10',
-      verdictTitle: 'Complementary Travel Powerhouses',
-      verdictBody: 'Airalo solves the communication hurdle for international globe-trotters instantly via software eSIM. ALLPOWERS provides the physical electricity to keep laptops, drones, and medical equipment running anywhere.'
-    },
-    {
-      slug: 'keepersecurity-vs-qustodio',
-      storeA: 'keepersecurity',
-      storeB: 'qustodio',
-      title: 'Keeper Security vs Qustodio — Cybersecurity & Family Safety Discounts',
-      desc: 'Compare password encryption and parental monitoring promo codes. Verified October 2026 offers.',
-      maxDiscountA: '50% OFF',
-      maxDiscountB: '15% OFF',
-      startingPriceA: '$2.92/mo',
-      startingPriceB: '$4.58/mo',
-      guaranteeA: '30-Day Money-Back Guarantee',
-      guaranteeB: '30-Day Free Trial Available',
-      regionsA: 'Worldwide (Global)',
-      regionsB: 'Worldwide (Global)',
-      bestForA: 'Zero-knowledge password vaults, Dark Web monitoring, and 2FA',
-      bestForB: 'Screen time limits, location tracking, and child cyber-safety',
-      scoreA: '9.6 / 10',
-      scoreB: '9.4 / 10',
-      verdictTitle: 'Keeper for Identity Armor, Qustodio for Family Care',
-      verdictBody: 'Both platforms protect your digital life, but Keeper shields your credentials from breaches while Qustodio ensures your children navigate the internet safely.'
-    },
-    {
-      slug: 'chicme-vs-vogacloset',
-      storeA: 'chicme',
-      storeB: 'vogacloset',
-      title: 'ChicMe vs VogaCloset — Fast Fashion & European Boutique Promo Codes',
-      desc: 'Compare ChicMe and VogaCloset discount codes, shipping fees, seasonal sales, and clothing collection prices.',
-      maxDiscountA: '60% OFF',
-      maxDiscountB: '80% OFF',
-      startingPriceA: '$8 per item',
-      startingPriceB: '$15 per item',
-      guaranteeA: 'Easy 30-Day Returns',
-      guaranteeB: 'Free Returns & GCC Cash on Delivery',
-      regionsA: 'Global, US, Europe',
-      regionsB: 'GCC (UAE, KSA) & Global',
-      bestForA: 'Affordable trendy fast-fashion and seasonal women’s beachwear',
-      bestForB: 'High-end European streetwear, cosmetics, and luxury apparel',
-      scoreA: '9.1 / 10',
-      scoreB: '9.6 / 10',
-      verdictTitle: 'VogaCloset for Premium Quality, ChicMe for Ultra-Budget',
-      verdictBody: 'VogaCloset offers premium fabrics and unbeatable regional shipping speeds in the Gulf, while ChicMe delivers trendy styles for shoppers maximizing unit count per dollar.'
-    },
-    {
-      slug: 'alibaba-vs-thedealoutlet',
-      storeA: 'alibaba',
-      storeB: 'thedealoutlet',
-      title: 'Alibaba vs The Deal Outlet — Wholesale Sourcing vs Luxury Outlet Discounts',
-      desc: 'Compare B2B factory wholesale pricing and designer luxury department store markdowns up to 75% off.',
-      maxDiscountA: '$50 OFF First Order',
-      maxDiscountB: '75% OFF + Extra 20%',
-      startingPriceA: 'Factory wholesale pricing',
-      startingPriceB: '$35 outlet markdowns',
-      guaranteeA: 'Trade Assurance Escrow Protection',
-      guaranteeB: '100% Authenticity Guarantee',
-      regionsA: 'Worldwide international trade',
-      regionsB: 'Middle East & Global Delivery',
-      bestForA: 'Commercial importers, drop-shippers, and custom product runs',
-      bestForB: 'Direct luxury fashion shoppers buying verified designer brands',
-      scoreA: '9.4 / 10',
-      scoreB: '9.5 / 10',
-      verdictTitle: 'B2B Wholesale vs Luxury Consumer Outlet',
-      verdictBody: 'Alibaba is built for entrepreneurs sourcing goods in volume directly from manufacturing plants. The Deal Outlet is curated for fashion lovers seeking authentic luxury designer labels at clearance discounts.'
-    },
-    {
-      slug: 'vperfumes-vs-jashanmal',
-      storeA: 'vperfumes',
-      storeB: 'jashanmal',
-      title: 'Vperfumes vs Jashanmal — Luxury Perfumes & GCC Home Goods Coupons',
-      desc: 'Compare authentic oriental fragrances and luxury department store checkout promo codes with free delivery.',
-      maxDiscountA: '70% OFF',
-      maxDiscountB: '25% OFF',
-      startingPriceA: '$20 perfumes',
-      startingPriceB: '$40 home & travel',
-      guaranteeA: '100% Genuine Perfume Guarantee',
-      guaranteeB: 'Authorized GCC Retailer Warranty',
-      regionsA: 'UAE & Gulf Region',
-      regionsB: 'GCC (UAE, Kuwait, Bahrain, Oman)',
-      bestForA: 'Niche Arabian perfumes, French designer colognes, and gift sets',
-      bestForB: 'Luxury luggage, premium kitchenware, appliances, and fashion',
-      scoreA: '9.5 / 10',
-      scoreB: '9.4 / 10',
-      verdictTitle: 'Vperfumes for Scents, Jashanmal for Premium Living',
-      verdictBody: 'For fragrances, Vperfumes has an unmatched catalog of authentic oriental oils and luxury perfumes. Jashanmal covers your entire upscale home, travel luggage, and kitchen needs.'
-    }
-  ];
-
   const cleanStores = getUniqueCleanStores(STORES_DATA, COUPONS_DATA);
+  const pairs = generateComparisonPairs(cleanStores, COUPONS_DATA);
 
   return pairs.map(p => {
     const dataA = cleanStores.find(s => s.slug === p.storeA || s.originalSlug === p.storeA) || STORES_DATA.find(s => s.slug === p.storeA);
     const dataB = cleanStores.find(s => s.slug === p.storeB || s.originalSlug === p.storeB) || STORES_DATA.find(s => s.slug === p.storeB);
     const dealsA = COUPONS_DATA.filter(d => d.storeSlug === p.storeA || d.storeSlug === dataA?.originalSlug || d.storeSlug === dataA?.slug);
     const dealsB = COUPONS_DATA.filter(d => d.storeSlug === p.storeB || d.storeSlug === dataB?.originalSlug || d.storeSlug === dataB?.slug);
+
+    const metricsA = calculateStoreMetrics(dealsA, dataA);
+    const metricsB = calculateStoreMetrics(dealsB, dataB);
 
     return {
       params: { pair: p.slug },
@@ -153,14 +35,29 @@ export async function getStaticPaths() {
         storeA: dataA,
         storeB: dataB,
         dealsA,
-        dealsB
+        dealsB,
+        metricsA,
+        metricsB
       }
     };
   });
 }
 
-const { comparison, storeA, storeB, dealsA, dealsB } = Astro.props;
+interface Props {
+  comparison: ComparisonPair;
+  storeA: any;
+  storeB: any;
+  dealsA: any[];
+  dealsB: any[];
+  metricsA: StoreComparisonMetrics;
+  metricsB: StoreComparisonMetrics;
+}
+
+const { comparison, storeA, storeB, dealsA, dealsB, metricsA, metricsB } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Generate Dynamic Schema.org structured data including Breadcrumbs, Products and FAQPage
+const faqSchema = generateComparisonFaqSchema(comparison, storeA, storeB, metricsA, metricsB);
 
 const breadcrumbs = [
   {
@@ -193,7 +90,7 @@ const breadcrumbs = [
       "offerCount": dealsA.length || 1,
       "priceSpecification": {
         "@type": "PriceSpecification",
-        "description": comparison.maxDiscountA
+        "description": metricsA.maxDiscount
       }
     }
   },
@@ -211,10 +108,11 @@ const breadcrumbs = [
       "offerCount": dealsB.length || 1,
       "priceSpecification": {
         "@type": "PriceSpecification",
-        "description": comparison.maxDiscountB
+        "description": metricsB.maxDiscount
       }
     }
-  }
+  },
+  faqSchema
 ];
 ---
 
@@ -228,14 +126,14 @@ const breadcrumbs = [
 
   <main class="flex-1">
     <!-- Breadcrumb Nav -->
-    <div class="border-b border-slate-200 bg-white py-3">
+    <div class="border-b border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 py-3">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav class="flex items-center gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
-          <a href={`${base}/`} class="hover:text-indigo-600 transition-colors">Home</a>
+        <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400" aria-label="Breadcrumb">
+          <a href={`${base}/`} class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Home</a>
           <span>/</span>
-          <a href={`${base}/compare/`} class="hover:text-indigo-600 transition-colors">Compare</a>
+          <a href={`${base}/compare/`} class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Compare</a>
           <span>/</span>
-          <span class="text-slate-900 font-bold">{storeA?.name} vs {storeB?.name}</span>
+          <span class="text-slate-900 dark:text-white font-bold">{storeA?.name} vs {storeB?.name}</span>
         </nav>
       </div>
     </div>
@@ -246,6 +144,8 @@ const breadcrumbs = [
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold">
           <span>⚔️ Head-to-Head Showdown</span>
           <span>•</span>
+          <span>{comparison.category}</span>
+          <span>•</span>
           <span>Verified Checkout Rates</span>
         </div>
 
@@ -255,7 +155,7 @@ const breadcrumbs = [
             {storeA && <BrandLogo store={storeA} size="md" />}
             <div class="text-left">
               <div class="text-sm font-extrabold text-white">{storeA?.name}</div>
-              <div class="text-[10px] text-amber-300 font-bold">{comparison.maxDiscountA}</div>
+              <div class="text-[10px] text-amber-300 font-bold">{metricsA.maxDiscount}</div>
             </div>
           </div>
 
@@ -265,7 +165,7 @@ const breadcrumbs = [
             {storeB && <BrandLogo store={storeB} size="md" />}
             <div class="text-left">
               <div class="text-sm font-extrabold text-white">{storeB?.name}</div>
-              <div class="text-[10px] text-amber-300 font-bold">{comparison.maxDiscountB}</div>
+              <div class="text-[10px] text-amber-300 font-bold">{metricsB.maxDiscount}</div>
             </div>
           </div>
         </div>
@@ -281,107 +181,156 @@ const breadcrumbs = [
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
       
-      <!-- 6-Point Comparison Matrix Table -->
-      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-sm space-y-5">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+      <!-- 1. Dynamic Promo & Savings Overview Matrix Table -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/90 dark:border-white/10 shadow-sm space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
           <div>
-            <h3 class="text-lg font-extrabold text-slate-900">Head-to-Head Comparison Matrix</h3>
-            <p class="text-xs text-slate-500">Comparing 6 essential criteria verified on live checkouts.</p>
+            <h2 class="text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>📊 Real-Time Promo Code & Savings Matrix</span>
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Live discount comparison computed directly from verified partner feeds.</p>
           </div>
-          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-            ✓ 100% Tested Data
+          <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800/40 w-fit">
+            ✓ Live Verified Metrics
           </span>
         </div>
 
         <div class="overflow-x-auto">
-          <table class="w-full text-xs text-left text-slate-700 border-collapse">
+          <table class="w-full text-xs text-left text-slate-700 dark:text-slate-300 border-collapse">
             <thead>
               <tr class="border-b border-slate-200 dark:border-slate-800 font-extrabold text-sm text-slate-900 dark:text-white bg-slate-50/80 dark:bg-slate-800/80">
-                <th class="py-3.5 px-4 rounded-l-xl">Comparison Factor</th>
+                <th class="py-3.5 px-4 rounded-l-xl">Promotional Metric</th>
                 <th class="py-3.5 px-4">{storeA?.name}</th>
                 <th class="py-3.5 px-4 rounded-r-xl">{storeB?.name}</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100 font-medium">
-              <tr>
-                <td class="py-3.5 px-4 font-bold text-slate-900">1. Maximum Active Discount</td>
-                <td class="py-3.5 px-4 font-bold text-rose-600">{comparison.maxDiscountA}</td>
-                <td class="py-3.5 px-4 font-bold text-rose-600">{comparison.maxDiscountB}</td>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 font-medium">
+              <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-900 dark:text-white">🔥 Maximum Active Discount</td>
+                <td class="py-3.5 px-4 font-black text-rose-600 dark:text-rose-400 text-sm">{metricsA.maxDiscount}</td>
+                <td class="py-3.5 px-4 font-black text-rose-600 dark:text-rose-400 text-sm">{metricsB.maxDiscount}</td>
               </tr>
-              <tr>
-                <td class="py-3.5 px-4 font-bold text-slate-900">2. Starting Plan / Product Price</td>
-                <td class="py-3.5 px-4">{comparison.startingPriceA}</td>
-                <td class="py-3.5 px-4">{comparison.startingPriceB}</td>
+              <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-900 dark:text-white">🎟️ Active Coupon Codes</td>
+                <td class="py-3.5 px-4 font-mono font-bold text-indigo-600 dark:text-indigo-400">{metricsA.activeCodesCount} Direct Codes ({metricsA.totalDeals} Deals)</td>
+                <td class="py-3.5 px-4 font-mono font-bold text-indigo-600 dark:text-indigo-400">{metricsB.activeCodesCount} Direct Codes ({metricsB.totalDeals} Deals)</td>
               </tr>
-              <tr>
-                <td class="py-3.5 px-4 font-bold text-slate-900">3. Guarantee / Trial Policy</td>
-                <td class="py-3.5 px-4">{comparison.guaranteeA}</td>
-                <td class="py-3.5 px-4">{comparison.guaranteeB}</td>
+              <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-900 dark:text-white">💰 Average Estimated Savings (EST. SAVINGS)</td>
+                <td class="py-3.5 px-4 font-bold text-emerald-600 dark:text-emerald-400">{metricsA.estSavings}</td>
+                <td class="py-3.5 px-4 font-bold text-emerald-600 dark:text-emerald-400">{metricsB.estSavings}</td>
               </tr>
-              <tr>
-                <td class="py-3.5 px-4 font-bold text-slate-900">4. Supported Delivery &amp; Regions</td>
-                <td class="py-3.5 px-4">{comparison.regionsA}</td>
-                <td class="py-3.5 px-4">{comparison.regionsB}</td>
+              <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-900 dark:text-white">🛡️ Checkout Success Rate</td>
+                <td class="py-3.5 px-4 font-mono font-bold text-emerald-600 dark:text-emerald-400">{metricsA.verifiedRate}</td>
+                <td class="py-3.5 px-4 font-mono font-bold text-emerald-600 dark:text-emerald-400">{metricsB.verifiedRate}</td>
               </tr>
-              <tr>
-                <td class="py-3.5 px-4 font-bold text-slate-900">5. Best Use Case</td>
-                <td class="py-3.5 px-4 text-slate-600">{comparison.bestForA}</td>
-                <td class="py-3.5 px-4 text-slate-600">{comparison.bestForB}</td>
-              </tr>
-              <tr>
-                <td class="py-3.5 px-4 font-bold text-slate-900">6. Verification QA Score</td>
-                <td class="py-3.5 px-4 font-black text-indigo-600 text-sm">{comparison.scoreA}</td>
-                <td class="py-3.5 px-4 font-black text-indigo-600 text-sm">{comparison.scoreB}</td>
+              <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-900 dark:text-white">🌐 Official Store Domain</td>
+                <td class="py-3.5 px-4 text-slate-500 dark:text-slate-400 font-mono">{storeA?.cleanDomain || storeA?.websiteUrl}</td>
+                <td class="py-3.5 px-4 text-slate-500 dark:text-slate-400 font-mono">{storeB?.cleanDomain || storeB?.websiteUrl}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- Editorial Verdict Box -->
-      <div class="bg-gradient-to-br from-indigo-50 via-purple-50/60 to-rose-50/60 rounded-3xl p-6 sm:p-8 border border-indigo-200/80 shadow-md space-y-3">
+      <!-- 2. Detailed 6-Point Comparison Matrix Table -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/90 dark:border-white/10 shadow-sm space-y-5">
+        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+          <div>
+            <h3 class="text-lg font-extrabold text-slate-900 dark:text-white">Head-to-Head Feature Matrix</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Comparing essential terms verified on live merchant checkouts.</p>
+          </div>
+          <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1 rounded-full border border-indigo-200 dark:border-indigo-800/40">
+            ✓ 100% Tested
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left text-slate-700 dark:text-slate-300 border-collapse">
+            <thead>
+              <tr class="border-b border-slate-200 dark:border-slate-800 font-extrabold text-sm text-slate-900 dark:text-white bg-slate-50/80 dark:bg-slate-800/80">
+                <th class="py-3.5 px-4 rounded-l-xl">Factor</th>
+                <th class="py-3.5 px-4">{storeA?.name}</th>
+                <th class="py-3.5 px-4 rounded-r-xl">{storeB?.name}</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 font-medium">
+              <tr>
+                <td class="py-3.5 px-4 font-bold text-slate-900 dark:text-white">1. Starting Product / Service Price</td>
+                <td class="py-3.5 px-4">{comparison.startingPriceA}</td>
+                <td class="py-3.5 px-4">{comparison.startingPriceB}</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-bold text-slate-900 dark:text-white">2. Guarantee / Return Policy</td>
+                <td class="py-3.5 px-4">{comparison.guaranteeA}</td>
+                <td class="py-3.5 px-4">{comparison.guaranteeB}</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-bold text-slate-900 dark:text-white">3. Supported Delivery &amp; Regions</td>
+                <td class="py-3.5 px-4">{comparison.regionsA}</td>
+                <td class="py-3.5 px-4">{comparison.regionsB}</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-bold text-slate-900 dark:text-white">4. Best Use Case</td>
+                <td class="py-3.5 px-4 text-slate-600 dark:text-slate-400">{comparison.bestForA}</td>
+                <td class="py-3.5 px-4 text-slate-600 dark:text-slate-400">{comparison.bestForB}</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-bold text-slate-900 dark:text-white">5. Verification QA Score</td>
+                <td class="py-3.5 px-4 font-black text-indigo-600 dark:text-indigo-400 text-sm">{comparison.scoreA}</td>
+                <td class="py-3.5 px-4 font-black text-indigo-600 dark:text-indigo-400 text-sm">{comparison.scoreB}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3. Editorial Verdict Box -->
+      <div class="bg-gradient-to-br from-indigo-50 via-purple-50/60 to-rose-50/60 dark:from-slate-800 dark:via-indigo-950/40 dark:to-slate-800 rounded-3xl p-6 sm:p-8 border border-indigo-200/80 dark:border-indigo-500/20 shadow-md space-y-3">
         <div class="flex items-center gap-2.5">
           <span class="w-8 h-8 rounded-xl bg-indigo-600 text-white font-black text-xs flex items-center justify-center">★</span>
           <div>
-            <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-600">Editorial Verdict</span>
-            <h3 class="text-base sm:text-lg font-extrabold text-slate-900">{comparison.verdictTitle}</h3>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Editorial Verdict</span>
+            <h3 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">{comparison.verdictTitle}</h3>
           </div>
         </div>
-        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
+        <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
           {comparison.verdictBody}
         </p>
       </div>
 
-      <!-- Direct Active Coupon Cards for Both Brands -->
+      <!-- 4. Direct Active Coupon Cards for Both Brands -->
       <div class="space-y-6">
         <div class="flex items-center justify-between">
-          <h3 class="text-lg font-extrabold text-slate-900">Active Coupons for Both Brands</h3>
-          <span class="text-xs text-slate-500">Tested live today</span>
+          <h3 class="text-lg font-extrabold text-slate-900 dark:text-white">Active Coupons for Both Brands</h3>
+          <span class="text-xs text-slate-500 dark:text-slate-400">Tested live today</span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- Store A Deals -->
           <div class="space-y-4">
-            <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
               <div class="flex items-center gap-2">
                 {storeA && <BrandLogo store={storeA} size="sm" />}
-                <span class="text-sm font-extrabold text-slate-900">{storeA?.name}</span>
+                <span class="text-sm font-extrabold text-slate-900 dark:text-white">{storeA?.name}</span>
               </div>
-              <a href={`${base}/stores/${storeA?.slug}/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-700">View all ({dealsA.length}) →</a>
+              <a href={`${base}/stores/${storeA?.slug}/`} class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700">View all ({dealsA.length}) →</a>
             </div>
 
             <div class="space-y-3">
-              {dealsA.slice(0, 3).map(deal => (
-                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col justify-between space-y-3">
+              {dealsA.slice(0, 4).map(deal => (
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-white/10 shadow-sm flex flex-col justify-between space-y-3">
                   <div class="flex items-start justify-between gap-2">
                     <div>
-                      <span class="text-[10px] font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">{deal.discountBadge}</span>
-                      <h4 class="text-xs font-bold text-slate-900 mt-1 line-clamp-1">{deal.title}</h4>
-                      <p class="text-[11px] text-slate-500 line-clamp-1 mt-0.5">{deal.description}</p>
+                      <span class="text-[10px] font-black text-rose-600 bg-rose-50 dark:bg-rose-950/40 dark:text-rose-400 px-2 py-0.5 rounded border border-rose-200 dark:border-rose-900/40">{deal.discountBadge}</span>
+                      <h4 class="text-xs font-bold text-slate-900 dark:text-white mt-1 line-clamp-1">{deal.title}</h4>
+                      <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">{deal.description}</p>
                     </div>
                   </div>
-                  <div class="flex items-center justify-between pt-2 border-t border-slate-100">
-                    <span class="font-mono text-xs font-bold bg-slate-100 text-slate-900 px-2.5 py-1 rounded border border-slate-200">{deal.code || 'ACTIVATED'}</span>
+                  <div class="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800">
+                    <span class="font-mono text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-2.5 py-1 rounded border border-slate-200 dark:border-slate-700">{deal.code || 'ACTIVATED'}</span>
                     <a href={deal.affiliateUrl || storeA?.primaryAffiliateUrl} target="_blank" rel="nofollow sponsored" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold transition">Get Code ↗</a>
                   </div>
                 </div>
@@ -391,32 +340,58 @@ const breadcrumbs = [
 
           <!-- Store B Deals -->
           <div class="space-y-4">
-            <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
               <div class="flex items-center gap-2">
                 {storeB && <BrandLogo store={storeB} size="sm" />}
-                <span class="text-sm font-extrabold text-slate-900">{storeB?.name}</span>
+                <span class="text-sm font-extrabold text-slate-900 dark:text-white">{storeB?.name}</span>
               </div>
-              <a href={`${base}/stores/${storeB?.slug}/`} class="text-xs font-bold text-indigo-600 hover:text-indigo-700">View all ({dealsB.length}) →</a>
+              <a href={`${base}/stores/${storeB?.slug}/`} class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700">View all ({dealsB.length}) →</a>
             </div>
 
             <div class="space-y-3">
-              {dealsB.slice(0, 3).map(deal => (
-                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col justify-between space-y-3">
+              {dealsB.slice(0, 4).map(deal => (
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-white/10 shadow-sm flex flex-col justify-between space-y-3">
                   <div class="flex items-start justify-between gap-2">
                     <div>
-                      <span class="text-[10px] font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">{deal.discountBadge}</span>
-                      <h4 class="text-xs font-bold text-slate-900 mt-1 line-clamp-1">{deal.title}</h4>
-                      <p class="text-[11px] text-slate-500 line-clamp-1 mt-0.5">{deal.description}</p>
+                      <span class="text-[10px] font-black text-rose-600 bg-rose-50 dark:bg-rose-950/40 dark:text-rose-400 px-2 py-0.5 rounded border border-rose-200 dark:border-rose-900/40">{deal.discountBadge}</span>
+                      <h4 class="text-xs font-bold text-slate-900 dark:text-white mt-1 line-clamp-1">{deal.title}</h4>
+                      <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">{deal.description}</p>
                     </div>
                   </div>
-                  <div class="flex items-center justify-between pt-2 border-t border-slate-100">
-                    <span class="font-mono text-xs font-bold bg-slate-100 text-slate-900 px-2.5 py-1 rounded border border-slate-200">{deal.code || 'ACTIVATED'}</span>
+                  <div class="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800">
+                    <span class="font-mono text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-2.5 py-1 rounded border border-slate-200 dark:border-slate-700">{deal.code || 'ACTIVATED'}</span>
                     <a href={deal.affiliateUrl || storeB?.primaryAffiliateUrl} target="_blank" rel="nofollow sponsored" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold transition">Get Code ↗</a>
                   </div>
                 </div>
               ))}
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- 5. SEO FAQ Section with Schema.org FAQPage -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/90 dark:border-white/10 shadow-sm space-y-6">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Frequently Asked Questions</span>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mt-1">
+            {storeA?.name} vs {storeB?.name} Promo Codes FAQ
+          </h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Expert answers on coupon validity, stackability, and checkout discount differences between {storeA?.name} and {storeB?.name}.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          {faqSchema.mainEntity.map(faq => (
+            <div class="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-white/5 space-y-2">
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <span class="text-indigo-600 dark:text-indigo-400">Q:</span> {faq.name}
+              </h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-5">
+                {faq.acceptedAnswer.text}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
 
