@@ -23,7 +23,7 @@ async function dismissCookies(page) {
     const okayBtn = await page.$('button:has-text("OKAY"), button:has-text("Accept"), button:has-text("Принять"), #cmpwelcomebtnyes');
     if (okayBtn && await okayBtn.isVisible()) {
       console.log('🍪 Clicking OKAY on cookie modal...');
-      await okayBtn.click({ force: true }).catch(() => {});
+      await okayBtn.click({ force: true }).catch(() => { });
       await page.waitForTimeout(1000);
     }
     await page.evaluate(() => {
@@ -31,8 +31,8 @@ async function dismissCookies(page) {
       if (banner) banner.remove();
       const overlays = document.querySelectorAll('.cmpwrapper, .modal-backdrop');
       overlays.forEach(o => o.remove());
-    }).catch(() => {});
-  } catch (err) {}
+    }).catch(() => { });
+  } catch (err) { }
 }
 
 async function run() {
@@ -101,7 +101,7 @@ async function run() {
 
     // Step 2: Postback Configuration
     console.log(`⚙️ Navigating to Postback settings: https://store.admitad.com/ru/webmaster/websites/${WEBSITE_ID}/postbacks/ ...`);
-    await page.goto(`https://store.admitad.com/ru/webmaster/websites/${WEBSITE_ID}/postbacks/`, { waitUntil: 'networkidle', timeout: 30000 }).catch(() => {});
+    await page.goto(`https://store.admitad.com/ru/webmaster/websites/${WEBSITE_ID}/postbacks/`, { waitUntil: 'networkidle', timeout: 30000 }).catch(() => { });
     await page.waitForTimeout(4000);
     await dismissCookies(page);
     await takeSnap(page, '20_postbacks_page');
@@ -137,7 +137,7 @@ async function run() {
 
     // Step 3: Programs Catalog - Spokeo & BeenVerified
     console.log(`🔍 Navigating to Programs Catalog: https://store.admitad.com/ru/webmaster/websites/${WEBSITE_ID}/programs/ ...`);
-    await page.goto(`https://store.admitad.com/ru/webmaster/websites/${WEBSITE_ID}/programs/`, { waitUntil: 'networkidle', timeout: 30000 }).catch(() => {});
+    await page.goto(`https://store.admitad.com/ru/webmaster/websites/${WEBSITE_ID}/programs/`, { waitUntil: 'networkidle', timeout: 30000 }).catch(() => { });
     await page.waitForTimeout(4000);
     await dismissCookies(page);
     await takeSnap(page, '30_programs_catalog_page');
@@ -160,7 +160,7 @@ async function run() {
 
         // Check if there is an agreement checkbox or textarea
         const agreeCheckbox = await page.$('input[type="checkbox"]');
-        if (agreeCheckbox) await agreeCheckbox.check().catch(() => {});
+        if (agreeCheckbox) await agreeCheckbox.check().catch(() => { });
 
         const confirmBtn = await page.$('button:has-text("Подключиться"), button:has-text("Подать заявку"), button:has-text("Отправить"), button:has-text("Apply")');
         if (confirmBtn) {
@@ -188,7 +188,7 @@ async function run() {
         await takeSnap(page, '35_beenverified_connect_modal');
 
         const agreeCheckbox = await page.$('input[type="checkbox"]');
-        if (agreeCheckbox) await agreeCheckbox.check().catch(() => {});
+        if (agreeCheckbox) await agreeCheckbox.check().catch(() => { });
 
         const confirmBtn = await page.$('button:has-text("Подключиться"), button:has-text("Подать заявку"), button:has-text("Отправить"), button:has-text("Apply")');
         if (confirmBtn) {

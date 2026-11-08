@@ -18,7 +18,7 @@ async function dismissCookies(page) {
   try {
     const okayBtn = await page.$('button:has-text("OKAY"), button:has-text("Accept"), button:has-text("Принять"), #cmpwelcomebtnyes');
     if (okayBtn && await okayBtn.isVisible()) {
-      await okayBtn.click({ force: true }).catch(() => {});
+      await okayBtn.click({ force: true }).catch(() => { });
       await page.waitForTimeout(1000);
     }
     await page.evaluate(() => {
@@ -26,8 +26,8 @@ async function dismissCookies(page) {
       if (banner) banner.remove();
       const overlays = document.querySelectorAll('.cmpwrapper, .modal-backdrop');
       overlays.forEach(o => o.remove());
-    }).catch(() => {});
-  } catch (err) {}
+    }).catch(() => { });
+  } catch (err) { }
 }
 
 async function run() {
