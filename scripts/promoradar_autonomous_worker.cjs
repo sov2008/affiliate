@@ -121,6 +121,7 @@ async function apiGet(token, apiPath) {
 
 const { syncAndBuild } = require('./promoradar_catalog_sync.cjs');
 const { runAutoApplier } = require('./admitad_auto_applier.cjs');
+const { runAwinSyncCycle } = require('./awin_promoradar_sync.cjs');
 
 async function runAutoConnect(force = false) {
   let state = {};
@@ -164,8 +165,15 @@ async function runSyncCycle() {
   try {
     await syncAndBuild();
   } catch (syncErr) {
-    log(`❌ Catalog sync & build failed: ${syncErr.message}`);
-    return;
+    log(`❌ Admitad catalog sync & build failed: ${syncErr.message}`);
+  }
+
+  // Awin Catalog Sync & Continuous Intake
+  try {
+    log('🔄 [Awin] Checking Awin catalog for high-converting brand opportunities...');
+    await runAwinSyncCycle();
+  } catch (awinErr) {
+    log(`❌ Awin sync error: ${awinErr.message}`);
   }
 
   // Reload state after sync
