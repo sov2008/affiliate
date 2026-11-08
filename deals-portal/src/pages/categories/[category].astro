@@ -491,11 +491,12 @@ const breadcrumbs = [
                         {deal.cleanDomain ? (
                           <div class="brand-logo-container w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white border border-slate-200 p-1.5 sm:p-2 flex items-center justify-center shadow-xs shrink-0 overflow-hidden">
                             <img
-                              src={`https://www.google.com/s2/favicons?domain=${deal.cleanDomain}&sz=128`}
+                              src={`/logos/${deal.canonicalSlug || deal.storeSlug}.png`}
                               alt={`${deal.cleanBrand || deal.storeName} logo`}
                               class="w-full h-full object-contain"
                               loading="lazy"
-                              onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+                              data-google-fallback={`https://www.google.com/s2/favicons?domain=${deal.cleanDomain}&sz=128`}
+                              onerror="if(this.getAttribute('data-google-fallback') && this.src !== this.getAttribute('data-google-fallback')){ this.src = this.getAttribute('data-google-fallback'); } else { this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex'; }"
                             />
                             <span class="hidden w-full h-full rounded-xl bg-indigo-600 text-white font-extrabold text-xs items-center justify-center">{(deal.cleanBrand || deal.storeName || 'PR').slice(0, 2).toUpperCase()}</span>
                           </div>

@@ -1138,12 +1138,13 @@ const homeSchemas = [
                     {brandDomain ? (
                       <div class="brand-logo-container brand-logo-box w-11 h-11 rounded-xl bg-transparent border-0 p-0.5 flex items-center justify-center shrink-0 overflow-hidden">
                         <img
-                          src={`https://www.google.com/s2/favicons?domain=${brandDomain}&sz=128`}
+                          src={`/logos/${deal.canonicalSlug || deal.storeSlug}.png`}
                           alt={`${cleanName} logo`}
                           class="w-full h-full object-contain filter drop-shadow-xs"
                           loading="lazy"
+                          data-google-fallback={`https://www.google.com/s2/favicons?domain=${brandDomain}&sz=128`}
                           data-duck-fallback={`https://icons.duckduckgo.com/ip3/${brandDomain}.ico`}
-                          onerror="if(this.getAttribute('data-duck-fallback') && this.src !== this.getAttribute('data-duck-fallback')){ this.src = this.getAttribute('data-duck-fallback'); } else { this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex'; }"
+                          onerror="if(this.getAttribute('data-google-fallback') && this.src !== this.getAttribute('data-google-fallback')){ this.src = this.getAttribute('data-google-fallback'); } else if(this.getAttribute('data-duck-fallback') && this.src !== this.getAttribute('data-duck-fallback')){ this.src = this.getAttribute('data-duck-fallback'); } else { this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex'; }"
                         />
                         <span class={`hidden w-full h-full rounded-xl bg-gradient-to-br ${brandGradient} text-white font-extrabold text-[12px] items-center justify-center shadow-inner`}>
                           {initials}

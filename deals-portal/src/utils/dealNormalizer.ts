@@ -82,17 +82,23 @@ export function resolveMerchantIdentity(deal: any): { brand: string; domain: str
 
   if (!domain && rawSlug) {
     const storeObj = STORES_DATA.find(s => s.slug === rawSlug || s.slug.toLowerCase() === rawSlug.toLowerCase() || s.name.toLowerCase() === name.toLowerCase());
-    if (storeObj && storeObj.cleanDomain && !/terms|program|locking|affiliate|^[a-z]{5}\.com$/i.test(storeObj.cleanDomain)) {
-      domain = storeObj.cleanDomain;
+    if (storeObj) {
+      if (storeObj.cleanDomain && !/terms|program|locking|affiliate|^[a-z]{5}\.com$/i.test(storeObj.cleanDomain)) {
+        domain = storeObj.cleanDomain;
+      } else if (storeObj.websiteUrl && !/admitad|impact|awin1|rcpsj|naiawork|kpwfp|flirtcheck/i.test(storeObj.websiteUrl)) {
+        try {
+          domain = new URL(storeObj.websiteUrl).hostname.replace(/^www\./, '');
+        } catch {}
+      }
     }
   }
 
-  if (!domain && rawUrl && !/admitad|impact|awltovhc|tkqlhce|anrdoezrs|dpbolvw|tjzuh|ujhjj|rthsu|yynbx|flirtcheck/i.test(rawUrl)) {
+  if (!domain && rawUrl && !/admitad|impact|awin1|rcpsj|naiawork|kpwfp|rzekl|awltovhc|tkqlhce|anrdoezrs|dpbolvw|tjzuh|ujhjj|rthsu|yynbx|flirtcheck/i.test(rawUrl)) {
     try {
       domain = new URL(rawUrl).hostname.replace(/^www\./, '');
     } catch {}
   }
-  if (!domain || /^[a-z]{5}\.com$/i.test(domain)) {
+  if (!domain || /^[a-z]{5}\.com$|awin1\.com/i.test(domain)) {
     const fallbackSlug = name.toLowerCase().replace(/[^a-z0-9]/g, '');
     if (fallbackSlug.length >= 3) domain = `${fallbackSlug}.com`;
   }

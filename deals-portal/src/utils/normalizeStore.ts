@@ -218,6 +218,11 @@ export function deduplicateStores(
     if (!slug) return;
 
     let domain = rawEntry?.domain || rawEntry?.cleanDomain || '';
+    if (!domain && rawEntry?.websiteUrl && !/admitad|impact|awin1|rcpsj|naiawork|kpwfp|rzekl|flirtcheck/i.test(rawEntry.websiteUrl)) {
+      try {
+        domain = new URL(rawEntry.websiteUrl).hostname.replace(/^www\./, '');
+      } catch {}
+    }
     if (!domain && STORE_DOMAINS_MAP[cleanName]) {
       domain = STORE_DOMAINS_MAP[cleanName];
     }
@@ -230,7 +235,7 @@ export function deduplicateStores(
         }
       }
     }
-    if (!domain) {
+    if (!domain || /^[a-z]{5}\.com$|awin1\.com/i.test(domain)) {
       domain = `${slug.replace(/[^a-z0-9]/g, '')}.com`;
     }
 
