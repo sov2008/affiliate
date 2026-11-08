@@ -46,7 +46,7 @@
 │   │   │   └── storeDomains.ts   # Реестр официальных доменов мерчантов
 │   │   └── layouts/BaseLayout.astro
 │   ├── public/                   # Статические ассеты, логотипы /logos/, баннеры /banners/
-│   └── dist/                     # Скомпилированный продакшен-бандл (786 страниц)
+│   └── dist/                     # Скомпилированный продакшен-бандл (819 страниц)
 ├── blog/                         # Исходный код блога расследований FlirtCheck
 │   ├── src/
 │   │   ├── pages/                # Индекс и страницы расследований
@@ -84,11 +84,19 @@
   - Разрешены извне: порты `22/tcp` (SSH), `80/tcp` (HTTP) и `443/tcp` (HTTPS).
   - Внешний порт `3456/tcp` закрыт в UFW (`ufw delete allow 3456/tcp`); сервис Vikunja слушает локально (`127.0.0.1:3455` backend, `127.0.0.1:3456` Nginx frontend-прокси).
   - Порт `5000` (Affiliate Core API) слушает исключительно `127.0.0.1:5000` и защищен Basic Auth в Nginx и приложении.
-- **Фоновые сервисы PM2:**
-  - `affiliate-autonomous-agent` (PID онлайн, автопилот контента)
-  - `affiliate-dashboard` (PID онлайн, порты 5000 API/Dashboard и 3000 TDS Traffic Router /go, внутренний редирект на `https://promoradar.store/dashboard/`)
-  - `affiliate-scheduler`, `affiliate-health-monitor`, `affiliate-social-syndicator`
-  - Ротация логов: `pm2-logrotate` (активен)
+- **Фоновые сервисы PM2 на сервере:**
+  - `pm2-logrotate` (ID 0, онлайн) — системная ротация логов
+  - `affiliate-dashboard` (ID 1, онлайн) — порты 5000 API/Dashboard и 3000 TDS Traffic Router /go
+  - `affiliate-scheduler` (ID 2, онлайн) — планировщик периодических задач
+  - `affiliate-health-monitor` (ID 3, онлайн) — мониторинг работоспособности сервисов и прокси
+  - `affiliate-telegram-bot` (ID 4, онлайн) — панель управления и алерты администратора
+  - `affiliate-autopilot` (ID 5, онлайн) — автоматическое управление цепочками контента
+  - `affiliate-telegram-userbot` (ID 6, онлайн) — взаимодействие с аудиторией в Telegram
+  - `affiliate-social-syndicator` (ID 7, онлайн) — синдикация сниппетов расследований в Telegram-каналы (каждые 30 мин из `content_queue_v2`)
+  - `affiliate-pinterest-publisher` (ID 8, онлайн) — публикация пинов в Pinterest через Playwright (аккаунт FlirtCheck, очередь `.antigravity/pinterest_queue.json`)
+  - `affiliate-twitter-publisher` (ID 9, онлайн) — автоматическая публикация твитов с обложками в X/Twitter (очередь `content_queue_v2` platform='TWITTER')
+  - `affiliate-autonomous-agent` (ID 12, онлайн) — автономный ИИ-генератор контента расследований
+  - Регламентно остановленные/on-demand сервисы: `affiliate-support-monitor` (ID 10), `affiliate-admitad-daemon` (ID 11), `affiliate-reddit-scout` (ID 13), `affiliate-fleet-commander` (ID 14), `affiliate-promoradar-worker` (ID 15), `cj-promoradar-sync` (ID 16), `promoradar-reporter-daemon` (ID 17)
 - **Система релизов PromoRadar & FlirtCheck:**
   Релизы размещаются в `/var/www/promoradar.store/releases/rel_<timestamp>` и `/var/www/flirtcheck.site/releases/rel_<timestamp>` с атомарным переключением символических ссылок (`/current`) и автоматическим `nginx -t && systemctl reload nginx`.
 
