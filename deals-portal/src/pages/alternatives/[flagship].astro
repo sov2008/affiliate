@@ -1,0 +1,370 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { STORES_DATA, COUPONS_DATA } from '../../data/couponsData';
+import { getUniqueCleanStores, resolveMerchantIdentity, extractSmartDiscountBadge, getCanonicalStoreSlug } from '../../utils/dealNormalizer';
+import { getDealLivePulse } from '../../data/pulseEngine';
+
+export const prerender = true;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Curated list of high-intent target flagship brands that users search alternatives for
+export const TARGET_FLAGSHIPS = [
+  {
+    slug: 'trip-com',
+    targetBrand: 'Trip.com',
+    category: 'Travel & Tours',
+    headline: 'Best Trip.com Alternatives & Competitors for Cheap Flights & Hotels (2026)',
+    desc: 'Compare top-rated alternatives to Trip.com for booking hotels, discounted flights, holiday packages, and local tours with verified vouchers.'
+  },
+  {
+    slug: 'aliexpress',
+    targetBrand: 'AliExpress',
+    category: 'E-Commerce & Wholesale',
+    headline: 'Top AliExpress Alternatives for Direct Wholesale & Fast Shipping (2026)',
+    desc: 'Explore reliable global e-commerce and wholesale platforms like Alibaba, Chinavasion, and verified suppliers with checkout coupon codes.'
+  },
+  {
+    slug: 'expressvpn',
+    targetBrand: 'ExpressVPN',
+    category: 'Privacy & Security',
+    headline: 'Best ExpressVPN Alternatives & Secure VPN Competitors (2026)',
+    desc: 'Looking for fast, zero-logs VPN services like ExpressVPN? Compare NordVPN, Surfshark, and PureVPN with verified seasonal discounts.'
+  },
+  {
+    slug: 'nordvpn',
+    targetBrand: 'NordVPN',
+    category: 'Privacy & Security',
+    headline: 'Top NordVPN Alternatives for High-Speed Cybersecurity & Privacy (2026)',
+    desc: 'Discover tested VPN alternatives to NordVPN featuring high-encryption protocols, dedicated IPs, and up to 80% checkout savings.'
+  },
+  {
+    slug: 'booking-com',
+    targetBrand: 'Booking.com',
+    category: 'Travel & Tours',
+    headline: 'Best Booking.com Alternatives for Hotel Stays & Vacation Bookings (2026)',
+    desc: 'Compare alternative hotel reservation platforms like Trip.com, CheapOair, and Lastminute with verified promo discounts.'
+  },
+  {
+    slug: 'hostinger',
+    targetBrand: 'Hostinger',
+    category: 'Web Hosting & Domains',
+    headline: 'Top Hostinger Alternatives for NVMe Cloud & WordPress Hosting (2026)',
+    desc: 'Explore dependable alternatives to Hostinger offering 1-click CMS deployment, free SSL certificates, and verified coupon vouchers.'
+  },
+  {
+    slug: 'schuh',
+    targetBrand: 'Schuh',
+    category: 'Fashion & Apparel',
+    headline: 'Best Schuh Alternatives for Footwear & Designer Streetwear (2026)',
+    desc: 'Compare top online shoe and footwear retailers offering branded trainers, boots, and seasonal voucher promotions.'
+  },
+  {
+    slug: 'unice',
+    targetBrand: 'UNice Hair',
+    category: 'Beauty & Fragrances',
+    headline: 'Top UNice Hair Alternatives for Human Hair Wigs & Bundles (2026)',
+    desc: 'Discover premier alternatives to UNice Hair for authentic virgin hair extensions, lace front wigs, and promotional markdowns.'
+  }
+];
+
+export async function getStaticPaths() {
+  const allCleanStores = getUniqueCleanStores(STORES_DATA, COUPONS_DATA);
+
+  return TARGET_FLAGSHIPS.map(flagship => {
+    // Find all peer stores in the same category (excluding the flagship itself)
+    const competitors = allCleanStores.filter(s => 
+      s.category === flagship.category && 
+      s.slug !== flagship.slug &&
+      !s.name.toLowerCase().includes(flagship.targetBrand.toLowerCase())
+    ).slice(0, 8); // Top 8 peers
+
+    // Get active deals for these competitors
+    const competitorDeals = COUPONS_DATA.filter(d => {
+      const slug = getCanonicalStoreSlug(d.storeName);
+      return competitors.some(c => c.slug === slug || c.slug === d.storeSlug);
+    }).map(d => {
+      const id = resolveMerchantIdentity(d);
+      return {
+        ...d,
+        cleanBrand: id.brand,
+        canonicalSlug: getCanonicalStoreSlug(id.brand),
+        cleanDomain: id.domain,
+        cleanBadge: extractSmartDiscountBadge(d.discountBadge, d.title)
+      };
+    });
+
+    return {
+      params: { flagship: flagship.slug },
+      props: { flagship, competitors, competitorDeals }
+    };
+  });
+}
+
+interface Props {
+  flagship: typeof TARGET_FLAGSHIPS[0];
+  competitors: any[];
+  competitorDeals: any[];
+}
+
+const { flagship, competitors, competitorDeals } = Astro.props;
+
+// Store deals map for modal
+const storeDealsMap: Record<string, any[]> = {};
+competitorDeals.forEach(d => {
+  const s = d.canonicalSlug || d.storeSlug;
+  if (!storeDealsMap[s]) storeDealsMap[s] = [];
+  storeDealsMap[s].push({
+    id: d.id,
+    title: d.title,
+    code: d.code,
+    badge: d.cleanBadge,
+    affiliateUrl: d.affiliateUrl
+  });
+});
+
+// Schema.org Structured Data: ItemList + Breadcrumbs
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": flagship.headline,
+  "description": flagship.desc,
+  "itemListElement": competitors.map((comp, idx) => ({
+    "@type": "ListItem",
+    "position": idx + 1,
+    "name": comp.name,
+    "url": `https://promoradar.store/stores/${comp.slug}/`,
+    "description": comp.shortDesc
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://promoradar.store/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Alternatives",
+      "item": "https://promoradar.store/alternatives/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": `${flagship.targetBrand} Alternatives`,
+      "item": `https://promoradar.store/alternatives/${flagship.slug}/`
+    }
+  ]
+};
+
+const pageSchemas = [itemListSchema, breadcrumbSchema];
+---
+
+<BaseLayout
+  title={`${flagship.targetBrand} Alternatives & Competitors — Top Tested Deals (2026) | PromoRadar`}
+  description={flagship.desc}
+  canonicalUrl={`https://promoradar.store/alternatives/${flagship.slug}/`}
+  activePath={`/alternatives/${flagship.slug}/`}
+  schemas={pageSchemas}
+  storeDealsMap={storeDealsMap}
+>
+  <Header activePath={`/alternatives/${flagship.slug}/`} />
+
+  <main class="flex-1 bg-slate-900 text-slate-100 min-h-screen py-10 sm:py-14">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumbs -->
+      <nav class="flex items-center gap-2 text-xs text-indigo-300/80 mb-6" aria-label="Breadcrumb">
+        <a href={`${base}/`} class="hover:text-white transition">Home</a>
+        <span>/</span>
+        <a href={`${base}/categories/`} class="hover:text-white transition">{flagship.category}</a>
+        <span>/</span>
+        <span class="text-white font-bold">{flagship.targetBrand} Alternatives</span>
+      </nav>
+
+      <!-- Editorial Intro Block -->
+      <div class="border-b border-slate-800 pb-8 mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-black uppercase tracking-wider mb-4">
+          <span>⚖️</span> Verified Competitor Directory
+        </div>
+        <h1 class="text-2xl sm:text-4xl font-black text-white tracking-tight mb-4">
+          {flagship.headline}
+        </h1>
+        <p class="text-sm sm:text-base text-slate-300 max-w-3xl leading-relaxed">
+          {flagship.desc} Every alternative below has been tested for active promotions, price competitiveness, customer reliability, and verified coupon code redemptions.
+        </p>
+      </div>
+
+      <!-- Competitors Comparison Grid -->
+      <h2 class="text-xl font-black text-white tracking-tight mb-6 flex items-center gap-2">
+        <span>🏆</span> Top {competitors.length} Ranked Alternatives to {flagship.targetBrand}
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
+        {competitors.map((comp, idx) => {
+          const initials = comp.name.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase();
+          const compDeals = competitorDeals.filter(d => (d.canonicalSlug || d.storeSlug) === comp.slug);
+
+          return (
+            <div class="rounded-2xl p-5 bg-slate-800/90 border border-slate-700 hover:border-indigo-500/80 transition flex flex-col justify-between shadow-lg">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 p-1 flex items-center justify-center shrink-0 overflow-hidden">
+                    <img
+                      src={`/logos/${comp.slug}.png`}
+                      alt={`${comp.name} logo`}
+                      class="w-full h-full object-contain"
+                      loading="lazy"
+                      data-google-fallback={`https://www.google.com/s2/favicons?domain=${comp.domain}&sz=128`}
+                      onerror="if(this.getAttribute('data-google-fallback') && this.src !== this.getAttribute('data-google-fallback')){ this.src = this.getAttribute('data-google-fallback'); } else { this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex'; }"
+                    />
+                    <span class="hidden w-full h-full rounded-xl bg-indigo-600 text-white font-extrabold text-xs items-center justify-center">
+                      {initials}
+                    </span>
+                  </div>
+                  <span class="text-xs font-mono font-bold text-slate-400 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-700">
+                    Rank #{idx + 1}
+                  </span>
+                </div>
+
+                <h3 class="text-base font-bold text-white mb-1.5">
+                  <a href={`${base}/stores/${comp.slug}/`} class="hover:text-indigo-400 transition">
+                    {comp.name}
+                  </a>
+                </h3>
+
+                <p class="text-xs text-slate-400 line-clamp-3 leading-relaxed mb-4">
+                  {comp.shortDesc}
+                </p>
+              </div>
+
+              <div class="pt-3 border-t border-slate-700/60 mt-auto">
+                <a
+                  href={`${base}/stores/${comp.slug}/`}
+                  class="w-full h-9 bg-slate-700 hover:bg-indigo-600 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 transition cursor-pointer"
+                >
+                  <span>View {compDeals.length > 0 ? `${compDeals.length} Deals` : 'Store Hub'}</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <!-- Live Deals from Competitors -->
+      {competitorDeals.length > 0 && (
+        <div>
+          <h2 class="text-xl font-black text-white tracking-tight mb-6 flex items-center gap-2">
+            <span>🎟️</span> Active Voucher Deals for {flagship.targetBrand} Competitors
+          </h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {competitorDeals.slice(0, 16).map((deal) => {
+              const isCode = deal.code && deal.code.trim().length > 0;
+              const initials = deal.cleanBrand.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase() || 'PR';
+
+              return (
+                <article class="rounded-2xl p-4 flex flex-col justify-between gap-3 bg-slate-800/90 border border-slate-700 hover:border-indigo-500/80 transition-all hover:-translate-y-0.5 shadow-md">
+                  <div>
+                    <div class="flex items-start gap-2.5 mb-2.5">
+                      <a href={`${base}/stores/${deal.canonicalSlug || deal.storeSlug}/`} class="shrink-0" title={deal.cleanBrand}>
+                        <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-700 p-1 flex items-center justify-center shrink-0 overflow-hidden">
+                          <img
+                            src={`/logos/${deal.canonicalSlug || deal.storeSlug}.png`}
+                            alt={`${deal.cleanBrand} logo`}
+                            class="w-full h-full object-contain"
+                            loading="lazy"
+                            data-google-fallback={`https://www.google.com/s2/favicons?domain=${deal.cleanDomain}&sz=128`}
+                            onerror="if(this.getAttribute('data-google-fallback') && this.src !== this.getAttribute('data-google-fallback')){ this.src = this.getAttribute('data-google-fallback'); } else { this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex'; }"
+                          />
+                          <span class="hidden w-full h-full rounded-xl bg-indigo-600 text-white font-extrabold text-[12px] items-center justify-center">
+                            {initials}
+                          </span>
+                        </div>
+                      </a>
+
+                      <div class="flex-1 min-w-0">
+                        <a href={`${base}/stores/${deal.canonicalSlug || deal.storeSlug}/`} class="text-[13px] font-bold text-white hover:text-indigo-400 transition truncate block">
+                          {deal.cleanBrand}
+                        </a>
+                        <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
+                          {deal.storeCategory}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="mb-2">
+                      <span class="inline-block px-2 py-0.5 text-[11px] font-black uppercase tracking-wider rounded-lg bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                        {deal.cleanBadge}
+                      </span>
+                    </div>
+
+                    <h3 class="text-xs font-bold text-white line-clamp-2 mb-1">
+                      {deal.title}
+                    </h3>
+                  </div>
+
+                  <div class="pt-2 border-t border-slate-700/60 mt-auto">
+                    <button
+                      type="button"
+                      class="w-full h-9 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl px-3 flex items-center justify-between gap-1 shadow-md transition cursor-pointer"
+                      data-reveal-deal={JSON.stringify({
+                        id: deal.id,
+                        title: deal.title,
+                        desc: deal.description,
+                        code: deal.code || '',
+                        storeName: deal.cleanBrand,
+                        storeSlug: deal.canonicalSlug || deal.storeSlug,
+                        domain: deal.cleanDomain,
+                        badge: deal.cleanBadge,
+                        affiliateUrl: deal.affiliateUrl,
+                        successRate: deal.successRate
+                      })}
+                    >
+                      <span>{isCode ? 'Copy Code' : 'Redeem Offer'}</span>
+                      {isCode ? (
+                        <span class="bg-black/30 px-1 py-0.5 rounded font-mono text-[10px] text-amber-300 font-bold">
+                          ···{deal.code.slice(-3)}
+                        </span>
+                      ) : (
+                        <span>↗</span>
+                      )}
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script is:inline>
+  (function() {
+    document.querySelectorAll('[data-reveal-deal]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        try {
+          const dealData = JSON.parse(btn.getAttribute('data-reveal-deal'));
+          if (window.openCouponModal) {
+            window.openCouponModal(dealData);
+          }
+        } catch(e) {
+          console.error(e);
+        }
+      });
+    });
+  })();
+</script>
+

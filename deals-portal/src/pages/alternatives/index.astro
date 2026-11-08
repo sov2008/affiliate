@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { TARGET_FLAGSHIPS } from './[flagship].astro';
+
+export const prerender = true;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://promoradar.store/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Alternatives",
+      "item": "https://promoradar.store/alternatives/"
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Brand Alternatives & Competitor Comparison Hub (2026) | PromoRadar"
+  description="Discover the top-rated alternatives to popular global services and retail brands. Compare prices, features, and verified promo code deals."
+  canonicalUrl="https://promoradar.store/alternatives/"
+  activePath="/alternatives/"
+  schemas={[breadcrumbSchema]}
+>
+  <Header activePath="/alternatives/" />
+
+  <main class="flex-1 bg-slate-900 text-slate-100 min-h-screen py-10 sm:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-black uppercase tracking-wider mb-4">
+          <span>⚖️</span> Strategic Buying Intelligence
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4">
+          Brand Alternatives & Competitors Directory
+        </h1>
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+          Compare leading global platforms across Travel, Cybersecurity, E-Commerce, and Hosting to find more affordable, feature-packed alternatives with active voucher savings.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {TARGET_FLAGSHIPS.map((item) => (
+          <div class="rounded-2xl p-6 bg-slate-800/80 border border-slate-700 hover:border-indigo-500/80 transition flex flex-col justify-between shadow-xl group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-400 bg-indigo-950/60 border border-indigo-800/50 px-2.5 py-1 rounded-lg">
+                  {item.category}
+                </span>
+                <span class="text-xs text-slate-400">2026 Edition</span>
+              </div>
+
+              <h2 class="text-lg font-bold text-white mb-2 group-hover:text-indigo-400 transition">
+                <a href={`${base}/alternatives/${item.slug}/`}>
+                  {item.targetBrand} Alternatives
+                </a>
+              </h2>
+
+              <p class="text-xs text-slate-400 line-clamp-3 leading-relaxed mb-6">
+                {item.desc}
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-slate-700/60 mt-auto">
+              <a
+                href={`${base}/alternatives/${item.slug}/`}
+                class="w-full h-10 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 transition cursor-pointer"
+              >
+                <span>Explore Top Competitors</span>
+                <span>→</span>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
