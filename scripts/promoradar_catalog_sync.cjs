@@ -12,6 +12,7 @@ const https = require('https');
 const { execSync } = require('child_process');
 const dotenv = require('dotenv');
 const { batchGenerateCopy, enforceConversionQualityGate } = require('./humanized_copywriter.cjs');
+const { validateCatalog, printValidationSummary, isStoreBanned } = require('./catalog_validator.cjs');
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../core/.env') });
@@ -874,6 +875,15 @@ async function syncAndBuild() {
   log(`🛡️ Running Strict Quality Gate to verify 0 raw network boilerplate leaks across all ${generatedDeals.length} deals...`);
   enforceConversionQualityGate(generatedDeals);
 
+  // 4.7. Unified Catalog Validation & Audit (Rule 8 GEO Ban, Rule 2 Zero Demo Data, Rule 3 Domain & Deduplication)
+  log(`🛡️ Running Unified Catalog Validator on ${storeMap.size} stores and ${generatedDeals.length} deals...`);
+  const rawStoresArray = Array.from(storeMap.values());
+  const validationResult = validateCatalog(rawStoresArray, generatedDeals);
+  printValidationSummary(validationResult.stats, log);
+
+  const finalStoresData = validationResult.validStores;
+  const finalCouponsData = validationResult.validDeals;
+
   // 5. Serialize into TypeScript format
   const updatedFileContent = `export interface CouponDeal {
   id: string;
@@ -907,13 +917,13 @@ export interface StoreProfile {
   primaryAffiliateUrl: string;
 }
 
-export const STORES_DATA: StoreProfile[] = ${JSON.stringify(Array.from(storeMap.values()), null, 2)};
+export const STORES_DATA: StoreProfile[] = ${JSON.stringify(finalStoresData, null, 2)};
 
-export const COUPONS_DATA: CouponDeal[] = ${JSON.stringify(generatedDeals, null, 2)};
+export const COUPONS_DATA: CouponDeal[] = ${JSON.stringify(finalCouponsData, null, 2)};
 `;
 
   fs.writeFileSync(DATA_FILE, updatedFileContent, 'utf8');
-  log(`✅ Successfully updated ${DATA_FILE} (${generatedDeals.length} active deals, ${storeMap.size} stores).`);
+  log(`✅ Successfully updated ${DATA_FILE} (${finalCouponsData.length} active deals, ${finalStoresData.length} stores).`);
 
   // 6. Update state
   let state = { knownCouponIds: [], lastSync: null };
@@ -922,8 +932,9 @@ export const COUPONS_DATA: CouponDeal[] = ${JSON.stringify(generatedDeals, null,
   }
   state.knownCouponIds = uniqueCoupons.map(c => c.id);
   state.lastSync = new Date().toISOString();
-  state.activeDealsCount = generatedDeals.length;
-  state.activeStoresCount = storeMap.size;
+  state.activeDealsCount = finalCouponsData.length;
+  state.activeStoresCount = finalStoresData.length;
+  state.validationStats = validationResult.stats;
   fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
 
   // 7. Compile Deals Portal via Astro
@@ -936,10 +947,10 @@ export const COUPONS_DATA: CouponDeal[] = ${JSON.stringify(generatedDeals, null,
     const msg = `
 🛒 <b>[PROMORADAR: КАТАЛОГ СКИДОК И КУПОНОВ ОБНОВЛЕН!]</b>
 ━━━━━━━━━━━━━━━━━━
-🏪 <b>Активных магазинов:</b> <code>${storeMap.size}</code>
-🎟️ <b>Действующих купонов и акций:</b> <code>${generatedDeals.length}</code>
+🏪 <b>Активных магазинов:</b> <code>${finalStoresData.length}</code>
+🎟️ <b>Действующих купонов и акций:</b> <code>${finalCouponsData.length}</code>
 ⚡ <b>Свежие промокоды из Admitad:</b> <code>${admitadAdded}</code>
-🛡️ <b>Партнерские сети:</b> Admitad, CJ Affiliate
+🛡️ <b>Отклонено невалидных предложений:</b> <code>${validationResult.stats.rejectedDeals}</code>
 🌐 <b>Сайт витрины:</b> <a href="https://promoradar.store">promoradar.store</a>
 ━━━━━━━━━━━━━━━━━━
 ✅ <i>Строго 100% реальные боевые ссылки и промокоды (Strict Zero Demo Data Rule).</i>
