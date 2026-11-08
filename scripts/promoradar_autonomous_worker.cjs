@@ -2,12 +2,22 @@
  * PromoRadar Autonomous Affiliate Sync & Publisher Daemon
  * 
  * Pipeline:
- * 1. Discover: Polls Admitad catalog & active campaigns via REST API & Playwright for new offers.
- * 2. Connect: Automatically submits attachment requests for promising merchant programs.
- * 3. Sync: Fetches genuine promo codes, discounts, vouchers, and direct affiliate tracking links.
- * 4. Generate: Builds and updates `couponsData.ts` with brand profiles, SEO guides, and coupons.
- * 5. Publish: Triggers Astro static build and deploys to production (/var/www/affiliate/deals-portal/dist).
- * 6. Alert: Sends instant Telegram notifications with verified real metrics (Strict Zero Demo Data Rule).
+ * 1. Discover & Auto-Connect:
+ *    - Periodically scans Admitad catalog across Tier 1 (US, EU, GCC, UK, CA, AU) and Tier 2 (UA, BR, MX).
+ *    - Automatically calculates Rule 9 Opportunity Score and submits application via Playwright.
+ *    - Dispatches instant Telegram notification to Administrator upon submission.
+ * 2. Real-Time Sync & Ingestion:
+ *    - Monitors active approved programs and fetches genuine promo codes, discounts, vouchers, and tracking links.
+ *    - Categorically rejects RU / BY / KZ affiliate programs (Strict Ban Rule 8).
+ * 3. Humanized Copywriting & Schema.org Generation:
+ *    - Applies Bespoke Humanized Copywriting standards (Rule 4).
+ *    - Generates typed StoreProfile and CouponDeal data, ensuring every active store has at least one verified offer.
+ * 4. Build, Deploy & IndexNow:
+ *    - Recompiles Astro static portal with updated store pages and sitemaps.
+ *    - Deploys directly to production (/var/www/promoradar.store/releases/) and reloads Nginx.
+ *    - Pings IndexNow API with fresh sitemap URLs.
+ * 5. Telegram Notification:
+ *    - Sends comprehensive summary report to Administrator chat (808343978).
  */
 
 const fs = require('fs');
@@ -23,7 +33,6 @@ const CLIENT_ID = process.env.ADMITAD_CLIENT_ID || '497e2d7ed310265e6e2fb37cd2a2
 const BASE64_HEADER = process.env.ADMITAD_BASE64_HEADER || 'NDk3ZTJkN2VkMzEwMjY1ZTZlMmZiMzdjZDJhMjM3OmY4MzJlOWU0NWQxOGVlN2E2MTU5ZTg3NDE3ODgyNA==';
 const SCOPES = process.env.ADMITAD_SCOPES || 'advcampaigns advcampaigns_for_website banners banners_for_website payments statistics coupons coupons_for_website websites private_data_balance deeplink_generator announcements referrals broken_links';
 
-const WEBSITE_IDS = ['3007248', '3012753']; // Both active platforms
 const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID || '808343978';
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '';
 
@@ -32,8 +41,10 @@ const DEALS_DIR = path.resolve(ROOT_DIR, 'deals-portal');
 const DATA_FILE = path.resolve(DEALS_DIR, 'src/data/couponsData.ts');
 const STATE_FILE = path.resolve(__dirname, '../artifacts_admitad/promoradar_sync_state.json');
 
-// Check every 30 minutes
+// Check and sync catalog every 30 minutes
 const SYNC_INTERVAL_MS = 30 * 60 * 1000;
+// Scan and submit applications every 6 hours
+const AUTO_CONNECT_INTERVAL_MS = 6 * 60 * 60 * 1000;
 
 function log(msg, ...args) {
   const ts = new Date().toISOString().replace('T', ' ').substring(0, 19);
@@ -108,52 +119,8 @@ async function apiGet(token, apiPath) {
   });
 }
 
-/**
- * Categorizes campaign by industry into site-supported categories
- */
-function inferCategory(campName, categories = []) {
-  const lower = (campName + ' ' + categories.join(' ')).toLowerCase();
-  if (lower.includes('fashion') || lower.includes('cloth') || lower.includes('dress') || lower.includes('apparel') || lower.includes('wear')) {
-    return 'Fashion & Apparel';
-  }
-  if (lower.includes('vpn') || lower.includes('security') || lower.includes('privacy') || lower.includes('password') || lower.includes('sim') || lower.includes('safe')) {
-    return 'Privacy & Security';
-  }
-  if (lower.includes('optical') || lower.includes('glasses') || lower.includes('lens') || lower.includes('eyewear')) {
-    return 'Eyewear & Health';
-  }
-  if (lower.includes('tour') || lower.includes('travel') || lower.includes('flight') || lower.includes('esim') || lower.includes('hotel') || lower.includes('safari')) {
-    return 'Travel & Tours';
-  }
-  if (lower.includes('dating') || lower.includes('match') || lower.includes('single') || lower.includes('love')) {
-    return 'Dating & Lifestyle';
-  }
-  if (lower.includes('power') || lower.includes('solar') || lower.includes('electron') || lower.includes('battery') || lower.includes('gadget')) {
-    return 'Electronics & Gadgets';
-  }
-  if (lower.includes('education') || lower.includes('code') || lower.includes('course') || lower.includes('tutor') || lower.includes('learning')) {
-    return 'Education & Learning';
-  }
-  if (lower.includes('toy') || lower.includes('kid') || lower.includes('baby') || lower.includes('game')) {
-    return 'Kids & Toys';
-  }
-  if (lower.includes('perfume') || lower.includes('beauty') || lower.includes('cosmetic') || lower.includes('fragrance') || lower.includes('oud')) {
-    return 'Beauty & Fragrances';
-  }
-  return 'E-Commerce & Wholesale';
-}
-
-function slugify(name) {
-  return name
-    .toLowerCase()
-    .replace(/\b(ww|many geos|ua|ae|sa|gcc|offline|codes|links|tracking)\b/gi, '')
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '') || 'partner';
-}
-
 const { syncAndBuild } = require('./promoradar_catalog_sync.cjs');
-const AUTO_CONNECT_INTERVAL_MS = 24 * 60 * 60 * 1000; // Run auto-connect applications once every 24 hours
+const { runAutoApplier } = require('./admitad_auto_applier.cjs');
 
 async function runAutoConnect(force = false) {
   let state = {};
@@ -164,22 +131,20 @@ async function runAutoConnect(force = false) {
   const now = Date.now();
   const lastRun = state.lastAutoConnectTime || 0;
   if (!force && (now - lastRun < AUTO_CONNECT_INTERVAL_MS)) {
-    const hoursLeft = Math.round((AUTO_CONNECT_INTERVAL_MS - (now - lastRun)) / (60 * 60 * 1000));
+    const hoursLeft = ((AUTO_CONNECT_INTERVAL_MS - (now - lastRun)) / (60 * 60 * 1000)).toFixed(1);
     log(`⏳ [AutoConnect] Cooldown active (next application scan in ~${hoursLeft}h). Skipping.`);
     return;
   }
 
   log('⚡ [AutoConnect] Scanning catalog & submitting applications for top merchant opportunities...');
   try {
-    const scriptPath = path.resolve(__dirname, 'admitad_auto_applier.cjs');
-    if (fs.existsSync(scriptPath)) {
-      execSync(`node "${scriptPath}"`, { stdio: 'inherit', timeout: 300000 });
-      state.lastAutoConnectTime = now;
-      fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
-      log('✅ [AutoConnect] Applications cycle completed.');
-    }
+    const result = await runAutoApplier(5);
+    state.lastAutoConnectTime = now;
+    state.lastAutoConnectResult = result;
+    fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
+    log(`✅ [AutoConnect] Application batch finished. Applied: ${result ? result.appliedCount : 0}`);
   } catch (err) {
-    log(`⚠️ [AutoConnect] Notice: ${err.message}`);
+    log(`⚠️ [AutoConnect] Error in auto applier: ${err.message}`);
   }
 }
 
@@ -188,10 +153,49 @@ async function runSyncCycle() {
   log('🔄 STARTING PROMORADAR SYNC & PUBLISHING CYCLE');
   log('======================================================');
 
+  let state = {};
+  if (fs.existsSync(STATE_FILE)) {
+    try { state = JSON.parse(fs.readFileSync(STATE_FILE, 'utf8')); } catch {}
+  }
+
+  const previousDealsCount = state.activeDealsCount || 0;
+  const previousStoresCount = state.activeStoresCount || 0;
+
   try {
     await syncAndBuild();
   } catch (syncErr) {
     log(`❌ Catalog sync & build failed: ${syncErr.message}`);
+    return;
+  }
+
+  // Reload state after sync
+  if (fs.existsSync(STATE_FILE)) {
+    try { state = JSON.parse(fs.readFileSync(STATE_FILE, 'utf8')); } catch {}
+  }
+
+  const newDealsCount = state.activeDealsCount || 0;
+  const newStoresCount = state.activeStoresCount || 0;
+
+  // If new deals or stores appeared, trigger auto-deploy to production
+  if (newDealsCount > previousDealsCount || newStoresCount > previousStoresCount) {
+    log(`🎉 Detected catalog expansion (+${newStoresCount - previousStoresCount} stores, +${newDealsCount - previousDealsCount} deals). Triggering direct production deploy...`);
+    try {
+      const deployScript = path.resolve(__dirname, 'direct_deploy_promoradar.cjs');
+      execSync(`node "${deployScript}"`, { stdio: 'inherit', timeout: 300000 });
+      log('🚀 Production deploy & IndexNow ping completed successfully!');
+
+      const publishAlert = `
+🚀 <b>[PROMORADAR: НОВЫЕ ПАРТНЕРСКИЕ ПРОГРАММЫ ОПУБЛИКОВАНЫ]</b>
+━━━━━━━━━━━━━━━━━━
+🏬 <b>Всего магазинов в каталоге:</b> <code>${newStoresCount}</code> (+${newStoresCount - previousStoresCount})
+🎟️ <b>Всего активных купонов:</b> <code>${newDealsCount}</code> (+${newDealsCount - previousDealsCount})
+🌐 <b>Витрина:</b> <a href="https://promoradar.store">promoradar.store</a>
+⚡ <i>Деплой на боевой сервер (178.128.199.28) выполнен, поисковики уведомлены через IndexNow!</i>
+      `.trim();
+      await sendTelegramAlert(publishAlert);
+    } catch (deployErr) {
+      log(`⚠️ Deploy notice: ${deployErr.message}`);
+    }
   }
 
   const token = await getAccessToken().catch(() => null);
@@ -212,34 +216,15 @@ async function runSyncCycle() {
     log(`Broken links audit note: ${err.message}`);
   }
 
-  // Check Merchant Announcements for Launch Opportunities
-  try {
-    const annRes = await apiGet(token, `/announcements/?limit=5`);
-    if (annRes.results && annRes.results.length > 0) {
-      const latestAnn = annRes.results[0];
-      let state = {};
-      if (fs.existsSync(STATE_FILE)) {
-        try { state = JSON.parse(fs.readFileSync(STATE_FILE, 'utf8')); } catch {}
-      }
-      if (state.lastAnnouncementId !== latestAnn.id) {
-        log(`📢 Fresh merchant announcement: [${latestAnn.event}] ${latestAnn.message || ''}`);
-        state.lastAnnouncementId = latestAnn.id;
-        fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
-      }
-    }
-  } catch (err) {
-    log(`Announcements note: ${err.message}`);
-  }
-
   log(`Sync cycle complete. Next run in ${SYNC_INTERVAL_MS / 60000} minutes.\n`);
 }
 
 async function main() {
-  log('🚀 PromoRadar Autonomous Affiliate Worker initialized.');
+  log('🚀 PromoRadar Continuous Autonomous Expansion Daemon initialized.');
   
-  // 1. Initial run: first submit applications to pending programs, then sync and build
+  // 1. Initial run: execute application intake, then sync and build
   try {
-    await runAutoConnect();
+    await runAutoConnect(true);
     await runSyncCycle();
   } catch (e) {
     log(`Initial sync cycle error: ${e.message}`);
@@ -248,7 +233,6 @@ async function main() {
   // 2. Schedule regular cycles
   setInterval(async () => {
     try {
-      // Run auto connect scan occasionally
       await runAutoConnect();
       await runSyncCycle();
     } catch (e) {
@@ -257,7 +241,11 @@ async function main() {
   }, SYNC_INTERVAL_MS);
 }
 
-main().catch(err => {
-  log(`FATAL ERROR: ${err.message}`);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch(err => {
+    log(`FATAL ERROR: ${err.message}`);
+    process.exit(1);
+  });
+}
+
+module.exports = { runAutoConnect, runSyncCycle };

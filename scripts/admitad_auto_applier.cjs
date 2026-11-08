@@ -1,12 +1,13 @@
 /**
  * Admitad Autonomous Auto-Applier for PromoRadar (Ad Space ID: 3012753)
  * 
- * Flow:
- * 1. Fetches top performing campaigns from Admitad Catalog API (high EPC / high rating).
- * 2. Cross-references against already active, pending, or declined programs for ad space 3012753.
- * 3. Uses Playwright with authenticated session state to directly navigate to each offer's join page.
- * 4. Submits application with tailored PromoRadar traffic description and accepts terms.
- * 5. Sends Telegram notifications upon successful submission.
+ * Pipeline & Rules:
+ * 1. Strictly conforms to AGENTS.md Rule 8 (BAN on RU/BY/KZ) and Rule 9 (GEO-Weighted EPC Scoring).
+ * 2. Scans Admitad catalog for high-yield programs across Tier 1 (US, EU, GCC, UK, CA, AU) and Tier 2 (UA, BR, MX).
+ * 3. Applies composite opportunity score: (EPC * 0.50 + CR * 20 + Rating * 10) * GeoMultiplier.
+ * 4. Verifies candidate programs against active, pending, declined, and cool-down states.
+ * 5. Uses authenticated Playwright session to automatically submit applications with tailored PromoRadar description.
+ * 6. Dispatches instant Telegram alerts to Admin chat ID (808343978).
  */
 
 const fs = require('fs');
@@ -127,6 +128,52 @@ async function apiGet(token, apiPath) {
   });
 }
 
+/**
+ * Rule 8: STRICT BAN ON RU, BY & KZ AFFILIATE PROGRAMS
+ */
+function isBannedRuByKz(camp = {}) {
+  const name = String(camp.name || '').trim();
+  const site = String(camp.site_url || camp.websiteUrl || '').trim();
+  const desc = String(camp.description || camp.raw_description || '').trim();
+  const regs = Array.isArray(camp.regions) ? camp.regions.map(r => typeof r === 'string' ? r : (r.region || '')) : [];
+
+  // TLD check (.ru, .by, .kz, .su, .рф, .бел)
+  if (/\.(ru|by|kz|su|xn--p1ai)(\/|$)/i.test(site)) return true;
+
+  // Name patterns
+  if (/\b(BY|RU|KZ|RUS|BLR|KAZ|Belarus|Russia|Kazakhstan|Беларусь|Россия|Казахстан)\b/i.test(name) && !/\b(BUY|TRUST|RUBY)\b/i.test(name)) return true;
+
+  // Specific brands based in or targeting RU / BY / KZ
+  if (/mark\s*formelle/i.test(name) || /meshnology/i.test(name) || name.includes('Офистон') || name.includes('НА СВЯЗИ')) return true;
+  if (/tengebai|doctorslon|skillbox.*kz|ya-man.*kz/i.test(name)) return true;
+
+  // Exclusive targeting of BY, RU or KZ
+  if (regs.length > 0 && regs.every(r => r === 'BY' || r === 'RU' || r === 'KZ')) return true;
+
+  return false;
+}
+
+/**
+ * Rule 9: GEO-WEIGHTED EPC & AFFILIATE PROGRAM SCORING
+ * Score = (EPC * 0.50 + CR * 20 + Rating * 10) * GeoMultiplier
+ */
+function calculateGeoOpportunityScore(camp = {}) {
+  const regs = Array.isArray(camp.regions) ? camp.regions.map(r => (typeof r === 'string' ? r : (r.region || '')).toUpperCase()) : [];
+  
+  let multiplier = 1.0;
+  const isTier1 = regs.some(r => ['US', 'CA', 'GB', 'DE', 'FR', 'ES', 'IT', 'NL', 'PL', 'CZ', 'AU', 'AE', 'SA', 'KW', 'QA', 'WW'].includes(r));
+  const isTier2 = regs.some(r => ['UA', 'BR', 'MX'].includes(r));
+
+  if (isTier1) multiplier = 1.5;
+  else if (isTier2) multiplier = 1.2;
+
+  const epc = parseFloat(camp.epc || 0);
+  const cr = parseFloat(camp.cr || 0);
+  const rating = parseFloat(camp.rating || 0);
+
+  return (epc * 0.50 + cr * 20 + rating * 10) * multiplier;
+}
+
 async function dismissOverlays(page) {
   try {
     const okayBtn = await page.$('button:has-text("OKAY"), button:has-text("Accept"), button:has-text("Принять"), #cmpwelcomebtnyes');
@@ -137,15 +184,15 @@ async function dismissOverlays(page) {
     await page.evaluate(() => {
       const banner = document.getElementById('cmpwrapper');
       if (banner) banner.remove();
-      const overlays = document.querySelectorAll('.cmpwrapper');
+      const overlays = document.querySelectorAll('.cmpwrapper, .modal-backdrop');
       overlays.forEach(o => o.remove());
     }).catch(() => {});
   } catch {}
 }
 
-async function runAutoApplier(maxApplications = 6) {
+async function runAutoApplier(maxApplications = 5) {
   log('================================================================');
-  log(`🚀 STARTING ADMITAD AUTONOMOUS APPLIER FOR PROMORADAR (${WEBSITE_ID})`);
+  log(`🚀 STARTING GEO-WEIGHTED ADMITAD AUTO-APPLIER (WEBSITE: ${WEBSITE_ID})`);
   log('================================================================');
 
   if (!fs.existsSync(STATE_FILE)) {
@@ -157,16 +204,16 @@ async function runAutoApplier(maxApplications = 6) {
 
   // 1. Get existing programs connected/pending for PromoRadar
   const [activeRes, pendingRes, declinedRes] = await Promise.all([
-    apiGet(token, `/advcampaigns/website/${WEBSITE_ID}/?connection_status=active&limit=100`),
+    apiGet(token, `/advcampaigns/website/${WEBSITE_ID}/?connection_status=active&limit=500`),
     apiGet(token, `/advcampaigns/website/${WEBSITE_ID}/?connection_status=pending&limit=100`),
-    apiGet(token, `/advcampaigns/website/${WEBSITE_ID}/?connection_status=declined&limit=100`).catch(() => ({ results: [] }))
+    apiGet(token, `/advcampaigns/website/${WEBSITE_ID}/?connection_status=declined&limit=500`).catch(() => ({ results: [] }))
   ]);
 
   const activeIds = new Set((activeRes.results || []).map(r => r.id));
   const pendingIds = new Set((pendingRes.results || []).map(r => r.id));
   const declinedIds = new Set((declinedRes.results || []).map(r => r.id));
 
-  log(`Current state for PromoRadar (3012753): Active=${activeIds.size}, Pending=${pendingIds.size}, Declined=${declinedIds.size}`);
+  log(`Current state for PromoRadar (${WEBSITE_ID}): Active=${activeIds.size}, Pending=${pendingIds.size}, Declined=${declinedIds.size}`);
 
   const excludeSet = new Set([...activeIds, ...pendingIds, ...declinedIds]);
 
@@ -203,12 +250,13 @@ async function runAutoApplier(maxApplications = 6) {
   }
   saveHistory(historyData);
 
-  // 2. Query top campaigns from catalog (page 1 & 2)
-  const catalogRes = await apiGet(token, `/advcampaigns/?limit=100&has_moderation=1`);
+  // 2. Query high-performing campaigns from catalog across 200 offers
+  const catalogRes = await apiGet(token, `/advcampaigns/?limit=200&has_moderation=1`);
   const candidates = (catalogRes.results || []).filter(c => {
     const cid = String(c.id);
     if (excludeSet.has(c.id)) return false;
     if (c.status !== 'active') return false;
+    if (isBannedRuByKz(c)) return false;
 
     // Check persistent history and cooldowns
     const record = history[cid];
@@ -224,28 +272,33 @@ async function runAutoApplier(maxApplications = 6) {
         const lastTime = new Date(record.applied_at || 0).getTime();
         if (Date.now() - lastTime < 30 * 24 * 60 * 60 * 1000) return false; // 30 days cooldown for submitted
       }
-      if (record.status === 'failed' && (record.attempts || 0) >= 2) {
+      if (record.status === 'failed' && (record.attempts || 0) >= 3) {
         const lastTime = new Date(record.last_attempt_at || 0).getTime();
         if (Date.now() - lastTime < 14 * 24 * 60 * 60 * 1000) return false; // 14 days cooldown for repeated failures
       }
     }
 
-    // Prefer campaigns with rating >= 3 or good cr/epc
-    return (c.rating >= 3 || c.epc > 0 || c.cr > 0);
+    // Must have commercial viability (CR > 0 or EPC > 0 or Rating >= 1)
+    return (parseFloat(c.cr || 0) > 0 || parseFloat(c.epc || 0) > 0 || parseFloat(c.rating || 0) >= 1);
   });
 
-  log(`Discovered ${candidates.length} qualified candidate programs not yet applied (after history & cooldown filters).`);
+  log(`Discovered ${candidates.length} qualified candidate programs matching Target GEO & conversion criteria.`);
 
   if (candidates.length === 0) {
-    log('No new candidates to apply to at this time.');
+    log('No new candidate programs to apply to at this time.');
     return;
   }
 
-  // Sort by rating desc, then epc desc
-  candidates.sort((a, b) => (b.rating || 0) - (a.rating || 0) || (b.epc || 0) - (a.epc || 0));
+  // Sort by Rule 9 Composite Opportunity Score descending
+  candidates.sort((a, b) => calculateGeoOpportunityScore(b) - calculateGeoOpportunityScore(a));
 
   const batch = candidates.slice(0, maxApplications);
-  log(`Selected batch of ${batch.length} campaigns for application: ${batch.map(b => `${b.name} (${b.id})`).join(', ')}`);
+  log(`Selected top ${batch.length} campaigns for application:`);
+  batch.forEach(b => {
+    const score = calculateGeoOpportunityScore(b).toFixed(1);
+    const regs = (b.regions || []).map(r => r.region || r).slice(0, 4).join(',');
+    log(`  ⭐ ${b.name} (ID: ${b.id}) | Score: ${score} | CR: ${b.cr}% | EPC: ${b.epc} | Regs: [${regs}]`);
+  });
 
   // 3. Launch Playwright
   const launchOpts = {
@@ -276,10 +329,8 @@ async function runAutoApplier(maxApplications = 6) {
     history[cid].last_attempt_at = new Date().toISOString();
 
     try {
-      await page.goto(offerUrl, { waitUntil: 'networkidle', timeout: 35000 }).catch(async () => {
-        await page.goto(offerUrl, { waitUntil: 'domcontentloaded', timeout: 20000 });
-      });
-      await page.waitForTimeout(2000);
+      await page.goto(offerUrl, { waitUntil: 'domcontentloaded', timeout: 35000 });
+      await page.waitForTimeout(3000);
       await dismissOverlays(page);
 
       // Check if button "Подать заявку" / "Подключиться" / join_dialog exists
@@ -307,7 +358,7 @@ async function runAutoApplier(maxApplications = 6) {
         continue;
       }
 
-      // If traffic description textarea exists, fill it
+      // If traffic description textarea exists, fill it with professional conversion copy
       const textarea = dialog.locator('textarea').first();
       if (await textarea.isVisible().catch(() => false)) {
         const promoDesc = `PromoRadar (https://promoradar.store) is an automated coupon, promo codes, and deals curation portal. We drive high-intent, targeted buyer traffic to promotional discounts, vouchers, and seasonal sales.`;
@@ -369,14 +420,16 @@ async function runAutoApplier(maxApplications = 6) {
         history[cid].updated_at = new Date().toISOString();
         saveHistory(historyData);
 
-        // Alert via Telegram
+        // Alert via Telegram to Administrator chat
+        const score = calculateGeoOpportunityScore(camp).toFixed(1);
         const alertMsg = `
 🚀 <b>[ADMITAD: ПОДАНА НОВАЯ ЗАЯВКА НА ОФФЕР]</b>
 ━━━━━━━━━━━━━━━━━━
 💼 <b>Программа:</b> ${camp.name} (ID: <code>${camp.id}</code>)
 🌐 <b>Сайт рекламодателя:</b> <a href="${camp.site_url}">${camp.site_url}</a>
-⭐ <b>Рейтинг:</b> ${camp.rating || 'N/A'}★ | <b>CR:</b> ${camp.cr || 0}%
-🎯 <b>Площадка:</b> PromoRadar (ID: <code>${WEBSITE_ID}</code>)
+⭐ <b>Рейтинг:</b> ${camp.rating || 'N/A'}★ | <b>CR:</b> ${camp.cr || 0}% | <b>EPC:</b> ${camp.epc || 0}
+🎯 <b>GEO-Weighted Score:</b> <code>${score}</code> (Tier 1/2)
+Площадка: PromoRadar (ID: <code>${WEBSITE_ID}</code>)
 ━━━━━━━━━━━━━━━━━━
 ⚡ <i>Заявка успешно отправлена на модерацию в Admitad!</i>
         `.trim();
@@ -403,6 +456,7 @@ async function runAutoApplier(maxApplications = 6) {
   historyData.last_run = new Date().toISOString();
   saveHistory(historyData);
   log(`🎉 Application batch complete. Successfully applied to ${appliedSuccessCount} programs.`);
+  return { appliedCount: appliedSuccessCount };
 }
 
 if (require.main === module) {
@@ -412,5 +466,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { runAutoApplier };
-
+module.exports = { runAutoApplier, calculateGeoOpportunityScore, isBannedRuByKz };

@@ -1,18 +1,90 @@
 {
   "history": {
+    "6115": {
+      "id": 6115,
+      "name": "AliExpress WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "7952": {
+      "id": 7952,
+      "name": "ITMag UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "8906": {
+      "id": 8906,
+      "name": "НА СВЯЗИ BY",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "9467": {
+      "id": 9467,
+      "name": "Gold UA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "9798": {
+      "id": 9798,
+      "name": "Citrus UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
     "12087": {
       "id": 12087,
       "name": "Chicco UA",
       "website_id": "3012753",
-      "status": "pending",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "13903": {
+      "id": 13903,
+      "name": "Tickets [CPS] UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "13937": {
+      "id": 13937,
+      "name": "MOYO UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "14361": {
+      "id": 14361,
+      "name": "Letyshops [lifetime]",
+      "website_id": "3012753",
+      "attempts": 1,
+      "last_attempt_at": "2026-11-08T12:26:54.331Z",
+      "status": "pending_or_joined",
+      "updated_at": "2026-11-08T12:27:00.465Z"
     },
     "14571": {
       "id": 14571,
       "name": "Foxtrot UA",
       "website_id": "3012753",
       "status": "declined",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "14578": {
+      "id": 14578,
+      "name": "Answear UA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "14622": {
+      "id": 14622,
+      "name": "DHgate WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
     },
     "15387": {
       "id": 15387,
@@ -23,6 +95,13 @@
       "status": "failed",
       "last_error": "dialog_not_closed"
     },
+    "15481": {
+      "id": 15481,
+      "name": "Myntra [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
     "15667": {
       "id": 15667,
       "name": "Nykaa Beauty [CPS] IN",
@@ -32,6 +111,41 @@
       "status": "pending_or_joined",
       "updated_at": "2026-10-19T11:41:31.703Z"
     },
+    "15855": {
+      "id": 15855,
+      "name": "SHEIN Many GEOs",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "16163": {
+      "id": 16163,
+      "name": "IGP [CPS] WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "16248": {
+      "id": 16248,
+      "name": "Pepperfry Web [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "17044": {
+      "id": 17044,
+      "name": "iHerb WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "17175": {
+      "id": 17175,
+      "name": "G2A Many GEOs",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
     "17400": {
       "id": 17400,
       "name": "Mamasandpapas AE SA KW Tracking promo codes",
@@ -39,61 +153,161 @@
       "status": "active",
       "updated_at": "2026-10-19T11:40:26.926Z"
     },
+    "17711": {
+      "id": 17711,
+      "name": "Amd  BY",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "17846": {
+      "id": 17846,
+      "name": "Skillshare Many GEOs",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
     "17970": {
       "id": 17970,
       "name": "Glasseslit WW",
       "website_id": "3012753",
       "status": "active",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "18153": {
+      "id": 18153,
+      "name": "Economybookings Many GEO's",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
     },
     "18183": {
       "id": 18183,
       "name": "RaynaTours Many Geos tracking promo codes",
       "website_id": "3012753",
       "status": "active",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "18201": {
+      "id": 18201,
+      "name": "Lenovo Many GEOs",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
     },
     "18336": {
       "id": 18336,
       "name": "ChicMe WW",
       "website_id": "3012753",
       "status": "active",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "18696": {
+      "id": 18696,
+      "name": "Kiwi.com Many GEO's",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "18789": {
+      "id": 18789,
+      "name": "Fiverr Many GEO's",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "18802": {
+      "id": 18802,
+      "name": "Fiverr [Android/IOS, CPA] Many GEOs!",
+      "website_id": "3012753",
+      "attempts": 1,
+      "last_attempt_at": "2026-11-08T12:27:00.468Z",
+      "status": "pending_or_joined",
+      "updated_at": "2026-11-08T12:27:05.666Z"
+    },
+    "18867": {
+      "id": 18867,
+      "name": "NordVPN WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "19130": {
+      "id": 19130,
+      "name": "INTERTOP UA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
     },
     "19301": {
       "id": 19301,
       "name": "Vuso UA",
       "website_id": "3012753",
-      "status": "pending",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
     },
     "19333": {
       "id": 19333,
       "name": "SharafDG AE affiliate program",
       "website_id": "3012753",
-      "status": "pending",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "19417": {
+      "id": 19417,
+      "name": "Unex Bank [CPS] UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "19418": {
+      "id": 19418,
+      "name": "Будинок іграшок UA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
     },
     "19458": {
       "id": 19458,
       "name": "Modoza UA",
       "website_id": "3012753",
-      "status": "pending",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "19478": {
+      "id": 19478,
+      "name": "Storgom UA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "19893": {
+      "id": 19893,
+      "name": "Allegro PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
     },
     "19959": {
       "id": 19959,
       "name": "Agromarket UA",
       "website_id": "3012753",
       "status": "declined",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "updated_at": "2026-11-08T12:26:39.989Z"
     },
     "20021": {
       "id": 20021,
       "name": "Level Shoes GCC US Links & Tracking promo codes",
       "website_id": "3012753",
-      "status": "pending",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "20087": {
+      "id": 20087,
+      "name": "Hotline.Finance [CPS] UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
     },
     "20181": {
       "id": 20181,
@@ -102,26 +316,299 @@
       "status": "declined",
       "updated_at": "2026-10-19T11:40:26.926Z"
     },
+    "20375": {
+      "id": 20375,
+      "name": "The Luxury Closet WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "20493": {
+      "id": 20493,
+      "name": "HoraCredit RO",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "20543": {
+      "id": 20543,
+      "name": "Redmagic WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
     "20861": {
       "id": 20861,
       "name": "Є-Гроші [CPS] UA",
       "website_id": "3012753",
       "status": "declined",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "20870": {
+      "id": 20870,
+      "name": "Tiqets WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
     },
     "20881": {
       "id": 20881,
       "name": "Alibaba WW",
       "website_id": "3012753",
       "status": "active",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "updated_at": "2026-11-08T12:26:39.988Z"
     },
     "21026": {
       "id": 21026,
       "name": "Touch UA",
       "website_id": "3012753",
       "status": "active",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "21122": {
+      "id": 21122,
+      "name": "Envato Market Many GEOs",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "21220": {
+      "id": 21220,
+      "name": "Spartoo [Many GEOs]",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "21302": {
+      "id": 21302,
+      "name": "Kontramarka UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "21441": {
+      "id": 21441,
+      "name": "Ceneo [CPC] PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "21461": {
+      "id": 21461,
+      "name": "Pandora UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "21497": {
+      "id": 21497,
+      "name": "TheManCompany [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "21539": {
+      "id": 21539,
+      "name": "Compensair Many GEOs",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "21562": {
+      "id": 21562,
+      "name": "Eyewa AE SA KW QT OM offline codes",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "21679": {
+      "id": 21679,
+      "name": "Mark Formelle BY",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "21797": {
+      "id": 21797,
+      "name": "Komputronik PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "21812": {
+      "id": 21812,
+      "name": "Tanishq [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "22260": {
+      "id": 22260,
+      "name": "Victoria's Secret AE SA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "22261": {
+      "id": 22261,
+      "name": "H&M Many GEOs",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "22263": {
+      "id": 22263,
+      "name": "Footlocker AE SA KW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "22264": {
+      "id": 22264,
+      "name": "Bath & Body Works Many GEOs",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "22328": {
+      "id": 22328,
+      "name": "Lenovo India [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "22386": {
+      "id": 22386,
+      "name": "Yves Rocher BY",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "22732": {
+      "id": 22732,
+      "name": "Lastminute ES",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "22775": {
+      "id": 22775,
+      "name": "Lastminute FR",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "22780": {
+      "id": 22780,
+      "name": "Tous UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "22801": {
+      "id": 22801,
+      "name": "TengeDa [CPS] KZ",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "22921": {
+      "id": 22921,
+      "name": "Alamy WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "22965": {
+      "id": 22965,
+      "name": "Nordpass WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "22998": {
+      "id": 22998,
+      "name": "Coursera WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "23006": {
+      "id": 23006,
+      "name": "il Molino UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "23120": {
+      "id": 23120,
+      "name": "Adidas [CPS] ID",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "23122": {
+      "id": 23122,
+      "name": "Adidas [CPS] PH",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "23157": {
+      "id": 23157,
+      "name": "Wondershare WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "23175": {
+      "id": 23175,
+      "name": "Compbest UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "23264": {
+      "id": 23264,
+      "name": "Lastminute UK",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "23390": {
+      "id": 23390,
+      "name": "Lookfantastic Many GEOs",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "23405": {
+      "id": 23405,
+      "name": "Zavvi Many Geos",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "23486": {
+      "id": 23486,
+      "name": "Parallels WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "23508": {
+      "id": 23508,
+      "name": "Reporter PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "23645": {
+      "id": 23645,
+      "name": "Symbol CPS UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
     },
     "23707": {
       "id": 23707,
@@ -130,33 +617,714 @@
       "status": "pending",
       "updated_at": "2026-10-19T11:40:26.926Z"
     },
+    "23964": {
+      "id": 23964,
+      "name": "Italojewerly WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "24074": {
+      "id": 24074,
+      "name": "Rulez BY",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "24077": {
+      "id": 24077,
+      "name": "iHerb MENA Offline codes and links",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "24159": {
+      "id": 24159,
+      "name": "MINIMAL UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "24210": {
+      "id": 24210,
+      "name": "Surfshark WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "24352": {
+      "id": 24352,
+      "name": "Wish Many GEOs",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "24385": {
+      "id": 24385,
+      "name": "Daily Objects [CPS] IN & US",
+      "website_id": "3012753",
+      "attempts": 1,
+      "last_attempt_at": "2026-11-08T12:27:20.278Z",
+      "status": "pending_or_joined",
+      "updated_at": "2026-11-08T12:27:25.913Z"
+    },
+    "24575": {
+      "id": 24575,
+      "name": "Acer [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "24655": {
+      "id": 24655,
+      "name": "Clevguard WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "24736": {
+      "id": 24736,
+      "name": "italki WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "24741": {
+      "id": 24741,
+      "name": "Medmag UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "24848": {
+      "id": 24848,
+      "name": "Erli PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "24904": {
+      "id": 24904,
+      "name": "MEGOGO UA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "24908": {
+      "id": 24908,
+      "name": "Shopee CPA BR",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "24941": {
+      "id": 24941,
+      "name": "Autodoc Many GEOs",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "24983": {
+      "id": 24983,
+      "name": "Oppo India [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "25178": {
+      "id": 25178,
+      "name": "Answear BG/Euro",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "25215": {
+      "id": 25215,
+      "name": "Notino UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "25225": {
+      "id": 25225,
+      "name": "Intimo UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "25931": {
+      "id": 25931,
+      "name": "Libas [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "25944": {
+      "id": 25944,
+      "name": "Zonky CZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "25959": {
+      "id": 25959,
+      "name": "Eset BR",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "25967": {
+      "id": 25967,
+      "name": "Credit365 KZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "26025": {
+      "id": 26025,
+      "name": "G-Star Raw Many Geos",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "26150": {
+      "id": 26150,
+      "name": "Kenwood CZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "26156": {
+      "id": 26156,
+      "name": "Stradivarius FR",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "26219": {
+      "id": 26219,
+      "name": "Huawei CZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "26293": {
+      "id": 26293,
+      "name": "21vek.by",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "26313": {
+      "id": 26313,
+      "name": "Idee-shop DE",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "26315": {
+      "id": 26315,
+      "name": "NIVOCASE DE",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "26337": {
+      "id": 26337,
+      "name": "Legimi PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "26347": {
+      "id": 26347,
+      "name": "New Balance PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "26366": {
+      "id": 26366,
+      "name": "POCO Onlineshop DE",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "26456": {
+      "id": 26456,
+      "name": "Humanic CZ&SK",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "26471": {
+      "id": 26471,
+      "name": "Newbalance Many geos",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
     "26562": {
       "id": 26562,
       "name": "Street-One NL",
       "website_id": "3012753",
       "status": "declined",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "26593": {
+      "id": 26593,
+      "name": "Cadbury Gifts Direct UK",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "26623": {
+      "id": 26623,
+      "name": "Zoohit CZ&SK",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "26660": {
+      "id": 26660,
+      "name": "Parcel2Go UK",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "26670": {
+      "id": 26670,
+      "name": "Samsung CA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "26696": {
+      "id": 26696,
+      "name": "Bodylab24 DE",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "26914": {
+      "id": 26914,
+      "name": "DocMorris FR",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "26969": {
+      "id": 26969,
+      "name": "Bunches UK",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "27302": {
+      "id": 27302,
+      "name": "Farfetch LATAM",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "27303": {
+      "id": 27303,
+      "name": "Coppel MX",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
     },
     "27390": {
       "id": 27390,
       "name": "ATB UA",
       "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "27417": {
+      "id": 27417,
+      "name": "Walmart US",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "27425": {
+      "id": 27425,
+      "name": "The Great Courses US",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "27495": {
+      "id": 27495,
+      "name": "Nadula WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "27512": {
+      "id": 27512,
+      "name": "Lastminute Ireland",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "27560": {
+      "id": 27560,
+      "name": "Shopsy App [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "27598": {
+      "id": 27598,
+      "name": "Onliner BY",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "27640": {
+      "id": 27640,
+      "name": "Sushi Master UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "27686": {
+      "id": 27686,
+      "name": "Dr. Marty Pets US",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "27749": {
+      "id": 27749,
+      "name": "Jockey Club UK",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "27805": {
+      "id": 27805,
+      "name": "Canon UAE",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "27888": {
+      "id": 27888,
+      "name": "Joom Many GEOs",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "27912": {
+      "id": 27912,
+      "name": "Clarks Stores AE offline codes & links",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "27913": {
+      "id": 27913,
+      "name": "Jashanmal AE tracking promo codes & links",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "28062": {
+      "id": 28062,
+      "name": "Loaded [CPS] WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "28191": {
+      "id": 28191,
+      "name": "Guldi BR",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "28221": {
+      "id": 28221,
+      "name": "Zooplus DE",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "28424": {
+      "id": 28424,
+      "name": "Keeper Security Many GEOs",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "28507": {
+      "id": 28507,
+      "name": "The Body Shop UK",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "28539": {
+      "id": 28539,
+      "name": "FINN DE",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "28657": {
+      "id": 28657,
+      "name": "Uniqlo India [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "28735": {
+      "id": 28735,
+      "name": "Lenskart [CPS] IN",
+      "website_id": "3012753",
       "status": "pending",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "28834": {
+      "id": 28834,
+      "name": "AdGuard Many GEOs",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "28855": {
+      "id": 28855,
+      "name": "Kipling AE offline codes & links",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "28909": {
+      "id": 28909,
+      "name": "MEGOGO PL",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "29192": {
+      "id": 29192,
+      "name": "Baseus PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "29350": {
+      "id": 29350,
+      "name": "Probel BR CPA",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-11-08T12:26:39.988Z"
     },
     "29382": {
       "id": 29382,
       "name": "VARUS.UA",
       "website_id": "3012753",
-      "status": "pending",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
     },
     "29414": {
       "id": 29414,
       "name": "Kvshop UA",
       "website_id": "3012753",
-      "status": "pending",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "29435": {
+      "id": 29435,
+      "name": "Dot&Key [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "29488": {
+      "id": 29488,
+      "name": "Xistore  BY",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "29511": {
+      "id": 29511,
+      "name": "Gran Cursos BR",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "29579": {
+      "id": 29579,
+      "name": "INTERCARS BY",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "29694": {
+      "id": 29694,
+      "name": "Preply",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "30068": {
+      "id": 30068,
+      "name": "Beyond The Beach UAE links and tracking promo codes",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "30383": {
+      "id": 30383,
+      "name": "Barcelo MX/BR",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "30956": {
+      "id": 30956,
+      "name": "Pdffiller Many Geos",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "31369": {
+      "id": 31369,
+      "name": "Miravia ES, PT",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "31643": {
+      "id": 31643,
+      "name": "MD Fashion",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "32035": {
+      "id": 32035,
+      "name": "Sol Crédito MX",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "32116": {
+      "id": 32116,
+      "name": "ANC UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "32932": {
+      "id": 32932,
+      "name": "CoolCredit cz",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "33090": {
+      "id": 33090,
+      "name": "CASETiFY WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "33240": {
+      "id": 33240,
+      "name": "Bold Snacks BR",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "33436": {
+      "id": 33436,
+      "name": "Nazivnost CZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "33979": {
+      "id": 33979,
+      "name": "The Hindu [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "34192": {
+      "id": 34192,
+      "name": "VectorStock WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "34688": {
+      "id": 34688,
+      "name": "PureVPN Many Geos",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "34712": {
+      "id": 34712,
+      "name": "Disney+ LATAM",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "34799": {
+      "id": 34799,
+      "name": "Shapellx US",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "35026": {
+      "id": 35026,
+      "name": "Acer Many Geos",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "35319": {
+      "id": 35319,
+      "name": "OZ BY",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "35867": {
+      "id": 35867,
+      "name": "Konesso PL",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "36152": {
+      "id": 36152,
+      "name": "Letyshops PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "36179": {
+      "id": 36179,
+      "name": "Smart Spending l Snoop Finance [CPA, Android] UK",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "36687": {
+      "id": 36687,
+      "name": "Reebok AE SA links and tracking promo codes",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
     },
     "37025": {
       "id": 37025,
@@ -167,85 +1335,1096 @@
       "status": "failed",
       "last_error": "dialog_not_closed"
     },
+    "37060": {
+      "id": 37060,
+      "name": "Harfington Many GEOs",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "37079": {
+      "id": 37079,
+      "name": "American Eagle MX",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
     "37709": {
       "id": 37709,
       "name": "Bliss Club [CPS] IN",
       "website_id": "3012753",
       "status": "active",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "37980": {
+      "id": 37980,
+      "name": "Mamash UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "38154": {
+      "id": 38154,
+      "name": "Tagomago PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "39121": {
+      "id": 39121,
+      "name": "Shopee [CPS] ID",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "39275": {
+      "id": 39275,
+      "name": "Eurowings WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "39294": {
+      "id": 39294,
+      "name": "BliBli [CPS] ID NEW",
+      "website_id": "3012753",
+      "attempts": 1,
+      "last_attempt_at": "2026-11-08T12:26:46.954Z",
+      "status": "pending_or_joined",
+      "updated_at": "2026-11-08T12:26:54.328Z"
+    },
+    "40158": {
+      "id": 40158,
+      "name": "Sunshouse UA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "40324": {
+      "id": 40324,
+      "name": "Puma [CPS] SEA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "40410": {
+      "id": 40410,
+      "name": "eSky CPS PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "40417": {
+      "id": 40417,
+      "name": "Doctorslon KZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
     },
     "40613": {
       "id": 40613,
       "name": "Mirson UA",
       "website_id": "3012753",
-      "status": "pending",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "41239": {
+      "id": 41239,
+      "name": "OneCredit CPS KZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "41597": {
+      "id": 41597,
+      "name": "MyHeritage DNA WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "42158": {
+      "id": 42158,
+      "name": "Ridmi UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "43634": {
+      "id": 43634,
+      "name": "KLR UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "44829": {
+      "id": 44829,
+      "name": "Vivat UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "45467": {
+      "id": 45467,
+      "name": "Huawei ZA Offline codes & links",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "45941": {
+      "id": 45941,
+      "name": "CCLeanerWW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "46137": {
+      "id": 46137,
+      "name": "Amazon Prime Video LATAM",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "48037": {
+      "id": 48037,
+      "name": "HONOR UAE",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "48886": {
+      "id": 48886,
+      "name": "Saude Abril BR (Grupo Abril)",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "77545": {
+      "id": 77545,
+      "name": "Hasznos-holmik HU",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
     },
     "78568": {
       "id": 78568,
       "name": "KurJerzy PL",
       "website_id": "3012753",
-      "status": "pending",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "85858": {
+      "id": 85858,
+      "name": "Pujckaplus CZ [CPS]",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "88834": {
+      "id": 88834,
+      "name": "Salty [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "90288": {
+      "id": 90288,
+      "name": "Turbosto UA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "90777": {
+      "id": 90777,
+      "name": "Placeit Many Geos",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "93031": {
+      "id": 93031,
+      "name": "Lennuabi Many GEOs",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "93442": {
+      "id": 93442,
+      "name": "Lacoste KZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "95470": {
+      "id": 95470,
+      "name": "UberEats UK",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "98770": {
+      "id": 98770,
+      "name": "Skillbox KZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "99414": {
+      "id": 99414,
+      "name": "Multilogin WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "100491": {
+      "id": 100491,
+      "name": "Proficredit cz CPS",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
     },
     "101241": {
       "id": 101241,
       "name": "Levis MX",
       "website_id": "3012753",
-      "attempts": 1,
-      "last_attempt_at": "2026-10-19T11:42:25.382Z",
-      "status": "submitted",
-      "applied_at": "2026-10-19T11:42:35.341Z",
-      "updated_at": "2026-10-19T11:42:35.341Z"
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "101846": {
+      "id": 101846,
+      "name": "Memphis Tours WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "102797": {
+      "id": 102797,
+      "name": "Emami Zanducare [ CPS ] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "103347": {
+      "id": 103347,
+      "name": "Refsee WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "103765": {
+      "id": 103765,
+      "name": "ExpressVPN Many GEOs",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
     },
     "103950": {
       "id": 103950,
       "name": "FoRoom UA",
       "website_id": "3012753",
-      "attempts": 1,
-      "last_attempt_at": "2026-10-19T11:41:14.947Z",
-      "status": "submitted",
-      "applied_at": "2026-10-19T11:41:24.946Z",
-      "updated_at": "2026-10-19T11:41:24.946Z"
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "104513": {
+      "id": 104513,
+      "name": "Camp David | Soccx CZ CPS",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "104523": {
+      "id": 104523,
+      "name": "DKNY AE SA KW - Links & Coupons",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "104675": {
+      "id": 104675,
+      "name": "Dolphin-anty WW",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "105191": {
+      "id": 105191,
+      "name": "Symbol fashion Many GEOs",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "105626": {
+      "id": 105626,
+      "name": "Admitad Onboarding Affiliate Offer",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "107567": {
+      "id": 107567,
+      "name": "AvitoVIP Transfer WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "108555": {
+      "id": 108555,
+      "name": "DermaZone Many GEOs links & promo codes",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "110842": {
+      "id": 110842,
+      "name": "KICKS CREW WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "111413": {
+      "id": 111413,
+      "name": "Tata Neu Credit Card [CPD] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "113188": {
+      "id": 113188,
+      "name": "Katalog Marzeń PL",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "113236": {
+      "id": 113236,
+      "name": "Wild Fork MX",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "113352": {
+      "id": 113352,
+      "name": "Shopee [CPS] PH",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "113436": {
+      "id": 113436,
+      "name": "Shopee [CPS] MY",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "113984": {
+      "id": 113984,
+      "name": "Sitpack WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "114701": {
+      "id": 114701,
+      "name": "Homestyler WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "115735": {
+      "id": 115735,
+      "name": "Vijay Sales [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "116661": {
+      "id": 116661,
+      "name": "Costway USA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "117156": {
+      "id": 117156,
+      "name": "Allegro CZ",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "117157": {
+      "id": 117157,
+      "name": "Allegro HU",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "117158": {
+      "id": 117158,
+      "name": "Allegro SK",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "117473": {
+      "id": 117473,
+      "name": "ЛЭТУАЛЬ KZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "117637": {
+      "id": 117637,
+      "name": "Аквафор KZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "117646": {
+      "id": 117646,
+      "name": "Fossil [CPS] ID",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "117867": {
+      "id": 117867,
+      "name": "al.to PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "118784": {
+      "id": 118784,
+      "name": "Fiesta Credito",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "118860": {
+      "id": 118860,
+      "name": "WPS Office WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "119810": {
+      "id": 119810,
+      "name": "Luch BY",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "120049": {
+      "id": 120049,
+      "name": "Finbert UA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "120270": {
+      "id": 120270,
+      "name": "OlimpStore PL, DE, FR",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "120432": {
+      "id": 120432,
+      "name": "Thordata WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "120841": {
+      "id": 120841,
+      "name": "Tienda Panini MX",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "121806": {
+      "id": 121806,
+      "name": "Vagamo US",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "121884": {
+      "id": 121884,
+      "name": "Havells [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "121943": {
+      "id": 121943,
+      "name": "DelSol MX",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "121951": {
+      "id": 121951,
+      "name": "ControlZ World [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "122118": {
+      "id": 122118,
+      "name": "Mediaexpert CPS PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "122185": {
+      "id": 122185,
+      "name": "Manset UA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "122250": {
+      "id": 122250,
+      "name": "Traveloka [CPS] Many Geo",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "124239": {
+      "id": 124239,
+      "name": "Русский",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "124255": {
+      "id": 124255,
+      "name": "Like Bus UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "124270": {
+      "id": 124270,
+      "name": "Phooto BR",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "124842": {
+      "id": 124842,
+      "name": "Planet Sports Asia [CPS] ID",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "124942": {
+      "id": 124942,
+      "name": "Palmonas [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "124946": {
+      "id": 124946,
+      "name": "MA UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "126715": {
+      "id": 126715,
+      "name": "Bellroy Many GEOs",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "127034": {
+      "id": 127034,
+      "name": "GGPick [CPS] ManyGEOs",
+      "website_id": "3012753",
+      "status": "pending",
+      "updated_at": "2026-11-08T12:26:39.988Z"
     },
     "127037": {
       "id": 127037,
       "name": "Notta AI WW",
       "website_id": "3012753",
-      "attempts": 1,
-      "last_attempt_at": "2026-10-19T11:41:31.705Z",
-      "status": "submitted",
-      "applied_at": "2026-10-19T11:41:41.554Z",
-      "updated_at": "2026-10-19T11:41:41.554Z"
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "127996": {
+      "id": 127996,
+      "name": "AOMEI [CPS] WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "128447": {
+      "id": 128447,
+      "name": "DEPAVA UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "128891": {
+      "id": 128891,
+      "name": "rocketjobs pl & justjoin.it pl",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "128892": {
+      "id": 128892,
+      "name": "7way PL, FR, IT, ES, UK",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "128989": {
+      "id": 128989,
+      "name": "Mr.SCRUBBER UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "130741": {
+      "id": 130741,
+      "name": "Corsair WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "130851": {
+      "id": 130851,
+      "name": "Shopee [CPS] Thailand",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "132842": {
+      "id": 132842,
+      "name": "ProHoster WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "135724": {
+      "id": 135724,
+      "name": "Air India Express [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "141228": {
+      "id": 141228,
+      "name": "Milton [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "141933": {
+      "id": 141933,
+      "name": "Gameseal many GEOs",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "142242": {
+      "id": 142242,
+      "name": "Shopee [CPS] VN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "142644": {
+      "id": 142644,
+      "name": "PriceTravel MX",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "142825": {
+      "id": 142825,
+      "name": "Ticombo - Global Event Tickets Many GEOs",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "142838": {
+      "id": 142838,
+      "name": "Gold Apple AE",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "143905": {
+      "id": 143905,
+      "name": "Bibliotheque-de-parfum UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "144018": {
+      "id": 144018,
+      "name": "Aktuality SK CPS",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "144572": {
+      "id": 144572,
+      "name": "Kama Ayurveda [ CPS ] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "144633": {
+      "id": 144633,
+      "name": "SharkNinja MX",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "144643": {
+      "id": 144643,
+      "name": "Qustodio Many GEOs",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "146081": {
+      "id": 146081,
+      "name": "Shopee [CPS] SG",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "146216": {
+      "id": 146216,
+      "name": "Aovica Official Store Aliexpress",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "147547": {
+      "id": 147547,
+      "name": "Adheart Many Geos",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "147612": {
+      "id": 147612,
+      "name": "Shopee [CPS] BR",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "148423": {
+      "id": 148423,
+      "name": "Ajmal Perfumes [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "148741": {
+      "id": 148741,
+      "name": "MuscleTech [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "158437": {
+      "id": 158437,
+      "name": "New Balance [CPS] ID",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "159043": {
+      "id": 159043,
+      "name": "Meshnology - Оборудование для Meshtastic и LoRa",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
     },
     "162597": {
       "id": 162597,
       "name": "Proton VPN Many GEOs",
       "website_id": "3012753",
       "status": "declined",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "163229": {
+      "id": 163229,
+      "name": "YA-MAN KZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "168331": {
+      "id": 168331,
+      "name": "TTGO E-bike Many GEOs",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "168494": {
+      "id": 168494,
+      "name": "Modna Kiecka PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "173139": {
+      "id": 173139,
+      "name": "POTAMY Many GEOs",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "174195": {
+      "id": 174195,
+      "name": "ЭПЛ Даймонд KZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "180612": {
+      "id": 180612,
+      "name": "The Trost [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "181280": {
+      "id": 181280,
+      "name": "uPacjenta PL",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "181303": {
+      "id": 181303,
+      "name": "CleanWhale PL, CZ, USA, DE",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "181542": {
+      "id": 181542,
+      "name": "Neion MX",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "181717": {
+      "id": 181717,
+      "name": "Charles & Keith [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "181944": {
+      "id": 181944,
+      "name": "Kibernetiki UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "182254": {
+      "id": 182254,
+      "name": "Godlike.Host [CPS] WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "182734": {
+      "id": 182734,
+      "name": "Leroy Merlin UA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "182817": {
+      "id": 182817,
+      "name": "Digihaat [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "182823": {
+      "id": 182823,
+      "name": "Nasha-studio UA",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "183205": {
+      "id": 183205,
+      "name": "Victoria's secret [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "183284": {
+      "id": 183284,
+      "name": "OneIndiaMall [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "183642": {
+      "id": 183642,
+      "name": "Ušetřeno CZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "184966": {
+      "id": 184966,
+      "name": "MA Pizza UA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "185776": {
+      "id": 185776,
+      "name": "Aldo New [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "186080": {
+      "id": 186080,
+      "name": "Nveda [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "186081": {
+      "id": 186081,
+      "name": "Ctrl8 [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "186083": {
+      "id": 186083,
+      "name": "Ten X You [CPS] IN",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "186872": {
+      "id": 186872,
+      "name": "Klook WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
     },
     "188421": {
       "id": 188421,
       "name": "БагатоЛосося UA",
       "website_id": "3012753",
-      "status": "pending",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "190584": {
+      "id": 190584,
+      "name": "Офистон Маркет BY",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.986Z"
+    },
+    "191074": {
+      "id": 191074,
+      "name": "GGsel [CPS] BY",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "191147": {
+      "id": 191147,
+      "name": "WAU GLOBAL WW",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "191148": {
+      "id": 191148,
+      "name": "Onlinesim WW",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
     },
     "191411": {
       "id": 191411,
       "name": "Rooler UA",
       "website_id": "3012753",
-      "status": "pending",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.988Z"
+    },
+    "196167": {
+      "id": 196167,
+      "name": "Tengebai CPA KZ",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "196997": {
+      "id": 196997,
+      "name": "R for Rabbit [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "198354": {
+      "id": 198354,
+      "name": "Antinorm [CPS] IN",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
     },
     "199219": {
       "id": 199219,
       "name": "Proton Lumo WW",
       "website_id": "3012753",
-      "status": "pending",
-      "updated_at": "2026-10-19T11:40:26.926Z"
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "200725": {
+      "id": 200725,
+      "name": "Kodland BR MX PL TR US",
+      "website_id": "3012753",
+      "status": "declined",
+      "updated_at": "2026-11-08T12:26:39.989Z"
+    },
+    "201728": {
+      "id": 201728,
+      "name": "ALLPOWERS UA",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.987Z"
+    },
+    "202206": {
+      "id": 202206,
+      "name": "eAzymut PL",
+      "website_id": "3012753",
+      "attempts": 1,
+      "last_attempt_at": "2026-11-08T12:27:05.668Z",
+      "status": "submitted",
+      "applied_at": "2026-11-08T12:27:17.897Z",
+      "updated_at": "2026-11-08T12:27:17.897Z"
+    },
+    "203835": {
+      "id": 203835,
+      "name": "Home Nature DE FR",
+      "website_id": "3012753",
+      "status": "active",
+      "updated_at": "2026-11-08T12:26:39.988Z"
     }
   },
-  "last_run": "2026-10-19T11:42:37.795Z"
+  "last_run": "2026-11-08T12:27:26.750Z"
 }
