@@ -6,23 +6,60 @@ export async function getStaticPaths() {
     params: { slug: store.slug },
     props: {
       targetUrl: store.primaryAffiliateUrl || store.websiteUrl,
-      storeName: store.name
+      storeName: store.name,
+      slug: store.slug
     }
   }));
 }
 
-const { targetUrl, storeName } = Astro.props;
+const { targetUrl, storeName, slug } = Astro.props;
+const GA_MEASUREMENT_ID = 'G-ZKTJYVZEPT';
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
     <title>Redirecting to {storeName}...</title>
     <meta http-equiv="refresh" content={`0;url=${targetUrl}`} />
-    <script define:vars={{ targetUrl }}>
-      window.location.replace(targetUrl);
+    <script define:vars={{ targetUrl, storeName, slug, GA_MEASUREMENT_ID }}>
+      (function() {
+        // Fast instant beacon telemetry to GA4 Measurement Protocol endpoint without blocking navigation
+        try {
+          if (navigator.sendBeacon) {
+            var cid = 'c_' + Math.random().toString(36).substring(2, 12);
+            try {
+              var m = document.cookie.match(/_ga=GA1\.\d+\.([0-9]+\.[0-9]+)/);
+              if (m && m[1]) cid = m[1];
+            } catch (e) {}
+
+            var payload = {
+              client_id: cid,
+              events: [{
+                name: 'affiliate_click',
+                params: {
+                  event_category: 'Affiliate',
+                  event_label: targetUrl,
+                  link_url: targetUrl,
+                  store_name: storeName,
+                  store_slug: slug,
+                  page_location: window.location.href,
+                  page_path: window.location.pathname
+                }
+              }]
+            };
+
+            var endpoint = 'https://www.google-analytics.com/mp/collect?measurement_id=' + encodeURIComponent(GA_MEASUREMENT_ID) + '&api_secret=';
+            // Use cookieless/browser beacon payload if api_secret not present, or standard GA collect beacon
+            var beaconUrl = 'https://www.google-analytics.com/g/collect?v=2&tid=' + encodeURIComponent(GA_MEASUREMENT_ID) + '&cid=' + encodeURIComponent(cid) + '&en=affiliate_click&ep.store_name=' + encodeURIComponent(storeName) + '&ep.link_url=' + encodeURIComponent(targetUrl);
+            navigator.sendBeacon(beaconUrl);
+          }
+        } catch (err) {}
+
+        // Immediate instant redirect
+        window.location.replace(targetUrl);
+      })();
     </script>
   </head>
   <body class="bg-slate-900 text-white flex items-center justify-center min-h-screen font-sans">

@@ -327,3 +327,4 @@ module.exports = {
   BANNED_CURRENCY_REGEX,
   PLACEHOLDER_CODE_REGEX
 };
+

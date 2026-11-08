@@ -800,6 +800,12 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
         
         try {
           localStorage.setItem('promoradar_lang', lang);
+          document.documentElement.lang = lang;
+          if (lang === 'ar') {
+            document.documentElement.dir = 'rtl';
+          } else {
+            document.documentElement.dir = 'ltr';
+          }
         } catch (e) {}
 
         // Broadcast language change

@@ -53,6 +53,7 @@
 │   │   ├── components/           # UI-компоненты блога
 │   │   └── layouts/BaseLayout.astro
 ├── scripts/                      # Скрипты синхронизации, деплоя и автоматизации
+│   ├── catalog_validator.cjs     # Единый валидатор каталога (Правило 8: RU/BY/KZ/валютный бан, Правило 2: Zero Demo/плейсхолдеры/сроки, домены и дедупликация)
 │   ├── direct_deploy_promoradar.cjs # Атомарный SSH-деплой PromoRadar с переключением symlink
 │   ├── direct_deploy_flirtcheck.cjs # Атомарный SSH-деплой FlirtCheck с переключением symlink
 │   ├── postbuild_inject_css.cjs  # Инъекция критического CSS для исключения FOUC

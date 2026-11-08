@@ -822,20 +822,20 @@ const homeSchemas = [
 
                 <!-- Authentic Realistic Perforated Rip-Off Voucher Ticket with Integrated Savings -->
                 <div class="deal-stagger-item relative z-10 shrink-0 my-1 flex justify-start">
-                  <div class="hero-rip-ticket relative overflow-hidden rounded-xl bg-gradient-to-r from-emerald-950/40 via-slate-900/80 to-slate-900/60 dark:from-emerald-950/30 dark:via-white/[0.04] dark:to-white/[0.02] border border-emerald-500/35 dark:border-emerald-400/30 px-5 sm:px-6 py-2.5 flex items-center justify-between gap-5 sm:gap-6 shadow-md shadow-emerald-950/20 w-fit max-w-full">
-                    <!-- Left ticket punch notch -->
-                    <div class="ticket-notch ticket-notch-left"></div>
-                    <!-- Right ticket punch notch -->
-                    <div class="ticket-notch ticket-notch-right"></div>
+                  <div class="hero-rip-ticket relative overflow-hidden rounded-xl bg-gradient-to-r rtl:bg-gradient-to-l from-emerald-950/40 via-slate-900/80 to-slate-900/60 dark:from-emerald-950/30 dark:via-white/[0.04] dark:to-white/[0.02] border border-emerald-500/35 dark:border-emerald-400/30 px-5 sm:px-6 py-2.5 flex items-center justify-between gap-5 sm:gap-6 shadow-md shadow-emerald-950/20 w-fit max-w-full">
+                    <!-- Start ticket punch notch (Left in LTR, Right in RTL) -->
+                    <div class="ticket-notch ticket-notch-start"></div>
+                    <!-- End ticket punch notch (Right in LTR, Left in RTL) -->
+                    <div class="ticket-notch ticket-notch-end"></div>
 
-                    <!-- 1. Left Coupon Section: Verified Discount Badge & Promo Tier -->
-                    <div class="pl-1 text-left min-w-0">
+                    <!-- 1. Start Coupon Section: Verified Discount Badge & Promo Tier -->
+                    <div class="ps-1 text-start min-w-0">
                       <div id="heroDealBadge" class="text-2xl sm:text-3xl font-black text-emerald-400 tracking-tight leading-none whitespace-nowrap drop-shadow-sm font-sans">49% OFF</div>
                       <span id="heroDealBadgeSub" class="block font-sans text-[11px] sm:text-xs text-slate-300 dark:text-slate-300 font-medium mt-1 tracking-normal whitespace-nowrap">+ 3 Months Free</span>
                     </div>
 
                     <!-- 2. Middle Section: Integrated Financial Savings (Perforated coupon column) -->
-                    <div id="heroDealSavingsBox" class="ticket-stub-col relative pl-4 sm:pl-5 text-left min-w-0">
+                    <div id="heroDealSavingsBox" class="ticket-stub-col relative ps-4 sm:ps-5 text-start min-w-0">
                       <span id="heroDealSavingsLabel" class="block text-[9px] font-mono font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap">EST. SAVINGS</span>
                       <div class="flex items-baseline gap-1 mt-0.5 whitespace-nowrap">
                         <span id="heroDealSavingsValue" class="text-sm sm:text-base font-black text-emerald-400 dark:text-emerald-300 leading-none drop-shadow-xs">$60+</span>
@@ -843,8 +843,8 @@ const homeSchemas = [
                       </div>
                     </div>
 
-                    <!-- 3. Right Tear-Off Stub: Official Verified Stamp (Perforated tear-off stub) -->
-                    <div class="ticket-stub-col relative pl-4 sm:pl-5 pr-1 text-right whitespace-nowrap">
+                    <!-- 3. End Tear-Off Stub: Official Verified Stamp (Perforated tear-off stub) -->
+                    <div class="ticket-stub-col relative ps-4 sm:ps-5 pe-1 text-end whitespace-nowrap">
                       <div class="ticket-stub-official text-[9px] font-mono font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest">OFFICIAL</div>
                       <div class="ticket-stub-verified text-[11px] font-mono font-black text-emerald-400 dark:text-emerald-300 uppercase tracking-wider mt-0.5">VERIFIED</div>
                     </div>
@@ -4852,7 +4852,7 @@ const homeSchemas = [
       position: relative;
     }
 
-    /* Left & Right Clean Single-Border Cutout Notches */
+    /* Left & Right (Start & End) Clean Single-Border Cutout Notches */
     .ticket-notch {
       position: absolute;
       top: 50%;
@@ -4866,24 +4866,24 @@ const homeSchemas = [
     :global(.dark) .ticket-notch {
       background-color: var(--color-surface-dark, #0b0f19);
     }
-    .ticket-notch-left {
-      left: -9px;
-      border-right: 1px solid rgba(52, 211, 153, 0.35);
+    .ticket-notch-start, .ticket-notch-left {
+      inset-inline-start: -9px;
+      border-inline-end: 1px solid rgba(52, 211, 153, 0.35);
     }
-    .ticket-notch-right {
-      right: -9px;
-      border-left: 1px solid rgba(52, 211, 153, 0.35);
+    .ticket-notch-end, .ticket-notch-right {
+      inset-inline-end: -9px;
+      border-inline-start: 1px solid rgba(52, 211, 153, 0.35);
     }
 
     /* Vertical Perforated Tear Lines (Clean dashed line, no top/bottom dots) */
     .ticket-stub-col::before {
       content: '';
       position: absolute;
-      left: 0;
+      inset-inline-start: 0;
       top: 12%;
       bottom: 12%;
       width: 0;
-      border-left: 1.5px dashed rgba(52, 211, 153, 0.3);
+      border-inline-start: 1.5px dashed rgba(52, 211, 153, 0.3);
     }
 
     /* Flickering Flame Icon */
