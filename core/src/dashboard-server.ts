@@ -160,7 +160,7 @@ async function saveMemory(data: any): Promise<void> {
 // 1. Project Management Center Redirect (Decommissioned Old Dashboard)
 // ----------------------------------------------------
 app.get(['/', '/dashboard', '/dashboard/'], (req: Request, res: Response) => {
-  res.redirect('http://178.128.199.28:3456/');
+  res.redirect('https://promoradar.store/dashboard/');
 });
 
 app.get('/logout', (req: Request, res: Response) => {

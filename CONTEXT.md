@@ -72,13 +72,21 @@
 ## 3. Архитектура продакшен-сервера (DigitalOcean)
 
 - **IP-адрес:** `178.128.199.28` (Ubuntu 24.04 LTS, root)
-- **Веб-сервер:** Nginx 1.24+ с раздельными виртуальными хостами:
+- **Веб-сервер:** Nginx 1.24+ с раздельными виртуальными хостами и глобальным включением `/etc/nginx/snippets/security-headers.conf`:
   - `/etc/nginx/sites-enabled/promoradar.store` $\rightarrow$ Root: `/var/www/promoradar.store/current`
+    - Редирект-роут `location ^~ /go/`: с защитными заголовками безопасности, мета-тегами `X-Robots-Tag: noindex, nofollow, noarchive` и fallback-проксированием в TDS Router `@tds_proxy`.
+    - Защищенный HTTPS Reverse Proxy `location ^~ /dashboard/`: проксирует Vikunja (`http://127.0.0.1:3456/`) под Basic Auth (`/etc/nginx/.htpasswd`), без раскрытия прямого IP-адреса и порта.
   - `/etc/nginx/sites-enabled/flirtcheck.site.conf` $\rightarrow$ Root: `/var/www/flirtcheck.site/current`
-  - `/etc/nginx/sites-enabled/vikunja.conf` (порт 3456) $\rightarrow$ Внутренний Task & Project Management
+    - Роут `/dashboard` перенаправляет на защищенный HTTPS-эндпоинт `https://promoradar.store/dashboard/` (301 Moved Permanently).
+  - `/etc/nginx/sites-enabled/evangelion`:
+    - Изолирован строго на локальный сокет `listen 127.0.0.1:3456;`, внешний доступ из интернета заблокирован фаерволом (UFW).
+- **Сетевая безопасность и фаервол (UFW Hardening):**
+  - Разрешены извне: порты `22/tcp` (SSH), `80/tcp` (HTTP) и `443/tcp` (HTTPS).
+  - Внешний порт `3456/tcp` закрыт в UFW (`ufw delete allow 3456/tcp`); сервис Vikunja слушает локально (`127.0.0.1:3455` backend, `127.0.0.1:3456` Nginx frontend-прокси).
+  - Порт `5000` (Affiliate Core API) слушает исключительно `127.0.0.1:5000` и защищен Basic Auth в Nginx и приложении.
 - **Фоновые сервисы PM2:**
   - `affiliate-autonomous-agent` (PID онлайн, автопилот контента)
-  - `affiliate-dashboard` (PID онлайн, порты 5000 API/Dashboard и 3000 TDS Traffic Router /go)
+  - `affiliate-dashboard` (PID онлайн, порты 5000 API/Dashboard и 3000 TDS Traffic Router /go, внутренний редирект на `https://promoradar.store/dashboard/`)
   - `affiliate-scheduler`, `affiliate-health-monitor`, `affiliate-social-syndicator`
   - Ротация логов: `pm2-logrotate` (активен)
 - **Система релизов PromoRadar & FlirtCheck:**
