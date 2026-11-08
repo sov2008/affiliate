@@ -18463,6 +18463,2507 @@ export const STORES_DATA: StoreProfile[] = [
     ],
     "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=94167&id=3148787"
   }
+,
+  {
+    "slug": "bulk-pl",
+    "name": "Bulk",
+    "category": "Beauty & Fragrances",
+    "logoText": "BULK",
+    "shortDesc": "Official Bulk verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Bulk is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across Poland. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.bulkpowders.pl/",
+    "howToApply": [
+      "Select the active Bulk promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Bulk to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Bulk discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Bulk deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=11218&id=3148787"
+  },
+  {
+    "slug": "she-is-boutique",
+    "name": "She Is Boutique",
+    "category": "Fashion & Apparel",
+    "logoText": "SHE IS BOUTIQU",
+    "shortDesc": "Official She Is Boutique verified promotions, seasonal discounts, and instant online savings across Clothing.",
+    "fullDesc": "She Is Boutique is a recognized provider in Clothing, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://sheisboutique.org",
+    "howToApply": [
+      "Select the active She Is Boutique promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on She Is Boutique to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my She Is Boutique discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these She Is Boutique deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=94777&id=3148787"
+  },
+  {
+    "slug": "berlin-skin",
+    "name": "Berlin Skin",
+    "category": "Beauty & Fragrances",
+    "logoText": "BERLIN SKIN",
+    "shortDesc": "Official Berlin Skin verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Berlin Skin is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://berlinskin.com",
+    "howToApply": [
+      "Select the active Berlin Skin promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Berlin Skin to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Berlin Skin discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Berlin Skin deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=94811&id=3148787"
+  },
+  {
+    "slug": "scholartrip",
+    "name": "ScholarTrip",
+    "category": "Travel & Tours",
+    "logoText": "SCHOLARTRIP",
+    "shortDesc": "Official ScholarTrip verified promotions, seasonal discounts, and instant online savings across Airlines.",
+    "fullDesc": "ScholarTrip is a recognized provider in Airlines, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://scholartrip.com",
+    "howToApply": [
+      "Select the active ScholarTrip promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on ScholarTrip to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my ScholarTrip discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these ScholarTrip deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=95023&id=3148787"
+  },
+  {
+    "slug": "myeyebb",
+    "name": "MYEYEBB",
+    "category": "Beauty & Fragrances",
+    "logoText": "MYEYEBB",
+    "shortDesc": "Official MYEYEBB verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "MYEYEBB is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://myeyebb.com/collections/best-sellers?utm_source=affiliate&utm_medium=sas",
+    "howToApply": [
+      "Select the active MYEYEBB promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on MYEYEBB to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my MYEYEBB discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these MYEYEBB deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=95119&id=3148787"
+  },
+  {
+    "slug": "xpluswear",
+    "name": "Xpluswear",
+    "category": "Fashion & Apparel",
+    "logoText": "XPLUSWEAR",
+    "shortDesc": "Official Xpluswear verified promotions, seasonal discounts, and instant online savings across Clothing.",
+    "fullDesc": "Xpluswear is a recognized provider in Clothing, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.xpluswear.com",
+    "howToApply": [
+      "Select the active Xpluswear promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Xpluswear to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Xpluswear discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Xpluswear deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=95469&id=3148787"
+  },
+  {
+    "slug": "noblemars-inc",
+    "name": "Noblemars",
+    "category": "Fashion & Apparel",
+    "logoText": "NOBLEMARS",
+    "shortDesc": "Official Noblemars verified promotions, seasonal discounts, and instant online savings across Clothing.",
+    "fullDesc": "Noblemars is a recognized provider in Clothing, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://noblemars.com",
+    "howToApply": [
+      "Select the active Noblemars promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Noblemars to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Noblemars discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Noblemars deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=96673&id=3148787"
+  },
+  {
+    "slug": "wasson-watch-co",
+    "name": "Wasson Watch Co.",
+    "category": "Fashion & Apparel",
+    "logoText": "WASSON WATCH C",
+    "shortDesc": "Official Wasson Watch Co. verified promotions, seasonal discounts, and instant online savings across Clothing Accessories.",
+    "fullDesc": "Wasson Watch Co. is a recognized provider in Clothing Accessories, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://wassonwatch.com",
+    "howToApply": [
+      "Select the active Wasson Watch Co. promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Wasson Watch Co. to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Wasson Watch Co. discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Wasson Watch Co. deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=97399&id=3148787"
+  },
+  {
+    "slug": "zuvi-inc",
+    "name": "Zuvi Inc.",
+    "category": "Beauty & Fragrances",
+    "logoText": "ZUVI INC.",
+    "shortDesc": "Official Zuvi Inc. verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Zuvi Inc. is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://zuvilife.com",
+    "howToApply": [
+      "Select the active Zuvi Inc. promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Zuvi Inc. to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Zuvi Inc. discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Zuvi Inc. deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=97591&id=3148787"
+  },
+  {
+    "slug": "ries-ries-inc",
+    "name": "Ries Ries, Inc.",
+    "category": "Beauty & Fragrances",
+    "logoText": "RIES RIES, INC",
+    "shortDesc": "Official Ries Ries, Inc. verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Ries Ries, Inc. is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://ries-ries.com",
+    "howToApply": [
+      "Select the active Ries Ries, Inc. promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Ries Ries, Inc. to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Ries Ries, Inc. discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Ries Ries, Inc. deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=97811&id=3148787"
+  },
+  {
+    "slug": "simitri",
+    "name": "Simitri",
+    "category": "Fashion & Apparel",
+    "logoText": "SIMITRI",
+    "shortDesc": "Official Simitri verified promotions, seasonal discounts, and instant online savings across Clothing Accessories.",
+    "fullDesc": "Simitri is a recognized provider in Clothing Accessories, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.simitri.shop",
+    "howToApply": [
+      "Select the active Simitri promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Simitri to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Simitri discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Simitri deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=97973&id=3148787"
+  },
+  {
+    "slug": "triptogo",
+    "name": "Triptogo",
+    "category": "Travel & Tours",
+    "logoText": "TRIPTOGO",
+    "shortDesc": "Official Triptogo verified promotions, seasonal discounts, and instant online savings across Tourism & Attractions.",
+    "fullDesc": "Triptogo is a recognized provider in Tourism & Attractions, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://triptogo.com",
+    "howToApply": [
+      "Select the active Triptogo promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Triptogo to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Triptogo discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Triptogo deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=98699&id=3148787"
+  },
+  {
+    "slug": "the-outlet-shop",
+    "name": "The Outlet Shop",
+    "category": "Fashion & Apparel",
+    "logoText": "THE OUTLET SHO",
+    "shortDesc": "Official The Outlet Shop verified promotions, seasonal discounts, and instant online savings across Electronic Accessories.",
+    "fullDesc": "The Outlet Shop is a recognized provider in Electronic Accessories, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://theoutletshop.co.uk",
+    "howToApply": [
+      "Select the active The Outlet Shop promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on The Outlet Shop to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my The Outlet Shop discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these The Outlet Shop deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=100067&id=3148787"
+  },
+  {
+    "slug": "swan-edgar",
+    "name": "Swan & Edgar",
+    "category": "Fashion & Apparel",
+    "logoText": "SWAN & EDGAR",
+    "shortDesc": "Official Swan & Edgar verified promotions, seasonal discounts, and instant online savings across Jewellery.",
+    "fullDesc": "Swan & Edgar is a recognized provider in Jewellery, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://swanandedgar.com/",
+    "howToApply": [
+      "Select the active Swan & Edgar promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Swan & Edgar to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Swan & Edgar discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Swan & Edgar deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=100443&id=3148787"
+  },
+  {
+    "slug": "michi-design-inc",
+    "name": "MICHI Design",
+    "category": "Fashion & Apparel",
+    "logoText": "MICHI DESIGN",
+    "shortDesc": "Official MICHI Design verified promotions, seasonal discounts, and instant online savings across Clothing.",
+    "fullDesc": "MICHI Design is a recognized provider in Clothing, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://michiny.com",
+    "howToApply": [
+      "Select the active MICHI Design promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on MICHI Design to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my MICHI Design discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these MICHI Design deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=100637&id=3148787"
+  },
+  {
+    "slug": "posterbooking",
+    "name": "PosterBooking",
+    "category": "Web Hosting & Domains",
+    "logoText": "POSTERBOOKING",
+    "shortDesc": "Official PosterBooking verified promotions, seasonal discounts, and instant online savings across Web Hosting.",
+    "fullDesc": "PosterBooking is a recognized provider in Web Hosting, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://posterbooking.com",
+    "howToApply": [
+      "Select the active PosterBooking promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on PosterBooking to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my PosterBooking discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these PosterBooking deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=102815&id=3148787"
+  },
+  {
+    "slug": "alligator-warehouse-us",
+    "name": "Alligator Warehouse",
+    "category": "Fashion & Apparel",
+    "logoText": "ALLIGATOR WARE",
+    "shortDesc": "Official Alligator Warehouse verified promotions, seasonal discounts, and instant online savings across Menswear.",
+    "fullDesc": "Alligator Warehouse is a recognized provider in Menswear, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://alligatorwarehouse.com/",
+    "howToApply": [
+      "Select the active Alligator Warehouse promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Alligator Warehouse to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Alligator Warehouse discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Alligator Warehouse deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=103439&id=3148787"
+  },
+  {
+    "slug": "worldsim",
+    "name": "WorldSIM",
+    "category": "Electronics & Gadgets",
+    "logoText": "WORLDSIM",
+    "shortDesc": "Official WorldSIM verified promotions, seasonal discounts, and instant online savings across Mobile Pay As You Go.",
+    "fullDesc": "WorldSIM is a recognized provider in Mobile Pay As You Go, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.worldsim.com/",
+    "howToApply": [
+      "Select the active WorldSIM promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on WorldSIM to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my WorldSIM discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these WorldSIM deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=104675&id=3148787"
+  },
+  {
+    "slug": "knowroaming-uk",
+    "name": "KnowRoaming",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "KNOWROAMING",
+    "shortDesc": "Official KnowRoaming verified promotions, seasonal discounts, and instant online savings across Internet Service Provider.",
+    "fullDesc": "KnowRoaming is a recognized provider in Internet Service Provider, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.knowroaming.com",
+    "howToApply": [
+      "Select the active KnowRoaming promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on KnowRoaming to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my KnowRoaming discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these KnowRoaming deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=104953&id=3148787"
+  },
+  {
+    "slug": "cubitt-us",
+    "name": "Cubitt (US)",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "CUBITT (US)",
+    "shortDesc": "Official Cubitt (US) verified promotions, seasonal discounts, and instant online savings across Sports Equipment.",
+    "fullDesc": "Cubitt (US) is a recognized provider in Sports Equipment, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://cubittofficial.com/",
+    "howToApply": [
+      "Select the active Cubitt (US) promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Cubitt (US) to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Cubitt (US) discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Cubitt (US) deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=105005&id=3148787"
+  },
+  {
+    "slug": "therafit-shoe",
+    "name": "Therafit Shoe",
+    "category": "Fashion & Apparel",
+    "logoText": "THERAFIT SHOE",
+    "shortDesc": "Official Therafit Shoe verified promotions, seasonal discounts, and instant online savings across Clothing Accessories.",
+    "fullDesc": "Therafit Shoe is a recognized provider in Clothing Accessories, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://therafitshoe.com/collections/sandals",
+    "howToApply": [
+      "Select the active Therafit Shoe promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Therafit Shoe to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Therafit Shoe discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Therafit Shoe deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=105077&id=3148787"
+  },
+  {
+    "slug": "meinsportline-de",
+    "name": "meinSportline",
+    "category": "Fashion & Apparel",
+    "logoText": "MEINSPORTLINE",
+    "shortDesc": "Official meinSportline verified promotions, seasonal discounts, and instant online savings across Shoes.",
+    "fullDesc": "meinSportline is a recognized provider in Shoes, delivering premium quality products and dedicated customer support across Germany. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.meinsportline.de",
+    "howToApply": [
+      "Select the active meinSportline promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on meinSportline to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my meinSportline discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these meinSportline deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=105243&id=3148787"
+  },
+  {
+    "slug": "midnightdeal-de",
+    "name": "Midnightdeal",
+    "category": "Travel & Tours",
+    "logoText": "MIDNIGHTDEAL",
+    "shortDesc": "Official Midnightdeal verified promotions, seasonal discounts, and instant online savings across Travel Agencies.",
+    "fullDesc": "Midnightdeal is a recognized provider in Travel Agencies, delivering premium quality products and dedicated customer support across Germany. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://midnightdeal.com/de",
+    "howToApply": [
+      "Select the active Midnightdeal promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Midnightdeal to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Midnightdeal discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Midnightdeal deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=105513&id=3148787"
+  },
+  {
+    "slug": "cloaked-wireless",
+    "name": "Cloaked Wireless",
+    "category": "Web Hosting & Domains",
+    "logoText": "CLOAKED WIRELE",
+    "shortDesc": "Official Cloaked Wireless verified promotions, seasonal discounts, and instant online savings across Web Hosting.",
+    "fullDesc": "Cloaked Wireless is a recognized provider in Web Hosting, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://cloakedwireless.com",
+    "howToApply": [
+      "Select the active Cloaked Wireless promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Cloaked Wireless to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Cloaked Wireless discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Cloaked Wireless deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=105775&id=3148787"
+  },
+  {
+    "slug": "schutz-us",
+    "name": "Schutz (US)",
+    "category": "Fashion & Apparel",
+    "logoText": "SCHUTZ (US)",
+    "shortDesc": "Official Schutz (US) verified promotions, seasonal discounts, and instant online savings across Shoes.",
+    "fullDesc": "Schutz (US) is a recognized provider in Shoes, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://schutz-shoes.com/",
+    "howToApply": [
+      "Select the active Schutz (US) promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Schutz (US) to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Schutz (US) discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Schutz (US) deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=105875&id=3148787"
+  },
+  {
+    "slug": "trivago-de",
+    "name": "Trivago",
+    "category": "Travel & Tours",
+    "logoText": "TRIVAGO",
+    "shortDesc": "Official Trivago verified promotions, seasonal discounts, and instant online savings across Hotels & Accommodation.",
+    "fullDesc": "Trivago is a recognized provider in Hotels & Accommodation, delivering premium quality products and dedicated customer support across Germany. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.trivago.de/",
+    "howToApply": [
+      "Select the active Trivago promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Trivago to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Trivago discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Trivago deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=105923&id=3148787"
+  },
+  {
+    "slug": "nava-beauty-corp",
+    "name": "NAVA BEAUTY CORP",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "NAVA BEAUTY CO",
+    "shortDesc": "Official NAVA BEAUTY CORP verified promotions, seasonal discounts, and instant online savings across Department Stores.",
+    "fullDesc": "NAVA BEAUTY CORP is a recognized provider in Department Stores, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://navabeauty.com/",
+    "howToApply": [
+      "Select the active NAVA BEAUTY CORP promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on NAVA BEAUTY CORP to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my NAVA BEAUTY CORP discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these NAVA BEAUTY CORP deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=106309&id=3148787"
+  },
+  {
+    "slug": "santa-cruz-shredder",
+    "name": "Santa Cruz Shredder",
+    "category": "Electronics & Gadgets",
+    "logoText": "SANTA CRUZ SHR",
+    "shortDesc": "Official Santa Cruz Shredder verified promotions, seasonal discounts, and instant online savings across Gadgets.",
+    "fullDesc": "Santa Cruz Shredder is a recognized provider in Gadgets, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://santacruzshredder.com",
+    "howToApply": [
+      "Select the active Santa Cruz Shredder promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Santa Cruz Shredder to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Santa Cruz Shredder discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Santa Cruz Shredder deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=106481&id=3148787"
+  },
+  {
+    "slug": "stylevana-uk",
+    "name": "Stylevana",
+    "category": "Beauty & Fragrances",
+    "logoText": "STYLEVANA",
+    "shortDesc": "Official Stylevana verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Stylevana is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.stylevana.com/en_GB/",
+    "howToApply": [
+      "Select the active Stylevana promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Stylevana to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Stylevana discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Stylevana deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=106621&id=3148787"
+  },
+  {
+    "slug": "nightfox",
+    "name": "Nightfox",
+    "category": "Fashion & Apparel",
+    "logoText": "NIGHTFOX",
+    "shortDesc": "Official Nightfox verified promotions, seasonal discounts, and instant online savings across Electronic Accessories.",
+    "fullDesc": "Nightfox is a recognized provider in Electronic Accessories, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://nightfoxstore.com",
+    "howToApply": [
+      "Select the active Nightfox promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Nightfox to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Nightfox discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Nightfox deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=107227&id=3148787"
+  },
+  {
+    "slug": "simbye",
+    "name": "Simbye",
+    "category": "Electronics & Gadgets",
+    "logoText": "SIMBYE",
+    "shortDesc": "Official Simbye verified promotions, seasonal discounts, and instant online savings across Mobile Pay As You Go.",
+    "fullDesc": "Simbye is a recognized provider in Mobile Pay As You Go, delivering premium quality products and dedicated customer support across Germany. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://simbye.com/",
+    "howToApply": [
+      "Select the active Simbye promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Simbye to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Simbye discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Simbye deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=107814&id=3148787"
+  },
+  {
+    "slug": "tenth-muse-ltd",
+    "name": "Tenth Muse Ltd",
+    "category": "Beauty & Fragrances",
+    "logoText": "TENTH MUSE LTD",
+    "shortDesc": "Official Tenth Muse Ltd verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Tenth Muse Ltd is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.tenthmuselondon.com/",
+    "howToApply": [
+      "Select the active Tenth Muse Ltd promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Tenth Muse Ltd to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Tenth Muse Ltd discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Tenth Muse Ltd deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=108812&id=3148787"
+  },
+  {
+    "slug": "bamboosim-uk",
+    "name": "BambooSIM",
+    "category": "Electronics & Gadgets",
+    "logoText": "BAMBOOSIM",
+    "shortDesc": "Official BambooSIM verified promotions, seasonal discounts, and instant online savings across Mobile Pay As You Go.",
+    "fullDesc": "BambooSIM is a recognized provider in Mobile Pay As You Go, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://bamboosim.com/",
+    "howToApply": [
+      "Select the active BambooSIM promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on BambooSIM to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my BambooSIM discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these BambooSIM deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=108850&id=3148787"
+  },
+  {
+    "slug": "maverick-co-us",
+    "name": "Maverick & Co.",
+    "category": "Fashion & Apparel",
+    "logoText": "MAVERICK & CO.",
+    "shortDesc": "Official Maverick & Co. verified promotions, seasonal discounts, and instant online savings across Clothing Accessories.",
+    "fullDesc": "Maverick & Co. is a recognized provider in Clothing Accessories, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://maverickandco.co/",
+    "howToApply": [
+      "Select the active Maverick & Co. promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Maverick & Co. to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Maverick & Co. discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Maverick & Co. deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=108852&id=3148787"
+  },
+  {
+    "slug": "fitness-first-clubs-ltd",
+    "name": "Fitness First Clubs Ltd.",
+    "category": "Beauty & Fragrances",
+    "logoText": "FITNESS FIRST ",
+    "shortDesc": "Official Fitness First Clubs Ltd. verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Fitness First Clubs Ltd. is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.fitnessfirst.co.uk/",
+    "howToApply": [
+      "Select the active Fitness First Clubs Ltd. promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Fitness First Clubs Ltd. to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Fitness First Clubs Ltd. discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Fitness First Clubs Ltd. deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=109520&id=3148787"
+  },
+  {
+    "slug": "nex-nutrition-de",
+    "name": "Nex Nutrition",
+    "category": "Beauty & Fragrances",
+    "logoText": "NEX NUTRITION",
+    "shortDesc": "Official Nex Nutrition verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Nex Nutrition is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across Germany. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://nex-sportsnutrition.com/",
+    "howToApply": [
+      "Select the active Nex Nutrition promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Nex Nutrition to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Nex Nutrition discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Nex Nutrition deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=109648&id=3148787"
+  },
+  {
+    "slug": "roamify-esim-travel-call-data",
+    "name": "Roamify eSIM - Travel Call & Data",
+    "category": "Travel & Tours",
+    "logoText": "ROAMIFY ESIM -",
+    "shortDesc": "Official Roamify eSIM - Travel Call & Data verified promotions, seasonal discounts, and instant online savings across Tourism & Attractions.",
+    "fullDesc": "Roamify eSIM - Travel Call & Data is a recognized provider in Tourism & Attractions, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.getroamify.com",
+    "howToApply": [
+      "Select the active Roamify eSIM - Travel Call & Data promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Roamify eSIM - Travel Call & Data to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Roamify eSIM - Travel Call & Data discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Roamify eSIM - Travel Call & Data deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=109900&id=3148787"
+  },
+  {
+    "slug": "spletra-d-o-o-si29391563",
+    "name": "Spletra d.o.o., SI29391563",
+    "category": "Web Hosting & Domains",
+    "logoText": "SPLETRA D.O.O.",
+    "shortDesc": "Official Spletra d.o.o., SI29391563 verified promotions, seasonal discounts, and instant online savings across Web Hosting.",
+    "fullDesc": "Spletra d.o.o., SI29391563 is a recognized provider in Web Hosting, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://bookingwp.com",
+    "howToApply": [
+      "Select the active Spletra d.o.o., SI29391563 promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Spletra d.o.o., SI29391563 to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Spletra d.o.o., SI29391563 discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Spletra d.o.o., SI29391563 deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=110552&id=3148787"
+  },
+  {
+    "slug": "baxinier-us",
+    "name": "Baxinier (US)",
+    "category": "Fashion & Apparel",
+    "logoText": "BAXINIER (US)",
+    "shortDesc": "Official Baxinier (US) verified promotions, seasonal discounts, and instant online savings across Shoes.",
+    "fullDesc": "Baxinier (US) is a recognized provider in Shoes, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.baxinier.com/",
+    "howToApply": [
+      "Select the active Baxinier (US) promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Baxinier (US) to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Baxinier (US) discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Baxinier (US) deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=110732&id=3148787"
+  },
+  {
+    "slug": "pininfarina-hybrid-watches",
+    "name": "Pininfarina Hybrid Watches",
+    "category": "Fashion & Apparel",
+    "logoText": "PININFARINA HY",
+    "shortDesc": "Official Pininfarina Hybrid Watches verified promotions, seasonal discounts, and instant online savings across Clothing Accessories.",
+    "fullDesc": "Pininfarina Hybrid Watches is a recognized provider in Clothing Accessories, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.pininfarina-hybridwatchbyglobics.com",
+    "howToApply": [
+      "Select the active Pininfarina Hybrid Watches promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Pininfarina Hybrid Watches to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Pininfarina Hybrid Watches discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Pininfarina Hybrid Watches deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=110972&id=3148787"
+  },
+  {
+    "slug": "laptop-outlet",
+    "name": "Laptop Outlet",
+    "category": "Electronics & Gadgets",
+    "logoText": "LAPTOP OUTLET",
+    "shortDesc": "Official Laptop Outlet verified promotions, seasonal discounts, and instant online savings across Electronic Superstore.",
+    "fullDesc": "Laptop Outlet is a recognized provider in Electronic Superstore, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.laptopoutlet.co.uk/",
+    "howToApply": [
+      "Select the active Laptop Outlet promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Laptop Outlet to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Laptop Outlet discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Laptop Outlet deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=111534&id=3148787"
+  },
+  {
+    "slug": "sportsbreaks",
+    "name": "SportsBreaks",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "SPORTSBREAKS",
+    "shortDesc": "Official SportsBreaks verified promotions, seasonal discounts, and instant online savings across Tickets.",
+    "fullDesc": "SportsBreaks is a recognized provider in Tickets, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.sportsbreaks.com/",
+    "howToApply": [
+      "Select the active SportsBreaks promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on SportsBreaks to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my SportsBreaks discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these SportsBreaks deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=111798&id=3148787"
+  },
+  {
+    "slug": "magnum-worldwide-holdings-inc",
+    "name": "Magnum Worldwide Holdings Inc.",
+    "category": "Beauty & Fragrances",
+    "logoText": "MAGNUM WORLDWI",
+    "shortDesc": "Official Magnum Worldwide Holdings Inc. verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Magnum Worldwide Holdings Inc. is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://youare101.com",
+    "howToApply": [
+      "Select the active Magnum Worldwide Holdings Inc. promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Magnum Worldwide Holdings Inc. to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Magnum Worldwide Holdings Inc. discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Magnum Worldwide Holdings Inc. deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=112162&id=3148787"
+  },
+  {
+    "slug": "zapme-us",
+    "name": "Zapme (US)",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "ZAPME (US)",
+    "shortDesc": "Official Zapme (US) verified promotions, seasonal discounts, and instant online savings across Network Operators.",
+    "fullDesc": "Zapme (US) is a recognized provider in Network Operators, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://zapme.co/",
+    "howToApply": [
+      "Select the active Zapme (US) promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Zapme (US) to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Zapme (US) discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Zapme (US) deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=112298&id=3148787"
+  },
+  {
+    "slug": "ee-tech-gaming",
+    "name": "EE Tech & Gaming",
+    "category": "Electronics & Gadgets",
+    "logoText": "EE TECH & GAMI",
+    "shortDesc": "Official EE Tech & Gaming verified promotions, seasonal discounts, and instant online savings across Electronic Superstore.",
+    "fullDesc": "EE Tech & Gaming is a recognized provider in Electronic Superstore, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://ee.co.uk/",
+    "howToApply": [
+      "Select the active EE Tech & Gaming promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on EE Tech & Gaming to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my EE Tech & Gaming discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these EE Tech & Gaming deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=112400&id=3148787"
+  },
+  {
+    "slug": "vi-travel",
+    "name": "VI Travel",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "VI TRAVEL",
+    "shortDesc": "Official VI Travel verified promotions, seasonal discounts, and instant online savings across Tickets.",
+    "fullDesc": "VI Travel is a recognized provider in Tickets, delivering premium quality products and dedicated customer support across Netherlands. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://vi-travel.nl/",
+    "howToApply": [
+      "Select the active VI Travel promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on VI Travel to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my VI Travel discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these VI Travel deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=112608&id=3148787"
+  },
+  {
+    "slug": "joan-oloff-shoes",
+    "name": "Joan Oloff Shoes",
+    "category": "Fashion & Apparel",
+    "logoText": "JOAN OLOFF SHO",
+    "shortDesc": "Official Joan Oloff Shoes verified promotions, seasonal discounts, and instant online savings across Clothing Accessories.",
+    "fullDesc": "Joan Oloff Shoes is a recognized provider in Clothing Accessories, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.joanoloffshoes.com",
+    "howToApply": [
+      "Select the active Joan Oloff Shoes promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Joan Oloff Shoes to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Joan Oloff Shoes discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Joan Oloff Shoes deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=112794&id=3148787"
+  },
+  {
+    "slug": "gurado-gutschein-und-ticketsystem-de",
+    "name": "gurado - Gutschein- und Ticketsystem",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "GURADO - GUTSC",
+    "shortDesc": "Official gurado - Gutschein- und Ticketsystem verified promotions, seasonal discounts, and instant online savings across Business Services (B2B).",
+    "fullDesc": "gurado - Gutschein- und Ticketsystem is a recognized provider in Business Services (B2B), delivering premium quality products and dedicated customer support across Germany. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://site.gurado.de/",
+    "howToApply": [
+      "Select the active gurado - Gutschein- und Ticketsystem promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on gurado - Gutschein- und Ticketsystem to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my gurado - Gutschein- und Ticketsystem discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these gurado - Gutschein- und Ticketsystem deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=112830&id=3148787"
+  },
+  {
+    "slug": "move-pre-workout",
+    "name": "Move Pre-Workout",
+    "category": "Beauty & Fragrances",
+    "logoText": "MOVE PRE-WORKO",
+    "shortDesc": "Official Move Pre-Workout verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Move Pre-Workout is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://movepreworkout.com/",
+    "howToApply": [
+      "Select the active Move Pre-Workout promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Move Pre-Workout to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Move Pre-Workout discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Move Pre-Workout deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=112840&id=3148787"
+  },
+  {
+    "slug": "l-lior-us",
+    "name": "Lèlior (US)",
+    "category": "Beauty & Fragrances",
+    "logoText": "LÈLIOR (US)",
+    "shortDesc": "Official Lèlior (US) verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Lèlior (US) is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.lelior.com/",
+    "howToApply": [
+      "Select the active Lèlior (US) promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Lèlior (US) to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Lèlior (US) discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Lèlior (US) deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=113388&id=3148787"
+  },
+  {
+    "slug": "lifesum-de",
+    "name": "Lifesum",
+    "category": "Beauty & Fragrances",
+    "logoText": "LIFESUM",
+    "shortDesc": "Official Lifesum verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Lifesum is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across Germany. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://lifesum.com/",
+    "howToApply": [
+      "Select the active Lifesum promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Lifesum to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Lifesum discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Lifesum deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=113414&id=3148787"
+  },
+  {
+    "slug": "xshred-ultimate-fat-loss-program",
+    "name": "XSHRED - Ultimate Fat Loss Program",
+    "category": "Beauty & Fragrances",
+    "logoText": "XSHRED - ULTIM",
+    "shortDesc": "Official XSHRED - Ultimate Fat Loss Program verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "XSHRED - Ultimate Fat Loss Program is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://xshred.exodosfitness.com/",
+    "howToApply": [
+      "Select the active XSHRED - Ultimate Fat Loss Program promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on XSHRED - Ultimate Fat Loss Program to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my XSHRED - Ultimate Fat Loss Program discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these XSHRED - Ultimate Fat Loss Program deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=114166&id=3148787"
+  },
+  {
+    "slug": "bullfit-us",
+    "name": "BullFit (US)",
+    "category": "Beauty & Fragrances",
+    "logoText": "BULLFIT (US)",
+    "shortDesc": "Official BullFit (US) verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "BullFit (US) is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.bullfit.com",
+    "howToApply": [
+      "Select the active BullFit (US) promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on BullFit (US) to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my BullFit (US) discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these BullFit (US) deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=114268&id=3148787"
+  },
+  {
+    "slug": "virgin-balloon-flights-uk",
+    "name": "Virgin Balloon Flights",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "VIRGIN BALLOON",
+    "shortDesc": "Official Virgin Balloon Flights verified promotions, seasonal discounts, and instant online savings across Gifts & Flowers.",
+    "fullDesc": "Virgin Balloon Flights is a recognized provider in Gifts & Flowers, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.virginballoonflights.co.uk/",
+    "howToApply": [
+      "Select the active Virgin Balloon Flights promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Virgin Balloon Flights to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Virgin Balloon Flights discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Virgin Balloon Flights deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=114484&id=3148787"
+  },
+  {
+    "slug": "fleurwear-uk",
+    "name": "Fleurwear",
+    "category": "Fashion & Apparel",
+    "logoText": "FLEURWEAR",
+    "shortDesc": "Official Fleurwear verified promotions, seasonal discounts, and instant online savings across Womenswear.",
+    "fullDesc": "Fleurwear is a recognized provider in Womenswear, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.fleurwear.com/",
+    "howToApply": [
+      "Select the active Fleurwear promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Fleurwear to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Fleurwear discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Fleurwear deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=114752&id=3148787"
+  },
+  {
+    "slug": "sea-star",
+    "name": "Sea Star",
+    "category": "Fashion & Apparel",
+    "logoText": "SEA STAR",
+    "shortDesc": "Official Sea Star verified promotions, seasonal discounts, and instant online savings across Shoes.",
+    "fullDesc": "Sea Star is a recognized provider in Shoes, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://seastarbeachwear.com/",
+    "howToApply": [
+      "Select the active Sea Star promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Sea Star to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Sea Star discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Sea Star deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=114994&id=3148787"
+  },
+  {
+    "slug": "foreverlyfe",
+    "name": "Foreverlyfe",
+    "category": "Beauty & Fragrances",
+    "logoText": "FOREVERLYFE",
+    "shortDesc": "Official Foreverlyfe verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Foreverlyfe is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://foreverlyfe.com/",
+    "howToApply": [
+      "Select the active Foreverlyfe promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Foreverlyfe to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Foreverlyfe discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Foreverlyfe deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=115070&id=3148787"
+  },
+  {
+    "slug": "mafalda",
+    "name": "Mafalda",
+    "category": "Fashion & Apparel",
+    "logoText": "MAFALDA",
+    "shortDesc": "Official Mafalda verified promotions, seasonal discounts, and instant online savings across Shoes.",
+    "fullDesc": "Mafalda is a recognized provider in Shoes, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.mafaldahandmade.com",
+    "howToApply": [
+      "Select the active Mafalda promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Mafalda to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Mafalda discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Mafalda deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=115136&id=3148787"
+  },
+  {
+    "slug": "strong-esim-affiliate-program",
+    "name": "Strong eSIM Affiliate Program",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "STRONG ESIM AF",
+    "shortDesc": "Official Strong eSIM Affiliate Program verified promotions, seasonal discounts, and instant online savings across B2B Telecommunications Services.",
+    "fullDesc": "Strong eSIM Affiliate Program is a recognized provider in B2B Telecommunications Services, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://strongesim.com/",
+    "howToApply": [
+      "Select the active Strong eSIM Affiliate Program promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Strong eSIM Affiliate Program to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Strong eSIM Affiliate Program discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Strong eSIM Affiliate Program deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=115198&id=3148787"
+  },
+  {
+    "slug": "zen-hotels-us",
+    "name": "Zen Hotels",
+    "category": "Travel & Tours",
+    "logoText": "ZEN HOTELS",
+    "shortDesc": "Official Zen Hotels verified promotions, seasonal discounts, and instant online savings across Hotels & Accommodation.",
+    "fullDesc": "Zen Hotels is a recognized provider in Hotels & Accommodation, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.zenhotels.com/go/cpan/",
+    "howToApply": [
+      "Select the active Zen Hotels promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Zen Hotels to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Zen Hotels discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Zen Hotels deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=115208&id=3148787"
+  },
+  {
+    "slug": "icy-sim",
+    "name": "ICY SIM",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "ICY SIM",
+    "shortDesc": "Official ICY SIM verified promotions, seasonal discounts, and instant online savings across B2B Telecommunications Services.",
+    "fullDesc": "ICY SIM is a recognized provider in B2B Telecommunications Services, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://icysim.com/",
+    "howToApply": [
+      "Select the active ICY SIM promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on ICY SIM to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my ICY SIM discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these ICY SIM deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=115601&id=3148787"
+  },
+  {
+    "slug": "voghion-uk",
+    "name": "Voghion",
+    "category": "Fashion & Apparel",
+    "logoText": "VOGHION",
+    "shortDesc": "Official Voghion verified promotions, seasonal discounts, and instant online savings across Clothing.",
+    "fullDesc": "Voghion is a recognized provider in Clothing, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://uk.voghion.com/",
+    "howToApply": [
+      "Select the active Voghion promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Voghion to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Voghion discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Voghion deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=115651&id=3148787"
+  },
+  {
+    "slug": "esimania-com-buy-esim-for-international-travel",
+    "name": "eSIMania.com - Buy eSIM for International Travel",
+    "category": "Travel & Tours",
+    "logoText": "ESIMANIA.COM -",
+    "shortDesc": "Official eSIMania.com - Buy eSIM for International Travel verified promotions, seasonal discounts, and instant online savings across Tourism & Attractions.",
+    "fullDesc": "eSIMania.com - Buy eSIM for International Travel is a recognized provider in Tourism & Attractions, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://esimania.com",
+    "howToApply": [
+      "Select the active eSIMania.com - Buy eSIM for International Travel promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on eSIMania.com - Buy eSIM for International Travel to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my eSIMania.com - Buy eSIM for International Travel discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these eSIMania.com - Buy eSIM for International Travel deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=115715&id=3148787"
+  },
+  {
+    "slug": "zen-hotels-gb",
+    "name": "Zen Hotels GB",
+    "category": "Travel & Tours",
+    "logoText": "ZEN HOTELS GB",
+    "shortDesc": "Official Zen Hotels GB verified promotions, seasonal discounts, and instant online savings across Hotels & Accommodation.",
+    "fullDesc": "Zen Hotels GB is a recognized provider in Hotels & Accommodation, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.zenhotels.com/go/cpan/",
+    "howToApply": [
+      "Select the active Zen Hotels GB promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Zen Hotels GB to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Zen Hotels GB discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Zen Hotels GB deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=115951&id=3148787"
+  },
+  {
+    "slug": "dotshop",
+    "name": "DOTSHOP",
+    "category": "Fashion & Apparel",
+    "logoText": "DOTSHOP",
+    "shortDesc": "Official DOTSHOP verified promotions, seasonal discounts, and instant online savings across Womenswear.",
+    "fullDesc": "DOTSHOP is a recognized provider in Womenswear, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.dotshop.ai",
+    "howToApply": [
+      "Select the active DOTSHOP promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on DOTSHOP to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my DOTSHOP discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these DOTSHOP deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=116093&id=3148787"
+  },
+  {
+    "slug": "hogbus",
+    "name": "Hogbus",
+    "category": "Fashion & Apparel",
+    "logoText": "HOGBUS",
+    "shortDesc": "Official Hogbus verified promotions, seasonal discounts, and instant online savings across Shoes.",
+    "fullDesc": "Hogbus is a recognized provider in Shoes, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://hogbus.com/",
+    "howToApply": [
+      "Select the active Hogbus promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Hogbus to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Hogbus discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Hogbus deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=116571&id=3148787"
+  },
+  {
+    "slug": "ccc-cz",
+    "name": "CCC CZ",
+    "category": "Fashion & Apparel",
+    "logoText": "CCC CZ",
+    "shortDesc": "Official CCC CZ verified promotions, seasonal discounts, and instant online savings across Shoes.",
+    "fullDesc": "CCC CZ is a recognized provider in Shoes, delivering premium quality products and dedicated customer support across Czech Republic. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://ccc.eu/cz/cs/",
+    "howToApply": [
+      "Select the active CCC CZ promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on CCC CZ to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my CCC CZ discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these CCC CZ deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=116735&id=3148787"
+  },
+  {
+    "slug": "restube",
+    "name": "RESTUBE",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "RESTUBE",
+    "shortDesc": "Official RESTUBE verified promotions, seasonal discounts, and instant online savings across Sports Equipment.",
+    "fullDesc": "RESTUBE is a recognized provider in Sports Equipment, delivering premium quality products and dedicated customer support across Germany. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://restube.com/",
+    "howToApply": [
+      "Select the active RESTUBE promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on RESTUBE to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my RESTUBE discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these RESTUBE deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=116839&id=3148787"
+  },
+  {
+    "slug": "body-fit-de",
+    "name": "Body & Fit",
+    "category": "Beauty & Fragrances",
+    "logoText": "BODY & FIT",
+    "shortDesc": "Official Body & Fit verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Body & Fit is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across Germany. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.bodyandfit.com/de-de",
+    "howToApply": [
+      "Select the active Body & Fit promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Body & Fit to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Body & Fit discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Body & Fit deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=117013&id=3148787"
+  },
+  {
+    "slug": "bio-synergy",
+    "name": "Bio-Synergy",
+    "category": "Beauty & Fragrances",
+    "logoText": "BIO-SYNERGY",
+    "shortDesc": "Official Bio-Synergy verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Bio-Synergy is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://bio-synergy.uk/",
+    "howToApply": [
+      "Select the active Bio-Synergy promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Bio-Synergy to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Bio-Synergy discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Bio-Synergy deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=117405&id=3148787"
+  },
+  {
+    "slug": "space-suitcases-us",
+    "name": "Space Suitcases (US)",
+    "category": "Electronics & Gadgets",
+    "logoText": "SPACE SUITCASE",
+    "shortDesc": "Official Space Suitcases (US) verified promotions, seasonal discounts, and instant online savings across Gadgets.",
+    "fullDesc": "Space Suitcases (US) is a recognized provider in Gadgets, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.space-suitcases.com/",
+    "howToApply": [
+      "Select the active Space Suitcases (US) promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Space Suitcases (US) to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Space Suitcases (US) discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Space Suitcases (US) deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=117725&id=3148787"
+  },
+  {
+    "slug": "sys-us",
+    "name": "SYS",
+    "category": "Fashion & Apparel",
+    "logoText": "SYS",
+    "shortDesc": "Official SYS verified promotions, seasonal discounts, and instant online savings across Clothing.",
+    "fullDesc": "SYS is a recognized provider in Clothing, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://stretchyourstory.com/",
+    "howToApply": [
+      "Select the active SYS promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on SYS to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my SYS discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these SYS deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=117991&id=3148787"
+  },
+  {
+    "slug": "roamable",
+    "name": "Roamable",
+    "category": "Electronics & Gadgets",
+    "logoText": "ROAMABLE",
+    "shortDesc": "Official Roamable verified promotions, seasonal discounts, and instant online savings across Mobile Pay As You Go.",
+    "fullDesc": "Roamable is a recognized provider in Mobile Pay As You Go, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://roamable.co/",
+    "howToApply": [
+      "Select the active Roamable promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Roamable to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Roamable discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Roamable deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=118127&id=3148787"
+  },
+  {
+    "slug": "cottages-com",
+    "name": "Cottages.com",
+    "category": "Travel & Tours",
+    "logoText": "COTTAGES.COM",
+    "shortDesc": "Official Cottages.com verified promotions, seasonal discounts, and instant online savings across Hotels & Accommodation.",
+    "fullDesc": "Cottages.com is a recognized provider in Hotels & Accommodation, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.cottages.com/",
+    "howToApply": [
+      "Select the active Cottages.com promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Cottages.com to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Cottages.com discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Cottages.com deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=118653&id=3148787"
+  },
+  {
+    "slug": "novasol-dach",
+    "name": "Novasol",
+    "category": "Travel & Tours",
+    "logoText": "NOVASOL",
+    "shortDesc": "Official Novasol verified promotions, seasonal discounts, and instant online savings across Hotels & Accommodation.",
+    "fullDesc": "Novasol is a recognized provider in Hotels & Accommodation, delivering premium quality products and dedicated customer support across Germany. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.novasol.de/",
+    "howToApply": [
+      "Select the active Novasol promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Novasol to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Novasol discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Novasol deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=118655&id=3148787"
+  },
+  {
+    "slug": "silentlink-de",
+    "name": "SilentLink",
+    "category": "Electronics & Gadgets",
+    "logoText": "SILENTLINK",
+    "shortDesc": "Official SilentLink verified promotions, seasonal discounts, and instant online savings across Gadgets.",
+    "fullDesc": "SilentLink is a recognized provider in Gadgets, delivering premium quality products and dedicated customer support across Germany. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://shop.silentlink.de/",
+    "howToApply": [
+      "Select the active SilentLink promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on SilentLink to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my SilentLink discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these SilentLink deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=119001&id=3148787"
+  },
+  {
+    "slug": "smallable-us",
+    "name": "Smallable",
+    "category": "Kids & Toys",
+    "logoText": "SMALLABLE",
+    "shortDesc": "Official Smallable verified promotions, seasonal discounts, and instant online savings across Childrenswear.",
+    "fullDesc": "Smallable is a recognized provider in Childrenswear, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.smallable.com/en",
+    "howToApply": [
+      "Select the active Smallable promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Smallable to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Smallable discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Smallable deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=119085&id=3148787"
+  },
+  {
+    "slug": "wonderconnect",
+    "name": "WonderConnect",
+    "category": "Electronics & Gadgets",
+    "logoText": "WONDERCONNECT",
+    "shortDesc": "Official WonderConnect verified promotions, seasonal discounts, and instant online savings across Mobile Broadband.",
+    "fullDesc": "WonderConnect is a recognized provider in Mobile Broadband, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.wonderconnect.com",
+    "howToApply": [
+      "Select the active WonderConnect promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on WonderConnect to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my WonderConnect discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these WonderConnect deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=119143&id=3148787"
+  },
+  {
+    "slug": "livefootballtickets",
+    "name": "LiveFootballTickets",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "LIVEFOOTBALLTI",
+    "shortDesc": "Official LiveFootballTickets verified promotions, seasonal discounts, and instant online savings across Tickets.",
+    "fullDesc": "LiveFootballTickets is a recognized provider in Tickets, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.livefootballtickets.com/",
+    "howToApply": [
+      "Select the active LiveFootballTickets promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on LiveFootballTickets to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my LiveFootballTickets discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these LiveFootballTickets deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=119227&id=3148787"
+  },
+  {
+    "slug": "esimzon-com",
+    "name": "esimzon.com",
+    "category": "Electronics & Gadgets",
+    "logoText": "ESIMZON.COM",
+    "shortDesc": "Official esimzon.com verified promotions, seasonal discounts, and instant online savings across Mobile Broadband.",
+    "fullDesc": "esimzon.com is a recognized provider in Mobile Broadband, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://esimzon.com/",
+    "howToApply": [
+      "Select the active esimzon.com promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on esimzon.com to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my esimzon.com discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these esimzon.com deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=119545&id=3148787"
+  },
+  {
+    "slug": "esimi-us",
+    "name": "Esimi",
+    "category": "Electronics & Gadgets",
+    "logoText": "ESIMI",
+    "shortDesc": "Official Esimi verified promotions, seasonal discounts, and instant online savings across Mobile Broadband.",
+    "fullDesc": "Esimi is a recognized provider in Mobile Broadband, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.esimi.io/",
+    "howToApply": [
+      "Select the active Esimi promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Esimi to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Esimi discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Esimi deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=120603&id=3148787"
+  },
+  {
+    "slug": "d-franklin-uk",
+    "name": "D Franklin",
+    "category": "Fashion & Apparel",
+    "logoText": "D FRANKLIN",
+    "shortDesc": "Official D Franklin verified promotions, seasonal discounts, and instant online savings across Clothing.",
+    "fullDesc": "D Franklin is a recognized provider in Clothing, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://gb.dfranklincreation.com/",
+    "howToApply": [
+      "Select the active D Franklin promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on D Franklin to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my D Franklin discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these D Franklin deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=121168&id=3148787"
+  },
+  {
+    "slug": "a1-tech-deals",
+    "name": "A1 Tech Deals",
+    "category": "Fashion & Apparel",
+    "logoText": "A1 TECH DEALS",
+    "shortDesc": "Official A1 Tech Deals verified promotions, seasonal discounts, and instant online savings across Electronic Accessories.",
+    "fullDesc": "A1 Tech Deals is a recognized provider in Electronic Accessories, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://a1techdeals.com/",
+    "howToApply": [
+      "Select the active A1 Tech Deals promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on A1 Tech Deals to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my A1 Tech Deals discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these A1 Tech Deals deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=121372&id=3148787"
+  },
+  {
+    "slug": "reebok-uk",
+    "name": "Reebok",
+    "category": "Fashion & Apparel",
+    "logoText": "REEBOK",
+    "shortDesc": "Official Reebok verified promotions, seasonal discounts, and instant online savings across Sportswear.",
+    "fullDesc": "Reebok is a recognized provider in Sportswear, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "http://www.reebok.eu/en-gb",
+    "howToApply": [
+      "Select the active Reebok promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Reebok to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Reebok discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Reebok deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=121516&id=3148787"
+  },
+  {
+    "slug": "brunch-us",
+    "name": "Brunch (US)",
+    "category": "Fashion & Apparel",
+    "logoText": "BRUNCH (US)",
+    "shortDesc": "Official Brunch (US) verified promotions, seasonal discounts, and instant online savings across Shoes.",
+    "fullDesc": "Brunch (US) is a recognized provider in Shoes, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://brunch.us/",
+    "howToApply": [
+      "Select the active Brunch (US) promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Brunch (US) to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Brunch (US) discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Brunch (US) deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=121618&id=3148787"
+  },
+  {
+    "slug": "usims-us",
+    "name": "USIMS (US)",
+    "category": "Travel & Tours",
+    "logoText": "USIMS (US)",
+    "shortDesc": "Official USIMS (US) verified promotions, seasonal discounts, and instant online savings across Travel Agencies.",
+    "fullDesc": "USIMS (US) is a recognized provider in Travel Agencies, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://usims.com/",
+    "howToApply": [
+      "Select the active USIMS (US) promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on USIMS (US) to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my USIMS (US) discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these USIMS (US) deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=121892&id=3148787"
+  },
+  {
+    "slug": "madame-grey",
+    "name": "Madame Grey",
+    "category": "Beauty & Fragrances",
+    "logoText": "MADAME GREY",
+    "shortDesc": "Official Madame Grey verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Madame Grey is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://madamegrey.com/",
+    "howToApply": [
+      "Select the active Madame Grey promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Madame Grey to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Madame Grey discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Madame Grey deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=122010&id=3148787"
+  },
+  {
+    "slug": "wild-vie-us",
+    "name": "Wild Vie (US)",
+    "category": "Beauty & Fragrances",
+    "logoText": "WILD VIE (US)",
+    "shortDesc": "Official Wild Vie (US) verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "Wild Vie (US) is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://wild-vie.com/",
+    "howToApply": [
+      "Select the active Wild Vie (US) promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Wild Vie (US) to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Wild Vie (US) discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Wild Vie (US) deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=122158&id=3148787"
+  },
+  {
+    "slug": "pastiche-sister-project-us",
+    "name": "Pastiche Sister Project (US)",
+    "category": "Fashion & Apparel",
+    "logoText": "PASTICHE SISTE",
+    "shortDesc": "Official Pastiche Sister Project (US) verified promotions, seasonal discounts, and instant online savings across Womenswear.",
+    "fullDesc": "Pastiche Sister Project (US) is a recognized provider in Womenswear, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://pastichesisterproject.com/",
+    "howToApply": [
+      "Select the active Pastiche Sister Project (US) promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Pastiche Sister Project (US) to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Pastiche Sister Project (US) discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Pastiche Sister Project (US) deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=122286&id=3148787"
+  },
+  {
+    "slug": "allycar",
+    "name": "Allycar",
+    "category": "Travel & Tours",
+    "logoText": "ALLYCAR",
+    "shortDesc": "Official Allycar verified promotions, seasonal discounts, and instant online savings across Car Rental.",
+    "fullDesc": "Allycar is a recognized provider in Car Rental, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://allycar.com/",
+    "howToApply": [
+      "Select the active Allycar promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Allycar to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Allycar discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Allycar deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=122406&id=3148787"
+  },
+  {
+    "slug": "buffalo-boots-eu",
+    "name": "Buffalo Boots",
+    "category": "Fashion & Apparel",
+    "logoText": "BUFFALO BOOTS",
+    "shortDesc": "Official Buffalo Boots verified promotions, seasonal discounts, and instant online savings across Shoes.",
+    "fullDesc": "Buffalo Boots is a recognized provider in Shoes, delivering premium quality products and dedicated customer support across Germany. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.buffalo-boots.com/",
+    "howToApply": [
+      "Select the active Buffalo Boots promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Buffalo Boots to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Buffalo Boots discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Buffalo Boots deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=122626&id=3148787"
+  },
+  {
+    "slug": "julia-travel-es",
+    "name": "Julia Travel",
+    "category": "Travel & Tours",
+    "logoText": "JULIA TRAVEL",
+    "shortDesc": "Official Julia Travel verified promotions, seasonal discounts, and instant online savings across Hotels & Accommodation.",
+    "fullDesc": "Julia Travel is a recognized provider in Hotels & Accommodation, delivering premium quality products and dedicated customer support across Spain. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://juliatravel.com/",
+    "howToApply": [
+      "Select the active Julia Travel promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Julia Travel to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Julia Travel discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Julia Travel deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=123080&id=3148787"
+  },
+  {
+    "slug": "hayley-menzies-uk",
+    "name": "Hayley Menzies",
+    "category": "Fashion & Apparel",
+    "logoText": "HAYLEY MENZIES",
+    "shortDesc": "Official Hayley Menzies verified promotions, seasonal discounts, and instant online savings across Clothing.",
+    "fullDesc": "Hayley Menzies is a recognized provider in Clothing, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://hayleymenzies.com/",
+    "howToApply": [
+      "Select the active Hayley Menzies promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Hayley Menzies to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Hayley Menzies discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Hayley Menzies deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=123304&id=3148787"
+  },
+  {
+    "slug": "infobus-cz",
+    "name": "Infobus CZ",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "INFOBUS CZ",
+    "shortDesc": "Official Infobus CZ verified promotions, seasonal discounts, and instant online savings across Tickets.",
+    "fullDesc": "Infobus CZ is a recognized provider in Tickets, delivering premium quality products and dedicated customer support across Czech Republic. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://infobus.eu/",
+    "howToApply": [
+      "Select the active Infobus CZ promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Infobus CZ to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Infobus CZ discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Infobus CZ deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=123326&id=3148787"
+  },
+  {
+    "slug": "infobus-pl",
+    "name": "Infobus",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "INFOBUS",
+    "shortDesc": "Official Infobus verified promotions, seasonal discounts, and instant online savings across Coaches.",
+    "fullDesc": "Infobus is a recognized provider in Coaches, delivering premium quality products and dedicated customer support across Poland. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://infobus.eu/pl/",
+    "howToApply": [
+      "Select the active Infobus promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Infobus to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Infobus discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Infobus deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=123328&id=3148787"
+  },
+  {
+    "slug": "sonoff-de",
+    "name": "SONOFF",
+    "category": "Electronics & Gadgets",
+    "logoText": "SONOFF",
+    "shortDesc": "Official SONOFF verified promotions, seasonal discounts, and instant online savings across Gadgets.",
+    "fullDesc": "SONOFF is a recognized provider in Gadgets, delivering premium quality products and dedicated customer support across Germany. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://sonoff.tech/de-de",
+    "howToApply": [
+      "Select the active SONOFF promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on SONOFF to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my SONOFF discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these SONOFF deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=123524&id=3148787"
+  },
+  {
+    "slug": "jetpay-airport-parking-comparison-site",
+    "name": "JetPay Airport Parking Comparison Site",
+    "category": "Travel & Tours",
+    "logoText": "JETPAY AIRPORT",
+    "shortDesc": "Official JetPay Airport Parking Comparison Site verified promotions, seasonal discounts, and instant online savings across Airport Parking & Transfers.",
+    "fullDesc": "JetPay Airport Parking Comparison Site is a recognized provider in Airport Parking & Transfers, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.jetpayairportparking.co.uk/",
+    "howToApply": [
+      "Select the active JetPay Airport Parking Comparison Site promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on JetPay Airport Parking Comparison Site to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my JetPay Airport Parking Comparison Site discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these JetPay Airport Parking Comparison Site deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=123602&id=3148787"
+  },
+  {
+    "slug": "coveron",
+    "name": "Coveron",
+    "category": "Privacy & Security",
+    "logoText": "COVERON",
+    "shortDesc": "Official Coveron verified promotions, seasonal discounts, and instant online savings across Software Downloads.",
+    "fullDesc": "Coveron is a recognized provider in Software Downloads, delivering premium quality products and dedicated customer support across United States of America. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://coveron.com/",
+    "howToApply": [
+      "Select the active Coveron promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on Coveron to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Coveron discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these Coveron deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=123620&id=3148787"
+  },
+  {
+    "slug": "hf-holidays",
+    "name": "HF Holidays",
+    "category": "Travel & Tours",
+    "logoText": "HF HOLIDAYS",
+    "shortDesc": "Official HF Holidays verified promotions, seasonal discounts, and instant online savings across Hotels & Accommodation.",
+    "fullDesc": "HF Holidays is a recognized provider in Hotels & Accommodation, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://www.hfholidays.co.uk/",
+    "howToApply": [
+      "Select the active HF Holidays promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on HF Holidays to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my HF Holidays discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these HF Holidays deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=123736&id=3148787"
+  },
+  {
+    "slug": "fitnessgenes",
+    "name": "FitnessGenes",
+    "category": "Beauty & Fragrances",
+    "logoText": "FITNESSGENES",
+    "shortDesc": "Official FitnessGenes verified promotions, seasonal discounts, and instant online savings across Health & Beauty.",
+    "fullDesc": "FitnessGenes is a recognized provider in Health & Beauty, delivering premium quality products and dedicated customer support across United Kingdom. Customers benefit from dependable delivery, transparent pricing, and exclusive seasonal voucher discounts.",
+    "websiteUrl": "https://fitnessgenes.com",
+    "howToApply": [
+      "Select the active FitnessGenes promotional deal or discount voucher on PromoRadar.",
+      "Click \"Claim Deal\" or \"Use Coupon\" to activate the verified partner promotion.",
+      "Paste the discount code at checkout on FitnessGenes to secure your savings instantly."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my FitnessGenes discount voucher?",
+        "answer": "Click through our verified link to unlock the promotional offer automatically, then enter any provided code during checkout."
+      },
+      {
+        "question": "Are these FitnessGenes deals verified?",
+        "answer": "Yes, all coupon codes and promotional sales are validated daily directly through the official partner network."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=123768&id=3148787"
+  }
 ];
 
 export const COUPONS_DATA: CouponDeal[] = [
@@ -34768,6 +37269,1607 @@ export const COUPONS_DATA: CouponDeal[] = [
     "expiryDate": "2026-12-31",
     "affiliateUrl": "https://www.awin1.com/awclick.php?mid=94167&id=3148787",
     "storeLogoText": "DAMILA",
+    "successRate": "98%"
+  }
+,
+  {
+    "id": "deal-bulk-pl-promo",
+    "storeSlug": "bulk-pl",
+    "storeName": "Bulk",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Bulk",
+    "description": "Shop top-rated Health & Beauty collections at Bulk with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=11218&id=3148787",
+    "storeLogoText": "BULK",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-she-is-boutique-promo",
+    "storeSlug": "she-is-boutique",
+    "storeName": "She Is Boutique",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at She Is Boutique",
+    "description": "Shop top-rated Clothing collections at She Is Boutique with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=94777&id=3148787",
+    "storeLogoText": "SHE IS BOUTIQU",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-berlin-skin-promo",
+    "storeSlug": "berlin-skin",
+    "storeName": "Berlin Skin",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Berlin Skin",
+    "description": "Shop top-rated Health & Beauty collections at Berlin Skin with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=94811&id=3148787",
+    "storeLogoText": "BERLIN SKIN",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-scholartrip-promo",
+    "storeSlug": "scholartrip",
+    "storeName": "ScholarTrip",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at ScholarTrip",
+    "description": "Shop top-rated Airlines collections at ScholarTrip with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=95023&id=3148787",
+    "storeLogoText": "SCHOLARTRIP",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-myeyebb-promo",
+    "storeSlug": "myeyebb",
+    "storeName": "MYEYEBB",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at MYEYEBB",
+    "description": "Shop top-rated Health & Beauty collections at MYEYEBB with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=95119&id=3148787",
+    "storeLogoText": "MYEYEBB",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-xpluswear-promo",
+    "storeSlug": "xpluswear",
+    "storeName": "Xpluswear",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Xpluswear",
+    "description": "Shop top-rated Clothing collections at Xpluswear with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=95469&id=3148787",
+    "storeLogoText": "XPLUSWEAR",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-noblemars-inc-promo",
+    "storeSlug": "noblemars-inc",
+    "storeName": "Noblemars",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Noblemars",
+    "description": "Shop top-rated Clothing collections at Noblemars with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=96673&id=3148787",
+    "storeLogoText": "NOBLEMARS",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-wasson-watch-co-promo",
+    "storeSlug": "wasson-watch-co",
+    "storeName": "Wasson Watch Co.",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Wasson Watch Co.",
+    "description": "Shop top-rated Clothing Accessories collections at Wasson Watch Co. with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=97399&id=3148787",
+    "storeLogoText": "WASSON WATCH C",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-zuvi-inc-promo",
+    "storeSlug": "zuvi-inc",
+    "storeName": "Zuvi Inc.",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Zuvi Inc.",
+    "description": "Shop top-rated Health & Beauty collections at Zuvi Inc. with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=97591&id=3148787",
+    "storeLogoText": "ZUVI INC.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-ries-ries-inc-promo",
+    "storeSlug": "ries-ries-inc",
+    "storeName": "Ries Ries, Inc.",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Ries Ries, Inc.",
+    "description": "Shop top-rated Health & Beauty collections at Ries Ries, Inc. with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=97811&id=3148787",
+    "storeLogoText": "RIES RIES, INC",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-simitri-promo",
+    "storeSlug": "simitri",
+    "storeName": "Simitri",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Simitri",
+    "description": "Shop top-rated Clothing Accessories collections at Simitri with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=97973&id=3148787",
+    "storeLogoText": "SIMITRI",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-triptogo-promo",
+    "storeSlug": "triptogo",
+    "storeName": "Triptogo",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Triptogo",
+    "description": "Shop top-rated Tourism & Attractions collections at Triptogo with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=98699&id=3148787",
+    "storeLogoText": "TRIPTOGO",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-the-outlet-shop-promo",
+    "storeSlug": "the-outlet-shop",
+    "storeName": "The Outlet Shop",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at The Outlet Shop",
+    "description": "Shop top-rated Electronic Accessories collections at The Outlet Shop with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=100067&id=3148787",
+    "storeLogoText": "THE OUTLET SHO",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-swan-edgar-promo",
+    "storeSlug": "swan-edgar",
+    "storeName": "Swan & Edgar",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Swan & Edgar",
+    "description": "Shop top-rated Jewellery collections at Swan & Edgar with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=100443&id=3148787",
+    "storeLogoText": "SWAN & EDGAR",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-michi-design-inc-promo",
+    "storeSlug": "michi-design-inc",
+    "storeName": "MICHI Design",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at MICHI Design",
+    "description": "Shop top-rated Clothing collections at MICHI Design with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=100637&id=3148787",
+    "storeLogoText": "MICHI DESIGN",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-posterbooking-promo",
+    "storeSlug": "posterbooking",
+    "storeName": "PosterBooking",
+    "storeCategory": "Web Hosting & Domains",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at PosterBooking",
+    "description": "Shop top-rated Web Hosting collections at PosterBooking with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=102815&id=3148787",
+    "storeLogoText": "POSTERBOOKING",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-alligator-warehouse-us-promo",
+    "storeSlug": "alligator-warehouse-us",
+    "storeName": "Alligator Warehouse",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Alligator Warehouse",
+    "description": "Shop top-rated Menswear collections at Alligator Warehouse with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=103439&id=3148787",
+    "storeLogoText": "ALLIGATOR WARE",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-worldsim-promo",
+    "storeSlug": "worldsim",
+    "storeName": "WorldSIM",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at WorldSIM",
+    "description": "Shop top-rated Mobile Pay As You Go collections at WorldSIM with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=104675&id=3148787",
+    "storeLogoText": "WORLDSIM",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-knowroaming-uk-promo",
+    "storeSlug": "knowroaming-uk",
+    "storeName": "KnowRoaming",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at KnowRoaming",
+    "description": "Shop top-rated Internet Service Provider collections at KnowRoaming with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=104953&id=3148787",
+    "storeLogoText": "KNOWROAMING",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cubitt-us-promo",
+    "storeSlug": "cubitt-us",
+    "storeName": "Cubitt (US)",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Cubitt (US)",
+    "description": "Shop top-rated Sports Equipment collections at Cubitt (US) with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=105005&id=3148787",
+    "storeLogoText": "CUBITT (US)",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-therafit-shoe-promo",
+    "storeSlug": "therafit-shoe",
+    "storeName": "Therafit Shoe",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Therafit Shoe",
+    "description": "Shop top-rated Clothing Accessories collections at Therafit Shoe with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=105077&id=3148787",
+    "storeLogoText": "THERAFIT SHOE",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-meinsportline-de-promo",
+    "storeSlug": "meinsportline-de",
+    "storeName": "meinSportline",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at meinSportline",
+    "description": "Shop top-rated Shoes collections at meinSportline with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=105243&id=3148787",
+    "storeLogoText": "MEINSPORTLINE",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-midnightdeal-de-promo",
+    "storeSlug": "midnightdeal-de",
+    "storeName": "Midnightdeal",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Midnightdeal",
+    "description": "Shop top-rated Travel Agencies collections at Midnightdeal with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=105513&id=3148787",
+    "storeLogoText": "MIDNIGHTDEAL",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cloaked-wireless-promo",
+    "storeSlug": "cloaked-wireless",
+    "storeName": "Cloaked Wireless",
+    "storeCategory": "Web Hosting & Domains",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Cloaked Wireless",
+    "description": "Shop top-rated Web Hosting collections at Cloaked Wireless with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=105775&id=3148787",
+    "storeLogoText": "CLOAKED WIRELE",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-schutz-us-promo",
+    "storeSlug": "schutz-us",
+    "storeName": "Schutz (US)",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Schutz (US)",
+    "description": "Shop top-rated Shoes collections at Schutz (US) with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=105875&id=3148787",
+    "storeLogoText": "SCHUTZ (US)",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-trivago-de-promo",
+    "storeSlug": "trivago-de",
+    "storeName": "Trivago",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Trivago",
+    "description": "Shop top-rated Hotels & Accommodation collections at Trivago with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=105923&id=3148787",
+    "storeLogoText": "TRIVAGO",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-nava-beauty-corp-promo",
+    "storeSlug": "nava-beauty-corp",
+    "storeName": "NAVA BEAUTY CORP",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at NAVA BEAUTY CORP",
+    "description": "Shop top-rated Department Stores collections at NAVA BEAUTY CORP with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=106309&id=3148787",
+    "storeLogoText": "NAVA BEAUTY CO",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-santa-cruz-shredder-promo",
+    "storeSlug": "santa-cruz-shredder",
+    "storeName": "Santa Cruz Shredder",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Santa Cruz Shredder",
+    "description": "Shop top-rated Gadgets collections at Santa Cruz Shredder with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=106481&id=3148787",
+    "storeLogoText": "SANTA CRUZ SHR",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-stylevana-uk-promo",
+    "storeSlug": "stylevana-uk",
+    "storeName": "Stylevana",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Stylevana",
+    "description": "Shop top-rated Health & Beauty collections at Stylevana with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=106621&id=3148787",
+    "storeLogoText": "STYLEVANA",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-nightfox-promo",
+    "storeSlug": "nightfox",
+    "storeName": "Nightfox",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Nightfox",
+    "description": "Shop top-rated Electronic Accessories collections at Nightfox with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=107227&id=3148787",
+    "storeLogoText": "NIGHTFOX",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-simbye-promo",
+    "storeSlug": "simbye",
+    "storeName": "Simbye",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Simbye",
+    "description": "Shop top-rated Mobile Pay As You Go collections at Simbye with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=107814&id=3148787",
+    "storeLogoText": "SIMBYE",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-tenth-muse-ltd-promo",
+    "storeSlug": "tenth-muse-ltd",
+    "storeName": "Tenth Muse Ltd",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Tenth Muse Ltd",
+    "description": "Shop top-rated Health & Beauty collections at Tenth Muse Ltd with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=108812&id=3148787",
+    "storeLogoText": "TENTH MUSE LTD",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-bamboosim-uk-promo",
+    "storeSlug": "bamboosim-uk",
+    "storeName": "BambooSIM",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at BambooSIM",
+    "description": "Shop top-rated Mobile Pay As You Go collections at BambooSIM with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=108850&id=3148787",
+    "storeLogoText": "BAMBOOSIM",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-maverick-co-us-promo",
+    "storeSlug": "maverick-co-us",
+    "storeName": "Maverick & Co.",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Maverick & Co.",
+    "description": "Shop top-rated Clothing Accessories collections at Maverick & Co. with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=108852&id=3148787",
+    "storeLogoText": "MAVERICK & CO.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-fitness-first-clubs-ltd-promo",
+    "storeSlug": "fitness-first-clubs-ltd",
+    "storeName": "Fitness First Clubs Ltd.",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Fitness First Clubs Ltd.",
+    "description": "Shop top-rated Health & Beauty collections at Fitness First Clubs Ltd. with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=109520&id=3148787",
+    "storeLogoText": "FITNESS FIRST ",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-nex-nutrition-de-promo",
+    "storeSlug": "nex-nutrition-de",
+    "storeName": "Nex Nutrition",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Nex Nutrition",
+    "description": "Shop top-rated Health & Beauty collections at Nex Nutrition with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=109648&id=3148787",
+    "storeLogoText": "NEX NUTRITION",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-roamify-esim-travel-call-data-promo",
+    "storeSlug": "roamify-esim-travel-call-data",
+    "storeName": "Roamify eSIM - Travel Call & Data",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Roamify eSIM - Travel Call & Data",
+    "description": "Shop top-rated Tourism & Attractions collections at Roamify eSIM - Travel Call & Data with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=109900&id=3148787",
+    "storeLogoText": "ROAMIFY ESIM -",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-spletra-d-o-o-si29391563-promo",
+    "storeSlug": "spletra-d-o-o-si29391563",
+    "storeName": "Spletra d.o.o., SI29391563",
+    "storeCategory": "Web Hosting & Domains",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Spletra d.o.o., SI29391563",
+    "description": "Shop top-rated Web Hosting collections at Spletra d.o.o., SI29391563 with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=110552&id=3148787",
+    "storeLogoText": "SPLETRA D.O.O.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-baxinier-us-promo",
+    "storeSlug": "baxinier-us",
+    "storeName": "Baxinier (US)",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Baxinier (US)",
+    "description": "Shop top-rated Shoes collections at Baxinier (US) with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=110732&id=3148787",
+    "storeLogoText": "BAXINIER (US)",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-pininfarina-hybrid-watches-promo",
+    "storeSlug": "pininfarina-hybrid-watches",
+    "storeName": "Pininfarina Hybrid Watches",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Pininfarina Hybrid Watches",
+    "description": "Shop top-rated Clothing Accessories collections at Pininfarina Hybrid Watches with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=110972&id=3148787",
+    "storeLogoText": "PININFARINA HY",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-laptop-outlet-promo",
+    "storeSlug": "laptop-outlet",
+    "storeName": "Laptop Outlet",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Laptop Outlet",
+    "description": "Shop top-rated Electronic Superstore collections at Laptop Outlet with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=111534&id=3148787",
+    "storeLogoText": "LAPTOP OUTLET",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-sportsbreaks-promo",
+    "storeSlug": "sportsbreaks",
+    "storeName": "SportsBreaks",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at SportsBreaks",
+    "description": "Shop top-rated Tickets collections at SportsBreaks with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=111798&id=3148787",
+    "storeLogoText": "SPORTSBREAKS",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-magnum-worldwide-holdings-inc-promo",
+    "storeSlug": "magnum-worldwide-holdings-inc",
+    "storeName": "Magnum Worldwide Holdings Inc.",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Magnum Worldwide Holdings Inc.",
+    "description": "Shop top-rated Health & Beauty collections at Magnum Worldwide Holdings Inc. with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=112162&id=3148787",
+    "storeLogoText": "MAGNUM WORLDWI",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-zapme-us-promo",
+    "storeSlug": "zapme-us",
+    "storeName": "Zapme (US)",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Zapme (US)",
+    "description": "Shop top-rated Network Operators collections at Zapme (US) with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=112298&id=3148787",
+    "storeLogoText": "ZAPME (US)",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-ee-tech-gaming-promo",
+    "storeSlug": "ee-tech-gaming",
+    "storeName": "EE Tech & Gaming",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at EE Tech & Gaming",
+    "description": "Shop top-rated Electronic Superstore collections at EE Tech & Gaming with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=112400&id=3148787",
+    "storeLogoText": "EE TECH & GAMI",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-vi-travel-promo",
+    "storeSlug": "vi-travel",
+    "storeName": "VI Travel",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at VI Travel",
+    "description": "Shop top-rated Tickets collections at VI Travel with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=112608&id=3148787",
+    "storeLogoText": "VI TRAVEL",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-joan-oloff-shoes-promo",
+    "storeSlug": "joan-oloff-shoes",
+    "storeName": "Joan Oloff Shoes",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Joan Oloff Shoes",
+    "description": "Shop top-rated Clothing Accessories collections at Joan Oloff Shoes with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=112794&id=3148787",
+    "storeLogoText": "JOAN OLOFF SHO",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-gurado-gutschein-und-ticketsystem-de-promo",
+    "storeSlug": "gurado-gutschein-und-ticketsystem-de",
+    "storeName": "gurado - Gutschein- und Ticketsystem",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at gurado - Gutschein- und Ticketsystem",
+    "description": "Shop top-rated Business Services (B2B) collections at gurado - Gutschein- und Ticketsystem with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=112830&id=3148787",
+    "storeLogoText": "GURADO - GUTSC",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-move-pre-workout-promo",
+    "storeSlug": "move-pre-workout",
+    "storeName": "Move Pre-Workout",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Move Pre-Workout",
+    "description": "Shop top-rated Health & Beauty collections at Move Pre-Workout with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=112840&id=3148787",
+    "storeLogoText": "MOVE PRE-WORKO",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-l-lior-us-promo",
+    "storeSlug": "l-lior-us",
+    "storeName": "Lèlior (US)",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Lèlior (US)",
+    "description": "Shop top-rated Health & Beauty collections at Lèlior (US) with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=113388&id=3148787",
+    "storeLogoText": "LÈLIOR (US)",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-lifesum-de-promo",
+    "storeSlug": "lifesum-de",
+    "storeName": "Lifesum",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Lifesum",
+    "description": "Shop top-rated Health & Beauty collections at Lifesum with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=113414&id=3148787",
+    "storeLogoText": "LIFESUM",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-xshred-ultimate-fat-loss-program-promo",
+    "storeSlug": "xshred-ultimate-fat-loss-program",
+    "storeName": "XSHRED - Ultimate Fat Loss Program",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at XSHRED - Ultimate Fat Loss Program",
+    "description": "Shop top-rated Health & Beauty collections at XSHRED - Ultimate Fat Loss Program with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=114166&id=3148787",
+    "storeLogoText": "XSHRED - ULTIM",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-bullfit-us-promo",
+    "storeSlug": "bullfit-us",
+    "storeName": "BullFit (US)",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at BullFit (US)",
+    "description": "Shop top-rated Health & Beauty collections at BullFit (US) with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=114268&id=3148787",
+    "storeLogoText": "BULLFIT (US)",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-virgin-balloon-flights-uk-promo",
+    "storeSlug": "virgin-balloon-flights-uk",
+    "storeName": "Virgin Balloon Flights",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Virgin Balloon Flights",
+    "description": "Shop top-rated Gifts & Flowers collections at Virgin Balloon Flights with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=114484&id=3148787",
+    "storeLogoText": "VIRGIN BALLOON",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-fleurwear-uk-promo",
+    "storeSlug": "fleurwear-uk",
+    "storeName": "Fleurwear",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Fleurwear",
+    "description": "Shop top-rated Womenswear collections at Fleurwear with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=114752&id=3148787",
+    "storeLogoText": "FLEURWEAR",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-sea-star-promo",
+    "storeSlug": "sea-star",
+    "storeName": "Sea Star",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Sea Star",
+    "description": "Shop top-rated Shoes collections at Sea Star with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=114994&id=3148787",
+    "storeLogoText": "SEA STAR",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-foreverlyfe-promo",
+    "storeSlug": "foreverlyfe",
+    "storeName": "Foreverlyfe",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Foreverlyfe",
+    "description": "Shop top-rated Health & Beauty collections at Foreverlyfe with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=115070&id=3148787",
+    "storeLogoText": "FOREVERLYFE",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-mafalda-promo",
+    "storeSlug": "mafalda",
+    "storeName": "Mafalda",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Mafalda",
+    "description": "Shop top-rated Shoes collections at Mafalda with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=115136&id=3148787",
+    "storeLogoText": "MAFALDA",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-strong-esim-affiliate-program-promo",
+    "storeSlug": "strong-esim-affiliate-program",
+    "storeName": "Strong eSIM Affiliate Program",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Strong eSIM Affiliate Program",
+    "description": "Shop top-rated B2B Telecommunications Services collections at Strong eSIM Affiliate Program with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=115198&id=3148787",
+    "storeLogoText": "STRONG ESIM AF",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-zen-hotels-us-promo",
+    "storeSlug": "zen-hotels-us",
+    "storeName": "Zen Hotels",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Zen Hotels",
+    "description": "Shop top-rated Hotels & Accommodation collections at Zen Hotels with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=115208&id=3148787",
+    "storeLogoText": "ZEN HOTELS",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-icy-sim-promo",
+    "storeSlug": "icy-sim",
+    "storeName": "ICY SIM",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at ICY SIM",
+    "description": "Shop top-rated B2B Telecommunications Services collections at ICY SIM with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=115601&id=3148787",
+    "storeLogoText": "ICY SIM",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-voghion-uk-promo",
+    "storeSlug": "voghion-uk",
+    "storeName": "Voghion",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Voghion",
+    "description": "Shop top-rated Clothing collections at Voghion with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=115651&id=3148787",
+    "storeLogoText": "VOGHION",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-esimania-com-buy-esim-for-international-travel-promo",
+    "storeSlug": "esimania-com-buy-esim-for-international-travel",
+    "storeName": "eSIMania.com - Buy eSIM for International Travel",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at eSIMania.com - Buy eSIM for International Travel",
+    "description": "Shop top-rated Tourism & Attractions collections at eSIMania.com - Buy eSIM for International Travel with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=115715&id=3148787",
+    "storeLogoText": "ESIMANIA.COM -",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-zen-hotels-gb-promo",
+    "storeSlug": "zen-hotels-gb",
+    "storeName": "Zen Hotels GB",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Zen Hotels GB",
+    "description": "Shop top-rated Hotels & Accommodation collections at Zen Hotels GB with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=115951&id=3148787",
+    "storeLogoText": "ZEN HOTELS GB",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-dotshop-promo",
+    "storeSlug": "dotshop",
+    "storeName": "DOTSHOP",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at DOTSHOP",
+    "description": "Shop top-rated Womenswear collections at DOTSHOP with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=116093&id=3148787",
+    "storeLogoText": "DOTSHOP",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-hogbus-promo",
+    "storeSlug": "hogbus",
+    "storeName": "Hogbus",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Hogbus",
+    "description": "Shop top-rated Shoes collections at Hogbus with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=116571&id=3148787",
+    "storeLogoText": "HOGBUS",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-ccc-cz-promo",
+    "storeSlug": "ccc-cz",
+    "storeName": "CCC CZ",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at CCC CZ",
+    "description": "Shop top-rated Shoes collections at CCC CZ with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=116735&id=3148787",
+    "storeLogoText": "CCC CZ",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-restube-promo",
+    "storeSlug": "restube",
+    "storeName": "RESTUBE",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at RESTUBE",
+    "description": "Shop top-rated Sports Equipment collections at RESTUBE with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=116839&id=3148787",
+    "storeLogoText": "RESTUBE",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-body-fit-de-promo",
+    "storeSlug": "body-fit-de",
+    "storeName": "Body & Fit",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Body & Fit",
+    "description": "Shop top-rated Health & Beauty collections at Body & Fit with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=117013&id=3148787",
+    "storeLogoText": "BODY & FIT",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-bio-synergy-promo",
+    "storeSlug": "bio-synergy",
+    "storeName": "Bio-Synergy",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Bio-Synergy",
+    "description": "Shop top-rated Health & Beauty collections at Bio-Synergy with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=117405&id=3148787",
+    "storeLogoText": "BIO-SYNERGY",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-space-suitcases-us-promo",
+    "storeSlug": "space-suitcases-us",
+    "storeName": "Space Suitcases (US)",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Space Suitcases (US)",
+    "description": "Shop top-rated Gadgets collections at Space Suitcases (US) with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=117725&id=3148787",
+    "storeLogoText": "SPACE SUITCASE",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-sys-us-promo",
+    "storeSlug": "sys-us",
+    "storeName": "SYS",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at SYS",
+    "description": "Shop top-rated Clothing collections at SYS with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=117991&id=3148787",
+    "storeLogoText": "SYS",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-roamable-promo",
+    "storeSlug": "roamable",
+    "storeName": "Roamable",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Roamable",
+    "description": "Shop top-rated Mobile Pay As You Go collections at Roamable with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=118127&id=3148787",
+    "storeLogoText": "ROAMABLE",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cottages-com-promo",
+    "storeSlug": "cottages-com",
+    "storeName": "Cottages.com",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Cottages.com",
+    "description": "Shop top-rated Hotels & Accommodation collections at Cottages.com with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=118653&id=3148787",
+    "storeLogoText": "COTTAGES.COM",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-novasol-dach-promo",
+    "storeSlug": "novasol-dach",
+    "storeName": "Novasol",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Novasol",
+    "description": "Shop top-rated Hotels & Accommodation collections at Novasol with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=118655&id=3148787",
+    "storeLogoText": "NOVASOL",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-silentlink-de-promo",
+    "storeSlug": "silentlink-de",
+    "storeName": "SilentLink",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at SilentLink",
+    "description": "Shop top-rated Gadgets collections at SilentLink with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=119001&id=3148787",
+    "storeLogoText": "SILENTLINK",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-smallable-us-promo",
+    "storeSlug": "smallable-us",
+    "storeName": "Smallable",
+    "storeCategory": "Kids & Toys",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Smallable",
+    "description": "Shop top-rated Childrenswear collections at Smallable with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=119085&id=3148787",
+    "storeLogoText": "SMALLABLE",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-wonderconnect-promo",
+    "storeSlug": "wonderconnect",
+    "storeName": "WonderConnect",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at WonderConnect",
+    "description": "Shop top-rated Mobile Broadband collections at WonderConnect with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=119143&id=3148787",
+    "storeLogoText": "WONDERCONNECT",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-livefootballtickets-promo",
+    "storeSlug": "livefootballtickets",
+    "storeName": "LiveFootballTickets",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at LiveFootballTickets",
+    "description": "Shop top-rated Tickets collections at LiveFootballTickets with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=119227&id=3148787",
+    "storeLogoText": "LIVEFOOTBALLTI",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-esimzon-com-promo",
+    "storeSlug": "esimzon-com",
+    "storeName": "esimzon.com",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at esimzon.com",
+    "description": "Shop top-rated Mobile Broadband collections at esimzon.com with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=119545&id=3148787",
+    "storeLogoText": "ESIMZON.COM",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-esimi-us-promo",
+    "storeSlug": "esimi-us",
+    "storeName": "Esimi",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Esimi",
+    "description": "Shop top-rated Mobile Broadband collections at Esimi with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=120603&id=3148787",
+    "storeLogoText": "ESIMI",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-d-franklin-uk-promo",
+    "storeSlug": "d-franklin-uk",
+    "storeName": "D Franklin",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at D Franklin",
+    "description": "Shop top-rated Clothing collections at D Franklin with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=121168&id=3148787",
+    "storeLogoText": "D FRANKLIN",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-a1-tech-deals-promo",
+    "storeSlug": "a1-tech-deals",
+    "storeName": "A1 Tech Deals",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at A1 Tech Deals",
+    "description": "Shop top-rated Electronic Accessories collections at A1 Tech Deals with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=121372&id=3148787",
+    "storeLogoText": "A1 TECH DEALS",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-reebok-uk-promo",
+    "storeSlug": "reebok-uk",
+    "storeName": "Reebok",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Reebok",
+    "description": "Shop top-rated Sportswear collections at Reebok with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=121516&id=3148787",
+    "storeLogoText": "REEBOK",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-brunch-us-promo",
+    "storeSlug": "brunch-us",
+    "storeName": "Brunch (US)",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Brunch (US)",
+    "description": "Shop top-rated Shoes collections at Brunch (US) with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=121618&id=3148787",
+    "storeLogoText": "BRUNCH (US)",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-usims-us-promo",
+    "storeSlug": "usims-us",
+    "storeName": "USIMS (US)",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at USIMS (US)",
+    "description": "Shop top-rated Travel Agencies collections at USIMS (US) with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=121892&id=3148787",
+    "storeLogoText": "USIMS (US)",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-madame-grey-promo",
+    "storeSlug": "madame-grey",
+    "storeName": "Madame Grey",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Madame Grey",
+    "description": "Shop top-rated Health & Beauty collections at Madame Grey with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=122010&id=3148787",
+    "storeLogoText": "MADAME GREY",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-wild-vie-us-promo",
+    "storeSlug": "wild-vie-us",
+    "storeName": "Wild Vie (US)",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Wild Vie (US)",
+    "description": "Shop top-rated Health & Beauty collections at Wild Vie (US) with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=122158&id=3148787",
+    "storeLogoText": "WILD VIE (US)",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-pastiche-sister-project-us-promo",
+    "storeSlug": "pastiche-sister-project-us",
+    "storeName": "Pastiche Sister Project (US)",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Pastiche Sister Project (US)",
+    "description": "Shop top-rated Womenswear collections at Pastiche Sister Project (US) with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=122286&id=3148787",
+    "storeLogoText": "PASTICHE SISTE",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-allycar-promo",
+    "storeSlug": "allycar",
+    "storeName": "Allycar",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Allycar",
+    "description": "Shop top-rated Car Rental collections at Allycar with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=122406&id=3148787",
+    "storeLogoText": "ALLYCAR",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-buffalo-boots-eu-promo",
+    "storeSlug": "buffalo-boots-eu",
+    "storeName": "Buffalo Boots",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Buffalo Boots",
+    "description": "Shop top-rated Shoes collections at Buffalo Boots with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=122626&id=3148787",
+    "storeLogoText": "BUFFALO BOOTS",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-julia-travel-es-promo",
+    "storeSlug": "julia-travel-es",
+    "storeName": "Julia Travel",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Julia Travel",
+    "description": "Shop top-rated Hotels & Accommodation collections at Julia Travel with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123080&id=3148787",
+    "storeLogoText": "JULIA TRAVEL",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-hayley-menzies-uk-promo",
+    "storeSlug": "hayley-menzies-uk",
+    "storeName": "Hayley Menzies",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Hayley Menzies",
+    "description": "Shop top-rated Clothing collections at Hayley Menzies with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123304&id=3148787",
+    "storeLogoText": "HAYLEY MENZIES",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-infobus-cz-promo",
+    "storeSlug": "infobus-cz",
+    "storeName": "Infobus CZ",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Infobus CZ",
+    "description": "Shop top-rated Tickets collections at Infobus CZ with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123326&id=3148787",
+    "storeLogoText": "INFOBUS CZ",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-infobus-pl-promo",
+    "storeSlug": "infobus-pl",
+    "storeName": "Infobus",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Infobus",
+    "description": "Shop top-rated Coaches collections at Infobus with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123328&id=3148787",
+    "storeLogoText": "INFOBUS",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-sonoff-de-promo",
+    "storeSlug": "sonoff-de",
+    "storeName": "SONOFF",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at SONOFF",
+    "description": "Shop top-rated Gadgets collections at SONOFF with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123524&id=3148787",
+    "storeLogoText": "SONOFF",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-jetpay-airport-parking-comparison-site-promo",
+    "storeSlug": "jetpay-airport-parking-comparison-site",
+    "storeName": "JetPay Airport Parking Comparison Site",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at JetPay Airport Parking Comparison Site",
+    "description": "Shop top-rated Airport Parking & Transfers collections at JetPay Airport Parking Comparison Site with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123602&id=3148787",
+    "storeLogoText": "JETPAY AIRPORT",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-coveron-promo",
+    "storeSlug": "coveron",
+    "storeName": "Coveron",
+    "storeCategory": "Privacy & Security",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Coveron",
+    "description": "Shop top-rated Software Downloads collections at Coveron with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123620&id=3148787",
+    "storeLogoText": "COVERON",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-hf-holidays-promo",
+    "storeSlug": "hf-holidays",
+    "storeName": "HF Holidays",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at HF Holidays",
+    "description": "Shop top-rated Hotels & Accommodation collections at HF Holidays with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123736&id=3148787",
+    "storeLogoText": "HF HOLIDAYS",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-fitnessgenes-promo",
+    "storeSlug": "fitnessgenes",
+    "storeName": "FitnessGenes",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at FitnessGenes",
+    "description": "Shop top-rated Health & Beauty collections at FitnessGenes with verified seasonal markdowns and partner savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123768&id=3148787",
+    "storeLogoText": "FITNESSGENES",
     "successRate": "98%"
   }
 ];
