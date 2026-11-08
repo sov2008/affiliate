@@ -1,0 +1,328 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { COUPONS_DATA, STORES_DATA } from '../../data/couponsData';
+import { resolveMerchantIdentity, isJunkTestOffer, extractSmartDiscountBadge, getUniqueCleanStores, getCanonicalStoreSlug } from '../../utils/dealNormalizer';
+import { getStoreAllowedRegions, detectDealCountryFlag, detectDealLanguage } from '../../data/storeRegions';
+import { getDealLivePulse } from '../../data/pulseEngine';
+
+export const prerender = true;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Filter top Black Friday / Holiday deals (>= 20% OFF or EXCLUSIVE or VERIFIED)
+const rawBfDeals = COUPONS_DATA.filter(d => {
+  if (isJunkTestOffer(d.storeName, d.title)) return false;
+  const badge = (d.discountBadge || '').toUpperCase();
+  const title = (d.title || '').toUpperCase();
+  const desc = (d.description || '').toUpperCase();
+  return (
+    badge.includes('%') || 
+    badge.includes('$') || 
+    badge.includes('OFF') || 
+    badge.includes('DEAL') || 
+    badge.includes('EXCLUSIVE') ||
+    title.includes('OFF') ||
+    title.includes('SAVE') ||
+    desc.includes('DISCOUNT')
+  );
+});
+
+// Normalize deals
+const bfDeals = rawBfDeals.map(d => {
+  const identity = resolveMerchantIdentity(d);
+  return {
+    ...d,
+    cleanBrand: identity.brand,
+    canonicalSlug: getCanonicalStoreSlug(identity.brand),
+    cleanDomain: identity.domain,
+    cleanBadge: extractSmartDiscountBadge(d.discountBadge, d.title)
+  };
+}).slice(0, 120); // Top 120 curated Black Friday verified deals
+
+// Store deals map for the reveal modal
+const storeDealsMap: Record<string, any[]> = {};
+bfDeals.forEach(d => {
+  const s = d.canonicalSlug || d.storeSlug;
+  if (!storeDealsMap[s]) storeDealsMap[s] = [];
+  storeDealsMap[s].push({
+    id: d.id,
+    title: d.title,
+    code: d.code,
+    badge: d.cleanBadge,
+    affiliateUrl: d.affiliateUrl
+  });
+});
+
+// Schema.org Structured Data: Event + ItemList + Breadcrumbs
+const eventSchema = {
+  "@context": "https://schema.org",
+  "@type": "SaleEvent",
+  "name": "Black Friday 2026 Promo Codes & Verified Holiday Deals",
+  "description": "Curated Black Friday & Cyber Week promotional codes, checkout vouchers, and exclusive seasonal markdowns across top brands.",
+  "startDate": "2026-11-01",
+  "endDate": "2026-11-30",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+  "location": {
+    "@type": "VirtualLocation",
+    "url": "https://promoradar.store/events/black-friday/"
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "offerCount": bfDeals.length,
+    "priceCurrency": "USD",
+    "lowPrice": "0",
+    "highPrice": "0",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "2026-11-01"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://promoradar.store/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Events",
+      "item": "https://promoradar.store/events/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Black Friday 2026",
+      "item": "https://promoradar.store/events/black-friday/"
+    }
+  ]
+};
+
+const pageSchemas = [eventSchema, breadcrumbSchema];
+---
+
+<BaseLayout
+  title="Black Friday 2026 Promo Codes & Verified Holiday Deals | PromoRadar"
+  description="Exclusive Black Friday 2026 coupon codes, holiday vouchers, and limited-time doorbuster discounts. Tested daily across 495+ verified merchants."
+  canonicalUrl="https://promoradar.store/events/black-friday/"
+  activePath="/events/black-friday/"
+  schemas={pageSchemas}
+  storeDealsMap={storeDealsMap}
+>
+  <Header activePath="/events/black-friday/" />
+
+  <main class="flex-1 bg-slate-900 text-slate-100 min-h-screen">
+    <!-- Hero Banner with Countdown -->
+    <div class="relative overflow-hidden bg-gradient-to-b from-indigo-950 via-slate-900 to-slate-900 border-b border-indigo-900/40 py-12 sm:py-16">
+      <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:16px_16px]"></div>
+      
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Breadcrumbs -->
+        <nav class="flex justify-center items-center gap-2 text-xs text-indigo-300/80 mb-4" aria-label="Breadcrumb">
+          <a href={`${base}/`} class="hover:text-white transition">Home</a>
+          <span>/</span>
+          <span class="text-white font-bold">Black Friday 2026</span>
+        </nav>
+
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-black uppercase tracking-wider mb-4 animate-pulse">
+          <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+          Official 2026 Holiday Sale Hub
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4 max-w-3xl mx-auto leading-tight">
+          Black Friday <span class="bg-gradient-to-r from-rose-500 via-amber-400 to-indigo-400 bg-clip-text text-transparent">Verified Deals</span> & Voucher Codes
+        </h1>
+        <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto mb-8 leading-relaxed">
+          Unlock stackable checkout markdowns, verified retailer codes, and doorbuster promotions tested today across {bfDeals.length} premier global brands.
+        </p>
+
+        <!-- Live Countdown Timer Component -->
+        <div class="inline-flex items-center gap-3 sm:gap-6 bg-slate-800/80 border border-slate-700/80 rounded-2xl p-4 sm:px-8 shadow-2xl backdrop-blur-md">
+          <div class="text-center">
+            <span id="bfDays" class="block font-mono text-2xl sm:text-4xl font-black text-white">19</span>
+            <span class="text-[10px] sm:text-xs text-slate-400 uppercase tracking-widest font-bold">Days</span>
+          </div>
+          <span class="text-xl sm:text-2xl font-black text-indigo-400">:</span>
+          <div class="text-center">
+            <span id="bfHours" class="block font-mono text-2xl sm:text-4xl font-black text-white">04</span>
+            <span class="text-[10px] sm:text-xs text-slate-400 uppercase tracking-widest font-bold">Hours</span>
+          </div>
+          <span class="text-xl sm:text-2xl font-black text-indigo-400">:</span>
+          <div class="text-center">
+            <span id="bfMins" class="block font-mono text-2xl sm:text-4xl font-black text-white">22</span>
+            <span class="text-[10px] sm:text-xs text-slate-400 uppercase tracking-widest font-bold">Mins</span>
+          </div>
+          <span class="text-xl sm:text-2xl font-black text-indigo-400">:</span>
+          <div class="text-center">
+            <span id="bfSecs" class="block font-mono text-2xl sm:text-4xl font-black text-rose-400">45</span>
+            <span class="text-[10px] sm:text-xs text-slate-400 uppercase tracking-widest font-bold">Secs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deals Grid Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+            Curated Doorbuster Discounts & Verified Codes
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">
+            Every coupon is tested automatically for live cart validation and checkout integrity.
+          </p>
+        </div>
+        <div class="inline-flex items-center gap-2 text-xs font-bold text-emerald-400 bg-emerald-950/40 border border-emerald-800/60 px-3 py-1.5 rounded-xl">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          {bfDeals.length} Live Doorbusters
+        </div>
+      </div>
+
+      <!-- 4-Column Grid of Deals -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-stretch">
+        {bfDeals.map((deal) => {
+          const isCode = deal.code && deal.code.trim().length > 0;
+          const initials = deal.cleanBrand.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase() || 'PR';
+          const pulse = getDealLivePulse(deal.id, deal.storeSlug, deal.successRate);
+
+          return (
+            <article class="deal-grid-card rounded-2xl p-4 flex flex-col justify-between gap-3 bg-slate-800/90 border border-slate-700 hover:border-indigo-500/80 transition-all hover:-translate-y-0.5 shadow-lg group relative overflow-hidden">
+              <div>
+                <!-- Top Row: Logo & Brand Name -->
+                <div class="flex items-start gap-2.5 mb-2.5">
+                  <a href={`${base}/stores/${deal.canonicalSlug || deal.storeSlug}/`} class="shrink-0" title={deal.cleanBrand}>
+                    <div class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-700 p-1 flex items-center justify-center shrink-0 overflow-hidden">
+                      <img
+                        src={`/logos/${deal.canonicalSlug || deal.storeSlug}.png`}
+                        alt={`${deal.cleanBrand} logo`}
+                        class="w-full h-full object-contain"
+                        loading="lazy"
+                        data-google-fallback={`https://www.google.com/s2/favicons?domain=${deal.cleanDomain}&sz=128`}
+                        onerror="if(this.getAttribute('data-google-fallback') && this.src !== this.getAttribute('data-google-fallback')){ this.src = this.getAttribute('data-google-fallback'); } else { this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex'; }"
+                      />
+                      <span class="hidden w-full h-full rounded-xl bg-indigo-600 text-white font-extrabold text-[12px] items-center justify-center">
+                        {initials}
+                      </span>
+                    </div>
+                  </a>
+
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between gap-1.5">
+                      <a href={`${base}/stores/${deal.canonicalSlug || deal.storeSlug}/`} class="text-[14px] font-bold text-white group-hover:text-indigo-400 transition truncate">
+                        {deal.cleanBrand}
+                      </a>
+                    </div>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                      <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider truncate">
+                        {deal.storeCategory}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Discount Value Badge -->
+                <div class="mb-2">
+                  <span class="inline-block px-2.5 py-0.5 text-xs font-black uppercase tracking-wider rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                    {deal.cleanBadge}
+                  </span>
+                </div>
+
+                <!-- Title & Description -->
+                <h3 class="text-sm font-bold text-white leading-snug line-clamp-2 mb-1.5">
+                  {deal.title}
+                </h3>
+                <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                  {deal.description}
+                </p>
+              </div>
+
+              <!-- Action Button -->
+              <div class="pt-2 mt-auto border-t border-slate-700/60">
+                <button
+                  type="button"
+                  class="w-full h-10 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs sm:text-[13px] rounded-xl px-3 flex items-center justify-between gap-1.5 shadow-md transition cursor-pointer"
+                  data-reveal-deal={JSON.stringify({
+                    id: deal.id,
+                    title: deal.title,
+                    desc: deal.description,
+                    code: deal.code || '',
+                    storeName: deal.cleanBrand,
+                    storeSlug: deal.canonicalSlug || deal.storeSlug,
+                    domain: deal.cleanDomain,
+                    badge: deal.cleanBadge,
+                    affiliateUrl: deal.affiliateUrl,
+                    successRate: deal.successRate
+                  })}
+                >
+                  <span>{isCode ? 'Copy Voucher Code' : 'Claim Black Friday Deal'}</span>
+                  {isCode ? (
+                    <span class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-[11px] text-amber-300 font-bold">
+                      ···{deal.code.slice(-3)}
+                    </span>
+                  ) : (
+                    <span>↗</span>
+                  )}
+                </button>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script is:inline>
+  // Dynamic Countdown to Black Friday 2026 (Nov 27, 2026)
+  (function() {
+    const targetDate = new Date('2026-11-27T00:00:00Z').getTime();
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) return;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      const dEl = document.getElementById('bfDays');
+      const hEl = document.getElementById('bfHours');
+      const mEl = document.getElementById('bfMins');
+      const sEl = document.getElementById('bfSecs');
+
+      if (dEl) dEl.textContent = String(days).padStart(2, '0');
+      if (hEl) hEl.textContent = String(hours).padStart(2, '0');
+      if (mEl) mEl.textContent = String(minutes).padStart(2, '0');
+      if (sEl) sEl.textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Bind reveal deal click
+    document.querySelectorAll('[data-reveal-deal]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        try {
+          const dealData = JSON.parse(btn.getAttribute('data-reveal-deal'));
+          if (window.openCouponModal) {
+            window.openCouponModal(dealData);
+          }
+        } catch(e) {
+          console.error(e);
+        }
+      });
+    });
+  })();
+</script>
+
