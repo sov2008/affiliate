@@ -1,25 +1,11 @@
 ---
-import { COUPONS_DATA, STORES_DATA } from '../data/couponsData';
 import { STORE_DOMAINS_MAP } from '../data/storeDomains';
-import { resolveMerchantIdentity, isJunkTestOffer } from '../utils/dealNormalizer';
 
-// Create a lightweight lookup for cross-sell recommendations
-const storeDealsMap: Record<string, Array<{ id: string; title: string; code: string; badge: string; affiliateUrl: string }>> = {};
-COUPONS_DATA.forEach(deal => {
-  if (isJunkTestOffer(deal.storeName, deal.title)) return;
-  const identity = resolveMerchantIdentity(deal);
-  const canonKey = identity.brand.toLowerCase().replace(/[^a-z0-9]/g, '');
-  if (!storeDealsMap[canonKey]) {
-    storeDealsMap[canonKey] = [];
-  }
-  storeDealsMap[canonKey].push({
-    id: deal.id,
-    title: deal.title,
-    code: deal.code,
-    badge: deal.discountBadge,
-    affiliateUrl: deal.affiliateUrl
-  });
-});
+interface Props {
+  storeDealsMap?: Record<string, Array<{ id: string; title: string; code: string; badge: string; affiliateUrl: string }>>;
+}
+
+const { storeDealsMap = {} } = Astro.props;
 ---
 
 <!-- Global Click-to-Reveal Coupon Modal (Dual-Tab & Cross-Sell Engine) -->

@@ -113,6 +113,14 @@ conn.on('ready', async () => {
 
     conn.end();
     console.log('🎉 DIRECT DEPLOY COMPLETED SUCCESSFULLY!');
+
+    // Trigger IndexNow SEO Ping
+    try {
+      const { pingIndexNow } = require('./seo_index_pinger.cjs');
+      await pingIndexNow();
+    } catch (indexErr) {
+      console.warn('⚠️ IndexNow ping warning:', indexErr.message);
+    }
   } catch (err) {
     console.error('❌ Deploy failed:', err);
     conn.end();

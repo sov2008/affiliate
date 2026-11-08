@@ -320,6 +320,24 @@ const howToSaveSchema = {
   }))
 };
 
+import fs from 'node:fs';
+import path from 'node:path';
+
+const candidateCardName = `deal_${store.slug}_landscape.webp`;
+const publicCardPath = path.resolve(process.cwd(), process.cwd().endsWith('deals-portal') ? `public/images/social-cards/${candidateCardName}` : `deals-portal/public/images/social-cards/${candidateCardName}`);
+const ogImageUrl = fs.existsSync(publicCardPath) ? `/images/social-cards/${candidateCardName}` : undefined;
+
+// Serialise only the current store deals into modal cross-sell map
+const currentStoreDealsMap: Record<string, Array<{ id: string; title: string; code: string; badge: string; affiliateUrl: string }>> = {
+  [store.slug]: storeDeals.slice(0, 4).map(d => ({
+    id: d.id,
+    title: d.title,
+    code: d.code,
+    badge: d.discountBadge,
+    affiliateUrl: d.affiliateUrl
+  }))
+};
+
 const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : []), offersListSchema, howToSaveSchema];
 ---
 
@@ -329,6 +347,8 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
   canonicalUrl={`https://promoradar.store/stores/${store.slug}/`}
   activePath={`/stores/${store.slug}/`}
   schemas={pageSchemas}
+  ogImage={ogImageUrl}
+  storeDealsMap={currentStoreDealsMap}
 >
   <Header activePath={`/stores/${store.slug}/`} />
 

@@ -114,6 +114,35 @@ const breadcrumbs = [
   },
   faqSchema
 ];
+
+// OpenGraph Card lookup
+import fs from 'node:fs';
+import path from 'node:path';
+
+const candidateCardName = `compare_${comparison.slug.replace(/-/g, '_')}_landscape.webp`;
+const publicCardPath = path.resolve(process.cwd(), process.cwd().endsWith('deals-portal') ? `public/images/social-cards/${candidateCardName}` : `deals-portal/public/images/social-cards/${candidateCardName}`);
+const ogImageUrl = fs.existsSync(publicCardPath) ? `/images/social-cards/${candidateCardName}` : undefined;
+
+// Serialise only the 2 compared stores deals into modal cross-sell map
+const pairDealsMap: Record<string, Array<{ id: string; title: string; code: string; badge: string; affiliateUrl: string }>> = {};
+if (storeA?.slug) {
+  pairDealsMap[storeA.slug] = dealsA.slice(0, 4).map(d => ({
+    id: d.id,
+    title: d.title,
+    code: d.code,
+    badge: d.discountBadge,
+    affiliateUrl: d.affiliateUrl
+  }));
+}
+if (storeB?.slug) {
+  pairDealsMap[storeB.slug] = dealsB.slice(0, 4).map(d => ({
+    id: d.id,
+    title: d.title,
+    code: d.code,
+    badge: d.discountBadge,
+    affiliateUrl: d.affiliateUrl
+  }));
+}
 ---
 
 <BaseLayout
@@ -121,6 +150,8 @@ const breadcrumbs = [
   description={comparison.desc}
   activePath={`/compare/${comparison.slug}/`}
   schemas={breadcrumbs}
+  ogImage={ogImageUrl}
+  storeDealsMap={pairDealsMap}
 >
   <Header activePath="/compare" />
 
