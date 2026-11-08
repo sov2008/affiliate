@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Shopee CPA BR Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/shopee-cpa-br/shopee-cpa-br_card_0.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2024/03/15/300x250_2.8dbe.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://xqjeo.com/g/trch28svzkfa9e3fd87804f147125c/?subid=promoradar_banner_shopee-cpa-br"
+  },
+  {
+    "name": "Shopee CPA BR Official Partner Banner (320x480)",
+    "width": 320,
+    "height": 480,
+    "sizeKey": "320x480",
+    "src": "/promo-media/shopee-cpa-br/shopee-cpa-br_other_1.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2024/03/15/320x480.674e.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://xqjeo.com/g/b60yivkhrcfa9e3fd87804f147125c/?subid=promoradar_banner_shopee-cpa-br"
+  },
+  {
+    "name": "Shopee CPA BR Official Partner Banner (320x50)",
+    "width": 320,
+    "height": 50,
+    "sizeKey": "320x50",
+    "src": "/promo-media/shopee-cpa-br/shopee-cpa-br_other_2.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2024/03/15/320x50.7f5a.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://xqjeo.com/g/835nvm8baxfa9e3fd87804f147125c/?subid=promoradar_banner_shopee-cpa-br"
+  }
+]

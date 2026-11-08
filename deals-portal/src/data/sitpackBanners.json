@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Sitpack WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/sitpack/sitpack_hero_0.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/02/17/Artboard_3_copy.e37c.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ujhjj.com/g/554hsnaojnfa9e3fd878ef57333d53/?subid=promoradar_banner_sitpack"
+  },
+  {
+    "name": "Sitpack WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/sitpack/sitpack_hero_1.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/02/17/Artboard_3.c218.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ujhjj.com/g/xw6mmd3fewfa9e3fd878ef57333d53/?subid=promoradar_banner_sitpack"
+  },
+  {
+    "name": "Sitpack WW Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/sitpack/sitpack_card_2.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/02/17/Artboard_2_copy.0732.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ujhjj.com/g/vf0ammptehfa9e3fd878ef57333d53/?subid=promoradar_banner_sitpack"
+  },
+  {
+    "name": "Sitpack WW Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/sitpack/sitpack_card_3.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/02/17/Artboard_2.20bf.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ujhjj.com/g/3urzeg7pfbfa9e3fd878ef57333d53/?subid=promoradar_banner_sitpack"
+  },
+  {
+    "name": "Sitpack WW Official Partner Banner (160x600)",
+    "width": 160,
+    "height": 600,
+    "sizeKey": "160x600",
+    "src": "/promo-media/sitpack/sitpack_tower_4.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/02/17/Artboard_1_copy.4e13.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ujhjj.com/g/ojdbczagqwfa9e3fd878ef57333d53/?subid=promoradar_banner_sitpack"
+  },
+  {
+    "name": "Sitpack WW Official Partner Banner (160x600)",
+    "width": 160,
+    "height": 600,
+    "sizeKey": "160x600",
+    "src": "/promo-media/sitpack/sitpack_tower_5.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/02/17/Artboard_1.d1e5.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ujhjj.com/g/wm84fhaurlfa9e3fd878ef57333d53/?subid=promoradar_banner_sitpack"
+  }
+]

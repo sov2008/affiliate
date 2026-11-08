@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Finbert UA Official Partner Banner (120x600)",
+    "width": 120,
+    "height": 600,
+    "sizeKey": "120x600",
+    "src": "/promo-media/finbert/finbert_tower_0.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2025/01/31/120х600.bb93.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ewwhk.com/g/nn0d7srmw4fa9e3fd87843054ed2e3/?subid=promoradar_banner_finbert"
+  },
+  {
+    "name": "Finbert UA Official Partner Banner (600x90)",
+    "width": 600,
+    "height": 90,
+    "sizeKey": "600x90",
+    "src": "/promo-media/finbert/finbert_other_1.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2025/01/31/240х400-1.720e.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ewwhk.com/g/cvzk3z6wdifa9e3fd87843054ed2e3/?subid=promoradar_banner_finbert"
+  }
+]

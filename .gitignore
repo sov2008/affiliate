@@ -47,13 +47,14 @@ learning/
 runs/
 output/
 core/output/
+# Database & Queue artifacts
 *.db
 *.sqlite
 *.db*
 *.sqlite*
 content_queue.db
 core/core/
-**/data/*.json
+/data/*.json
 core/data/*.json
 core/data/learning/
 core/dist-backup-*/

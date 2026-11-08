@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Polis UA Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/polis/polis_hero_0.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/11/09/600х90-1.8428.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://naiawork.com/g/b4rehrzre6367099d2cc063ddfdb47/?subid=promoradar_banner_polis"
+  },
+  {
+    "name": "Polis UA Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/polis/polis_card_1.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/11/09/300x250.79ca.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://naiawork.com/g/t4lb085na5367099d2cc063ddfdb47/?subid=promoradar_banner_polis"
+  },
+  {
+    "name": "Polis UA Official Partner Banner (336x280)",
+    "width": 336,
+    "height": 280,
+    "sizeKey": "336x280",
+    "src": "/promo-media/polis/polis_card_2.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/06/02/Web_336x280.5b27.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://naiawork.com/g/oyumbcx2l6367099d2cc063ddfdb47/?subid=promoradar_banner_polis"
+  },
+  {
+    "name": "Polis UA Official Partner Banner (336x280)",
+    "width": 336,
+    "height": 280,
+    "sizeKey": "336x280",
+    "src": "/promo-media/polis/polis_card_3.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/11/09/336x280.2e5a.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://naiawork.com/g/ofbqzim3aw367099d2cc063ddfdb47/?subid=promoradar_banner_polis"
+  },
+  {
+    "name": "Polis UA Official Partner Banner (160x600)",
+    "width": 160,
+    "height": 600,
+    "sizeKey": "160x600",
+    "src": "/promo-media/polis/polis_tower_4.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/06/02/Web_160x600.2b99.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://naiawork.com/g/gcuw033er0367099d2cc063ddfdb47/?subid=promoradar_banner_polis"
+  },
+  {
+    "name": "Polis UA Official Partner Banner (160x600)",
+    "width": 160,
+    "height": 600,
+    "sizeKey": "160x600",
+    "src": "/promo-media/polis/polis_tower_5.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/11/09/120х600-1.d28e.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://naiawork.com/g/kp74evikmc367099d2cc063ddfdb47/?subid=promoradar_banner_polis"
+  },
+  {
+    "name": "Polis UA Official Partner Banner (200x200)",
+    "width": 200,
+    "height": 200,
+    "sizeKey": "200x200",
+    "src": "/promo-media/polis/polis_square_6.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/06/02/Web_200x200.6d46.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://naiawork.com/g/m183d06t7j367099d2cc063ddfdb47/?subid=promoradar_banner_polis"
+  },
+  {
+    "name": "Polis UA Official Partner Banner (240x400)",
+    "width": 240,
+    "height": 400,
+    "sizeKey": "240x400",
+    "src": "/promo-media/polis/polis_other_7.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/06/02/Web_240x400.537c.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://naiawork.com/g/178hut44fj367099d2cc063ddfdb47/?subid=promoradar_banner_polis"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "The Hindu [CPS] IN Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/the-hindu/the-hindu_hero_0.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/05/05/728x90.341b.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://tjzuh.com/g/brqc72whj1fa9e3fd878d1068ae2f4/?subid=promoradar_banner_the-hindu"
+  },
+  {
+    "name": "The Hindu [CPS] IN Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/the-hindu/the-hindu_card_1.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/05/05/300x250.cda4.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://tjzuh.com/g/4rtbr1dovtfa9e3fd878d1068ae2f4/?subid=promoradar_banner_the-hindu"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Aovica Official Store Aliexpress Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/aovica/aovica_hero_0.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/02/05/728x90.0a71.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://rcpsj.com/g/irfaxwjvvkfa9e3fd878caca192191/?subid=promoradar_banner_aovica"
+  },
+  {
+    "name": "Aovica Official Store Aliexpress Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/aovica/aovica_card_1.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/02/04/9999999.15fc.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://rcpsj.com/g/1i2x3c8getfa9e3fd878caca192191/?subid=promoradar_banner_aovica"
+  },
+  {
+    "name": "Aovica Official Store Aliexpress Official Partner Banner (320x50)",
+    "width": 320,
+    "height": 50,
+    "sizeKey": "320x50",
+    "src": "/promo-media/aovica/aovica_other_2.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/02/05/320x50.b08f.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://rcpsj.com/g/6mzpz3zddrfa9e3fd878caca192191/?subid=promoradar_banner_aovica"
+  },
+  {
+    "name": "Aovica Official Store Aliexpress Official Partner Banner (500x500)",
+    "width": 500,
+    "height": 500,
+    "sizeKey": "500x500",
+    "src": "/promo-media/aovica/aovica_tower_3.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/02/04/500x500.a409.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://rcpsj.com/g/g9w6zckshzfa9e3fd878caca192191/?subid=promoradar_banner_aovica"
+  }
+]

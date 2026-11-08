@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Klook WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/klook/klook_hero_0.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/09/02/728x90.3988.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://bjpql.com/g/v3ddpxz8k9fa9e3fd8786ca26c9222/?subid=promoradar_banner_klook"
+  },
+  {
+    "name": "Klook WW Official Partner Banner (160x600)",
+    "width": 160,
+    "height": 600,
+    "sizeKey": "160x600",
+    "src": "/promo-media/klook/klook_tower_1.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/09/02/160x600.3698.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://bjpql.com/g/piwshhurowfa9e3fd8786ca26c9222/?subid=promoradar_banner_klook"
+  },
+  {
+    "name": "Klook WW Official Partner Banner (300x600)",
+    "width": 300,
+    "height": 600,
+    "sizeKey": "300x600",
+    "src": "/promo-media/klook/klook_tower_2.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/09/02/300x600.b97b.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://bjpql.com/g/zvk5gtrat2fa9e3fd8786ca26c9222/?subid=promoradar_banner_klook"
+  },
+  {
+    "name": "Klook WW Official Partner Banner (250x250)",
+    "width": 250,
+    "height": 250,
+    "sizeKey": "250x250",
+    "src": "/promo-media/klook/klook_card_3.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/09/02/250x250.5629.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://bjpql.com/g/h9m6yaohx3fa9e3fd8786ca26c9222/?subid=promoradar_banner_klook"
+  },
+  {
+    "name": "Klook WW Official Partner Banner (468x60)",
+    "width": 468,
+    "height": 60,
+    "sizeKey": "468x60",
+    "src": "/promo-media/klook/klook_other_4.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/09/02/468x60.9b3b.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://bjpql.com/g/w8tpvf25sifa9e3fd8786ca26c9222/?subid=promoradar_banner_klook"
+  },
+  {
+    "name": "Klook WW Official Partner Banner (500x500)",
+    "width": 500,
+    "height": 500,
+    "sizeKey": "500x500",
+    "src": "/promo-media/klook/klook_tower_5.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/09/02/500x500.d410.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://bjpql.com/g/8vgfyg7euefa9e3fd8786ca26c9222/?subid=promoradar_banner_klook"
+  }
+]

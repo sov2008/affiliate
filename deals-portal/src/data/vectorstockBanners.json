@@ -1,0 +1,22 @@
+[
+  {
+    "name": "VectorStock WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/vectorstock/vectorstock_hero_0.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/05/09/unnamed.a067.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://grfpr.com/g/c4pysp1lpafa9e3fd87869ba13f9ec/?subid=promoradar_banner_vectorstock"
+  },
+  {
+    "name": "VectorStock WW Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/vectorstock/vectorstock_card_1.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/05/09/VS-300x250-AM01.1f67.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://grfpr.com/g/b53vc3v391fa9e3fd87869ba13f9ec/?subid=promoradar_banner_vectorstock"
+  }
+]

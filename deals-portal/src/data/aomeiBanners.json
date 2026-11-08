@@ -1,0 +1,52 @@
+[
+  {
+    "name": "AOMEI [CPS] WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/aomei/aomei_hero_0.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/01/26/Affiliate-flash-728x901x.c30c.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://kpwfp.com/g/xi566vapqhfa9e3fd878fec4620825/?subid=promoradar_banner_aomei"
+  },
+  {
+    "name": "AOMEI [CPS] WW Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/aomei/aomei_card_1.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/01/26/Affiliate-flash-300x2501x.ab44.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://kpwfp.com/g/rp2jwh1ul2fa9e3fd878fec4620825/?subid=promoradar_banner_aomei"
+  },
+  {
+    "name": "AOMEI [CPS] WW Official Partner Banner (336x280)",
+    "width": 336,
+    "height": 280,
+    "sizeKey": "336x280",
+    "src": "/promo-media/aomei/aomei_card_2.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/03/11/336x280.1909.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://kpwfp.com/g/yuy3u5tfekfa9e3fd878fec4620825/?subid=promoradar_banner_aomei"
+  },
+  {
+    "name": "AOMEI [CPS] WW Official Partner Banner (160x600)",
+    "width": 160,
+    "height": 600,
+    "sizeKey": "160x600",
+    "src": "/promo-media/aomei/aomei_tower_3.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/01/26/Affiliate-flash-160x6001x.dd09.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://kpwfp.com/g/kn8wkzjbgdfa9e3fd878fec4620825/?subid=promoradar_banner_aomei"
+  },
+  {
+    "name": "AOMEI [CPS] WW Official Partner Banner (300x600)",
+    "width": 300,
+    "height": 600,
+    "sizeKey": "300x600",
+    "src": "/promo-media/aomei/aomei_tower_4.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/01/26/Affiliate-flash-300x6001x.436e.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://kpwfp.com/g/wbu4e1ob49fa9e3fd878fec4620825/?subid=promoradar_banner_aomei"
+  }
+]

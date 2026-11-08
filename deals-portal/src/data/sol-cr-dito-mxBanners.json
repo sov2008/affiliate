@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Sol Crédito MX Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/sol-cr-dito-mx/sol-cr-dito-mx_card_0.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/05/05/300x250.a3c7.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://dkfrh.com/g/9k0cwagbasfa9e3fd878bd6fe4c78f/?subid=promoradar_banner_sol-cr-dito-mx"
+  },
+  {
+    "name": "Sol Crédito MX Official Partner Banner (1200x628)",
+    "width": 1200,
+    "height": 628,
+    "sizeKey": "1200x628",
+    "src": "/promo-media/sol-cr-dito-mx/sol-cr-dito-mx_hero_large_1.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/05/05/1200x628.c988.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://dkfrh.com/g/nxnoxaddd8fa9e3fd878bd6fe4c78f/?subid=promoradar_banner_sol-cr-dito-mx"
+  },
+  {
+    "name": "Sol Crédito MX Official Partner Banner (320x50)",
+    "width": 320,
+    "height": 50,
+    "sizeKey": "320x50",
+    "src": "/promo-media/sol-cr-dito-mx/sol-cr-dito-mx_other_2.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/05/05/320x50.809c.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://dkfrh.com/g/3u07tlvms0fa9e3fd878bd6fe4c78f/?subid=promoradar_banner_sol-cr-dito-mx"
+  },
+  {
+    "name": "Sol Crédito MX Official Partner Banner (72x72)",
+    "width": 72,
+    "height": 72,
+    "sizeKey": "72x72",
+    "src": "/promo-media/sol-cr-dito-mx/sol-cr-dito-mx_other_3.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/05/05/72x72.99ab.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://dkfrh.com/g/d0al5epsiafa9e3fd878bd6fe4c78f/?subid=promoradar_banner_sol-cr-dito-mx"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Konesso PL Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/konesso-pl/konesso-pl_card_0.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/07/27/imgcpm_300x250-1607932791617.addd.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ad.admitad.com/g/1amw2f1b8efa9e3fd878c8277afbbe/?subid=promoradar_banner_konesso-pl"
+  },
+  {
+    "name": "Konesso PL Official Partner Banner (336x280)",
+    "width": 336,
+    "height": 280,
+    "sizeKey": "336x280",
+    "src": "/promo-media/konesso-pl/konesso-pl_card_1.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/07/27/imgcpm_336x280-1607932758844.88f0.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ad.admitad.com/g/163ok82butfa9e3fd878c8277afbbe/?subid=promoradar_banner_konesso-pl"
+  },
+  {
+    "name": "Konesso PL Official Partner Banner (160x600)",
+    "width": 160,
+    "height": 600,
+    "sizeKey": "160x600",
+    "src": "/promo-media/konesso-pl/konesso-pl_tower_2.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/07/27/imgcpm_160x600-1607932676057.d9e9.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ad.admitad.com/g/2i85z2vq6tfa9e3fd878c8277afbbe/?subid=promoradar_banner_konesso-pl"
+  },
+  {
+    "name": "Konesso PL Official Partner Banner (300x600)",
+    "width": 300,
+    "height": 600,
+    "sizeKey": "300x600",
+    "src": "/promo-media/konesso-pl/konesso-pl_tower_3.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/07/27/imgcpm_300x600-1607932716754.ee7c.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ad.admitad.com/g/nbdkk5bnjmfa9e3fd878c8277afbbe/?subid=promoradar_banner_konesso-pl"
+  }
+]

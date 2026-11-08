@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Eurowings WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/eurowings/eurowings_hero_0.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2024/11/20/Black-Flydeals_2024_DE_728x90_fallback.5012.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://codeaven.com/g/lu11yxb459fa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+  },
+  {
+    "name": "Eurowings WW Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/eurowings/eurowings_card_1.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2024/11/20/Black-Flydeals_2024_DE_300x250_fallback.ba64.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://codeaven.com/g/pepvddlzwhfa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+  },
+  {
+    "name": "Eurowings WW Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/eurowings/eurowings_card_2.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/09/29/02319_EW_Banner_Affiliate_CZ_300x250_sRGB_RZ.cb87.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://codeaven.com/g/xghnlgti2ffa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+  },
+  {
+    "name": "Eurowings WW Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/eurowings/eurowings_card_3.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/09/29/02319_EW_Banner_Affiliate_DE_300x250_sRGB_RZ.c23f.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://codeaven.com/g/sufbz9gm2bfa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+  },
+  {
+    "name": "Eurowings WW Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/eurowings/eurowings_card_4.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/09/29/02319_EW_Banner_Affiliate_EN_300x250_sRGB_RZ.b455.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://codeaven.com/g/al4hs2zss5fa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+  },
+  {
+    "name": "Eurowings WW Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/eurowings/eurowings_card_5.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/09/29/02319_EW_Banner_Affiliate_ES_300x250_sRGB_RZ.f896.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://codeaven.com/g/yvw5744byzfa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+  },
+  {
+    "name": "Eurowings WW Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/eurowings/eurowings_card_6.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/09/29/02319_EW_Banner_Affiliate_FR_300x250_sRGB_RZ.6939.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://codeaven.com/g/5tmv1udrgpfa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+  },
+  {
+    "name": "Eurowings WW Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/eurowings/eurowings_card_7.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/09/29/02319_EW_Banner_Affiliate_IT_300x250_sRGB_RZ.8e92.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://codeaven.com/g/f4g2iioh2jfa9e3fd8783cffcf918a/?subid=promoradar_banner_eurowings"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "CoolCredit cz Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/coolcredit-cz/coolcredit-cz_hero_0.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/09/18/PODZIM_AKVIZICE_1_728x90.a7b1.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://rthsu.com/g/ia26nobt0nfa9e3fd878e3e2807c9a/?subid=promoradar_banner_coolcredit-cz"
+  },
+  {
+    "name": "CoolCredit cz Official Partner Banner (300x250)",
+    "width": 300,
+    "height": 250,
+    "sizeKey": "300x250",
+    "src": "/promo-media/coolcredit-cz/coolcredit-cz_card_1.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/09/18/PODZIM_AKVIZICE_1_300x250.275e.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://rthsu.com/g/dlvnytvkhxfa9e3fd878e3e2807c9a/?subid=promoradar_banner_coolcredit-cz"
+  },
+  {
+    "name": "CoolCredit cz Official Partner Banner (160x600)",
+    "width": 160,
+    "height": 600,
+    "sizeKey": "160x600",
+    "src": "/promo-media/coolcredit-cz/coolcredit-cz_tower_2.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/09/18/PODZIM_AKVIZICE_1_160x600.5977.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://rthsu.com/g/ebpx9lq892fa9e3fd878e3e2807c9a/?subid=promoradar_banner_coolcredit-cz"
+  },
+  {
+    "name": "CoolCredit cz Official Partner Banner (300x600)",
+    "width": 300,
+    "height": 600,
+    "sizeKey": "300x600",
+    "src": "/promo-media/coolcredit-cz/coolcredit-cz_tower_3.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/09/18/PODZIM_AKVIZICE_1_300x600.28e7.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://rthsu.com/g/1375xqfm7vfa9e3fd878e3e2807c9a/?subid=promoradar_banner_coolcredit-cz"
+  },
+  {
+    "name": "CoolCredit cz Official Partner Banner (300x300)",
+    "width": 300,
+    "height": 300,
+    "sizeKey": "300x300",
+    "src": "/promo-media/coolcredit-cz/coolcredit-cz_card_4.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/09/18/PODZIM_AKVIZICE_1_300x300.f71b.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://rthsu.com/g/wm0cdvdx54fa9e3fd878e3e2807c9a/?subid=promoradar_banner_coolcredit-cz"
+  },
+  {
+    "name": "CoolCredit cz Official Partner Banner (320x100)",
+    "width": 320,
+    "height": 100,
+    "sizeKey": "320x100",
+    "src": "/promo-media/coolcredit-cz/coolcredit-cz_other_5.jpg",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/09/18/PODZIM_AKVIZICE_1_320x100.b9f0.jpg",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://rthsu.com/g/bewgrvsa4efa9e3fd878e3e2807c9a/?subid=promoradar_banner_coolcredit-cz"
+  }
+]

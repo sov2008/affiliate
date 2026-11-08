@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Bold Snacks BR Official Partner Banner (336x280)",
+    "width": 336,
+    "height": 280,
+    "sizeKey": "336x280",
+    "src": "/promo-media/bold-snacks-br/bold-snacks-br_card_0.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/10/24/admitad_-_336x280.0d6e.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ytebb.com/g/msd2th25bvfa9e3fd878b8e9fcfe31/?subid=promoradar_banner_bold-snacks-br"
+  },
+  {
+    "name": "Bold Snacks BR Official Partner Banner (500x500)",
+    "width": 500,
+    "height": 500,
+    "sizeKey": "500x500",
+    "src": "/promo-media/bold-snacks-br/bold-snacks-br_tower_1.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/10/24/admitad_-_500x500.886b.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ytebb.com/g/bztzesnknpfa9e3fd878b8e9fcfe31/?subid=promoradar_banner_bold-snacks-br"
+  },
+  {
+    "name": "Bold Snacks BR Official Partner Banner (200x200)",
+    "width": 200,
+    "height": 200,
+    "sizeKey": "200x200",
+    "src": "/promo-media/bold-snacks-br/bold-snacks-br_square_2.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2023/10/24/admitad_-_200x200.a4db.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://ytebb.com/g/wd3497653xfa9e3fd878b8e9fcfe31/?subid=promoradar_banner_bold-snacks-br"
+  }
+]

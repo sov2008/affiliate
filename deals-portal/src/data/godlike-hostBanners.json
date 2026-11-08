@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Godlike.Host [CPS] WW Official Partner Banner (728x90)",
+    "width": 728,
+    "height": 90,
+    "sizeKey": "728x90",
+    "src": "/promo-media/godlike-host/godlike-host_hero_0.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/06/08/Banner_837TЕ80_px_2x_1.1c29.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://yjfca.com/g/02pxutvbi2fa9e3fd87852f0388f55/?subid=promoradar_banner_godlike-host"
+  },
+  {
+    "name": "Godlike.Host [CPS] WW Official Partner Banner (600x90)",
+    "width": 600,
+    "height": 90,
+    "sizeKey": "600x90",
+    "src": "/promo-media/godlike-host/godlike-host_other_1.png",
+    "cdnSrc": "https://cdn.admitad.com/bs/2026/06/08/Banner_837TЕ80_px.b4ba.png",
+    "isBlackFriday": false,
+    "affiliateUrl": "https://yjfca.com/g/pdk01z6yqpfa9e3fd87852f0388f55/?subid=promoradar_banner_godlike-host"
+  }
+]
