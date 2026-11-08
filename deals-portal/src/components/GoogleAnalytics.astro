@@ -7,7 +7,7 @@ interface Props {
 const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
 ---
 
-<!-- Google Consent Mode v2 Defaults (GDPR / ePrivacy Compliance) -->
+<!-- Google Consent Mode v2 with Behavioral Modeling & Cookieless Pings -->
 <script is:inline>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -24,14 +24,19 @@ const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
       'analytics_storage': 'granted',
       'ad_user_data': 'granted',
       'ad_personalization': 'granted',
+      'url_passthrough': true,
+      'ads_data_redaction': false,
       'wait_for_update': 500
     });
   } else {
+    // Advanced Consent Mode: sends cookieless pings so GA4 behavioral modeling recovers 40-60% of lost sessions
     gtag('consent', 'default', {
       'ad_storage': 'denied',
       'analytics_storage': 'denied',
       'ad_user_data': 'denied',
       'ad_personalization': 'denied',
+      'url_passthrough': true,
+      'ads_data_redaction': true,
       'wait_for_update': 500
     });
   }
@@ -44,6 +49,7 @@ const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
 
   gtag('config', measurementId, {
     send_page_view: true,
+    transport_type: 'beacon',
     cookie_flags: 'SameSite=None;Secure'
   });
 
@@ -68,7 +74,8 @@ const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
             store_name: dealData.storeName,
             promo_code: dealData.code,
             discount_badge: dealData.badge,
-            page_path: window.location.pathname
+            page_path: window.location.pathname,
+            transport_type: 'beacon'
           });
         } catch (err) {}
       }
@@ -78,20 +85,58 @@ const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
       if (copyBtn && typeof window.gtag === 'function') {
         window.gtag('event', 'coupon_copied', {
           event_category: 'Conversion',
-          page_path: window.location.pathname
+          page_path: window.location.pathname,
+          transport_type: 'beacon'
         });
       }
 
-      // Track External Merchant Clicks
-      var affLink = target.closest ? target.closest('a[href*="/go?"]') : null;
+      // Track External Merchant Clicks & All Outbound Links (/go or /stores/ redirects)
+      var affLink = target.closest ? target.closest('a[href*="/go"], a[href*="wbbsv.com"], a[href*="alitems.com"], a[href*="anrdoezrs.net"], a[href*="tkqlhce.com"]') : null;
       if (affLink && typeof window.gtag === 'function') {
         window.gtag('event', 'affiliate_click', {
           event_category: 'Affiliate',
           event_label: affLink.href,
-          page_path: window.location.pathname
+          link_url: affLink.href,
+          link_text: (affLink.innerText || '').trim().slice(0, 50),
+          page_path: window.location.pathname,
+          transport_type: 'beacon'
         });
       }
     });
+
+    // 2. Scroll Depth Milestones for Engagement (25%, 50%, 75%, 90%)
+    var scrollMilestones = { 25: false, 50: false, 75: false, 90: false };
+    function handleScrollDepth() {
+      var docEl = document.documentElement;
+      var body = document.body;
+      var scrollTop = window.scrollY || docEl.scrollTop || body.scrollTop || 0;
+      var scrollHeight = (docEl.scrollHeight || body.scrollHeight || 0) - docEl.clientHeight;
+      if (scrollHeight <= 0) return;
+
+      var currentPct = Math.round((scrollTop / scrollHeight) * 100);
+      [25, 50, 75, 90].forEach(function(m) {
+        if (currentPct >= m && !scrollMilestones[m]) {
+          scrollMilestones[m] = true;
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'scroll', {
+              event_category: 'Engagement',
+              percent_scrolled: m,
+              page_path: window.location.pathname,
+              transport_type: 'beacon'
+            });
+          }
+        }
+      });
+    }
+
+    var scrollDebounceTimer = null;
+    window.addEventListener('scroll', function() {
+      if (scrollDebounceTimer) return;
+      scrollDebounceTimer = setTimeout(function() {
+        scrollDebounceTimer = null;
+        handleScrollDepth();
+      }, 250);
+    }, { passive: true });
   }
 
   if (document.readyState === 'loading') {
