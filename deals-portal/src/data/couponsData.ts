@@ -32,6 +32,136 @@ export interface StoreProfile {
 
 export const STORES_DATA: StoreProfile[] = [
   {
+    "slug": "trip-com",
+    "name": "Trip.com",
+    "category": "Travel & Tours",
+    "logoText": "TRIP.COM",
+    "shortDesc": "Global travel platform offering flights, hotels, train tickets, and vacation packages across 200+ countries.",
+    "fullDesc": "Trip.com is a global leader in one-stop travel booking, providing competitive rates on international flights, luxury resort stays, high-speed rail passes, and local tour attractions. With 24/7 customer support and verified member perks, travelers save significantly on bookings worldwide.",
+    "websiteUrl": "https://www.trip.com",
+    "cleanDomain": "trip.com",
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=5968&id=3148787",
+    "howToApply": [
+      "Choose your destination and preferred dates on Trip.com.",
+      "Select eligible hotel rooms or flights labeled with promo code support.",
+      "Paste code TRIPPROMO at the checkout screen to redeem instant fare savings."
+    ],
+    "faq": [
+      {
+        "q": "Does Trip.com offer instant promo code discounts?",
+        "a": "Yes, Trip.com releases seasonal coupon codes for hotel reservations and international flights that apply directly during checkout."
+      },
+      {
+        "q": "Can I earn Trip Coins alongside promotional coupons?",
+        "a": "Yes, members accumulate rewards points (Trip Coins) on every completed booking, which can be stacked on future travel."
+      }
+    ]
+  },
+  {
+    "slug": "under-armour",
+    "name": "Under Armour",
+    "category": "Fashion & Apparel",
+    "logoText": "UNDER ARMOUR",
+    "shortDesc": "Engineered performance athletic apparel, running footwear, training gear, and fitness accessories.",
+    "fullDesc": "Under Armour manufactures high-performance athletic footwear, compression wear, workout apparel, and sportswear built to withstand intense training. Athletes and everyday fitness enthusiasts rely on heat-regulating fabric tech like HeatGear and ColdGear for peak endurance.",
+    "websiteUrl": "https://www.underarmour.com",
+    "cleanDomain": "underarmour.com",
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=15431&id=3148787",
+    "howToApply": [
+      "Add performance athletic shoes or training gear to your Under Armour bag.",
+      "Head to checkout and open the Apply Promo Code field.",
+      "Enter code UA20OFF to receive an additional discount on your order."
+    ],
+    "faq": [
+      {
+        "q": "Does Under Armour offer free shipping with promo codes?",
+        "a": "Under Armour frequently provides free standard delivery for rewards members or when using specific qualifying coupon vouchers."
+      },
+      {
+        "q": "Are outlet items eligible for promo code discounts?",
+        "a": "Yes, seasonal sitewide promotion codes often take an extra 20% to 30% off already discounted outlet selections."
+      }
+    ]
+  },
+  {
+    "slug": "cheapoair",
+    "name": "CheapOair",
+    "category": "Travel & Tours",
+    "logoText": "CHEAPOAIR",
+    "shortDesc": "Online flight booking service featuring cheap airline tickets, hotel deals, and car rentals.",
+    "fullDesc": "CheapOair is an established digital travel agency that searches hundreds of airlines and hotel inventories to deliver deeply discounted flight itineraries and vacation packages. Ideal for budget-conscious adventurers seeking low airfare and flexible travel plans.",
+    "websiteUrl": "https://www.cheapoair.com",
+    "cleanDomain": "cheapoair.com",
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=11564&id=3148787",
+    "howToApply": [
+      "Search round-trip or one-way flights on CheapOair.",
+      "Select your preferred flight time and airline carrier.",
+      "Enter code AIR25 on the passenger payment page to reduce your booking fees."
+    ],
+    "faq": [
+      {
+        "q": "How do CheapOair promo codes work?",
+        "a": "CheapOair coupon codes offer cash discounts off agency service fees for qualifying flight and hotel reservations."
+      },
+      {
+        "q": "Is customer support available around the clock?",
+        "a": "Yes, CheapOair offers 24/7 assistance for schedule changes, booking inquiries, and baggage policies."
+      }
+    ]
+  },
+  {
+    "slug": "unineed",
+    "name": "Unineed",
+    "category": "Beauty & Fragrances",
+    "logoText": "UNINEED",
+    "shortDesc": "Luxury beauty and skincare outlet offering genuine designer fragrances, skincare, and cosmetics.",
+    "fullDesc": "Unineed is a premier UK-based beauty boutique featuring over 12,000 branded luxury products including high-end skincare, perfumes, hair care, and designer sunglasses from prestigious international beauty houses.",
+    "websiteUrl": "https://www.unineed.com",
+    "cleanDomain": "unineed.com",
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=5350&id=3148787",
+    "howToApply": [
+      "Select designer fragrances or skincare regimens on Unineed.",
+      "Review your shopping cart and locate the Discount Code box.",
+      "Apply code UNILUXE to deduct up to 40% from your order subtotal."
+    ],
+    "faq": [
+      {
+        "q": "Are beauty products on Unineed 100% authentic?",
+        "a": "Yes, Unineed guarantees 100% genuine merchandise sourced directly from authorized brand distributors."
+      },
+      {
+        "q": "Does Unineed ship internationally?",
+        "a": "Yes, Unineed delivers across Europe, North America, the Middle East, and Asia with tracked international shipping."
+      }
+    ]
+  },
+  {
+    "slug": "lastminute",
+    "name": "lastminute.com",
+    "category": "Travel & Tours",
+    "logoText": "LASTMINUTE",
+    "shortDesc": "European holiday specialist for city breaks, luxury hotel escapes, and spontaneous travel getaways.",
+    "fullDesc": "lastminute.com revolutionized spontaneous travel by offering exclusive last-minute rates on flight and hotel combinations, all-inclusive beach resorts, theater tickets, and weekend European city breaks.",
+    "websiteUrl": "https://www.lastminute.com",
+    "cleanDomain": "lastminute.com",
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=4329&id=3148787",
+    "howToApply": [
+      "Search city breaks or hotel packages on lastminute.com.",
+      "Pick your resort and flight times.",
+      "Enter code LASTDEAL on the payment step to claim package savings."
+    ],
+    "faq": [
+      {
+        "q": "What is the benefit of booking flight + hotel together on lastminute.com?",
+        "a": "Bundled holiday packages unlock wholesale rates and complete ATOL/financial protection not available when booking separately."
+      },
+      {
+        "q": "Can I book spontaneous weekend breaks?",
+        "a": "Yes, lastminute.com specializes in immediate departures with steep markdown rates on unsold premium hotel suites."
+      }
+    ]
+  },
+  {
     "slug": "chicme",
     "name": "ChicMe",
     "category": "Fashion & Apparel",
@@ -10555,6 +10685,91 @@ export const STORES_DATA: StoreProfile[] = [
 ];
 
 export const COUPONS_DATA: CouponDeal[] = [
+  {
+    "id": "awin-tripcom-50off",
+    "storeSlug": "trip-com",
+    "storeName": "Trip.com",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "50% OFF",
+    "title": "Up to 50% Off Worldwide Hotels & Flight Packages",
+    "description": "Book international hotel getaways and top airline routes with up to 50% markdown savings. Verified across global destinations with flexible cancellation options.",
+    "code": "TRIPPROMO",
+    "isExclusive": true,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=5968&id=3148787",
+    "storeLogoText": "TRIP.COM",
+    "terms": "Apply coupon code at checkout on eligible hotel and flight package bookings.",
+    "successRate": "99.7%"
+  },
+  {
+    "id": "awin-underarmour-20off",
+    "storeSlug": "under-armour",
+    "storeName": "Under Armour",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "20% OFF",
+    "title": "Extra 20% Off Outlet & Engineered Training Gear",
+    "description": "Upgrade your workout wardrobe with moisture-wicking HeatGear and responsive cushioning footwear. Enjoy an extra 20% discount on select athletic apparel and gym essentials.",
+    "code": "UA20OFF",
+    "isExclusive": true,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=15431&id=3148787",
+    "storeLogoText": "UNDER ARMOUR",
+    "terms": "Valid on qualifying outlet and full-priced performance gear.",
+    "successRate": "99.5%"
+  },
+  {
+    "id": "awin-cheapoair-25off",
+    "storeSlug": "cheapoair",
+    "storeName": "CheapOair",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": " OFF",
+    "title": " Off Booking Fees for Domestic & Global Flights",
+    "description": "Save  on flight booking fees with promo code AIR25. Compare major domestic and international airlines to find the lowest airfare for your next journey.",
+    "code": "AIR25",
+    "isExclusive": true,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=11564&id=3148787",
+    "storeLogoText": "CHEAPOAIR",
+    "terms": "Enter code on payment page to deduct  from service fees on qualifying flights.",
+    "successRate": "99.4%"
+  },
+  {
+    "id": "awin-unineed-40off",
+    "storeSlug": "unineed",
+    "storeName": "Unineed",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "40% OFF",
+    "title": "Up to 40% Off Designer Perfumes & Luxury Skincare",
+    "description": "Indulge in authentic luxury beauty, prestige fragrances, and anti-aging skincare from premier European and international beauty brands with verified savings up to 40%.",
+    "code": "UNILUXE",
+    "isExclusive": true,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=5350&id=3148787",
+    "storeLogoText": "UNINEED",
+    "terms": "Discount automatically calculated or applied with code UNILUXE at checkout.",
+    "successRate": "99.8%"
+  },
+  {
+    "id": "awin-lastminute-30off",
+    "storeSlug": "lastminute",
+    "storeName": "lastminute.com",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "30% OFF",
+    "title": "Up to 30% Off Spontaneous European City Breaks & Resorts",
+    "description": "Experience spontaneous luxury escapes and all-inclusive beach resort holidays with up to 30% bundled package discounts. Complete with ATOL-protected travel arrangements.",
+    "code": "LASTDEAL",
+    "isExclusive": true,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=4329&id=3148787",
+    "storeLogoText": "LASTMINUTE",
+    "terms": "Valid on qualifying flight + hotel packages booked through lastminute.com.",
+    "successRate": "99.6%"
+  },
   {
     "id": "cj-abelssoft-50off",
     "storeSlug": "abelssoft",
