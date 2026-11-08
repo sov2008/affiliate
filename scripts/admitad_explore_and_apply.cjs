@@ -2,8 +2,8 @@ const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
 
-const LOGIN = 'sov7@i.ua';
-const PASS = '1hi4PTyUPthkr1QzqrPY';
+const LOGIN = process.env.ADMITAD_LOGIN || 'sov7@i.ua';
+const PASS = process.env.ADMITAD_PASSWORD || '';
 const WEBSITE_ID = '3007248';
 const STATE_FILE = path.resolve(__dirname, '../artifacts_admitad/auth_state.json');
 const SCREENSHOTS_DIR = path.resolve(__dirname, '../artifacts_admitad');

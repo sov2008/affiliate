@@ -2,8 +2,8 @@ const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
 
-const LOGIN = 'sov7@i.ua';
-const PASS = '1hi4PTyUPthkr1QzqrPY';
+const LOGIN = process.env.ADMITAD_LOGIN || 'sov7@i.ua';
+const PASS = process.env.ADMITAD_PASSWORD || '';
 const WEBSITE_ID = '3007248';
 const POSTBACK_URL = 'https://flirtcheck.site/api/postback/admitad?subid=[[subid]]&payment=[[payment]]&status=[[status]]&currency=[[currency]]&order_id=[[order_id]]&advcampaign_id=[[advcampaign_id]]';
 

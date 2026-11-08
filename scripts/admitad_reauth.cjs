@@ -19,9 +19,11 @@ async function reauth() {
   await page.goto('https://login.mitgo.com/auth/realms/users/protocol/openid-connect/auth?client_id=monolith&redirect_uri=https%3A%2F%2Fstore.admitad.com%2Fru%2Fsso%2Flogin-complete%2F&response_type=code&scope=openid+email+profile&ui_locales=ru', { waitUntil: 'domcontentloaded', timeout: 30000 });
   await page.waitForTimeout(2000);
 
-  // Fill credentials
-  await page.fill('input[name="username"]', 'sov7@i.ua');
-  await page.fill('input[name="password"]', '1hi4PTyUPthkr1QzqrPY');
+  // Fill credentials from environment
+  const admitadUser = process.env.ADMITAD_LOGIN || 'sov7@i.ua';
+  const admitadPass = process.env.ADMITAD_PASSWORD || '';
+  await page.fill('input[name="username"]', admitadUser);
+  await page.fill('input[name="password"]', admitadPass);
   console.log('Credentials filled. Submitting form...');
   await page.click('button[type="submit"], input[type="submit"]');
   await page.waitForTimeout(7000);
