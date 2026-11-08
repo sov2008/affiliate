@@ -5,9 +5,9 @@
     "category": "Software & Tools",
     "website": "https://www.jackery.com",
     "relationship": "notjoined",
-    "epc7d": 1674.26,
+    "epc7d": 1570.43,
     "epc90d": 253.09,
-    "score": 1247.91
+    "score": 1175.23
   },
   {
     "id": "5808859",
@@ -15,9 +15,9 @@
     "category": "Finance & Banking",
     "website": "http://www.simplybusiness.com",
     "relationship": "notjoined",
-    "epc7d": 1035.32,
+    "epc7d": 963.17,
     "epc90d": 1346.74,
-    "score": 1128.75
+    "score": 1078.24
   },
   {
     "id": "5577978",
@@ -25,9 +25,9 @@
     "category": "VPN & Security",
     "website": "https://www.expressvpn.com/",
     "relationship": "notjoined",
-    "epc7d": 1229.47,
+    "epc7d": 1137.41,
     "epc90d": 738.24,
-    "score": 1082.1
+    "score": 1017.66
   },
   {
     "id": "5428150",
@@ -35,29 +35,9 @@
     "category": "Finance & Banking",
     "website": "https://money.sainsburys.co.uk",
     "relationship": "notjoined",
-    "epc7d": 1096.06,
-    "epc90d": 512.26,
-    "score": 920.92
-  },
-  {
-    "id": "4931276",
-    "name": "Barclays US Online Savings",
-    "category": "Finance & Banking",
-    "website": "http://www.banking.barclaysus.com/online-savings.html",
-    "relationship": "notjoined",
-    "epc7d": 606.33,
-    "epc90d": 1115.85,
-    "score": 759.19
-  },
-  {
-    "id": "6580343",
-    "name": "New York Life Insurance",
-    "category": "Finance & Banking",
-    "website": "http://www.newyorklife.com",
-    "relationship": "notjoined",
-    "epc7d": 739.42,
-    "epc90d": 735.3,
-    "score": 738.18
+    "epc7d": 1102.79,
+    "epc90d": 506.82,
+    "score": 924
   },
   {
     "id": "5808860",
@@ -65,29 +45,19 @@
     "category": "Finance & Banking",
     "website": "http://simplybusiness.co.uk",
     "relationship": "notjoined",
-    "epc7d": 711.84,
+    "epc7d": 840.01,
     "epc90d": 642.49,
-    "score": 691.03
+    "score": 780.75
   },
   {
-    "id": "4047032",
-    "name": "Travelex Insurance",
-    "category": "Travel & Vacations",
-    "website": "http://www.travelexinsurance.com",
-    "relationship": "notjoined",
-    "epc7d": 612.77,
-    "epc90d": 525.78,
-    "score": 586.67
-  },
-  {
-    "id": "7302246",
-    "name": "Luxury Card",
+    "id": "4931276",
+    "name": "Barclays US Online Savings",
     "category": "Finance & Banking",
-    "website": "http://www.luxurycard.com",
+    "website": "http://www.banking.barclaysus.com/online-savings.html",
     "relationship": "notjoined",
-    "epc7d": 595.08,
-    "epc90d": 419.01,
-    "score": 542.26
+    "epc7d": 613.65,
+    "epc90d": 1115.85,
+    "score": 764.31
   },
   {
     "id": "3344421",
@@ -95,9 +65,39 @@
     "category": "Finance & Banking",
     "website": "https://www.fairstone.ca",
     "relationship": "notjoined",
-    "epc7d": 421,
+    "epc7d": 698.85,
     "epc90d": 487.22,
-    "score": 440.87
+    "score": 635.36
+  },
+  {
+    "id": "4047032",
+    "name": "Travelex Insurance",
+    "category": "Travel & Vacations",
+    "website": "http://www.travelexinsurance.com",
+    "relationship": "notjoined",
+    "epc7d": 664.15,
+    "epc90d": 525.78,
+    "score": 622.64
+  },
+  {
+    "id": "6580343",
+    "name": "New York Life Insurance",
+    "category": "Finance & Banking",
+    "website": "http://www.newyorklife.com",
+    "relationship": "notjoined",
+    "epc7d": 572.83,
+    "epc90d": 735.3,
+    "score": 621.57
+  },
+  {
+    "id": "7302246",
+    "name": "Luxury Card",
+    "category": "Finance & Banking",
+    "website": "http://www.luxurycard.com",
+    "relationship": "notjoined",
+    "epc7d": 562.5,
+    "epc90d": 419.01,
+    "score": 519.45
   },
   {
     "id": "7733560",
@@ -105,19 +105,9 @@
     "category": "Finance & Banking",
     "website": "https://venmo.com/about/debitcard",
     "relationship": "notjoined",
-    "epc7d": 185.99,
-    "epc90d": 1026.1,
-    "score": 438.02
-  },
-  {
-    "id": "6828337",
-    "name": "Axos Bank",
-    "category": "Finance & Banking",
-    "website": "http://www.axosbank.com",
-    "relationship": "notjoined",
-    "epc7d": 358.41,
-    "epc90d": 543.74,
-    "score": 414.01
+    "epc7d": 218.52,
+    "epc90d": 1026.34,
+    "score": 460.87
   },
   {
     "id": "7618185",
@@ -125,29 +115,19 @@
     "category": "Finance & Banking",
     "website": "http://thriventbank.com",
     "relationship": "notjoined",
-    "epc7d": 535.71,
+    "epc7d": 538.92,
     "epc90d": 0,
-    "score": 375
+    "score": 377.24
   },
   {
-    "id": "5336128",
-    "name": "BMO",
+    "id": "6828337",
+    "name": "Axos Bank",
     "category": "Finance & Banking",
-    "website": "http://bmoharris.com",
+    "website": "http://www.axosbank.com",
     "relationship": "notjoined",
-    "epc7d": 444.03,
-    "epc90d": 126.22,
-    "score": 348.69
-  },
-  {
-    "id": "7541231",
-    "name": "Southern New Hampshire University",
-    "category": "Finance & Banking",
-    "website": "https://degrees.snhu.edu",
-    "relationship": "notjoined",
-    "epc7d": 27.64,
-    "epc90d": 959.28,
-    "score": 307.13
+    "epc7d": 276.01,
+    "epc90d": 543.74,
+    "score": 356.33
   },
   {
     "id": "5275609",
@@ -155,19 +135,29 @@
     "category": "Travel & Vacations",
     "website": "http://it.hotels.com",
     "relationship": "notjoined",
-    "epc7d": 331.13,
-    "epc90d": 225.97,
-    "score": 299.58
+    "epc7d": 365.45,
+    "epc90d": 225.91,
+    "score": 323.59
   },
   {
-    "id": "4996371",
-    "name": "CyberGhost VPN",
-    "category": "VPN & Security",
-    "website": "https://www.cyberghostvpn.com",
+    "id": "7541231",
+    "name": "Southern New Hampshire University",
+    "category": "Finance & Banking",
+    "website": "https://degrees.snhu.edu",
     "relationship": "notjoined",
-    "epc7d": 299.42,
-    "epc90d": 260.35,
-    "score": 287.7
+    "epc7d": 27.96,
+    "epc90d": 959.28,
+    "score": 307.36
+  },
+  {
+    "id": "5336128",
+    "name": "BMO",
+    "category": "Finance & Banking",
+    "website": "http://bmoharris.com",
+    "relationship": "notjoined",
+    "epc7d": 346.07,
+    "epc90d": 126.22,
+    "score": 280.11
   },
   {
     "id": "5275605",
@@ -175,9 +165,19 @@
     "category": "Travel & Vacations",
     "website": "http://hotels.com",
     "relationship": "notjoined",
-    "epc7d": 296.76,
-    "epc90d": 160.31,
-    "score": 255.82
+    "epc7d": 304.2,
+    "epc90d": 160.26,
+    "score": 261.02
+  },
+  {
+    "id": "4996371",
+    "name": "CyberGhost VPN",
+    "category": "VPN & Security",
+    "website": "https://www.cyberghostvpn.com",
+    "relationship": "notjoined",
+    "epc7d": 251.74,
+    "epc90d": 260.35,
+    "score": 254.32
   },
   {
     "id": "6708457",
@@ -185,39 +185,9 @@
     "category": "Travel & Vacations",
     "website": "https://www.turkishairlines.com/",
     "relationship": "notjoined",
-    "epc7d": 260.9,
+    "epc7d": 265.87,
     "epc90d": 202.38,
-    "score": 243.34
-  },
-  {
-    "id": "5062715",
-    "name": "Virgin Holidays",
-    "category": "Travel & Vacations",
-    "website": "https://www.virginholidays.co.uk/",
-    "relationship": "notjoined",
-    "epc7d": 196.12,
-    "epc90d": 271.56,
-    "score": 218.75
-  },
-  {
-    "id": "4165310",
-    "name": "Hiscox Small Business Insurance",
-    "category": "Finance & Banking",
-    "website": "https://www.hiscox.com/",
-    "relationship": "notjoined",
-    "epc7d": 148.25,
-    "epc90d": 354.61,
-    "score": 210.16
-  },
-  {
-    "id": "5275628",
-    "name": "Hotels.com Turkey &amp; Middle East",
-    "category": "Travel & Vacations",
-    "website": "http://hotels.com",
-    "relationship": "notjoined",
-    "epc7d": 203.61,
-    "epc90d": 217.86,
-    "score": 207.88
+    "score": 246.82
   },
   {
     "id": "6211305",
@@ -225,39 +195,59 @@
     "category": "Finance & Banking",
     "website": "https://www.valleydirect.com/",
     "relationship": "notjoined",
-    "epc7d": 191.64,
+    "epc7d": 216.65,
     "epc90d": 199.81,
-    "score": 194.09
+    "score": 211.6
   },
   {
-    "id": "7819209",
-    "name": "EF Ultimate Break",
+    "id": "4165310",
+    "name": "Hiscox Small Business Insurance",
+    "category": "Finance & Banking",
+    "website": "https://www.hiscox.com/",
+    "relationship": "notjoined",
+    "epc7d": 150.08,
+    "epc90d": 354.61,
+    "score": 211.44
+  },
+  {
+    "id": "5062715",
+    "name": "Virgin Holidays",
     "category": "Travel & Vacations",
-    "website": "https://www.efultimatebreak.com",
+    "website": "https://www.virginholidays.co.uk/",
     "relationship": "notjoined",
-    "epc7d": 173.28,
-    "epc90d": 222.91,
-    "score": 188.17
+    "epc7d": 181.77,
+    "epc90d": 271.56,
+    "score": 208.71
   },
   {
-    "id": "7625188",
-    "name": "ProperHotel.com",
+    "id": "5275628",
+    "name": "Hotels.com Turkey &amp; Middle East",
     "category": "Travel & Vacations",
-    "website": "http://www.properhotel.com",
+    "website": "http://hotels.com",
     "relationship": "notjoined",
-    "epc7d": 168.91,
-    "epc90d": 206.77,
-    "score": 180.27
+    "epc7d": 191.62,
+    "epc90d": 217.86,
+    "score": 199.49
   },
   {
-    "id": "5483733",
-    "name": "Private Internet Access VPN",
-    "category": "VPN & Security",
-    "website": "https://www.privateinternetaccess.com/",
+    "id": "6191107",
+    "name": "Bluetti Global",
+    "category": "Finance & Banking",
+    "website": "https://www.bluettipower.com",
+    "relationship": "joined",
+    "epc7d": 220.24,
+    "epc90d": 54.9,
+    "score": 170.64
+  },
+  {
+    "id": "4511038",
+    "name": "ContactsDirect Affiliate Program",
+    "category": "Finance & Banking",
+    "website": "https://www.contactsdirect.com/",
     "relationship": "notjoined",
-    "epc7d": 211.17,
-    "epc90d": 91.51,
-    "score": 175.27
+    "epc7d": 171.31,
+    "epc90d": 166.31,
+    "score": 169.81
   },
   {
     "id": "7539431",
@@ -270,34 +260,34 @@
     "score": 169.22
   },
   {
-    "id": "4095005",
-    "name": "VSP Individual Vision Plans",
-    "category": "Finance & Banking",
-    "website": "http://www.vspdirect.com",
-    "relationship": "notjoined",
-    "epc7d": 155.49,
-    "epc90d": 190.1,
-    "score": 165.87
-  },
-  {
-    "id": "5273598",
-    "name": "DeleteMe",
-    "category": "VPN & Security",
-    "website": "https://joindeleteme.com",
-    "relationship": "notjoined",
-    "epc7d": 149.09,
-    "epc90d": 195.08,
-    "score": 162.89
-  },
-  {
     "id": "1464653",
     "name": "Priceline.com",
     "category": "Travel & Vacations",
     "website": "http://www.priceline.com",
     "relationship": "notjoined",
-    "epc7d": 150.9,
-    "epc90d": 178.77,
-    "score": 159.26
+    "epc7d": 159.79,
+    "epc90d": 178.64,
+    "score": 165.44
+  },
+  {
+    "id": "5483733",
+    "name": "Private Internet Access VPN",
+    "category": "VPN & Security",
+    "website": "https://www.privateinternetaccess.com/",
+    "relationship": "notjoined",
+    "epc7d": 195.4,
+    "epc90d": 91.6,
+    "score": 164.26
+  },
+  {
+    "id": "7625188",
+    "name": "ProperHotel.com",
+    "category": "Travel & Vacations",
+    "website": "http://www.properhotel.com",
+    "relationship": "notjoined",
+    "epc7d": 142.59,
+    "epc90d": 206.77,
+    "score": 161.84
   },
   {
     "id": "1003504",
@@ -305,39 +295,9 @@
     "category": "Finance & Banking",
     "website": "https://www.dentalplans.com/lp/save-on-dental-care/",
     "relationship": "notjoined",
-    "epc7d": 164.52,
+    "epc7d": 161.05,
     "epc90d": 143.75,
-    "score": 158.29
-  },
-  {
-    "id": "5491845",
-    "name": "Herman Miller",
-    "category": "Hosting & Domains",
-    "website": "http://store.hermanmiller.com",
-    "relationship": "notjoined",
-    "epc7d": 181.81,
-    "epc90d": 95.69,
-    "score": 155.97
-  },
-  {
-    "id": "4511038",
-    "name": "ContactsDirect Affiliate Program",
-    "category": "Finance & Banking",
-    "website": "https://www.contactsdirect.com/",
-    "relationship": "notjoined",
-    "epc7d": 146.43,
-    "epc90d": 166.31,
-    "score": 152.39
-  },
-  {
-    "id": "6191107",
-    "name": "Bluetti Global",
-    "category": "Finance & Banking",
-    "website": "https://www.bluettipower.com",
-    "relationship": "joined",
-    "epc7d": 193.82,
-    "epc90d": 54.9,
-    "score": 152.14
+    "score": 155.86
   },
   {
     "id": "4941187",
@@ -345,19 +305,39 @@
     "category": "Software & Tools",
     "website": "http://www.frontier.com/",
     "relationship": "notjoined",
-    "epc7d": 142.01,
+    "epc7d": 152.76,
     "epc90d": 143.33,
-    "score": 142.41
+    "score": 149.93
   },
   {
-    "id": "5075736",
-    "name": "AVIANCA WORLDWIDE",
-    "category": "Travel & Vacations",
-    "website": "http://www.avianca.com",
+    "id": "5491845",
+    "name": "Herman Miller",
+    "category": "Hosting & Domains",
+    "website": "http://store.hermanmiller.com",
     "relationship": "notjoined",
-    "epc7d": 163.3,
-    "epc90d": 78.7,
-    "score": 137.92
+    "epc7d": 171.52,
+    "epc90d": 95.69,
+    "score": 148.77
+  },
+  {
+    "id": "7819209",
+    "name": "EF Ultimate Break",
+    "category": "Travel & Vacations",
+    "website": "https://www.efultimatebreak.com",
+    "relationship": "notjoined",
+    "epc7d": 107.63,
+    "epc90d": 222.91,
+    "score": 142.21
+  },
+  {
+    "id": "5273598",
+    "name": "DeleteMe",
+    "category": "VPN & Security",
+    "website": "https://joindeleteme.com",
+    "relationship": "notjoined",
+    "epc7d": 112.86,
+    "epc90d": 195.08,
+    "score": 137.53
   },
   {
     "id": "3588176",
@@ -365,9 +345,9 @@
     "category": "Finance & Banking",
     "website": "http://www.jared.com",
     "relationship": "notjoined",
-    "epc7d": 125.36,
+    "epc7d": 137.45,
     "epc90d": 128.96,
-    "score": 126.44
+    "score": 134.9
   },
   {
     "id": "5275597",
@@ -375,79 +355,29 @@
     "category": "Travel & Vacations",
     "website": "http://uk.hotels.com",
     "relationship": "notjoined",
-    "epc7d": 126.38,
-    "epc90d": 124.64,
-    "score": 125.86
+    "epc7d": 132.18,
+    "epc90d": 124.6,
+    "score": 129.91
   },
   {
-    "id": "7512313",
-    "name": "Fortect",
-    "category": "VPN & Security",
-    "website": "https://www.fortect.com",
-    "relationship": "notjoined",
-    "epc7d": 99.62,
-    "epc90d": 134.29,
-    "score": 110.02
-  },
-  {
-    "id": "7144456",
-    "name": "VIVA Finance",
-    "category": "Finance & Banking",
-    "website": "https://www.viva-finance.com/",
-    "relationship": "notjoined",
-    "epc7d": 112.09,
-    "epc90d": 88.08,
-    "score": 104.89
-  },
-  {
-    "id": "6784655",
-    "name": "Ownwell",
-    "category": "Finance & Banking",
-    "website": "http://www.ownwell.com",
-    "relationship": "notjoined",
-    "epc7d": 108.72,
-    "epc90d": 95.89,
-    "score": 104.87
-  },
-  {
-    "id": "6548941",
-    "name": "Condor US ",
+    "id": "5075736",
+    "name": "AVIANCA WORLDWIDE",
     "category": "Travel & Vacations",
-    "website": "https://www.condor.com/us",
+    "website": "http://www.avianca.com",
     "relationship": "notjoined",
-    "epc7d": 98.36,
-    "epc90d": 113.33,
-    "score": 102.85
+    "epc7d": 149.96,
+    "epc90d": 78.7,
+    "score": 128.58
   },
   {
-    "id": "6209159",
-    "name": "Kaspersky Australia &amp; New Zealand",
-    "category": "VPN & Security",
-    "website": "https://www.kaspersky.com.au/",
-    "relationship": "joined",
-    "epc7d": 142.85,
-    "epc90d": 0.78,
-    "score": 100.23
-  },
-  {
-    "id": "6364805",
-    "name": "Bcr.ro",
+    "id": "4095005",
+    "name": "VSP Individual Vision Plans",
     "category": "Finance & Banking",
-    "website": "https://george.bcr.ro/register/",
+    "website": "http://www.vspdirect.com",
     "relationship": "notjoined",
-    "epc7d": 118.49,
-    "epc90d": 46.21,
-    "score": 96.81
-  },
-  {
-    "id": "7743119",
-    "name": "Sembo ",
-    "category": "Software & Tools",
-    "website": "https://www.sembo.com",
-    "relationship": "notjoined",
-    "epc7d": 105.64,
-    "epc90d": 69.3,
-    "score": 94.74
+    "epc7d": 100.78,
+    "epc90d": 190.1,
+    "score": 127.58
   },
   {
     "id": "7245946",
@@ -455,19 +385,19 @@
     "category": "Software & Tools",
     "website": "https://www.tourboxtech.com",
     "relationship": "notjoined",
-    "epc7d": 104.92,
+    "epc7d": 141.21,
     "epc90d": 64.68,
-    "score": 92.85
+    "score": 118.25
   },
   {
-    "id": "5018595",
-    "name": "AXA-PARTNERS.PL",
-    "category": "Finance & Banking",
-    "website": "http://www.axa-assistance.pl",
+    "id": "7743119",
+    "name": "Sembo ",
+    "category": "Software & Tools",
+    "website": "https://www.sembo.com",
     "relationship": "notjoined",
-    "epc7d": 82.64,
-    "epc90d": 114.13,
-    "score": 92.09
+    "epc7d": 126.76,
+    "epc90d": 69.3,
+    "score": 109.52
   },
   {
     "id": "4837117",
@@ -475,19 +405,59 @@
     "category": "VPN & Security",
     "website": "https://NordVPN.com",
     "relationship": "joined",
-    "epc7d": 67.3,
-    "epc90d": 138.71,
-    "score": 88.72
+    "epc7d": 93.32,
+    "epc90d": 138.72,
+    "score": 106.94
   },
   {
-    "id": "860966",
-    "name": "Autodesk - The Americas",
-    "category": "Software & Tools",
-    "website": "https://www.autodesk.com/",
+    "id": "6548941",
+    "name": "Condor US ",
+    "category": "Travel & Vacations",
+    "website": "https://www.condor.com/us",
     "relationship": "notjoined",
-    "epc7d": 99.97,
-    "epc90d": 49.89,
-    "score": 84.95
+    "epc7d": 103.43,
+    "epc90d": 113.33,
+    "score": 106.4
+  },
+  {
+    "id": "6784655",
+    "name": "Ownwell",
+    "category": "Finance & Banking",
+    "website": "http://www.ownwell.com",
+    "relationship": "notjoined",
+    "epc7d": 103.59,
+    "epc90d": 95.89,
+    "score": 101.28
+  },
+  {
+    "id": "6364805",
+    "name": "Bcr.ro",
+    "category": "Finance & Banking",
+    "website": "https://george.bcr.ro/register/",
+    "relationship": "notjoined",
+    "epc7d": 123.24,
+    "epc90d": 46.21,
+    "score": 100.13
+  },
+  {
+    "id": "7512313",
+    "name": "Fortect",
+    "category": "VPN & Security",
+    "website": "https://www.fortect.com",
+    "relationship": "notjoined",
+    "epc7d": 84.97,
+    "epc90d": 134.29,
+    "score": 99.77
+  },
+  {
+    "id": "5018595",
+    "name": "AXA-PARTNERS.PL",
+    "category": "Finance & Banking",
+    "website": "http://www.axa-assistance.pl",
+    "relationship": "notjoined",
+    "epc7d": 92.84,
+    "epc90d": 114.13,
+    "score": 99.23
   },
   {
     "id": "5533470",
@@ -495,119 +465,29 @@
     "category": "Travel & Vacations",
     "website": "http://www.lugless.com",
     "relationship": "notjoined",
-    "epc7d": 87.13,
+    "epc7d": 110.16,
     "epc90d": 71.64,
-    "score": 82.48
+    "score": 98.6
   },
   {
-    "id": "6629065",
-    "name": "Cathay Pacific US",
-    "category": "Travel & Vacations",
-    "website": "http://www.cathaypacific.com",
+    "id": "860966",
+    "name": "Autodesk - The Americas",
+    "category": "Software & Tools",
+    "website": "https://www.autodesk.com/",
     "relationship": "notjoined",
-    "epc7d": 84.46,
-    "epc90d": 75.03,
-    "score": 81.63
+    "epc7d": 105.86,
+    "epc90d": 49.89,
+    "score": 89.07
   },
   {
-    "id": "5166315",
-    "name": "Virgin Atlantic Airways UK",
-    "category": "Travel & Vacations",
-    "website": "https://www.virginatlantic.com/",
-    "relationship": "notjoined",
-    "epc7d": 83.08,
-    "epc90d": 77.06,
-    "score": 81.27
-  },
-  {
-    "id": "3906677",
-    "name": "WillMaker – Nolo",
-    "category": "Finance & Banking",
-    "website": "https://www.willmaker.com/",
-    "relationship": "notjoined",
-    "epc7d": 62.07,
-    "epc90d": 121.93,
-    "score": 80.03
-  },
-  {
-    "id": "6525364",
-    "name": "Virgin Atlantic North America",
-    "category": "Travel & Vacations",
-    "website": "https://www.virginatlantic.com/us/en",
-    "relationship": "notjoined",
-    "epc7d": 76.43,
-    "epc90d": 86.86,
-    "score": 79.56
-  },
-  {
-    "id": "7595654",
-    "name": "ExitLag",
+    "id": "5140517",
+    "name": "1Password - Password Manager",
     "category": "VPN & Security",
-    "website": "https://www.exitlag.com/",
+    "website": "https://1password.com/",
     "relationship": "notjoined",
-    "epc7d": 106.62,
-    "epc90d": 14.7,
-    "score": 79.04
-  },
-  {
-    "id": "6209147",
-    "name": "Kaspersky LATAM",
-    "category": "VPN & Security",
-    "website": "https://latam.kaspersky.com/",
-    "relationship": "notjoined",
-    "epc7d": 95.74,
-    "epc90d": 28.78,
-    "score": 75.65
-  },
-  {
-    "id": "4386835",
-    "name": "IHG AMEA (Asia, Middle East &amp; Africa)",
-    "category": "Travel & Vacations",
-    "website": "http://www.ihg.com/",
-    "relationship": "notjoined",
-    "epc7d": 75.97,
-    "epc90d": 73.8,
-    "score": 75.32
-  },
-  {
-    "id": "4524712",
-    "name": "Shopper's Voice",
-    "category": "Finance & Banking",
-    "website": "https://www.shoppersvoice.com",
-    "relationship": "notjoined",
-    "epc7d": 76.95,
-    "epc90d": 69.44,
-    "score": 74.7
-  },
-  {
-    "id": "7717732",
-    "name": "trivago UK",
-    "category": "Travel & Vacations",
-    "website": "https://www.trivago.co.uk/",
-    "relationship": "notjoined",
-    "epc7d": 87.73,
-    "epc90d": 43.93,
-    "score": 74.59
-  },
-  {
-    "id": "7464091",
-    "name": "PadSplit",
-    "category": "Finance & Banking",
-    "website": "https://www.padsplit.com/",
-    "relationship": "notjoined",
-    "epc7d": 81.01,
-    "epc90d": 53.36,
-    "score": 72.72
-  },
-  {
-    "id": "6819202",
-    "name": "Sklep.Eset.pl",
-    "category": "VPN & Security",
-    "website": "https://sklep.eset.pl/",
-    "relationship": "notjoined",
-    "epc7d": 85.54,
-    "epc90d": 42.13,
-    "score": 72.52
+    "epc7d": 96.17,
+    "epc90d": 53.52,
+    "score": 83.38
   },
   {
     "id": "4697950",
@@ -615,39 +495,109 @@
     "category": "Finance & Banking",
     "website": "https://www.axa-assistance.cz",
     "relationship": "notjoined",
-    "epc7d": 48.77,
+    "epc7d": 61.95,
     "epc90d": 124.03,
-    "score": 71.35
+    "score": 80.57
   },
   {
-    "id": "6867883",
-    "name": "Incogni",
+    "id": "6629065",
+    "name": "Cathay Pacific US",
+    "category": "Travel & Vacations",
+    "website": "http://www.cathaypacific.com",
+    "relationship": "notjoined",
+    "epc7d": 82.39,
+    "epc90d": 75.03,
+    "score": 80.18
+  },
+  {
+    "id": "3906677",
+    "name": "WillMaker – Nolo",
+    "category": "Finance & Banking",
+    "website": "https://www.willmaker.com/",
+    "relationship": "notjoined",
+    "epc7d": 60.32,
+    "epc90d": 121.93,
+    "score": 78.8
+  },
+  {
+    "id": "6209159",
+    "name": "Kaspersky Australia &amp; New Zealand",
     "category": "VPN & Security",
-    "website": "http://www.incogni.com",
-    "relationship": "notjoined",
-    "epc7d": 76.57,
-    "epc90d": 55.79,
-    "score": 70.34
+    "website": "https://www.kaspersky.com.au/",
+    "relationship": "joined",
+    "epc7d": 109.5,
+    "epc90d": 0.78,
+    "score": 76.88
   },
   {
-    "id": "1589787",
-    "name": "Travelocity.ca",
+    "id": "7717732",
+    "name": "trivago UK",
     "category": "Travel & Vacations",
-    "website": "http://travelocity.ca",
+    "website": "https://www.trivago.co.uk/",
     "relationship": "notjoined",
-    "epc7d": 97.51,
-    "epc90d": 3.12,
-    "score": 69.19
+    "epc7d": 90.28,
+    "epc90d": 43.93,
+    "score": 76.38
   },
   {
-    "id": "7517515",
-    "name": "Brussels Airlines US",
+    "id": "5166315",
+    "name": "Virgin Atlantic Airways UK",
     "category": "Travel & Vacations",
-    "website": "https://www.brusselsairlines.com/us/",
+    "website": "https://www.virginatlantic.com/",
     "relationship": "notjoined",
-    "epc7d": 81.38,
-    "epc90d": 38.56,
-    "score": 68.53
+    "epc7d": 75.32,
+    "epc90d": 77.06,
+    "score": 75.84
+  },
+  {
+    "id": "4524712",
+    "name": "Shopper's Voice",
+    "category": "Finance & Banking",
+    "website": "https://www.shoppersvoice.com",
+    "relationship": "notjoined",
+    "epc7d": 77.82,
+    "epc90d": 69.44,
+    "score": 75.31
+  },
+  {
+    "id": "4386835",
+    "name": "IHG AMEA (Asia, Middle East &amp; Africa)",
+    "category": "Travel & Vacations",
+    "website": "http://www.ihg.com/",
+    "relationship": "notjoined",
+    "epc7d": 72.59,
+    "epc90d": 73.8,
+    "score": 72.95
+  },
+  {
+    "id": "7144456",
+    "name": "VIVA Finance",
+    "category": "Finance & Banking",
+    "website": "https://www.viva-finance.com/",
+    "relationship": "notjoined",
+    "epc7d": 64.52,
+    "epc90d": 88.08,
+    "score": 71.59
+  },
+  {
+    "id": "6525364",
+    "name": "Virgin Atlantic North America",
+    "category": "Travel & Vacations",
+    "website": "https://www.virginatlantic.com/us/en",
+    "relationship": "notjoined",
+    "epc7d": 64.98,
+    "epc90d": 86.86,
+    "score": 71.54
+  },
+  {
+    "id": "7464091",
+    "name": "PadSplit",
+    "category": "Finance & Banking",
+    "website": "https://www.padsplit.com/",
+    "relationship": "notjoined",
+    "epc7d": 74.29,
+    "epc90d": 53.36,
+    "score": 68.01
   },
   {
     "id": "5173193",
@@ -655,29 +605,69 @@
     "category": "Hosting & Domains",
     "website": "https://www.hostinger.com/",
     "relationship": "notjoined",
-    "epc7d": 61.66,
+    "epc7d": 63.64,
     "epc90d": 76.31,
-    "score": 66.05
+    "score": 67.44
   },
   {
-    "id": "1702763",
-    "name": "Hotels.com",
-    "category": "Travel & Vacations",
-    "website": "http://www.hotels.com",
-    "relationship": "notjoined",
-    "epc7d": 57.71,
-    "epc90d": 76.31,
-    "score": 63.29
-  },
-  {
-    "id": "7604307",
-    "name": "OmniWatch",
+    "id": "6209147",
+    "name": "Kaspersky LATAM",
     "category": "VPN & Security",
-    "website": "https://www.omniwatch.com",
+    "website": "https://latam.kaspersky.com/",
     "relationship": "notjoined",
-    "epc7d": 15.72,
-    "epc90d": 169.43,
-    "score": 61.83
+    "epc7d": 82.87,
+    "epc90d": 28.78,
+    "score": 66.64
+  },
+  {
+    "id": "1513033",
+    "name": "GoDaddy.com",
+    "category": "Hosting & Domains",
+    "website": "http://www.godaddy.com",
+    "relationship": "notjoined",
+    "epc7d": 67.93,
+    "epc90d": 62.99,
+    "score": 66.45
+  },
+  {
+    "id": "6819202",
+    "name": "Sklep.Eset.pl",
+    "category": "VPN & Security",
+    "website": "https://sklep.eset.pl/",
+    "relationship": "notjoined",
+    "epc7d": 73.08,
+    "epc90d": 42.13,
+    "score": 63.8
+  },
+  {
+    "id": "1589787",
+    "name": "Travelocity.ca",
+    "category": "Travel & Vacations",
+    "website": "http://travelocity.ca",
+    "relationship": "notjoined",
+    "epc7d": 89,
+    "epc90d": 3.12,
+    "score": 63.24
+  },
+  {
+    "id": "7517515",
+    "name": "Brussels Airlines US",
+    "category": "Travel & Vacations",
+    "website": "https://www.brusselsairlines.com/us/",
+    "relationship": "notjoined",
+    "epc7d": 70.39,
+    "epc90d": 38.56,
+    "score": 60.84
+  },
+  {
+    "id": "4671299",
+    "name": "Play Baseball",
+    "category": "Finance & Banking",
+    "website": "https://www.playbaseball.com/",
+    "relationship": "notjoined",
+    "epc7d": 46.67,
+    "epc90d": 91.24,
+    "score": 60.04
   },
   {
     "id": "5261736",
@@ -686,18 +676,18 @@
     "website": "https://workspace.google.com/",
     "relationship": "notjoined",
     "epc7d": 0,
-    "epc90d": 197.33,
-    "score": 59.2
+    "epc90d": 198.69,
+    "score": 59.61
   },
   {
-    "id": "5920303",
-    "name": "Photobucket",
-    "category": "Hosting & Domains",
-    "website": "http://www.photobucket.com",
+    "id": "1702763",
+    "name": "Hotels.com",
+    "category": "Travel & Vacations",
+    "website": "http://www.hotels.com",
     "relationship": "notjoined",
-    "epc7d": 65.06,
-    "epc90d": 44.44,
-    "score": 58.87
+    "epc7d": 52.04,
+    "epc90d": 76.27,
+    "score": 59.31
   },
   {
     "id": "2591819",
@@ -705,89 +695,19 @@
     "category": "Finance & Banking",
     "website": "http://www.experian.com",
     "relationship": "notjoined",
-    "epc7d": 47.05,
+    "epc7d": 47.56,
     "epc90d": 85.93,
-    "score": 58.71
+    "score": 59.07
   },
   {
-    "id": "1513033",
-    "name": "GoDaddy.com",
+    "id": "5920303",
+    "name": "Photobucket",
     "category": "Hosting & Domains",
-    "website": "http://www.godaddy.com",
+    "website": "http://www.photobucket.com",
     "relationship": "notjoined",
-    "epc7d": 54.74,
-    "epc90d": 62.99,
-    "score": 57.21
-  },
-  {
-    "id": "7633648",
-    "name": "AXA Insurance USA",
-    "category": "Finance & Banking",
-    "website": "https://www.axatravelinsurance.com/",
-    "relationship": "notjoined",
-    "epc7d": 4.67,
-    "epc90d": 175.43,
-    "score": 55.9
-  },
-  {
-    "id": "4711521",
-    "name": "GeneraliCeska.cz",
-    "category": "Finance & Banking",
-    "website": "https://www.generaliceska.cz/",
-    "relationship": "notjoined",
-    "epc7d": 19.3,
-    "epc90d": 140.74,
-    "score": 55.73
-  },
-  {
-    "id": "7211079",
-    "name": "SmartCredit",
-    "category": "Finance & Banking",
-    "website": "https://www.smartcredit.com/",
-    "relationship": "joined",
-    "epc7d": 61.9,
-    "epc90d": 37.88,
-    "score": 54.69
-  },
-  {
-    "id": "457947",
-    "name": "Today's Shopping Choice",
-    "category": "Finance & Banking",
-    "website": "http://www.tsc.ca",
-    "relationship": "notjoined",
-    "epc7d": 49.53,
-    "epc90d": 65.04,
-    "score": 54.18
-  },
-  {
-    "id": "6068899",
-    "name": "Sony",
-    "category": "Software & Tools",
-    "website": "http://electronics.sony.com",
-    "relationship": "notjoined",
-    "epc7d": 46.13,
-    "epc90d": 72.77,
-    "score": 54.12
-  },
-  {
-    "id": "6162463",
-    "name": "Kaspersky APAC",
-    "category": "VPN & Security",
-    "website": "http://www.kaspersky.com",
-    "relationship": "joined",
-    "epc7d": 76.37,
-    "epc90d": 0,
-    "score": 53.46
-  },
-  {
-    "id": "7919880",
-    "name": "CanaDream RV",
-    "category": "Travel & Vacations",
-    "website": "http://www.canadream.com",
-    "relationship": "notjoined",
-    "epc7d": 32,
-    "epc90d": 103.4,
-    "score": 53.42
+    "epc7d": 64.23,
+    "epc90d": 44.44,
+    "score": 58.29
   },
   {
     "id": "6810155",
@@ -795,69 +715,39 @@
     "category": "Travel & Vacations",
     "website": "http://www.heymondo.com",
     "relationship": "notjoined",
-    "epc7d": 68.15,
+    "epc7d": 74.49,
     "epc90d": 18.23,
-    "score": 53.17
+    "score": 57.61
   },
   {
-    "id": "4671299",
-    "name": "Play Baseball",
+    "id": "4711521",
+    "name": "GeneraliCeska.cz",
     "category": "Finance & Banking",
-    "website": "https://www.playbaseball.com/",
+    "website": "https://www.generaliceska.cz/",
     "relationship": "notjoined",
-    "epc7d": 33.2,
-    "epc90d": 91.24,
-    "score": 50.61
+    "epc7d": 21.04,
+    "epc90d": 140.74,
+    "score": 56.95
   },
   {
-    "id": "6818519",
-    "name": "Chair King Backyard Store",
-    "category": "Hosting & Domains",
-    "website": "https://chairking.com/",
-    "relationship": "notjoined",
-    "epc7d": 69.02,
-    "epc90d": 4.8,
-    "score": 49.75
-  },
-  {
-    "id": "2660710",
-    "name": "Kaspersky UK",
+    "id": "6162463",
+    "name": "Kaspersky APAC",
     "category": "VPN & Security",
-    "website": "https://www.kaspersky.co.uk/",
-    "relationship": "notjoined",
-    "epc7d": 69.93,
-    "epc90d": 1.37,
-    "score": 49.36
+    "website": "http://www.kaspersky.com",
+    "relationship": "joined",
+    "epc7d": 80.87,
+    "epc90d": 0,
+    "score": 56.61
   },
   {
-    "id": "4687839",
-    "name": "Hotels.com Latin America",
-    "category": "Travel & Vacations",
-    "website": "http://www.hoteles.com/",
+    "id": "6068899",
+    "name": "Sony",
+    "category": "Software & Tools",
+    "website": "http://electronics.sony.com",
     "relationship": "notjoined",
-    "epc7d": 38.04,
-    "epc90d": 75.55,
-    "score": 49.29
-  },
-  {
-    "id": "5275614",
-    "name": "Hotels.com Sweden",
-    "category": "Travel & Vacations",
-    "website": "http://sv.hotels.com",
-    "relationship": "notjoined",
-    "epc7d": 50.75,
-    "epc90d": 42.79,
-    "score": 48.36
-  },
-  {
-    "id": "1874913",
-    "name": "Expedia, Inc",
-    "category": "Travel & Vacations",
-    "website": "http://www.expedia.com",
-    "relationship": "notjoined",
-    "epc7d": 44.78,
-    "epc90d": 50.36,
-    "score": 46.45
+    "epc7d": 48.91,
+    "epc90d": 72.77,
+    "score": 56.07
   },
   {
     "id": "1544502",
@@ -865,189 +755,79 @@
     "category": "Travel & Vacations",
     "website": "http://www.travelguard.com",
     "relationship": "notjoined",
-    "epc7d": 63.67,
+    "epc7d": 77.91,
     "epc90d": 4.28,
-    "score": 45.85
+    "score": 55.82
   },
   {
-    "id": "6818540",
-    "name": "Fortunoff Backyard Store",
-    "category": "Hosting & Domains",
-    "website": "https://fortunoffbys.com/",
-    "relationship": "notjoined",
-    "epc7d": 61.45,
-    "epc90d": 7.78,
-    "score": 45.35
-  },
-  {
-    "id": "7872976",
-    "name": "Mighty Mule",
-    "category": "VPN & Security",
-    "website": "https://www.mightymule.com",
-    "relationship": "notjoined",
-    "epc7d": 54.7,
-    "epc90d": 21.16,
-    "score": 44.64
-  },
-  {
-    "id": "6660472",
-    "name": "Turkish Airlines EU &amp; INT",
-    "category": "Travel & Vacations",
-    "website": "https://www.turkishairlines.com/",
-    "relationship": "notjoined",
-    "epc7d": 40.08,
-    "epc90d": 54,
-    "score": 44.26
-  },
-  {
-    "id": "3519202",
-    "name": "Intego Antivirus Security",
-    "category": "VPN & Security",
-    "website": "http://www.intego.com/",
-    "relationship": "joined",
-    "epc7d": 62.61,
-    "epc90d": 1.19,
-    "score": 44.18
-  },
-  {
-    "id": "7667126",
-    "name": "Flugladen",
-    "category": "Travel & Vacations",
-    "website": "https://www.flugladen.de/",
-    "relationship": "notjoined",
-    "epc7d": 32.04,
-    "epc90d": 70.63,
-    "score": 43.62
-  },
-  {
-    "id": "4861280",
-    "name": "Orbitz",
-    "category": "Travel & Vacations",
-    "website": "http://www.orbitz.com",
-    "relationship": "notjoined",
-    "epc7d": 38.88,
-    "epc90d": 54.6,
-    "score": 43.6
-  },
-  {
-    "id": "2515404",
-    "name": "CheapOair",
-    "category": "Travel & Vacations",
-    "website": "http://www.cheapoair.com",
-    "relationship": "notjoined",
-    "epc7d": 39.97,
-    "epc90d": 51.39,
-    "score": 43.4
-  },
-  {
-    "id": "4956152",
-    "name": "Autodesk Asia Pacific ",
-    "category": "Software & Tools",
-    "website": "https://www.autodesk.com.sg/",
-    "relationship": "notjoined",
-    "epc7d": 51.79,
-    "epc90d": 22.18,
-    "score": 42.91
-  },
-  {
-    "id": "4639721",
-    "name": "Contabo COM",
-    "category": "Hosting & Domains",
-    "website": "https://contabo.com/",
-    "relationship": "joined",
-    "epc7d": 47.53,
-    "epc90d": 31.3,
-    "score": 42.66
-  },
-  {
-    "id": "1390130",
-    "name": "myAutoloan.com",
+    "id": "7633648",
+    "name": "AXA Insurance USA",
     "category": "Finance & Banking",
-    "website": "http://www.myautoloan.com",
+    "website": "https://www.axatravelinsurance.com/",
     "relationship": "notjoined",
-    "epc7d": 43.07,
-    "epc90d": 41.09,
-    "score": 42.48
+    "epc7d": 2.25,
+    "epc90d": 175.43,
+    "score": 54.2
   },
   {
-    "id": "1905878",
-    "name": "TurboTax",
+    "id": "457947",
+    "name": "Today's Shopping Choice",
     "category": "Finance & Banking",
-    "website": "https://turbotax.intuit.com/",
+    "website": "http://www.tsc.ca",
     "relationship": "notjoined",
-    "epc7d": 46.3,
-    "epc90d": 30.59,
-    "score": 41.59
+    "epc7d": 48.22,
+    "epc90d": 65.04,
+    "score": 53.27
   },
   {
-    "id": "5835771",
-    "name": "EnergySage Solar Marketplace",
-    "category": "Finance & Banking",
-    "website": "https://www.energysage.com",
-    "relationship": "notjoined",
-    "epc7d": 54.25,
-    "epc90d": 9.49,
-    "score": 40.82
-  },
-  {
-    "id": "7742241",
-    "name": "Gandi",
-    "category": "Hosting & Domains",
-    "website": "https://shop.gandi.net/",
-    "relationship": "notjoined",
-    "epc7d": 47.28,
-    "epc90d": 16.42,
-    "score": 38.02
-  },
-  {
-    "id": "1525519",
-    "name": "RealDefense",
-    "category": "VPN & Security",
-    "website": "https://www.iolo.com",
-    "relationship": "notjoined",
-    "epc7d": 37.03,
-    "epc90d": 38.62,
-    "score": 37.51
-  },
-  {
-    "id": "7451848",
-    "name": "seats.aero",
+    "id": "7919880",
+    "name": "CanaDream RV",
     "category": "Travel & Vacations",
-    "website": "https://seats.aero/",
+    "website": "http://www.canadream.com",
     "relationship": "notjoined",
-    "epc7d": 35.02,
-    "epc90d": 40.65,
-    "score": 36.71
+    "epc7d": 28.6,
+    "epc90d": 103.4,
+    "score": 51.04
   },
   {
-    "id": "7854073",
-    "name": "Booking.com Brazil",
-    "category": "Travel & Vacations",
-    "website": "http://www.Booking.com",
-    "relationship": "notjoined",
-    "epc7d": 23.57,
-    "epc90d": 64.4,
-    "score": 35.82
-  },
-  {
-    "id": "6209109",
-    "name": "Kaspersky EU",
+    "id": "7604307",
+    "name": "OmniWatch",
     "category": "VPN & Security",
-    "website": "https://www.kaspersky.com",
-    "relationship": "joined",
-    "epc7d": 49.24,
-    "epc90d": 0.99,
-    "score": 34.76
+    "website": "https://www.omniwatch.com",
+    "relationship": "notjoined",
+    "epc7d": 0,
+    "epc90d": 169.43,
+    "score": 50.83
   },
   {
-    "id": "7785516",
-    "name": "Avail.com",
-    "category": "Software & Tools",
-    "website": "http://www.avail.com",
+    "id": "2660710",
+    "name": "Kaspersky UK",
+    "category": "VPN & Security",
+    "website": "https://www.kaspersky.co.uk/",
     "relationship": "notjoined",
-    "epc7d": 33.1,
-    "epc90d": 37.22,
-    "score": 34.34
+    "epc7d": 70.83,
+    "epc90d": 1.37,
+    "score": 49.99
+  },
+  {
+    "id": "6867883",
+    "name": "Incogni",
+    "category": "VPN & Security",
+    "website": "http://www.incogni.com",
+    "relationship": "notjoined",
+    "epc7d": 47.48,
+    "epc90d": 55.79,
+    "score": 49.97
+  },
+  {
+    "id": "7595654",
+    "name": "ExitLag",
+    "category": "VPN & Security",
+    "website": "https://www.exitlag.com/",
+    "relationship": "notjoined",
+    "epc7d": 64.96,
+    "epc90d": 14.7,
+    "score": 49.88
   },
   {
     "id": "502178",
@@ -1055,59 +835,159 @@
     "category": "VPN & Security",
     "website": "https://www.kaspersky.com",
     "relationship": "notjoined",
-    "epc7d": 41.08,
+    "epc7d": 62.76,
     "epc90d": 18.37,
-    "score": 34.27
+    "score": 49.44
   },
   {
-    "id": "4934389",
-    "name": "ESET UK",
-    "category": "VPN & Security",
-    "website": "http://www.eset.com/uk/",
+    "id": "4687839",
+    "name": "Hotels.com Latin America",
+    "category": "Travel & Vacations",
+    "website": "http://www.hoteles.com/",
     "relationship": "notjoined",
-    "epc7d": 23.8,
-    "epc90d": 57.05,
-    "score": 33.77
+    "epc7d": 37.57,
+    "epc90d": 75.46,
+    "score": 48.94
   },
   {
-    "id": "6405048",
-    "name": "Motorola",
+    "id": "4956152",
+    "name": "Autodesk Asia Pacific ",
     "category": "Software & Tools",
-    "website": "https://www.motorola.com/us/",
+    "website": "https://www.autodesk.com.sg/",
     "relationship": "notjoined",
-    "epc7d": 32.89,
-    "epc90d": 35.22,
-    "score": 33.59
+    "epc7d": 59.83,
+    "epc90d": 22.18,
+    "score": 48.53
   },
   {
-    "id": "7393974",
-    "name": "Stayforlong - UK",
+    "id": "6818519",
+    "name": "Chair King Backyard Store",
+    "category": "Hosting & Domains",
+    "website": "https://chairking.com/",
+    "relationship": "notjoined",
+    "epc7d": 65.69,
+    "epc90d": 4.8,
+    "score": 47.42
+  },
+  {
+    "id": "1874913",
+    "name": "Expedia, Inc",
+    "category": "Travel & Vacations",
+    "website": "http://www.expedia.com",
+    "relationship": "notjoined",
+    "epc7d": 45.97,
+    "epc90d": 50.35,
+    "score": 47.28
+  },
+  {
+    "id": "2069963",
+    "name": "ESET North America",
+    "category": "VPN & Security",
+    "website": "https://www.eset.com/us/",
+    "relationship": "notjoined",
+    "epc7d": 57.7,
+    "epc90d": 18.38,
+    "score": 45.9
+  },
+  {
+    "id": "2515404",
+    "name": "CheapOair",
+    "category": "Travel & Vacations",
+    "website": "http://www.cheapoair.com",
+    "relationship": "notjoined",
+    "epc7d": 42.82,
+    "epc90d": 51.39,
+    "score": 45.39
+  },
+  {
+    "id": "4861280",
+    "name": "Orbitz",
+    "category": "Travel & Vacations",
+    "website": "http://www.orbitz.com",
+    "relationship": "notjoined",
+    "epc7d": 40.27,
+    "epc90d": 54.59,
+    "score": 44.57
+  },
+  {
+    "id": "5275614",
+    "name": "Hotels.com Sweden",
+    "category": "Travel & Vacations",
+    "website": "http://sv.hotels.com",
+    "relationship": "notjoined",
+    "epc7d": 42.89,
+    "epc90d": 42.78,
+    "score": 42.86
+  },
+  {
+    "id": "7211079",
+    "name": "SmartCredit",
     "category": "Finance & Banking",
-    "website": "https://www.stayforlong.co.uk/",
-    "relationship": "notjoined",
-    "epc7d": 23.62,
-    "epc90d": 53.49,
-    "score": 32.58
+    "website": "https://www.smartcredit.com/",
+    "relationship": "joined",
+    "epc7d": 44,
+    "epc90d": 37.89,
+    "score": 42.17
   },
   {
-    "id": "6828805",
-    "name": "Travelpro EU",
+    "id": "6660472",
+    "name": "Turkish Airlines EU &amp; INT",
     "category": "Travel & Vacations",
-    "website": "https://eu.travelpro.com/",
+    "website": "https://www.turkishairlines.com/",
     "relationship": "notjoined",
-    "epc7d": 27.66,
-    "epc90d": 41.2,
-    "score": 31.72
+    "epc7d": 36.69,
+    "epc90d": 54,
+    "score": 41.88
   },
   {
-    "id": "7667121",
-    "name": "CheapTickets",
+    "id": "7667126",
+    "name": "Flugladen",
     "category": "Travel & Vacations",
-    "website": "https://www.cheaptickets.nl/",
+    "website": "https://www.flugladen.de/",
     "relationship": "notjoined",
-    "epc7d": 29.8,
-    "epc90d": 34.34,
-    "score": 31.16
+    "epc7d": 29.51,
+    "epc90d": 70.63,
+    "score": 41.85
+  },
+  {
+    "id": "4639721",
+    "name": "Contabo COM",
+    "category": "Hosting & Domains",
+    "website": "https://contabo.com/",
+    "relationship": "joined",
+    "epc7d": 45.64,
+    "epc90d": 31.3,
+    "score": 41.34
+  },
+  {
+    "id": "1390130",
+    "name": "myAutoloan.com",
+    "category": "Finance & Banking",
+    "website": "http://www.myautoloan.com",
+    "relationship": "notjoined",
+    "epc7d": 40.91,
+    "epc90d": 41.09,
+    "score": 40.96
+  },
+  {
+    "id": "7854073",
+    "name": "Booking.com Brazil",
+    "category": "Travel & Vacations",
+    "website": "http://www.Booking.com",
+    "relationship": "notjoined",
+    "epc7d": 29.16,
+    "epc90d": 64.37,
+    "score": 39.72
+  },
+  {
+    "id": "1905878",
+    "name": "TurboTax",
+    "category": "Finance & Banking",
+    "website": "https://turbotax.intuit.com/",
+    "relationship": "notjoined",
+    "epc7d": 38.86,
+    "epc90d": 30.59,
+    "score": 36.38
   },
   {
     "id": "5227916",
@@ -1115,9 +995,69 @@
     "category": "VPN & Security",
     "website": "https://proton.me",
     "relationship": "notjoined",
-    "epc7d": 33.5,
+    "epc7d": 40.26,
     "epc90d": 25.13,
-    "score": 30.99
+    "score": 35.72
+  },
+  {
+    "id": "7742241",
+    "name": "Gandi",
+    "category": "Hosting & Domains",
+    "website": "https://shop.gandi.net/",
+    "relationship": "notjoined",
+    "epc7d": 43.2,
+    "epc90d": 16.42,
+    "score": 35.17
+  },
+  {
+    "id": "3519202",
+    "name": "Intego Antivirus Security",
+    "category": "VPN & Security",
+    "website": "http://www.intego.com/",
+    "relationship": "joined",
+    "epc7d": 49.43,
+    "epc90d": 1.19,
+    "score": 34.96
+  },
+  {
+    "id": "1525519",
+    "name": "RealDefense",
+    "category": "VPN & Security",
+    "website": "https://www.iolo.com",
+    "relationship": "notjoined",
+    "epc7d": 31.36,
+    "epc90d": 38.62,
+    "score": 33.54
+  },
+  {
+    "id": "6828805",
+    "name": "Travelpro EU",
+    "category": "Travel & Vacations",
+    "website": "https://eu.travelpro.com/",
+    "relationship": "notjoined",
+    "epc7d": 29.62,
+    "epc90d": 41.2,
+    "score": 33.09
+  },
+  {
+    "id": "4934389",
+    "name": "ESET UK",
+    "category": "VPN & Security",
+    "website": "http://www.eset.com/uk/",
+    "relationship": "notjoined",
+    "epc7d": 20.07,
+    "epc90d": 57.05,
+    "score": 31.16
+  },
+  {
+    "id": "6405048",
+    "name": "Motorola",
+    "category": "Software & Tools",
+    "website": "https://www.motorola.com/us/",
+    "relationship": "notjoined",
+    "epc7d": 28.85,
+    "epc90d": 35.22,
+    "score": 30.76
   },
   {
     "id": "4521871",
@@ -1125,29 +1065,19 @@
     "category": "Travel & Vacations",
     "website": "http://www.flighthub.com",
     "relationship": "notjoined",
-    "epc7d": 28.52,
+    "epc7d": 28.6,
     "epc90d": 35.11,
-    "score": 30.5
+    "score": 30.55
   },
   {
-    "id": "6382932",
-    "name": "Full Compass Systems",
-    "category": "Software & Tools",
-    "website": "https://www.fullcompass.com/",
+    "id": "7879131",
+    "name": "Shadow NA",
+    "category": "Hosting & Domains",
+    "website": "https://shadow.tech/",
     "relationship": "notjoined",
-    "epc7d": 37.13,
-    "epc90d": 14.34,
-    "score": 30.29
-  },
-  {
-    "id": "5128949",
-    "name": "AAA - Auto Club",
-    "category": "Finance & Banking",
-    "website": "https://calstate.aaa.com/",
-    "relationship": "notjoined",
-    "epc7d": 28.97,
-    "epc90d": 31.41,
-    "score": 29.7
+    "epc7d": 30.68,
+    "epc90d": 26.57,
+    "score": 29.45
   },
   {
     "id": "5600250",
@@ -1155,29 +1085,69 @@
     "category": "VPN & Security",
     "website": "https://nordlayer.com/",
     "relationship": "notjoined",
-    "epc7d": 9.06,
+    "epc7d": 9.02,
     "epc90d": 76.94,
-    "score": 29.42
+    "score": 29.4
   },
   {
-    "id": "5431745",
-    "name": "GigaNews",
-    "category": "VPN & Security",
-    "website": "https://www.giganews.com/usenet-special",
-    "relationship": "notjoined",
-    "epc7d": 37.7,
-    "epc90d": 9.53,
-    "score": 29.25
-  },
-  {
-    "id": "1762860",
-    "name": "MyFax",
+    "id": "6231678",
+    "name": "Linux Foundation",
     "category": "Hosting & Domains",
-    "website": "http://www.myfax.com",
+    "website": "https://training.linuxfoundation.org/",
     "relationship": "notjoined",
-    "epc7d": 7.03,
-    "epc90d": 79.62,
-    "score": 28.81
+    "epc7d": 9.29,
+    "epc90d": 75.28,
+    "score": 29.09
+  },
+  {
+    "id": "5128949",
+    "name": "AAA - Auto Club",
+    "category": "Finance & Banking",
+    "website": "https://calstate.aaa.com/",
+    "relationship": "notjoined",
+    "epc7d": 28.06,
+    "epc90d": 31.41,
+    "score": 29.06
+  },
+  {
+    "id": "1549809",
+    "name": "Travelocity",
+    "category": "Travel & Vacations",
+    "website": "http://www.travelocity.com",
+    "relationship": "notjoined",
+    "epc7d": 23.96,
+    "epc90d": 39.91,
+    "score": 28.74
+  },
+  {
+    "id": "7122185",
+    "name": "Turbify",
+    "category": "Hosting & Domains",
+    "website": "https://www.turbify.com",
+    "relationship": "notjoined",
+    "epc7d": 35.42,
+    "epc90d": 12.89,
+    "score": 28.66
+  },
+  {
+    "id": "6123342",
+    "name": "EcoFlow EU",
+    "category": "Software & Tools",
+    "website": "https://eu.ecoflow.com",
+    "relationship": "notjoined",
+    "epc7d": 29.06,
+    "epc90d": 26.66,
+    "score": 28.34
+  },
+  {
+    "id": "7667121",
+    "name": "CheapTickets",
+    "category": "Travel & Vacations",
+    "website": "https://www.cheaptickets.nl/",
+    "relationship": "notjoined",
+    "epc7d": 25.65,
+    "epc90d": 34.34,
+    "score": 28.26
   },
   {
     "id": "6488554",
@@ -1190,24 +1160,54 @@
     "score": 28.22
   },
   {
-    "id": "6231678",
-    "name": "Linux Foundation",
+    "id": "6818540",
+    "name": "Fortunoff Backyard Store",
     "category": "Hosting & Domains",
-    "website": "https://training.linuxfoundation.org/",
+    "website": "https://fortunoffbys.com/",
     "relationship": "notjoined",
-    "epc7d": 6.7,
-    "epc90d": 75.28,
-    "score": 27.27
+    "epc7d": 36.46,
+    "epc90d": 7.78,
+    "score": 27.86
   },
   {
-    "id": "1549809",
-    "name": "Travelocity",
-    "category": "Travel & Vacations",
-    "website": "http://www.travelocity.com",
+    "id": "7872976",
+    "name": "Mighty Mule",
+    "category": "VPN & Security",
+    "website": "https://www.mightymule.com",
     "relationship": "notjoined",
-    "epc7d": 21.82,
-    "epc90d": 39.93,
-    "score": 27.25
+    "epc7d": 30.57,
+    "epc90d": 21.16,
+    "score": 27.75
+  },
+  {
+    "id": "5431745",
+    "name": "GigaNews",
+    "category": "VPN & Security",
+    "website": "https://www.giganews.com/usenet-special",
+    "relationship": "notjoined",
+    "epc7d": 34.93,
+    "epc90d": 9.53,
+    "score": 27.31
+  },
+  {
+    "id": "6827734",
+    "name": "Radisson Hotel Group  APAC ",
+    "category": "Travel & Vacations",
+    "website": "http://radisson.com",
+    "relationship": "notjoined",
+    "epc7d": 36.17,
+    "epc90d": 5.94,
+    "score": 27.1
+  },
+  {
+    "id": "6209109",
+    "name": "Kaspersky EU",
+    "category": "VPN & Security",
+    "website": "https://www.kaspersky.com",
+    "relationship": "joined",
+    "epc7d": 37.96,
+    "epc90d": 0.99,
+    "score": 26.87
   },
   {
     "id": "7667115",
@@ -1215,79 +1215,39 @@
     "category": "Travel & Vacations",
     "website": "https://www.budgetair.com/",
     "relationship": "notjoined",
-    "epc7d": 27.47,
+    "epc7d": 27.01,
     "epc90d": 26.02,
-    "score": 27.03
+    "score": 26.71
   },
   {
-    "id": "7879131",
-    "name": "Shadow NA",
-    "category": "Hosting & Domains",
-    "website": "https://shadow.tech/",
-    "relationship": "notjoined",
-    "epc7d": 27.17,
-    "epc90d": 26.57,
-    "score": 26.99
-  },
-  {
-    "id": "7055164",
-    "name": "Sonic Electronix",
+    "id": "6094012",
+    "name": "Funko",
     "category": "Software & Tools",
-    "website": "http://www.sonicelectronix.com",
+    "website": "http://www.funko.com",
     "relationship": "notjoined",
-    "epc7d": 21.12,
-    "epc90d": 39.5,
-    "score": 26.63
+    "epc7d": 33.79,
+    "epc90d": 10.07,
+    "score": 26.67
   },
   {
-    "id": "7667118",
-    "name": "vliegwinkel",
+    "id": "7819793",
+    "name": "trivago FR",
     "category": "Travel & Vacations",
-    "website": "https://www.vliegwinkel.nl/",
+    "website": "https://www.trivago.com/fr",
     "relationship": "notjoined",
-    "epc7d": 25.71,
-    "epc90d": 27.88,
-    "score": 26.36
+    "epc7d": 30.1,
+    "epc90d": 18,
+    "score": 26.47
   },
   {
-    "id": "6123342",
-    "name": "EcoFlow EU",
-    "category": "Software & Tools",
-    "website": "https://eu.ecoflow.com",
-    "relationship": "notjoined",
-    "epc7d": 24.36,
-    "epc90d": 26.66,
-    "score": 25.05
-  },
-  {
-    "id": "1388074",
-    "name": "eFax",
+    "id": "1762860",
+    "name": "MyFax",
     "category": "Hosting & Domains",
-    "website": "http://www.efax.com",
+    "website": "http://www.myfax.com",
     "relationship": "notjoined",
-    "epc7d": 23.22,
-    "epc90d": 26.08,
-    "score": 24.08
-  },
-  {
-    "id": "4593144",
-    "name": "Choice Home Warranty",
-    "category": "Finance & Banking",
-    "website": "http://www.ChoiceHomeWarranty.com",
-    "relationship": "notjoined",
-    "epc7d": 21.94,
-    "epc90d": 28.4,
-    "score": 23.88
-  },
-  {
-    "id": "2069963",
-    "name": "ESET North America",
-    "category": "VPN & Security",
-    "website": "https://www.eset.com/us/",
-    "relationship": "notjoined",
-    "epc7d": 25.94,
-    "epc90d": 18.38,
-    "score": 23.67
+    "epc7d": 3.57,
+    "epc90d": 79.62,
+    "score": 26.38
   },
   {
     "id": "7504463",
@@ -1295,9 +1255,59 @@
     "category": "Hosting & Domains",
     "website": "https://shadow.tech/",
     "relationship": "notjoined",
-    "epc7d": 19.34,
+    "epc7d": 22.57,
     "epc90d": 33.08,
-    "score": 23.46
+    "score": 25.72
+  },
+  {
+    "id": "7241006",
+    "name": "Byway Travel",
+    "category": "Travel & Vacations",
+    "website": "https://www.byway.travel/",
+    "relationship": "notjoined",
+    "epc7d": 28.5,
+    "epc90d": 18.34,
+    "score": 25.45
+  },
+  {
+    "id": "7055164",
+    "name": "Sonic Electronix",
+    "category": "Software & Tools",
+    "website": "http://www.sonicelectronix.com",
+    "relationship": "notjoined",
+    "epc7d": 19.25,
+    "epc90d": 39.5,
+    "score": 25.32
+  },
+  {
+    "id": "1019547",
+    "name": "39dollarglasses.com",
+    "category": "Finance & Banking",
+    "website": "http://www.39dollarglasses.com",
+    "relationship": "notjoined",
+    "epc7d": 27.4,
+    "epc90d": 16.46,
+    "score": 24.12
+  },
+  {
+    "id": "5835771",
+    "name": "EnergySage Solar Marketplace",
+    "category": "Finance & Banking",
+    "website": "https://www.energysage.com",
+    "relationship": "notjoined",
+    "epc7d": 30.34,
+    "epc90d": 9.49,
+    "score": 24.09
+  },
+  {
+    "id": "3774518",
+    "name": "INTERNATIONAL PROGRAM IBERIA EXPRESS",
+    "category": "Travel & Vacations",
+    "website": "http://www.iberiaexpress.com/",
+    "relationship": "notjoined",
+    "epc7d": 22.92,
+    "epc90d": 25.16,
+    "score": 23.59
   },
   {
     "id": "7650988",
@@ -1310,74 +1320,14 @@
     "score": 23.31
   },
   {
-    "id": "5185191",
-    "name": "airhelp.com INT",
+    "id": "7728435",
+    "name": "HopeGoo",
     "category": "Travel & Vacations",
-    "website": "https://www.airhelp.com/en/",
-    "relationship": "notjoined",
-    "epc7d": 30.21,
-    "epc90d": 5.72,
-    "score": 22.86
-  },
-  {
-    "id": "1019547",
-    "name": "39dollarglasses.com",
-    "category": "Finance & Banking",
-    "website": "http://www.39dollarglasses.com",
-    "relationship": "notjoined",
-    "epc7d": 25.3,
-    "epc90d": 16.46,
-    "score": 22.65
-  },
-  {
-    "id": "3774518",
-    "name": "INTERNATIONAL PROGRAM IBERIA EXPRESS",
-    "category": "Travel & Vacations",
-    "website": "http://www.iberiaexpress.com/",
-    "relationship": "notjoined",
-    "epc7d": 21.02,
-    "epc90d": 25.16,
-    "score": 22.26
-  },
-  {
-    "id": "7819793",
-    "name": "trivago FR",
-    "category": "Travel & Vacations",
-    "website": "https://www.trivago.com/fr",
-    "relationship": "notjoined",
-    "epc7d": 23.71,
-    "epc90d": 18,
-    "score": 22
-  },
-  {
-    "id": "5331920",
-    "name": "Sucuri",
-    "category": "VPN & Security",
-    "website": "https://sucuri.net/",
-    "relationship": "notjoined",
-    "epc7d": 25.18,
-    "epc90d": 13.33,
-    "score": 21.62
-  },
-  {
-    "id": "6159036",
-    "name": "World Nomads",
-    "category": "Travel & Vacations",
-    "website": "http://www.worldnomads.com",
-    "relationship": "notjoined",
-    "epc7d": 14.58,
-    "epc90d": 37.95,
-    "score": 21.59
-  },
-  {
-    "id": "3659001",
-    "name": "Vueling World Wide",
-    "category": "Travel & Vacations",
-    "website": "http://www.vueling.com",
-    "relationship": "notjoined",
-    "epc7d": 21.79,
-    "epc90d": 19.77,
-    "score": 21.18
+    "website": "http://www.hopegoo.com",
+    "relationship": "joined",
+    "epc7d": 33.11,
+    "epc90d": 0.19,
+    "score": 23.23
   },
   {
     "id": "7154072",
@@ -1385,19 +1335,99 @@
     "category": "Software & Tools",
     "website": "http://www.pcrichard.com",
     "relationship": "notjoined",
-    "epc7d": 16.61,
+    "epc7d": 19.24,
     "epc90d": 29.11,
-    "score": 20.36
+    "score": 22.2
   },
   {
-    "id": "6310090",
-    "name": "Condor INT",
-    "category": "Travel & Vacations",
-    "website": "https://www.condor.com",
+    "id": "4593144",
+    "name": "Choice Home Warranty",
+    "category": "Finance & Banking",
+    "website": "http://www.ChoiceHomeWarranty.com",
     "relationship": "notjoined",
-    "epc7d": 19.08,
-    "epc90d": 22.88,
-    "score": 20.22
+    "epc7d": 19.52,
+    "epc90d": 28.4,
+    "score": 22.18
+  },
+  {
+    "id": "7667118",
+    "name": "vliegwinkel",
+    "category": "Travel & Vacations",
+    "website": "https://www.vliegwinkel.nl/",
+    "relationship": "notjoined",
+    "epc7d": 19.39,
+    "epc90d": 27.88,
+    "score": 21.94
+  },
+  {
+    "id": "2696047",
+    "name": "Phone.com Virtual Office",
+    "category": "Software & Tools",
+    "website": "https://www.phone.com",
+    "relationship": "notjoined",
+    "epc7d": 22.33,
+    "epc90d": 20.58,
+    "score": 21.8
+  },
+  {
+    "id": "4861279",
+    "name": "CheapTickets",
+    "category": "Travel & Vacations",
+    "website": "http://www.cheaptickets.com",
+    "relationship": "notjoined",
+    "epc7d": 20.46,
+    "epc90d": 23.6,
+    "score": 21.4
+  },
+  {
+    "id": "7393974",
+    "name": "Stayforlong - UK",
+    "category": "Finance & Banking",
+    "website": "https://www.stayforlong.co.uk/",
+    "relationship": "notjoined",
+    "epc7d": 7.6,
+    "epc90d": 53.49,
+    "score": 21.37
+  },
+  {
+    "id": "1388074",
+    "name": "eFax",
+    "category": "Hosting & Domains",
+    "website": "http://www.efax.com",
+    "relationship": "notjoined",
+    "epc7d": 19.26,
+    "epc90d": 26.08,
+    "score": 21.31
+  },
+  {
+    "id": "3659001",
+    "name": "Vueling World Wide",
+    "category": "Travel & Vacations",
+    "website": "http://www.vueling.com",
+    "relationship": "notjoined",
+    "epc7d": 21.56,
+    "epc90d": 19.77,
+    "score": 21.02
+  },
+  {
+    "id": "5185191",
+    "name": "airhelp.com INT",
+    "category": "Travel & Vacations",
+    "website": "https://www.airhelp.com/en/",
+    "relationship": "notjoined",
+    "epc7d": 27.28,
+    "epc90d": 5.72,
+    "score": 20.81
+  },
+  {
+    "id": "3468748",
+    "name": "Silver Gold Bull Profit Trove",
+    "category": "Finance & Banking",
+    "website": "http://silvergoldbull.com",
+    "relationship": "joined",
+    "epc7d": 26.39,
+    "epc90d": 7.56,
+    "score": 20.74
   },
   {
     "id": "5261735",
@@ -1406,28 +1436,18 @@
     "website": "https://workspace.google.com/",
     "relationship": "notjoined",
     "epc7d": 0,
-    "epc90d": 66.37,
-    "score": 19.91
+    "epc90d": 67.53,
+    "score": 20.26
   },
   {
-    "id": "7580001",
-    "name": "Yummy Mummy",
-    "category": "Finance & Banking",
-    "website": "https://yummymummystore.com",
-    "relationship": "notjoined",
-    "epc7d": 10.14,
-    "epc90d": 41.81,
-    "score": 19.64
-  },
-  {
-    "id": "7819824",
-    "name": "trivago TR",
+    "id": "6159036",
+    "name": "World Nomads",
     "category": "Travel & Vacations",
-    "website": "https://www.trivago.com.tr/",
+    "website": "http://www.worldnomads.com",
     "relationship": "notjoined",
-    "epc7d": 26.53,
-    "epc90d": 3,
-    "score": 19.47
+    "epc7d": 12.14,
+    "epc90d": 37.95,
+    "score": 19.88
   },
   {
     "id": "7819785",
@@ -1435,119 +1455,19 @@
     "category": "Travel & Vacations",
     "website": "https://www.trivago.com/de",
     "relationship": "notjoined",
-    "epc7d": 15.04,
+    "epc7d": 15.15,
     "epc90d": 29.58,
-    "score": 19.4
+    "score": 19.48
   },
   {
-    "id": "6144090",
-    "name": "NordVPN CEE",
-    "category": "VPN & Security",
-    "website": "http://www.nordvpn.com",
-    "relationship": "notjoined",
-    "epc7d": 22.79,
-    "epc90d": 10.32,
-    "score": 19.05
-  },
-  {
-    "id": "6827734",
-    "name": "Radisson Hotel Group  APAC ",
+    "id": "6310090",
+    "name": "Condor INT",
     "category": "Travel & Vacations",
-    "website": "http://radisson.com",
+    "website": "https://www.condor.com",
     "relationship": "notjoined",
-    "epc7d": 24.58,
-    "epc90d": 5.94,
-    "score": 18.99
-  },
-  {
-    "id": "5275598",
-    "name": "Hotels.com Ireland",
-    "category": "Travel & Vacations",
-    "website": "http://ie.hotels.com",
-    "relationship": "notjoined",
-    "epc7d": 13.47,
-    "epc90d": 31.76,
-    "score": 18.96
-  },
-  {
-    "id": "4861279",
-    "name": "CheapTickets",
-    "category": "Travel & Vacations",
-    "website": "http://www.cheaptickets.com",
-    "relationship": "notjoined",
-    "epc7d": 16.95,
-    "epc90d": 23.6,
-    "score": 18.95
-  },
-  {
-    "id": "4348962",
-    "name": "nixplay",
-    "category": "Hosting & Domains",
-    "website": "https://www.nixplay.com/",
-    "relationship": "notjoined",
-    "epc7d": 22.34,
-    "epc90d": 10.65,
-    "score": 18.83
-  },
-  {
-    "id": "3468748",
-    "name": "Silver Gold Bull Profit Trove",
-    "category": "Finance & Banking",
-    "website": "http://silvergoldbull.com",
-    "relationship": "joined",
-    "epc7d": 23.57,
-    "epc90d": 7.56,
-    "score": 18.77
-  },
-  {
-    "id": "6094012",
-    "name": "Funko",
-    "category": "Software & Tools",
-    "website": "http://www.funko.com",
-    "relationship": "notjoined",
-    "epc7d": 22.46,
-    "epc90d": 10.07,
-    "score": 18.74
-  },
-  {
-    "id": "7728435",
-    "name": "HopeGoo",
-    "category": "Travel & Vacations",
-    "website": "http://www.hopegoo.com",
-    "relationship": "joined",
-    "epc7d": 26.57,
-    "epc90d": 0.19,
-    "score": 18.66
-  },
-  {
-    "id": "2696047",
-    "name": "Phone.com Virtual Office",
-    "category": "Software & Tools",
-    "website": "https://www.phone.com",
-    "relationship": "notjoined",
-    "epc7d": 16.53,
-    "epc90d": 20.58,
-    "score": 17.74
-  },
-  {
-    "id": "6798066",
-    "name": "Elementor",
-    "category": "Hosting & Domains",
-    "website": "https://elementor.com/",
-    "relationship": "notjoined",
-    "epc7d": 19.28,
-    "epc90d": 13.87,
-    "score": 17.66
-  },
-  {
-    "id": "3743656",
-    "name": "Malwarebytes",
-    "category": "VPN & Security",
-    "website": "http://www.malwarebytes.com",
-    "relationship": "notjoined",
-    "epc7d": 16.06,
-    "epc90d": 21.32,
-    "score": 17.64
+    "epc7d": 17.99,
+    "epc90d": 22.88,
+    "score": 19.46
   },
   {
     "id": "6282055",
@@ -1555,29 +1475,59 @@
     "category": "VPN & Security",
     "website": "http://www.surfshark.com",
     "relationship": "joined",
-    "epc7d": 19.64,
-    "epc90d": 12.88,
-    "score": 17.61
+    "epc7d": 22.13,
+    "epc90d": 12.89,
+    "score": 19.36
   },
   {
-    "id": "5597393",
-    "name": "Carbonite",
-    "category": "Hosting & Domains",
-    "website": "https://www.carbonite.com",
+    "id": "6284583",
+    "name": "Veepn.com",
+    "category": "VPN & Security",
+    "website": "https://veepn.com",
     "relationship": "notjoined",
-    "epc7d": 22.05,
-    "epc90d": 5.85,
-    "score": 17.19
+    "epc7d": 24.66,
+    "epc90d": 5.54,
+    "score": 18.92
   },
   {
-    "id": "7241006",
-    "name": "Byway Travel",
+    "id": "5275598",
+    "name": "Hotels.com Ireland",
     "category": "Travel & Vacations",
-    "website": "https://www.byway.travel/",
+    "website": "http://ie.hotels.com",
     "relationship": "notjoined",
-    "epc7d": 16.46,
-    "epc90d": 18.34,
-    "score": 17.02
+    "epc7d": 12.92,
+    "epc90d": 31.76,
+    "score": 18.57
+  },
+  {
+    "id": "6382932",
+    "name": "Full Compass Systems",
+    "category": "Software & Tools",
+    "website": "https://www.fullcompass.com/",
+    "relationship": "notjoined",
+    "epc7d": 19.81,
+    "epc90d": 14.34,
+    "score": 18.17
+  },
+  {
+    "id": "7580001",
+    "name": "Yummy Mummy",
+    "category": "Finance & Banking",
+    "website": "https://yummymummystore.com",
+    "relationship": "notjoined",
+    "epc7d": 7.69,
+    "epc90d": 41.81,
+    "score": 17.93
+  },
+  {
+    "id": "7785516",
+    "name": "Avail.com",
+    "category": "Software & Tools",
+    "website": "http://www.avail.com",
+    "relationship": "notjoined",
+    "epc7d": 9.19,
+    "epc90d": 37.22,
+    "score": 17.6
   },
   {
     "id": "7662403",
@@ -1585,9 +1535,29 @@
     "category": "Travel & Vacations",
     "website": "https://www.malaysiaairlines.com/",
     "relationship": "notjoined",
-    "epc7d": 15.95,
+    "epc7d": 16.19,
     "epc90d": 19.5,
-    "score": 17.02
+    "score": 17.18
+  },
+  {
+    "id": "5597393",
+    "name": "Carbonite",
+    "category": "Hosting & Domains",
+    "website": "https://www.carbonite.com",
+    "relationship": "notjoined",
+    "epc7d": 21.76,
+    "epc90d": 5.85,
+    "score": 16.99
+  },
+  {
+    "id": "6203392",
+    "name": "Lalal.ai global",
+    "category": "Software & Tools",
+    "website": "https://lalal.ai/",
+    "relationship": "joined",
+    "epc7d": 23.18,
+    "epc90d": 1.96,
+    "score": 16.81
   },
   {
     "id": "6819725",
@@ -1600,34 +1570,14 @@
     "score": 16.57
   },
   {
-    "id": "5693235",
-    "name": "pCloud Partnership Program",
-    "category": "Hosting & Domains",
-    "website": "https://www.pcloud.com/",
-    "relationship": "notjoined",
-    "epc7d": 12.68,
-    "epc90d": 24.53,
-    "score": 16.23
-  },
-  {
-    "id": "6203392",
-    "name": "Lalal.ai global",
-    "category": "Software & Tools",
-    "website": "https://lalal.ai/",
-    "relationship": "joined",
-    "epc7d": 22.19,
-    "epc90d": 1.96,
-    "score": 16.12
-  },
-  {
-    "id": "3266946",
-    "name": "Kaspersky Canada",
+    "id": "3743656",
+    "name": "Malwarebytes",
     "category": "VPN & Security",
-    "website": "https://www.kaspersky.ca/",
-    "relationship": "joined",
-    "epc7d": 21.73,
-    "epc90d": 1.36,
-    "score": 15.62
+    "website": "http://www.malwarebytes.com",
+    "relationship": "notjoined",
+    "epc7d": 14.44,
+    "epc90d": 21.32,
+    "score": 16.5
   },
   {
     "id": "4110283",
@@ -1635,9 +1585,9 @@
     "category": "Finance & Banking",
     "website": "http://www.taxact.com",
     "relationship": "notjoined",
-    "epc7d": 10.28,
+    "epc7d": 11.91,
     "epc90d": 25.87,
-    "score": 14.96
+    "score": 16.1
   },
   {
     "id": "7122257",
@@ -1645,39 +1595,39 @@
     "category": "Travel & Vacations",
     "website": "https://www.gotogate.com",
     "relationship": "notjoined",
-    "epc7d": 15.5,
+    "epc7d": 16.89,
     "epc90d": 13.56,
-    "score": 14.92
+    "score": 15.89
   },
   {
-    "id": "6284583",
-    "name": "Veepn.com",
+    "id": "1952646",
+    "name": "123 Reg",
+    "category": "Hosting & Domains",
+    "website": "http://www.123-reg.co.uk",
+    "relationship": "joined",
+    "epc7d": 18.76,
+    "epc90d": 7.86,
+    "score": 15.49
+  },
+  {
+    "id": "5331920",
+    "name": "Sucuri",
     "category": "VPN & Security",
-    "website": "https://veepn.com",
+    "website": "https://sucuri.net/",
     "relationship": "notjoined",
-    "epc7d": 18.16,
-    "epc90d": 5.54,
-    "score": 14.37
+    "epc7d": 16.07,
+    "epc90d": 13.33,
+    "score": 15.25
   },
   {
-    "id": "6512958",
-    "name": "TeamViewer Int",
-    "category": "Software & Tools",
-    "website": "https://www.teamviewer.com",
+    "id": "4348962",
+    "name": "nixplay",
+    "category": "Hosting & Domains",
+    "website": "https://www.nixplay.com/",
     "relationship": "notjoined",
-    "epc7d": 6.84,
-    "epc90d": 28.48,
-    "score": 13.33
-  },
-  {
-    "id": "2747226",
-    "name": "Capital Bank",
-    "category": "Finance & Banking",
-    "website": "https://www.openskycc.com/",
-    "relationship": "notjoined",
-    "epc7d": 16.03,
-    "epc90d": 6.21,
-    "score": 13.08
+    "epc7d": 15.38,
+    "epc90d": 10.65,
+    "score": 13.96
   },
   {
     "id": "6185946",
@@ -1685,9 +1635,19 @@
     "category": "Finance & Banking",
     "website": "https://www.untilgone.com",
     "relationship": "notjoined",
-    "epc7d": 13.56,
+    "epc7d": 14.5,
     "epc90d": 11.86,
-    "score": 13.05
+    "score": 13.71
+  },
+  {
+    "id": "2747226",
+    "name": "Capital Bank",
+    "category": "Finance & Banking",
+    "website": "https://www.openskycc.com/",
+    "relationship": "notjoined",
+    "epc7d": 16.52,
+    "epc90d": 6.21,
+    "score": 13.43
   },
   {
     "id": "5184799",
@@ -1695,9 +1655,9 @@
     "category": "Finance & Banking",
     "website": "https://morningsave.com/",
     "relationship": "notjoined",
-    "epc7d": 13.07,
+    "epc7d": 13.38,
     "epc90d": 12.98,
-    "score": 13.04
+    "score": 13.26
   },
   {
     "id": "7556501",
@@ -1706,8 +1666,48 @@
     "website": "https://www.efadventures.com/",
     "relationship": "notjoined",
     "epc7d": 0,
-    "epc90d": 43.08,
-    "score": 12.92
+    "epc90d": 43.11,
+    "score": 12.93
+  },
+  {
+    "id": "7836643",
+    "name": "AMBIR Technology",
+    "category": "Finance & Banking",
+    "website": "https://ambir.com/",
+    "relationship": "notjoined",
+    "epc7d": 15.07,
+    "epc90d": 7.47,
+    "score": 12.79
+  },
+  {
+    "id": "6798066",
+    "name": "Elementor",
+    "category": "Hosting & Domains",
+    "website": "https://elementor.com/",
+    "relationship": "notjoined",
+    "epc7d": 12.09,
+    "epc90d": 13.87,
+    "score": 12.62
+  },
+  {
+    "id": "5693235",
+    "name": "pCloud Partnership Program",
+    "category": "Hosting & Domains",
+    "website": "https://www.pcloud.com/",
+    "relationship": "notjoined",
+    "epc7d": 7.49,
+    "epc90d": 24.53,
+    "score": 12.6
+  },
+  {
+    "id": "6144090",
+    "name": "NordVPN CEE",
+    "category": "VPN & Security",
+    "website": "http://www.nordvpn.com",
+    "relationship": "notjoined",
+    "epc7d": 12.3,
+    "epc90d": 10.32,
+    "score": 11.71
   },
   {
     "id": "7238333",
@@ -1715,19 +1715,29 @@
     "category": "Finance & Banking",
     "website": "https://wallethub.com",
     "relationship": "notjoined",
-    "epc7d": 16.36,
+    "epc7d": 15.35,
     "epc90d": 3.21,
-    "score": 12.41
+    "score": 11.71
   },
   {
-    "id": "7209241",
-    "name": "Virgin Atlantic Airways (Rest of World)",
+    "id": "3207328",
+    "name": "Swiss International Air Lines - US",
     "category": "Travel & Vacations",
-    "website": "https://www.virginatlantic.com",
+    "website": "https://www.swiss.com/US/en",
     "relationship": "notjoined",
-    "epc7d": 10.82,
-    "epc90d": 13.45,
-    "score": 11.61
+    "epc7d": 13.51,
+    "epc90d": 7.38,
+    "score": 11.67
+  },
+  {
+    "id": "6512958",
+    "name": "TeamViewer Int",
+    "category": "Software & Tools",
+    "website": "https://www.teamviewer.com",
+    "relationship": "notjoined",
+    "epc7d": 4.04,
+    "epc90d": 28.48,
+    "score": 11.37
   },
   {
     "id": "1838477",
@@ -1735,49 +1745,9 @@
     "category": "Hosting & Domains",
     "website": "http://www.one.com",
     "relationship": "notjoined",
-    "epc7d": 14.29,
+    "epc7d": 13.76,
     "epc90d": 4.93,
-    "score": 11.48
-  },
-  {
-    "id": "7819783",
-    "name": "trivago CH",
-    "category": "Travel & Vacations",
-    "website": "https://www.trivago.com/ch",
-    "relationship": "notjoined",
-    "epc7d": 6.89,
-    "epc90d": 22.18,
-    "score": 11.48
-  },
-  {
-    "id": "4455279",
-    "name": "IBERIA UK",
-    "category": "Travel & Vacations",
-    "website": "http://www.iberia.com",
-    "relationship": "notjoined",
-    "epc7d": 6.3,
-    "epc90d": 22.38,
-    "score": 11.12
-  },
-  {
-    "id": "7748599",
-    "name": "Club del Sole",
-    "category": "Travel & Vacations",
-    "website": "https://www.clubdelsole.com/",
-    "relationship": "notjoined",
-    "epc7d": 2.25,
-    "epc90d": 30.19,
-    "score": 10.63
-  },
-  {
-    "id": "5316674",
-    "name": "VOLOTEA EU",
-    "category": "Travel & Vacations",
-    "website": "http://www.volotea.com",
-    "relationship": "notjoined",
-    "epc7d": 8.83,
-    "epc90d": 13.42,
-    "score": 10.21
+    "score": 11.11
   },
   {
     "id": "6174711",
@@ -1785,19 +1755,99 @@
     "category": "Software & Tools",
     "website": "https://www.a2t.ro/",
     "relationship": "notjoined",
-    "epc7d": 6.73,
+    "epc7d": 8.06,
     "epc90d": 18.11,
-    "score": 10.14
+    "score": 11.07
   },
   {
-    "id": "3895296",
-    "name": "Vimeo",
-    "category": "Hosting & Domains",
-    "website": "http://www.vimeo.com",
+    "id": "7819824",
+    "name": "trivago TR",
+    "category": "Travel & Vacations",
+    "website": "https://www.trivago.com.tr/",
     "relationship": "notjoined",
-    "epc7d": 7.59,
-    "epc90d": 15,
-    "score": 9.81
+    "epc7d": 13.83,
+    "epc90d": 3,
+    "score": 10.58
+  },
+  {
+    "id": "3266946",
+    "name": "Kaspersky Canada",
+    "category": "VPN & Security",
+    "website": "https://www.kaspersky.ca/",
+    "relationship": "joined",
+    "epc7d": 14.46,
+    "epc90d": 1.36,
+    "score": 10.53
+  },
+  {
+    "id": "5316674",
+    "name": "VOLOTEA EU",
+    "category": "Travel & Vacations",
+    "website": "http://www.volotea.com",
+    "relationship": "notjoined",
+    "epc7d": 9.16,
+    "epc90d": 13.42,
+    "score": 10.44
+  },
+  {
+    "id": "7209241",
+    "name": "Virgin Atlantic Airways (Rest of World)",
+    "category": "Travel & Vacations",
+    "website": "https://www.virginatlantic.com",
+    "relationship": "notjoined",
+    "epc7d": 9.06,
+    "epc90d": 13.45,
+    "score": 10.38
+  },
+  {
+    "id": "4455279",
+    "name": "IBERIA UK",
+    "category": "Travel & Vacations",
+    "website": "http://www.iberia.com",
+    "relationship": "notjoined",
+    "epc7d": 5.11,
+    "epc90d": 22.38,
+    "score": 10.29
+  },
+  {
+    "id": "7562394",
+    "name": "Mysterium VPN",
+    "category": "VPN & Security",
+    "website": "https://www.mysteriumvpn.com/",
+    "relationship": "notjoined",
+    "epc7d": 10.12,
+    "epc90d": 9.94,
+    "score": 10.07
+  },
+  {
+    "id": "7819783",
+    "name": "trivago CH",
+    "category": "Travel & Vacations",
+    "website": "https://www.trivago.com/ch",
+    "relationship": "notjoined",
+    "epc7d": 4.79,
+    "epc90d": 22.18,
+    "score": 10.01
+  },
+  {
+    "id": "7748599",
+    "name": "Club del Sole",
+    "category": "Travel & Vacations",
+    "website": "https://www.clubdelsole.com/",
+    "relationship": "notjoined",
+    "epc7d": 1.19,
+    "epc90d": 30.19,
+    "score": 9.89
+  },
+  {
+    "id": "5421525",
+    "name": "Libristo Europe",
+    "category": "Finance & Banking",
+    "website": "https://www.libristo.cz",
+    "relationship": "notjoined",
+    "epc7d": 9.2,
+    "epc90d": 10.64,
+    "score": 9.63
   },
   {
     "id": "4355234",
@@ -1810,84 +1860,14 @@
     "score": 9.55
   },
   {
-    "id": "5306197",
-    "name": "PureVPN Affiliate Program",
-    "category": "VPN & Security",
-    "website": "https://www.purevpn.com/",
-    "relationship": "notjoined",
-    "epc7d": 12.76,
-    "epc90d": 2.04,
-    "score": 9.54
-  },
-  {
-    "id": "6342639",
-    "name": "Vantrue",
-    "category": "Finance & Banking",
-    "website": "https://www.vantrue.com/",
-    "relationship": "notjoined",
-    "epc7d": 4.33,
-    "epc90d": 20.35,
-    "score": 9.14
-  },
-  {
-    "id": "5421525",
-    "name": "Libristo Europe",
-    "category": "Finance & Banking",
-    "website": "https://www.libristo.cz",
-    "relationship": "notjoined",
-    "epc7d": 8.42,
-    "epc90d": 10.64,
-    "score": 9.09
-  },
-  {
-    "id": "3557279",
-    "name": "Clipp.com",
-    "category": "Finance & Banking",
-    "website": "https://www.clipp.com",
-    "relationship": "notjoined",
-    "epc7d": 10.39,
-    "epc90d": 5.49,
-    "score": 8.92
-  },
-  {
-    "id": "5320930",
-    "name": "Austrian Airlines - US",
-    "category": "Travel & Vacations",
-    "website": "https://www.austrian.com/?sc_lang=en&amp;cc=US",
-    "relationship": "notjoined",
-    "epc7d": 10.62,
-    "epc90d": 4.68,
-    "score": 8.84
-  },
-  {
-    "id": "7986250",
-    "name": "Magic Hotel Group",
-    "category": "Travel & Vacations",
-    "website": "https://www.magichotelgroup.com/en",
-    "relationship": "notjoined",
-    "epc7d": 12.41,
-    "epc90d": 0,
-    "score": 8.69
-  },
-  {
-    "id": "4960460",
-    "name": "Plex",
+    "id": "7915616",
+    "name": "Macrium Software",
     "category": "Hosting & Domains",
-    "website": "http://www.plex.tv",
+    "website": "http://www.macrium.com/",
     "relationship": "notjoined",
-    "epc7d": 2.04,
-    "epc90d": 21.88,
-    "score": 7.99
-  },
-  {
-    "id": "4055157",
-    "name": "Namecheap",
-    "category": "Hosting & Domains",
-    "website": "https://www.namecheap.com",
-    "relationship": "notjoined",
-    "epc7d": 5.14,
-    "epc90d": 13.98,
-    "score": 7.79
+    "epc7d": 10.9,
+    "epc90d": 6.18,
+    "score": 9.48
   },
   {
     "id": "4660055",
@@ -1895,9 +1875,89 @@
     "category": "Hosting & Domains",
     "website": "http://www.dynadot.com",
     "relationship": "notjoined",
+    "epc7d": 8.2,
+    "epc90d": 12.3,
+    "score": 9.43
+  },
+  {
+    "id": "6342639",
+    "name": "Vantrue",
+    "category": "Finance & Banking",
+    "website": "https://www.vantrue.com/",
+    "relationship": "notjoined",
+    "epc7d": 4.52,
+    "epc90d": 20.35,
+    "score": 9.27
+  },
+  {
+    "id": "3557279",
+    "name": "Clipp.com",
+    "category": "Finance & Banking",
+    "website": "https://www.clipp.com",
+    "relationship": "notjoined",
+    "epc7d": 10.57,
+    "epc90d": 5.49,
+    "score": 9.05
+  },
+  {
+    "id": "5320930",
+    "name": "Austrian Airlines - US",
+    "category": "Travel & Vacations",
+    "website": "https://www.austrian.com/?sc_lang=en&amp;cc=US",
+    "relationship": "notjoined",
+    "epc7d": 10.7,
+    "epc90d": 4.68,
+    "score": 8.89
+  },
+  {
+    "id": "3895296",
+    "name": "Vimeo",
+    "category": "Hosting & Domains",
+    "website": "http://www.vimeo.com",
+    "relationship": "notjoined",
+    "epc7d": 5.36,
+    "epc90d": 15,
+    "score": 8.25
+  },
+  {
+    "id": "6100840",
+    "name": "eSky INT",
+    "category": "Travel & Vacations",
+    "website": "https://www.esky.com",
+    "relationship": "notjoined",
+    "epc7d": 7.09,
+    "epc90d": 10.45,
+    "score": 8.1
+  },
+  {
+    "id": "4055157",
+    "name": "Namecheap",
+    "category": "Hosting & Domains",
+    "website": "https://www.namecheap.com",
+    "relationship": "notjoined",
     "epc7d": 5.5,
-    "epc90d": 12.29,
-    "score": 7.54
+    "epc90d": 13.98,
+    "score": 8.04
+  },
+  {
+    "id": "4960460",
+    "name": "Plex",
+    "category": "Hosting & Domains",
+    "website": "http://www.plex.tv",
+    "relationship": "notjoined",
+    "epc7d": 1.91,
+    "epc90d": 21.88,
+    "score": 7.9
+  },
+  {
+    "id": "7986250",
+    "name": "Magic Hotel Group",
+    "category": "Travel & Vacations",
+    "website": "https://www.magichotelgroup.com/en",
+    "relationship": "notjoined",
+    "epc7d": 10.84,
+    "epc90d": 0,
+    "score": 7.59
   },
   {
     "id": "7748841",
@@ -1915,9 +1975,9 @@
     "category": "Hosting & Domains",
     "website": "https://www.directdeals.com/",
     "relationship": "joined",
-    "epc7d": 0,
+    "epc7d": 0.53,
     "epc90d": 20.58,
-    "score": 6.17
+    "score": 6.54
   },
   {
     "id": "2612819",
@@ -1925,9 +1985,19 @@
     "category": "Travel & Vacations",
     "website": "http://www.hotels.com",
     "relationship": "notjoined",
-    "epc7d": 2.69,
+    "epc7d": 3.35,
     "epc90d": 13.3,
-    "score": 5.87
+    "score": 6.33
+  },
+  {
+    "id": "4731005",
+    "name": "Farnell Germany",
+    "category": "Software & Tools",
+    "website": "http://de.farnell.com/",
+    "relationship": "notjoined",
+    "epc7d": 3.18,
+    "epc90d": 12.88,
+    "score": 6.09
   },
   {
     "id": "6164489",
@@ -1935,9 +2005,9 @@
     "category": "Software & Tools",
     "website": "https://www.easeus.com",
     "relationship": "notjoined",
-    "epc7d": 0.26,
+    "epc7d": 0.16,
     "epc90d": 18.42,
-    "score": 5.71
+    "score": 5.64
   },
   {
     "id": "6030618",
@@ -1950,16 +2020,6 @@
     "score": 5.42
   },
   {
-    "id": "7122185",
-    "name": "Turbify",
-    "category": "Hosting & Domains",
-    "website": "https://www.turbify.com",
-    "relationship": "notjoined",
-    "epc7d": 1.91,
-    "epc90d": 12.89,
-    "score": 5.2
-  },
-  {
     "id": "7549838",
     "name": "Canopy",
     "category": "Software & Tools",
@@ -1970,24 +2030,14 @@
     "score": 4.19
   },
   {
-    "id": "4049128",
-    "name": "Extended Stay America",
-    "category": "Travel & Vacations",
-    "website": "https://www.extendedstayamerica.com/",
-    "relationship": "notjoined",
-    "epc7d": 0.25,
-    "epc90d": 13.24,
-    "score": 4.15
-  },
-  {
     "id": "4487634",
     "name": "IDrive",
     "category": "Hosting & Domains",
     "website": "http://www.idrive.com",
     "relationship": "notjoined",
-    "epc7d": 0.73,
+    "epc7d": 1.44,
     "epc90d": 10.4,
-    "score": 3.63
+    "score": 4.13
   },
   {
     "id": "3364990",
