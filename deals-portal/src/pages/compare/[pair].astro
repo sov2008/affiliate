@@ -16,6 +16,9 @@ import {
 export const prerender = true;
 
 export async function getStaticPaths() {
+  if (process.env.SURGICAL_STORE) {
+    return [];
+  }
   const cleanStores = getUniqueCleanStores(STORES_DATA, COUPONS_DATA);
   const pairs = generateComparisonPairs(cleanStores, COUPONS_DATA);
 

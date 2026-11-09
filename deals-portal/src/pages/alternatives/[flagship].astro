@@ -120,6 +120,9 @@ export const TARGET_FLAGSHIPS = [
 ];
 
 export async function getStaticPaths() {
+  if (process.env.SURGICAL_STORE) {
+    return [];
+  }
   const allCleanStores = getUniqueCleanStores(STORES_DATA, COUPONS_DATA);
 
   return TARGET_FLAGSHIPS.map(flagship => {

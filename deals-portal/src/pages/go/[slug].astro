@@ -2,9 +2,11 @@
 import { STORES_DATA } from '../../data/couponsData';
 
 export async function getStaticPaths() {
+  const targetSlug = process.env.SURGICAL_STORE?.trim().toLowerCase();
   const seenSlugs = new Set();
   const uniqueStores = STORES_DATA.filter(store => {
     if (!store.slug || seenSlugs.has(store.slug)) return false;
+    if (targetSlug && store.slug !== targetSlug) return false;
     seenSlugs.add(store.slug);
     return true;
   });

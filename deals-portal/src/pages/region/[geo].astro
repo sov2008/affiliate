@@ -18,6 +18,9 @@ import {
 export const prerender = true;
 
 export async function getStaticPaths() {
+  if (process.env.SURGICAL_STORE) {
+    return [];
+  }
   const REGIONS_DATA = [
     {
       geo: 'us',

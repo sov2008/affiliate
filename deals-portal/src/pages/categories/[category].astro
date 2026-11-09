@@ -10,6 +10,9 @@ import { resolveMerchantIdentity, isJunkTestOffer, resolveSmartCategory, extract
 export const prerender = true;
 
 export async function getStaticPaths() {
+  if (process.env.SURGICAL_STORE) {
+    return [];
+  }
   const CATEGORIES_DEF = [
     {
       slug: 'privacy-security',

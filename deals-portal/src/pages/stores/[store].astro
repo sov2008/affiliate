@@ -16,8 +16,13 @@ export const prerender = true;
 
 export async function getStaticPaths() {
   const cleanStores = getUniqueCleanStores(STORES_DATA, COUPONS_DATA);
+  const targetSlug = process.env.SURGICAL_STORE?.trim().toLowerCase();
 
-  return cleanStores.map(store => ({
+  const filteredStores = targetSlug
+    ? cleanStores.filter(s => s.slug === targetSlug || s.originalSlug === targetSlug)
+    : cleanStores;
+
+  return filteredStores.map(store => ({
     params: { store: store.slug },
     props: { store, allCleanStores: cleanStores }
   }));
