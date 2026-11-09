@@ -282,7 +282,7 @@ function runExpansionBatch(batchSize = 50) {
 
 // If executed directly, run one batch
 if (require.main === module) {
-  const added = runExpansionBatch(50);
+  const added = runExpansionBatch(100);
   console.log(`Batch execution finished. Added ${added} merchants.`);
 }
 
