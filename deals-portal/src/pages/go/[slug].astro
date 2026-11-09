@@ -2,7 +2,14 @@
 import { STORES_DATA } from '../../data/couponsData';
 
 export async function getStaticPaths() {
-  return STORES_DATA.map(store => ({
+  const seenSlugs = new Set();
+  const uniqueStores = STORES_DATA.filter(store => {
+    if (!store.slug || seenSlugs.has(store.slug)) return false;
+    seenSlugs.add(store.slug);
+    return true;
+  });
+
+  return uniqueStores.map(store => ({
     params: { slug: store.slug },
     props: {
       targetUrl: store.primaryAffiliateUrl || store.websiteUrl,
