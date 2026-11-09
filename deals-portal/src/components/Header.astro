@@ -2,7 +2,7 @@
 import { STORES_DATA } from '../data/couponsData';
 import { getUniqueCleanStores } from '../utils/dealNormalizer';
 import { LOCALES, DEFAULT_LOCALE, getTranslation } from '../i18n/ui';
-import { Flame, Store, Shapes, ArrowLeftRight, HelpCircle, ChevronDown, Sun, Moon, Heart, Globe, Sparkles, Shield, Zap, Home, Shirt, Plane, Gamepad2, Coffee, Car, ShoppingBag, ArrowRight, Compass, Percent, Layers, HeartHandshake, Glasses, Menu, X } from 'lucide-astro';
+import { Flame, Store, Shapes, ArrowLeftRight, HelpCircle, ChevronDown, Sun, Moon, Heart, Globe, Sparkles, Shield, Zap, Home, Shirt, Plane, Gamepad2, Coffee, Car, ShoppingBag, ArrowRight, Compass, Percent, Layers, HeartHandshake, Glasses, Menu, X, Tag } from 'lucide-astro';
 
 interface Props {
   activePath?: string;
@@ -199,6 +199,17 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
       >
         <Flame class="w-4 h-4" />
         <span data-i18n="allDeals">All Deals</span>
+      </a>
+      <a
+        href={`${base}/events/black-friday/`}
+        class={`header-stagger-item flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
+          activePath.startsWith('/events/black-friday') 
+            ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400 font-extrabold shadow-sm shadow-indigo-500/20' 
+            : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15'
+        }`}
+      >
+        <Tag class="w-4 h-4" />
+        <span>Black Friday</span>
       </a>
       <!-- RetailMeNot Style Stores Mega Menu Dropdown -->
       <div class="relative group/stores header-stagger-item">
@@ -427,17 +438,6 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
         <span data-i18n="compare">Compare</span>
       </a>
       <a
-        href={`${base}/events/black-friday/`}
-        class={`header-stagger-item flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
-          activePath.startsWith('/events/black-friday') 
-            ? 'bg-rose-500/20 border-rose-500/40 text-rose-300 font-black shadow-sm shadow-rose-500/20 animate-pulse' 
-            : 'border-rose-500/30 text-rose-400 hover:text-white hover:bg-rose-500/20 hover:border-rose-400 font-black'
-        }`}
-      >
-        <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
-        <span>Black Friday</span>
-      </a>
-      <a
         href={`${base}/about/`}
         class={`header-stagger-item flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
           activePath.startsWith('/about') 
@@ -622,6 +622,17 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
     >
       <Flame class="w-4 h-4" />
       <span data-i18n="allDeals">All Deals</span>
+    </a>
+    <a
+      href={`${base}/events/black-friday/`}
+      class={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl border text-sm font-bold transition ${
+        activePath.startsWith('/events/black-friday')
+          ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400'
+          : 'border-transparent text-slate-300 hover:bg-white/5 hover:text-white'
+      }`}
+    >
+      <Tag class="w-4 h-4" />
+      <span>Black Friday</span>
     </a>
     <a
       href={`${base}/stores/`}
