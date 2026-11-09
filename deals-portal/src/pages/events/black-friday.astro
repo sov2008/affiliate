@@ -227,11 +227,22 @@ const pageSchemas = [eventSchema, breadcrumbSchema];
                   </div>
                 </div>
 
-                <!-- Discount Value Badge -->
-                <div class="mb-2">
-                  <span class="inline-block px-2.5 py-0.5 text-xs font-black uppercase tracking-wider rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30">
-                    {deal.cleanBadge}
-                  </span>
+                <!-- Perforated Tear-off Voucher Rip Ticket -->
+                <div class="mb-2.5 flex items-center">
+                  <div class="card-rip-ticket ticket-theme-standard">
+                    <div class="card-ticket-notch card-ticket-notch-start"></div>
+                    <div class="card-ticket-notch card-ticket-notch-end"></div>
+                    
+                    <span class="text-sm font-black tracking-tight leading-none">
+                      {deal.cleanBadge}
+                    </span>
+                    
+                    <span class="card-ticket-divider" aria-hidden="true"></span>
+                    
+                    <span class="text-[9px] font-mono font-bold uppercase tracking-wider opacity-90 whitespace-nowrap">
+                      {isCode ? 'VOUCHER' : 'OFFER'}
+                    </span>
+                  </div>
                 </div>
 
                 <!-- Title & Description -->

@@ -91,6 +91,18 @@ const BRAND_THEMES: Record<string, { bg: string; text: string; border: string; b
   '945industries': { bg: 'from-stone-800 to-amber-900', text: 'text-amber-300', border: 'border-amber-300', badgeBg: 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30' }
 };
 
+// Helper for rip ticket visual theme
+function getTicketTheme(badge: string): string {
+  const b = (badge || '').toUpperCase();
+  if (b.includes('$') || b.includes('AED') || b.includes('UAH') || (b.includes('SAVE') && !b.includes('%'))) {
+    return 'ticket-theme-cash';
+  }
+  if (b.includes('FREE') || b.includes('BOGO') || b.includes('TRIAL') || b.includes('EXTRA') || b.includes('CASHBACK') || b.includes('VIP') || b.includes('GIFTS') || b.includes('+')) {
+    return 'ticket-theme-bonus';
+  }
+  return 'ticket-theme-standard';
+}
+
 // Helper for top-right discount pills
 function getDiscountBadgeClasses(badge: string): string {
   const b = (badge || '').toUpperCase();
@@ -829,24 +841,18 @@ const homeSchemas = [
                     <div class="ticket-notch ticket-notch-end"></div>
 
                     <!-- 1. Start Coupon Section: Verified Discount Badge & Promo Tier -->
-                    <div class="ps-1 text-start min-w-0">
+                    <div class="ps-1 pe-2 text-start min-w-0">
                       <div id="heroDealBadge" class="text-2xl sm:text-3xl font-black text-emerald-400 tracking-tight leading-none whitespace-nowrap drop-shadow-sm font-sans">49% OFF</div>
                       <span id="heroDealBadgeSub" class="block font-sans text-[11px] sm:text-xs text-slate-300 dark:text-slate-300 font-medium mt-1 tracking-normal whitespace-nowrap">+ 3 Months Free</span>
                     </div>
 
                     <!-- 2. Middle Section: Integrated Financial Savings (Perforated coupon column) -->
-                    <div id="heroDealSavingsBox" class="ticket-stub-col relative ps-4 sm:ps-5 text-start min-w-0">
+                    <div id="heroDealSavingsBox" class="ticket-stub-col relative ps-4 sm:ps-5 pe-2 text-start min-w-0">
                       <span id="heroDealSavingsLabel" class="block text-[9px] font-mono font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap">EST. SAVINGS</span>
                       <div class="flex items-baseline gap-1 mt-0.5 whitespace-nowrap">
                         <span id="heroDealSavingsValue" class="text-sm sm:text-base font-black text-emerald-400 dark:text-emerald-300 leading-none drop-shadow-xs">$60+</span>
                         <span id="heroDealSavingsSub" class="text-[10px] font-medium text-slate-400 dark:text-slate-400">Save 49%</span>
                       </div>
-                    </div>
-
-                    <!-- 3. End Tear-Off Stub: Official Verified Stamp (Perforated tear-off stub) -->
-                    <div class="ticket-stub-col relative ps-4 sm:ps-5 pe-1 text-end whitespace-nowrap">
-                      <div class="ticket-stub-official text-[9px] font-mono font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest">OFFICIAL</div>
-                      <div class="ticket-stub-verified text-[11px] font-mono font-black text-emerald-400 dark:text-emerald-300 uppercase tracking-wider mt-0.5">VERIFIED</div>
                     </div>
                   </div>
                 </div>
@@ -1185,11 +1191,22 @@ const homeSchemas = [
                   </div>
                 </div>
 
-                <!-- Giant Bold Hero Discount Badge -->
-                <div class="my-2">
-                  <span class={`inline-block px-2.5 py-0.5 rounded-lg text-lg sm:text-xl font-extrabold tracking-tight border shadow-xs ${getDiscountBadgeClasses(cleanBadge)}`}>
-                    {cleanBadge}
-                  </span>
+                <!-- Perforated Tear-off Voucher Rip Ticket -->
+                <div class="my-2.5 flex items-center">
+                  <div class={`card-rip-ticket ${getTicketTheme(cleanBadge)}`}>
+                    <div class="card-ticket-notch card-ticket-notch-start"></div>
+                    <div class="card-ticket-notch card-ticket-notch-end"></div>
+                    
+                    <span class="text-base sm:text-lg font-black tracking-tight leading-none">
+                      {cleanBadge}
+                    </span>
+                    
+                    <span class="card-ticket-divider" aria-hidden="true"></span>
+                    
+                    <span class="text-[10px] font-mono font-bold uppercase tracking-wider opacity-90 whitespace-nowrap">
+                      {isCode ? 'VOUCHER' : 'OFFER'}
+                    </span>
+                  </div>
                 </div>
 
                 <!-- Deal Title & Description (Even Alignment across 4 Columns with Rich 6-Line Copy) -->
@@ -3713,7 +3730,7 @@ const homeSchemas = [
             const maskedCodeEl = document.getElementById('heroDealMaskedCode');
             if (maskedCodeEl) maskedCodeEl.textContent = deal.maskedCode;
 
-            // Ticket Stubs Localization
+            // Ticket Stubs Localization (safely handled if present)
             const voucherOfficialEl = dynamicContent.querySelector('.ticket-stub-official');
             if (voucherOfficialEl) voucherOfficialEl.textContent = localeData.ticketOfficial;
             const voucherVerifiedEl = dynamicContent.querySelector('.ticket-stub-verified');

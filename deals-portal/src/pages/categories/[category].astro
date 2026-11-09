@@ -511,9 +511,17 @@ const breadcrumbs = [
                       </a>
                       <div class="min-w-0">
                         <div class="flex items-center gap-2 flex-wrap">
-                          <span class="text-xs font-extrabold px-2.5 py-1 rounded-xl bg-rose-50 text-rose-600 border border-rose-200/80 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30">
-                            {deal.discountBadge || deal.badge}
-                          </span>
+                          <div class="card-rip-ticket ticket-theme-standard !py-1 !px-2.5">
+                            <div class="card-ticket-notch card-ticket-notch-start"></div>
+                            <div class="card-ticket-notch card-ticket-notch-end"></div>
+                            <span class="text-xs font-black tracking-tight leading-none">
+                              {deal.discountBadge || deal.badge}
+                            </span>
+                            <span class="card-ticket-divider !h-3.5" aria-hidden="true"></span>
+                            <span class="text-[9px] font-mono font-bold uppercase tracking-wider opacity-90 whitespace-nowrap">
+                              {isCode ? 'VOUCHER' : 'OFFER'}
+                            </span>
+                          </div>
                           <a
                             href={`${base}/stores/${deal.canonicalSlug || deal.storeSlug}/`}
                             class="text-sm font-extrabold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition truncate"
