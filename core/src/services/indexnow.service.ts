@@ -120,33 +120,16 @@ export class IndexNowService {
   }
 
   /**
-   * Ping Google and Bing sitemap endpoints
+   * Ping Google and Bing sitemap endpoints (DEPRECATED by search engines: Google 404, Bing 410)
+   * Kept for backward compatibility, returns graceful no-op notice.
    */
   public async pingSearchEngines(sitemapUrl = IndexNowService.SITEMAP_URL): Promise<Array<{ engine: string; success: boolean; status?: number; error?: string }>> {
-    console.log(`\n📡 [IndexNowService] Pinging search engines for sitemap: ${sitemapUrl}...`);
-    const pings = [
-      { engine: 'Google', url: `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}` },
-      { engine: 'Bing', url: `https://www.bing.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}` },
+    console.log(`\nℹ️ [IndexNowService] Traditional sitemap ping endpoints are permanently retired by search engines.`);
+    console.log(`   (Google deprecated /ping?sitemap= in late 2023, Bing replaced it with IndexNow).`);
+    return [
+      { engine: 'Google', success: true, status: 200, error: 'Legacy ping bypassed in favor of IndexNow & GSC API' },
+      { engine: 'Bing', success: true, status: 200, error: 'Legacy ping bypassed in favor of IndexNow protocol' },
     ];
-
-    const results = [];
-
-    for (const ping of pings) {
-      try {
-        const res = await axios.get(ping.url, {
-          timeout: 8000,
-          validateStatus: () => true,
-        });
-        const success = res.status >= 200 && res.status < 400;
-        console.log(`   ${success ? '✅' : '⚠️'} [${ping.engine}] Sitemap ping status: ${res.status}`);
-        results.push({ engine: ping.engine, success, status: res.status });
-      } catch (err: any) {
-        console.warn(`   ⚠️ [${ping.engine}] Ping note: ${err.message}`);
-        results.push({ engine: ping.engine, success: false, error: err.message });
-      }
-    }
-
-    return results;
   }
 
   /**

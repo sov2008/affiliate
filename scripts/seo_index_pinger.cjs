@@ -9,7 +9,7 @@ const path = require('path');
 const https = require('https');
 
 const HOST = 'promoradar.store';
-const KEY = 'd7a92c4b8e1f4095a62e3d8c1b7a9f24';
+const KEY = 'e2d6b384a51e44f8b03046f890cf51a2';
 const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
 const DIST_DIR = path.resolve(__dirname, '../deals-portal/dist');
 
