@@ -584,8 +584,8 @@ const homeSchemas = [
             <div id="heroSearchWrapper" class="hero-stagger-item max-w-2xl relative space-y-3 z-30">
               <div class="relative">
                 <div class="flex flex-col sm:flex-row gap-2 relative z-20">
-                  <div class="relative flex-1">
-                    <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div class="relative flex-1 flex items-center">
+                    <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                     <input
@@ -593,8 +593,17 @@ const homeSchemas = [
                       type="text"
                       autocomplete="off"
                       placeholder={`Search ${uniqueCleanStoresList.length} partner stores, categories, or keywords (e.g., eSIM, ALLPOWERS, VPN, Dubai)...`}
-                      class="w-full pl-11 pr-4 py-3 rounded-xl bg-white dark:bg-white/10 text-slate-900 dark:text-white placeholder-slate-400 text-sm font-medium border border-slate-200 dark:border-white/15 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm backdrop-blur-sm"
+                      class="w-full h-12 leading-normal pl-11 pr-10 rounded-xl bg-white dark:bg-white/10 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 text-sm font-medium border border-slate-200 dark:border-white/15 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm backdrop-blur-sm box-border flex items-center"
                     />
+                    <button
+                      id="heroSearchClearBtn"
+                      type="button"
+                      class="hidden absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-200 text-xs font-bold items-center justify-center cursor-pointer transition z-10"
+                      title="Clear search"
+                      aria-label="Clear search"
+                    >
+                      ✕
+                    </button>
                   </div>
 
                   <!-- Region Selector Integrated on Right of Search -->
@@ -602,7 +611,7 @@ const homeSchemas = [
                     <button
                       id="heroRegionDropdownBtn"
                       type="button"
-                      class="h-full px-3 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white font-bold text-xs border border-slate-200 dark:border-white/15 transition flex items-center gap-1.5 cursor-pointer shrink-0 shadow-sm"
+                      class="h-12 leading-none px-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white font-bold text-xs border border-slate-200 dark:border-white/15 transition flex items-center gap-1.5 cursor-pointer shrink-0 shadow-sm box-border"
                       title="Select Target Region"
                     >
                       <span id="heroSelectedRegionText" class="inline-flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500 mr-1 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span></span>
@@ -685,7 +694,7 @@ const homeSchemas = [
                   <button
                     id="mainHeroSearchBtn"
                     type="button"
-                    class="px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition shrink-0 shadow-lg shadow-indigo-600/30 cursor-pointer"
+                    class="h-12 leading-none px-5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition shrink-0 shadow-lg shadow-indigo-600/30 cursor-pointer flex items-center justify-center box-border"
                   >
                     <span id="findDealsBtnText">Find Deals</span>
                   </button>
@@ -2184,6 +2193,7 @@ const homeSchemas = [
       currentStore = null;
       searchQuery = '';
       if (document.getElementById('mainHeroSearchInput')) document.getElementById('mainHeroSearchInput').value = '';
+      updateHeroClearBtn('');
       document.querySelectorAll('.main-cat-btn').forEach(b => b.classList.toggle('is-active', b.getAttribute('data-cat') === 'ALL'));
       document.querySelectorAll('.region-filter-btn').forEach(b => b.classList.toggle('is-active', b.getAttribute('data-region') === 'ALL'));
       document.querySelectorAll('.type-filter-btn').forEach(b => b.classList.toggle('is-active', b.getAttribute('data-type') === 'ALL'));
@@ -2196,6 +2206,7 @@ const homeSchemas = [
       currentStore = null;
       searchQuery = '';
       if (document.getElementById('mainHeroSearchInput')) document.getElementById('mainHeroSearchInput').value = '';
+      updateHeroClearBtn('');
       if (document.getElementById('gridStoreFilterInput')) document.getElementById('gridStoreFilterInput').value = '';
       document.getElementById('gridFilterClearBtn')?.classList.add('hidden');
       filterDeals();
@@ -2377,12 +2388,38 @@ const homeSchemas = [
     // Search Inputs
     const heroInput = document.getElementById('mainHeroSearchInput');
     const headerInput = document.getElementById('headerQuickSearch');
+    const heroClearBtn = document.getElementById('heroSearchClearBtn');
+
+    function updateHeroClearBtn(val) {
+      if (heroClearBtn) {
+        if (val && val.length > 0) {
+          heroClearBtn.classList.remove('hidden');
+          heroClearBtn.classList.add('flex');
+        } else {
+          heroClearBtn.classList.add('hidden');
+          heroClearBtn.classList.remove('flex');
+        }
+      }
+    }
 
     heroInput?.addEventListener('input', (e) => {
       searchQuery = e.target.value;
       if (headerInput) headerInput.value = searchQuery;
+      updateHeroClearBtn(searchQuery);
       filterDeals();
       renderHeroSpotlight(searchQuery);
+    });
+
+    heroClearBtn?.addEventListener('click', () => {
+      if (heroInput) {
+        heroInput.value = '';
+        heroInput.focus();
+      }
+      if (headerInput) headerInput.value = '';
+      searchQuery = '';
+      updateHeroClearBtn('');
+      filterDeals();
+      heroSpotlight?.classList.add('hidden');
     });
 
     heroInput?.addEventListener('focus', () => {
@@ -2438,6 +2475,7 @@ const homeSchemas = [
         searchQuery = chip.getAttribute('data-chip') || '';
         if (heroInput) heroInput.value = searchQuery;
         if (headerInput) headerInput.value = searchQuery;
+        updateHeroClearBtn(searchQuery);
         filterDeals();
         document.getElementById('mainDealsGrid')?.scrollIntoView({ behavior: 'smooth' });
       });
