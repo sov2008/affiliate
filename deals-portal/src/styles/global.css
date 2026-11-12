@@ -1399,3 +1399,111 @@ html.dark header nav {
   background-color: transparent !important;
   border: none !important;
 }
+
+/* ==========================================================================
+   LOW-END & ULTRA-COMPACT MOBILE ERGONOMICS (Down to 320px & Low-CPU Devices)
+   ========================================================================== */
+
+/* 1. Global Zero-Horizontal-Scroll Enforcer */
+html,
+body {
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  position: relative;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+/* 2. Responsive Containment for Tables, Pre, Preformatted Blocks */
+pre,
+table,
+img,
+svg,
+video,
+iframe {
+  max-width: 100% !important;
+  height: auto;
+}
+
+/* 3. Hardware Acceleration & Low-Power Smoothing for Low-End SoCs */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 4. Touch Targets Standardization (WCAG 2.2 AAA >= 44x44px for finger tap) */
+@media (max-width: 640px) {
+  button,
+  a[role="button"],
+  input[type="button"],
+  input[type="submit"],
+  .btn-touch-target {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  /* Safe tap padding for header icons on small displays */
+  #headerActionsBlock button,
+  #headerActionsBlock a {
+    min-height: 40px;
+    min-width: 40px;
+  }
+
+  /* Prevent awkward word clipping on 320px–360px screens */
+  h1, h2, h3 {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* Ensure Hero Flip Clock doesn't wrap awkwardly on narrow viewports */
+  #heroFlipClock {
+    transform: scale(0.92);
+    transform-origin: right center;
+  }
+
+  /* Search bar action buttons responsive touch padding */
+  #mainHeroSearchBtn,
+  #heroRegionDropdownBtn {
+    min-height: 46px;
+    width: 100%;
+  }
+
+  /* Compact Product cards media stage for small viewports */
+  .product-media-stage {
+    height: 150px !important;
+    padding: 10px !important;
+  }
+
+  .product-media-stage img {
+    max-height: 115px !important;
+  }
+
+  /* Modal responsiveness for narrow screens */
+  .modal-dialog-responsive {
+    max-width: calc(100vw - 16px) !important;
+    margin-left: 8px !important;
+    margin-right: 8px !important;
+  }
+}
+
+/* 5. Custom Lightweight Mobile Scrollbar */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(100, 116, 139, 0.35);
+    border-radius: 9999px;
+  }
+}
