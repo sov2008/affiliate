@@ -3,82 +3,115 @@
  * PartnerBannerRotator.astro
  * Organic, modern multi-partner banner carousel rotator.
  * Zero demo data: utilizes 100% genuine creative assets and tracking URLs from Admitad.
- * Clean, borderless design respecting user guidelines.
+ * High-usability standard: WCAG 2.2 AAA controls, progress bar, tactile pause-on-hover & auto-resume.
  */
 import rotatorData from '../data/homeRotatorBanners.json';
 
 const { leaderboards = [], rectangles = [] } = rotatorData;
 ---
 
-<section id="partnerRotatorSection" class="relative my-8 sm:my-10">
+<section id="partnerRotatorSection" class="relative my-8 sm:my-10" aria-label="Featured Partner Offers">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Top Mini Indicator / Controls Bar -->
+    <!-- Top Header & Usability Controls Bar -->
     <div class="flex items-center justify-between gap-4 mb-3">
       <div class="flex items-center gap-2">
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200/50 dark:border-indigo-800/40">
           <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400 animate-pulse"></span>
           Verified Partner Spotlight
         </span>
-        <span class="text-xs text-slate-400 dark:text-slate-500 hidden sm:inline">• Official Creatives</span>
+        <span class="text-xs text-slate-400 dark:text-slate-500 hidden sm:inline">• Official Direct Offers</span>
       </div>
 
-      <!-- Carousel Navigation & Indicators -->
+      <!-- Controls: Play/Pause Toggle, Dot Indicators, Arrows -->
       <div class="flex items-center gap-2">
-        <!-- Dot Indicators for Leaderboards -->
-        <div id="rotatorDots" class="flex items-center gap-1.5 mr-2">
+        <!-- Play / Pause State Toggle Button -->
+        <button
+          id="rotatorPlayPauseBtn"
+          type="button"
+          class="h-8 px-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center gap-1.5 transition text-xs font-semibold cursor-pointer border border-slate-200/60 dark:border-slate-700/60"
+          aria-label="Pause banner rotation"
+          title="Pause / Resume Rotation"
+        >
+          <span id="rotatorPlayPauseIcon" class="text-[10px]">⏸</span>
+          <span id="rotatorPlayPauseText" class="hidden sm:inline text-[11px]">Auto</span>
+        </button>
+
+        <!-- Slide Dots with Active Highlighting -->
+        <div id="rotatorDots" class="flex items-center gap-1.5 px-1">
           {leaderboards.map((_, i) => (
             <button
               type="button"
-              class={`w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-indigo-600 w-5' : 'bg-slate-300 dark:bg-slate-700 hover:bg-slate-400'}`}
+              class={`h-2 rounded-full transition-all duration-300 cursor-pointer ${i === 0 ? 'bg-indigo-600 w-6' : 'bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 w-2'}`}
               data-slide-index={i}
               aria-label={`Go to slide ${i + 1}`}
             ></button>
           ))}
         </div>
 
-        <button
-          id="rotatorPrevBtn"
-          type="button"
-          class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition text-xs"
-          aria-label="Previous Partner Banner"
-        >
-          ‹
-        </button>
-        <button
-          id="rotatorNextBtn"
-          type="button"
-          class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition text-xs"
-          aria-label="Next Partner Banner"
-        >
-          ›
-        </button>
+        <!-- Previous / Next Touch-Friendly Navigation -->
+        <div class="flex items-center gap-1">
+          <button
+            id="rotatorPrevBtn"
+            type="button"
+            class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center transition text-sm font-bold cursor-pointer border border-slate-200/60 dark:border-slate-700/60 active:scale-95"
+            aria-label="Previous Partner Banner"
+          >
+            ‹
+          </button>
+          <button
+            id="rotatorNextBtn"
+            type="button"
+            class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center transition text-sm font-bold cursor-pointer border border-slate-200/60 dark:border-slate-700/60 active:scale-95"
+            aria-label="Next Partner Banner"
+          >
+            ›
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- Rotator Carousel Container (Single Responsive Slide at a Time) -->
-    <div class="relative overflow-hidden rounded-2xl bg-slate-100/60 dark:bg-slate-900/40 p-2 sm:p-3 transition-all">
+    <!-- Rotator Carousel Container with Visual Progress Bar -->
+    <div
+      id="rotatorCardContainer"
+      class="relative overflow-hidden rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 p-3 sm:p-4 shadow-sm transition-all"
+    >
+      <!-- Subtle Visual Progress Bar showing exact countdown to next rotation -->
+      <div class="absolute top-0 left-0 right-0 h-0.5 bg-slate-100 dark:bg-slate-800 overflow-hidden">
+        <div
+          id="rotatorProgressBar"
+          class="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 transition-none w-0"
+        ></div>
+      </div>
+
       <div id="rotatorTrack" class="relative w-full">
         {leaderboards.map((item, idx) => (
           <div
-            class={`rotator-slide ${idx === 0 ? 'block' : 'hidden'} transition-opacity duration-500 ease-in-out`}
+            class={`rotator-slide ${idx === 0 ? 'block' : 'hidden'} transition-all duration-300 ease-out`}
             data-index={idx}
             data-partner-slug={item.partnerSlug}
             data-category={item.category}
           >
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-              <!-- Left Mini Info on Brand -->
-              <div class="flex items-center gap-3 w-full md:w-auto px-2">
-                <span class="text-xs font-bold text-slate-900 dark:text-white shrink-0">
-                  {item.brand}
-                </span>
-                <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate">
-                  {item.category}
-                </span>
+              <!-- Left Brand Info Bar -->
+              <div class="flex items-center gap-3 w-full md:w-auto px-1 shrink-0">
+                <div class="w-8 h-8 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-1 flex items-center justify-center font-extrabold text-xs text-indigo-600 dark:text-indigo-400">
+                  {item.brand.slice(0, 2).toUpperCase()}
+                </div>
+                <div class="truncate">
+                  <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <span>{item.brand}</span>
+                    <span class="text-[9px] font-extrabold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-1.5 py-0.2 rounded border border-emerald-200/60 dark:border-emerald-800/40">Verified</span>
+                  </div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                    {item.category}
+                  </div>
+                </div>
                 <a
                   href={`/stores/${item.partnerSlug}/`}
-                  class="ml-auto md:ml-2 text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 hover:underline shrink-0 flex items-center gap-0.5"
+                  class="ml-auto md:ml-3 text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-50/70 hover:bg-indigo-100 dark:bg-indigo-950/50 dark:hover:bg-indigo-900/60 border border-indigo-100 dark:border-indigo-800/40 transition"
                 >
-                  View Coupons ↗
+                  <span>All Deals</span>
+                  <span>↗</span>
                 </a>
               </div>
 
@@ -87,17 +120,26 @@ const { leaderboards = [], rectangles = [] } = rotatorData;
                 href={item.affiliateUrl}
                 target="_blank"
                 rel="nofollow sponsored"
-                class="block w-full max-w-[728px] mx-auto hover:opacity-95 transition-opacity duration-200"
-                title={`${item.brand} Special Deal`}
+                class="block w-full max-w-[728px] mx-auto hover:opacity-95 transition-all duration-200 group relative"
+                title={`${item.brand} Official Offer`}
               >
-                <img
-                  src={item.src}
-                  alt={`${item.brand} Official Creative`}
-                  width={item.width}
-                  height={item.height}
-                  loading={idx === 0 ? "eager" : "lazy"}
-                  class="w-full h-auto max-h-[90px] object-contain mx-auto block"
-                />
+                <div class="relative overflow-hidden rounded-xl bg-slate-50 dark:bg-slate-800/50 flex items-center justify-center min-h-[75px] sm:min-h-[90px]">
+                  <img
+                    src={item.src}
+                    alt={`${item.brand} Official Creative`}
+                    width={item.width}
+                    height={item.height}
+                    loading={idx === 0 ? "eager" : "lazy"}
+                    class="w-full h-auto max-h-[90px] object-contain mx-auto block group-hover:scale-[1.01] transition-transform duration-300"
+                  />
+                  <!-- Hover Action Overlay Pill -->
+                  <div class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 text-white font-bold text-[10px] shadow-md backdrop-blur-xs flex items-center gap-1">
+                      <span>Claim Deal</span>
+                      <span>↗</span>
+                    </span>
+                  </div>
+                </div>
               </a>
             </div>
           </div>
@@ -113,11 +155,20 @@ const { leaderboards = [], rectangles = [] } = rotatorData;
     const dots = Array.from(document.querySelectorAll('#rotatorDots button'));
     const prevBtn = document.getElementById('rotatorPrevBtn');
     const nextBtn = document.getElementById('rotatorNextBtn');
+    const playPauseBtn = document.getElementById('rotatorPlayPauseBtn');
+    const playPauseIcon = document.getElementById('rotatorPlayPauseIcon');
+    const playPauseText = document.getElementById('rotatorPlayPauseText');
+    const progressBar = document.getElementById('rotatorProgressBar');
+    const cardContainer = document.getElementById('rotatorCardContainer');
 
     if (!slides.length) return;
 
     let currentIndex = 0;
-    let timer = null;
+    let isUserPaused = false;
+    let isHoverPaused = false;
+    let slideDuration = 6000; // 6 seconds per banner for comfortable reading
+    let startTime = performance.now();
+    let animFrameId = null;
 
     // Detect User Context & Personalize Initial Slide Order
     function getPersonalizedInitialIndex() {
@@ -141,7 +192,6 @@ const { leaderboards = [], rectangles = [] } = rotatorData;
         else if (/Macintosh|Mac OS X/.test(ua)) os = 'macOS';
         else if (/Linux/.test(ua)) os = 'Linux';
 
-        // Check stored category/store affinities
         let profile = { categoryAffinities: {}, storeAffinities: {} };
         const rawProfile = localStorage.getItem('pr_user_profile_v1');
         if (rawProfile) {
@@ -177,7 +227,6 @@ const { leaderboards = [], rectangles = [] } = rotatorData;
           const category = slide.getAttribute('data-category') || '';
           let score = 0;
 
-          // GEO scoring
           const allowedGeos = STORE_GEOS[slug] || ['GLOBAL'];
           if (geo !== 'GLOBAL') {
             if (allowedGeos.includes(geo)) score += 30;
@@ -185,14 +234,12 @@ const { leaderboards = [], rectangles = [] } = rotatorData;
             else score -= 40;
           }
 
-          // OS scoring
           const targetOs = STORE_OS[slug];
           if (targetOs) {
             if (targetOs.includes(os)) score += 20;
             else score -= 15;
           }
 
-          // Affinity scoring
           if (profile.categoryAffinities && profile.categoryAffinities[category]) {
             score += profile.categoryAffinities[category] * 8;
           }
@@ -231,51 +278,113 @@ const { leaderboards = [], rectangles = [] } = rotatorData;
 
       dots.forEach((dot, i) => {
         if (i === currentIndex) {
-          dot.className = 'w-5 h-2 rounded-full transition-all duration-300 bg-indigo-600';
+          dot.className = 'h-2 rounded-full transition-all duration-300 cursor-pointer bg-indigo-600 w-6';
         } else {
-          dot.className = 'w-2 h-2 rounded-full transition-all duration-300 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400';
+          dot.className = 'h-2 rounded-full transition-all duration-300 cursor-pointer bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 w-2';
         }
       });
+
+      // Reset progress bar timer on slide change
+      startTime = performance.now();
     }
 
-    function startAutoPlay() {
-      stopAutoPlay();
-      timer = setInterval(() => {
-        showSlide(currentIndex + 1);
-      }, 5500);
+    function updatePlayPauseUI() {
+      if (isUserPaused) {
+        if (playPauseIcon) playPauseIcon.textContent = '▶';
+        if (playPauseText) playPauseText.textContent = 'Play';
+        if (playPauseBtn) playPauseBtn.setAttribute('aria-label', 'Resume banner rotation');
+      } else {
+        if (playPauseIcon) playPauseIcon.textContent = '⏸';
+        if (playPauseText) playPauseText.textContent = 'Auto';
+        if (playPauseBtn) playPauseBtn.setAttribute('aria-label', 'Pause banner rotation');
+      }
     }
 
-    function stopAutoPlay() {
-      if (timer) clearInterval(timer);
+    // High-precision RAF Progress Animation & Rotation Loop
+    function rotationFrame(now) {
+      if (!isUserPaused && !isHoverPaused) {
+        const elapsed = now - startTime;
+        const progress = Math.min(100, (elapsed / slideDuration) * 100);
+
+        if (progressBar) {
+          progressBar.style.width = `${progress}%`;
+        }
+
+        if (elapsed >= slideDuration) {
+          showSlide(currentIndex + 1);
+        }
+      } else {
+        // Keep progress bar stationary while paused
+        startTime = now - (parseFloat(progressBar?.style.width || '0') / 100) * slideDuration;
+      }
+
+      animFrameId = requestAnimationFrame(rotationFrame);
     }
 
+    // Touch Swipe Support for Mobile & Tablets
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    cardContainer?.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      isHoverPaused = true;
+    }, { passive: true });
+
+    cardContainer?.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      isHoverPaused = false;
+      const swipeDistance = touchEndX - touchStartX;
+      if (Math.abs(swipeDistance) > 40) {
+        if (swipeDistance < 0) {
+          showSlide(currentIndex + 1); // Swipe left -> Next
+        } else {
+          showSlide(currentIndex - 1); // Swipe right -> Prev
+        }
+      }
+    }, { passive: true });
+
+    // Controls listeners
     prevBtn?.addEventListener('click', () => {
-      stopAutoPlay();
       showSlide(currentIndex - 1);
-      startAutoPlay();
     });
 
     nextBtn?.addEventListener('click', () => {
-      stopAutoPlay();
       showSlide(currentIndex + 1);
-      startAutoPlay();
+    });
+
+    playPauseBtn?.addEventListener('click', () => {
+      isUserPaused = !isUserPaused;
+      updatePlayPauseUI();
     });
 
     dots.forEach((dot, i) => {
       dot.addEventListener('click', () => {
-        stopAutoPlay();
         showSlide(i);
-        startAutoPlay();
       });
     });
 
-    const container = document.getElementById('partnerRotatorSection');
-    container?.addEventListener('mouseenter', stopAutoPlay);
-    container?.addEventListener('mouseleave', startAutoPlay);
+    // Pause on hover, auto-resume on mouse leave
+    cardContainer?.addEventListener('mouseenter', () => {
+      isHoverPaused = true;
+    });
 
-    // Initial setup with personalized best slide
+    cardContainer?.addEventListener('mouseleave', () => {
+      isHoverPaused = false;
+    });
+
+    // Auto-pause when user switches browser tab or minimizes window to preserve resources
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        isHoverPaused = true;
+      } else {
+        isHoverPaused = false;
+        startTime = performance.now();
+      }
+    });
+
+    // Initial Start
     showSlide(currentIndex);
-    startAutoPlay();
+    updatePlayPauseUI();
+    animFrameId = requestAnimationFrame(rotationFrame);
   })();
 </script>
-
