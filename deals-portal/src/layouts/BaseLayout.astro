@@ -127,7 +127,7 @@ const resolvedOgImage = ogImage ? (ogImage.startsWith('http') ? ogImage : `${sit
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}
   </head>
-  <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 overflow-x-hidden w-full font-sans">
+  <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 overflow-x-clip w-full font-sans">
     <PagePreloader />
     <slot />
     <CouponRevealModal storeDealsMap={storeDealsMap} />

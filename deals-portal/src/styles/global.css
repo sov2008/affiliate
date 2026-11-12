@@ -1387,11 +1387,18 @@ html.dark div.product-media-stage img {
 }
 
 /* Universal Solid Header for both Light & Dark themes */
+header,
 header.sticky,
+html.dark header,
 html.dark header.sticky {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 50 !important;
   background-color: #0B0F19 !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4) !important;
+  will-change: transform;
 }
 
 header nav,
@@ -1404,11 +1411,17 @@ html.dark header nav {
    LOW-END & ULTRA-COMPACT MOBILE ERGONOMICS (Down to 320px & Low-CPU Devices)
    ========================================================================== */
 
-/* 1. Global Zero-Horizontal-Scroll Enforcer */
-html,
+/* 1. Global Zero-Horizontal-Scroll Enforcer (Safe overflow containment without breaking position: sticky) */
+html {
+  max-width: 100vw !important;
+  overflow-x: clip !important;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
 body {
   max-width: 100vw !important;
-  overflow-x: hidden !important;
+  overflow-x: clip !important;
   position: relative;
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
