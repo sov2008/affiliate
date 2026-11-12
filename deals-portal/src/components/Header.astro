@@ -12,7 +12,7 @@ interface Props {
 const { activePath = '/', locale = DEFAULT_LOCALE } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const uniqueStores = getUniqueCleanStores(STORES_DATA);
-const storesCount = STORES_DATA.length; // 248 verified affiliate programs
+const storesCount = uniqueStores.length;
 const t = getTranslation(locale);
 const currentLocaleConfig = LOCALES[locale] || LOCALES[DEFAULT_LOCALE];
 
