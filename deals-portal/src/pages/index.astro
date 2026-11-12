@@ -976,13 +976,11 @@ const homeSchemas = [
     </section>
 
     <!-- Brand Directory Ticker (Clean Normalized Brands) -->
-    <div class="border-y border-slate-200/80 dark:border-slate-800/80 bg-slate-50 dark:bg-slate-900/60 py-3 transition-colors">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-        <div class="flex items-center gap-2 overflow-hidden min-w-0">
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 shrink-0">
-            Browse Verified Brands:
-          </span>
-          <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5" id="heroStoreTicker">
+    <div class="border-y border-slate-200/80 dark:border-slate-800/80 bg-slate-50 dark:bg-slate-900/60 py-3.5 transition-colors overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2.5">
+        <!-- Full-width infinite running ticker track -->
+        <div class="relative w-full overflow-hidden mask-fade-edges">
+          <div class="flex items-center gap-3 overflow-x-hidden no-scrollbar py-1" id="heroStoreTicker" style="will-change: scroll-position;">
             {deduplicatedTickerStores.slice(0, 18).map(store => {
               const googleFav = store.domain ? `https://www.google.com/s2/favicons?domain=${store.domain}&sz=64` : '';
               const localLogo = `/logos/${store.slug}.png`;
@@ -991,12 +989,12 @@ const homeSchemas = [
                   <a
                     href={`${base}/stores/${store.slug}/`}
                     data-filter-store={store.cleanName}
-                    class="brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-1.5"
+                    class="brand-ticker-item shrink-0 text-xs sm:text-sm font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-2"
                   >
                     <img
                       src={localLogo}
                       alt=""
-                      class="w-4 h-4 object-contain shrink-0 rounded-xs bg-transparent"
+                      class="w-5 h-5 sm:w-6 sm:h-6 object-contain shrink-0 rounded-xs bg-transparent"
                       loading="lazy"
                       data-fallback-google={googleFav}
                     />
@@ -1007,9 +1005,17 @@ const homeSchemas = [
             })}
           </div>
         </div>
-        <a href={`${base}/stores/`} class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 hover:underline shrink-0 whitespace-nowrap">
-          View All {uniqueCleanStoresList.length} Stores →
-        </a>
+
+        <!-- Sub-ticker navigation & direct catalog link -->
+        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-1 pt-0.5 border-t border-slate-200/40 dark:border-slate-800/40">
+          <span class="font-medium text-[11px] sm:text-xs text-slate-400 dark:text-slate-500">
+            Official Partner Brands
+          </span>
+          <a href={`${base}/stores/`} class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 hover:underline shrink-0 whitespace-nowrap inline-flex items-center gap-1">
+            <span>View All {uniqueCleanStoresList.length} Stores</span>
+            <span>→</span>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -4413,14 +4419,14 @@ const homeSchemas = [
             const a = document.createElement('a');
             a.href = `${resolvedBase}/stores/${brand.slug}/`;
             a.setAttribute('data-filter-store', brand.name);
-            a.className = 'brand-ticker-item shrink-0 text-xs font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-1.5';
+            a.className = 'brand-ticker-item shrink-0 text-xs sm:text-sm font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-2';
             a.style.transformOrigin = 'center center';
             a.style.willChange = 'transform';
 
             const img = document.createElement('img');
             img.src = localLogo;
             img.alt = '';
-            img.className = 'w-4 h-4 object-contain shrink-0 rounded-xs bg-transparent';
+            img.className = 'w-5 h-5 sm:w-6 sm:h-6 object-contain shrink-0 rounded-xs bg-transparent';
             img.loading = 'lazy';
             if (googleFav) img.setAttribute('data-fallback-google', googleFav);
             img.onerror = function() {
@@ -4446,8 +4452,8 @@ const homeSchemas = [
         initScrollPosition();
       }
 
-      // Base auto-spin speed (pixels per frame)
-      const BASE_SPEED = -0.65;
+      // Base auto-spin speed (pixels per frame, right-to-left: positive scrollLeft)
+      const BASE_SPEED = 0.85;
       let currentVelocity = BASE_SPEED;
       let targetVelocity = BASE_SPEED;
       let isPaused = false;
@@ -4467,7 +4473,7 @@ const homeSchemas = [
       }
 
       function triggerEntranceNudge() {
-        currentVelocity = -1.5; // Soft smooth inverted entrance drift
+        currentVelocity = 2.0; // Soft smooth right-to-left entrance drift
         targetVelocity = BASE_SPEED;
       }
 
@@ -4623,11 +4629,16 @@ const homeSchemas = [
 
   <style>
     /* Pure Zero-Chrome Brand Ticker Carousel */
+    .mask-fade-edges {
+      mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+    }
+
     .brand-ticker-slot {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0 20px;
+      padding: 0 16px;
       margin: 0;
       flex-shrink: 0;
       box-sizing: border-box;
@@ -4640,16 +4651,17 @@ const homeSchemas = [
       border: none !important;
       outline: none !important;
       box-shadow: none !important;
-      padding: 4px 6px;
+      padding: 6px 10px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px !important;
+      gap: 8px !important;
       user-select: none;
       -webkit-user-select: none;
       white-space: nowrap;
       text-decoration: none;
       transition: opacity 0.25s ease, transform 0.25s ease;
+      will-change: transform;
     }
 
     .brand-ticker-item img {
@@ -4660,6 +4672,8 @@ const homeSchemas = [
       margin-right: 0 !important;
       pointer-events: none;
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, filter 0.25s ease;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
     }
 
     /* Dark mode inversion for dark logos (ensuring high visibility on dark theme) */
@@ -4680,7 +4694,7 @@ const homeSchemas = [
 
     /* Elegant hover animation with smooth lift & glow */
     .brand-ticker-item:hover {
-      transform: translateY(-1px);
+      transform: translateY(-1.5px);
     }
 
     .brand-ticker-item:hover .brand-name-text {
@@ -4689,8 +4703,8 @@ const homeSchemas = [
     }
 
     .brand-ticker-item:hover img {
-      transform: scale(1.12);
-      filter: drop-shadow(0 2px 6px rgba(79, 70, 229, 0.35));
+      transform: scale(1.15);
+      filter: drop-shadow(0 2px 8px rgba(79, 70, 229, 0.4));
     }
 
     .brand-ticker-item.is-active-filter {
