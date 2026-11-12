@@ -11,6 +11,66 @@
       "affiliateUrl": "https://www.awin1.com/awclick.php?mid=17652&id=3148787&p=https%3A%2F%2Fwww.nike.com.br"
     },
     {
+      "brand": "Adidas",
+      "partnerSlug": "adidas",
+      "category": "Sportswear & Footwear",
+      "src": "/promo-media/adidas/adidas_hero_728x90.jpg",
+      "width": 728,
+      "height": 90,
+      "name": "Adidas Official Partner Creative (728x90)",
+      "affiliateUrl": "https://www.awin1.com/awclick.php?mid=77006&id=3148787&p=https%3A%2F%2Fwww.adidas.pl%2F"
+    },
+    {
+      "brand": "Puma",
+      "partnerSlug": "puma",
+      "category": "Sportswear & Running",
+      "src": "/promo-media/puma/puma_hero_728x90.jpg",
+      "width": 728,
+      "height": 90,
+      "name": "Puma Official Partner Creative (728x90)",
+      "affiliateUrl": "https://www.awin1.com/awclick.php?mid=32675&id=3148787&p=https%3A%2F%2Fbr.puma.com%2F"
+    },
+    {
+      "brand": "Under Armour",
+      "partnerSlug": "under-armour",
+      "category": "Performance Athletic Apparel",
+      "src": "/promo-media/under-armour/under-armour_hero_728x90.jpg",
+      "width": 728,
+      "height": 90,
+      "name": "Under Armour Official Partner Creative (728x90)",
+      "affiliateUrl": "https://www.awin1.com/awclick.php?mid=15431&id=3148787&p=https%3A%2F%2Fwww.underarmour.com%2Fen-us%2F"
+    },
+    {
+      "brand": "New Balance",
+      "partnerSlug": "new-balance",
+      "category": "Heritage Running & Sneakers",
+      "src": "/promo-media/new-balance/new-balance_hero_728x90.jpg",
+      "width": 728,
+      "height": 90,
+      "name": "New Balance Official Partner Creative (728x90)",
+      "affiliateUrl": "https://www.awin1.com/awclick.php?mid=10317&id=3148787&p=https%3A%2F%2Fnewbalance.pl"
+    },
+    {
+      "brand": "Decathlon",
+      "partnerSlug": "decathlon",
+      "category": "Multi-Sport & Outdoor Gear",
+      "src": "/promo-media/decathlon/decathlon_hero_728x90.jpg",
+      "width": 728,
+      "height": 90,
+      "name": "Decathlon Official Partner Creative (728x90)",
+      "affiliateUrl": "https://www.awin1.com/awclick.php?mid=14353&id=3148787&p=https%3A%2F%2Fwww.decathlon.de%2F"
+    },
+    {
+      "brand": "Reebok",
+      "partnerSlug": "reebok",
+      "category": "Fitness Footwear & Classics",
+      "src": "/promo-media/reebok/reebok_hero_728x90.jpg",
+      "width": 728,
+      "height": 90,
+      "name": "Reebok Official Partner Creative (728x90)",
+      "affiliateUrl": "https://www.awin1.com/awclick.php?mid=121520&id=3148787&p=https%3A%2F%2Fwww.reebok.eu%2Fpl-pl"
+    },
+    {
       "brand": "Parallels",
       "partnerSlug": "parallels",
       "category": "Software & OS Virtualization",
@@ -111,6 +171,66 @@
       "height": 250,
       "name": "Nike Official Partner Banner (300x250)",
       "affiliateUrl": "https://www.awin1.com/awclick.php?mid=17652&id=3148787&p=https%3A%2F%2Fwww.nike.com.br"
+    },
+    {
+      "brand": "Adidas",
+      "partnerSlug": "adidas",
+      "category": "Sportswear & Footwear",
+      "src": "/promo-media/adidas/adidas_card_300x250.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Adidas Official Partner Creative (300x250)",
+      "affiliateUrl": "https://www.awin1.com/awclick.php?mid=77006&id=3148787&p=https%3A%2F%2Fwww.adidas.pl%2F"
+    },
+    {
+      "brand": "Puma",
+      "partnerSlug": "puma",
+      "category": "Sportswear & Running",
+      "src": "/promo-media/puma/puma_card_300x250.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Puma Official Partner Creative (300x250)",
+      "affiliateUrl": "https://www.awin1.com/awclick.php?mid=32675&id=3148787&p=https%3A%2F%2Fbr.puma.com%2F"
+    },
+    {
+      "brand": "Under Armour",
+      "partnerSlug": "under-armour",
+      "category": "Performance Athletic Apparel",
+      "src": "/promo-media/under-armour/under-armour_card_300x250.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Under Armour Official Partner Creative (300x250)",
+      "affiliateUrl": "https://www.awin1.com/awclick.php?mid=15431&id=3148787&p=https%3A%2F%2Fwww.underarmour.com%2Fen-us%2F"
+    },
+    {
+      "brand": "New Balance",
+      "partnerSlug": "new-balance",
+      "category": "Heritage Running & Sneakers",
+      "src": "/promo-media/new-balance/new-balance_card_300x250.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "New Balance Official Partner Creative (300x250)",
+      "affiliateUrl": "https://www.awin1.com/awclick.php?mid=10317&id=3148787&p=https%3A%2F%2Fnewbalance.pl"
+    },
+    {
+      "brand": "Decathlon",
+      "partnerSlug": "decathlon",
+      "category": "Multi-Sport & Outdoor Gear",
+      "src": "/promo-media/decathlon/decathlon_card_300x250.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Decathlon Official Partner Creative (300x250)",
+      "affiliateUrl": "https://www.awin1.com/awclick.php?mid=14353&id=3148787&p=https%3A%2F%2Fwww.decathlon.de%2F"
+    },
+    {
+      "brand": "Reebok",
+      "partnerSlug": "reebok",
+      "category": "Fitness Footwear & Classics",
+      "src": "/promo-media/reebok/reebok_card_300x250.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Reebok Official Partner Creative (300x250)",
+      "affiliateUrl": "https://www.awin1.com/awclick.php?mid=121520&id=3148787&p=https%3A%2F%2Fwww.reebok.eu%2Fpl-pl"
     },
     {
       "brand": "acer-cps-in",

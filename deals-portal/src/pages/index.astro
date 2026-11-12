@@ -18,10 +18,20 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // Deduplicate stores using single canonical source of truth
 const uniqueCleanStoresList = getUniqueCleanStores(STORES_DATA);
-const deduplicatedTickerStores = uniqueCleanStoresList.map(s => ({
-  cleanName: s.canonicalBrand,
-  slug: s.slug
-}));
+const SPORTS_PRIORITY_SLUGS = ['nike', 'adidas', 'puma', 'under-armour', 'new-balance', 'decathlon', 'reebok'];
+const deduplicatedTickerStores = [...uniqueCleanStoresList]
+  .sort((a, b) => {
+    const aPri = SPORTS_PRIORITY_SLUGS.indexOf(a.slug);
+    const bPri = SPORTS_PRIORITY_SLUGS.indexOf(b.slug);
+    if (aPri !== -1 && bPri !== -1) return aPri - bPri;
+    if (aPri !== -1) return -1;
+    if (bPri !== -1) return 1;
+    return 0;
+  })
+  .map(s => ({
+    cleanName: s.canonicalBrand,
+    slug: s.slug
+  }));
 
 // Group unique categories with fallback to eliminate empty or undefined values
 const categoriesList = Array.from(
@@ -412,7 +422,7 @@ for (const bucket of storeBuckets.values()) {
 
 // Priority flagship headliners
 const HEADLINE_SLUGS = [
-  "nike", "vogacloset", "hostinger", "expressvpn", "nordvpn", "surfshark",
+  "nike", "adidas", "puma", "under-armour", "new-balance", "decathlon", "reebok", "vogacloset", "hostinger", "expressvpn", "nordvpn", "surfshark",
   "aliexpress", "kaspersky", "booking.com", "allpowers", "harfington",
   "corsair", "prohoster", "redmagic", "adguard", "airalo",
   "newbalance", "lenovo", "miravia-es-pt", "honor-uae", "answear", "chicme"
@@ -4073,6 +4083,41 @@ const homeSchemas = [
       const GEO_BRAND_POOLS = {
       "UA": [
             {
+                  "name": "Nike",
+                  "slug": "nike",
+                  "domain": "nike.com"
+            },
+            {
+                  "name": "Adidas",
+                  "slug": "adidas",
+                  "domain": "adidas.com"
+            },
+            {
+                  "name": "Puma",
+                  "slug": "puma",
+                  "domain": "puma.com"
+            },
+            {
+                  "name": "Under Armour",
+                  "slug": "under-armour",
+                  "domain": "underarmour.com"
+            },
+            {
+                  "name": "New Balance",
+                  "slug": "new-balance",
+                  "domain": "newbalance.com"
+            },
+            {
+                  "name": "Decathlon",
+                  "slug": "decathlon",
+                  "domain": "decathlon.com"
+            },
+            {
+                  "name": "Reebok",
+                  "slug": "reebok",
+                  "domain": "reebok.com"
+            },
+            {
                   "name": "Touch",
                   "slug": "touch",
                   "domain": "touch.com.ua"
@@ -4119,6 +4164,41 @@ const homeSchemas = [
             }
       ],
       "GCC": [
+            {
+                  "name": "Nike",
+                  "slug": "nike",
+                  "domain": "nike.com"
+            },
+            {
+                  "name": "Adidas",
+                  "slug": "adidas",
+                  "domain": "adidas.com"
+            },
+            {
+                  "name": "Puma",
+                  "slug": "puma",
+                  "domain": "puma.com"
+            },
+            {
+                  "name": "Under Armour",
+                  "slug": "under-armour",
+                  "domain": "underarmour.com"
+            },
+            {
+                  "name": "New Balance",
+                  "slug": "new-balance",
+                  "domain": "newbalance.com"
+            },
+            {
+                  "name": "Decathlon",
+                  "slug": "decathlon",
+                  "domain": "decathlon.com"
+            },
+            {
+                  "name": "Reebok",
+                  "slug": "reebok",
+                  "domain": "reebok.com"
+            },
             {
                   "name": "VogaCloset",
                   "slug": "vogacloset",
@@ -4177,6 +4257,41 @@ const homeSchemas = [
       ],
       "US": [
             {
+                  "name": "Nike",
+                  "slug": "nike",
+                  "domain": "nike.com"
+            },
+            {
+                  "name": "Adidas",
+                  "slug": "adidas",
+                  "domain": "adidas.com"
+            },
+            {
+                  "name": "Puma",
+                  "slug": "puma",
+                  "domain": "puma.com"
+            },
+            {
+                  "name": "Under Armour",
+                  "slug": "under-armour",
+                  "domain": "underarmour.com"
+            },
+            {
+                  "name": "New Balance",
+                  "slug": "new-balance",
+                  "domain": "newbalance.com"
+            },
+            {
+                  "name": "Decathlon",
+                  "slug": "decathlon",
+                  "domain": "decathlon.com"
+            },
+            {
+                  "name": "Reebok",
+                  "slug": "reebok",
+                  "domain": "reebok.com"
+            },
+            {
                   "name": "ExpressVPN",
                   "slug": "expressvpn",
                   "domain": "expressvpn.com"
@@ -4229,6 +4344,41 @@ const homeSchemas = [
       ],
       "EU": [
             {
+                  "name": "Nike",
+                  "slug": "nike",
+                  "domain": "nike.com"
+            },
+            {
+                  "name": "Adidas",
+                  "slug": "adidas",
+                  "domain": "adidas.com"
+            },
+            {
+                  "name": "Puma",
+                  "slug": "puma",
+                  "domain": "puma.com"
+            },
+            {
+                  "name": "Under Armour",
+                  "slug": "under-armour",
+                  "domain": "underarmour.com"
+            },
+            {
+                  "name": "New Balance",
+                  "slug": "new-balance",
+                  "domain": "newbalance.com"
+            },
+            {
+                  "name": "Decathlon",
+                  "slug": "decathlon",
+                  "domain": "decathlon.com"
+            },
+            {
+                  "name": "Reebok",
+                  "slug": "reebok",
+                  "domain": "reebok.com"
+            },
+            {
                   "name": "Abelssoft",
                   "slug": "abelssoft",
                   "domain": "abelssoft.de"
@@ -4276,6 +4426,41 @@ const homeSchemas = [
       ],
       "IN": [
             {
+                  "name": "Nike",
+                  "slug": "nike",
+                  "domain": "nike.com"
+            },
+            {
+                  "name": "Adidas",
+                  "slug": "adidas",
+                  "domain": "adidas.com"
+            },
+            {
+                  "name": "Puma",
+                  "slug": "puma",
+                  "domain": "puma.com"
+            },
+            {
+                  "name": "Under Armour",
+                  "slug": "under-armour",
+                  "domain": "underarmour.com"
+            },
+            {
+                  "name": "New Balance",
+                  "slug": "new-balance",
+                  "domain": "newbalance.com"
+            },
+            {
+                  "name": "Decathlon",
+                  "slug": "decathlon",
+                  "domain": "decathlon.com"
+            },
+            {
+                  "name": "Reebok",
+                  "slug": "reebok",
+                  "domain": "reebok.com"
+            },
+            {
                   "name": "Lenovo",
                   "slug": "lenovo-india-in",
                   "domain": "lenovo.com"
@@ -4313,6 +4498,41 @@ const homeSchemas = [
       ],
       "MX": [
             {
+                  "name": "Nike",
+                  "slug": "nike",
+                  "domain": "nike.com"
+            },
+            {
+                  "name": "Adidas",
+                  "slug": "adidas",
+                  "domain": "adidas.com"
+            },
+            {
+                  "name": "Puma",
+                  "slug": "puma",
+                  "domain": "puma.com"
+            },
+            {
+                  "name": "Under Armour",
+                  "slug": "under-armour",
+                  "domain": "underarmour.com"
+            },
+            {
+                  "name": "New Balance",
+                  "slug": "new-balance",
+                  "domain": "newbalance.com"
+            },
+            {
+                  "name": "Decathlon",
+                  "slug": "decathlon",
+                  "domain": "decathlon.com"
+            },
+            {
+                  "name": "Reebok",
+                  "slug": "reebok",
+                  "domain": "reebok.com"
+            },
+            {
                   "name": "Levis",
                   "slug": "levis",
                   "domain": "levi.com.mx"
@@ -4345,6 +4565,41 @@ const homeSchemas = [
       ],
       "BR": [
             {
+                  "name": "Nike",
+                  "slug": "nike",
+                  "domain": "nike.com"
+            },
+            {
+                  "name": "Adidas",
+                  "slug": "adidas",
+                  "domain": "adidas.com"
+            },
+            {
+                  "name": "Puma",
+                  "slug": "puma",
+                  "domain": "puma.com"
+            },
+            {
+                  "name": "Under Armour",
+                  "slug": "under-armour",
+                  "domain": "underarmour.com"
+            },
+            {
+                  "name": "New Balance",
+                  "slug": "new-balance",
+                  "domain": "newbalance.com"
+            },
+            {
+                  "name": "Decathlon",
+                  "slug": "decathlon",
+                  "domain": "decathlon.com"
+            },
+            {
+                  "name": "Reebok",
+                  "slug": "reebok",
+                  "domain": "reebok.com"
+            },
+            {
                   "name": "Shopee",
                   "slug": "shopee-br",
                   "domain": "shopee.com.br"
@@ -4371,6 +4626,41 @@ const homeSchemas = [
             }
       ],
       "PL": [
+            {
+                  "name": "Nike",
+                  "slug": "nike",
+                  "domain": "nike.com"
+            },
+            {
+                  "name": "Adidas",
+                  "slug": "adidas",
+                  "domain": "adidas.com"
+            },
+            {
+                  "name": "Puma",
+                  "slug": "puma",
+                  "domain": "puma.com"
+            },
+            {
+                  "name": "Under Armour",
+                  "slug": "under-armour",
+                  "domain": "underarmour.com"
+            },
+            {
+                  "name": "New Balance",
+                  "slug": "new-balance",
+                  "domain": "newbalance.com"
+            },
+            {
+                  "name": "Decathlon",
+                  "slug": "decathlon",
+                  "domain": "decathlon.com"
+            },
+            {
+                  "name": "Reebok",
+                  "slug": "reebok",
+                  "domain": "reebok.com"
+            },
             {
                   "name": "MEGOGO PL",
                   "slug": "megogo",
@@ -4399,6 +4689,41 @@ const homeSchemas = [
       ],
       "CZ": [
             {
+                  "name": "Nike",
+                  "slug": "nike",
+                  "domain": "nike.com"
+            },
+            {
+                  "name": "Adidas",
+                  "slug": "adidas",
+                  "domain": "adidas.com"
+            },
+            {
+                  "name": "Puma",
+                  "slug": "puma",
+                  "domain": "puma.com"
+            },
+            {
+                  "name": "Under Armour",
+                  "slug": "under-armour",
+                  "domain": "underarmour.com"
+            },
+            {
+                  "name": "New Balance",
+                  "slug": "new-balance",
+                  "domain": "newbalance.com"
+            },
+            {
+                  "name": "Decathlon",
+                  "slug": "decathlon",
+                  "domain": "decathlon.com"
+            },
+            {
+                  "name": "Reebok",
+                  "slug": "reebok",
+                  "domain": "reebok.com"
+            },
+            {
                   "name": "Zonky",
                   "slug": "zonky-cz",
                   "domain": "zonky.cz"
@@ -4425,6 +4750,41 @@ const homeSchemas = [
             }
       ],
       "GLOBAL": [
+            {
+                  "name": "Nike",
+                  "slug": "nike",
+                  "domain": "nike.com"
+            },
+            {
+                  "name": "Adidas",
+                  "slug": "adidas",
+                  "domain": "adidas.com"
+            },
+            {
+                  "name": "Puma",
+                  "slug": "puma",
+                  "domain": "puma.com"
+            },
+            {
+                  "name": "Under Armour",
+                  "slug": "under-armour",
+                  "domain": "underarmour.com"
+            },
+            {
+                  "name": "New Balance",
+                  "slug": "new-balance",
+                  "domain": "newbalance.com"
+            },
+            {
+                  "name": "Decathlon",
+                  "slug": "decathlon",
+                  "domain": "decathlon.com"
+            },
+            {
+                  "name": "Reebok",
+                  "slug": "reebok",
+                  "domain": "reebok.com"
+            },
             {
                   "name": "AliExpress",
                   "slug": "alibaba",
