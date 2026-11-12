@@ -15,64 +15,31 @@ interface Props {
 const { endingSoonDeals = [] } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// 1. Tab 1: Expiring Soon Deals (Sanitized & Normalized)
+// Fast lookup map for stores
 const STORES_MAP: Record<string, typeof STORES_DATA[0]> = {};
 for (const s of STORES_DATA) {
   STORES_MAP[s.slug] = s;
 }
 
-// 2. Tab 2: Verified In-Stock Gear (Deduplicated)
-const rawProducts: StoreProduct[] = Object.values(STORE_PRODUCTS).flat();
-const gearProducts = deduplicateProducts(
-  rawProducts.filter(p => ['945industries', 'carpuride', 'rexing', 'whokeys'].includes(p.storeSlug))
-).slice(0, 4);
+// 1. Tab 1 (Primary): Curated & Personalized Partner Products Rotation
+// Filter out service items, warranty protection and obsolete seasonal bundles
+const allRawProducts: StoreProduct[] = Object.values(STORE_PRODUCTS).flat();
+const filteredProducts = allRawProducts.filter(p => {
+  const t = p.title.toLowerCase();
+  const d = p.description.toLowerCase();
+  if (t.includes('worry-free') || t.includes('shipping protection') || t.includes('insurance')) return false;
+  if (t.includes('halloween') || d.includes('halloween bundle') || t.includes('autumn sale')) return false;
+  return true;
+});
 
-// 3. Tab 3: Seasonal & Night-Ops Deals
-const seasonalDeals = [
-  {
-    storeName: 'Rexing USA',
-    storeSlug: 'rexing',
-    title: 'Rexing B1 Night Vision 4K Ultra HD Binoculars',
-    desc: 'High-power infrared night vision, 10x optical zoom, and 4K digital video recording.',
-    price: '$229.99',
-    badge: 'NIGHT OPS',
-    imageUrl: 'https://cdn.shopify.com/s/files/1/0556/5536/6846/files/B1C-8.jpg?v=1740688462',
-    affiliateUrl: 'https://www.jdoqocy.com/click-101907236-13999325-1767249723000'
-  },
-  {
-    storeName: '945 Industries',
-    storeSlug: '945industries',
-    title: 'QAPL Tactical EDC Bundle (Black Friday Edition)',
-    desc: 'Limited seasonal concealment bundle with modular tactical pouch and custom harness.',
-    price: '$263.99',
-    badge: '🔥 BLACK FRIDAY',
-    imageUrl: 'https://cdn.shopify.com/s/files/1/0660/8909/1258/files/Halloween_Bundle_5.1.jpg?v=1760810280',
-    affiliateUrl: 'https://www.jdoqocy.com/click-101907236-17157463-1759456272000'
-  },
-  {
-    storeName: 'Whokeys',
-    storeSlug: 'whokeys',
-    title: 'Black Myth: Wukong (Dark Action RPG Steam Key)',
-    desc: 'Mythological combat in dark fantastical realms with instant digital steam delivery.',
-    price: '$67.33',
-    badge: 'DARK FANTASY',
-    imageUrl: 'https://file-cdn.whokeys.com/product/12cdba1d52d56bcdef85cbf1234dfbb9.png',
-    affiliateUrl: 'https://www.kqzyfj.com/click-101907236-17308132-1784691378000'
-  },
-  {
-    storeName: 'Carpuride',
-    storeSlug: 'carpuride',
-    title: 'Carpuride Wireless Apple CarPlay Multimedia Screen',
-    desc: 'Dual Bluetooth audio and night-driving navigation with crystal-clear touchscreen.',
-    price: '$179.90',
-    badge: 'AUTUMN SALE',
-    imageUrl: 'https://cdn.shopify.com/s/files/1/0566/5112/0797/products/01_1_500x.jpg?v=1655185855',
-    affiliateUrl: 'https://www.dpbolvw.net/click-101907236-17349415'
-  }
-];
+// Deduplicate and curate top verified store products
+const curatedProducts = deduplicateProducts(filteredProducts);
 
-// 4. Tab 4: Software Spotlight (Abelssoft + Top Utilities)
+// 2. Tab 2: Expiring Soon Coupon Deals ({endingSoonDeals.length})
+
+// 3. Tab 3: Software & Digital Utilities Spotlight (Abelssoft + Whokeys + Top Tech)
 const softwareBanner = PROMOTIONAL_BANNERS.find(b => b.storeSlug === 'abelssoft') || PROMOTIONAL_BANNERS[0];
+const softwareProducts = curatedProducts.filter(p => ['abelssoft', 'whokeys', 'nordvpn-standard-term'].includes(p.storeSlug)).slice(0, 4);
 ---
 
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8" id="curatedSpotlightSection">
@@ -81,8 +48,8 @@ const softwareBanner = PROMOTIONAL_BANNERS.find(b => b.storeSlug === 'abelssoft'
     <!-- Section Header & Pill Tabs Bar -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-slate-100 dark:border-slate-800">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-lg border border-indigo-200/70 dark:border-indigo-500/30 shrink-0">
-          ✨
+        <div class="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-lg border border-indigo-200/70 dark:border-indigo-500/30 shrink-0 shadow-xs">
+          ⭐
         </div>
         <div>
           <div class="flex items-center gap-2">
@@ -91,43 +58,32 @@ const softwareBanner = PROMOTIONAL_BANNERS.find(b => b.storeSlug === 'abelssoft'
               Verified Feeds
             </span>
           </div>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Top-performing promotions, seasonal drops, and verified in-stock gear</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Recommended partner products, top trending gear, and urgent verified vouchers</p>
         </div>
       </div>
 
-      <!-- Pill Tabs Control -->
+      <!-- Pill Tabs Control (Prioritizing Recommended Products First) -->
       <div class="flex items-center gap-1.5 p-1 bg-slate-100/80 dark:bg-slate-800/80 rounded-2xl border border-slate-200/60 dark:border-slate-700/60 overflow-x-auto no-scrollbar shrink-0" role="tablist">
         <button
           type="button"
           role="tab"
           aria-selected="true"
-          data-spotlight-tab="expiring"
+          data-spotlight-tab="products"
           class="spotlight-tab-btn is-active px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition cursor-pointer flex items-center gap-1.5 shrink-0"
+        >
+          <span>⭐</span>
+          <span>Recommended Products</span>
+        </button>
+
+        <button
+          type="button"
+          role="tab"
+          aria-selected="false"
+          data-spotlight-tab="expiring"
+          class="spotlight-tab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition cursor-pointer flex items-center gap-1.5 shrink-0"
         >
           <span>🔥</span>
           <span>Expiring Soon ({endingSoonDeals.length})</span>
-        </button>
-
-        <button
-          type="button"
-          role="tab"
-          aria-selected="false"
-          data-spotlight-tab="instock"
-          class="spotlight-tab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition cursor-pointer flex items-center gap-1.5 shrink-0"
-        >
-          <span>📦</span>
-          <span>Verified In-Stock Gear</span>
-        </button>
-
-        <button
-          type="button"
-          role="tab"
-          aria-selected="false"
-          data-spotlight-tab="seasonal"
-          class="spotlight-tab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition cursor-pointer flex items-center gap-1.5 shrink-0"
-        >
-          <span>🎃</span>
-          <span>Black Friday &amp; Seasonal</span>
         </button>
 
         <button
@@ -138,26 +94,122 @@ const softwareBanner = PROMOTIONAL_BANNERS.find(b => b.storeSlug === 'abelssoft'
           class="spotlight-tab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition cursor-pointer flex items-center gap-1.5 shrink-0"
         >
           <span>💻</span>
-          <span>Software Spotlight</span>
+          <span>Software &amp; Digital</span>
         </button>
       </div>
     </div>
 
-    <!-- TAB 1 CONTENT: Expiring Soon (Default) -->
-    <div id="tabContentExpiring" class="spotlight-tab-panel mt-6 animate-fadeIn">
+    <!-- TAB 1 CONTENT: Recommended Partner Products Rotation (Default) -->
+    <div id="tabContentProducts" class="spotlight-tab-panel mt-6 animate-fadeIn">
+      <!-- Carousel controls subheader -->
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Verified In-Stock Deals</span>
+          <span class="text-[10px] font-semibold text-slate-400 dark:text-slate-500">• Tailored to your region &amp; preferences</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button
+            type="button"
+            id="spotlightProductPrevBtn"
+            class="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-bold transition shadow-2xs cursor-pointer"
+            title="Previous products"
+          >
+            ‹
+          </button>
+          <span id="spotlightProductPageIndicator" class="text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400 px-1">1 / 4</span>
+          <button
+            type="button"
+            id="spotlightProductNextBtn"
+            class="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center justify-center text-xs font-bold transition shadow-2xs cursor-pointer"
+            title="Next products"
+          >
+            ›
+          </button>
+        </div>
+      </div>
+
+      <!-- Products Grid (Dynamically partitioned / rotated by client script) -->
+      <div id="spotlightProductsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {curatedProducts.map((item, idx) => {
+          const cleanStore = cleanBrandName(item.storeSlug, undefined, item.title, item.storeSlug);
+          const allowedRegs = getStoreAllowedRegions(item.storeSlug, cleanStore);
+          const initialHidden = idx >= 4 ? 'hidden' : '';
+
+          return (
+            <article
+              class={`spotlight-product-card bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 rounded-2xl p-4 flex flex-col justify-between transition-all group shadow-xs ${initialHidden}`}
+              data-regions={allowedRegs.join(',')}
+              data-store-slug={item.storeSlug}
+              data-product-idx={idx}
+            >
+              <div>
+                <!-- Product Media Stage (Uniform White Surface) -->
+                <div class="product-media-stage relative w-full h-[168px] rounded-xl overflow-hidden bg-white border border-slate-200/80 flex items-center justify-center p-3 mb-3 shadow-xs">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    loading="lazy"
+                    class="max-h-[136px] w-auto max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
+                  />
+                  {item.badge && (
+                    <span class="absolute top-2 left-2 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-900/85 backdrop-blur-md text-amber-300 border border-amber-400/30 whitespace-nowrap shadow-xs">
+                      {item.badge}
+                    </span>
+                  )}
+                  <span class="absolute bottom-2 right-2 text-xs font-black px-2.5 py-1 rounded-lg bg-emerald-600 text-white shadow-sm whitespace-nowrap">
+                    {item.price}
+                  </span>
+                </div>
+
+                <div class="flex items-center justify-between gap-2 mb-1">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 truncate">
+                    {cleanStore}
+                  </span>
+                  <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 shrink-0">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Verified
+                  </span>
+                </div>
+
+                <h3 class="text-xs font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  {item.title}
+                </h3>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-1 font-medium">
+                  {item.description}
+                </p>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 flex items-center justify-between gap-2">
+                <a
+                  href={`${base}/stores/${item.storeSlug}/`}
+                  class="text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
+                >
+                  Store Hub ↗
+                </a>
+                <a
+                  href={item.productUrl}
+                  target="_blank"
+                  rel="nofollow sponsored"
+                  class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1 shadow-xs active:scale-95"
+                >
+                  <span>Buy Deal</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- TAB 2 CONTENT: Expiring Soon Vouchers -->
+    <div id="tabContentExpiring" class="spotlight-tab-panel mt-6 hidden animate-fadeIn">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {endingSoonDeals.map((deal, idx) => {
           const rawStore = deal.storeName;
           const cleanName = cleanBrandName(rawStore, STORE_DOMAINS_MAP[deal.storeSlug], deal.title, deal.storeSlug);
           const badge = normalizeDiscountBadge(deal.discountBadge, deal.title);
           const codeSuffix = deal.code ? deal.code.slice(-3) : 'OFF';
-          const scarcityList = [
-            { time: '02h 18m', count: 9 },
-            { time: '04h 45m', count: 6 },
-            { time: '01h 32m', count: 4 },
-            { time: '03h 10m', count: 8 }
-          ];
-          const scarcity = scarcityList[idx % scarcityList.length];
 
           const allowedRegs = getStoreAllowedRegions(deal.storeSlug, cleanName);
           const dealLang = detectDealLanguage({ storeSlug: deal.storeSlug, title: deal.title, description: deal.description });
@@ -224,120 +276,10 @@ const softwareBanner = PROMOTIONAL_BANNERS.find(b => b.storeSlug === 'abelssoft'
       </div>
     </div>
 
-    <!-- TAB 2 CONTENT: Verified In-Stock Gear -->
-    <div id="tabContentInstock" class="spotlight-tab-panel mt-6 hidden animate-fadeIn">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {gearProducts.map(item => {
-          const cleanStore = cleanBrandName(item.storeSlug, undefined, item.title, item.storeSlug);
-          return (
-            <article class="bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 rounded-2xl p-4 flex flex-col justify-between transition-all group shadow-xs">
-              <div>
-                <!-- Product Media Stage (Uniform White Studio Surface) -->
-                <div class="product-media-stage relative w-full h-[168px] rounded-xl overflow-hidden bg-white border border-slate-200/80 flex items-center justify-center p-3 mb-3 shadow-xs">
-                  <img
-                    src={item.imageUrl}
-                    alt={item.title}
-                    loading="lazy"
-                    class="max-h-[136px] w-auto max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
-                  />
-                  {item.badge && (
-                    <span class="absolute top-2 left-2 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-900/85 backdrop-blur-md text-amber-300 border border-amber-400/30 whitespace-nowrap">
-                      {item.badge}
-                    </span>
-                  )}
-                  <span class="absolute bottom-2 right-2 text-xs font-black px-2.5 py-1 rounded-lg bg-emerald-600 text-white shadow-sm whitespace-nowrap">
-                    {item.price}
-                  </span>
-                </div>
-
-                <div class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-1">
-                  {cleanStore}
-                </div>
-                <h3 class="text-xs font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                  {item.title}
-                </h3>
-                <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-1 font-medium">
-                  {item.description}
-                </p>
-              </div>
-
-              <div class="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 flex items-center justify-between gap-2">
-                <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  In-Stock
-                </span>
-                <a
-                  href={item.productUrl}
-                  target="_blank"
-                  rel="nofollow sponsored"
-                  class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1"
-                >
-                  <span>Buy Deal</span>
-                  <span>↗</span>
-                </a>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-    </div>
-
-    <!-- TAB 3 CONTENT: Seasonal & Night-Ops Deals -->
-    <div id="tabContentSeasonal" class="spotlight-tab-panel mt-6 hidden animate-fadeIn">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {seasonalDeals.map(item => (
-          <article class="bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 rounded-2xl p-4 flex flex-col justify-between transition-all group shadow-xs">
-            <div>
-              <!-- Product Media Stage -->
-              <div class="product-media-stage relative w-full h-[168px] rounded-xl overflow-hidden bg-white border border-slate-200/80 flex items-center justify-center p-3 mb-3 shadow-xs">
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  loading="lazy"
-                  class="max-h-[136px] w-auto max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
-                />
-                <span class="absolute top-2 left-2 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-900/85 backdrop-blur-md text-amber-300 border border-amber-400/30 whitespace-nowrap">
-                  {item.badge}
-                </span>
-                <span class="absolute bottom-2 right-2 text-xs font-black px-2.5 py-1 rounded-lg bg-emerald-600 text-white shadow-sm whitespace-nowrap">
-                  {item.price}
-                </span>
-              </div>
-
-              <div class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-1">
-                {item.storeName}
-              </div>
-              <h3 class="text-xs font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                {item.title}
-              </h3>
-              <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-1 font-medium">
-                {item.desc}
-              </p>
-            </div>
-
-            <div class="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 flex items-center justify-between gap-2">
-              <span class="text-[10px] font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1">
-                <span>⚡</span>
-                Limited Run
-              </span>
-              <a
-                href={item.affiliateUrl}
-                target="_blank"
-                rel="nofollow sponsored"
-                class="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1"
-              >
-                <span>View Deal</span>
-                <span>↗</span>
-              </a>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-
-    <!-- TAB 4 CONTENT: Software Spotlight (Abelssoft) -->
+    <!-- TAB 3 CONTENT: Software & Digital Solutions -->
     <div id="tabContentSoftware" class="spotlight-tab-panel mt-6 hidden animate-fadeIn">
-      <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 text-white rounded-2xl p-6 sm:p-8 border border-indigo-500/30 flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden shadow-xl">
+      <!-- Top banner for Abelssoft -->
+      <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 text-white rounded-2xl p-6 sm:p-7 border border-indigo-500/30 flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden shadow-xl mb-6">
         <div class="absolute -right-16 -top-16 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="space-y-3 flex-1 min-w-0 relative z-10 text-center lg:text-left">
@@ -376,17 +318,73 @@ const softwareBanner = PROMOTIONAL_BANNERS.find(b => b.storeSlug === 'abelssoft'
           </a>
         </div>
       </div>
+
+      <!-- Verified Software & Digital Products Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {softwareProducts.map(item => {
+          const cleanStore = cleanBrandName(item.storeSlug, undefined, item.title, item.storeSlug);
+          return (
+            <article class="bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 rounded-2xl p-4 flex flex-col justify-between transition-all group shadow-xs">
+              <div>
+                <div class="product-media-stage relative w-full h-[150px] rounded-xl overflow-hidden bg-white border border-slate-200/80 flex items-center justify-center p-3 mb-3 shadow-xs">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    loading="lazy"
+                    class="max-h-[120px] w-auto max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
+                  />
+                  {item.badge && (
+                    <span class="absolute top-2 left-2 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-900/85 backdrop-blur-md text-amber-300 border border-amber-400/30 whitespace-nowrap">
+                      {item.badge}
+                    </span>
+                  )}
+                  <span class="absolute bottom-2 right-2 text-xs font-black px-2.5 py-1 rounded-lg bg-emerald-600 text-white shadow-sm whitespace-nowrap">
+                    {item.price}
+                  </span>
+                </div>
+
+                <div class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-1">
+                  {cleanStore}
+                </div>
+                <h3 class="text-xs font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  {item.title}
+                </h3>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-1 font-medium">
+                  {item.description}
+                </p>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 flex items-center justify-between gap-2">
+                <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Instant Delivery
+                </span>
+                <a
+                  href={item.productUrl}
+                  target="_blank"
+                  rel="nofollow sponsored"
+                  class="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1"
+                >
+                  <span>Get License</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
     </div>
 
   </div>
 </section>
 
 <script is:inline>
+  // Spotlight Tab Switching Logic
   document.querySelectorAll('.spotlight-tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const target = btn.getAttribute('data-spotlight-tab');
 
-      // Update button states
+      // Update button visual states
       document.querySelectorAll('.spotlight-tab-btn').forEach(b => {
         const isActive = b === btn;
         b.setAttribute('aria-selected', isActive ? 'true' : 'false');
@@ -397,9 +395,8 @@ const softwareBanner = PROMOTIONAL_BANNERS.find(b => b.storeSlug === 'abelssoft'
 
       // Show target panel
       const panels = {
+        'products': document.getElementById('tabContentProducts'),
         'expiring': document.getElementById('tabContentExpiring'),
-        'instock': document.getElementById('tabContentInstock'),
-        'seasonal': document.getElementById('tabContentSeasonal'),
         'software': document.getElementById('tabContentSoftware')
       };
 
@@ -414,8 +411,94 @@ const softwareBanner = PROMOTIONAL_BANNERS.find(b => b.storeSlug === 'abelssoft'
     });
   });
 
-  // Dynamic Geo & Language filtering for Curated Spotlight Expiring Soon cards
-function syncSpotlightFilters() {
+  // Dynamic Product Carousel & Geo-matching
+  (function initProductRotation() {
+    let currentPage = 0;
+    const pageSize = 4;
+    let visiblePool = [];
+
+    const allProductCards = Array.from(document.querySelectorAll('.spotlight-product-card'));
+    const prevBtn = document.getElementById('spotlightProductPrevBtn');
+    const nextBtn = document.getElementById('spotlightProductNextBtn');
+    const indicator = document.getElementById('spotlightProductPageIndicator');
+
+    function calculatePool() {
+      let reg = 'GLOBAL';
+      try {
+        reg = localStorage.getItem('promoradar_selected_region') || 'GLOBAL';
+      } catch (e) {}
+
+      const primary = [];
+      const fallback = [];
+
+      allProductCards.forEach(card => {
+        const cRegions = (card.getAttribute('data-regions') || 'GLOBAL').split(',');
+        const matches = (!reg || reg === 'ALL' || reg === 'GLOBAL') ? true : cRegions.includes(reg);
+
+        if (matches) {
+          primary.push(card);
+        } else {
+          fallback.push(card);
+        }
+      });
+
+      visiblePool = primary.concat(fallback);
+      if (visiblePool.length === 0) visiblePool = allProductCards;
+      currentPage = 0;
+      renderPage();
+    }
+
+    function renderPage() {
+      const totalPages = Math.max(1, Math.ceil(visiblePool.length / pageSize));
+      if (currentPage >= totalPages) currentPage = 0;
+      if (currentPage < 0) currentPage = totalPages - 1;
+
+      const start = currentPage * pageSize;
+      const end = start + pageSize;
+      const currentCardsSet = new Set(visiblePool.slice(start, end));
+
+      allProductCards.forEach(card => {
+        if (currentCardsSet.has(card)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      if (indicator) {
+        indicator.textContent = `${currentPage + 1} / ${totalPages}`;
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        currentPage--;
+        renderPage();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        currentPage++;
+        renderPage();
+      });
+    }
+
+    // Auto rotate products smoothly every 7 seconds when active tab is visible
+    let autoRotateTimer = setInterval(() => {
+      const productsPanel = document.getElementById('tabContentProducts');
+      if (productsPanel && !productsPanel.classList.contains('hidden') && !document.hidden) {
+        currentPage++;
+        renderPage();
+      }
+    }, 7000);
+
+    calculatePool();
+    window.addEventListener('promoradar_region_changed', calculatePool);
+  })();
+
+  // Dynamic Geo & Language filtering for Expiring Soon cards
+  function syncSpotlightFilters() {
     let reg = 'GLOBAL';
     let lang = 'en';
     try {
@@ -470,4 +553,3 @@ function syncSpotlightFilters() {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 </style>
-
