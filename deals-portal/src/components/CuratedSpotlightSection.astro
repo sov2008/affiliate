@@ -149,7 +149,10 @@ const softwareProducts = curatedProducts.filter(p => ['abelssoft', 'whokeys', 'n
                     src={item.imageUrl}
                     alt={item.title}
                     loading="lazy"
-                    class="max-h-[136px] w-auto max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
+                    decoding="async"
+                    class="max-h-[136px] w-auto max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300 smooth-image-loading"
+                    onload="this.classList.remove('smooth-image-loading'); this.classList.add('smooth-image-loaded'); this.closest('.product-media-stage')?.classList.add('loaded');"
+                    onerror="this.classList.remove('smooth-image-loading'); this.classList.add('smooth-image-loaded'); this.closest('.product-media-stage')?.classList.add('loaded');"
                   />
                   {item.badge && (
                     <span class="absolute top-2 left-2 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-900/85 backdrop-blur-md text-amber-300 border border-amber-400/30 whitespace-nowrap shadow-xs">

@@ -1493,7 +1493,71 @@ iframe {
   }
 }
 
-/* 5. Custom Lightweight Mobile Scrollbar */
+/* 5. Progressive Smooth Image Loading & Fade-In (UI/UX Pro Max) */
+img {
+  content-visibility: auto;
+}
+
+/* Image loading skeleton / shimmer & smooth transition */
+img:not([src=""]):not([src^="data:"]) {
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease-out;
+}
+
+/* Images pending load have subtle soft opacity */
+img.smooth-image-loading {
+  opacity: 0;
+  filter: blur(4px);
+  will-change: opacity, filter;
+}
+
+/* Images successfully loaded gracefully fade in */
+img.smooth-image-loaded {
+  opacity: 1 !important;
+  filter: blur(0px) !important;
+}
+
+/* Product media stage skeleton shimmer effect */
+.product-media-stage {
+  position: relative;
+  background-color: #ffffff;
+}
+
+.product-media-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(241, 245, 249, 0.6) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: stageShimmer 1.8s infinite linear;
+  pointer-events: none;
+  opacity: 0.6;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+.product-media-stage.loaded::before {
+  display: none;
+}
+
+@keyframes stageShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  img:not([src=""]):not([src^="data:"]) {
+    transition: none !important;
+  }
+  .product-media-stage::before {
+    animation: none !important;
+  }
+}
+
+/* 6. Custom Lightweight Mobile Scrollbar */
 @media (max-width: 768px) {
   ::-webkit-scrollbar {
     width: 4px;
