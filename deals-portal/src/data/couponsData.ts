@@ -23591,7 +23591,7 @@ export const STORES_DATA: StoreProfile[] = [
       }
     ],
     "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=128867&id=3148787"
-  }
+  },
   {
     slug: 'polis',
     name: 'Polis UA',
