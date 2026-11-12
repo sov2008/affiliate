@@ -188,10 +188,10 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
     </a>
 
     <!-- Desktop Navigation Menu Tabs (Clean, Frameless, Pure Typography & Lucide Icons) -->
-    <nav id="headerNavMenu" class="header-nav-menu hidden xl:flex items-center gap-1 text-xs font-bold" aria-label="Main Navigation">
+    <nav id="headerNavMenu" class="header-nav-menu hidden xl:flex items-center gap-0.5 2xl:gap-1 text-xs font-bold" aria-label="Main Navigation">
       <a
         href={`${base}/`}
-        class={`header-stagger-item flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
+        class={`header-stagger-item flex items-center gap-1.5 px-2.5 2xl:px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
           activePath === '/' 
             ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400 font-extrabold shadow-sm shadow-indigo-500/20' 
             : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15'
@@ -202,7 +202,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
       </a>
       <a
         href={`${base}/events/black-friday/`}
-        class={`header-stagger-item flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
+        class={`header-stagger-item flex items-center gap-1.5 px-2.5 2xl:px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
           activePath.startsWith('/events/black-friday') 
             ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400 font-extrabold shadow-sm shadow-indigo-500/20' 
             : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15'
@@ -216,7 +216,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
         <a
           href={`${base}/stores/`}
           id="headerStoresNavBtn"
-          class={`flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
+          class={`flex items-center gap-1.5 px-2.5 2xl:px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
             activePath.startsWith('/stores')
               ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400 font-extrabold shadow-sm shadow-indigo-500/20' 
               : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15 group-hover/stores:bg-white/5 group-hover/stores:border-white/15 group-hover/stores:text-white'
@@ -311,7 +311,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
         <a
           href={`${base}/categories/`}
           id="headerCategoriesNavBtn"
-          class={`flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
+          class={`flex items-center gap-1.5 px-2.5 2xl:px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
             activePath.startsWith('/categories') 
               ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400 font-extrabold shadow-sm shadow-indigo-500/20' 
               : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15 group-hover/categories:bg-white/5 group-hover/categories:border-white/15 group-hover/categories:text-white'
@@ -428,7 +428,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
       </div>
       <a
         href={`${base}/compare/`}
-        class={`header-stagger-item flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
+        class={`header-stagger-item flex items-center gap-1.5 px-2.5 2xl:px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
           activePath.startsWith('/compare') 
             ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400 font-extrabold shadow-sm shadow-indigo-500/20' 
             : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15'
@@ -439,7 +439,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
       </a>
       <a
         href={`${base}/blog/`}
-        class={`header-stagger-item flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
+        class={`header-stagger-item flex items-center gap-1.5 px-2.5 2xl:px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
           activePath.startsWith('/blog') 
             ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400 font-extrabold shadow-sm shadow-indigo-500/20' 
             : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15'
@@ -450,7 +450,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
       </a>
       <a
         href={`${base}/about/`}
-        class={`header-stagger-item flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
+        class={`header-stagger-item flex items-center gap-1.5 px-2.5 2xl:px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
           activePath.startsWith('/about') 
             ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400 font-extrabold shadow-sm shadow-indigo-500/20' 
             : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15'
@@ -1126,18 +1126,20 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
     transform: translate3d(0, 0, 0) !important;
   }
 
-  /* Nav Menu sequential delays (All Deals -> Stores -> Categories -> Compare -> FAQ) */
-  .header-nav-menu.is-revealed .header-stagger-item:nth-child(1) { transition-delay: 0.22s; }
-  .header-nav-menu.is-revealed .header-stagger-item:nth-child(2) { transition-delay: 0.28s; }
-  .header-nav-menu.is-revealed .header-stagger-item:nth-child(3) { transition-delay: 0.34s; }
-  .header-nav-menu.is-revealed .header-stagger-item:nth-child(4) { transition-delay: 0.40s; }
-  .header-nav-menu.is-revealed .header-stagger-item:nth-child(5) { transition-delay: 0.46s; }
+  /* Nav Menu sequential delays (All Deals -> Black Friday -> Stores -> Categories -> Compare -> Blog -> FAQ) */
+  .header-nav-menu.is-revealed .header-stagger-item:nth-child(1) { transition-delay: 0.18s; }
+  .header-nav-menu.is-revealed .header-stagger-item:nth-child(2) { transition-delay: 0.23s; }
+  .header-nav-menu.is-revealed .header-stagger-item:nth-child(3) { transition-delay: 0.28s; }
+  .header-nav-menu.is-revealed .header-stagger-item:nth-child(4) { transition-delay: 0.33s; }
+  .header-nav-menu.is-revealed .header-stagger-item:nth-child(5) { transition-delay: 0.38s; }
+  .header-nav-menu.is-revealed .header-stagger-item:nth-child(6) { transition-delay: 0.43s; }
+  .header-nav-menu.is-revealed .header-stagger-item:nth-child(7) { transition-delay: 0.48s; }
 
   /* Actions Block sequential delays (Region -> Language -> Saved -> Theme) */
   .header-actions-block.is-revealed .header-stagger-item:nth-child(1) { transition-delay: 0.52s; }
-  .header-actions-block.is-revealed .header-stagger-item:nth-child(2) { transition-delay: 0.58s; }
-  .header-actions-block.is-revealed .header-stagger-item:nth-child(3) { transition-delay: 0.64s; }
-  .header-actions-block.is-revealed .header-stagger-item:nth-child(4) { transition-delay: 0.70s; }
+  .header-actions-block.is-revealed .header-stagger-item:nth-child(2) { transition-delay: 0.57s; }
+  .header-actions-block.is-revealed .header-stagger-item:nth-child(3) { transition-delay: 0.62s; }
+  .header-actions-block.is-revealed .header-stagger-item:nth-child(4) { transition-delay: 0.67s; }
   .header-actions-block.is-revealed .header-stagger-item:nth-child(5) { transition-delay: 0.52s; } /* mobile hamburger */
 
   .header-radar-sweep-group {
