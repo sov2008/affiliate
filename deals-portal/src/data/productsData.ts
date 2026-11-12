@@ -14,6 +14,20 @@ export interface StoreProduct {
 }
 
 export const STORE_PRODUCTS: Record<string, StoreProduct[]> = {
+  "nike": [
+    {
+      "id": "nike-air-max-running",
+      "storeSlug": "nike",
+      "title": "Nike Air Max Performance Athletic Running Sneakers",
+      "description": "Iconic Air Max cushioning engineered for maximum shock absorption, daily comfort, and breathability.",
+      "price": "$129.99",
+      "currency": "USD",
+      "imageUrl": "/promo-media/nike/nike_air_max_product.jpg",
+      "productUrl": "https://www.awin1.com/awclick.php?mid=17652&id=3148787&p=https%3A%2F%2Fwww.nike.com.br",
+      "badge": "Top Pick"
+    }
+  ],
+
   "945industries": [
     {
       "id": "HOLSTER-KYDEX-VELCRO-NO_LIGHT-TOPO_FOG",

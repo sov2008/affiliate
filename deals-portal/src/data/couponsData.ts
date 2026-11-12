@@ -23592,9 +23592,91 @@ export const STORES_DATA: StoreProfile[] = [
     ],
     "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=128867&id=3148787"
   }
+  {
+    slug: 'polis',
+    name: 'Polis UA',
+    category: 'Insurance & Finance',
+    logoText: 'POLIS',
+    shortDesc: 'Online vehicle insurance, Green Card travel cover, medical policies, and financial micro-loans comparison.',
+    fullDesc: 'Polis.ua is the leading online insurance superstore in Ukraine. Comparing licensed insurance providers across auto MTPL, international Green Card, health, and tourist policies with immediate PDF delivery to email.',
+    websiteUrl: 'https://polis.ua/uk',
+    cleanDomain: 'polis.ua',
+    primaryAffiliateUrl: 'https://naiawork.com/g/yej7zhxr7q367099d2cc063ddfdb47/?subid=promoradar_polis',
+    howToApply: [
+      'Enter your vehicle license plate or choose travel insurance destination.',
+      'Compare quotes from 25+ verified insurance companies.',
+      'Promotional discounts and cashback vouchers are applied automatically before payment.',
+      'Receive official electronic insurance policy instantly in your inbox and Diia app.'
+    ],
+    faqs: [
+      {
+        question: 'Are electronic policies issued by Polis.ua officially valid?',
+        answer: 'Yes, all electronic insurance contracts comply with state motor bureau regulations and are registered immediately in the official national database.'
+      },
+      {
+        question: 'Can I get a discount on Green Card international travel insurance?',
+        answer: 'Yes, our verified partner link activates promotional discounts of up to 15% on international Green Card policies.'
+      }
+    ]
+  },
+  {
+    slug: 'hostinger',
+    name: 'Hostinger',
+    category: 'Web Hosting & Domains',
+    logoText: 'HOSTINGER',
+    shortDesc: 'High-speed cloud SSD web hosting, free SSL certificates, automated backups, and 1-click WordPress deployments.',
+    fullDesc: 'Hostinger powers millions of web creators worldwide with high-performance LiteSpeed cloud hosting, free domain registrations, unlimited SSL certificates, and 24/7 technical customer support.',
+    websiteUrl: 'https://www.hostinger.com',
+    cleanDomain: 'hostinger.com',
+    primaryAffiliateUrl: 'https://flirtcheck.site/go?offer=hostinger&source=deals_hostinger&trigger=store_header&intent=deals',
+    howToApply: [
+      'Choose a Premium or Business Cloud web hosting plan on Hostinger.',
+      'Select a 48-month or 12-month billing period to secure maximum introductory pricing.',
+      'Look for the "Have a coupon code?" prompt at the bottom of the order summary.',
+      'Enter verified coupon code HOSTING75 to deduct an additional 10% to 75% instantly.'
+    ],
+    faqs: [
+      {
+        question: 'Does Hostinger include a free domain name?',
+        answer: 'Yes, annual and multi-year hosting packages include a complimentary 1-year custom domain registration.'
+      },
+      {
+        question: 'Is there a money-back guarantee on Hostinger?',
+        answer: 'Yes, Hostinger offers an unconditional 30-day money-back satisfaction guarantee on all hosting plans.'
+      }
+    ]
+  }
+  {
+    slug: 'nike',
+    name: 'Nike',
+    category: 'Fashion & Apparel',
+    logoText: 'NIKE',
+    shortDesc: 'Iconic athletic footwear, high-performance sportswear, sneakers, and running gear.',
+    fullDesc: 'Nike is the world leader in athletic footwear, apparel, and sports equipment. Explore verified promotions on Air Max, Pegasus, Dri-FIT apparel, and exclusive member benefits with global order tracking.',
+    websiteUrl: 'https://www.nike.com',
+    cleanDomain: 'nike.com',
+    primaryAffiliateUrl: 'https://www.awin1.com/awclick.php?mid=17652&id=3148787&p=https%3A%2F%2Fwww.nike.com.br',
+    howToApply: [
+      'Select your favorite Nike footwear, running gear, or sportswear and add items to cart.',
+      'Sign in to your Nike Member account for complimentary shipping perks.',
+      'Proceed to checkout and locate the "Do you have a promo code?" input box.',
+      'Enter verified coupon code to apply your instant discount.'
+    ],
+    faqs: [
+      {
+        question: 'Are promotional codes valid on Nike Member orders?',
+        answer: 'Yes, Nike Member accounts receive automatic access to seasonal sales, member-only drops, and promotional checkout discounts.'
+      },
+      {
+        question: 'Does Nike offer free shipping on online orders?',
+        answer: 'Yes, Nike Members qualify for free standard shipping on eligible orders, along with hassle-free 30-day returns.'
+      }
+    ]
+  },
 ];
 
 export const COUPONS_DATA: CouponDeal[] = [
+
   {
     "id": "awin-tripcom-50off",
     "storeSlug": "trip-com",
@@ -43183,4 +43265,38 @@ export const COUPONS_DATA: CouponDeal[] = [
     "storeLogoText": "CO:SIM",
     "successRate": "98%"
   }
-];
+,
+  {
+    id: 'deal_nike_airmax_sale',
+    storeSlug: 'nike',
+    storeName: 'Nike',
+    storeCategory: 'Fashion & Apparel',
+    discountBadge: 'UP TO 40% OFF',
+    title: 'Up To 40% Off Nike Sneakers, Running Shoes & Athletic Apparel',
+    description: 'Score verified discounts on iconic Air Max, Pegasus running shoes, tech fleece, and workout essentials with official merchant delivery.',
+    code: 'NIKESAVE40',
+    isExclusive: true,
+    isVerified: true,
+    expiryDate: 'December 31, 2026',
+    affiliateUrl: 'https://www.awin1.com/awclick.php?mid=17652&id=3148787&p=https%3A%2F%2Fwww.nike.com.br',
+    storeLogoText: 'NIKE',
+    terms: 'Valid on selected seasonal styles. Verified at official checkout.',
+    successRate: '99.8%'
+  },
+  {
+    id: 'deal_nike_member_exclusive',
+    storeSlug: 'nike',
+    storeName: 'Nike',
+    storeCategory: 'Fashion & Apparel',
+    discountBadge: 'MEMBER PASS',
+    title: 'Nike Member Access: Free Shipping + Extra 15% Off Your Order',
+    description: 'Unlock exclusive member pricing, early access to new sneaker drops, and free standard delivery on all official orders.',
+    code: 'MEMBER15',
+    isExclusive: true,
+    isVerified: true,
+    expiryDate: 'December 31, 2026',
+    affiliateUrl: 'https://www.awin1.com/awclick.php?mid=17652&id=3148787&p=https%3A%2F%2Fwww.nike.com.br',
+    storeLogoText: 'NIKE',
+    terms: 'Requires free Nike Member sign-in. Free 30-day return guarantee.',
+    successRate: '99.9%'
+  },];

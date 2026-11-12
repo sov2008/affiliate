@@ -1,6 +1,16 @@
 {
   "leaderboards": [
     {
+      "brand": "Nike",
+      "partnerSlug": "nike",
+      "category": "Athletic Footwear & Sportswear",
+      "src": "/promo-media/nike/nike_hero_728x90.jpg",
+      "width": 728,
+      "height": 90,
+      "name": "Nike Official Partner Creative (728x90)",
+      "affiliateUrl": "https://www.awin1.com/awclick.php?mid=17652&id=3148787&p=https%3A%2F%2Fwww.nike.com.br"
+    },
+    {
       "brand": "Parallels",
       "partnerSlug": "parallels",
       "category": "Software & OS Virtualization",
@@ -92,6 +102,16 @@
     }
   ],
   "rectangles": [
+    {
+      "brand": "Nike",
+      "partnerSlug": "nike",
+      "category": "Fashion & Apparel",
+      "src": "/promo-media/nike/nike_card_300x250.jpg",
+      "width": 300,
+      "height": 250,
+      "name": "Nike Official Partner Banner (300x250)",
+      "affiliateUrl": "https://www.awin1.com/awclick.php?mid=17652&id=3148787&p=https%3A%2F%2Fwww.nike.com.br"
+    },
     {
       "brand": "acer-cps-in",
       "partnerSlug": "acer-cps-in",
