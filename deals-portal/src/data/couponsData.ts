@@ -23645,7 +23645,7 @@ export const STORES_DATA: StoreProfile[] = [
         answer: 'Yes, Hostinger offers an unconditional 30-day money-back satisfaction guarantee on all hosting plans.'
       }
     ]
-  }
+  },
   {
     slug: 'nike',
     name: 'Nike',
