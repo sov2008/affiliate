@@ -1600,3 +1600,22 @@ img.smooth-image-loaded {
     border-radius: 9999px;
   }
 }
+
+/* Brand Logo Dress Code Standard: 100% Transparent, crisp rendering, no background containment */
+.brand-logo-dresscode {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.brand-ticker-item {
+  background: transparent !important;
+  border: none !important;
+}
+
+.brand-ticker-item img {
+  background: transparent !important;
+}

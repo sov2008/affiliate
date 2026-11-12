@@ -1014,7 +1014,7 @@ const homeSchemas = [
     </section>
 
     <!-- Brand Directory Ticker (Clean Normalized Brands) -->
-    <div class="border-y border-slate-200/80 dark:border-slate-800/80 bg-slate-50 dark:bg-slate-900/60 py-3.5 transition-colors overflow-hidden">
+    <div class="border-y border-slate-200/40 dark:border-slate-800/60 bg-slate-950/40 backdrop-blur-md py-4 transition-colors overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2.5">
         <!-- Full-width infinite running ticker track -->
         <div class="relative w-full overflow-hidden mask-fade-edges">
@@ -1032,7 +1032,7 @@ const homeSchemas = [
                     <img
                       src={localLogo}
                       alt=""
-                      class="w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0 bg-transparent transition-transform duration-200"
+                      class="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0 bg-transparent transition-transform duration-200 brand-logo-dresscode"
                       loading="lazy"
                       data-fallback-google={googleFav}
                     />
@@ -4901,7 +4901,7 @@ const homeSchemas = [
             const img = document.createElement('img');
             img.src = localLogo;
             img.alt = '';
-            img.className = 'w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0 bg-transparent transition-transform duration-200';
+            img.className = 'w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0 bg-transparent transition-transform duration-200 brand-logo-dresscode';
             img.loading = 'lazy';
             if (googleFav) img.setAttribute('data-fallback-google', googleFav);
             img.onerror = function() {
