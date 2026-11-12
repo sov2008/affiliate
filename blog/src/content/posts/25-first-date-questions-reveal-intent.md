@@ -191,3 +191,4 @@ Smile warmly and disarm the tension immediately: *"Fair enough—I just find rea
 
 ### How do I avoid making the date feel like a job interview?
 Never rattle off questions from a mental checklist consecutively. Always share your own honest answer first or build on their story with an anecdote. A great conversation is a game of tennis, not a deposition.
+

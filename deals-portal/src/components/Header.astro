@@ -2,7 +2,7 @@
 import { STORES_DATA } from '../data/couponsData';
 import { getUniqueCleanStores } from '../utils/dealNormalizer';
 import { LOCALES, DEFAULT_LOCALE, getTranslation } from '../i18n/ui';
-import { Flame, Store, Shapes, ArrowLeftRight, HelpCircle, ChevronDown, Sun, Moon, Heart, Globe, Sparkles, Shield, Zap, Home, Shirt, Plane, Gamepad2, Coffee, Car, ShoppingBag, ArrowRight, Compass, Percent, Layers, HeartHandshake, Glasses, Menu, X, Tag } from 'lucide-astro';
+import { Flame, Store, Shapes, ArrowLeftRight, HelpCircle, ChevronDown, Sun, Moon, Heart, Globe, Sparkles, Shield, Zap, Home, Shirt, Plane, Gamepad2, Coffee, Car, ShoppingBag, ArrowRight, Compass, Percent, Layers, HeartHandshake, Glasses, Menu, X, Tag, BookOpen } from 'lucide-astro';
 
 interface Props {
   activePath?: string;
@@ -438,6 +438,17 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
         <span data-i18n="compare">Compare</span>
       </a>
       <a
+        href={`${base}/blog/`}
+        class={`header-stagger-item flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
+          activePath.startsWith('/blog') 
+            ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400 font-extrabold shadow-sm shadow-indigo-500/20' 
+            : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15'
+        }`}
+      >
+        <BookOpen class="w-4 h-4" />
+        <span>Blog</span>
+      </a>
+      <a
         href={`${base}/about/`}
         class={`header-stagger-item flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
           activePath.startsWith('/about') 
@@ -669,6 +680,17 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
     >
       <ArrowLeftRight class="w-4 h-4" />
       <span data-i18n="compare">Compare</span>
+    </a>
+    <a
+      href={`${base}/blog/`}
+      class={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl border text-sm font-bold transition ${
+        activePath.startsWith('/blog')
+          ? 'bg-indigo-500/15 border-indigo-500/35 text-indigo-400'
+          : 'border-transparent text-slate-300 hover:bg-white/5 hover:text-white'
+      }`}
+    >
+      <BookOpen class="w-4 h-4" />
+      <span data-i18n="blog">Blog</span>
     </a>
     <a
       href={`${base}/about/`}
