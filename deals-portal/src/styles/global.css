@@ -660,12 +660,28 @@ html.dark .stitch-perforated-top::after {
   right: -7px;
 }
 
-/* 44x44px Brand Logo Container Alignment */
-.brand-logo-box {
-  width: 44px !important;
-  height: 44px !important;
-  min-width: 44px !important;
-  min-height: 44px !important;
+/* 44x44px Brand Logo Container Alignment & Dresscode Standard */
+.brand-logo-box,
+.brand-logo-container {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.brand-logo-container img {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  object-fit: contain !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.12));
+}
+
+html.dark .brand-logo-container img {
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.45));
 }
 
 /* Discount Badge Variants */
