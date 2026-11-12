@@ -54,22 +54,25 @@ const containerSize = sizeClasses[size] || sizeClasses.md;
 const pad = paddingClasses[size] || paddingClasses.md;
 
 // Multi-Tier Logo sources:
-// Tier 1: Google HD Favicon
-const googleFaviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '';
-// Tier 2: DuckDuckGo High-Res Icon Fallback
-const duckFaviconUrl = domain ? `https://icons.duckduckgo.com/ip3/${domain}.ico` : '';
-// Tier 3: Local Asset
+// Priority local logo for verified curated brands (e.g. Nike transparent red logo)
+const hasExplicitLocalLogo = ['nike', 'adidas', 'puma', 'under-armour', 'new-balance', 'decathlon', 'reebok'].includes(store.slug);
 const localLogoUrl = store.slug ? `/logos/${store.slug}.png` : '';
+// Tier 1 / Tier 2 Fallbacks
+const googleFaviconUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '';
+const duckFaviconUrl = domain ? `https://icons.duckduckgo.com/ip3/${domain}.ico` : '';
+
+const primaryLogo = hasExplicitLocalLogo ? localLogoUrl : (googleFaviconUrl || localLogoUrl);
+const secondaryFallback = hasExplicitLocalLogo ? googleFaviconUrl : duckFaviconUrl;
 ---
 
 <div class={`brand-logo-container brand-logo-box relative ${containerSize} ${pad} bg-transparent border-0 flex items-center justify-center shrink-0 overflow-hidden group ${className}`}>
-  {googleFaviconUrl || localLogoUrl ? (
+  {primaryLogo ? (
     <img
-      src={googleFaviconUrl || localLogoUrl}
+      src={primaryLogo}
       alt={`${store.name} logo`}
       class="w-full h-full object-contain filter group-hover:scale-105 transition-transform duration-200"
       loading="lazy"
-      data-fallback-duck={duckFaviconUrl}
+      data-fallback-duck={secondaryFallback}
       data-fallback-local={localLogoUrl}
       onerror={`
         if (this.getAttribute('data-fallback-duck') && this.src !== this.getAttribute('data-fallback-duck')) {
