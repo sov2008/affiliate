@@ -1,5 +1,26 @@
 import { UI_TRANSLATIONS, LOCALES } from './ui';
-import { REGIONAL_DEAL_TRANSLATIONS } from '../data/dealTranslations';
+
+let regionalDealTranslationsCache: Record<string, Record<string, { title: string; description: string; badge?: string }>> | null = null;
+let isFetchingTranslations = false;
+
+async function getRegionalDealTranslations() {
+  if (regionalDealTranslationsCache) return regionalDealTranslationsCache;
+  if (isFetchingTranslations) {
+    await new Promise((r) => setTimeout(r, 200));
+    if (regionalDealTranslationsCache) return regionalDealTranslationsCache;
+  }
+  isFetchingTranslations = true;
+  try {
+    const res = await fetch('/data/deal-translations.json');
+    if (res.ok) {
+      regionalDealTranslationsCache = await res.json();
+    }
+  } catch (_) {}
+  finally {
+    isFetchingTranslations = false;
+  }
+  return regionalDealTranslationsCache || {};
+}
 
 // Extended Multilingual phrase dictionary for all common portal strings
 export const EXTENDED_DICTIONARY: Record<string, Record<string, string>> = {
@@ -842,7 +863,7 @@ export function initClientI18n() {
         return;
       }
 
-      const trans = REGIONAL_DEAL_TRANSLATIONS[dealId]?.[lang];
+      const trans = (dealTranslations as any)[dealId]?.[lang];
       if (trans) {
         if (titleEl) {
           if (!titleEl.hasAttribute('data-orig-title')) {

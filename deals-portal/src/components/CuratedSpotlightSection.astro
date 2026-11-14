@@ -33,7 +33,7 @@ const filteredProducts = allRawProducts.filter(p => {
 });
 
 // Deduplicate and curate top verified store products
-const curatedProducts = deduplicateProducts(filteredProducts).slice(0, 16);
+const curatedProducts = deduplicateProducts(filteredProducts).slice(0, 8);
 
 // 2. Tab 2: Expiring Soon Coupon Deals ({endingSoonDeals.length})
 
@@ -208,7 +208,7 @@ const softwareProducts = curatedProducts.filter(p => ['abelssoft', 'whokeys', 'n
     <!-- TAB 2 CONTENT: Expiring Soon Vouchers -->
     <div id="tabContentExpiring" class="spotlight-tab-panel mt-6 hidden animate-fadeIn">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {endingSoonDeals.map((deal, idx) => {
+        {endingSoonDeals.slice(0, 8).map((deal, idx) => {
           const rawStore = deal.storeName;
           const cleanName = cleanBrandName(rawStore, STORE_DOMAINS_MAP[deal.storeSlug], deal.title, deal.storeSlug);
           const badge = normalizeDiscountBadge(deal.discountBadge, deal.title);
