@@ -124,6 +124,9 @@
             img.classList.add('smooth-image-loaded');
             img.style.opacity = '1';
             img.style.filter = 'none';
+            if (img.loading === 'lazy') {
+              img.loading = 'eager';
+            }
           }
         } else {
           slide.classList.add('hidden');

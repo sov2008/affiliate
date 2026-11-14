@@ -133,10 +133,15 @@ const baseUrl = "";
           const discountMatch = cText.match(/(\d+)%/);
           const pct = discountMatch ? parseInt(discountMatch[1], 10) : 0;
           matchCat = pct >= 40 || cText.includes('black friday') || cText.includes('cyber') || cText.includes('save up to') || cText.includes('free');
-        } else if (CORE_VERTICAL_MAP[currentCategory]) {
-          matchCat = CORE_VERTICAL_MAP[currentCategory].includes(cCat);
         } else {
-          matchCat = cCat === currentCategory || cCat.toLowerCase().includes(currentCategory.toLowerCase());
+          const normCat = (s) => (s || '').replace(/&amp;/g, '&').toLowerCase().trim();
+          const targetNorm = normCat(currentCategory);
+          const cCatNorm = normCat(cCat);
+          if (CORE_VERTICAL_MAP[currentCategory]) {
+            matchCat = CORE_VERTICAL_MAP[currentCategory].some(mapped => normCat(mapped) === cCatNorm || cCatNorm.includes(normCat(mapped)));
+          } else {
+            matchCat = (cCatNorm === targetNorm) || cCatNorm.includes(targetNorm) || targetNorm.includes(cCatNorm);
+          }
         }
 
         const matchRegion = (!currentRegion || currentRegion === 'ALL' || currentRegion === 'GLOBAL') 
