@@ -58,13 +58,13 @@ const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
     });
   }
 
-  // Load GA4 on idle or first interaction to protect PageSpeed 100%
+  // Load GA4 strictly on first user interaction or deep idle (3500ms) to ensure 0ms TBT impact
   if ('requestIdleCallback' in window) {
     requestIdleCallback(function() {
-      setTimeout(initGoogleAnalytics, 1500);
+      setTimeout(initGoogleAnalytics, 3500);
     });
   } else {
-    setTimeout(initGoogleAnalytics, 2000);
+    setTimeout(initGoogleAnalytics, 4000);
   }
 
   ['pointerdown', 'touchstart', 'scroll', 'keydown'].forEach(function(evt) {

@@ -38,15 +38,17 @@ const rectangles = (rotatorData.rectangles || []).slice(0, 6);
           <span id="rotatorPlayPauseText" class="hidden sm:inline text-[11px]">Auto</span>
         </button>
 
-        <!-- Slide Dots with Active Highlighting -->
-        <div id="rotatorDots" class="flex items-center gap-1.5 px-1">
+        <!-- Slide Dots with Active Highlighting (44px touch target) -->
+        <div id="rotatorDots" class="flex items-center gap-1 px-1">
           {leaderboards.map((_, i) => (
             <button
               type="button"
-              class={`h-2 rounded-full transition-all duration-300 cursor-pointer ${i === 0 ? 'bg-indigo-600 w-6' : 'bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 w-2'}`}
+              class="relative p-2 -m-2 group cursor-pointer focus:outline-none"
               data-slide-index={i}
               aria-label={`Go to slide ${i + 1}`}
-            ></button>
+            >
+              <span class={`dot-inner block h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-indigo-600 w-6' : 'bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 w-2'}`}></span>
+            </button>
           ))}
         </div>
 
@@ -81,7 +83,8 @@ const rectangles = (rotatorData.rectangles || []).slice(0, 6);
       <div class="absolute top-0 left-0 right-0 h-0.5 bg-slate-100 dark:bg-slate-800 overflow-hidden">
         <div
           id="rotatorProgressBar"
-          class="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 transition-none w-0"
+          class="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 origin-left"
+          style="transform: scaleX(0);"
         ></div>
       </div>
 
@@ -129,9 +132,10 @@ const rectangles = (rotatorData.rectangles || []).slice(0, 6);
                   <img
                     src={item.src}
                     alt={`${item.brand} Official Creative`}
-                    width={item.width}
-                    height={item.height}
+                    width={item.width || 728}
+                    height={item.height || 90}
                     loading={idx === 0 ? "eager" : "lazy"}
+                    fetchpriority={idx === 0 ? "high" : "auto"}
                     decoding="async"
                     class="w-full h-auto max-h-[90px] object-contain mx-auto block group-hover:scale-[1.01] transition-transform duration-300"
                   />

@@ -2365,9 +2365,12 @@ const baseUrl = "";
           const btn = document.createElement('button');
           btn.type = 'button';
           btn.setAttribute('data-hero-deal-index', String(idx));
-          btn.className = idx === currentIndex
-            ? 'hero-deal-dot h-2 rounded-full transition-all duration-300 cursor-pointer bg-indigo-600 dark:bg-indigo-500 w-6'
-            : 'hero-deal-dot h-2 rounded-full transition-all duration-300 cursor-pointer bg-slate-300 dark:bg-white/25 w-2 hover:bg-slate-400';
+          btn.className = 'hero-deal-dot relative p-2 -m-2 group cursor-pointer focus:outline-none';
+          const innerSpan = document.createElement('span');
+          innerSpan.className = idx === currentIndex
+            ? 'hero-dot-inner block h-2 rounded-full transition-all duration-300 bg-indigo-600 dark:bg-indigo-500 w-6'
+            : 'hero-dot-inner block h-2 rounded-full transition-all duration-300 bg-slate-300 dark:bg-white/25 w-2 hover:bg-slate-400';
+          btn.appendChild(innerSpan);
           btn.setAttribute('aria-label', 'Switch to Deal ' + (idx + 1));
           btn.addEventListener('click', () => {
             if (idx !== currentIndex) {
@@ -2386,10 +2389,13 @@ const baseUrl = "";
         const dots = dotsContainer?.querySelectorAll('.hero-deal-dot');
         if (!dots) return;
         dots.forEach((dot, dIdx) => {
-          if (dIdx === currentIndex) {
-            dot.className = 'hero-deal-dot w-6 h-2 rounded-full transition-all duration-300 cursor-pointer bg-indigo-600 dark:bg-indigo-500';
-          } else {
-            dot.className = 'hero-deal-dot w-2 h-2 rounded-full transition-all duration-300 cursor-pointer bg-slate-300 dark:bg-white/25 hover:bg-slate-400';
+          const inner = dot.querySelector('.hero-dot-inner') || dot;
+          if (inner !== dot) {
+            if (dIdx === currentIndex) {
+              inner.className = 'hero-dot-inner block h-2 rounded-full transition-all duration-300 bg-indigo-600 dark:bg-indigo-500 w-6';
+            } else {
+              inner.className = 'hero-dot-inner block h-2 rounded-full transition-all duration-300 bg-slate-300 dark:bg-white/25 w-2 hover:bg-slate-400';
+            }
           }
         });
       }
