@@ -2585,46 +2585,37 @@ const baseUrl = "";
         }
       }
 
-      // High-performance 60/120 FPS requestAnimationFrame progress ticker
-      function rafTick(timestamp) {
-        if (isUserPaused || isHoverPaused || rotatingDeals.length <= 1) {
-          rafLoopId = null;
-          return;
+      let heroTimerId = null;
+
+      function triggerHeroTimerBar() {
+        if (!timerBar) return;
+        timerBar.style.transition = 'none';
+        timerBar.style.transform = 'scaleX(0)';
+        void timerBar.offsetWidth; // single reflow on deal transition
+
+        if (!isUserPaused && !isHoverPaused && rotatingDeals.length > 1) {
+          timerBar.style.transition = 'transform ' + ROTATION_INTERVAL_MS + 'ms linear';
+          timerBar.style.transform = 'scaleX(1)';
         }
-
-        if (!animStartTime) {
-          animStartTime = timestamp - (animProgress * ROTATION_INTERVAL_MS);
-        }
-
-        const elapsed = timestamp - animStartTime;
-        animProgress = Math.min(elapsed / ROTATION_INTERVAL_MS, 1);
-
-        if (timerBar) {
-          timerBar.style.transform = 'scaleX(' + animProgress.toFixed(4) + ')';
-        }
-
-        if (animProgress >= 1) {
-          resetProgressBar();
-          nextDeal();
-        }
-
-        rafLoopId = requestAnimationFrame(rafTick);
       }
 
       function startRotationLoop() {
         if (isUserPaused || isHoverPaused || rotatingDeals.length <= 1) return;
-        if (!rafLoopId) {
-          animStartTime = null; // will resume seamlessly from animProgress
-          rafLoopId = requestAnimationFrame(rafTick);
-        }
+        clearTimeout(heroTimerId);
+        triggerHeroTimerBar();
+        heroTimerId = setTimeout(() => {
+          resetProgressBar();
+          nextDeal();
+        }, ROTATION_INTERVAL_MS);
       }
 
       function stopRotationLoop() {
-        if (rafLoopId) {
-          cancelAnimationFrame(rafLoopId);
-          rafLoopId = null;
+        clearTimeout(heroTimerId);
+        if (timerBar) {
+          const computed = window.getComputedStyle(timerBar);
+          timerBar.style.transition = 'none';
+          timerBar.style.transform = computed.transform;
         }
-        animStartTime = null; // freeze elapsed baseline
       }
 
       function togglePlayPause() {
@@ -3588,16 +3579,17 @@ const baseUrl = "";
       }
 
       function updateCenterLensZoom() {
-        // Uniform rendering: keep scale 1.0 and uniform opacity to ensure exact even spacing
-        // and eliminate any overlapping collisions between adjacent brands.
-        for (let i = 0; i < items.length; i++) {
-          const item = items[i];
-          item.style.transform = 'none';
-          item.style.opacity = '1';
-        }
+        // No-op: styles set statically on render
       }
 
+      let isTickerVisible = true;
+
       function physicsTick() {
+        if (!isTickerVisible) {
+          rafId = null;
+          return;
+        }
+
         if (!isDragging) {
           if (Math.abs(currentVelocity - targetVelocity) > 0.02) {
             currentVelocity += (targetVelocity - currentVelocity) * 0.045;
@@ -3611,13 +3603,34 @@ const baseUrl = "";
           }
         }
 
-        updateCenterLensZoom();
         rafId = requestAnimationFrame(physicsTick);
       }
 
-      // Initial Render & Start Loop
+      function startTickerLoop() {
+        if (!rafId && isTickerVisible) {
+          rafId = requestAnimationFrame(physicsTick);
+        }
+      }
+
+      // Initial Render & Start Loop with IntersectionObserver
       renderBrandItems();
-      rafId = requestAnimationFrame(physicsTick);
+
+      if ('IntersectionObserver' in window && track) {
+        const tickerObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            isTickerVisible = entry.isIntersecting;
+            if (isTickerVisible) {
+              startTickerLoop();
+            } else if (rafId) {
+              cancelAnimationFrame(rafId);
+              rafId = null;
+            }
+          });
+        }, { threshold: 0.05 });
+        tickerObserver.observe(track);
+      } else {
+        startTickerLoop();
+      }
 
       const preloader = document.getElementById('promoradar-preloader');
       if (preloader && preloader.dataset.hidden !== 'true') {
