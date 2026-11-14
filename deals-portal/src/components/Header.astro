@@ -180,7 +180,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
           <span id="header-brand-store-tag" class="text-[9.5px] sm:text-[10.5px] font-bold text-indigo-300/80 tracking-normal -ml-[1px] self-end">.store</span>
         </div>
         <div id="header-brand-sub" class="pr-logo-subtitle mt-0.5 overflow-hidden">
-          <span class="text-[8.5px] uppercase tracking-[0.06em] font-bold text-slate-400 leading-none block whitespace-nowrap">
+          <span class="text-[8.5px] uppercase tracking-[0.06em] font-bold text-slate-600 dark:text-slate-300 leading-none block whitespace-nowrap">
             Verified Promo Codes &amp; Deals
           </span>
         </div>
@@ -226,8 +226,8 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
         >
           <Store class="w-4 h-4" />
           <span data-i18n="stores">Stores</span>
-          <span class="font-normal text-slate-400 text-[11px]">({storesCount})</span>
-          <ChevronDown class="w-3.5 h-3.5 text-slate-400 group-hover/stores:rotate-180 transition-transform duration-200" />
+          <span class="font-normal text-slate-600 dark:text-slate-300 text-[11px]">({storesCount})</span>
+          <ChevronDown class="w-3.5 h-3.5 text-slate-600 dark:text-slate-300 group-hover/stores:rotate-180 transition-transform duration-200" />
         </a>
 
         <!-- 2-Column Split Dropdown (RetailMeNot Reverse-Engineered Architecture) -->
@@ -246,7 +246,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
                   class={`mega-cat-btn w-full text-left px-2.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 flex items-center justify-between gap-1.5 cursor-pointer ${
                     idx === 0 
                       ? 'bg-indigo-600/20 text-indigo-400 font-bold border border-indigo-500/30' 
-                      : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                      : 'text-slate-600 dark:text-slate-300 hover:text-white hover:bg-white/5 border border-transparent'
                   }`}
                 >
                   <span class="flex items-center gap-2 truncate">
@@ -263,7 +263,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
           <div class="flex-1 p-3.5 flex flex-col justify-between bg-[#0E131F]">
             <div>
               <div class="flex items-center justify-between pb-2 mb-2 border-b border-white/10">
-                <span id="megaCurrentCatTitle" class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">Popular Stores</span>
+                <span id="megaCurrentCatTitle" class="text-[11px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300">Popular Stores</span>
                 <a href={`${base}/stores/`} class="text-[11px] text-indigo-400 hover:text-indigo-300 font-bold transition flex items-center gap-1">
                   View All &rarr;
                 </a>
@@ -298,7 +298,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
 
             <!-- Bottom Promo Bar in Dropdown -->
             <div class="pt-3 mt-3 border-t border-white/10 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400">All codes verified today</span>
+              <span class="text-slate-600 dark:text-slate-300">All codes verified today</span>
               <a href={`${base}/stores/`} class="text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 px-3 py-1 rounded-lg transition shadow-sm">
                 Browse Directory
               </a>
@@ -321,7 +321,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
         >
           <Shapes class="w-4 h-4" />
           <span data-i18n="categories">Categories</span>
-          <ChevronDown class="w-3.5 h-3.5 text-slate-400 group-hover/categories:rotate-180 transition-transform duration-200" />
+          <ChevronDown class="w-3.5 h-3.5 text-slate-600 dark:text-slate-300 group-hover/categories:rotate-180 transition-transform duration-200" />
         </a>
 
         <!-- 2-Column Split Dropdown for Smart Categories -->
@@ -340,7 +340,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
                   class={`smart-cat-btn w-full text-left px-2.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 flex items-center justify-between gap-1.5 cursor-pointer ${
                     idx === 0 
                       ? 'bg-indigo-600/20 text-indigo-400 font-bold border border-indigo-500/30' 
-                      : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                      : 'text-slate-600 dark:text-slate-300 hover:text-white hover:bg-white/5 border border-transparent'
                   }`}
                 >
                   <span class="flex items-center gap-2 truncate">
@@ -385,7 +385,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
                     </div>
 
                     <!-- Description -->
-                    <p class="text-[11px] text-slate-400 leading-relaxed">
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
                       {cat.desc}
                     </p>
 
@@ -411,7 +411,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
 
             <!-- Bottom Action Footer -->
             <div class="pt-3 mt-3 border-t border-white/10 flex items-center justify-between text-[11px]">
-              <span class="text-slate-400 flex items-center gap-1">
+              <span class="text-slate-600 dark:text-slate-300 flex items-center gap-1">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span>Active coupon feeds</span>
               </span>
@@ -472,75 +472,75 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
           class="h-9 inline-flex items-center gap-1 px-2.5 rounded-lg text-slate-200 hover:text-white text-xs font-bold transition shrink-0 cursor-pointer whitespace-nowrap"
           title="Select Target Region"
         >
-          <span id="headerSelectedRegionText" class="inline-flex items-center gap-1.5"><Globe class="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" /> <span class="hidden sm:inline">Worldwide</span></span>
-          <ChevronDown class="w-3.5 h-3.5 text-slate-400" />
+          <span id="headerSelectedRegionText" class="inline-flex items-center gap-1.5"><Globe class="w-4 h-4 text-slate-500 dark:text-slate-600 dark:text-slate-300 shrink-0" /> <span class="hidden sm:inline">Worldwide</span></span>
+          <ChevronDown class="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />
         </button>
         <div
           id="headerRegionMenu"
           class="hidden absolute top-full right-0 mt-2 w-48 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 p-1.5 text-left text-xs"
         >
-          <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Target Region</div>
+          <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300">Target Region</div>
           <button type="button" data-region-code="GLOBAL" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-            <span class="inline-flex items-center gap-2"><Globe class="w-4 h-4 text-slate-500 dark:text-slate-400" /> <span>Worldwide</span></span>
+            <span class="inline-flex items-center gap-2"><Globe class="w-4 h-4 text-slate-500 dark:text-slate-600 dark:text-slate-300" /> <span>Worldwide</span></span>
             
           </button>
           <button type="button" data-region-code="US" data-flag="/flags/us.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
-              <img src="/flags/us.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="US" />
+              <img src="/flags/us.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="US" />
               <span>United States</span>
             </span>
           </button>
           <button type="button" data-region-code="EU" data-flag="/flags/eu.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
-              <img src="/flags/eu.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="EU" />
+              <img src="/flags/eu.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="EU" />
               <span>Europe</span>
             </span>
           </button>
           <button type="button" data-region-code="GCC" data-flag="/flags/ae.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
-              <img src="/flags/ae.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GCC" />
+              <img src="/flags/ae.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GCC" />
               <span>UAE &amp; GCC</span>
             </span>
           </button>
           <button type="button" data-region-code="UA" data-flag="/flags/ua.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
-              <img src="/flags/ua.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="UA" />
+              <img src="/flags/ua.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="UA" />
               <span>Ukraine</span>
             </span>
           </button>
           <button type="button" data-region-code="GB" data-flag="/flags/gb.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
-              <img src="/flags/gb.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GB" />
+              <img src="/flags/gb.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GB" />
               <span>United Kingdom</span>
             </span>
           </button>
           <button type="button" data-region-code="IN" data-flag="/flags/in.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
-              <img src="/flags/in.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="IN" />
+              <img src="/flags/in.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="IN" />
               <span>India</span>
             </span>
           </button>
           <button type="button" data-region-code="MX" data-flag="/flags/mx.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
-              <img src="/flags/mx.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="MX" />
+              <img src="/flags/mx.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="MX" />
               <span>Mexico</span>
             </span>
           </button>
           <button type="button" data-region-code="BR" data-flag="/flags/br.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
-              <img src="/flags/br.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="BR" />
+              <img src="/flags/br.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="BR" />
               <span>Brazil</span>
             </span>
           </button>
           <button type="button" data-region-code="CZ" data-flag="/flags/cz.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
-              <img src="/flags/cz.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="CZ" />
+              <img src="/flags/cz.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="CZ" />
               <span>Czechia</span>
             </span>
           </button>
           <button type="button" data-region-code="PL" data-flag="/flags/pl.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
-              <img src="/flags/pl.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="PL" />
+              <img src="/flags/pl.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="PL" />
               <span>Poland</span>
             </span>
           </button>
@@ -555,15 +555,15 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
           class="h-9 inline-flex items-center gap-1 px-2 rounded-lg text-slate-200 hover:text-white text-xs font-bold transition shrink-0 cursor-pointer whitespace-nowrap"
           title="Select Language"
         >
-          <img id="headerSelectedLangFlag" src={`/flags/${currentLocaleConfig.countryCode || 'us'}.svg`} class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="" />
+          <img id="headerSelectedLangFlag" src={`/flags/${currentLocaleConfig.countryCode || 'us'}.svg`} width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="" />
           <span id="headerSelectedLangText" class="uppercase tracking-wider text-[11px] font-mono leading-none">{currentLocaleConfig.code}</span>
-          <ChevronDown class="w-3.5 h-3.5 text-slate-400" />
+          <ChevronDown class="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />
         </button>
         <div
           id="headerLangMenu"
           class="hidden absolute top-full right-0 mt-2 w-44 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 p-1.5 text-left text-xs"
         >
-          <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Available Languages</div>
+          <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300">Available Languages</div>
           {Object.values(LOCALES).map(loc => (
             <button
               type="button"
@@ -571,10 +571,10 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
               class={`header-lang-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer ${loc.code === locale ? 'bg-indigo-50/70 dark:bg-slate-800/90 text-indigo-600 dark:text-indigo-400' : ''}`}
             >
               <span class="flex items-center gap-2">
-                <img src={`/flags/${loc.countryCode}.svg`} class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt={loc.name} />
+                <img src={`/flags/${loc.countryCode}.svg`} width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt={loc.name} />
                 <span>{loc.nativeName}</span>
               </span>
-              <span class="text-[10px] uppercase font-mono text-slate-400">{loc.code}</span>
+              <span class="text-[10px] uppercase font-mono text-slate-600 dark:text-slate-300">{loc.code}</span>
             </button>
           ))}
         </div>
@@ -657,7 +657,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
         <Store class="w-4 h-4" />
         <span data-i18n="stores">Stores</span>
       </span>
-      <span class="text-xs text-slate-400 font-mono">({storesCount})</span>
+      <span class="text-xs text-slate-600 dark:text-slate-300 font-mono">({storesCount})</span>
     </a>
     <a
       href={`${base}/categories/`}

@@ -46,6 +46,7 @@ const resolvedOgImage = ogImage ? (ogImage.startsWith('http') ? ogImage : `${sit
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="p:domain_verify" content="9809e84106b1c9cf5dcdcb45246046e5" />
     <link rel="canonical" href={fullCanonical} />
     <!-- International SEO Hreflang Tags (affiliate-seo-pro & localization-pro) -->
@@ -68,16 +69,14 @@ const resolvedOgImage = ogImage ? (ogImage.startsWith('http') ? ogImage : `${sit
     <meta name="mitgo-verification" content="fa9e3fd878" />
     <meta name="google-site-verification" content="EoZOJUjFA2-uy89WOLVK-1Ze_Ub5mzaLpKVlh9ZYCVk" />
 
-    <!-- Google Fonts: Inter & JetBrains Mono (Zero External Icon Font Payload) -->
+    <!-- Google Fonts: Inter & JetBrains Mono (Non-blocking async loading) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <noscript>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
     </noscript>
-
-    <!-- OpenGraph Metadata -->
+<!-- OpenGraph Metadata -->
     <meta property="og:site_name" content="PromoRadar — Verified Promo Codes & Deals" />
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />

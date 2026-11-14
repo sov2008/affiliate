@@ -532,6 +532,23 @@ const homeSchemas = [
     "url": "https://promoradar.store/",
     "logo": "https://promoradar.store/favicon.svg"
   },
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "PromoRadar Verified Coupons & Deal Hub",
+    "url": "https://promoradar.store/",
+    "description": "Discover 100% verified promo codes and discount vouchers with instant checkout validation.",
+    "mainEntity": {
+      "@type": "ItemList",
+      "numberOfItems": interleavedDeals.length,
+      "itemListElement": interleavedDeals.slice(0, 24).map((deal, idx) => ({
+        "@type": "ListItem",
+        "position": idx + 1,
+        "name": deal.title,
+        "url": `https://promoradar.store/stores/${deal.canonicalSlug || deal.storeSlug}/`
+      }))
+    }
+  },
   homeFaqSchema
 ];
 ---
@@ -573,7 +590,7 @@ const homeSchemas = [
               <div class="relative">
                 <div class="flex flex-col sm:flex-row gap-2 relative z-20">
                   <div class="relative flex-1 flex items-center">
-                    <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-slate-600 dark:text-slate-300 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                     <input
@@ -603,7 +620,7 @@ const homeSchemas = [
                       title="Select Target Region"
                     >
                       <span id="heroSelectedRegionText" class="inline-flex items-center gap-1.5 truncate"><svg class="w-4 h-4 text-slate-500 mr-1 inline shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span class="truncate">Worldwide</span></span>
-                      <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg class="w-3.5 h-3.5 text-slate-600 dark:text-slate-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                       </svg>
                     </button>
@@ -611,68 +628,68 @@ const homeSchemas = [
                       id="heroRegionMenu"
                       class="hidden absolute top-full right-0 mt-2 w-48 max-w-[calc(100vw-32px)] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 p-1.5 text-left text-xs"
                     >
-                      <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Target Region</div>
+                      <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300">Target Region</div>
                       <button type="button" data-hero-region="GLOBAL" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
                         <span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>Worldwide</span></span>
                       </button>
                       <button type="button" data-hero-region="US" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
                         <span class="inline-flex items-center gap-2">
-                          <img src="/flags/us.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="US" />
+                          <img src="/flags/us.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="US" />
                           <span>United States</span>
                         </span>
                         
                       </button>
                       <button type="button" data-hero-region="EU" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
                         <span class="inline-flex items-center gap-2">
-                          <img src="/flags/eu.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="EU" />
+                          <img src="/flags/eu.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="EU" />
                           <span>Europe</span>
                         </span>
                       </button>
                       <button type="button" data-hero-region="GCC" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
                         <span class="inline-flex items-center gap-2">
-                          <img src="/flags/ae.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GCC" />
+                          <img src="/flags/ae.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GCC" />
                           <span>UAE &amp; GCC</span>
                         </span>
                       </button>
                       <button type="button" data-hero-region="UA" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
                         <span class="inline-flex items-center gap-2">
-                          <img src="/flags/ua.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="UA" />
+                          <img src="/flags/ua.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="UA" />
                           <span>Ukraine</span>
                         </span>
                       </button>
                       <button type="button" data-hero-region="GB" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
                         <span class="inline-flex items-center gap-2">
-                          <img src="/flags/gb.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GB" />
+                          <img src="/flags/gb.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GB" />
                           <span>United Kingdom</span>
                         </span>
                       </button>
                       <button type="button" data-hero-region="IN" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
                         <span class="inline-flex items-center gap-2">
-                          <img src="/flags/in.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="IN" />
+                          <img src="/flags/in.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="IN" />
                           <span>India</span>
                         </span>
                       </button>
                       <button type="button" data-hero-region="MX" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
                         <span class="inline-flex items-center gap-2">
-                          <img src="/flags/mx.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="MX" />
+                          <img src="/flags/mx.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="MX" />
                           <span>Mexico</span>
                         </span>
                       </button>
                       <button type="button" data-hero-region="BR" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
                         <span class="inline-flex items-center gap-2">
-                          <img src="/flags/br.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="BR" />
+                          <img src="/flags/br.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="BR" />
                           <span>Brazil</span>
                         </span>
                       </button>
                       <button type="button" data-hero-region="CZ" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
                         <span class="inline-flex items-center gap-2">
-                          <img src="/flags/cz.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="CZ" />
+                          <img src="/flags/cz.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="CZ" />
                           <span>Czechia</span>
                         </span>
                       </button>
                       <button type="button" data-hero-region="PL" class="hero-region-option w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
                         <span class="inline-flex items-center gap-2">
-                          <img src="/flags/pl.svg" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="PL" />
+                          <img src="/flags/pl.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="PL" />
                           <span>Poland</span>
                         </span>
                       </button>
@@ -693,7 +710,7 @@ const homeSchemas = [
                   id="heroSearchSpotlight"
                   class="hidden absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-slate-200/90 dark:border-slate-800/90 z-50 overflow-hidden text-left animate-fadeIn max-h-[480px] flex flex-col ring-1 ring-black/5 dark:ring-white/10"
                 >
-                  <div class="px-4 py-2.5 bg-slate-50/90 dark:bg-slate-800/80 border-b border-slate-200/70 dark:border-slate-700/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 shrink-0">
+                  <div class="px-4 py-2.5 bg-slate-50/90 dark:bg-slate-800/80 border-b border-slate-200/70 dark:border-slate-700/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-600 dark:text-slate-300 shrink-0">
                     <div class="flex items-center gap-2">
                       <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                       <span id="heroSpotlightStatus" class="font-bold uppercase tracking-wider text-[10px] text-slate-700 dark:text-slate-300">Live Search Results</span>
@@ -704,7 +721,7 @@ const homeSchemas = [
                     <!-- Stores Section -->
                     <div id="heroSpotlightStoresSection" class="p-2 space-y-1">
                       <div class="flex items-center justify-between px-2.5 py-1">
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500">Stores &amp; Brands</span>
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-600 dark:text-slate-300">Stores &amp; Brands</span>
                         <span id="heroSpotlightStoresCount" class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400"></span>
                       </div>
                       <div id="heroSpotlightStoresList" class="space-y-1"></div>
@@ -712,7 +729,7 @@ const homeSchemas = [
                     <!-- Categories Section -->
                     <div id="heroSpotlightCategoriesSection" class="p-2 space-y-1">
                       <div class="flex items-center justify-between px-2.5 py-1">
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500">Categories</span>
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-600 dark:text-slate-300">Categories</span>
                         <span id="heroSpotlightCategoriesCount" class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400"></span>
                       </div>
                       <div id="heroSpotlightCategoriesList" class="space-y-1"></div>
@@ -720,17 +737,17 @@ const homeSchemas = [
                     <!-- Deals Section -->
                     <div id="heroSpotlightDealsSection" class="p-2 space-y-1">
                       <div class="flex items-center justify-between px-2.5 py-1">
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500">Matching Promo Codes</span>
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-600 dark:text-slate-300">Matching Promo Codes</span>
                         <span id="heroSpotlightDealsCount" class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400"></span>
                       </div>
                       <div id="heroSpotlightDealsList" class="space-y-1"></div>
                     </div>
                   </div>
                   <!-- Empty Results State -->
-                  <div id="heroSpotlightEmpty" class="hidden p-8 text-center text-xs text-slate-500 dark:text-slate-400">
+                  <div id="heroSpotlightEmpty" class="hidden p-8 text-center text-xs text-slate-500 dark:text-slate-600 dark:text-slate-300">
                     <div class="text-2xl mb-2">🔍</div>
                     <div class="font-bold text-slate-700 dark:text-slate-200">No matching stores or promo codes found</div>
-                    <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-1">Try searching by brand name (e.g., Hostinger, PureVPN, ExpressVPN) or general category.</p>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-600 dark:text-slate-300 mt-1">Try searching by brand name (e.g., Hostinger, PureVPN, ExpressVPN) or general category.</p>
                   </div>
                   <!-- Footer Action to Scroll down -->
                   <div class="p-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-t border-slate-200/70 dark:border-slate-700/80 text-center shrink-0">
@@ -748,16 +765,16 @@ const homeSchemas = [
 
               <!-- Clean Trending Tags as Text Links -->
               <div id="heroTrendingRow" class="hero-stagger-item flex flex-wrap items-center gap-2 pt-1 text-xs">
-                <span id="trendingPrefix" class="text-slate-400 font-medium">Trending:</span>
-                <button type="button" data-chip="945 Industries" class="trending-chip text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">945 Industries (-10%)</button>
+                <span id="trendingPrefix" class="text-slate-600 dark:text-slate-300 font-medium">Trending:</span>
+                <button type="button" data-chip="945 Industries" class="trending-chip text-slate-500 dark:text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">945 Industries (-10%)</button>
                 <span class="text-slate-300 dark:text-slate-700">•</span>
-                <button type="button" data-chip="Abelssoft" class="trending-chip text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">Abelssoft (-50%)</button>
+                <button type="button" data-chip="Abelssoft" class="trending-chip text-slate-500 dark:text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">Abelssoft (-50%)</button>
                 <span class="text-slate-300 dark:text-slate-700">•</span>
-                <button type="button" data-chip="Touch UA" class="trending-chip text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">Touch UA (-30%)</button>
+                <button type="button" data-chip="Touch UA" class="trending-chip text-slate-500 dark:text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">Touch UA (-30%)</button>
                 <span class="text-slate-300 dark:text-slate-700">•</span>
-                <button type="button" data-chip="Alibaba" class="trending-chip text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">Alibaba (-$20)</button>
+                <button type="button" data-chip="Alibaba" class="trending-chip text-slate-500 dark:text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">Alibaba (-$20)</button>
                 <span class="text-slate-300 dark:text-slate-700">•</span>
-                <button type="button" data-chip="ExpressVPN" class="trending-chip text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">ExpressVPN (-81%)</button>
+                <button type="button" data-chip="ExpressVPN" class="trending-chip text-slate-500 dark:text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium cursor-pointer">ExpressVPN (-81%)</button>
               </div>
             </div>
 
@@ -769,7 +786,7 @@ const homeSchemas = [
                 </span>
                 <div class="min-w-0 text-left">
                   <div class="text-xs font-bold text-slate-900 dark:text-slate-200 whitespace-nowrap">100% Tested Codes</div>
-                  <div class="text-[11px] text-slate-600 dark:text-slate-400">Manual QA on checkout</div>
+                  <div class="text-[11px] text-slate-600 dark:text-slate-600 dark:text-slate-300">Manual QA on checkout</div>
                 </div>
               </div>
 
@@ -781,7 +798,7 @@ const homeSchemas = [
                 </span>
                 <div class="min-w-0 text-left">
                   <div class="text-xs font-bold text-slate-900 dark:text-slate-200 whitespace-nowrap">No Signup Needed</div>
-                  <div class="text-[11px] text-slate-600 dark:text-slate-400">1-click instant access</div>
+                  <div class="text-[11px] text-slate-600 dark:text-slate-600 dark:text-slate-300">1-click instant access</div>
                 </div>
               </div>
 
@@ -793,7 +810,7 @@ const homeSchemas = [
                 </span>
                 <div class="min-w-0 text-left">
                   <div class="text-xs font-bold text-slate-900 dark:text-slate-200 whitespace-nowrap">Official Partner</div>
-                  <div class="text-[11px] text-slate-600 dark:text-slate-400">Direct Partner links</div>
+                  <div class="text-[11px] text-slate-600 dark:text-slate-600 dark:text-slate-300">Direct Partner links</div>
                 </div>
               </div>
             </div>
@@ -840,7 +857,7 @@ const homeSchemas = [
                     <div class="flex items-center gap-2">
                       <span id="heroDealStoreName" class="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight leading-snug truncate">ExpressVPN</span>
                     </div>
-                    <span id="heroDealStoreCat" class="text-xs text-slate-500 dark:text-slate-400 block truncate">Privacy &amp; Security</span>
+                    <span id="heroDealStoreCat" class="text-xs text-slate-500 dark:text-slate-600 dark:text-slate-300 block truncate">Privacy &amp; Security</span>
                   </div>
                 </div>
 
@@ -860,10 +877,10 @@ const homeSchemas = [
 
                     <!-- 2. Middle Section: Integrated Financial Savings (Perforated coupon column) -->
                     <div id="heroDealSavingsBox" class="ticket-stub-col relative ps-4 sm:ps-5 pe-2 text-start min-w-0">
-                      <span id="heroDealSavingsLabel" class="block text-[9px] font-mono font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap">EST. SAVINGS</span>
+                      <span id="heroDealSavingsLabel" class="block text-[9px] font-mono font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest whitespace-nowrap">EST. SAVINGS</span>
                       <div class="flex items-baseline gap-1 mt-0.5 whitespace-nowrap">
                         <span id="heroDealSavingsValue" class="text-sm sm:text-base font-black text-emerald-400 dark:text-emerald-300 leading-none drop-shadow-xs">$60+</span>
-                        <span id="heroDealSavingsSub" class="text-[10px] font-medium text-slate-400 dark:text-slate-400">Save 49%</span>
+                        <span id="heroDealSavingsSub" class="text-[10px] font-medium text-slate-600 dark:text-slate-300">Save 49%</span>
                       </div>
                     </div>
                   </div>
@@ -913,7 +930,7 @@ const homeSchemas = [
               </div>
 
               <!-- Controls bar centered -->
-              <div class="deal-stagger-item pt-2.5 pb-0.5 flex items-center justify-center font-mono text-[11px] text-slate-600 dark:text-slate-400 relative z-10 shrink-0">
+              <div class="deal-stagger-item pt-2.5 pb-0.5 flex items-center justify-center font-mono text-[11px] text-slate-600 dark:text-slate-600 dark:text-slate-300 relative z-10 shrink-0">
                 <!-- Centered controls: Play/Pause, Dots, [Prev + Next] -->
                 <div class="flex items-center gap-3">
                   <!-- Play / Pause Toggle Button -->
@@ -995,9 +1012,7 @@ const homeSchemas = [
                     class="brand-ticker-item shrink-0 text-xs sm:text-sm font-semibold bg-transparent border-0 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer inline-flex items-center gap-2"
                   >
                     <img
-                      src={localLogo}
-                      alt=""
-                      class="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0 bg-transparent transition-transform duration-200 brand-logo-dresscode"
+                      src={localLogo} alt="" width="36" height="36" class="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0 bg-transparent transition-transform duration-200 brand-logo-dresscode"
                       loading="lazy"
                       data-fallback-google={googleFav}
                     />
@@ -1010,8 +1025,8 @@ const homeSchemas = [
         </div>
 
         <!-- Sub-ticker navigation & direct catalog link -->
-        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-1 pt-0.5 border-t border-slate-200/40 dark:border-slate-800/40">
-          <span class="font-medium text-[11px] sm:text-xs text-slate-400 dark:text-slate-500">
+        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-600 dark:text-slate-300 px-1 pt-0.5 border-t border-slate-200/40 dark:border-slate-800/40">
+          <span class="font-medium text-[11px] sm:text-xs text-slate-600 dark:text-slate-600 dark:text-slate-300">
             Official Partner Brands
           </span>
           <a href={`${base}/stores/`} class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 hover:underline shrink-0 whitespace-nowrap inline-flex items-center gap-1">
@@ -1035,7 +1050,7 @@ const homeSchemas = [
       <div id="filterConsoleWrapper" class="sticky top-[68px] z-30 backdrop-blur-xl bg-white/95 dark:bg-slate-900/95 border border-slate-200/90 dark:border-slate-800/90 p-3 mb-6 transition shadow-md rounded-2xl flex flex-col md:flex-row items-stretch md:items-center gap-3">
         <!-- Live Instant Filter Input for Deals Grid -->
         <div class="relative shrink-0 md:w-72">
-          <Filter class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+          <Filter class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-300 pointer-events-none" />
           <input
             type="text"
             id="gridStoreFilterInput"
@@ -1046,7 +1061,7 @@ const homeSchemas = [
           <button
             type="button"
             id="gridFilterClearBtn"
-            class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs font-bold"
+            class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-300 hover:text-slate-600 dark:hover:text-slate-200 text-xs font-bold"
             title="Clear filter"
           >✕</button>
         </div>
@@ -1162,8 +1177,7 @@ const homeSchemas = [
                     {brandDomain ? (
                       <div class="brand-logo-container brand-logo-box w-11 h-11 rounded-xl bg-transparent border-0 p-0.5 flex items-center justify-center shrink-0 overflow-hidden">
                         <img
-                          src={`/logos/${deal.canonicalSlug || deal.storeSlug}.png`}
-                          alt={`${cleanName} logo`}
+                          src={`/logos/${deal.canonicalSlug || deal.storeSlug}.png`} alt={`${cleanName} logo`} width="36" height="36"
                           class="w-full h-full object-contain filter drop-shadow-xs"
                           loading="lazy"
                           data-google-fallback={`https://www.google.com/s2/favicons?domain=${brandDomain}&sz=128`}
@@ -1191,7 +1205,7 @@ const homeSchemas = [
 
                       <button
                         type="button"
-                        class="deal-save-btn w-7 h-7 rounded-xl border border-slate-200 dark:border-slate-700/80 flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition cursor-pointer shrink-0 text-xs"
+                        class="deal-save-btn w-7 h-7 rounded-xl border border-slate-200 dark:border-slate-700/80 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition cursor-pointer shrink-0 text-xs"
                         data-save-id={deal.id}
                         title="Save Voucher"
                         aria-label="Save Voucher"
@@ -1201,7 +1215,7 @@ const homeSchemas = [
                     </div>
 
                     <!-- Single Compact Metadata Line -->
-                    <div class="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                    <div class="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-600 dark:text-slate-300 truncate mt-0.5">
                       <span class="truncate">{deal.storeCategory}</span>
                       <span>•</span>
                       <span class="font-medium shrink-0">{regionBadge.cleanName}</span>
@@ -1233,7 +1247,7 @@ const homeSchemas = [
                     {deal.title}
                   </a>
                 </h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1 line-clamp-6 min-h-[6rem] font-medium">
+                <p class="text-xs text-slate-500 dark:text-slate-600 dark:text-slate-300 leading-relaxed mt-1 line-clamp-6 min-h-[6rem] font-medium">
                   {deal.description}
                 </p>
               </div>
@@ -1317,7 +1331,7 @@ const homeSchemas = [
                   title={`${inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].brand} - ${inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].category}`}
                 >
                   <img
-                    src={inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].src}
+                    width="300" height="250" src={inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].src}
                     alt={inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].name || `${inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].brand} Official Partner Offer`}
                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
@@ -1364,7 +1378,7 @@ const homeSchemas = [
       <nav id="loadMoreContainer" class="mt-12 mb-6 flex flex-col items-center gap-4" aria-label="Deals catalog pagination">
         <!-- Progress Counter -->
         <div class="flex flex-col items-center gap-1.5">
-          <span id="paginationProgressText" class="text-xs font-semibold text-slate-500 dark:text-slate-400">
+          <span id="paginationProgressText" class="text-xs font-semibold text-slate-500 dark:text-slate-600 dark:text-slate-300">
             Showing <strong class="text-slate-900 dark:text-white" id="paginationShowingCount">{Math.min(21, validCouponsData.length)}</strong> of <strong class="text-slate-900 dark:text-white" id="paginationTotalCount">{validCouponsData.length}</strong> verified offers
           </span>
           <div class="h-1.5 w-56 bg-slate-200/90 dark:bg-slate-800 rounded-full overflow-hidden shadow-inner">
@@ -1396,7 +1410,7 @@ const homeSchemas = [
             class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs sm:text-[13px] border border-slate-200/80 dark:border-slate-700/80 transition cursor-pointer"
           >
             <span>Reveal All</span>
-            <span class="text-[10px] text-slate-400 dark:text-slate-500 font-mono">⌘</span>
+            <span class="text-[10px] text-slate-600 dark:text-slate-600 dark:text-slate-300 font-mono">⌘</span>
           </button>
 
           <!-- Back to Top Shortcut -->
@@ -1498,8 +1512,7 @@ const homeSchemas = [
               <div class="flex items-center justify-center gap-3 py-2 mb-4">
                 <div class="brand-logo-container w-11 h-11 rounded-xl bg-transparent border-0 p-1 flex items-center justify-center shrink-0">
                   <img
-                    src="/logos/expressvpn.png"
-                    alt="ExpressVPN logo"
+                    src="/logos/expressvpn.png" alt="ExpressVPN logo" width="48" height="48"
                     class="w-full h-full object-contain"
                     loading="lazy"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -1513,8 +1526,7 @@ const homeSchemas = [
 
                 <div class="brand-logo-container w-11 h-11 rounded-xl bg-transparent border-0 p-1 flex items-center justify-center shrink-0">
                   <img
-                    src="/logos/purevpn.png"
-                    alt="PureVPN logo"
+                    src="/logos/purevpn.png" alt="PureVPN logo" width="48" height="48"
                     class="w-full h-full object-contain"
                     loading="lazy"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -1543,8 +1555,7 @@ const homeSchemas = [
               <div class="flex items-center justify-center gap-3 py-2 mb-4">
                 <div class="brand-logo-container w-11 h-11 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm shrink-0">
                   <img
-                    src="https://www.google.com/s2/favicons?domain=chicme.com&sz=128"
-                    alt="ChicMe logo"
+                    src="https://www.google.com/s2/favicons?domain=chicme.com&sz=128" alt="ChicMe logo" width="48" height="48"
                     class="w-full h-full object-contain"
                     loading="lazy"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -1558,8 +1569,7 @@ const homeSchemas = [
 
                 <div class="brand-logo-container w-11 h-11 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm shrink-0">
                   <img
-                    src="https://www.google.com/s2/favicons?domain=vogacloset.com&sz=128"
-                    alt="VogaCloset logo"
+                    src="https://www.google.com/s2/favicons?domain=vogacloset.com&sz=128" alt="VogaCloset logo" width="48" height="48"
                     class="w-full h-full object-contain"
                     loading="lazy"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -1588,8 +1598,7 @@ const homeSchemas = [
               <div class="flex items-center justify-center gap-3 py-2 mb-4">
                 <div class="brand-logo-container w-11 h-11 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm shrink-0">
                   <img
-                    src="https://www.google.com/s2/favicons?domain=raynatours.com&sz=128"
-                    alt="RaynaTours logo"
+                    src="https://www.google.com/s2/favicons?domain=raynatours.com&sz=128" alt="RaynaTours logo" width="48" height="48"
                     class="w-full h-full object-contain"
                     loading="lazy"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -1603,8 +1612,7 @@ const homeSchemas = [
 
                 <div class="brand-logo-container w-11 h-11 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shadow-sm shrink-0">
                   <img
-                    src="https://www.google.com/s2/favicons?domain=airalo.com&sz=128"
-                    alt="Airalo eSIM logo"
+                    src="https://www.google.com/s2/favicons?domain=airalo.com&sz=128" alt="Airalo eSIM logo" width="48" height="48"
                     class="w-full h-full object-contain"
                     loading="lazy"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -1737,7 +1745,7 @@ const homeSchemas = [
             <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden transition shadow-sm">
               <button type="button" class="faq-toggle-btn w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-indigo-600 transition">
                 <span>How does PromoRadar test and verify promo codes?</span>
-                <span class="faq-chevron text-slate-400 text-xs font-black transition-transform duration-200">▼</span>
+                <span class="faq-chevron text-slate-600 dark:text-slate-300 text-xs font-black transition-transform duration-200">▼</span>
               </button>
               <div class="faq-content hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
                 Our verification engine and QA team test coupon combinations directly in the merchant shopping cart before publishing. We verify code validity, minimum basket thresholds, expiration dates, and merchant restrictions to ensure you never waste time on broken codes.
@@ -1748,7 +1756,7 @@ const homeSchemas = [
             <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden transition shadow-sm">
               <button type="button" class="faq-toggle-btn w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-indigo-600 transition">
                 <span>Why do some merchant deals not require a code?</span>
-                <span class="faq-chevron text-slate-400 text-xs font-black transition-transform duration-200">▼</span>
+                <span class="faq-chevron text-slate-600 dark:text-slate-300 text-xs font-black transition-transform duration-200">▼</span>
               </button>
               <div class="faq-content hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
                 Direct Deals, seasonal clearance markdowns, and free trial promotions are activated automatically when you click our verified partner link. The discount applies immediately at checkout without requiring manual voucher code entry.
@@ -1759,7 +1767,7 @@ const homeSchemas = [
             <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden transition shadow-sm">
               <button type="button" class="faq-toggle-btn w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-indigo-600 transition">
                 <span>How do Admitad official partner links work?</span>
-                <span class="faq-chevron text-slate-400 text-xs font-black transition-transform duration-200">▼</span>
+                <span class="faq-chevron text-slate-600 dark:text-slate-300 text-xs font-black transition-transform duration-200">▼</span>
               </button>
               <div class="faq-content hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
                 PromoRadar is connected directly to official affiliate feeds via Admitad and licensed merchant affiliate programs. When you click our links, you are safely routed to the authentic merchant store, and we may earn a small referral commission at no additional cost to you.
@@ -1770,7 +1778,7 @@ const homeSchemas = [
             <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden transition shadow-sm">
               <button type="button" class="faq-toggle-btn w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-indigo-600 transition">
                 <span>Are promo codes valid in all countries and currencies?</span>
-                <span class="faq-chevron text-slate-400 text-xs font-black transition-transform duration-200">▼</span>
+                <span class="faq-chevron text-slate-600 dark:text-slate-300 text-xs font-black transition-transform duration-200">▼</span>
               </button>
               <div class="faq-content hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
                 Each coupon card displays a geographic region badge (such as 🌍 Worldwide, 🇦🇪 UAE &amp; MENA, 🇺🇦 UA, 🇺🇸 US, or 🇪🇺 EU). Some vouchers feature currency-specific savings (e.g. 3,000 UAH or 350 AED) that apply only when checking out in those regional storefronts.
@@ -1781,7 +1789,7 @@ const homeSchemas = [
             <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden transition shadow-sm">
               <button type="button" class="faq-toggle-btn w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-indigo-600 transition">
                 <span>Can promo codes be combined with seasonal sales or clearance items?</span>
-                <span class="faq-chevron text-slate-400 text-xs font-black transition-transform duration-200">▼</span>
+                <span class="faq-chevron text-slate-600 dark:text-slate-300 text-xs font-black transition-transform duration-200">▼</span>
               </button>
               <div class="faq-content hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
                 In most cases, merchant promo codes stack on top of catalog price cuts, flash sales, and free shipping allowances. Click the "Terms ▾" toggle on any card to inspect individual store stackability rules.
@@ -1792,7 +1800,7 @@ const homeSchemas = [
             <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden transition shadow-sm">
               <button type="button" class="faq-toggle-btn w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-indigo-600 transition">
                 <span>What should I do if a promo code fails at checkout?</span>
-                <span class="faq-chevron text-slate-400 text-xs font-black transition-transform duration-200">▼</span>
+                <span class="faq-chevron text-slate-600 dark:text-slate-300 text-xs font-black transition-transform duration-200">▼</span>
               </button>
               <div class="faq-content hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
                 First verify that your cart meets the minimum purchase amount and does not contain excluded brands. You can also vote "👎 No" inside our reveal modal to flag the voucher for automated re-verification by our team.
