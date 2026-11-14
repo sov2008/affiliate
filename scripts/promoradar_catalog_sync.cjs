@@ -6,6 +6,26 @@
  * Updates deals-portal/src/data/couponsData.ts and triggers Astro production build
  */
 
+/**
+ * Sanitizes raw merchant/campaign names from affiliate networks (Admitad, CJ, MyLead)
+ * Strips tracking suffixes, geo markers, commission tiers, and date ranges.
+ */
+function sanitizeMerchantName(rawName) {
+  if (!rawName) return '';
+  return String(rawName)
+    .replace(/s*-s*Manys+GE[Oo]s/gi, '')
+    .replace(/s*[CPS]/gi, '')
+    .replace(/s*[CPA]/gi, '')
+    .replace(/s*[CPL]/gi, '')
+    .replace(/s*Manys+GE[Oo]s/gi, '')
+    .replace(/s*(s*WWs*)/gi, '')
+    .replace(/s*(s*Globals*)/gi, '')
+    .replace(/s*|s*[d.,$%s/a-zA-Z-_]+$/g, '')
+    .replace(/s*d{1,2}.d{1,2}s*-s*d{1,2}.d{1,2}(.d{2,4})?/g, '')
+    .replace(/s+/g, ' ')
+    .trim();
+}
+
 const fs = require('fs');
 const path = require('path');
 const https = require('https');

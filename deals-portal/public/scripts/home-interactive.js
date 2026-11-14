@@ -151,6 +151,11 @@ const baseUrl = "";
       // Re-query deal cards in DOM
       cards = Array.from(document.querySelectorAll('.deal-grid-card'));
 
+      // Trigger i18n translation hook on new cards
+      if (typeof window.__applyPromoRadarTranslations === 'function') {
+        window.__applyPromoRadarTranslations();
+      }
+
       // Update saved buttons state
       updateSavedBadge();
 
@@ -2498,6 +2503,15 @@ const baseUrl = "";
 
             const claimTextEl = document.getElementById('heroDealClaimText');
             if (claimTextEl) claimTextEl.textContent = localeData.claimButtonText;
+
+            // Ensure Scissors icon is present in the CTA body
+            const claimBtnLeft = openBtn ? openBtn.querySelector('div:first-child') : null;
+            if (claimBtnLeft && !claimBtnLeft.textContent.includes('✂')) {
+              const scissorsSpan = document.createElement('span');
+              scissorsSpan.className = 'text-sm';
+              scissorsSpan.textContent = '✂';
+              claimBtnLeft.insertBefore(scissorsSpan, claimBtnLeft.firstChild);
+            }
 
             const maskedCodeEl = document.getElementById('heroDealMaskedCode');
             if (maskedCodeEl) maskedCodeEl.textContent = deal.maskedCode;

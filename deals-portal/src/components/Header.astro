@@ -235,6 +235,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
           id="storesMegaDropdown"
           class="hidden group-hover/stores:flex absolute top-full left-0 mt-1 w-[490px] bg-[#0E131F] border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200"
         >
+          <template id="storesMegaTemplate">
           <!-- Left Column: Categories List (Width: 175px) -->
           <div class="w-[205px] bg-[#080B14] py-3 px-2 border-r border-white/10 shrink-0 space-y-0.5">
             {megaCategories.map((cat, idx) => {
@@ -304,6 +305,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
               </a>
             </div>
           </div>
+          </template>
         </div>
       </div>
       <!-- Smart Categories Mega Menu Dropdown (RetailMeNot Split Architecture) -->
@@ -329,6 +331,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
           id="categoriesMegaDropdown"
           class="hidden group-hover/categories:flex absolute top-full left-0 mt-1 w-[530px] bg-[#0E131F] border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200"
         >
+          <template id="categoriesMegaTemplate">
           <!-- Left Column: Category Selector List (Width: 220px) -->
           <div class="w-[220px] bg-[#080B14] py-3 px-2 border-r border-white/10 shrink-0 space-y-0.5">
             {smartCategories.map((cat, idx) => {
@@ -424,6 +427,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
               </a>
             </div>
           </div>
+          </template>
         </div>
       </div>
       <a

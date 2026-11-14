@@ -208,7 +208,7 @@ def build_executive_report():
         f"⚡ <b>СЕРВЕРНАЯ ИНФРАСТРУКТУРА</b>\n"
         f"• Демоны PM2: 🟢 <b>{sys_m['pm2_online']} процессов онлайн</b>\n"
         f"• Свободно оперативной памяти: <b>{round(sys_m['mem']['free_mb'] / 1024, 2)} ГБ</b> ({sys_m['mem']['used_percent']}% занято)\n"
-        f"• Панель управления: <a href=\"http://178.128.199.28:3456/\">http://178.128.199.28:3456/</a>\n"
+        f"• Панель управления: <a href=\"https://promoradar.store/dashboard/\">https://promoradar.store/dashboard/</a>\n"
         f"━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
         f"🎯 <i>Режим: 100% Автономный автопилот. Ручного вмешательства не требуется.</i>"
     )

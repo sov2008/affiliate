@@ -144,6 +144,8 @@ function main() {
     for (const deal of DEALS_TWEETS) {
       const id = `tw_pr_${now}_${Math.random().toString(36).substring(2, 7)}`;
       try {
+        const cleanHook = (deal.hook || '').replace(/\*\*(.*?)\*\*/g, '$1').replace(/\*\*/g, '');
+        const cleanBody = (deal.body || '').replace(/\*\*(.*?)\*\*/g, '$1').replace(/\*\*/g, '');
         insertStmt.run(
           id,
           'promoradar_deals_feed',
@@ -152,8 +154,8 @@ function main() {
           'TWITTER',
           'deals',
           deal.url,
-          deal.hook,
-          deal.body,
+          cleanHook,
+          cleanBody,
           JSON.stringify({ store: deal.store, url: deal.url }),
           'Claim Voucher',
           `${deal.url}?utm_source=twitter&utm_medium=organic&utm_campaign=promoradar_feed`,

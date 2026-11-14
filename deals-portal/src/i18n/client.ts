@@ -900,6 +900,12 @@ export function initClientI18n() {
     }
   }
 
+  // Expose global hook for dynamic paginated chunks and category chunks
+  (window as any).__applyPromoRadarTranslations = function() {
+    const current = localStorage.getItem('promoradar_lang') || 'en';
+    applyLanguage(current);
+  };
+
   // Listen to lang change events dispatched by the header
   window.addEventListener('promoradar_lang_changed', (e: any) => {
     applyLanguage(e.detail?.lang || 'en');

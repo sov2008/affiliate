@@ -236,77 +236,109 @@
     }, { once: true });
   })();
 
-  // RetailMeNot Style Stores Mega Menu Interactions
-  (function initStoresMegaMenu() {
-    const catButtons = document.querySelectorAll('.mega-cat-btn');
-    const storePanels = document.querySelectorAll('.mega-store-panel');
-    const titleEl = document.getElementById('megaCurrentCatTitle');
+  // Lazy Desktop Mega-Menu Hydration Controller (<template> unpacker for >= 1024px)
+  (function initLazyDesktopMegaMenus() {
+    function unpackTemplate(containerId, templateId) {
+      const container = document.getElementById(containerId);
+      const template = document.getElementById(templateId);
+      if (container && template && template.content) {
+        container.appendChild(template.content.cloneNode(true));
+        template.remove();
+      }
+    }
 
-    catButtons.forEach(btn => {
-      // Switch on hover (like RetailMeNot desktop) and click
-      const switchCategory = () => {
-        const catKey = btn.getAttribute('data-mega-cat');
-        const catName = btn.querySelector('span')?.textContent || 'Stores';
+    function hydrateMegaMenus() {
+      if (window.innerWidth >= 1024) {
+        unpackTemplate('storesMegaDropdown', 'storesMegaTemplate');
+        unpackTemplate('categoriesMegaDropdown', 'categoriesMegaTemplate');
+        bindStoresMegaEvents();
+        bindCategoriesMegaEvents();
+      }
+    }
 
-        // Update active button state
-        catButtons.forEach(b => {
-          b.classList.remove('bg-indigo-600/20', 'text-indigo-400', 'font-bold', 'border-indigo-500/30');
-          b.classList.add('text-slate-400', 'border-transparent');
-        });
-        btn.classList.add('bg-indigo-600/20', 'text-indigo-400', 'font-bold', 'border-indigo-500/30');
-        btn.classList.remove('text-slate-400', 'border-transparent');
+    function bindStoresMegaEvents() {
+      const catButtons = document.querySelectorAll('.mega-cat-btn');
+      const storePanels = document.querySelectorAll('.mega-store-panel');
+      const titleEl = document.getElementById('megaCurrentCatTitle');
 
-        // Update title
-        if (titleEl) {
-          titleEl.textContent = catName.toUpperCase() + (catKey === 'popular' ? ' STORES' : '');
+      catButtons.forEach(btn => {
+        const switchCategory = () => {
+          const catKey = btn.getAttribute('data-mega-cat');
+          const catName = btn.querySelector('span')?.textContent || 'Stores';
+
+          catButtons.forEach(b => {
+            b.classList.remove('bg-indigo-600/20', 'text-indigo-400', 'font-bold', 'border-indigo-500/30');
+            b.classList.add('text-slate-400', 'border-transparent');
+          });
+          btn.classList.add('bg-indigo-600/20', 'text-indigo-400', 'font-bold', 'border-indigo-500/30');
+          btn.classList.remove('text-slate-400', 'border-transparent');
+
+          if (titleEl) {
+            titleEl.textContent = catName.toUpperCase() + (catKey === 'popular' ? ' STORES' : '');
+          }
+
+          storePanels.forEach(panel => {
+            panel.classList.add('hidden');
+            panel.classList.remove('grid');
+          });
+          const targetPanel = document.getElementById('mega-store-list-' + catKey);
+          if (targetPanel) {
+            targetPanel.classList.remove('hidden');
+            targetPanel.classList.add('grid');
+          }
+        };
+
+        btn.addEventListener('mouseenter', switchCategory);
+        btn.addEventListener('click', switchCategory);
+      });
+    }
+
+    function bindCategoriesMegaEvents() {
+      const catButtons = document.querySelectorAll('.smart-cat-btn');
+      const catPanels = document.querySelectorAll('.smart-cat-panel');
+
+      catButtons.forEach(btn => {
+        const switchCat = () => {
+          const catKey = btn.getAttribute('data-smart-cat');
+
+          catButtons.forEach(b => {
+            b.classList.remove('bg-indigo-600/20', 'text-indigo-400', 'font-bold', 'border-indigo-500/30');
+            b.classList.add('text-slate-400', 'border-transparent');
+          });
+          btn.classList.add('bg-indigo-600/20', 'text-indigo-400', 'font-bold', 'border-indigo-500/30');
+          btn.classList.remove('text-slate-400', 'border-transparent');
+
+          catPanels.forEach(panel => {
+            panel.classList.add('hidden');
+            panel.classList.remove('block');
+          });
+          const target = document.getElementById('smart-cat-panel-' + catKey);
+          if (target) {
+            target.classList.remove('hidden');
+            target.classList.add('block');
+          }
+        };
+
+        btn.addEventListener('mouseenter', switchCat);
+        btn.addEventListener('click', switchCat);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', hydrateMegaMenus);
+    } else {
+      hydrateMegaMenus();
+    }
+
+    // Hydrate if viewport resizes to desktop
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (window.innerWidth >= 1024 && (document.getElementById('storesMegaTemplate') || document.getElementById('categoriesMegaTemplate'))) {
+          hydrateMegaMenus();
         }
-
-        // Show matching panel
-        storePanels.forEach(panel => {
-          panel.classList.add('hidden');
-          panel.classList.remove('grid');
-        });
-        const targetPanel = document.getElementById('mega-store-list-' + catKey);
-        if (targetPanel) {
-          targetPanel.classList.remove('hidden');
-          targetPanel.classList.add('grid');
-        }
-      };
-
-      btn.addEventListener('mouseenter', switchCategory);
-      btn.addEventListener('click', switchCategory);
-    });
-  })();
-
-  // Smart Categories Mega Menu Hover & Click Controller
-  (function initCategoriesMegaMenu() {
-    const catButtons = document.querySelectorAll('.smart-cat-btn');
-    const catPanels = document.querySelectorAll('.smart-cat-panel');
-
-    catButtons.forEach(btn => {
-      const switchCat = () => {
-        const catKey = btn.getAttribute('data-smart-cat');
-
-        catButtons.forEach(b => {
-          b.classList.remove('bg-indigo-600/20', 'text-indigo-400', 'font-bold', 'border-indigo-500/30');
-          b.classList.add('text-slate-400', 'border-transparent');
-        });
-        btn.classList.add('bg-indigo-600/20', 'text-indigo-400', 'font-bold', 'border-indigo-500/30');
-        btn.classList.remove('text-slate-400', 'border-transparent');
-
-        catPanels.forEach(panel => {
-          panel.classList.add('hidden');
-          panel.classList.remove('block');
-        });
-        const target = document.getElementById('smart-cat-panel-' + catKey);
-        if (target) {
-          target.classList.remove('hidden');
-          target.classList.add('block');
-        }
-      };
-
-      btn.addEventListener('mouseenter', switchCat);
-      btn.addEventListener('click', switchCat);
+      }, 200);
     });
   })();
 
