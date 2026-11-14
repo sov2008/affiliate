@@ -873,44 +873,45 @@ const homeSchemas = [
 
                 <!-- Authentic Realistic Perforated Rip-Off Voucher Ticket with Integrated Savings -->
                 <div class="deal-stagger-item relative z-10 shrink-0 my-1 flex justify-start">
-                  <div class="hero-rip-ticket relative overflow-hidden rounded-xl bg-gradient-to-r rtl:bg-gradient-to-l from-emerald-950/40 via-slate-900/80 to-slate-900/60 dark:from-emerald-950/30 dark:via-white/[0.04] dark:to-white/[0.02] border border-emerald-500/35 dark:border-emerald-400/30 px-5 sm:px-6 py-2.5 flex items-center justify-between gap-5 sm:gap-6 shadow-md shadow-emerald-950/20 w-fit max-w-full">
-                    <!-- Start ticket punch notch (Left in LTR, Right in RTL) -->
-                    <div class="ticket-notch ticket-notch-start"></div>
-                    <!-- End ticket punch notch (Right in LTR, Left in RTL) -->
-                    <div class="ticket-notch ticket-notch-end"></div>
+                  <div class="hero-rip-ticket relative overflow-hidden rounded-xl bg-gradient-to-r from-emerald-950/90 via-emerald-900/60 to-emerald-950/85 ring-1 ring-inset ring-emerald-400/25 px-5 sm:px-6 py-2.5 flex items-center justify-between gap-5 sm:gap-6 shadow-md shadow-emerald-950/30 w-fit max-w-full">
+                    <!-- Edge Cutout Semi-Circle Notches (Left & Right) -->
+                    <div class="absolute -left-2.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white dark:bg-surface-dark border border-emerald-500/30 z-10"></div>
+                    <div class="absolute -right-2.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white dark:bg-surface-dark border border-emerald-500/30 z-10"></div>
 
-                    <!-- 1. Start Coupon Section: Verified Discount Badge & Promo Tier -->
-                    <div class="ps-1 pe-2 text-start min-w-0">
+                    <!-- 1. Left Stub Section: Verified Discount Badge & Promo Tier -->
+                    <div class="ps-1 pe-3 text-start min-w-0">
                       <div id="heroDealBadge" class="text-2xl sm:text-3xl font-black text-emerald-400 tracking-tight leading-none whitespace-nowrap drop-shadow-sm font-sans">49% OFF</div>
-                      <span id="heroDealBadgeSub" class="block font-sans text-[11px] sm:text-xs text-slate-300 dark:text-slate-300 font-medium mt-1 tracking-normal whitespace-nowrap">+ 3 Months Free</span>
+                      <span id="heroDealBadgeSub" class="block font-sans text-[11px] sm:text-xs text-slate-300 font-medium mt-1 tracking-normal whitespace-nowrap">+ 3 Months Free</span>
                     </div>
 
-                    <!-- 2. Middle Section: Integrated Financial Savings (Perforated coupon column) -->
-                    <div id="heroDealSavingsBox" class="ticket-stub-col relative ps-4 sm:ps-5 pe-2 text-start min-w-0">
-                      <span id="heroDealSavingsLabel" class="block text-[9px] font-mono font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest whitespace-nowrap">EST. SAVINGS</span>
-                      <div class="flex items-baseline gap-1 mt-0.5 whitespace-nowrap">
-                        <span id="heroDealSavingsValue" class="text-sm sm:text-base font-black text-emerald-400 dark:text-emerald-300 leading-none drop-shadow-xs">$60+</span>
-                        <span id="heroDealSavingsSub" class="text-[10px] font-medium text-slate-600 dark:text-slate-300">Save 49%</span>
+                    <!-- 2. Right Body Section: Perforated Tear-Line & Pure Savings Badge -->
+                    <div id="heroDealSavingsBox" class="relative ps-5 sm:ps-6 pe-2 border-l-2 border-dashed border-emerald-400/35 flex items-center justify-center min-w-0">
+                      <!-- Top & Bottom semi-circle punch notches on the perforation line -->
+                      <div class="absolute -top-3.5 -left-2 w-4 h-4 rounded-full bg-white dark:bg-surface-dark border border-emerald-500/30 z-10"></div>
+                      <div class="absolute -bottom-3.5 -left-2 w-4 h-4 rounded-full bg-white dark:bg-surface-dark border border-emerald-500/30 z-10"></div>
+
+                      <div class="flex items-center justify-center whitespace-nowrap">
+                        <span id="heroDealSavingsValue" class="text-xl sm:text-2xl font-extrabold text-emerald-300 tracking-tight leading-none drop-shadow-sm">Save $79.80 / yr</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div class="deal-stagger-item flex-1 flex flex-col justify-center py-0.5">
-                  <h3 id="heroDealTitle" class="text-base font-bold text-slate-900 dark:text-white relative z-10 leading-snug line-clamp-1">
+                  <h3 id="heroDealTitle" class="text-base font-bold text-slate-900 dark:text-white relative z-10 leading-snug line-clamp-2 min-h-[2.75rem]">
                     49% Off ExpressVPN Annual Plan Plus Three Free Months
                   </h3>
-                  <p id="heroDealDesc" class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed relative z-10 line-clamp-4 min-h-[64px]">
+                  <p id="heroDealDesc" class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed relative z-10 line-clamp-4 min-h-[64px]">
                     Save 49% with 3 bonus months of verified RAM-only high-speed encryption across 105 countries with Keys password manager and 30-day money-back guarantee.
                   </p>
                 </div>
 
-                <!-- Signature 2-part Action Reveal Button -->
+                <!-- Signature Variant 3 Tear-Off Action Button (Orange Glow + Scissors + Perforation) -->
                 <div class="deal-stagger-item flex flex-col sm:flex-row items-center gap-2.5 relative z-10 pt-1 shrink-0">
                   <button
                     type="button"
                     id="openFeaturedDealBtn"
-                    class="flex-1 w-full flex items-stretch rounded-xl overflow-hidden shadow-md group cursor-pointer border border-transparent hover:border-indigo-400 dark:hover:border-white/20 transition-all"
+                    class="flex-1 w-full flex items-stretch rounded-xl overflow-hidden shadow-[0_0_25px_rgba(249,115,22,0.35)] group cursor-pointer border border-orange-500/40 hover:border-orange-400 transition-all"
                     data-reveal-deal={JSON.stringify({
                       id: "deal_expressvpn_49",
                       title: "49% Off ExpressVPN Annual Plan Plus Three Free Months",
@@ -923,15 +924,24 @@ const homeSchemas = [
                       affiliateUrl: "https://ziejy.com/g/4raik6r0sq367099d2cc954d043f6e/"
                     })}
                   >
-                    <div class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-3 font-bold text-xs flex items-center justify-center gap-2 flex-1 transition-colors">
-                      <LockOpen class="w-4 h-4" />
+                    <!-- Left Coupon Body (Indigo -> Violet -> Orange gradient) -->
+                    <div class="bg-gradient-to-r from-indigo-600 via-violet-600 to-orange-500 hover:brightness-110 text-white px-4 py-3 font-bold text-xs flex items-center justify-center gap-2 flex-1 transition-all">
+                      <span class="text-sm">✂</span>
                       <span id="heroDealClaimText">Claim 49% Voucher</span>
                     </div>
-                    <div id="heroDealMaskedCode" class="bg-slate-900 text-white px-3.5 py-3 font-mono text-xs font-bold flex items-center justify-center tracking-wider">
+
+                    <!-- Vertical Perforation Tear-Line with Notch Cutouts -->
+                    <div class="relative w-0 border-r-2 border-dashed border-white/40">
+                      <div class="absolute -top-1.5 -left-1 w-2 h-2 rounded-full bg-white dark:bg-surface-dark"></div>
+                      <div class="absolute -bottom-1.5 -left-1 w-2 h-2 rounded-full bg-white dark:bg-surface-dark"></div>
+                    </div>
+
+                    <!-- Right Stub (Dark Masked Code) -->
+                    <div id="heroDealMaskedCode" class="bg-slate-950 text-amber-300 px-3.5 py-3 font-mono text-xs font-black flex items-center justify-center tracking-wider">
                       ••• S49
                     </div>
                   </button>
-                  </div>
+                </div>
               </div>
 
               <!-- Progress Line as divider right above bottom controls -->
@@ -939,40 +949,43 @@ const homeSchemas = [
                 <div id="heroDealTimerBar" class="h-full bg-gradient-to-r from-indigo-500 via-rose-500 to-amber-500 w-full origin-left rounded-full" style="transform: scaleX(0); will-change: transform;"></div>
               </div>
 
-              <!-- Controls bar centered -->
-              <div class="deal-stagger-item pt-2.5 pb-0.5 flex items-center justify-center font-mono text-[11px] text-slate-600 dark:text-slate-600 dark:text-slate-300 relative z-10 shrink-0">
-                <!-- Centered controls: Play/Pause, Dots, [Prev + Next] -->
-                <div class="flex items-center gap-3">
+              <!-- Controls bar: Unified Bottom Slider Control Dock -->
+              <div class="deal-stagger-item pt-2.5 pb-0.5 flex items-center justify-center font-mono text-[11px] relative z-10 shrink-0">
+                <div class="inline-flex items-center gap-2.5 rounded-full bg-slate-950/85 backdrop-blur-md border border-white/10 px-3.5 py-1.5 shadow-lg">
                   <!-- Play / Pause Toggle Button -->
                   <button
                     id="heroDealPlayPauseBtn"
                     type="button"
-                    class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 border border-slate-200/70 dark:border-transparent flex items-center justify-center transition cursor-pointer shadow-2xs"
+                    class="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 flex items-center justify-center transition cursor-pointer"
                     title="Pause Rotation"
                     aria-label="Pause Rotation"
                   >
                     <!-- Pause Icon (Default) -->
-                    <svg id="heroDealPauseIcon" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                    <svg id="heroDealPauseIcon" class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
                       <rect x="6" y="4" width="4" height="16" rx="1"></rect>
                       <rect x="14" y="4" width="4" height="16" rx="1"></rect>
                     </svg>
                     <!-- Play Icon (When paused) -->
-                    <svg id="heroDealPlayIcon" class="w-3.5 h-3.5 hidden ml-0.5" viewBox="0 0 24 24" fill="currentColor">
+                    <svg id="heroDealPlayIcon" class="w-3 h-3 hidden ml-0.5" viewBox="0 0 24 24" fill="currentColor">
                       <polygon points="5 3 19 12 5 21 5 3"></polygon>
                     </svg>
                   </button>
 
+                  <div class="h-3 w-px bg-white/15"></div>
+
                   <!-- Pagination dots (Dynamically generated by script) -->
-                  <div class="flex items-center gap-1 px-1" id="heroDealDots">
+                  <div class="flex items-center gap-1.5" id="heroDealDots">
                     <button
                       type="button"
                       data-hero-deal-index="0"
-                      class="hero-deal-dot w-6 h-8 inline-flex items-center justify-center cursor-pointer focus:outline-none"
+                      class="hero-deal-dot w-5 h-6 inline-flex items-center justify-center cursor-pointer focus:outline-none"
                       aria-label="Switch to Deal 1"
                     >
-                      <span class="hero-dot-inner block h-2 rounded-full transition-all duration-300 bg-indigo-600 w-6"></span>
+                      <span class="hero-dot-inner block h-2 rounded-full transition-all duration-300 bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.5)] w-5"></span>
                     </button>
                   </div>
+
+                  <div class="h-3 w-px bg-white/15"></div>
 
                   <!-- Arrow Controls Group (Prev + Next together) -->
                   <div class="flex items-center gap-1">
@@ -980,7 +993,7 @@ const homeSchemas = [
                     <button
                       id="heroDealPrevBtn"
                       type="button"
-                      class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 border border-slate-200/70 dark:border-transparent flex items-center justify-center text-sm font-bold transition cursor-pointer shadow-2xs"
+                      class="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 flex items-center justify-center text-sm font-bold transition cursor-pointer"
                       title="Previous Deal"
                       aria-label="Previous Deal"
                     >
@@ -990,7 +1003,7 @@ const homeSchemas = [
                     <button
                       id="heroDealNextBtn"
                       type="button"
-                      class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 border border-slate-200/70 dark:border-transparent flex items-center justify-center text-sm font-bold transition cursor-pointer shadow-2xs"
+                      class="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 flex items-center justify-center text-sm font-bold transition cursor-pointer"
                       title="Next Deal"
                       aria-label="Next Deal"
                     >
@@ -2131,43 +2144,9 @@ const homeSchemas = [
       }
     }
 
-    /* Authentic Rip-Off Voucher Ticket Styles */
+    /* Authentic Physical Voucher Ticket Styles */
     .hero-rip-ticket {
       position: relative;
-    }
-
-    /* Left & Right (Start & End) Clean Single-Border Cutout Notches */
-    .ticket-notch {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 16px;
-      height: 16px;
-      border-radius: 9999px;
-      background-color: #0f172a; /* Card background match */
-      z-index: 5;
-    }
-    :global(.dark) .ticket-notch {
-      background-color: var(--color-surface-dark, #0b0f19);
-    }
-    .ticket-notch-start, .ticket-notch-left {
-      inset-inline-start: -9px;
-      border-inline-end: 1px solid rgba(52, 211, 153, 0.35);
-    }
-    .ticket-notch-end, .ticket-notch-right {
-      inset-inline-end: -9px;
-      border-inline-start: 1px solid rgba(52, 211, 153, 0.35);
-    }
-
-    /* Vertical Perforated Tear Lines (Clean dashed line, no top/bottom dots) */
-    .ticket-stub-col::before {
-      content: '';
-      position: absolute;
-      inset-inline-start: 0;
-      top: 12%;
-      bottom: 12%;
-      width: 0;
-      border-inline-start: 1.5px dashed rgba(52, 211, 153, 0.3);
     }
 
     /* Flickering Flame Icon */
@@ -2191,7 +2170,7 @@ const homeSchemas = [
       }
     }
 
-    /* Vintage Mechanical Flip Clock (Split-flap digit display) */
+    /* Vintage Mechanical Flip Clock (Clean Digit Display - No horizontal seam) */
     .flip-card-unit {
       position: relative;
       display: inline-flex;
@@ -2200,7 +2179,7 @@ const homeSchemas = [
       justify-content: center;
       min-width: 24px;
       height: 26px;
-      border-radius: 5px;
+      border-radius: 6px;
       padding: 0 5px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-weight: 800;
@@ -2210,46 +2189,16 @@ const homeSchemas = [
       font-variant-numeric: tabular-nums;
       background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
       color: #f8fafc;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 2px 4px rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(0, 0, 0, 0.7);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 2px 4px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(0, 0, 0, 0.6);
       user-select: none;
       overflow: hidden;
     }
 
     :global(.dark) .flip-card-unit {
       background: linear-gradient(180deg, #181d27 0%, #0a0d14 100%);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 2px 4px rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    /* Center split flap horizontal seam */
-    .flip-card-unit::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 50%;
-      height: 1px;
-      background: rgba(0, 0, 0, 0.85);
-      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12);
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    /* Split flap side hinge notches */
-    .flip-card-unit::after {
-      content: '';
-      position: absolute;
-      left: -2px;
-      top: 50%;
-      width: 3px;
-      height: 3px;
-      background: #0f172a;
-      transform: translateY(-50%);
-      border-radius: 50%;
-      box-shadow: calc(100% + 21px) 0 0 #0f172a;
-      z-index: 3;
-      pointer-events: none;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 2px 4px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     /* Flip animation pulse when digit changes */

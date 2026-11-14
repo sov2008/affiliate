@@ -951,422 +951,422 @@ export function getDealsForRegion(region: string): HeroMultiGeoDeal[] {
 export const HERO_SAVINGS_BY_ID = {
   "deal_expressvpn_49": {
     "en": {
-      "label": "Est. Savings",
-      "value": "$60+",
-      "sub": "Save 49%"
+      "label": "",
+      "value": "Save $79.80 / yr",
+      "sub": ""
     },
     "ua": {
-      "label": "Економія",
-      "value": "$60+",
-      "sub": "Вигода 49%"
+      "label": "",
+      "value": "Економія $79.80 / рік",
+      "sub": ""
     },
     "ar": {
-      "label": "توفير تقديري",
-      "value": "$60+",
-      "sub": "وفر 49%"
+      "label": "",
+      "value": "وفّر 79.80$ سنوياً",
+      "sub": ""
     },
     "es": {
-      "label": "Ahorro Est.",
-      "value": "$60+",
-      "sub": "Ahorra 49%"
+      "label": "",
+      "value": "Ahorra $79.80 / año",
+      "sub": ""
     },
     "pt": {
-      "label": "Poupança Est.",
-      "value": "$60+",
-      "sub": "Poupe 49%"
+      "label": "",
+      "value": "Poupe $79.80 / ano",
+      "sub": ""
     },
     "de": {
-      "label": "Ersparnis",
-      "value": "$60+",
-      "sub": "49% Sparen"
+      "label": "",
+      "value": "Sparen Sie 79,80 $ / Jahr",
+      "sub": ""
     },
     "pl": {
-      "label": "Oszczędność",
-      "value": "$60+",
-      "sub": "Zyskaj 49%"
+      "label": "",
+      "value": "Oszczędź $79.80 / rok",
+      "sub": ""
     },
     "cs": {
-      "label": "Úspora",
-      "value": "$60+",
-      "sub": "Ušetřete 49%"
+      "label": "",
+      "value": "Ušetřete $79.80 / rok",
+      "sub": ""
     }
   },
   "deal_hostinger_cloud_75": {
     "en": {
       "label": "Est. Savings",
       "value": "$108+",
-      "sub": "Save 75%"
+      "sub": ""
     },
     "ua": {
       "label": "Економія",
       "value": "$108+",
-      "sub": "Вигода 75%"
+      "sub": ""
     },
     "ar": {
       "label": "توفير تقديري",
       "value": "$108+",
-      "sub": "وفر 75%"
+      "sub": ""
     },
     "es": {
       "label": "Ahorro Est.",
       "value": "$108+",
-      "sub": "Ahorra 75%"
+      "sub": ""
     },
     "pt": {
       "label": "Poupança Est.",
       "value": "$108+",
-      "sub": "Poupe 75%"
+      "sub": ""
     },
     "de": {
       "label": "Ersparnis",
       "value": "$108+",
-      "sub": "75% Sparen"
+      "sub": ""
     },
     "pl": {
       "label": "Oszczędność",
       "value": "$108+",
-      "sub": "Zyskaj 75%"
+      "sub": ""
     },
     "cs": {
       "label": "Úspora",
       "value": "$108+",
-      "sub": "Ušetřete 75%"
+      "sub": ""
     }
   },
   "net_814385": {
     "en": {
       "label": "Est. Savings",
       "value": "$85+",
-      "sub": "Save Up to 80%"
+      "sub": ""
     },
     "ua": {
       "label": "Економія",
       "value": "$85+",
-      "sub": "Знижка до 80%"
+      "sub": ""
     },
     "ar": {
       "label": "توفير تقديري",
       "value": "$85+",
-      "sub": "وفر حتى 80%"
+      "sub": ""
     },
     "es": {
       "label": "Ahorro Est.",
       "value": "$85+",
-      "sub": "Hasta 80%"
+      "sub": ""
     },
     "pt": {
       "label": "Poupança Est.",
       "value": "$85+",
-      "sub": "Até 80%"
+      "sub": ""
     },
     "de": {
       "label": "Ersparnis",
       "value": "$85+",
-      "sub": "Bis zu 80%"
+      "sub": ""
     },
     "pl": {
       "label": "Oszczędność",
       "value": "$85+",
-      "sub": "Do 80% taniej"
+      "sub": ""
     },
     "cs": {
       "label": "Úspora",
       "value": "$85+",
-      "sub": "Až 80 % sleva"
+      "sub": ""
     }
   },
   "net_776832": {
     "en": {
       "label": "Est. Savings",
       "value": "$45+",
-      "sub": "Save 15%"
+      "sub": ""
     },
     "ua": {
       "label": "Економія",
       "value": "$45+",
-      "sub": "Вигода 15%"
+      "sub": ""
     },
     "ar": {
       "label": "توفير تقديري",
       "value": "$45+",
-      "sub": "وفر 15%"
+      "sub": ""
     },
     "es": {
       "label": "Ahorro Est.",
       "value": "$45+",
-      "sub": "Ahorra 15%"
+      "sub": ""
     },
     "pt": {
       "label": "Poupança Est.",
       "value": "$45+",
-      "sub": "Poupe 15%"
+      "sub": ""
     },
     "de": {
       "label": "Ersparnis",
       "value": "$45+",
-      "sub": "15% Sparen"
+      "sub": ""
     },
     "pl": {
       "label": "Oszczędność",
       "value": "$45+",
-      "sub": "Zyskaj 15%"
+      "sub": ""
     },
     "cs": {
       "label": "Úspora",
       "value": "$45+",
-      "sub": "Ušetřete 15%"
+      "sub": ""
     }
   },
   "deal_touch_smartphones_sale": {
     "en": {
       "label": "Est. Savings",
       "value": "₴3,200+",
-      "sub": "Up to 30% Off"
+      "sub": ""
     },
     "ua": {
       "label": "Економія",
       "value": "₴3,200+",
-      "sub": "Знижка до 30%"
+      "sub": ""
     },
     "ar": {
       "label": "توفير تقديري",
       "value": "₴3,200+",
-      "sub": "وفر حتى 30%"
+      "sub": ""
     },
     "es": {
       "label": "Ahorro Est.",
       "value": "₴3,200+",
-      "sub": "Hasta 30%"
+      "sub": ""
     },
     "pt": {
       "label": "Poupança Est.",
       "value": "₴3,200+",
-      "sub": "Até 30%"
+      "sub": ""
     },
     "de": {
       "label": "Ersparnis",
       "value": "₴3,200+",
-      "sub": "Bis zu 30%"
+      "sub": ""
     },
     "pl": {
       "label": "Oszczędność",
       "value": "₴3,200+",
-      "sub": "Do 30% taniej"
+      "sub": ""
     },
     "cs": {
       "label": "Úspora",
       "value": "₴3,200+",
-      "sub": "Až 30 % sleva"
+      "sub": ""
     }
   },
   "deal_polis_greencard_sale": {
     "en": {
       "label": "Est. Savings",
       "value": "₴450+",
-      "sub": "Save 15%"
+      "sub": ""
     },
     "ua": {
       "label": "Економія",
       "value": "₴450+",
-      "sub": "Вигода 15%"
+      "sub": ""
     },
     "ar": {
       "label": "توفير تقديري",
       "value": "₴450+",
-      "sub": "وفر 15%"
+      "sub": ""
     },
     "es": {
       "label": "Ahorro Est.",
       "value": "₴450+",
-      "sub": "Ahorra 15%"
+      "sub": ""
     },
     "pt": {
       "label": "Poupança Est.",
       "value": "₴450+",
-      "sub": "Poupe 15%"
+      "sub": ""
     },
     "de": {
       "label": "Ersparnis",
       "value": "₴450+",
-      "sub": "15% Sparen"
+      "sub": ""
     },
     "pl": {
       "label": "Oszczędność",
       "value": "₴450+",
-      "sub": "Zyskaj 15%"
+      "sub": ""
     },
     "cs": {
       "label": "Úspora",
       "value": "₴450+",
-      "sub": "Ušetřete 15%"
+      "sub": ""
     }
   },
   "cj-abelssoft-50off": {
     "en": {
       "label": "Est. Savings",
       "value": "€30+",
-      "sub": "Save 50%"
+      "sub": ""
     },
     "ua": {
       "label": "Економія",
       "value": "€30+",
-      "sub": "Вигода 50%"
+      "sub": ""
     },
     "ar": {
       "label": "توفير تقديري",
       "value": "€30+",
-      "sub": "وفر 50%"
+      "sub": ""
     },
     "es": {
       "label": "Ahorro Est.",
       "value": "€30+",
-      "sub": "Ahorra 50%"
+      "sub": ""
     },
     "pt": {
       "label": "Poupança Est.",
       "value": "€30+",
-      "sub": "Poupe 50%"
+      "sub": ""
     },
     "de": {
       "label": "Ersparnis",
       "value": "€30+",
-      "sub": "50% Sparen"
+      "sub": ""
     },
     "pl": {
       "label": "Oszczędność",
       "value": "€30+",
-      "sub": "Zyskaj 50%"
+      "sub": ""
     },
     "cs": {
       "label": "Úspora",
       "value": "€30+",
-      "sub": "Ušetřete 50%"
+      "sub": ""
     }
   },
   "net_849211": {
     "en": {
       "label": "Est. Savings",
       "value": "$15+",
-      "sub": "Save 10%"
+      "sub": ""
     },
     "ua": {
       "label": "Економія",
       "value": "$15+",
-      "sub": "Вигода 10%"
+      "sub": ""
     },
     "ar": {
       "label": "توفير تقديري",
       "value": "$15+",
-      "sub": "وفر 10%"
+      "sub": ""
     },
     "es": {
       "label": "Ahorro Est.",
       "value": "$15+",
-      "sub": "Ahorra 10%"
+      "sub": ""
     },
     "pt": {
       "label": "Poupança Est.",
       "value": "$15+",
-      "sub": "Poupe 10%"
+      "sub": ""
     },
     "de": {
       "label": "Ersparnis",
       "value": "$15+",
-      "sub": "10% Sparen"
+      "sub": ""
     },
     "pl": {
       "label": "Oszczędność",
       "value": "$15+",
-      "sub": "Zyskaj 10%"
+      "sub": ""
     },
     "cs": {
       "label": "Úspora",
       "value": "$15+",
-      "sub": "Ušetřete 10%"
+      "sub": ""
     }
   },
   "deal_zonky-cz_verified_baseline": {
     "en": {
       "label": "Est. Savings",
       "value": "15 000 Kč+",
-      "sub": "Low Fixed Rate"
+      "sub": ""
     },
     "cs": {
       "label": "Odhad úspory",
       "value": "15 000 Kč+",
-      "sub": "Nízký pevný úrok"
+      "sub": ""
     },
     "ua": {
       "label": "Економія",
       "value": "15 000 Kč+",
-      "sub": "Низький відсоток"
+      "sub": ""
     },
     "ar": {
       "label": "توفير تقديري",
       "value": "15 000 Kč+",
-      "sub": "فائدة منخفضة"
+      "sub": ""
     },
     "es": {
       "label": "Ahorro Est.",
       "value": "15 000 Kč+",
-      "sub": "Interés Bajo"
+      "sub": ""
     },
     "pt": {
       "label": "Poupança Est.",
       "value": "15 000 Kč+",
-      "sub": "Juros Baixos"
+      "sub": ""
     },
     "de": {
       "label": "Ersparnis",
       "value": "15 000 Kč+",
-      "sub": "Niedriger Zins"
+      "sub": ""
     },
     "pl": {
       "label": "Oszczędność",
       "value": "15 000 Kč+",
-      "sub": "Niski procent"
+      "sub": ""
     }
   },
   "net_817037": {
     "en": {
       "label": "Est. Savings",
       "value": "45 zł+",
-      "sub": "Special TV Deal"
+      "sub": ""
     },
     "pl": {
       "label": "Oszczędność",
       "value": "45 zł+",
-      "sub": "Pakiet Promo TV"
+      "sub": ""
     },
     "ua": {
       "label": "Економія",
       "value": "45 zł+",
-      "sub": "Спецтариф ТБ"
+      "sub": ""
     },
     "ar": {
       "label": "توفير تقديري",
       "value": "45 zł+",
-      "sub": "عرض باقة خاص"
+      "sub": ""
     },
     "es": {
       "label": "Ahorro Est.",
       "value": "45 zł+",
-      "sub": "Pack Especial"
+      "sub": ""
     },
     "pt": {
       "label": "Poupança Est.",
       "value": "45 zł+",
-      "sub": "Pacote Especial"
+      "sub": ""
     },
     "de": {
       "label": "Ersparnis",
       "value": "45 zł+",
-      "sub": "TV-Spezialtarif"
+      "sub": ""
     },
     "cs": {
       "label": "Úspora",
       "value": "45 zł+",
-      "sub": "Speciální balíček"
+      "sub": ""
     }
   }
 };
