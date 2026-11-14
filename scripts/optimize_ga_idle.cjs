@@ -1,0 +1,171 @@
+const fs = require('fs');
+
+const gaPath = 'deals-portal/src/components/GoogleAnalytics.astro';
+let content = fs.readFileSync(gaPath, 'utf8');
+
+// Replace synchronous loading with non-blocking deferred GA4 loader
+const optimizedGa = `---
+// Google Analytics 4 (GA4) Tag with Non-Blocking Idle Execution & Consent Mode v2
+interface Props {
+  measurementId?: string;
+}
+
+const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
+---
+
+<!-- Google Consent Mode v2 with Behavioral Modeling & Cookieless Pings -->
+<script is:inline define:vars={{ measurementId }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  // Read saved consent from localStorage if exists
+  var savedConsent = null;
+  try {
+    savedConsent = localStorage.getItem('promoradar_cookie_consent');
+  } catch (e) {}
+
+  if (savedConsent === 'granted') {
+    gtag('consent', 'default', {
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'url_passthrough': true,
+      'ads_data_redaction': false,
+      'wait_for_update': 500
+    });
+  } else {
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'url_passthrough': true,
+      'ads_data_redaction': true,
+      'wait_for_update': 500
+    });
+  }
+
+  // Non-blocking deferred loading of gtag.js (0ms Total Blocking Time on load)
+  function initGoogleAnalytics() {
+    if (window._ga4_initialized) return;
+    window._ga4_initialized = true;
+
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurementId;
+    document.head.appendChild(script);
+
+    gtag('js', new Date());
+    gtag('config', measurementId, {
+      send_page_view: true,
+      transport_type: 'beacon',
+      cookie_flags: 'SameSite=None;Secure'
+    });
+  }
+
+  // Load GA4 on idle or first interaction to protect PageSpeed 100%
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(function() {
+      setTimeout(initGoogleAnalytics, 1500);
+    });
+  } else {
+    setTimeout(initGoogleAnalytics, 2000);
+  }
+
+  ['pointerdown', 'touchstart', 'scroll', 'keydown'].forEach(function(evt) {
+    window.addEventListener(evt, initGoogleAnalytics, { once: true, passive: true });
+  });
+
+  function setupPromoradarTelemetry() {
+    if (window._promoradar_telemetry_attached) return;
+    window._promoradar_telemetry_attached = true;
+
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      if (!target) return;
+
+      var revealBtn = target.closest ? target.closest('[data-reveal-deal]') : null;
+      if (revealBtn && typeof window.gtag === 'function') {
+        try {
+          var dealData = JSON.parse(revealBtn.getAttribute('data-reveal-deal') || '{}');
+          window.gtag('event', 'coupon_reveal', {
+            event_category: 'Conversion',
+            event_label: dealData.storeName || 'unknown_store',
+            deal_id: dealData.id,
+            store_name: dealData.storeName,
+            promo_code: dealData.code,
+            discount_badge: dealData.badge,
+            page_path: window.location.pathname,
+            transport_type: 'beacon'
+          });
+        } catch (err) {}
+      }
+
+      var copyBtn = target.closest ? target.closest('#copyCodeBtn, #copyStoreCodeBtn') : null;
+      if (copyBtn && typeof window.gtag === 'function') {
+        window.gtag('event', 'coupon_copied', {
+          event_category: 'Conversion',
+          page_path: window.location.pathname,
+          transport_type: 'beacon'
+        });
+      }
+
+      var affLink = target.closest ? target.closest('a[href*="/go"], a[href*="wbbsv.com"], a[href*="alitems.com"], a[href*="anrdoezrs.net"], a[href*="tkqlhce.com"]') : null;
+      if (affLink && typeof window.gtag === 'function') {
+        window.gtag('event', 'affiliate_click', {
+          event_category: 'Affiliate',
+          event_label: affLink.href,
+          link_url: affLink.href,
+          link_text: (affLink.innerText || '').trim().slice(0, 50),
+          page_path: window.location.pathname,
+          transport_type: 'beacon'
+        });
+      }
+    });
+
+    var scrollMilestones = { 25: false, 50: false, 75: false, 90: false };
+    function handleScrollDepth() {
+      var docEl = document.documentElement;
+      var body = document.body;
+      var scrollTop = window.scrollY || docEl.scrollTop || body.scrollTop || 0;
+      var scrollHeight = (docEl.scrollHeight || body.scrollHeight || 0) - docEl.clientHeight;
+      if (scrollHeight <= 0) return;
+
+      var currentPct = Math.round((scrollTop / scrollHeight) * 100);
+      [25, 50, 75, 90].forEach(function(m) {
+        if (currentPct >= m && !scrollMilestones[m]) {
+          scrollMilestones[m] = true;
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'scroll', {
+              event_category: 'Engagement',
+              percent_scrolled: m,
+              page_path: window.location.pathname,
+              transport_type: 'beacon'
+            });
+          }
+        }
+      });
+    }
+
+    var scrollDebounceTimer = null;
+    window.addEventListener('scroll', function() {
+      if (scrollDebounceTimer) return;
+      scrollDebounceTimer = setTimeout(function() {
+        scrollDebounceTimer = null;
+        handleScrollDepth();
+      }, 250);
+    }, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupPromoradarTelemetry);
+  } else {
+    setupPromoradarTelemetry();
+  }
+</script>
+`;
+
+fs.writeFileSync(gaPath, optimizedGa, 'utf8');
+console.log('✅ Successfully optimized GoogleAnalytics.astro with requestIdleCallback');
+

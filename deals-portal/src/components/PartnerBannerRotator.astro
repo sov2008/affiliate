@@ -133,9 +133,7 @@ const rectangles = (rotatorData.rectangles || []).slice(0, 6);
                     height={item.height}
                     loading={idx === 0 ? "eager" : "lazy"}
                     decoding="async"
-                    class="w-full h-auto max-h-[90px] object-contain mx-auto block group-hover:scale-[1.01] transition-transform duration-300 smooth-image-loading"
-                    onload="this.classList.remove('smooth-image-loading'); this.classList.add('smooth-image-loaded');"
-                    onerror="this.classList.remove('smooth-image-loading'); this.classList.add('smooth-image-loaded');"
+                    class="w-full h-auto max-h-[90px] object-contain mx-auto block group-hover:scale-[1.01] transition-transform duration-300"
                   />
                   <!-- Hover Action Overlay Pill -->
                   <div class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">

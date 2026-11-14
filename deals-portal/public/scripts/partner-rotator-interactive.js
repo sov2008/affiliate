@@ -118,6 +118,13 @@
         if (i === currentIndex) {
           slide.classList.remove('hidden');
           slide.classList.add('block');
+          const img = slide.querySelector('img');
+          if (img) {
+            img.classList.remove('smooth-image-loading');
+            img.classList.add('smooth-image-loaded');
+            img.style.opacity = '1';
+            img.style.filter = 'none';
+          }
         } else {
           slide.classList.add('hidden');
           slide.classList.remove('block');
