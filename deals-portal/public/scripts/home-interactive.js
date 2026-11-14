@@ -23,12 +23,49 @@ const baseUrl = "";
     let totalPagesCount = 56;
     let totalCatalogDeals = 1161;
     let isLoadingChunk = false;
+
+    // Cache initial SSR Page 1 HTML (0ms instant switch back to 'ALL')
+    let initialPage1Html = '';
     const gridContainer = document.getElementById('dealsGridContainer');
     if (gridContainer) {
+      initialPage1Html = gridContainer.innerHTML;
       if (gridContainer.dataset.totalPages) totalPagesCount = parseInt(gridContainer.dataset.totalPages, 10) || totalPagesCount;
       if (gridContainer.dataset.totalDeals) totalCatalogDeals = parseInt(gridContainer.dataset.totalDeals, 10) || totalCatalogDeals;
       if (gridContainer.dataset.loadedPage) currentLoadedPage = parseInt(gridContainer.dataset.loadedPage, 10) || 1;
     }
+
+    // Category chunks cache: slug -> Array of chunk objects
+    const categoryChunksCache = new Map();
+    let currentCategoryPage = 1;
+    let currentCategoryTotalPages = 1;
+    let currentCategoryTotalDeals = 0;
+
+    // Full catalog compact search index
+    let fullCatalogDeals = null;
+    let isFullCatalogLoading = false;
+    let searchMatchingDeals = [];
+    let searchCurrentPage = 1;
+
+    // Category mapping to URL slug
+    const DATA_CAT_TO_SLUG = {
+      'BLACK_FRIDAY': 'black-friday',
+      'Privacy & Security': 'privacy-security',
+      'Gaming, Media & Software': 'gaming-software',
+      'Web Hosting & Domains': 'web-hosting',
+      'Travel & Tours': 'travel-tours',
+      'Electronics & Gadgets': 'electronics-gadgets',
+      'Home & Living': 'home-living',
+      'Fashion & Apparel': 'fashion-apparel',
+      'Beauty & Fragrances': 'beauty-fragrances',
+      'Eyewear & Health': 'eyewear-health',
+      'Auto, Dashcams & Mobility': 'auto-mobility',
+      'Food, Beverage & Nutrition': 'food-beverage',
+      'Insurance & Finance': 'insurance-finance',
+      'Education & Learning': 'education-learning',
+      'Kids & Toys': 'kids-toys',
+      'Dating & Lifestyle': 'dating-lifestyle',
+      'E-Commerce & Wholesale': 'ecommerce-wholesale'
+    };
     const emptyState = document.getElementById('mainDealsEmptyState');
     const countBadge = document.getElementById('dealsGridCount');
     const storeBadge = document.getElementById('activeStoreFilterBadge');
@@ -100,120 +137,328 @@ const baseUrl = "";
     let PAGE_SIZE = 24;
     let visibleLimit = PAGE_SIZE;
 
-    function filterDeals() {
-      let matchedCount = 0;
-      let actuallyShown = 0;
-      const q = searchQuery.toLowerCase().trim();
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
 
-      if (currentStore) {
-        storeBadge?.classList.remove('hidden');
-        storeBadge?.classList.add('inline-flex');
-        if (storeText) storeText.textContent = currentStore;
+    function reinitializeGridInteractions() {
+      // Re-query deal cards in DOM
+      cards = Array.from(document.querySelectorAll('.deal-grid-card'));
+
+      // Update saved buttons state
+      updateSavedBadge();
+
+      // Trigger smooth images on newly added cards
+      if (typeof window.initSmoothImages === 'function') {
+        window.initSmoothImages();
       } else {
-        storeBadge?.classList.add('hidden');
-        storeBadge?.classList.remove('inline-flex');
+        document.querySelectorAll('#dealsGridContainer img').forEach(img => {
+          if (img.complete && img.naturalWidth > 0) {
+            img.classList.remove('smooth-image-loading');
+            img.classList.add('smooth-image-loaded');
+            img.style.opacity = '1';
+          } else {
+            img.addEventListener('load', () => {
+              img.classList.remove('smooth-image-loading');
+              img.classList.add('smooth-image-loaded');
+              img.style.opacity = '1';
+            }, { once: true });
+          }
+        });
+      }
+    }
+
+    // Render Compact Deal to full Variant 3 card HTML
+    function renderCompactDealCard(deal, idx) {
+      const isCode = !!deal.code && deal.code.trim().length > 0;
+      const targetSlug = deal.slug || deal.s.toLowerCase().replace(/[^a-z0-9]/g, '-');
+      const cleanName = deal.b || deal.s;
+      const cleanBadge = deal.bdg || (isCode ? 'PROMO' : 'DEAL');
+      const storeLetter = (cleanName || 'D').charAt(0).toUpperCase();
+
+      const revealPayload = {
+        id: deal.id,
+        title: deal.t,
+        desc: deal.desc,
+        code: deal.code || '',
+        storeName: cleanName,
+        storeSlug: targetSlug,
+        domain: deal.d || '',
+        badge: cleanBadge,
+        affiliateUrl: deal.u || `/go/${targetSlug}`
+      };
+      const escapedRevealJson = escapeHtml(JSON.stringify(revealPayload));
+
+      const actionButton = isCode ? `
+        <button
+          type="button"
+          class="w-full h-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-[13px] rounded-xl px-3 flex items-center justify-between gap-1.5 shadow-sm hover:shadow transition cursor-pointer"
+          data-reveal-deal="${escapedRevealJson}"
+        >
+          <span>Copy Code</span>
+          <span class="bg-black/25 px-1.5 py-0.5 rounded font-mono text-[11px] text-amber-300 font-bold tracking-wider">
+            ···${deal.code.slice(-3)}
+          </span>
+        </button>
+      ` : `
+        <button
+          type="button"
+          class="w-full h-10 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-[13px] rounded-xl px-3 flex items-center justify-center gap-1.5 shadow-sm hover:shadow transition cursor-pointer"
+          data-reveal-deal="${escapedRevealJson}"
+        >
+          <span>Get Discount</span>
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </button>
+      `;
+
+      return `
+        <article
+          data-deal-card
+          data-deal-slug="${targetSlug}"
+          class="deal-grid-card rounded-2xl p-4 flex flex-col justify-between gap-3 h-full card-hover relative overflow-hidden animate-card-entrance"
+          data-store="${escapeHtml(cleanName)}"
+          data-category="${escapeHtml(deal.sc || deal.c || '')}"
+          data-type="${isCode ? 'code' : 'deal'}"
+          data-regions="GLOBAL"
+          data-lang="en"
+          data-deal-id="${deal.id}"
+          data-search="${escapeHtml(`${cleanName} ${deal.t} ${deal.code || ''} ${deal.sc || deal.c || ''}`.toLowerCase())}"
+        >
+          <div>
+            <div class="flex items-start gap-2.5 mb-2.5">
+              <a href="/stores/${targetSlug}/" class="shrink-0 hover:opacity-90 transition" title="${escapeHtml(cleanName)}">
+                <div class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-700/60 p-1 flex items-center justify-center font-extrabold text-sm text-white shadow-xs">
+                  ${storeLetter}
+                </div>
+              </a>
+
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between gap-1.5 min-w-0">
+                  <div class="flex items-center gap-1 min-w-0">
+                    <a href="/stores/${targetSlug}/" class="text-[15px] font-bold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition truncate max-w-[150px]">
+                      ${escapeHtml(cleanName)}
+                    </a>
+                  </div>
+
+                  <button
+                    type="button"
+                    class="deal-save-btn w-7 h-7 rounded-xl border border-slate-200 dark:border-slate-700/80 flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition cursor-pointer shrink-0 text-xs"
+                    data-save-id="${deal.id}"
+                    title="Save Voucher"
+                    aria-label="Save Voucher"
+                  >
+                    ♥
+                  </button>
+                </div>
+
+                <div class="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                  <span class="truncate">${escapeHtml(deal.c || '')}</span>
+                  <span>•</span>
+                  <span class="font-medium shrink-0 text-emerald-600 dark:text-emerald-400">Verified</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="my-2.5 flex items-center">
+              <div class="card-rip-ticket theme-amber">
+                <div class="card-ticket-notch card-ticket-notch-start"></div>
+                <div class="card-ticket-notch card-ticket-notch-end"></div>
+                <span class="text-base sm:text-lg font-black tracking-tight leading-none">${escapeHtml(cleanBadge)}</span>
+                <span class="card-ticket-divider" aria-hidden="true"></span>
+                <span class="text-[10px] font-mono font-bold uppercase tracking-wider opacity-90 whitespace-nowrap">${isCode ? 'VOUCHER' : 'OFFER'}</span>
+              </div>
+            </div>
+
+            <h3 class="font-bold text-[14px] leading-snug line-clamp-2 mt-2 min-h-[2.5rem] text-slate-900 dark:text-white">
+              <a href="/stores/${targetSlug}/" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+                ${escapeHtml(deal.t)}
+              </a>
+            </h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1 line-clamp-6 min-h-[6rem] font-medium">
+              ${escapeHtml(deal.desc)}
+            </p>
+          </div>
+
+          <div class="pt-1 mt-auto">
+            <a href="/go/${targetSlug}" class="sr-only webmcp-go-link" tabindex="-1" aria-hidden="true">Activate ${escapeHtml(cleanName)} Deal</a>
+            ${actionButton}
+          </div>
+        </article>
+      `.trim();
+    }
+
+    async function loadFullCatalogDeals() {
+      if (fullCatalogDeals) return fullCatalogDeals;
+      if (isFullCatalogLoading) return [];
+      isFullCatalogLoading = true;
+      try {
+        const res = await fetch('/api/deals-chunks/all-cards-compact.json');
+        if (res.ok) {
+          fullCatalogDeals = await res.json();
+        }
+      } catch (e) {
+        console.warn('Failed to load compact catalog:', e);
+      } finally {
+        isFullCatalogLoading = false;
+      }
+      return fullCatalogDeals || [];
+    }
+
+    // Switch to Category Chunk View
+    async function switchCategoryChunkView(catName) {
+      if (!gridContainer) return;
+      const catSlug = DATA_CAT_TO_SLUG[catName];
+
+      if (!catSlug || catName === 'ALL') {
+        // Restore initial Mode 1 (ALL catalog)
+        gridContainer.innerHTML = initialPage1Html;
+        currentLoadedPage = 1;
+        currentCategory = 'ALL';
+        reinitializeGridInteractions();
+        updatePaginationUI(cards.length, totalCatalogDeals, false);
+        return;
       }
 
-      let isFiltered = currentCategory !== 'ALL' || (currentRegion !== 'ALL' && currentRegion !== 'GLOBAL') || currentType !== 'ALL' || !!currentStore || !!q;
-      const liveResetBtn = document.getElementById('liveResetFiltersBtn');
-      if (liveResetBtn) {
-        if (isFiltered) {
-          liveResetBtn.classList.remove('hidden');
-          liveResetBtn.classList.add('inline-flex');
-        } else {
-          liveResetBtn.classList.add('hidden');
-          liveResetBtn.classList.remove('inline-flex');
-        }
+      currentCategory = catName;
+      currentCategoryPage = 1;
+
+      // Show temporary skeleton/loading indicator if not cached
+      if (!categoryChunksCache.has(catSlug + '-1')) {
+        gridContainer.style.opacity = '0.6';
       }
+
+      try {
+        let chunkData;
+        if (categoryChunksCache.has(catSlug + '-1')) {
+          chunkData = categoryChunksCache.get(catSlug + '-1');
+        } else {
+          const res = await fetch(`/api/category-chunks/${catSlug}/1.json`);
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          chunkData = await res.json();
+          categoryChunksCache.set(catSlug + '-1', chunkData);
+        }
+
+        gridContainer.innerHTML = chunkData.html || '';
+        gridContainer.style.opacity = '1';
+        currentCategoryTotalPages = chunkData.totalPages || 1;
+        currentCategoryTotalDeals = chunkData.totalCategoryDeals || 0;
+
+        reinitializeGridInteractions();
+        updatePaginationUI(chunkData.shownCount || cards.length, currentCategoryTotalDeals, true);
+        showToast(`Showing ${chunkData.totalCategoryDeals} deals in ${chunkData.categoryName || catName}`);
+      } catch (err) {
+        console.error('Error loading category chunk:', err);
+        gridContainer.style.opacity = '1';
+        showToast('Unable to load category deals. Please try again.');
+      }
+    }
+
+    // Load next page of Category
+    async function loadNextCategoryChunk() {
+      if (isLoadingChunk || !gridContainer) return;
+      const catSlug = DATA_CAT_TO_SLUG[currentCategory];
+      if (!catSlug || currentCategoryPage >= currentCategoryTotalPages) {
+        showToast('All deals in this category have been loaded!');
+        return;
+      }
+
+      const btn = document.getElementById('loadMoreDealsBtn');
+      const labelSpan = btn?.querySelector('span:nth-child(1)');
+      const originalText = labelSpan ? labelSpan.textContent : 'Load Next 24 Deals';
+      isLoadingChunk = true;
+      if (labelSpan) labelSpan.textContent = 'Loading category deals...';
+      if (btn) btn.style.pointerEvents = 'none';
+
+      try {
+        const nextPage = currentCategoryPage + 1;
+        const cacheKey = `${catSlug}-${nextPage}`;
+        let chunkData;
+
+        if (categoryChunksCache.has(cacheKey)) {
+          chunkData = categoryChunksCache.get(cacheKey);
+        } else {
+          const res = await fetch(`/api/category-chunks/${catSlug}/${nextPage}.json`);
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          chunkData = await res.json();
+          categoryChunksCache.set(cacheKey, chunkData);
+        }
+
+        if (chunkData && chunkData.html) {
+          gridContainer.insertAdjacentHTML('beforeend', chunkData.html);
+          currentCategoryPage = nextPage;
+          reinitializeGridInteractions();
+          updatePaginationUI(cards.length, currentCategoryTotalDeals, true);
+          showToast(`Loaded more deals in ${chunkData.categoryName || currentCategory}!`);
+        }
+      } catch (err) {
+        console.error('Error loading next category chunk:', err);
+        showToast('Unable to load more category deals.');
+      } finally {
+        isLoadingChunk = false;
+        if (btn) btn.style.pointerEvents = '';
+        if (labelSpan) labelSpan.textContent = originalText;
+      }
+    }
+
+    // Execute Full-Catalog Search across compact dataset
+    async function executeFullCatalogSearch(query) {
+      if (!gridContainer) return;
+      const q = query.toLowerCase().trim();
+      const allDeals = await loadFullCatalogDeals();
+
+      const matched = allDeals.filter(d => {
+        const titleMatch = (d.t || '').toLowerCase().includes(q);
+        const storeMatch = (d.b || d.s || '').toLowerCase().includes(q);
+        const codeMatch = (d.code || '').toLowerCase().includes(q);
+        const descMatch = (d.desc || '').toLowerCase().includes(q);
+        const catMatch = (d.sc || d.c || '').toLowerCase().includes(q);
+        return titleMatch || storeMatch || codeMatch || descMatch || catMatch;
+      });
+
+      searchMatchingDeals = matched;
+      searchCurrentPage = 1;
+
+      if (matched.length === 0) {
+        gridContainer.innerHTML = '';
+        emptyState?.classList.remove('hidden');
+        updatePaginationUI(0, 0, true);
+        return;
+      }
+
+      emptyState?.classList.add('hidden');
+      const firstBatch = matched.slice(0, PAGE_SIZE);
+      gridContainer.innerHTML = firstBatch.map((d, i) => renderCompactDealCard(d, i)).join('\n');
+
+      reinitializeGridInteractions();
+      updatePaginationUI(firstBatch.length, matched.length, true);
+    }
+
+    function loadNextSearchBatch() {
+      if (!gridContainer || searchMatchingDeals.length === 0) return;
+      const startIdx = searchCurrentPage * PAGE_SIZE;
+      const nextBatch = searchMatchingDeals.slice(startIdx, startIdx + PAGE_SIZE);
+
+      if (nextBatch.length > 0) {
+        gridContainer.insertAdjacentHTML('beforeend', nextBatch.map((d, i) => renderCompactDealCard(d, startIdx + i)).join('\n'));
+        searchCurrentPage++;
+        reinitializeGridInteractions();
+        updatePaginationUI(cards.length, searchMatchingDeals.length, true);
+        showToast(`Loaded ${nextBatch.length} more matching offers!`);
+      } else {
+        showToast('All matching offers have been loaded!');
+      }
+    }
+
+    function updatePaginationUI(actuallyShown, totalCount, isFiltered) {
       const loadMoreContainer = document.getElementById('loadMoreContainer');
-
-      cards.forEach((card) => {
-        const cCat = card.getAttribute('data-category') || '';
-        const cStore = card.getAttribute('data-store') || '';
-        const cType = card.getAttribute('data-type') || '';
-        const cRegions = (card.getAttribute('data-regions') || 'GLOBAL').split(',');
-        const cLang = card.getAttribute('data-lang') || 'en';
-        const cSearch = card.getAttribute('data-search') || '';
-        const cText = card.innerText.toLowerCase();
-
-        let matchCat = false;
-        if (currentCategory === 'ALL') {
-          matchCat = true;
-        } else if (currentCategory === 'BLACK_FRIDAY') {
-          const discountMatch = cText.match(/(\d+)%/);
-          const pct = discountMatch ? parseInt(discountMatch[1], 10) : 0;
-          matchCat = pct >= 40 || cText.includes('black friday') || cText.includes('cyber') || cText.includes('save up to') || cText.includes('free');
-        } else {
-          const normCat = (s) => (s || '').replace(/&amp;/g, '&').toLowerCase().trim();
-          const targetNorm = normCat(currentCategory);
-          const cCatNorm = normCat(cCat);
-          if (CORE_VERTICAL_MAP[currentCategory]) {
-            matchCat = CORE_VERTICAL_MAP[currentCategory].some(mapped => normCat(mapped) === cCatNorm || cCatNorm.includes(normCat(mapped)));
-          } else {
-            matchCat = (cCatNorm === targetNorm) || cCatNorm.includes(targetNorm) || targetNorm.includes(cCatNorm);
-          }
-        }
-
-        const matchRegion = (!currentRegion || currentRegion === 'ALL' || currentRegion === 'GLOBAL') 
-          ? true 
-          : (cRegions.includes(currentRegion) || cRegions.includes("GLOBAL"));
-
-        const matchLang = (currentLang === 'en')
-          ? (cLang === 'en')
-          : (cLang === currentLang || cLang === 'en');
-
-        const matchType = currentType === 'ALL' || cType === currentType;
-        const matchStore = !currentStore || cStore.toLowerCase() === currentStore.toLowerCase();
-        const matchQuery = !q || cText.includes(q) || cSearch.includes(q) || cStore.toLowerCase().includes(q);
-
-        if (matchCat && matchRegion && matchLang && matchType && matchStore && matchQuery) {
-          matchedCount++;
-          if (matchedCount <= visibleLimit) {
-            const wasHidden = card.classList.contains('hidden');
-            card.classList.remove('hidden');
-            if (wasHidden) {
-              card.classList.remove('animate-card-entrance');
-              void card.offsetWidth; // retrigger CSS animation
-              card.classList.add('animate-card-entrance');
-              card.style.animationDelay = ((actuallyShown % 24) * 20) + 'ms';
-            }
-            actuallyShown++;
-          } else {
-            card.classList.add('hidden');
-            card.classList.remove('animate-card-entrance');
-            card.style.animationDelay = '';
-          }
-        } else {
-          card.classList.add('hidden');
-          card.classList.remove('animate-card-entrance');
-          card.style.animationDelay = '';
-        }
-      });
-
-      // Synchronize in-grid partner banners with visible cards: exactly 1 banner for every 7 visible cards!
-      const gridBanners = document.querySelectorAll('.in-grid-partner-banner');
-      const maxBannersToShow = Math.floor(actuallyShown / 7);
-      gridBanners.forEach((b, bIdx) => {
-        if (bIdx < maxBannersToShow) {
-          const wasHidden = b.classList.contains('hidden');
-          b.classList.remove('hidden');
-          if (wasHidden) {
-            b.classList.remove('animate-card-entrance');
-            void b.offsetWidth;
-            b.classList.add('animate-card-entrance');
-            b.style.animationDelay = ((bIdx % 3) * 60) + 'ms';
-          }
-        } else {
-          b.classList.add('hidden');
-          b.classList.remove('animate-card-entrance');
-          b.style.animationDelay = '';
-        }
-      });
-
-      // Update Pagination UI elements
       if (loadMoreContainer) {
-        const effectiveTotal = isFiltered ? matchedCount : totalCatalogDeals;
-        if (actuallyShown >= effectiveTotal) {
+        if (actuallyShown >= totalCount || totalCount === 0) {
           loadMoreContainer.classList.add('hidden');
         } else {
           loadMoreContainer.classList.remove('hidden');
@@ -224,35 +469,68 @@ const baseUrl = "";
       if (showingCountEl) showingCountEl.textContent = String(actuallyShown);
 
       const totalCountEl = document.getElementById('paginationTotalCount');
-      if (totalCountEl) totalCountEl.textContent = isFiltered ? String(matchedCount) : String(totalCatalogDeals);
+      if (totalCountEl) totalCountEl.textContent = String(totalCount);
 
       const progressBar = document.getElementById('paginationProgressBar');
-      if (progressBar && matchedCount > 0) {
-        const pct = Math.min(100, Math.round((actuallyShown / matchedCount) * 100));
+      if (progressBar && totalCount > 0) {
+        const pct = Math.min(100, Math.round((actuallyShown / totalCount) * 100));
         progressBar.style.width = `${pct}%`;
       }
 
       const leftSpan = document.querySelector('#loadMoreDealsBtn span:nth-child(2)');
       const labelSpan = document.querySelector('#loadMoreDealsBtn span:nth-child(1)');
-      const remaining = isFiltered ? Math.max(0, matchedCount - actuallyShown) : Math.max(0, totalCatalogDeals - actuallyShown);
+      const remaining = Math.max(0, totalCount - actuallyShown);
       const nextBatch = Math.min(PAGE_SIZE, remaining);
-      if (labelSpan) {
-        labelSpan.textContent = `Load Next ${nextBatch} Deals`;
-      }
-      if (leftSpan) {
-        leftSpan.textContent = `+${nextBatch}`;
-      }
+      if (labelSpan) labelSpan.textContent = `Load Next ${nextBatch} Deals`;
+      if (leftSpan) leftSpan.textContent = `+${nextBatch}`;
 
-      if (countBadge) countBadge.textContent = isFiltered ? `${matchedCount} verified offers` : `${totalCatalogDeals} verified offers`;
+      if (countBadge) countBadge.textContent = `${totalCount} verified offers`;
 
-      if (matchedCount === 0) {
+      if (totalCount === 0) {
         emptyState?.classList.remove('hidden');
       } else {
         emptyState?.classList.add('hidden');
       }
     }
 
-    // Async Chunk Loader for Full Catalog Pagination
+    // Unified Filter Router
+    function filterDeals() {
+      const q = searchQuery.toLowerCase().trim();
+      const isFiltered = currentCategory !== 'ALL' || (currentRegion !== 'ALL' && currentRegion !== 'GLOBAL') || currentType !== 'ALL' || !!currentStore || !!q;
+
+      const liveResetBtn = document.getElementById('liveResetFiltersBtn');
+      if (liveResetBtn) {
+        if (isFiltered) {
+          liveResetBtn.classList.remove('hidden');
+          liveResetBtn.classList.add('inline-flex');
+        } else {
+          liveResetBtn.classList.add('hidden');
+          liveResetBtn.classList.remove('inline-flex');
+        }
+      }
+
+      // If active search query, route to full catalog search engine
+      if (q.length > 0) {
+        executeFullCatalogSearch(q);
+        return;
+      }
+
+      // If category filter is active (and no text search), route to category chunk view
+      if (currentCategory !== 'ALL') {
+        switchCategoryChunkView(currentCategory);
+        return;
+      }
+
+      // Otherwise in Mode 1 (ALL catalog default view)
+      if (gridContainer && gridContainer.innerHTML !== initialPage1Html && currentLoadedPage === 1) {
+        gridContainer.innerHTML = initialPage1Html;
+        reinitializeGridInteractions();
+      }
+
+      updatePaginationUI(cards.length, totalCatalogDeals, false);
+    }
+
+    // Async Chunk Loader for Full Catalog Pagination (Mode 1)
     async function loadNextCatalogChunk() {
       if (isLoadingChunk) return;
       if (currentLoadedPage >= totalPagesCount) {
@@ -280,13 +558,10 @@ const baseUrl = "";
           currentLoadedPage = nextPage;
           if (gridContainer.dataset) gridContainer.dataset.loadedPage = String(currentLoadedPage);
 
-          // Refresh cards list to include newly appended cards
-          cards = Array.from(document.querySelectorAll('.deal-grid-card'));
-          visibleLimit = cards.length;
-          filterDeals();
+          reinitializeGridInteractions();
+          updatePaginationUI(cards.length, totalCatalogDeals, false);
           showToast(`Loaded 24 more verified offers (${Math.min(currentLoadedPage * 21, totalCatalogDeals)} of ${totalCatalogDeals})`);
 
-          // Prefetch next chunk if available
           if (currentLoadedPage < totalPagesCount) {
             const prefetchUrl = `/api/deals-chunks/${currentLoadedPage + 1}.json`;
             if ('requestIdleCallback' in window) {
@@ -306,44 +581,63 @@ const baseUrl = "";
       }
     }
 
-    // Load More Next 24 Deals Action
+    // Unified "Load More" Action handling all 3 modes
     document.getElementById('loadMoreDealsBtn')?.addEventListener('click', () => {
-      // If we are browsing catalog and there are more chunks on server, fetch next chunk
-      if (currentLoadedPage < totalPagesCount && cards.length <= visibleLimit) {
-        loadNextCatalogChunk();
+      const q = searchQuery.toLowerCase().trim();
+      if (q.length > 0) {
+        loadNextSearchBatch();
+      } else if (currentCategory !== 'ALL') {
+        loadNextCategoryChunk();
       } else {
-        visibleLimit += PAGE_SIZE;
-        filterDeals();
-        showToast(`Loaded more verified offers!`);
+        loadNextCatalogChunk();
       }
     });
 
-    // Reveal All Action - Fetch remaining chunks progressively
+    // Reveal All Action
     document.getElementById('revealAllDealsBtn')?.addEventListener('click', async () => {
       const btn = document.getElementById('revealAllDealsBtn');
       if (btn) btn.textContent = 'Loading all...';
-      
-      while (currentLoadedPage < totalPagesCount) {
-        try {
-          const nextPage = currentLoadedPage + 1;
-          const res = await fetch(`/api/deals-chunks/${nextPage}.json`);
-          if (!res.ok) break;
-          const data = await res.json();
-          if (data && data.html && gridContainer) {
-            gridContainer.insertAdjacentHTML('beforeend', data.html);
-            currentLoadedPage = nextPage;
+
+      if (currentCategory === 'ALL' && !searchQuery) {
+        while (currentLoadedPage < totalPagesCount) {
+          try {
+            const nextPage = currentLoadedPage + 1;
+            const res = await fetch(`/api/deals-chunks/${nextPage}.json`);
+            if (!res.ok) break;
+            const data = await res.json();
+            if (data && data.html && gridContainer) {
+              gridContainer.insertAdjacentHTML('beforeend', data.html);
+              currentLoadedPage = nextPage;
+            }
+          } catch (e) {
+            break;
           }
-        } catch (e) {
-          break;
+        }
+      } else if (currentCategory !== 'ALL' && !searchQuery) {
+        const catSlug = DATA_CAT_TO_SLUG[currentCategory];
+        while (currentCategoryPage < currentCategoryTotalPages) {
+          try {
+            const nextPage = currentCategoryPage + 1;
+            const res = await fetch(`/api/category-chunks/${catSlug}/${nextPage}.json`);
+            if (!res.ok) break;
+            const data = await res.json();
+            if (data && data.html && gridContainer) {
+              gridContainer.insertAdjacentHTML('beforeend', data.html);
+              currentCategoryPage = nextPage;
+            }
+          } catch (e) {
+            break;
+          }
         }
       }
 
-      cards = Array.from(document.querySelectorAll('.deal-grid-card'));
-      visibleLimit = 99999;
-      filterDeals();
+      reinitializeGridInteractions();
+      const currentTotal = currentCategory === 'ALL' ? totalCatalogDeals : currentCategoryTotalDeals;
+      updatePaginationUI(cards.length, currentTotal, currentCategory !== 'ALL');
       if (btn) btn.innerHTML = '<span>Reveal All</span><span class="text-[10px] text-slate-400 font-mono">⌘</span>';
       showToast(`All ${cards.length} verified partner deals revealed!`);
     });
+
 
     // Back to top of deals
     document.getElementById('paginationBackToTopBtn')?.addEventListener('click', () => {
