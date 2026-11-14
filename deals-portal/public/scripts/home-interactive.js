@@ -18,7 +18,17 @@ const baseUrl = "";
     let searchQuery = '';
     let savedDeals = JSON.parse(localStorage.getItem('promoradar_saved_deals') || '[]');
 
-    const cards = Array.from(document.querySelectorAll('.deal-grid-card'));
+    let cards = Array.from(document.querySelectorAll('.deal-grid-card'));
+    let currentLoadedPage = 1;
+    let totalPagesCount = 56;
+    let totalCatalogDeals = 1161;
+    let isLoadingChunk = false;
+    const gridContainer = document.getElementById('dealsGridContainer');
+    if (gridContainer) {
+      if (gridContainer.dataset.totalPages) totalPagesCount = parseInt(gridContainer.dataset.totalPages, 10) || totalPagesCount;
+      if (gridContainer.dataset.totalDeals) totalCatalogDeals = parseInt(gridContainer.dataset.totalDeals, 10) || totalCatalogDeals;
+      if (gridContainer.dataset.loadedPage) currentLoadedPage = parseInt(gridContainer.dataset.loadedPage, 10) || 1;
+    }
     const emptyState = document.getElementById('mainDealsEmptyState');
     const countBadge = document.getElementById('dealsGridCount');
     const storeBadge = document.getElementById('activeStoreFilterBadge');
@@ -202,7 +212,8 @@ const baseUrl = "";
 
       // Update Pagination UI elements
       if (loadMoreContainer) {
-        if (actuallyShown >= matchedCount) {
+        const effectiveTotal = isFiltered ? matchedCount : totalCatalogDeals;
+        if (actuallyShown >= effectiveTotal) {
           loadMoreContainer.classList.add('hidden');
         } else {
           loadMoreContainer.classList.remove('hidden');
@@ -213,7 +224,7 @@ const baseUrl = "";
       if (showingCountEl) showingCountEl.textContent = String(actuallyShown);
 
       const totalCountEl = document.getElementById('paginationTotalCount');
-      if (totalCountEl) totalCountEl.textContent = String(matchedCount);
+      if (totalCountEl) totalCountEl.textContent = isFiltered ? String(matchedCount) : String(totalCatalogDeals);
 
       const progressBar = document.getElementById('paginationProgressBar');
       if (progressBar && matchedCount > 0) {
@@ -223,7 +234,7 @@ const baseUrl = "";
 
       const leftSpan = document.querySelector('#loadMoreDealsBtn span:nth-child(2)');
       const labelSpan = document.querySelector('#loadMoreDealsBtn span:nth-child(1)');
-      const remaining = Math.max(0, matchedCount - actuallyShown);
+      const remaining = isFiltered ? Math.max(0, matchedCount - actuallyShown) : Math.max(0, totalCatalogDeals - actuallyShown);
       const nextBatch = Math.min(PAGE_SIZE, remaining);
       if (labelSpan) {
         labelSpan.textContent = `Load Next ${nextBatch} Deals`;
@@ -232,7 +243,7 @@ const baseUrl = "";
         leftSpan.textContent = `+${nextBatch}`;
       }
 
-      if (countBadge) countBadge.textContent = `${matchedCount} verified offers`;
+      if (countBadge) countBadge.textContent = isFiltered ? `${matchedCount} verified offers` : `${totalCatalogDeals} verified offers`;
 
       if (matchedCount === 0) {
         emptyState?.classList.remove('hidden');
@@ -241,18 +252,97 @@ const baseUrl = "";
       }
     }
 
-    // Load More Next 12
+    // Async Chunk Loader for Full Catalog Pagination
+    async function loadNextCatalogChunk() {
+      if (isLoadingChunk) return;
+      if (currentLoadedPage >= totalPagesCount) {
+        showToast('All verified partner offers are currently loaded!');
+        return;
+      }
+
+      const btn = document.getElementById('loadMoreDealsBtn');
+      const labelSpan = btn?.querySelector('span:nth-child(1)');
+      const badgeSpan = btn?.querySelector('span:nth-child(2)');
+      const originalText = labelSpan ? labelSpan.textContent : 'Load Next 24 Deals';
+
+      isLoadingChunk = true;
+      if (labelSpan) labelSpan.textContent = 'Loading verified deals...';
+      if (btn) btn.style.pointerEvents = 'none';
+
+      try {
+        const nextPage = currentLoadedPage + 1;
+        const res = await fetch(`/api/deals-chunks/${nextPage}.json`);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+
+        if (data && data.html && gridContainer) {
+          gridContainer.insertAdjacentHTML('beforeend', data.html);
+          currentLoadedPage = nextPage;
+          if (gridContainer.dataset) gridContainer.dataset.loadedPage = String(currentLoadedPage);
+
+          // Refresh cards list to include newly appended cards
+          cards = Array.from(document.querySelectorAll('.deal-grid-card'));
+          visibleLimit = cards.length;
+          filterDeals();
+          showToast(`Loaded 24 more verified offers (${Math.min(currentLoadedPage * 21, totalCatalogDeals)} of ${totalCatalogDeals})`);
+
+          // Prefetch next chunk if available
+          if (currentLoadedPage < totalPagesCount) {
+            const prefetchUrl = `/api/deals-chunks/${currentLoadedPage + 1}.json`;
+            if ('requestIdleCallback' in window) {
+              window.requestIdleCallback(() => fetch(prefetchUrl).catch(() => {}));
+            } else {
+              setTimeout(() => fetch(prefetchUrl).catch(() => {}), 1500);
+            }
+          }
+        }
+      } catch (err) {
+        console.error('Error loading deals chunk:', err);
+        showToast('Unable to load more deals. Please check your connection.');
+      } finally {
+        isLoadingChunk = false;
+        if (btn) btn.style.pointerEvents = '';
+        if (labelSpan) labelSpan.textContent = originalText;
+      }
+    }
+
+    // Load More Next 24 Deals Action
     document.getElementById('loadMoreDealsBtn')?.addEventListener('click', () => {
-      visibleLimit += PAGE_SIZE;
-      filterDeals();
-      showToast(`Loaded more verified offers!`);
+      // If we are browsing catalog and there are more chunks on server, fetch next chunk
+      if (currentLoadedPage < totalPagesCount && cards.length <= visibleLimit) {
+        loadNextCatalogChunk();
+      } else {
+        visibleLimit += PAGE_SIZE;
+        filterDeals();
+        showToast(`Loaded more verified offers!`);
+      }
     });
 
-    // Reveal All Action
-    document.getElementById('revealAllDealsBtn')?.addEventListener('click', () => {
+    // Reveal All Action - Fetch remaining chunks progressively
+    document.getElementById('revealAllDealsBtn')?.addEventListener('click', async () => {
+      const btn = document.getElementById('revealAllDealsBtn');
+      if (btn) btn.textContent = 'Loading all...';
+      
+      while (currentLoadedPage < totalPagesCount) {
+        try {
+          const nextPage = currentLoadedPage + 1;
+          const res = await fetch(`/api/deals-chunks/${nextPage}.json`);
+          if (!res.ok) break;
+          const data = await res.json();
+          if (data && data.html && gridContainer) {
+            gridContainer.insertAdjacentHTML('beforeend', data.html);
+            currentLoadedPage = nextPage;
+          }
+        } catch (e) {
+          break;
+        }
+      }
+
+      cards = Array.from(document.querySelectorAll('.deal-grid-card'));
       visibleLimit = 99999;
       filterDeals();
-      showToast(`All verified partner deals revealed!`);
+      if (btn) btn.innerHTML = '<span>Reveal All</span><span class="text-[10px] text-slate-400 font-mono">⌘</span>';
+      showToast(`All ${cards.length} verified partner deals revealed!`);
     });
 
     // Back to top of deals

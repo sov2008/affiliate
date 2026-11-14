@@ -34,7 +34,7 @@ const megaCategories = [
 const popularStores = uniqueStores.filter(s => 
   ['expressvpn', 'nordvpn', 'surfshark', 'target', 'walmart', 'best-buy', 'aliexpress', 'dhgate', 'temu', 'hostinger', 'namecheap', 'shein', 'wayfair', 'viator', 'qvc', 'macys'].some(slug => (s.slug || '').toLowerCase().includes(slug)) ||
   (s.rating && s.rating >= 4.8)
-).slice(0, 6);
+).slice(0, 8);
 
 
 // Smart Categories Data with verified deals counters, max discount & top stores
@@ -113,16 +113,16 @@ const smartCategories = [
   }
 ];
 const storesByCategory: Record<string, typeof uniqueStores> = {
-  popular: popularStores.length > 0 ? popularStores : uniqueStores.slice(0, 6),
-  privacy: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('privacy') || (s.category || '').toLowerCase().includes('security')).slice(0, 6),
-  electronics: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('electronic') || (s.category || '').toLowerCase().includes('gadget')).slice(0, 6),
-  home: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('home') || (s.category || '').toLowerCase().includes('living')).slice(0, 6),
-  fashion: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('fashion') || (s.category || '').toLowerCase().includes('apparel')).slice(0, 6),
-  travel: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('travel') || (s.category || '').toLowerCase().includes('tour')).slice(0, 6),
-  software: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('software') || (s.category || '').toLowerCase().includes('gaming')).slice(0, 6),
-  food: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('food') || (s.category || '').toLowerCase().includes('nutrition') || (s.category || '').toLowerCase().includes('beverage')).slice(0, 6),
-  auto: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('auto') || (s.category || '').toLowerCase().includes('mobility')).slice(0, 6),
-  ecommerce: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('commerce') || (s.category || '').toLowerCase().includes('wholesale') || (s.category || '').toLowerCase().includes('department')).slice(0, 6)
+  popular: popularStores.length > 0 ? popularStores : uniqueStores.slice(0, 8),
+  privacy: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('privacy') || (s.category || '').toLowerCase().includes('security')).slice(0, 8),
+  electronics: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('electronic') || (s.category || '').toLowerCase().includes('gadget')).slice(0, 8),
+  home: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('home') || (s.category || '').toLowerCase().includes('living')).slice(0, 8),
+  fashion: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('fashion') || (s.category || '').toLowerCase().includes('apparel')).slice(0, 8),
+  travel: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('travel') || (s.category || '').toLowerCase().includes('tour')).slice(0, 8),
+  software: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('software') || (s.category || '').toLowerCase().includes('gaming')).slice(0, 8),
+  food: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('food') || (s.category || '').toLowerCase().includes('nutrition') || (s.category || '').toLowerCase().includes('beverage')).slice(0, 8),
+  auto: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('auto') || (s.category || '').toLowerCase().includes('mobility')).slice(0, 8),
+  ecommerce: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('commerce') || (s.category || '').toLowerCase().includes('wholesale') || (s.category || '').toLowerCase().includes('department')).slice(0, 8)
 };
 ---
 
@@ -265,7 +265,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
               <div class="flex items-center justify-between pb-2 mb-2 border-b border-white/10">
                 <span id="megaCurrentCatTitle" class="text-[11px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300">Popular Stores</span>
                 <a href={`${base}/stores/`} class="text-[11px] text-indigo-400 hover:text-indigo-300 font-bold transition flex items-center gap-1">
-                  View All &rarr;
+                  View All 830+ Stores &rarr;
                 </a>
               </div>
 
@@ -300,7 +300,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
             <div class="pt-3 mt-3 border-t border-white/10 flex items-center justify-between text-[11px]">
               <span class="text-slate-600 dark:text-slate-300">All codes verified today</span>
               <a href={`${base}/stores/`} class="text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 px-3 py-1 rounded-lg transition shadow-sm">
-                Browse Directory
+                View All 830+ Verified Stores &rarr;
               </a>
             </div>
           </div>
@@ -706,7 +706,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
   </div>
 </header>
 
-<script defer src="/scripts/header-interactive.js"></script>
+<script is:inline defer src="/scripts/header-interactive.js"></script>
 
 <style>
   /* Seamless, Fluid GPU-Accelerated Header Brand Choreography */

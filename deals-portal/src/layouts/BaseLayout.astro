@@ -160,8 +160,8 @@ const resolvedOgImage = ogImage ? (ogImage.startsWith('http') ? ogImage : `${sit
       <span id="globalToastMessage">Notification message</span>
     </div>
 
-    <script defer src="/scripts/smooth-images.js"></script>
-    <script defer src="/scripts/webmcp-bridge.js"></script>
+    <script is:inline defer src="/scripts/smooth-images.js"></script>
+    <script is:inline defer src="/scripts/webmcp-bridge.js"></script>
     <script>
       import { initClientI18n } from '../i18n/client';
       import { initRecommendationListeners } from '../utils/recommendationEngine';
