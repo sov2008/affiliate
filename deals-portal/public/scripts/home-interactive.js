@@ -222,9 +222,14 @@ const baseUrl = "";
       }
 
       const leftSpan = document.querySelector('#loadMoreDealsBtn span:nth-child(2)');
+      const labelSpan = document.querySelector('#loadMoreDealsBtn span:nth-child(1)');
+      const remaining = Math.max(0, matchedCount - actuallyShown);
+      const nextBatch = Math.min(PAGE_SIZE, remaining);
+      if (labelSpan) {
+        labelSpan.textContent = `Load Next ${nextBatch} Deals`;
+      }
       if (leftSpan) {
-        const remaining = Math.max(0, matchedCount - actuallyShown);
-        leftSpan.textContent = `+${Math.min(PAGE_SIZE, remaining)}`;
+        leftSpan.textContent = `+${nextBatch}`;
       }
 
       if (countBadge) countBadge.textContent = `${matchedCount} verified offers`;

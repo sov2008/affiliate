@@ -107,6 +107,21 @@
       }
     }
 
+    // Preload all rotator images upfront so there is zero flash/blackout during transitions
+    slides.forEach(slide => {
+      const img = slide.querySelector('img');
+      if (img) {
+        img.loading = 'eager';
+        img.classList.remove('smooth-image-loading');
+        img.classList.add('smooth-image-loaded');
+        img.style.opacity = '1';
+        img.style.filter = 'none';
+        if (img.dataset.src && !img.src) {
+          img.src = img.dataset.src;
+        }
+      }
+    });
+
     currentIndex = getPersonalizedInitialIndex();
 
     function showSlide(index) {
@@ -115,17 +130,19 @@
       currentIndex = index;
 
       slides.forEach((slide, i) => {
+        const img = slide.querySelector('img');
         if (i === currentIndex) {
           slide.classList.remove('hidden');
           slide.classList.add('block');
-          const img = slide.querySelector('img');
           if (img) {
+            img.loading = 'eager';
             img.classList.remove('smooth-image-loading');
             img.classList.add('smooth-image-loaded');
             img.style.opacity = '1';
             img.style.filter = 'none';
-            if (img.loading === 'lazy') {
-              img.loading = 'eager';
+            // Force browser repaint if image was somehow cached in 0 opacity
+            if (img.complete && img.naturalWidth > 0) {
+              img.style.display = 'block';
             }
           }
         } else {

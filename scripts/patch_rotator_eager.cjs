@@ -46,3 +46,4 @@ if (js.includes(oldShowSlide)) {
 } else {
   console.log('oldShowSlide not found');
 }
+

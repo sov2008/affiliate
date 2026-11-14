@@ -11,6 +11,14 @@
           if (!img.getAttribute('decoding')) {
             img.setAttribute('decoding', 'async');
           }
+          // Do not apply blur/hidden animation to partner rotator banners or logos
+          if (img.closest('.rotator-slide') || img.closest('#partnerRotatorSection') || img.closest('.brand-logo-container')) {
+            img.classList.remove('smooth-image-loading');
+            img.classList.add('smooth-image-loaded');
+            img.style.opacity = '1';
+            img.style.filter = 'none';
+            return;
+          }
           if (img.complete && img.naturalWidth > 0) {
             markImageLoaded(img);
           } else {

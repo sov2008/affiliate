@@ -12,3 +12,4 @@ while ((m = re.exec(html)) !== null && count < 3) {
   console.log(`\n--- Banner ${count} ---`);
   console.log(m[0].substring(0, 300));
 }
+

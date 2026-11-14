@@ -35,3 +35,4 @@ if (nonMatchingCards.length > 0) {
   console.log('First 3 non-en articles:', nonMatchingCards.slice(0, 3));
 }
 console.log('Articles matching default filter (en):', count - nonMatchingCards.length);
+

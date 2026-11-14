@@ -28,3 +28,4 @@ for (let i = 1; i < slideSplits.length; i++) {
     console.log('  Snippet without img:', s.substring(0, 400));
   }
 }
+

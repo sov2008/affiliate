@@ -26,3 +26,4 @@ if (js.includes(oldSnippet)) {
 } else {
   console.log('oldSnippet not found in home-interactive.js');
 }
+

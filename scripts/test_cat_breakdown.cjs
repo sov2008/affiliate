@@ -21,3 +21,4 @@ console.log('Category breakdown in rendered DOM:');
 for (const [k, v] of Object.entries(catCounts)) {
   console.log(`  ${k}: ${v}`);
 }
+

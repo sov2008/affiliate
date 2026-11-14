@@ -38,3 +38,4 @@ jsFiles.forEach(f => {
   const stats = fs.statSync(`deals-portal/dist/_astro/${f}`);
   console.log(`  ${f}: ${(stats.size / 1024).toFixed(2)} KB`);
 });
+

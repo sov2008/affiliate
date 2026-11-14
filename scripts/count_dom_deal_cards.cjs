@@ -7,3 +7,4 @@ console.log('deal-grid-card class count in dist/index.html:', matches.length);
 const re = /<article\b[^>]*class="[^"]*deal-grid-card[^"]*"[\s\S]*?<\/article>/g;
 const articles = html.match(re) || [];
 console.log('deal-grid-card articles count in dist/index.html:', articles.length);
+

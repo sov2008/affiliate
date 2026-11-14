@@ -6,3 +6,4 @@ const idx = html.indexOf(target);
 if (idx !== -1) {
   console.log(html.substring(idx + 700, idx + 1800));
 }
+

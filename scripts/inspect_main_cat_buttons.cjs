@@ -7,3 +7,4 @@ catBtnMatches.forEach((b, i) => {
   const catMatch = b.match(/data-cat="([^"]+)"/);
   console.log(i, 'data-cat:', catMatch ? catMatch[1] : 'none');
 });
+
