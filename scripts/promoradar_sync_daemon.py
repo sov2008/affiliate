@@ -64,8 +64,8 @@ def send_telegram(text_html):
 def get_catalog_metrics():
     """Динамически подсчитывает уникальные магазины и общее количество предложений из couponsData.ts"""
     possible_paths = [
-        os.path.join(ROOT_DIR, 'deals-portal', 'src', 'data', 'couponsData.ts'),
-        os.path.join(ROOT_DIR, 'deals-portal', 'dist', 'data', 'couponsData.ts'),
+        os.path.join(BASE_DIR, 'deals-portal', 'src', 'data', 'couponsData.ts'),
+        os.path.join(BASE_DIR, 'deals-portal', 'dist', 'data', 'couponsData.ts'),
         '/var/www/affiliate/deals-portal/src/data/couponsData.ts',
         '/var/www/promoradar.store/current/data/couponsData.ts'
     ]
