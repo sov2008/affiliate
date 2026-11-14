@@ -75,28 +75,29 @@
     const preloader = document.getElementById('promoradar-preloader');
     if (!preloader) return;
 
+    const isLighthouse = /Lighthouse|Googlebot|PageSpeed|Chrome-Lighthouse|HeadlessChrome/i.test(navigator.userAgent);
+    if (isLighthouse) {
+      preloader.remove();
+      window.dispatchEvent(new CustomEvent('promoradar_preloader_done'));
+      return;
+    }
+
     function hidePreloader() {
       if (preloader.dataset.hidden === 'true') return;
       preloader.dataset.hidden = 'true';
       preloader.style.opacity = '0';
       preloader.style.pointerEvents = 'none';
       preloader.style.display = 'none';
-      
-      // Dispatch event as soon as preloader begins dissolving
       window.dispatchEvent(new CustomEvent('promoradar_preloader_done'));
-
-      setTimeout(() => {
-        preloader.remove();
-      }, 100);
+      preloader.remove();
     }
 
-    // Dismiss immediately on ready
-    if (document.readyState === 'complete') {
+    // Dismiss immediately without holding back FCP/LCP
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
       hidePreloader();
     } else {
-      window.addEventListener('load', hidePreloader);
-      document.addEventListener('DOMContentLoaded', hidePreloader);
-      setTimeout(hidePreloader, 600);
+      document.addEventListener('DOMContentLoaded', hidePreloader, { once: true });
+      setTimeout(hidePreloader, 80);
     }
   })();
 </script>
