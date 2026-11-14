@@ -800,6 +800,8 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                 const pulse = getDealLivePulse(deal.id, store.slug, deal.successRate);
                 return (
                   <article
+                    data-deal-card
+                    data-deal-slug={store.slug}
                     class={`store-deal-card bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 card-hover shadow-sm flex flex-col justify-between dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] ${isTopDeal ? 'ring-1 ring-amber-400/30' : ''}`}
                     data-deal-id={deal.id}
                     data-deal-type={isCode ? 'code' : 'deal'}
@@ -933,6 +935,7 @@ const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchem
                           )}
                         </div>
 
+                        <a href={`/go/${store.slug}`} class="sr-only webmcp-go-link" tabindex="-1" aria-hidden="true">Activate {store.name} Deal</a>
                         {isCode ? (
                           <button
                             type="button"

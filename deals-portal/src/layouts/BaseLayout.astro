@@ -51,6 +51,7 @@ const resolvedOgImage = ogImage ? (ogImage.startsWith('http') ? ogImage : `${sit
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="p:domain_verify" content="9809e84106b1c9cf5dcdcb45246046e5" />
     <link rel="canonical" href={fullCanonical} />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Context Index" />
     <!-- International SEO Hreflang Tags (affiliate-seo-pro & localization-pro) -->
     <link rel="alternate" hreflang="x-default" href={fullCanonical} />
     <link rel="alternate" hreflang="en" href={fullCanonical} />
@@ -161,6 +162,7 @@ const resolvedOgImage = ogImage ? (ogImage.startsWith('http') ? ogImage : `${sit
 
     <script defer src="/scripts/smooth-images.js"></script>
     <script>
+      import '../scripts/webmcp-bridge';
       import { initClientI18n } from '../i18n/client';
       import { initRecommendationListeners } from '../utils/recommendationEngine';
       initClientI18n();

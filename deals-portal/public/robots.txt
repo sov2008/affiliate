@@ -1,5 +1,46 @@
 User-agent: *
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /stores/
+Allow: /categories/
+Allow: /blog/
+Disallow: /go/
+
+# AI Search & Answer Engine Crawlers
+User-agent: OAI-SearchBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /stores/
+Disallow: /go/
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /stores/
+Disallow: /go/
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /stores/
+Disallow: /go/
+
+User-agent: ClaudeBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /stores/
+Disallow: /go/
+
+User-agent: Google-Extended
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /stores/
 Disallow: /go/
 
 Sitemap: https://promoradar.store/sitemap-index.xml
