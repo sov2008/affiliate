@@ -185,16 +185,12 @@
     });
 
     dots.forEach((dot, i) => {
-      if (i === currentIndex) {
-        dot.className = 'relative p-2 -m-2 group cursor-pointer focus:outline-none';
-        const inner = dot.querySelector('.dot-inner') || dot;
-        if (inner !== dot) {
+      dot.className = 'w-6 h-8 inline-flex items-center justify-center cursor-pointer focus:outline-none';
+      const inner = dot.querySelector('.dot-inner') || dot;
+      if (inner !== dot) {
+        if (i === currentIndex) {
           inner.className = 'dot-inner h-2 rounded-full transition-all duration-300 bg-indigo-600 w-6';
-        }
-      } else {
-        dot.className = 'relative p-2 -m-2 group cursor-pointer focus:outline-none';
-        const inner = dot.querySelector('.dot-inner') || dot;
-        if (inner !== dot) {
+        } else {
           inner.className = 'dot-inner h-2 rounded-full transition-all duration-300 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 w-2';
         }
       }

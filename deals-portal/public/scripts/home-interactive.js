@@ -209,7 +209,7 @@ const baseUrl = "";
       ` : `
         <button
           type="button"
-          class="w-full h-10 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-[13px] rounded-xl px-3 flex items-center justify-center gap-1.5 shadow-sm hover:shadow transition cursor-pointer"
+          class="w-full h-10 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-[13px] rounded-xl px-3 flex items-center justify-center gap-1.5 shadow-sm hover:shadow transition cursor-pointer"
           data-reveal-deal="${escapedRevealJson}"
         >
           <span>Get Discount</span>
@@ -1393,8 +1393,9 @@ const baseUrl = "";
     }
 
     // Apply stored region on initial page mount (syncs UI & checkmarks without re-dispatching)
-    applySelectedRegion(currentRegion, true);
-    filterDeals();
+    if (currentRegion !== 'ALL' && currentRegion !== 'GLOBAL') {
+      applySelectedRegion(currentRegion, true);
+    }
 
     // Micro-animation choreography for Hero Section & Deal of the Day Card
     (function initHeroEntranceAnimation() {
@@ -2365,7 +2366,7 @@ const baseUrl = "";
           const btn = document.createElement('button');
           btn.type = 'button';
           btn.setAttribute('data-hero-deal-index', String(idx));
-          btn.className = 'hero-deal-dot relative p-2 -m-2 group cursor-pointer focus:outline-none';
+          btn.className = 'hero-deal-dot w-6 h-8 inline-flex items-center justify-center cursor-pointer focus:outline-none';
           const innerSpan = document.createElement('span');
           innerSpan.className = idx === currentIndex
             ? 'hero-dot-inner block h-2 rounded-full transition-all duration-300 bg-indigo-600 dark:bg-indigo-500 w-6'
@@ -3613,23 +3614,30 @@ const baseUrl = "";
       }
 
       // Initial Render & Start Loop with IntersectionObserver
-      renderBrandItems();
+      const initTicker = () => {
+        renderBrandItems();
+        if ('IntersectionObserver' in window && track) {
+          const tickerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              isTickerVisible = entry.isIntersecting;
+              if (isTickerVisible) {
+                startTickerLoop();
+              } else if (rafId) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+              }
+            });
+          }, { threshold: 0.05 });
+          tickerObserver.observe(track);
+        } else {
+          startTickerLoop();
+        }
+      };
 
-      if ('IntersectionObserver' in window && track) {
-        const tickerObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            isTickerVisible = entry.isIntersecting;
-            if (isTickerVisible) {
-              startTickerLoop();
-            } else if (rafId) {
-              cancelAnimationFrame(rafId);
-              rafId = null;
-            }
-          });
-        }, { threshold: 0.05 });
-        tickerObserver.observe(track);
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(initTicker, { timeout: 2000 });
       } else {
-        startTickerLoop();
+        setTimeout(initTicker, 500);
       }
 
       const preloader = document.getElementById('promoradar-preloader');

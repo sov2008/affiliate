@@ -208,7 +208,7 @@ export function renderDealCardHtml(deal: EnrichedDealItem, idx: number, base: st
   ` : `
     <button
       type="button"
-      class="w-full h-10 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-[13px] rounded-xl px-3 flex items-center justify-center gap-1.5 shadow-sm hover:shadow transition cursor-pointer"
+      class="w-full h-10 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-[13px] rounded-xl px-3 flex items-center justify-center gap-1.5 shadow-sm hover:shadow transition cursor-pointer"
       data-reveal-deal="${escapedRevealJson}"
     >
       <span>Get Discount</span>
