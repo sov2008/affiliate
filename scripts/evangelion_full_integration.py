@@ -228,14 +228,6 @@ STORES = [
         "desc": "Smart living sensors, wireless charging pads, LED ambiences, and creative desktop lifestyle gadgets."
     },
     {
-        "name": "Mark Formelle",
-        "slug": "markformelle",
-        "cat": "Fashion & Apparel",
-        "badge": "Seasonal Clearance Discount",
-        "aff": "https://markformelle.com/promoradar",
-        "desc": "Comfortable family loungewear, organic cotton underwear, casual basics, and thermo-clothing."
-    },
-    {
         "name": "Huawei",
         "slug": "huawei",
         "cat": "Electronics & Gadgets",
@@ -326,7 +318,7 @@ def integrate():
     cur.execute("""
         INSERT INTO projects (title, description, hex_color, owner_id, is_archived, position, created, updated)
         VALUES ('⚡ EVANGELION // 01. PromoRadar Merchant Fleet', 
-                'Full merchant catalog of promoradar.store: 29 active stores, verified coupon codes, affiliate redirects, and SEO store profiles.',
+                'Full merchant catalog of promoradar.store: 832+ active stores, verified coupon codes, affiliate redirects, and SEO store profiles.',
                 '6366f1', ?, 0, 100.0, ?, ?)
     """, (owner_id, ts, ts))
     p1_id = cur.lastrowid

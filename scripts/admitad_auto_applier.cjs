@@ -31,6 +31,9 @@ const STATE_FILE = path.resolve(ARTIFACTS_DIR, 'auth_state.json');
 const LOG_FILE = path.resolve(ARTIFACTS_DIR, 'admitad_applier.log');
 const HISTORY_FILE = path.resolve(ARTIFACTS_DIR, 'applied_programs_history.json');
 
+// Blacklist keywords for microloans / PDL and hyper-local food delivery
+const BANNED_OFFER_KEYWORDS = /є-гроші|гроші|кредит|займ|мікрозайм|багатолосося|суші|роллы|доставка їжі|payday loan/i;
+
 function log(msg) {
   const line = `[${new Date().toISOString()}] [ADMITAD-AUTO-APPLIER] ${msg}`;
   console.log(line);
@@ -257,6 +260,7 @@ async function runAutoApplier(maxApplications = 5) {
     if (excludeSet.has(c.id)) return false;
     if (c.status !== 'active') return false;
     if (isBannedRuByKz(c)) return false;
+    if (BANNED_OFFER_KEYWORDS.test(c.name || '')) return false;
 
     // Check persistent history and cooldowns
     const record = history[cid];
@@ -438,6 +442,8 @@ async function runAutoApplier(maxApplications = 5) {
         log(`⚠️ Dialog remained open after click for ${camp.name}. Submission not confirmed.`);
         history[cid].status = 'failed';
         history[cid].last_error = 'dialog_not_closed';
+        history[cid].last_attempt_at = new Date().toISOString();
+        history[cid].attempts = (history[cid].attempts || 0) + 3; // Put immediately into cooldown to prevent repeating every cycle
         saveHistory(historyData);
         await page.keyboard.press('Escape');
       }

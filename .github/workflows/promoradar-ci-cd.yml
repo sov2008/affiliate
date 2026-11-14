@@ -43,14 +43,16 @@ jobs:
         working-directory: deals-portal
         run: npm run build
 
-      - name: 🔍 Verify Output Integrity & 46 Pages
-        working-directory: deals-portal
+      - name: 🔍 Verify Output Integrity, WebMCP & llms.txt
         run: |
-          test -f dist/index.html || { echo "❌ dist/index.html missing"; exit 1; }
-          test -f dist/stores/index.html || { echo "❌ dist/stores/index.html missing"; exit 1; }
-          test -f dist/stores/expressvpn/index.html || { echo "❌ dist/stores/expressvpn/index.html missing"; exit 1; }
-          test -f dist/sitemap-0.xml || { echo "❌ dist/sitemap-0.xml missing"; exit 1; }
-          echo "✅ All core static pages, sitemaps, and Schema.org snippets generated successfully!"
+          test -f deals-portal/dist/index.html || { echo "❌ dist/index.html missing"; exit 1; }
+          test -f deals-portal/dist/stores/index.html || { echo "❌ dist/stores/index.html missing"; exit 1; }
+          test -f deals-portal/dist/llms.txt || { echo "❌ dist/llms.txt missing"; exit 1; }
+          test -f deals-portal/dist/llms-full.txt || { echo "❌ dist/llms-full.txt missing"; exit 1; }
+          test -f deals-portal/dist/scripts/webmcp-bridge.js || { echo "❌ dist/scripts/webmcp-bridge.js missing"; exit 1; }
+          test -f deals-portal/dist/sitemap-0.xml || { echo "❌ dist/sitemap-0.xml missing"; exit 1; }
+          node scripts/catalog_validator.cjs
+          echo "✅ All core static pages, WebMCP, llms.txt, and catalog validator passed successfully!"
 
       - name: 📦 Archive Build Artifacts
         uses: actions/upload-artifact@v4
@@ -89,13 +91,23 @@ jobs:
           key: ${{ secrets.DO_SSH_KEY }}
           script: |
             set -e
-            echo "🚀 Deploying PromoRadar build on 178.128.199.28..."
+            RELEASE_ID="rel_$(date +%s)"
+            RELEASE_DIR="/var/www/promoradar.store/releases/${RELEASE_ID}"
+            CURRENT_LINK="/var/www/promoradar.store/current"
+            echo "🚀 Deploying PromoRadar release ${RELEASE_ID} on 178.128.199.28..."
+            mkdir -p "${RELEASE_DIR}"
             mkdir -p /var/www/affiliate/deals-portal/dist
-            # Recreate verification tags
+            
+            # Recreate verification tags in release
+            echo "dcaf1a95-f2a7-42c8-b67f-4a463294ee43" > "${RELEASE_DIR}/dcaf1a95-f2a7-42c8-b67f-4a463294ee43.txt"
+            echo "fa9e3fd878" > "${RELEASE_DIR}/admitad-verification.txt"
             echo "dcaf1a95-f2a7-42c8-b67f-4a463294ee43" > /var/www/affiliate/deals-portal/dist/dcaf1a95-f2a7-42c8-b67f-4a463294ee43.txt
             echo "fa9e3fd878" > /var/www/affiliate/deals-portal/dist/admitad-verification.txt
+
+            # Atomic symlink switch
+            ln -sfn "${RELEASE_DIR}" "${CURRENT_LINK}"
             nginx -t && systemctl reload nginx
-            echo "✅ PromoRadar live deployment successful!"
+            echo "✅ PromoRadar live atomic deployment successful!"
 
       - name: ℹ️ Droplet SSH Notice
         if: ${{ env.DO_KEY == '' }}

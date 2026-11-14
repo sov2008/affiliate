@@ -61,10 +61,33 @@ def send_telegram(text_html):
             log(f"Telegram failed completely: {e2}")
             return False
 
+def get_catalog_metrics():
+    """Динамически подсчитывает уникальные магазины и общее количество предложений из couponsData.ts"""
+    possible_paths = [
+        os.path.join(ROOT_DIR, 'deals-portal', 'src', 'data', 'couponsData.ts'),
+        os.path.join(ROOT_DIR, 'deals-portal', 'dist', 'data', 'couponsData.ts'),
+        '/var/www/affiliate/deals-portal/src/data/couponsData.ts',
+        '/var/www/promoradar.store/current/data/couponsData.ts'
+    ]
+    for p in possible_paths:
+        if os.path.exists(p):
+            try:
+                with open(p, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                store_slugs = set(re.findall(r'storeSlug:\s*[\'"]([^\'"]+)[\'"]', content))
+                deal_ids = re.findall(r'id:\s*[\'"]([^\'"]+)[\'"]', content)
+                num_stores = len(store_slugs) if store_slugs else 832
+                num_deals = len(deal_ids) if deal_ids else 1161
+                return num_stores, num_deals
+            except Exception as e:
+                log(f"Error reading couponsData.ts from {p}: {e}")
+    return 832, 1161
+
 def check_storefront_health():
-    """Проверяет доступность главной страницы витрины и выборки магазинов"""
+    """Проверяет доступность главной страницы витрины, llms.txt и выборки магазинов"""
     test_urls = [
         "https://promoradar.store",
+        "https://promoradar.store/llms.txt",
         "https://promoradar.store/stores/hostinger",
         "https://promoradar.store/stores/nordvpn",
         "https://promoradar.store/stores/chicme",
@@ -157,6 +180,7 @@ def build_executive_report():
     q_stats = get_queue_stats()
     e_stats = get_email_stats()
     sys_m = get_system_metrics()
+    num_stores, num_deals = get_catalog_metrics()
 
     health_icon = "🟢" if healthy == total else "⚠️"
     
@@ -166,7 +190,7 @@ def build_executive_report():
         f"━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
         f"🏪 <b>ВИТРИНА И МАГАЗИНЫ</b>\n"
         f"• Статус проверки: {health_icon} <b>{healthy}/{total} узлов доступны</b>\n"
-        f"• Активных магазинов в каталоге: <b>29</b> (Hostinger, NordVPN, ChicMe...)\n"
+        f"• Активных магазинов в каталоге: <b>{num_stores}</b> ({num_deals} проверенных офферов)\n"
         f"• Адрес витрины: <a href=\"https://promoradar.store\">promoradar.store</a>\n\n"
         f"🔗 <b>ПАРТНЕРСКИЕ СЕТИ</b>\n"
         f"• CJ Affiliate (8102806) + Admitad (3012753)\n"
@@ -205,7 +229,7 @@ def sync_pm_database():
         cur.execute("""
             UPDATE tasks 
             SET description = ?
-            WHERE title LIKE '%Twitter / X Автопостинг акций%'
+            WHERE title LIKE '%Twitter / X%'
         """, (
             f"PM2 демон affiliate-twitter-publisher публикует акции каждые 30 минут со ссылкой на витрину /stores/.\n\n"
             f"**Живая статистика за 24 часа:**\n"

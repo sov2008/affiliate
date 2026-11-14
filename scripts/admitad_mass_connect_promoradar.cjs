@@ -27,6 +27,9 @@ function log(msg) {
 const ARTIFACTS_DIR = path.resolve(__dirname, '../artifacts_admitad');
 const HISTORY_FILE = path.resolve(ARTIFACTS_DIR, 'applied_programs_history.json');
 
+// Blacklist keywords for microloans / PDL and hyper-local food delivery
+const BANNED_OFFER_KEYWORDS = /є-гроші|гроші|кредит|займ|мікрозайм|багатолосося|суші|роллы|доставка їжі|payday loan/i;
+
 function loadHistory() {
   if (fs.existsSync(HISTORY_FILE)) {
     try {
@@ -157,6 +160,11 @@ async function main() {
 
           if (attemptedOffers.has(cardText) || isOfferAlreadyProcessed(cardText, history)) {
             log(`⏭️ Skipping "${cardText}" (already applied/pending/active/declined)`);
+            continue;
+          }
+          if (BANNED_OFFER_KEYWORDS.test(cardText)) {
+            log(`🚫 Skipping blacklisted PDL/food delivery offer: "${cardText}"`);
+            attemptedOffers.add(cardText);
             continue;
           }
           attemptedOffers.add(cardText);
@@ -421,6 +429,11 @@ async function main() {
 
             if (attemptedOffers.has(cardTitle) || isOfferAlreadyProcessed(cardTitle, history)) {
               log(`  ⏭️ Skipping "${cardTitle}" (already applied/pending/active/declined)`);
+              continue;
+            }
+            if (BANNED_OFFER_KEYWORDS.test(cardTitle)) {
+              log(`  🚫 Skipping blacklisted PDL/food delivery offer: "${cardTitle}"`);
+              attemptedOffers.add(cardTitle);
               continue;
             }
             attemptedOffers.add(cardTitle);
