@@ -19,6 +19,7 @@ interface Props {
   ogImage?: string;
   ogType?: string;
   storeDealsMap?: Record<string, Array<{ id: string; title: string; code: string; badge: string; affiliateUrl: string }>>;
+  preloadImage?: string;
 }
 
 const {
@@ -29,7 +30,8 @@ const {
   schemas = [],
   ogImage,
   ogType = 'website',
-  storeDealsMap
+  storeDealsMap,
+  preloadImage
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -70,6 +72,12 @@ const resolvedOgImage = ogImage ? (ogImage.startsWith('http') ? ogImage : `${sit
     <meta name="google-site-verification" content="EoZOJUjFA2-uy89WOLVK-1Ze_Ub5mzaLpKVlh9ZYCVk" />
 
     <!-- Google Fonts: Inter & JetBrains Mono (Non-blocking async loading) -->
+    {preloadImage && (
+      <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />
+    )}
+    <!-- Preconnect to Third-Party Assets (Fast DNS & TLS Handshake) -->
+    <link rel="preconnect" href="https://www.google.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.google.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />

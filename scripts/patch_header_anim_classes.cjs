@@ -12,3 +12,4 @@ if (header.includes(target)) {
 } else {
   console.log('Target not found, already animated initial state');
 }
+
