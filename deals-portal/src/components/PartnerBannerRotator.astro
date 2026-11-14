@@ -7,7 +7,9 @@
  */
 import rotatorData from '../data/homeRotatorBanners.json';
 
-const { leaderboards = [], rectangles = [] } = rotatorData;
+const rawLeaderboards = rotatorData.leaderboards || [];
+const leaderboards = rawLeaderboards.slice(0, 6);
+const rectangles = (rotatorData.rectangles || []).slice(0, 6);
 ---
 
 <section id="partnerRotatorSection" class="relative my-8 sm:my-10" aria-label="Featured Partner Offers">

@@ -53,6 +53,14 @@ const paddingClasses = {
 const containerSize = sizeClasses[size] || sizeClasses.md;
 const pad = paddingClasses[size] || paddingClasses.md;
 
+const pixelDimensions = {
+  sm: { w: 44, h: 44 },
+  md: { w: 48, h: 48 },
+  lg: { w: 80, h: 80 },
+  xl: { w: 112, h: 112 }
+};
+const dims = pixelDimensions[size] || pixelDimensions.md;
+
 // Multi-Tier Logo sources:
 // Priority local logo for verified merchants with brand-compliant transparent logo assets
 const localLogoUrl = store.slug ? `/logos/${store.slug}.png` : '';
@@ -70,8 +78,11 @@ const secondaryFallback = googleFaviconUrl || duckFaviconUrl;
     <img
       src={primaryLogo}
       alt={`${store.name} logo`}
+      width={dims.w}
+      height={dims.h}
       class="w-full h-full object-contain filter group-hover:scale-105 transition-transform duration-200"
       loading="lazy"
+      decoding="async"
       data-fallback-google={googleFaviconUrl}
       data-fallback-duck={secondaryFallback}
       data-fallback-local={localLogoUrl}

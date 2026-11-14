@@ -33,7 +33,7 @@ const filteredProducts = allRawProducts.filter(p => {
 });
 
 // Deduplicate and curate top verified store products
-const curatedProducts = deduplicateProducts(filteredProducts);
+const curatedProducts = deduplicateProducts(filteredProducts).slice(0, 16);
 
 // 2. Tab 2: Expiring Soon Coupon Deals ({endingSoonDeals.length})
 

@@ -34,7 +34,7 @@ const megaCategories = [
 const popularStores = uniqueStores.filter(s => 
   ['expressvpn', 'nordvpn', 'surfshark', 'target', 'walmart', 'best-buy', 'aliexpress', 'dhgate', 'temu', 'hostinger', 'namecheap', 'shein', 'wayfair', 'viator', 'qvc', 'macys'].some(slug => (s.slug || '').toLowerCase().includes(slug)) ||
   (s.rating && s.rating >= 4.8)
-).slice(0, 14);
+).slice(0, 6);
 
 
 // Smart Categories Data with verified deals counters, max discount & top stores
@@ -113,16 +113,16 @@ const smartCategories = [
   }
 ];
 const storesByCategory: Record<string, typeof uniqueStores> = {
-  popular: popularStores.length > 0 ? popularStores : uniqueStores.slice(0, 12),
-  privacy: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('privacy') || (s.category || '').toLowerCase().includes('security')).slice(0, 14),
-  electronics: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('electronic') || (s.category || '').toLowerCase().includes('gadget')).slice(0, 14),
-  home: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('home') || (s.category || '').toLowerCase().includes('living')).slice(0, 14),
-  fashion: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('fashion') || (s.category || '').toLowerCase().includes('apparel')).slice(0, 14),
-  travel: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('travel') || (s.category || '').toLowerCase().includes('tour')).slice(0, 14),
-  software: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('software') || (s.category || '').toLowerCase().includes('gaming')).slice(0, 14),
-  food: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('food') || (s.category || '').toLowerCase().includes('nutrition') || (s.category || '').toLowerCase().includes('beverage')).slice(0, 14),
-  auto: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('auto') || (s.category || '').toLowerCase().includes('mobility')).slice(0, 14),
-  ecommerce: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('commerce') || (s.category || '').toLowerCase().includes('wholesale') || (s.category || '').toLowerCase().includes('department')).slice(0, 14)
+  popular: popularStores.length > 0 ? popularStores : uniqueStores.slice(0, 6),
+  privacy: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('privacy') || (s.category || '').toLowerCase().includes('security')).slice(0, 6),
+  electronics: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('electronic') || (s.category || '').toLowerCase().includes('gadget')).slice(0, 6),
+  home: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('home') || (s.category || '').toLowerCase().includes('living')).slice(0, 6),
+  fashion: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('fashion') || (s.category || '').toLowerCase().includes('apparel')).slice(0, 6),
+  travel: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('travel') || (s.category || '').toLowerCase().includes('tour')).slice(0, 6),
+  software: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('software') || (s.category || '').toLowerCase().includes('gaming')).slice(0, 6),
+  food: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('food') || (s.category || '').toLowerCase().includes('nutrition') || (s.category || '').toLowerCase().includes('beverage')).slice(0, 6),
+  auto: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('auto') || (s.category || '').toLowerCase().includes('mobility')).slice(0, 6),
+  ecommerce: uniqueStores.filter(s => (s.category || '').toLowerCase().includes('commerce') || (s.category || '').toLowerCase().includes('wholesale') || (s.category || '').toLowerCase().includes('department')).slice(0, 6)
 };
 ---
 
