@@ -87,7 +87,7 @@ const baseUrl = "";
       'E-Commerce & Wholesale': ['E-Commerce & Wholesale']
     };
 
-    let PAGE_SIZE = 21;
+    let PAGE_SIZE = 24;
     let visibleLimit = PAGE_SIZE;
 
     function filterDeals() {
@@ -165,7 +165,7 @@ const baseUrl = "";
               card.classList.remove('animate-card-entrance');
               void card.offsetWidth; // retrigger CSS animation
               card.classList.add('animate-card-entrance');
-              card.style.animationDelay = ((actuallyShown % 21) * 20) + 'ms';
+              card.style.animationDelay = ((actuallyShown % 24) * 20) + 'ms';
             }
             actuallyShown++;
           } else {
