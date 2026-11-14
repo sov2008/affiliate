@@ -47,3 +47,4 @@ if (js.includes(target)) {
 } else {
   console.log('Target not found in smooth-images.js');
 }
+

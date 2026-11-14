@@ -25,3 +25,4 @@ if (js.includes(target)) {
 } else {
   console.log('target not found in home-interactive.js');
 }
+

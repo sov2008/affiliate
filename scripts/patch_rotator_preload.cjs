@@ -80,3 +80,4 @@ if (js.includes(target)) {
 } else {
   console.log('target not found in partner-rotator-interactive.js');
 }
+

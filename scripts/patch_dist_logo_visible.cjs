@@ -11,3 +11,4 @@ if (html.includes(target)) {
 } else {
   console.log('Target not found in dist/index.html');
 }
+

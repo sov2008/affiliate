@@ -221,18 +221,19 @@
       }
     }
 
-    // If preloader exists on page, trigger seamlessly as preloader starts dissolving
-    const preloader = document.getElementById('promoradar-preloader');
-    if (preloader && preloader.dataset.hidden !== 'true') {
-      window.addEventListener('promoradar_preloader_done', () => {
-        // Small 40ms frame buffer for seamless GPU compositing
-        requestAnimationFrame(() => {
-          startHeaderRadar();
-        });
+    // Trigger header animation on DOMContentLoaded or immediately if already loaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        requestAnimationFrame(startHeaderRadar);
       }, { once: true });
     } else {
-      startHeaderRadar();
+      requestAnimationFrame(startHeaderRadar);
     }
+
+    // Also listen to preloader done event as a synchronized hook
+    window.addEventListener('promoradar_preloader_done', () => {
+      requestAnimationFrame(startHeaderRadar);
+    }, { once: true });
   })();
 
   // RetailMeNot Style Stores Mega Menu Interactions
