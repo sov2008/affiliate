@@ -11,6 +11,40 @@ interface ExtractedDealCard {
   activationUrl: string;
 }
 
+interface CompactCatalogDeal {
+  s: string; // slug
+  b: string; // brandName
+  t: string; // title
+  d: string; // discountBadge
+  c: string; // category
+  e: string; // expiry
+}
+
+// In-memory cache for full catalog index
+let cachedCatalogIndex: CompactCatalogDeal[] | null = null;
+let isFetchingCatalog = false;
+
+async function getFullCatalog(): Promise<CompactCatalogDeal[]> {
+  if (cachedCatalogIndex) return cachedCatalogIndex;
+  if (isFetchingCatalog) {
+    // Wait briefly if already in-flight
+    await new Promise((r) => setTimeout(r, 200));
+    if (cachedCatalogIndex) return cachedCatalogIndex;
+  }
+  isFetchingCatalog = true;
+  try {
+    const res = await fetch('/api/webmcp-index.json');
+    if (res.ok) {
+      cachedCatalogIndex = await res.json();
+    }
+  } catch (_) {
+    // Ignore fetch errors
+  } finally {
+    isFetchingCatalog = false;
+  }
+  return cachedCatalogIndex || [];
+}
+
 function getModelContext(): ModelContextAPI | undefined {
   if (typeof document !== 'undefined' && document.modelContext) {
     return document.modelContext;
@@ -28,7 +62,6 @@ function extractCardsFromDOM(): ExtractedDealCard[] {
   );
 
   candidateElements.forEach((el) => {
-    // 1. Locate activation link starting with /go/
     const goLink = el.querySelector<HTMLAnchorElement>('a[href^="/go/"], a[href*="/go/"]');
     let slug = el.getAttribute('data-deal-slug') || '';
 
@@ -40,14 +73,11 @@ function extractCardsFromDOM(): ExtractedDealCard[] {
       }
     }
 
-    if (!slug) {
-      return; // Skip invalid or non-affiliate cards per Rule 1
-    }
+    if (!slug) return;
 
-    // 2. Extract metadata
     const storeName =
       el.getAttribute('data-store') ||
-      el.querySelector<HTMLElement>('h3 a, .brand-logo-container + div span, [title]')?.textContent?.trim() ||
+      el.querySelector<HTMLElement>('h3 a, [title]')?.textContent?.trim() ||
       slug;
 
     const title =
@@ -64,10 +94,8 @@ function extractCardsFromDOM(): ExtractedDealCard[] {
       el.getAttribute('data-banner-category') ||
       'General';
 
-    // 3. Check for code
     const isCodeType = el.getAttribute('data-type') === 'code' || el.getAttribute('data-deal-type') === 'code';
     const hasCodeText = Boolean(el.textContent && (el.textContent.includes('Copy Code') || el.textContent.includes('Get Code')));
-    const hasCode = isCodeType || hasCodeText;
 
     cards.push({
       element: el,
@@ -76,7 +104,7 @@ function extractCardsFromDOM(): ExtractedDealCard[] {
       title,
       discountBadge,
       category,
-      hasCode,
+      hasCode: isCodeType || hasCodeText,
       activationUrl: `https://promoradar.store/go/${slug}`
     });
   });
@@ -87,7 +115,7 @@ function extractCardsFromDOM(): ExtractedDealCard[] {
 function initWebMCPBridge(): void {
   const mc = getModelContext();
   if (!mc || typeof mc.registerTool !== 'function') {
-    return; // Exit silently with zero noise if browser modelContext is absent
+    return;
   }
 
   if (window.__promoradar_webmcp_initialized) {
@@ -113,28 +141,65 @@ function initWebMCPBridge(): void {
       },
       execute: async (args: { query: string }) => {
         const q = (args.query || '').toLowerCase().trim();
-        const cards = extractCardsFromDOM();
+        const domCards = extractCardsFromDOM();
+        const seenSlugs = new Set<string>();
+        const results: Array<{
+          slug: string;
+          storeName: string;
+          title: string;
+          discountBadge: string;
+          category: string;
+          hasCode: boolean;
+          activationUrl: string;
+          promoCodeStatus: string;
+        }> = [];
 
-        const matches = cards.filter((c) => {
+        // 1. First check matching cards currently in the DOM
+        domCards.forEach((c) => {
           const searchContent = `${c.storeName} ${c.title} ${c.category} ${c.slug}`.toLowerCase();
-          return searchContent.includes(q);
+          if (searchContent.includes(q)) {
+            seenSlugs.add(c.slug.toLowerCase());
+            results.push({
+              slug: c.slug,
+              storeName: c.storeName,
+              title: c.title,
+              discountBadge: c.discountBadge,
+              category: c.category,
+              hasCode: c.hasCode,
+              activationUrl: c.activationUrl,
+              promoCodeStatus: 'LOCKED_CALL_ACTIVATE_DEAL'
+            });
+          }
         });
 
-        const topMatches = matches.slice(0, 12).map((c) => ({
-          slug: c.slug,
-          storeName: c.storeName,
-          title: c.title,
-          discountBadge: c.discountBadge,
-          category: c.category,
-          hasCode: c.hasCode,
-          activationUrl: c.activationUrl,
-          promoCodeStatus: 'LOCKED_CALL_ACTIVATE_DEAL'
-        }));
+        // 2. Query full static catalog index (solves 24-card pagination blindness)
+        if (results.length < 12) {
+          const fullCatalog = await getFullCatalog();
+          for (const item of fullCatalog) {
+            if (results.length >= 12) break;
+            if (seenSlugs.has(item.s.toLowerCase())) continue;
+
+            const searchContent = `${item.b} ${item.t} ${item.c} ${item.s}`.toLowerCase();
+            if (searchContent.includes(q)) {
+              seenSlugs.add(item.s.toLowerCase());
+              results.push({
+                slug: item.s,
+                storeName: item.b,
+                title: item.t,
+                discountBadge: item.d,
+                category: item.c,
+                hasCode: true,
+                activationUrl: `https://promoradar.store/go/${item.s}`,
+                promoCodeStatus: 'LOCKED_CALL_ACTIVATE_DEAL'
+              });
+            }
+          }
+        }
 
         return {
           query: args.query,
-          totalMatches: matches.length,
-          results: topMatches
+          totalMatches: results.length,
+          results
         };
       }
     });
@@ -160,13 +225,11 @@ function initWebMCPBridge(): void {
         const target = cards.find((c) => c.slug.toLowerCase() === slug);
 
         if (!target) {
-          return { status: 'not_found', slug };
+          return { status: 'not_found', slug, message: 'Card not in current DOM viewport. Call promoradar_activate_deal to open directly.' };
         }
 
-        // Smooth scroll to card
         target.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        // Highlight tear-off ticket coupon block or card
         const ticketBlock =
           target.element.querySelector<HTMLElement>('.card-rip-ticket') || target.element;
 
@@ -221,7 +284,7 @@ function initWebMCPBridge(): void {
           }
         } catch (_) {}
 
-        // 2. If voucher code is on the card button or data attribute, copy to clipboard
+        // 2. If card is on current page, trigger its existing CTA
         if (target) {
           const revealBtn = target.element.querySelector<HTMLElement>('button[data-reveal-deal], button[data-code]');
           if (revealBtn) {
@@ -241,7 +304,6 @@ function initWebMCPBridge(): void {
               } catch (_) {}
             }
 
-            // Click button to open modal and trigger merchant tab
             revealBtn.click();
             return {
               status: 'success',
@@ -252,7 +314,7 @@ function initWebMCPBridge(): void {
           }
         }
 
-        // 3. Fallback: trigger official partner redirect through /go/[slug]
+        // 3. Decoupled Fallback: navigate directly to /go/[slug] (works even when not on page 1 of 24-card grid)
         const fallbackUrl = `https://promoradar.store/go/${rawSlug}`;
         if (typeof window !== 'undefined') {
           window.open(fallbackUrl, '_blank', 'noopener');
@@ -266,9 +328,7 @@ function initWebMCPBridge(): void {
         };
       }
     });
-  } catch (err) {
-    // Fail-safe protection
-  }
+  } catch (_) {}
 }
 
 if (typeof document !== 'undefined') {
@@ -279,4 +339,3 @@ if (typeof document !== 'undefined') {
   }
   document.addEventListener('astro:page-load', initWebMCPBridge);
 }
-

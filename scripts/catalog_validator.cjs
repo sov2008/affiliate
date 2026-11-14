@@ -316,12 +316,67 @@ function printValidationSummary(stats, logger = console.log) {
   logger(line);
 }
 
+function validateDistLlmsFiles() {
+  const distDir = path.resolve(__dirname, '../deals-portal/dist');
+  const llmsFile = path.join(distDir, 'llms.txt');
+  const llmsFullFile = path.join(distDir, 'llms-full.txt');
+
+  let passed = true;
+
+  [llmsFile, llmsFullFile].forEach((filePath) => {
+    if (!fs.existsSync(filePath)) return;
+    const filename = path.basename(filePath);
+    const content = fs.readFileSync(filePath, 'utf8');
+
+    if (BANNED_TLD_REGEX.test(content)) {
+      console.error(`[VALIDATOR ERROR] ${filename} contains banned TLD (.ru/.by/.kz/.su)`);
+      passed = false;
+    }
+    if (BANNED_GEO_REGEX.test(content)) {
+      console.error(`[VALIDATOR ERROR] ${filename} contains banned GEO target`);
+      passed = false;
+    }
+    if (BANNED_CURRENCY_REGEX.test(content)) {
+      console.error(`[VALIDATOR ERROR] ${filename} contains banned currency`);
+      passed = false;
+    }
+
+    // Check for raw promo codes leakage (must never have "Code: [actual raw code]" without attribution gate text)
+    const codeLeakMatch = content.match(/^-\s*Code:\s*([A-Z0-9_-]{4,})\s*$/m);
+    if (codeLeakMatch) {
+      console.error(`[VALIDATOR ERROR] ${filename} leaks raw code: ${codeLeakMatch[1]}`);
+      passed = false;
+    }
+  });
+
+  return passed;
+}
+
+if (require.main === module) {
+  const couponsFile = path.resolve(__dirname, '../deals-portal/src/data/couponsData.ts');
+  if (fs.existsSync(couponsFile)) {
+    try {
+      const { COUPONS_DATA, STORES_DATA } = require(couponsFile);
+      const res = validateCatalog(STORES_DATA || [], COUPONS_DATA || []);
+      printValidationSummary(res.stats);
+      const distValid = validateDistLlmsFiles();
+      if (!distValid) {
+        process.exit(1);
+      }
+    } catch (e) {
+      console.error('[VALIDATOR] Error running catalog validator:', e.message);
+      process.exit(1);
+    }
+  }
+}
+
 module.exports = {
   loadStoreDomainsMap,
   isStoreBanned,
   validateDeal,
   validateCatalog,
   printValidationSummary,
+  validateDistLlmsFiles,
   BANNED_TLD_REGEX,
   BANNED_GEO_REGEX,
   BANNED_CURRENCY_REGEX,

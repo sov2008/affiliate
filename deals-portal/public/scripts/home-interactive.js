@@ -734,6 +734,14 @@ const baseUrl = "";
       loadSearchIndex();
     });
 
+    const heroForm = document.getElementById('heroSearchForm');
+    heroForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      searchQuery = heroInput ? heroInput.value : '';
+      filterDeals();
+      return false;
+    });
+
     headerInput?.addEventListener('focus', () => {
       loadSearchIndex();
     });
