@@ -1158,7 +1158,7 @@ const homeSchemas = [
 
       <!-- Modern 4-Column Responsive Coupon Cards Grid -->
       <div id="dealsGridContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-stretch">
-        {interleavedDeals.map((deal, idx) => {
+        {interleavedDeals.slice(0, 24).map((deal, idx) => {
           const isCode = deal.code && deal.code.trim().length > 0;
           const cleanName = deal.cleanBrand;
           const cleanBadge = deal.cleanBadge;
@@ -1850,7 +1850,7 @@ const homeSchemas = [
     <span id="globalToastMessage">Notification</span>
   </div>
 
-  <script is:inline define:vars={{ storeDomainsRegistry: STORE_DOMAINS_MAP, storesRegistry, dealsRegistry, categoriesRegistry, baseUrl: base, heroSavingsById: HERO_SAVINGS_BY_ID }}>
+  <script is:inline define:vars={{ categoriesRegistry, baseUrl: base, heroSavingsById: HERO_SAVINGS_BY_ID }}>
     // State & Interactive Logic
     let currentCategory = 'ALL';
     let currentRegion = 'ALL';
@@ -2279,6 +2279,32 @@ const homeSchemas = [
       gridFilterInput?.focus();
     });
 
+    // Asynchronous Search Index Loader (0kb initial blocking payload)
+    let storesRegistry = [];
+    let dealsRegistry = [];
+    let storeDomainsRegistry = {};
+    let searchIndexLoaded = false;
+    let searchIndexLoading = false;
+
+    async function loadSearchIndex() {
+      if (searchIndexLoaded || searchIndexLoading) return;
+      searchIndexLoading = true;
+      try {
+        const res = await fetch(`${baseUrl}/data/search-index.json`);
+        if (res.ok) {
+          const data = await res.json();
+          storesRegistry = data.stores || [];
+          dealsRegistry = data.deals || [];
+          storeDomainsRegistry = data.domains || {};
+          searchIndexLoaded = true;
+        }
+      } catch (e) {
+        console.warn('Search index load failed', e);
+      } finally {
+        searchIndexLoading = false;
+      }
+    }
+
     // Live Hero Spotlight Search Auto-suggest Engine
     const heroSpotlight = document.getElementById('heroSearchSpotlight');
     const heroSpotlightStoresList = document.getElementById('heroSpotlightStoresList');
@@ -2533,12 +2559,21 @@ const homeSchemas = [
       }
     }
 
-    heroInput?.addEventListener('input', (e) => {
+    heroInput?.addEventListener('input', async (e) => {
       searchQuery = e.target.value;
       if (headerInput) headerInput.value = searchQuery;
       updateHeroClearBtn(searchQuery);
       filterDeals();
+      if (!searchIndexLoaded) await loadSearchIndex();
       renderHeroSpotlight(searchQuery);
+    });
+
+    heroInput?.addEventListener('focus', () => {
+      loadSearchIndex();
+    });
+
+    headerInput?.addEventListener('focus', () => {
+      loadSearchIndex();
     });
 
     heroClearBtn?.addEventListener('click', () => {
