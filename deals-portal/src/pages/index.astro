@@ -863,7 +863,7 @@ const homeSchemas = [
               </div>
 
               <!-- Animated Content Wrapper for Fluid Cross-fade -->
-              <div id="heroDealDynamicContent" class="flex-1 flex flex-col justify-between space-y-3 transition-all duration-300">
+              <div id="heroDealDynamicContent" class="flex-1 flex flex-col justify-between space-y-3 transition-all duration-300" style="will-change: transform, opacity; transform: translate3d(0, 0, 0); backface-visibility: hidden;">
                 <!-- Merchant info -->
                 <div class="deal-stagger-item flex items-center gap-3 py-1 relative z-10 shrink-0">
                   <div id="heroDealLogoBox" class="deal-logo-box w-10 h-10 sm:w-11 sm:h-11 bg-transparent flex items-center justify-center p-0 shrink-0 overflow-hidden">
@@ -944,7 +944,7 @@ const homeSchemas = [
 
               <!-- Progress Line as divider right above bottom controls -->
               <div class="relative w-full h-[3px] bg-slate-200/90 dark:bg-white/10 rounded-full overflow-hidden mt-3 z-10 shrink-0">
-                <div id="heroDealTimerBar" class="h-full bg-gradient-to-r from-indigo-500 via-rose-500 to-amber-500 w-0 transition-all duration-300 rounded-full"></div>
+                <div id="heroDealTimerBar" class="h-full bg-gradient-to-r from-indigo-500 via-rose-500 to-amber-500 w-full origin-left rounded-full" style="transform: scaleX(0); will-change: transform;"></div>
               </div>
 
               <!-- Controls bar centered -->
@@ -3844,7 +3844,12 @@ const homeSchemas = [
         }
       }, 1000);
 
-      // Render Active Deal with Dynamic Locale Strings
+      // 60FPS RAF-driven progress bar and kinetic spring crossfade engine
+      let animStartTime = null;
+      let animProgress = 0;
+      let rafLoopId = null;
+
+      // Render Active Deal with Dynamic Locale Strings & Kinetic Spring Transition
       function renderDeal(index, direction = 'next') {
         if (isTransitioning) return;
         isTransitioning = true;
@@ -3859,17 +3864,19 @@ const homeSchemas = [
         currentRemainingSec = parseSecondsFromStr(deal.timerEnds);
         updateClockDisplay();
 
-        // 1. Slide fade out
-        dynamicContent.style.transition = 'opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1), transform 0.28s cubic-bezier(0.4, 0, 0.2, 1)';
+        // 1. Ultra-smooth silky exit: ease-in with subtle micro-scale and soft motion
+        dynamicContent.style.transition = 'opacity 0.22s cubic-bezier(0.4, 0, 1, 1), transform 0.22s cubic-bezier(0.4, 0, 1, 1)';
         dynamicContent.style.opacity = '0';
-        dynamicContent.style.transform = direction === 'next' ? 'translate3d(0, -8px, 0)' : 'translate3d(0, 8px, 0)';
+        dynamicContent.style.transform = direction === 'next' 
+          ? 'translate3d(0, -12px, 0) scale(0.985)' 
+          : 'translate3d(0, 12px, 0) scale(0.985)';
 
         setTimeout(() => {
           try {
             // 2. Mutate DOM content
             const logoBox = document.getElementById('heroDealLogoBox');
             if (logoBox) {
-              logoBox.innerHTML = '<img src="' + deal.logoUrl + '" alt="' + deal.storeName + '" class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-300" onerror="this.onerror=null; this.src=\'/logos/' + deal.storeSlug + '.png\';" />';
+              logoBox.innerHTML = '<img src="' + deal.logoUrl + '" alt="' + deal.storeName + '" class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-300 brand-logo-dresscode" onerror="this.onerror=null; this.src=\'/logos/' + deal.storeSlug + '.png\';" />';
             }
 
             const storeNameEl = document.getElementById('heroDealStoreName');
@@ -3935,24 +3942,30 @@ const homeSchemas = [
 
             updateDotsVisual();
 
-            // 3. Slide fade in
-            dynamicContent.style.transform = direction === 'next' ? 'translate3d(0, 10px, 0)' : 'translate3d(0, -10px, 0)';
+            // 3. Staging position before enter (inverted direction with micro-scale)
+            dynamicContent.style.transition = 'none';
+            dynamicContent.style.transform = direction === 'next' 
+              ? 'translate3d(0, 14px, 0) scale(0.985)' 
+              : 'translate3d(0, -14px, 0) scale(0.985)';
+
+            // Force reflow and trigger silky-smooth Apple-grade entrance curve
+            void dynamicContent.offsetWidth;
 
             requestAnimationFrame(() => {
-              dynamicContent.style.transition = 'opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+              dynamicContent.style.transition = 'opacity 0.42s cubic-bezier(0.16, 1, 0.3, 1), transform 0.48s cubic-bezier(0.16, 1, 0.3, 1)';
               dynamicContent.style.opacity = '1';
-              dynamicContent.style.transform = 'translate3d(0, 0, 0)';
+              dynamicContent.style.transform = 'translate3d(0, 0, 0) scale(1)';
               setTimeout(() => {
                 isTransitioning = false;
-              }, 450);
+              }, 480);
             });
           } catch (err) {
             console.error('Error during hero deal rotation:', err);
             dynamicContent.style.opacity = '1';
-            dynamicContent.style.transform = 'translate3d(0, 0, 0)';
+            dynamicContent.style.transform = 'translate3d(0, 0, 0) scale(1)';
             isTransitioning = false;
           }
-        }, 280);
+        }, 230);
       }
 
       function nextDeal() {
@@ -3970,38 +3983,53 @@ const homeSchemas = [
       }
 
       function resetProgressBar() {
-        stepCount = 0;
+        animStartTime = null;
+        animProgress = 0;
         if (timerBar) {
-          timerBar.style.transition = 'none';
-          timerBar.style.width = '0%';
+          timerBar.style.transform = 'scaleX(0)';
         }
+      }
+
+      // High-performance 60/120 FPS requestAnimationFrame progress ticker
+      function rafTick(timestamp) {
+        if (isUserPaused || isHoverPaused || rotatingDeals.length <= 1) {
+          rafLoopId = null;
+          return;
+        }
+
+        if (!animStartTime) {
+          animStartTime = timestamp - (animProgress * ROTATION_INTERVAL_MS);
+        }
+
+        const elapsed = timestamp - animStartTime;
+        animProgress = Math.min(elapsed / ROTATION_INTERVAL_MS, 1);
+
+        if (timerBar) {
+          timerBar.style.transform = 'scaleX(' + animProgress.toFixed(4) + ')';
+        }
+
+        if (animProgress >= 1) {
+          resetProgressBar();
+          nextDeal();
+        }
+
+        rafLoopId = requestAnimationFrame(rafTick);
       }
 
       function startRotationLoop() {
         if (isUserPaused || isHoverPaused || rotatingDeals.length <= 1) return;
-        stopRotationLoop();
-
-        progressInterval = setInterval(() => {
-          if (isUserPaused || isHoverPaused) return;
-          stepCount++;
-          const progressPercent = (stepCount / totalSteps) * 100;
-          if (timerBar) {
-            timerBar.style.transition = 'width 50ms linear';
-            timerBar.style.width = progressPercent + '%';
-          }
-
-          if (stepCount >= totalSteps) {
-            stepCount = 0;
-            nextDeal();
-          }
-        }, stepMs);
+        if (!rafLoopId) {
+          animStartTime = null; // will resume seamlessly from animProgress
+          rafLoopId = requestAnimationFrame(rafTick);
+        }
       }
 
       function stopRotationLoop() {
-        if (progressInterval) {
-          clearInterval(progressInterval);
-          progressInterval = null;
+        if (rafLoopId) {
+          cancelAnimationFrame(rafLoopId);
+          rafLoopId = null;
         }
+        animStartTime = null; // freeze elapsed baseline
       }
 
       function togglePlayPause() {
