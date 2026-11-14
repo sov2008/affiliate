@@ -1,5 +1,4 @@
 ---
-import { STORE_DOMAINS_MAP } from '../data/storeDomains';
 
 interface Props {
   storeDealsMap?: Record<string, Array<{ id: string; title: string; code: string; badge: string; affiliateUrl: string }>>;
@@ -244,7 +243,7 @@ const { storeDealsMap = {} } = Astro.props;
   </div>
 </div>
 
-<script is:inline define:vars={{ storeDealsMap, storeDomainsRegistry: STORE_DOMAINS_MAP }}>
+<script is:inline>
   (function() {
     const modal = document.getElementById('universalCouponModal');
     const closeBtn = document.getElementById('closeUniversalModalBtn');
@@ -308,22 +307,19 @@ const { storeDealsMap = {} } = Astro.props;
 
       // Resolve brand logo
       const storeSlug = data.storeSlug || '';
-      let domain = data.domain || '';
-      if (!domain && storeDomainsRegistry) {
-        domain = storeDomainsRegistry[data.storeName] || storeDomainsRegistry[storeSlug] || '';
-      }
+      const domain = data.domain || '';
       const logoImg = document.getElementById('modalLogoImg');
       const logoFallback = document.getElementById('modalLogoFallback');
       if (logoImg && logoFallback) {
-        if (domain) {
-          logoImg.src = `https://logo.clearbit.com/${domain}`;
-          logoImg.dataset.fallbackGoogle = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+        if (storeSlug) {
+          logoImg.src = `/logos/${storeSlug}.png`;
+          logoImg.className = 'w-full h-full object-contain filter drop-shadow-xs brand-logo-dresscode';
           logoImg.style.display = 'block';
           logoFallback.classList.add('hidden');
           logoFallback.classList.remove('flex');
           logoImg.onerror = function() {
-            if (this.dataset.fallbackGoogle && this.src !== this.dataset.fallbackGoogle) {
-              this.src = this.dataset.fallbackGoogle;
+            if (domain && this.src !== `https://www.google.com/s2/favicons?domain=${domain}&sz=128`) {
+              this.src = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
             } else {
               this.style.display = 'none';
               logoFallback.classList.remove('hidden');

@@ -40,41 +40,6 @@ const categoriesList = Array.from(
   )
 ).filter(c => Boolean(c && c.trim()));
 
-// Registries for instant Live Spotlight Auto-suggest
-const storesRegistry = uniqueCleanStoresList.map(s => {
-  let domain = s.domain || STORE_DOMAINS_MAP[s.slug] || STORE_DOMAINS_MAP[s.canonicalBrand] || '';
-  if (domain && (domain.includes('terms') || domain.includes('program') || domain.includes('locking') || domain.includes('affiliate'))) {
-    domain = '';
-  }
-  if (!domain && s.websiteUrl) {
-    try {
-      domain = new URL(s.websiteUrl).hostname.replace(/^www\./, '');
-    } catch (e) {}
-  }
-  return {
-    slug: s.slug,
-    name: s.canonicalBrand,
-    category: s.category,
-    domain: domain,
-    dealsCount: s.dealsCount || 0
-  };
-});
-
-const dealsRegistry = COUPONS_DATA.filter(d => !isJunkTestOffer(d.storeName, d.title)).map(d => {
-  const identity = resolveMerchantIdentity(d);
-  return {
-    id: d.id,
-    title: d.title,
-    desc: d.description,
-    storeName: identity.brand,
-    storeSlug: getCanonicalStoreSlug(identity.brand),
-    code: d.code,
-    badge: extractSmartDiscountBadge(d.discountBadge, d.title),
-    affiliateUrl: d.affiliateUrl,
-    successRate: d.successRate
-  };
-});
-
 const categoriesRegistry = [
   { slug: 'privacy-security', name: 'Privacy, VPN & Cybersecurity', categoryName: 'Privacy & Security', icon: '🛡️' },
   { slug: 'gaming-software', name: 'Gaming, Media & Software', categoryName: 'Gaming, Media & Software', icon: '🎮' },
