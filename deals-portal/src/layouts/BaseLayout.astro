@@ -9,6 +9,7 @@ import BookmarkletModal from '../components/BookmarkletModal.astro';
 import SmartRecoveryOffer from '../components/SmartRecoveryOffer.astro';
 import PagePreloader from '../components/PagePreloader.astro';
 import SavedDealsModal from '../components/SavedDealsModal.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 
 interface Props {
   title: string;
@@ -149,6 +150,7 @@ const resolvedOgImage = ogImage ? (ogImage.startsWith('http') ? ogImage : `${sit
     <BookmarkletModal />
     <SmartRecoveryOffer />
     <SavedDealsModal />
+    <CookieBanner />
 
     <!-- Global Sleek Toast Notification -->
     <div

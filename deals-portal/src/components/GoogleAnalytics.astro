@@ -1,5 +1,5 @@
 ---
-// Google Analytics 4 (GA4) Tag with Non-Blocking Idle Execution & Consent Mode v2
+// Google Analytics 4 (GA4) Tag with Non-Blocking Instant Idle Execution & Consent Mode v2
 interface Props {
   measurementId?: string;
 }
@@ -29,9 +29,10 @@ const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
       'wait_for_update': 500
     });
   } else {
+    // Default mode: analytics allowed in privacy-preserving mode until explicit opt-out
     gtag('consent', 'default', {
       'ad_storage': 'denied',
-      'analytics_storage': 'denied',
+      'analytics_storage': 'granted',
       'ad_user_data': 'denied',
       'ad_personalization': 'denied',
       'url_passthrough': true,
@@ -40,7 +41,7 @@ const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
     });
   }
 
-  // Non-blocking deferred loading of gtag.js (0ms Total Blocking Time on load)
+  // Fast non-blocking deferred loading of gtag.js
   function initGoogleAnalytics() {
     if (window._ga4_initialized) return;
     window._ga4_initialized = true;
@@ -58,16 +59,16 @@ const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
     });
   }
 
-  // Load GA4 strictly on first user interaction or deep idle (3500ms) to ensure 0ms TBT impact
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(function() {
-      setTimeout(initGoogleAnalytics, 3500);
-    });
+  // Load GA4 on DOMContentLoaded, fast idle (800ms) or first interaction
+  if (document.readyState === 'complete') {
+    setTimeout(initGoogleAnalytics, 800);
   } else {
-    setTimeout(initGoogleAnalytics, 4000);
+    window.addEventListener('load', function() {
+      setTimeout(initGoogleAnalytics, 800);
+    }, { once: true });
   }
 
-  ['pointerdown', 'touchstart', 'scroll', 'keydown'].forEach(function(evt) {
+  ['pointerdown', 'touchstart', 'scroll', 'keydown', 'click'].forEach(function(evt) {
     window.addEventListener(evt, initGoogleAnalytics, { once: true, passive: true });
   });
 
@@ -116,7 +117,7 @@ const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
           transport_type: 'beacon'
         });
       }
-    });
+    }, { passive: true });
 
     var scrollMilestones = { 25: false, 50: false, 75: false, 90: false };
     function handleScrollDepth() {
