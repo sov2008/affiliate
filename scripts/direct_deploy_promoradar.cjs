@@ -137,3 +137,13 @@ conn.on('ready', async () => {
   readyTimeout: 30000
 });
 
+
+
+// Automatically synchronize ecosystem state (Server -> GitHub -> Google Drive)
+try {
+  console.log('📡 Triggering automatic ecosystem state sync to Google Drive & GitHub...');
+  const { syncEcosystem } = require('./sync_ecosystem_state.cjs');
+  syncEcosystem().catch(e => console.error('Ecosystem sync error:', e.message));
+} catch (err) {
+  console.warn('Ecosystem sync trigger note:', err.message);
+}
