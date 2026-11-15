@@ -100,7 +100,7 @@ conn.on('ready', async () => {
       ln -sfn "${remoteReleasePath}" "${remoteCurrentSymlink}"
       
       # Prune older releases (keep 5 newest)
-      cd /var/www/promoradar.store/releases && ls -1dt * | tail -n +6 | xargs -r rm -rf
+      cd /var/www/promoradar.store/releases && ls -1dt * | tail -n +4 | xargs -r rm -rf
       
       # Test and reload nginx
       nginx -t

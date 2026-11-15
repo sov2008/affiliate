@@ -107,6 +107,8 @@ jobs:
             # Atomic symlink switch
             ln -sfn "${RELEASE_DIR}" "${CURRENT_LINK}"
             nginx -t && systemctl reload nginx
+            # Retention: keep 3 latest releases, prune older ones
+            cd /var/www/promoradar.store/releases && ls -1dt rel_* | tail -n +4 | xargs -r rm -rf
             echo "✅ PromoRadar live atomic deployment successful!"
 
       - name: ℹ️ Droplet SSH Notice
