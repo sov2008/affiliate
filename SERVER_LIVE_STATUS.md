@@ -1,24 +1,25 @@
 # PromoRadar & FlirtCheck — Production Server Live Status Snapshot
-*Generated automatically by `sync_ecosystem_state.cjs` at: 2026-11-19T13:58:46.415Z*
+*Generated automatically by `sync_ecosystem_state.cjs` at: 2026-11-19T19:53:36.223Z*
 
 ---
 
 ## 1. High-Level System Architecture & Live Releases
 - **Target Host:** DigitalOcean Droplet `178.128.199.28` (Frankfurt / Ubuntu 24.04 LTS)
-- **Active Git Commit:** `1bd46c5534158498b8a1cb344138ea7a430320d0` (Branch: `promoradar-portal`)
-- **PromoRadar Active Release:** `/var/www/promoradar.store/releases/rel_1795095842614`
-- **FlirtCheck Active Release:** `/var/www/flirtcheck.site/releases/rel_1794687803842`
-- **Local Working Tree:** `Clean working tree`
+- **Active Git Commit:** `845c9e9abf944f695e23f28858817c4a04d9c4bb` (Branch: `promoradar-portal`)
+- **PromoRadar Active Release:** `/var/www/promoradar.store/releases/rel_1795117782321`
+- **FlirtCheck Active Release:** `/var/www/flirtcheck.site/releases/rel_1795117870009`
+- **Local Working Tree:** `M CONTEXT.md
+ M SERVER_LIVE_STATUS.md`
 
 ---
 
 ## 2. HTTPS Availability & Latency Matrix
 | Service | Target URL | HTTP Status | Response Time | Content Size |
 |---|---|:---:|:---:|:---:|
-| **PromoRadar** | `https://promoradar.store/` | **200** | 486ms | 533.8 KB |
-| **PromoRadar** | `https://promoradar.store/llms.txt` | **200** | 198ms | 6.7 KB |
-| **FlirtCheck** | `https://flirtcheck.site/` | **200** | 367ms | 337.6 KB |
-| **FlirtCheck** | `https://flirtcheck.site/llms.txt` | **200** | 223ms | 25.0 KB |
+| **PromoRadar** | `https://promoradar.store/` | **200** | 470ms | 535.4 KB |
+| **PromoRadar** | `https://promoradar.store/llms.txt` | **200** | 198ms | 6.9 KB |
+| **FlirtCheck** | `https://flirtcheck.site/` | **200** | 435ms | 337.6 KB |
+| **FlirtCheck** | `https://flirtcheck.site/llms.txt` | **200** | 222ms | 25.0 KB |
 
 ---
 
@@ -26,14 +27,14 @@
 ### RAM Allocation (`free -m`)
 ```text
 total        used        free      shared  buff/cache   available
-Mem:            3915         929        1015          10        2284        2986
-Swap:           2047         506        1541
+Mem:            3915        1675        1095          12        1448        2240
+Swap:           2047         542        1505
 ```
 
 ### Disk Usage (`df -h /`)
 ```text
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/vda1        24G   14G   11G  57% /
+/dev/vda1        24G   16G  7.4G  69% /
 ```
 
 ---
@@ -41,33 +42,35 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## 4. PM2 Daemon Fleet Status
 | Daemon Name | Status | Uptime | Restarts | Memory | CPU |
 |---|:---:|:---:|:---:|:---:|:---:|
-| `pm2-logrotate` | **ONLINE** | 9076m | 0 | 44.2MB | 0.3% |
-| `affiliate-dashboard` | **ONLINE** | 26m | 3 | 141.4MB | 0.2% |
-| `affiliate-scheduler` | **ONLINE** | 6837m | 1 | 49.4MB | 0.2% |
-| `affiliate-health-monitor` | **ONLINE** | 9076m | 0 | 31.2MB | 0.3% |
-| `affiliate-telegram-bot` | **ONLINE** | 9076m | 0 | 59.5MB | 0.3% |
-| `affiliate-autopilot` | **ONLINE** | 7691m | 1 | 49.5MB | 0.5% |
-| `affiliate-pinterest-publisher` | **ONLINE** | 9076m | 0 | 80.4MB | 0.3% |
-| `affiliate-twitter-publisher` | **ONLINE** | 6813m | 2 | 69.5MB | 0.2% |
-| `affiliate-support-monitor` | **STOPPED** | 20358m | 0 | 0MB | 0% |
-| `affiliate-admitad-daemon` | **STOPPED** | 20358m | 0 | 0MB | 0% |
-| `affiliate-autonomous-agent` | **ONLINE** | 7691m | 1 | 90.1MB | 0.3% |
-| `affiliate-reddit-scout` | **STOPPED** | 39307m | 20 | 0MB | 0% |
-| `affiliate-fleet-commander` | **STOPPED** | 20358m | 0 | 0MB | 0% |
-| `cj-promoradar-sync` | **STOPPED** | 20358m | 0 | 0MB | 0% |
-| `promoradar-reporter-daemon` | **ONLINE** | 5773m | 0 | 16.3MB | 0% |
-| `affiliate-gemini-bridge` | **ONLINE** | 5762m | 0 | 47.3MB | 0.2% |
+| `pm2-logrotate` | **ONLINE** | 9431m | 0 | 44.3MB | 0.3% |
+| `affiliate-dashboard` | **ONLINE** | 380m | 3 | 96.1MB | 0.3% |
+| `affiliate-scheduler` | **ONLINE** | 7192m | 1 | 81.4MB | 0.3% |
+| `affiliate-health-monitor` | **ONLINE** | 9431m | 0 | 22.4MB | 0.3% |
+| `affiliate-telegram-bot` | **ONLINE** | 9431m | 0 | 60.4MB | 0.6% |
+| `affiliate-autopilot` | **ONLINE** | 8046m | 1 | 56.2MB | 0% |
+| `affiliate-pinterest-publisher` | **ONLINE** | 9431m | 0 | 88.6MB | 0.3% |
+| `affiliate-twitter-publisher` | **ONLINE** | 7168m | 2 | 63.1MB | 0.3% |
+| `affiliate-support-monitor` | **STOPPED** | 20712m | 0 | 0MB | 0% |
+| `affiliate-admitad-daemon` | **STOPPED** | 20712m | 0 | 0MB | 0% |
+| `affiliate-autonomous-agent` | **ONLINE** | 8046m | 1 | 92.8MB | 0% |
+| `affiliate-reddit-scout` | **STOPPED** | 39662m | 20 | 0MB | 0% |
+| `affiliate-fleet-commander` | **STOPPED** | 20712m | 0 | 0MB | 0% |
+| `cj-promoradar-sync` | **STOPPED** | 20712m | 0 | 0MB | 0% |
+| `promoradar-reporter-daemon` | **ONLINE** | 6128m | 0 | 15.3MB | 0% |
+| `affiliate-gemini-bridge` | **ONLINE** | 6117m | 0 | 49.9MB | 0.3% |
 
 ---
 
 ## 5. SQLite Content Queue Telemetry (`content_queue_v2`)
-- **Queue Metrics:** `TOTAL:3715;DIRTY_MARKDOWN:0;STATUS:{'APPROVED': 73, 'CANCELLED': 43, 'DISPATCHED': 3556, 'POSTED': 43}`
+- **Queue Metrics:** `TOTAL:3715;DIRTY_MARKDOWN:0;STATUS:{'APPROVED': 71, 'CANCELLED': 43, 'DISPATCHED': 3558, 'POSTED': 43}`
 - **Markdown Bold Sanity Check:** 0 raw `**` in Twitter feeds.
 
 ---
 
 ## 6. Recent Git Commits on `promoradar-portal`
 ```text
+845c9e9 feat(growth): launch Black Friday & Cyber Monday 2026 hubs, add FlirtCheck cross-funnel tools, and sync IndexNow
+3a02982 chore(status): sync disk cleanup and live metrics
 1bd46c5 chore(ops): add remote disk audit script
 d5cc362 chore(status): sync updated status files after audit fixes
 aeaaf35 fix(integration): resolve /go 404s, sanitize markdown markers in queues, replenish content_queue_v2 to 73, and align CI/CD workflow
@@ -76,8 +79,6 @@ aeaaf35 fix(integration): resolve /go 404s, sanitize markdown markers in queues,
 7031b55 feat(security): enforce HTTP 444 silent connection drop on botnet scanners across PromoRadar & FlirtCheck
 c78d68a feat(bridge): implement autonomous Gemini -> Google Drive -> Workspace remote control bridge
 b99c94c feat(ops): add 3-release retention policy, clean disk to 69% on 178.128.199.28, and start reporter daemon
-71ca423 feat(ecosystem): establish automated GitHub <-> Server <-> Google Drive state sync bridge
-57b0b77 feat: complete phase 2 upgrades (voucher ui, i18n pagination hook, category chunks, nginx proxy, twitter clean, flirtcheck llms)
 ```
 
 ---
