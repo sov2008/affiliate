@@ -211,6 +211,17 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
         <Tag class="w-4 h-4" />
         <span>Black Friday</span>
       </a>
+      <a
+        href={`${base}/events/cyber-monday/`}
+        class={`header-stagger-item hidden xl:flex items-center gap-1.5 px-2.5 2xl:px-3 py-2 rounded-xl border transition-all duration-200 whitespace-nowrap ${
+          activePath.startsWith('/events/cyber-monday') 
+            ? 'bg-cyan-500/15 border-cyan-500/35 text-cyan-400 font-extrabold shadow-sm shadow-cyan-500/20' 
+            : 'border-transparent text-slate-300 hover:text-white hover:bg-white/5 hover:border-white/15'
+        }`}
+      >
+        <Sparkles class="w-4 h-4" />
+        <span>Cyber Monday</span>
+      </a>
       <!-- RetailMeNot Style Stores Mega Menu Dropdown -->
       <div class="relative group/stores header-stagger-item">
         <a

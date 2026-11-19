@@ -78,6 +78,7 @@ export const GET: APIRoute = async () => {
     '## AI Agent & WebMCP Capabilities',
     '- Supports W3C WebMCP (`document.modelContext`) with tools: `promoradar_search_deals`, `promoradar_highlight_deal`, `promoradar_activate_deal`.',
     '- Full catalog index for LLMs: https://promoradar.store/llms-full.txt',
+    '- Seasonal 2026 Event Hubs: https://promoradar.store/events/black-friday/ (Black Friday 2026) and https://promoradar.store/events/cyber-monday/ (Cyber Monday 2026).',
     '',
     '## Top Verified Stores'
   ];

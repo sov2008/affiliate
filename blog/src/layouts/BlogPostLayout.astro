@@ -11,6 +11,7 @@ import CaseNotesFeed from '../components/CaseNotesFeed.astro';
 import AuthorCard from '../components/AuthorCard.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import OfferEndorsementBox from '../components/OfferEndorsementBox.astro';
+import VerifiedSafetyToolsBox from '../components/VerifiedSafetyToolsBox.astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIES_METADATA, CategoryEnum, type Category } from '../content.config';
 
@@ -690,6 +691,9 @@ const secondaryOffer = SECONDARY_OFFER_CONFIG[endorsementType] || SECONDARY_OFFE
                OFFICIAL PARTNER ENDORSEMENT — Contextual offer materials
                ══════════════════════════════════════════════ -->
           <OfferEndorsementBox type={endorsementType} />
+
+          <!-- Cross-Funnel Verified Privacy & Safety Tools (PromoRadar) -->
+          <VerifiedSafetyToolsBox />
 
           <!-- ══════════════════════════════════════════════
                SOCIAL SHARE BAR — strictly placed immediately after article body

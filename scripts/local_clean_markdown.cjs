@@ -11,3 +11,4 @@ if (fs.existsSync('core/data/content_queue.sqlite')) {
   });
   console.log('Cleaned local rows successfully.');
 }
+
