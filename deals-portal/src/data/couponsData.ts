@@ -23628,7 +23628,7 @@ export const STORES_DATA: StoreProfile[] = [
     fullDesc: 'Hostinger powers millions of web creators worldwide with high-performance LiteSpeed cloud hosting, free domain registrations, unlimited SSL certificates, and 24/7 technical customer support.',
     websiteUrl: 'https://www.hostinger.com',
     cleanDomain: 'hostinger.com',
-    primaryAffiliateUrl: 'https://flirtcheck.site/go?offer=hostinger&source=deals_hostinger&trigger=store_header&intent=deals',
+    primaryAffiliateUrl: 'https://www.hostinger.com/?utm_source=promoradar&utm_medium=affiliate&utm_campaign=store_header',
     howToApply: [
       'Choose a Premium or Business Cloud web hosting plan on Hostinger.',
       'Select a 48-month or 12-month billing period to secure maximum introductory pricing.',

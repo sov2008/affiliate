@@ -64,7 +64,7 @@ export function handleTdsRedirect(req: Request, res: Response): void {
 
     const query = req.query || {};
     const rawCid = (query.cid || query.click_id || query.clickid || query.txid || '') as string;
-    const rawOffer = (query.offer || query.offer_id || query.o || '') as string;
+    const rawOffer = (query.offer || query.offer_id || query.o || req.params.slug || '') as string;
     const sub1 = (query.sub1 || query.s1 || query.source || 'direct') as string;
     const sub2 = (query.sub2 || query.s2 || query.chat_id || query.user_id || 'guest') as string;
 
@@ -136,5 +136,5 @@ export function handleRootRedirect(req: Request, res: Response): void {
   return res.redirect(302, `/go${query}${sep}sub1=root_direct&sub2=organic`);
 }
 
-tdsRouter.get(['/go', '/click'], handleTdsRedirect);
+tdsRouter.get(['/go', '/go/:slug', '/click', '/click/:slug'], handleTdsRedirect);
 tdsRouter.get('/', handleRootRedirect);

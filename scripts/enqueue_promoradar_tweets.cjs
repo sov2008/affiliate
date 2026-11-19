@@ -14,7 +14,7 @@ const DB_PATH = process.env.DB_PATH || (
     : path.resolve(__dirname, '../core/data/content_queue.sqlite')
 );
 
-const TARGET_MIN_APPROVED = 30;
+const TARGET_MIN_APPROVED = 60;
 
 // High-converting curated deal tweets with verified coupon codes
 const DEALS_TWEETS = [

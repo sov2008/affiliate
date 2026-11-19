@@ -226,6 +226,45 @@ export class OfferRoutingService {
       enabled: !isMyLeadPlaceholder,
     });
 
+    // Routing Aliases for Partner Smartlinks & Sub-routes
+    this.offers.set('verified-match', {
+      id: 'verified-match',
+      name: 'Verified Match VIP Portal',
+      network: 'lospollos',
+      baseUrl: datingUrl,
+      subParam: 'cid',
+      isPrimary: false,
+    });
+
+    this.offers.set('discreet-local', {
+      id: 'discreet-local',
+      name: 'Discreet Local Flirt Pass',
+      network: 'lospollos',
+      baseUrl: casualUrl,
+      subParam: 'cid',
+      isPrimary: false,
+    });
+
+    this.offers.set('deep-lookup', {
+      id: 'deep-lookup',
+      name: 'Deep Identity & Background Lookup',
+      network: 'admitad',
+      baseUrl: process.env.ADMITAD_SPOKEO_URL || 'https://www.spokeo.com/?utm_source=promoradar&utm_medium=affiliate',
+      subParam: 'subid',
+      isPrimary: false,
+      enabled: true,
+    });
+
+    this.offers.set('spokeo', {
+      id: 'spokeo',
+      name: 'Spokeo Reverse Scan',
+      network: 'admitad',
+      baseUrl: process.env.ADMITAD_SPOKEO_URL || 'https://www.spokeo.com/?utm_source=promoradar&utm_medium=affiliate',
+      subParam: 'subid',
+      isPrimary: false,
+      enabled: true,
+    });
+
     // --- Admitad Tier-1 Verified Catalog (CPS / People Search / Cybersecurity / Dating) ---
     this.offers.set('admitad_spokeo', {
       id: 'admitad_spokeo',

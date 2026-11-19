@@ -104,6 +104,10 @@ jobs:
             echo "dcaf1a95-f2a7-42c8-b67f-4a463294ee43" > /var/www/affiliate/deals-portal/dist/dcaf1a95-f2a7-42c8-b67f-4a463294ee43.txt
             echo "fa9e3fd878" > /var/www/affiliate/deals-portal/dist/admitad-verification.txt
 
+            # Verify build scale (2,300+ HTML pages)
+            PAGE_COUNT=$(find "${RELEASE_DIR}" -name "*.html" | wc -l)
+            echo "📊 Deployed ${PAGE_COUNT} HTML pages in release."
+
             # Atomic symlink switch
             ln -sfn "${RELEASE_DIR}" "${CURRENT_LINK}"
             nginx -t && systemctl reload nginx
