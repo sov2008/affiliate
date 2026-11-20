@@ -114,7 +114,7 @@ function validateDeal(deal = {}, store = null, storeDomainsMap = {}) {
   if (BANNED_TLD_REGEX.test(affUrl)) {
     return { valid: false, reason: 'rule8_banned_domain' };
   }
-  if (BANNED_GEO_REGEX.test(title) && !/\b(BUY|TRUST|RUBY|KAZOO)\b/i.test(title)) {
+  if (BANNED_GEO_REGEX.test(title) && !/\b(BUY|TRUST|RUBY|KAZOO|by\s+Benson|Native\s+By\s+Numa)\b/i.test(title)) {
     return { valid: false, reason: 'rule8_banned_geo_in_title' };
   }
   if (BANNED_CURRENCY_REGEX.test(title) || BANNED_CURRENCY_REGEX.test(desc) || BANNED_CURRENCY_REGEX.test(deal.discountBadge || '')) {
@@ -370,9 +370,15 @@ if (require.main === module) {
   }
 }
 
+function isBannedRuByProgram(camp = {}) {
+  const res = isStoreBanned(camp);
+  return res.banned;
+}
+
 module.exports = {
   loadStoreDomainsMap,
   isStoreBanned,
+  isBannedRuByProgram,
   validateDeal,
   validateCatalog,
   printValidationSummary,

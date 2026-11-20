@@ -534,8 +534,8 @@ async function syncAndBuild() {
   // 3. Read existing couponsData.ts to preserve store metadata & non-Admitad deals
   let currentFileContent = fs.readFileSync(DATA_FILE, 'utf8');
 
-  // Extract existing STORES_DATA using regex
-  const storesMatch = currentFileContent.match(/export const STORES_DATA: StoreProfile\[\] = (\[[\s\S]*?\n\];)/);
+  // Extract existing STORES_DATA using regex (type-agnostic)
+  const storesMatch = currentFileContent.match(/export const STORES_DATA\s*(?::\s*[\w<>[\]\s]+)?=\s*(\[[\s\S]*?\n\];)/);
   if (!storesMatch) {
     throw new Error('Failed to locate STORES_DATA in ' + DATA_FILE);
   }
@@ -548,6 +548,20 @@ async function syncAndBuild() {
   } catch (err) {
     log(`Notice evaluating STORES_DATA: ${err.message}. Preserving regex fallback.`);
     throw err;
+  }
+
+  // Extract existing non-Admitad coupons from COUPONS_DATA to preserve them across syncs
+  const existingCouponsMatch = currentFileContent.match(/export const COUPONS_DATA\s*(?::\s*[\w<>[\]\s]+)?=\s*(\[[\s\S]*?\n\];)/);
+  let existingNonNetDeals = [];
+  if (existingCouponsMatch) {
+    try {
+      const evalCoupons = new Function(`return ${existingCouponsMatch[1].replace(/;$/, '')}`);
+      const allExistingCoupons = evalCoupons();
+      existingNonNetDeals = allExistingCoupons.filter(d => !d.id.startsWith('net_') && !d.id.includes('baseline'));
+      log(`Preserving ${existingNonNetDeals.length} existing curated/partner deals from couponsData.ts`);
+    } catch (err) {
+      log(`Notice extracting existing COUPONS_DATA: ${err.message}`);
+    }
   }
 
   const storeMap = new Map(storesData.map(s => [s.slug, s]));
@@ -787,6 +801,15 @@ async function syncAndBuild() {
     }
   }
 
+  // Merge manualDeals with existing non-network deals (deduplicating by ID)
+  const manualDealIds = new Set(manualDeals.map(d => d.id));
+  for (const existingDeal of existingNonNetDeals) {
+    if (!manualDealIds.has(existingDeal.id)) {
+      manualDeals.push(existingDeal);
+      manualDealIds.add(existingDeal.id);
+    }
+  }
+
   generatedDeals.push(...manualDeals);
 
   // B. Ingest all live Coupons from network
@@ -905,41 +928,44 @@ async function syncAndBuild() {
   const finalCouponsData = validationResult.validDeals;
 
   // 5. Serialize into TypeScript format
-  const updatedFileContent = `export interface CouponDeal {
-  id: string;
-  storeSlug: string;
-  storeName: string;
-  storeCategory: 'Fashion & Apparel' | 'Travel & Tours' | 'Privacy & Security' | 'Eyewear & Health' | 'E-Commerce & Wholesale' | 'Dating & Lifestyle' | 'Electronics & Gadgets' | 'Education & Learning' | 'Kids & Toys' | 'Beauty & Fragrances' | 'Insurance & Finance' | 'Web Hosting & Domains' | 'Gaming & Entertainment' | 'Home & Lifestyle';
-  discountBadge: string;
-  title: string;
-  description: string;
-  code: string;
-  isExclusive?: boolean;
-  isVerified: boolean;
-  expiryDate: string;
-  affiliateUrl: string;
-  storeLogoText: string;
-  terms?: string;
-  successRate: string;
-}
+  const updatedFileContent = `// Auto-generated unified catalog for PromoRadar
+// Generated on: ${new Date().toISOString()}
 
-export interface StoreProfile {
+export interface Store {
   slug: string;
   name: string;
-  category: CouponDeal['storeCategory'];
-  logoText: string;
+  category: string;
+  logoText?: string;
   shortDesc: string;
   fullDesc: string;
   websiteUrl: string;
   cleanDomain?: string;
+  primaryAffiliateUrl?: string;
   howToApply: string[];
-  faqs: Array<{ question: string; answer: string }>;
-  primaryAffiliateUrl: string;
+  faqs: { question: string; answer: string; }[];
 }
 
-export const STORES_DATA: StoreProfile[] = ${JSON.stringify(finalStoresData, null, 2)};
+export interface Coupon {
+  id: string;
+  storeSlug: string;
+  storeName: string;
+  storeCategory: string;
+  discountBadge: string;
+  title: string;
+  description: string;
+  code: string;
+  isExclusive: boolean;
+  isVerified: boolean;
+  expiryDate: string;
+  affiliateUrl: string;
+  storeLogoText?: string;
+  terms?: string;
+  successRate?: string;
+}
 
-export const COUPONS_DATA: CouponDeal[] = ${JSON.stringify(finalCouponsData, null, 2)};
+export const STORES_DATA: Store[] = ${JSON.stringify(finalStoresData, null, 2)};
+
+export const COUPONS_DATA: Coupon[] = ${JSON.stringify(finalCouponsData, null, 2)};
 `;
 
   fs.writeFileSync(DATA_FILE, updatedFileContent, 'utf8');
@@ -957,14 +983,23 @@ export const COUPONS_DATA: CouponDeal[] = ${JSON.stringify(finalCouponsData, nul
   state.validationStats = validationResult.stats;
   fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
 
-  // 7. Compile Deals Portal via Astro
-  log('🔨 Compiling Astro deals portal with freshly synced deals...');
-  try {
-    execSync('npm run build', { cwd: DEALS_DIR, stdio: 'inherit' });
-    log('🎉 Static Astro build completed successfully!');
+  // 7. Compile Deals Portal via Astro (optional --build flag, strictly disabled on production server)
+  const shouldBuild = process.argv.includes('--build');
+  if (shouldBuild) {
+    log('🔨 Compiling Astro deals portal (--build flag detected)...');
+    try {
+      execSync('npm run build', { cwd: DEALS_DIR, stdio: 'inherit' });
+      log('🎉 Static Astro build completed successfully!');
+    } catch (buildErr) {
+      log(`❌ Error building deals portal: ${buildErr.message}`);
+      throw buildErr;
+    }
+  } else {
+    log('ℹ️ Skipping local Astro build (run with --build to trigger build).');
+  }
 
-    // 8. Send Telegram Alert
-    const msg = `
+  // 8. Send Telegram Alert
+  const msg = `
 🛒 <b>[PROMORADAR: КАТАЛОГ СКИДОК И КУПОНОВ ОБНОВЛЕН!]</b>
 ━━━━━━━━━━━━━━━━━━
 🏪 <b>Активных магазинов:</b> <code>${finalStoresData.length}</code>
@@ -974,12 +1009,11 @@ export const COUPONS_DATA: CouponDeal[] = ${JSON.stringify(finalCouponsData, nul
 🌐 <b>Сайт витрины:</b> <a href="https://promoradar.store">promoradar.store</a>
 ━━━━━━━━━━━━━━━━━━
 ✅ <i>Строго 100% реальные боевые ссылки и промокоды (Strict Zero Demo Data Rule).</i>
-    `.trim();
+  `.trim();
+  try {
     await sendTelegramAlert(msg);
-
-  } catch (buildErr) {
-    log(`❌ Error building deals portal: ${buildErr.message}`);
-    throw buildErr;
+  } catch (tgErr) {
+    log(`Notice sending Telegram alert: ${tgErr.message}`);
   }
 }
 
