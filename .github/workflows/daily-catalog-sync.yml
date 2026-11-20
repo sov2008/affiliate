@@ -1,0 +1,124 @@
+name: Daily Affiliate Catalog Sync & Automated Deployment
+
+on:
+  schedule:
+    # Run every day at 03:00 UTC
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-catalog-and-deploy:
+    name: 🔄 Daily Sync Admitad & CJ Catalog
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          ref: promoradar-portal
+          fetch-depth: 0
+
+      - name: 🟢 Setup Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: deals-portal/package-lock.json
+
+      - name: 📦 Install Root & Deals Portal Dependencies
+        run: |
+          npm install --no-audit --prefer-offline || npm ci
+          cd deals-portal && npm ci
+
+      - name: 🚀 Run Admitad Live Catalog Sync
+        env:
+          ADMITAD_CLIENT_ID: ${{ secrets.ADMITAD_CLIENT_ID }}
+          ADMITAD_CLIENT_SECRET: ${{ secrets.ADMITAD_CLIENT_SECRET }}
+          ADMITAD_BASE64_HEADER: ${{ secrets.ADMITAD_BASE64_HEADER }}
+          ADMITAD_WEBSITE_ID: ${{ secrets.ADMITAD_WEBSITE_ID }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          echo "Syncing Admitad campaigns and coupons..."
+          node scripts/promoradar_catalog_sync.cjs
+
+      - name: 🚀 Run CJ Affiliate Continuous Expander
+        env:
+          CJ_API_TOKEN: ${{ secrets.CJ_API_TOKEN }}
+          CJ_KEY: ${{ secrets.CJ_KEY }}
+        run: |
+          echo "Expanding CJ high-EPC advertisers..."
+          node scripts/cj_continuous_expander.cjs
+
+      - name: 🛡️ Validate Unified Catalog Integrity (Rule 2 & Rule 8)
+        run: |
+          echo "Auditing catalog data for strict compliance..."
+          node scripts/catalog_validator.cjs
+
+      - name: 🔍 Check for Catalog Changes
+        id: check_changes
+        run: |
+          git status -s deals-portal/src/data/couponsData.ts
+          if git diff --quiet deals-portal/src/data/couponsData.ts; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No new offers or catalog changes detected today."
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Catalog updated with fresh affiliate offers."
+          fi
+
+      - name: 🔨 Compile Production Static Build (Only on New Changes)
+        if: steps.check_changes.outputs.has_changes == 'true'
+        working-directory: deals-portal
+        run: |
+          echo "Compiling PromoRadar static bundle..."
+          npm run build
+
+      - name: 🚀 Atomically Deploy to DigitalOcean (Only on New Changes)
+        if: steps.check_changes.outputs.has_changes == 'true' && env.DO_SSH_KEY != ''
+        env:
+          DO_SSH_KEY: ${{ secrets.DO_SSH_KEY }}
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DO_HOST || '178.128.199.28' }}
+          username: ${{ secrets.DO_USER || 'root' }}
+          key: ${{ secrets.DO_SSH_KEY }}
+          script: |
+            set -e
+            RELEASE_ID="rel_$(date +%s)"
+            RELEASE_DIR="/var/www/promoradar.store/releases/${RELEASE_ID}"
+            CURRENT_LINK="/var/www/promoradar.store/current"
+            echo "🚀 Deploying PromoRadar release ${RELEASE_ID} on 178.128.199.28..."
+            mkdir -p "${RELEASE_DIR}"
+
+            # Ensure verification tokens are present
+            echo "dcaf1a95-f2a7-42c8-b67f-4a463294ee43" > "${RELEASE_DIR}/dcaf1a95-f2a7-42c8-b67f-4a463294ee43.txt"
+            echo "fa9e3fd878" > "${RELEASE_DIR}/admitad-verification.txt"
+
+            # Sync dist files
+            cp -r /var/www/affiliate/deals-portal/dist/* "${RELEASE_DIR}/" || true
+
+            # Atomic symlink switch & retention policy (last 3 releases)
+            ln -sfn "${RELEASE_DIR}" "${CURRENT_LINK}"
+            nginx -t && systemctl reload nginx
+            cd /var/www/promoradar.store/releases && ls -1dt rel_* | tail -n +4 | xargs -r rm -rf
+            echo "✅ PromoRadar live atomic deployment successful!"
+
+      - name: 🔔 Ping Search Engines via IndexNow (Only on New Changes)
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          echo "Pinging search engines with updated catalog sitemaps..."
+          node scripts/seo_index_pinger.cjs || true
+
+      - name: 💾 Commit & Push Updated Catalog to GitHub
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config --global user.name "PromoRadar Automated Bot"
+          git config --global user.email "bot@promoradar.store"
+          git add deals-portal/src/data/couponsData.ts
+          git commit -m "chore(catalog): automated daily admitad & cj catalog sync [skip ci]"
+          git push origin promoradar-portal
+
