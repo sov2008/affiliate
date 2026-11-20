@@ -2533,6 +2533,21 @@ const baseUrl = "";
             const claimTextEl = document.getElementById('heroDealClaimText');
             if (claimTextEl) claimTextEl.textContent = localeData.claimButtonText;
 
+            const openBtn = document.getElementById('openFeaturedDealBtn');
+            if (openBtn) {
+              openBtn.setAttribute('data-reveal-deal', JSON.stringify({
+                id: deal.id,
+                title: localeData.title,
+                desc: localeData.description,
+                code: deal.code,
+                storeName: deal.storeName,
+                storeSlug: deal.storeSlug,
+                domain: deal.domain,
+                badge: localeData.discountBadge,
+                affiliateUrl: deal.affiliateUrl
+              }));
+            }
+
             // Ensure Scissors icon is present in the CTA body
             const claimBtnLeft = openBtn ? openBtn.querySelector('div:first-child') : null;
             if (claimBtnLeft && !claimBtnLeft.textContent.includes('✂')) {
@@ -2564,21 +2579,6 @@ const baseUrl = "";
               } else {
                 savingsValueEl.textContent = 'Save ' + (localeData.discountBadge || deal.discountBadge || 'Now');
               }
-            }
-
-            const openBtn = document.getElementById('openFeaturedDealBtn');
-            if (openBtn) {
-              openBtn.setAttribute('data-reveal-deal', JSON.stringify({
-                id: deal.id,
-                title: localeData.title,
-                desc: localeData.description,
-                code: deal.code,
-                storeName: deal.storeName,
-                storeSlug: deal.storeSlug,
-                domain: deal.domain,
-                badge: localeData.discountBadge,
-                affiliateUrl: deal.affiliateUrl
-              }));
             }
 
             updateDotsVisual();

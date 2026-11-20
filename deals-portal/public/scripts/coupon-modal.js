@@ -100,8 +100,9 @@
       document.getElementById('modalOutboundLink').href = finalUrl;
 
       // Populate Cross-Sell recommendations for same store
-      if (crossSellSection && crossSellContainer && storeDealsMap && storeSlug) {
-        const siblingDeals = (storeDealsMap[storeSlug] || []).filter(d => d.id !== data.id).slice(0, 2);
+      const dealsMap = typeof storeDealsMap !== 'undefined' ? storeDealsMap : (window.storeDealsMap || null);
+      if (crossSellSection && crossSellContainer && dealsMap && storeSlug) {
+        const siblingDeals = (dealsMap[storeSlug] || []).filter(d => d.id !== data.id).slice(0, 2);
         if (siblingDeals.length > 0) {
           crossSellCount.textContent = `${siblingDeals.length} more`;
           crossSellContainer.innerHTML = siblingDeals.map(sd => `
