@@ -381,6 +381,9 @@ ${gitLog}
   if (fs.existsSync('CONTEXT.md')) {
     await uploadToGDrive('CONTEXT.md', 'CONTEXT.md');
   }
+  if (fs.existsSync('TRAFFIC_SEO_REPORT.md')) {
+    await uploadToGDrive('TRAFFIC_SEO_REPORT.md', 'TRAFFIC_SEO_REPORT.md');
+  }
 
   console.log('🎉 [Ecosystem Sync] Synchronization completed successfully!');
 }

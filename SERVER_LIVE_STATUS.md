@@ -1,142 +1,46 @@
 # PromoRadar & FlirtCheck — Production Server Live Status Snapshot
-*Generated automatically by `sync_ecosystem_state.cjs` at: 2026-11-20T17:05:52.648Z*
+*Generated automatically by `sync_ecosystem_state.cjs` at: 2026-11-20T17:18:11.673Z*
 
 ---
 
 ## 1. High-Level System Architecture & Live Releases
 - **Target Host:** DigitalOcean Droplet `178.128.199.28` (Frankfurt / Ubuntu 24.04 LTS)
-- **Active Git Commit:** `ad5c2da4e3536376e924f25c048e0961b13f14d8` (Branch: `promoradar-portal`)
-- **PromoRadar Active Release:** `N/A`
-- **FlirtCheck Active Release:** `N/A`
+- **Active Git Commit:** `678df70f974f7ce1ad5d951d01519eb529b52746` (Branch: `promoradar-portal`)
+- **PromoRadar Active Release:** `/var/www/promoradar.store/releases/rel_1795194322031`
+- **FlirtCheck Active Release:** `/var/www/flirtcheck.site/releases/rel_1795117870009`
 - **Local Working Tree:** `M CONTEXT.md
  M SERVER_LIVE_STATUS.md
- M deals-portal/public/scripts/home-interactive.js
- M deals-portal/src/components/CuratedSpotlightSection.astro
- M deals-portal/src/components/PartnerBannerRotator.astro
- M deals-portal/src/pages/index.astro
- M deals-portal/src/utils/buildInterleavedFeed.ts
- M deals-portal/src/utils/dealNormalizer.ts
- M deals-portal/src/utils/renderDealGridItem.ts
- D scripts/apply_all_niche_offers.cjs
- D scripts/apply_avatar_exact.cjs
- D scripts/apply_cj_cookies.cjs
- D scripts/apply_deal_normalizer.cjs
- D scripts/apply_index_enhancements.cjs
- D scripts/apply_promoradar_pinterest_profile.cjs
- D scripts/apply_smooth_animation.cjs
- D scripts/inspect_all_scripts.cjs
- D scripts/inspect_and_patch_baselayout.cjs
- D scripts/inspect_banner_rotator.cjs
- D scripts/inspect_banner_rotator2.cjs
- D scripts/inspect_banner_rotator3.cjs
- D scripts/inspect_baselayout_schema.cjs
- D scripts/inspect_cat_mega.cjs
- D scripts/inspect_coupons_ts.cjs
- D scripts/inspect_coupons_ts_head.cjs
- D scripts/inspect_fonts_snippet.cjs
- D scripts/inspect_fonts_snippet_2.cjs
- D scripts/inspect_head_fonts.cjs
- D scripts/inspect_head_links.cjs
- D scripts/inspect_header_astro.cjs
- D scripts/inspect_header_bloat.cjs
- D scripts/inspect_header_details.cjs
- D scripts/inspect_home_pagination.cjs
- D scripts/inspect_home_schemas.cjs
- D scripts/inspect_index_baselayout_tag.cjs
- D scripts/inspect_index_loadmore.cjs
- D scripts/inspect_index_loadmore_btn.cjs
- D scripts/inspect_index_schema.cjs
- D scripts/inspect_loadmore_full.cjs
- D scripts/inspect_main_cat_buttons.cjs
- D scripts/inspect_main_sections.cjs
- D scripts/inspect_mobile_drawer.cjs
- D scripts/inspect_module_scripts.cjs
- D scripts/inspect_partner_rotator.cjs
- D scripts/inspect_portal_categories.cjs
- D scripts/inspect_postbuild_css.cjs
- D scripts/inspect_preconnects.cjs
- D scripts/inspect_rotator_slides.cjs
- D scripts/inspect_spotlight_items.cjs
- D scripts/inspect_stores.cjs
- D scripts/inspect_stores_by_cat.cjs
- D scripts/inspect_stores_by_cat2.cjs
- D scripts/inspect_stores_by_cat3.cjs
- D scripts/inspect_stores_mega.cjs
- D scripts/inspect_ua_slide.cjs
- D scripts/inspect_ua_slide_banner.cjs
- D scripts/inspect_visible_logos.cjs
- D scripts/patch_all_missing_dimensions.cjs
- D scripts/patch_b64.cjs
- D scripts/patch_base_layout_robots.cjs
- D scripts/patch_baselayout_preconnect.cjs
- D scripts/patch_baselayout_preload_prop.cjs
- D scripts/patch_brand_logo_dimensions.cjs
- D scripts/patch_category_logo.cjs
- D scripts/patch_category_matching.cjs
- D scripts/patch_client_localization.cjs
- D scripts/patch_coupon_modal_defer.cjs
- D scripts/patch_deal_normalizer.cjs
- D scripts/patch_dist_logo_visible.cjs
- D scripts/patch_dist_radar_anim.cjs
- D scripts/patch_ending_soon.cjs
- D scripts/patch_enrich.cjs
- D scripts/patch_fonts_baselayout.cjs
- D scripts/patch_fonts_baselayout_clean.cjs
- D scripts/patch_header_anim_classes.cjs
- D scripts/patch_header_bf.cjs
- D scripts/patch_header_defer.cjs
- D scripts/patch_header_logo_visible.cjs
- D scripts/patch_header_script_trigger.cjs
- D scripts/patch_header_stores_slice.cjs
- D scripts/patch_home_schema_itemlist.cjs
- D scripts/patch_index_banners_and_anim.cjs
- D scripts/patch_index_deals_slice.cjs
- D scripts/patch_index_logo.cjs
- D scripts/patch_index_preload_banner.cjs
- D scripts/patch_it.cjs
- D scripts/patch_modal_img.cjs
- D scripts/patch_normalize_store.cjs
- D scripts/patch_pagination_btn_label.cjs
- D scripts/patch_rotator_astro.cjs
- D scripts/patch_rotator_defer.cjs
- D scripts/patch_rotator_eager.cjs
- D scripts/patch_rotator_js.cjs
- D scripts/patch_rotator_preload.cjs
- D scripts/patch_rotator_slice.cjs
- D scripts/patch_saved_deals_defer.cjs
- D scripts/patch_smooth_images_defer.cjs
- D scripts/patch_smooth_images_rotator.cjs
- D scripts/patch_sort.cjs
- D scripts/patch_sp.cjs
- D scripts/patch_spotlight.cjs
- D scripts/patch_spotlight_defer.cjs
- D scripts/patch_spotlight_slice.cjs
- D scripts/patch_store_deal_card.cjs
- D scripts/patch_user_settings.cjs
- D scripts/patch_verification_modal_defer.cjs
- D scripts/patch_wcag_contrast.cjs`
+ M scripts/sync_ecosystem_state.cjs
+?? TRAFFIC_SEO_REPORT.md
+?? scripts/generate_traffic_seo_report.cjs
+?? scripts/last_nginx_stats.json
+?? scripts/remote_log_worker.py
+?? scripts/test_log_analyzer.cjs`
 
 ---
 
 ## 2. HTTPS Availability & Latency Matrix
 | Service | Target URL | HTTP Status | Response Time | Content Size |
 |---|---|:---:|:---:|:---:|
-| **PromoRadar** | `https://promoradar.store/` | **200** | 591ms | 548.5 KB |
-| **PromoRadar** | `https://promoradar.store/llms.txt` | **200** | 206ms | 6.8 KB |
-| **FlirtCheck** | `https://flirtcheck.site/` | **200** | 409ms | 337.6 KB |
-| **FlirtCheck** | `https://flirtcheck.site/llms.txt` | **200** | 265ms | 25.0 KB |
+| **PromoRadar** | `https://promoradar.store/` | **200** | 418ms | 549.5 KB |
+| **PromoRadar** | `https://promoradar.store/llms.txt` | **200** | 200ms | 6.8 KB |
+| **FlirtCheck** | `https://flirtcheck.site/` | **200** | 427ms | 337.6 KB |
+| **FlirtCheck** | `https://flirtcheck.site/llms.txt` | **200** | 220ms | 25.0 KB |
 
 ---
 
 ## 3. Server Resource Telemetry
 ### RAM Allocation (`free -m`)
 ```text
-N/A
+total        used        free      shared  buff/cache   available
+Mem:            3915        2400         841           8         973        1515
+Swap:           2047         665        1382
 ```
 
 ### Disk Usage (`df -h /`)
 ```text
-N/A
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        24G   11G   14G  44% /
 ```
 
 ---
@@ -144,18 +48,34 @@ N/A
 ## 4. PM2 Daemon Fleet Status
 | Daemon Name | Status | Uptime | Restarts | Memory | CPU |
 |---|:---:|:---:|:---:|:---:|:---:|
-| No PM2 data available | - | - | - | - | - |
+| `pm2-logrotate` | **ONLINE** | 10715m | 0 | 44.7MB | 0% |
+| `affiliate-dashboard` | **ONLINE** | 1665m | 3 | 115.1MB | 0.6% |
+| `affiliate-scheduler` | **ONLINE** | 8477m | 1 | 83.1MB | 0.3% |
+| `affiliate-health-monitor` | **ONLINE** | 10715m | 0 | 34.0MB | 0.3% |
+| `affiliate-telegram-bot` | **ONLINE** | 10715m | 0 | 61.2MB | 0% |
+| `affiliate-autopilot` | **ONLINE** | 9331m | 1 | 58.6MB | 0.3% |
+| `affiliate-pinterest-publisher` | **ONLINE** | 10715m | 0 | 94.4MB | 0.3% |
+| `affiliate-twitter-publisher` | **ONLINE** | 8453m | 2 | 70.6MB | 0.3% |
+| `affiliate-support-monitor` | **STOPPED** | 21997m | 0 | 0MB | 0% |
+| `affiliate-admitad-daemon` | **STOPPED** | 21997m | 0 | 0MB | 0% |
+| `affiliate-autonomous-agent` | **ONLINE** | 9331m | 1 | 112.4MB | 0.3% |
+| `affiliate-reddit-scout` | **STOPPED** | 40946m | 20 | 0MB | 0% |
+| `affiliate-fleet-commander` | **STOPPED** | 21997m | 0 | 0MB | 0% |
+| `cj-promoradar-sync` | **STOPPED** | 21997m | 0 | 0MB | 0% |
+| `promoradar-reporter-daemon` | **ONLINE** | 7413m | 0 | 17.2MB | 0% |
+| `affiliate-gemini-bridge` | **ONLINE** | 7401m | 0 | 56.3MB | 0.3% |
 
 ---
 
 ## 5. SQLite Content Queue Telemetry (`content_queue_v2`)
-- **Queue Metrics:** `N/A`
+- **Queue Metrics:** `TOTAL:3729;DIRTY_MARKDOWN:0;STATUS:{'APPROVED': 71, 'CANCELLED': 43, 'DISPATCHED': 3572, 'POSTED': 43}`
 - **Markdown Bold Sanity Check:** 0 raw `**` in Twitter feeds.
 
 ---
 
 ## 6. Recent Git Commits on `promoradar-portal`
 ```text
+678df70 fix(ui/ux): resolve visual & logic regressions in spotlight, hero savings, brand deduplication and no-code deals
 ad5c2da feat(ui/ux): overhaul partner spotlight, clean 24-card grid, brand diversity & multi-geo localization
 5907e52 fix(deals-portal): dynamic SEO dates, seasonal icon update and feed artifacts cleanup
 1153f0a feat(deals-portal): seasonal audit, copy de-templating, brand normalization and button ux polish
@@ -165,7 +85,6 @@ c9a88a3 chore(status): sync live release state to SERVER_LIVE_STATUS.md and CONT
 1bd46c5 chore(ops): add remote disk audit script
 d5cc362 chore(status): sync updated status files after audit fixes
 aeaaf35 fix(integration): resolve /go 404s, sanitize markdown markers in queues, replenish content_queue_v2 to 73, and align CI/CD workflow
-37b2ed0 chore(deploy): sync release rel_1794833196628 status to CONTEXT.md and SERVER_LIVE_STATUS.md
 ```
 
 ---
