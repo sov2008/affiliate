@@ -244,7 +244,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
         <!-- 2-Column Split Dropdown (RetailMeNot Reverse-Engineered Architecture) -->
         <div
           id="storesMegaDropdown"
-          class="hidden group-hover/stores:flex absolute top-full left-0 mt-1 w-[490px] bg-[#0E131F] border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200"
+          class="hidden group-hover/stores:flex absolute top-full start-0 mt-1 w-[490px] bg-[#0E131F] border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200"
         >
           <template id="storesMegaTemplate">
           <!-- Left Column: Categories List (Width: 175px) -->
@@ -255,7 +255,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
                 <button
                   type="button"
                   data-mega-cat={cat.key}
-                  class={`mega-cat-btn w-full text-left px-2.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 flex items-center justify-between gap-1.5 cursor-pointer ${
+                  class={`mega-cat-btn w-full text-start px-2.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 flex items-center justify-between gap-1.5 cursor-pointer ${
                     idx === 0 
                       ? 'bg-indigo-600/20 text-indigo-400 font-bold border border-indigo-500/30' 
                       : 'text-slate-600 dark:text-slate-300 hover:text-white hover:bg-white/5 border border-transparent'
@@ -340,7 +340,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
         <!-- 2-Column Split Dropdown for Smart Categories -->
         <div
           id="categoriesMegaDropdown"
-          class="hidden group-hover/categories:flex absolute top-full left-0 mt-1 w-[530px] bg-[#0E131F] border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200"
+          class="hidden group-hover/categories:flex absolute top-full start-0 mt-1 w-[530px] bg-[#0E131F] border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200"
         >
           <template id="categoriesMegaTemplate">
           <!-- Left Column: Category Selector List (Width: 220px) -->
@@ -351,7 +351,7 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
                 <button
                   type="button"
                   data-smart-cat={cat.key}
-                  class={`smart-cat-btn w-full text-left px-2.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 flex items-center justify-between gap-1.5 cursor-pointer ${
+                  class={`smart-cat-btn w-full text-start px-2.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 flex items-center justify-between gap-1.5 cursor-pointer ${
                     idx === 0 
                       ? 'bg-indigo-600/20 text-indigo-400 font-bold border border-indigo-500/30' 
                       : 'text-slate-600 dark:text-slate-300 hover:text-white hover:bg-white/5 border border-transparent'
@@ -492,77 +492,77 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
         </button>
                 <div
           id="headerRegionMenu"
-          class="hidden absolute top-full right-0 mt-2 w-52 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 p-1.5 text-left text-xs"
+          class="hidden absolute top-full end-0 mt-2 w-52 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 p-1.5 text-start text-xs"
         >
           <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400">Target Region</div>
-          <button type="button" data-region-code="GLOBAL" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+          <button type="button" data-region-code="GLOBAL" class="header-region-item w-full text-start px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2"><Globe class="w-4 h-4 text-slate-400 dark:text-slate-500" /> <span>Worldwide</span></span>
             <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">ALL</span>
           </button>
-          <button type="button" data-region-code="US" data-flag="/flags/us.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+          <button type="button" data-region-code="US" data-flag="/flags/us.svg" class="header-region-item w-full text-start px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/us.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="US" />
               <span>United States</span>
             </span>
             <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">US</span>
           </button>
-          <button type="button" data-region-code="EU" data-flag="/flags/eu.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+          <button type="button" data-region-code="EU" data-flag="/flags/eu.svg" class="header-region-item w-full text-start px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/eu.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="EU" />
               <span>Europe</span>
             </span>
             <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">EU</span>
           </button>
-          <button type="button" data-region-code="GCC" data-flag="/flags/ae.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+          <button type="button" data-region-code="GCC" data-flag="/flags/ae.svg" class="header-region-item w-full text-start px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/ae.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GCC" />
               <span>UAE &amp; GCC</span>
             </span>
             <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">GCC</span>
           </button>
-          <button type="button" data-region-code="UA" data-flag="/flags/ua.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+          <button type="button" data-region-code="UA" data-flag="/flags/ua.svg" class="header-region-item w-full text-start px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/ua.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="UA" />
               <span>Ukraine</span>
             </span>
             <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">UA</span>
           </button>
-          <button type="button" data-region-code="GB" data-flag="/flags/gb.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+          <button type="button" data-region-code="GB" data-flag="/flags/gb.svg" class="header-region-item w-full text-start px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/gb.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GB" />
               <span>United Kingdom</span>
             </span>
             <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">GB</span>
           </button>
-          <button type="button" data-region-code="IN" data-flag="/flags/in.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+          <button type="button" data-region-code="IN" data-flag="/flags/in.svg" class="header-region-item w-full text-start px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/in.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="IN" />
               <span>India</span>
             </span>
             <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">IN</span>
           </button>
-          <button type="button" data-region-code="MX" data-flag="/flags/mx.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+          <button type="button" data-region-code="MX" data-flag="/flags/mx.svg" class="header-region-item w-full text-start px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/mx.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="MX" />
               <span>Mexico</span>
             </span>
             <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">MX</span>
           </button>
-          <button type="button" data-region-code="BR" data-flag="/flags/br.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+          <button type="button" data-region-code="BR" data-flag="/flags/br.svg" class="header-region-item w-full text-start px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/br.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="BR" />
               <span>Brazil</span>
             </span>
             <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">BR</span>
           </button>
-          <button type="button" data-region-code="CZ" data-flag="/flags/cz.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+          <button type="button" data-region-code="CZ" data-flag="/flags/cz.svg" class="header-region-item w-full text-start px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/cz.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="CZ" />
               <span>Czechia</span>
             </span>
             <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">CZ</span>
           </button>
-          <button type="button" data-region-code="PL" data-flag="/flags/pl.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
+          <button type="button" data-region-code="PL" data-flag="/flags/pl.svg" class="header-region-item w-full text-start px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/pl.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="PL" />
               <span>Poland</span>
@@ -586,14 +586,14 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
         </button>
         <div
           id="headerLangMenu"
-          class="hidden absolute top-full right-0 mt-2 w-44 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 p-1.5 text-left text-xs"
+          class="hidden absolute top-full end-0 mt-2 w-44 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 p-1.5 text-start text-xs"
         >
           <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300">Available Languages</div>
           {Object.values(LOCALES).map(loc => (
             <button
               type="button"
               data-lang-code={loc.code}
-              class={`header-lang-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer ${loc.code === locale ? 'bg-indigo-50/70 dark:bg-slate-800/90 text-indigo-600 dark:text-indigo-400' : ''}`}
+              class={`header-lang-item w-full text-start px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer ${loc.code === locale ? 'bg-indigo-50/70 dark:bg-slate-800/90 text-indigo-600 dark:text-indigo-400' : ''}`}
             >
               <span class="flex items-center gap-2">
                 <img src={`/flags/${loc.countryCode}.svg`} width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt={loc.name} />

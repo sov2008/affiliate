@@ -211,7 +211,7 @@ export function renderDealCardHtml(deal: EnrichedDealItem, idx: number, base: st
       class="w-full h-10 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-[13px] rounded-xl px-3 flex items-center justify-center gap-1.5 shadow-sm hover:shadow transition cursor-pointer"
       data-reveal-deal="${escapedRevealJson}"
     >
-      <span>Get Discount</span>
+      <span>Activate Deal</span>
       <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
     </button>
   `;

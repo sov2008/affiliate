@@ -130,10 +130,10 @@ export interface CategoryPageChunk {
   html: string;
 }
 
-export const DEALS_PER_CATEGORY_PAGE = 21; // 21 deals + 3 banners = 24 items in grid
+export const DEALS_PER_CATEGORY_PAGE = 24; // Clean 24-card grid (4x6 desktop, 3x8 tablet, 2x12 mobile)
 
 export function getCategoryChunks(categorySlug: string): CategoryPageChunk[] {
-  const { interleavedDeals, inGridPartnerBanners } = getFullInterleavedCatalog();
+  const { interleavedDeals } = getFullInterleavedCatalog();
   const config = CATEGORY_SLUG_MAP[categorySlug];
   if (!config) return [];
 
@@ -151,12 +151,6 @@ export function getCategoryChunks(categorySlug: string): CategoryPageChunk[] {
     pageDeals.forEach((deal, relIdx) => {
       const globalIdx = startIdx + relIdx;
       htmlParts.push(renderDealCardHtml(deal, globalIdx, '', false));
-
-      // After every 7 deals, interleave a banner if available
-      if ((relIdx + 1) % 7 === 0 && inGridPartnerBanners.length > 0) {
-        const bannerIdx = (Math.floor((startIdx + relIdx + 1) / 7) - 1) % inGridPartnerBanners.length;
-        htmlParts.push(renderInGridBannerHtml(inGridPartnerBanners[bannerIdx], globalIdx, '', false));
-      }
     });
 
     chunks.push({

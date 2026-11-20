@@ -14,8 +14,21 @@ const HEADLINE_SLUGS = [
   'nike', 'adidas', 'puma', 'under-armour', 'new-balance', 'decathlon', 'reebok', 'vogacloset', 'hostinger', 'expressvpn', 'nordvpn', 'surfshark',
   'aliexpress', 'kaspersky', 'booking.com', 'allpowers', 'harfington',
   'corsair', 'prohoster', 'redmagic', 'adguard', 'airalo',
-  'newbalance', 'lenovo', 'miravia-es-pt', 'honor-uae', 'answear', 'chicme'
+  'lenovo', 'miravia', 'honor-uae', 'answear', 'chicme'
 ];
+
+function normalizeBrandBucketKey(slug: string, brand: string): string {
+  const s = (slug || '').toLowerCase();
+  const b = (brand || '').toLowerCase();
+  if (s.startsWith('alibaba') || b.startsWith('alibaba')) return 'alibaba';
+  if (s.startsWith('aliexpress') || b.startsWith('aliexpress')) return 'aliexpress';
+  if (s.includes('newbalance') || s.includes('new-balance') || b.includes('new balance')) return 'new-balance';
+  if (s.startsWith('nordvpn') || b.startsWith('nordvpn')) return 'nordvpn';
+  if (s.startsWith('expressvpn') || b.startsWith('expressvpn')) return 'expressvpn';
+  if (s.startsWith('purevpn') || b.startsWith('purevpn')) return 'purevpn';
+  if (s.startsWith('miravia') || b.startsWith('miravia')) return 'miravia';
+  return s;
+}
 
 export function getFullInterleavedCatalog(): {
   interleavedDeals: EnrichedDealItem[];
@@ -49,7 +62,7 @@ export function getFullInterleavedCatalog(): {
 
   const storeBuckets = new Map<string, EnrichedDealItem[]>();
   for (const deal of enrichedDeals) {
-    const key = (deal.canonicalSlug || deal.storeSlug).toLowerCase();
+    const key = normalizeBrandBucketKey(deal.canonicalSlug || deal.storeSlug, deal.cleanBrand);
     if (!storeBuckets.has(key)) storeBuckets.set(key, []);
     storeBuckets.get(key)!.push(deal);
   }

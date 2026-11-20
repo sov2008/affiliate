@@ -226,6 +226,7 @@ const HERO_ROTATING_DEALS = [
     storeCategory: 'Privacy & Security',
     discountBadge: '49% OFF',
     discountSub: '+ 3 Months Free',
+    savingsValue: 'Save $79.80 / yr',
     title: '49% Off ExpressVPN Annual Plan Plus Three Free Months',
     description: 'Save 49% with 3 bonus months of verified RAM-only high-speed encryption across 105 countries with Keys password manager and 30-day money-back guarantee.',
     code: 'EXPRESS49',
@@ -243,6 +244,7 @@ const HERO_ROTATING_DEALS = [
     storeCategory: 'Web Hosting & Domains',
     discountBadge: '75% OFF',
     discountSub: '+ Free Domain Included',
+    savingsValue: 'Save $108+ / yr',
     title: 'Host 100 Websites: 75% Off Premium Web Hosting',
     description: 'Deploy on ultra-fast NVMe LiteSpeed servers with 100 website slots, complimentary domain name, unmetered bandwidth, and automated daily backups.',
     code: 'HOSTING75',
@@ -260,6 +262,7 @@ const HERO_ROTATING_DEALS = [
     storeCategory: 'Privacy & Security',
     discountBadge: '50% OFF',
     discountSub: 'Lifetime License Deal',
+    savingsValue: 'Save €30+',
     title: '50% Off Abelssoft Windows Tuning & System Security Software',
     description: 'Optimize and shield your PC with award-winning registry cleaners, privacy guards, and real-time disk acceleration utilities with lifetime upgrades.',
     code: 'ABELSSOFT50',
@@ -277,6 +280,7 @@ const HERO_ROTATING_DEALS = [
     storeCategory: 'Travel & Tours',
     discountBadge: '10% OFF',
     discountSub: 'Global Travel Data',
+    savingsValue: 'Save $15+',
     title: 'Save 10% on Airalo Global Travel eSIM Data Packages',
     description: 'Skip roaming fees and connect in 200+ countries instantly upon landing. Verified checkout coupon works on local and regional eSIM data passes.',
     code: 'ADM',
@@ -294,6 +298,7 @@ const HERO_ROTATING_DEALS = [
     storeCategory: 'E-Commerce & Wholesale',
     discountBadge: '$20 OFF',
     discountSub: 'Direct Factory Sourcing',
+    savingsValue: 'Save $20+',
     title: '$20 OFF On Alibaba Verified Global Catalog Orders',
     description: 'Source trending consumer tech, gadgets, and lifestyle gear directly from verified manufacturers with volume tier discounts and tracked global delivery.',
     code: 'HH12',
@@ -365,16 +370,30 @@ for (const d of enrichedDeals) {
   storeCouponCounts[d.cleanBrand] = (storeCouponCounts[d.cleanBrand] || 0) + 1;
 }
 
-// 2. Homepage Brand Diversity: Group by store, sort by best offer, cap at max 2 offers per store, and interleave Round-Robin
+// Helper to normalize brand keys for clean diversity buckets (prevents duplicate brands on page 1)
+function normalizeBrandBucketKey(slug: string, brand: string): string {
+  const s = (slug || '').toLowerCase();
+  const b = (brand || '').toLowerCase();
+  if (s.startsWith('alibaba') || b.startsWith('alibaba')) return 'alibaba';
+  if (s.startsWith('aliexpress') || b.startsWith('aliexpress')) return 'aliexpress';
+  if (s.includes('newbalance') || s.includes('new-balance') || b.includes('new balance')) return 'new-balance';
+  if (s.startsWith('nordvpn') || b.startsWith('nordvpn')) return 'nordvpn';
+  if (s.startsWith('expressvpn') || b.startsWith('expressvpn')) return 'expressvpn';
+  if (s.startsWith('purevpn') || b.startsWith('purevpn')) return 'purevpn';
+  if (s.startsWith('miravia') || b.startsWith('miravia')) return 'miravia';
+  return s;
+}
+
+// 2. Homepage Brand Diversity: Group by normalized store, sort by best offer, cap at max 2 offers per store, and interleave Round-Robin
 const storeBuckets = new Map<string, typeof enrichedDeals>();
 for (const deal of enrichedDeals) {
-  const key = (deal.canonicalSlug || deal.storeSlug).toLowerCase();
+  const key = normalizeBrandBucketKey(deal.canonicalSlug || deal.storeSlug, deal.cleanBrand);
   if (!storeBuckets.has(key)) storeBuckets.set(key, []);
   storeBuckets.get(key)!.push(deal);
 }
 
 // Sort deals within each store bucket: offers with promo code first, then highest discount
-for (const bucket of storeBuckets.values()) {
+for (const bucket of storeBuckets.values()) { 
   bucket.sort((a, b) => {
     const aHasCode = a.code && a.code.length > 0 ? 1 : 0;
     const bHasCode = b.code && b.code.length > 0 ? 1 : 0;
@@ -390,7 +409,7 @@ const HEADLINE_SLUGS = [
   "nike", "adidas", "puma", "under-armour", "new-balance", "decathlon", "reebok", "vogacloset", "hostinger", "expressvpn", "nordvpn", "surfshark",
   "aliexpress", "kaspersky", "booking.com", "allpowers", "harfington",
   "corsair", "prohoster", "redmagic", "adguard", "airalo",
-  "newbalance", "lenovo", "miravia-es-pt", "honor-uae", "answear", "chicme"
+  "lenovo", "miravia", "honor-uae", "answear", "chicme"
 ];
 
 const sortedStoreKeys = Array.from(storeBuckets.keys()).sort((a, b) => {
@@ -874,9 +893,9 @@ const homeSchemas = [
                 <!-- Authentic Realistic Perforated Rip-Off Voucher Ticket with Integrated Savings -->
                 <div class="deal-stagger-item relative z-10 shrink-0 my-1 flex justify-start">
                   <div class="hero-rip-ticket relative overflow-hidden rounded-xl bg-gradient-to-r from-emerald-950/90 via-emerald-900/60 to-emerald-950/85 ring-1 ring-inset ring-emerald-400/25 px-5 sm:px-6 py-2.5 flex items-center justify-between gap-5 sm:gap-6 shadow-md shadow-emerald-950/30 w-fit max-w-full">
-                    <!-- Edge Cutout Semi-Circle Notches (Left & Right) -->
-                    <div class="absolute -left-2.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white dark:bg-surface-dark border border-emerald-500/30 z-10"></div>
-                    <div class="absolute -right-2.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white dark:bg-surface-dark border border-emerald-500/30 z-10"></div>
+                    <!-- Edge Cutout Semi-Circle Notches (Start & End) -->
+                    <div class="absolute -start-2.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white dark:bg-surface-dark border border-emerald-500/30 z-10"></div>
+                    <div class="absolute -end-2.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white dark:bg-surface-dark border border-emerald-500/30 z-10"></div>
 
                     <!-- 1. Left Stub Section: Verified Discount Badge & Promo Tier -->
                     <div class="ps-1 pe-3 text-start min-w-0">
@@ -885,13 +904,13 @@ const homeSchemas = [
                     </div>
 
                     <!-- 2. Right Body Section: Perforated Tear-Line & Pure Savings Badge -->
-                    <div id="heroDealSavingsBox" class="relative ps-5 sm:ps-6 pe-2 border-l-2 border-dashed border-emerald-400/35 flex items-center justify-center min-w-0">
+                    <div id="heroDealSavingsBox" class="relative ps-5 sm:ps-6 pe-2 border-s-2 border-dashed border-emerald-400/35 flex items-center justify-center min-w-0">
                       <!-- Top & Bottom semi-circle punch notches on the perforation line -->
-                      <div class="absolute -top-3.5 -left-2 w-4 h-4 rounded-full bg-white dark:bg-surface-dark border border-emerald-500/30 z-10"></div>
-                      <div class="absolute -bottom-3.5 -left-2 w-4 h-4 rounded-full bg-white dark:bg-surface-dark border border-emerald-500/30 z-10"></div>
+                      <div class="absolute -top-3.5 -start-2 w-4 h-4 rounded-full bg-white dark:bg-surface-dark border border-emerald-500/30 z-10"></div>
+                      <div class="absolute -bottom-3.5 -start-2 w-4 h-4 rounded-full bg-white dark:bg-surface-dark border border-emerald-500/30 z-10"></div>
 
                       <div class="flex items-center justify-center whitespace-nowrap">
-                        <span id="heroDealSavingsValue" class="text-xl sm:text-2xl font-extrabold text-emerald-300 tracking-tight leading-none drop-shadow-sm">Save $79.80 / yr</span>
+                        <span id="heroDealSavingsValue" class="text-xl sm:text-2xl font-extrabold text-emerald-300 tracking-tight leading-none drop-shadow-sm">{HERO_ROTATING_DEALS[0].savingsValue}</span>
                       </div>
                     </div>
                   </div>
@@ -1162,8 +1181,8 @@ const homeSchemas = [
       </div>
 
       <!-- Modern 4-Column Responsive Coupon Cards Grid -->
-      <div id="dealsGridContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-stretch" data-total-deals={interleavedDeals.length} data-loaded-page="1" data-total-pages={Math.ceil(interleavedDeals.length / 21)}>
-        {interleavedDeals.slice(0, 21).map((deal, idx) => {
+      <div id="dealsGridContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-stretch" data-total-deals={interleavedDeals.length} data-loaded-page="1" data-total-pages={Math.ceil(interleavedDeals.length / 24)}>
+        {interleavedDeals.slice(0, 24).map((deal, idx) => {
           const isCode = deal.code && deal.code.trim().length > 0;
           const cleanName = deal.cleanBrand;
           const cleanBadge = deal.cleanBadge;
@@ -1180,8 +1199,7 @@ const homeSchemas = [
           const expiryBadge = getExpiryBadge(deal.expiryDate);
           const pulse = getDealLivePulse(deal.id, deal.storeSlug, deal.successRate);
           
-          return [
-            <article
+          return (<article
               data-deal-card
               data-deal-slug={deal.canonicalSlug || deal.storeSlug}
               class={`deal-grid-card rounded-2xl p-4 flex flex-col justify-between gap-3 h-full card-hover relative overflow-hidden animate-card-entrance ${isTopDeal ? 'ring-1 ring-amber-400/30' : ''}`}
@@ -1322,84 +1340,11 @@ const homeSchemas = [
                       successRate: deal.successRate
                     })}
                   >
-                    <span>Get Discount</span>
-                    <ArrowUpRight class="w-4 h-4" />
+                    <span>Activate Deal</span><ArrowUpRight class="w-4 h-4" />
                   </button>
                 )}
               </div>
-            </article>,
-
-            /* In-Grid Contextual Partner Creative Banner Slot (Organically inserted after every 7th deal card so 7+1=8, 14+2=16, 21+3=24 items -> perfectly fills 4-col rows with 0 hanging cards) */
-            ((idx + 1) % 7 === 0 && inGridPartnerBanners.length > 0) ? (
-              <div
-                class={`in-grid-partner-banner rounded-2xl p-3 flex flex-col justify-between gap-2.5 h-full relative overflow-hidden bg-gradient-to-br from-indigo-50/70 via-slate-50 to-indigo-50/40 dark:from-indigo-950/40 dark:via-slate-900/60 dark:to-indigo-950/20 border border-indigo-200/80 dark:border-indigo-800/60 shadow-sm transition hover:shadow-md hover:border-indigo-400 dark:hover:border-indigo-600 animate-card-entrance`}
-                data-banner-partner={inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].partnerSlug}
-                data-banner-category={inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].category}
-                data-banner-regions={(STORE_REGIONS[inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].partnerSlug] || ['GLOBAL']).join(',')}
-              >
-                <!-- Top Banner Label -->
-                <div class="flex items-center justify-between gap-2">
-                  <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300">
-                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400 animate-pulse"></span>
-                    Official Spotlight
-                  </span>
-                  <a
-                    href={`${base}/stores/${inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].partnerSlug}/`}
-                    class="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
-                  >
-                    {inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].brand} ↗
-                  </a>
-                </div>
-
-                <!-- Creative Visual Area with Fallback -->
-                <a
-                  href={inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].affiliateUrl}
-                  target="_blank"
-                  rel="nofollow sponsored"
-                  class="group relative block w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-indigo-100/50 dark:border-indigo-900/30"
-                  title={`${inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].brand} - ${inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].category}`}
-                >
-                  <img
-                    width="300" height="250" src={inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].src}
-                    alt={inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].name || `${inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].brand} Official Partner Offer`}
-                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    loading="lazy"
-                    onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
-                  />
-                  <!-- Beautiful Fallback Display if image is blocked by client adblocker -->
-                  <div class="hidden w-full h-full absolute inset-0 bg-gradient-to-br from-indigo-900 via-slate-900 to-indigo-950 p-4 flex-col justify-center items-center text-center">
-                    <span class="text-2xl mb-1">🏷️</span>
-                    <span class="text-xs font-black text-white uppercase tracking-wider">
-                      {inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].brand}
-                    </span>
-                    <span class="text-[10px] text-amber-300 font-bold mt-0.5">Verified Partner Deal</span>
-                    <span class="text-[9px] text-slate-300 line-clamp-1 mt-1">
-                      {inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].category}
-                    </span>
-                  </div>
-
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2.5 pointer-events-none">
-                    <span class="text-[11px] font-bold text-white bg-indigo-600/90 px-2.5 py-1 rounded-lg backdrop-blur-xs flex items-center gap-1 shadow-sm">
-                      Claim Verified Deal <ArrowUpRight class="w-3.5 h-3.5" />
-                    </span>
-                  </div>
-                </a>
-
-                <!-- Action CTA -->
-                <div class="pt-1">
-                  <a
-                    href={inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].affiliateUrl}
-                    target="_blank"
-                    rel="nofollow sponsored"
-                    class="w-full h-9 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl px-3 flex items-center justify-center gap-1.5 shadow-sm transition hover:shadow cursor-pointer"
-                  >
-                    <span>Visit {inGridPartnerBanners[(Math.floor((idx + 1) / 7) - 1) % inGridPartnerBanners.length].brand} Deal</span>
-                    <ArrowUpRight class="w-3.5 h-3.5" />
-                  </a>
-                </div>
-              </div>
-            ) : null
-          ];
+            </article>);
         })}
       </div>
 
@@ -1408,10 +1353,10 @@ const homeSchemas = [
         <!-- Progress Counter -->
         <div class="flex flex-col items-center gap-1.5">
           <span id="paginationProgressText" class="text-xs font-semibold text-slate-500 dark:text-slate-600 dark:text-slate-300">
-            Showing <strong class="text-slate-900 dark:text-white" id="paginationShowingCount">{Math.min(21, interleavedDeals.length)}</strong> of <strong class="text-slate-900 dark:text-white" id="paginationTotalCount">{interleavedDeals.length}</strong> verified offers
+            Showing <strong class="text-slate-900 dark:text-white" id="paginationShowingCount">{Math.min(24, interleavedDeals.length)}</strong> of <strong class="text-slate-900 dark:text-white" id="paginationTotalCount">{interleavedDeals.length}</strong> verified offers
           </span>
           <div class="h-1.5 w-56 bg-slate-200/90 dark:bg-slate-800 rounded-full overflow-hidden shadow-inner">
-            <div id="paginationProgressBar" class="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 transition-all duration-300" style={`width: ${Math.min(100, Math.round((Math.min(21, interleavedDeals.length) / Math.max(1, interleavedDeals.length)) * 100))}%;`}></div>
+            <div id="paginationProgressBar" class="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 transition-all duration-300" style={`width: ${Math.min(100, Math.round((Math.min(24, interleavedDeals.length) / Math.max(1, interleavedDeals.length)) * 100))}%;`}></div>
           </div>
         </div>
 
@@ -1425,7 +1370,7 @@ const homeSchemas = [
           >
             <span>Load Next 24 Deals</span>
             <span class="px-2 py-0.5 rounded-full bg-white/20 text-white text-[11px] font-bold">
-              +{Math.max(0, interleavedDeals.length - 21)}
+              +{Math.max(0, interleavedDeals.length - 24)}
             </span>
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>

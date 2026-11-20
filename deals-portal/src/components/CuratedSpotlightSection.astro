@@ -143,11 +143,16 @@ const softwareProducts = curatedProducts.filter(p => ['abelssoft', 'whokeys', 'n
               data-product-idx={idx}
             >
               <div>
-                <!-- Product Media Stage (Uniform White Surface) -->
-                <div class="product-media-stage relative w-full h-[168px] rounded-xl overflow-hidden bg-white border border-slate-200/80 flex items-center justify-center p-3 mb-3 shadow-xs">
+                <!-- Product Media Stage (Uniform Adaptive Surface) -->
+                <div class="product-media-stage relative w-full h-[168px] rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 flex items-center justify-center p-3 mb-3 shadow-xs">
                   <img
                     src={item.imageUrl}
                     alt={item.title}
+                    width="300"
+                    height="200"
+                    loading={idx < 4 ? "eager" : "lazy"}
+                    class="max-h-[135px] w-auto max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                  />
                     loading="lazy"
                     decoding="async" width="300" height="250"
                     class="max-h-[136px] w-auto max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300 smooth-image-loading"
@@ -249,29 +254,50 @@ const softwareProducts = curatedProducts.filter(p => ['abelssoft', 'whokeys', 'n
               </div>
 
               <div class="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60">
-                <button
-                  type="button"
-                  class="w-full py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center justify-between transition cursor-pointer shadow-sm active:scale-95"
-                  data-reveal-deal={JSON.stringify({
-                    id: deal.id,
-                    title: deal.title,
-                    desc: deal.description,
-                    code: deal.code,
-                    storeName: cleanName,
-                    storeSlug: deal.storeSlug,
-                    domain: STORE_DOMAINS_MAP[deal.storeSlug] || deal.storeSlug + '.com',
-                    badge: badge,
-                    affiliateUrl: deal.affiliateUrl
-                  })}
-                >
-                  <span class="flex items-center gap-1.5">
-                    <span>Claim</span>
-                    <span class="bg-black/25 border border-white/20 px-1.5 py-0.2 rounded font-mono text-[11px] text-amber-300 font-bold">
-                      •••{codeSuffix}
+                {deal.code ? (
+                  <button
+                    type="button"
+                    class="w-full py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center justify-between transition cursor-pointer shadow-sm active:scale-95"
+                    data-reveal-deal={JSON.stringify({
+                      id: deal.id,
+                      title: deal.title,
+                      desc: deal.description,
+                      code: deal.code,
+                      storeName: cleanName,
+                      storeSlug: deal.storeSlug,
+                      domain: STORE_DOMAINS_MAP[deal.storeSlug] || deal.storeSlug + '.com',
+                      badge: badge,
+                      affiliateUrl: deal.affiliateUrl
+                    })}
+                  >
+                    <span class="flex items-center gap-1.5">
+                      <span>Copy Code</span>
+                      <span class="bg-black/25 border border-white/20 px-1.5 py-0.2 rounded font-mono text-[11px] text-amber-300 font-bold">
+                        •••{deal.code.slice(-3)}
+                      </span>
                     </span>
-                  </span>
-                  <span class="text-xs font-bold">↗</span>
-                </button>
+                    <span class="text-xs font-bold">↗</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    class="w-full py-2 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer shadow-sm active:scale-95"
+                    data-reveal-deal={JSON.stringify({
+                      id: deal.id,
+                      title: deal.title,
+                      desc: deal.description,
+                      code: '',
+                      storeName: cleanName,
+                      storeSlug: deal.storeSlug,
+                      domain: STORE_DOMAINS_MAP[deal.storeSlug] || deal.storeSlug + '.com',
+                      badge: badge,
+                      affiliateUrl: deal.affiliateUrl
+                    })}
+                  >
+                    <span>Activate Deal</span>
+                    <span class="text-xs font-bold">↗</span>
+                  </button>
+                )}
               </div>
             </div>
           );
@@ -329,12 +355,12 @@ const softwareProducts = curatedProducts.filter(p => ['abelssoft', 'whokeys', 'n
           return (
             <article class="bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 rounded-2xl p-4 flex flex-col justify-between transition-all group shadow-xs">
               <div>
-                <div class="product-media-stage relative w-full h-[150px] rounded-xl overflow-hidden bg-white border border-slate-200/80 flex items-center justify-center p-3 mb-3 shadow-xs">
+                <div class="product-media-stage relative w-full h-[150px] rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 flex items-center justify-center p-3 mb-3 shadow-xs">
                   <img
                     width="300" height="250" src={item.imageUrl}
                     alt={item.title}
                     loading="lazy"
-                    class="max-h-[120px] w-auto max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
+                    class="max-h-[120px] w-auto max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
                   />
                   {item.badge && (
                     <span class="absolute top-2 left-2 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-900/85 backdrop-blur-md text-amber-300 border border-amber-400/30 whitespace-nowrap">

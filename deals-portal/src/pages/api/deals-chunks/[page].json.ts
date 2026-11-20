@@ -5,10 +5,10 @@ import { renderDealCardHtml, renderInGridBannerHtml } from '../../../utils/rende
 
 export const prerender = true;
 
-const DEALS_PER_PAGE = 21; // 21 deals + 3 banners = 24 grid items
+const DEALS_PER_PAGE = 24; // Clean 24-card grid (4x6 desktop, 3x8 tablet, 2x12 mobile)
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { interleavedDeals, inGridPartnerBanners, totalDeals } = getFullInterleavedCatalog();
+  const { interleavedDeals, totalDeals } = getFullInterleavedCatalog();
   const totalPages = Math.ceil(totalDeals / DEALS_PER_PAGE);
 
   // Generate chunks for pages 2 to totalPages (Page 1 is in index.astro)
@@ -24,7 +24,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const GET: APIRoute = async ({ params }) => {
   const pageNum = parseInt(params.page as string, 10);
-  const { interleavedDeals, inGridPartnerBanners, totalDeals } = getFullInterleavedCatalog();
+  const { interleavedDeals, totalDeals } = getFullInterleavedCatalog();
   const totalPages = Math.ceil(totalDeals / DEALS_PER_PAGE);
 
   if (isNaN(pageNum) || pageNum < 2 || pageNum > totalPages) {
@@ -41,12 +41,6 @@ export const GET: APIRoute = async ({ params }) => {
   pageDeals.forEach((deal, relIdx) => {
     const globalIdx = startIdx + relIdx;
     htmlParts.push(renderDealCardHtml(deal, globalIdx, '', false));
-
-    // After every 7th deal, insert an in-grid creative banner
-    if ((globalIdx + 1) % 7 === 0 && inGridPartnerBanners.length > 0) {
-      const bannerIdx = (Math.floor((globalIdx + 1) / 7) - 1) % inGridPartnerBanners.length;
-      htmlParts.push(renderInGridBannerHtml(inGridPartnerBanners[bannerIdx], globalIdx, '', false));
-    }
   });
 
   const payload = {

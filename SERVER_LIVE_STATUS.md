@@ -1,44 +1,36 @@
 # PromoRadar & FlirtCheck — Production Server Live Status Snapshot
-*Generated automatically by `sync_ecosystem_state.cjs` at: 2026-11-20T15:52:50.982Z*
+*Generated automatically by `sync_ecosystem_state.cjs` at: 2026-11-20T16:34:00.914Z*
 
 ---
 
 ## 1. High-Level System Architecture & Live Releases
 - **Target Host:** DigitalOcean Droplet `178.128.199.28` (Frankfurt / Ubuntu 24.04 LTS)
-- **Active Git Commit:** `1153f0af4cfcd619a7ac90e5360b38216ce61347` (Branch: `promoradar-portal`)
+- **Active Git Commit:** `5907e528a141b0d099db240829a3c5e07b4c9919` (Branch: `promoradar-portal`)
 - **PromoRadar Active Release:** `N/A`
 - **FlirtCheck Active Release:** `N/A`
 - **Local Working Tree:** `M CONTEXT.md
  M SERVER_LIVE_STATUS.md
- M deals-portal/src/components/CouponPulseModal.astro
- M deals-portal/src/components/Footer.astro
- M deals-portal/src/components/HalloweenSpookySpotlight.astro
- M deals-portal/src/components/HalloweenTopBanner.astro
- M deals-portal/src/components/VerificationGuaranteeModal.astro
- M deals-portal/src/data/couponsData.ts
- M deals-portal/src/data/productsData.ts
- M deals-portal/src/data/storeDomains.ts
- M deals-portal/src/pages/categories/[category].astro
- M deals-portal/src/pages/compare/index.astro
+ M deals-portal/public/scripts/home-interactive.js
+ M deals-portal/src/components/CuratedSpotlightSection.astro
+ M deals-portal/src/components/Header.astro
+ M deals-portal/src/components/PartnerBannerRotator.astro
+ M deals-portal/src/pages/api/deals-chunks/[page].json.ts
  M deals-portal/src/pages/index.astro
- M deals-portal/src/pages/store/[slug].astro
- M deals-portal/src/pages/stores/[store].astro
- M deals-portal/src/pages/stores/index.astro
- M deals-portal/src/utils/normalizeStore.ts
-?? deals-portal/src/utils/dateFormatter.ts
-?? scripts/temp_cleanup_artifacts.cjs
-?? scripts/temp_inspect.cjs
-?? scripts/temp_update_dates.cjs`
+ M deals-portal/src/utils/buildInterleavedFeed.ts
+ M deals-portal/src/utils/categoryChunks.ts
+ M deals-portal/src/utils/renderDealGridItem.ts
+?? scripts/patch_client_i18n.cjs
+?? scripts/patch_index_astro.cjs`
 
 ---
 
 ## 2. HTTPS Availability & Latency Matrix
 | Service | Target URL | HTTP Status | Response Time | Content Size |
 |---|---|:---:|:---:|:---:|
-| **PromoRadar** | `https://promoradar.store/` | **200** | 472ms | 538.3 KB |
-| **PromoRadar** | `https://promoradar.store/llms.txt` | **200** | 197ms | 6.8 KB |
-| **FlirtCheck** | `https://flirtcheck.site/` | **200** | 401ms | 337.6 KB |
-| **FlirtCheck** | `https://flirtcheck.site/llms.txt` | **200** | 218ms | 25.0 KB |
+| **PromoRadar** | `https://promoradar.store/` | **200** | 540ms | 538.1 KB |
+| **PromoRadar** | `https://promoradar.store/llms.txt` | **200** | 208ms | 6.8 KB |
+| **FlirtCheck** | `https://flirtcheck.site/` | **200** | 442ms | 337.6 KB |
+| **FlirtCheck** | `https://flirtcheck.site/llms.txt` | **200** | 286ms | 25.0 KB |
 
 ---
 
@@ -70,6 +62,7 @@ N/A
 
 ## 6. Recent Git Commits on `promoradar-portal`
 ```text
+5907e52 fix(deals-portal): dynamic SEO dates, seasonal icon update and feed artifacts cleanup
 1153f0a feat(deals-portal): seasonal audit, copy de-templating, brand normalization and button ux polish
 c9a88a3 chore(status): sync live release state to SERVER_LIVE_STATUS.md and CONTEXT.md
 845c9e9 feat(growth): launch Black Friday & Cyber Monday 2026 hubs, add FlirtCheck cross-funnel tools, and sync IndexNow
@@ -79,7 +72,6 @@ d5cc362 chore(status): sync updated status files after audit fixes
 aeaaf35 fix(integration): resolve /go 404s, sanitize markdown markers in queues, replenish content_queue_v2 to 73, and align CI/CD workflow
 37b2ed0 chore(deploy): sync release rel_1794833196628 status to CONTEXT.md and SERVER_LIVE_STATUS.md
 9c83dbc feat(analytics): optimize GA4 initialization to 800ms, mount CookieBanner, and fix Python interpreter path
-7031b55 feat(security): enforce HTTP 444 silent connection drop on botnet scanners across PromoRadar & FlirtCheck
 ```
 
 ---

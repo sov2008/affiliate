@@ -217,7 +217,7 @@ const baseUrl = "";
           class="w-full h-10 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-[13px] rounded-xl px-3 flex items-center justify-center gap-1.5 shadow-sm hover:shadow transition cursor-pointer"
           data-reveal-deal="${escapedRevealJson}"
         >
-          <span>Get Discount</span>
+          <span>Activate Deal</span>
           <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
         </button>
       `;
@@ -532,6 +532,22 @@ const baseUrl = "";
         reinitializeGridInteractions();
       }
 
+      // Geo-First Sorting: If a specific region is active, prioritize matching deals to the top of the grid
+      if (gridContainer && currentRegion && currentRegion !== 'ALL' && currentRegion !== 'GLOBAL') {
+        const dealElements = Array.from(gridContainer.children);
+        if (dealElements.length > 0) {
+          dealElements.sort((a, b) => {
+            const aRegs = (a.getAttribute('data-regions') || 'GLOBAL').split(',');
+            const bRegs = (b.getAttribute('data-regions') || 'GLOBAL').split(',');
+            const aMatch = aRegs.includes(currentRegion) ? 1 : 0;
+            const bMatch = bRegs.includes(currentRegion) ? 1 : 0;
+            return bMatch - aMatch;
+          });
+          dealElements.forEach(el => gridContainer.appendChild(el));
+          reinitializeGridInteractions();
+        }
+      }
+
       updatePaginationUI(cards.length, totalCatalogDeals, false);
     }
 
@@ -565,7 +581,7 @@ const baseUrl = "";
 
           reinitializeGridInteractions();
           updatePaginationUI(cards.length, totalCatalogDeals, false);
-          showToast(`Loaded 24 more verified offers (${Math.min(currentLoadedPage * 21, totalCatalogDeals)} of ${totalCatalogDeals})`);
+          showToast(`Loaded 24 more verified offers (${Math.min(currentLoadedPage * PAGE_SIZE, totalCatalogDeals)} of ${totalCatalogDeals})`);
 
           if (currentLoadedPage < totalPagesCount) {
             const prefetchUrl = `/api/deals-chunks/${currentLoadedPage + 1}.json`;
@@ -2527,8 +2543,14 @@ const baseUrl = "";
               ? (heroSavingsById[deal.id][currentLang] || heroSavingsById[deal.id]['en'])
               : null;
             const savingsValueEl = document.getElementById('heroDealSavingsValue');
-            if (savingsData && savingsValueEl) {
-              savingsValueEl.textContent = savingsData.value;
+            if (savingsValueEl) {
+              if (savingsData && savingsData.value) {
+                savingsValueEl.textContent = savingsData.value;
+              } else if (deal.savingsValue) {
+                savingsValueEl.textContent = deal.savingsValue;
+              } else {
+                savingsValueEl.textContent = 'Save ' + (localeData.discountBadge || deal.discountBadge || 'Now');
+              }
             }
 
             const openBtn = document.getElementById('openFeaturedDealBtn');
