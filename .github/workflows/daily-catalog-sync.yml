@@ -119,9 +119,12 @@ jobs:
         run: |
           git config --global user.name "PromoRadar Automated Bot"
           git config --global user.email "bot@promoradar.store"
-          git add deals-portal/src/data/couponsData.ts
-          git commit -m "chore(catalog): automated daily admitad & cj catalog sync [skip ci]"
-          git pull --rebase origin promoradar-portal
+          git add deals-portal/src/data/couponsData.ts artifacts_admitad/promoradar_sync_state.json
+          # Discard any residual untracked or unstaged working tree changes (e.g. node build temp files)
+          git checkout -- . 2>/dev/null || true
+          git clean -fd deals-portal/dist 2>/dev/null || true
+          git commit -m "chore(catalog): automated daily admitad & cj catalog sync [skip ci]" || echo "Nothing to commit"
+          git pull --rebase origin promoradar-portal || (git rebase --abort 2>/dev/null; git pull --no-rebase origin promoradar-portal -X ours)
           git push origin promoradar-portal
 
       - name: 🚨 Telegram Alert on Failure
