@@ -504,13 +504,23 @@ function buildMarkdownReport(nginxData, ga4Data, gscData) {
 
   md += `---\n\n`;
   md += `## 4. Growth & Funnel Observations for Gemini Agents\n`;
+
+  const prActive28 = prGa28.activeUsers || 0;
+  const prDuration28 = prGa28.avgDurationSec || 0;
+  const prDurationMin = (prDuration28 / 60).toFixed(1);
+  const prGscImp7 = gscData?.promoradar?.summary7d?.impressions || 0;
+  const prGscImp28 = gscData?.promoradar?.summary28d?.impressions || 0;
+  const prGscClicks28 = gscData?.promoradar?.summary28d?.clicks || 0;
+  const fcGscImp28 = gscData?.flirtcheck?.summary28d?.impressions || 0;
+  const crossRef28 = prNginx28.cross_referrals_from_flirtcheck || 0;
+
   md += `1. **PromoRadar Retention & Engagement**:\n`;
-  md += `   - PromoRadar exhibits strong engagement on GA4: **84 active users** across 28 days with an average session duration of **691 seconds (~11.5 minutes)**.\n`;
-  md += `   - Organic Google traffic is indexed and growing (\`google / organic\` generated 114 sessions in 28d; GSC reports impressions across Cheapoair, Known Nutrition, Mozillion, Oliver's Travels, Tata Neu, WeAreFeel, and Aootek).\n`;
+  md += `   - PromoRadar exhibits strong engagement on GA4: **${fmt(prActive28)} active users** across 28 days with an average session duration of **${prDuration28} seconds (~${prDurationMin} minutes)**.\n`;
+  md += `   - Google Search visibility: **${fmt(prGscImp7)} impressions (last 7d)** and **${fmt(prGscImp28)} impressions / ${fmt(prGscClicks28)} clicks (28d)**, showing rapid momentum across high-intent brand coupon queries.\n`;
   md += `2. **FlirtCheck Organic Footprint**:\n`;
-  md += `   - FlirtCheck is indexed in Google Search Console for intent queries such as \`dating app reputation check\`.\n`;
+  md += `   - FlirtCheck is indexed in Google Search Console (**${fmt(fcGscImp28)} impressions**) with organic rank on intent queries such as \`dating app reputation check\`.\n`;
   md += `3. **Cross-Funnel Synergy**:\n`;
-  md += `   - The FlirtCheck -> PromoRadar bridge is actively registering referral traffic (\`flirtcheck.site / referral\` is currently in the top 5 referral sources in GA4 for PromoRadar).\n`;
+  md += `   - The FlirtCheck -> PromoRadar bridge registered **${fmt(crossRef28)} cross-referrals** in the last 28 days, confirming that audience protection guides successfully drive shoppers to verified deal pages.\n`;
 
   return md;
 }

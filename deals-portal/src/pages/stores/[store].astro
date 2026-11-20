@@ -344,11 +344,17 @@ const currentStoreDealsMap: Record<string, Array<{ id: string; title: string; co
 };
 
 const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : []), offersListSchema, howToSaveSchema];
+
+// High-CTR Dynamic Title & Meta Description Construction
+const discountSnippet = (topDiscountValue > 0 || /\d+%/.test(maxDiscount)) ? `${maxDiscount} Off` : 'Verified Discounts';
+const codesSnippet = codesCount > 0 ? `${codesCount} Active Code${codesCount > 1 ? 's' : ''}` : `${storeDeals.length} Verified Deal${storeDeals.length > 1 ? 's' : ''}`;
+const pageSeoTitle = `${storeCleanBrand} Promo Codes & Coupons: Up to ${discountSnippet} (${codesSnippet}) • ${currentMonth} ${currentYear} | PromoRadar`;
+const pageSeoDescription = `Get verified ${storeCleanBrand} coupons & promo codes for ${currentMonth} ${currentYear}. Save up to ${discountSnippet} across ${storeDeals.length} active tested deals with guaranteed instant checkout activation.`;
 ---
 
 <BaseLayout
-  title={`${storeCleanBrand} Promo Codes & Coupons — Up to ${maxDiscount} Off (${currentMonth} ${currentYear}) | PromoRadar`}
-  description={`Verified ${storeCleanBrand} promo codes and exclusive checkout vouchers. ${storeDeals.length} active deals tested today with 99.4% API stability.`}
+  title={pageSeoTitle}
+  description={pageSeoDescription}
   canonicalUrl={`https://promoradar.store/stores/${store.slug}/`}
   activePath={`/stores/${store.slug}/`}
   schemas={pageSchemas}

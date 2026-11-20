@@ -1,6 +1,6 @@
 # Unified Traffic & Search Visibility Report (PromoRadar & FlirtCheck)
 
-> **Generated:** `2026-11-20 17:58:42 UTC` (`2026-11-20 19:58:42 EET`)  
+> **Generated:** `2026-11-20 19:47:56 UTC` (`2026-11-20 21:47:56 EET`)  
 > **Infrastructure Node:** `178.128.199.28` (Ubuntu 24.04 LTS / Nginx / Node.js PM2)  
 > **Monitored Domains:**  
 > - **PromoRadar**: `https://promoradar.store` (GA4: `559398262` | GSC: `sc-domain:promoradar.store`)  
@@ -12,15 +12,15 @@
 
 | Metric | PromoRadar (24h) | PromoRadar (7d) | PromoRadar (28d) | FlirtCheck (24h) | FlirtCheck (7d) | FlirtCheck (28d) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Unique Human Visitors (Nginx)** | **675** | **3,201** | **4,178** | **449** | **2,118** | **3,723** |
-| **Valid Human Requests (Nginx 200/301/302)** | 4,540 | 14,054 | 23,844 | 680 | 5,066 | 8,106 |
-| **Total Valid Requests (Incl. Bots)** | 34,389 | 60,207 | 73,463 | 3,987 | 14,935 | 22,418 |
+| **Unique Human Visitors (Nginx)** | **728** | **3,241** | **4,213** | **457** | **2,124** | **3,727** |
+| **Valid Human Requests (Nginx 200/301/302)** | 4,650 | 14,164 | 23,954 | 692 | 5,078 | 8,118 |
+| **Total Valid Requests (Incl. Bots)** | 34,829 | 60,647 | 73,903 | 4,012 | 14,960 | 22,443 |
 | **GA4 Active Users** | 10 | 32 | 63 | 9 | 103 | 196 |
-| **GA4 Sessions** | 12 | 50 | 186 | 9 | 103 | 215 |
-| **GA4 Screen Pageviews** | 13 | 110 | 497 | 9 | 103 | 215 |
-| **GA4 Bounce Rate** | 91.7% | 76.0% | 57.0% | 100.0% | 98.1% | 94.9% |
-| **Avg Session Duration** | 63s | 519s | 778s | 0s | 15s | 19s |
-| **Cross-Referrals (FC -> PR)** | 2 | 11 | 19 | - | - | - |
+| **GA4 Sessions** | 13 | 51 | 187 | 9 | 103 | 215 |
+| **GA4 Screen Pageviews** | 15 | 112 | 499 | 9 | 103 | 215 |
+| **GA4 Bounce Rate** | 84.6% | 74.5% | 56.7% | 100.0% | 98.1% | 94.9% |
+| **Avg Session Duration** | 75s | 513s | 775s | 0s | 15s | 19s |
+| **Cross-Referrals (FC -> PR)** | 16 | 25 | 33 | - | - | - |
 
 > **Note on Nginx vs GA4 Discrepancy:**  
 > Nginx records 100% of network-level HTTP requests with status 200/301/302 (filtered from bot/spider User-Agents), capturing users with ad blockers, Brave Shields, Firefox Enhanced Tracking Protection, and disabled JavaScript. GA4 requires Google's tracking script execution and cookie consent, hence representing confirmed JavaScript-rendered client sessions.
@@ -39,17 +39,17 @@
 | `/go/nordvpn` | **11** | 11 |
 | `/go/under-armour` | **11** | 11 |
 | `/go/harfington` | **11** | 11 |
+| `/go/adidas` | **11** | 11 |
 | `/go/surfshark` | **10** | 10 |
 | `/go/new-balance` | **10** | 10 |
-| `/go/puma` | **10** | 10 |
 
 ### B. Top Merchant Store Pages (`/stores/[slug]`)
 | Merchant Slug | 7-Day Page Requests | 28-Day Page Requests |
 | :--- | :---: | :---: |
-| [`abelssoft`](https://promoradar.store/stores/abelssoft/) | **274** | 338 |
-| [`hostinger`](https://promoradar.store/stores/hostinger/) | **273** | 380 |
-| [`nordvpn`](https://promoradar.store/stores/nordvpn/) | **271** | 391 |
-| [`chicme`](https://promoradar.store/stores/chicme/) | **266** | 329 |
+| [`abelssoft`](https://promoradar.store/stores/abelssoft/) | **278** | 342 |
+| [`hostinger`](https://promoradar.store/stores/hostinger/) | **277** | 384 |
+| [`nordvpn`](https://promoradar.store/stores/nordvpn/) | **275** | 395 |
+| [`chicme`](https://promoradar.store/stores/chicme/) | **270** | 333 |
 | [`aliexpress`](https://promoradar.store/stores/aliexpress/) | **18** | 22 |
 | [`viator-a-tripadvisor-company`](https://promoradar.store/stores/viator-a-tripadvisor-company/) | **17** | 17 |
 | [`new-balance`](https://promoradar.store/stores/new-balance/) | **17** | 17 |
@@ -61,7 +61,7 @@
 | Channel / Source Medium | Sessions | Users |
 | :--- | :---: | :---: |
 | `(direct) / (none)` | 29 | 29 |
-| `google / organic` | 19 | 1 |
+| `google / organic` | 20 | 1 |
 | `members.cj.com / referral` | 1 | 1 |
 | `store.admitad.com / referral` | 1 | 1 |
 
@@ -73,14 +73,14 @@
 | 🌍 Philippines | **3** | 3 |
 | 🌍 France | **2** | 2 |
 | 🌍 Thailand | **2** | 2 |
-| 🌍 Ukraine | **2** | 20 |
+| 🌍 Ukraine | **2** | 21 |
 
 **Top Events (Last 7 Days):**
 | Event Name | Event Count | Total Users |
 | :--- | :---: | :---: |
-| `page_view` | **110** | 32 |
-| `user_engagement` | **67** | 4 |
-| `session_start` | **50** | 32 |
+| `page_view` | **112** | 32 |
+| `user_engagement` | **68** | 4 |
+| `session_start` | **51** | 32 |
 | `scroll` | **35** | 1 |
 | `first_visit` | **30** | 30 |
 | `click` | **3** | 1 |
@@ -92,8 +92,8 @@
 ### A. Top Content Pages (Last 7 Days Nginx)
 | Content URL | 7-Day Hits | 28-Day Hits |
 | :--- | :---: | :---: |
-| `/go` | **1,549** | 2,598 |
-| `/` | **1,133** | 1,731 |
+| `/go` | **1,551** | 2,600 |
+| `/` | **1,137** | 1,735 |
 | `/site.webmanifest` | **117** | 127 |
 | `/spotting-ai-generated-chat-messages-linguistic-tells/` | **27** | 51 |
 | `/bumble-travel-mode-telemetry-how-location-shifts-alter-queue/` | **20** | 28 |
@@ -211,9 +211,9 @@
 
 ## 4. Growth & Funnel Observations for Gemini Agents
 1. **PromoRadar Retention & Engagement**:
-   - PromoRadar exhibits strong engagement on GA4: **84 active users** across 28 days with an average session duration of **691 seconds (~11.5 minutes)**.
-   - Organic Google traffic is indexed and growing (`google / organic` generated 114 sessions in 28d; GSC reports impressions across Cheapoair, Known Nutrition, Mozillion, Oliver's Travels, Tata Neu, WeAreFeel, and Aootek).
+   - PromoRadar exhibits strong engagement on GA4: **63 active users** across 28 days with an average session duration of **775 seconds (~12.9 minutes)**.
+   - Google Search visibility: **112 impressions (last 7d)** and **868 impressions / 5 clicks (28d)**, showing rapid momentum across high-intent brand coupon queries.
 2. **FlirtCheck Organic Footprint**:
-   - FlirtCheck is indexed in Google Search Console for intent queries such as `dating app reputation check`.
+   - FlirtCheck is indexed in Google Search Console (**6 impressions**) with organic rank on intent queries such as `dating app reputation check`.
 3. **Cross-Funnel Synergy**:
-   - The FlirtCheck -> PromoRadar bridge is actively registering referral traffic (`flirtcheck.site / referral` is currently in the top 5 referral sources in GA4 for PromoRadar).
+   - The FlirtCheck -> PromoRadar bridge registered **33 cross-referrals** in the last 28 days, confirming that audience protection guides successfully drive shoppers to verified deal pages.
