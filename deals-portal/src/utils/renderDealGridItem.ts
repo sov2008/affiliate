@@ -1,5 +1,5 @@
 // deals-portal/src/utils/renderDealGridItem.ts
-import { getBrandGradient } from './dealNormalizer';
+import { getBrandGradient, isValidPromoCode } from './dealNormalizer';
 import { detectDealLanguage } from './regionFilter';
 
 export interface EnrichedDealItem {
@@ -145,7 +145,7 @@ function escapeHtml(str: string): string {
  * Renders a single Deal Grid Card in Variant 3 Tear-off Ticket layout
  */
 export function renderDealCardHtml(deal: EnrichedDealItem, idx: number, base: string = '', isInitiallyHidden: boolean = false): string {
-  const isCode = Boolean(deal.code && deal.code.trim().length > 0);
+  const isCode = isValidPromoCode(deal.code);
   const cleanName = deal.cleanBrand;
   const cleanBadge = deal.cleanBadge;
   const brandDomain = deal.resolvedDomain;

@@ -134,7 +134,21 @@ const leaderboards = rawLeaderboards.slice(0, 6);
                       fetchpriority={idx === 0 ? "high" : "auto"}
                       decoding="async"
                       class="w-full h-auto max-h-[82px] object-contain mx-auto block group-hover:scale-[1.01] transition-transform duration-300"
+                      onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
                     />
+                    <!-- Robust Typographic Fallback Block if image is adblocked or fails to render -->
+                    <div class="hidden w-full h-[74px] rounded-lg bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-900 p-3 items-center justify-between border border-indigo-500/30">
+                      <div class="flex items-center gap-2.5">
+                        <span class="text-xl">🏷️</span>
+                        <div>
+                          <div class="text-xs font-black text-white uppercase tracking-wider">{item.brand} Official Verified Offer</div>
+                          <div class="text-[10px] text-amber-300 font-bold mt-0.5">{item.category} • Direct Partner Benefits</div>
+                        </div>
+                      </div>
+                      <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 whitespace-nowrap">
+                        Verified Direct Deal
+                      </span>
+                    </div>
                   </div>
                 </a>
               </div>

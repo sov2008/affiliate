@@ -6,7 +6,7 @@ import BrandLogo from '../components/BrandLogo.astro';
 import CuratedSpotlightSection from '../components/CuratedSpotlightSection.astro';
 import PartnerBannerRotator from '../components/PartnerBannerRotator.astro';
 import homeRotatorBanners from '../data/homeRotatorBanners.json';
-import { cleanBrandName, normalizeDiscountBadge, extractSmartDiscountBadge, isJunkTestOffer, resolveMerchantIdentity, diversifyDealsFeed, getBrandGradient, getUniqueCleanStores, getCanonicalStoreSlug, resolveSmartCategory, normalizeExpiryDate } from '../utils/dealNormalizer';
+import { cleanBrandName, normalizeDiscountBadge, extractSmartDiscountBadge, isJunkTestOffer, resolveMerchantIdentity, diversifyDealsFeed, getBrandGradient, getUniqueCleanStores, getCanonicalStoreSlug, resolveSmartCategory, normalizeExpiryDate, isValidPromoCode } from '../utils/dealNormalizer';
 import { getStoreAllowedRegions, detectDealLanguage } from '../utils/regionFilter';
 import { HERO_MULTI_GEO_DEALS, HERO_SAVINGS_BY_ID } from '../data/heroDealsMultiGeo';
 import { COUPONS_DATA, STORES_DATA } from '../data/couponsData';
@@ -374,17 +374,18 @@ for (const d of enrichedDeals) {
 function normalizeBrandBucketKey(slug: string, brand: string): string {
   const s = (slug || '').toLowerCase();
   const b = (brand || '').toLowerCase();
+  if (s.includes('aliexpress') || b.includes('aliexpress')) return 'aliexpress';
   if (s.startsWith('alibaba') || b.startsWith('alibaba')) return 'alibaba';
-  if (s.startsWith('aliexpress') || b.startsWith('aliexpress')) return 'aliexpress';
   if (s.includes('newbalance') || s.includes('new-balance') || b.includes('new balance')) return 'new-balance';
-  if (s.startsWith('nordvpn') || b.startsWith('nordvpn')) return 'nordvpn';
-  if (s.startsWith('expressvpn') || b.startsWith('expressvpn')) return 'expressvpn';
-  if (s.startsWith('purevpn') || b.startsWith('purevpn')) return 'purevpn';
-  if (s.startsWith('miravia') || b.startsWith('miravia')) return 'miravia';
-  return s;
+  if (s.includes('nordvpn') || b.includes('nordvpn')) return 'nordvpn';
+  if (s.includes('expressvpn') || b.includes('expressvpn')) return 'expressvpn';
+  if (s.includes('surfshark') || b.includes('surfshark')) return 'surfshark';
+  if (s.includes('purevpn') || b.includes('purevpn')) return 'purevpn';
+  if (s.includes('miravia') || b.includes('miravia')) return 'miravia';
+  if (s.includes('honor') || b.includes('honor')) return 'honor';
+  return s.replace(/[^a-z0-9]/g, '');
 }
 
-// 2. Homepage Brand Diversity: Group by normalized store, sort by best offer, cap at max 2 offers per store, and interleave Round-Robin
 const storeBuckets = new Map<string, typeof enrichedDeals>();
 for (const deal of enrichedDeals) {
   const key = normalizeBrandBucketKey(deal.canonicalSlug || deal.storeSlug, deal.cleanBrand);
@@ -395,8 +396,8 @@ for (const deal of enrichedDeals) {
 // Sort deals within each store bucket: offers with promo code first, then highest discount
 for (const bucket of storeBuckets.values()) { 
   bucket.sort((a, b) => {
-    const aHasCode = a.code && a.code.length > 0 ? 1 : 0;
-    const bHasCode = b.code && b.code.length > 0 ? 1 : 0;
+    const aHasCode = isValidPromoCode(a.code) ? 1 : 0;
+    const bHasCode = isValidPromoCode(b.code) ? 1 : 0;
     if (aHasCode !== bHasCode) return bHasCode - aHasCode;
     const aNum = parseInt((a.cleanBadge.match(/\d+/) || ["0"])[0], 10);
     const bNum = parseInt((b.cleanBadge.match(/\d+/) || ["0"])[0], 10);
@@ -406,10 +407,10 @@ for (const bucket of storeBuckets.values()) {
 
 // Priority flagship headliners
 const HEADLINE_SLUGS = [
-  "nike", "adidas", "puma", "under-armour", "new-balance", "decathlon", "reebok", "vogacloset", "hostinger", "expressvpn", "nordvpn", "surfshark",
-  "aliexpress", "kaspersky", "booking.com", "allpowers", "harfington",
-  "corsair", "prohoster", "redmagic", "adguard", "airalo",
-  "lenovo", "miravia", "honor-uae", "answear", "chicme"
+  'nike', 'adidas', 'puma', 'underarmour', 'newbalance', 'decathlon', 'reebok', 'vogacloset', 'hostinger', 'expressvpn', 'nordvpn', 'surfshark',
+  'aliexpress', 'kaspersky', 'bookingcom', 'allpowers', 'harfington',
+  'corsair', 'prohoster', 'redmagic', 'adguard', 'airalo',
+  'lenovo', 'miravia', 'honor', 'answear', 'chicme'
 ];
 
 const sortedStoreKeys = Array.from(storeBuckets.keys()).sort((a, b) => {
@@ -1183,7 +1184,7 @@ const homeSchemas = [
       <!-- Modern 4-Column Responsive Coupon Cards Grid -->
       <div id="dealsGridContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-stretch" data-total-deals={interleavedDeals.length} data-loaded-page="1" data-total-pages={Math.ceil(interleavedDeals.length / 24)}>
         {interleavedDeals.slice(0, 24).map((deal, idx) => {
-          const isCode = deal.code && deal.code.trim().length > 0;
+          const isCode = isValidPromoCode(deal.code);
           const cleanName = deal.cleanBrand;
           const cleanBadge = deal.cleanBadge;
           const brandDomain = deal.resolvedDomain;

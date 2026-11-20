@@ -3,6 +3,7 @@ import { COUPONS_DATA } from '../data/couponsData';
 import homeRotatorBanners from '../data/homeRotatorBanners.json';
 import {
   isJunkTestOffer,
+  isValidPromoCode,
   resolveMerchantIdentity,
   extractSmartDiscountBadge,
   getCanonicalStoreSlug,
@@ -11,23 +12,25 @@ import {
 import type { EnrichedDealItem, InGridPartnerBannerItem } from './renderDealGridItem';
 
 const HEADLINE_SLUGS = [
-  'nike', 'adidas', 'puma', 'under-armour', 'new-balance', 'decathlon', 'reebok', 'vogacloset', 'hostinger', 'expressvpn', 'nordvpn', 'surfshark',
-  'aliexpress', 'kaspersky', 'booking.com', 'allpowers', 'harfington',
+  'nike', 'adidas', 'puma', 'underarmour', 'newbalance', 'decathlon', 'reebok', 'vogacloset', 'hostinger', 'expressvpn', 'nordvpn', 'surfshark',
+  'aliexpress', 'kaspersky', 'bookingcom', 'allpowers', 'harfington',
   'corsair', 'prohoster', 'redmagic', 'adguard', 'airalo',
-  'lenovo', 'miravia', 'honor-uae', 'answear', 'chicme'
+  'lenovo', 'miravia', 'honor', 'answear', 'chicme'
 ];
 
 function normalizeBrandBucketKey(slug: string, brand: string): string {
   const s = (slug || '').toLowerCase();
   const b = (brand || '').toLowerCase();
+  if (s.includes('aliexpress') || b.includes('aliexpress')) return 'aliexpress';
   if (s.startsWith('alibaba') || b.startsWith('alibaba')) return 'alibaba';
-  if (s.startsWith('aliexpress') || b.startsWith('aliexpress')) return 'aliexpress';
   if (s.includes('newbalance') || s.includes('new-balance') || b.includes('new balance')) return 'new-balance';
-  if (s.startsWith('nordvpn') || b.startsWith('nordvpn')) return 'nordvpn';
-  if (s.startsWith('expressvpn') || b.startsWith('expressvpn')) return 'expressvpn';
-  if (s.startsWith('purevpn') || b.startsWith('purevpn')) return 'purevpn';
-  if (s.startsWith('miravia') || b.startsWith('miravia')) return 'miravia';
-  return s;
+  if (s.includes('nordvpn') || b.includes('nordvpn')) return 'nordvpn';
+  if (s.includes('expressvpn') || b.includes('expressvpn')) return 'expressvpn';
+  if (s.includes('surfshark') || b.includes('surfshark')) return 'surfshark';
+  if (s.includes('purevpn') || b.includes('purevpn')) return 'purevpn';
+  if (s.includes('miravia') || b.includes('miravia')) return 'miravia';
+  if (s.includes('honor') || b.includes('honor')) return 'honor';
+  return s.replace(/[^a-z0-9]/g, '');
 }
 
 export function getFullInterleavedCatalog(): {
@@ -69,8 +72,8 @@ export function getFullInterleavedCatalog(): {
 
   for (const bucket of storeBuckets.values()) {
     bucket.sort((a, b) => {
-      const aHasCode = a.code && a.code.length > 0 ? 1 : 0;
-      const bHasCode = b.code && b.code.length > 0 ? 1 : 0;
+      const aHasCode = isValidPromoCode(a.code) ? 1 : 0;
+      const bHasCode = isValidPromoCode(b.code) ? 1 : 0;
       if (aHasCode !== bHasCode) return bHasCode - aHasCode;
       const aNum = parseInt((a.cleanBadge.match(/\d+/) || ['0'])[0], 10);
       const bNum = parseInt((b.cleanBadge.match(/\d+/) || ['0'])[0], 10);

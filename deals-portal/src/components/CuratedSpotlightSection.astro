@@ -144,20 +144,15 @@ const softwareProducts = curatedProducts.filter(p => ['abelssoft', 'whokeys', 'n
             >
               <div>
                 <!-- Product Media Stage (Uniform Adaptive Surface) -->
-                <div class="product-media-stage relative w-full h-[168px] rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 flex items-center justify-center p-3 mb-3 shadow-xs">
+                <div class="product-media-stage relative w-full h-[168px] rounded-xl overflow-hidden bg-slate-900/70 border border-slate-700/60 flex items-center justify-center p-3 mb-3 shadow-xs">
                   <img
                     src={item.imageUrl}
                     alt={item.title}
                     width="300"
                     height="200"
                     loading={idx < 4 ? "eager" : "lazy"}
-                    class="max-h-[135px] w-auto max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                  />
-                    loading="lazy"
-                    decoding="async" width="300" height="250"
-                    class="max-h-[136px] w-auto max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300 smooth-image-loading"
-                    onload="this.classList.remove('smooth-image-loading'); this.classList.add('smooth-image-loaded'); this.closest('.product-media-stage')?.classList.add('loaded');"
-                    onerror="this.classList.remove('smooth-image-loading'); this.classList.add('smooth-image-loaded'); this.closest('.product-media-stage')?.classList.add('loaded');"
+                    decoding="async"
+                    class="w-full h-full max-h-[140px] object-contain group-hover:scale-105 transition-transform duration-300"
                   />
                   {item.badge && (
                     <span class="absolute top-2 left-2 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-900/85 backdrop-blur-md text-amber-300 border border-amber-400/30 whitespace-nowrap shadow-xs">
@@ -355,12 +350,13 @@ const softwareProducts = curatedProducts.filter(p => ['abelssoft', 'whokeys', 'n
           return (
             <article class="bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 rounded-2xl p-4 flex flex-col justify-between transition-all group shadow-xs">
               <div>
-                <div class="product-media-stage relative w-full h-[150px] rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 flex items-center justify-center p-3 mb-3 shadow-xs">
+                <div class="product-media-stage relative w-full h-[150px] rounded-xl overflow-hidden bg-slate-900/70 border border-slate-700/60 flex items-center justify-center p-3 mb-3 shadow-xs">
                   <img
                     width="300" height="250" src={item.imageUrl}
                     alt={item.title}
                     loading="lazy"
-                    class="max-h-[120px] w-auto max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                    decoding="async"
+                    class="w-full h-full max-h-[125px] object-contain group-hover:scale-105 transition-transform duration-300"
                   />
                   {item.badge && (
                     <span class="absolute top-2 left-2 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-900/85 backdrop-blur-md text-amber-300 border border-amber-400/30 whitespace-nowrap">

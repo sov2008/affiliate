@@ -436,3 +436,18 @@ export function getBrandGradient(brand = ''): string {
   const code = (brand || 'PR').charCodeAt(0) + (brand.length > 1 ? brand.charCodeAt(1) : 0);
   return MONOGRAM_GRADIENTS[code % MONOGRAM_GRADIENTS.length];
 }
+
+const PLACEHOLDER_CODE_TOKENS = new Set([
+  'AUTO', 'NONE', 'NO_CODE', 'N/A', 'DEAL', 'ACTIVATE', 'CLICK', 'SPECIAL DEAL',
+  'ACTIVATE DEAL', 'НЕ НУЖЕН', 'NOT REQUIRE', 'LASTDEAL', 'NO CODE', 'NOT REQUIRED'
+]);
+
+export function isValidPromoCode(code?: string | null): boolean {
+  if (!code) return false;
+  const trimmed = code.trim().toUpperCase();
+  if (trimmed.length === 0) return false;
+  if (PLACEHOLDER_CODE_TOKENS.has(trimmed)) return false;
+  if (trimmed.includes('ACTIVATE') || trimmed.includes('DEAL') || trimmed.includes('REQUIRE')) return false;
+  return true;
+}
+
