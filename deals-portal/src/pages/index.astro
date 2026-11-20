@@ -1798,7 +1798,7 @@ const homeSchemas = [
     <span id="globalToastMessage">Notification</span>
   </div>
 
-  <script is:inline defer src="/scripts/home-interactive.js"></script>
+  <script is:inline defer src={`/scripts/home-interactive.js?v=${Date.now()}`}></script>
 
   <style>
     /* Pure Zero-Chrome Brand Ticker Carousel */
