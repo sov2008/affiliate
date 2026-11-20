@@ -216,7 +216,7 @@ const breadcrumbs = [
 ---
 
 <BaseLayout
-  title={`${cat.name} Promo Codes & Vouchers (October 2026) — PromoRadar`}
+  title={`${cat.name} Promo Codes & Vouchers (${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}) — PromoRadar`}
   description={`Active and verified ${cat.name} promo codes, discount coupons, and checkout vouchers. Save ${cat.maxDiscount} with direct merchant partner feeds.`}
   activePath={`/categories/${cat.slug}/`}
   schemas={breadcrumbs}
@@ -382,7 +382,7 @@ const breadcrumbs = [
               </div>
             </div>
             <p class="text-[10px] text-slate-500 mt-3 pt-2 border-t border-slate-800">
-              *Calculated based on verified October 2026 merchant discount terms.
+              *Calculated based on verified ${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} merchant discount terms.
             </p>
           </div>
         </div>

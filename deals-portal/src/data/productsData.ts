@@ -32,7 +32,7 @@ export const STORE_PRODUCTS: Record<string, StoreProduct[]> = {
     {
       "id": "HOLSTER-KYDEX-VELCRO-NO_LIGHT-TOPO_FOG",
       "storeSlug": "945industries",
-      "title": "KYDEX HOLSTER WITH VELCRO® HOOK ATTACHMENT PANEL (NO LIGHT/LASER) TOPO FOG - Default Title",
+      "title": "KYDEX HOLSTER WITH VELCRO® HOOK ATTACHMENT PANEL (NO LIGHT/LASER) TOPO FOG",
       "description": "MADE IN USA Minimalist Design for Versatile ConcealmentThe GripTac Velcro holster by 945 Industries combines sleek, minimalist design with ultimate versatility. Ideal for concealed...",
       "price": "$74.99",
       "currency": "USD",
@@ -43,7 +43,7 @@ export const STORE_PRODUCTS: Record<string, StoreProduct[]> = {
     {
       "id": "BAG-SUMMIT-S-COYOTE-BROWN",
       "storeSlug": "945industries",
-      "title": "QAPS UltraGrid® Coyote Brown Concealment Bag - Default Title",
+      "title": "QAPS UltraGrid® Coyote Brown Concealment Bag",
       "description": "945 Industries SUMMIT (S) Modular Bag – UltraGrid™ Minimalist Carry System Lightweight. Low-profile. Purpose-built. Introducing the SUMMIT (S) from 945 Industries — a compact conce...",
       "price": "$78.00",
       "currency": "USD",
@@ -65,7 +65,7 @@ export const STORE_PRODUCTS: Record<string, StoreProduct[]> = {
     {
       "id": "BAG-SPIRE-S-SLATE",
       "storeSlug": "945industries",
-      "title": "QAPS X-Pac® Slate Concealment Bag - Default Title",
+      "title": "QAPS X-Pac® Slate Concealment Bag",
       "description": "SPIRE (S) Modular Bag — by 945 Industries Streamlined. Minimal. Ready When You Are. The SPIRE (S) is a purpose-built compact bag for those who carry light and move fast. Designed a...",
       "price": "$78.00",
       "currency": "USD",
@@ -76,7 +76,7 @@ export const STORE_PRODUCTS: Record<string, StoreProduct[]> = {
     {
       "id": "BAG-QAPL-MIDNIGHT-BLUE-3724013754",
       "storeSlug": "945industries",
-      "title": "QAPL CORDURA® CONCEALMENT BAG (LARGE) MIDNIGHT BLUE Bag Only - Default Title",
+      "title": "QAPL CORDURA® CONCEALMENT BAG (LARGE) MIDNIGHT BLUE Bag Only",
       "description": "945 Industries Concealed Carry Q.A.P.L. Modular Bag, specifically designed for compact pistols, with compatibility for select full-sized pistols without additional accessories. Thi...",
       "price": "$98.00",
       "currency": "USD",

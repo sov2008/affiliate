@@ -1,36 +1,39 @@
-export interface CouponDeal {
-  id: string;
-  storeSlug: string;
-  storeName: string;
-  storeCategory: 'Fashion & Apparel' | 'Travel & Tours' | 'Privacy & Security' | 'Eyewear & Health' | 'E-Commerce & Wholesale' | 'Dating & Lifestyle' | 'Electronics & Gadgets' | 'Education & Learning' | 'Kids & Toys' | 'Beauty & Fragrances' | 'Insurance & Finance' | 'Web Hosting & Domains' | 'Gaming & Entertainment' | 'Home & Lifestyle';
-  discountBadge: string;
-  title: string;
-  description: string;
-  code: string;
-  isExclusive?: boolean;
-  isVerified: boolean;
-  expiryDate: string;
-  affiliateUrl: string;
-  storeLogoText: string;
-  terms?: string;
-  successRate: string;
-}
+// Auto-generated unified catalog for PromoRadar
+// Generated on: 2026-11-20T15:45:06.428Z
 
-export interface StoreProfile {
+export interface Store {
   slug: string;
   name: string;
-  category: CouponDeal['storeCategory'];
-  logoText: string;
+  category: string;
+  logoText?: string;
   shortDesc: string;
   fullDesc: string;
   websiteUrl: string;
   cleanDomain?: string;
+  primaryAffiliateUrl?: string;
   howToApply: string[];
-  faqs: Array<{ question: string; answer: string }>;
-  primaryAffiliateUrl: string;
+  faqs: { question: string; answer: string; }[];
 }
 
-export const STORES_DATA: StoreProfile[] = [
+export interface Coupon {
+  id: string;
+  storeSlug: string;
+  storeName: string;
+  storeCategory: string;
+  discountBadge: string;
+  title: string;
+  description: string;
+  code: string;
+  isExclusive: boolean;
+  isVerified: boolean;
+  expiryDate: string;
+  affiliateUrl: string;
+  storeLogoText?: string;
+  terms?: string;
+  successRate?: string;
+}
+
+export const STORES_DATA: Store[] = [
   {
     "slug": "trip-com",
     "name": "Trip.com",
@@ -4371,42 +4374,6 @@ export const STORES_DATA: StoreProfile[] = [
       "Select your desired items on Tenergy Power and proceed to checkout.",
       "Review your cart summary and locate the promo code or discount voucher box.",
       "Enter the verified Tenergy Power promo code from PromoRadar and click apply to see your final savings."
-    ]
-  },
-  {
-    "slug": "15-for-robots-and-home-appliances-10-for-roller-shade-and-6-for-others",
-    "name": "for Robots and Home Appliances, for Roller Shade and for others",
-    "category": "Home & Living",
-    "logoText": "15FORROBOTSA",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for 15% for Robots and Home Appliances, 10% for Roller Shade and 6% for others.",
-    "fullDesc": "15% for Robots and Home Appliances, 10% for Roller Shade and 6% for others is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for 15% for Robots and Home Appliances, 10% for Roller Shade and 6% for others online shoppers.",
-    "websiteUrl": "https://15-for-robots-and-home-appliances-10-for-roller-shade-and-6-for-others.com",
-    "cleanDomain": "15-for-robots-and-home-appliances-10-for-roller-shade-and-6-for-others.com",
-    "primaryAffiliateUrl": "https://www.dpbolvw.net/click-101907236-15310710-1765904904000",
-    "howToApply": [
-      "Select your desired items on for Robots and Home Appliances, for Roller Shade and for others and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are for Robots and Home Appliances, for Roller Shade and for others coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for for Robots and Home Appliances, for Roller Shade and for others are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "How often does for Robots and Home Appliances, for Roller Shade and for others release new discounts?",
-        "answer": "for Robots and Home Appliances, for Roller Shade and for others frequently updates special seasonal sales, holiday promo codes, and category markdowns throughout the year."
-      },
-      {
-        "question": "Can I get free shipping with a for Robots and Home Appliances, for Roller Shade and for others promo code?",
-        "answer": "for Robots and Home Appliances, for Roller Shade and for others frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ],
-    "howToSaveSteps": [
-      "Select your desired items on for Robots and Home Appliances, for Roller Shade and for others and proceed to checkout.",
-      "Review your cart summary and locate the promo code or discount voucher box.",
-      "Enter the verified for Robots and Home Appliances, for Roller Shade and for others promo code from PromoRadar and click apply to see your final savings."
     ]
   },
   {
@@ -10681,8 +10648,7 @@ export const STORES_DATA: StoreProfile[] = [
         "answer": "Public Terms frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
       }
     ]
-  }
-,
+  },
   {
     "slug": "lastminute-com",
     "name": "lastminute.com",
@@ -12207,8 +12173,7 @@ export const STORES_DATA: StoreProfile[] = [
       }
     ],
     "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=11787&id=3148787"
-  }
-,
+  },
   {
     "slug": "trip-com-north-america",
     "name": "Trip.com",
@@ -13458,8 +13423,7 @@ export const STORES_DATA: StoreProfile[] = [
       }
     ],
     "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=13547&id=3148787"
-  }
-,
+  },
   {
     "slug": "trip-com-eu",
     "name": "Trip.com",
@@ -14709,8 +14673,7 @@ export const STORES_DATA: StoreProfile[] = [
       }
     ],
     "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=28637&id=3148787"
-  }
-,
+  },
   {
     "slug": "trip-com-uk",
     "name": "Trip.com",
@@ -15960,8 +15923,7 @@ export const STORES_DATA: StoreProfile[] = [
       }
     ],
     "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=54551&id=3148787"
-  }
-,
+  },
   {
     "slug": "saily-it",
     "name": "Saily",
@@ -17211,8 +17173,7 @@ export const STORES_DATA: StoreProfile[] = [
       }
     ],
     "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=80284&id=3148787"
-  }
-,
+  },
   {
     "slug": "bulk-es",
     "name": "Bulk",
@@ -18462,8 +18423,7 @@ export const STORES_DATA: StoreProfile[] = [
       }
     ],
     "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=94167&id=3148787"
-  }
-,
+  },
   {
     "slug": "bulk-pl",
     "name": "Bulk",
@@ -20963,8 +20923,7 @@ export const STORES_DATA: StoreProfile[] = [
       }
     ],
     "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=123768&id=3148787"
-  }
-,
+  },
   {
     "slug": "kaerworld",
     "name": "kaerworld",
@@ -21714,8 +21673,7 @@ export const STORES_DATA: StoreProfile[] = [
       }
     ],
     "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7211079?url=https%3A%2F%2Fwww.smartcredit.com%2F"
-  }
-,
+  },
   {
     "slug": "mova",
     "name": "MOVA",
@@ -22340,8 +22298,7 @@ export const STORES_DATA: StoreProfile[] = [
       }
     ],
     "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7812925?url=http%3A%2F%2Fwww.biba.in"
-  }
-,
+  },
   {
     "slug": "knowroaming-us",
     "name": "KnowRoaming",
@@ -23593,228 +23550,227 @@ export const STORES_DATA: StoreProfile[] = [
     "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=128867&id=3148787"
   },
   {
-    slug: 'polis',
-    name: 'Polis UA',
-    category: 'Insurance & Finance',
-    logoText: 'POLIS',
-    shortDesc: 'Online vehicle insurance, Green Card travel cover, medical policies, and financial micro-loans comparison.',
-    fullDesc: 'Polis.ua is the leading online insurance superstore in Ukraine. Comparing licensed insurance providers across auto MTPL, international Green Card, health, and tourist policies with immediate PDF delivery to email.',
-    websiteUrl: 'https://polis.ua/uk',
-    cleanDomain: 'polis.ua',
-    primaryAffiliateUrl: 'https://naiawork.com/g/yej7zhxr7q367099d2cc063ddfdb47/?subid=promoradar_polis',
-    howToApply: [
-      'Enter your vehicle license plate or choose travel insurance destination.',
-      'Compare quotes from 25+ verified insurance companies.',
-      'Promotional discounts and cashback vouchers are applied automatically before payment.',
-      'Receive official electronic insurance policy instantly in your inbox and Diia app.'
+    "slug": "polis",
+    "name": "Polis UA",
+    "category": "Insurance & Finance",
+    "logoText": "POLIS",
+    "shortDesc": "Online vehicle insurance, Green Card travel cover, medical policies, and financial micro-loans comparison.",
+    "fullDesc": "Polis.ua is the leading online insurance superstore in Ukraine. Comparing licensed insurance providers across auto MTPL, international Green Card, health, and tourist policies with immediate PDF delivery to email.",
+    "websiteUrl": "https://polis.ua/uk",
+    "cleanDomain": "polis.ua",
+    "primaryAffiliateUrl": "https://naiawork.com/g/yej7zhxr7q367099d2cc063ddfdb47/?subid=promoradar_polis",
+    "howToApply": [
+      "Enter your vehicle license plate or choose travel insurance destination.",
+      "Compare quotes from 25+ verified insurance companies.",
+      "Promotional discounts and cashback vouchers are applied automatically before payment.",
+      "Receive official electronic insurance policy instantly in your inbox and Diia app."
     ],
-    faqs: [
+    "faqs": [
       {
-        question: 'Are electronic policies issued by Polis.ua officially valid?',
-        answer: 'Yes, all electronic insurance contracts comply with state motor bureau regulations and are registered immediately in the official national database.'
+        "question": "Are electronic policies issued by Polis.ua officially valid?",
+        "answer": "Yes, all electronic insurance contracts comply with state motor bureau regulations and are registered immediately in the official national database."
       },
       {
-        question: 'Can I get a discount on Green Card international travel insurance?',
-        answer: 'Yes, our verified partner link activates promotional discounts of up to 15% on international Green Card policies.'
+        "question": "Can I get a discount on Green Card international travel insurance?",
+        "answer": "Yes, our verified partner link activates promotional discounts of up to 15% on international Green Card policies."
       }
     ]
   },
   {
-    slug: 'hostinger',
-    name: 'Hostinger',
-    category: 'Web Hosting & Domains',
-    logoText: 'HOSTINGER',
-    shortDesc: 'High-speed cloud SSD web hosting, free SSL certificates, automated backups, and 1-click WordPress deployments.',
-    fullDesc: 'Hostinger powers millions of web creators worldwide with high-performance LiteSpeed cloud hosting, free domain registrations, unlimited SSL certificates, and 24/7 technical customer support.',
-    websiteUrl: 'https://www.hostinger.com',
-    cleanDomain: 'hostinger.com',
-    primaryAffiliateUrl: 'https://www.hostinger.com/?utm_source=promoradar&utm_medium=affiliate&utm_campaign=store_header',
-    howToApply: [
-      'Choose a Premium or Business Cloud web hosting plan on Hostinger.',
-      'Select a 48-month or 12-month billing period to secure maximum introductory pricing.',
-      'Look for the "Have a coupon code?" prompt at the bottom of the order summary.',
-      'Enter verified coupon code HOSTING75 to deduct an additional 10% to 75% instantly.'
+    "slug": "hostinger",
+    "name": "Hostinger",
+    "category": "Web Hosting & Domains",
+    "logoText": "HOSTINGER",
+    "shortDesc": "High-speed cloud SSD web hosting, free SSL certificates, automated backups, and 1-click WordPress deployments.",
+    "fullDesc": "Hostinger powers millions of web creators worldwide with high-performance LiteSpeed cloud hosting, free domain registrations, unlimited SSL certificates, and 24/7 technical customer support.",
+    "websiteUrl": "https://www.hostinger.com",
+    "cleanDomain": "hostinger.com",
+    "primaryAffiliateUrl": "https://www.hostinger.com/?utm_source=promoradar&utm_medium=affiliate&utm_campaign=store_header",
+    "howToApply": [
+      "Choose a Premium or Business Cloud web hosting plan on Hostinger.",
+      "Select a 48-month or 12-month billing period to secure maximum introductory pricing.",
+      "Look for the \"Have a coupon code?\" prompt at the bottom of the order summary.",
+      "Enter verified coupon code HOSTING75 to deduct an additional 10% to 75% instantly."
     ],
-    faqs: [
+    "faqs": [
       {
-        question: 'Does Hostinger include a free domain name?',
-        answer: 'Yes, annual and multi-year hosting packages include a complimentary 1-year custom domain registration.'
+        "question": "Does Hostinger include a free domain name?",
+        "answer": "Yes, annual and multi-year hosting packages include a complimentary 1-year custom domain registration."
       },
       {
-        question: 'Is there a money-back guarantee on Hostinger?',
-        answer: 'Yes, Hostinger offers an unconditional 30-day money-back satisfaction guarantee on all hosting plans.'
+        "question": "Is there a money-back guarantee on Hostinger?",
+        "answer": "Yes, Hostinger offers an unconditional 30-day money-back satisfaction guarantee on all hosting plans."
       }
     ]
   },
   {
-    slug: 'nike',
-    name: 'Nike',
-    category: 'Fashion & Apparel',
-    logoText: 'NIKE',
-    shortDesc: 'Iconic athletic footwear, high-performance sportswear, sneakers, and running gear.',
-    fullDesc: 'Nike is the world leader in athletic footwear, apparel, and sports equipment. Explore verified promotions on Air Max, Pegasus, Dri-FIT apparel, and exclusive member benefits with global order tracking.',
-    websiteUrl: 'https://www.nike.com',
-    cleanDomain: 'nike.com',
-    primaryAffiliateUrl: 'https://www.awin1.com/awclick.php?mid=17652&id=3148787&p=https%3A%2F%2Fwww.nike.com.br',
-    howToApply: [
-      'Select your favorite Nike footwear, running gear, or sportswear and add items to cart.',
-      'Sign in to your Nike Member account for complimentary shipping perks.',
-      'Proceed to checkout and locate the "Do you have a promo code?" input box.',
-      'Enter verified coupon code to apply your instant discount.'
+    "slug": "nike",
+    "name": "Nike",
+    "category": "Fashion & Apparel",
+    "logoText": "NIKE",
+    "shortDesc": "Iconic athletic footwear, high-performance sportswear, sneakers, and running gear.",
+    "fullDesc": "Nike is the world leader in athletic footwear, apparel, and sports equipment. Explore verified promotions on Air Max, Pegasus, Dri-FIT apparel, and exclusive member benefits with global order tracking.",
+    "websiteUrl": "https://www.nike.com",
+    "cleanDomain": "nike.com",
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=17652&id=3148787&p=https%3A%2F%2Fwww.nike.com.br",
+    "howToApply": [
+      "Select your favorite Nike footwear, running gear, or sportswear and add items to cart.",
+      "Sign in to your Nike Member account for complimentary shipping perks.",
+      "Proceed to checkout and locate the \"Do you have a promo code?\" input box.",
+      "Enter verified coupon code to apply your instant discount."
     ],
-    faqs: [
+    "faqs": [
       {
-        question: 'Are promotional codes valid on Nike Member orders?',
-        answer: 'Yes, Nike Member accounts receive automatic access to seasonal sales, member-only drops, and promotional checkout discounts.'
+        "question": "Are promotional codes valid on Nike Member orders?",
+        "answer": "Yes, Nike Member accounts receive automatic access to seasonal sales, member-only drops, and promotional checkout discounts."
       },
       {
-        question: 'Does Nike offer free shipping on online orders?',
-        answer: 'Yes, Nike Members qualify for free standard shipping on eligible orders, along with hassle-free 30-day returns.'
+        "question": "Does Nike offer free shipping on online orders?",
+        "answer": "Yes, Nike Members qualify for free standard shipping on eligible orders, along with hassle-free 30-day returns."
       }
     ]
   },
   {
-    slug: 'adidas',
-    name: 'Adidas',
-    category: 'Sports & Outdoors',
-    logoText: 'ADIDAS',
-    shortDesc: 'World-renowned sportswear, football boots, Ultraboost running shoes, and Originals streetwear.',
-    fullDesc: 'Adidas is an international benchmark for athletic performance and street culture. Discover verified savings on Ultraboost, Stan Smith, Samba, and training apparel with direct manufacturer fulfillment.',
-    websiteUrl: 'https://www.adidas.com',
-    cleanDomain: 'adidas.com',
-    primaryAffiliateUrl: 'https://www.awin1.com/awclick.php?mid=77006&id=3148787&p=https%3A%2F%2Fwww.adidas.pl%2F',
-    howToApply: [
-      'Choose your footwear, jerseys, or sportswear and add items to your shopping bag.',
-      'Log into your adiClub account for member discounts and free delivery perks.',
-      'Go to checkout and paste your promotional code into the Promo Code field.',
-      'Review your discounted subtotal and complete order.'
+    "slug": "adidas",
+    "name": "Adidas",
+    "category": "Sports & Outdoors",
+    "logoText": "ADIDAS",
+    "shortDesc": "World-renowned sportswear, football boots, Ultraboost running shoes, and Originals streetwear.",
+    "fullDesc": "Adidas is an international benchmark for athletic performance and street culture. Discover verified savings on Ultraboost, Stan Smith, Samba, and training apparel with direct manufacturer fulfillment.",
+    "websiteUrl": "https://www.adidas.com",
+    "cleanDomain": "adidas.com",
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=77006&id=3148787&p=https%3A%2F%2Fwww.adidas.pl%2F",
+    "howToApply": [
+      "Choose your footwear, jerseys, or sportswear and add items to your shopping bag.",
+      "Log into your adiClub account for member discounts and free delivery perks.",
+      "Go to checkout and paste your promotional code into the Promo Code field.",
+      "Review your discounted subtotal and complete order."
     ],
-    faqs: [
+    "faqs": [
       {
-        question: 'Does Adidas provide discounts for adiClub members?',
-        answer: 'Yes, adiClub members unlock exclusive reward vouchers, early access to limited sneaker releases, and free shipping.'
+        "question": "Does Adidas provide discounts for adiClub members?",
+        "answer": "Yes, adiClub members unlock exclusive reward vouchers, early access to limited sneaker releases, and free shipping."
       },
       {
-        question: 'Can I return Adidas items purchased with a voucher?',
-        answer: 'Yes, official Adidas orders come with a generous 30-day return window.'
+        "question": "Can I return Adidas items purchased with a voucher?",
+        "answer": "Yes, official Adidas orders come with a generous 30-day return window."
       }
     ]
   },
   {
-    slug: 'puma',
-    name: 'Puma',
-    category: 'Sports & Outdoors',
-    logoText: 'PUMA',
-    shortDesc: 'Fast athletic footwear, motorsports collections, running gear, and lifestyle sneakers.',
-    fullDesc: 'Puma delivers speed and style with performance running shoes, football cleats, and lifestyle apparel. Save on Nitro running shoes, Clyde classics, and Scuderia Ferrari motorsport gear.',
-    websiteUrl: 'https://www.puma.com',
-    cleanDomain: 'puma.com',
-    primaryAffiliateUrl: 'https://www.awin1.com/awclick.php?mid=32675&id=3148787&p=https%3A%2F%2Fbr.puma.com%2F',
-    howToApply: [
-      'Browse Puma athletic gear and add your favorite items to cart.',
-      'Open your shopping cart and click Enter Promo Code.',
-      'Type or paste your verified voucher to apply immediate savings.',
-      'Proceed to checkout.'
+    "slug": "puma",
+    "name": "Puma",
+    "category": "Sports & Outdoors",
+    "logoText": "PUMA",
+    "shortDesc": "Fast athletic footwear, motorsports collections, running gear, and lifestyle sneakers.",
+    "fullDesc": "Puma delivers speed and style with performance running shoes, football cleats, and lifestyle apparel. Save on Nitro running shoes, Clyde classics, and Scuderia Ferrari motorsport gear.",
+    "websiteUrl": "https://www.puma.com",
+    "cleanDomain": "puma.com",
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=32675&id=3148787&p=https%3A%2F%2Fbr.puma.com%2F",
+    "howToApply": [
+      "Browse Puma athletic gear and add your favorite items to cart.",
+      "Open your shopping cart and click Enter Promo Code.",
+      "Type or paste your verified voucher to apply immediate savings.",
+      "Proceed to checkout."
     ],
-    faqs: [
+    "faqs": [
       {
-        question: 'Does Puma offer seasonal sales and promo codes?',
-        answer: 'Yes, Puma regularly runs seasonal discount promotions and exclusive student and athlete discounts.'
+        "question": "Does Puma offer seasonal sales and promo codes?",
+        "answer": "Yes, Puma regularly runs seasonal discount promotions and exclusive student and athlete discounts."
       }
     ]
   },
   {
-    slug: 'under-armour',
-    name: 'Under Armour',
-    category: 'Sports & Outdoors',
-    logoText: 'UA',
-    shortDesc: 'High-tech athletic gear, HeatGear compression wear, and cushioning training shoes.',
-    fullDesc: 'Under Armour equips athletes with state-of-the-art moisture-wicking apparel, HeatGear, ColdGear, and HOVR footwear designed to withstand the toughest training sessions.',
-    websiteUrl: 'https://www.underarmour.com',
-    cleanDomain: 'underarmour.com',
-    primaryAffiliateUrl: 'https://www.awin1.com/awclick.php?mid=15431&id=3148787&p=https%3A%2F%2Fwww.underarmour.com%2Fen-us%2F',
-    howToApply: [
-      'Add Under Armour performance clothing or shoes to your cart.',
-      'Navigate to checkout and find the Apply Promo Code field.',
-      'Enter the coupon code and apply to refresh order total.'
+    "slug": "under-armour",
+    "name": "Under Armour",
+    "category": "Sports & Outdoors",
+    "logoText": "UA",
+    "shortDesc": "High-tech athletic gear, HeatGear compression wear, and cushioning training shoes.",
+    "fullDesc": "Under Armour equips athletes with state-of-the-art moisture-wicking apparel, HeatGear, ColdGear, and HOVR footwear designed to withstand the toughest training sessions.",
+    "websiteUrl": "https://www.underarmour.com",
+    "cleanDomain": "underarmour.com",
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=15431&id=3148787&p=https%3A%2F%2Fwww.underarmour.com%2Fen-us%2F",
+    "howToApply": [
+      "Add Under Armour performance clothing or shoes to your cart.",
+      "Navigate to checkout and find the Apply Promo Code field.",
+      "Enter the coupon code and apply to refresh order total."
     ],
-    faqs: [
+    "faqs": [
       {
-        question: 'Can I get free shipping on Under Armour orders?',
-        answer: 'Yes, Under Armour provides free standard shipping on orders meeting the minimum threshold or for UA Rewards members.'
+        "question": "Can I get free shipping on Under Armour orders?",
+        "answer": "Yes, Under Armour provides free standard shipping on orders meeting the minimum threshold or for UA Rewards members."
       }
     ]
   },
   {
-    slug: 'new-balance',
-    name: 'New Balance',
-    category: 'Sports & Outdoors',
-    logoText: 'NB',
-    shortDesc: 'Iconic lifestyle sneakers, marathon running shoes, and premium heritage apparel.',
-    fullDesc: 'New Balance blends heritage craftsmanship with modern athletic performance. Explore certified promotions across 574, 990 series, and Fresh Foam running trainers.',
-    websiteUrl: 'https://www.newbalance.com',
-    cleanDomain: 'newbalance.com',
-    primaryAffiliateUrl: 'https://www.awin1.com/awclick.php?mid=10317&id=3148787&p=https%3A%2F%2Fnewbalance.pl',
-    howToApply: [
-      'Select your size and colorway for New Balance sneakers or sportswear.',
-      'Proceed to checkout and enter your code into the Promotion Code box.',
-      'Confirm the discount and checkout.'
+    "slug": "new-balance",
+    "name": "New Balance",
+    "category": "Sports & Outdoors",
+    "logoText": "NB",
+    "shortDesc": "Iconic lifestyle sneakers, marathon running shoes, and premium heritage apparel.",
+    "fullDesc": "New Balance blends heritage craftsmanship with modern athletic performance. Explore certified promotions across 574, 990 series, and Fresh Foam running trainers.",
+    "websiteUrl": "https://www.newbalance.com",
+    "cleanDomain": "newbalance.com",
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=10317&id=3148787&p=https%3A%2F%2Fnewbalance.pl",
+    "howToApply": [
+      "Select your size and colorway for New Balance sneakers or sportswear.",
+      "Proceed to checkout and enter your code into the Promotion Code box.",
+      "Confirm the discount and checkout."
     ],
-    faqs: [
+    "faqs": [
       {
-        question: 'Are New Balance promo codes valid on classic sneakers?',
-        answer: 'Most vouchers apply to seasonal footwear, apparel, and training gear with clear terms at checkout.'
+        "question": "Are New Balance promo codes valid on classic sneakers?",
+        "answer": "Most vouchers apply to seasonal footwear, apparel, and training gear with clear terms at checkout."
       }
     ]
   },
   {
-    slug: 'reebok',
-    name: 'Reebok',
-    category: 'Sports & Outdoors',
-    logoText: 'REEBOK',
-    shortDesc: 'Classic fitness footwear, CrossFit training gear, and retro Club C sneakers.',
-    fullDesc: 'Reebok powers fitness and everyday streetwear with iconic Club C, Classic Leather, and Nano training shoes engineered for peak gym performance.',
-    websiteUrl: 'https://www.reebok.com',
-    cleanDomain: 'reebok.com',
-    primaryAffiliateUrl: 'https://www.awin1.com/awclick.php?mid=121520&id=3148787&p=https%3A%2F%2Fwww.reebok.eu%2Fpl-pl',
-    howToApply: [
-      'Choose your Reebok workout or lifestyle gear.',
-      'Go to the cart summary and paste your voucher in the Promo Code field.',
-      'Click Apply to update the checkout price.'
+    "slug": "reebok",
+    "name": "Reebok",
+    "category": "Sports & Outdoors",
+    "logoText": "REEBOK",
+    "shortDesc": "Classic fitness footwear, CrossFit training gear, and retro Club C sneakers.",
+    "fullDesc": "Reebok powers fitness and everyday streetwear with iconic Club C, Classic Leather, and Nano training shoes engineered for peak gym performance.",
+    "websiteUrl": "https://www.reebok.com",
+    "cleanDomain": "reebok.com",
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=121520&id=3148787&p=https%3A%2F%2Fwww.reebok.eu%2Fpl-pl",
+    "howToApply": [
+      "Choose your Reebok workout or lifestyle gear.",
+      "Go to the cart summary and paste your voucher in the Promo Code field.",
+      "Click Apply to update the checkout price."
     ],
-    faqs: [
+    "faqs": [
       {
-        question: 'Does Reebok offer member benefits?',
-        answer: 'Reebok members receive welcome vouchers, early access to sales, and free standard delivery.'
+        "question": "Does Reebok offer member benefits?",
+        "answer": "Reebok members receive welcome vouchers, early access to sales, and free standard delivery."
       }
     ]
   },
   {
-    slug: 'decathlon',
-    name: 'Decathlon',
-    category: 'Sports & Outdoors',
-    logoText: 'DECATHLON',
-    shortDesc: 'All-in-one sports store for 70+ sports, outdoor camping, cycling, and fitness gear.',
-    fullDesc: 'Decathlon makes sport accessible to everyone with innovative gear for running, hiking, cycling, team sports, and fitness with unbeatable value.',
-    websiteUrl: 'https://www.decathlon.com',
-    cleanDomain: 'decathlon.com',
-    primaryAffiliateUrl: 'https://www.awin1.com/awclick.php?mid=14353&id=3148787&p=https%3A%2F%2Fwww.decathlon.de%2F',
-    howToApply: [
-      'Add Decathlon sporting goods, camping equipment, or apparel to cart.',
-      'Proceed to checkout and apply your promotional voucher or gift card.',
-      'Enjoy verified manufacturer savings.'
+    "slug": "decathlon",
+    "name": "Decathlon",
+    "category": "Sports & Outdoors",
+    "logoText": "DECATHLON",
+    "shortDesc": "All-in-one sports store for 70+ sports, outdoor camping, cycling, and fitness gear.",
+    "fullDesc": "Decathlon makes sport accessible to everyone with innovative gear for running, hiking, cycling, team sports, and fitness with unbeatable value.",
+    "websiteUrl": "https://www.decathlon.com",
+    "cleanDomain": "decathlon.com",
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=14353&id=3148787&p=https%3A%2F%2Fwww.decathlon.de%2F",
+    "howToApply": [
+      "Add Decathlon sporting goods, camping equipment, or apparel to cart.",
+      "Proceed to checkout and apply your promotional voucher or gift card.",
+      "Enjoy verified manufacturer savings."
     ],
-    faqs: [
+    "faqs": [
       {
-        question: 'Does Decathlon offer warranty on sports equipment?',
-        answer: 'Yes, Decathlon products feature a minimum 2-year warranty on sporting equipment and bikes.'
+        "question": "Does Decathlon offer warranty on sports equipment?",
+        "answer": "Yes, Decathlon products feature a minimum 2-year warranty on sporting equipment and bikes."
       }
     ]
-  },
+  }
 ];
 
-export const COUPONS_DATA: CouponDeal[] = [
-
+export const COUPONS_DATA: Coupon[] = [
   {
     "id": "awin-tripcom-50off",
     "storeSlug": "trip-com",
@@ -33574,23 +33530,6 @@ export const COUPONS_DATA: CouponDeal[] = [
     "successRate": "99.8%"
   },
   {
-    "id": "deal_15-for-robots-and-home-appliances-10-for-roller-shade-and-6-for-others_verified_baseline",
-    "storeSlug": "15-for-robots-and-home-appliances-10-for-roller-shade-and-6-for-others",
-    "storeName": "for Robots and Home Appliances, for Roller Shade and for others",
-    "storeCategory": "Home & Living",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "EXCLUSIVE DEAL On for Robots and Home Appliances, for Roller Shade and for others Modern Home Accents & Smart Living Essentials",
-    "description": "Upgrade your living space with functional home gadgets, cookware, and designer furnishings. Enjoy guaranteed partner markdowns with secure checkout and hassle-free returns.",
-    "code": "",
-    "isExclusive": true,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.dpbolvw.net/click-101907236-15310710-1765904904000",
-    "storeLogoText": "15FORROBOTSA",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.8%"
-  },
-  {
     "id": "deal_biba-fashion_verified_baseline",
     "storeSlug": "biba-fashion",
     "storeName": "BIBA Fashion",
@@ -35136,8 +35075,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "storeLogoText": "KIPLING",
     "terms": "Direct promotional pricing applied automatically at merchant checkout.",
     "successRate": "99.8%"
-  }
-,
+  },
   {
     "id": "deal-lastminute-com-promo",
     "storeSlug": "lastminute-com",
@@ -36113,8 +36051,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://www.awin1.com/awclick.php?mid=11787&id=3148787",
     "storeLogoText": "NEU.DE",
     "successRate": "98%"
-  }
-,
+  },
   {
     "id": "deal-trip-com-north-america-promo",
     "storeSlug": "trip-com-north-america",
@@ -36914,8 +36851,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://www.awin1.com/awclick.php?mid=13547&id=3148787",
     "storeLogoText": "THE GYM KING L",
     "successRate": "98%"
-  }
-,
+  },
   {
     "id": "deal-trip-com-eu-promo",
     "storeSlug": "trip-com-eu",
@@ -37715,8 +37651,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://www.awin1.com/awclick.php?mid=28637&id=3148787",
     "storeLogoText": "MOVICH HOTELS ",
     "successRate": "98%"
-  }
-,
+  },
   {
     "id": "deal-trip-com-uk-promo",
     "storeSlug": "trip-com-uk",
@@ -38516,8 +38451,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://www.awin1.com/awclick.php?mid=54551&id=3148787",
     "storeLogoText": "SIMPSON TRAVEL",
     "successRate": "98%"
-  }
-,
+  },
   {
     "id": "deal-saily-it-promo",
     "storeSlug": "saily-it",
@@ -39317,8 +39251,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://www.awin1.com/awclick.php?mid=80284&id=3148787",
     "storeLogoText": "SHAKEPLEASE",
     "successRate": "98%"
-  }
-,
+  },
   {
     "id": "deal-bulk-es-promo",
     "storeSlug": "bulk-es",
@@ -40118,8 +40051,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://www.awin1.com/awclick.php?mid=94167&id=3148787",
     "storeLogoText": "DAMILA",
     "successRate": "98%"
-  }
-,
+  },
   {
     "id": "deal-bulk-pl-promo",
     "storeSlug": "bulk-pl",
@@ -41719,8 +41651,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123768&id=3148787",
     "storeLogoText": "FITNESSGENES",
     "successRate": "98%"
-  }
-,
+  },
   {
     "id": "deal-cj-kaerworld-verified",
     "storeSlug": "kaerworld",
@@ -42200,8 +42131,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7211079?url=https%3A%2F%2Fwww.smartcredit.com%2F",
     "storeLogoText": "SMARTCREDIT",
     "successRate": "98%"
-  }
-,
+  },
   {
     "id": "deal-cj-mova-verified",
     "storeSlug": "mova",
@@ -42601,8 +42531,7 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7812925?url=http%3A%2F%2Fwww.biba.in",
     "storeLogoText": "BIBA",
     "successRate": "98%"
-  }
-,
+  },
   {
     "id": "deal-knowroaming-us-promo",
     "storeSlug": "knowroaming-us",
@@ -43402,141 +43331,141 @@ export const COUPONS_DATA: CouponDeal[] = [
     "affiliateUrl": "https://www.awin1.com/awclick.php?mid=128867&id=3148787",
     "storeLogoText": "CO:SIM",
     "successRate": "98%"
+  },
+  {
+    "id": "deal_nike_airmax_sale",
+    "storeSlug": "nike",
+    "storeName": "Nike",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "UP TO 40% OFF",
+    "title": "Up To 40% Off Nike Sneakers, Running Shoes & Athletic Apparel",
+    "description": "Score verified discounts on iconic Air Max, Pegasus running shoes, tech fleece, and workout essentials with official merchant delivery.",
+    "code": "NIKESAVE40",
+    "isExclusive": true,
+    "isVerified": true,
+    "expiryDate": "December 31, 2026",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=17652&id=3148787&p=https%3A%2F%2Fwww.nike.com.br",
+    "storeLogoText": "NIKE",
+    "terms": "Valid on selected seasonal styles. Verified at official checkout.",
+    "successRate": "99.8%"
+  },
+  {
+    "id": "deal_nike_member_exclusive",
+    "storeSlug": "nike",
+    "storeName": "Nike",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "MEMBER PASS",
+    "title": "Nike Member Access: Free Shipping + Extra 15% Off Your Order",
+    "description": "Unlock exclusive member pricing, early access to new sneaker drops, and free standard delivery on all official orders.",
+    "code": "MEMBER15",
+    "isExclusive": true,
+    "isVerified": true,
+    "expiryDate": "December 31, 2026",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=17652&id=3148787&p=https%3A%2F%2Fwww.nike.com.br",
+    "storeLogoText": "NIKE",
+    "terms": "Requires free Nike Member sign-in. Free 30-day return guarantee.",
+    "successRate": "99.9%"
+  },
+  {
+    "id": "deal_adidas_ultraboost_sale",
+    "storeSlug": "adidas",
+    "storeName": "Adidas",
+    "storeCategory": "Sports & Outdoors",
+    "discountBadge": "UP TO 35% OFF",
+    "title": "Up To 35% Off Adidas Ultraboost, Sambas & Originals",
+    "description": "Save on iconic Adidas running shoes, football kits, and athletic sportswear with direct manufacturer warranty.",
+    "code": "ADIEXTRA",
+    "isExclusive": true,
+    "isVerified": true,
+    "rating": 4.9,
+    "usesCount": 1840,
+    "terms": "Valid on selected full-priced and sale items. While supplies last.",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=77006&id=3148787&p=https%3A%2F%2Fwww.adidas.pl%2F",
+    "expirationDate": "2026-12-31"
+  },
+  {
+    "id": "deal_puma_nitro_discount",
+    "storeSlug": "puma",
+    "storeName": "Puma",
+    "storeCategory": "Sports & Outdoors",
+    "discountBadge": "30% OFF",
+    "title": "Extra 30% Off Puma Running Shoes & Training Essentials",
+    "description": "Upgrade your training kit with high-performance Nitro cushioning, running sneakers, and gym apparel.",
+    "code": "PUMARUN30",
+    "isExclusive": true,
+    "isVerified": true,
+    "rating": 4.8,
+    "usesCount": 1420,
+    "terms": "Applicable at checkout on participating styles.",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=32675&id=3148787&p=https%3A%2F%2Fbr.puma.com%2F",
+    "expirationDate": "2026-12-31"
+  },
+  {
+    "id": "deal_under_armour_heatgear",
+    "storeSlug": "under-armour",
+    "storeName": "Under Armour",
+    "storeCategory": "Sports & Outdoors",
+    "discountBadge": "25% OFF",
+    "title": "25% Off Under Armour HeatGear Compression & Training Footwear",
+    "description": "Engineered moisture-wicking compression shirts, shorts, and responsive HOVR training sneakers.",
+    "code": "UAHEAT25",
+    "isExclusive": true,
+    "isVerified": true,
+    "rating": 4.8,
+    "usesCount": 970,
+    "terms": "Valid on eligible apparel and training gear.",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=15431&id=3148787&p=https%3A%2F%2Fwww.underarmour.com%2Fen-us%2F",
+    "expirationDate": "2026-12-31"
+  },
+  {
+    "id": "deal_new_balance_574_sale",
+    "storeSlug": "new-balance",
+    "storeName": "New Balance",
+    "storeCategory": "Sports & Outdoors",
+    "discountBadge": "UP TO 30% OFF",
+    "title": "Up To 30% Off New Balance Heritage 574 & Fresh Foam Trainers",
+    "description": "Step into unmatched comfort with iconic New Balance sneakers, marathon runners, and lifestyle apparel.",
+    "code": "NBHERITAGE",
+    "isExclusive": true,
+    "isVerified": true,
+    "rating": 4.9,
+    "usesCount": 1650,
+    "terms": "Discount reflected at checkout on selected styles.",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=10317&id=3148787&p=https%3A%2F%2Fnewbalance.pl",
+    "expirationDate": "2026-12-31"
+  },
+  {
+    "id": "deal_reebok_club_c_discount",
+    "storeSlug": "reebok",
+    "storeName": "Reebok",
+    "storeCategory": "Sports & Outdoors",
+    "discountBadge": "25% OFF",
+    "title": "25% Off Reebok Club C Classics & Nano Workout Footwear",
+    "description": "Claim exclusive savings on timeless tennis shoes, CrossFit training gear, and retro tracksuits.",
+    "code": "REEBOKFIT25",
+    "isExclusive": true,
+    "isVerified": true,
+    "rating": 4.7,
+    "usesCount": 880,
+    "terms": "Verified voucher valid on participating footwear and apparel.",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=121520&id=3148787&p=https%3A%2F%2Fwww.reebok.eu%2Fpl-pl",
+    "expirationDate": "2026-12-31"
+  },
+  {
+    "id": "deal_decathlon_sports_outlet",
+    "storeSlug": "decathlon",
+    "storeName": "Decathlon",
+    "storeCategory": "Sports & Outdoors",
+    "discountBadge": "UP TO 50% OFF",
+    "title": "Up To 50% Off Outdoor, Camping, Cycling & Fitness Gear",
+    "description": "High-quality technical sporting gear, Quechua tents, mountain bikes, and sportswear for all athletes.",
+    "code": "DECASPORT",
+    "isExclusive": true,
+    "isVerified": true,
+    "rating": 4.9,
+    "usesCount": 2210,
+    "terms": "Applies to clearance outlet and promotional collections.",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=14353&id=3148787&p=https%3A%2F%2Fwww.decathlon.de%2F",
+    "expirationDate": "2026-12-31"
   }
-,
-  {
-    id: 'deal_nike_airmax_sale',
-    storeSlug: 'nike',
-    storeName: 'Nike',
-    storeCategory: 'Fashion & Apparel',
-    discountBadge: 'UP TO 40% OFF',
-    title: 'Up To 40% Off Nike Sneakers, Running Shoes & Athletic Apparel',
-    description: 'Score verified discounts on iconic Air Max, Pegasus running shoes, tech fleece, and workout essentials with official merchant delivery.',
-    code: 'NIKESAVE40',
-    isExclusive: true,
-    isVerified: true,
-    expiryDate: 'December 31, 2026',
-    affiliateUrl: 'https://www.awin1.com/awclick.php?mid=17652&id=3148787&p=https%3A%2F%2Fwww.nike.com.br',
-    storeLogoText: 'NIKE',
-    terms: 'Valid on selected seasonal styles. Verified at official checkout.',
-    successRate: '99.8%'
-  },
-  {
-    id: 'deal_nike_member_exclusive',
-    storeSlug: 'nike',
-    storeName: 'Nike',
-    storeCategory: 'Fashion & Apparel',
-    discountBadge: 'MEMBER PASS',
-    title: 'Nike Member Access: Free Shipping + Extra 15% Off Your Order',
-    description: 'Unlock exclusive member pricing, early access to new sneaker drops, and free standard delivery on all official orders.',
-    code: 'MEMBER15',
-    isExclusive: true,
-    isVerified: true,
-    expiryDate: 'December 31, 2026',
-    affiliateUrl: 'https://www.awin1.com/awclick.php?mid=17652&id=3148787&p=https%3A%2F%2Fwww.nike.com.br',
-    storeLogoText: 'NIKE',
-    terms: 'Requires free Nike Member sign-in. Free 30-day return guarantee.',
-    successRate: '99.9%'
-  },
-  {
-    id: 'deal_adidas_ultraboost_sale',
-    storeSlug: 'adidas',
-    storeName: 'Adidas',
-    storeCategory: 'Sports & Outdoors',
-    discountBadge: 'UP TO 35% OFF',
-    title: 'Up To 35% Off Adidas Ultraboost, Sambas & Originals',
-    description: 'Save on iconic Adidas running shoes, football kits, and athletic sportswear with direct manufacturer warranty.',
-    code: 'ADIEXTRA',
-    isExclusive: true,
-    isVerified: true,
-    rating: 4.9,
-    usesCount: 1840,
-    terms: 'Valid on selected full-priced and sale items. While supplies last.',
-    affiliateUrl: 'https://www.awin1.com/awclick.php?mid=77006&id=3148787&p=https%3A%2F%2Fwww.adidas.pl%2F',
-    expirationDate: '2026-12-31'
-  },
-  {
-    id: 'deal_puma_nitro_discount',
-    storeSlug: 'puma',
-    storeName: 'Puma',
-    storeCategory: 'Sports & Outdoors',
-    discountBadge: '30% OFF',
-    title: 'Extra 30% Off Puma Running Shoes & Training Essentials',
-    description: 'Upgrade your training kit with high-performance Nitro cushioning, running sneakers, and gym apparel.',
-    code: 'PUMARUN30',
-    isExclusive: true,
-    isVerified: true,
-    rating: 4.8,
-    usesCount: 1420,
-    terms: 'Applicable at checkout on participating styles.',
-    affiliateUrl: 'https://www.awin1.com/awclick.php?mid=32675&id=3148787&p=https%3A%2F%2Fbr.puma.com%2F',
-    expirationDate: '2026-12-31'
-  },
-  {
-    id: 'deal_under_armour_heatgear',
-    storeSlug: 'under-armour',
-    storeName: 'Under Armour',
-    storeCategory: 'Sports & Outdoors',
-    discountBadge: '25% OFF',
-    title: '25% Off Under Armour HeatGear Compression & Training Footwear',
-    description: 'Engineered moisture-wicking compression shirts, shorts, and responsive HOVR training sneakers.',
-    code: 'UAHEAT25',
-    isExclusive: true,
-    isVerified: true,
-    rating: 4.8,
-    usesCount: 970,
-    terms: 'Valid on eligible apparel and training gear.',
-    affiliateUrl: 'https://www.awin1.com/awclick.php?mid=15431&id=3148787&p=https%3A%2F%2Fwww.underarmour.com%2Fen-us%2F',
-    expirationDate: '2026-12-31'
-  },
-  {
-    id: 'deal_new_balance_574_sale',
-    storeSlug: 'new-balance',
-    storeName: 'New Balance',
-    storeCategory: 'Sports & Outdoors',
-    discountBadge: 'UP TO 30% OFF',
-    title: 'Up To 30% Off New Balance Heritage 574 & Fresh Foam Trainers',
-    description: 'Step into unmatched comfort with iconic New Balance sneakers, marathon runners, and lifestyle apparel.',
-    code: 'NBHERITAGE',
-    isExclusive: true,
-    isVerified: true,
-    rating: 4.9,
-    usesCount: 1650,
-    terms: 'Discount reflected at checkout on selected styles.',
-    affiliateUrl: 'https://www.awin1.com/awclick.php?mid=10317&id=3148787&p=https%3A%2F%2Fnewbalance.pl',
-    expirationDate: '2026-12-31'
-  },
-  {
-    id: 'deal_reebok_club_c_discount',
-    storeSlug: 'reebok',
-    storeName: 'Reebok',
-    storeCategory: 'Sports & Outdoors',
-    discountBadge: '25% OFF',
-    title: '25% Off Reebok Club C Classics & Nano Workout Footwear',
-    description: 'Claim exclusive savings on timeless tennis shoes, CrossFit training gear, and retro tracksuits.',
-    code: 'REEBOKFIT25',
-    isExclusive: true,
-    isVerified: true,
-    rating: 4.7,
-    usesCount: 880,
-    terms: 'Verified voucher valid on participating footwear and apparel.',
-    affiliateUrl: 'https://www.awin1.com/awclick.php?mid=121520&id=3148787&p=https%3A%2F%2Fwww.reebok.eu%2Fpl-pl',
-    expirationDate: '2026-12-31'
-  },
-  {
-    id: 'deal_decathlon_sports_outlet',
-    storeSlug: 'decathlon',
-    storeName: 'Decathlon',
-    storeCategory: 'Sports & Outdoors',
-    discountBadge: 'UP TO 50% OFF',
-    title: 'Up To 50% Off Outdoor, Camping, Cycling & Fitness Gear',
-    description: 'High-quality technical sporting gear, Quechua tents, mountain bikes, and sportswear for all athletes.',
-    code: 'DECASPORT',
-    isExclusive: true,
-    isVerified: true,
-    rating: 4.9,
-    usesCount: 2210,
-    terms: 'Applies to clearance outlet and promotional collections.',
-    affiliateUrl: 'https://www.awin1.com/awclick.php?mid=14353&id=3148787&p=https%3A%2F%2Fwww.decathlon.de%2F',
-    expirationDate: '2026-12-31'
-  },];
+];

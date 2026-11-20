@@ -167,6 +167,7 @@ export function isValidBrandName(name = ''): boolean {
   if (/^(?:base|default|wholesale|standard|tiered|clone\s+of|bonus|tier)\b/i.test(s)) return false;
   if (/^(?:cpa|cps|cpl|revshare|terms|payout|campaign)$/i.test(s)) return false;
   if (/^verified\s*partner$/i.test(s)) return false;
+  if (/robots and home appliances/i.test(s)) return false;
   if (/^(?:default\s+us\/ca|base\s+\d+%.*|\$\d+.*cpa|\d+.*commission.*)$/i.test(s)) return false;
   if (/^\d+(\.\d+)?%?$/i.test(s)) return false;
 

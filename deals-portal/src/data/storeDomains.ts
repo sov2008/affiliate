@@ -1014,8 +1014,6 @@ export const STORE_DOMAINS_MAP: Record<string, string> = {
   "footlocker kw": "footlocker.com",
   "Footlocker KW": "footlocker.com",
   "footlocker-kw": "footlocker.com",
-  "for robots and home appliances, for roller shade and for others": "15-for-robots-and-home-appliances-10-for-roller-shade-and-6-for-others.com",
-  "for Robots and Home Appliances, for Roller Shade and for others": "15-for-robots-and-home-appliances-10-for-roller-shade-and-6-for-others.com",
   "fragranceshop": "fragranceshop.com",
   "FragranceShop": "fragranceshop.com",
   "fragranceshop-com-payout-5": "fragranceshop.com",

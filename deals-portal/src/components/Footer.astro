@@ -54,7 +54,7 @@ const cleanStoresList = getUniqueCleanStores(STORES_DATA);
         </p>
         <div class="flex items-center gap-2 text-[11px] text-slate-500">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>Updated: October 2026 • Zero dead-link policy • Verified partner network feeds</span>
+          <span>Updated: {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} • Zero dead-link policy • Verified partner network feeds</span>
         </div>
       </div>
 

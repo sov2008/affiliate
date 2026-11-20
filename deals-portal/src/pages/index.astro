@@ -554,7 +554,7 @@ const homeSchemas = [
 ---
 
 <BaseLayout
-  title="PromoRadar — Tested Promo Codes & Exclusive Checkout Vouchers (October 2026)"
+  title={`PromoRadar — Tested Promo Codes & Exclusive Checkout Vouchers (${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })})`}
   description="Discover 100% verified promo codes and discount vouchers for ChicMe, Glasseslit, RaynaTours, PureVPN, ExpressVPN, Alibaba and more. Instant code reveal & savings."
   activePath="/"
   schemas={homeSchemas}
