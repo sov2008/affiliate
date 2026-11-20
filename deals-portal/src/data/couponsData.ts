@@ -1,5 +1,5 @@
 // Auto-generated unified catalog for PromoRadar
-// Generated on: 2026-11-20T22:06:32.838Z
+// Generated on: 2026-11-20T22:46:38.149Z
 
 export interface Store {
   slug: string;
@@ -24290,32 +24290,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
       }
     ],
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7695687?url=http%3A%2F%2Fwww.oyorooms.com%2Fgb"
-  },
-  {
-    "slug": "by-benson",
-    "name": "by Benson",
-    "category": "Home & Lifestyle",
-    "logoText": "BY BENSON",
-    "shortDesc": "Verified by Benson discount codes, seasonal promotions, and partner savings on official orders.",
-    "fullDesc": "by Benson is a premier brand in Home & Lifestyle, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
-    "websiteUrl": "https://www.bybenson.com/",
-    "howToApply": [
-      "Select the active by Benson promotional deal or coupon on PromoRadar.",
-      "Click \"Claim Deal\" to activate the verified partner discount.",
-      "Enter any provided coupon code at checkout on by Benson to secure instant savings."
-    ],
-    "faqs": [
-      {
-        "question": "How do I redeem my by Benson voucher code?",
-        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the by Benson shopping cart."
-      },
-      {
-        "question": "Are by Benson promotional discounts verified?",
-        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
-      }
-    ],
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7909317?url=https%3A%2F%2Fwww.bybenson.com%2F"
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7695687?url=http%3A%2F%2Fwww.oyorooms.com%2Fgb",
+    "cleanDomain": "oyorooms.com"
   },
   {
     "slug": "stdcheck",
@@ -24365,7 +24341,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
       }
     ],
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-4297609?url=http%3A%2F%2Fwww.clickandgrow.com%2F"
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-4297609?url=http%3A%2F%2Fwww.clickandgrow.com%2F",
+    "cleanDomain": "clickandgrow.com"
   },
   {
     "slug": "perfumania",
@@ -24565,7 +24542,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
       }
     ],
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7948308?url=https%3A%2F%2Fwww.weekendinitaly.com%2F"
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7948308?url=https%3A%2F%2Fwww.weekendinitaly.com%2F",
+    "cleanDomain": "weekendinitaly.com"
   },
   {
     "slug": "netart-apac",
@@ -24840,7 +24818,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
       }
     ],
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7681501?url=https%3A%2F%2Fgroundluxe.com%2F"
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7681501?url=https%3A%2F%2Fgroundluxe.com%2F",
+    "cleanDomain": "groundluxe.com"
   },
   {
     "slug": "sleep-and-beyond",
@@ -24865,7 +24844,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
       }
     ],
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-5305691?url=http%3A%2F%2Fwww.sleepandbeyond.com"
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-5305691?url=http%3A%2F%2Fwww.sleepandbeyond.com",
+    "cleanDomain": "sleepandbeyond.com"
   },
   {
     "slug": "travelup",
@@ -24891,6 +24871,756 @@ export const STORES_DATA: Store[] = [
       }
     ],
     "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6248437?url=https%3A%2F%2Fwww.travelup.com"
+  },
+  {
+    "slug": "by-benson",
+    "name": "by Benson",
+    "category": "Home & Lifestyle",
+    "logoText": "BY BENSON",
+    "shortDesc": "Verified by Benson discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "by Benson is a premier brand in Home & Lifestyle, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://www.bybenson.com/",
+    "howToApply": [
+      "Select the active by Benson promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on by Benson to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my by Benson voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the by Benson shopping cart."
+      },
+      {
+        "question": "Are by Benson promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7909317?url=https%3A%2F%2Fwww.bybenson.com%2F"
+  },
+  {
+    "slug": "bc-babycare",
+    "name": "Bc Babycare",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "BC BABYCARE",
+    "shortDesc": "Verified Bc Babycare discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Bc Babycare is a premier brand in E-Commerce & Wholesale, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://www.bcbabycare.com/",
+    "howToApply": [
+      "Select the active Bc Babycare promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Bc Babycare to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Bc Babycare voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Bc Babycare shopping cart."
+      },
+      {
+        "question": "Are Bc Babycare promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7582444?url=https%3A%2F%2Fwww.bcbabycare.com%2F"
+  },
+  {
+    "slug": "silver-gold-bull-profit-trove",
+    "name": "Silver Gold Bull Profit Trove",
+    "category": "Insurance & Finance",
+    "logoText": "SILVER GOLD BU",
+    "shortDesc": "Verified Silver Gold Bull Profit Trove discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Silver Gold Bull Profit Trove is a premier brand in Insurance & Finance, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "http://silvergoldbull.com",
+    "howToApply": [
+      "Select the active Silver Gold Bull Profit Trove promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Silver Gold Bull Profit Trove to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Silver Gold Bull Profit Trove voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Silver Gold Bull Profit Trove shopping cart."
+      },
+      {
+        "question": "Are Silver Gold Bull Profit Trove promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-3468748?url=http%3A%2F%2Fsilvergoldbull.com"
+  },
+  {
+    "slug": "ovago",
+    "name": "OVAGO",
+    "category": "Travel & Tours",
+    "logoText": "OVAGO",
+    "shortDesc": "Verified OVAGO discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "OVAGO is a premier brand in Travel & Tours, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://ovago.com/",
+    "howToApply": [
+      "Select the active OVAGO promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on OVAGO to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my OVAGO voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the OVAGO shopping cart."
+      },
+      {
+        "question": "Are OVAGO promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6880275?url=https%3A%2F%2Fovago.com%2F"
+  },
+  {
+    "slug": "topizbor-ba",
+    "name": "Topizbor.ba",
+    "category": "Home & Lifestyle",
+    "logoText": "TOPIZBOR.BA",
+    "shortDesc": "Verified Topizbor.ba discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Topizbor.ba is a premier brand in Home & Lifestyle, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://topizbor.ba/",
+    "howToApply": [
+      "Select the active Topizbor.ba promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Topizbor.ba to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Topizbor.ba voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Topizbor.ba shopping cart."
+      },
+      {
+        "question": "Are Topizbor.ba promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6246658?url=https%3A%2F%2Ftopizbor.ba%2F"
+  },
+  {
+    "slug": "ehome-hr-si",
+    "name": "Ehome HR/SI",
+    "category": "Home & Lifestyle",
+    "logoText": "EHOME HR/SI",
+    "shortDesc": "Verified Ehome HR/SI discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Ehome HR/SI is a premier brand in Home & Lifestyle, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://ehome.hr/",
+    "howToApply": [
+      "Select the active Ehome HR/SI promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Ehome HR/SI to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Ehome HR/SI voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Ehome HR/SI shopping cart."
+      },
+      {
+        "question": "Are Ehome HR/SI promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6860988?url=https%3A%2F%2Fehome.hr%2F"
+  },
+  {
+    "slug": "expondo-gmbh",
+    "name": "Expondo GMBH",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "EXPONDO GMBH",
+    "shortDesc": "Verified Expondo GMBH discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Expondo GMBH is a premier brand in E-Commerce & Wholesale, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://www.expondo.co.uk/",
+    "howToApply": [
+      "Select the active Expondo GMBH promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Expondo GMBH to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Expondo GMBH voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Expondo GMBH shopping cart."
+      },
+      {
+        "question": "Are Expondo GMBH promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-5320945?url=https%3A%2F%2Fwww.expondo.co.uk%2F"
+  },
+  {
+    "slug": "hugyourlife-europe",
+    "name": "Hugyourlife Europe",
+    "category": "Beauty & Fragrances",
+    "logoText": "HUGYOURLIFE EU",
+    "shortDesc": "Verified Hugyourlife Europe discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Hugyourlife Europe is a premier brand in Beauty & Fragrances, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://hugyourlife.hr/",
+    "howToApply": [
+      "Select the active Hugyourlife Europe promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Hugyourlife Europe to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Hugyourlife Europe voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Hugyourlife Europe shopping cart."
+      },
+      {
+        "question": "Are Hugyourlife Europe promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6480914?url=https%3A%2F%2Fhugyourlife.hr%2F"
+  },
+  {
+    "slug": "gameseal",
+    "name": "Gameseal",
+    "category": "Electronics & Gadgets",
+    "logoText": "GAMESEAL",
+    "shortDesc": "Verified Gameseal discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Gameseal is a premier brand in Electronics & Gadgets, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://gameseal.com",
+    "howToApply": [
+      "Select the active Gameseal promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Gameseal to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Gameseal voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Gameseal shopping cart."
+      },
+      {
+        "question": "Are Gameseal promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7571703?url=https%3A%2F%2Fgameseal.com"
+  },
+  {
+    "slug": "accorplus",
+    "name": "AccorPlus",
+    "category": "Travel & Tours",
+    "logoText": "ACCORPLUS",
+    "shortDesc": "Verified AccorPlus discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "AccorPlus is a premier brand in Travel & Tours, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://www.accorplus.com/",
+    "howToApply": [
+      "Select the active AccorPlus promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on AccorPlus to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my AccorPlus voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the AccorPlus shopping cart."
+      },
+      {
+        "question": "Are AccorPlus promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6884817?url=https%3A%2F%2Fwww.accorplus.com%2F"
+  },
+  {
+    "slug": "world-of-tanks",
+    "name": "World of Tanks",
+    "category": "Kids & Toys",
+    "logoText": "WORLD OF TANKS",
+    "shortDesc": "Verified World of Tanks discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "World of Tanks is a premier brand in Kids & Toys, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "http://www.wargaming.net",
+    "howToApply": [
+      "Select the active World of Tanks promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on World of Tanks to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my World of Tanks voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the World of Tanks shopping cart."
+      },
+      {
+        "question": "Are World of Tanks promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6739875?url=http%3A%2F%2Fwww.wargaming.net"
+  },
+  {
+    "slug": "herbspro",
+    "name": "Herbspro",
+    "category": "Beauty & Fragrances",
+    "logoText": "HERBSPRO",
+    "shortDesc": "Verified Herbspro discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Herbspro is a premier brand in Beauty & Fragrances, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://www.herbspro.com/",
+    "howToApply": [
+      "Select the active Herbspro promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Herbspro to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Herbspro voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Herbspro shopping cart."
+      },
+      {
+        "question": "Are Herbspro promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-2750761?url=https%3A%2F%2Fwww.herbspro.com%2F"
+  },
+  {
+    "slug": "dream-pairs-bruno-marc-nortiv-8-and-allswift-shoes",
+    "name": "Dream Pairs, Bruno Marc, Nortiv 8 & Allswift Shoes",
+    "category": "Fashion & Apparel",
+    "logoText": "DREAM PAIRS, B",
+    "shortDesc": "Verified Dream Pairs, Bruno Marc, Nortiv 8 & Allswift Shoes discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Dream Pairs, Bruno Marc, Nortiv 8 & Allswift Shoes is a premier brand in Fashion & Apparel, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://dreampairs.com",
+    "howToApply": [
+      "Select the active Dream Pairs, Bruno Marc, Nortiv 8 & Allswift Shoes promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Dream Pairs, Bruno Marc, Nortiv 8 & Allswift Shoes to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Dream Pairs, Bruno Marc, Nortiv 8 & Allswift Shoes voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Dream Pairs, Bruno Marc, Nortiv 8 & Allswift Shoes shopping cart."
+      },
+      {
+        "question": "Are Dream Pairs, Bruno Marc, Nortiv 8 & Allswift Shoes promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6258731?url=https%3A%2F%2Fdreampairs.com"
+  },
+  {
+    "slug": "trinity-road-websites",
+    "name": "Trinity Road Websites",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "TRINITY ROAD W",
+    "shortDesc": "Verified Trinity Road Websites discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Trinity Road Websites is a premier brand in E-Commerce & Wholesale, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "http://www.TrinityRoad.com",
+    "howToApply": [
+      "Select the active Trinity Road Websites promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Trinity Road Websites to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Trinity Road Websites voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Trinity Road Websites shopping cart."
+      },
+      {
+        "question": "Are Trinity Road Websites promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-2871603?url=http%3A%2F%2Fwww.TrinityRoad.com"
+  },
+  {
+    "slug": "mikronis-hr",
+    "name": "Mikronis.hr",
+    "category": "Electronics & Gadgets",
+    "logoText": "MIKRONIS.HR",
+    "shortDesc": "Verified Mikronis.hr discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Mikronis.hr is a premier brand in Electronics & Gadgets, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://www.mikronis.hr/",
+    "howToApply": [
+      "Select the active Mikronis.hr promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Mikronis.hr to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Mikronis.hr voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Mikronis.hr shopping cart."
+      },
+      {
+        "question": "Are Mikronis.hr promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6157834?url=https%3A%2F%2Fwww.mikronis.hr%2F"
+  },
+  {
+    "slug": "greatergood",
+    "name": "GreaterGood",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "GREATERGOOD",
+    "shortDesc": "Verified GreaterGood discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "GreaterGood is a premier brand in E-Commerce & Wholesale, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://greatergood.com/pages/shop",
+    "howToApply": [
+      "Select the active GreaterGood promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on GreaterGood to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my GreaterGood voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the GreaterGood shopping cart."
+      },
+      {
+        "question": "Are GreaterGood promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-4046728?url=https%3A%2F%2Fgreatergood.com%2Fpages%2Fshop"
+  },
+  {
+    "slug": "sharaf-dg-mena",
+    "name": "Sharaf DG_MENA",
+    "category": "Electronics & Gadgets",
+    "logoText": "SHARAF DG_MENA",
+    "shortDesc": "Verified Sharaf DG_MENA discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Sharaf DG_MENA is a premier brand in Electronics & Gadgets, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "http://uae.sharafdg.com",
+    "howToApply": [
+      "Select the active Sharaf DG_MENA promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Sharaf DG_MENA to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Sharaf DG_MENA voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Sharaf DG_MENA shopping cart."
+      },
+      {
+        "question": "Are Sharaf DG_MENA promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7734375?url=http%3A%2F%2Fuae.sharafdg.com"
+  },
+  {
+    "slug": "xplora",
+    "name": "Xplora",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "XPLORA",
+    "shortDesc": "Verified Xplora discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Xplora is a premier brand in E-Commerce & Wholesale, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://shop.myxplora.com/",
+    "howToApply": [
+      "Select the active Xplora promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Xplora to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Xplora voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Xplora shopping cart."
+      },
+      {
+        "question": "Are Xplora promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6756445?url=https%3A%2F%2Fshop.myxplora.com%2F"
+  },
+  {
+    "slug": "skytours",
+    "name": "Skytours",
+    "category": "Travel & Tours",
+    "logoText": "SKYTOURS",
+    "shortDesc": "Verified Skytours discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Skytours is a premier brand in Travel & Tours, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "http://www.sky-tours.com",
+    "howToApply": [
+      "Select the active Skytours promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Skytours to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Skytours voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Skytours shopping cart."
+      },
+      {
+        "question": "Are Skytours promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-2709631?url=http%3A%2F%2Fwww.sky-tours.com"
+  },
+  {
+    "slug": "horow-na",
+    "name": "HOROW NA",
+    "category": "Home & Lifestyle",
+    "logoText": "HOROW NA",
+    "shortDesc": "Verified HOROW NA discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "HOROW NA is a premier brand in Home & Lifestyle, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://www.horow.com",
+    "howToApply": [
+      "Select the active HOROW NA promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on HOROW NA to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my HOROW NA voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the HOROW NA shopping cart."
+      },
+      {
+        "question": "Are HOROW NA promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-8041662?url=https%3A%2F%2Fwww.horow.com"
+  },
+  {
+    "slug": "vcm-samsungglobal",
+    "name": "VCM_SamsungGlobal",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "VCM_SAMSUNGGLO",
+    "shortDesc": "Verified VCM_SamsungGlobal discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "VCM_SamsungGlobal is a premier brand in E-Commerce & Wholesale, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "http://www.samsungandroid.com",
+    "howToApply": [
+      "Select the active VCM_SamsungGlobal promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on VCM_SamsungGlobal to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my VCM_SamsungGlobal voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the VCM_SamsungGlobal shopping cart."
+      },
+      {
+        "question": "Are VCM_SamsungGlobal promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-3482950?url=http%3A%2F%2Fwww.samsungandroid.com"
+  },
+  {
+    "slug": "topoak-overland",
+    "name": "TOPOAK Overland",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "TOPOAK OVERLAN",
+    "shortDesc": "Verified TOPOAK Overland discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "TOPOAK Overland is a premier brand in E-Commerce & Wholesale, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://topoakoverland.com/",
+    "howToApply": [
+      "Select the active TOPOAK Overland promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on TOPOAK Overland to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my TOPOAK Overland voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the TOPOAK Overland shopping cart."
+      },
+      {
+        "question": "Are TOPOAK Overland promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-8048365?url=https%3A%2F%2Ftopoakoverland.com%2F"
+  },
+  {
+    "slug": "chow-sang-sang",
+    "name": "Chow Sang Sang",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "CHOW SANG SANG",
+    "shortDesc": "Verified Chow Sang Sang discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Chow Sang Sang is a premier brand in E-Commerce & Wholesale, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://www.chowsangsang.com/en/home",
+    "howToApply": [
+      "Select the active Chow Sang Sang promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Chow Sang Sang to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Chow Sang Sang voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Chow Sang Sang shopping cart."
+      },
+      {
+        "question": "Are Chow Sang Sang promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6536042?url=https%3A%2F%2Fwww.chowsangsang.com%2Fen%2Fhome"
+  },
+  {
+    "slug": "braceability",
+    "name": "BraceAbility",
+    "category": "Beauty & Fragrances",
+    "logoText": "BRACEABILITY",
+    "shortDesc": "Verified BraceAbility discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "BraceAbility is a premier brand in Beauty & Fragrances, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "http://www.braceability.com",
+    "howToApply": [
+      "Select the active BraceAbility promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on BraceAbility to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my BraceAbility voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the BraceAbility shopping cart."
+      },
+      {
+        "question": "Are BraceAbility promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-5725175?url=http%3A%2F%2Fwww.braceability.com"
+  },
+  {
+    "slug": "intego-antivirus-security",
+    "name": "Intego Antivirus Security",
+    "category": "Electronics & Gadgets",
+    "logoText": "INTEGO ANTIVIR",
+    "shortDesc": "Verified Intego Antivirus Security discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Intego Antivirus Security is a premier brand in Electronics & Gadgets, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "http://www.intego.com/",
+    "howToApply": [
+      "Select the active Intego Antivirus Security promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Intego Antivirus Security to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Intego Antivirus Security voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Intego Antivirus Security shopping cart."
+      },
+      {
+        "question": "Are Intego Antivirus Security promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-3519202?url=http%3A%2F%2Fwww.intego.com%2F"
+  },
+  {
+    "slug": "kaspersky-apac",
+    "name": "Kaspersky APAC",
+    "category": "Electronics & Gadgets",
+    "logoText": "KASPERSKY APAC",
+    "shortDesc": "Verified Kaspersky APAC discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Kaspersky APAC is a premier brand in Electronics & Gadgets, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "http://www.kaspersky.com",
+    "howToApply": [
+      "Select the active Kaspersky APAC promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Kaspersky APAC to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Kaspersky APAC voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Kaspersky APAC shopping cart."
+      },
+      {
+        "question": "Are Kaspersky APAC promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6162463?url=http%3A%2F%2Fwww.kaspersky.com"
+  },
+  {
+    "slug": "treat-my-uti",
+    "name": "Treat My UTI",
+    "category": "Beauty & Fragrances",
+    "logoText": "TREAT MY UTI",
+    "shortDesc": "Verified Treat My UTI discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Treat My UTI is a premier brand in Beauty & Fragrances, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://www.treatmyuti.com/",
+    "howToApply": [
+      "Select the active Treat My UTI promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Treat My UTI to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Treat My UTI voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Treat My UTI shopping cart."
+      },
+      {
+        "question": "Are Treat My UTI promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7035805?url=https%3A%2F%2Fwww.treatmyuti.com%2F"
+  },
+  {
+    "slug": "lofree",
+    "name": "Lofree",
+    "category": "Electronics & Gadgets",
+    "logoText": "LOFREE",
+    "shortDesc": "Verified Lofree discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Lofree is a premier brand in Electronics & Gadgets, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://www.lofree.co/",
+    "howToApply": [
+      "Select the active Lofree promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Lofree to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Lofree voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Lofree shopping cart."
+      },
+      {
+        "question": "Are Lofree promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-8071147?url=https%3A%2F%2Fwww.lofree.co%2F"
+  },
+  {
+    "slug": "ksp-performance",
+    "name": "KSP Performance",
+    "category": "E-Commerce & Wholesale",
+    "logoText": "KSP PERFORMANC",
+    "shortDesc": "Verified KSP Performance discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "KSP Performance is a premier brand in E-Commerce & Wholesale, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://www.kspmotor.com",
+    "howToApply": [
+      "Select the active KSP Performance promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on KSP Performance to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my KSP Performance voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the KSP Performance shopping cart."
+      },
+      {
+        "question": "Are KSP Performance promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7686542?url=https%3A%2F%2Fwww.kspmotor.com"
+  },
+  {
+    "slug": "skinners-europe",
+    "name": "Skinners Europe",
+    "category": "Fashion & Apparel",
+    "logoText": "SKINNERS EUROP",
+    "shortDesc": "Verified Skinners Europe discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "Skinners Europe is a premier brand in Fashion & Apparel, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://skinners.cz/",
+    "howToApply": [
+      "Select the active Skinners Europe promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on Skinners Europe to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my Skinners Europe voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the Skinners Europe shopping cart."
+      },
+      {
+        "question": "Are Skinners Europe promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6892836?url=https%3A%2F%2Fskinners.cz%2F"
   }
 ];
 
@@ -33955,6 +34685,499 @@ export const COUPONS_DATA: Coupon[] = [
     "terms": "Apply promo code DECASPORT at cart checkout to claim discount.",
     "affiliateUrl": "https://www.awin1.com/awclick.php?mid=14353&id=3148787&p=https%3A%2F%2Fwww.decathlon.de%2F",
     "expirationDate": "2026-12-31"
+  },
+  {
+    "id": "deal-cj-suntransfers-verified",
+    "storeSlug": "suntransfers",
+    "storeName": "Suntransfers",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Suntransfers Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-4727627?url=https%3A%2F%2Fwww.suntransfers.com%2F",
+    "storeLogoText": "SUNTRANSFERS",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-bluetti-verified",
+    "storeSlug": "bluetti",
+    "storeName": "Bluetti",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Bluetti Certified Tech & Power Systems",
+    "description": "Get guaranteed manufacturer-backed hardware and smart accessories with direct warranty support. Apply this verified offer before checkout to save.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6191107?url=https%3A%2F%2Fwww.bluettipower.com",
+    "storeLogoText": "BLUETTI",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-carmellimo-verified",
+    "storeSlug": "carmellimo",
+    "storeName": "CarmelLimo",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On CarmelLimo Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-2387410?url=http%3A%2F%2Fcarmellimo.com%2FAffApp%2FJob_FromTo.jsp%3FaffLink%3DCJ",
+    "storeLogoText": "CARMELLIMO",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-oando-software-verified",
+    "storeSlug": "oando-software",
+    "storeName": "O&O Software",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On O&O Software Certified Tech & Power Systems",
+    "description": "Get guaranteed manufacturer-backed hardware and smart accessories with direct warranty support. Apply this verified offer before checkout to save.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-2381550?url=http%3A%2F%2Fwww.oo-software.com",
+    "storeLogoText": "O&O SOFTWARE",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-fufuandgaga-verified",
+    "storeSlug": "fufuandgaga",
+    "storeName": "FUFU&GAGA",
+    "storeCategory": "Home & Lifestyle",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On FUFU&GAGA Premium Verified Matches & Subscriptions",
+    "description": "Connect with genuine, identity-verified profiles using intelligent matching filters and private messaging. Activate your premium membership perks with instant discount savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-8004940?url=https%3A%2F%2Ffufugaga.com%2F",
+    "storeLogoText": "FUFU&GAGA",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-oyo-verified",
+    "storeSlug": "oyo",
+    "storeName": "OYO",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On OYO Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7695687?url=http%3A%2F%2Fwww.oyorooms.com%2Fgb",
+    "storeLogoText": "OYO",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-stdcheck-verified",
+    "storeSlug": "stdcheck",
+    "storeName": "STDCheck",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On STDCheck Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-4186290?url=https%3A%2F%2Fwww.stdcheck.com",
+    "storeLogoText": "STDCHECK",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-click-and-grow-verified",
+    "storeSlug": "click-and-grow",
+    "storeName": "Click & Grow",
+    "storeCategory": "Home & Lifestyle",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Click & Grow Premium Verified Matches & Subscriptions",
+    "description": "Connect with genuine, identity-verified profiles using intelligent matching filters and private messaging. Activate your premium membership perks with instant discount savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-4297609?url=http%3A%2F%2Fwww.clickandgrow.com%2F",
+    "storeLogoText": "CLICK & GROW",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-perfumania-verified",
+    "storeSlug": "perfumania",
+    "storeName": "Perfumania",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Perfumania Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-904674?url=http%3A%2F%2Fwww.perfumania.com",
+    "storeLogoText": "PERFUMANIA",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-surprice-and-caradise-car-rentals-verified",
+    "storeSlug": "surprice-and-caradise-car-rentals",
+    "storeName": "Surprice & Caradise Car Rentals",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Surprice & Caradise Car Rentals Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7816565?url=https%3A%2F%2Fsurpricemobility.com%2F",
+    "storeLogoText": "SURPRICE & CAR",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-ecosmetics-verified",
+    "storeSlug": "ecosmetics",
+    "storeName": "eCosmetics",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On eCosmetics Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-5384937?url=https%3A%2F%2Fwww.ecosmetics.com",
+    "storeLogoText": "ECOSMETICS",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-justflowers-verified",
+    "storeSlug": "justflowers",
+    "storeName": "JustFlowers",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On JustFlowers Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-729207?url=http%3A%2F%2Fwww.JustFlowers.com%2Faffiliates",
+    "storeLogoText": "JUSTFLOWERS",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-hidemy-name-verified",
+    "storeSlug": "hidemy-name",
+    "storeName": "HideMy.Name",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On HideMy.Name Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-5887918?url=https%3A%2F%2Fhide.mn",
+    "storeLogoText": "HIDEMY.NAME",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-ilks-eu-verified",
+    "storeSlug": "ilks-eu",
+    "storeName": "Ilks.eu",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Ilks.eu Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-5987355?url=https%3A%2F%2Filks.eu%2F",
+    "storeLogoText": "ILKS.EU",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-omneky-verified",
+    "storeSlug": "omneky",
+    "storeName": "Omneky",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Omneky Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7943215?url=https%3A%2F%2Fwww.omneky.com%2F",
+    "storeLogoText": "OMNEKY",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-weekend-in-italy-verified",
+    "storeSlug": "weekend-in-italy",
+    "storeName": "Weekend in Italy",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Weekend in Italy Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7948308?url=https%3A%2F%2Fwww.weekendinitaly.com%2F",
+    "storeLogoText": "WEEKEND IN ITA",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-netart-apac-verified",
+    "storeSlug": "netart-apac",
+    "storeName": "Netart APAC",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Netart APAC Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7221134?url=https%3A%2F%2Fwww.netart.com%2F",
+    "storeLogoText": "NETART APAC",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-bathmate-verified",
+    "storeSlug": "bathmate",
+    "storeName": "BathMate",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On BathMate Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6146589?url=https%3A%2F%2Fbathmatedirect.com%2F",
+    "storeLogoText": "BATHMATE",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-kinship-verified",
+    "storeSlug": "kinship",
+    "storeName": "Kinship",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Kinship Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Kinship clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7401967?url=https%3A%2F%2Fkinship.jp%2F",
+    "storeLogoText": "KINSHIP",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-kush-queen-verified",
+    "storeSlug": "kush-queen",
+    "storeName": "Kush Queen",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Kush Queen Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-5363667?url=http%3A%2F%2Fwww.kushqueen.shop",
+    "storeLogoText": "KUSH QUEEN",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-infimobile-verified",
+    "storeSlug": "infimobile",
+    "storeName": "Infimobile",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Infimobile Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7438712?url=https%3A%2F%2Finfimobile.com",
+    "storeLogoText": "INFIMOBILE",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-contabo-com-verified",
+    "storeSlug": "contabo-com",
+    "storeName": "Contabo COM",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Contabo COM Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-4639721?url=https%3A%2F%2Fcontabo.com%2F",
+    "storeLogoText": "CONTABO COM",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-fanttik-verified",
+    "storeSlug": "fanttik",
+    "storeName": "Fanttik",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Fanttik Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7423961?url=https%3A%2F%2Ffanttik.com%2F",
+    "storeLogoText": "FANTTIK",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-motel6-verified",
+    "storeSlug": "motel6",
+    "storeName": "Motel6",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Motel6 Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7624468?url=https%3A%2F%2Fwww.motel6.com%2F",
+    "storeLogoText": "MOTEL6",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-rse-isee-hair-bgmgirl-and-wigfever-verified",
+    "storeSlug": "rse-isee-hair-bgmgirl-and-wigfever",
+    "storeName": "RSE- ISEE Hair, BGMgirl and WigFever",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On RSE- ISEE Hair, BGMgirl and WigFever Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7721121?url=http%3A%2F%2Fwww.iseehair.com",
+    "storeLogoText": "RSE- ISEE HAIR",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-instant-funding-verified",
+    "storeSlug": "instant-funding",
+    "storeName": "Instant Funding",
+    "storeCategory": "Insurance & Finance",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Instant Funding Certified Vehicle & Travel Policies",
+    "description": "Get legally verified insurance coverage with immediate digital policy issuance to your email and Diia state app. Instant partner validation.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7582450?url=https%3A%2F%2Finstantfunding.io%2F",
+    "storeLogoText": "INSTANT FUNDIN",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-groundluxe-verified",
+    "storeSlug": "groundluxe",
+    "storeName": "GroundLuxe",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On GroundLuxe Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7681501?url=https%3A%2F%2Fgroundluxe.com%2F",
+    "storeLogoText": "GROUNDLUXE",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-sleep-and-beyond-verified",
+    "storeSlug": "sleep-and-beyond",
+    "storeName": "Sleep & Beyond",
+    "storeCategory": "Home & Lifestyle",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Sleep & Beyond Premium Verified Matches & Subscriptions",
+    "description": "Connect with genuine, identity-verified profiles using intelligent matching filters and private messaging. Activate your premium membership perks with instant discount savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-5305691?url=http%3A%2F%2Fwww.sleepandbeyond.com",
+    "storeLogoText": "SLEEP & BEYOND",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-travelup-verified",
+    "storeSlug": "travelup",
+    "storeName": "travelup",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On travelup Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6248437?url=https%3A%2F%2Fwww.travelup.com",
+    "storeLogoText": "TRAVELUP",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "98%"
   },
   {
     "id": "net_969974",
@@ -45568,108 +46791,6 @@ export const COUPONS_DATA: Coupon[] = [
     "successRate": "99.8%"
   },
   {
-    "id": "deal-cj-suntransfers-verified",
-    "storeSlug": "suntransfers",
-    "storeName": "Suntransfers",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Suntransfers",
-    "description": "Shop top-rated Travel & Tours collections at Suntransfers with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-4727627?url=https%3A%2F%2Fwww.suntransfers.com%2F",
-    "storeLogoText": "SUNTRANSFERS",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-bluetti-verified",
-    "storeSlug": "bluetti",
-    "storeName": "Bluetti",
-    "storeCategory": "Electronics & Gadgets",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Bluetti",
-    "description": "Shop top-rated Electronics & Gadgets collections at Bluetti with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6191107?url=https%3A%2F%2Fwww.bluettipower.com",
-    "storeLogoText": "BLUETTI",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-carmellimo-verified",
-    "storeSlug": "carmellimo",
-    "storeName": "CarmelLimo",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at CarmelLimo",
-    "description": "Shop top-rated Travel & Tours collections at CarmelLimo with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-2387410?url=http%3A%2F%2Fcarmellimo.com%2FAffApp%2FJob_FromTo.jsp%3FaffLink%3DCJ",
-    "storeLogoText": "CARMELLIMO",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-oando-software-verified",
-    "storeSlug": "oando-software",
-    "storeName": "O&O Software",
-    "storeCategory": "Electronics & Gadgets",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at O&O Software",
-    "description": "Shop top-rated Electronics & Gadgets collections at O&O Software with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-2381550?url=http%3A%2F%2Fwww.oo-software.com",
-    "storeLogoText": "O&O SOFTWARE",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-fufuandgaga-verified",
-    "storeSlug": "fufuandgaga",
-    "storeName": "FUFU&GAGA",
-    "storeCategory": "Home & Lifestyle",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at FUFU&GAGA",
-    "description": "Shop top-rated Home & Lifestyle collections at FUFU&GAGA with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-8004940?url=https%3A%2F%2Ffufugaga.com%2F",
-    "storeLogoText": "FUFU&GAGA",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-oyo-verified",
-    "storeSlug": "oyo",
-    "storeName": "OYO",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at OYO",
-    "description": "Shop top-rated Travel & Tours collections at OYO with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7695687?url=http%3A%2F%2Fwww.oyorooms.com%2Fgb",
-    "storeLogoText": "OYO",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
     "id": "deal-cj-by-benson-verified",
     "storeSlug": "by-benson",
     "storeName": "by Benson",
@@ -45687,393 +46808,495 @@ export const COUPONS_DATA: Coupon[] = [
     "successRate": "98%"
   },
   {
-    "id": "deal-cj-stdcheck-verified",
-    "storeSlug": "stdcheck",
-    "storeName": "STDCheck",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at STDCheck",
-    "description": "Shop top-rated Beauty & Fragrances collections at STDCheck with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-4186290?url=https%3A%2F%2Fwww.stdcheck.com",
-    "storeLogoText": "STDCHECK",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-click-and-grow-verified",
-    "storeSlug": "click-and-grow",
-    "storeName": "Click & Grow",
-    "storeCategory": "Home & Lifestyle",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Click & Grow",
-    "description": "Shop top-rated Home & Lifestyle collections at Click & Grow with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-4297609?url=http%3A%2F%2Fwww.clickandgrow.com%2F",
-    "storeLogoText": "CLICK & GROW",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-perfumania-verified",
-    "storeSlug": "perfumania",
-    "storeName": "Perfumania",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Perfumania",
-    "description": "Shop top-rated Beauty & Fragrances collections at Perfumania with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-904674?url=http%3A%2F%2Fwww.perfumania.com",
-    "storeLogoText": "PERFUMANIA",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-surprice-and-caradise-car-rentals-verified",
-    "storeSlug": "surprice-and-caradise-car-rentals",
-    "storeName": "Surprice & Caradise Car Rentals",
+    "id": "deal-cj-bc-babycare-verified",
+    "storeSlug": "bc-babycare",
+    "storeName": "Bc Babycare",
     "storeCategory": "E-Commerce & Wholesale",
     "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Surprice & Caradise Car Rentals",
-    "description": "Shop top-rated E-Commerce & Wholesale collections at Surprice & Caradise Car Rentals with verified seasonal markdowns and partner savings.",
+    "title": "Special Online Savings & Verified Offers at Bc Babycare",
+    "description": "Shop top-rated E-Commerce & Wholesale collections at Bc Babycare with verified seasonal markdowns and partner savings.",
     "code": "",
     "isExclusive": false,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7816565?url=https%3A%2F%2Fsurpricemobility.com%2F",
-    "storeLogoText": "SURPRICE & CAR",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7582444?url=https%3A%2F%2Fwww.bcbabycare.com%2F",
+    "storeLogoText": "BC BABYCARE",
     "terms": "Direct partner markdown applied automatically at merchant checkout.",
     "successRate": "98%"
   },
   {
-    "id": "deal-cj-ecosmetics-verified",
-    "storeSlug": "ecosmetics",
-    "storeName": "eCosmetics",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at eCosmetics",
-    "description": "Shop top-rated Beauty & Fragrances collections at eCosmetics with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-5384937?url=https%3A%2F%2Fwww.ecosmetics.com",
-    "storeLogoText": "ECOSMETICS",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-justflowers-verified",
-    "storeSlug": "justflowers",
-    "storeName": "JustFlowers",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at JustFlowers",
-    "description": "Shop top-rated E-Commerce & Wholesale collections at JustFlowers with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-729207?url=http%3A%2F%2Fwww.JustFlowers.com%2Faffiliates",
-    "storeLogoText": "JUSTFLOWERS",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-hidemy-name-verified",
-    "storeSlug": "hidemy-name",
-    "storeName": "HideMy.Name",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at HideMy.Name",
-    "description": "Shop top-rated E-Commerce & Wholesale collections at HideMy.Name with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-5887918?url=https%3A%2F%2Fhide.mn",
-    "storeLogoText": "HIDEMY.NAME",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-ilks-eu-verified",
-    "storeSlug": "ilks-eu",
-    "storeName": "Ilks.eu",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Ilks.eu",
-    "description": "Shop top-rated E-Commerce & Wholesale collections at Ilks.eu with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-5987355?url=https%3A%2F%2Filks.eu%2F",
-    "storeLogoText": "ILKS.EU",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-omneky-verified",
-    "storeSlug": "omneky",
-    "storeName": "Omneky",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Omneky",
-    "description": "Shop top-rated E-Commerce & Wholesale collections at Omneky with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7943215?url=https%3A%2F%2Fwww.omneky.com%2F",
-    "storeLogoText": "OMNEKY",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-weekend-in-italy-verified",
-    "storeSlug": "weekend-in-italy",
-    "storeName": "Weekend in Italy",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Weekend in Italy",
-    "description": "Shop top-rated Travel & Tours collections at Weekend in Italy with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7948308?url=https%3A%2F%2Fwww.weekendinitaly.com%2F",
-    "storeLogoText": "WEEKEND IN ITA",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-netart-apac-verified",
-    "storeSlug": "netart-apac",
-    "storeName": "Netart APAC",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Netart APAC",
-    "description": "Shop top-rated E-Commerce & Wholesale collections at Netart APAC with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7221134?url=https%3A%2F%2Fwww.netart.com%2F",
-    "storeLogoText": "NETART APAC",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-bathmate-verified",
-    "storeSlug": "bathmate",
-    "storeName": "BathMate",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at BathMate",
-    "description": "Shop top-rated Beauty & Fragrances collections at BathMate with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6146589?url=https%3A%2F%2Fbathmatedirect.com%2F",
-    "storeLogoText": "BATHMATE",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-kinship-verified",
-    "storeSlug": "kinship",
-    "storeName": "Kinship",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Kinship",
-    "description": "Shop top-rated Fashion & Apparel collections at Kinship with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7401967?url=https%3A%2F%2Fkinship.jp%2F",
-    "storeLogoText": "KINSHIP",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-kush-queen-verified",
-    "storeSlug": "kush-queen",
-    "storeName": "Kush Queen",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Kush Queen",
-    "description": "Shop top-rated Beauty & Fragrances collections at Kush Queen with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-5363667?url=http%3A%2F%2Fwww.kushqueen.shop",
-    "storeLogoText": "KUSH QUEEN",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-infimobile-verified",
-    "storeSlug": "infimobile",
-    "storeName": "Infimobile",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Infimobile",
-    "description": "Shop top-rated Travel & Tours collections at Infimobile with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7438712?url=https%3A%2F%2Finfimobile.com",
-    "storeLogoText": "INFIMOBILE",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-contabo-com-verified",
-    "storeSlug": "contabo-com",
-    "storeName": "Contabo COM",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Contabo COM",
-    "description": "Shop top-rated E-Commerce & Wholesale collections at Contabo COM with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-4639721?url=https%3A%2F%2Fcontabo.com%2F",
-    "storeLogoText": "CONTABO COM",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-fanttik-verified",
-    "storeSlug": "fanttik",
-    "storeName": "Fanttik",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Fanttik",
-    "description": "Shop top-rated Travel & Tours collections at Fanttik with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7423961?url=https%3A%2F%2Ffanttik.com%2F",
-    "storeLogoText": "FANTTIK",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-motel6-verified",
-    "storeSlug": "motel6",
-    "storeName": "Motel6",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Motel6",
-    "description": "Shop top-rated Travel & Tours collections at Motel6 with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7624468?url=https%3A%2F%2Fwww.motel6.com%2F",
-    "storeLogoText": "MOTEL6",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-rse-isee-hair-bgmgirl-and-wigfever-verified",
-    "storeSlug": "rse-isee-hair-bgmgirl-and-wigfever",
-    "storeName": "RSE- ISEE Hair, BGMgirl and WigFever",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at RSE- ISEE Hair, BGMgirl and WigFever",
-    "description": "Shop top-rated Beauty & Fragrances collections at RSE- ISEE Hair, BGMgirl and WigFever with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7721121?url=http%3A%2F%2Fwww.iseehair.com",
-    "storeLogoText": "RSE- ISEE HAIR",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-instant-funding-verified",
-    "storeSlug": "instant-funding",
-    "storeName": "Instant Funding",
+    "id": "deal-cj-silver-gold-bull-profit-trove-verified",
+    "storeSlug": "silver-gold-bull-profit-trove",
+    "storeName": "Silver Gold Bull Profit Trove",
     "storeCategory": "Insurance & Finance",
     "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Instant Funding",
-    "description": "Shop top-rated Insurance & Finance collections at Instant Funding with verified seasonal markdowns and partner savings.",
+    "title": "Special Online Savings & Verified Offers at Silver Gold Bull Profit Trove",
+    "description": "Shop top-rated Insurance & Finance collections at Silver Gold Bull Profit Trove with verified seasonal markdowns and partner savings.",
     "code": "",
     "isExclusive": false,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7582450?url=https%3A%2F%2Finstantfunding.io%2F",
-    "storeLogoText": "INSTANT FUNDIN",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-3468748?url=http%3A%2F%2Fsilvergoldbull.com",
+    "storeLogoText": "SILVER GOLD BU",
     "terms": "Direct partner markdown applied automatically at merchant checkout.",
     "successRate": "98%"
   },
   {
-    "id": "deal-cj-groundluxe-verified",
-    "storeSlug": "groundluxe",
-    "storeName": "GroundLuxe",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at GroundLuxe",
-    "description": "Shop top-rated Beauty & Fragrances collections at GroundLuxe with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7681501?url=https%3A%2F%2Fgroundluxe.com%2F",
-    "storeLogoText": "GROUNDLUXE",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-sleep-and-beyond-verified",
-    "storeSlug": "sleep-and-beyond",
-    "storeName": "Sleep & Beyond",
-    "storeCategory": "Home & Lifestyle",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at Sleep & Beyond",
-    "description": "Shop top-rated Home & Lifestyle collections at Sleep & Beyond with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-5305691?url=http%3A%2F%2Fwww.sleepandbeyond.com",
-    "storeLogoText": "SLEEP & BEYOND",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-cj-travelup-verified",
-    "storeSlug": "travelup",
-    "storeName": "travelup",
+    "id": "deal-cj-ovago-verified",
+    "storeSlug": "ovago",
+    "storeName": "OVAGO",
     "storeCategory": "Travel & Tours",
     "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at travelup",
-    "description": "Shop top-rated Travel & Tours collections at travelup with verified seasonal markdowns and partner savings.",
+    "title": "Special Online Savings & Verified Offers at OVAGO",
+    "description": "Shop top-rated Travel & Tours collections at OVAGO with verified seasonal markdowns and partner savings.",
     "code": "",
     "isExclusive": false,
     "isVerified": true,
     "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6248437?url=https%3A%2F%2Fwww.travelup.com",
-    "storeLogoText": "TRAVELUP",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6880275?url=https%3A%2F%2Fovago.com%2F",
+    "storeLogoText": "OVAGO",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-topizbor-ba-verified",
+    "storeSlug": "topizbor-ba",
+    "storeName": "Topizbor.ba",
+    "storeCategory": "Home & Lifestyle",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Topizbor.ba",
+    "description": "Shop top-rated Home & Lifestyle collections at Topizbor.ba with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6246658?url=https%3A%2F%2Ftopizbor.ba%2F",
+    "storeLogoText": "TOPIZBOR.BA",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-ehome-hr-si-verified",
+    "storeSlug": "ehome-hr-si",
+    "storeName": "Ehome HR/SI",
+    "storeCategory": "Home & Lifestyle",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Ehome HR/SI",
+    "description": "Shop top-rated Home & Lifestyle collections at Ehome HR/SI with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6860988?url=https%3A%2F%2Fehome.hr%2F",
+    "storeLogoText": "EHOME HR/SI",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-expondo-gmbh-verified",
+    "storeSlug": "expondo-gmbh",
+    "storeName": "Expondo GMBH",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Expondo GMBH",
+    "description": "Shop top-rated E-Commerce & Wholesale collections at Expondo GMBH with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-5320945?url=https%3A%2F%2Fwww.expondo.co.uk%2F",
+    "storeLogoText": "EXPONDO GMBH",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-hugyourlife-europe-verified",
+    "storeSlug": "hugyourlife-europe",
+    "storeName": "Hugyourlife Europe",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Hugyourlife Europe",
+    "description": "Shop top-rated Beauty & Fragrances collections at Hugyourlife Europe with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6480914?url=https%3A%2F%2Fhugyourlife.hr%2F",
+    "storeLogoText": "HUGYOURLIFE EU",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-gameseal-verified",
+    "storeSlug": "gameseal",
+    "storeName": "Gameseal",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Gameseal",
+    "description": "Shop top-rated Electronics & Gadgets collections at Gameseal with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7571703?url=https%3A%2F%2Fgameseal.com",
+    "storeLogoText": "GAMESEAL",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-accorplus-verified",
+    "storeSlug": "accorplus",
+    "storeName": "AccorPlus",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at AccorPlus",
+    "description": "Shop top-rated Travel & Tours collections at AccorPlus with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6884817?url=https%3A%2F%2Fwww.accorplus.com%2F",
+    "storeLogoText": "ACCORPLUS",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-world-of-tanks-verified",
+    "storeSlug": "world-of-tanks",
+    "storeName": "World of Tanks",
+    "storeCategory": "Kids & Toys",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at World of Tanks",
+    "description": "Shop top-rated Kids & Toys collections at World of Tanks with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6739875?url=http%3A%2F%2Fwww.wargaming.net",
+    "storeLogoText": "WORLD OF TANKS",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-herbspro-verified",
+    "storeSlug": "herbspro",
+    "storeName": "Herbspro",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Herbspro",
+    "description": "Shop top-rated Beauty & Fragrances collections at Herbspro with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-2750761?url=https%3A%2F%2Fwww.herbspro.com%2F",
+    "storeLogoText": "HERBSPRO",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-dream-pairs-bruno-marc-nortiv-8-and-allswift-shoes-verified",
+    "storeSlug": "dream-pairs-bruno-marc-nortiv-8-and-allswift-shoes",
+    "storeName": "Dream Pairs, Bruno Marc, Nortiv 8 & Allswift Shoes",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Dream Pairs, Bruno Marc, Nortiv 8 & Allswift Shoes",
+    "description": "Shop top-rated Fashion & Apparel collections at Dream Pairs, Bruno Marc, Nortiv 8 & Allswift Shoes with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6258731?url=https%3A%2F%2Fdreampairs.com",
+    "storeLogoText": "DREAM PAIRS, B",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-trinity-road-websites-verified",
+    "storeSlug": "trinity-road-websites",
+    "storeName": "Trinity Road Websites",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Trinity Road Websites",
+    "description": "Shop top-rated E-Commerce & Wholesale collections at Trinity Road Websites with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-2871603?url=http%3A%2F%2Fwww.TrinityRoad.com",
+    "storeLogoText": "TRINITY ROAD W",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-mikronis-hr-verified",
+    "storeSlug": "mikronis-hr",
+    "storeName": "Mikronis.hr",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Mikronis.hr",
+    "description": "Shop top-rated Electronics & Gadgets collections at Mikronis.hr with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6157834?url=https%3A%2F%2Fwww.mikronis.hr%2F",
+    "storeLogoText": "MIKRONIS.HR",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-greatergood-verified",
+    "storeSlug": "greatergood",
+    "storeName": "GreaterGood",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at GreaterGood",
+    "description": "Shop top-rated E-Commerce & Wholesale collections at GreaterGood with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-4046728?url=https%3A%2F%2Fgreatergood.com%2Fpages%2Fshop",
+    "storeLogoText": "GREATERGOOD",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-sharaf-dg-mena-verified",
+    "storeSlug": "sharaf-dg-mena",
+    "storeName": "Sharaf DG_MENA",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Sharaf DG_MENA",
+    "description": "Shop top-rated Electronics & Gadgets collections at Sharaf DG_MENA with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7734375?url=http%3A%2F%2Fuae.sharafdg.com",
+    "storeLogoText": "SHARAF DG_MENA",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-xplora-verified",
+    "storeSlug": "xplora",
+    "storeName": "Xplora",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Xplora",
+    "description": "Shop top-rated E-Commerce & Wholesale collections at Xplora with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6756445?url=https%3A%2F%2Fshop.myxplora.com%2F",
+    "storeLogoText": "XPLORA",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-skytours-verified",
+    "storeSlug": "skytours",
+    "storeName": "Skytours",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Skytours",
+    "description": "Shop top-rated Travel & Tours collections at Skytours with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-2709631?url=http%3A%2F%2Fwww.sky-tours.com",
+    "storeLogoText": "SKYTOURS",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-horow-na-verified",
+    "storeSlug": "horow-na",
+    "storeName": "HOROW NA",
+    "storeCategory": "Home & Lifestyle",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at HOROW NA",
+    "description": "Shop top-rated Home & Lifestyle collections at HOROW NA with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-8041662?url=https%3A%2F%2Fwww.horow.com",
+    "storeLogoText": "HOROW NA",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-vcm-samsungglobal-verified",
+    "storeSlug": "vcm-samsungglobal",
+    "storeName": "VCM_SamsungGlobal",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at VCM_SamsungGlobal",
+    "description": "Shop top-rated E-Commerce & Wholesale collections at VCM_SamsungGlobal with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-3482950?url=http%3A%2F%2Fwww.samsungandroid.com",
+    "storeLogoText": "VCM_SAMSUNGGLO",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-topoak-overland-verified",
+    "storeSlug": "topoak-overland",
+    "storeName": "TOPOAK Overland",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at TOPOAK Overland",
+    "description": "Shop top-rated E-Commerce & Wholesale collections at TOPOAK Overland with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-8048365?url=https%3A%2F%2Ftopoakoverland.com%2F",
+    "storeLogoText": "TOPOAK OVERLAN",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-chow-sang-sang-verified",
+    "storeSlug": "chow-sang-sang",
+    "storeName": "Chow Sang Sang",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Chow Sang Sang",
+    "description": "Shop top-rated E-Commerce & Wholesale collections at Chow Sang Sang with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6536042?url=https%3A%2F%2Fwww.chowsangsang.com%2Fen%2Fhome",
+    "storeLogoText": "CHOW SANG SANG",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-braceability-verified",
+    "storeSlug": "braceability",
+    "storeName": "BraceAbility",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at BraceAbility",
+    "description": "Shop top-rated Beauty & Fragrances collections at BraceAbility with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-5725175?url=http%3A%2F%2Fwww.braceability.com",
+    "storeLogoText": "BRACEABILITY",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-intego-antivirus-security-verified",
+    "storeSlug": "intego-antivirus-security",
+    "storeName": "Intego Antivirus Security",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Intego Antivirus Security",
+    "description": "Shop top-rated Electronics & Gadgets collections at Intego Antivirus Security with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-3519202?url=http%3A%2F%2Fwww.intego.com%2F",
+    "storeLogoText": "INTEGO ANTIVIR",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-kaspersky-apac-verified",
+    "storeSlug": "kaspersky-apac",
+    "storeName": "Kaspersky APAC",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Kaspersky APAC",
+    "description": "Shop top-rated Electronics & Gadgets collections at Kaspersky APAC with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6162463?url=http%3A%2F%2Fwww.kaspersky.com",
+    "storeLogoText": "KASPERSKY APAC",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-treat-my-uti-verified",
+    "storeSlug": "treat-my-uti",
+    "storeName": "Treat My UTI",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Treat My UTI",
+    "description": "Shop top-rated Beauty & Fragrances collections at Treat My UTI with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7035805?url=https%3A%2F%2Fwww.treatmyuti.com%2F",
+    "storeLogoText": "TREAT MY UTI",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-lofree-verified",
+    "storeSlug": "lofree",
+    "storeName": "Lofree",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Lofree",
+    "description": "Shop top-rated Electronics & Gadgets collections at Lofree with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-8071147?url=https%3A%2F%2Fwww.lofree.co%2F",
+    "storeLogoText": "LOFREE",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-ksp-performance-verified",
+    "storeSlug": "ksp-performance",
+    "storeName": "KSP Performance",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at KSP Performance",
+    "description": "Shop top-rated E-Commerce & Wholesale collections at KSP Performance with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7686542?url=https%3A%2F%2Fwww.kspmotor.com",
+    "storeLogoText": "KSP PERFORMANC",
+    "terms": "Direct partner markdown applied automatically at merchant checkout.",
+    "successRate": "98%"
+  },
+  {
+    "id": "deal-cj-skinners-europe-verified",
+    "storeSlug": "skinners-europe",
+    "storeName": "Skinners Europe",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Special Online Savings & Verified Offers at Skinners Europe",
+    "description": "Shop top-rated Fashion & Apparel collections at Skinners Europe with verified seasonal markdowns and partner savings.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-6892836?url=https%3A%2F%2Fskinners.cz%2F",
+    "storeLogoText": "SKINNERS EUROP",
     "terms": "Direct partner markdown applied automatically at merchant checkout.",
     "successRate": "98%"
   }
