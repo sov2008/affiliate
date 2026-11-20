@@ -294,7 +294,7 @@ const HERO_ROTATING_DEALS = [
     storeCategory: 'E-Commerce & Wholesale',
     discountBadge: '$20 OFF',
     discountSub: 'Direct Factory Sourcing',
-    title: '20 $ OFF On Alibaba Factory-Direct Sourcing & Global Catalog',
+    title: '$20 OFF On Alibaba Verified Global Catalog Orders',
     description: 'Source trending consumer tech, gadgets, and lifestyle gear directly from verified manufacturers with volume tier discounts and tracked global delivery.',
     code: 'HH12',
     maskedCode: '••• H12',
@@ -1300,9 +1300,9 @@ const homeSchemas = [
                       successRate: deal.successRate
                     })}
                   >
-                    <span>Copy Code</span>
-                    <span class="bg-black/25 px-1.5 py-0.5 rounded font-mono text-[11px] text-amber-300 font-bold tracking-wider">
-                      ···{deal.code.slice(-3)}
+                    <span class="truncate">Copy Code</span>
+                    <span class="inline-flex items-center gap-1 bg-black/30 px-2 py-0.5 rounded-md font-mono text-[11px] text-amber-300 font-bold tracking-wider shrink-0 border border-white/10">
+                      <span class="text-white/60">···</span>{deal.code.slice(-3)}
                     </span>
                   </button>
                 ) : (

@@ -9,7 +9,7 @@ export interface PromoBanner {
   headline: string;
   subheadline: string;
   badge: string;
-  seasonTag: 'HALLOWEEN' | 'BLACK_FRIDAY' | 'FALL_SALE' | 'HOLIDAY' | 'EVERGREEN';
+  seasonTag: 'FALL_SALE' | 'BLACK_FRIDAY' | 'FALL_SALE' | 'HOLIDAY' | 'EVERGREEN';
   imageUrl: string;
   ctaText: string;
   affiliateUrl: string;
@@ -22,7 +22,8 @@ export function getCurrentSeasonTag(): 'HALLOWEEN' | 'BLACK_FRIDAY' | 'FALL_SALE
   const month = now.getMonth(); // 9 = October, 10 = November, 11 = December
   const date = now.getDate();
 
-  if (month === 9 && date >= 15) return 'HALLOWEEN';
+  // Halloween passed
+  if (month === 10 && date >= 1) return 'BLACK_FRIDAY';
   if (month === 10 && date >= 10) return 'BLACK_FRIDAY';
   if (month === 11) return 'HOLIDAY';
   return 'FALL_SALE';
@@ -64,7 +65,7 @@ export const PROMOTIONAL_BANNERS: PromoBanner[] = [
     headline: 'Rexing C2 Dual 2K Front + 1080p Rear Dash Camera',
     subheadline: 'Wide-angle loop recording, night vision optics, and built-in Wi-Fi mobile control.',
     badge: 'ONLY $99.99',
-    seasonTag: 'HALLOWEEN',
+    seasonTag: 'FALL_SALE',
     imageUrl: 'https://cdn.shopify.com/s/files/1/0556/5536/6846/files/C2-Main.jpg?v=1759425546',
     ctaText: 'Get Rexing Camera ↗',
     affiliateUrl: 'https://www.jdoqocy.com/click-101907236-13999325-1767249723000',
@@ -92,7 +93,7 @@ export const PROMOTIONAL_BANNERS: PromoBanner[] = [
     headline: 'Abelssoft JetDrive 9 Professional Disk Optimization',
     subheadline: 'Defragment storage drives, clean clutter, and dramatically accelerate Windows startup speeds.',
     badge: 'SAVE 50% NOW',
-    seasonTag: 'HALLOWEEN',
+    seasonTag: 'FALL_SALE',
     imageUrl: 'https://static.abelssoft.de/resize/storage/uploads/2024/08/09/jetdrive_de_uid_66b5b1c9e064d.png?h=490',
     ctaText: 'Accelerate Windows ↗',
     affiliateUrl: 'https://www.anrdoezrs.net/click-101907236-15402312-1684513856000',

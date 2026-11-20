@@ -74,7 +74,7 @@ function isStoreBanned(store = {}) {
   }
 
   // Name patterns
-  if (BANNED_GEO_REGEX.test(name) && !/\b(BUY|TRUST|RUBY|KAZOO)\b/i.test(name)) {
+  if (BANNED_GEO_REGEX.test(name) && !/\b(BUY|TRUST|RUBY|KAZOO|Native\s+By\s+Numa|by\s+Benson)\b/i.test(name)) {
     return { banned: true, reason: 'banned_geo_in_name' };
   }
 

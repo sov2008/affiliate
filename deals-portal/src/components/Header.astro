@@ -490,74 +490,84 @@ const storesByCategory: Record<string, typeof uniqueStores> = {
           <span id="headerSelectedRegionText" class="inline-flex items-center gap-1.5"><Globe class="w-4 h-4 text-slate-500 dark:text-slate-600 dark:text-slate-300 shrink-0" /> <span class="hidden sm:inline">Worldwide</span></span>
           <ChevronDown class="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />
         </button>
-        <div
+                <div
           id="headerRegionMenu"
-          class="hidden absolute top-full right-0 mt-2 w-48 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 p-1.5 text-left text-xs"
+          class="hidden absolute top-full right-0 mt-2 w-52 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 p-1.5 text-left text-xs"
         >
-          <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300">Target Region</div>
+          <div class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400">Target Region</div>
           <button type="button" data-region-code="GLOBAL" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
-            <span class="inline-flex items-center gap-2"><Globe class="w-4 h-4 text-slate-500 dark:text-slate-600 dark:text-slate-300" /> <span>Worldwide</span></span>
-            
+            <span class="inline-flex items-center gap-2"><Globe class="w-4 h-4 text-slate-400 dark:text-slate-500" /> <span>Worldwide</span></span>
+            <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">ALL</span>
           </button>
           <button type="button" data-region-code="US" data-flag="/flags/us.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/us.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="US" />
               <span>United States</span>
             </span>
+            <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">US</span>
           </button>
           <button type="button" data-region-code="EU" data-flag="/flags/eu.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/eu.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="EU" />
               <span>Europe</span>
             </span>
+            <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">EU</span>
           </button>
           <button type="button" data-region-code="GCC" data-flag="/flags/ae.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/ae.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GCC" />
               <span>UAE &amp; GCC</span>
             </span>
+            <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">GCC</span>
           </button>
           <button type="button" data-region-code="UA" data-flag="/flags/ua.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/ua.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="UA" />
               <span>Ukraine</span>
             </span>
+            <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">UA</span>
           </button>
           <button type="button" data-region-code="GB" data-flag="/flags/gb.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/gb.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="GB" />
               <span>United Kingdom</span>
             </span>
+            <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">GB</span>
           </button>
           <button type="button" data-region-code="IN" data-flag="/flags/in.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/in.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="IN" />
               <span>India</span>
             </span>
+            <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">IN</span>
           </button>
           <button type="button" data-region-code="MX" data-flag="/flags/mx.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/mx.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="MX" />
               <span>Mexico</span>
             </span>
+            <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">MX</span>
           </button>
           <button type="button" data-region-code="BR" data-flag="/flags/br.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/br.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="BR" />
               <span>Brazil</span>
             </span>
+            <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">BR</span>
           </button>
           <button type="button" data-region-code="CZ" data-flag="/flags/cz.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/cz.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="CZ" />
               <span>Czechia</span>
             </span>
+            <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">CZ</span>
           </button>
           <button type="button" data-region-code="PL" data-flag="/flags/pl.svg" class="header-region-item w-full text-left px-2.5 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold flex items-center justify-between cursor-pointer">
             <span class="inline-flex items-center gap-2">
               <img src="/flags/pl.svg" width="16" height="12" class="w-4 h-3 rounded-xs object-cover shrink-0 shadow-2xs" alt="PL" />
               <span>Poland</span>
             </span>
+            <span class="text-[10px] uppercase font-mono text-slate-400 dark:text-slate-500">PL</span>
           </button>
         </div>
       </div>

@@ -105,7 +105,13 @@ export const EXPLICIT_MERCHANT_MAP: Array<[RegExp, { brand: string; domain: stri
   [/gabiona/i, { brand: 'Gabiona', domain: 'gabiona.de' }],
   [/empowerdx/i, { brand: 'empowerDX', domain: 'empowerdxlab.com' }],
   [/airs*serbia/i, { brand: 'Air Serbia', domain: 'airserbia.com' }],
-  [/expondo/i, { brand: 'Expondo', domain: 'expondo.de' }]
+  [/expondo/i, { brand: 'Expondo', domain: 'expondo.de' }],
+  [/viator/i, { brand: 'Viator', domain: 'viator.com' }],
+  [/corel/i, { brand: 'Corel', domain: 'corel.com' }],
+  [/new\s*balance|newbalance/i, { brand: 'New Balance', domain: 'newbalance.com' }],
+  [/trip\.com|trip-com/i, { brand: 'Trip.com', domain: 'trip.com' }],
+  [/under\s*armour/i, { brand: 'Under Armour', domain: 'underarmour.com' }],
+  [/lastminute/i, { brand: 'lastminute.com', domain: 'lastminute.com' }]
 ];
 
 /**

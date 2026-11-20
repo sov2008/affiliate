@@ -200,9 +200,9 @@ export function renderDealCardHtml(deal: EnrichedDealItem, idx: number, base: st
       class="w-full h-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-[13px] rounded-xl px-3 flex items-center justify-between gap-1.5 shadow-sm hover:shadow transition cursor-pointer"
       data-reveal-deal="${escapedRevealJson}"
     >
-      <span>Copy Code</span>
-      <span class="bg-black/25 px-1.5 py-0.5 rounded font-mono text-[11px] text-amber-300 font-bold tracking-wider">
-        ···${deal.code!.slice(-3)}
+      <span class="truncate">Copy Code</span>
+      <span class="inline-flex items-center gap-1 bg-black/30 px-2 py-0.5 rounded-md font-mono text-[11px] text-amber-300 font-bold tracking-wider shrink-0 border border-white/10">
+        <span class="text-white/60">···</span>${deal.code!.slice(-3)}
       </span>
     </button>
   ` : `

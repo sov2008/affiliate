@@ -41,17 +41,6 @@ export const STORE_PRODUCTS: Record<string, StoreProduct[]> = {
       "badge": "Best Seller"
     },
     {
-      "id": "QAPL-HALLOWEEN-BUNDLE-IGNITE",
-      "storeSlug": "945industries",
-      "title": "QAPL Halloween Bundle Ignite - Default Title",
-      "description": "Halloween Bundle. Limited Edition Exclusive. Tactical. Seasonal. This limited-run Halloween Bundle fuses our most functional EDC gear with an exclusive seasonal twist. Available on...",
-      "price": "$263.99",
-      "currency": "USD",
-      "imageUrl": "https://cdn.shopify.com/s/files/1/0660/8909/1258/files/Halloween_Bundle_5.1.jpg?v=1760810280",
-      "productUrl": "https://www.jdoqocy.com/click-101907236-17157504?url=https%3A%2F%2F945industries.com%2Fproducts%2Fqapl-halloween-bundle-ignite%3Fvariant%3Dgid%3A%2F%2Fshopify%2FProductVariant%2F45246153719994",
-      "badge": "Popular"
-    },
-    {
       "id": "BAG-SUMMIT-S-COYOTE-BROWN",
       "storeSlug": "945industries",
       "title": "QAPS UltraGrid® Coyote Brown Concealment Bag - Default Title",
