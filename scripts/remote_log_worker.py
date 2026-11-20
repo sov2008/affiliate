@@ -13,6 +13,15 @@ BOT_PATTERNS = [
     'discordbot', 'slackbot', 'twitterbot', 'pinterest'
 ]
 
+# Strict valid affiliate slug regex: /go/hostinger or /go/hostinger/ (strictly alphanumeric + hyphens)
+GO_AFFILIATE_REGEX = re.compile(r'^/go/([a-z0-9][a-z0-9-]*)/?$')
+
+# Suspicious/scanner keywords to exclude from landing pages
+SCANNER_PATTERNS = [
+    '.php', '.env', '.git', '.yaml', '.yml', '.bak', '.sql', '.tar', '.gz',
+    'wp-', 'install', 'phpinfo', 'admin', 'docker', 'credentials', 'config'
+]
+
 def analyze_logs(file_patterns, domain_name):
     files = sorted(glob.glob(file_patterns))
     windows = {
@@ -40,14 +49,23 @@ def analyze_logs(file_patterns, domain_name):
                     if not (in_24h or in_7d or in_28d):
                         continue
 
+                    status_code = int(status)
+                    # Filter scanner noise: only 200, 301, 302 are valid visits/redirects
+                    if status_code not in (200, 301, 302):
+                        continue
+
                     ua_l = ua.lower()
                     is_bot = any(b in ua_l for b in BOT_PATTERNS)
-                    is_go = ('/go/' in path) or (path.startswith('/go'))
 
                     active_windows = []
                     if in_24h: active_windows.append('24h')
                     if in_7d:  active_windows.append('7d')
                     if in_28d: active_windows.append('28d')
+
+                    clean_path = path.split('?')[0]
+                    go_match = GO_AFFILIATE_REGEX.match(clean_path)
+
+                    is_scanner_path = any(s in clean_path.lower() for s in SCANNER_PATTERNS)
 
                     for w in active_windows:
                         win = windows[w]
@@ -58,19 +76,19 @@ def analyze_logs(file_patterns, domain_name):
                             win['human_hits'] += 1
                             win['human_ips'].add(ip)
                             
-                            # Landing pages (HTML/pages)
-                            if not path.endswith(('.png', '.jpg', '.jpeg', '.svg', '.webp', '.ico', '.css', '.js', '.woff2', '.xml', '.txt', '.json')):
-                                win['landing_pages'][path] += 1
+                            # Landing pages (HTML/clean routes, excluding scanner noise)
+                            if not is_scanner_path and not clean_path.endswith(('.png', '.jpg', '.jpeg', '.svg', '.webp', '.ico', '.css', '.js', '.woff2', '.xml', '.txt', '.json')):
+                                win['landing_pages'][clean_path] += 1
 
                             # Stores pages
-                            if '/stores/' in path:
-                                store = path.split('/stores/')[1].strip('/').split('?')[0]
-                                if store:
+                            if '/stores/' in clean_path:
+                                store = clean_path.split('/stores/')[1].strip('/')
+                                if store and not any(s in store for s in SCANNER_PATTERNS):
                                     win['stores'][store] += 1
                             
-                            # Click-outs
-                            if is_go:
-                                go_target = path.split('/go')[1].strip('/').split('?')[0] or 'root'
+                            # Click-outs strictly via regex
+                            if go_match:
+                                go_target = go_match.group(1)
                                 win['go_clicks'][go_target] += 1
 
                             # Cross-referrals (flirtcheck -> promoradar)

@@ -76,15 +76,50 @@ const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
     if (window._promoradar_telemetry_attached) return;
     window._promoradar_telemetry_attached = true;
 
+    // Helper: Safely push GA4 events even before gtag.js script loads
+    function trackEvent(name, params) {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', name, params);
+      } else if (window.dataLayer && Array.isArray(window.dataLayer)) {
+        window.dataLayer.push(['event', name, params]);
+      }
+    }
+
+    // Listen to custom window events from coupon-modal.js & deal cards
+    window.addEventListener('promoradar_deal_revealed', function(e) {
+      var d = e.detail || {};
+      trackEvent('coupon_reveal', {
+        event_category: 'Conversion',
+        event_label: d.storeName || d.store || 'unknown_store',
+        deal_id: d.id || d.deal_id,
+        store_name: d.storeName || d.store,
+        promo_code: d.code,
+        discount_badge: d.badge,
+        page_path: window.location.pathname,
+        transport_type: 'beacon'
+      });
+    });
+
+    window.addEventListener('promoradar_code_copied', function(e) {
+      var d = e.detail || {};
+      trackEvent('coupon_copied', {
+        event_category: 'Conversion',
+        event_label: d.storeName || d.store || 'unknown_store',
+        promo_code: d.code,
+        page_path: window.location.pathname,
+        transport_type: 'beacon'
+      });
+    });
+
     document.addEventListener('click', function(e) {
       var target = e.target;
       if (!target) return;
 
       var revealBtn = target.closest ? target.closest('[data-reveal-deal]') : null;
-      if (revealBtn && typeof window.gtag === 'function') {
+      if (revealBtn) {
         try {
           var dealData = JSON.parse(revealBtn.getAttribute('data-reveal-deal') || '{}');
-          window.gtag('event', 'coupon_reveal', {
+          trackEvent('coupon_reveal', {
             event_category: 'Conversion',
             event_label: dealData.storeName || 'unknown_store',
             deal_id: dealData.id,
@@ -97,18 +132,18 @@ const { measurementId = 'G-ZKTJYVZEPT' } = Astro.props;
         } catch (err) {}
       }
 
-      var copyBtn = target.closest ? target.closest('#copyCodeBtn, #copyStoreCodeBtn') : null;
-      if (copyBtn && typeof window.gtag === 'function') {
-        window.gtag('event', 'coupon_copied', {
+      var copyBtn = target.closest ? target.closest('#copyCodeBtn, #copyStoreCodeBtn, #copyModalCodeBtn, #modalCodeBox') : null;
+      if (copyBtn) {
+        trackEvent('coupon_copied', {
           event_category: 'Conversion',
           page_path: window.location.pathname,
           transport_type: 'beacon'
         });
       }
 
-      var affLink = target.closest ? target.closest('a[href*="/go"], a[href*="wbbsv.com"], a[href*="alitems.com"], a[href*="anrdoezrs.net"], a[href*="tkqlhce.com"]') : null;
-      if (affLink && typeof window.gtag === 'function') {
-        window.gtag('event', 'affiliate_click', {
+      var affLink = target.closest ? target.closest('a[href*="/go"], a[href*="wbbsv.com"], a[href*="alitems.com"], a[href*="anrdoezrs.net"], a[href*="tkqlhce.com"], #modalOutboundLink') : null;
+      if (affLink) {
+        trackEvent('affiliate_click', {
           event_category: 'Affiliate',
           event_label: affLink.href,
           link_url: affLink.href,
