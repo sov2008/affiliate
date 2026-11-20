@@ -84,16 +84,21 @@ const dealsCount = storeDeals.filter(d => !d.code || d.code.trim().length === 0)
 let maxDiscount = 'Verified Savings';
 let topDiscountValue = 0;
 for (const d of storeDeals) {
-  const badge = d.discountBadge || '';
-  const match = badge.match(/(\d+)%/);
+  const rawBadge = d.discountBadge || '';
+  const rawTitle = d.title || '';
+  const rawDesc = d.description || '';
+  const match = rawBadge.match(/(\d+)%/) || rawTitle.match(/(\d+)%/) || rawDesc.match(/(\d+)%/);
   if (match) {
     const val = parseInt(match[1], 10);
     if (val > topDiscountValue) {
       topDiscountValue = val;
-      maxDiscount = `${val}%`;
+      maxDiscount = String(val) + '%';
     }
-  } else if (!topDiscountValue && /\$\d+/.test(badge)) {
-    maxDiscount = badge;
+  } else if (!topDiscountValue && (/\$\d+/.test(rawBadge) || /\$\d+/.test(rawTitle))) {
+    const cMatch = rawBadge.match(/\$(\d+)/) || rawTitle.match(/\$(\d+)/);
+    if (cMatch) {
+      maxDiscount = '$' + cMatch[1];
+    }
   }
 }
 if (!topDiscountValue && maxDiscount === 'Verified Savings' && storeDeals.length > 0) {
@@ -346,10 +351,16 @@ const currentStoreDealsMap: Record<string, Array<{ id: string; title: string; co
 const pageSchemas = [storeOrgSchema, storeSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : []), offersListSchema, howToSaveSchema];
 
 // High-CTR Dynamic Title & Meta Description Construction
-const discountSnippet = (topDiscountValue > 0 || /\d+%/.test(maxDiscount)) ? `${maxDiscount} Off` : 'Verified Discounts';
-const codesSnippet = codesCount > 0 ? `${codesCount} Active Code${codesCount > 1 ? 's' : ''}` : `${storeDeals.length} Verified Deal${storeDeals.length > 1 ? 's' : ''}`;
-const pageSeoTitle = `${storeCleanBrand} Promo Codes & Coupons: Up to ${discountSnippet} (${codesSnippet}) • ${currentMonth} ${currentYear} | PromoRadar`;
-const pageSeoDescription = `Get verified ${storeCleanBrand} coupons & promo codes for ${currentMonth} ${currentYear}. Save up to ${discountSnippet} across ${storeDeals.length} active tested deals with guaranteed instant checkout activation.`;
+const hasNumericDiscount = topDiscountValue > 0 || /\d+%|\$\d+/.test(maxDiscount);
+const discountSnippet = hasNumericDiscount ? `${maxDiscount} Off` : 'Verified Discounts';
+const titleDiscountPrefix = hasNumericDiscount ? `Up to ${discountSnippet}` : discountSnippet;
+const totalDeals = storeDeals.length;
+const dealsPlural = totalDeals === 1 ? 'deal' : 'deals';
+const codesSnippet = codesCount > 0 
+  ? `${codesCount} Active Code${codesCount > 1 ? 's' : ''}` 
+  : `${totalDeals} Verified Deal${totalDeals > 1 ? 's' : ''}`;
+const pageSeoTitle = `${storeCleanBrand} Promo Codes & Coupons: ${titleDiscountPrefix} (${codesSnippet}) • ${currentMonth} ${currentYear} | PromoRadar`;
+const pageSeoDescription = `Get verified ${storeCleanBrand} coupons & promo codes for ${currentMonth} ${currentYear}. Save ${hasNumericDiscount ? `up to ${discountSnippet.toLowerCase()}` : 'with verified discounts'} across ${totalDeals} active tested ${dealsPlural} with guaranteed instant checkout activation.`;
 ---
 
 <BaseLayout

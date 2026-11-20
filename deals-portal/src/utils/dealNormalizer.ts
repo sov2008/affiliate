@@ -266,15 +266,18 @@ export function extractSmartDiscountBadge(rawBadge = '', rawTitle = ''): string 
     return `$${currencyBadge[1]} OFF`;
   }
 
-  // 2. If badge already has a clear percentage (% OFF)
-  const badgeNum = b.match(/(\d+%\s*OFF)/i) || b.match(/(\d+%)/);
+  // 2. If badge already has a clear percentage (% OFF or % EXTRA/BONUS)
+  const badgeNum = b.match(/(\d+%\s*OFF)/i) || b.match(/(\d+%\s*(?:EXTRA|BONUS|CREDITS)?)/i) || b.match(/(\d+%)/);
   if (badgeNum) {
     const val = badgeNum[1].toUpperCase();
     return val.includes('OFF') ? val : `${val} OFF`;
   }
 
-  // 3. Extract percentage discount from title (e.g. "Save 16% Instantly...", "Get 50% OFF...")
-  const titlePercent = rawTitle.match(/(\d{1,2}%\s*OFF)/i) || rawTitle.match(/(?:Save|Get)\s+(\d{1,2}%)/i);
+  // 3. Extract percentage discount from title (e.g. "Save 16% Instantly...", "Get 50% OFF...", "15% Bonus Credits...")
+  const titlePercent = rawTitle.match(/(\d{1,2}%\s*OFF)/i) || 
+                       rawTitle.match(/(?:Save|Get)\s+(\d{1,2}%)/i) ||
+                       rawTitle.match(/(\d{1,2}%)\s+(?:bonus|extra|credits)/i) ||
+                       rawTitle.match(/(\d{1,2}%)/i);
   if (titlePercent) {
     const val = titlePercent[1].toUpperCase();
     return val.includes('OFF') ? val : `${val} OFF`;
