@@ -1,5 +1,5 @@
 // Auto-generated unified catalog for PromoRadar
-// Generated on: 2026-11-21T10:21:53.462Z
+// Generated on: 2026-11-22T10:25:54.860Z
 
 export interface Store {
   slug: string;
