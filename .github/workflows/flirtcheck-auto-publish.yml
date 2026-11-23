@@ -1,0 +1,112 @@
+name: Autonomous FlirtCheck Content Publisher
+
+on:
+  schedule:
+    # Run 3 times per day: 04:00, 12:00, 20:00 UTC
+    - cron: '0 4,12,20 * * *'
+  workflow_dispatch:
+    inputs:
+      article_count:
+        description: 'Number of articles to generate in this run'
+        required: true
+        default: '1'
+
+permissions:
+  contents: write
+
+jobs:
+  publish-flirtcheck-posts:
+    name: 📝 Generate, Build & Deploy FlirtCheck Articles
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          ref: promoradar-portal
+          fetch-depth: 0
+
+      - name: 🟢 Setup Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: blog/package-lock.json
+
+      - name: 📦 Install Root & Blog Dependencies
+        run: |
+          npm install --no-audit --prefer-offline || npm ci
+          cd blog && npm ci
+
+      - name: 🚀 Run Autonomous Content & Cover Generator
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          COUNT="${{ github.event.inputs.article_count || '1' }}"
+          node scripts/flirtcheck_autonomous_publisher.cjs "$COUNT"
+
+      - name: 🔍 Check for New Content
+        id: check_changes
+        run: |
+          git status --porcelain blog/src/content/posts
+          if [ -n "$(git status --porcelain blog/src/content/posts)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "✨ New articles detected, proceeding to compile and deploy."
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ No new articles were generated. Skipping build and deploy."
+          fi
+
+      - name: ⚙️ Build FlirtCheck Production Bundle
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          cd blog
+          npm run build
+
+      - name: 🔒 Setup Production SSH Key
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DO_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.DO_HOST }} >> ~/.ssh/known_hosts
+
+      - name: 🚀 Atomic Zero-Downtime Deploy to DigitalOcean
+        if: steps.check_changes.outputs.has_changes == 'true'
+        env:
+          DO_HOST: ${{ secrets.DO_HOST }}
+          DO_USER: ${{ secrets.DO_USER }}
+        run: |
+          node scripts/direct_deploy_flirtcheck.cjs
+
+      - name: 🔔 Ping Search Engines via IndexNow
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          node scripts/seo_index_pinger.cjs || true
+
+      - name: 💾 Commit & Push New Posts & Assets
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "FlirtCheck Editorial Bot"
+          git config user.email "bot@flirtcheck.site"
+          git add blog/src/content/posts/ blog/public/images/posts/
+          git commit -m "feat(blog): publish autonomous investigative articles & forensic assets [skip ci]"
+          git pull --rebase origin promoradar-portal
+          git push origin promoradar-portal
+
+      - name: 🚨 Send Failure Notification via Telegram
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
+            MESSAGE="⚠️ *FlirtCheck Auto-Publisher Failed!*%0AWorkflow Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+              -d "chat_id=${TELEGRAM_CHAT_ID}" \
+              -d "text=${MESSAGE}" \
+              -d "parse_mode=Markdown" || true
+          fi
