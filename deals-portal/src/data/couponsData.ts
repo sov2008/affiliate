@@ -1,5 +1,5 @@
 // Auto-generated unified catalog for PromoRadar
-// Generated on: 2026-11-22T10:25:54.860Z
+// Generated on: 2026-11-23T10:44:23.366Z
 
 export interface Store {
   slug: string;
@@ -37058,23 +37058,6 @@ export const COUPONS_DATA: Coupon[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "net_904368",
-    "storeSlug": "aovica",
-    "storeName": "Aovica Store",
-    "storeCategory": "Electronics & Gadgets",
-    "discountBadge": "40% OFF",
-    "title": "40% Off All Aovica Smart Gadgets and Audio Gear",
-    "description": "Upgrade your daily tech with premium Aovica electronics and audio accessories. Apply the code at checkout to save 40% on your entire order, backed by official AliExpress warranty.",
-    "code": "ADMITADN62A7",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://rcpsj.com/g/uymluxmlet367099d2cccaca192191/?i=31",
-    "storeLogoText": "AOVICA",
-    "terms": "Enter code ADMITADN62A7 in the promo field during online checkout.",
-    "successRate": "99.4%"
-  },
-  {
     "id": "net_899182",
     "storeSlug": "alibaba",
     "storeName": "Alibaba",
@@ -37446,6 +37429,23 @@ export const COUPONS_DATA: Coupon[] = [
     "affiliateUrl": "https://codeaven.com/g/up6c82wed2fa9e3fd878de0721ef8d/?i=3",
     "storeLogoText": "GLASSESLIT",
     "terms": "Enter code ADMITAD at checkout for eligible frames.",
+    "successRate": "99.4%"
+  },
+  {
+    "id": "net_971252",
+    "storeSlug": "megogo",
+    "storeName": "MEGOGO",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "45% OFF",
+    "title": "45% OFF On MEGOGO Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-11-30",
+    "affiliateUrl": "https://ziejy.com/g/2ojewoicbbfa9e3fd87843f490de3a/?i=3",
+    "storeLogoText": "MEGOGO",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
     "successRate": "99.4%"
   },
   {
@@ -40628,23 +40628,6 @@ export const COUPONS_DATA: Coupon[] = [
     "successRate": "99.4%"
   },
   {
-    "id": "net_970516",
-    "storeSlug": "lenovo",
-    "storeName": "Lenovo",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "52% OFF",
-    "title": "52% OFF On Lenovo Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-11-22",
-    "affiliateUrl": "https://bednari.com/g/0zpny5laygfa9e3fd878cc01b591a8/?i=3",
-    "storeLogoText": "LENOVO",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.4%"
-  },
-  {
     "id": "net_970512",
     "storeSlug": "lenovo",
     "storeName": "Lenovo",
@@ -40726,23 +40709,6 @@ export const COUPONS_DATA: Coupon[] = [
     "expiryDate": "2026-11-30",
     "affiliateUrl": "https://bednari.com/g/zue74w8na2fa9e3fd878cc01b591a8/?i=3",
     "storeLogoText": "LENOVO",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_970197",
-    "storeSlug": "intertop",
-    "storeName": "INTERTOP",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "50% OFF",
-    "title": "50% OFF On INTERTOP Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-11-22",
-    "affiliateUrl": "https://dkfrh.com/g/b0bss0okaffa9e3fd878b9f189b651/?i=3",
-    "storeLogoText": "INTERTOP",
     "terms": "Direct promotional pricing applied automatically at merchant checkout.",
     "successRate": "99.4%"
   },
@@ -40965,23 +40931,6 @@ export const COUPONS_DATA: Coupon[] = [
     "affiliateUrl": "https://uhtkc.com/g/kvj6lna5n7fa9e3fd878d04f993eab/?i=3",
     "storeLogoText": "NEW BALANCE",
     "terms": "Apply promo code SALE11-LTJEN at cart checkout to claim discount.",
-    "successRate": "99.4%"
-  },
-  {
-    "id": "net_968631",
-    "storeSlug": "newbalance",
-    "storeName": "New Balance",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "11% OFF",
-    "title": "11% OFF On New Balance Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "SALE11-D2JBG",
-    "isExclusive": true,
-    "isVerified": true,
-    "expiryDate": "2026-11-22",
-    "affiliateUrl": "https://uhtkc.com/g/znpxj7ywlefa9e3fd878d04f993eab/?i=3",
-    "storeLogoText": "NEW BALANCE",
-    "terms": "Apply promo code SALE11-D2JBG at cart checkout to claim discount.",
     "successRate": "99.4%"
   },
   {
@@ -45558,6 +45507,23 @@ export const COUPONS_DATA: Coupon[] = [
     "successRate": "99.8%"
   },
   {
+    "id": "deal_aovica_verified_baseline",
+    "storeSlug": "aovica",
+    "storeName": "Aovica Store",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "EXCLUSIVE DEAL",
+    "title": "EXCLUSIVE DEAL On Aovica Store Certified Tech & Power Systems",
+    "description": "Get guaranteed manufacturer-backed hardware and smart accessories with direct warranty support. Apply this verified offer before checkout to save.",
+    "code": "",
+    "isExclusive": true,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://rcpsj.com/g/76ypdp9d6w367099d2cccaca192191/",
+    "storeLogoText": "AOVICA",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "99.8%"
+  },
+  {
     "id": "deal_elitedate_verified_baseline",
     "storeSlug": "elitedate",
     "storeName": "EliteDate",
@@ -47309,6 +47275,23 @@ export const COUPONS_DATA: Coupon[] = [
     "successRate": "99.8%"
   },
   {
+    "id": "deal_intertop_verified_baseline",
+    "storeSlug": "intertop",
+    "storeName": "INTERTOP",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "EXCLUSIVE DEAL",
+    "title": "EXCLUSIVE DEAL On INTERTOP Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "",
+    "isExclusive": true,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://dkfrh.com/g/aaj1enr23tfa9e3fd878b9f189b651/",
+    "storeLogoText": "INTERTOP",
+    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
+    "successRate": "99.8%"
+  },
+  {
     "id": "deal_neion-mx_verified_baseline",
     "storeSlug": "neion-mx",
     "storeName": "Neion MX",
@@ -47798,23 +47781,6 @@ export const COUPONS_DATA: Coupon[] = [
     "expiryDate": "2026-12-31",
     "affiliateUrl": "https://kpwfp.com/g/rly3vo6o1sfa9e3fd878fec4620825/",
     "storeLogoText": "AOMEI",
-    "terms": "Direct promotional pricing applied automatically at merchant checkout.",
-    "successRate": "99.8%"
-  },
-  {
-    "id": "deal_megogo_verified_baseline",
-    "storeSlug": "megogo",
-    "storeName": "MEGOGO",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "EXCLUSIVE DEAL",
-    "title": "EXCLUSIVE DEAL On MEGOGO Factory-Direct Catalog & Global Sourcing",
-    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
-    "code": "",
-    "isExclusive": true,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://ziejy.com/g/is3ic7alj2fa9e3fd87843f490de3a/",
-    "storeLogoText": "MEGOGO",
     "terms": "Direct promotional pricing applied automatically at merchant checkout.",
     "successRate": "99.8%"
   },
