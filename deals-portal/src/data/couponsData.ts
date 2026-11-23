@@ -1,5 +1,5 @@
 // Auto-generated unified catalog for PromoRadar
-// Generated on: 2026-11-23T11:06:59.380Z
+// Generated on: 2026-11-23T11:25:46.691Z
 
 export interface Store {
   slug: string;
@@ -26303,32 +26303,6 @@ export const STORES_DATA: Store[] = [
     "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6541146?url=https%3A%2F%2Fwww.netart.com%2Fus"
   },
   {
-    "slug": "by-benson",
-    "name": "by Benson",
-    "category": "Home & Lifestyle",
-    "logoText": "BY BENSON",
-    "shortDesc": "Verified by Benson discount codes, seasonal promotions, and partner savings on official orders.",
-    "fullDesc": "by Benson is a premier brand in Home & Lifestyle, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
-    "websiteUrl": "https://www.bybenson.com/",
-    "howToApply": [
-      "Select the active by Benson promotional deal or coupon on PromoRadar.",
-      "Click \"Claim Deal\" to activate the verified partner discount.",
-      "Enter any provided coupon code at checkout on by Benson to secure instant savings."
-    ],
-    "faqs": [
-      {
-        "question": "How do I redeem my by Benson voucher code?",
-        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the by Benson shopping cart."
-      },
-      {
-        "question": "Are by Benson promotional discounts verified?",
-        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
-      }
-    ],
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7909317?url=https%3A%2F%2Fwww.bybenson.com%2F"
-  }
-,
-  {
     "slug": "wesmile",
     "name": "Wesmile",
     "category": "Travel & Tours",
@@ -26351,7 +26325,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=63766&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=63766&id=3148787",
+    "cleanDomain": "millionkm.com"
   },
   {
     "slug": "hrs",
@@ -26376,7 +26351,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=16633&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=16633&id=3148787",
+    "cleanDomain": "hrs.com"
   },
   {
     "slug": "top-villas",
@@ -26401,7 +26377,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=24004&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=24004&id=3148787",
+    "cleanDomain": "thetopvillas.com"
   },
   {
     "slug": "uniplaces",
@@ -26426,7 +26403,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=26311&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=26311&id=3148787",
+    "cleanDomain": "uniplaces.com"
   },
   {
     "slug": "power-wearhouse",
@@ -26451,7 +26429,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=79548&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=79548&id=3148787",
+    "cleanDomain": "powerwearhouse.com"
   },
   {
     "slug": "12go",
@@ -26476,7 +26455,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=114908&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=114908&id=3148787",
+    "cleanDomain": "12go.asia"
   },
   {
     "slug": "sembo",
@@ -26501,7 +26481,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=122074&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=122074&id=3148787",
+    "cleanDomain": "sembo.co.uk"
   },
   {
     "slug": "arlo-security",
@@ -26526,7 +26507,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=122884&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=122884&id=3148787",
+    "cleanDomain": "arlo.com"
   },
   {
     "slug": "saily",
@@ -26551,7 +26533,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=128607&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=128607&id=3148787",
+    "cleanDomain": "saily.com"
   },
   {
     "slug": "tanya-heath-paris",
@@ -26601,7 +26584,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=1496&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=1496&id=3148787",
+    "cleanDomain": "laredoute.co.uk"
   },
   {
     "slug": "glossybox",
@@ -26626,7 +26610,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=3749&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=3749&id=3148787",
+    "cleanDomain": "glossybox.co.uk"
   },
   {
     "slug": "bulk",
@@ -26651,7 +26636,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=4822&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=4822&id=3148787",
+    "cleanDomain": "bulk.com"
   },
   {
     "slug": "viator-a-tripadvisor-company",
@@ -26676,7 +26662,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=7038&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=7038&id=3148787",
+    "cleanDomain": "viator.com"
   },
   {
     "slug": "travelscout24",
@@ -26701,7 +26688,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=9130&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=9130&id=3148787",
+    "cleanDomain": "travelscout24.de"
   },
   {
     "slug": "travel24",
@@ -26726,7 +26714,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=9131&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=9131&id=3148787",
+    "cleanDomain": "travel24.de"
   },
   {
     "slug": "ab-in-den-urlaub",
@@ -26751,7 +26740,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=9369&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=9369&id=3148787",
+    "cleanDomain": "ab-in-den-urlaub.de"
   },
   {
     "slug": "volagratis",
@@ -26776,7 +26766,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=9432&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=9432&id=3148787",
+    "cleanDomain": "volagratis.com"
   },
   {
     "slug": "myprotein",
@@ -26801,7 +26792,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=10700&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=10700&id=3148787",
+    "cleanDomain": "de.myprotein.com"
   },
   {
     "slug": "travelzoo",
@@ -26826,7 +26818,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=10885&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=10885&id=3148787",
+    "cleanDomain": "travelzoo.com"
   },
   {
     "slug": "logitravel",
@@ -26851,7 +26844,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=11074&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=11074&id=3148787",
+    "cleanDomain": "logitravel.de"
   },
   {
     "slug": "tripz",
@@ -26876,7 +26870,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=11341&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=11341&id=3148787",
+    "cleanDomain": "tripz.de"
   },
   {
     "slug": "breuninger",
@@ -26901,7 +26896,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=11590&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=11590&id=3148787",
+    "cleanDomain": "breuninger.com"
   },
   {
     "slug": "bitdefender",
@@ -26926,7 +26922,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=11660&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=11660&id=3148787",
+    "cleanDomain": "bitdefender.com"
   },
   {
     "slug": "nails",
@@ -26951,7 +26948,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=12443&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=12443&id=3148787",
+    "cleanDomain": "nailsinc.com"
   },
   {
     "slug": "tamaris",
@@ -26976,7 +26974,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=14500&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=14500&id=3148787",
+    "cleanDomain": "tamaris.de"
   },
   {
     "slug": "g-data",
@@ -27001,7 +27000,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=14693&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=14693&id=3148787",
+    "cleanDomain": "gdata.de"
   },
   {
     "slug": "yesstyle",
@@ -27026,7 +27026,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=15448&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=15448&id=3148787",
+    "cleanDomain": "yesstyle.com"
   },
   {
     "slug": "hotel-info",
@@ -27051,7 +27052,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=16634&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=16634&id=3148787",
+    "cleanDomain": "hotel.info"
   },
   {
     "slug": "dogado",
@@ -27076,7 +27078,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=16943&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=16943&id=3148787",
+    "cleanDomain": "dogado.de"
   },
   {
     "slug": "shape-republic",
@@ -27101,7 +27104,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=18103&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=18103&id=3148787",
+    "cleanDomain": "shop.shape-republic.com"
   },
   {
     "slug": "best-direct",
@@ -27126,7 +27130,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=19319&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=19319&id=3148787",
+    "cleanDomain": "bestdirect.co.uk"
   },
   {
     "slug": "kaspersky",
@@ -27151,7 +27156,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=19488&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=19488&id=3148787",
+    "cleanDomain": "kaspersky.it"
   },
   {
     "slug": "kiwi",
@@ -27176,7 +27182,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=19856&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=19856&id=3148787",
+    "cleanDomain": "kiwi.com"
   },
   {
     "slug": "gymqueen",
@@ -27201,7 +27208,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=20260&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=20260&id=3148787",
+    "cleanDomain": "gymqueen.de"
   },
   {
     "slug": "ifaa",
@@ -27226,7 +27234,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=20857&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=20857&id=3148787",
+    "cleanDomain": "ifaa.de"
   },
   {
     "slug": "vaha",
@@ -27251,7 +27260,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=21073&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=21073&id=3148787",
+    "cleanDomain": "vaha.com"
   },
   {
     "slug": "linzi-shoes",
@@ -27276,7 +27286,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=21738&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=21738&id=3148787",
+    "cleanDomain": "linzi.com"
   },
   {
     "slug": "weightworld",
@@ -27301,7 +27312,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=22446&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=22446&id=3148787",
+    "cleanDomain": "weightworld.es"
   },
   {
     "slug": "eti-express-travel-international-gmbh",
@@ -27326,7 +27338,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=25925&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=25925&id=3148787",
+    "cleanDomain": "eti.at"
   },
   {
     "slug": "zenspotting-auszeiten-im-alltag",
@@ -27351,7 +27364,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=28115&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=28115&id=3148787",
+    "cleanDomain": "zenspotting.com"
   },
   {
     "slug": "jones-bootmaker",
@@ -27376,7 +27390,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=28195&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=28195&id=3148787",
+    "cleanDomain": "jonesbootmaker.com"
   },
   {
     "slug": "holidu",
@@ -27401,7 +27416,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=31469&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=31469&id=3148787",
+    "cleanDomain": "holidu.co.uk"
   },
   {
     "slug": "123hotelbooking-net",
@@ -27426,7 +27442,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=42002&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=42002&id=3148787",
+    "cleanDomain": "hotelchevra.com"
   },
   {
     "slug": "check-point-software-technologies",
@@ -27451,7 +27468,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=42242&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=42242&id=3148787",
+    "cleanDomain": "zonealarm.com"
   },
   {
     "slug": "travelcircus",
@@ -27476,7 +27494,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=45073&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=45073&id=3148787",
+    "cleanDomain": "travelcircus.fr"
   },
   {
     "slug": "jordan-road",
@@ -27501,7 +27520,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=45135&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=45135&id=3148787",
+    "cleanDomain": "jordanroadjewelry.com"
   },
   {
     "slug": "streets-ahead",
@@ -27526,7 +27546,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=48937&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=48937&id=3148787",
+    "cleanDomain": "streetsaheadinc.com"
   },
   {
     "slug": "starmobile",
@@ -27551,7 +27572,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=56449&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=56449&id=3148787",
+    "cleanDomain": "starmobile.de"
   },
   {
     "slug": "hypeneedz",
@@ -27576,7 +27598,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=61677&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=61677&id=3148787",
+    "cleanDomain": "hypeneedz.com"
   },
   {
     "slug": "budgetair",
@@ -27601,7 +27624,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=63488&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=63488&id=3148787",
+    "cleanDomain": "budgetair.co.uk"
   },
   {
     "slug": "beurer",
@@ -27626,7 +27650,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=64314&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=64314&id=3148787",
+    "cleanDomain": "beurer.com"
   },
   {
     "slug": "king-kennedy",
@@ -27651,7 +27676,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=65394&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=65394&id=3148787",
+    "cleanDomain": "kingkennedyrugs.com"
   },
   {
     "slug": "esim-fox",
@@ -27676,32 +27702,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=66920&id=3148787"
-  },
-  {
-    "slug": "native-by-numa",
-    "name": "Native By Numa",
-    "category": "Travel & Tours",
-    "logoText": "NATIVE BY NUMA",
-    "shortDesc": "Official Native By Numa verified promotions, seasonal markdowns, and instant discount vouchers across Hotels & Accommodation.",
-    "fullDesc": "Native By Numa is a recognized leader in Hotels & Accommodation, delivering dependable quality, responsive customer service, and verified online value for customers in United Kingdom. PromoRadar tracks and validates daily promotional offers for Native By Numa.",
-    "websiteUrl": "https://nativeplaces.com/",
-    "howToApply": [
-      "Select an active Native By Numa deal or promotional voucher on PromoRadar.",
-      "Click \"Claim Deal\" or \"Use Coupon\" to activate verified partner discounts.",
-      "Complete your purchase on Native By Numa with instant savings applied automatically."
-    ],
-    "faqs": [
-      {
-        "question": "How do I redeem verified discounts at Native By Numa?",
-        "answer": "Click through our verified partner link to activate seasonal promotions, or copy the voucher code into the checkout promotion box."
-      },
-      {
-        "question": "Are Native By Numa discount offers verified?",
-        "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
-      }
-    ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=68726&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=66920&id=3148787",
+    "cleanDomain": "esimfox.com"
   },
   {
     "slug": "betterroaming",
@@ -27726,7 +27728,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=69692&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=69692&id=3148787",
+    "cleanDomain": "betterroaming.com"
   },
   {
     "slug": "direct-running",
@@ -27751,7 +27754,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=71523&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=71523&id=3148787",
+    "cleanDomain": "direct-running.co.uk"
   },
   {
     "slug": "made-in-paradis",
@@ -27776,7 +27780,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=71533&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=71533&id=3148787",
+    "cleanDomain": "madeinparadis.co.uk"
   },
   {
     "slug": "freeletics-brand-partnerships",
@@ -27801,7 +27806,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=72497&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=72497&id=3148787",
+    "cleanDomain": "freeletics.com"
   },
   {
     "slug": "posh-tech",
@@ -27826,7 +27832,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=75368&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=75368&id=3148787",
+    "cleanDomain": "theposhtech.com"
   },
   {
     "slug": "getyourguide",
@@ -27851,7 +27858,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=77814&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=77814&id=3148787",
+    "cleanDomain": "getyourguide.co.uk"
   },
   {
     "slug": "bids-com",
@@ -28351,7 +28359,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=114060&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=114060&id=3148787",
+    "cleanDomain": "somosleepfitness.com"
   },
   {
     "slug": "virgin-balloon-flights",
@@ -28576,7 +28585,8 @@ export const STORES_DATA: Store[] = [
         "answer": "Yes, all deals and promotional campaigns are verified daily through official affiliate network integrations."
       }
     ],
-    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=119083&id=3148787"
+    "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=119083&id=3148787",
+    "cleanDomain": "smallable.com"
   },
   {
     "slug": "esimi",
@@ -28827,6 +28837,31 @@ export const STORES_DATA: Store[] = [
       }
     ],
     "primaryAffiliateUrl": "https://www.awin1.com/awclick.php?mid=125640&id=3148787"
+  },
+  {
+    "slug": "by-benson",
+    "name": "by Benson",
+    "category": "Home & Lifestyle",
+    "logoText": "BY BENSON",
+    "shortDesc": "Verified by Benson discount codes, seasonal promotions, and partner savings on official orders.",
+    "fullDesc": "by Benson is a premier brand in Home & Lifestyle, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
+    "websiteUrl": "https://www.bybenson.com/",
+    "howToApply": [
+      "Select the active by Benson promotional deal or coupon on PromoRadar.",
+      "Click \"Claim Deal\" to activate the verified partner discount.",
+      "Enter any provided coupon code at checkout on by Benson to secure instant savings."
+    ],
+    "faqs": [
+      {
+        "question": "How do I redeem my by Benson voucher code?",
+        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the by Benson shopping cart."
+      },
+      {
+        "question": "Are by Benson promotional discounts verified?",
+        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
+      }
+    ],
+    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7909317?url=https%3A%2F%2Fwww.bybenson.com%2F"
   }
 ];
 
@@ -39353,6 +39388,1689 @@ export const COUPONS_DATA: Coupon[] = [
     "storeLogoText": "NETART US/CA",
     "terms": "Direct promotional pricing applied automatically at merchant checkout.",
     "successRate": "98%"
+  },
+  {
+    "id": "deal-wesmile-verified",
+    "storeSlug": "wesmile",
+    "storeName": "Wesmile",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Wesmile Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=63766&id=3148787",
+    "storeLogoText": "WESMILE",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-hrs-verified",
+    "storeSlug": "hrs",
+    "storeName": "HRS",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On HRS Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=16633&id=3148787",
+    "storeLogoText": "HRS",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-top-villas-verified",
+    "storeSlug": "top-villas",
+    "storeName": "Top Villas",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Top Villas Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=24004&id=3148787",
+    "storeLogoText": "TOP VILLAS",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-uniplaces-verified",
+    "storeSlug": "uniplaces",
+    "storeName": "Uniplaces",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Uniplaces Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=26311&id=3148787",
+    "storeLogoText": "UNIPLACES",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-power-wearhouse-verified",
+    "storeSlug": "power-wearhouse",
+    "storeName": "Power WearHouse",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Power WearHouse Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=79548&id=3148787",
+    "storeLogoText": "POWER WEARHOUS",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-12go-verified",
+    "storeSlug": "12go",
+    "storeName": "12Go",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On 12Go Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=114908&id=3148787",
+    "storeLogoText": "12GO",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-sembo-verified",
+    "storeSlug": "sembo",
+    "storeName": "Sembo",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Sembo Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=122074&id=3148787",
+    "storeLogoText": "SEMBO",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-arlo-security-verified",
+    "storeSlug": "arlo-security",
+    "storeName": "Arlo Security",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Arlo Security Certified Tech & Power Systems",
+    "description": "Get guaranteed manufacturer-backed hardware and smart accessories with direct warranty support. Apply this verified offer before checkout to save.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=122884&id=3148787",
+    "storeLogoText": "ARLO SECURITY",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-saily-verified",
+    "storeSlug": "saily",
+    "storeName": "Saily",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Saily Certified Tech & Power Systems",
+    "description": "Get guaranteed manufacturer-backed hardware and smart accessories with direct warranty support. Apply this verified offer before checkout to save.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=128607&id=3148787",
+    "storeLogoText": "SAILY",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-tanya-heath-paris-verified",
+    "storeSlug": "tanya-heath-paris",
+    "storeName": "TANYA HEATH Paris",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On TANYA HEATH Paris Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic TANYA HEATH Paris clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=131066&id=3148787",
+    "storeLogoText": "TANYA HEATH PA",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-la-redoute-verified",
+    "storeSlug": "la-redoute",
+    "storeName": "La Redoute",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On La Redoute Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic La Redoute clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=1496&id=3148787",
+    "storeLogoText": "LA REDOUTE",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-glossybox-verified",
+    "storeSlug": "glossybox",
+    "storeName": "Glossybox",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Glossybox Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=3749&id=3148787",
+    "storeLogoText": "GLOSSYBOX",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-bulk-verified",
+    "storeSlug": "bulk",
+    "storeName": "Bulk",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Bulk Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=4822&id=3148787",
+    "storeLogoText": "BULK",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-viator-a-tripadvisor-company-verified",
+    "storeSlug": "viator-a-tripadvisor-company",
+    "storeName": "Viator - A Tripadvisor Company",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Viator - A Tripadvisor Company Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=7038&id=3148787",
+    "storeLogoText": "VIATOR - A TRI",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-travelscout24-verified",
+    "storeSlug": "travelscout24",
+    "storeName": "TravelScout24",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On TravelScout24 Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=9130&id=3148787",
+    "storeLogoText": "TRAVELSCOUT24",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-travel24-verified",
+    "storeSlug": "travel24",
+    "storeName": "Travel24",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Travel24 Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=9131&id=3148787",
+    "storeLogoText": "TRAVEL24",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-ab-in-den-urlaub-verified",
+    "storeSlug": "ab-in-den-urlaub",
+    "storeName": "ab-in-den-urlaub",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On ab-in-den-urlaub Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=9369&id=3148787",
+    "storeLogoText": "AB-IN-DEN-URLA",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-volagratis-verified",
+    "storeSlug": "volagratis",
+    "storeName": "Volagratis",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Volagratis Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=9432&id=3148787",
+    "storeLogoText": "VOLAGRATIS",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-myprotein-verified",
+    "storeSlug": "myprotein",
+    "storeName": "Myprotein",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Myprotein Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=10700&id=3148787",
+    "storeLogoText": "MYPROTEIN",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-travelzoo-verified",
+    "storeSlug": "travelzoo",
+    "storeName": "Travelzoo",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Travelzoo Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=10885&id=3148787",
+    "storeLogoText": "TRAVELZOO",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-logitravel-verified",
+    "storeSlug": "logitravel",
+    "storeName": "Logitravel",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Logitravel Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=11074&id=3148787",
+    "storeLogoText": "LOGITRAVEL",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-tripz-verified",
+    "storeSlug": "tripz",
+    "storeName": "tripz",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On tripz Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=11341&id=3148787",
+    "storeLogoText": "TRIPZ",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-breuninger-verified",
+    "storeSlug": "breuninger",
+    "storeName": "Breuninger",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Breuninger Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Breuninger clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=11590&id=3148787",
+    "storeLogoText": "BREUNINGER",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-bitdefender-verified",
+    "storeSlug": "bitdefender",
+    "storeName": "Bitdefender",
+    "storeCategory": "Privacy & Security",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Bitdefender High-Speed Encryption & Privacy Protection",
+    "description": "Secure your connected devices with military-grade privacy and zero log guarantees. Enjoy verified verified deal with quick setup and unconditional money-back guarantees.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=11660&id=3148787",
+    "storeLogoText": "BITDEFENDER",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-nails-verified",
+    "storeSlug": "nails",
+    "storeName": "Nails",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Nails Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=12443&id=3148787",
+    "storeLogoText": "NAILS",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-tamaris-verified",
+    "storeSlug": "tamaris",
+    "storeName": "Tamaris",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Tamaris Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Tamaris clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=14500&id=3148787",
+    "storeLogoText": "TAMARIS",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-g-data-verified",
+    "storeSlug": "g-data",
+    "storeName": "G DATA",
+    "storeCategory": "Privacy & Security",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On G DATA High-Speed Encryption & Privacy Protection",
+    "description": "Secure your connected devices with military-grade privacy and zero log guarantees. Enjoy verified verified deal with quick setup and unconditional money-back guarantees.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=14693&id=3148787",
+    "storeLogoText": "G DATA",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-yesstyle-verified",
+    "storeSlug": "yesstyle",
+    "storeName": "YesStyle",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On YesStyle Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=15448&id=3148787",
+    "storeLogoText": "YESSTYLE",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-hotel-info-verified",
+    "storeSlug": "hotel-info",
+    "storeName": "Hotel.info",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Hotel.info Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=16634&id=3148787",
+    "storeLogoText": "HOTEL.INFO",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-dogado-verified",
+    "storeSlug": "dogado",
+    "storeName": "Dogado",
+    "storeCategory": "Web Hosting & Domains",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Dogado High-Performance Cloud & WordPress Hosting",
+    "description": "Deploy high-speed websites with free SSL, automated backups, and 99.9% uptime reliability. Verified checkout markdown applies instantly to eligible hosting terms.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=16943&id=3148787",
+    "storeLogoText": "DOGADO",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-shape-republic-verified",
+    "storeSlug": "shape-republic",
+    "storeName": "Shape Republic",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Shape Republic Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=18103&id=3148787",
+    "storeLogoText": "SHAPE REPUBLIC",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-best-direct-verified",
+    "storeSlug": "best-direct",
+    "storeName": "Best Direct",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Best Direct Certified Tech & Power Systems",
+    "description": "Get guaranteed manufacturer-backed hardware and smart accessories with direct warranty support. Apply this verified offer before checkout to save.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=19319&id=3148787",
+    "storeLogoText": "BEST DIRECT",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-kaspersky-verified",
+    "storeSlug": "kaspersky",
+    "storeName": "Kaspersky",
+    "storeCategory": "Privacy & Security",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Kaspersky High-Speed Encryption & Privacy Protection",
+    "description": "Secure your connected devices with military-grade privacy and zero log guarantees. Enjoy verified verified deal with quick setup and unconditional money-back guarantees.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=19488&id=3148787",
+    "storeLogoText": "KASPERSKY",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-kiwi-verified",
+    "storeSlug": "kiwi",
+    "storeName": "Kiwi",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Kiwi Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=19856&id=3148787",
+    "storeLogoText": "KIWI",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-gymqueen-verified",
+    "storeSlug": "gymqueen",
+    "storeName": "GYMQUEEN",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On GYMQUEEN Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=20260&id=3148787",
+    "storeLogoText": "GYMQUEEN",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-ifaa-verified",
+    "storeSlug": "ifaa",
+    "storeName": "IFAA",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On IFAA Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=20857&id=3148787",
+    "storeLogoText": "IFAA",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-vaha-verified",
+    "storeSlug": "vaha",
+    "storeName": "VAHA",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On VAHA Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=21073&id=3148787",
+    "storeLogoText": "VAHA",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-linzi-shoes-verified",
+    "storeSlug": "linzi-shoes",
+    "storeName": "Linzi Shoes",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Linzi Shoes Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Linzi Shoes clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=21738&id=3148787",
+    "storeLogoText": "LINZI SHOES",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-weightworld-verified",
+    "storeSlug": "weightworld",
+    "storeName": "WeightWorld",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On WeightWorld Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=22446&id=3148787",
+    "storeLogoText": "WEIGHTWORLD",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-eti-express-travel-international-gmbh-verified",
+    "storeSlug": "eti-express-travel-international-gmbh",
+    "storeName": "ETI - Express Travel International GmbH",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On ETI - Express Travel International GmbH Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=25925&id=3148787",
+    "storeLogoText": "ETI - EXPRESS ",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-zenspotting-auszeiten-im-alltag-verified",
+    "storeSlug": "zenspotting-auszeiten-im-alltag",
+    "storeName": "ZENSPOTTING Auszeiten im Alltag",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On ZENSPOTTING Auszeiten im Alltag Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=28115&id=3148787",
+    "storeLogoText": "ZENSPOTTING AU",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-jones-bootmaker-verified",
+    "storeSlug": "jones-bootmaker",
+    "storeName": "Jones Bootmaker",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Jones Bootmaker Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Jones Bootmaker clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=28195&id=3148787",
+    "storeLogoText": "JONES BOOTMAKE",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-holidu-verified",
+    "storeSlug": "holidu",
+    "storeName": "Holidu",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Holidu Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=31469&id=3148787",
+    "storeLogoText": "HOLIDU",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-123hotelbooking-net-verified",
+    "storeSlug": "123hotelbooking-net",
+    "storeName": "123hotelbooking.net",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On 123hotelbooking.net Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=42002&id=3148787",
+    "storeLogoText": "123HOTELBOOKIN",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-check-point-software-technologies-verified",
+    "storeSlug": "check-point-software-technologies",
+    "storeName": "Check Point Software Technologies,",
+    "storeCategory": "Web Hosting & Domains",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Check Point Software Technologies, High-Performance Cloud & WordPress Hosting",
+    "description": "Deploy high-speed websites with free SSL, automated backups, and 99.9% uptime reliability. Verified checkout markdown applies instantly to eligible hosting terms.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=42242&id=3148787",
+    "storeLogoText": "CHECK POINT SO",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-travelcircus-verified",
+    "storeSlug": "travelcircus",
+    "storeName": "Travelcircus",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Travelcircus Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=45073&id=3148787",
+    "storeLogoText": "TRAVELCIRCUS",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-jordan-road-verified",
+    "storeSlug": "jordan-road",
+    "storeName": "Jordan Road,",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Jordan Road, Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Jordan Road, clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=45135&id=3148787",
+    "storeLogoText": "JORDAN ROAD,",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-streets-ahead-verified",
+    "storeSlug": "streets-ahead",
+    "storeName": "Streets Ahead",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Streets Ahead Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Streets Ahead clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=48937&id=3148787",
+    "storeLogoText": "STREETS AHEAD",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-starmobile-verified",
+    "storeSlug": "starmobile",
+    "storeName": "Starmobile",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Starmobile Certified Tech & Power Systems",
+    "description": "Get guaranteed manufacturer-backed hardware and smart accessories with direct warranty support. Apply this verified offer before checkout to save.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=56449&id=3148787",
+    "storeLogoText": "STARMOBILE",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-hypeneedz-verified",
+    "storeSlug": "hypeneedz",
+    "storeName": "HYPENEEDZ",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On HYPENEEDZ Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic HYPENEEDZ clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=61677&id=3148787",
+    "storeLogoText": "HYPENEEDZ",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-budgetair-verified",
+    "storeSlug": "budgetair",
+    "storeName": "BudgetAir",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On BudgetAir Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=63488&id=3148787",
+    "storeLogoText": "BUDGETAIR",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-beurer-verified",
+    "storeSlug": "beurer",
+    "storeName": "Beurer",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Beurer Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=64314&id=3148787",
+    "storeLogoText": "BEURER",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-king-kennedy-verified",
+    "storeSlug": "king-kennedy",
+    "storeName": "King Kennedy",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On King Kennedy Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic King Kennedy clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=65394&id=3148787",
+    "storeLogoText": "KING KENNEDY",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-esim-fox-verified",
+    "storeSlug": "esim-fox",
+    "storeName": "eSIM FOX",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On eSIM FOX Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=66920&id=3148787",
+    "storeLogoText": "ESIM FOX",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-betterroaming-verified",
+    "storeSlug": "betterroaming",
+    "storeName": "BetterRoaming",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On BetterRoaming Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=69692&id=3148787",
+    "storeLogoText": "BETTERROAMING",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-direct-running-verified",
+    "storeSlug": "direct-running",
+    "storeName": "Direct-Running",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Direct-Running Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Direct-Running clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=71523&id=3148787",
+    "storeLogoText": "DIRECT-RUNNING",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-made-in-paradis-verified",
+    "storeSlug": "made-in-paradis",
+    "storeName": "Made In Paradis",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Made In Paradis Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Made In Paradis clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=71533&id=3148787",
+    "storeLogoText": "MADE IN PARADI",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-freeletics-brand-partnerships-verified",
+    "storeSlug": "freeletics-brand-partnerships",
+    "storeName": "Freeletics Brand Partnerships",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Freeletics Brand Partnerships Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=72497&id=3148787",
+    "storeLogoText": "FREELETICS BRA",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-posh-tech-verified",
+    "storeSlug": "posh-tech",
+    "storeName": "Posh Tech",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Posh Tech Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Posh Tech clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=75368&id=3148787",
+    "storeLogoText": "POSH TECH",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-getyourguide-verified",
+    "storeSlug": "getyourguide",
+    "storeName": "GetYourGuide",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On GetYourGuide Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=77814&id=3148787",
+    "storeLogoText": "GETYOURGUIDE",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-bids-com-verified",
+    "storeSlug": "bids-com",
+    "storeName": "bids.com",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On bids.com Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic bids.com clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=85539&id=3148787",
+    "storeLogoText": "BIDS.COM",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-sneakin-verified",
+    "storeSlug": "sneakin",
+    "storeName": "Sneakin",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Sneakin Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Sneakin clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=85621&id=3148787",
+    "storeLogoText": "SNEAKIN",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-brandstyle24-verified",
+    "storeSlug": "brandstyle24",
+    "storeName": "Brandstyle24",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Brandstyle24 Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Brandstyle24 clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=87211&id=3148787",
+    "storeLogoText": "BRANDSTYLE24",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-doit-software-solutions-verified",
+    "storeSlug": "doit-software-solutions",
+    "storeName": "Doit Software Solutions",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Doit Software Solutions Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=88865&id=3148787",
+    "storeLogoText": "DOIT SOFTWARE ",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-rungolee-verified",
+    "storeSlug": "rungolee",
+    "storeName": "Rungolee",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Rungolee Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Rungolee clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=92743&id=3148787",
+    "storeLogoText": "RUNGOLEE",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-le-paradis-verified",
+    "storeSlug": "le-paradis",
+    "storeName": "Le Paradis,",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Le Paradis, Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Le Paradis, clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=93029&id=3148787",
+    "storeLogoText": "LE PARADIS,",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-ketoconnect-verified",
+    "storeSlug": "ketoconnect",
+    "storeName": "Ketoconnect",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Ketoconnect Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=93821&id=3148787",
+    "storeLogoText": "KETOCONNECT",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-noblemars-verified",
+    "storeSlug": "noblemars",
+    "storeName": "Noblemars",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Noblemars Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Noblemars clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=96673&id=3148787",
+    "storeLogoText": "NOBLEMARS",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-michi-design-verified",
+    "storeSlug": "michi-design",
+    "storeName": "MICHI Design",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On MICHI Design Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic MICHI Design clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=100637&id=3148787",
+    "storeLogoText": "MICHI DESIGN",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-alligator-warehouse-verified",
+    "storeSlug": "alligator-warehouse",
+    "storeName": "Alligator Warehouse",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Alligator Warehouse Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Alligator Warehouse clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=103439&id=3148787",
+    "storeLogoText": "ALLIGATOR WARE",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-knowroaming-verified",
+    "storeSlug": "knowroaming",
+    "storeName": "KnowRoaming",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On KnowRoaming Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=104953&id=3148787",
+    "storeLogoText": "KNOWROAMING",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-meinsportline-verified",
+    "storeSlug": "meinsportline",
+    "storeName": "meinSportline",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On meinSportline Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic meinSportline clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=105243&id=3148787",
+    "storeLogoText": "MEINSPORTLINE",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-midnightdeal-verified",
+    "storeSlug": "midnightdeal",
+    "storeName": "Midnightdeal",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Midnightdeal Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=105513&id=3148787",
+    "storeLogoText": "MIDNIGHTDEAL",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-trivago-verified",
+    "storeSlug": "trivago",
+    "storeName": "Trivago",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Trivago Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=105923&id=3148787",
+    "storeLogoText": "TRIVAGO",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-bamboosim-verified",
+    "storeSlug": "bamboosim",
+    "storeName": "BambooSIM",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On BambooSIM Certified Tech & Power Systems",
+    "description": "Get guaranteed manufacturer-backed hardware and smart accessories with direct warranty support. Apply this verified offer before checkout to save.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=108850&id=3148787",
+    "storeLogoText": "BAMBOOSIM",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-maverick-co-verified",
+    "storeSlug": "maverick-co",
+    "storeName": "Maverick & Co.",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Maverick & Co. Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Maverick & Co. clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=108852&id=3148787",
+    "storeLogoText": "MAVERICK & CO.",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-nex-nutrition-verified",
+    "storeSlug": "nex-nutrition",
+    "storeName": "Nex Nutrition",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Nex Nutrition Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=109648&id=3148787",
+    "storeLogoText": "NEX NUTRITION",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-gurado-gutschein-und-ticketsystem-verified",
+    "storeSlug": "gurado-gutschein-und-ticketsystem",
+    "storeName": "gurado - Gutschein- und Ticketsystem",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On gurado - Gutschein- und Ticketsystem Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=112830&id=3148787",
+    "storeLogoText": "GURADO - GUTSC",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-lifesum-verified",
+    "storeSlug": "lifesum",
+    "storeName": "Lifesum",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Lifesum Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=113414&id=3148787",
+    "storeLogoText": "LIFESUM",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-somo-sleep-verified",
+    "storeSlug": "somo-sleep",
+    "storeName": "Somo Sleep",
+    "storeCategory": "Home & Lifestyle",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Somo Sleep Premium Verified Matches & Subscriptions",
+    "description": "Connect with genuine, identity-verified profiles using intelligent matching filters and private messaging. Activate your premium membership perks with instant discount savings.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=114060&id=3148787",
+    "storeLogoText": "SOMO SLEEP",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-virgin-balloon-flights-verified",
+    "storeSlug": "virgin-balloon-flights",
+    "storeName": "Virgin Balloon Flights",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Virgin Balloon Flights Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=114484&id=3148787",
+    "storeLogoText": "VIRGIN BALLOON",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-fleurwear-verified",
+    "storeSlug": "fleurwear",
+    "storeName": "Fleurwear",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Fleurwear Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Fleurwear clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=114752&id=3148787",
+    "storeLogoText": "FLEURWEAR",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-zen-hotels-verified",
+    "storeSlug": "zen-hotels",
+    "storeName": "Zen Hotels",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Zen Hotels Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=115208&id=3148787",
+    "storeLogoText": "ZEN HOTELS",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-voghion-verified",
+    "storeSlug": "voghion",
+    "storeName": "Voghion",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Voghion Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Voghion clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=115651&id=3148787",
+    "storeLogoText": "VOGHION",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-body-fit-verified",
+    "storeSlug": "body-fit",
+    "storeName": "Body & Fit",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Body & Fit Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=117013&id=3148787",
+    "storeLogoText": "BODY & FIT",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-sys-verified",
+    "storeSlug": "sys",
+    "storeName": "SYS",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On SYS Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic SYS clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=117991&id=3148787",
+    "storeLogoText": "SYS",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-novasol-verified",
+    "storeSlug": "novasol",
+    "storeName": "Novasol",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Novasol Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=118655&id=3148787",
+    "storeLogoText": "NOVASOL",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-silentlink-verified",
+    "storeSlug": "silentlink",
+    "storeName": "SilentLink",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On SilentLink Certified Tech & Power Systems",
+    "description": "Get guaranteed manufacturer-backed hardware and smart accessories with direct warranty support. Apply this verified offer before checkout to save.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=119001&id=3148787",
+    "storeLogoText": "SILENTLINK",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-smallable-verified",
+    "storeSlug": "smallable",
+    "storeName": "Smallable",
+    "storeCategory": "Kids & Toys",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Smallable Educational Toys & Premium Kids Gear",
+    "description": "Shop tested, child-safe toys and learning essentials with fast doorstep delivery. Verified discount applied upon checkout.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=119083&id=3148787",
+    "storeLogoText": "SMALLABLE",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-esimi-verified",
+    "storeSlug": "esimi",
+    "storeName": "Esimi",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Esimi Certified Tech & Power Systems",
+    "description": "Get guaranteed manufacturer-backed hardware and smart accessories with direct warranty support. Apply this verified offer before checkout to save.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=120603&id=3148787",
+    "storeLogoText": "ESIMI",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-d-franklin-verified",
+    "storeSlug": "d-franklin",
+    "storeName": "D Franklin",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On D Franklin Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic D Franklin clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=121168&id=3148787",
+    "storeLogoText": "D FRANKLIN",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-buffalo-boots-verified",
+    "storeSlug": "buffalo-boots",
+    "storeName": "Buffalo Boots",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Buffalo Boots Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Buffalo Boots clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=122626&id=3148787",
+    "storeLogoText": "BUFFALO BOOTS",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-julia-travel-verified",
+    "storeSlug": "julia-travel",
+    "storeName": "Julia Travel",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Julia Travel Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123080&id=3148787",
+    "storeLogoText": "JULIA TRAVEL",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-hayley-menzies-verified",
+    "storeSlug": "hayley-menzies",
+    "storeName": "Hayley Menzies",
+    "storeCategory": "Fashion & Apparel",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Hayley Menzies Seasonal Apparel & Trending Collections",
+    "description": "Refresh your wardrobe with authentic Hayley Menzies clothing and accessories. Enjoy verified savings with easy worldwide delivery and hassle-free returns.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123304&id=3148787",
+    "storeLogoText": "HAYLEY MENZIES",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-infobus-verified",
+    "storeSlug": "infobus",
+    "storeName": "Infobus",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Infobus Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123328&id=3148787",
+    "storeLogoText": "INFOBUS",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-sonoff-verified",
+    "storeSlug": "sonoff",
+    "storeName": "SONOFF",
+    "storeCategory": "Electronics & Gadgets",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On SONOFF Certified Tech & Power Systems",
+    "description": "Get guaranteed manufacturer-backed hardware and smart accessories with direct warranty support. Apply this verified offer before checkout to save.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123524&id=3148787",
+    "storeLogoText": "SONOFF",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-vodafone-esim-verified",
+    "storeSlug": "vodafone-esim",
+    "storeName": "Vodafone eSim",
+    "storeCategory": "E-Commerce & Wholesale",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Vodafone eSim Factory-Direct Catalog & Global Sourcing",
+    "description": "Source authentic consumer electronics, gear, and trending goods directly from verified manufacturers. Enjoy volume tier discounts with tracked worldwide shipping.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123856&id=3148787",
+    "storeLogoText": "VODAFONE ESIM",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-tattup-shop-verified",
+    "storeSlug": "tattup-shop",
+    "storeName": "tattup Shop",
+    "storeCategory": "Beauty & Fragrances",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On tattup Shop Luxury Fragrances & Salon-Grade Care",
+    "description": "Discover 100% authentic designer scents, skincare, and beauty products. Verified promotion valid on official catalog inventory.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=124352&id=3148787",
+    "storeLogoText": "TATTUP SHOP",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
+  },
+  {
+    "id": "deal-oliver-s-travels-verified",
+    "storeSlug": "oliver-s-travels",
+    "storeName": "Oliver's Travels -",
+    "storeCategory": "Travel & Tours",
+    "discountBadge": "Verified Deal",
+    "title": "Verified Deal On Oliver's Travels - Global Bookings & Travel Experiences",
+    "description": "Save on verified bookings, mobile eSIM data, and tour packages worldwide. Instant digital delivery straight to your email or smartphone.",
+    "code": "ACTIVATE DEAL",
+    "isExclusive": false,
+    "isVerified": true,
+    "expiryDate": "2026-12-31",
+    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=125640&id=3148787",
+    "storeLogoText": "OLIVER'S TRAVE",
+    "successRate": "98%",
+    "terms": "Apply promo code ACTIVATE DEAL at cart checkout to claim discount."
   },
   {
     "id": "net_969974",
@@ -50946,1607 +52664,6 @@ export const COUPONS_DATA: Coupon[] = [
     "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7909317?url=https%3A%2F%2Fwww.bybenson.com%2F",
     "storeLogoText": "BY BENSON",
     "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
-  }
-,
-  {
-    "id": "deal-wesmile-verified",
-    "storeSlug": "wesmile",
-    "storeName": "Wesmile",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Wesmile",
-    "description": "Shop top-rated Tourism & Attractions collections at Wesmile with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=63766&id=3148787",
-    "storeLogoText": "WESMILE",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-hrs-verified",
-    "storeSlug": "hrs",
-    "storeName": "HRS",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at HRS",
-    "description": "Shop top-rated Hotels & Accommodation collections at HRS with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=16633&id=3148787",
-    "storeLogoText": "HRS",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-top-villas-verified",
-    "storeSlug": "top-villas",
-    "storeName": "Top Villas",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Top Villas",
-    "description": "Shop top-rated Hotels & Accommodation collections at Top Villas with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=24004&id=3148787",
-    "storeLogoText": "TOP VILLAS",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-uniplaces-verified",
-    "storeSlug": "uniplaces",
-    "storeName": "Uniplaces",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Uniplaces",
-    "description": "Shop top-rated Hotels & Accommodation collections at Uniplaces with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=26311&id=3148787",
-    "storeLogoText": "UNIPLACES",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-power-wearhouse-verified",
-    "storeSlug": "power-wearhouse",
-    "storeName": "Power WearHouse",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Power WearHouse",
-    "description": "Shop top-rated Health & Beauty collections at Power WearHouse with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=79548&id=3148787",
-    "storeLogoText": "POWER WEARHOUS",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-12go-verified",
-    "storeSlug": "12go",
-    "storeName": "12Go",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at 12Go",
-    "description": "Shop top-rated Hotels & Accommodation collections at 12Go with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=114908&id=3148787",
-    "storeLogoText": "12GO",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-sembo-verified",
-    "storeSlug": "sembo",
-    "storeName": "Sembo",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Sembo",
-    "description": "Shop top-rated Hotels & Accommodation collections at Sembo with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=122074&id=3148787",
-    "storeLogoText": "SEMBO",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-arlo-security-verified",
-    "storeSlug": "arlo-security",
-    "storeName": "Arlo Security",
-    "storeCategory": "Electronics & Gadgets",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Arlo Security",
-    "description": "Shop top-rated Gadgets collections at Arlo Security with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=122884&id=3148787",
-    "storeLogoText": "ARLO SECURITY",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-saily-verified",
-    "storeSlug": "saily",
-    "storeName": "Saily",
-    "storeCategory": "Electronics & Gadgets",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Saily",
-    "description": "Shop top-rated Mobile Contract collections at Saily with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=128607&id=3148787",
-    "storeLogoText": "SAILY",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-tanya-heath-paris-verified",
-    "storeSlug": "tanya-heath-paris",
-    "storeName": "TANYA HEATH Paris",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at TANYA HEATH Paris",
-    "description": "Shop top-rated Shoes collections at TANYA HEATH Paris with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=131066&id=3148787",
-    "storeLogoText": "TANYA HEATH PA",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-la-redoute-verified",
-    "storeSlug": "la-redoute",
-    "storeName": "La Redoute",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at La Redoute",
-    "description": "Shop top-rated Clothing collections at La Redoute with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=1496&id=3148787",
-    "storeLogoText": "LA REDOUTE",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-glossybox-verified",
-    "storeSlug": "glossybox",
-    "storeName": "Glossybox",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Glossybox",
-    "description": "Shop top-rated Health & Beauty collections at Glossybox with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=3749&id=3148787",
-    "storeLogoText": "GLOSSYBOX",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-bulk-verified",
-    "storeSlug": "bulk",
-    "storeName": "Bulk",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Bulk",
-    "description": "Shop top-rated Health & Beauty collections at Bulk with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=4822&id=3148787",
-    "storeLogoText": "BULK",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-viator-a-tripadvisor-company-verified",
-    "storeSlug": "viator-a-tripadvisor-company",
-    "storeName": "Viator - A Tripadvisor Company",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Viator - A Tripadvisor Company",
-    "description": "Shop top-rated Tourism & Attractions collections at Viator - A Tripadvisor Company with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=7038&id=3148787",
-    "storeLogoText": "VIATOR - A TRI",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-travelscout24-verified",
-    "storeSlug": "travelscout24",
-    "storeName": "TravelScout24",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at TravelScout24",
-    "description": "Shop top-rated Travel Agencies collections at TravelScout24 with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=9130&id=3148787",
-    "storeLogoText": "TRAVELSCOUT24",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-travel24-verified",
-    "storeSlug": "travel24",
-    "storeName": "Travel24",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Travel24",
-    "description": "Shop top-rated Hotels & Accommodation collections at Travel24 with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=9131&id=3148787",
-    "storeLogoText": "TRAVEL24",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-ab-in-den-urlaub-verified",
-    "storeSlug": "ab-in-den-urlaub",
-    "storeName": "ab-in-den-urlaub",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at ab-in-den-urlaub",
-    "description": "Shop top-rated Travel Agencies collections at ab-in-den-urlaub with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=9369&id=3148787",
-    "storeLogoText": "AB-IN-DEN-URLA",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-volagratis-verified",
-    "storeSlug": "volagratis",
-    "storeName": "Volagratis",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Volagratis",
-    "description": "Shop top-rated Travel Agencies collections at Volagratis with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=9432&id=3148787",
-    "storeLogoText": "VOLAGRATIS",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-myprotein-verified",
-    "storeSlug": "myprotein",
-    "storeName": "Myprotein",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Myprotein",
-    "description": "Shop top-rated Health & Beauty collections at Myprotein with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=10700&id=3148787",
-    "storeLogoText": "MYPROTEIN",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-travelzoo-verified",
-    "storeSlug": "travelzoo",
-    "storeName": "Travelzoo",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Travelzoo",
-    "description": "Shop top-rated Hotels & Accommodation collections at Travelzoo with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=10885&id=3148787",
-    "storeLogoText": "TRAVELZOO",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-logitravel-verified",
-    "storeSlug": "logitravel",
-    "storeName": "Logitravel",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Logitravel",
-    "description": "Shop top-rated Travel Agencies collections at Logitravel with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=11074&id=3148787",
-    "storeLogoText": "LOGITRAVEL",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-tripz-verified",
-    "storeSlug": "tripz",
-    "storeName": "tripz",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at tripz",
-    "description": "Shop top-rated Travel Agencies collections at tripz with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=11341&id=3148787",
-    "storeLogoText": "TRIPZ",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-breuninger-verified",
-    "storeSlug": "breuninger",
-    "storeName": "Breuninger",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Breuninger",
-    "description": "Shop top-rated Clothing collections at Breuninger with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=11590&id=3148787",
-    "storeLogoText": "BREUNINGER",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-bitdefender-verified",
-    "storeSlug": "bitdefender",
-    "storeName": "Bitdefender",
-    "storeCategory": "Privacy & Security",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Bitdefender",
-    "description": "Shop top-rated Software Downloads collections at Bitdefender with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=11660&id=3148787",
-    "storeLogoText": "BITDEFENDER",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-nails-verified",
-    "storeSlug": "nails",
-    "storeName": "Nails",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Nails",
-    "description": "Shop top-rated Health & Beauty collections at Nails with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=12443&id=3148787",
-    "storeLogoText": "NAILS",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-tamaris-verified",
-    "storeSlug": "tamaris",
-    "storeName": "Tamaris",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Tamaris",
-    "description": "Shop top-rated Shoes collections at Tamaris with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=14500&id=3148787",
-    "storeLogoText": "TAMARIS",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-g-data-verified",
-    "storeSlug": "g-data",
-    "storeName": "G DATA",
-    "storeCategory": "Privacy & Security",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at G DATA",
-    "description": "Shop top-rated Software Downloads collections at G DATA with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=14693&id=3148787",
-    "storeLogoText": "G DATA",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-yesstyle-verified",
-    "storeSlug": "yesstyle",
-    "storeName": "YesStyle",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at YesStyle",
-    "description": "Shop top-rated Health & Beauty collections at YesStyle with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=15448&id=3148787",
-    "storeLogoText": "YESSTYLE",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-hotel-info-verified",
-    "storeSlug": "hotel-info",
-    "storeName": "Hotel.info",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Hotel.info",
-    "description": "Shop top-rated Hotels & Accommodation collections at Hotel.info with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=16634&id=3148787",
-    "storeLogoText": "HOTEL.INFO",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-dogado-verified",
-    "storeSlug": "dogado",
-    "storeName": "Dogado",
-    "storeCategory": "Web Hosting & Domains",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Dogado",
-    "description": "Shop top-rated Web Hosting collections at Dogado with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=16943&id=3148787",
-    "storeLogoText": "DOGADO",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-shape-republic-verified",
-    "storeSlug": "shape-republic",
-    "storeName": "Shape Republic",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Shape Republic",
-    "description": "Shop top-rated Health & Beauty collections at Shape Republic with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=18103&id=3148787",
-    "storeLogoText": "SHAPE REPUBLIC",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-best-direct-verified",
-    "storeSlug": "best-direct",
-    "storeName": "Best Direct",
-    "storeCategory": "Electronics & Gadgets",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Best Direct",
-    "description": "Shop top-rated Electronic Superstore collections at Best Direct with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=19319&id=3148787",
-    "storeLogoText": "BEST DIRECT",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-kaspersky-verified",
-    "storeSlug": "kaspersky",
-    "storeName": "Kaspersky",
-    "storeCategory": "Privacy & Security",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Kaspersky",
-    "description": "Shop top-rated Software Downloads collections at Kaspersky with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=19488&id=3148787",
-    "storeLogoText": "KASPERSKY",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-kiwi-verified",
-    "storeSlug": "kiwi",
-    "storeName": "Kiwi",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Kiwi",
-    "description": "Shop top-rated Airlines collections at Kiwi with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=19856&id=3148787",
-    "storeLogoText": "KIWI",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-gymqueen-verified",
-    "storeSlug": "gymqueen",
-    "storeName": "GYMQUEEN",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at GYMQUEEN",
-    "description": "Shop top-rated Health & Beauty collections at GYMQUEEN with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=20260&id=3148787",
-    "storeLogoText": "GYMQUEEN",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-ifaa-verified",
-    "storeSlug": "ifaa",
-    "storeName": "IFAA",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at IFAA",
-    "description": "Shop top-rated Health & Beauty collections at IFAA with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=20857&id=3148787",
-    "storeLogoText": "IFAA",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-vaha-verified",
-    "storeSlug": "vaha",
-    "storeName": "VAHA",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at VAHA",
-    "description": "Shop top-rated Health & Beauty collections at VAHA with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=21073&id=3148787",
-    "storeLogoText": "VAHA",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-linzi-shoes-verified",
-    "storeSlug": "linzi-shoes",
-    "storeName": "Linzi Shoes",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Linzi Shoes",
-    "description": "Shop top-rated Shoes collections at Linzi Shoes with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=21738&id=3148787",
-    "storeLogoText": "LINZI SHOES",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-weightworld-verified",
-    "storeSlug": "weightworld",
-    "storeName": "WeightWorld",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at WeightWorld",
-    "description": "Shop top-rated Health & Beauty collections at WeightWorld with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=22446&id=3148787",
-    "storeLogoText": "WEIGHTWORLD",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-eti-express-travel-international-gmbh-verified",
-    "storeSlug": "eti-express-travel-international-gmbh",
-    "storeName": "ETI - Express Travel International GmbH",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at ETI - Express Travel International GmbH",
-    "description": "Shop top-rated Travel Agencies collections at ETI - Express Travel International GmbH with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=25925&id=3148787",
-    "storeLogoText": "ETI - EXPRESS ",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-zenspotting-auszeiten-im-alltag-verified",
-    "storeSlug": "zenspotting-auszeiten-im-alltag",
-    "storeName": "ZENSPOTTING Auszeiten im Alltag",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at ZENSPOTTING Auszeiten im Alltag",
-    "description": "Shop top-rated Health & Beauty collections at ZENSPOTTING Auszeiten im Alltag with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=28115&id=3148787",
-    "storeLogoText": "ZENSPOTTING AU",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-jones-bootmaker-verified",
-    "storeSlug": "jones-bootmaker",
-    "storeName": "Jones Bootmaker",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Jones Bootmaker",
-    "description": "Shop top-rated Shoes collections at Jones Bootmaker with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=28195&id=3148787",
-    "storeLogoText": "JONES BOOTMAKE",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-holidu-verified",
-    "storeSlug": "holidu",
-    "storeName": "Holidu",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Holidu",
-    "description": "Shop top-rated Hotels & Accommodation collections at Holidu with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=31469&id=3148787",
-    "storeLogoText": "HOLIDU",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-123hotelbooking-net-verified",
-    "storeSlug": "123hotelbooking-net",
-    "storeName": "123hotelbooking.net",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at 123hotelbooking.net",
-    "description": "Shop top-rated Tourism & Attractions collections at 123hotelbooking.net with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=42002&id=3148787",
-    "storeLogoText": "123HOTELBOOKIN",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-check-point-software-technologies-verified",
-    "storeSlug": "check-point-software-technologies",
-    "storeName": "Check Point Software Technologies,",
-    "storeCategory": "Web Hosting & Domains",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Check Point Software Technologies,",
-    "description": "Shop top-rated Web Hosting collections at Check Point Software Technologies, with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=42242&id=3148787",
-    "storeLogoText": "CHECK POINT SO",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-travelcircus-verified",
-    "storeSlug": "travelcircus",
-    "storeName": "Travelcircus",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Travelcircus",
-    "description": "Shop top-rated Hotels & Accommodation collections at Travelcircus with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=45073&id=3148787",
-    "storeLogoText": "TRAVELCIRCUS",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-jordan-road-verified",
-    "storeSlug": "jordan-road",
-    "storeName": "Jordan Road,",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Jordan Road,",
-    "description": "Shop top-rated Clothing Accessories collections at Jordan Road, with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=45135&id=3148787",
-    "storeLogoText": "JORDAN ROAD,",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-streets-ahead-verified",
-    "storeSlug": "streets-ahead",
-    "storeName": "Streets Ahead",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Streets Ahead",
-    "description": "Shop top-rated Clothing Accessories collections at Streets Ahead with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=48937&id=3148787",
-    "storeLogoText": "STREETS AHEAD",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-starmobile-verified",
-    "storeSlug": "starmobile",
-    "storeName": "Starmobile",
-    "storeCategory": "Electronics & Gadgets",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Starmobile",
-    "description": "Shop top-rated Mobile Broadband collections at Starmobile with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=56449&id=3148787",
-    "storeLogoText": "STARMOBILE",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-hypeneedz-verified",
-    "storeSlug": "hypeneedz",
-    "storeName": "HYPENEEDZ",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at HYPENEEDZ",
-    "description": "Shop top-rated Shoes collections at HYPENEEDZ with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=61677&id=3148787",
-    "storeLogoText": "HYPENEEDZ",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-budgetair-verified",
-    "storeSlug": "budgetair",
-    "storeName": "BudgetAir",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at BudgetAir",
-    "description": "Shop top-rated Travel Agencies collections at BudgetAir with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=63488&id=3148787",
-    "storeLogoText": "BUDGETAIR",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-beurer-verified",
-    "storeSlug": "beurer",
-    "storeName": "Beurer",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Beurer",
-    "description": "Shop top-rated Health & Beauty collections at Beurer with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=64314&id=3148787",
-    "storeLogoText": "BEURER",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-king-kennedy-verified",
-    "storeSlug": "king-kennedy",
-    "storeName": "King Kennedy",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at King Kennedy",
-    "description": "Shop top-rated Clothing Accessories collections at King Kennedy with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=65394&id=3148787",
-    "storeLogoText": "KING KENNEDY",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-esim-fox-verified",
-    "storeSlug": "esim-fox",
-    "storeName": "eSIM FOX",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at eSIM FOX",
-    "description": "Shop top-rated Internet Service Provider collections at eSIM FOX with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=66920&id=3148787",
-    "storeLogoText": "ESIM FOX",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-native-by-numa-verified",
-    "storeSlug": "native-by-numa",
-    "storeName": "Native By Numa",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Native By Numa",
-    "description": "Shop top-rated Hotels & Accommodation collections at Native By Numa with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=68726&id=3148787",
-    "storeLogoText": "NATIVE BY NUMA",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-betterroaming-verified",
-    "storeSlug": "betterroaming",
-    "storeName": "BetterRoaming",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at BetterRoaming",
-    "description": "Shop top-rated Network Operators collections at BetterRoaming with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=69692&id=3148787",
-    "storeLogoText": "BETTERROAMING",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-direct-running-verified",
-    "storeSlug": "direct-running",
-    "storeName": "Direct-Running",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Direct-Running",
-    "description": "Shop top-rated Sportswear collections at Direct-Running with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=71523&id=3148787",
-    "storeLogoText": "DIRECT-RUNNING",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-made-in-paradis-verified",
-    "storeSlug": "made-in-paradis",
-    "storeName": "Made In Paradis",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Made In Paradis",
-    "description": "Shop top-rated Womenswear collections at Made In Paradis with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=71533&id=3148787",
-    "storeLogoText": "MADE IN PARADI",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-freeletics-brand-partnerships-verified",
-    "storeSlug": "freeletics-brand-partnerships",
-    "storeName": "Freeletics Brand Partnerships",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Freeletics Brand Partnerships",
-    "description": "Shop top-rated Health & Beauty collections at Freeletics Brand Partnerships with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=72497&id=3148787",
-    "storeLogoText": "FREELETICS BRA",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-posh-tech-verified",
-    "storeSlug": "posh-tech",
-    "storeName": "Posh Tech",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Posh Tech",
-    "description": "Shop top-rated Clothing Accessories collections at Posh Tech with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=75368&id=3148787",
-    "storeLogoText": "POSH TECH",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-getyourguide-verified",
-    "storeSlug": "getyourguide",
-    "storeName": "GetYourGuide",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at GetYourGuide",
-    "description": "Shop top-rated Tourism & Attractions collections at GetYourGuide with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=77814&id=3148787",
-    "storeLogoText": "GETYOURGUIDE",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-bids-com-verified",
-    "storeSlug": "bids-com",
-    "storeName": "bids.com",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at bids.com",
-    "description": "Shop top-rated Clothing Accessories collections at bids.com with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=85539&id=3148787",
-    "storeLogoText": "BIDS.COM",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-sneakin-verified",
-    "storeSlug": "sneakin",
-    "storeName": "Sneakin",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Sneakin",
-    "description": "Shop top-rated Shoes collections at Sneakin with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=85621&id=3148787",
-    "storeLogoText": "SNEAKIN",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-brandstyle24-verified",
-    "storeSlug": "brandstyle24",
-    "storeName": "Brandstyle24",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Brandstyle24",
-    "description": "Shop top-rated Shoes collections at Brandstyle24 with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=87211&id=3148787",
-    "storeLogoText": "BRANDSTYLE24",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-doit-software-solutions-verified",
-    "storeSlug": "doit-software-solutions",
-    "storeName": "Doit Software Solutions",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Doit Software Solutions",
-    "description": "Shop top-rated Health & Beauty collections at Doit Software Solutions with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=88865&id=3148787",
-    "storeLogoText": "DOIT SOFTWARE ",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-rungolee-verified",
-    "storeSlug": "rungolee",
-    "storeName": "Rungolee",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Rungolee",
-    "description": "Shop top-rated Clothing collections at Rungolee with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=92743&id=3148787",
-    "storeLogoText": "RUNGOLEE",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-le-paradis-verified",
-    "storeSlug": "le-paradis",
-    "storeName": "Le Paradis,",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Le Paradis,",
-    "description": "Shop top-rated Clothing Accessories collections at Le Paradis, with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=93029&id=3148787",
-    "storeLogoText": "LE PARADIS,",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-ketoconnect-verified",
-    "storeSlug": "ketoconnect",
-    "storeName": "Ketoconnect",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Ketoconnect",
-    "description": "Shop top-rated Health & Beauty collections at Ketoconnect with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=93821&id=3148787",
-    "storeLogoText": "KETOCONNECT",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-noblemars-verified",
-    "storeSlug": "noblemars",
-    "storeName": "Noblemars",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Noblemars",
-    "description": "Shop top-rated Clothing collections at Noblemars with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=96673&id=3148787",
-    "storeLogoText": "NOBLEMARS",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-michi-design-verified",
-    "storeSlug": "michi-design",
-    "storeName": "MICHI Design",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at MICHI Design",
-    "description": "Shop top-rated Clothing collections at MICHI Design with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=100637&id=3148787",
-    "storeLogoText": "MICHI DESIGN",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-alligator-warehouse-verified",
-    "storeSlug": "alligator-warehouse",
-    "storeName": "Alligator Warehouse",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Alligator Warehouse",
-    "description": "Shop top-rated Menswear collections at Alligator Warehouse with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=103439&id=3148787",
-    "storeLogoText": "ALLIGATOR WARE",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-knowroaming-verified",
-    "storeSlug": "knowroaming",
-    "storeName": "KnowRoaming",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at KnowRoaming",
-    "description": "Shop top-rated Internet Service Provider collections at KnowRoaming with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=104953&id=3148787",
-    "storeLogoText": "KNOWROAMING",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-meinsportline-verified",
-    "storeSlug": "meinsportline",
-    "storeName": "meinSportline",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at meinSportline",
-    "description": "Shop top-rated Shoes collections at meinSportline with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=105243&id=3148787",
-    "storeLogoText": "MEINSPORTLINE",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-midnightdeal-verified",
-    "storeSlug": "midnightdeal",
-    "storeName": "Midnightdeal",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Midnightdeal",
-    "description": "Shop top-rated Travel Agencies collections at Midnightdeal with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=105513&id=3148787",
-    "storeLogoText": "MIDNIGHTDEAL",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-trivago-verified",
-    "storeSlug": "trivago",
-    "storeName": "Trivago",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Trivago",
-    "description": "Shop top-rated Hotels & Accommodation collections at Trivago with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=105923&id=3148787",
-    "storeLogoText": "TRIVAGO",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-bamboosim-verified",
-    "storeSlug": "bamboosim",
-    "storeName": "BambooSIM",
-    "storeCategory": "Electronics & Gadgets",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at BambooSIM",
-    "description": "Shop top-rated Mobile Pay As You Go collections at BambooSIM with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=108850&id=3148787",
-    "storeLogoText": "BAMBOOSIM",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-maverick-co-verified",
-    "storeSlug": "maverick-co",
-    "storeName": "Maverick & Co.",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Maverick & Co.",
-    "description": "Shop top-rated Clothing Accessories collections at Maverick & Co. with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=108852&id=3148787",
-    "storeLogoText": "MAVERICK & CO.",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-nex-nutrition-verified",
-    "storeSlug": "nex-nutrition",
-    "storeName": "Nex Nutrition",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Nex Nutrition",
-    "description": "Shop top-rated Health & Beauty collections at Nex Nutrition with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=109648&id=3148787",
-    "storeLogoText": "NEX NUTRITION",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-gurado-gutschein-und-ticketsystem-verified",
-    "storeSlug": "gurado-gutschein-und-ticketsystem",
-    "storeName": "gurado - Gutschein- und Ticketsystem",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at gurado - Gutschein- und Ticketsystem",
-    "description": "Shop top-rated Business Services (B2B) collections at gurado - Gutschein- und Ticketsystem with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=112830&id=3148787",
-    "storeLogoText": "GURADO - GUTSC",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-lifesum-verified",
-    "storeSlug": "lifesum",
-    "storeName": "Lifesum",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Lifesum",
-    "description": "Shop top-rated Health & Beauty collections at Lifesum with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=113414&id=3148787",
-    "storeLogoText": "LIFESUM",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-somo-sleep-verified",
-    "storeSlug": "somo-sleep",
-    "storeName": "Somo Sleep",
-    "storeCategory": "Home & Lifestyle",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Somo Sleep",
-    "description": "Shop top-rated Home & Garden collections at Somo Sleep with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=114060&id=3148787",
-    "storeLogoText": "SOMO SLEEP",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-virgin-balloon-flights-verified",
-    "storeSlug": "virgin-balloon-flights",
-    "storeName": "Virgin Balloon Flights",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Virgin Balloon Flights",
-    "description": "Shop top-rated Gifts & Flowers collections at Virgin Balloon Flights with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=114484&id=3148787",
-    "storeLogoText": "VIRGIN BALLOON",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-fleurwear-verified",
-    "storeSlug": "fleurwear",
-    "storeName": "Fleurwear",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Fleurwear",
-    "description": "Shop top-rated Womenswear collections at Fleurwear with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=114752&id=3148787",
-    "storeLogoText": "FLEURWEAR",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-zen-hotels-verified",
-    "storeSlug": "zen-hotels",
-    "storeName": "Zen Hotels",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Zen Hotels",
-    "description": "Shop top-rated Hotels & Accommodation collections at Zen Hotels with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=115208&id=3148787",
-    "storeLogoText": "ZEN HOTELS",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-voghion-verified",
-    "storeSlug": "voghion",
-    "storeName": "Voghion",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Voghion",
-    "description": "Shop top-rated Clothing collections at Voghion with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=115651&id=3148787",
-    "storeLogoText": "VOGHION",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-body-fit-verified",
-    "storeSlug": "body-fit",
-    "storeName": "Body & Fit",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Body & Fit",
-    "description": "Shop top-rated Health & Beauty collections at Body & Fit with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=117013&id=3148787",
-    "storeLogoText": "BODY & FIT",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-sys-verified",
-    "storeSlug": "sys",
-    "storeName": "SYS",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at SYS",
-    "description": "Shop top-rated Clothing collections at SYS with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=117991&id=3148787",
-    "storeLogoText": "SYS",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-novasol-verified",
-    "storeSlug": "novasol",
-    "storeName": "Novasol",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Novasol",
-    "description": "Shop top-rated Hotels & Accommodation collections at Novasol with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=118655&id=3148787",
-    "storeLogoText": "NOVASOL",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-silentlink-verified",
-    "storeSlug": "silentlink",
-    "storeName": "SilentLink",
-    "storeCategory": "Electronics & Gadgets",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at SilentLink",
-    "description": "Shop top-rated Gadgets collections at SilentLink with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=119001&id=3148787",
-    "storeLogoText": "SILENTLINK",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-smallable-verified",
-    "storeSlug": "smallable",
-    "storeName": "Smallable",
-    "storeCategory": "Kids & Toys",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Smallable",
-    "description": "Shop top-rated Childrenswear collections at Smallable with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=119083&id=3148787",
-    "storeLogoText": "SMALLABLE",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-esimi-verified",
-    "storeSlug": "esimi",
-    "storeName": "Esimi",
-    "storeCategory": "Electronics & Gadgets",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Esimi",
-    "description": "Shop top-rated Mobile Broadband collections at Esimi with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=120603&id=3148787",
-    "storeLogoText": "ESIMI",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-d-franklin-verified",
-    "storeSlug": "d-franklin",
-    "storeName": "D Franklin",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at D Franklin",
-    "description": "Shop top-rated Clothing collections at D Franklin with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=121168&id=3148787",
-    "storeLogoText": "D FRANKLIN",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-buffalo-boots-verified",
-    "storeSlug": "buffalo-boots",
-    "storeName": "Buffalo Boots",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Buffalo Boots",
-    "description": "Shop top-rated Shoes collections at Buffalo Boots with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=122626&id=3148787",
-    "storeLogoText": "BUFFALO BOOTS",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-julia-travel-verified",
-    "storeSlug": "julia-travel",
-    "storeName": "Julia Travel",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Julia Travel",
-    "description": "Shop top-rated Hotels & Accommodation collections at Julia Travel with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123080&id=3148787",
-    "storeLogoText": "JULIA TRAVEL",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-hayley-menzies-verified",
-    "storeSlug": "hayley-menzies",
-    "storeName": "Hayley Menzies",
-    "storeCategory": "Fashion & Apparel",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Hayley Menzies",
-    "description": "Shop top-rated Clothing collections at Hayley Menzies with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123304&id=3148787",
-    "storeLogoText": "HAYLEY MENZIES",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-infobus-verified",
-    "storeSlug": "infobus",
-    "storeName": "Infobus",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Infobus",
-    "description": "Shop top-rated Coaches collections at Infobus with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123328&id=3148787",
-    "storeLogoText": "INFOBUS",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-sonoff-verified",
-    "storeSlug": "sonoff",
-    "storeName": "SONOFF",
-    "storeCategory": "Electronics & Gadgets",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at SONOFF",
-    "description": "Shop top-rated Gadgets collections at SONOFF with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123524&id=3148787",
-    "storeLogoText": "SONOFF",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-vodafone-esim-verified",
-    "storeSlug": "vodafone-esim",
-    "storeName": "Vodafone eSim",
-    "storeCategory": "E-Commerce & Wholesale",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Vodafone eSim",
-    "description": "Shop top-rated Internet Service Provider collections at Vodafone eSim with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=123856&id=3148787",
-    "storeLogoText": "VODAFONE ESIM",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-tattup-shop-verified",
-    "storeSlug": "tattup-shop",
-    "storeName": "tattup Shop",
-    "storeCategory": "Beauty & Fragrances",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at tattup Shop",
-    "description": "Shop top-rated Health & Beauty collections at tattup Shop with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=124352&id=3148787",
-    "storeLogoText": "TATTUP SHOP",
-    "successRate": "98%"
-  },
-  {
-    "id": "deal-oliver-s-travels-verified",
-    "storeSlug": "oliver-s-travels",
-    "storeName": "Oliver's Travels -",
-    "storeCategory": "Travel & Tours",
-    "discountBadge": "Verified Deal",
-    "title": "Exclusive Seasonal Savings & Verified Offers at Oliver's Travels -",
-    "description": "Shop top-rated Hotels & Accommodation collections at Oliver's Travels - with verified partner pricing and instant savings.",
-    "code": "ACTIVATE DEAL",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.awin1.com/awclick.php?mid=125640&id=3148787",
-    "storeLogoText": "OLIVER'S TRAVE",
     "successRate": "98%"
   }
 ];
