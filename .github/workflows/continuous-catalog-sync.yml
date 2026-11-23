@@ -93,7 +93,7 @@ jobs:
         run: |
           git config --global user.name "PromoRadar Automated Bot"
           git config --global user.email "bot@promoradar.store"
-          git add deals-portal/src/data/couponsData.ts artifacts_admitad/promoradar_sync_state.json artifacts_awin/
+          git add -A
           git commit -m "chore(catalog): automated continuous CPA multi-network catalog sync [skip ci]" || echo "Nothing to commit"
           git fetch origin promoradar-portal
           git rebase origin/promoradar-portal || (git rebase --abort 2>/dev/null; git pull --no-rebase origin promoradar-portal -X ours)
