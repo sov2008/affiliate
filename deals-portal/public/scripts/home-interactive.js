@@ -1244,7 +1244,15 @@ const baseUrl = "";
 
     heroRegionBtn?.addEventListener('click', (e) => {
       e.stopPropagation();
-      heroRegionMenu?.classList.toggle('hidden');
+      const isClosed = heroRegionMenu?.classList.contains('hidden');
+      if (isClosed) {
+        document.getElementById('heroSearchSpotlight')?.classList.add('hidden');
+        heroRegionMenu?.classList.remove('hidden');
+        heroRegionBtn.setAttribute('aria-expanded', 'true');
+      } else {
+        heroRegionMenu?.classList.add('hidden');
+        heroRegionBtn.setAttribute('aria-expanded', 'false');
+      }
     });
 
     document.addEventListener('click', (e) => {

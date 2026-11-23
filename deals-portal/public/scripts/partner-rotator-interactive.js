@@ -174,9 +174,7 @@
           img.classList.add('smooth-image-loaded');
           img.style.opacity = '1';
           img.style.filter = 'none';
-          if (img.complete && img.naturalWidth > 0) {
-            img.style.display = 'block';
-          }
+          img.style.display = 'block';
         }
       } else {
         slide.classList.add('hidden');

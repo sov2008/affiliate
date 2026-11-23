@@ -121,7 +121,7 @@ const leaderboards = rawLeaderboards.slice(0, 6);
                   href={item.affiliateUrl}
                   target="_blank"
                   rel="nofollow sponsored"
-                  class="block w-full max-w-[620px] mx-auto hover:opacity-95 transition-all duration-200 group relative rounded-xl overflow-hidden bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800"
+                  class="block w-full max-w-[620px] mx-auto hover:opacity-95 transition-all duration-200 group relative rounded-xl overflow-hidden bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-white/10 shadow-xs"
                   title={`${item.brand} Official Offer`}
                 >
                   <div class="relative flex items-center justify-center min-h-[70px] sm:min-h-[80px] p-1">
@@ -136,16 +136,16 @@ const leaderboards = rawLeaderboards.slice(0, 6);
                       class="w-full h-auto max-h-[82px] object-contain mx-auto block group-hover:scale-[1.01] transition-transform duration-300"
                       onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
                     />
-                    <!-- Robust Typographic Fallback Block if image is adblocked or fails to render -->
-                    <div class="hidden w-full h-[74px] rounded-lg bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-900 p-3 items-center justify-between border border-indigo-500/30">
-                      <div class="flex items-center gap-2.5">
-                        <span class="text-xl">🏷️</span>
-                        <div>
-                          <div class="text-xs font-black text-white uppercase tracking-wider">{item.brand} Official Verified Offer</div>
-                          <div class="text-[10px] text-amber-300 font-bold mt-0.5">{item.category} • Direct Partner Benefits</div>
+                    <!-- Robust Typographic Fallback Block styled seamlessly for BOTH Light and Dark themes -->
+                    <div class="hidden w-full h-[74px] rounded-lg bg-gradient-to-r from-slate-100 via-indigo-50/50 to-slate-100 dark:from-indigo-950/90 dark:via-slate-900 dark:to-indigo-900/90 p-3 items-center justify-between border border-indigo-200/60 dark:border-indigo-500/30">
+                      <div class="flex items-center gap-2.5 min-w-0">
+                        <span class="text-xl shrink-0">🏷️</span>
+                        <div class="min-w-0">
+                          <div class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider truncate">{item.brand} Official Verified Offer</div>
+                          <div class="text-[10px] text-indigo-700 dark:text-amber-300 font-bold mt-0.5 truncate">{item.category} • Direct Partner Benefits</div>
                         </div>
                       </div>
-                      <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 whitespace-nowrap">
+                      <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-400/30 whitespace-nowrap shrink-0">
                         Verified Direct Deal
                       </span>
                     </div>
