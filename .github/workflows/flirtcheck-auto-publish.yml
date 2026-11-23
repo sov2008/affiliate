@@ -92,10 +92,11 @@ jobs:
         run: |
           git config user.name "FlirtCheck Editorial Bot"
           git config user.email "bot@flirtcheck.site"
-          git add blog/src/content/posts/ blog/public/images/posts/
-          git commit -m "feat(blog): publish autonomous investigative articles & forensic assets [skip ci]"
-          git pull --rebase origin promoradar-portal
-          git push origin promoradar-portal
+          git add -A
+          git commit -m "feat(blog): publish autonomous investigative articles & forensic assets [skip ci]" || echo "Nothing to commit"
+          git fetch origin promoradar-portal
+          git rebase origin/promoradar-portal || git rebase --abort
+          git push origin HEAD:promoradar-portal
 
       - name: 🚨 Send Failure Notification via Telegram
         if: failure()
