@@ -52,16 +52,12 @@ async function main() {
     }
   });
 
-  // 3. Awin: Onboard high-value approved programmes
-  await runStep('Awin High-EPC Catalogue Onboarding', async () => {
+  // 3. High-Scale CPA Catalog Expander (Awin & Multi-Network batch onboarding)
+  await runStep('High-Scale CPA Catalog Expander (Tier-1 & Tier-2)', async () => {
     try {
-      if (process.env.AWIN_API_TOKEN) {
-        execSync('node scripts/awin_batch_catalog_expander.cjs', { stdio: 'inherit' });
-      } else {
-        console.log('ℹ️ AWIN_API_TOKEN not set, skipping Awin step.');
-      }
+      execSync('node scripts/high_scale_catalog_expander.cjs', { stdio: 'inherit' });
     } catch (e) {
-      console.warn('Awin Expander reported non-zero exit:', e.message);
+      console.warn('High-Scale expander reported non-zero exit:', e.message);
     }
   });
 
@@ -83,3 +79,4 @@ if (require.main === module) {
 }
 
 module.exports = { main };
+
