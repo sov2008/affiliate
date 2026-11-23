@@ -799,16 +799,16 @@
     "cj_link_17342263",
     "cj_link_17352751"
   ],
-  "lastSync": "2026-11-23T11:25:46.203Z",
-  "activeDealsCount": 1399,
-  "activeStoresCount": 1021,
+  "lastSync": "2026-11-23T11:52:15.391Z",
+  "activeDealsCount": 1848,
+  "activeStoresCount": 1470,
   "validationStats": {
-    "totalStoresInput": 1021,
-    "acceptedStores": 1021,
+    "totalStoresInput": 1470,
+    "acceptedStores": 1470,
     "rejectedStores": 0,
     "storesRejectionDetails": {},
-    "totalDealsInput": 1626,
-    "acceptedDeals": 1399,
+    "totalDealsInput": 2075,
+    "acceptedDeals": 1848,
     "rejectedDeals": 227,
     "dealsRejectionDetails": {
       "rule8_banned_domain": 0,
