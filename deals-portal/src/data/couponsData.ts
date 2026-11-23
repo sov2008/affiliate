@@ -1,5 +1,5 @@
 // Auto-generated unified catalog for PromoRadar
-// Generated on: 2026-11-23T10:44:23.366Z
+// Generated on: 2026-11-23T10:42:20.094Z
 
 export interface Store {
   slug: string;
@@ -26301,31 +26301,6 @@ export const STORES_DATA: Store[] = [
       }
     ],
     "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-6541146?url=https%3A%2F%2Fwww.netart.com%2Fus"
-  },
-  {
-    "slug": "by-benson",
-    "name": "by Benson",
-    "category": "Home & Lifestyle",
-    "logoText": "BY BENSON",
-    "shortDesc": "Verified by Benson discount codes, seasonal promotions, and partner savings on official orders.",
-    "fullDesc": "by Benson is a premier brand in Home & Lifestyle, offering premium products, dedicated customer service, and reliable fulfillment. PromoRadar shoppers get access to verified promotions and seasonal vouchers with confirmed activation.",
-    "websiteUrl": "https://www.bybenson.com/",
-    "howToApply": [
-      "Select the active by Benson promotional deal or coupon on PromoRadar.",
-      "Click \"Claim Deal\" to activate the verified partner discount.",
-      "Enter any provided coupon code at checkout on by Benson to secure instant savings."
-    ],
-    "faqs": [
-      {
-        "question": "How do I redeem my by Benson voucher code?",
-        "answer": "Click through our verified partner link to activate the offer, then apply any promo code directly at the by Benson shopping cart."
-      },
-      {
-        "question": "Are by Benson promotional discounts verified?",
-        "answer": "Yes, all coupon codes and promotional sales are updated and verified continuously through our CJ Affiliate partnership."
-      }
-    ],
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7909317?url=https%3A%2F%2Fwww.bybenson.com%2F"
   }
 ];
 
@@ -48429,22 +48404,5 @@ export const COUPONS_DATA: Coupon[] = [
     "storeLogoText": "PAROLEKSHOPC",
     "terms": "Direct promotional pricing applied automatically at merchant checkout.",
     "successRate": "99.8%"
-  },
-  {
-    "id": "deal-cj-by-benson-verified",
-    "storeSlug": "by-benson",
-    "storeName": "by Benson",
-    "storeCategory": "Home & Lifestyle",
-    "discountBadge": "Verified Deal",
-    "title": "Special Online Savings & Verified Offers at by Benson",
-    "description": "Shop top-rated Home & Lifestyle collections at by Benson with verified seasonal markdowns and partner savings.",
-    "code": "",
-    "isExclusive": false,
-    "isVerified": true,
-    "expiryDate": "2026-12-31",
-    "affiliateUrl": "https://www.anrdoezrs.net/click-101907236-7909317?url=https%3A%2F%2Fwww.bybenson.com%2F",
-    "storeLogoText": "BY BENSON",
-    "terms": "Direct partner markdown applied automatically at merchant checkout.",
-    "successRate": "98%"
   }
 ];
