@@ -66,7 +66,7 @@ function cleanSlug(name) {
 // 3. Filter candidates
 const candidates = [];
 const seenSlugs = new Set();
-const BATCH_TARGET = 100; // Inject up to 100 new stores and deals in this run
+const BATCH_TARGET = 350; // Inject 350 fresh unique stores and deals in this run
 
 // Sort by opportunity score descending
 const sortedOpps = opps.slice().sort((a, b) => (b.score || 0) - (a.score || 0));
