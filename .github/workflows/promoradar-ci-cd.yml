@@ -80,45 +80,9 @@ jobs:
           name: promoradar-dist
           path: dist-artifact
 
-      - name: 🚀 Deploy to DigitalOcean via SSH
-        if: ${{ env.DO_KEY != '' }}
-        env:
-          DO_KEY: ${{ secrets.DO_SSH_KEY }}
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.DO_HOST || '178.128.199.28' }}
-          username: ${{ secrets.DO_USER || 'root' }}
-          key: ${{ secrets.DO_SSH_KEY }}
-          script: |
-            set -e
-            RELEASE_ID="rel_$(date +%s)"
-            RELEASE_DIR="/var/www/promoradar.store/releases/${RELEASE_ID}"
-            CURRENT_LINK="/var/www/promoradar.store/current"
-            echo "🚀 Deploying PromoRadar release ${RELEASE_ID} on 178.128.199.28..."
-            mkdir -p "${RELEASE_DIR}"
-            mkdir -p /var/www/affiliate/deals-portal/dist
-            
-            # Recreate verification tags in release
-            echo "dcaf1a95-f2a7-42c8-b67f-4a463294ee43" > "${RELEASE_DIR}/dcaf1a95-f2a7-42c8-b67f-4a463294ee43.txt"
-            echo "fa9e3fd878" > "${RELEASE_DIR}/admitad-verification.txt"
-            echo "dcaf1a95-f2a7-42c8-b67f-4a463294ee43" > /var/www/affiliate/deals-portal/dist/dcaf1a95-f2a7-42c8-b67f-4a463294ee43.txt
-            echo "fa9e3fd878" > /var/www/affiliate/deals-portal/dist/admitad-verification.txt
-
-            # Verify build scale (2,300+ HTML pages)
-            PAGE_COUNT=$(find "${RELEASE_DIR}" -name "*.html" | wc -l)
-            echo "📊 Deployed ${PAGE_COUNT} HTML pages in release."
-
-            # Atomic symlink switch
-            ln -sfn "${RELEASE_DIR}" "${CURRENT_LINK}"
-            nginx -t && systemctl reload nginx
-            # Retention: keep 3 latest releases, prune older ones
-            cd /var/www/promoradar.store/releases && ls -1dt rel_* | tail -n +4 | xargs -r rm -rf
-            echo "✅ PromoRadar live atomic deployment successful!"
-
-      - name: ℹ️ Droplet SSH Notice
-        if: ${{ env.DO_KEY == '' }}
-        env:
-          DO_KEY: ${{ secrets.DO_SSH_KEY }}
+      # Step skipped if DO_SSH_KEY is not defined, or deploy script handled atomically via direct_deploy_promoradar.cjs
+      # To prevent creating empty release directories if artifacts are not transferred via scp, we disable the raw ssh-action step
+      - name: ℹ️ Droplet Deployment Notice
         run: |
-          echo "ℹ️ Direct SSH deploy step skipped: DO_SSH_KEY secret is not set in GitHub repository settings."
-          echo "✅ PromoRadar artifacts successfully validated and archived in GitHub Actions."
+          echo "ℹ️ Direct deployment is securely managed by scripts/direct_deploy_promoradar.cjs and local/remote deploy runner."
+          echo "✅ PromoRadar artifacts successfully built, validated, and archived."
