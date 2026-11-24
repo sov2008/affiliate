@@ -162,14 +162,18 @@ export function isValidBrandName(name = ''): boolean {
   const s = String(name || '').trim();
   if (!s || s.length < 2) return false;
 
-  // Drop obvious junk / placeholders / commission formulas
+  // Drop obvious junk / placeholders / commission formulas / raw tariff & term strings
   if (/^\$?\d+(?:\/\$?\d+)*\s*(?:cpa|cps|cpl|revshare)?$/i.test(s)) return false;
   if (/^(?:base|default|wholesale|standard|tiered|clone\s+of|bonus|tier)\b/i.test(s)) return false;
-  if (/^(?:cpa|cps|cpl|revshare|terms|payout|campaign)$/i.test(s)) return false;
+  if (/(?:commission|program-terms?|public-terms?|referral-period|flat-rate|payout|revshare)/i.test(s)) return false;
+  if (/^(?:cpa|cps|cpl|revshare|terms?|payout|campaign)$/i.test(s)) return false;
   if (/^verified\s*partner$/i.test(s)) return false;
   if (/robots and home appliances/i.test(s)) return false;
-  if (/^(?:default\s+us\/ca|base\s+\d+%.*|\$\d+.*cpa|\d+.*commission.*)$/i.test(s)) return false;
+  if (/(?:default\s*(?:us\/ca|-us-ca|\d+%)|base\s+\d+%.*|\$\d+.*cpa|\d+.*commission.*|\d+%\s*term)/i.test(s)) return false;
   if (/^\d+(\.\d+)?%?$/i.test(s)) return false;
+
+  // Reject raw slug-like technical strings with tariff / geo suffixes
+  if (/(?:-default-term|-program-term|-flat-rate|-commission-)/i.test(s)) return false;
 
   // Must contain at least one letter (allowing numbers like 945 Industries, 915Gear, 1Password)
   if (!/[a-zA-Z]/.test(s)) return false;

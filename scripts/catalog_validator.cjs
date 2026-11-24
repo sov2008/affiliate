@@ -73,8 +73,13 @@ function isStoreBanned(store = {}) {
     return { banned: true, reason: 'banned_slug_suffix' };
   }
 
+  // Reject raw tariff, commission, or malformed feed slugs
+  if (/(?:^default-|\b(?:10|20|30|50)-commission\b|-program-term|-default-term|-terms-\d+|referral-period|flat-rate)/i.test(slug)) {
+    return { banned: true, reason: 'malformed_feed_tariff_slug' };
+  }
+
   // Name patterns
-  if (BANNED_GEO_REGEX.test(name) && !/\b(BUY|TRUST|RUBY|KAZOO|Native\s+By\s+Numa|by\s+Benson)\b/i.test(name)) {
+  if (BANNED_GEO_REGEX.test(name) && !/\b(BUY|TRUST|RUBY|KAZOO|Native\s+By\s+Numa|by\s+Benson|by\s+Intus)\b/i.test(name)) {
     return { banned: true, reason: 'banned_geo_in_name' };
   }
 

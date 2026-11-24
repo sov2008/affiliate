@@ -2519,42 +2519,6 @@ export const STORES_DATA: Store[] = [
     ]
   },
   {
-    "slug": "30-10-tf-eharmony-term-us-ca-10-23-2019",
-    "name": "eharmony",
-    "category": "Dating & Lifestyle",
-    "logoText": "3010TFEHARMO",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for 30% / $10 TF | eharmony Term US | CA 10.23.2019.",
-    "fullDesc": "30% / $10 TF | eharmony Term US | CA 10.23.2019 is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for 30% / $10 TF | eharmony Term US | CA 10.23.2019 online shoppers. 30% / $10 TF | eharmony Term US | CA 10.23.2019 is known for verified service reliability, transparent customer support, and direct manufacturer pricing. Our deal verification desk tests checkout coupons and direct seasonal markdown offers across partner channels to ensure shoppers save effortlessly without encountering expired codes.",
-    "websiteUrl": "https://30-10-tf-eharmony-term-us-ca-10-23-2019.com",
-    "cleanDomain": "30-10-tf-eharmony-term-us-ca-10-23-2019.com",
-    "primaryAffiliateUrl": "https://www.dpbolvw.net/click-101907236-2484316-1613519330000",
-    "howToApply": [
-      "Select your desired items on eharmony and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are eharmony coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for eharmony are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "How often does eharmony release new discounts?",
-        "answer": "eharmony frequently updates special seasonal sales, holiday promo codes, and category markdowns throughout the year."
-      },
-      {
-        "question": "Can I get free shipping with a eharmony promo code?",
-        "answer": "eharmony frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ],
-    "howToSaveSteps": [
-      "Select your desired items on eharmony and proceed to checkout.",
-      "Review your cart summary and locate the promo code or discount voucher box.",
-      "Enter the verified eharmony promo code from PromoRadar and click apply to see your final savings."
-    ]
-  },
-  {
     "slug": "sharkninja-mx",
     "name": "SharkNinja MX",
     "category": "E-Commerce & Wholesale",
@@ -2588,42 +2552,6 @@ export const STORES_DATA: Store[] = [
       "Select your desired items on SharkNinja MX and proceed to checkout.",
       "Review your cart summary and locate the promo code or discount voucher box.",
       "Enter the verified SharkNinja MX promo code from PromoRadar and click apply to see your final savings."
-    ]
-  },
-  {
-    "slug": "nordvpn-standard-term",
-    "name": "NordVPN",
-    "category": "Privacy & Security",
-    "logoText": "NORDVPNSTAND",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for NordVPN Standard Term.",
-    "fullDesc": "NordVPN Standard Term is a premier online merchant in the Privacy & Security sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for NordVPN Standard Term online shoppers. NordVPN Standard Term is known for encrypted data transmission, zero-log bandwidth, multi-device cross-platform apps, and automated DNS leak protection. Our deal verification desk tests checkout coupons and direct seasonal markdown offers across partner channels to ensure shoppers save effortlessly without encountering expired codes.",
-    "websiteUrl": "https://nordvpn-standard-term.com",
-    "cleanDomain": "nordvpn-standard-term.com",
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-12814529-1764883017000",
-    "howToApply": [
-      "Select your desired items on NordVPN and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are NordVPN coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for NordVPN are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "How often does NordVPN release new discounts?",
-        "answer": "NordVPN frequently updates special seasonal sales, holiday promo codes, and category markdowns throughout the year."
-      },
-      {
-        "question": "Can I get free shipping with a NordVPN promo code?",
-        "answer": "NordVPN frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ],
-    "howToSaveSteps": [
-      "Select your desired items on NordVPN and proceed to checkout.",
-      "Review your cart summary and locate the promo code or discount voucher box.",
-      "Enter the verified NordVPN promo code from PromoRadar and click apply to see your final savings."
     ]
   },
   {
@@ -2879,42 +2807,6 @@ export const STORES_DATA: Store[] = [
     ]
   },
   {
-    "slug": "shopee-cpa-br",
-    "name": "Shopee CPA BR",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "SHOPEECPABR",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Shopee CPA BR.",
-    "fullDesc": "Shopee CPA BR is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Shopee CPA BR online shoppers.",
-    "websiteUrl": "https://shopee.com.br/",
-    "cleanDomain": "shopee.com.br",
-    "primaryAffiliateUrl": "https://xqjeo.com/g/knlhlz71uxfa9e3fd87804f147125c/",
-    "howToApply": [
-      "Select your desired items on Shopee CPA BR and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Shopee CPA BR coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Shopee CPA BR are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "How often does Shopee CPA BR release new discounts?",
-        "answer": "Shopee CPA BR frequently updates special seasonal sales, holiday promo codes, and category markdowns throughout the year."
-      },
-      {
-        "question": "Can I get free shipping with a Shopee CPA BR promo code?",
-        "answer": "Shopee CPA BR frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ],
-    "howToSaveSteps": [
-      "Select your desired items on Shopee CPA BR and proceed to checkout.",
-      "Review your cart summary and locate the promo code or discount voucher box.",
-      "Enter the verified Shopee CPA BR promo code from PromoRadar and click apply to see your final savings."
-    ]
-  },
-  {
     "slug": "shopee-br",
     "name": "Shopee BR",
     "category": "E-Commerce & Wholesale",
@@ -2948,42 +2840,6 @@ export const STORES_DATA: Store[] = [
       "Select your desired items on Shopee BR and proceed to checkout.",
       "Review your cart summary and locate the promo code or discount voucher box.",
       "Enter the verified Shopee BR promo code from PromoRadar and click apply to see your final savings."
-    ]
-  },
-  {
-    "slug": "oyo-affiliate-program-3-term",
-    "name": "OYO",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "OYO3TERM",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for OYO.",
-    "fullDesc": "OYO is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for OYO online shoppers.",
-    "websiteUrl": "https://oyo-affiliate-program-3-term.com",
-    "cleanDomain": "oyo-affiliate-program-3-term.com",
-    "primaryAffiliateUrl": "https://www.tkqlhce.com/click-101907236-17340558-1787690607000",
-    "howToApply": [
-      "Select your desired items on OYO and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are OYO coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for OYO are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "How often does OYO release new discounts?",
-        "answer": "OYO frequently updates special seasonal sales, holiday promo codes, and category markdowns throughout the year."
-      },
-      {
-        "question": "Can I get free shipping with a OYO promo code?",
-        "answer": "OYO frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ],
-    "howToSaveSteps": [
-      "Select your desired items on OYO and proceed to checkout.",
-      "Review your cart summary and locate the promo code or discount voucher box.",
-      "Enter the verified OYO promo code from PromoRadar and click apply to see your final savings."
     ]
   },
   {
@@ -3056,42 +2912,6 @@ export const STORES_DATA: Store[] = [
       "Select your desired items on Kijou STEAM Box and proceed to checkout.",
       "Review your cart summary and locate the promo code or discount voucher box.",
       "Enter the verified Kijou STEAM Box promo code from PromoRadar and click apply to see your final savings."
-    ]
-  },
-  {
-    "slug": "winpig-default-payout-50",
-    "name": "Winpig",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "WINPIGDEFAUL",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Winpig.",
-    "fullDesc": "Winpig is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Winpig online shoppers.",
-    "websiteUrl": "https://winpig-default-payout-50.com",
-    "cleanDomain": "winpig-default-payout-50.com",
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-17338592-1789614387000",
-    "howToApply": [
-      "Select your desired items on Winpig and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Winpig coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Winpig are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "How often does Winpig release new discounts?",
-        "answer": "Winpig frequently updates special seasonal sales, holiday promo codes, and category markdowns throughout the year."
-      },
-      {
-        "question": "Can I get free shipping with a Winpig promo code?",
-        "answer": "Winpig frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ],
-    "howToSaveSteps": [
-      "Select your desired items on Winpig and proceed to checkout.",
-      "Review your cart summary and locate the promo code or discount voucher box.",
-      "Enter the verified Winpig promo code from PromoRadar and click apply to see your final savings."
     ]
   },
   {
@@ -3200,42 +3020,6 @@ export const STORES_DATA: Store[] = [
       "Select your desired items on Arsynl Rx and proceed to checkout.",
       "Review your cart summary and locate the promo code or discount voucher box.",
       "Enter the verified Arsynl Rx promo code from PromoRadar and click apply to see your final savings."
-    ]
-  },
-  {
-    "slug": "oyo-3-term",
-    "name": "OYO",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "OYO3TERM",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for OYO.",
-    "fullDesc": "OYO is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for OYO online shoppers.",
-    "websiteUrl": "https://oyo-3-term.com",
-    "cleanDomain": "oyo-3-term.com",
-    "primaryAffiliateUrl": "https://www.kqzyfj.com/click-101907236-17340558-1787690607000",
-    "howToApply": [
-      "Select your desired items on OYO and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are OYO coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for OYO are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "How often does OYO release new discounts?",
-        "answer": "OYO frequently updates special seasonal sales, holiday promo codes, and category markdowns throughout the year."
-      },
-      {
-        "question": "Can I get free shipping with a OYO promo code?",
-        "answer": "OYO frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ],
-    "howToSaveSteps": [
-      "Select your desired items on OYO and proceed to checkout.",
-      "Review your cart summary and locate the promo code or discount voucher box.",
-      "Enter the verified OYO promo code from PromoRadar and click apply to see your final savings."
     ]
   },
   {
@@ -4463,42 +4247,6 @@ export const STORES_DATA: Store[] = [
     ]
   },
   {
-    "slug": "default-18-to-25",
-    "name": "Cruises Global",
-    "category": "Travel & Tours",
-    "logoText": "DEFAULT18TO2",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Cruises Global.",
-    "fullDesc": "Cruises Global is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Cruises Global online shoppers.",
-    "websiteUrl": "https://default-18-to-25.com",
-    "cleanDomain": "default-18-to-25.com",
-    "primaryAffiliateUrl": "https://www.tkqlhce.com/click-101907236-2635518-1730423881000",
-    "howToApply": [
-      "Select your desired items on Cruises Global and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Cruises Global coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Cruises Global are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "How often does Cruises Global release new discounts?",
-        "answer": "Cruises Global frequently updates special seasonal sales, holiday promo codes, and category markdowns throughout the year."
-      },
-      {
-        "question": "Can I get free shipping with a Cruises Global promo code?",
-        "answer": "Cruises Global frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ],
-    "howToSaveSteps": [
-      "Select your desired items on Cruises Global and proceed to checkout.",
-      "Review your cart summary and locate the promo code or discount voucher box.",
-      "Enter the verified Cruises Global promo code from PromoRadar and click apply to see your final savings."
-    ]
-  },
-  {
     "slug": "get-1-of-order-on-new-customers-0-5-of-order-on-returning-customers-4k-avg-order-size",
     "name": "Get of Order on New Customers, 0. of Order on Returning Customers (4k avg order size)",
     "category": "E-Commerce & Wholesale",
@@ -4568,42 +4316,6 @@ export const STORES_DATA: Store[] = [
       "Select your desired items on PandaHall and proceed to checkout.",
       "Review your cart summary and locate the promo code or discount voucher box.",
       "Enter the verified PandaHall promo code from PromoRadar and click apply to see your final savings."
-    ]
-  },
-  {
-    "slug": "updated-cruisedirect-program-term-3",
-    "name": "CruiseDirect",
-    "category": "Travel & Tours",
-    "logoText": "UPDATEDCRUIS",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Updated CruiseDirect Program Term 3%.",
-    "fullDesc": "Updated CruiseDirect Program Term 3% is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Updated CruiseDirect Program Term 3% online shoppers.",
-    "websiteUrl": "https://updated-cruisedirect-program-term-3.com",
-    "cleanDomain": "updated-cruisedirect-program-term-3.com",
-    "primaryAffiliateUrl": "https://www.tkqlhce.com/click-101907236-15534693-1741832741000",
-    "howToApply": [
-      "Select your desired items on CruiseDirect and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are CruiseDirect coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for CruiseDirect are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "How often does CruiseDirect release new discounts?",
-        "answer": "CruiseDirect frequently updates special seasonal sales, holiday promo codes, and category markdowns throughout the year."
-      },
-      {
-        "question": "Can I get free shipping with a CruiseDirect promo code?",
-        "answer": "CruiseDirect frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ],
-    "howToSaveSteps": [
-      "Select your desired items on CruiseDirect and proceed to checkout.",
-      "Review your cart summary and locate the promo code or discount voucher box.",
-      "Enter the verified CruiseDirect promo code from PromoRadar and click apply to see your final savings."
     ]
   },
   {
@@ -9681,33 +9393,6 @@ export const STORES_DATA: Store[] = [
     ]
   },
   {
-    "slug": "10-pinnacle-flat-rate-default",
-    "name": "10% Pinnacle Flat Rate (Default)",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "10PINNACLEFL",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for 10% Pinnacle Flat Rate (Default).",
-    "fullDesc": "10% Pinnacle Flat Rate (Default) is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for 10% Pinnacle Flat Rate (Default) online shoppers.",
-    "websiteUrl": "https://10-pinnacle-flat-rate-default.com",
-    "cleanDomain": "10-pinnacle-flat-rate-default.com",
-    "primaryAffiliateUrl": "https://www.jdoqocy.com/click-101907236-12352028-1758900462000",
-    "howToApply": [
-      "Select your desired items on 10% Pinnacle Flat Rate (Default) and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are 10% Pinnacle Flat Rate (Default) coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for 10% Pinnacle Flat Rate (Default) are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a 10% Pinnacle Flat Rate (Default) promo code?",
-        "answer": "10% Pinnacle Flat Rate (Default) frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
     "slug": "winebasket-babybasket-capalbosonline",
     "name": "Winebasket/Babybasket/Capalbosonline",
     "category": "Kids & Toys",
@@ -9816,87 +9501,6 @@ export const STORES_DATA: Store[] = [
     ]
   },
   {
-    "slug": "air-serbia-new-default-term",
-    "name": "Air Serbia NEW Default Term",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "AIRSERBIANEW",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Air Serbia NEW Default Term.",
-    "fullDesc": "Air Serbia NEW Default Term is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Air Serbia NEW Default Term online shoppers.",
-    "websiteUrl": "https://air-serbia-new-default-term.com",
-    "cleanDomain": "air-serbia-new-default-term.com",
-    "primaryAffiliateUrl": "https://www.dpbolvw.net/click-101907236-13957392-1699917011000",
-    "howToApply": [
-      "Select your desired items on Air Serbia NEW Default Term and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Air Serbia NEW Default Term coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Air Serbia NEW Default Term are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Air Serbia NEW Default Term promo code?",
-        "answer": "Air Serbia NEW Default Term frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "expondo-default-term-new",
-    "name": "Expondo Default Term (New)",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "EXPONDODEFAU",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Expondo Default Term (New).",
-    "fullDesc": "Expondo Default Term (New) is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Expondo Default Term (New) online shoppers.",
-    "websiteUrl": "https://expondo-default-term-new.com",
-    "cleanDomain": "expondo-default-term-new.com",
-    "primaryAffiliateUrl": "https://www.jdoqocy.com/click-101907236-17146262-1756228592000",
-    "howToApply": [
-      "Select your desired items on Expondo Default Term (New) and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Expondo Default Term (New) coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Expondo Default Term (New) are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Expondo Default Term (New) promo code?",
-        "answer": "Expondo Default Term (New) frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "term",
-    "name": "Term",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "TERM",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Term.",
-    "fullDesc": "Term is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Term online shoppers.",
-    "websiteUrl": "https://term.com",
-    "cleanDomain": "term.com",
-    "primaryAffiliateUrl": "https://www.tkqlhce.com/click-101907236-14017844-1761881443000",
-    "howToApply": [
-      "Select your desired items on Term and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Term coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Term are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Term promo code?",
-        "answer": "Term frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
     "slug": "novakid-sale-14-07-2025",
     "name": "Novakid_Sale_14.07.2025",
     "category": "Kids & Toys",
@@ -9920,114 +9524,6 @@ export const STORES_DATA: Store[] = [
       {
         "question": "Can I get free shipping with a Novakid_Sale_14.07.2025 promo code?",
         "answer": "Novakid_Sale_14.07.2025 frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "partner-commission-w-a-production-20",
-    "name": "Partner Commission W. A. Production 20%",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "PARTNERCOMMI",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Partner Commission W. A. Production 20%.",
-    "fullDesc": "Partner Commission W. A. Production 20% is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Partner Commission W. A. Production 20% online shoppers.",
-    "websiteUrl": "https://partner-commission-w-a-production-20.com",
-    "cleanDomain": "partner-commission-w-a-production-20.com",
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-14579768-1634653371000",
-    "howToApply": [
-      "Select your desired items on Partner Commission W. A. Production 20% and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Partner Commission W. A. Production 20% coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Partner Commission W. A. Production 20% are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Partner Commission W. A. Production 20% promo code?",
-        "answer": "Partner Commission W. A. Production 20% frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "1-5-commission-30d-referral-period",
-    "name": "1-5% commission + 30d referral period",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "15COMMISSION",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for 1-5% commission + 30d referral period.",
-    "fullDesc": "1-5% commission + 30d referral period is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for 1-5% commission + 30d referral period online shoppers.",
-    "websiteUrl": "https://1-5-commission-30d-referral-period.com",
-    "cleanDomain": "1-5-commission-30d-referral-period.com",
-    "primaryAffiliateUrl": "https://www.jdoqocy.com/click-101907236-15567496-1707856025000",
-    "howToApply": [
-      "Select your desired items on 1-5% commission + 30d referral period and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are 1-5% commission + 30d referral period coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for 1-5% commission + 30d referral period are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a 1-5% commission + 30d referral period promo code?",
-        "answer": "1-5% commission + 30d referral period frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "standard-10-commission-10-d-referral-period",
-    "name": "Standard 10 % commission + 10 d. referral period",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "STANDARD10CO",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Standard 10 % commission + 10 d. referral period.",
-    "fullDesc": "Standard 10 % commission + 10 d. referral period is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Standard 10 % commission + 10 d. referral period online shoppers.",
-    "websiteUrl": "https://standard-10-commission-10-d-referral-period.com",
-    "cleanDomain": "standard-10-commission-10-d-referral-period.com",
-    "primaryAffiliateUrl": "https://www.jdoqocy.com/click-101907236-15337459-1706862335000",
-    "howToApply": [
-      "Select your desired items on Standard 10 % commission + 10 d. referral period and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Standard 10 % commission + 10 d. referral period coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Standard 10 % commission + 10 d. referral period are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Standard 10 % commission + 10 d. referral period promo code?",
-        "answer": "Standard 10 % commission + 10 d. referral period frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "default-3-8-commission-30d-referral-period",
-    "name": "Default: 3-8% commission + 30d referral period",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "DEFAULT38COM",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Default: 3-8% commission + 30d referral period.",
-    "fullDesc": "Default: 3-8% commission + 30d referral period is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Default: 3-8% commission + 30d referral period online shoppers.",
-    "websiteUrl": "https://default-3-8-commission-30d-referral-period.com",
-    "cleanDomain": "default-3-8-commission-30d-referral-period.com",
-    "primaryAffiliateUrl": "https://www.dpbolvw.net/click-101907236-15701027-1706805876000",
-    "howToApply": [
-      "Select your desired items on Default: 3-8% commission + 30d referral period and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Default: 3-8% commission + 30d referral period coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Default: 3-8% commission + 30d referral period are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Default: 3-8% commission + 30d referral period promo code?",
-        "answer": "Default: 3-8% commission + 30d referral period frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
       }
     ]
   },
@@ -10082,87 +9578,6 @@ export const STORES_DATA: Store[] = [
       {
         "question": "Can I get free shipping with a *Kaspersky AU/NZ promo code?",
         "answer": "*Kaspersky AU/NZ frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "commission-6-30d-referral-period",
-    "name": "Commission 6% + 30d referral period",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "COMMISSION63",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Commission 6% + 30d referral period.",
-    "fullDesc": "Commission 6% + 30d referral period is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Commission 6% + 30d referral period online shoppers.",
-    "websiteUrl": "https://commission-6-30d-referral-period.com",
-    "cleanDomain": "commission-6-30d-referral-period.com",
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-17131888-1753886388000",
-    "howToApply": [
-      "Select your desired items on Commission 6% + 30d referral period and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Commission 6% + 30d referral period coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Commission 6% + 30d referral period are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Commission 6% + 30d referral period promo code?",
-        "answer": "Commission 6% + 30d referral period frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "new-3-5-4-commission-30d-referral-period",
-    "name": "New: 3,5-4% commission, 30d referral period",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "NEW354COMMIS",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for New: 3,5-4% commission, 30d referral period.",
-    "fullDesc": "New: 3,5-4% commission, 30d referral period is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for New: 3,5-4% commission, 30d referral period online shoppers.",
-    "websiteUrl": "https://new-3-5-4-commission-30d-referral-period.com",
-    "cleanDomain": "new-3-5-4-commission-30d-referral-period.com",
-    "primaryAffiliateUrl": "https://www.dpbolvw.net/click-101907236-15807073-1715016477000",
-    "howToApply": [
-      "Select your desired items on New: 3,5-4% commission, 30d referral period and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are New: 3,5-4% commission, 30d referral period coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for New: 3,5-4% commission, 30d referral period are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a New: 3,5-4% commission, 30d referral period promo code?",
-        "answer": "New: 3,5-4% commission, 30d referral period frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "standard-20-commission-30d-referral-period",
-    "name": "Standard 20 % commission + 30d referral period",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "STANDARD20CO",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Standard 20 % commission + 30d referral period.",
-    "fullDesc": "Standard 20 % commission + 30d referral period is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Standard 20 % commission + 30d referral period online shoppers.",
-    "websiteUrl": "https://standard-20-commission-30d-referral-period.com",
-    "cleanDomain": "standard-20-commission-30d-referral-period.com",
-    "primaryAffiliateUrl": "https://www.kqzyfj.com/click-101907236-15843700-1719257379000",
-    "howToApply": [
-      "Select your desired items on Standard 20 % commission + 30d referral period and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Standard 20 % commission + 30d referral period coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Standard 20 % commission + 30d referral period are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Standard 20 % commission + 30d referral period promo code?",
-        "answer": "Standard 20 % commission + 30d referral period frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
       }
     ]
   },
@@ -10248,60 +9663,6 @@ export const STORES_DATA: Store[] = [
     ]
   },
   {
-    "slug": "legendz-default-terms",
-    "name": "Legendz Default Terms",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "LEGENDZDEFAU",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Legendz Default Terms.",
-    "fullDesc": "Legendz Default Terms is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Legendz Default Terms online shoppers.",
-    "websiteUrl": "https://legendz-default-terms.com",
-    "cleanDomain": "legendz-default-terms.com",
-    "primaryAffiliateUrl": "https://www.jdoqocy.com/click-101907236-17133735-1754375230000",
-    "howToApply": [
-      "Select your desired items on Legendz Default Terms and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Legendz Default Terms coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Legendz Default Terms are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Legendz Default Terms promo code?",
-        "answer": "Legendz Default Terms frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "new-commission-up-to-50-eur-30d-referral-period",
-    "name": "NEW Commission up to 50 EUR + 30d referral period",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "NEWCOMMISSIO",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for NEW Commission up to 50 EUR + 30d referral period.",
-    "fullDesc": "NEW Commission up to 50 EUR + 30d referral period is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for NEW Commission up to 50 EUR + 30d referral period online shoppers.",
-    "websiteUrl": "https://new-commission-up-to-50-eur-30d-referral-period.com",
-    "cleanDomain": "new-commission-up-to-50-eur-30d-referral-period.com",
-    "primaryAffiliateUrl": "https://www.tkqlhce.com/click-101907236-17084595-1747444274000",
-    "howToApply": [
-      "Select your desired items on NEW Commission up to 50 EUR + 30d referral period and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are NEW Commission up to 50 EUR + 30d referral period coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for NEW Commission up to 50 EUR + 30d referral period are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a NEW Commission up to 50 EUR + 30d referral period promo code?",
-        "answer": "NEW Commission up to 50 EUR + 30d referral period frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
     "slug": "mure-and-grand-10",
     "name": "Mure and Grand | 10%",
     "category": "E-Commerce & Wholesale",
@@ -10329,33 +9690,6 @@ export const STORES_DATA: Store[] = [
     ]
   },
   {
-    "slug": "instant-funding-public-terms",
-    "name": "Instant Funding Public Terms",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "INSTANTFUNDI",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Instant Funding Public Terms.",
-    "fullDesc": "Instant Funding Public Terms is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Instant Funding Public Terms online shoppers.",
-    "websiteUrl": "https://instant-funding-public-terms.com",
-    "cleanDomain": "instant-funding-public-terms.com",
-    "primaryAffiliateUrl": "https://www.tkqlhce.com/click-101907236-17144700-1783508122000",
-    "howToApply": [
-      "Select your desired items on Instant Funding Public Terms and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Instant Funding Public Terms coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Instant Funding Public Terms are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Instant Funding Public Terms promo code?",
-        "answer": "Instant Funding Public Terms frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
     "slug": "rse-iseehair-5-bgmgirl-6-wigfever-6",
     "name": "RSE （ISEEHAIR 5% | BGMgirl 6% | Wigfever 6%）",
     "category": "E-Commerce & Wholesale",
@@ -10379,195 +9713,6 @@ export const STORES_DATA: Store[] = [
       {
         "question": "Can I get free shipping with a RSE （ISEEHAIR 5% | BGMgirl 6% | Wigfever 6%） promo code?",
         "answer": "RSE （ISEEHAIR 5% | BGMgirl 6% | Wigfever 6%） frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "overgear-up-to-35-commission-on-first-purchase",
-    "name": "Overgear – up to 35% Commission on First Purchase",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "OVERGEARUPTO",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Overgear – up to 35% Commission on First Purchase.",
-    "fullDesc": "Overgear – up to 35% Commission on First Purchase is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Overgear – up to 35% Commission on First Purchase online shoppers.",
-    "websiteUrl": "https://overgear-up-to-35-commission-on-first-purchase.com",
-    "cleanDomain": "overgear-up-to-35-commission-on-first-purchase.com",
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-17245076-1773791613000",
-    "howToApply": [
-      "Select your desired items on Overgear – up to 35% Commission on First Purchase and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Overgear – up to 35% Commission on First Purchase coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Overgear – up to 35% Commission on First Purchase are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Overgear – up to 35% Commission on First Purchase promo code?",
-        "answer": "Overgear – up to 35% Commission on First Purchase frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "sharaf-dg-default-terms-2026-1",
-    "name": "Sharaf DG Default Terms_2026_1",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "SHARAFDGDEFA",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Sharaf DG Default Terms_2026_1.",
-    "fullDesc": "Sharaf DG Default Terms_2026_1 is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Sharaf DG Default Terms_2026_1 online shoppers.",
-    "websiteUrl": "https://sharaf-dg-default-terms-2026-1.com",
-    "cleanDomain": "sharaf-dg-default-terms-2026-1.com",
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-17299158-1783037655000",
-    "howToApply": [
-      "Select your desired items on Sharaf DG Default Terms_2026_1 and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Sharaf DG Default Terms_2026_1 coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Sharaf DG Default Terms_2026_1 are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Sharaf DG Default Terms_2026_1 promo code?",
-        "answer": "Sharaf DG Default Terms_2026_1 frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "vip-cars-terms-05-11",
-    "name": "VIP Cars Terms_05/11",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "VIPCARSTERMS",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for VIP Cars Terms_05/11.",
-    "fullDesc": "VIP Cars Terms_05/11 is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for VIP Cars Terms_05/11 online shoppers.",
-    "websiteUrl": "https://vip-cars-terms-05-11.com",
-    "cleanDomain": "vip-cars-terms-05-11.com",
-    "primaryAffiliateUrl": "https://www.dpbolvw.net/click-101907236-17236308-1778698303000",
-    "howToApply": [
-      "Select your desired items on VIP Cars Terms_05/11 and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are VIP Cars Terms_05/11 coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for VIP Cars Terms_05/11 are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a VIP Cars Terms_05/11 promo code?",
-        "answer": "VIP Cars Terms_05/11 frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "kaer-official-standard-terms",
-    "name": "KAER Official Standard Terms",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "KAEROFFICIAL",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for KAER Official Standard Terms.",
-    "fullDesc": "KAER Official Standard Terms is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for KAER Official Standard Terms online shoppers.",
-    "websiteUrl": "https://kaer-official-standard-terms.com",
-    "cleanDomain": "kaer-official-standard-terms.com",
-    "primaryAffiliateUrl": "https://www.tkqlhce.com/click-101907236-17270858-1782488053000",
-    "howToApply": [
-      "Select your desired items on KAER Official Standard Terms and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are KAER Official Standard Terms coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for KAER Official Standard Terms are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a KAER Official Standard Terms promo code?",
-        "answer": "KAER Official Standard Terms frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "gabiona-eu-10-term",
-    "name": "Gabiona EU 10% Term",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "GABIONAEU10T",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Gabiona EU 10% Term.",
-    "fullDesc": "Gabiona EU 10% Term is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Gabiona EU 10% Term online shoppers.",
-    "websiteUrl": "https://gabiona-eu-10-term.com",
-    "cleanDomain": "gabiona-eu-10-term.com",
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-17268887-1776914147000",
-    "howToApply": [
-      "Select your desired items on Gabiona EU 10% Term and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Gabiona EU 10% Term coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Gabiona EU 10% Term are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Gabiona EU 10% Term promo code?",
-        "answer": "Gabiona EU 10% Term frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "yose-power-default-commission-5",
-    "name": "Yose Power default commission 5%",
-    "category": "Electronics & Gadgets",
-    "logoText": "YOSEPOWERDEF",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Yose Power default commission 5%.",
-    "fullDesc": "Yose Power default commission 5% is a premier online merchant in the Electronics & Gadgets sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Yose Power default commission 5% online shoppers.",
-    "websiteUrl": "https://yose-power-default-commission-5.com",
-    "cleanDomain": "yose-power-default-commission-5.com",
-    "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-17281088-1779310308000",
-    "howToApply": [
-      "Select your desired items on Yose Power default commission 5% and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Yose Power default commission 5% coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Yose Power default commission 5% are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Yose Power default commission 5% promo code?",
-        "answer": "Yose Power default commission 5% frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
-      }
-    ]
-  },
-  {
-    "slug": "public-terms",
-    "name": "Public Terms",
-    "category": "E-Commerce & Wholesale",
-    "logoText": "PUBLICTERMS",
-    "shortDesc": "Verified coupons, seasonal vouchers, and exclusive promotional markdowns for Public Terms.",
-    "fullDesc": "Public Terms is a premier online merchant in the E-Commerce & Wholesale sector, offering quality products with direct manufacturer warranties. PromoRadar continuously validates and publishes active discount codes and promotional vouchers for Public Terms online shoppers.",
-    "websiteUrl": "https://public-terms.com",
-    "cleanDomain": "public-terms.com",
-    "primaryAffiliateUrl": "https://www.dpbolvw.net/click-101907236-17307325-1787613613000",
-    "howToApply": [
-      "Select your desired items on Public Terms and proceed to checkout.",
-      "Locate the promotional voucher or coupon code field on the payment screen.",
-      "Enter the verified promo code from PromoRadar or click through for automatic discount activation.",
-      "Confirm the price reduction and complete your secure order."
-    ],
-    "faqs": [
-      {
-        "question": "Are Public Terms coupons verified on PromoRadar?",
-        "answer": "Yes, all coupon codes and promotional links for Public Terms are verified directly against partner networks and updated automatically."
-      },
-      {
-        "question": "Can I get free shipping with a Public Terms promo code?",
-        "answer": "Public Terms frequently offers free shipping thresholds or promotional codes that waive standard delivery charges at checkout."
       }
     ]
   },
@@ -40093,8 +39238,7 @@ export const STORES_DATA: Store[] = [
       }
     ],
     "primaryAffiliateUrl": "https://www.anrdoezrs.net/click-101907236-7909317?url=https%3A%2F%2Fwww.bybenson.com%2F"
-  }
-,
+  },
   {
     "slug": "native-by-numa",
     "name": "Native By Numa",

@@ -1,25 +1,29 @@
 # PromoRadar & FlirtCheck — Production Server Live Status Snapshot
-*Generated automatically by `sync_ecosystem_state.cjs` at: 2026-11-23T12:02:09.315Z*
+*Generated automatically by `sync_ecosystem_state.cjs` at: 2026-11-24T11:02:16.166Z*
 
 ---
 
 ## 1. High-Level System Architecture & Live Releases
 - **Target Host:** DigitalOcean Droplet `178.128.199.28` (Frankfurt / Ubuntu 24.04 LTS)
-- **Active Git Commit:** `2dd5a23efb2e65dfa0d96a77c3400b896584af1e` (Branch: `promoradar-portal`)
+- **Active Git Commit:** `dedd6f3e179b2037a2de0f2ca155a3b4412c838a` (Branch: `promoradar-portal`)
 - **PromoRadar Active Release:** `N/A`
 - **FlirtCheck Active Release:** `N/A`
-- **Local Working Tree:** `M artifacts_admitad/promoradar_sync_state.json
- M deals-portal/src/data/couponsData.ts`
+- **Local Working Tree:** `M CONTEXT.md
+ M SERVER_LIVE_STATUS.md
+ M TRAFFIC_SEO_REPORT.md
+ M deals-portal/src/data/couponsData.ts
+ M deals-portal/src/utils/normalizeStore.ts
+ M scripts/catalog_validator.cjs`
 
 ---
 
 ## 2. HTTPS Availability & Latency Matrix
 | Service | Target URL | HTTP Status | Response Time | Content Size |
 |---|---|:---:|:---:|:---:|
-| **PromoRadar** | `https://promoradar.store/` | **403** | 308ms | 0.1 KB |
-| **PromoRadar** | `https://promoradar.store/llms.txt` | **404** | 305ms | 0.1 KB |
-| **FlirtCheck** | `https://flirtcheck.site/` | **200** | 808ms | 343.6 KB |
-| **FlirtCheck** | `https://flirtcheck.site/llms.txt` | **200** | 421ms | 25.6 KB |
+| **PromoRadar** | `https://promoradar.store/` | **200** | 570ms | 553.7 KB |
+| **PromoRadar** | `https://promoradar.store/llms.txt` | **200** | 223ms | 6.7 KB |
+| **FlirtCheck** | `https://flirtcheck.site/` | **200** | 545ms | 346.6 KB |
+| **FlirtCheck** | `https://flirtcheck.site/llms.txt` | **200** | 369ms | 25.9 KB |
 
 ---
 
@@ -51,6 +55,8 @@ N/A
 
 ## 6. Recent Git Commits on `promoradar-portal`
 ```text
+dedd6f3 fix(ui): resolve hero region dropdown overlap and enhance partner banner rotator themes
+d7562ef chore(catalog): automated continuous CPA multi-network catalog sync [skip ci]
 2dd5a23 feat(catalog): onboard 350 fresh unique stores (1472 total stores, 1290 deduped, 1850 deals)
 c3d149a Merge branch 'promoradar-portal' of https://github.com/sov2008/affiliate into promoradar-portal
 172f4a1 chore(catalog): automated daily admitad & cj catalog sync [skip ci]
@@ -59,8 +65,6 @@ c3d149a Merge branch 'promoradar-portal' of https://github.com/sov2008/affiliate
 51b31a9 chore(catalog): automated continuous CPA multi-network catalog sync [skip ci]
 58da5cb fix(ci): robust git add -A before rebase in continuous-catalog-sync
 46665a6 feat(catalog): include Awin logos and catalog updates
-edb435c feat(catalog): implement continuous multi-network CPA catalog ingestion workflow (every 6h)
-89a43e1 chore(catalog): automated daily admitad & cj catalog sync [skip ci]
 ```
 
 ---
