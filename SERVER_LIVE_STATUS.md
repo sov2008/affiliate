@@ -1,11 +1,11 @@
 # PromoRadar & FlirtCheck — Production Server Live Status Snapshot
-*Generated automatically by `sync_ecosystem_state.cjs` at: 2026-11-24T00:04:01.383Z*
+*Generated automatically by `sync_ecosystem_state.cjs` at: 2026-11-24T10:06:59.073Z*
 
 ---
 
 ## 1. High-Level System Architecture & Live Releases
 - **Target Host:** DigitalOcean Droplet `178.128.199.28` (Frankfurt / Ubuntu 24.04 LTS)
-- **Active Git Commit:** `585912a08b25839af67041e675fca53761d1dabc` (Branch: `promoradar-portal`)
+- **Active Git Commit:** `4f60894e196bb1a9031669cabf1c533cc6e96cc8` (Branch: `promoradar-portal`)
 - **PromoRadar Active Release:** `N/A`
 - **FlirtCheck Active Release:** `N/A`
 - **Local Working Tree:** `M artifacts_admitad/promoradar_sync_state.json
@@ -16,10 +16,10 @@
 ## 2. HTTPS Availability & Latency Matrix
 | Service | Target URL | HTTP Status | Response Time | Content Size |
 |---|---|:---:|:---:|:---:|
-| **PromoRadar** | `https://promoradar.store/` | **200** | 1232ms | 553.6 KB |
-| **PromoRadar** | `https://promoradar.store/llms.txt` | **200** | 488ms | 6.7 KB |
-| **FlirtCheck** | `https://flirtcheck.site/` | **200** | 1155ms | 346.6 KB |
-| **FlirtCheck** | `https://flirtcheck.site/llms.txt` | **200** | 674ms | 25.9 KB |
+| **PromoRadar** | `https://promoradar.store/` | **200** | 1127ms | 553.7 KB |
+| **PromoRadar** | `https://promoradar.store/llms.txt` | **200** | 435ms | 6.7 KB |
+| **FlirtCheck** | `https://flirtcheck.site/` | **200** | 998ms | 346.6 KB |
+| **FlirtCheck** | `https://flirtcheck.site/llms.txt` | **200** | 591ms | 25.9 KB |
 
 ---
 
@@ -51,6 +51,7 @@ N/A
 
 ## 6. Recent Git Commits on `promoradar-portal`
 ```text
+4f60894 chore(catalog): automated continuous CPA multi-network catalog sync [skip ci]
 585912a feat(blog): publish autonomous investigative articles & forensic assets [skip ci]
 dedd6f3 fix(ui): resolve hero region dropdown overlap and enhance partner banner rotator themes
 d7562ef chore(catalog): automated continuous CPA multi-network catalog sync [skip ci]
@@ -60,7 +61,6 @@ c3d149a Merge branch 'promoradar-portal' of https://github.com/sov2008/affiliate
 9ee5b4c chore(catalog): automated continuous CPA multi-network catalog sync [skip ci]
 398c0d2 feat(catalog): onboard 100 fresh high-yield partner programs across all categories (1023 stores, 1401 deals)
 51b31a9 chore(catalog): automated continuous CPA multi-network catalog sync [skip ci]
-58da5cb fix(ci): robust git add -A before rebase in continuous-catalog-sync
 ```
 
 ---
